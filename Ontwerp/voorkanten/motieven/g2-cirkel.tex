@@ -1,0 +1,19 @@
+% 2de graad, reeks De cirkel (keuze).
+% Delaunay: cirkelvormen in volle kleur.
+% Motief: een middelpuntshoek van 120 graden en een omtrekshoek van 60 graden op dezelfde boog.
+\def\omslagbestand{omslag-cirkelvormen.jpg}
+\def\omslagbron{Robert Delaunay, \textit{Cirkelvormen, maan nr.~1}, 1913 (publiek domein)}
+\def\omslagrand{10.6 + 0.3*sin(\x*360/21)}
+\def\omslagmotief{%
+  \randlijn
+  \coordinate (M) at (16.8,7);
+  \coordinate (A) at ($(M)+(210:2.1)$); \coordinate (B) at ($(M)+(330:2.1)$); \coordinate (C) at ($(M)+(90:2.1)$);
+  \draw[white,line width=1.2pt] (M) circle (2.1);
+  \draw[white,line width=1pt] (A) -- (M) -- (B);
+  \draw[fel,line width=1.8pt,line join=round] (A) -- (C) -- (B);
+  \draw[white,line width=1pt] ($(M)+(210:.45)$) arc[start angle=210,end angle=330,radius=.45];
+  \draw[fel,line width=1.2pt] ($(C)+(240:.6)$) arc[start angle=240,end angle=300,radius=.6];
+  \foreach \p in {A,B,C,M} \fill[omslagstip] (\p) circle (1.1mm);
+  \node[text=white,font=\small] at ($(M)+(0,-.8)$) {$120^\circ$};
+  \node[text=fel,font=\small] at ($(C)+(0,-.95)$) {$60^\circ$};
+}

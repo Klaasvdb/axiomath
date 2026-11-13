@@ -1,0 +1,18 @@
+% 2de graad, Gelijkvormigheid (schaal en gelijkvormige driehoeken).
+% Kandinsky: dezelfde cirkel, telkens groter: gelijke vorm, andere grootte.
+% Motief: een driehoek en zijn beeld bij een vermenigvuldiging met centrum O en factor 2.
+\def\omslagbestand{omslag-kringen.jpg}
+\def\omslagbron{Wassily Kandinsky, \textit{Kleurstudie: vierkanten met concentrische cirkels}, 1913 (publiek domein)}
+\def\omslagrand{10.6 + 0.25*sin(\x*360/10.5)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[xshift=8mm]
+  \coordinate (O) at (14.2,5);
+  \foreach \p in {(18.2,5),(15.8,5.4),(16.6,7.8)} \draw[white,line width=.6pt,dashed] (O) -- \p;
+  \draw[fel,line width=1.8pt,line join=round] (15.8,5.4) -- (18.2,5) -- (16.6,7.8) -- cycle;
+  \draw[white,line width=1.4pt,line join=round] (15,5.2) -- (16.2,5) -- (15.4,6.4) -- cycle;
+  \fill[omslagstip] (O) circle (1.2mm);
+  \node[text=white,font=\small,anchor=east] at (14.1,5) {$O$};
+  \node[text=fel,font=\large,anchor=west] at (17.6,6.9) {$k=2$};
+  \end{scope}
+}

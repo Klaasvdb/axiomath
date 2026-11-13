@@ -15,7 +15,7 @@ De voorkant, de motieven, de schilderijen en het logo staan in [Ontwerp/](../Ont
 ## Wat een cursus zelf heeft
 
 ```
-Handboeken/<pakket>/<rubriek>/<cursus>/
+Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/
   handboek.tex           titel en lijst met hoofdstukken, meer niet
   leerkracht.tex         twee regels: de leerkrachtenversie
   zelfstudie.tex         twee regels: de zelfstudieversie
@@ -38,7 +38,7 @@ Handboeken/<pakket>/<rubriek>/<cursus>/
 \input{\hoofdmap Opmaak/boek}
 ```
 
-`\hoofdmap` is het pad van de map van de cursus naar de hoofdmap van de repo. Cursussen staan altijd vier mappen diep (`Handboeken/<pakket>/<rubriek>/<cursus>`).
+`\hoofdmap` is het pad van de map van de cursus naar de hoofdmap van de repo. Cursussen staan vijf mappen diep (`Handboeken/<graad>/<pakket>/<rubriek>/<cursus>`), Onderzoekscompetentie vier.
 
 ## Een PDF bouwen
 
@@ -55,7 +55,7 @@ Het script bewaart de grafieken per hoofdstuk in `figuren-cache/` en maakt ze al
 
 ## Een nieuwe cursus beginnen
 
-1. Maak de map `Handboeken/<pakket>/<rubriek>/<cursus>/` en kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` van een bestaande cursus. Pas de titel en de hoofdstukken aan.
+1. Maak de map `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/` en kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` van een bestaande cursus. Pas de titel en de hoofdstukken aan.
 2. Schrijf de hoofdstukken in `hoofdstukken/` en de oefeningen in `oefeningen/`.
 3. Zet de cursus in `voortgang.yaml` en draai `python maak-voortgang.py`.
 4. Draai `python Ontwerp/voorkanten/maak-voorkanten.py`: dat maakt `voorkant-gegevens.tex`.

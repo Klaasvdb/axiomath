@@ -5,14 +5,14 @@ description: Schrijf of herwerk een hoofdstuk of cursus van de eigen wiskundehan
 
 # Hoofdstuk van een eigen handboek schrijven
 
-De ontwerpregels staan in `Ontwerp/ontwerpregels.md`: lees die eerst, ze hebben voorrang op alles hieronder. Het werkende voorbeeld is de cursus `Analyse/Integralen/` (in `Handboeken/4 .../`), met de hoofdstukken in `hoofdstukken/` als model. De opmaak en de bouwscripts staan gedeeld in `Opmaak/` (zie `Opmaak/README.md`): pas ze daar aan en kopieer ze nooit naar een cursus. De eigen macro's van een cursus staan in `notatie.tex`. Die volgt alle huidige regels. Kijk daar hoe iets eruitziet in plaats van het opnieuw uit te vinden.
+De ontwerpregels staan in `Ontwerp/ontwerpregels.md`: lees die eerst, ze hebben voorrang op alles hieronder. Het werkende voorbeeld is de cursus `Analyse/Integralen/` (in `Handboeken/3de graad/4 .../`), met de hoofdstukken in `hoofdstukken/` als model. De opmaak en de bouwscripts staan gedeeld in `Opmaak/` (zie `Opmaak/README.md`): pas ze daar aan en kopieer ze nooit naar een cursus. De eigen macro's van een cursus staan in `notatie.tex`. Die volgt alle huidige regels. Kijk daar hoe iets eruitziet in plaats van het opnieuw uit te vinden.
 
 De gebruiker is wiskundeleerkracht en schrijft Nederlands. Schrijf de leerstof in helder Nederlands voor leerlingen van 16-18 jaar.
 
 ## Werkwijze
 
 1. **Bepaal de leerstof.** Zoek de cursus, het pakket en de leerplandoelen op in de README van het pakket onder `Handboeken/` en in het leerplan van dat pakket (zie `Handboeken/README.md`; het leerplan zelf zit niet in de repo, lees het online). Een bestaande cursus toont wat erin hoort. Is de afbakening onduidelijk, leg dan kort voor wat je zou opnemen.
-2. **Zet de cursus klaar** als die nog niet bestaat: kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` uit `Analyse/Integralen/` naar `Handboeken/<pakket>/<rubriek>/<cursus>/`, en maak `hoofdstukken/` en `oefeningen/`. De opmaak, het documentskelet, de bouwscripts en de voorkant staan in `Opmaak/` en `Ontwerp/` en worden niet gekopieerd. Pas in `handboek.tex` `\cursustitel` en `\cursushoofdstukken` aan.
+2. **Zet de cursus klaar** als die nog niet bestaat: kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` uit `Analyse/Integralen/` naar `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/` (graad: `2de graad` of `3de graad`), en maak `hoofdstukken/` en `oefeningen/`. De opmaak, het documentskelet, de bouwscripts en de voorkant staan in `Opmaak/` en `Ontwerp/` en worden niet gekopieerd. Pas in `handboek.tex` `\cursustitel` en `\cursushoofdstukken` aan.
 3. **Schrijf het hoofdstuk** volgens de opbouw hieronder.
 4. **Bouw en kijk** (zie Controle).
 5. **Meld** wat er staat, wat je zelf hebt beslist en wat de leerkracht moet nakijken.
@@ -135,6 +135,9 @@ In de oefeningenbank is dat het veld `prent` met `naam: slak`, voor `afbeeldinge
 Neem alleen publiek domein van Wikimedia Commons en kijk de licentie per bestand na via de API (`extmetadata`, veld `LicenseShortName`). De lijntekeningen van Pearson Scott Foresman (titel met `PSF`) zijn de eerste keuze: ze zijn scherp en geven één stijl. Stuur een `User-Agent` zonder persoonsgegevens mee en werk traag, want Commons antwoordt anders met HTTP 429. Maak de prent grijs en hoogstens 560 pixels breed, en vul `afbeeldingen/prenten/README.md` aan met de bron, de maker en de licentie.
 
 ## Koppel kiezen
+
+In de 2de graad is er geen Koppel (zie het deel 2de graad in de ontwerpregels): daar werken de handboeken als modules, en daar begint elk begrip met een concreet voorbeeld en komt een bewijs alleen waar het logisch is.
+
 
 Zoek verbanden die een leerling echt iets leren, bijvoorbeeld dat een meetkundige rij een exponentiële functie op natuurlijke getallen is. Sla leerstof over die vanzelf uit elkaar volgt (limieten, afgeleiden, integralen). Liever vier sterke oefeningen dan acht gezochte. Controleer of de leerstof al gezien kan zijn volgens de volgorde in de README van het pakket, en meld het als dat onzeker is.
 

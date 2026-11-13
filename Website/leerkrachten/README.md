@@ -28,6 +28,7 @@ Vanuit deze map, in PowerShell:
 
 ```
 py -3.13 -P maak.py          # bouwt server/: nieuwe PDF's als versie, voorkanten, lijst met handboeken
+py -3.13 -P maak.py --graden 2,3   # idem, met de 2de graad erbij (lokaal kijken; online via GRADEN_OP_SITE in maak.py)
 py -3.13 -P test/test.py     # de testreeks (PHP lokaal, lege databank); --browser voor een doorloop in Edge
 py -3.13 -P uitrol.py        # draait de testreeks en zet alles online; faalt er iets, dan gaat er niets online
 ```

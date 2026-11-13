@@ -109,6 +109,15 @@ select { cursor: pointer; }
   padding: .1em .6em; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); white-space: nowrap; }
 .pil.stip::before { content: ""; width: .55em; height: .55em; border-radius: 50%; background: currentColor; }
 .st-nieuw { --c: var(--acc); } .st-behandeling { --c: var(--let); } .st-verwerkt { --c: var(--goed); } .st-afgewezen { --c: var(--zacht); }
+/* stadia van een handboek (voortgang.yaml): van rood over oranje en geel naar blauw en groen */
+.vg-gepland { --c: var(--zacht); } .vg-eerste-versie { --c: #C2410C; } .vg-tweede-versie { --c: #B45309; }
+.vg-derde-versie { --c: #8A6A00; } .vg-nagelezen { --c: #1D5FD1; } .vg-klaar { --c: var(--goed); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .vg-eerste-versie { --c: #FF8A5B; } :root:not([data-theme="light"]) .vg-tweede-versie { --c: #FFB25B; }
+  :root:not([data-theme="light"]) .vg-derde-versie { --c: #F2CC4A; } :root:not([data-theme="light"]) .vg-nagelezen { --c: #7FB0FF; }
+}
+:root[data-theme="dark"] .vg-eerste-versie { --c: #FF8A5B; } :root[data-theme="dark"] .vg-tweede-versie { --c: #FFB25B; }
+:root[data-theme="dark"] .vg-derde-versie { --c: #F2CC4A; } :root[data-theme="dark"] .vg-nagelezen { --c: #7FB0FF; }
 .er-dringend { --c: var(--fout); } .er-belangrijk { --c: var(--let); } .er-klein { --c: var(--zacht); }
 
 /* --- aanmelden --- */
@@ -178,6 +187,36 @@ main.pagina { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
 .pakket-sub { color: var(--zacht); font-size: .92rem; margin-bottom: 16px; }
 .voortgang { height: 6px; border-radius: 3px; background: var(--lijn2); overflow: hidden; max-width: 260px; margin: 6px 0 16px; }
 .voortgang i { display: block; height: 100%; background: var(--acc); border-radius: 3px; }
+a.voortgang { display: block; }
+a.voortgang:hover i { filter: brightness(1.15); }
+
+/* graden: een kop boven de pakketten van een graad, als er meer dan één graad op de site staat */
+.graad-kop { margin: 8px 0 22px; padding-bottom: 8px; border-bottom: 2px solid var(--lijn); }
+h2.graad-kop, .graad-kop h2 { font-size: 1.6rem; font-weight: 800; }
+.graad-kop .vg-balk { max-width: 420px; margin-top: 6px; }
+
+/* voortgang */
+.vg-balk { display: flex; align-items: center; gap: 10px; }
+.vg-balk .voortgang { flex: 1; margin: 0; min-width: 60px; }
+.vg-balk b { font-size: .85rem; font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
+.pakket > .vg-balk { max-width: 340px; margin: 4px 0 14px; }
+.vg-balk.groot .voortgang { height: 12px; border-radius: 6px; max-width: none; }
+.vg-balk.groot b { font-size: 1.3rem; }
+.vg-totaal { margin-bottom: 40px; }
+.vg-totaal h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+.vg-totaal > p { margin: 8px 0 14px; }
+.vg-stadia { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; font-size: .92rem; }
+.vg-stadia dt { white-space: nowrap; } .vg-stadia dd { margin: 0; color: var(--zacht); }
+.vg-tabel { width: 100%; border-collapse: collapse; font-size: .93rem; }
+.vg-tabel th { text-align: left; font-weight: 600; color: var(--zacht); font-size: .82rem; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--lijn); }
+.vg-tabel td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--lijn2); vertical-align: middle; }
+.vg-tabel td:last-child { width: 32%; }
+@media (max-width: 560px) {
+  .vg-tabel th:nth-child(2), .vg-tabel td:nth-child(2) { display: none; }
+  .vg-tabel td:last-child { width: auto; } .vg-tabel td:last-child .voortgang { display: none; }
+  .vg-tabel td:first-child { overflow-wrap: anywhere; }
+  .vg-stadia { grid-template-columns: 1fr; gap: 2px; } .vg-stadia dd { margin-bottom: 8px; }
+}
 .kast { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 22px 18px; }
 .boek { --r: var(--r-andere); display: grid; gap: 8px; text-decoration: none; color: inherit; }
 .boek .omslag { position: relative; aspect-ratio: 210 / 297; border-radius: 4px 8px 8px 4px; overflow: hidden; background: var(--papier);
@@ -188,6 +227,10 @@ main.pagina { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
 .boek .omslag.geen { display: grid; align-content: end; padding: 14px; background: linear-gradient(160deg, color-mix(in srgb, var(--r) 22%, var(--papier)), var(--papier) 70%);
   border: 1.5px dashed color-mix(in srgb, var(--r) 45%, var(--lijn)); box-shadow: none; }
 .boek .omslag.geen b { font-size: 1.05rem; line-height: 1.15; }
+/* lange titels (Eerstegraadsvergelijkingen) breken af in plaats van de kolom te verbreden */
+.boek { min-width: 0; grid-template-columns: minmax(0, 1fr); } .boek .titel { overflow-wrap: break-word; hyphens: auto; }
+.boek .omslag .geen-pdf { position: absolute; top: 8px; left: 10px; font-size: .75rem; font-weight: 600; padding: .15em .6em; border-radius: 999px;
+  background: rgb(0 0 0 / .62); color: #fff; }
 .boek .omslag.geen span { font-size: .8rem; color: var(--zacht); }
 .boek .badge { position: absolute; top: 8px; right: 8px; min-width: 26px; height: 26px; padding: 0 7px; border-radius: 13px; display: grid; place-items: center;
   background: var(--fout); color: #fff; font-size: .8rem; font-weight: 700; box-shadow: 0 1px 4px rgb(0 0 0 / .3); }

@@ -38,7 +38,13 @@ EDITIES = [
 ]
 
 
-def laad_lijst():
+# De graden die op de site staan (sinds 13 november 2026 beide). De site, de voortgang en de feedback
+# kennen beide graden al (sleutels "4/..." in de 3de graad, "2g5/..." in de 2de, uit maak-voorkanten.py).
+GRADEN_OP_SITE = (2, 3)
+
+
+def laad_lijst(graden=None):
+    graden = graden or GRADEN_OP_SITE
     pad = REPO / "Ontwerp" / "voorkanten" / "maak-voorkanten.py"
     spec = importlib.util.spec_from_file_location("maak_voorkanten", pad)
     m = importlib.util.module_from_spec(spec)
@@ -46,16 +52,20 @@ def laad_lijst():
     cfg = yaml.safe_load((REPO / "voortgang.yaml").read_text(encoding="utf-8"))
     status_van = cfg.get("handboeken") or {}
     boeken = []
-    for pakket, map_, motief, jaar in m.HANDBOEKEN_LIJST:
-        sleutel = f"{pakket.split()[0]}/{map_}"
+    for pakket, map_, motief, jaar in m.ALLE_HANDBOEKEN:
+        if m.graad(pakket) not in graden:
+            continue
+        sleutel = m.sleutel(pakket, map_)
         delen = map_.split("/")
         boeken.append({
-            "sleutel": sleutel, "pakket": pakket, "pakketnr": int(pakket.split()[0]), "map": map_,
+            "sleutel": sleutel, "graad": m.graad(pakket), "pakketid": m.pakket_id(pakket), "pakket": pakket,
+            "pakketnr": int(pakket.split()[0]), "map": map_, "pad": m.cursusmap(pakket, map_).relative_to(REPO).as_posix(),
             "titel": delen[-1], "rubriek": delen[0] if len(delen) > 1 else "",
             "jaar": jaar, "motief": motief, "status": status_van.get(sleutel, "gepland"),
         })
-    pakketten = [{"nr": int(p.split()[0]), "naam": p.split(" ", 1)[1], "map": p,
-                  "richtingen": v["richtingen"], "uren": v["uren"].replace("\\&", "&")} for p, v in m.PAKKETTEN.items()]
+    pakketten = [{"id": m.pakket_id(p), "graad": m.graad(p), "nr": int(p.split()[0]), "naam": p.split(" ", 1)[1], "map": p,
+                  "richtingen": v["richtingen"], "uren": v["uren"].replace("\\&", "&")}
+                 for g in sorted(graden, reverse=True) for p, v in m.ALLE_PAKKETTEN.items() if m.graad(p) == g]
     voortgang = {k: {"percentage": v["percentage"], "uitleg": v["uitleg"]} for k, v in cfg["statussen"].items()}
     return boeken, pakketten, voortgang
 
@@ -91,6 +101,26 @@ def omslag(h):
     Image.frombytes("RGB", (pix.width, pix.height), pix.samples).save(doel, "WEBP", quality=82, method=6)
 
 
+def voorkanten_zonder_pdf(boeken):
+    """Een handboek zonder PDF (zoals de 2de graad nu) krijgt zijn voorkant uit Ontwerp/voorkanten/alle-voorkanten.pdf,
+    als voorkant-<sleutel-hash>.webp. Zo staat in de boekenkast al de echte voorkant in plaats van een leeg vak."""
+    bron = REPO / "Ontwerp" / "voorkanten" / "alle-voorkanten.pdf"
+    zonder = [b for b in boeken if not b.get("heeft_pdf")]
+    if not zonder or not bron.exists():
+        return
+    with pymupdf.open(bron) as doc:
+        pagina = {titel: p - 1 for _, titel, p in doc.get_toc()}
+        for b in zonder:
+            titel = f"{'2de graad, ' if b['graad'] == 2 else ''}Pakket {b['pakketnr']} - {b['titel']}"
+            if titel not in pagina:
+                continue
+            naam = "voorkant-" + hashlib.sha256(b["sleutel"].encode("utf-8")).hexdigest()[:16] + ".webp"
+            p = doc[pagina[titel]]
+            pix = p.get_pixmap(matrix=pymupdf.Matrix(480 / p.rect.width, 480 / p.rect.width), alpha=False)
+            Image.frombytes("RGB", (pix.width, pix.height), pix.samples).save(PUBLIEK / "omslagen" / naam, "WEBP", quality=82, method=6)
+            b["voorkant"] = f"/omslagen/{naam}"
+
+
 def vaste_bestanden():
     fonts = PUBLIEK / "fonts"
     fonts.mkdir(exist_ok=True)
@@ -108,14 +138,23 @@ def vaste_bestanden():
             im.convert("RGB").save(kunst, quality=82, optimize=True, progressive=True)
 
 
-def main():
+def main(argv=()):
+    """--graden 2,3: bouw lokaal met deze graden in plaats van GRADEN_OP_SITE (om de 2de graad te testen)."""
+    graden = None
+    if "--graden" in argv:
+        graden = tuple(int(g) for g in argv[argv.index("--graden") + 1].split(","))
     (APP / "versies").mkdir(parents=True, exist_ok=True)
     (PUBLIEK / "omslagen").mkdir(parents=True, exist_ok=True)
-    boeken, pakketten, voortgang = laad_lijst()
+    boeken, pakketten, voortgang = laad_lijst(graden)
+    for b in boeken:
+        b["heeft_pdf"] = any((REPO / b["pad"] / bestand).is_file() for _, bestand in EDITIES)
+    voorkanten_zonder_pdf(boeken)
+    for b in boeken:
+        del b["heeft_pdf"]
     schrijf_json(APP / "boeken.json", {"pakketten": pakketten, "boeken": boeken, "voortgang": voortgang})
     laatste = {}
     for b in boeken:
-        cursus = REPO / "Handboeken" / b["pakket"] / Path(b["map"])
+        cursus = REPO / b["pad"]
         for editie, bestand in EDITIES:
             if (cursus / bestand).is_file():
                 h, meta = bewaar_versie(cursus / bestand, b["sleutel"], editie)
@@ -131,4 +170,4 @@ def main():
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    main()
+    main(sys.argv[1:])

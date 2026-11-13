@@ -126,11 +126,17 @@ def zet_cursus(naam):
     global MAP, CACHE, GEN, HOOFDMAP
     pad = Path(naam) if naam else Path.cwd()
     if naam and not (pad / "handboek.tex").exists():
-        nummer, _, rest = naam.replace("\\", "/").partition("/")
-        gevonden = list((HOOFD / "Handboeken").glob(f"{nummer} */{rest}")) if rest else []
+        naam_ = naam.replace("\\", "/")
+        basis = HOOFD / "Handboeken" / "3de graad"  # standaard de 3de graad
+        for graad in ("2de graad", "3de graad"):  # of met de graad ervoor: 2de graad/<pakketnummer>/...
+            if naam_.startswith(graad + "/"):
+                basis, naam_ = HOOFD / "Handboeken" / graad, naam_.split("/", 1)[1]
+        nummer, _, rest = naam_.partition("/")
+        gevonden = list(basis.glob(f"{nummer} */{rest}")) if rest else []
         pad = gevonden[0] if len(gevonden) == 1 else pad
     if not (pad / "handboek.tex").exists():
-        sys.exit(f"Geen cursus gevonden voor {naam or pad}: geef <pakketnummer>/<rubriek>/<cursus>, of het pad naar de map.")
+        sys.exit(f"Geen cursus gevonden voor {naam or pad}: geef <pakketnummer>/<rubriek>/<cursus> "
+                 "(2de graad: 2de graad/<pakketnummer>/<rubriek>/<cursus>), of het pad naar de map.")
     MAP = pad.resolve()
     CACHE, GEN = MAP / "figuren-cache", MAP / "gen"
     HOOFDMAP = os.path.relpath(HOOFD, MAP).replace("\\", "/") + "/"

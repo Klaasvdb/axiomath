@@ -3,6 +3,7 @@
      #/lees/<versie>?p=&f=   lezer          #/mijn               mijn feedback
      #/algemeen         algemene feedback   #/beheer/<tab>       voor het team
      #/aanmelden        aanmelden, uitnodiging, herstelcode     #/over   de visie, voor iedereen
+     #/voortgang        de voortgang per pakket en per handboek, voor iedereen
    Zonder account (S.ik = null) zie je de boekenkast en lees je de editie 'handboek', zonder feedback.
    Alle tekst komt via textContent op de pagina (functie h), nooit via innerHTML, behalve de vaste iconen. */
 "use strict";
@@ -151,8 +152,15 @@ function plaatsTekst(f) {
 }
 function boekTitel(sleutel) {
   const b = S.boeken && S.boeken.boeken.find((x) => x.sleutel === sleutel);
-  return b ? `${b.titel} · pakket ${b.pakketnr}` : sleutel;
+  return b ? `${b.titel} · ${meerGraden() ? `${b.graad}de graad, ` : ""}pakket ${b.pakketnr}` : sleutel;
 }
+// Graden en pakketten. Een pakket heeft een id ("4" in de 3de graad, "2g5" in de 2de); een boek verwijst ernaar met pakketid.
+// Met één graad op de site volstaat het pakketnummer, met twee komt de graad erbij.
+const graden = () => [...new Set((S.boeken?.pakketten || []).map((p) => p.graad))];
+const meerGraden = () => graden().length > 1;
+const graadTekst = () => graden().slice().sort().map((g, i, a) => i === a.length - 1 ? `${g}de graad` : `${g}de`).join(" en ");
+const pakketKort = (x) => { const nr = x.nr ?? x.pakketnr; return meerGraden() ? `${x.graad}de gr. ${nr}` : `${nr}`; };
+const pakketVan = (d, b) => d.pakketten.find((p) => p.id === b.pakketid);
 
 /* opties: { paneel, beheer, toonBoek, opKlik, bijWijziging(f|null) } */
 function fbKaart(f, opties = {}) {
@@ -302,11 +310,11 @@ function kop(actief) {
   if (!S.ik) {
     return h("header", { class: "kop" },
       h("a", { class: "merk", href: "#/" }, h("img", { class: "logo", src: "/logo.svg", alt: "Axiomath" })),
-      h("nav", { "aria-label": "Hoofdmenu" }, [["#/", "Handboeken", "boeken"], ["#/over", "Over Axiomath", "over"]].map(([href, l, k]) =>
+      h("nav", { "aria-label": "Hoofdmenu" }, [["#/", "Handboeken", "boeken"], ["#/voortgang", "Voortgang", "voortgang"], ["#/over", "Over Axiomath", "over"]].map(([href, l, k]) =>
         h("a", { href, "aria-current": k === actief ? "page" : null }, l))),
       h("div", { class: "rechts" }, thema, h("a", { class: "knop klein", href: "#/aanmelden" }, "Aanmelden")));
   }
-  const links = [["#/", "Handboeken", "boeken"], ["#/mijn", "Mijn feedback", "mijn"], ["#/algemeen", "Algemene feedback", "algemeen"]];
+  const links = [["#/", "Handboeken", "boeken"], ["#/voortgang", "Voortgang", "voortgang"], ["#/mijn", "Mijn feedback", "mijn"], ["#/algemeen", "Algemene feedback", "algemeen"]];
   if (S.ik.rol === "beheerder") links.push(["#/beheer", "Beheer", "beheer"]);
   links.push(["#/over", "Over", "over"]);
   const menu = h("div", { class: "menu", hidden: true },
@@ -350,20 +358,26 @@ async function toonKast() {
   const kasten = h("div");
   const teken = () => {
     const z = zoek.toLowerCase();
-    kasten.replaceChildren(...d.pakketten.filter((p) => pakket === "alle" || String(p.nr) === pakket).map((p) => {
-      const lijst = d.boeken.filter((b) => b.pakketnr === p.nr && (!z || `${b.titel} ${b.rubriek}`.toLowerCase().includes(z)));
-      if (!lijst.length) return null;
-      const alle = d.boeken.filter((b) => b.pakketnr === p.nr);
+    let vorigeGraad = null;
+    kasten.replaceChildren(...d.pakketten.filter((p) => pakket === "alle" || p.id === pakket || pakket === `g${p.graad}`).flatMap((p) => {
+      const lijst = d.boeken.filter((b) => b.pakketid === p.id && (!z || `${b.titel} ${b.rubriek}`.toLowerCase().includes(z)));
+      if (!lijst.length) return [];
+      const alle = d.boeken.filter((b) => b.pakketid === p.id);
+      const kop = meerGraden() && p.graad !== vorigeGraad ? h("h2", { class: "graad-kop" }, `${p.graad}de graad`) : null;
+      vorigeGraad = p.graad;
       const pct = alle.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / alle.length;
-      return h("section", { class: "pakket" },
+      return [kop, h("section", { class: "pakket" },
         h("div", { class: "pakket-kop" }, h("h2", {}, h("span", { class: "nr" }, p.nr), " ", p.naam)),
         h("p", { class: "pakket-sub" }, p.richtingen, " · ", p.uren.replaceAll("\\&", "&")),
-        h("div", { class: "voortgang", title: `${Math.round(pct)} % klaar` }, h("i", { style: { width: pct + "%" } })),
-        h("div", { class: "kast" }, lijst.map(boekKaart)));
+        h("a", { class: "voortgang", href: "#/voortgang", title: `${Math.round(pct)} % klaar: bekijk de voortgang` }, h("i", { style: { width: pct + "%" } })),
+        h("div", { class: "kast" }, lijst.map(boekKaart)))].filter(Boolean);
     }));
-    if (!kasten.children.length) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
+    if (!kasten.querySelector(".pakket")) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
-  const keuzes = h("div", { class: "chips" }, [["alle", "Alle pakketten"], ...d.pakketten.map((p) => [String(p.nr), `${p.nr} · ${p.naam.match(/\(([^)]+)\)/)?.[1] || p.naam}`])]
+  const pakketChip = (p) => [p.id, `${p.nr} · ${p.naam.match(/\(([^)]+)\)/)?.[1] || p.naam}`];
+  if (pakket !== "alle" && !d.pakketten.some((p) => p.id === pakket || `g${p.graad}` === pakket)) pakket = "alle";
+  const keuzes = h("div", { class: "chips" }, [["alle", meerGraden() ? "Alles" : "Alle pakketten"],
+    ...(meerGraden() ? graden().flatMap((g) => [[`g${g}`, `${g}de graad`], ...d.pakketten.filter((p) => p.graad === g).map(pakketChip)]) : d.pakketten.map(pakketChip))]
     .map(([k, l]) => h("button", { type: "button", class: "chip zonder-stip", "aria-pressed": String(k === pakket), "data-k": k, onclick: () => {
       pakket = k; opslag.zet("pakket", k); keuzes.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.k === k))); teken();
     } }, l)));
@@ -373,7 +387,7 @@ async function toonKast() {
       ? h("div", {}, h("h1", {}, `Dag ${S.ik.naam.split(" ")[0]}`),
         h("p", {}, `${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Open er een, markeer een stuk van een pagina en zeg wat beter kan. Je collega's zien je opmerking ook: steun ze als je het eens bent.`))
       : h("div", {}, h("h1", {}, "Handboeken"),
-        h("p", {}, `Vrije handboeken wiskunde voor de 3de graad doorstroom, opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Ben je leerkracht? `,
+        h("p", {}, `Vrije handboeken wiskunde voor de ${graadTekst()} doorstroom, opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Ben je leerkracht? `,
           h("a", { href: "#/aanmelden" }, "Meld je aan"), " voor de leerkrachtenversie, de oplossingen en om feedback te geven. ",
           h("a", { href: "#/over" }, "Waar we naartoe willen"), "."))),
     h("div", { class: "balk" }, keuzes, h("input", { type: "search", placeholder: "Zoek een handboek", "aria-label": "Zoek een handboek", oninput: (e) => { zoek = e.target.value; teken(); } })),
@@ -383,13 +397,57 @@ async function toonKast() {
 
 function boekKaart(b) {
   const open = b.feedback?.open || 0;
-  const omslag = b.edities.length
-    ? h("div", { class: "omslag" }, h("img", { src: b.omslag, alt: "", loading: "lazy" }), open ? h("span", { class: "badge", title: `${open} open opmerkingen` }, open) : null)
+  const omslag = b.omslag
+    ? h("div", { class: "omslag" }, h("img", { src: b.omslag, alt: "", loading: "lazy" }), open ? h("span", { class: "badge", title: `${open} open opmerkingen` }, open) : null,
+      b.edities.length ? null : h("span", { class: "geen-pdf" }, "Nog geen PDF"))
     : h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"));
   return h("a", { class: `boek ${rubriekKlasse(b)}`, href: `#/boek/${sleutelUrl(b.sleutel)}` }, omslag,
-    h("div", {}, b.rubriek && h("div", { class: "rubriek" }, b.rubriek), h("div", { class: "titel" }, b.titel)),
-    h("div", { class: "meta" }, h("span", { class: `pil st-${b.status === "gepland" ? "afgewezen" : b.status === "klaar" ? "verwerkt" : "behandeling"}` }, b.status.replace("-", " ")),
+    h("div", {}, b.rubriek && h("div", { class: "rubriek" }, b.rubriek), h("div", { class: "titel" }, b.titel.replace(/(graads)(?=[a-z])/, "$1\u00AD"))),  // zacht afbreekteken: Eerstegraads-vergelijkingen
+    h("div", { class: "meta" }, statusPil(b.status),
       b.jaar && h("span", {}, b.jaar), b.feedback?.mijn ? h("span", {}, `${b.feedback.mijn} van jou`) : null));
+}
+
+// --- voortgang ---------------------------------------------------------------------------------
+const statusNaam = (s) => s.replace("-", " ");
+const statusPil = (s) => h("span", { class: `pil stip vg-${s}` }, statusNaam(s));
+
+function voortgangBalk(pct, groot) {
+  return h("div", { class: `vg-balk${groot ? " groot" : ""}`, role: "img", "aria-label": `${Math.round(pct)} %` },
+    h("div", { class: "voortgang" }, h("i", { style: { width: pct + "%" } })), h("b", {}, `${Math.round(pct)} %`));
+}
+
+async function toonVoortgang() {
+  const d = await boeken();
+  const pct = (lijst) => lijst.length ? lijst.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / lijst.length : 0;
+  const statussen = Object.keys(d.voortgang);
+  const tel = (s) => d.boeken.filter((b) => b.status === s).length;
+  scherm("voortgang",
+    h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, "Voortgang"),
+      h("p", {}, "Elk handboek gaat door dezelfde stadia: een eerste, tweede en derde versie die we zelf herwerken, daarna lezen leerkrachten het na, en pas na een jaar in de klas is het klaar. Het percentage van een pakket is het gemiddelde van zijn handboeken."))),
+    h("section", { class: "kaart vg-totaal" },
+      h("h2", {}, "Alle handboeken"),
+      voortgangBalk(pct(d.boeken), true),
+      h("p", { class: "zacht" }, `${d.boeken.length} handboeken: `,
+        statussen.filter(tel).map((s, i) => [i ? ", " : "", `${tel(s)} ${statusNaam(s)}`]), "."),
+      h("dl", { class: "vg-stadia" }, statussen.map((s) => [
+        h("dt", {}, statusPil(s), h("span", { class: "zacht" }, ` ${d.voortgang[s].percentage} %`)),
+        h("dd", {}, d.voortgang[s].uitleg)]))),
+    d.pakketten.map((p, i) => {
+      const lijst = d.boeken.filter((b) => b.pakketid === p.id);
+      const nieuweGraad = meerGraden() && (i === 0 || d.pakketten[i - 1].graad !== p.graad);
+      const vanGraad = d.boeken.filter((b) => b.graad === p.graad);
+      return [nieuweGraad && h("div", { class: "graad-kop" }, h("h2", {}, `${p.graad}de graad`), voortgangBalk(pct(vanGraad))), h("section", { class: "pakket" },
+        h("div", { class: "pakket-kop" }, h("h2", {}, h("span", { class: "nr" }, p.nr), " ", p.naam)),
+        h("p", { class: "pakket-sub" }, p.richtingen),
+        voortgangBalk(pct(lijst)),
+        h("table", { class: "vg-tabel" },
+          h("thead", {}, h("tr", {}, h("th", {}, "Handboek"), h("th", {}, "Rubriek"), h("th", {}, "Status"), h("th", {}, "Voortgang"))),
+          h("tbody", {}, lijst.map((b) => h("tr", {},
+            h("td", {}, h("a", { href: `#/boek/${sleutelUrl(b.sleutel)}` }, b.titel)),
+            h("td", { class: "zacht" }, b.rubriek || "–"),
+            h("td", {}, statusPil(b.status)),
+            h("td", {}, voortgangBalk(d.voortgang[b.status]?.percentage || 0)))))))];
+    }));
 }
 
 // --- één handboek -------------------------------------------------------------------------------
@@ -397,7 +455,7 @@ async function toonBoek(sleutel) {
   const d = await boeken();
   const b = d.boeken.find((x) => x.sleutel === sleutel);
   if (!b) return scherm("boeken", h("p", { class: "leeg" }, "Dit handboek bestaat niet."));
-  const p = d.pakketten.find((x) => x.nr === b.pakketnr);
+  const p = pakketVan(d, b);
   const gast = !S.ik;
   const lijst = h("div", { class: "lijst" });
   let alle = gast ? [] : await api("GET", `feedback?sleutel=${sleutelUrl(sleutel)}`), filter = "alle", sorteer = "nieuw";
@@ -421,16 +479,17 @@ async function toonBoek(sleutel) {
   scherm("boeken",
     h("p", { style: { marginBottom: "18px" } }, h("a", { href: "#/", class: "knop-tekst", style: { paddingLeft: 0 } }, "← Alle handboeken")),
     h("div", { class: `boekkop ${rubriekKlasse(b)}` },
-      b.edities.length ? h("div", { class: "omslag" }, h("img", { src: b.omslag, alt: `Voorkant van ${b.titel}` })) : h("div", { class: "boek" }, h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"))),
+      b.omslag ? h("div", { class: "omslag" }, h("img", { src: b.omslag, alt: `Voorkant van ${b.titel}` })) : h("div", { class: "boek" }, h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"))),
       h("div", {},
         b.rubriek && h("div", { class: "boek" }, h("span", { class: `rubriek` }, b.rubriek)),
         h("h1", {}, b.titel),
         h("dl", { class: "gegevens" },
+          h("dt", {}, "Graad"), h("dd", {}, `${p.graad}de graad doorstroomfinaliteit`),
           h("dt", {}, "Pakket"), h("dd", {}, `${p.nr} · ${p.naam}`),
           h("dt", {}, "Richtingen"), h("dd", {}, p.richtingen),
           h("dt", {}, "Uren"), h("dd", {}, p.uren.replaceAll("\\&", "&")),
           b.jaar && [h("dt", {}, "Leerjaar"), h("dd", {}, b.jaar)],
-          h("dt", {}, "Status"), h("dd", {}, b.status.replace("-", " "), d.voortgang[b.status] ? h("span", { class: "zacht" }, ` · ${d.voortgang[b.status].uitleg}`) : "")),
+          h("dt", {}, "Status"), h("dd", {}, h("a", { href: "#/voortgang" }, statusNaam(b.status)), d.voortgang[b.status] ? h("span", { class: "zacht" }, ` · ${d.voortgang[b.status].uitleg}`) : "")),
         b.edities.length ? h("div", { class: "edities" }, b.edities.map((e) => h("div", { class: "editie" },
           h("b", {}, e.label), h("span", { class: "zacht" }, `${e.paginas} p. · ${datum(e.gebouwd)}`),
           h("a", { class: "knop licht klein", href: apiUrl(`pdf/${e.hash}`), target: "_blank", rel: "noopener", "aria-label": `${e.label} als PDF` }, icoon("download"), "PDF"),
@@ -805,7 +864,7 @@ function toonOver() {
         h("a", { class: "knop", href: GITHUB, target: "_blank", rel: "noopener" }, "Axiomath op GitHub"),
         h("a", { class: "knop licht", href: `${GITHUB}/blob/main/CONTRIBUTING.md`, target: "_blank", rel: "noopener" }, "Meewerken")),
       h("h2", {}, "Lees mee"),
-      h("p", {}, "Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze na. Lees een handboek en zeg wat beter kan: op een plek in het boek, over een heel handboek of over het idee zelf. ",
+      h("p", {}, "Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze na (zie ", h("a", { href: "#/voortgang" }, "de voortgang"), "). Lees een handboek en zeg wat beter kan: op een plek in het boek, over een heel handboek of over het idee zelf. ",
         S.ik ? [h("a", { href: "#/algemeen" }, "Geef algemene feedback"), "."] : [h("a", { href: "#/aanmelden" }, "Meld je aan"), " als leerkracht, of bekijk ", h("a", { href: "#/" }, "de handboeken"), "."])));
 }
 
@@ -818,7 +877,7 @@ async function toonAlgemeen() {
     : [h("p", { class: "leeg" }, "Nog geen algemene feedback.")]));
   const v = feedbackVelden(S.menu.soorten_algemeen, { soort: "premisse" }, "Wat vind je van het idee: vrije handboeken, de opbouw per pakket, de oefeningenbank, de zelfstudieversie, …?");
   const boek = h("select", {}, h("option", { value: "" }, "Over Axiomath in het algemeen"),
-    d.pakketten.map((p) => h("optgroup", { label: `${p.nr} · ${p.naam}` }, d.boeken.filter((b) => b.pakketnr === p.nr).map((b) => h("option", { value: b.sleutel }, b.titel)))));
+    d.pakketten.map((p) => h("optgroup", { label: `${meerGraden() ? `${p.graad}de graad · ` : ""}${p.nr} · ${p.naam}` }, d.boeken.filter((b) => b.pakketid === p.id).map((b) => h("option", { value: b.sleutel }, b.titel)))));
   const form = h("form", { class: "formulier", onsubmit: poging(async (e) => {
     e.preventDefault(); const w = v.waarde(); if (!w) return;
     alle.unshift(await api("POST", "feedback", { niveau: "algemeen", sleutel: boek.value || null, ...w })); v.leeg(); teken(); melding("Bedankt! Je feedback is bewaard.");
@@ -850,10 +909,10 @@ async function beheerFeedback(d) {
   let sorteer = "verwerk", rijen = [];
   const sel = (naam, opties) => h("select", { "aria-label": naam, onchange: (e) => { filters[naam] = e.target.value; laad(); } },
     opties.map(([k, l]) => h("option", { value: k, selected: filters[naam] === k }, l)));
-  const boekSel = sel("sleutel", [["", "Alle handboeken"], ...d.boeken.map((b) => [b.sleutel, `${b.pakketnr} · ${b.titel}`])]);
+  const boekSel = sel("sleutel", [["", "Alle handboeken"], ...d.boeken.map((b) => [b.sleutel, `${pakketKort(b)} · ${b.titel}`])]);
   const balk = h("div", { class: "balk" },
     sel("status", [["open", "Open (nieuw + in behandeling)"], ["", "Alle statussen"], ...Object.entries(S.menu.statussen)]),
-    sel("pakket", [["", "Alle pakketten"], ...d.pakketten.map((p) => [String(p.nr), `Pakket ${p.nr}`])]),
+    sel("pakket", [["", "Alle pakketten"], ...d.pakketten.map((p) => [p.id, `Pakket ${pakketKort(p)}`])]),
     boekSel,
     sel("niveau", [["", "Elk niveau"], ["plek", "Op een pagina"], ["handboek", "Hele handboek"], ["algemeen", "Algemeen"]]),
     sel("soort", [["", "Elke soort"], ...Object.entries(S.menu.soorten_algemeen)]),
@@ -916,7 +975,7 @@ async function beheerOverzicht(d) {
     return h("tr", {}, h("td", {}, h("a", { href: `#/beheer/feedback?sleutel=${encodeURIComponent(k)}&status=open` }, titel)),
       h("td", { class: "getal" }, h("b", {}, p.open)), h("td", { class: "getal" }, p.dringend || ""), gebruikt.map((s) => cel(p.soort[s], s)), h("td", { class: "getal zacht" }, p.af));
   };
-  const rijen = [rij("", "Algemeen"), ...d.boeken.map((b) => rij(b.sleutel, `${b.pakketnr} · ${b.titel}`))].filter(Boolean);
+  const rijen = [rij("", "Algemeen"), ...d.boeken.map((b) => rij(b.sleutel, `${pakketKort(b)} · ${b.titel}`))].filter(Boolean);
   if (!rijen.length) return h("p", { class: "leeg" }, "Nog geen feedback.");
   return [h("p", { class: "zacht", style: { marginBottom: "12px" } }, "Open feedback per handboek en per soort. Klik op een handboek om die feedback te zien."),
     h("div", { class: "tabel-houder" }, h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, "Handboek"), h("th", { class: "getal" }, "Open"), h("th", { class: "getal" }, "Dringend"),
@@ -974,7 +1033,7 @@ async function beheerPdf(d) {
     h("p", { class: "zacht" }, "De site bewaart elke PDF als een vaste versie, zodat een opmerking bij haar pagina blijft. Bouw een handboek opnieuw met maak-pdf.py en draai daarna in Website/leerkrachten ",
       h("code", {}, "maak.py"), " en ", h("code", {}, "uitrol.py"), ". Leerkrachten lezen voortaan de nieuwste versie; opmerkingen op een oudere versie blijven daar zichtbaar.")),
     h("div", { class: "tabel-houder" }, h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, "Handboek"), S.menu && Object.values(S.menu.edities).map((l) => h("th", {}, l)))),
-      h("tbody", {}, rijen.map((b) => h("tr", {}, h("td", {}, `${b.pakketnr} · ${b.titel}`),
+      h("tbody", {}, rijen.map((b) => h("tr", {}, h("td", {}, `${pakketKort(b)} · ${b.titel}`),
         Object.keys(S.menu.edities).map((e) => { const x = b.edities.find((y) => y.editie === e); return h("td", { class: "zacht" }, x ? `${datum(x.gebouwd)} · ${x.paginas} p.` : "–"); }))))))];
 }
 
@@ -992,6 +1051,7 @@ async function route() {
     else if (delen[0] === "mijn") await toonMijn();
     else if (delen[0] === "algemeen") await toonAlgemeen();
     else if (delen[0] === "over") toonOver();
+    else if (delen[0] === "voortgang") await toonVoortgang();
     else if (delen[0] === "beheer" && S.ik.rol === "beheerder") await toonBeheer(delen[1]);
     else await toonKast();
   } catch (e) {

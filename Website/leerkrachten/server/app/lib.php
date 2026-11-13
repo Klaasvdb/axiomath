@@ -250,7 +250,7 @@ function filter_sql($f) {
 
 function titel_van($sleutel) {
   $b = boek($sleutel);
-  return $b ? "{$b['titel']} (pakket {$b['pakketnr']})" : ($sleutel ?: 'Algemeen');
+  return $b ? "{$b['titel']} ({$b['graad']}de graad, pakket {$b['pakketnr']})" : ($sleutel ?: 'Algemeen');
 }
 
 /* Geordend zoals je ze verwerkt: per handboek, per editie, per hoofdstuk, op paginavolgorde.
@@ -267,7 +267,7 @@ function als_markdown($rijen) {
   foreach ($groepen as $sleutel => $rs) {
     $l[] = '## ' . ($sleutel === '' ? 'Algemeen (premisse, website, alle handboeken)' : titel_van($sleutel));
     $l[] = '';
-    if ($b = boek($sleutel)) { $l[] = "Map: `Handboeken/{$b['pakket']}/{$b['map']}/`"; $l[] = ''; }
+    if ($b = boek($sleutel)) { $l[] = "Map: `{$b['pad']}/`"; $l[] = ''; }
     $orde = ['algemeen' => 0, 'handboek' => 1, 'plek' => 2];
     usort($rs, fn($a, $b) => [$orde[$a['niveau']], $a['editie'] ?? '', $a['pagina'] ?? 0, $a['rect'][1] ?? 0]
                          <=> [$orde[$b['niveau']], $b['editie'] ?? '', $b['pagina'] ?? 0, $b['rect'][1] ?? 0]);
@@ -439,7 +439,7 @@ function boeken($ik) {
                                              'paginas' => $ed[$e]['paginas'], 'gebouwd' => iso($ed[$e]['gebouwd'])];
     }
     $omslag = $ed['handboek']['hash'] ?? ($b['edities'][0]['hash'] ?? null);
-    $b['omslag'] = $omslag ? "/omslagen/$omslag.webp" : null;
+    $b['omslag'] = $omslag ? "/omslagen/$omslag.webp" : ($b['voorkant'] ?? null);  // voorkant: nog geen PDF
     $b['feedback'] = $ik ? ($tel[$b['sleutel']] ?? ['totaal' => 0, 'open' => 0, 'mijn' => 0]) : null;
     $boeken[] = $b;
   }
