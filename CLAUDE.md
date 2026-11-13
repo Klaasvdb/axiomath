@@ -17,6 +17,7 @@ Vrije, niet-commerciële handboeken wiskunde voor de 3de graad doorstroomfinalit
 - Het voorbeeld van een cursus is `Handboeken/4 .../Analyse/Integralen/`: `handboek.tex` (titel en hoofdstukken), hoofdstukken in `hoofdstukken/`, oefeningen in `oefeningen/*.yaml` (de bron) en eigen macro's in `notatie.tex`.
 - `Ontwerp/`: ontwerpregels, `logo/`, `voorkanten/` (gedeeld door alle handboeken) en `omslagen/` (schilderijen).
 - `Website/`: voorbeeld van de online versie; `maak-site.py` leest de oefeningenbank van Integralen.
+- `Website/leerkrachten/`: de leerkrachtensite op axiomath.be (PHP en SQLite op Vimexx, zoals Puntmuts): lezen en feedback geven. `maak.py`, `test/test.py`, `uitrol.py`; zie de README daar. Uitrollen alleen met toestemming van de gebruiker.
 
 ## Bouwen
 

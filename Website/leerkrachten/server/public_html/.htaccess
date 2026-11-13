@@ -1,0 +1,21 @@
+# Eén adres: altijd https://axiomath.be (zonder www). De browser bewaart aanmelden per adres.
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://axiomath.be%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://axiomath.be%{REQUEST_URI} [R=301,L]
+
+Options -Indexes
+
+# De app (index.html, app.js, app.css) altijd opnieuw nakijken; voorkanten en lettertypes mogen lang in de cache.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|js|css)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(webp|woff2|jpg|svg)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "same-origin"
+</IfModule>
