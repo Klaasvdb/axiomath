@@ -21,7 +21,7 @@ import pymupdf
 import yaml
 
 HIER = Path(__file__).resolve().parent
-CURSUS = next((HIER.parent / "Handboeken").glob("4 *")) / "Analyse" / "Integralen"
+CURSUS = next((HIER.parent / "Handboeken" / "3de graad").glob("4 *")) / "Analyse" / "Integralen"
 sys.path.insert(0, str(HIER.parent / "Opmaak"))
 import oefeningenbank  # noqa: E402
 

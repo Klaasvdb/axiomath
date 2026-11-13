@@ -1,6 +1,6 @@
 # Ontwerpregels voor de handboeken
 
-Vastgelegd op 5 november 2026. Dit bestand is de enige plaats waar de regels staan: pas ze hier aan. Het voorbeeld is de cursus [Analyse/Integralen](<../Handboeken/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>).
+Vastgelegd op 5 november 2026. Dit bestand is de enige plaats waar de regels staan: pas ze hier aan. Het voorbeeld is de cursus [Analyse/Integralen](<../Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>).
 
 ## Soort boek
 
@@ -159,9 +159,10 @@ Leerlingen zien in één oogopslag in welk hoofdstuk ze zitten en waar de opdrac
 Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet, en de kaft zei niet voor wie het boek bedoeld is. Alle voorkanten staan samen in `Ontwerp/voorkanten/` (zie de README daar).
 
 - **Elk onderwerp krijgt een eigen kunstwerk en motief,** met een link naar de leerstof. Geen werk en geen kunstenaar twee keer, zodat de reeks gevarieerd blijft. Hetzelfde onderwerp in een ander pakket (Rijen in pakket 1 en 4) houdt hetzelfde werk en motief; alleen de gegevens verschillen.
-- **Alleen publiek domein.** Kijk de licentie per bestand na op Wikimedia Commons. `Ontwerp/omslagen/maak-omslagen.py` haalt het werk op en snijdt het bij.
+- **Alleen publiek domein.** Kijk de licentie per bestand na op Wikimedia Commons. `Ontwerp/omslagen/maak-omslagen.py` haalt het werk op en snijdt het bij. Een beeld dat we zelf berekenen, zoals de Mandelbrotverzameling bij Complexe getallen, mag ook: het valt onder de licentie van het project.
 - **Op de voorkant staan:** rubriek, titel, versie, richtingen, graad (met leerjaar als dat vastligt), uren wiskunde, de bron van het kunstwerk en het logo. Leerplan, school en schooljaar staan er niet op (beslissing van 6 nov 2026).
 - **Eigen motief.** De voorkant blijft niet bij een effen band: de bovenrand en de vormen komen uit de leerstof van de cursus. Houd het sober: één idee, een paar vormen, en geen lijnen door de titel, de gegevens of het logo. Wiskundig klopt het motief altijd: de stippen bij Kansrekenen zijn echt de 36 uitkomsten, de 68 % bij Statistiek ligt echt tussen μ − σ en μ + σ.
+- **Kleur per graad** (beslissing van 13 nov 2026): de 3de graad heeft een petrol band met cyaan (`0B6470`, `3FD6F0`), de 2de graad een bordeaux band met goud (`8C1D40`, `FFC857`). Zo zie je meteen voor welke graad een boek is. De kleur geldt ook in het boek, op de plaatsen buiten de hoofdstukken (zoals de oplossingen). Ze staat in `maak-voorkanten.py` en komt via `voorkant-gegevens.tex` in de cursus.
 - **Duidelijke titel:** groot (64 pt) en wit op de band, de versie in een fel label eronder, zodat je ook van ver ziet welk boek het is. Een lange titel krijgt twee regels of kleinere letters.
 - **Indeling:** het kunstwerk bovenaan over de volle breedte, daaronder de gekleurde band met links de titel en de gegevens in een tabel, en rechtsonder het logo.
 - De richtingen komen uit de tabel in `Handboeken/README.md`. De uren komen uit de lessentabel van de school waar het project begon (`maak-voorkanten.py`) en verschillen per school. Het leerjaar staat er alleen bij pakket 4, waar de verdeling over de jaren vastligt. De leerplannen zijn graadleerplannen: de andere pakketten krijgen hun leerjaar pas als die verdeling vastligt.
@@ -172,10 +173,10 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Exponentiële en logaritmische functies | Vincent van Gogh, *De sterrennacht*, 1889 | De helderheid van sterren meten we op een logaritmische schaal | Bij gelijke stappen verdubbelt de hoogte |
 | Goniometrische functies | Katsushika Hokusai, *De grote golf bij Kanagawa*, ca. 1831 | Golven zijn het beeld van een periodieke functie | De straal in de eenheidscirkel tekent de sinus |
 | Rationale functies | Meindert Hobbema, *De laan van Middelharnis*, 1689 | Hoge, dunne bomen als verticale asymptoten, een weg naar de horizon | De grafiek van c + a/(x − p)² met haar twee asymptoten |
-| Afgeleiden; Limieten en afgeleiden | J.M.W. Turner, *Regen, stoom en snelheid*, 1844 | Snelheid op één ogenblik | Koorden door P die naar de raaklijn gaan |
+| Afgeleiden; Limieten en afgeleiden | Anoniem naar Willem van Swanenburg en Jacques de Gheyn II, *De zeilwagen van Simon Stevin*, ca. 1640-1649 | De zeilwagen van de wiskundige Stevin was het snelste voertuig van zijn tijd: snelheid op één ogenblik | Koorden door P die naar de raaklijn gaan |
 | Integralen | Georges Seurat, *Een zondagnamiddag op het eiland La Grande Jatte*, 1884-1886 | Duizenden kleine stipjes vormen samen één geheel, zoals kleine stukjes bij een integraal | Oppervlakte onder een grafiek, met een bovensom en stipjes |
-| Matrices | Piet Mondriaan, *Tableau 3 met oranjerood, geel, zwart, blauw en grijs*, 1921 | Een raster van rijen en kolommen | Een matrix met het element a₂₃ op het kruispunt van rij en kolom |
-| Complexe getallen | Robert Delaunay, *Cirkelvormen, maan nr. 1*, 1913 | Schijven die rond een middelpunt draaien | Vermenigvuldigen met i is een kwartslag |
+| Matrices | Piet Mondriaan, *Broadway Boogie Woogie*, 1942-1943 | Een raster van rijen en kolommen, de straten van Manhattan | Een matrix met het element a₂₃ op het kruispunt van rij en kolom |
+| Complexe getallen | De Mandelbrotverzameling (de zeepaardjesvallei), eigen berekening | Een figuur in het complexe vlak: de getallen c waarvoor z ↦ z² + c begrensd blijft | Vermenigvuldigen met i is een kwartslag |
 | Groepen | William Morris, *Strawberry Thief*, ontwerp 1883 | Een patroon dat onveranderd blijft onder verschuivingen en spiegelingen | De symmetrieën van de gelijkzijdige driehoek |
 | Ruimtemeetkunde | Anoniem, *De ideale stad*, ca. 1480-1490 | De ruimte op een plat vlak, opgebouwd uit evenwijdige lijnen | Een kubus in een assenstelsel met de ruimtevector |
 | Rijen | Claude Monet, *Populieren aan de Epte*, 1891 | Een rij populieren, stam na stam | De termen als stammen, die naar hun limiet gaan |
@@ -220,6 +221,16 @@ Het logo van Axiomath is vastgelegd op 6 nov 2026. De bestanden staan in `Ontwer
 - **Licentie:** zie [LICENSE](../LICENSE.md). Alles is vrij te gebruiken en te bewerken, maar niet commercieel.
 - **Lettertypes:** ze mogen in een verspreide PDF staan, ongeacht de licentie van de cursus. Source Sans en de letters van `newtxsf` vallen onder de SIL Open Font License. De wiskundesymbolen komen uit `txfonts`: GPL, met een uitzondering die opname in een document uitdrukkelijk toelaat. Nagekeken in de licentiebestanden van TeX Live 2024.
 - Niet elk antwoord hoeft met SymPy nagerekend te worden, maar antwoorden moeten kloppen. Afgeronde getallen reken je wel even na: daar zitten de fouten.
+
+## 2de graad
+
+Vastgelegd op 13 november 2026. De handboeken van de 2de graad (`Handboeken/2de graad/`) volgen alle regels hierboven, met deze verschillen:
+
+- **Kleine handboeken.** Zo kan een school modulair werken en zelf de volgorde kiezen. Hoofdstukken die op elkaar voortbouwen en volgens de voorgestelde jaarverdeling in hetzelfde jaar vallen, staan wel samen in één handboek (bijvoorbeeld Functies met de eerstegraadsfuncties). De indeling staat in `Handboeken/2de graad/README.md`.
+- **Eerst een concreet voorbeeld, dan de definitie.** Een begrip begint met een situatie of een uitgewerkt voorbeeld dat leerlingen kunnen volgen, en pas daarna komt het kader met de definitie. Zo ziet een leerling eerst waarom een begrip nodig is. Dat geldt ook voor eigenschappen: eerst een paar gevallen nagaan, dan de regel.
+- **Bewijzen alleen waar het bewijs logisch is.** Een bewijs komt er als het kort is en iets uitlegt (zoals waarom √2 irrationaal is, of de stelling van Pythagoras met oppervlaktes). Een rekenregel die leerlingen met voorbeelden aanvoelen, krijgt geen formeel bewijs. De regel "bewijs waar nodig" van de 3de graad geldt hier dus niet; in pakket 5 (B+S'') zit wel het leerplandoel bewijzen (B1), met een eigen hoofdstuk in Logica.
+- **Geen Koppel.** De handboeken zijn modules in een volgorde die de school kiest, dus een oefening die verbanden legt met andere leerstof veronderstelt iets wat niet vastligt. Verbanden die zeker gezien zijn (wat in het handboek zelf staat of in het leerplan als voorkennis), komen in de Opdrachten. De rest van de opbouw blijft: Start, leerstof, Opdrachten, Test jezelf.
+- **Voorkant:** bordeaux met goud (zie Voorkant), met frissere en lichtere kunstwerken dan in de 3de graad. Een reeks verwante handboeken (zoals Eerstegraadsvergelijkingen en Stelsels) deelt een kunstwerk; elk handboek heeft zijn eigen motief. De werken en motieven staan in de README van de 2de graad.
 
 ## Nog open
 

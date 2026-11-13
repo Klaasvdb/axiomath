@@ -84,10 +84,10 @@ def letter_i(t, x):
     return x + KLEIN_DIK
 
 
-def letter_o(t, x):
+def letter_o(t, x, spleet=SPLEET, as_uit=AS_UIT, pijl_lengte=PIJL_LENGTE, pijl_breedte=PIJL_BREEDTE):
     """Open O: de assen zijn spleten in de ring en lopen erbuiten als volle lijn verder,
     met een pijltje rechts en boven. De opening van de O blijft leeg."""
-    r, ri, h = KLEIN_R, KLEIN_R - KLEIN_DIK, SPLEET / 2
+    r, ri, h = KLEIN_R, KLEIN_R - KLEIN_DIK, spleet / 2
     cx, cy = x + r, KLEIN_MIDDEN
     ybuiten, ybinnen = math.sqrt(r * r - h * h), math.sqrt(ri * ri - h * h)
     for sx, sy in ((1, 1), (-1, 1), (-1, -1), (1, -1)):
@@ -96,7 +96,7 @@ def letter_o(t, x):
         t.paden.append(f"M{pt(h, ybinnen)}L{pt(h, ybuiten)}A{r},{r} 0 0 {klok} {pt(ybuiten, h)}"
                        f"L{pt(ybinnen, h)}A{ri},{ri} 0 0 {1 - klok} {pt(h, ybinnen)}Z")
     t.pts += [(cx - r, cy - r), (cx + r, cy + r)]
-    v, p, w = r + AS_UIT, r + AS_UIT + PIJL_LENGTE, PIJL_BREEDTE
+    v, p, w = r + as_uit, r + as_uit + pijl_lengte, pijl_breedte
     # de lijnen lopen een eenheid in de pijltjes, zodat er geen haarlijn tussen komt
     t.recht(cx + ybuiten, cy - h, cx + v + 1, cy + h)
     t.recht(cx - v, cy - h, cx - ybuiten, cy + h)
@@ -170,7 +170,27 @@ def teken():
     return t
 
 
+def icoon():
+    """Het icoon (favicon): enkel de O met de assen, wit op een tegel in inkt, zodat het op een lichte
+    en een donkere tabbalk even goed te zien is. De assen lopen tot net binnen de rand van de tegel."""
+    t = Tekening()
+    # dikkere assen en grotere pijltjes dan in het woordmerk: op 16 px moeten ze nog te zien zijn
+    as_uit, pijl_lengte = 14.0, 22.0
+    letter_o(t, -KLEIN_R, spleet=13.0, as_uit=as_uit, pijl_lengte=pijl_lengte, pijl_breedte=15.0)  # middelpunt in (0, KLEIN_MIDDEN)
+    vormen = "\n".join(f'<path d="{d}"/>' for d in t.paden)
+    z = KLEIN_R + as_uit + pijl_lengte + 8  # halve breedte van de tegel
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{-z:.2f} {KLEIN_MIDDEN - z:.2f} {2 * z:.2f} {2 * z:.2f}" '
+            f'role="img" aria-label="Axiomath">\n<title>Axiomath</title>\n'
+            f'<rect x="{-z:.2f}" y="{KLEIN_MIDDEN - z:.2f}" width="{2 * z:.2f}" height="{2 * z:.2f}" rx="{0.22 * z:.2f}" fill="{INKT}"/>\n'
+            f'<g fill="{WIT}" fill-rule="evenodd">\n{vormen}\n</g>\n</svg>\n')
+
+
 def main():
+    svg = icoon()
+    (MAP / "axiomath-icoon.svg").write_text(svg, encoding="utf-8")
+    doc = pymupdf.open(stream=svg.encode(), filetype="svg")
+    z = 512 / doc[0].rect.width
+    doc[0].get_pixmap(matrix=pymupdf.Matrix(z, z), alpha=True).save(MAP / "axiomath-icoon.png")
     t = teken()
     for achtervoegsel, kleur in (("", INKT), ("-wit", WIT)):
         svg = t.svg(kleur)

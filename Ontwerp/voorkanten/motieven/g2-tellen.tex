@@ -1,0 +1,23 @@
+% 2de graad, reeks Telproblemen.
+% Klimt: de levensboom, een stam die zich telkens vertakt.
+% Motief: een boomdiagram met drie keuzes uit twee, samen 2 x 2 x 2 = 8 mogelijkheden.
+\def\omslagbestand{omslag-levensboom.jpg}
+\def\omslagbron{Gustav Klimt, \textit{De levensboom}, ontwerp voor de Stocletfries, 1910-1911 (publiek domein)}
+\def\omslagrand{10.6 + 0.5*sin(\x*360/21)}
+\def\omslagmotief{%
+  \randlijn
+  \foreach \a in {-1,1}{%
+    \draw[omslaglijn=1pt] (16.5,8.1) -- ({16.5+1.6*\a},9.8);
+    \foreach \b in {-1,1}{%
+      \draw[omslaglijn=1pt] ({16.5+1.6*\a},9.8) -- ({16.5+1.6*\a+.8*\b},11.5);
+      \foreach \c in {-1,1}{%
+        \draw[omslaglijn=1pt] ({16.5+1.6*\a+.8*\b},11.5) -- ({16.5+1.6*\a+.8*\b+.4*\c},13.2);
+        \fill[fel,draw=accent,line width=.6pt] ({16.5+1.6*\a+.8*\b+.4*\c},13.2) circle (1.5mm);
+      }
+      \fill[omslagstip] ({16.5+1.6*\a+.8*\b},11.5) circle (1mm);
+    }
+    \fill[omslagstip] ({16.5+1.6*\a},9.8) circle (1mm);
+  }
+  \fill[omslagstip] (16.5,8.1) circle (1.3mm);
+  \node[text=white,font=\small,inner sep=1pt,anchor=west] at (17,8.1) {$2\cdot 2\cdot 2=8$};
+}
