@@ -354,12 +354,29 @@ async function boeken(opnieuw = false) {
 // --- boekenkast --------------------------------------------------------------------------------
 async function toonKast() {
   const d = await boeken(true);
-  let pakket = opslag.lees("pakket") || "alle", zoek = "";
+  // De keuze: een graad ("alle", "2", "3"), een pakket (id of "alle") of een studierichting ("<graad>|<naam>").
+  // Ze blijft bewaard voor de volgende keer (per bezoeker, in de browser).
+  const kortNaam = (p) => p.naam.match(/\(([^)]+)\)/)?.[1] || p.naam;
+  const richtingen = new Map();  // "<graad>|<naam>" -> pakketten met die richting
+  for (const p of d.pakketten) for (const r of p.richtingenlijst || p.richtingen.split(", ")) {
+    const k = `${p.graad}|${r}`;
+    richtingen.set(k, [...(richtingen.get(k) || []), p]);
+  }
+  let keuze = { graad: "alle", pakket: "alle", richting: "" };
+  try { keuze = { ...keuze, ...JSON.parse(opslag.lees("kast") || "{}") }; } catch { /* oude of lege keuze */ }
+  if (!meerGraden()) keuze.graad = "alle";
+  if (keuze.richting && !richtingen.has(keuze.richting)) keuze.richting = "";
+  if (keuze.pakket !== "alle" && !d.pakketten.some((p) => p.id === keuze.pakket)) keuze.pakket = "alle";
+  let zoek = "";
+  const kies = (nieuw) => { keuze = { ...keuze, ...nieuw }; opslag.zet("kast", JSON.stringify(keuze)); tekenKeuzes(); teken(); };
+  const zichtbaar = (p) => keuze.richting ? richtingen.get(keuze.richting).includes(p)
+    : (keuze.graad === "alle" || String(p.graad) === keuze.graad) && (keuze.pakket === "alle" || p.id === keuze.pakket);
+
   const kasten = h("div");
   const teken = () => {
     const z = zoek.toLowerCase();
     let vorigeGraad = null;
-    kasten.replaceChildren(...d.pakketten.filter((p) => pakket === "alle" || p.id === pakket || pakket === `g${p.graad}`).flatMap((p) => {
+    kasten.replaceChildren(...d.pakketten.filter(zichtbaar).flatMap((p) => {
       const lijst = d.boeken.filter((b) => b.pakketid === p.id && (!z || `${b.titel} ${b.rubriek}`.toLowerCase().includes(z)));
       if (!lijst.length) return [];
       const alle = d.boeken.filter((b) => b.pakketid === p.id);
@@ -374,13 +391,38 @@ async function toonKast() {
     }));
     if (!kasten.querySelector(".pakket")) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
-  const pakketChip = (p) => [p.id, `${p.nr} · ${p.naam.match(/\(([^)]+)\)/)?.[1] || p.naam}`];
-  if (pakket !== "alle" && !d.pakketten.some((p) => p.id === pakket || `g${p.graad}` === pakket)) pakket = "alle";
-  const keuzes = h("div", { class: "chips" }, [["alle", meerGraden() ? "Alles" : "Alle pakketten"],
-    ...(meerGraden() ? graden().flatMap((g) => [[`g${g}`, `${g}de graad`], ...d.pakketten.filter((p) => p.graad === g).map(pakketChip)]) : d.pakketten.map(pakketChip))]
-    .map(([k, l]) => h("button", { type: "button", class: "chip zonder-stip", "aria-pressed": String(k === pakket), "data-k": k, onclick: () => {
-      pakket = k; opslag.zet("pakket", k); keuzes.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.k === k))); teken();
-    } }, l)));
+
+  // rij 1: graad, studierichting en zoeken; rij 2: de pakketten van de gekozen graad
+  const chip = (label, actief, opKlik) => h("button", { type: "button", class: "chip zonder-stip", "aria-pressed": String(actief), onclick: opKlik }, label);
+  const graadKeuze = h("div", { class: "chips" });
+  const richtingKeuze = h("select", { class: "richting-keuze", "aria-label": "Kies je studierichting", onchange: (e) => kies(e.target.value
+    ? { richting: e.target.value, graad: e.target.value.split("|")[0], pakket: "alle" } : { richting: "" }) });
+  const pakketRij = h("div", { class: "chips pakket-rij" });
+  const uitleg = h("p", { class: "keuze-uitleg" });
+  const tekenKeuzes = () => {
+    graadKeuze.replaceChildren(...(meerGraden()
+      ? [chip("Alle graden", keuze.graad === "alle" && !keuze.richting, () => kies({ graad: "alle", pakket: "alle", richting: "" })),
+         ...graden().map((g) => chip(`${g}de graad`, keuze.graad === String(g) && !keuze.richting, () => kies({ graad: String(g), pakket: "alle", richting: "" })))]
+      : []));
+    richtingKeuze.replaceChildren(h("option", { value: "" }, "Kies je studierichting"),
+      ...graden().map((g) => h("optgroup", { label: `${g}de graad` },
+        [...richtingen.keys()].filter((k) => k.startsWith(`${g}|`)).sort((a, b) => a.localeCompare(b, "nl"))
+          .map((k) => h("option", { value: k, selected: k === keuze.richting }, k.split("|")[1])))));
+    const pakketten = d.pakketten.filter((p) => !meerGraden() || String(p.graad) === keuze.graad);
+    pakketRij.hidden = keuze.richting !== "" || !pakketten.length || (meerGraden() && keuze.graad === "alle");
+    pakketRij.replaceChildren(chip("Alle pakketten", keuze.pakket === "alle", () => kies({ pakket: "alle", richting: "" })),
+      ...pakketten.map((p) => chip(`${p.nr} · ${kortNaam(p)}`, keuze.pakket === p.id && !keuze.richting, () => kies({ pakket: p.id, richting: "" }))));
+    const ps = keuze.richting ? richtingen.get(keuze.richting) : [];
+    const [g, naam] = keuze.richting.split("|");
+    uitleg.hidden = !ps.length;
+    const inhoud = ps.length === 1
+      ? [`${naam} volgt in de ${g}de graad pakket ${ps[0].nr} (${kortNaam(ps[0])}, ${ps[0].uren}). `]
+      : ps.length ? [`${naam} kan in de ${g}de graad twee pakketten volgen: `, ps.map((p, i) => [i ? " of " : "", h("b", {}, `pakket ${p.nr} (${kortNaam(p)}, ${p.uren})`)]),
+                     ". Je school kiest welk. "] : [];
+    if (ps.length) inhoud.push(h("button", { type: "button", class: "knop-tekst", onclick: () => kies({ richting: "" }) }, "Toon weer alles"));
+    uitleg.replaceChildren(...inhoud.flat(Infinity));  // replaceChildren vlakt geneste lijsten niet af
+  };
+
   const metPdf = d.boeken.filter((b) => b.edities.length).length;
   scherm("boeken",
     h("div", { class: "paginakop" }, S.ik
@@ -390,8 +432,12 @@ async function toonKast() {
         h("p", {}, `Vrije handboeken wiskunde voor de ${graadTekst()} doorstroom, opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Ben je leerkracht? `,
           h("a", { href: "#/aanmelden" }, "Meld je aan"), " voor de leerkrachtenversie, de oplossingen en om feedback te geven. ",
           h("a", { href: "#/over" }, "Waar we naartoe willen"), "."))),
-    h("div", { class: "balk" }, keuzes, h("input", { type: "search", placeholder: "Zoek een handboek", "aria-label": "Zoek een handboek", oninput: (e) => { zoek = e.target.value; teken(); } })),
+    h("div", { class: "keuze" },
+      h("div", { class: "balk" }, graadKeuze, richtingKeuze,
+        h("input", { type: "search", placeholder: "Zoek een handboek", "aria-label": "Zoek een handboek", oninput: (e) => { zoek = e.target.value; teken(); } })),
+      pakketRij, uitleg),
     kasten);
+  tekenKeuzes();
   teken();
 }
 

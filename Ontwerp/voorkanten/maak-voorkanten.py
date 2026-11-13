@@ -110,6 +110,11 @@ PAKKETTEN_2 = {
     "4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)": {
         "richtingen": "Economische wetenschappen, Grieks-Latijn, Latijn, Moderne talen, Sportwetenschappen, "
                       "Technologische wetenschappen en andere",
+        # de volledige lijst, voor de keuze per studierichting op de leerkrachtensite (de kaft heeft geen plaats)
+        "alle_richtingen": ["Architecturale en beeldende vorming", "Biotechnologische STEM-wetenschappen",
+                            "Biotechnologische wetenschappen", "Bouwwetenschappen", "Economische wetenschappen",
+                            "Freinetpedagogie", "Grieks-Latijn", "Latijn", "Moderne talen", "Sportwetenschappen",
+                            "Technologische wetenschappen", "Topsport-Natuurwetenschappen"],
         "uren": "4 uur per week",
     },
     "5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')": {

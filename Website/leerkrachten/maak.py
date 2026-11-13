@@ -64,7 +64,8 @@ def laad_lijst(graden=None):
             "jaar": jaar, "motief": motief, "status": status_van.get(sleutel, "gepland"),
         })
     pakketten = [{"id": m.pakket_id(p), "graad": m.graad(p), "nr": int(p.split()[0]), "naam": p.split(" ", 1)[1], "map": p,
-                  "richtingen": v["richtingen"], "uren": v["uren"].replace("\\&", "&")}
+                  "richtingen": v["richtingen"], "uren": v["uren"].replace("\\&", "&"),
+                  "richtingenlijst": v.get("alle_richtingen") or v["richtingen"].split(", ")}
                  for g in sorted(graden, reverse=True) for p, v in m.ALLE_PAKKETTEN.items() if m.graad(p) == g]
     voortgang = {k: {"percentage": v["percentage"], "uitleg": v["uitleg"]} for k, v in cfg["statussen"].items()}
     return boeken, pakketten, voortgang
