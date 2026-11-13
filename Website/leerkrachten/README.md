@@ -20,7 +20,18 @@ Iedereen ziet de boekenkast en kan van elk handboek de editie **Handboek** lezen
 - **Feedback**: filter op pakket, handboek, niveau, soort, ernst, status en tekst. Standaard staan ze in de volgorde om te verwerken: per handboek, per editie, op paginavolgorde. Geef elke opmerking een status (nieuw, in behandeling, verwerkt, niet weerhouden), een interne notitie, en antwoord de leerkracht.
 - **Export**: de selectie als **Markdown zonder namen** (per handboek, hoofdstuk en pagina, met citaat en afvinkvakjes, klaar om naast de cursus te leggen of aan Claude te geven) of als **CSV** voor Excel (met namen).
 - **Per handboek**: een tabel met de open feedback per handboek en per soort.
-- **Leerkrachten**: uitnodigingscodes maken (met een uitnodigingstekst om door te sturen), accounts blokkeren, rollen wijzigen, een herstelcode maken als iemand het wachtwoord vergat.
+- **Leerkrachten**: uitnodigingscodes maken (met een uitnodigingstekst om door te sturen), accounts blokkeren, rollen wijzigen, een herstelcode maken als iemand het wachtwoord vergat. En een **sleutel voor Claude** geven (zie hieronder).
+
+## Feedback verwerken met Claude Code
+
+Wie feedback verwerkt, heeft geen account nodig. Een beheerder maakt bij *Beheer → Leerkrachten* een geheime **sleutel voor Claude**, met een naam (voor wie), en deelt die langs een veilige weg. Daarmee kan je de feedback ophalen (zonder namen), een status of interne notitie zetten en de leerkracht antwoorden als team. Accounts beheren, namen zien of feedback verwijderen kan er niet mee. Je ziet de sleutel één keer: bewaar hem in `~/.axiomath-sleutel`. Op de server staat alleen zijn hash. Antwoorden komen bij de leerkracht als antwoord van het team, met de naam van de sleutel. Intrekken kan in dezelfde tab.
+
+```
+py -3.13 -P feedback.py haal Integralen        # naar feedback/open.md en open.json (in .gitignore)
+py -3.13 -P feedback.py zet 12 verwerkt --antwoord "Aangepast, dank je!" --notitie "PR #57"
+```
+
+In Claude Code doet de skill `feedback-verwerken` (`.claude/skills/`) dat voor je: `/feedback-verwerken Integralen`. Ze haalt de feedback op, zoekt elke opmerking in de bron, legt voor wat ze wil aanpassen en antwoorden, en zet pas daarna de status op de site.
 
 ## Werkwijze
 
@@ -61,9 +72,12 @@ Nee. De handboeken zijn vrij (CC BY-NC-SA). Wat privé moet blijven, staat niet 
 | `server/app/lib.php` | de hele server: accounts (wachtwoorden met `password_hash`, sessies in een HttpOnly-koekje, snelheidsrem), feedback, beheer, export. Het menu met soorten staat bovenaan (`SOORTEN`). |
 | `server/public_html/api/index.php` | de enige ingang: `api/index.php?r=<pad>`. Wijzigen gaat met POST en de kop `X-Axiomath` (tegen CSRF); PATCH en DELETE reizen mee als `X-Methode`. |
 | `server/public_html/index.html`, `app.css`, `app.js` | de app in één pagina, routering via de hash (`#/boek/<sleutel>`, `#/lees/<versie>?p=12&f=34`, `#/mijn`, `#/algemeen`, `#/beheer/<tab>`). PDF.js 3.11.174 komt van cdnjs. |
+| `server/public_html/plannen.js` | de pagina **Plannen** (`#/plannen`, ook zonder account): toekomstige plannen met van elk een werkend voorproefje (differentiërend oefenen, interactieve theorie, automatisch nakijken met Fout? Herhaal, toetsen in versie A en B, het handboek als webpagina, de open oefeningenbank). De opgaven zijn eigen voorbeelden met willekeurige getallen. Laadt vóór `app.js` en gebruikt er `h()` en `scherm()` uit. |
+| `server/public_html/voorbeeld/integralen/` | een kopie van de voorbeeldcursus in `Website/` (niet in git; `maak.py` kopieert ze, `uitrol.py` zet ze telkens helemaal online). Pas ze aan in `Website/`. |
 | `server/public_html/.htaccess` | altijd `https://axiomath.be` zonder www, geen mapoverzichten |
 | `maak.py` | bouwt `boeken.json`, `laatste.json`, `versies/`, `omslagen/`, en kopieert lettertype, logo en schilderij |
 | `uitrol.py` | zet alles online via de DirectAdmin-API |
+| `feedback.py` | de feedback ophalen en verwerken met een sleutel voor Claude (alleen lokaal, niet online) |
 | `test/test.py`, `test/browser.py` | de testreeks |
 
 De lijst met handboeken komt uit `Ontwerp/voorkanten/maak-voorkanten.py`, de status uit `voortgang.yaml`, het lettertype uit `../assets/fonts/`, het schilderij op de aanmeldpagina uit `Ontwerp/omslagen/` (Rafaël, *De school van Athene*, publiek domein).

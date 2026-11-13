@@ -26,7 +26,7 @@ date_default_timezone_set('Europe/Brussels');
 const SESSIEDUUR = 30 * 86400;
 const CODEDUUR = 30 * 86400;
 
-/* config.php: ['databank' => pad, 'startcode' => code voor de eerste beheerder]. De testreeks wijst met
+/* config.php: ['databank' => pad, 'startcode' => code voor de eerste beheerder, 'contact' => e-mailadres voor een aanvraag om uitnodiging]. De testreeks wijst met
    AXIOMATH_CONFIG naar een eigen configuratie met een lege databank. */
 function cfg() {
   static $c = null;
@@ -63,7 +63,18 @@ function db() {
       id INTEGER PRIMARY KEY, feedback INTEGER NOT NULL, gebruiker INTEGER NOT NULL, tekst TEXT NOT NULL, aangemaakt INTEGER);
     CREATE TABLE IF NOT EXISTS steun(feedback INTEGER NOT NULL, gebruiker INTEGER NOT NULL, PRIMARY KEY (feedback, gebruiker));
     CREATE TABLE IF NOT EXISTS pogingen(sleutel TEXT PRIMARY KEY, n INTEGER NOT NULL, tot INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS sleutels(id INTEGER PRIMARY KEY, hash TEXT UNIQUE NOT NULL, gebruiker INTEGER NOT NULL DEFAULT 0,
+      aangemaakt INTEGER, gebruikt INTEGER);
+    CREATE TABLE IF NOT EXISTS instellingen(k TEXT PRIMARY KEY, v TEXT);
+    CREATE TABLE IF NOT EXISTS bezoeken(dag TEXT NOT NULL, id TEXT NOT NULL, PRIMARY KEY (dag, id));
+    CREATE TABLE IF NOT EXISTS bezoekdagen(dag TEXT PRIMARY KEY, bezoekers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0);
   ");
+  // Kolommen die later kwamen. reacties.team: een antwoord van het team, ook met een sleutel. reacties.naam: wie
+  // antwoordde met een sleutel (zonder account, gebruiker 0). sleutels.naam: voor wie de sleutel is.
+  foreach (['reacties' => ['team' => 'INTEGER', 'naam' => 'TEXT'], 'sleutels' => ['naam' => 'TEXT']] as $tabel => $kolommen) {
+    $er = array_column($pdo->query("PRAGMA table_info($tabel)")->fetchAll(), 'name');
+    foreach ($kolommen as $k => $type) if (!in_array($k, $er, true)) $pdo->exec("ALTER TABLE $tabel ADD COLUMN $k $type");
+  }
   return $pdo;
 }
 
@@ -203,7 +214,11 @@ function nette_citaat($t) {
 
 // --- feedback ------------------------------------------------------------------------------------
 
+/* Het team: de beheerders, en wie met een sleutel werkt (zie met_sleutel). */
+function is_team($ik) { return ($ik['rol'] ?? '') === 'beheerder' || !empty($ik['sleutel_id']); }
+
 function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
+  if (!empty($ik['sleutel_id'])) $met_namen = false;  // een sleutel ziet nooit namen
   $rijen = q("SELECT f.*, g.naam AS auteur,
                 (SELECT COUNT(*) FROM steun s WHERE s.feedback = f.id) AS steun,
                 (SELECT COUNT(*) FROM steun s WHERE s.feedback = f.id AND s.gebruiker = ?) AS gesteund
@@ -212,10 +227,10 @@ function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
   $reacties = [];
   if ($rijen) {
     $ids = array_column($rijen, 'id');
-    $s = q('SELECT r.*, g.naam, g.rol FROM reacties r JOIN gebruikers g ON g.id = r.gebruiker
+    $s = q('SELECT r.*, g.naam AS gnaam, g.rol FROM reacties r LEFT JOIN gebruikers g ON g.id = r.gebruiker
             WHERE r.feedback IN (' . implode(',', array_fill(0, count($ids), '?')) . ') ORDER BY r.aangemaakt, r.id', $ids);
-    foreach ($s as $r) $reacties[$r['feedback']][] = ['id' => (int)$r['id'], 'tekst' => $r['tekst'], 'naam' => $r['naam'],
-                                                     'team' => $r['rol'] === 'beheerder', 'op' => iso($r['aangemaakt'])];
+    foreach ($s as $r) $reacties[$r['feedback']][] = ['id' => (int)$r['id'], 'tekst' => $r['tekst'], 'naam' => $met_namen ? ($r['gnaam'] ?? $r['naam'] ?? 'Axiomath') : null,
+      'team' => $r['team'] === null ? $r['rol'] === 'beheerder' : (bool)$r['team'], 'op' => iso($r['aangemaakt'])];
   }
   $uit = [];
   foreach ($rijen as $r) {
@@ -228,7 +243,7 @@ function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
       'auteur' => $met_namen ? $r['auteur'] : null, 'aangemaakt' => iso($r['aangemaakt']), 'bijgewerkt' => iso($r['bijgewerkt']),
       'reacties' => $reacties[$r['id']] ?? [],
     ];
-    if (($ik['rol'] ?? '') === 'beheerder') $d['notitie'] = $r['notitie'];
+    if (is_team($ik)) $d['notitie'] = $r['notitie'];
     $uit[] = $d;
   }
   return $uit;
@@ -246,6 +261,12 @@ function filter_sql($f) {
   if (!empty($f['pakket'])) { $waar[] = 'f.sleutel LIKE ?'; $p[] = $f['pakket'] . '/%'; }
   if (!empty($f['zoek'])) { $waar[] = '(f.tekst LIKE ? OR f.citaat LIKE ?)'; $p[] = "%{$f['zoek']}%"; $p[] = "%{$f['zoek']}%"; }
   return [implode(' AND ', $waar), $p];
+}
+
+/* Gemaakt op een PDF die intussen opnieuw gebouwd is: het paginanummer kan verschoven zijn. */
+function oudere_versie($r) {
+  $jongste = laatste()[$r['sleutel'] ?? ''][$r['editie'] ?? '']['hash'] ?? null;
+  return $r['versie'] && $jongste && $jongste !== $r['versie'];
 }
 
 function titel_van($sleutel) {
@@ -277,10 +298,8 @@ function als_markdown($rijen) {
            : (EDITIES[$r['editie']] ?? $r['editie']) . ' · ' . ($r['hoofdstuk'] ?: 'Voor het eerste hoofdstuk'));
       if ($kop !== $huidige) { $l[] = "### $kop"; $l[] = ''; $huidige = $kop; }
       $plaats = $r['pagina'] ? 'p. ' . $r['pagina'] . ($r['sectie'] ? ', ' . $r['sectie'] : '') : '';
-      $jongste = laatste()[$sleutel][$r['editie'] ?? '']['hash'] ?? null;
-      $oud = $r['versie'] && $jongste && $jongste !== $r['versie'];
       $meta = array_filter([$plaats, SOORTEN_ALGEMEEN[$r['soort']] ?? $r['soort'], ERNST[$r['ernst']] ?? $r['ernst'],
-                            STATUSSEN[$r['status']], $r['steun'] ? "{$r['steun']} steun" : '', $oud ? 'oudere versie' : '']);
+                            STATUSSEN[$r['status']], $r['steun'] ? "{$r['steun']} steun" : '', oudere_versie($r) ? 'oudere versie' : '']);
       $l[] = "- [ ] **#{$r['id']}** " . implode(' · ', $meta);
       if ($r['citaat']) $l[] = '  > ' . $r['citaat'];
       foreach (preg_split('/\R/u', trim($r['tekst'])) as $regel) $l[] = "  $regel";
@@ -323,10 +342,13 @@ function route() {
 
   // zonder aanmelden
   if ("$m $pad" === 'GET menu') antwoord(['soorten' => SOORTEN, 'soorten_algemeen' => SOORTEN_ALGEMEEN, 'ernst' => ERNST,
-                                           'statussen' => STATUSSEN, 'edities' => EDITIES]);
+                                           'statussen' => STATUSSEN, 'edities' => EDITIES, 'contact' => cfg()['contact'] ?? null]);
+  if ("$m $pad" === 'POST bezoek') bezoek();
   if ("$m $pad" === 'POST aanmelden') aanmelden();
   if ("$m $pad" === 'POST registreer') registreer();
   if ("$m $pad" === 'POST herstel') herstel();
+  $sl = $_SERVER['HTTP_X_AXIOMATH_SLEUTEL'] ?? '';
+  if (is_string($sl) && $sl !== '') met_sleutel($sl, $m, $pad, $delen);
 
   $ik = ik();
   if ("$m $pad" === 'GET ik') antwoord($ik ? ['id' => (int)$ik['id'], 'naam' => $ik['naam'], 'email' => $ik['email'], 'rol' => $ik['rol']] : null);
@@ -363,6 +385,39 @@ function route() {
     beheer($ik, $m, array_slice($delen, 1));
   }
   fout('Onbekende vraag.', 404);
+}
+
+/* Een sleutel voor Claude (feedback.py in Website/leerkrachten): de feedback ophalen zonder namen, een status
+   zetten en antwoorden als team. Een beheerder maakt ze met een naam (voor wie), zonder account: wie ze heeft,
+   werkt als 'gebruiker 0' met die naam. Meer kan een sleutel niet: geen accounts, geen namen, niets verwijderen.
+   De sleutel komt in de kop X-Axiomath-Sleutel; op de server staat alleen zijn SHA-256. Een sleutel uit de eerste
+   versie hangt nog aan een account: is dat geblokkeerd, dan werkt hij niet. */
+function met_sleutel($sl, $m, $pad, $delen) {
+  $rem = 'sleutel:' . ($_SERVER['REMOTE_ADDR'] ?? '?');
+  rem_check($rem);
+  $s = rij('SELECT s.*, g.naam AS gnaam, g.actief FROM sleutels s LEFT JOIN gebruikers g ON g.id = s.gebruiker WHERE s.hash = ?',
+           [hash('sha256', $sl)]);
+  if (!$s || ($s['gebruiker'] && !$s['actief'])) { rem_mislukt($rem); fout('Deze sleutel is ongeldig of ingetrokken. Vraag een nieuwe aan het team.', 401); }
+  if ((int)$s['gebruikt'] < time() - 300) q('UPDATE sleutels SET gebruikt = ? WHERE id = ?', [time(), $s['id']]);
+  $ik = ['id' => 0, 'naam' => $s['naam'] ?: ($s['gnaam'] ?? 'Axiomath'), 'rol' => 'sleutel', 'sleutel_id' => (int)$s['id']];
+  if ("$m $pad" === 'GET ik') antwoord(['naam' => $ik['naam'], 'sleutel' => true]);
+  if ("$m $pad" === 'GET feedback') {
+    [$waar, $p] = filter_sql($_GET);
+    $rijen = feedback_rijen($ik, $waar, $p);
+    if (($_GET['formaat'] ?? '') === 'md') antwoord(als_markdown($rijen), 200, 'text/markdown; charset=utf-8');
+    $site = (is_https() ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'axiomath.be');
+    antwoord(array_map(function ($r) use ($site) {
+      $b = $r['sleutel'] ? boek($r['sleutel']) : null;
+      unset($r['gesteund'], $r['van_mij'], $r['auteur']);
+      return $r + ['handboek' => $b['titel'] ?? null, 'graad' => $b['graad'] ?? null, 'pakket' => $b['pakketnr'] ?? null,
+                   'map' => $b['pad'] ?? null, 'oudere_versie' => (bool)oudere_versie($r),
+                   'link' => $r['versie'] ? "$site/#/lees/{$r['versie']}?p={$r['pagina']}&f={$r['id']}" : null];
+    }, $rijen));
+  }
+  $id = ($delen[0] === 'feedback' && ctype_digit($delen[1] ?? '')) ? (int)$delen[1] : 0;
+  if ($id && $m === 'PATCH' && count($delen) === 2) feedback_een($ik, $m, $id, null);
+  if ($id && $m === 'POST' && ($delen[2] ?? '') === 'reactie' && count($delen) === 3) feedback_een($ik, $m, $id, 'reactie');
+  fout('Dit kan niet met een sleutel.', 403);
 }
 
 function aanmelden() {
@@ -510,11 +565,12 @@ function feedback_nieuw($ik) {
 
 function feedback_een($ik, $m, $id, $actie) {
   $r = rij('SELECT * FROM feedback WHERE id = ?', [$id]) ?? fout('Deze feedback bestaat niet meer.', 404);
-  $beheerder = $ik['rol'] === 'beheerder';
+  $beheerder = is_team($ik);
   $eigen = (int)$r['gebruiker'] === (int)$ik['id'];
   if ($actie === 'reactie' && $m === 'POST') {
     if (!$eigen && !$beheerder) fout('Je kan alleen reageren op je eigen feedback.', 403);
-    q('INSERT INTO reacties(feedback, gebruiker, tekst, aangemaakt) VALUES (?,?,?,?)', [$id, $ik['id'], tekstveld(body(), 'tekst', 3000), time()]);
+    q('INSERT INTO reacties(feedback, gebruiker, tekst, aangemaakt, team, naam) VALUES (?,?,?,?,?,?)',
+      [$id, $ik['id'], tekstveld(body(), 'tekst', 3000), time(), $beheerder ? 1 : 0, empty($ik['sleutel_id']) ? null : $ik['naam']]);
     if ($beheerder && $r['status'] === 'nieuw') q("UPDATE feedback SET status = 'behandeling' WHERE id = ?", [$id]);
     q('UPDATE feedback SET bijgewerkt = ? WHERE id = ?', [time(), $id]);
   } elseif ($actie === 'steun' && $m === 'POST') {
@@ -547,8 +603,41 @@ function feedback_een($ik, $m, $id, $actie) {
   antwoord(een_feedback($ik, $id));
 }
 
+/* Bezoekersteller, zonder koekjes en zonder IP-adressen te bewaren. Per dag wordt een hash van IP-adres,
+   browser en een geheim zout bijgehouden om unieke bezoekers te tellen; die hashes worden de volgende dag gewist.
+   Blijvend bewaard: alleen het aantal bezoekers en weergaven per dag. Beheerders en robots tellen niet mee. */
+function bezoek() {
+  $ua = (string)($_SERVER['HTTP_USER_AGENT'] ?? '');
+  $ik = ik();
+  if (($ik && $ik['rol'] === 'beheerder') || $ua === '' || preg_match('/bot|crawl|spider|slurp|preview|curl|wget|python|headless/i', $ua)) antwoord(['ok' => true]);
+  $zout = rij("SELECT v FROM instellingen WHERE k = 'zout'")['v'] ?? null;
+  if (!$zout) {
+    q("INSERT OR IGNORE INTO instellingen(k, v) VALUES ('zout', ?)", [bin2hex(random_bytes(16))]);
+    $zout = rij("SELECT v FROM instellingen WHERE k = 'zout'")['v'];
+  }
+  $dag = date('Y-m-d');
+  $id = hash('sha256', "$dag|" . ($_SERVER['REMOTE_ADDR'] ?? '?') . "|$ua|$zout");
+  q('DELETE FROM bezoeken WHERE dag < ?', [$dag]);
+  $nieuw = q('INSERT OR IGNORE INTO bezoeken(dag, id) VALUES (?,?)', [$dag, $id])->rowCount();
+  q('INSERT OR IGNORE INTO bezoekdagen(dag) VALUES (?)', [$dag]);
+  q('UPDATE bezoekdagen SET bezoekers = bezoekers + ?, weergaven = weergaven + 1 WHERE dag = ?', [$nieuw, $dag]);
+  antwoord(['ok' => true]);
+}
+
 function beheer($ik, $m, $delen) {
   $pad = implode('/', $delen);
+  if ("$m $pad" === 'GET bezoekers') {
+    $n = min(max((int)($_GET['dagen'] ?? 30), 7), 365);
+    $per = [];
+    foreach (q('SELECT * FROM bezoekdagen WHERE dag >= ?', [date('Y-m-d', strtotime('-' . ($n - 1) . ' days'))]) as $r) $per[$r['dag']] = [(int)$r['bezoekers'], (int)$r['weergaven']];
+    $dagen = [];
+    for ($i = $n - 1; $i >= 0; $i--) {
+      $d = date('Y-m-d', strtotime("-$i days"));
+      $dagen[] = ['dag' => $d, 'bezoekers' => $per[$d][0] ?? 0, 'weergaven' => $per[$d][1] ?? 0];
+    }
+    $tot = rij('SELECT COALESCE(SUM(bezoekers),0) AS b, COALESCE(SUM(weergaven),0) AS w, MIN(dag) AS sinds FROM bezoekdagen');
+    antwoord(['dagen' => $dagen, 'totaal' => ['bezoekers' => (int)$tot['b'], 'weergaven' => (int)$tot['w'], 'sinds' => $tot['sinds']]]);
+  }
   if ("$m $pad" === 'GET feedback') {
     [$waar, $p] = filter_sql($_GET);
     antwoord(feedback_rijen($ik, $waar, $p));
@@ -576,7 +665,23 @@ function beheer($ik, $m, $delen) {
       $c[] = ['code' => $r['code'], 'soort' => $r['soort'], 'rol' => $r['rol'], 'notitie' => $r['notitie'],
               'aangemaakt' => iso($r['aangemaakt']), 'vervalt' => iso($r['vervalt'])];
     }
-    antwoord(['gebruikers' => $g, 'codes' => $c]);
+    $s = [];
+    foreach (q('SELECT s.*, g.naam AS gnaam FROM sleutels s LEFT JOIN gebruikers g ON g.id = s.gebruiker ORDER BY s.aangemaakt DESC') as $r) {
+      $s[] = ['id' => (int)$r['id'], 'naam' => $r['naam'] ?: ($r['gnaam'] ?? '?'),
+              'aangemaakt' => iso($r['aangemaakt']), 'gebruikt' => iso($r['gebruikt'])];
+    }
+    antwoord(['gebruikers' => $g, 'codes' => $c, 'sleutels' => $s]);
+  }
+  // Sleutels voor Claude (zie met_sleutel). De sleutel zelf zie je één keer; daarna staat alleen zijn hash hier.
+  if ("$m $pad" === 'POST sleutel') {
+    $naam = tekstveld(body(), 'naam', 100);
+    $sl = 'axm-' . bin2hex(random_bytes(24));
+    q('INSERT INTO sleutels(hash, naam, gebruiker, aangemaakt) VALUES (?,?,0,?)', [hash('sha256', $sl), $naam, time()]);
+    antwoord(['sleutel' => $sl]);
+  }
+  if ($m === 'DELETE' && ($delen[0] ?? '') === 'sleutel' && ctype_digit($delen[1] ?? '')) {
+    q('DELETE FROM sleutels WHERE id = ?', [(int)$delen[1]]);
+    antwoord(['ok' => true]);
   }
   if ("$m $pad" === 'POST uitnodiging') {
     $d = body();

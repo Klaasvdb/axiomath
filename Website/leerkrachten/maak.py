@@ -9,7 +9,9 @@ Schrijft:
   - server/app/boeken.json en server/app/laatste.json;
   - server/app/versies/<h>.pdf en <h>.json: elke nieuwe PDF als vaste versie (h = begin van de SHA-256);
   - server/public_html/omslagen/<h>.webp: de voorkant (pagina 1 van het handboek);
-  - server/public_html/fonts/, logo.svg, icoon.svg, icoon-180.png en kunst.jpg (het schilderij op de aanmeldpagina).
+  - server/public_html/fonts/, logo.svg, icoon.svg, icoon-180.png en kunst.jpg (het schilderij op de aanmeldpagina);
+  - server/public_html/voorbeeld/integralen/: een kopie van de voorbeeldcursus in Website/ (index.html en assets/),
+    het voorproefje van de interactieve theorie op #/plannen.
 Bestaande versies blijven staan: een opmerking hoort bij de versie waarop ze gemaakt is.
 """
 import hashlib
@@ -139,6 +141,20 @@ def vaste_bestanden():
             im.convert("RGB").save(kunst, quality=82, optimize=True, progressive=True)
 
 
+def voorbeeldcursus():
+    """Kopieert de voorbeeldcursus (Website/index.html en assets/) naar /voorbeeld/integralen/. Pas ze aan in Website/."""
+    bron, doel = HIER.parent / "assets", PUBLIEK / "voorbeeld" / "integralen"
+    # Erover kopiëren in plaats van eerst alles te wissen: OneDrive weigert soms een map te verwijderen (WinError 5).
+    shutil.copytree(bron, doel / "assets", dirs_exist_ok=True)
+    shutil.copyfile(HIER.parent / "index.html", doel / "index.html")
+    for f in (doel / "assets").rglob("*"):  # wat niet meer in Website/assets staat, mag weg (lukt het niet, geen probleem)
+        if f.is_file() and not (bron / f.relative_to(doel / "assets")).exists():
+            try:
+                f.unlink()
+            except OSError as e:
+                print(f"  kon {f.name} niet wissen: {e}")
+
+
 def main(argv=()):
     """--graden 2,3: bouw lokaal met deze graden in plaats van GRADEN_OP_SITE (om de 2de graad te testen)."""
     graden = None
@@ -165,6 +181,7 @@ def main(argv=()):
             omslag((ed.get("handboek") or next(iter(ed.values())))["hash"])
     schrijf_json(APP / "laatste.json", laatste)
     vaste_bestanden()
+    voorbeeldcursus()
     n = sum(len(v) for v in laatste.values())
     print(f"{len(laatste)} van de {len(boeken)} handboeken hebben een PDF ({n} edities). Klaar: server/ (uitrollen met uitrol.py).")
 

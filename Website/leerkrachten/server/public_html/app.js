@@ -4,6 +4,7 @@
      #/algemeen         algemene feedback   #/beheer/<tab>       voor het team
      #/aanmelden        aanmelden, uitnodiging, herstelcode     #/over   de visie, voor iedereen
      #/voortgang        de voortgang per pakket en per handboek, voor iedereen
+     #/plannen          toekomstige plannen, met een voorproefje van elk (plannen.js), voor iedereen
    Zonder account (S.ik = null) zie je de boekenkast en lees je de editie 'handboek', zonder feedback.
    Alle tekst komt via textContent op de pagina (functie h), nooit via innerHTML, behalve de vaste iconen. */
 "use strict";
@@ -11,6 +12,7 @@
 const S = { ik: null, menu: null, boeken: null, opruimen: [] };
 const $app = document.getElementById("app");
 const GITHUB = "https://github.com/Klaasvdb/axiomath";
+const KOFFIE = "https://ko-fi.com/axiomath"; // link naar de 'Koop mij een koffie'-pagina; leeg = geen knop op Over
 
 // --- hulpjes ----------------------------------------------------------------------------------
 function h(tag, attrs, ...kinderen) {
@@ -265,7 +267,10 @@ function toonWelkom() {
       h("label", { class: "veld" }, "Je naam", h("span", { class: "hulp" }, "Collega's zien je naam bij je feedback."), naam),
       h("label", { class: "veld" }, "E-mailadres", email),
       h("label", { class: "veld" }, "Kies een wachtwoord", h("span", { class: "hulp" }, "Minstens 10 tekens."), ww), fout,
-      h("div", {}, h("button", { class: "knop" }, "Account maken")));
+      h("div", {}, h("button", { class: "knop" }, "Account maken")),
+      // het adres staat in config.php op de server ('contact'), niet in de repo
+      S.menu?.contact && h("p", { class: "zacht klein", style: { marginTop: "18px" } }, "Nog geen uitnodigingscode? ",
+        h("a", { class: "aanvraag", href: `mailto:${S.menu.contact}?subject=` + encodeURIComponent("Aanvraag uitnodiging Axiomath") + "&body=" + encodeURIComponent("Dag,\n\nIk ben leerkracht wiskunde en wil graag de handboeken van Axiomath lezen en feedback geven. Kan ik een uitnodiging krijgen?\n\nNaam:\nSchool of regio:\nE-mailadres:\n\nBedankt!") }, "Verstuur aanvraag om uitnodiging te krijgen")));
     },
     herstel: () => {
       const code = h("input", { type: "text", autocomplete: "off", required: true });
@@ -310,13 +315,13 @@ function kop(actief) {
   if (!S.ik) {
     return h("header", { class: "kop" },
       h("a", { class: "merk", href: "#/" }, h("img", { class: "logo", src: "/logo.svg", alt: "Axiomath" })),
-      h("nav", { "aria-label": "Hoofdmenu" }, [["#/", "Handboeken", "boeken"], ["#/voortgang", "Voortgang", "voortgang"], ["#/over", "Over Axiomath", "over"]].map(([href, l, k]) =>
+      h("nav", { "aria-label": "Hoofdmenu" }, [["#/", "Handboeken", "boeken"], ["#/voortgang", "Voortgang", "voortgang"], ["#/plannen", "Plannen", "plannen"], ["#/over", "Over Axiomath", "over"]].map(([href, l, k]) =>
         h("a", { href, "aria-current": k === actief ? "page" : null }, l))),
       h("div", { class: "rechts" }, thema, h("a", { class: "knop klein", href: "#/aanmelden" }, "Aanmelden")));
   }
   const links = [["#/", "Handboeken", "boeken"], ["#/voortgang", "Voortgang", "voortgang"], ["#/mijn", "Mijn feedback", "mijn"], ["#/algemeen", "Algemene feedback", "algemeen"]];
   if (S.ik.rol === "beheerder") links.push(["#/beheer", "Beheer", "beheer"]);
-  links.push(["#/over", "Over", "over"]);
+  links.push(["#/plannen", "Plannen", "plannen"], ["#/over", "Over", "over"]);
   const menu = h("div", { class: "menu", hidden: true },
     h("div", { class: "kopje" }, h("b", {}, S.ik.naam), h("div", { class: "zacht klein" }, S.ik.email)),
     h("div", { class: "menu-nav", style: { display: "none" } }, links.map(([href, l]) => h("a", { href }, l))),
@@ -900,6 +905,7 @@ function toonOver() {
         stap("Een oefeningenbank.", "Elke oefening heeft een vast nummer, een niveau, een antwoord en een uitwerking. Daarop steunen de PDF's, de website en later de testen."),
         stap("Een online leerplatform", "voor thuis, met automatisch nakijken."),
         stap("Testen en gedifferentieerde oefenreeksen", "uit dezelfde bank.")),
+      h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/plannen" }, "Bekijk de plannen, met een voorproefje")),
       h("h2", {}, "Vanuit de leerplandoelen"),
       h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 3de graad doorstroom. Er is een reeks handboeken per leerplanpakket: Basis, B+S, B+S' en B+S''. Zo vindt elke richting de leerstof van haar eigen pakket. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
         extern(`${GITHUB}/blob/main/Handboeken/README.md`, "op GitHub"), "."),
@@ -909,6 +915,9 @@ function toonOver() {
       h("div", { class: "knoppen" },
         h("a", { class: "knop", href: GITHUB, target: "_blank", rel: "noopener" }, "Axiomath op GitHub"),
         h("a", { class: "knop licht", href: `${GITHUB}/blob/main/CONTRIBUTING.md`, target: "_blank", rel: "noopener" }, "Meewerken")),
+      KOFFIE ? [
+        h("p", {}, "Axiomath is gratis en blijft dat, voor iedereen. De handboeken ontstaan in vrije uren, en de website en het domein kosten een klein bedrag per jaar. Heb je iets aan Axiomath en wil je dat laten weten? Met een koffie help je de site in de lucht te houden en de handboeken verder te schrijven. Helemaal vrijblijvend: nalezen en feedback geven helpt evenveel."),
+        h("div", { class: "knoppen" }, h("a", { class: "knop licht", href: KOFFIE, target: "_blank", rel: "noopener" }, "☕ Koop mij een koffie"))] : null,
       h("h2", {}, "Lees mee"),
       h("p", {}, "Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze na (zie ", h("a", { href: "#/voortgang" }, "de voortgang"), "). Lees een handboek en zeg wat beter kan: op een plek in het boek, over een heel handboek of over het idee zelf. ",
         S.ik ? [h("a", { href: "#/algemeen" }, "Geef algemene feedback"), "."] : [h("a", { href: "#/aanmelden" }, "Meld je aan"), " als leerkracht, of bekijk ", h("a", { href: "#/" }, "de handboeken"), "."])));
@@ -940,12 +949,12 @@ async function toonBeheer(tab) {
   const d = await boeken(true);
   tab = tab || "feedback";
   const tabs = h("div", { class: "tabs", role: "tablist", style: { maxWidth: "none" } },
-    [["feedback", "Feedback"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["pdf", "PDF's"]].map(([k, l]) =>
+    [["feedback", "Feedback"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
       h("button", { type: "button", role: "tab", "aria-selected": String(k === tab), onclick: () => { location.hash = `#/beheer/${k}`; } }, l)));
   const plek = h("div", {}, h("p", { class: "laden" }, "Laden …"));
   scherm("beheer", h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, "Beheer"),
     h("p", {}, "Alle feedback op één plek. Exporteer naar Markdown om ze per handboek, hoofdstuk en pagina te verwerken in de bron."))), tabs, plek);
-  const inhoud = await ({ feedback: beheerFeedback, overzicht: beheerOverzicht, mensen: beheerMensen, pdf: beheerPdf }[tab] || beheerFeedback)(d);
+  const inhoud = await ({ feedback: beheerFeedback, overzicht: beheerOverzicht, mensen: beheerMensen, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
   plek.replaceChildren(...[inhoud].flat());
 }
 
@@ -1028,6 +1037,46 @@ async function beheerOverzicht(d) {
       gebruikt.map((s) => h("th", { class: "getal" }, S.menu.soorten_algemeen[s])), h("th", { class: "getal" }, "Afgehandeld"))), h("tbody", {}, rijen)))];
 }
 
+async function beheerBezoekers() {
+  const NS = "http://www.w3.org/2000/svg";
+  const sv = (tag, a = {}, ...kids) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(a)) e.setAttribute(k, v); e.append(...kids); return e; };
+  const bereik = h("select", { style: { width: "auto" } }, [[30, "Laatste 30 dagen"], [90, "Laatste 90 dagen"], [365, "Laatste jaar"]].map(([v, l]) => h("option", { value: v }, l)));
+  const plek = h("div", {});
+  const dag = (s) => new Date(s + "T12:00:00").toLocaleDateString("nl-BE", { day: "numeric", month: "short" });
+  async function laad() {
+    const d = await api("GET", `beheer/bezoekers?dagen=${bereik.value}`);
+    const som = (k) => d.dagen.reduce((a, x) => a + x[k], 0);
+    const vandaag = d.dagen[d.dagen.length - 1];
+    const W = 720, H = 220, L = 34, B = 24, T = 10, n = d.dagen.length;
+    const top = Math.ceil(Math.max(4, ...d.dagen.map((x) => x.weergaven)) / 4) * 4, bw = (W - L) / n;
+    const y = (v) => T + (H - T - B) * (1 - v / top);
+    const g = sv("svg", { viewBox: `0 0 ${W} ${H}`, class: "bezoek-grafiek", role: "img", "aria-label": `Bezoekers per dag, laatste ${n} dagen` });
+    for (let i = 0; i <= 4; i++) {
+      const v = top * i / 4;
+      g.append(sv("line", { x1: L, x2: W, y1: y(v), y2: y(v), class: "raster" }), sv("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end", class: "as" }, Math.round(v)));
+    }
+    d.dagen.forEach((x, i) => {
+      const bx = L + i * bw + bw * .12, w = bw * .76;
+      g.append(sv("g", {}, sv("title", {}, `${dag(x.dag)}: ${x.bezoekers} bezoekers, ${x.weergaven} weergaven`),
+        sv("rect", { x: bx, y: y(x.weergaven), width: w, height: Math.max(0, y(0) - y(x.weergaven)), class: "staaf-w" }),
+        sv("rect", { x: bx, y: y(x.bezoekers), width: w, height: Math.max(0, y(0) - y(x.bezoekers)), class: "staaf-b" }),
+        sv("rect", { x: L + i * bw, y: T, width: bw, height: H - T - B, fill: "transparent" })));
+    });
+    const stap = Math.ceil(n / 6);
+    d.dagen.forEach((x, i) => { if ((n - 1 - i) % stap === 0) g.append(sv("text", { x: L + i * bw + bw / 2, y: H - 6, "text-anchor": "middle", class: "as" }, dag(x.dag))); });
+    const tegel = (t, w) => h("div", { class: "tegel" }, h("b", {}, w), h("span", { class: "zacht klein" }, t));
+    plek.replaceChildren(
+      h("div", { class: "tegels" }, tegel("bezoekers vandaag", vandaag.bezoekers), tegel(`bezoekers, ${n} dagen`, som("bezoekers")),
+        tegel(`weergaven, ${n} dagen`, som("weergaven")), tegel("bezoekers sinds de start", d.totaal.bezoekers)),
+      h("div", { class: "legende klein" }, h("span", { class: "sw sw-b" }), "bezoekers", h("span", { class: "sw sw-w" }), "weergaven (pagina's geladen)"),
+      h("div", { class: "grafiek-houder" }, g),
+      h("p", { class: "zacht klein" }, `Een bezoeker is een uniek toestel per dag. Er worden geen koekjes gebruikt en geen IP-adressen bewaard, enkel de aantallen per dag${d.totaal.sinds ? `, sinds ${dag(d.totaal.sinds)}` : ""}. Beheerders en robots tellen niet mee.`));
+  }
+  bereik.addEventListener("change", () => laad().catch((e) => melding(e.message, true)));
+  await laad();
+  return [h("div", { class: "balk" }, bereik), plek];
+}
+
 async function beheerMensen() {
   const plek = h("div");
   const kopieer = async (tekst) => { try { await navigator.clipboard.writeText(tekst); melding("Gekopieerd."); } catch { prompt("Kopieer:", tekst); } };
@@ -1037,6 +1086,7 @@ async function beheerMensen() {
     const aantal = h("input", { type: "number", min: 1, max: 50, value: 1, style: { width: "5em" } });
     const rol = h("select", { style: { width: "auto" } }, h("option", { value: "leerkracht" }, "leerkracht"), h("option", { value: "beheerder" }, "beheerder (team)"));
     const notitie = h("input", { type: "text", placeholder: "Notitie, bv. voor wie (alleen voor jou)", style: { maxWidth: "320px" } });
+    const sleutelNaam = h("input", { type: "text", placeholder: "Voor wie, bv. Ingmar", maxlength: 100, style: { maxWidth: "320px" } });
     plek.replaceChildren(
       h("section", { class: "kaart", style: { marginBottom: "24px" } }, h("h2", { class: "sectie-kop" }, "Leerkrachten uitnodigen"),
         h("p", { class: "zacht klein", style: { marginBottom: "12px" } }, "Een code werkt één keer en 30 dagen lang. Stuur de code of de uitnodigingstekst zelf door."),
@@ -1067,7 +1117,26 @@ async function beheerMensen() {
                 [h("button", { class: "knop", type: "button", onclick: () => kopieer(r.code) }, "Kopieer"), h("button", { class: "knop licht", value: "x" }, "Sluit")]);
               teken();
             }) }, "Herstelcode"),
-            h("button", { class: "knop-tekst klein", type: "button", onclick: poging(async () => { await api("PATCH", `beheer/gebruiker/${g.id}`, { actief: !g.actief }); teken(); }) }, g.actief ? "Blokkeer" : "Activeer")])))))));
+            h("button", { class: "knop-tekst klein", type: "button", onclick: poging(async () => { await api("PATCH", `beheer/gebruiker/${g.id}`, { actief: !g.actief }); teken(); }) }, g.actief ? "Blokkeer" : "Activeer")])))))),
+      h("h2", { class: "sectie-kop", style: { marginTop: "28px" } }, "Sleutels voor Claude"),
+      h("p", { class: "zacht klein", style: { marginBottom: "12px" } }, "Wie feedback verwerkt met Claude Code, heeft geen account nodig: geef die een geheime sleutel. Daarmee haalt Claude de feedback op (zonder namen), zet het een status en antwoordt het de leerkracht als team, onder de naam van de sleutel."),
+      h("div", { class: "balk", style: { marginBottom: "14px" } }, sleutelNaam,
+        h("button", { class: "knop", type: "button", onclick: poging(async () => {
+          const naam = sleutelNaam.value.trim();
+          if (!naam) { sleutelNaam.focus(); return melding("Geef de sleutel een naam: voor wie is hij?", true); }
+          const r = await api("POST", "beheer/sleutel", { naam });
+          dialoog(`Sleutel voor ${naam}`, [
+            h("p", {}, "Je ziet de sleutel maar één keer. Stuur hem langs een veilige weg door (niet in een publiek kanaal of in de repo)."),
+            h("p", {}, "Bewaar hem in ", h("code", {}, "~/.axiomath-sleutel"), " en gebruik ", h("code", {}, "Website/leerkrachten/feedback.py"), " of in Claude Code ", h("code", {}, "/feedback-verwerken"), "."),
+            h("p", {}, h("code", { style: { fontSize: "1rem", wordBreak: "break-all" } }, r.sleutel))],
+            [h("button", { class: "knop", type: "button", onclick: () => kopieer(r.sleutel) }, "Kopieer"), h("button", { class: "knop licht", value: "x" }, "Sluit")]);
+          teken();
+        }) }, "Maak sleutel")),
+      d.sleutels.length ? h("div", { class: "codes" }, d.sleutels.map((s) => h("div", { class: "code" }, h("b", {}, s.naam),
+        h("span", { class: "zacht klein" }, `sinds ${datum(s.aangemaakt)}`), h("span", { class: "ruimte" }),
+        h("span", { class: "zacht klein" }, s.gebruikt ? `gebruikt ${wanneer(s.gebruikt)}` : "nog niet gebruikt"),
+        h("button", { class: "knop-tekst klein", type: "button", onclick: poging(async () => { await api("DELETE", `beheer/sleutel/${s.id}`); teken(); }) }, "Intrekken"))))
+        : h("p", { class: "zacht klein" }, "Nog geen sleutels."));
   }
   await teken();
   return plek;
@@ -1098,6 +1167,7 @@ async function route() {
     else if (delen[0] === "algemeen") await toonAlgemeen();
     else if (delen[0] === "over") toonOver();
     else if (delen[0] === "voortgang") await toonVoortgang();
+    else if (delen[0] === "plannen") toonPlannen();
     else if (delen[0] === "beheer" && S.ik.rol === "beheerder") await toonBeheer(delen[1]);
     else await toonKast();
   } catch (e) {
@@ -1108,6 +1178,7 @@ async function route() {
 async function start() {
   S.menu ??= await api("GET", "menu");
   S.ik = await api("GET", "ik");
+  api("POST", "bezoek").catch(() => {});  // bezoekersteller, zie lib.php
   S.boeken = null;  // met of zonder account: een andere lijst
   if (!S.ik && location.hash.includes("code=")) return toonWelkom();
   if (S.ik && (location.hash.includes("code=") || location.hash.startsWith("#/aanmelden"))) history.replaceState(null, "", "#/");

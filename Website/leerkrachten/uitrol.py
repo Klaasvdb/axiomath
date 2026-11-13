@@ -8,7 +8,8 @@ Wat er gebeurt:
   app/boeken.json, app/laatste.json   de handboeken en de jongste versie van elke editie
   app/versies/<h>.pdf en <h>.json     alleen de versies die nog niet online staan (een versie verandert nooit)
   app/config.php                      alleen de eerste keer, of met --config
-  public_html/                        de app (index.html, app.js, app.css), lettertypes, logo, voorkanten, api/index.php
+  public_html/                        de app (index.html, app.js, plannen.js, app.css), lettertypes, logo, voorkanten, api/index.php
+  public_html/voorbeeld/integralen/   de voorbeeldcursus uit Website/ (maak.py kopieert ze), telkens helemaal
 
     py -3.13 -P uitrol.py --zonder-test   zonder de testreeks vooraf (alleen in nood)
     py -3.13 -P uitrol.py --config        app/config.php opnieuw uploaden
@@ -94,8 +95,9 @@ def config_maken():
     if config.exists():
         return config
     code = "-".join(secrets.token_hex(2) for _ in range(3))
-    config.write_text("<?php\n/* Niet in git. De startcode maakt het eerste beheerdersaccount en werkt daarna niet meer. */\n"
-                      f"return ['databank' => __DIR__ . '/axiomath.sqlite', 'startcode' => '{code}'];\n", encoding="utf-8")
+    config.write_text("<?php\n/* Niet in git. De startcode maakt het eerste beheerdersaccount en werkt daarna niet meer.\n"
+                      "   contact: het e-mailadres voor een aanvraag om uitnodiging (leeg = geen link op de aanmeldpagina). */\n"
+                      f"return ['databank' => __DIR__ . '/axiomath.sqlite', 'startcode' => '{code}', 'contact' => ''];\n", encoding="utf-8")
     print(f"server/app/config.php gemaakt. Startcode voor het eerste beheerdersaccount: {code}")
     return config
 
@@ -152,7 +154,15 @@ def main():
     for f in sorted((SERVER / "public_html" / "fonts").iterdir()):
         upload(f, "public_html/fonts")
     upload(SERVER / "public_html" / "api" / "index.php", "public_html/api")
-    for naam in ["logo.svg", "icoon.svg", "icoon-180.png", "kunst.jpg", "app.css", "app.js", ".htaccess", "index.html"]:
+    print("voorbeeldcursus")
+    voorbeeld = SERVER / "public_html" / "voorbeeld"
+    map_maken(f"{DOMEIN}/public_html", "voorbeeld")
+    for m in sorted(p for p in voorbeeld.rglob("*") if p.is_dir()):
+        rel = m.relative_to(SERVER / "public_html").as_posix()
+        map_maken(f"{DOMEIN}/public_html/{rel.rpartition('/')[0]}", m.name)
+    for f in sorted(p for p in voorbeeld.rglob("*") if p.is_file()):
+        upload(f, "public_html/" + f.parent.relative_to(SERVER / "public_html").as_posix())
+    for naam in ["logo.svg", "icoon.svg", "icoon-180.png", "kunst.jpg", "og-image.jpg", "app.css", "plannen.js", "app.js", ".htaccess", "index.html"]:
         upload(SERVER / "public_html" / naam, "public_html")
 
     print("controle")

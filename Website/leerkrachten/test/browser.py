@@ -41,6 +41,10 @@ def doorloop(url, startcode, uit: Path):
         g.goto(url + "/#/mijn")
         g.wait_for_selector(".welkom")
         check("browser: zonder account naar aanmelden bij mijn feedback", True)
+        g.goto(url + "/#/plannen")
+        g.wait_for_selector(".plannen")
+        check("browser: plannen met zes voorproefjes", g.locator(".proef").count() == 6)
+        g.screenshot(path=uit / "00-gast-plannen.png", full_page=True)
         cg.close()
 
         # beheerder met de startcode
@@ -65,6 +69,15 @@ def doorloop(url, startcode, uit: Path):
         b.wait_for_selector(".code code")
         code = b.locator(".code code").first.inner_text()
         check("browser: uitnodigingscode gemaakt", len(code) == 14, code)
+        b.fill("input[placeholder^='Voor wie']", "Ingmar")
+        b.click("button:has-text('Maak sleutel')")
+        b.wait_for_selector("dialog[open] code")
+        sl = b.locator("dialog[open] code").last.inner_text()
+        check("browser: sleutel voor Claude", sl.startswith("axm-"), sl)
+        b.screenshot(path=uit / "02b-sleutel.png")
+        b.click("dialog[open] button:has-text('Sluit')")
+        b.wait_for_selector("button:has-text('Intrekken')")
+        b.screenshot(path=uit / "02c-mensen.png", full_page=True)
 
         # leerkracht via de link met code
         cl, l = nieuw()

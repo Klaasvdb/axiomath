@@ -59,8 +59,9 @@ def statisch():
         meld("php -l " + f.relative_to(SERVER).as_posix(), r.returncode == 0, r.stdout + r.stderr)
     node = shutil.which("node")
     if node:
-        r = subprocess.run([node, "--check", str(SERVER / "public_html" / "app.js")], capture_output=True, text=True)
-        meld("node --check app.js", r.returncode == 0, r.stderr)
+        for js in ["app.js", "plannen.js"]:
+            r = subprocess.run([node, "--check", str(SERVER / "public_html" / js)], capture_output=True, text=True)
+            meld(f"node --check {js}", r.returncode == 0, r.stderr)
     for naam in ["boeken.json", "laatste.json"]:
         meld(f"app/{naam} bestaat (maak.py)", (SERVER / "app" / naam).is_file())
 
@@ -92,16 +93,21 @@ def start_server():
 
 class Klant:
     """Een browser zonder browser: koekjes, JSON en de X-Axiomath-kop, zoals app.js."""
-    def __init__(self, url):
+    def __init__(self, url, sleutel=None):
         self.url = url
+        self.sleutel = sleutel  # een sleutel voor Claude, zoals feedback.py: geen koekjes
         self.op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
 
     def __call__(self, methode, pad, body=None, kop=True, ruw=False):
         p, _, q = pad.partition("?")
         url = f"{self.url}/api/index.php?r={urllib.parse.quote(p)}" + (f"&{q}" if q else "")
-        h = {"X-Axiomath": "1"} if kop else {}
+        h = {"User-Agent": "Mozilla/5.0 (test)"}
+        if kop:
+            h["X-Axiomath"] = "1"
         if methode in ("PATCH", "DELETE"):
             h["X-Methode"] = methode
+        if self.sleutel:
+            h["X-Axiomath-Sleutel"] = self.sleutel
         data = json.dumps(body).encode() if body is not None else (b"" if methode != "GET" else None)
         if data is not None:
             h["Content-Type"] = "application/json"
@@ -212,9 +218,16 @@ def api_tests(url):
     meld("CSV-export met namen", s == 200 and csv.startswith("﻿".encode()) and "An Leerkracht".encode() in csv, csv[:200])
     s, d = b("GET", "beheer/overzicht")
     meld("beheer: telling per handboek", s == 200 and sum(r["n"] for r in d["telling"]) == 3, d)
+    l("POST", "bezoek"); l("POST", "bezoek"); b("POST", "bezoek")
+    s, d = b("GET", "beheer/bezoekers?dagen=7")
+    vandaag = d["dagen"][-1] if s == 200 else {}
+    meld("bezoekers: uniek per dag, beheerder telt niet mee", s == 200 and len(d["dagen"]) == 7 and vandaag["bezoekers"] == 1 and vandaag["weergaven"] == 2, d)
+    s, d = l("GET", "beheer/bezoekers")
+    meld("leerkracht ziet geen bezoekers", s == 403, d)
     s, d = b("GET", "beheer/gebruikers")
     an = next((g for g in d["gebruikers"] if g["email"] == "an@voorbeeld.be"), None) if s == 200 else None
     meld("beheer: accounts en open codes", bool(an) and len(d["codes"]) == 1, d)
+    sleutel_tests(url, b, l, f1, f2)
     s, d = b("POST", f"beheer/herstel/{an['id']}")
     herstel = d.get("code") if s == 200 else None
     meld("herstelcode", bool(herstel), d)
@@ -231,6 +244,76 @@ def api_tests(url):
         x("POST", "aanmelden", {"email": "team@voorbeeld.be", "wachtwoord": "fout"})
     s, d = x("POST", "aanmelden", {"email": "team@voorbeeld.be", "wachtwoord": "geheim-wachtwoord"})
     meld("snelheidsrem na 10 mislukte aanmeldingen", s == 429, d)
+
+
+def sleutel_tests(url, b, l, f1, f2):
+    """Sleutels voor Claude: zonder account, met een naam. Feedback ophalen en verwerken, ook met feedback.py."""
+    s, d = l("POST", "beheer/sleutel", {"naam": "Iemand"})
+    meld("sleutel: leerkracht maakt geen sleutel", s == 403, d)
+    s, d = b("POST", "beheer/sleutel", {"naam": " "})
+    meld("sleutel: naam verplicht", s == 400, d)
+    s, d = b("POST", "beheer/sleutel", {"naam": "Ingmar"})
+    sl = d.get("sleutel") if s == 200 else None
+    meld("sleutel: beheerder maakt een sleutel zonder account", bool(sl) and sl.startswith("axm-"), d)
+    if not sl:
+        return
+    k = Klant(url, sl)
+    s, d = k("GET", "ik")
+    meld("sleutel: ik", s == 200 and d.get("sleutel") is True and d.get("naam") == "Ingmar" and "email" not in d, d)
+    s, d = Klant(url, "axm-fout")("GET", "ik")
+    meld("sleutel: ongeldige sleutel geweigerd", s == 401, d)
+    s, d = k("GET", "feedback?status=open")
+    ids = {f["id"] for f in d} if s == 200 else set()
+    meld("sleutel: open feedback", ids == {f1["id"], f2["id"]}, d)
+    tekst = json.dumps(d, ensure_ascii=False)
+    meld("sleutel: zonder namen", s == 200 and "An Leerkracht" not in tekst and "Team Lid" not in tekst and "auteur" not in tekst, tekst[:400])
+    plek = next((f for f in d if f["id"] == f1["id"]), {}) if s == 200 else {}
+    meld("sleutel: map in de repo en link naar de plek", (plek.get("map") or "").startswith("Handboeken/")
+         and f"#/lees/{plek.get('versie')}?p={plek.get('pagina')}&f={f1['id']}" in (plek.get("link") or ""), plek)
+    s, md = k("GET", "feedback?status=open&formaat=md", ruw=True)
+    md = md.decode() if isinstance(md, bytes) else str(md)
+    meld("sleutel: Markdown", s == 200 and f"**#{f1['id']}**" in md and "An Leerkracht" not in md, md[:300])
+    s, d = k("PATCH", f"feedback/{f1['id']}", {"status": "behandeling", "notitie": "Claude kijkt"})
+    meld("sleutel: status en notitie", s == 200 and d["status"] == "behandeling" and d["notitie"] == "Claude kijkt", d)
+    s, d = k("POST", f"feedback/{f1['id']}/reactie", {"tekst": "De spatie is weg, dank je."})
+    meld("sleutel: antwoord als team, zonder namen", s == 200 and d["reacties"][-1]["team"] and d["reacties"][-1]["naam"] is None, d)
+    s, d = l("GET", "feedback?van=ik")
+    r = next((f for f in d if f["id"] == f1["id"]), {}) if s == 200 else {}
+    meld("sleutel: de leerkracht ziet het antwoord van het team, met de naam van de sleutel",
+         bool(r.get("reacties")) and r["reacties"][-1]["team"] and r["reacties"][-1]["naam"] == "Ingmar", r)
+    s, d = k("DELETE", f"feedback/{f1['id']}")
+    meld("sleutel: niet verwijderen", s == 403, d)
+    s, d = k("POST", f"feedback/{f1['id']}/steun")
+    meld("sleutel: niet steunen", s == 403, d)
+    s, d = k("GET", "beheer/gebruikers")
+    meld("sleutel: geen beheer", s == 403, d)
+    # feedback.py, van begin tot eind, met een eigen uitvoermap
+    uit = Path(tempfile.mkdtemp(prefix="axiomath-feedback-"))
+    env = dict(os.environ, AXIOMATH_URL=url, AXIOMATH_SLEUTEL=sl, AXIOMATH_UIT=str(uit), PYTHONIOENCODING="utf-8")
+    script = [sys.executable, "-P", str(HIER.parent / "feedback.py")]
+    r = subprocess.run(script + ["haal"], env=env, capture_output=True, text=True, encoding="utf-8")
+    js = json.loads((uit / "open.json").read_text(encoding="utf-8")) if (uit / "open.json").is_file() else []
+    meld("feedback.py haal: open.md en open.json", r.returncode == 0 and len(js) == 2 and (uit / "open.md").is_file(), r.stdout + r.stderr)
+    r = subprocess.run(script + ["haal", plek.get("handboek") or "?"], env=env, capture_output=True, text=True, encoding="utf-8")
+    js = json.loads((uit / "open.json").read_text(encoding="utf-8")) if (uit / "open.json").is_file() else []
+    md = (uit / "open.md").read_text(encoding="utf-8") if (uit / "open.md").is_file() else ""
+    meld("feedback.py haal <handboek>: alleen dat handboek", r.returncode == 0 and {f["id"] for f in js} == {f1["id"], f2["id"]}
+         and md.count("# Feedback Axiomath") == 1, r.stdout + r.stderr)
+    r = subprocess.run(script + ["zet", str(f2["id"]), "verwerkt", "--antwoord", "Het tempo ligt nu lager."], env=env,
+                       capture_output=True, text=True, encoding="utf-8")
+    s, d = b("GET", "beheer/feedback?status=verwerkt")
+    f = next((x for x in d if x["id"] == f2["id"]), {}) if s == 200 else {}
+    meld("feedback.py zet: verwerkt, met antwoord", r.returncode == 0 and f.get("status") == "verwerkt"
+         and f["reacties"][-1]["tekst"] == "Het tempo ligt nu lager." and f["reacties"][-1]["team"], r.stdout + r.stderr)
+    r = subprocess.run(script + ["haal"], env=dict(env, AXIOMATH_SLEUTEL="axm-fout"), capture_output=True, text=True, encoding="utf-8")
+    meld("feedback.py: duidelijke fout bij een ongeldige sleutel", r.returncode != 0 and "401" in r.stderr, r.stdout + r.stderr)
+    shutil.rmtree(uit, ignore_errors=True)
+    s, d = b("GET", "beheer/gebruikers")
+    lijst = d.get("sleutels", []) if s == 200 else []
+    meld("sleutel: lijst in beheer, met laatst gebruikt", len(lijst) == 1 and lijst[0]["naam"] == "Ingmar" and lijst[0]["gebruikt"], d)
+    s, d = b("DELETE", f"beheer/sleutel/{lijst[0]['id']}") if lijst else (0, None)
+    s2, d2 = k("GET", "ik")
+    meld("sleutel: ingetrokken sleutel werkt niet meer", s == 200 and s2 == 401, d2)
 
 
 def main(argv):
