@@ -59,11 +59,22 @@ def statisch():
         meld("php -l " + f.relative_to(SERVER).as_posix(), r.returncode == 0, r.stdout + r.stderr)
     node = shutil.which("node")
     if node:
-        for js in ["app.js", "plannen.js"]:
+        for js in ["app.js", "plannen.js", "sw.js"]:
             r = subprocess.run([node, "--check", str(SERVER / "public_html" / js)], capture_output=True, text=True)
             meld(f"node --check {js}", r.returncode == 0, r.stderr)
     for naam in ["boeken.json", "laatste.json"]:
         meld(f"app/{naam} bestaat (maak.py)", (SERVER / "app" / naam).is_file())
+    # de app op het beginscherm: het manifest en zijn iconen (maak.py), de service worker en de link in index.html
+    try:
+        manifest = json.loads((SERVER / "public_html" / "manifest.webmanifest").read_text(encoding="utf-8"))
+        iconen = [i["src"].lstrip("/") for i in manifest["icons"]] + ["icoon-180.png"]
+        ontbreekt = [i for i in iconen if not (SERVER / "public_html" / i).is_file()]
+        meld("manifest.webmanifest en de iconen", manifest["display"] == "standalone" and not ontbreekt
+             and any(i.get("purpose") == "maskable" for i in manifest["icons"]), f"ontbreekt (maak.py): {ontbreekt}")
+    except (OSError, ValueError, KeyError) as e:
+        meld("manifest.webmanifest en de iconen", False, e)
+    index = (SERVER / "public_html" / "index.html").read_text(encoding="utf-8")
+    meld("index.html linkt het manifest", 'rel="manifest" href="/manifest.webmanifest"' in index)
 
 
 def vrije_poort():
@@ -222,6 +233,16 @@ def api_tests(url):
     s, d = b("GET", "beheer/bezoekers?dagen=7")
     vandaag = d["dagen"][-1] if s == 200 else {}
     meld("bezoekers: uniek per dag, beheerder telt niet mee", s == 200 and len(d["dagen"]) == 7 and vandaag["bezoekers"] == 1 and vandaag["weergaven"] == 2, d)
+    s, bks = l("GET", "boeken")
+    ed = next((bk for bk in bks["boeken"] if bk["edities"]), None) if s == 200 else None
+    if ed:
+        hh = ed["edities"][0]["hash"]
+        l("POST", "bezoek/lees", {"versie": hh}); l("POST", "bezoek/lees", {"versie": hh}); b("POST", "bezoek/lees", {"versie": hh})
+        s, d = b("GET", "beheer/bezoekers?dagen=7")
+        r = [x for x in d["boeken"] if x["sleutel"] == ed["sleutel"]] if s == 200 else []
+        meld("bezoekers: geopende handboeken", len(r) == 1 and r[0]["lezers"] == 1 and r[0]["weergaven"] == 2, d)
+        s, d = l("POST", "bezoek/lees", {"versie": "x"})
+        meld("bezoek/lees: ongeldige versie geweigerd", s == 404, d)
     s, d = l("GET", "beheer/bezoekers")
     meld("leerkracht ziet geen bezoekers", s == 403, d)
     s, d = b("GET", "beheer/gebruikers")

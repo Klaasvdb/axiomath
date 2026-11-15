@@ -1,22 +1,23 @@
-% Telproblemen. Bruegel: een volkstelling, en de kale wintertakken op het schilderij.
-% Motief: een boomdiagram met drie keuzes uit twee, samen 2 x 2 x 2 = 8 mogelijkheden.
-\def\omslagbestand{omslag-volkstelling.jpg}
-\def\omslagbron{Pieter Bruegel de Oude, \textit{De volkstelling te Bethlehem}, 1566 (publiek domein)}
-\def\omslagrand{10.6 + 0.5*sin(\x*360/21)}
+% Telproblemen. De 122 onvolledige open kubussen: verbonden delen van de 12 ribben van een kubus, met ribben
+% in alle drie de richtingen maar niet alle 12, en twee die door een draaiing in elkaar overgaan tellen als één.
+% Het idee komt van Sol LeWitt (1974); de telling en de tekening zijn eigen werk (maak-omslagen.py kubussen).
+% Motief: één van de 122, met 7 ribben; de 5 ontbrekende ribben gestippeld.
+\def\omslagbestand{omslag-kubussen.jpg}
+\def\omslagbron{De 122 onvolledige open kubussen, geteld en getekend voor Axiomath (naar een idee van Sol LeWitt)}
+\def\omslagrand{10.4 + 0.25*sin(\x*360/10.5)}
 \def\omslagmotief{%
   \randlijn
-  \foreach \a in {-1,1}{%
-    \draw[omslaglijn=1pt] (16.5,8.1) -- ({16.5+1.6*\a},9.8);
-    \foreach \b in {-1,1}{%
-      \draw[omslaglijn=1pt] ({16.5+1.6*\a},9.8) -- ({16.5+1.6*\a+.8*\b},11.5);
-      \foreach \c in {-1,1}{%
-        \draw[omslaglijn=1pt] ({16.5+1.6*\a+.8*\b},11.5) -- ({16.5+1.6*\a+.8*\b+.4*\c},13.2);
-        \fill[fel,draw=accent,line width=.6pt] ({16.5+1.6*\a+.8*\b+.4*\c},13.2) circle (1.5mm);
-      }
-      \fill[omslagstip] ({16.5+1.6*\a+.8*\b},11.5) circle (1mm);
-    }
-    \fill[omslagstip] ({16.5+1.6*\a},9.8) circle (1mm);
-  }
-  \fill[omslagstip] (16.5,8.1) circle (1.3mm);
-  \node[text=white,font=\small,inner sep=1pt,anchor=west] at (17,8.1) {$2\cdot 2\cdot 2=8$};
+  \draw[white,line width=.6pt,dash pattern=on 2pt off 2pt,opacity=.6] (17.68,5.87) -- (16.51,5.05);
+  \draw[white,line width=.6pt,dash pattern=on 2pt off 2pt,opacity=.6] (17.68,8.19) -- (19.89,7.75);
+  \draw[white,line width=.6pt,dash pattern=on 2pt off 2pt,opacity=.6] (16.51,5.05) -- (16.51,7.37);
+  \draw[white,line width=.6pt,dash pattern=on 2pt off 2pt,opacity=.6] (16.51,5.05) -- (18.72,4.61);
+  \draw[white,line width=.6pt,dash pattern=on 2pt off 2pt,opacity=.6] (19.89,5.43) -- (19.89,7.75);
+  \draw[omslaglijn=1.6pt,line cap=round] (17.68,5.87) -- (17.68,8.19);
+  \draw[omslaglijn=1.6pt,line cap=round] (17.68,5.87) -- (19.89,5.43);
+  \draw[omslaglijn=1.6pt,line cap=round] (17.68,8.19) -- (16.51,7.37);
+  \draw[omslaglijn=1.6pt,line cap=round] (16.51,7.37) -- (18.72,6.93);
+  \draw[omslaglijn=1.6pt,line cap=round] (19.89,5.43) -- (18.72,4.61);
+  \draw[omslaglijn=1.6pt,line cap=round] (19.89,7.75) -- (18.72,6.93);
+  \draw[omslaglijn=1.6pt,line cap=round] (18.72,4.61) -- (18.72,6.93);
+  \node[fill=fel,text=inkt,rounded corners=1.5pt,inner sep=2.5pt,font=\kopletter\small] at (19.6,8.75) {122};
 }

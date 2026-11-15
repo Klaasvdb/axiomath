@@ -13,7 +13,7 @@ De pakketten volgen de graadleerplannen wiskunde 3de graad D. Ze zijn uitbreidin
 | 3 B+S' | Latijn-Wetenschappen, Moderne talen-Wetenschappen, Sportwetenschappen | 200 |
 | 4 B+S'' | Economie-Wiskunde, Grieks-Wiskunde, Latijn-Wiskunde, Wetenschappen-Wiskunde | 300 (6 uur per week) |
 
-Het leerplan van een ander net of een andere school kan de richtingen anders groeperen. Dat past in een extra rij of kolom hier. Het aantal uren per week verschilt per school: de uren op de voorkant van de handboeken staan in `Ontwerp/voorkanten/maak-voorkanten.py` en zijn aan te passen.
+Deze tabel volgt KOV en noemt alleen de richtingen waarvoor de handboeken eerst gemaakt zijn. Bij andere koepels krijgt een richting soms een ander pakket (GO! geeft Grieks-Latijn bijvoorbeeld de wiskunde van pakket 2): zie [Ontwerp/koepels.md](../../Ontwerp/koepels.md) en [koepels.yaml](../koepels.yaml). Het aantal uren per week verschilt per school: de uren op de voorkant van de handboeken staan in `Ontwerp/voorkanten/maak-voorkanten.py` en zijn aan te passen.
 
 ## Mappenstructuur
 

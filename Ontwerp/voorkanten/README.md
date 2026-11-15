@@ -21,6 +21,16 @@ Dat maakt `alle-voorkanten.pdf` en schrijft in elke cursus die al een `handboek.
 
 De schilderijen komen uit `Ontwerp/omslagen/` (gemaakt met `maak-omslagen.py`), het logo uit `Ontwerp/logo/`.
 
+## Een voorkant per koepel
+
+De inhoud van een handboek is voor elke koepel dezelfde, de voorkant niet: welke richtingen een handboek gebruiken en hoeveel uur wiskunde ze hebben, verschilt per koepel (zie [koepels.md](../koepels.md)). Beslissing van 15 nov 2026.
+
+- **KOV** houdt de voorkant zoals hij was: de richtingen en uren per pakket uit `PAKKETTEN` en `PAKKETTEN_2`. Die voorkant staat in de PDF van de cursus.
+- **GO!** krijgt een eigen voorkant met dezelfde indeling, maar met de richtingen die het handboek volgens GO! gebruiken en de uren uit de indicatieve lessentabel van GO! (`Handboeken/koepels.yaml`). `maak-voorkanten.py` maakt ze in `alle-voorkanten-go.pdf`.
+- **Te veel richtingen?** Dan komt de korte naam van een groep in de plaats (`label` in `koepels.yaml`), of "Alle richtingen behalve …" als dat korter is (`richtingen_tekst`).
+- **Op de website** kies je je koepel. Een PDF downloaden met de voorkant van GO! gaat zo: `Website/leerkrachten/maak.py` maakt per editie een *laag*, de voorkant zonder kunstwerk (`\omslagzonderkunst`), en de browser legt die laag over de eerste pagina van de PDF. Een laag is ongeveer 0,2 MB; met het kunstwerk erin zou het 1 à 2 MB per editie zijn.
+- **POV en OVSG** krijgen voorlopig geen eigen voorkant. OVSG-scholen volgen de leerplannen van GO!, KOV of POV. Een voorkant voor POV maken we als iemand erom vraagt.
+
 ## 2de graad
 
 De 2de graad staat in dezelfde bestanden: `PAKKETTEN_2` en `MODULES_2` in `maak-voorkanten.py`, met een eigen kleur (`KLEUR_2`: bordeaux en goud). De motieven heten `motieven/g2-*.tex`; een reeks verwante handboeken deelt een kunstwerk. De werken en de link met de leerstof staan in [Handboeken/2de graad/README.md](<../../Handboeken/2de graad/README.md>).

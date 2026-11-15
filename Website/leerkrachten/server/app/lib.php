@@ -67,6 +67,8 @@ function db() {
       aangemaakt INTEGER, gebruikt INTEGER);
     CREATE TABLE IF NOT EXISTS instellingen(k TEXT PRIMARY KEY, v TEXT);
     CREATE TABLE IF NOT EXISTS bezoeken(dag TEXT NOT NULL, id TEXT NOT NULL, PRIMARY KEY (dag, id));
+    CREATE TABLE IF NOT EXISTS boekdagen(dag TEXT NOT NULL, sleutel TEXT NOT NULL, editie TEXT NOT NULL,
+      lezers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (dag, sleutel, editie));
     CREATE TABLE IF NOT EXISTS bezoekdagen(dag TEXT PRIMARY KEY, bezoekers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0);
   ");
   // Kolommen die later kwamen. reacties.team: een antwoord van het team, ook met een sleutel. reacties.naam: wie
@@ -344,6 +346,7 @@ function route() {
   if ("$m $pad" === 'GET menu') antwoord(['soorten' => SOORTEN, 'soorten_algemeen' => SOORTEN_ALGEMEEN, 'ernst' => ERNST,
                                            'statussen' => STATUSSEN, 'edities' => EDITIES, 'contact' => cfg()['contact'] ?? null]);
   if ("$m $pad" === 'POST bezoek') bezoek();
+  if ("$m $pad" === 'POST bezoek/lees') bezoek_boek(ik());
   if ("$m $pad" === 'POST aanmelden') aanmelden();
   if ("$m $pad" === 'POST registreer') registreer();
   if ("$m $pad" === 'POST herstel') herstel();
@@ -498,7 +501,8 @@ function boeken($ik) {
     $b['feedback'] = $ik ? ($tel[$b['sleutel']] ?? ['totaal' => 0, 'open' => 0, 'mijn' => 0]) : null;
     $boeken[] = $b;
   }
-  antwoord(['pakketten' => $bd['pakketten'], 'boeken' => $boeken, 'voortgang' => $bd['voortgang']]);
+  antwoord(['pakketten' => $bd['pakketten'], 'boeken' => $boeken, 'voortgang' => $bd['voortgang'],
+           'koepels' => $bd['koepels'] ?? null]);  // per graad, koepel en richting: welke handboeken (maak.py)
 }
 
 function pdf($h, $ik) {
@@ -605,8 +609,9 @@ function feedback_een($ik, $m, $id, $actie) {
 
 /* Bezoekersteller, zonder koekjes en zonder IP-adressen te bewaren. Per dag wordt een hash van IP-adres,
    browser en een geheim zout bijgehouden om unieke bezoekers te tellen; die hashes worden de volgende dag gewist.
-   Blijvend bewaard: alleen het aantal bezoekers en weergaven per dag. Beheerders en robots tellen niet mee. */
-function bezoek() {
+   Blijvend bewaard: alleen aantallen per dag, en per dag en handboek hoeveel lezers en weergaven. Beheerders en
+   robots tellen niet mee. */
+function tel_start($extra = '') {
   $ua = (string)($_SERVER['HTTP_USER_AGENT'] ?? '');
   $ik = ik();
   if (($ik && $ik['rol'] === 'beheerder') || $ua === '' || preg_match('/bot|crawl|spider|slurp|preview|curl|wget|python|headless/i', $ua)) antwoord(['ok' => true]);
@@ -616,11 +621,22 @@ function bezoek() {
     $zout = rij("SELECT v FROM instellingen WHERE k = 'zout'")['v'];
   }
   $dag = date('Y-m-d');
-  $id = hash('sha256', "$dag|" . ($_SERVER['REMOTE_ADDR'] ?? '?') . "|$ua|$zout");
   q('DELETE FROM bezoeken WHERE dag < ?', [$dag]);
-  $nieuw = q('INSERT OR IGNORE INTO bezoeken(dag, id) VALUES (?,?)', [$dag, $id])->rowCount();
+  $id = hash('sha256', "$dag|" . ($_SERVER['REMOTE_ADDR'] ?? '?') . "|$ua|$zout|$extra");
+  return [$dag, q('INSERT OR IGNORE INTO bezoeken(dag, id) VALUES (?,?)', [$dag, $id])->rowCount()];
+}
+function bezoek() {
+  [$dag, $nieuw] = tel_start();
   q('INSERT OR IGNORE INTO bezoekdagen(dag) VALUES (?)', [$dag]);
   q('UPDATE bezoekdagen SET bezoekers = bezoekers + ?, weergaven = weergaven + 1 WHERE dag = ?', [$nieuw, $dag]);
+  antwoord(['ok' => true]);
+}
+/* Een handboek geopend in de lezer (de versie bepaalt handboek en editie; zonder account alleen 'handboek'). */
+function bezoek_boek($ik) {
+  $v = versie((string)(body()['versie'] ?? ''), $ik);
+  [$dag, $nieuw] = tel_start($v['sleutel'] . '|' . $v['editie']);
+  q('INSERT OR IGNORE INTO boekdagen(dag, sleutel, editie) VALUES (?,?,?)', [$dag, $v['sleutel'], $v['editie']]);
+  q('UPDATE boekdagen SET lezers = lezers + ?, weergaven = weergaven + 1 WHERE dag = ? AND sleutel = ? AND editie = ?', [$nieuw, $dag, $v['sleutel'], $v['editie']]);
   antwoord(['ok' => true]);
 }
 
@@ -635,8 +651,12 @@ function beheer($ik, $m, $delen) {
       $d = date('Y-m-d', strtotime("-$i days"));
       $dagen[] = ['dag' => $d, 'bezoekers' => $per[$d][0] ?? 0, 'weergaven' => $per[$d][1] ?? 0];
     }
+    $van = date('Y-m-d', strtotime('-' . ($n - 1) . ' days'));
+    $bk = [];
+    foreach (q('SELECT sleutel, editie, SUM(lezers) AS l, SUM(weergaven) AS w FROM boekdagen WHERE dag >= ? GROUP BY sleutel, editie', [$van]) as $r)
+      $bk[] = ['sleutel' => $r['sleutel'], 'editie' => $r['editie'], 'lezers' => (int)$r['l'], 'weergaven' => (int)$r['w']];
     $tot = rij('SELECT COALESCE(SUM(bezoekers),0) AS b, COALESCE(SUM(weergaven),0) AS w, MIN(dag) AS sinds FROM bezoekdagen');
-    antwoord(['dagen' => $dagen, 'totaal' => ['bezoekers' => (int)$tot['b'], 'weergaven' => (int)$tot['w'], 'sinds' => $tot['sinds']]]);
+    antwoord(['dagen' => $dagen, 'boeken' => $bk, 'totaal' => ['bezoekers' => (int)$tot['b'], 'weergaven' => (int)$tot['w'], 'sinds' => $tot['sinds']]]);
   }
   if ("$m $pad" === 'GET feedback') {
     [$waar, $p] = filter_sql($_GET);

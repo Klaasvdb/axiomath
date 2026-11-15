@@ -292,4 +292,4 @@ Alle leerkrachten uit het Vlaamse onderwijs zijn welkom: nalezen, oefeningen sch
 
 ## Leerplannen
 
-De cursussen volgen de leerplandoelen van de graadleerplannen wiskunde 3de graad D. De leerplannen zelf zitten niet in de repo: lees ze bij de bevoegde instantie. De koppeling tussen leerplan en cursus staat per pakket, zodat ze later ook voor andere netten kan bestaan. Het leerplan wijkt per net soms in naam of indeling af; de eindtermen van de Vlaamse overheid zijn voor alle netten dezelfde.
+De cursussen volgen de leerplandoelen van de graadleerplannen wiskunde 3de graad D. De leerplannen zelf zitten niet in de repo: lees ze bij de bevoegde instantie. De koppeling tussen leerplan en cursus staat per pakket, zodat ze later ook voor andere netten kan bestaan. Het leerplan wijkt per net soms in naam of indeling af; de eindtermen van de Vlaamse overheid zijn voor alle netten dezelfde. Welke richting in welke koepel (KOV, GO!, POV, OVSG) welke handboeken volgt, staat in [Ontwerp/koepels.md](Ontwerp/koepels.md) en, voor de website, in [Handboeken/koepels.yaml](Handboeken/koepels.yaml).

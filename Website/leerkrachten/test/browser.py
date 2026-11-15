@@ -45,6 +45,29 @@ def doorloop(url, startcode, uit: Path):
         g.wait_for_selector(".plannen")
         check("browser: plannen met zes voorproefjes", g.locator(".proef").count() == 6)
         g.screenshot(path=uit / "00-gast-plannen.png", full_page=True)
+        # koepel en richting: GO! geeft Grieks-Latijn (3de graad) de handboeken van pakket 2 en Telproblemen
+        g.goto(url + "/#/")
+        g.wait_for_selector(".koepel-rij")
+        g.click(".koepel-rij button:has-text('GO!')")
+        g.select_option(".richting-keuze", "3|Grieks-Latijn")
+        g.wait_for_selector("h2:has-text('Verplichte handboeken')")
+        check("browser: GO! Grieks-Latijn met pakket 2 en Telproblemen",
+              g.locator("a.boek[href*='2%2FAnalyse%2FIntegralen']").count() == 1 and g.locator("a.boek[href*='Telproblemen']").count() == 1)
+        check("browser: per voorgesteld leerjaar", g.locator(".jaar-kop").count() >= 2)
+        g.screenshot(path=uit / "00-gast-go-richting.png", full_page=True)
+        g.click("a.boek[href*='2%2FAnalyse%2FIntegralen']")
+        g.wait_for_selector(".boekkop")
+        check("browser: richtingen volgens GO! op het boek", "Grieks-Latijn" in g.locator(".gegevens").inner_text())
+        with g.expect_download(timeout=90000) as dl:
+            g.click(".editie button:has-text('PDF')")
+        try:
+            import pymupdf
+            with pymupdf.open(dl.value.path()) as doc:
+                tekst = doc[0].get_text()
+            check("browser: PDF met de voorkant van GO!", "Richtingen met wiskunde voor economie" in tekst, tekst[-200:])
+        except ImportError:
+            check("browser: PDF met de voorkant van GO!", dl.value.suggested_filename.endswith("(GO!).pdf"), dl.value.suggested_filename)
+        g.screenshot(path=uit / "00-gast-go-boek.png")
         cg.close()
 
         # beheerder met de startcode

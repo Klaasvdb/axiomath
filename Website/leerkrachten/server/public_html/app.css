@@ -129,9 +129,14 @@ select { cursor: pointer; }
 .welkom-paneel h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 700; margin-bottom: .35em; }
 .welkom-paneel .intro { color: var(--zacht); margin-bottom: 28px; max-width: 34em; }
 .welkom form { display: grid; gap: 16px; max-width: 400px; }
-.tabs { display: flex; gap: 4px; border-bottom: 1.5px solid var(--lijn); margin-bottom: 22px; max-width: 400px; }
+/* Past de rij niet (beheer op een gsm), dan schuif je ze opzij. De lijn is een schaduw, geen rand: een rand van de
+   knoppen eronder zou de scrollbare rij afknippen. */
+.tabs { display: flex; gap: 4px; box-shadow: inset 0 -1.5px var(--lijn); margin-bottom: 22px; max-width: 400px;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tabs::-webkit-scrollbar { display: none; }
 .tabs button { border: 0; background: none; padding: .5em .2em; margin-right: 1em; cursor: pointer; color: var(--zacht); font-weight: 600;
-  border-bottom: 2.5px solid transparent; margin-bottom: -1.5px; }
+  border-bottom: 2.5px solid transparent; flex: none; white-space: nowrap; }
+.tabs button:last-child { margin-right: 0; }
 .tabs button[aria-selected="true"] { color: var(--tekst); border-bottom-color: var(--acc); }
 
 /* --- kop --- */
@@ -166,6 +171,14 @@ main.pagina { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
 .balk input[type=search] { max-width: 280px; }
 .balk select { width: auto; }
 /* boekenkast: rij 1 graad, studierichting en zoeken; rij 2 de pakketten van die graad */
+/* als app op het beginscherm (appTip en installeer in app.js) */
+.app-tip { display: flex; align-items: center; gap: 12px; margin: -8px 0 22px; padding: 10px 8px 10px 12px; background: var(--papier);
+  border: 1px solid var(--lijn); border-radius: 12px; box-shadow: var(--schaduw); }
+.app-tip img { width: 44px; height: 44px; border-radius: 10px; flex: none; }
+.app-tip > div { flex: 1; min-width: 0; line-height: 1.3; }
+.app-tip p { color: var(--zacht); font-size: .9rem; }
+.app-stappen h3 { font-size: 1rem; margin-bottom: .3em; }
+.app-stappen ol { margin: 0; padding-left: 1.3em; display: grid; gap: .25em; }
 .keuze { margin-bottom: 26px; }
 .keuze .balk { margin-bottom: 10px; }
 .keuze .richting-keuze { min-width: 220px; }
@@ -173,6 +186,23 @@ main.pagina { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
 .keuze .pakket-rij .chip { font-size: .88rem; }
 .keuze-uitleg { margin-top: 6px; padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--acc) 10%, var(--papier)); font-size: .95rem; }
 .keuze-uitleg .knop-tekst { padding: 0 0 0 4px; }
+/* de koepel: welke leerplannen de school volgt */
+.keuze .koepel-rij { align-items: center; margin-bottom: 10px; }
+.keuze .koepel-rij > .zacht { margin-right: 2px; }
+.keuze .koepel-rij .knop-tekst { font-size: .88rem; }
+/* een richting: verplicht per voorgesteld jaar, dan keuze en uitbreiding */
+.jaar-kop { font-size: .95rem; font-weight: 700; color: var(--zacht); margin: 18px 0 10px; text-transform: none; }
+.jaar-kop:first-of-type { margin-top: 4px; }
+ul.los { margin: 10px 0 0 1.2em; color: var(--zacht); font-size: .92rem; }
+.boek .noot { font-size: .8rem; color: var(--acc); font-weight: 600; }
+/* even geduld: het handboek wordt samengesteld met de voorkant van een andere koepel */
+.samenstellen { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 100; display: flex; align-items: center; gap: .6em;
+  background: var(--papier); color: var(--tekst); border: 1px solid var(--lijn); box-shadow: var(--schaduw2); padding: .65em 1.1em; border-radius: 12px;
+  font-size: .95rem; max-width: calc(100vw - 32px); animation: verschijn .2s var(--ease-out); }
+@keyframes verschijn { from { opacity: 0; } }
+.draaier { width: 16px; height: 16px; flex: none; border-radius: 50%; border: 2px solid var(--lijn); border-top-color: var(--acc); animation: draai .8s linear infinite; }
+@keyframes draai { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .draaier { animation-duration: 2.4s; } .samenstellen { animation: none; } }
 /* --- over Axiomath --- */
 .over { max-width: 44em; }
 .over .bovenkop { color: var(--acc); font-weight: 700; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5em; }

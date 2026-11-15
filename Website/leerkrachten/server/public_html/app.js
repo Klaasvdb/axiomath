@@ -44,6 +44,7 @@ const ICONEN = {
   ballon: '<path d="M4 5h16v11H9l-5 4V5z"/>',
   breed: '<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>',
   kopie: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V4h12"/>',
+  kruis: '<path d="M6 6l12 12M18 6L6 18"/>',
 };
 const icoon = (naam) => h("span", { "aria-hidden": "true", style: { display: "inline-grid" },
   html: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONEN[naam]}</svg>` });
@@ -103,10 +104,51 @@ const opslag = { lees(k) { try { return localStorage.getItem(k); } catch { retur
 // --- thema -------------------------------------------------------------------------------------
 function zetThema(t) {
   if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  // de kleur van de statusbalk in de app op een gsm volgt het thema (de kop: --papier)
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.content = (t ? t === "dark" : m.media.includes("dark")) ? "#15202A" : "#FFFFFF"; });
 }
 zetThema(opslag.lees("thema"));
 const isDonker = () => document.documentElement.dataset.theme === "dark" ||
   (!document.documentElement.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+
+// --- als app op het beginscherm ----------------------------------------------------------------
+/* manifest.webmanifest en sw.js maken de site installeerbaar. Android en Chrome/Edge geven een eigen vraag
+   (beforeinstallprompt); op een iPhone of iPad kan het alleen met de deelknop, dus daar tonen we de stappen. */
+const APP = { vraag: null };
+const alsApp = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIos = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const opGsm = () => matchMedia("(pointer: coarse)").matches;
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => { /* zonder service worker werkt de site gewoon */ });
+addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); APP.vraag = e; });
+addEventListener("appinstalled", () => { APP.vraag = null; document.querySelectorAll(".app-tip").forEach((t) => t.remove()); melding("Axiomath staat op je beginscherm."); });
+
+async function installeer() {
+  if (APP.vraag) {
+    const v = APP.vraag; APP.vraag = null;  // de vraag van de browser werkt maar één keer
+    v.prompt();
+    await v.userChoice.catch(() => {});
+    return;
+  }
+  const stappen = (titel, ...s) => h("div", { class: "app-stappen" }, h("h3", {}, titel), h("ol", {}, s.map((x) => h("li", {}, x))));
+  const iphone = stappen("iPhone of iPad", "Open axiomath.be in Safari.", ["Tik op de deelknop ", h("b", {}, "(het vierkant met de pijl omhoog)"), "."],
+    ["Kies ", h("b", {}, "Zet op beginscherm"), " en tik op ", h("b", {}, "Voeg toe"), "."]);
+  const android = stappen("Android", "Open axiomath.be in Chrome.", ["Tik op het menu ", h("b", {}, "⋮"), " rechtsboven."],
+    ["Kies ", h("b", {}, "App installeren"), " of ", h("b", {}, "Toevoegen aan startscherm"), "."]);
+  const computer = stappen("Computer", ["In Chrome of Edge: klik op het installatie-icoon rechts in de adresbalk, of kies in het menu ", h("b", {}, "App installeren"), "."]);
+  dialoog("Axiomath als app", [h("p", { class: "zacht" }, "Je vindt Axiomath dan op je beginscherm, en het opent schermvullend, zoals een app. Je hebt geen appwinkel nodig."),
+    isIos() ? [iphone, android] : opGsm() ? [android, iphone] : [computer, android, iphone]], [h("button", { class: "knop", value: "x" }, "Begrepen")]);
+}
+
+/* Een kaartje bovenaan de boekenkast, alleen op een gsm of tablet in de browser. Weggeklikt = weg (per toestel). */
+function appTip() {
+  if (alsApp() || !opGsm() || opslag.lees("app-tip") === "weg") return null;
+  const tip = h("aside", { class: "app-tip", "aria-label": "Axiomath als app" },
+    h("img", { src: "/icoon-192.png", alt: "", width: 44, height: 44 }),
+    h("div", {}, h("b", {}, "Axiomath als app"), h("p", {}, "Zet de handboeken op het beginscherm van je gsm of tablet.")),
+    h("button", { class: "knop klein", type: "button", onclick: installeer }, "Installeer"),
+    h("button", { class: "knop-icoon", type: "button", "aria-label": "Niet meer tonen", onclick: () => { opslag.zet("app-tip", "weg"); tip.remove(); } }, icoon("kruis")));
+  return tip;
+}
 
 // --- formulierdelen ----------------------------------------------------------------------------
 /* Het menu "wat voor feedback is het?", hoe belangrijk, en de tekst. Gedeeld door alle formulieren. */
@@ -356,17 +398,90 @@ async function boeken(opnieuw = false) {
   return S.boeken;
 }
 
+// --- koepels -----------------------------------------------------------------------------------
+/* De koepel bepaalt welke handboeken een richting volgt en welke voorkant een PDF krijgt (maak.py, koepels.yaml).
+   KOV: de voorkant in de PDF zelf. Een andere koepel: bij het downloaden zet de browser de voorkant van die koepel
+   op de eerste pagina (pdf-lib). De keuze blijft bewaard per bezoeker. */
+const koepelLijst = () => S.boeken?.koepels?.lijst || [{ id: "KOV", naam: "Katholiek onderwijs (KOV)" }];
+function koepel() {
+  const k = S.koepel || opslag.lees("koepel") || "KOV";
+  return koepelLijst().some((x) => x.id === k) ? k : "KOV";
+}
+const koepelNaam = (k = koepel()) => koepelLijst().find((x) => x.id === k)?.naam || k;
+const koepelKort = (k = koepel()) => k === "KOV" ? "KOV" : koepelNaam(k);
+function zetKoepel(k) { S.koepel = k; opslag.zet("koepel", k); }
+/* {richting: gegevens} van een koepel in een graad; gegevens: leerplan, pakket, uren, verplicht, keuze, uitbreiding, nieuw */
+const koepelRichtingen = (g, k = koepel()) => S.boeken?.koepels?.graden?.[String(g)]?.[k] || {};
+const omslagVan = (b, k = koepel()) => (k !== "KOV" && b.koepelomslag?.[k]?.beeld) || b.omslag;
+
+function ovsgPov() {
+  dialoog("Volgt je school OVSG of POV?", [
+    h("p", {}, h("b", {}, "OVSG"), " (stedelijk en gemeentelijk onderwijs) heeft geen eigen leerplannen meer voor de 2de en 3de graad. Je school volgt de leerplannen van het GO!, van het katholiek onderwijs of van POV: dat beslist de gemeenteraad. Kies hierboven dus de koepel van de leerplannen die je school volgt."),
+    h("p", {}, h("b", {}, "POV"), " (provinciaal onderwijs) heeft eigen leerplannen. Ze volgen de doelen van de overheid zonder veel extra's, en vallen dus grotendeels samen met de pakketten hier. Een eigen indeling en voorkant voor POV maken we zodra iemand erom vraagt."),
+    h("p", { class: "zacht" }, "Volg je POV, of mis je iets? Laat het ons weten via ", S.ik ? h("a", { href: "#/algemeen" }, "algemene feedback") : h("a", { href: "#/aanmelden" }, "een account"), ".")],
+    [h("button", { class: "knop", value: "x" }, "Begrepen")]);
+}
+
+/* Download een editie met de voorkant van de gekozen koepel: de browser haalt de PDF en de laag van die koepel op en legt
+   ze over de eerste pagina. Kleine melding onderaan zolang het duurt. */
+const PDFLIB = "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js";
+let pdflibBelofte = null;
+function laadPdflib() {
+  return pdflibBelofte ??= new Promise((ok, nee) => {
+    const s = document.createElement("script");
+    s.src = PDFLIB;
+    s.onload = () => ok(window.PDFLib);
+    s.onerror = () => { pdflibBelofte = null; s.remove(); nee(new Error("Het handboek kon niet samengesteld worden. Controleer je internetverbinding.")); };
+    document.head.append(s);
+  });
+}
+async function downloadMetVoorkant(b, editie, label, k = koepel()) {
+  const voorkant = b.koepelomslag?.[k]?.pdf?.[editie];
+  const ed = (b.edities || []).find((e) => e.editie === editie);
+  if (!ed) return;
+  if (!voorkant) { window.open(apiUrl(`pdf/${ed.hash}`), "_blank", "noopener"); return; }
+  const pop = h("div", { class: "samenstellen", role: "status" }, h("span", { class: "draaier", "aria-hidden": "true" }),
+    `Je handboek wordt samengesteld, met de voorkant voor ${koepelNaam(k)} …`);
+  document.body.append(pop);
+  try {
+    const haal = async (url) => { const r = await fetch(url, { credentials: "same-origin" }); if (!r.ok) throw new Error("De PDF kon niet geladen worden."); return r.arrayBuffer(); };
+    const [lib, basis, vk] = await Promise.all([laadPdflib(), haal(apiUrl(`pdf/${ed.hash}`)), haal(voorkant)]);
+    // de laag (band, titel en gegevens van de koepel, zonder kunstwerk) komt over de eerste pagina
+    const doc = await lib.PDFDocument.load(basis);
+    const [laag] = await doc.embedPdf(vk, [0]);
+    const p0 = doc.getPage(0);
+    p0.drawPage(laag, { x: 0, y: 0, width: p0.getWidth(), height: p0.getHeight() });
+    const url = URL.createObjectURL(new Blob([await doc.save()], { type: "application/pdf" }));
+    const a = h("a", { href: url, download: `Axiomath ${b.titel} - ${label} (${koepelKort(k)}).pdf` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  } catch (e) {
+    melding(e.message || "Het handboek kon niet samengesteld worden.", true);
+  } finally {
+    pop.remove();
+  }
+}
+/* De knop of link "PDF" van een editie: rechtstreeks bij KOV, samengesteld bij een andere koepel. */
+function pdfKnop(b, e, attrs, ...inhoud) {
+  if (koepel() === "KOV" || !b.koepelomslag?.[koepel()]?.pdf?.[e.editie])
+    return h("a", { ...attrs, href: apiUrl(`pdf/${e.hash}`), target: "_blank", rel: "noopener" }, ...inhoud);
+  return h("button", { ...attrs, type: "button", title: `Met de voorkant voor ${koepelNaam()}`, onclick: () => downloadMetVoorkant(b, e.editie, e.label) }, ...inhoud);
+}
+
 // --- boekenkast --------------------------------------------------------------------------------
 async function toonKast() {
   const d = await boeken(true);
-  // De keuze: een graad ("alle", "2", "3"), een pakket (id of "alle") of een studierichting ("<graad>|<naam>").
+  // De keuze: een koepel, een graad ("alle", "2", "3"), een pakket (id of "alle") of een studierichting ("<graad>|<naam>").
   // Ze blijft bewaard voor de volgende keer (per bezoeker, in de browser).
   const kortNaam = (p) => p.naam.match(/\(([^)]+)\)/)?.[1] || p.naam;
-  const richtingen = new Map();  // "<graad>|<naam>" -> pakketten met die richting
-  for (const p of d.pakketten) for (const r of p.richtingenlijst || p.richtingen.split(", ")) {
-    const k = `${p.graad}|${r}`;
-    richtingen.set(k, [...(richtingen.get(k) || []), p]);
-  }
+  const metKoepels = !!d.koepels;
+  const richtingenVan = () => {  // "<graad>|<naam>" -> gegevens (met koepels) of pakketten (zonder)
+    const r = new Map();
+    if (metKoepels) for (const g of graden()) for (const [naam, x] of Object.entries(koepelRichtingen(g))) r.set(`${g}|${naam}`, x);
+    else for (const p of d.pakketten) for (const naam of p.richtingenlijst || p.richtingen.split(", ")) r.set(`${p.graad}|${naam}`, { pakket: p.id });
+    return r;
+  };
+  let richtingen = richtingenVan();
   let keuze = { graad: "alle", pakket: "alle", richting: "" };
   try { keuze = { ...keuze, ...JSON.parse(opslag.lees("kast") || "{}") }; } catch { /* oude of lege keuze */ }
   if (!meerGraden()) keuze.graad = "alle";
@@ -374,15 +489,18 @@ async function toonKast() {
   if (keuze.pakket !== "alle" && !d.pakketten.some((p) => p.id === keuze.pakket)) keuze.pakket = "alle";
   let zoek = "";
   const kies = (nieuw) => { keuze = { ...keuze, ...nieuw }; opslag.zet("kast", JSON.stringify(keuze)); tekenKeuzes(); teken(); };
-  const zichtbaar = (p) => keuze.richting ? richtingen.get(keuze.richting).includes(p)
-    : (keuze.graad === "alle" || String(p.graad) === keuze.graad) && (keuze.pakket === "alle" || p.id === keuze.pakket);
+  const zichtbaar = (p) => (keuze.graad === "alle" || String(p.graad) === keuze.graad) && (keuze.pakket === "alle" || p.id === keuze.pakket);
+  const past = (b) => !zoek || `${b.titel} ${b.rubriek}`.toLowerCase().includes(zoek.toLowerCase());
+  // de richtingen van een pakket volgens de gekozen koepel (KOV: zoals op de voorkant)
+  const pakketRichtingen = (p) => koepel() === "KOV" || !metKoepels ? `${p.richtingen} · ${p.uren}`
+    : Object.entries(koepelRichtingen(p.graad)).filter(([, x]) => x.pakket === p.id).map(([n]) => n).join(", ") || `Bij ${koepelNaam()} volgt geen richting dit pakket als geheel.`;
 
   const kasten = h("div");
   const teken = () => {
-    const z = zoek.toLowerCase();
+    if (keuze.richting) return tekenRichting();
     let vorigeGraad = null;
     kasten.replaceChildren(...d.pakketten.filter(zichtbaar).flatMap((p) => {
-      const lijst = d.boeken.filter((b) => b.pakketid === p.id && (!z || `${b.titel} ${b.rubriek}`.toLowerCase().includes(z)));
+      const lijst = d.boeken.filter((b) => b.pakketid === p.id && past(b));
       if (!lijst.length) return [];
       const alle = d.boeken.filter((b) => b.pakketid === p.id);
       const kop = meerGraden() && p.graad !== vorigeGraad ? h("h2", { class: "graad-kop" }, `${p.graad}de graad`) : null;
@@ -390,21 +508,60 @@ async function toonKast() {
       const pct = alle.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / alle.length;
       return [kop, h("section", { class: "pakket" },
         h("div", { class: "pakket-kop" }, h("h2", {}, h("span", { class: "nr" }, p.nr), " ", p.naam)),
-        h("p", { class: "pakket-sub" }, p.richtingen, " · ", p.uren.replaceAll("\\&", "&")),
+        h("p", { class: "pakket-sub" }, pakketRichtingen(p)),
         h("a", { class: "voortgang", href: "#/voortgang", title: `${Math.round(pct)} % klaar: bekijk de voortgang` }, h("i", { style: { width: pct + "%" } })),
-        h("div", { class: "kast" }, lijst.map(boekKaart)))].filter(Boolean);
+        h("div", { class: "kast" }, lijst.map((b) => boekKaart(b))))].filter(Boolean);
     }));
     if (!kasten.querySelector(".pakket")) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
 
-  // rij 1: graad, studierichting en zoeken; rij 2: de pakketten van de gekozen graad
+  /* Eén richting: eerst de verplichte handboeken, per voorgesteld jaar; daarna de keuzes en de uitbreidingen. */
+  const tekenRichting = () => {
+    const [g, naam] = keuze.richting.split("|");
+    const x = richtingen.get(keuze.richting);
+    const boek = (s) => d.boeken.find((b) => b.sleutel === s);
+    const kaart = (i) => { const b = boek(i.sleutel); return b && past(b) ? boekKaart(b, i.noot) : null; };
+    const verplicht = (x.verplicht || []).filter((i) => i.sleutel && boek(i.sleutel));
+    const jaren = [...new Set(verplicht.map((i) => boek(i.sleutel).jaar_voorstel || ""))].sort((a, b) => (a || "z").localeCompare(b || "z"));
+    const lijstje = (items) => items.filter((i) => !i.sleutel || !boek(i.sleutel)).map((i) => h("li", {}, i.tekst || i.sleutel, i.noot ? ` (${i.noot})` : ""));
+    const blok = (titel, uitleg, items) => {
+      if (!items?.length) return null;
+      const kaarten = items.filter((i) => i.sleutel && boek(i.sleutel)).map(kaart).filter(Boolean);
+      const los = lijstje(items);
+      return h("section", { class: "pakket" }, h("div", { class: "pakket-kop" }, h("h2", {}, titel)), h("p", { class: "pakket-sub" }, uitleg),
+        kaarten.length ? h("div", { class: "kast" }, kaarten) : null, los.length ? h("ul", { class: "los" }, los) : null);
+    };
+    const eerst = (x.verplicht || []).map((i) => i.sleutel ? boek(i.sleutel) : null).find(Boolean);
+    kasten.replaceChildren(
+      h("section", { class: "pakket" },
+        h("div", { class: "pakket-kop" }, h("h2", {}, "Verplichte handboeken")),
+        h("p", { class: "pakket-sub" }, `${naam}, ${g}de graad · ${koepelNaam()}`, x.leerplan ? ` · leerplan: ${x.leerplan}` : "", x.uren ? ` · ${x.uren}` : ""),
+        x.opmerking ? h("p", { class: "zacht klein" }, x.opmerking) : null,
+        jaren.length ? jaren.map((j) => {
+          const kaarten = verplicht.filter((i) => (boek(i.sleutel).jaar_voorstel || "") === j).map(kaart).filter(Boolean);
+          return kaarten.length ? [h("h3", { class: "jaar-kop" }, j ? `Voorstel: ${j}` : "Zonder voorstel van leerjaar"), h("div", { class: "kast" }, kaarten)] : null;
+        }) : h("p", { class: "leeg" }, x.opmerking ? "" : "Voor deze richting is er geen indeling."),
+        jaren.length > 1 ? h("p", { class: "zacht klein" }, "Het leerjaar is een voorstel: de leerplannen zijn graadleerplannen, en je school kiest zelf in welk jaar ze wat ziet.") : null,
+        x.nieuw?.length ? h("p", { class: "zacht klein" }, "Nog te maken: ", x.nieuw.join(", "), ".") : null,
+        lijstje((x.verplicht || [])).length ? h("ul", { class: "los" }, lijstje(x.verplicht)) : null),
+      ...[blok("Keuze", "Keuzedoelen of een optiepakket: je school beslist of ze aan bod komen.", x.keuze),
+        blok("Uitbreiding", "Verder dan het leerplan, voor wie meer lesuren heeft of meer wil.", x.uitbreiding)].filter(Boolean));  // replaceChildren maakt van null de tekst "null"
+    if (!eerst && !x.opmerking) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
+  };
+
+  // rij 1: koepel; rij 2: graad, studierichting en zoeken; rij 3: de pakketten van de gekozen graad
   const chip = (label, actief, opKlik) => h("button", { type: "button", class: "chip zonder-stip", "aria-pressed": String(actief), onclick: opKlik }, label);
+  const koepelKeuze = h("div", { class: "chips koepel-rij" });
   const graadKeuze = h("div", { class: "chips" });
   const richtingKeuze = h("select", { class: "richting-keuze", "aria-label": "Kies je studierichting", onchange: (e) => kies(e.target.value
     ? { richting: e.target.value, graad: e.target.value.split("|")[0], pakket: "alle" } : { richting: "" }) });
   const pakketRij = h("div", { class: "chips pakket-rij" });
   const uitleg = h("p", { class: "keuze-uitleg" });
   const tekenKeuzes = () => {
+    koepelKeuze.hidden = !metKoepels;
+    koepelKeuze.replaceChildren(h("span", { class: "zacht klein" }, "Leerplannen van"),
+      ...koepelLijst().map((k) => chip(k.naam, koepel() === k.id, () => { zetKoepel(k.id); richtingen = richtingenVan(); if (!richtingen.has(keuze.richting)) keuze.richting = ""; kies({}); })),
+      h("button", { type: "button", class: "knop-tekst klein", onclick: ovsgPov }, "OVSG of POV?"));
     graadKeuze.replaceChildren(...(meerGraden()
       ? [chip("Alle graden", keuze.graad === "alle" && !keuze.richting, () => kies({ graad: "alle", pakket: "alle", richting: "" })),
          ...graden().map((g) => chip(`${g}de graad`, keuze.graad === String(g) && !keuze.richting, () => kies({ graad: String(g), pakket: "alle", richting: "" })))]
@@ -417,15 +574,9 @@ async function toonKast() {
     pakketRij.hidden = keuze.richting !== "" || !pakketten.length || (meerGraden() && keuze.graad === "alle");
     pakketRij.replaceChildren(chip("Alle pakketten", keuze.pakket === "alle", () => kies({ pakket: "alle", richting: "" })),
       ...pakketten.map((p) => chip(`${p.nr} · ${kortNaam(p)}`, keuze.pakket === p.id && !keuze.richting, () => kies({ pakket: p.id, richting: "" }))));
-    const ps = keuze.richting ? richtingen.get(keuze.richting) : [];
-    const [g, naam] = keuze.richting.split("|");
-    uitleg.hidden = !ps.length;
-    const inhoud = ps.length === 1
-      ? [`${naam} volgt in de ${g}de graad pakket ${ps[0].nr} (${kortNaam(ps[0])}, ${ps[0].uren}). `]
-      : ps.length ? [`${naam} kan in de ${g}de graad twee pakketten volgen: `, ps.map((p, i) => [i ? " of " : "", h("b", {}, `pakket ${p.nr} (${kortNaam(p)}, ${p.uren})`)]),
-                     ". Je school kiest welk. "] : [];
-    if (ps.length) inhoud.push(h("button", { type: "button", class: "knop-tekst", onclick: () => kies({ richting: "" }) }, "Toon weer alles"));
-    uitleg.replaceChildren(...inhoud.flat(Infinity));  // replaceChildren vlakt geneste lijsten niet af
+    uitleg.hidden = !keuze.richting;
+    uitleg.replaceChildren(...(keuze.richting ? [`Dit zijn de handboeken voor ${keuze.richting.split("|")[1]} volgens de leerplannen van ${koepelNaam()}${/[.!?]$/.test(koepelNaam()) ? "" : "."} `,
+      h("button", { type: "button", class: "knop-tekst", onclick: () => kies({ richting: "" }) }, "Toon weer alles")] : []));
   };
 
   const metPdf = d.boeken.filter((b) => b.edities.length).length;
@@ -434,10 +585,12 @@ async function toonKast() {
       ? h("div", {}, h("h1", {}, `Dag ${S.ik.naam.split(" ")[0]}`),
         h("p", {}, `${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Open er een, markeer een stuk van een pagina en zeg wat beter kan. Je collega's zien je opmerking ook: steun ze als je het eens bent.`))
       : h("div", {}, h("h1", {}, "Handboeken"),
-        h("p", {}, `Vrije handboeken wiskunde voor de ${graadTekst()} doorstroom, opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Ben je leerkracht? `,
+        h("p", {}, `Vrije handboeken wiskunde voor de ${graadTekst()} doorstroom, opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Kies de koepel en de richting: dan zie je welke handboeken je nodig hebt. Ben je leerkracht? `,
           h("a", { href: "#/aanmelden" }, "Meld je aan"), " voor de leerkrachtenversie, de oplossingen en om feedback te geven. ",
           h("a", { href: "#/over" }, "Waar we naartoe willen"), "."))),
+    appTip(),
     h("div", { class: "keuze" },
+      koepelKeuze,
       h("div", { class: "balk" }, graadKeuze, richtingKeuze,
         h("input", { type: "search", placeholder: "Zoek een handboek", "aria-label": "Zoek een handboek", oninput: (e) => { zoek = e.target.value; teken(); } })),
       pakketRij, uitleg),
@@ -446,16 +599,30 @@ async function toonKast() {
   teken();
 }
 
-function boekKaart(b) {
+function boekKaart(b, noot) {
   const open = b.feedback?.open || 0;
-  const omslag = b.omslag
-    ? h("div", { class: "omslag" }, h("img", { src: b.omslag, alt: "", loading: "lazy" }), open ? h("span", { class: "badge", title: `${open} open opmerkingen` }, open) : null,
+  const src = omslagVan(b);
+  const omslag = src
+    ? h("div", { class: "omslag" }, h("img", { src, alt: "", loading: "lazy" }), open ? h("span", { class: "badge", title: `${open} open opmerkingen` }, open) : null,
       b.edities.length ? null : h("span", { class: "geen-pdf" }, "Nog geen PDF"))
     : h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"));
   return h("a", { class: `boek ${rubriekKlasse(b)}`, href: `#/boek/${sleutelUrl(b.sleutel)}` }, omslag,
     h("div", {}, b.rubriek && h("div", { class: "rubriek" }, b.rubriek), h("div", { class: "titel" }, b.titel.replace(/(graads)(?=[a-z])/, "$1\u00AD"))),  // zacht afbreekteken: Eerstegraads-vergelijkingen
+    noot ? h("div", { class: "noot" }, noot) : null,
     h("div", { class: "meta" }, statusPil(b.status),
-      b.jaar && h("span", {}, b.jaar), b.feedback?.mijn ? h("span", {}, `${b.feedback.mijn} van jou`) : null));
+      b.jaar_voorstel && h("span", { title: "Voorstel: je school kiest het leerjaar" }, b.jaar_voorstel),
+      b.feedback?.mijn ? h("span", {}, `${b.feedback.mijn} van jou`) : null));
+}
+
+/* Welke richtingen van de gekozen koepel dit handboek gebruiken: verplicht, als keuze of als uitbreiding. */
+function richtingenVoorBoek(b) {
+  const uit = { verplicht: [], keuze: [], uitbreiding: [], uren: new Set() };
+  for (const [naam, x] of Object.entries(koepelRichtingen(b.graad))) {
+    for (const soort of ["verplicht", "keuze", "uitbreiding"]) {
+      if ((x[soort] || []).some((i) => i.sleutel === b.sleutel)) { uit[soort].push(naam); if (soort === "verplicht" && x.uren) uit.uren.add(x.uren); }
+    }
+  }
+  return uit;
 }
 
 // --- voortgang ---------------------------------------------------------------------------------
@@ -537,13 +704,21 @@ async function toonBoek(sleutel) {
         h("dl", { class: "gegevens" },
           h("dt", {}, "Graad"), h("dd", {}, `${p.graad}de graad doorstroomfinaliteit`),
           h("dt", {}, "Pakket"), h("dd", {}, `${p.nr} · ${p.naam}`),
-          h("dt", {}, "Richtingen"), h("dd", {}, p.richtingen),
-          h("dt", {}, "Uren"), h("dd", {}, p.uren.replaceAll("\\&", "&")),
-          b.jaar && [h("dt", {}, "Leerjaar"), h("dd", {}, b.jaar)],
+          ...(() => {
+            if (!S.boeken.koepels) return [h("dt", {}, "Richtingen"), h("dd", {}, p.richtingen), h("dt", {}, "Uren"), h("dd", {}, p.uren.replaceAll("\\&", "&"))];
+            const r = richtingenVoorBoek(b);
+            const lijst = (xs) => xs.length ? xs.join(", ") : "geen";
+            return [h("dt", {}, "Koepel"), h("dd", {}, koepelNaam(), " · ", h("a", { href: "#/" }, "kies een andere")),
+              h("dt", {}, "Richtingen"), h("dd", {}, lijst(r.verplicht)),
+              r.keuze.length ? [h("dt", {}, "Als keuze"), h("dd", {}, lijst(r.keuze))] : null,
+              r.uitbreiding.length ? [h("dt", {}, "Als uitbreiding"), h("dd", {}, lijst(r.uitbreiding))] : null,
+              r.uren.size ? [h("dt", {}, "Uren"), h("dd", {}, [...r.uren].join("; "))] : null];
+          })(),
+          (b.jaar_voorstel || b.jaar) && [h("dt", {}, "Leerjaar"), h("dd", {}, `voorstel: ${b.jaar_voorstel || b.jaar}`, h("span", { class: "zacht" }, " · je school kiest"))],
           h("dt", {}, "Status"), h("dd", {}, h("a", { href: "#/voortgang" }, statusNaam(b.status)), d.voortgang[b.status] ? h("span", { class: "zacht" }, ` · ${d.voortgang[b.status].uitleg}`) : "")),
         b.edities.length ? h("div", { class: "edities" }, b.edities.map((e) => h("div", { class: "editie" },
           h("b", {}, e.label), h("span", { class: "zacht" }, `${e.paginas} p. · ${datum(e.gebouwd)}`),
-          h("a", { class: "knop licht klein", href: apiUrl(`pdf/${e.hash}`), target: "_blank", rel: "noopener", "aria-label": `${e.label} als PDF` }, icoon("download"), "PDF"),
+          pdfKnop(b, e, { class: "knop licht klein", "aria-label": `${e.label} als PDF` }, icoon("download"), "PDF"),
           h("a", { class: "knop klein", href: `#/lees/${e.hash}` }, gast ? "Lees" : "Lees en geef feedback"))))
           : h("p", { class: "leeg" }, gast ? "Dit handboek is nog niet gebouwd." : "Dit handboek is nog niet gebouwd. Je kan wel al feedback geven op het plan."))),
     gast ? h("section", { class: "kaart" }, h("h2", {}, "Ben je leerkracht?"),
@@ -568,6 +743,7 @@ async function toonLezer(hash, q) {
   docBelofte.catch(() => melding("Deze PDF kon niet laden.", true));
   let alle = alle0;
   const b = d.boeken.find((x) => x.sleutel === v.sleutel);
+  api("POST", "bezoek/lees", { versie: hash }).catch(() => {});  // bezoekersteller, zie lib.php
   document.body.classList.add("lezend");
 
   let zoom = parseFloat(opslag.lees("zoom")) || 1;     // 1 = paginabreedte past in het venster (max. 900 px)
@@ -596,7 +772,9 @@ async function toonLezer(hash, q) {
     h("button", { class: "knop-icoon verberg-smal", type: "button", "aria-label": "Groter", onclick: () => zetZoom(zoom * 1.2) }, icoon("plus")),
     h("span", { class: "scheiding" }),
     !gast && markeerKnop,
-    h("a", { class: "knop-icoon verberg-smal", href: apiUrl(`pdf/${hash}`), target: "_blank", rel: "noopener", "aria-label": "Download de PDF" }, icoon("download")),
+    (() => { const b = d.boeken.find((x) => x.sleutel === v.sleutel); const e = b?.edities.find((x) => x.hash === hash);
+      return b && e ? pdfKnop(b, e, { class: "knop-icoon verberg-smal", "aria-label": "Download de PDF" }, icoon("download"))
+        : h("a", { class: "knop-icoon verberg-smal", href: apiUrl(`pdf/${hash}`), target: "_blank", rel: "noopener", "aria-label": "Download de PDF" }, icoon("download")); })(),
     paneelKnop);
 
   // bladen
@@ -907,8 +1085,11 @@ function toonOver() {
         stap("Testen en gedifferentieerde oefenreeksen", "uit dezelfde bank.")),
       h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/plannen" }, "Bekijk de plannen, met een voorproefje")),
       h("h2", {}, "Vanuit de leerplandoelen"),
-      h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 3de graad doorstroom. Er is een reeks handboeken per leerplanpakket: Basis, B+S, B+S' en B+S''. Zo vindt elke richting de leerstof van haar eigen pakket. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
+      h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 2de en 3de graad doorstroom. Er is een reeks handboeken per leerplanpakket, van Basis tot B+S''. Zo vindt elke richting de leerstof van haar eigen pakket. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
         extern(`${GITHUB}/blob/main/Handboeken/README.md`, "op GitHub"), "."),
+      h("p", {}, "De koepels bouwen allemaal op dezelfde doelen van de overheid, maar delen de richtingen soms anders in. Daarom kies je op de site ook je koepel: de leerplannen van het katholiek onderwijs (KOV) of van het GO!. Dan zie je per richting welke handboeken verplicht zijn, en apart wat keuze of uitbreiding is. Een PDF krijgt de voorkant van je koepel; de inhoud is dezelfde. Hoe de koepels verschillen, staat ",
+        extern(`${GITHUB}/blob/main/Ontwerp/koepels.md`, "op GitHub"), ". ",
+        h("button", { type: "button", class: "knop-tekst", style: { padding: 0 }, onclick: ovsgPov }, "Volgt je school OVSG of POV?")),
       h("h2", {}, "Vrij en open"),
       h("p", {}, "Je mag alles gebruiken, aanpassen en delen, zolang het niet commercieel is en je de bron vermeldt. De inhoud valt onder ",
         extern("https://creativecommons.org/licenses/by-nc-sa/4.0/deed.nl", "CC BY-NC-SA 4.0"), ". Alle bronnen staan op GitHub: de LaTeX-bestanden van de handboeken, de oefeningenbank en de code van deze website."),
@@ -918,6 +1099,11 @@ function toonOver() {
       KOFFIE ? [
         h("p", {}, "Axiomath is gratis en blijft dat, voor iedereen. De handboeken ontstaan in vrije uren, en de website en het domein kosten een klein bedrag per jaar. Heb je iets aan Axiomath en wil je dat laten weten? Met een koffie help je de site in de lucht te houden en de handboeken verder te schrijven. Helemaal vrijblijvend: nalezen en feedback geven helpt evenveel."),
         h("div", { class: "knoppen" }, h("a", { class: "knop licht", href: KOFFIE, target: "_blank", rel: "noopener" }, "☕ Koop mij een koffie"))] : null,
+      h("h2", {}, "Als app op je gsm"),
+      alsApp()
+        ? h("p", {}, "Je gebruikt Axiomath nu als app. Ze toont altijd de nieuwste versie van de handboeken.")
+        : [h("p", {}, "Zet Axiomath op het beginscherm van je gsm of tablet. Dan open je de handboeken met één tik, schermvullend, zoals een app. Je hebt geen appwinkel nodig, en de app is altijd bijgewerkt."),
+          h("div", { class: "knoppen" }, h("button", { class: "knop licht", type: "button", onclick: installeer }, "Zet op je beginscherm"))],
       h("h2", {}, "Lees mee"),
       h("p", {}, "Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze na (zie ", h("a", { href: "#/voortgang" }, "de voortgang"), "). Lees een handboek en zeg wat beter kan: op een plek in het boek, over een heel handboek of over het idee zelf. ",
         S.ik ? [h("a", { href: "#/algemeen" }, "Geef algemene feedback"), "."] : [h("a", { href: "#/aanmelden" }, "Meld je aan"), " als leerkracht, of bekijk ", h("a", { href: "#/" }, "de handboeken"), "."])));
@@ -954,6 +1140,7 @@ async function toonBeheer(tab) {
   const plek = h("div", {}, h("p", { class: "laden" }, "Laden …"));
   scherm("beheer", h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, "Beheer"),
     h("p", {}, "Alle feedback op één plek. Exporteer naar Markdown om ze per handboek, hoofdstuk en pagina te verwerken in de bron."))), tabs, plek);
+  tabs.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });  // op een gsm schuift de rij
   const inhoud = await ({ feedback: beheerFeedback, overzicht: beheerOverzicht, mensen: beheerMensen, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
   plek.replaceChildren(...[inhoud].flat());
 }
@@ -1037,11 +1224,12 @@ async function beheerOverzicht(d) {
       gebruikt.map((s) => h("th", { class: "getal" }, S.menu.soorten_algemeen[s])), h("th", { class: "getal" }, "Afgehandeld"))), h("tbody", {}, rijen)))];
 }
 
-async function beheerBezoekers() {
+async function beheerBezoekers(bk) {
   const NS = "http://www.w3.org/2000/svg";
   const sv = (tag, a = {}, ...kids) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(a)) e.setAttribute(k, v); e.append(...kids); return e; };
   const bereik = h("select", { style: { width: "auto" } }, [[30, "Laatste 30 dagen"], [90, "Laatste 90 dagen"], [365, "Laatste jaar"]].map(([v, l]) => h("option", { value: v }, l)));
   const plek = h("div", {});
+  const titelVan = (k) => { const b = bk.boeken.find((x) => x.sleutel === k); return b ? `${pakketKort(b)} · ${b.titel}` : k; };
   const dag = (s) => new Date(s + "T12:00:00").toLocaleDateString("nl-BE", { day: "numeric", month: "short" });
   async function laad() {
     const d = await api("GET", `beheer/bezoekers?dagen=${bereik.value}`);
@@ -1064,13 +1252,23 @@ async function beheerBezoekers() {
     });
     const stap = Math.ceil(n / 6);
     d.dagen.forEach((x, i) => { if ((n - 1 - i) % stap === 0) g.append(sv("text", { x: L + i * bw + bw / 2, y: H - 6, "text-anchor": "middle", class: "as" }, dag(x.dag))); });
+    const boekTabel = (rs) => {
+      const per = {};
+      for (const r of rs) { const p = per[r.sleutel] ??= { lezers: 0, weergaven: 0, ed: {} }; p.lezers += r.lezers; p.weergaven += r.weergaven; p.ed[r.editie] = r.lezers; }
+      const lijst = Object.entries(per).sort((a, b) => b[1].lezers - a[1].lezers || b[1].weergaven - a[1].weergaven);
+      if (!lijst.length) return h("p", { class: "leeg" }, "Nog geen handboek geopend in deze periode.");
+      return h("div", { class: "tabel-houder", style: { marginBottom: "12px" } }, h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, "Geopende handboeken"), h("th", { class: "getal" }, "Lezers"), h("th", { class: "getal" }, "Weergaven"), h("th", {}, "Per editie"))),
+        h("tbody", {}, lijst.map(([k, p]) => h("tr", {}, h("td", {}, titelVan(k)), h("td", { class: "getal" }, h("b", {}, p.lezers)), h("td", { class: "getal" }, p.weergaven),
+          h("td", { class: "zacht klein" }, Object.entries(p.ed).map(([e, n]) => `${S.menu.edities[e] || e} ${n}`).join(" · ")))))));
+    };
     const tegel = (t, w) => h("div", { class: "tegel" }, h("b", {}, w), h("span", { class: "zacht klein" }, t));
     plek.replaceChildren(
       h("div", { class: "tegels" }, tegel("bezoekers vandaag", vandaag.bezoekers), tegel(`bezoekers, ${n} dagen`, som("bezoekers")),
         tegel(`weergaven, ${n} dagen`, som("weergaven")), tegel("bezoekers sinds de start", d.totaal.bezoekers)),
       h("div", { class: "legende klein" }, h("span", { class: "sw sw-b" }), "bezoekers", h("span", { class: "sw sw-w" }), "weergaven (pagina's geladen)"),
       h("div", { class: "grafiek-houder" }, g),
-      h("p", { class: "zacht klein" }, `Een bezoeker is een uniek toestel per dag. Er worden geen koekjes gebruikt en geen IP-adressen bewaard, enkel de aantallen per dag${d.totaal.sinds ? `, sinds ${dag(d.totaal.sinds)}` : ""}. Beheerders en robots tellen niet mee.`));
+      boekTabel(d.boeken),
+      h("p", { class: "zacht klein" }, `Een bezoeker is een uniek toestel per dag. Er worden geen koekjes gebruikt en geen IP-adressen bewaard, enkel de aantallen per dag${d.totaal.sinds ? `, sinds ${dag(d.totaal.sinds)}` : ""}. Lezers worden per handboek en editie geteld. Beheerders en robots tellen niet mee.`));
   }
   bereik.addEventListener("change", () => laad().catch((e) => melding(e.message, true)));
   await laad();
@@ -1186,4 +1384,9 @@ async function start() {
 }
 addEventListener("hashchange", route);
 $app.append(h("p", { class: "laden" }, "Laden …"));
-start().catch((e) => melding(e.message, true));
+start().catch((e) => {
+  if (navigator.onLine) return melding(e.message, true);
+  // offline, bv. in de app op een gsm: de app zelf komt uit de cache (sw.js), de handboeken niet
+  $app.replaceChildren(h("p", { class: "leeg", style: { margin: "48px 16px" } }, "Je bent offline. Axiomath heeft internet nodig om de handboeken te tonen. ",
+    h("span", { style: { display: "block", marginTop: "14px" } }, h("button", { class: "knop klein", type: "button", onclick: () => location.reload() }, "Probeer opnieuw"))));
+});

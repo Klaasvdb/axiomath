@@ -165,6 +165,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 - **Kleur per graad** (beslissing van 13 nov 2026): de 3de graad heeft een petrol band met cyaan (`0B6470`, `3FD6F0`), de 2de graad een bordeaux band met goud (`8C1D40`, `FFC857`). Zo zie je meteen voor welke graad een boek is. De kleur geldt ook in het boek, op de plaatsen buiten de hoofdstukken (zoals de oplossingen). Ze staat in `maak-voorkanten.py` en komt via `voorkant-gegevens.tex` in de cursus.
 - **Duidelijke titel:** groot (64 pt) en wit op de band, de versie in een fel label eronder, zodat je ook van ver ziet welk boek het is. Een lange titel krijgt twee regels of kleinere letters.
 - **Indeling:** het kunstwerk bovenaan over de volle breedte, daaronder de gekleurde band met links de titel en de gegevens in een tabel, en rechtsonder het logo.
+- **Een voorkant per koepel** (beslissing van 15 nov 2026): dezelfde inhoud, maar de richtingen en uren van de koepel. KOV houdt de voorkant zoals hieronder; GO! krijgt de richtingen en uren uit `Handboeken/koepels.yaml`. Zie `Ontwerp/voorkanten/README.md`. Het voorgestelde leerjaar staat op de website, niet vast op de voorkant: de school kiest.
 - De richtingen komen uit de tabel in `Handboeken/README.md`. De uren komen uit de lessentabel van de school waar het project begon (`maak-voorkanten.py`) en verschillen per school. Het leerjaar staat er alleen bij pakket 4, waar de verdeling over de jaren vastligt. De leerplannen zijn graadleerplannen: de andere pakketten krijgen hun leerjaar pas als die verdeling vastligt.
 
 | Onderwerp | Kunstwerk | Link met de leerstof | Motief |
@@ -180,7 +181,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Groepen | William Morris, *Strawberry Thief*, ontwerp 1883 | Een patroon dat onveranderd blijft onder verschuivingen en spiegelingen | De symmetrieën van de gelijkzijdige driehoek |
 | Ruimtemeetkunde | Anoniem, *De ideale stad*, ca. 1480-1490 | De ruimte op een plat vlak, opgebouwd uit evenwijdige lijnen | Een kubus in een assenstelsel met de ruimtevector |
 | Rijen | Claude Monet, *Populieren aan de Epte*, 1891 | Een rij populieren, stam na stam | De termen als stammen, die naar hun limiet gaan |
-| Telproblemen | Pieter Bruegel de Oude, *De volkstelling te Bethlehem*, 1566 | Een volkstelling, en kale wintertakken | Een boomdiagram: 2 · 2 · 2 = 8 |
+| Telproblemen | De 122 onvolledige open kubussen, eigen telling en tekening naar een idee van Sol LeWitt (1974) (beslissing van 15 nov 2026; LeWitts eigen werk is beschermd tot eind 2077) | Tellen op een draaiing na: alle verbonden delen van de ribben van een kubus, met ribben in de drie richtingen | Eén van de 122, met 7 ribben, en de 5 ontbrekende gestippeld |
 | Logica en bewijzen | Rafaël, *De school van Athene*, 1509-1511 | Aristoteles, grondlegger van de logica, en Euclides | De sluitrede over Socrates als cirkels |
 | Kansrekenen | Caravaggio, *De valsspelers*, ca. 1594 | Kaarten en vals spel | De 36 uitkomsten van twee dobbelstenen, gestapeld per som |
 | Statistiek | Rembrandt van Rijn, *De staalmeesters*, 1662 | Laken keuren op basis van stalen: een steekproef | De normale verdeling, met 68 % binnen één σ |

@@ -9,7 +9,8 @@ Schrijft:
   - server/app/boeken.json en server/app/laatste.json;
   - server/app/versies/<h>.pdf en <h>.json: elke nieuwe PDF als vaste versie (h = begin van de SHA-256);
   - server/public_html/omslagen/<h>.webp: de voorkant (pagina 1 van het handboek);
-  - server/public_html/fonts/, logo.svg, icoon.svg, icoon-180.png en kunst.jpg (het schilderij op de aanmeldpagina);
+  - server/public_html/fonts/, logo.svg, icoon.svg, kunst.jpg (het schilderij op de aanmeldpagina) en de iconen
+    voor het beginscherm van een gsm (icoon-180.png, icoon-192.png, icoon-512.png, icoon-maskeerbaar-512.png);
   - server/public_html/voorbeeld/integralen/: een kopie van de voorbeeldcursus in Website/ (index.html en assets/),
     het voorproefje van de interactieve theorie op #/plannen.
 Bestaande versies blijven staan: een opmerking hoort bij de versie waarop ze gemaakt is.
@@ -45,12 +46,22 @@ EDITIES = [
 GRADEN_OP_SITE = (2, 3)
 
 
+_MV = None
+
+
+def voorkanten_module():
+    """Ontwerp/voorkanten/maak-voorkanten.py: de handboeken, pakketten, koepels en voorkanten."""
+    global _MV
+    if _MV is None:
+        spec = importlib.util.spec_from_file_location("maak_voorkanten", REPO / "Ontwerp" / "voorkanten" / "maak-voorkanten.py")
+        _MV = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_MV)
+    return _MV
+
+
 def laad_lijst(graden=None):
     graden = graden or GRADEN_OP_SITE
-    pad = REPO / "Ontwerp" / "voorkanten" / "maak-voorkanten.py"
-    spec = importlib.util.spec_from_file_location("maak_voorkanten", pad)
-    m = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(m)
+    m = voorkanten_module()
     cfg = yaml.safe_load((REPO / "voortgang.yaml").read_text(encoding="utf-8"))
     status_van = cfg.get("handboeken") or {}
     boeken = []
@@ -63,7 +74,8 @@ def laad_lijst(graden=None):
             "sleutel": sleutel, "graad": m.graad(pakket), "pakketid": m.pakket_id(pakket), "pakket": pakket,
             "pakketnr": int(pakket.split()[0]), "map": map_, "pad": m.cursusmap(pakket, map_).relative_to(REPO).as_posix(),
             "titel": delen[-1], "rubriek": delen[0] if len(delen) > 1 else "",
-            "jaar": jaar, "motief": motief, "status": status_van.get(sleutel, "gepland"),
+            "jaar": jaar, "jaar_voorstel": m.jaar_voorstel(pakket, map_), "motief": motief,
+            "status": status_van.get(sleutel, "gepland"),
         })
     pakketten = [{"id": m.pakket_id(p), "graad": m.graad(p), "nr": int(p.split()[0]), "naam": p.split(" ", 1)[1], "map": p,
                   "richtingen": v["richtingen"], "uren": v["uren"].replace("\\&", "&"),
@@ -132,13 +144,28 @@ def vaste_bestanden():
     shutil.copyfile(HIER.parent / "assets" / "fonts" / "LICENSE.md", fonts / "LICENSE.md")
     shutil.copyfile(REPO / "Ontwerp" / "logo" / "axiomath-logo.svg", PUBLIEK / "logo.svg")
     shutil.copyfile(REPO / "Ontwerp" / "logo" / "axiomath-icoon.svg", PUBLIEK / "icoon.svg")  # favicon: de O met de assen
-    with Image.open(REPO / "Ontwerp" / "logo" / "axiomath-icoon.png") as im:  # voor het beginscherm van een gsm
-        im.resize((180, 180), Image.LANCZOS).save(PUBLIEK / "icoon-180.png", optimize=True)
+    app_iconen()
     kunst = PUBLIEK / "kunst.jpg"
     if not kunst.exists():  # Rafaël, De school van Athene (publiek domein)
         with Image.open(REPO / "Ontwerp" / "omslagen" / "omslag-athene.jpg") as im:
             im.thumbnail((1600, 1600))
             im.convert("RGB").save(kunst, quality=82, optimize=True, progressive=True)
+
+
+def app_iconen():
+    """De iconen voor het beginscherm van een gsm of tablet (manifest.webmanifest en apple-touch-icon in index.html).
+    icoon-192/512: het icoon zelf, met de afgeronde hoeken. icoon-180 (iPhone) en icoon-maskeerbaar-512 (Android):
+    een volle vierkante achtergrond, want het toestel rondt de hoeken zelf af of knipt er een cirkel uit."""
+    with Image.open(REPO / "Ontwerp" / "logo" / "axiomath-icoon.png") as im:
+        im = im.convert("RGBA")
+        inkt = im.getpixel((im.width // 2, 5))  # de achtergrond van het icoon (#12202B)
+        for n in (192, 512):
+            im.resize((n, n), Image.LANCZOS).save(PUBLIEK / f"icoon-{n}.png", optimize=True)
+        for naam, n, deel in [("icoon-180.png", 180, 1.0), ("icoon-maskeerbaar-512.png", 512, 0.8)]:
+            vol = Image.new("RGBA", (n, n), inkt)  # 0.8: binnen de veilige zone van een maskeerbaar icoon
+            m = round(n * deel)
+            vol.alpha_composite(im.resize((m, m), Image.LANCZOS), ((n - m) // 2, (n - m) // 2))
+            vol.convert("RGB").save(PUBLIEK / naam, optimize=True)
 
 
 def voorbeeldcursus():
@@ -155,6 +182,80 @@ def voorbeeldcursus():
                 print(f"  kon {f.name} niet wissen: {e}")
 
 
+# De koepels op de site. KOV: de voorkant in de PDF zelf. Een andere koepel: dezelfde PDF, maar de site zet bij het
+# downloaden de voorkant van die koepel erop (app.js, met pdf-lib in de browser). POV staat niet op de site: wie
+# dat vraagt, krijgt het (zie "Over"). De gegevens: Handboeken/koepels.yaml, via maak-voorkanten.py.
+KOEPELS_OP_SITE = [("KOV", "Katholiek onderwijs (KOV)"), ("GO", "GO!")]
+
+
+def koepels(graden):
+    m = voorkanten_module()
+    tabel = m.koepeltabel()
+    return {"lijst": [{"id": k, "naam": n} for k, n in KOEPELS_OP_SITE],
+            "graden": {str(g): {k: tabel[g][k] for k, _ in KOEPELS_OP_SITE} for g in graden if g in tabel}}
+
+
+def koepel_omslagen(boeken, laatste):
+    """Per andere koepel dan KOV, in public_html/omslagen/:
+      <k>-laag-<h>.pdf  per editie een laag van één pagina: de voorkant ZONDER kunstwerk (band, titel, gegevens, motief).
+                        De browser legt ze over de eerste pagina van de PDF, waar het kunstwerk al op staat. Zo blijft
+                        elke laag klein (~0,2 MB in plaats van 1 à 2 MB met het kunstwerk).
+      <k>-<h>.webp      de volledige voorkant als beeld voor de boekenkast.
+    h hangt af van wat er op de voorkant staat (motief, kunstwerk, gegevens, editie): een voorkant die niet verandert,
+    houdt zijn naam, wordt niet opnieuw gebouwd en niet opnieuw uitgerold."""
+    m = voorkanten_module()
+    vk = REPO / "Ontwerp" / "voorkanten"
+    om = PUBLIEK / "omslagen"
+    vast = (vk / "voorkant.tex").read_text(encoding="utf-8")
+
+    def bouw(koepel, items, zonder_kunst):
+        """items: [(b, editie, bestandsnaam)]; bouwt alleen wat er nog niet is."""
+        nodig = [x for x in items if not (om / x[2]).exists()]
+        if not nodig:
+            return
+        pdf = m.bouw_alles(koepel, [(b["pakket"], b["map"], b["motief"], None, e) for b, e, _ in nodig],
+                           naam=f"site-voorkanten-{koepel.lower()}", zonder_kunst=zonder_kunst)
+        with pymupdf.open(pdf) as doc:
+            for p, (_, _, naam) in enumerate(nodig):
+                if naam.endswith(".pdf"):
+                    with pymupdf.open() as een:
+                        een.insert_pdf(doc, from_page=p, to_page=p)
+                        een.save(om / naam, garbage=4, deflate=True)
+                else:
+                    pg = doc[p]
+                    pix = pg.get_pixmap(matrix=pymupdf.Matrix(480 / pg.rect.width, 480 / pg.rect.width), alpha=False)
+                    Image.frombytes("RGB", (pix.width, pix.height), pix.samples).save(om / naam, "WEBP", quality=82, method=6)
+        for f in vk.glob(f"site-voorkanten-{koepel.lower()}.*"):
+            f.unlink()
+        print(f"  {koepel}: {len(nodig)} nieuwe {'lagen' if zonder_kunst else 'voorkanten'}")
+
+    for koepel, _ in KOEPELS_OP_SITE:
+        if koepel == "KOV":
+            continue
+        tekst = m.koepel_voorkant(koepel)
+        lagen, beelden = [], []
+        for b in boeken:
+            motief = vk / "motieven" / f"{b['motief']}.tex"
+            if not motief.exists():
+                continue
+            beeld = motief.read_text(encoding="utf-8")
+            bestand = next((r.split("{")[1].split("}")[0] for r in beeld.splitlines() if r.startswith("\\def\\omslagbestand")), "")
+            kunst = REPO / "Ontwerp" / "omslagen" / bestand
+            kunst_h = hashlib.sha256(kunst.read_bytes()).hexdigest() if kunst.is_file() else ""
+            h = lambda *x: hashlib.sha256("|".join([koepel, b["sleutel"], beeld, repr(tekst.get(b["sleutel"])), vast, *x])
+                                          .encode("utf-8")).hexdigest()[:20]
+            k = b.setdefault("koepelomslag", {}).setdefault(koepel, {"pdf": {}})
+            naam = f"{koepel.lower()}-{h('handboek', kunst_h)}.webp"
+            beelden.append((b, "handboek", naam))
+            k["beeld"] = f"/omslagen/{naam}"
+            for e in laatste.get(b["sleutel"], {}):
+                naam = f"{koepel.lower()}-laag-{h(e)}.pdf"
+                lagen.append((b, e, naam))
+                k["pdf"][e] = f"/omslagen/{naam}"
+        bouw(koepel, beelden, False)
+        bouw(koepel, lagen, True)
+
+
 def main(argv=()):
     """--graden 2,3: bouw lokaal met deze graden in plaats van GRADEN_OP_SITE (om de 2de graad te testen)."""
     graden = None
@@ -168,7 +269,6 @@ def main(argv=()):
     voorkanten_zonder_pdf(boeken)
     for b in boeken:
         del b["heeft_pdf"]
-    schrijf_json(APP / "boeken.json", {"pakketten": pakketten, "boeken": boeken, "voortgang": voortgang})
     laatste = {}
     for b in boeken:
         cursus = REPO / b["pad"]
@@ -179,6 +279,9 @@ def main(argv=()):
         ed = laatste.get(b["sleutel"])
         if ed:
             omslag((ed.get("handboek") or next(iter(ed.values())))["hash"])
+    koepel_omslagen(boeken, laatste)
+    schrijf_json(APP / "boeken.json", {"pakketten": pakketten, "boeken": boeken, "voortgang": voortgang,
+                                       "koepels": koepels(graden or GRADEN_OP_SITE)})
     schrijf_json(APP / "laatste.json", laatste)
     vaste_bestanden()
     voorbeeldcursus()

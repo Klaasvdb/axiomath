@@ -144,7 +144,7 @@ def main():
 
     print("voorkanten (alleen nieuwe)")
     online = lijst(f"{DOMEIN}/public_html/omslagen")
-    for f in sorted((SERVER / "public_html" / "omslagen").glob("*.webp")):
+    for f in sorted(p for p in (SERVER / "public_html" / "omslagen").iterdir() if p.suffix in (".webp", ".pdf")):  # .pdf: voorkant per koepel
         if f"{DOMEIN}/public_html/omslagen/{f.name}" not in online:
             upload(f, "public_html/omslagen")
 
@@ -162,7 +162,8 @@ def main():
         map_maken(f"{DOMEIN}/public_html/{rel.rpartition('/')[0]}", m.name)
     for f in sorted(p for p in voorbeeld.rglob("*") if p.is_file()):
         upload(f, "public_html/" + f.parent.relative_to(SERVER / "public_html").as_posix())
-    for naam in ["logo.svg", "icoon.svg", "icoon-180.png", "kunst.jpg", "og-image.jpg", "app.css", "plannen.js", "app.js", ".htaccess", "index.html"]:
+    for naam in ["logo.svg", "icoon.svg", "icoon-180.png", "icoon-192.png", "icoon-512.png", "icoon-maskeerbaar-512.png",
+                 "kunst.jpg", "og-image.jpg", "manifest.webmanifest", "app.css", "plannen.js", "app.js", "sw.js", ".htaccess", "index.html"]:
         upload(SERVER / "public_html" / naam, "public_html")
 
     print("controle")

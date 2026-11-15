@@ -8,12 +8,15 @@ RewriteRule ^ https://axiomath.be%{REQUEST_URI} [R=301,L]
 
 Options -Indexes
 
+# De app op het beginscherm van een gsm (manifest.webmanifest en sw.js)
+AddType application/manifest+json .webmanifest
+
 # De app (index.html, app.js, app.css) altijd opnieuw nakijken; voorkanten en lettertypes mogen lang in de cache.
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html|js|css)$">
+  <FilesMatch "\.(html|js|css|webmanifest)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
-  <FilesMatch "\.(webp|woff2|jpg|svg)$">
+  <FilesMatch "\.(webp|woff2|jpg|svg|png)$">
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"

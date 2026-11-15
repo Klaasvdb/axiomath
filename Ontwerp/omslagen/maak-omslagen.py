@@ -16,6 +16,9 @@ Controleer altijd of de licentie op Commons "Public domain" of CC0 is (CC0: muse
 De Mandelbrotverzameling (Complexe getallen) is geen schilderij maar wordt hier berekend:
     py -3.13 -P maak-omslagen.py mandelbrot
 Daarvoor is ook numpy nodig.
+
+De 122 onvolledige open kubussen (Telproblemen) zijn ook eigen werk, berekend en getekend:
+    py -3.13 -P maak-omslagen.py kubussen
 """
 import io
 import json
@@ -65,7 +68,6 @@ SCHILDERIJEN = {
     "saint-tropez": ("File:Paul Signac - The Port of Saint-Tropez - Google Art Project.jpg", 0.5, 0.5),
     "cirkelvormen": ("File:Delaunay, Robert - Formes circulaires; lune no. 1 - Google Art Project.jpg", 0.5, 0.5),
     "taeuber": ("File:Sophie Taeuber-Arp - Kompozycja r.jpg", 0.5, 0.5),
-    "levensboom": ("File:Klimt - Nine Cartoons for the Stoclet Frieze- Part 4, Part of the tree of life (1910-11).jpg", 0.5, 0.25),
     "hoofdweg": ("File:Hauptweg und Nebenwege - Paul Klee - Museum Ludwig-7026 (cropped).jpg", 0.5, 0.5),
     "galette": ("File:Auguste Renoir - Dance at Le Moulin de la Galette - Google Art Project.jpg", 0.5, 0.5),
 }
@@ -128,8 +130,92 @@ def mandelbrot(cx=-0.7453, cy=0.1127, breedte=0.012, n=1200, ss=2):
     print(doel.name, doel.stat().st_size // 1024, "kB", "eigen werk")
 
 
+def kubussen():
+    """Telproblemen: alle onvolledige open kubussen, getekend in een raster (eigen berekening).
+    Een onvolledige open kubus is een verbonden deel van de 12 ribben van een kubus, met ribben in alle drie
+    de richtingen, maar niet alle 12. Twee die door een draaiing in elkaar overgaan, tellen als één: zo zijn er 122
+    (3 tot 11 ribben: 3, 5, 14, 24, 32, 25, 13, 5, 1). Tel je ook spiegelbeelden als gelijk, dan zijn het er 77.
+    Het idee komt van Sol LeWitt (Incomplete Open Cubes, 1974); de telling en de tekening zijn eigen werk."""
+    import itertools
+    import math
+    from PIL import ImageDraw
+
+    hoeken = list(itertools.product((0, 1), repeat=3))
+    ribben = [(a, b) for a, b in itertools.combinations(hoeken, 2) if sum(x != y for x, y in zip(a, b)) == 1]
+    nummer = {frozenset(r): i for i, r in enumerate(ribben)}
+
+    def draaiingen():
+        """De 24 draaiingen van de kubus, als permutatie van de ribben (matrices met determinant 1)."""
+        for perm in itertools.permutations(range(3)):
+            for teken in itertools.product((1, -1), repeat=3):
+                pariteit = sum(perm[i] > perm[j] for i in range(3) for j in range(i + 1, 3)) % 2
+                if math.prod(teken) * (-1) ** pariteit != 1:
+                    continue
+                beeld = lambda v: tuple((teken[i] * (2 * v[perm[i]] - 1) + 1) // 2 for i in range(3))
+                yield [nummer[frozenset((beeld(a), beeld(b)))] for a, b in ribben]
+
+    groep = list(draaiingen())
+    assert len(groep) == 24
+
+    def geldig(deel):
+        rs = [ribben[i] for i in deel]
+        if len({next(k for k in range(3) if a[k] != b[k]) for a, b in rs}) < 3:
+            return False
+        bereikt, nieuw = set(rs[0]), True
+        while nieuw:
+            nieuw = False
+            for a, b in rs:
+                if (a in bereikt) != (b in bereikt):
+                    bereikt |= {a, b}
+                    nieuw = True
+        return bereikt == {v for r in rs for v in r}
+
+    gezien, lijst = set(), []
+    for n in range(3, 12):
+        for deel in itertools.combinations(range(12), n):
+            if geldig(deel):
+                vorm = min(tuple(sorted(g[i] for i in deel)) for g in groep)
+                if vorm not in gezien:
+                    gezien.add(vorm)
+                    lijst.append(vorm)
+    assert len(lijst) == 122, len(lijst)
+
+    ss = 2
+    beeld = Image.new("RGB", (BREEDTE * ss, HOOGTE * ss), (244, 241, 234))
+    teken = ImageDraw.Draw(beeld)
+    inkt, schim = (18, 32, 43), (214, 208, 196)
+    kolommen, rijen = 12, 11
+    mx, my = 110 * ss, 95 * ss
+    cw = (BREEDTE * ss - 2 * mx) / kolommen
+    ch = (HOOGTE * ss - my - 115 * ss) / rijen  # de onderste rand valt achter de band
+    s = min(cw, ch) * 0.42 * 1.35
+    az, el = math.radians(28), math.radians(22)  # schuin bekeken: geen twee hoekpunten vallen samen
+
+    def proj(v, cx, cy):
+        x, y, z = (c - 0.5 for c in v)
+        X, Y = x * math.cos(az) - y * math.sin(az), x * math.sin(az) + y * math.cos(az)
+        return cx + X * s, cy + (Y * math.sin(el) - z * math.cos(el)) * s
+
+    laatste = len(lijst) - kolommen * (rijen - 1)
+    for k, kubus in enumerate(lijst):
+        r, c = divmod(k, kolommen)
+        c += (kolommen - laatste) / 2 if r == rijen - 1 else 0
+        cx, cy = mx + (c + 0.5) * cw, my + (r + 0.5) * ch
+        for i, (a, b) in enumerate(ribben):
+            if i not in kubus:
+                teken.line([proj(a, cx, cy), proj(b, cx, cy)], fill=schim, width=2 * ss)
+        for i in kubus:
+            a, b = ribben[i]
+            teken.line([proj(a, cx, cy), proj(b, cx, cy)], fill=inkt, width=5 * ss)
+    doel = MAP / "omslag-kubussen.jpg"
+    beeld.resize((BREEDTE, HOOGTE), Image.LANCZOS).save(doel, quality=90, optimize=True)
+    print(doel.name, doel.stat().st_size // 1024, "kB", "eigen werk,", len(lijst), "kubussen")
+
+
 if "mandelbrot" in sys.argv[1:] or not sys.argv[1:]:
     mandelbrot()
+if "kubussen" in sys.argv[1:] or not sys.argv[1:]:
+    kubussen()
 
 for naam, (titel, px, py) in SCHILDERIJEN.items():
     if sys.argv[1:] and naam not in sys.argv[1:]:

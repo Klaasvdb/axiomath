@@ -121,7 +121,7 @@ Bordeaux (`8C1D40`) met goud (`FFC857`) in plaats van petrol, met frissere en li
 | Ruimtemeetkunde | Pieter Saenredam, *Interieur van de Sint-Odulphuskerk in Assendelft*, 1649 | Rechten en vlakken in een witte kerk | Een kubus met twee kruisende ribben |
 | Vectoren, Analytische meetkunde | Paul Signac, *De haven van Saint-Tropez*, 1901-1902 | Wind in de zeilen | De som van twee vectoren |
 | De cirkel | Robert Delaunay, *Cirkelvormen, maan nr. 1*, 1913 | Cirkels in volle kleur | Middelpuntshoek 120°, omtrekshoek 60° |
-| Telproblemen | Gustav Klimt, *De levensboom*, 1910-1911 | Een boom die zich telkens vertakt | Een boomdiagram: 2 · 2 · 2 = 8 |
+| Telproblemen | Pieter Bruegel de Oude, *De volkstelling te Bethlehem*, 1566 | Een volkstelling, en kale wintertakken | Een boomdiagram: 2 · 2 · 2 = 8 |
 | Grafen | Paul Klee, *Hoofdweg en zijwegen*, 1929 | Een netwerk van paden | De bruggen van Königsberg, met de graad van elke knoop |
 
 Alle werken staan op Wikimedia Commons als publiek domein (nagekeken met `maak-omslagen.py`). Taeuber-Arp (1931) is publiek domein in de EU; in de VS pas vanaf 2027.
