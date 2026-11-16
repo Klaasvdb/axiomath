@@ -1,0 +1,443 @@
+%----------------------------------------------------------------------------------------
+% DE PARABOOL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{De parabool}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een satelliet staat zo ver weg dat zijn signalen als evenwijdige stralen binnenkomen. Een schotelantenne kaatst al die stralen naar één punt, waar de ontvanger zit. Waarom heeft de schotel de vorm van een parabool, en niet van een stuk van een bol? En een schotel is 80 cm breed en 12 cm diep: hoe hoog boven de bodem moet de ontvanger staan?}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \foreach \a in {-3,-1.5,1.5,3}{%
+    \pgfmathsetmacro{\b}{(\a)^2*3/16}
+    \draw[lijngrijs,->] (\a,4.6) -- (\a,{\b+.05});
+    \draw[lijngrijs,->] (\a,\b) -- (0,1.333);}
+  \draw[accent,line width=1.6pt] plot[domain=-4:4,samples=50,smooth] (\x,{(\x)^2*3/16});
+  \fill[accent] (0,1.333) circle (3pt);
+  \node[right] at (.2,1.6) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{GO!: WD3\_06.08.11, subdoel 2 (de parabool als meetkundige plaats) en subdoel 3 (de standaardvergelijking). KOV Complementair: krommen en meetkundige plaatsen. De raaklijn en de spiegeleigenschap gaan iets verder dan GO! vraagt, maar ze beantwoorden het probleem. Voorkennis: tweedegraadsfuncties met hun top, het kwadraat afsplitsen en afgeleiden (raaklijn aan een grafiek).}
+
+In hoofdstuk 1 vonden we de parabool op twee manieren: als doorsnede van een kegel, en als de meetkundige plaats van de punten die even ver van een punt als van een rechte liggen. In de 2de graad kende je de parabool als de grafiek van $y = ax^2 + bx + c$. In dit hoofdstuk brengen we die drie samen. Het brandpunt, dat bij een grafiek nergens te zien is, blijkt het belangrijkste punt van een parabool: het verklaart waarom een schotelantenne werkt.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Brandpunt en richtlijn}
+
+\subsection{Een vergelijking voor elke parabool}
+
+In voorbeeld 4 van hoofdstuk 1 lagen het brandpunt en de richtlijn 2 eenheden uit elkaar, en vonden we $y = \tfrac14 x^2$. In de Verken lagen ze 4 uit elkaar, met $y = \tfrac18 x^2$. Hoe hangt de vorm af van die afstand? Noem de afstand van het brandpunt tot de richtlijn $p$. Zoals elke afstand is $p > 0$.
+
+Een vergelijking hangt af van waar je de assen legt. Kies ze slim. De loodlijn uit $F$ op $l$ is een symmetrieas van de parabool, want spiegel je een punt erover, dan blijven beide afstanden gelijk. Neem die as als $y$-as. Het punt van de parabool op die as ligt midden tussen $F$ en $l$: daar leggen we de oorsprong. Dan is $F\bigl(0, \tfrac p2\bigr)$ en $l \leftrightarrow y = -\tfrac p2$.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{parameter}} $p$ van een parabool is de afstand van het brandpunt tot de richtlijn. De loodlijn uit het brandpunt op de richtlijn is de \textbf{\textcolor{accent}{as}} van de parabool, en het snijpunt van de as met de parabool is de \textbf{\textcolor{accent}{top}}.
+
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Vergelijking van een parabool}
+De parabool met brandpunt ${F\bigl(0, \tfrac p2\bigr)}$ en richtlijn ${y = -\tfrac p2}$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{x^2 = 2py}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $P(x, y)$. De afstand tot $l$ is het hoogteverschil ${\bigl|y + \tfrac p2\bigr|}$, dus
+\bewijsregel{|PF| = \afst{P}{l} \iff x^2 + \Bigl(y - \dfrac p2\Bigr)^2 = \Bigl(y + \dfrac p2\Bigr)^2 .}
+Werk uit: de termen $y^2$ en $\tfrac{p^2}{4}$ vallen weg, en er blijft $x^2 - py = py$, of $x^2 = 2py$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \assen{-3.6}{3.8}{-1.6}{4.4}
+  \draw[grijs,thick] (-3.6,-1) -- (3.6,-1) node[above left,text=black] {$l$};
+  \paraboolv{0}{0}{2}{-3.6}{3.6}
+  \brandpunt[left]{0}{1}{F}
+  \fill (2.4,1.44) circle (2pt) node[right] {$P$};
+  \draw[grijs] (0,1) -- (2.4,1.44) (2.4,1.44) -- (2.4,-1);
+  \draw[decorate,decoration={brace,amplitude=2pt,mirror}] (-.15,-1) -- (-.15,1) node[midway,left=1pt] {$p$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+De vergelijking toont wat $p$ doet. Bij een grote $p$ moet $y$ flink stijgen voor $x$ een beetje groeit: de parabool is breed en het brandpunt ligt ver van de top. Bij een kleine $p$ is ze smal, met het brandpunt dicht bij de top. Een parabool met een andere stand krijg je door de rollen van $x$ en $y$ te wisselen, of door het teken om te keren. Dat geeft vier standaardvergelijkingen.
+
+\begin{theorie}
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.7}%
+\begin{tabular}{|>{\centering\arraybackslash}m{2.4cm}|>{\centering\arraybackslash}m{2.6cm}|>{\centering\arraybackslash}m{2.6cm}|>{\centering\arraybackslash}m{2.6cm}|>{\centering\arraybackslash}m{2.6cm}|}
+\hline
+\textbf{vergelijking} & $\formule{x^2 = 2py}$ & $\formule{x^2 = -2py}$ & $\formule{y^2 = 2px}$ & $\formule{y^2 = -2px}$ \\ \hline
+\textbf{opening} & naar boven & naar onder & naar rechts & naar links \\ \hline
+\textbf{brandpunt} & $\formule{\bigl(0, \tfrac p2\bigr)}$ & $\formule{\bigl(0, -\tfrac p2\bigr)}$ & $\formule{\bigl(\tfrac p2, 0\bigr)}$ & $\formule{\bigl(-\tfrac p2, 0\bigr)}$ \\ \hline
+\textbf{richtlijn} & $\formule{y = -\tfrac p2}$ & $\formule{y = \tfrac p2}$ & $\formule{x = -\tfrac p2}$ & $\formule{x = \tfrac p2}$ \\ \hline
+\end{tabular}\par}
+Telkens is $p > 0$, en ligt de top in de oorsprong.
+\end{theorie}
+
+Je hoeft die tabel niet van buiten te leren. Het gekwadrateerde symbool zegt welke as de symmetrieas niet is: bij $y^2$ is $y$ symmetrisch rond 0, dus ligt de as op de $x$-as. En de parabool opent naar de kant waar het brandpunt ligt.
+
+\voorbeeld{}{Bepaal het brandpunt en de richtlijn van de parabool $y^2 = 6x$. Teken de parabool.\label{vb:h2-std}}{%
+\uitleg{Er staat $y^2$, dus de as is de $x$-as. Omdat $x = \tfrac{y^2}{6} \geqslant 0$, opent de parabool naar rechts.}
+\naast{\begin{stappenvrij}{5cm}{4.8cm}
+2p = 6 \ \Rightarrow \ p = 3 & Vergelijk met $y^2 = 2px$. \\[1ex]
+F\bigl(\tfrac32, 0\bigr) & Het brandpunt ligt op de as, op $\tfrac p2$ van de top, aan de kant van de opening. \\[1ex]
+l \leftrightarrow x = -\tfrac32 & De richtlijn ligt even ver aan de andere kant. \\[1ex]
+\bigl(\tfrac32, \pm3\bigr) & Twee handige punten om te tekenen: boven en onder het brandpunt, $y^2 = 9$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \rooster{-2}{1}{5}{-5}{1}{5}
+  \draw[grijs,thick] (-1.5,-5) -- (-1.5,5) node[below left,text=black] {$l$};
+  \parabool{0}{0}{3}{-5}{5}
+  \brandpunt[below right]{1.5}{0}{F}
+  \fill (1.5,3) circle (2pt) (1.5,-3) circle (2pt);
+\end{tikzpicture}}}
+
+Die twee punten boven en onder het brandpunt zijn altijd handig: in $x = \tfrac p2$ is $y^2 = p^2$, dus ze liggen op afstand $p$ van de as. Zo teken je snel een geloofwaardige parabool.
+
+\voorbeeld{}{Een parabool heeft haar top in de oorsprong en haar brandpunt in $(0, -2)$. Geef een vergelijking en de richtlijn.\label{vb:h2-opstellen}}{%
+\uitleg{Het brandpunt ligt onder de top op de $y$-as: de parabool opent naar onder.}
+\begin{stappen}
+\tfrac p2 = 2 \ \Rightarrow \ p = 4 & Het brandpunt ligt op afstand $\tfrac p2$ van de top. \\[1ex]
+x^2 = -8y & De vorm $x^2 = -2py$, voor een opening naar onder. \\[1ex]
+l \leftrightarrow y = 2 & Even ver boven de top als het brandpunt eronder.
+\end{stappen}}
+
+\begin{werkwijze}
+Kijk welke letter in het kwadraat staat: die bepaalt de as. Het teken en de kant van het brandpunt bepalen de opening. Zoek $2p$, dan $p$, en zet het brandpunt en de richtlijn op afstand $\tfrac p2$ van de top.
+\end{werkwijze}
+
+\nujij{Bepaal het brandpunt en de richtlijn van $x^2 = 10y$.}{$p = 5$: $F\bigl(0, \tfrac52\bigr)$ en $l \leftrightarrow y = -\tfrac52$.}
+
+\begin{oefeningen}
+\oef{h2-std}
+\end{oefeningen}
+
+\subsection{De grafiek van \texorpdfstring{$y = ax^2$}{y = ax²}}
+
+Elke grafiek van $y = ax^2$ is dus een parabool, en heeft ergens een brandpunt. Waar? Schrijf de vergelijking in de standaardvorm: $x^2 = \tfrac1a\, y$. Voor $a > 0$ is dat $x^2 = 2py$ met $2p = \tfrac1a$.
+
+\begin{theorie}
+\begin{stelling}{Brandpunt van een grafiek}
+De grafiek van $y = ax^2$ (met $a \neq 0$) is een parabool met
+
+\vspace{1mm}
+\qquad brandpunt \ $\formule{F\Bigl(0, \dfrac{1}{4a}\Bigr)}$ \qquad en richtlijn \ $\formule{y = -\dfrac{1}{4a}}$
+\end{stelling}
+\end{theorie}
+
+Voor $a > 0$ volgt dat uit $p = \tfrac{1}{2a}$ en $\tfrac p2 = \tfrac{1}{4a}$. Voor $a < 0$ opent de parabool naar onder, en is $\tfrac{1}{4a}$ negatief: het brandpunt ligt onder de top, zoals het hoort. Dezelfde formule werkt dus in beide gevallen.
+
+\naast{De figuur toont $y = x^2$, $y = \tfrac12 x^2$ en $y = \tfrac14 x^2$, met hun brandpunten in $\tfrac14$, $\tfrac12$ en $1$. Hoe breder de parabool, hoe hoger het brandpunt. Dat is meteen het begin van een antwoord op het probleem: een ondiepe schotel heeft zijn brandpunt ver van de bodem.}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \rooster{-3}{1}{3}{0}{1}{3}
+  \kromme{-1.73}{1.73}{(\x)^2}
+  \kromme{-2.45}{2.45}{(\x)^2/2}
+  \kromme{-3}{3}{(\x)^2/4}
+  \fill[accent] (0,.25) circle (2pt) (0,.5) circle (2pt) (0,1) circle (2pt);
+\end{tikzpicture}}
+
+\voorbeeld{}{Bepaal het brandpunt en de richtlijn van de grafiek van $y = -2x^2$.\label{vb:h2-graf}}{%
+\uitleg{Een rechtstreekse toepassing, maar let op het teken: de parabool opent naar onder.}
+\begin{stappen}
+\dfrac{1}{4a} = \dfrac{1}{-8} = -\dfrac18 & Met $a = -2$. \\[2ex]
+F\bigl(0, -\tfrac18\bigr), \quad l \leftrightarrow y = \tfrac18 & Controle met de standaardvorm: $x^2 = -\tfrac12 y$, dus $2p = \tfrac12$ en $\tfrac p2 = \tfrac18$.
+\end{stappen}}
+
+\nujij{Waar ligt het brandpunt van de grafiek van $y = 0{,}05x^2$?}{$\tfrac{1}{4 \cdot 0{,}05} = 5$: in $(0, 5)$.}
+
+\begin{oefeningen}
+\oef{h2-graf}
+\end{oefeningen}
+
+%========================================================================================
+\section{Verschoven parabolen}
+
+\subsection{De top ergens anders}
+
+De grafiek van $y = x^2 - 4x + 1$ is een parabool, maar haar top ligt niet in de oorsprong. Waar ligt haar brandpunt? Bij functies weet je al hoe een verschuiving werkt: vervang $x$ door $x - x_0$ en $y$ door $y - y_0$, en de grafiek schuift over $x_0$ naar rechts en $y_0$ naar boven. Voor een parabool met een andere stand werkt dat net zo. Het brandpunt en de richtlijn schuiven gewoon mee.
+
+\begin{theorie}
+\begin{stelling}{Verschoven parabool}
+De parabool met top $(x_0, y_0)$ en parameter $p$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{(x - x_0)^2 = 2p\,(y - y_0)}$ \qquad met as $x = x_0$, of
+
+\vspace{1mm}
+\qquad $\formule{(y - y_0)^2 = 2p\,(x - x_0)}$ \qquad met as $y = y_0$.
+
+\vspace{1mm}
+Met $-2p$ in plaats van $2p$ keert de opening om. Het brandpunt en de richtlijn liggen op afstand $\tfrac p2$ van de top.
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bepaal de top, het brandpunt en de richtlijn van de grafiek van $y = x^2 - 4x + 1$.\label{vb:h2-versch}}{%
+\uitleg{We brengen de vergelijking in de vorm $(x - x_0)^2 = 2p(y - y_0)$. Daarvoor splitsen we het kwadraat af in $x$.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+y = (x - 2)^2 - 4 + 1 & De helft van $-4$ is $-2$. \\[1ex]
+(x - 2)^2 = y + 3 & De vorm met top $(2, -3)$. \\[1ex]
+2p = 1 \ \Rightarrow \ \tfrac p2 = \tfrac14 & Opening naar boven. \\[1ex]
+F\bigl(2, -\tfrac{11}{4}\bigr), \ l \leftrightarrow y = -\tfrac{13}{4} & Een kwart boven en onder de top.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-1}{1}{5}{-4}{1}{2}
+  \draw[grijs,thick] (-1,-3.25) -- (5,-3.25) node[below left,text=black] {$l$};
+  \kromme{-.3}{4.3}{(\x)^2-4*\x+1}
+  \brandpunt[left]{2}{-2.75}{F}
+  \fill (2,-3) circle (1.5pt);
+\end{tikzpicture}}}
+
+Waarom is het brandpunt van deze grafiek zo dicht bij de top? Omdat $a = 1$: dezelfde vorm als $y = x^2$, met brandpunt op $\tfrac14$ boven de top. De verschuiving verandert de vorm niet.
+
+\voorbeeld{}{Bepaal de top, het brandpunt en de richtlijn van $y^2 + 4y - 8x + 12 = 0$.\label{vb:h2-versch2}}{%
+\uitleg{Nu staat $y$ in het kwadraat: de as is horizontaal. We splitsen het kwadraat af in $y$, en zetten de rest aan de andere kant.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+(y + 2)^2 - 4 = 8x - 12 & Kwadraat in $y$; de termen in $x$ naar rechts. \\[1ex]
+(y + 2)^2 = 8(x - 1) & Zet de factor 8 voorop. Top $(1, -2)$. \\[1ex]
+2p = 8 \ \Rightarrow \ \tfrac p2 = 2 & Opening naar rechts. \\[1ex]
+F(3, -2), \ l \leftrightarrow x = -1 & 2 rechts en 2 links van de top.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{-2}{1}{6}{-7}{1}{3}
+  \draw[grijs,thick] (-1,-7) -- (-1,3) node[below left,text=black] {$l$};
+  \parabool{1}{-2}{4}{-7}{3}
+  \brandpunt[below right]{3}{-2}{F}
+  \fill (1,-2) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Splits het kwadraat af in de letter die in het kwadraat staat. Breng de andere letter naar rechts en zet de coëfficiënt voorop, zodat je $(\ldots)^2 = 2p(\ldots)$ krijgt. Lees de top af, en zet het brandpunt en de richtlijn op afstand $\tfrac p2$, aan de kant van de opening en ertegenover.
+\end{werkwijze}
+
+\nujij{Bepaal de top en het brandpunt van $x^2 + 6x + 4y + 1 = 0$.}{$(x + 3)^2 = -4y + 8 = -4(y - 2)$: top $(-3, 2)$, opening naar onder, $\tfrac p2 = 1$, $F(-3, 1)$.}
+
+\begin{oefeningen}
+\oef{h2-versch}
+\end{oefeningen}
+
+\subsection{Van brandpunt en richtlijn naar vergelijking}
+
+En omgekeerd? Ken je het brandpunt en de richtlijn, dan zijn er twee wegen. Je kunt de top zoeken, midden tussen beide, en de stelling gebruiken. Of je gebruikt de meetkundige plaats rechtstreeks, zoals in hoofdstuk 1. Dat laatste werkt altijd, ook als je de stelling vergeten bent.
+
+\voorbeeld{}{Geef een vergelijking van de parabool met brandpunt $F(3, 1)$ en richtlijn $y = -3$.\label{vb:h2-fl}}{%
+\uitleg{We volgen de meetkundige plaats, en controleren met de top.}
+\begin{stappen}
+(x - 3)^2 + (y - 1)^2 = (y + 3)^2 & $|PF| = \afst{P}{l}$, gekwadrateerd. \\[1ex]
+(x - 3)^2 = 8y + 8 = 8(y + 1) & De termen $y^2$ vallen weg. Werk de rest uit. \\[1ex]
+\text{top } (3, -1), \ p = 4 & Controle: de top ligt midden tussen $F$ en $l$, en $F$ ligt 4 boven $l$.
+\end{stappen}}
+
+\nujij{Geef een vergelijking van de parabool met brandpunt $(-2, 0)$ en richtlijn $x = 4$.}{Top $(1, 0)$, $p = 6$, opening naar links: $y^2 = -12(x - 1)$.}
+
+%========================================================================================
+\section{Raaklijn en spiegeleigenschap}
+
+\subsection{De raaklijn in een punt}
+
+Om het probleem van de schotel op te lossen, moeten we weten hoe een straal weerkaatst. Op een gebogen spiegel weerkaatst een straal zoals op de raaklijn in dat punt. We hebben dus raaklijnen nodig.
+
+Voor een parabool $x^2 = 2py$ ken je de methode: dat is de grafiek van $y = \tfrac{x^2}{2p}$, en de afgeleide geeft de richtingscoëfficiënt. Maar $y^2 = 2px$ is geen grafiek van een functie van $x$. Daarom leiden we eerst een formule af die geen afgeleide meer nodig heeft.
+
+\begin{theorie}
+\begin{stelling}{Raaklijn aan een parabool}
+De raaklijn in het punt $P(x_1, y_1)$ van de parabool
+
+\vspace{1mm}
+\qquad $x^2 = 2py$ \ is \ $\formule{x_1 x = p\,(y + y_1)}$, \qquad en die van \ $y^2 = 2px$ \ is \ $\formule{y_1 y = p\,(x + x_1)}$
+\end{stelling}
+
+\begin{bewijs}
+Voor $x^2 = 2py$ is $y = \tfrac{x^2}{2p}$, met afgeleide $\tfrac{x}{p}$. De raaklijn in $P$ is
+\bewijsregel{y - y_1 = \dfrac{x_1}{p}\,(x - x_1) \iff py - py_1 = x_1 x - x_1^2 .}
+Omdat $P$ op de parabool ligt, is $x_1^2 = 2py_1$. Vul in: $py - py_1 = x_1 x - 2py_1$, of $x_1 x = p(y + y_1)$. Voor $y^2 = 2px$ wissel je de rollen van $x$ en $y$.
+\end{bewijs}
+\end{theorie}
+
+Die formule is makkelijk te onthouden: je \emph{ontdubbelt} de vergelijking. Schrijf $x^2$ als $x \cdot x$ en vervang één $x$ door $x_1$, en schrijf $2y$ als $y + y$ en vervang één $y$ door $y_1$. Het werkt ook voor $y^2 = 2px$, zonder afgeleide.
+
+\voorbeeld{}{Bepaal de raaklijn aan de parabool $y^2 = 8x$ in het punt $P(2, 4)$.\label{vb:h2-raak}}{%
+\uitleg{Eerst controleren we dat $P$ op de parabool ligt, want de formule geldt enkel daar. Daarna ontdubbelen we.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+4^2 = 16 = 8 \cdot 2 & $P$ ligt op de parabool. \\[1ex]
+2p = 8 \ \Rightarrow \ p = 4 & Vergelijk met $y^2 = 2px$. \\[1ex]
+4y = 4(x + 2) & Ontdubbelen: $y_1 y = p(x + x_1)$. \\[1ex]
+y = x + 2 & De raaklijn.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{-3}{1}{5}{-4}{1}{6}
+  \parabool{0}{0}{4}{-5.5}{6}
+  \draw[grijs,thick] (-3,-1) -- (4,6);
+  \fill (2,4) circle (2.5pt) node[right] {$P$};
+  \brandpunt[below right]{2}{0}{F}
+\end{tikzpicture}}}
+
+Kijk naar de figuur: de raaklijn snijdt de as in $(-2, 0)$, even ver links van de top als $P$ rechts ervan ligt. Dat is geen toeval, zie opdracht~\ref{oef:h2-o18}.
+
+\begin{werkwijze}
+Controleer dat het punt op de parabool ligt. Ontdubbel de vergelijking: $x^2 \to x_1 x$, $y^2 \to y_1 y$, $2x \to x + x_1$ en $2y \to y + y_1$. Werk uit.
+\end{werkwijze}
+
+\nujij{Bepaal de raaklijn aan $x^2 = 4y$ in $(4, 4)$.}{$4x = 2(y + 4)$, dus $y = 2x - 4$.}
+
+\begin{oefeningen}
+\oef{h2-raak}
+\end{oefeningen}
+
+\subsection{Waarom een schotel werkt}
+
+Nu kunnen we het probleem aanpakken. Een straal komt evenwijdig met de as binnen en treft de schotel in $P$. Hij weerkaatst onder dezelfde hoek met de raaklijn als waaronder hij binnenkwam. Waarom komt hij dan in $F$ terecht, voor elk punt $P$?
+
+Het idee: de straal komt binnen langs de rechte door $P$ en $P'$, de loodrechte projectie van $P$ op de richtlijn. Als de raaklijn de hoek $FPP'$ precies middendoor deelt, dan maakt de straal met de raaklijn dezelfde hoek als $PF$. Hij weerkaatst dus langs $PF$, naar het brandpunt.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Spiegeleigenschap}
+Is $P'$ de loodrechte projectie van een punt $P$ van een parabool op de richtlijn, dan is de raaklijn in $P$ de bissectrice van de hoek $FPP'$.
+
+\vspace{1mm}
+Een straal evenwijdig met de as weerkaatst dus door het brandpunt.
+\end{stelling}
+
+\begin{bewijs}
+Neem $y^2 = 2px$, $P(x_1, y_1)$, $F\bigl(\tfrac p2, 0\bigr)$ en $P'\bigl(-\tfrac p2, y_1\bigr)$. Omdat $|PF| = |PP'|$, is driehoek $FPP'$ gelijkbenig. Daar is de bissectrice uit $P$ de middelloodlijn van $[FP']$. We tonen aan dat de raaklijn $px - y_1 y + px_1 = 0$ die middelloodlijn is.
+
+Het midden van $[FP']$ is $\bigl(0, \tfrac{y_1}{2}\bigr)$, en het ligt op de raaklijn, want
+\bewijsregel{0 - \dfrac{y_1^2}{2} + px_1 = -px_1 + px_1 = 0 .}
+De normaalvector $(p, -y_1)$ van de raaklijn is evenwijdig met $\overrightarrow{P'F} = (p, -y_1)$, dus de raaklijn staat loodrecht op $FP'$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.78,font=\scriptsize]
+  \draw[lijngrijs] (-1.4,0) -- (4.4,0);
+  \draw[grijs,thick] (-1,-2.6) -- (-1,3.6) node[below left,text=black] {$l$};
+  \parabool{0}{0}{2}{-2.6}{3.6}
+  \draw[grijs,thick] (-1.5,.5) -- (4,4.167);
+  \draw[accent!60,dashed] (1,0) -- (-1,3);
+  \draw[->,lijngrijs] (4.4,3) -- (2.4,3);
+  \draw[grijs] (2.25,3) -- (-1,3);
+  \draw[->,accent,thick] (2.25,3) -- (1.1,.15);
+  \fill (2.25,3) circle (2pt) node[above left] {$P$};
+  \fill (-1,3) circle (2pt) node[left] {$P'$};
+  \brandpunt{1}{0}{F}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Wat zegt dit nu? Alle stralen die evenwijdig met de as binnenkomen, gaan na weerkaatsing door één en hetzelfde punt: het brandpunt. Daar dankt het zijn naam: zet je een parabolische spiegel in de zon, dan wordt het daar zo heet dat papier vlam vat. Een stuk van een bol doet dat niet precies, zie opdracht~\ref{oef:h2-o17}. Omgekeerd werkt het ook: een lampje in het brandpunt van een koplamp geeft een evenwijdige bundel.
+
+\voorbeeld{}{Terug naar het probleem. Een schotel is 80 cm breed en 12 cm diep. Hoe hoog boven de bodem moet de ontvanger staan?\label{vb:h2-terug}}{%
+\uitleg{De dwarsdoorsnede van de schotel is een parabool. Leg de top in de oorsprong met de as verticaal: dan is $x^2 = 2py$, en de rand ligt in $(40, 12)$. De ontvanger moet in het brandpunt.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+40^2 = 2p \cdot 12 & De rand ligt op de parabool. \\[1ex]
+p = \dfrac{1600}{24} = \dfrac{200}{3} & De parameter. \\[2ex]
+\dfrac p2 = \dfrac{100}{3} \approx 33{,}3 & Het brandpunt ligt 33,3 cm boven de bodem.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.075,font=\scriptsize]
+  \draw[lijngrijs] (-46,0) -- (46,0);
+  \draw[lijngrijs] (0,-3) -- (0,38);
+  \paraboolv[line width=1.4pt]{0}{0}{66.67}{-40}{40}
+  \brandpunt[right]{0}{33.3}{F}
+  \draw[lijngrijs,dashed] (0,0) -- (0,33.3);
+  \draw[grijs,dashed] (-40,12) -- (40,12);
+  \node[right] at (40,12) {12};
+  \node[below] at (40,0) {40};
+\end{tikzpicture}}
+De ontvanger staat dus hoger dan de rand van de schotel, en dat zie je ook aan echte schotels: ze hangt op een arm voor de schotel.}
+
+Zo is het probleem opgelost. Elke vorm die niet precies een parabool is, stuurt de stralen naar verschillende punten, en het signaal wordt zwakker. Een parabool kaatst alles naar één punt, en dat punt is het brandpunt.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Integralen en Kegelsneden staan beide in het 6de jaar: geef de eerste oefening pas na Integralen. Matrices en de exponentiële functies zijn gezien in het 5de jaar.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-std}{oef:h2-std}%
+  \fv{oef:h2-t2}{vb:h2-opstellen}{oef:h2-o2}%
+  \fv{oef:h2-t3}{vb:h2-versch}{oef:h2-versch}%
+  \fv{oef:h2-t4}{vb:h2-raak}{oef:h2-raak}%
+  \fv{oef:h2-t5}{vb:h2-terug}{oef:h2-o6}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat de parameter, de as en de top van een parabool zijn, de standaardvergelijkingen met brandpunt en richtlijn, het brandpunt van $y = ax^2$, hoe je een verschoven parabool herkent, de raaklijn door te ontdubbelen, en het idee van de spiegeleigenschap. Vergelijk daarna met de kaders.
+\fi

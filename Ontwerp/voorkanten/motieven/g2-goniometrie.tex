@@ -1,0 +1,23 @@
+% 2de graad, Goniometrie (goniometrische cirkel, sinus- en cosinusregel).
+% Hilma af Klint: een zonnecirkel met een stralenkrans.
+% Motief: de goniometrische cirkel met de hoek van 140 graden, zijn cosinus en zijn sinus.
+\def\omslagbestand{omslag-altaarstuk.jpg}
+\def\omslagbron{Hilma af Klint, \textit{Altaarstuk nr.~1}, 1915 (publiek domein)}
+\def\omslagrand{10.6 + 0.3*sin(\x*360/21)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[xshift=5mm]
+  \draw[white,line width=.8pt,-{Stealth[length=2mm]}] (14.3,7) -- (19.5,7);
+  \draw[white,line width=.8pt,-{Stealth[length=2mm]}] (16.8,4.6) -- (16.8,9.5);
+  \draw[white,line width=1.2pt] (16.8,7) circle (2);
+  \pgfmathsetmacro{\px}{16.8+2*cos(140)}\pgfmathsetmacro{\py}{7+2*sin(140)}%
+  \draw[white,line width=1pt] (16.8,7) -- (\px,\py);
+  \draw[fel,line width=2.2pt] (16.8,7) -- (\px,7);
+  \draw[fel,line width=2.2pt] (\px,7) -- (\px,\py);
+  \draw[fel,line width=1.2pt] (17.3,7) arc[start angle=0,end angle=140,radius=.5];
+  \fill[omslagstip] (\px,\py) circle (1.3mm);
+  \node[text=fel,font=\small] at (17.35,7.55) {$\alpha$};
+  \node[text=white,font=\small,anchor=north] at ({(16.8+\px)/2},6.95) {$\cos\alpha$};
+  \node[text=white,font=\small,anchor=east] at (\px-.05,{(7+\py)/2}) {$\sin\alpha$};
+  \end{scope}
+}

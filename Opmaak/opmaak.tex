@@ -64,8 +64,11 @@
 % Rubrieken, voor de labels van Koppel
 \colorlet{rubriek-analyse}{hd1}\colorlet{rubriek-algebra}{hd5}\colorlet{rubriek-meetkunde}{hd3}
 \colorlet{rubriek-discreet}{hd2}\colorlet{rubriek-data}{hd4}
-\definecolor{accent}{HTML}{0B6470}% kleur van de voorkaft en de oplossingen
-\colorlet{fel}{hf7}
+% Kleur van de voorkaft en de oplossingen. Per graad een eigen kleur: voorkant-gegevens.tex (uit
+% Ontwerp/voorkanten/maak-voorkanten.py) zet \omslagaccent en \omslagfel; zonder die macro's de 3de graad.
+\providecommand{\omslagaccent}{0B6470}\providecommand{\omslagfel}{3FD6F0}
+\definecolor{accent}{HTML}{\omslagaccent}
+\definecolor{fel}{HTML}{\omslagfel}
 \definecolor{grijs}{HTML}{5F6368}
 \definecolor{lijngrijs}{HTML}{9AA0A6}
 \newcommand{\kopletter}{\sffamily\bfseries}
@@ -229,6 +232,12 @@
 \newtcolorbox{werkwijze}{blok,colback=white,
   borderline west={2.5pt}{0pt}{accent},
   before upper={\RaggedRight\setlength{\parskip}{3pt}\blokkop{Werkwijze}\quad}}
+
+% Probleem: de vraag waarmee een hoofdstuk (of een groot deel) begint. De theorie ontstaat uit dit probleem,
+% en de tekst komt er later op terug. Een lijn boven en onder, geen tint: verschilt ook in zwart-wit van de andere blokken.
+\newtcolorbox{probleem}{blok,colback=white,left=0mm,right=0mm,top=2.2mm,bottom=2.2mm,
+  borderline north={1.2pt}{0pt}{accent},borderline south={1.2pt}{0pt}{accent},
+  before upper={\RaggedRight\setlength{\parskip}{3pt}\blokkop{Probleem}\par\nobreak}}
 
 % Voorbeeld: altijd uitgewerkt, ook in het handboek. Oefeningen zijn dat niet.
 \newcounter{voorbeeld}[chapter]

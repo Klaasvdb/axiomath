@@ -1,0 +1,292 @@
+# Welke handboeken een richting volgt, per graad en per koepel.
+# Bron voor de website: kies graad → koepel → richting en toon eerst `verplicht`, daarna apart `keuze` en `uitbreiding`.
+# De uitleg en de bronnen staan in Ontwerp/koepels.md. Stand: 15 november 2026.
+#
+# Verwijzingen naar een handboek gebruiken de sleutel van maak-voorkanten.py: "<pakket>/<rubriek>/<cursus>",
+# met pakket "1".."4" in de 3de graad en "2g1".."2g5" in de 2de. Een verwijzing die met "nieuw:" begint,
+# is een module die nog niet bestaat. "pakket: X" betekent: alle handboeken van dat pakket, behalve `niet`.
+#   verplicht:   pakket + extra
+#   keuze:       wat de school of het leerplan als keuze laat (KOV-keuzedoelen, GO!-optiepakket)
+#   uitbreiding: wat verder gaat dan het leerplan (KOV Complementair, extra lesuren)
+#   niet:        handboeken van het pakket die deze koepel niet vraagt (op de site bij uitbreiding tonen)
+# Per profiel ook:
+#   label:       een korte naam voor de groep, voor de voorkant als de lijst met richtingen te lang wordt
+#                (Ontwerp/voorkanten/maak-voorkanten.py, richtingen_tekst)
+#   graaduren:   bij GO: het aantal graaduren wiskunde in de indicatieve lessentabel van GO! (2 graaduren = 1 uur
+#                per week in beide jaren). KOV: de uren per pakket in maak-voorkanten.py, zoals op de voorkant.
+# maak-voorkanten.py zet dit om naar handboeken (koepeltabel) en maakt er de voorkanten per koepel mee;
+# Website/leerkrachten/maak.py zet het in boeken.json voor de keuze op de site.
+
+koepels:
+  KOV: {naam: Katholiek Onderwijs Vlaanderen, aandeel: "71 % (vrij net)"}
+  GO: {naam: "GO!", aandeel: "21 %"}
+  POV: {naam: Provinciaal Onderwijs Vlaanderen, aandeel: "3 %"}
+  OVSG:
+    naam: Onderwijs Vlaamse Steden en Gemeenten
+    aandeel: "4 %"
+    kiest_uit: [GO, KOV, POV]   # geen eigen leerplannen in de 2de en 3de graad: de school kiest via de gemeenteraad
+
+graden:
+  3:
+    profielen:
+      gevorderd:
+        label: "richtingen met gevorderde wiskunde"   # korte naam voor de voorkant
+        decreet: ["06.08"]
+        richtingen: [Economie-Wiskunde, Grieks-Wiskunde, Latijn-Wiskunde, Technologische wetenschappen en engineering,
+                     Wetenschappen-Wiskunde]
+        KOV:
+          leerplan: III-WisS''-d
+          pakket: "4"
+          uitbreiding: ["4/Meetkunde/Kegelsneden", "Complementair (III-WiCo-d) bij meer dan 6 uur"]
+        GO:
+          graaduren: 13   # indicatieve lessentabel GO!
+          leerplan: "Gevorderde wiskunde (WD 06.08), in het leerplan van de richting"
+          pakket: "4"
+          extra: ["4/Meetkunde/Kegelsneden"]
+          opmerking: "GO!-doelen: modulorekenen, kegelsneden, oplosbaarheid van stelsels, veeltermongelijkheden, cos en tan, definitie van de afgeleide, Bayes, normale benadering, betrouwbaarheidsintervallen, logica"
+        POV:
+          leerplan: "Gevorderde wiskunde (SV06)"
+          pakket: "4"
+
+      wetenschappen:
+        label: "richtingen met wiskunde voor wetenschappen"   # korte naam voor de voorkant
+        decreet: ["06.04"]
+        richtingen: [Latijn-Wetenschappen, Moderne talen-Wetenschappen, Sportwetenschappen, Topsport-Wetenschappen,
+                     Biotechnologische en chemische wetenschappen, Biotechnologische en chemische STEM-wetenschappen,
+                     Informatica- en communicatiewetenschappen, Mechatronica, Bouw- en houtwetenschappen,
+                     Architecturale vorming]
+        KOV:
+          leerplan: III-WisS'-d
+          pakket: "3"
+          keuze: ["3/Analyse/Rationale functies (K1)", "3/Data en onzekerheid/Statistiek, hoofdstuk 4"]
+        GO:
+          graaduren: 9   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van wetenschappen (WD 06.04)"
+          pakket: "3"
+          extra: ["4/Discrete wiskunde/Telproblemen", "3/Data en onzekerheid/Statistiek, hoofdstuk 4"]
+          opmerking: "GO!-doelen: cos en tan, continuïteit, limieten en asymptoten, definitie van de afgeleide, telproblemen, Bayes, binomiale verdeling, betrouwbaarheidsintervallen"
+        POV:
+          leerplan: "Uitgebreide wiskunde i.f.v. wetenschappen (SV06)"
+          pakket: "3"
+        opmerking: "Architecturale vorming heeft ook 06.11 Toegepaste ruimtemeetkunde; GO! realiseert die in de andere vakken."
+
+      economie:
+        label: "richtingen met wiskunde voor economie"   # korte naam voor de voorkant
+        decreet: ["06.05"]
+        richtingen: [Economie-Moderne talen, Bedrijfswetenschappen, Bedrijfsondersteunende informaticawetenschappen,
+                     Topsport-Bedrijfswetenschappen, Topsport-Economie]
+        KOV:
+          leerplan: III-WisS-d
+          pakket: "2"
+          keuze: ["2/Analyse/Rationale functies (K1)", "2/Data en onzekerheid/Statistiek, hoofdstuk 4"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van economie (WD 06.05) en Statistiek (WD 06.01)"
+          pakket: "2"
+          extra: ["4/Discrete wiskunde/Telproblemen", "2/Data en onzekerheid/Statistiek, hoofdstuk 4", "nieuw:Grote datasets"]
+        POV:
+          leerplan: "Uitgebreide wiskunde i.f.v. economie (SV06)"
+          pakket: "2"
+
+      statistiek:
+        label: "Humane wetenschappen en Freinetpedagogie"   # korte naam voor de voorkant
+        decreet: ["06.01"]
+        richtingen: [Humane wetenschappen, Freinetpedagogie]
+        KOV:
+          leerplan: "III-Wis-d + Statistiek (III-Sta-d, 2 graaduren)"
+          pakket: "1"
+          extra: ["4/Discrete wiskunde/Telproblemen", "1/Data en onzekerheid/Statistiek, hoofdstuk 3 en 4",
+                  "2/Onderzoekscompetentie", "nieuw:Grote datasets"]
+          keuze: ["1/Algebra/Matrices (K3, K4)"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Statistiek (WD 06.01) en Uitgebreide wiskunde in functie van economie (WD 06.05)"
+          pakket: "2"
+          extra: ["4/Discrete wiskunde/Telproblemen", "2/Data en onzekerheid/Statistiek, hoofdstuk 4", "nieuw:Grote datasets"]
+          opmerking: "GO! geeft deze richtingen de wiskunde van economie (06.05) als GO!-doelen."
+        POV:
+          leerplan: "Statistiek (SV06)"
+          pakket: "1"
+          extra: ["4/Discrete wiskunde/Telproblemen", "1/Data en onzekerheid/Statistiek, hoofdstuk 3 en 4"]
+
+      pakket-statistiek:
+        label: "Welzijnswetenschappen"   # korte naam voor de voorkant
+        decreet: ["06.02"]
+        richtingen: [Welzijnswetenschappen]
+        KOV:
+          leerplan: "III-Wis-d + Statistiek' (III-Sta'-d, 1 graaduur)"
+          pakket: "1"
+          extra: ["1/Data en onzekerheid/Statistiek, hoofdstuk 3", "2/Onderzoekscompetentie"]
+          keuze: ["1/Algebra/Matrices (K3, K4)"]
+        GO:
+          graaduren: 6   # indicatieve lessentabel GO!
+          leerplan: "Pakket uit statistiek (WD 06.02)"
+          pakket: "1"
+          extra: ["4/Discrete wiskunde/Telproblemen, combinaties", "1/Data en onzekerheid/Statistiek, hoofdstuk 3"]
+          niet: ["1/Algebra/Matrices"]
+        POV:
+          leerplan: "Pakket uit statistiek (SV06)"
+          pakket: "1"
+          extra: ["1/Data en onzekerheid/Statistiek, hoofdstuk 3"]
+
+      klassiek:
+        label: "Grieks-Latijn"   # korte naam voor de voorkant
+        decreet: []
+        richtingen: [Grieks-Latijn]
+        KOV:
+          leerplan: III-Wis-d
+          pakket: "1"
+          keuze: ["1/Algebra/Matrices (K3, K4)", "1/Data en onzekerheid/Statistiek, hoofdstuk 3 en 4"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Statistiek (WD 06.01) en Uitgebreide wiskunde in functie van economie (WD 06.05), als GO!-doelen"
+          pakket: "2"
+          extra: ["4/Discrete wiskunde/Telproblemen", "2/Data en onzekerheid/Statistiek, hoofdstuk 4", "nieuw:Grote datasets"]
+        POV: {opmerking: "geen doelenpakket gevonden"}
+
+      talen:
+        label: "de talenrichtingen"   # korte naam voor de voorkant
+        decreet: []
+        richtingen: [Latijn-Moderne talen, Moderne talen, Taal- en communicatiewetenschappen]
+        KOV:
+          leerplan: III-Wis-d
+          pakket: "1"
+          keuze: ["1/Algebra/Matrices (K3, K4)", "1/Data en onzekerheid/Statistiek, hoofdstuk 3 en 4"]
+        GO:
+          graaduren: 6   # indicatieve lessentabel GO!
+          leerplan: "Pakket uit statistiek (WD 06.02), als GO!-doelen"
+          pakket: "1"
+          extra: ["4/Discrete wiskunde/Telproblemen, combinaties", "1/Data en onzekerheid/Statistiek, hoofdstuk 3"]
+          niet: ["1/Algebra/Matrices"]
+        POV:
+          leerplan: basisvorming
+          pakket: "1"
+          niet: ["1/Algebra/Matrices"]
+
+      kunst:
+        label: "de kunstrichtingen"   # korte naam voor de voorkant
+        decreet: []
+        richtingen: [Audiovisuele vorming, Beeldende vorming, Dans, Muziek, Woordkunst-drama]
+        KOV:
+          leerplan: III-Wis-d
+          pakket: "1"
+          keuze: ["1/Algebra/Matrices (K3, K4)", "1/Data en onzekerheid/Statistiek, hoofdstuk 3 en 4"]
+        GO: {graaduren: 5, leerplan: basisvorming, pakket: "1", niet: ["1/Algebra/Matrices"]}
+        POV: {leerplan: basisvorming, pakket: "1", niet: ["1/Algebra/Matrices"]}
+        opmerking: "Audiovisuele en Beeldende vorming hebben 06.11 Toegepaste ruimtemeetkunde, buiten het vak wiskunde."
+
+  2:
+    # Er is nog geen cursus geschreven: de verwijzingen volgen de geplande handboeken in Handboeken/2de graad/README.md.
+    profielen:
+      gevorderd:
+        label: "Natuurwetenschappen en Technologische wetenschappen"   # korte naam voor de voorkant
+        decreet: ["06.08"]
+        richtingen: [Natuurwetenschappen, Technologische wetenschappen]
+        KOV:
+          leerplan: II-WisS''-d
+          pakket: "2g5"
+          keuze: ["2g5/Meetkunde/De cirkel", "2g5/Discrete wiskunde/Grafen"]
+          opmerking: "Technologische wetenschappen kan ook B+S (pakket 2g4) volgen."
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Gevorderde wiskunde (WD 06.08), in het leerplan van de richting"
+          pakket: "2g4"
+          extra: ["nieuw:Homothetie en constructies"]
+          keuze: ["optiepakket Gevorderde wiskunde: 2g5/Discrete wiskunde/Logica (bewijzen)",
+                  "2g5/Meetkunde/Analytische meetkunde", "2g5/Algebra/Veeltermen", "2g5/Discrete wiskunde/Grafen"]
+        POV:
+          leerplan: "Wiskunde specifieke vorming (SV06), met de Pro-uitbreiding"
+          pakket: "2g4"
+          extra: ["2g5/Meetkunde/Analytische meetkunde", "2g5/Algebra/Veeltermen"]
+
+      sterk:
+        label: "Economische wetenschappen, Grieks-Latijn en Latijn"   # korte naam voor de voorkant
+        decreet: ["06.04"]
+        richtingen: [Economische wetenschappen, Grieks-Latijn, Latijn]
+        KOV:
+          leerplan: "II-WisS-d of II-WisS''-d"
+          pakket: "2g4"
+          keuze: ["2g4/Meetkunde/De cirkel", "2g4/Discrete wiskunde/Grafen",
+                  "of het hele pakket 2g5 (B+S'') als de leerling naar een wiskunderichting gaat"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van wetenschappen (WD 06.04)"
+          pakket: "2g4"
+          extra: ["nieuw:Homothetie en constructies"]
+          keuze: ["optiepakket Gevorderde wiskunde: 2g5/Discrete wiskunde/Logica (bewijzen)",
+                  "2g5/Meetkunde/Analytische meetkunde", "2g5/Algebra/Veeltermen", "2g5/Discrete wiskunde/Grafen"]
+        POV:
+          leerplan: "Wiskunde specifieke vorming (SV06), met de Pro-uitbreiding"
+          pakket: "2g4"
+          extra: ["2g5/Meetkunde/Analytische meetkunde", "2g5/Algebra/Veeltermen"]
+
+      wetenschappen:
+        label: "richtingen met wiskunde voor wetenschappen"   # korte naam voor de voorkant
+        decreet: ["06.04"]
+        richtingen: [Moderne talen, Sportwetenschappen, Architecturale en beeldende vorming,
+                     Biotechnologische wetenschappen, Biotechnologische STEM-wetenschappen, Bouwwetenschappen,
+                     Topsport-Natuurwetenschappen]
+        KOV:
+          leerplan: II-WisS-d
+          pakket: "2g4"
+          keuze: ["2g4/Meetkunde/De cirkel", "2g4/Discrete wiskunde/Grafen"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van wetenschappen (WD 06.04)"
+          pakket: "2g4"
+          extra: ["nieuw:Homothetie en constructies"]
+        POV:
+          leerplan: "Wiskunde specifieke vorming (SV06)"
+          pakket: "2g4"
+
+      economie:
+        label: "Bedrijfswetenschappen en Topsport-Economie"   # korte naam voor de voorkant
+        decreet: ["06.05"]
+        richtingen: [Bedrijfswetenschappen, Topsport-Economie]
+        KOV: {leerplan: II-WisS'-d, pakket: "2g3"}
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van wetenschappen (WD 06.04)"
+          pakket: "2g4"
+          extra: ["nieuw:Homothetie en constructies"]
+          opmerking: "GO! geeft alle richtingen met specifieke wiskunde dezelfde set van 13 doelen."
+        POV: {leerplan: "Wiskunde specifieke vorming (SV06)", pakket: "2g3"}
+
+      humane:
+        label: "Humane wetenschappen"   # korte naam voor de voorkant
+        decreet: ["06.07", "06.01"]
+        richtingen: [Humane wetenschappen]
+        KOV:
+          leerplan: II-Wis'-d
+          pakket: "2g2"
+          keuze: ["2g2/Analyse/Functies, hoofdstuk 4 (c/x, K1)", "2g2/Analyse/Tweedegraadsfuncties, ongelijkheden (K2)"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van wetenschappen (WD 06.04)"
+          pakket: "2g4"
+          extra: ["nieuw:Homothetie en constructies"]
+        POV: {leerplan: "Wiskunde specifieke vorming (SV06)", pakket: "2g2"}
+
+      freinet:
+        label: "Freinetpedagogie"   # korte naam voor de voorkant
+        decreet: ["06.01"]
+        richtingen: [Freinetpedagogie]
+        KOV:
+          leerplan: II-WisS-d
+          pakket: "2g4"
+          keuze: ["2g4/Meetkunde/De cirkel", "2g4/Discrete wiskunde/Grafen"]
+        GO:
+          graaduren: 8   # indicatieve lessentabel GO!
+          leerplan: "Uitgebreide wiskunde in functie van wetenschappen (WD 06.04)"
+          pakket: "2g4"
+          extra: ["nieuw:Homothetie en constructies"]
+        POV: {opmerking: "geen doelenpakket gevonden"}
+
+      basis:
+        label: "de kunstrichtingen en Maatschappij- en welzijnswetenschappen"   # korte naam voor de voorkant
+        decreet: []
+        richtingen: [Beeldende en audiovisuele vorming, Dans, Maatschappij- en welzijnswetenschappen, Muziek,
+                     Woordkunst-drama]
+        KOV: {leerplan: II-Wis-d, pakket: "2g1"}
+        GO: {graaduren: 5, leerplan: basisvorming, pakket: "2g1"}
+        POV: {leerplan: basisvorming, pakket: "2g1"}

@@ -28,10 +28,16 @@
 
 \newcommand{\maakomslag}{%
   \begingroup\thispagestyle{empty}%
+  % de kleur van de graad (voorkant-gegevens.tex); zonder \omslagaccent blijft de kleur van de 3de graad
+  \ifdefined\omslagaccent\definecolor{accent}{HTML}{\omslagaccent}\definecolor{fel}{HTML}{\omslagfel}\fi
   \begin{tikzpicture}[remember picture,overlay]
   \begin{scope}[shift={(current page.south west)}]
+    % \omslagzonderkunst: alleen de band, de titel en de gegevens, als laag over een bestaande voorkant
+    % (de voorkant van een andere koepel op de website, zie Website/leerkrachten/maak.py)
+    \ifdefined\omslagzonderkunst\else
     \node[anchor=north west,inner sep=0pt] at (0,29.7)
       {\includegraphics[width=\paperwidth]{\omslagbestand}};
+    \fi
     \ifcsname omslagband\endcsname\omslagband\else\standaardband\fi
     \omslagmotief
     % titel, met de rubriek erboven en de versie eronder

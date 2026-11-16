@@ -1,0 +1,16 @@
+% 2de graad, Functies (wat een functie is, eerstegraadsfuncties, de functie c/x).
+% Hiroshige: regen in rechte strepen met een vaste helling.
+% Motief: de rand is een rechte met richtingscoëfficiënt 1/6; het trapje toont 6 opzij en 1 omhoog.
+\def\omslagbestand{omslag-bui.jpg}
+\def\omslagbron{Utagawa Hiroshige, \textit{Plotselinge bui boven de Shin-\=Ohashibrug en Atake}, 1857 (publiek domein)}
+\def\omslagrand{10.2 + \x/6}
+\def\omslagmotief{%
+  \randlijn
+  \pgfmathsetmacro{\ya}{10.2+13/6}%
+  \draw[omslaglijn=1pt,dashed] (13,\ya) -- (19,\ya) -- (19,\ya+1);
+  \fill[omslagstip] (13,\ya) circle (1.3mm);
+  \fill[omslagstip] (19,\ya+1) circle (1.3mm);
+  \node[text=white,font=\small,anchor=north] at (16,\ya-.1) {$+6$};
+  \node[text=white,font=\small,anchor=west] at (19.1,\ya+.45) {$+1$};
+  \node[text=fel,font=\large,anchor=north] at (16,\ya-.75) {$m=\frac16$};
+}

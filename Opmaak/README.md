@@ -15,7 +15,7 @@ De voorkant, de motieven, de schilderijen en het logo staan in [Ontwerp/](../Ont
 ## Wat een cursus zelf heeft
 
 ```
-Handboeken/<pakket>/<rubriek>/<cursus>/
+Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/
   handboek.tex           titel en lijst met hoofdstukken, meer niet
   leerkracht.tex         twee regels: de leerkrachtenversie
   zelfstudie.tex         twee regels: de zelfstudieversie
@@ -38,7 +38,7 @@ Handboeken/<pakket>/<rubriek>/<cursus>/
 \input{\hoofdmap Opmaak/boek}
 ```
 
-`\hoofdmap` is het pad van de map van de cursus naar de hoofdmap van de repo. Cursussen staan altijd vier mappen diep (`Handboeken/<pakket>/<rubriek>/<cursus>`).
+`\hoofdmap` is het pad van de map van de cursus naar de hoofdmap van de repo. Cursussen staan vijf mappen diep (`Handboeken/<graad>/<pakket>/<rubriek>/<cursus>`), Onderzoekscompetentie vier.
 
 ## Een PDF bouwen
 
@@ -55,7 +55,7 @@ Het script bewaart de grafieken per hoofdstuk in `figuren-cache/` en maakt ze al
 
 ## Een nieuwe cursus beginnen
 
-1. Maak de map `Handboeken/<pakket>/<rubriek>/<cursus>/` en kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` van een bestaande cursus. Pas de titel en de hoofdstukken aan.
+1. Maak de map `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/` en kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` van een bestaande cursus. Pas de titel en de hoofdstukken aan.
 2. Schrijf de hoofdstukken in `hoofdstukken/` en de oefeningen in `oefeningen/`.
 3. Zet de cursus in `voortgang.yaml` en draai `python maak-voortgang.py`.
 4. Draai `python Ontwerp/voorkanten/maak-voorkanten.py`: dat maakt `voorkant-gegevens.tex`.
@@ -65,6 +65,7 @@ Voor de inhoud en de opbouw van een hoofdstuk: zie de [ontwerpregels](../Ontwerp
 
 ## Bijzonderheden van de opmaak
 
+- `probleem` is het blok waarmee een hoofdstuk begint: een lijn boven en onder, met het label Probleem (ontwerpregel van 16 nov 2026).
 - De uitlegkolom van `stappen` is cursief, en `\uitleg` zet de zin over de aanpak bovenaan een voorbeeld.
 - `stelling` is een wit kader met de naam op de lijn. `bewijs` eindigt met een vierkantje in de kleur van het hoofdstuk en gebruikt `\bewijsregel` voor formules.
 - `theorie` mag over twee pagina's breken, tussen een stelling en haar bewijs.
