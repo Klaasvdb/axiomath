@@ -1,0 +1,376 @@
+%----------------------------------------------------------------------------------------
+% BEWIJZEN. Alle opgaven zijn eigen werk.
+%
+% Alleen in pakket 5 (B+S''), leerplandoel B1: bewijzen, rechtstreeks en uit het ongerijmde.
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Bewijzen}
+
+\begin{probleem}
+Jonas onderzoekt de getallen $n^2 + n + 41$. Voor $n = 0, 1, 2, \ldots, 10$ krijgt hij
+\[ 41,\ 43,\ 47,\ 53,\ 61,\ 71,\ 83,\ 97,\ 113,\ 131,\ 151 , \]
+allemaal priemgetallen. Hij rekent verder tot $n = 39$: telkens een priemgetal. Hij besluit: \textit{voor elk natuurlijk getal $n$ is $n^2 + n + 41$ een priemgetal}.
+
+Lotte ziet dat $3 + 5 = 8$, $7 + 9 = 16$ en $11 + 25 = 36$, en ze probeert nog veertig andere voorbeelden. Ze besluit: \textit{de som van twee oneven getallen is altijd even}.
+
+Hebben ze gelijk? En hoe kun je zeker zijn van een uitspraak over alle getallen, als je ze nooit allemaal kunt proberen?
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD B1 (bewijzen, rechtstreeks en uit het ongerijmde). Voorkennis: hoofdstuk 2 (tegenvoorbeeld, contrapositie, contradictie) en uit de 1ste graad de merkwaardige producten en de hoekensom van een driehoek. De bewijzen in dit hoofdstuk komen terug in andere handboeken van pakket 5: $\sqrt2$ irrationaal (Reële getallen), de stelling van Pythagoras (Driehoeksmeting), de discriminant (Tweedegraadsfuncties) en de reststelling (Veeltermen). Het bewijs met de contrapositie is een keuze van dit handboek; het is nodig voor het bewijs dat $\sqrt2$ irrationaal is.}
+
+Een wiskundige eigenschap geldt voor oneindig veel getallen of figuren. Je kunt ze nooit allemaal controleren. Toch weten wiskundigen zeker dat de som van twee oneven getallen even is, en dat $\sqrt2$ geen breuk is. Dat komt omdat ze het \textit{bewezen} hebben. In dit hoofdstuk leer je hoe je een algemene uitspraak weerlegt met een tegenvoorbeeld, en hoe je ze bewijst: rechtstreeks, met de contrapositie of uit het ongerijmde.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{De Verken-oefening toont dat een patroon kan breken. Het voorbeeld met de punten op een cirkel is klassiek: 1, 2, 4, 8, 16 stukken, en dan 31 in plaats van 32. Laat de leerlingen het bij zes punten niet tekenen maar gewoon aannemen, of toon een tekening op het bord.}
+
+%========================================================================================
+\section{Voorbeelden en tegenvoorbeelden}
+
+\subsection{Weerleggen met een tegenvoorbeeld}
+
+Jonas en Lotte doen allebei hetzelfde: ze proberen voorbeelden en zien een patroon. Dat is een goed begin, want zo vind je vermoedens. Maar voorbeelden bewijzen niets over de gevallen die je niet probeerde. In de Verken-oefening zag je hoe een patroon na vijf keer plots breekt. Om zeker te zijn, heb je iets anders nodig.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{bewijs}} van een uitspraak is een redenering die aantoont dat ze in alle gevallen waar is. Ze gebruikt alleen definities en eigenschappen die al vastliggen.
+\end{theorie}
+
+Omgekeerd volstaat één geval om een algemene uitspraak onderuit te halen. Zo'n geval is een \textit{tegenvoorbeeld}, zoals in hoofdstuk 2: een geval waarin de voorwaarden kloppen en het besluit niet. Een uitspraak onwaar maken met een tegenvoorbeeld heet \textit{weerleggen}.
+
+\voorbeeld{}{Weerleg de uitspraak \textit{voor elk reëel getal $x$ is $x^2 \geqslant x$}.\label{vb:h3-tegen}}{%
+\uitleg{Voor $x = 2$, $x = 5$ of $x = -3$ klopt het. Een kwadraat lijkt groter te worden. Maar bij getallen tussen 0 en 1 wordt het kwadraat kleiner.}
+\begin{stappen}
+x = \tfrac12 & Een getal tussen 0 en 1. \\
+x^2 = \tfrac14 & Het kwadraat. \\
+\tfrac14 < \tfrac12 & Dus $x^2 \geqslant x$ is onwaar voor $x = \tfrac12$.
+\end{stappen}
+$x = \tfrac12$ is een tegenvoorbeeld: de uitspraak is onwaar.}
+
+\voorbeeld{}{Weerleg de uitspraak \textit{twee rechthoeken met dezelfde omtrek hebben dezelfde oppervlakte}.\label{vb:h3-tegen2}}{%
+\naast{\uitleg{We zoeken twee rechthoeken met dezelfde omtrek, maar met een verschillende oppervlakte.}
+Een rechthoek van 1 bij 5 cm heeft omtrek $2 \cdot (1 + 5) = 12$ cm en oppervlakte $5$ cm$^2$. Een rechthoek van 2 bij 4 cm heeft ook omtrek $2 \cdot (2 + 4) = 12$ cm, maar oppervlakte $8$ cm$^2$. Dat is een tegenvoorbeeld: de uitspraak is onwaar.}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \fill[accent!15] (0,0) rectangle (5,1); \draw[accent,thick] (0,0) rectangle (5,1);
+  \node at (2.5,.5) {$5$ cm$^2$};
+  \fill[accent!15] (6,0) rectangle (10,2); \draw[accent,thick] (6,0) rectangle (10,2);
+  \node at (8,1) {$8$ cm$^2$};
+  \node[below] at (2.5,0) {5}; \node[left] at (0,.5) {1};
+  \node[below] at (8,0) {4}; \node[left] at (6,1) {2};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h3-tegen}
+\end{oefeningen}
+
+\subsection{Even en oneven met letters}
+
+Om iets te bewijzen over \textit{alle} even getallen, moet je over een even getal kunnen spreken zonder te zeggen welk. Wat hebben 14, 36 en $-8$ gemeen? Ze zijn het dubbel van een geheel getal: $14 = 2 \cdot 7$, $36 = 2 \cdot 18$ en $-8 = 2 \cdot (-4)$. Een oneven getal is één meer dan zo'n dubbel: $15 = 2 \cdot 7 + 1$ en $-3 = 2 \cdot (-2) + 1$.
+
+\begin{theorie}
+Een geheel getal $n$ is \textbf{\textcolor{accent}{even}} als $\formule{n = 2k}$ voor een geheel getal $k$.
+
+\vspace{1mm}
+Een geheel getal $n$ is \textbf{\textcolor{accent}{oneven}} als $\formule{n = 2k + 1}$ voor een geheel getal $k$.
+\end{theorie}
+
+Zo kun je ook andere eigenschappen met letters schrijven. Een veelvoud van 3 is $3k$, een getal dat deelbaar is door 5 is $5k$, en twee opeenvolgende gehele getallen zijn $n$ en $n + 1$.
+
+\voorbeeld{}{Neem een geheel getal $k$. Is $6k + 5$ even of oneven?\label{vb:h3-even}}{%
+\uitleg{We proberen het getal te schrijven als $2 \cdot (\text{geheel getal})$ of als $2 \cdot (\text{geheel getal}) + 1$.}
+\begin{stappen}
+6k + 5 = 6k + 4 + 1 & Splits 5 in een even deel en 1. \\
+= 2(3k + 2) + 1 & Haal 2 buiten de haakjes.
+\end{stappen}
+$3k + 2$ is een geheel getal, dus $6k + 5$ is oneven, wat $k$ ook is. Controle: $k = 1$ geeft $11$, $k = -2$ geeft $-7$.}
+
+\begin{oefeningen}
+\oef{h3-even}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het rechtstreeks bewijs}
+
+\subsection{Een eerste bewijs}
+
+Hoe bewijs je dat de som van twee even getallen altijd even is? Het idee is: schrijf twee willekeurige even getallen met letters, en reken met die letters. Wat je dan vindt, geldt voor alle even getallen tegelijk, want je hebt niet gezegd welke het zijn.
+
+\voorbeeld{}{Bewijs: de som van twee even getallen is even.\label{vb:h3-direct}}{%
+\uitleg{We schrijven eerst wat gegeven is en wat we moeten bewijzen, en vertalen dat met de definitie naar formules.}
+\textbf{Gegeven:} $a$ en $b$ zijn even. \quad \textbf{Te bewijzen:} $a + b$ is even.
+\begin{bewijs}
+Omdat $a$ en $b$ even zijn, bestaan er gehele getallen $k$ en $l$ met
+\bewijsregel{a = 2k \qquad \text{en} \qquad b = 2l .}
+Dan is
+\bewijsregel{a + b = 2k + 2l = 2(k + l) .}
+Omdat $k + l$ een geheel getal is, is $a + b$ even.
+\end{bewijs}}
+
+Let op de twee verschillende letters $k$ en $l$. Schrijf je $a = 2k$ en $b = 2k$, dan zeg je dat $a$ en $b$ gelijk zijn, en dan bewijs je het alleen voor de som van een getal met zichzelf.
+
+\begin{theorie}
+In een \textbf{\textcolor{accent}{rechtstreeks bewijs}} van $p \dan q$ neem je aan dat $p$ waar is, en leid je daaruit stap voor stap af dat $q$ waar is.
+\end{theorie}
+
+Waarom is dat genoeg? Een implicatie is alleen onwaar als $p$ waar is en $q$ onwaar. Als je toont dat $q$ waar moet zijn zodra $p$ waar is, kan dat geval niet voorkomen.
+
+\voorbeeld{}{Bewijs: het kwadraat van een oneven getal is oneven.\label{vb:h3-kwadraat}}{%
+\uitleg{Een oneven getal schrijven we als $2k + 1$. Het kwadraat werken we uit met het merkwaardig product $(a + b)^2 = a^2 + 2ab + b^2$.}
+\textbf{Gegeven:} $n$ is oneven. \quad \textbf{Te bewijzen:} $n^2$ is oneven.
+\begin{bewijs}
+Er is een geheel getal $k$ met $n = 2k + 1$. Dan is
+\bewijsregel{n^2 = (2k + 1)^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1 .}
+Omdat $2k^2 + 2k$ een geheel getal is, is $n^2$ oneven.
+\end{bewijs}}
+
+\begin{werkwijze}
+Schrijf op wat gegeven is en wat je moet bewijzen. Vertaal het gegeven met de definities naar formules, met een nieuwe letter voor elk getal dat je niet kent. Reken tot je een formule krijgt die je met een definitie terug kunt vertalen naar wat je moet bewijzen. Sluit af met een zin die zegt wat je bewezen hebt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-direct}
+\end{oefeningen}
+
+\subsection{Een fout in een bewijs}
+
+Een bewijs moet in elke stap kloppen. Eén verkeerde stap, en het besluit is niet meer zeker, ook al lijkt het geheel overtuigend. Een fout die vaak voorkomt, is de verkeerde keuze van letters.
+
+\voorbeeld{}{Wat is er fout aan dit \textit{bewijs}?\par
+\textit{Bewering: het product van twee oneven getallen is een kwadraat. Bewijs: neem twee oneven getallen $a = 2k + 1$ en $b = 2k + 1$. Dan is $ab = (2k + 1)^2$, en dat is een kwadraat.}\label{vb:h3-fout}}{%
+\uitleg{We kijken naar de keuze van de letters, en controleren het besluit met een voorbeeld.}
+Voor $a$ en $b$ werd dezelfde letter $k$ gebruikt. Zo zijn $a$ en $b$ altijd gelijk, en gaat de redenering alleen over een oneven getal maal zichzelf. Voor twee verschillende oneven getallen klopt de bewering niet: $3 \cdot 5 = 15$ is geen kwadraat. Dat is een tegenvoorbeeld, dus de bewering is onwaar.}
+
+\begin{oefeningen}
+\oef{h3-fout}
+\end{oefeningen}
+
+\subsection{Een bewijs in de meetkunde}
+
+Ook in de meetkunde bewijs je eigenschappen. Je vertrekt van eigenschappen die al vastliggen, zoals de hoekensom van een driehoek ($180^\circ$) en de gestrekte hoek ($180^\circ$), en je redeneert met letters voor de hoeken, zodat het bewijs geldt voor elke driehoek.
+
+\voorbeeld{}{Een \textit{buitenhoek} van een driehoek is de hoek tussen een zijde en het verlengde van een andere zijde. Bewijs: een buitenhoek is gelijk aan de som van de twee binnenhoeken die er niet aan grenzen.\label{vb:h3-meetk}}{%
+\naast{\uitleg{We geven de hoeken een letter, zoals in de figuur, en zoeken twee gelijkheden met $\gamma$.}
+\textbf{Gegeven:} driehoek $ABC$ met hoeken $\alpha$, $\beta$, $\gamma$ en buitenhoek $\delta$ bij $C$. \quad \textbf{Te bewijzen:} $\delta = \alpha + \beta$.
+\begin{bewijs}
+De hoekensom van de driehoek en de gestrekte hoek in $C$ geven
+\bewijsregel{\alpha + \beta + \gamma = 180^\circ \qquad \text{en} \qquad \gamma + \delta = 180^\circ .}
+Trek de tweede gelijkheid af van de eerste: $\alpha + \beta - \delta = 0$, dus $\delta = \alpha + \beta$.
+\end{bewijs}}{\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (3.4,0); \coordinate (C) at (2.4,1.9); \coordinate (D) at (3.2,3.42);
+  \fill[accent!10] (A) -- (B) -- (C) -- cycle;
+  \draw[accent,thick] (A) -- (B) -- (C) -- cycle;
+  \draw[grijs,dashed] (C) -- (D);
+  \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[left] at (C) {$C$};
+  \node at (.62,.2) {$\alpha$};
+  \node at (2.95,.22) {$\beta$};
+  \node at (2.42,1.45) {$\gamma$};
+  \node at (2.85,2.0) {$\delta$};
+\end{tikzpicture}}}
+
+Het bewijs zegt ook \textit{waarom} de eigenschap klopt: $\gamma$ vult zowel met $\alpha + \beta$ als met $\delta$ een hoek van $180^\circ$ aan.
+
+\begin{oefeningen}
+\oef{h3-meetk}
+\end{oefeningen}
+
+\needspace{16\baselineskip}
+\subsection{Terug naar het probleem}
+
+Nu kunnen we Jonas en Lotte antwoorden. De uitspraak van Jonas heeft een tegenvoorbeeld nodig, die van Lotte een bewijs.
+
+\voorbeeld{}{Terug naar het probleem. Is $n^2 + n + 41$ altijd een priemgetal? Is de som van twee oneven getallen altijd even?\label{vb:h3-terug}}{%
+\uitleg{Bij Jonas zoeken we een $n$ waarvoor $n^2 + n + 41$ een deler heeft. Als $n = 40$, staat er $40 \cdot 41 + 41$: dan is 41 een deler.}
+\textbf{Jonas.} Voor $n = 40$ is
+\bewijsregel{40^2 + 40 + 41 = 40 \cdot (40 + 1) + 41 = 41 \cdot 40 + 41 = 41 \cdot 41 = 1681 .}
+Dat is geen priemgetal: $n = 40$ is een tegenvoorbeeld, en Jonas heeft ongelijk. Veertig voorbeelden die kloppen, bewezen niets.
+
+\medskip
+\textbf{Lotte.} \textbf{Gegeven:} $a$ en $b$ zijn oneven. \quad \textbf{Te bewijzen:} $a + b$ is even.
+\begin{bewijs}
+Er zijn gehele getallen $k$ en $l$ met $a = 2k + 1$ en $b = 2l + 1$. Dan is
+\bewijsregel{a + b = 2k + 1 + 2l + 1 = 2k + 2l + 2 = 2(k + l + 1) .}
+Omdat $k + l + 1$ een geheel getal is, is $a + b$ even.
+\end{bewijs}
+Lotte heeft gelijk, maar pas nu weten we het zeker.}
+
+%========================================================================================
+\section{Bewijzen met de contrapositie}
+
+Bewijs: \textit{als $n^2$ even is, dan is $n$ even}. Probeer het rechtstreeks. Gegeven is $n^2 = 2k$. Maar wat weet je dan over $n$? Je zou de vierkantswortel moeten nemen, $n = \sqrt{2k}$, en daarmee kom je niet verder. Hier helpt hoofdstuk 2: een implicatie is gelijkwaardig met haar contrapositie. De contrapositie is hier \textit{als $n$ oneven is, dan is $n^2$ oneven}. En die hebben we al bewezen in voorbeeld \ref{vb:h3-kwadraat}.
+
+\begin{theorie}
+In een \textbf{\textcolor{accent}{bewijs met de contrapositie}} van $p \dan q$ bewijs je rechtstreeks de contrapositie $\formule{\niet q \dan \niet p}$.
+\end{theorie}
+
+Dat is genoeg, want $p \dan q$ en $\niet q \dan \niet p$ zijn gelijkwaardig: is de ene waar, dan ook de andere. De methode helpt als de ontkenning van het besluit een handig gegeven is, zoals \textit{$n$ is oneven}, dat je kunt schrijven als $n = 2k + 1$.
+
+\voorbeeld{}{Bewijs: als $n^2$ even is, dan is $n$ even.\label{vb:h3-contra}}{%
+\uitleg{Rechtstreeks lukt niet. We bewijzen de contrapositie: als $n$ niet even is, dan is $n^2$ niet even.}
+\textbf{Contrapositie:} als $n$ oneven is, dan is $n^2$ oneven.
+\begin{bewijs}
+Neem $n$ oneven, dus $n = 2k + 1$ met $k$ geheel. Dan is
+\bewijsregel{n^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1 ,}
+en dat is oneven. De contrapositie is waar, dus ook de implicatie: als $n^2$ even is, dan is $n$ even.
+\end{bewijs}}
+
+\voorbeeld{}{Bewijs: als $a + b \geqslant 10$, dan is $a \geqslant 5$ of $b \geqslant 5$.\label{vb:h3-contra2}}{%
+\uitleg{Het besluit is een \textit{of}. Met de wet van De Morgan wordt de ontkenning een \textit{en}: $a < 5$ en $b < 5$. Dat is een handig gegeven, want twee ongelijkheden mag je optellen.}
+\textbf{Contrapositie:} als $a < 5$ en $b < 5$, dan is $a + b < 10$.
+\begin{bewijs}
+Neem $a < 5$ en $b < 5$. Tel de twee ongelijkheden op:
+\bewijsregel{a + b < 5 + 5 = 10 .}
+De contrapositie is waar, dus ook de implicatie.
+\end{bewijs}
+In woorden: haal je op twee toetsen op 10 samen minstens 10, dan haalde je op minstens één toets 5 of meer.}
+
+\begin{werkwijze}
+Schrijf de contrapositie: ontken het besluit en maak het het gegeven, ontken het gegeven en maak het wat je moet bewijzen. Gebruik bij \textit{en} en \textit{of} de wetten van De Morgan. Bewijs de contrapositie rechtstreeks, en besluit dat ook de implicatie waar is.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-contra}
+\end{oefeningen}
+
+%========================================================================================
+\section{Bewijzen uit het ongerijmde}
+
+\subsection{Een tegenspraak afleiden}
+
+Een verdachte zegt: \textit{Ik kan het niet gedaan hebben. Stel dat ik het wel deed. Dan was ik om 21 uur in Gent. Maar om 21 uur zat ik in Brugge, dat kunnen tien getuigen zeggen. Ik kan niet tegelijk in Gent en in Brugge zijn. Dus deed ik het niet.} De verdachte neemt aan dat het omgekeerde van wat hij wil tonen waar is, en komt uit bij iets onmogelijks. Dat werkt ook in de wiskunde.
+
+\voorbeeld{}{Bewijs: er bestaat geen grootste even getal.\label{vb:h3-ongerijmd}}{%
+\uitleg{De uitspraak zegt dat iets niet bestaat. Een rechtstreeks bewijs is moeilijk: waar begin je? We nemen aan dat het wel bestaat, en zoeken een tegenspraak.}
+\begin{bewijs}
+Stel dat er een grootste even getal $n$ is. Dan is $n = 2k$ met $k$ geheel. Bekijk het getal $n + 2$:
+\bewijsregel{n + 2 = 2k + 2 = 2(k + 1) .}
+Dat is ook even, en het is groter dan $n$. Dus $n$ is het grootste even getal, en $n$ is het niet: een tegenspraak. De aanname is fout, en er bestaat geen grootste even getal.
+\end{bewijs}}
+
+\begin{theorie}
+In een \textbf{\textcolor{accent}{bewijs uit het ongerijmde}} van een uitspraak $p$ neem je aan dat $\niet p$ waar is. Daaruit leid je een \textbf{\textcolor{accent}{tegenspraak}} af: iets wat tegelijk waar en onwaar zou zijn. Dus is $\niet p$ onwaar, en $p$ waar.
+\end{theorie}
+
+Een tegenspraak is de contradictie uit hoofdstuk 2: een uitspraak van de vorm $q \en \niet q$, die nooit waar kan zijn. \textit{Ongerijmd} is een oud woord voor \textit{onzinnig}: de aanname leidt tot onzin.
+
+\begin{werkwijze}
+Begin met \textit{Stel dat} en de ontkenning van wat je wilt bewijzen. Redeneer verder met die aanname tot je een tegenspraak vindt: iets wat in strijd is met de aanname zelf of met wat al vastligt. Besluit dat de aanname fout is, en dat de uitspraak dus waar is.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-ongerijmd}
+\end{oefeningen}
+
+\subsection{De vierkantswortel van 2 is irrationaal}
+
+Het beroemdste bewijs uit het ongerijmde gaat over $\sqrt2$, de lengte van de diagonaal van een vierkant met zijde 1. De Grieken ontdekten meer dan 2000 jaar geleden dat die lengte geen breuk is. Je rekenmachine toont $1,41421356\ldots$ zonder einde of herhaling, maar dat bewijst niets: je ziet maar tien cijfers. Een bewijs moet zeggen waarom het nooit een breuk kan zijn.
+
+Een breuk is \textit{onvereenvoudigbaar} als teller en noemer geen gemeenschappelijke deler hebben, behalve 1. Elke breuk kun je zo schrijven: vereenvoudig tot het niet meer kan.
+
+\voorbeeld{}{Bewijs: $\sqrt2$ is irrationaal.\label{vb:h3-wortel2}}{%
+\uitleg{Irrationaal betekent: geen breuk. Dat is een uitspraak over iets wat niet bestaat. We nemen aan dat $\sqrt2$ wel een breuk is, en gebruiken voorbeeld \ref{vb:h3-contra}: als $a^2$ even is, dan is $a$ even.}
+\begin{bewijs}
+Stel dat $\sqrt2$ rationaal is. Dan is $\sqrt2 = \tfrac ab$, met $a$ en $b$ natuurlijke getallen ($b \neq 0$) en $\tfrac ab$ onvereenvoudigbaar. Kwadrateer:
+\bewijsregel{2 = \frac{a^2}{b^2} , \qquad \text{dus} \qquad a^2 = 2b^2 .}
+Dus is $a^2$ even, en volgens voorbeeld \ref{vb:h3-contra} ook $a$. Schrijf $a = 2k$. Dan is
+\bewijsregel{(2k)^2 = 2b^2 , \qquad \text{dus} \qquad 4k^2 = 2b^2 \qquad \text{en} \qquad b^2 = 2k^2 .}
+Dus is ook $b^2$ even, en ook $b$. Maar dan zijn $a$ en $b$ allebei deelbaar door 2, en is $\tfrac ab$ niet onvereenvoudigbaar: een tegenspraak. Dus is $\sqrt2$ irrationaal.
+\end{bewijs}}
+
+Kijk hoe de methodes samenwerken: het bewijs uit het ongerijmde gebruikt een eigenschap die met de contrapositie bewezen is, en die steunt op een rechtstreeks bewijs.
+
+\subsection{Welke methode kies je?}
+
+Er is geen vast recept, maar er zijn wel aanwijzingen. De tabel vat ze samen.
+
+\begin{center}
+{\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.3}%
+\begin{tabular}{|>{\RaggedRight\arraybackslash}p{3.9cm}|>{\RaggedRight\arraybackslash}p{9.6cm}|}
+\hline
+\rowcolor{accent!10}\textbf{methode} & \textbf{handig als} \\ \hline
+tegenvoorbeeld & je vermoedt dat een algemene uitspraak onwaar is \\ \hline
+rechtstreeks bewijs & het gegeven met een definitie in een formule past, zoals $n = 2k + 1$ \\ \hline
+met de contrapositie & het ontkende besluit een handiger gegeven is dan het gegeven zelf \\ \hline
+uit het ongerijmde & de uitspraak zegt dat iets niet bestaat of niet kan, zoals \textit{irrationaal} of \textit{geen grootste} \\ \hline
+\end{tabular}}
+\end{center}
+
+Twijfel je, probeer dan eerst een paar voorbeelden. Vind je een tegenvoorbeeld, dan ben je klaar. Kloppen ze allemaal, dan tonen ze misschien hoe een bewijs eruit kan zien.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o4}
+
+\oef{h3-o3}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o14}
+
+\oef{h3-o10}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o12}
+
+\oef{h3-o15}
+
+\oef{h3-o11}
+
+\oef{h3-o20}
+
+\oef{h3-o9}
+
+\oef{h3-o17}
+
+\oef{h3-o13}
+
+\oef{h3-o16}
+
+\oef{h3-o19}
+
+\oef{h3-o18}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-tegen}{oef:h3-tegen}%
+  \fv{oef:h3-t2}{vb:h3-direct}{oef:h3-direct}%
+  \fv{oef:h3-t3}{vb:h3-meetk}{oef:h3-meetk}%
+  \fv{oef:h3-t4}{vb:h3-contra}{oef:h3-contra}%
+  \fv{oef:h3-t5}{vb:h3-ongerijmd}{oef:h3-ongerijmd}%
+  \fv{oef:h3-t6}{vb:h3-terug}{oef:h3-o14}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een bewijs is en waarom voorbeelden niet volstaan, hoe je een uitspraak weerlegt, de definitie van even en oneven met letters, en de drie manieren van bewijzen (rechtstreeks, met de contrapositie, uit het ongerijmde) met telkens een voorbeeld. Schrijf het bewijs dat $\sqrt2$ irrationaal is zonder te kijken. Vergelijk daarna met het boek.
+\fi

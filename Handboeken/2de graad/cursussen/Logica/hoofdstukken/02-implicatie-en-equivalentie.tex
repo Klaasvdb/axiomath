@@ -1,0 +1,476 @@
+%----------------------------------------------------------------------------------------
+% IMPLICATIE EN EQUIVALENTIE. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Verschillen per pakket: voldoende en nodige voorwaarde (2-5); in de oefeningen drie uitspraken (2-5)
+% en een afleiding zonder waarheidstabel (5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Implicatie en equivalentie}
+
+\begin{probleem}
+\naast{Op elke kaart staat aan de ene kant een getal en aan de andere kant een kleur. Op tafel zie je vier kaarten. Iemand beweert:
+
+\smallskip
+{\leftskip=6mm\textit{Als op een kaart een even getal staat, dan is de andere kant rood.}\par}
+
+\smallskip
+Welke kaarten moet je omdraaien om na te gaan of die regel klopt voor deze vier kaarten? Draai er niet meer om dan nodig. De meeste mensen kiezen hier verkeerd.}{\begin{tikzpicture}[font=\small]
+  \foreach \x/\t/\k in {0/3/white,1.25/8/white,2.5/rood/red!40,3.75/blauw/blue!25}{%
+    \fill[\k,rounded corners=2pt] (\x,0) rectangle (\x+1,1.45);
+    \draw[grijs,rounded corners=2pt] (\x,0) rectangle (\x+1,1.45);
+    \node at (\x+.5,.72) {\t};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{1}{26}\alleenvoor{2}{30}\alleenvoor{3}{32}\alleenvoor{4,5}{36} (dit hoofdstuk: de implicatie, het omgekeerde en de contrapositie, de equivalentie, tautologie en contradictie). \alleenvoor{2,3,4,5}{Voldoende en nodige voorwaarde staan niet in pakket 1. }\alleenvoor{5}{Dit hoofdstuk legt de basis voor hoofdstuk 3: het tegenvoorbeeld en de contrapositie komen daar terug als bewijsmethode. }Het probleem is een variant van de kaartproef van Wason (1966): laat de leerlingen eerst gokken en noteer de keuzes. Meestal kiest de klas 8 en rood.}
+
+In hoofdstuk 1 maakte je uitspraken met \textit{niet}, \textit{en} en \textit{of}. Het belangrijkste voegwoord ontbreekt nog: \textit{als \ldots{} dan}. Bijna elke regel en elke wiskundige eigenschap heeft die vorm: \textit{als een getal deelbaar is door 4, dan is het even}. In dit hoofdstuk leer je wanneer zo'n uitspraak waar is, hoe je ze correct omdraait, en wanneer twee uitspraken op hetzelfde neerkomen. Op het einde zie je hoe je met een waarheidstabel nagaat of een redenering klopt.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{De Verken-oefening leidt de waarheidstabel van de implicatie af. Vraag c en d zijn het moeilijkst: de vader heeft niets beloofd voor het geval dat de kamer niet opgeruimd wordt.}
+
+%========================================================================================
+\section{De implicatie}
+
+\subsection{Als \ldots{} dan}
+
+Een vader belooft: \textit{Als je je kamer opruimt, dan krijg je een ijsje.} In de Verken-oefening zocht je wanneer hij zijn belofte breekt. Dat gebeurt maar in één geval: de kamer is opgeruimd, en toch komt er geen ijsje. Wordt de kamer niet opgeruimd, dan heeft de vader niets beloofd. Of hij dan een ijsje geeft of niet, hij liegt niet.
+
+\begin{theorie}
+\naast{De \textbf{\textcolor{accent}{implicatie}} van $p$ en $q$ is de uitspraak \textit{als $p$, dan $q$}, met als notatie $\formule{p \dan q}$.
+
+\vspace{1mm}
+$p \dan q$ is alleen onwaar als $p$ waar is en $q$ onwaar. In alle andere gevallen is ze waar.
+}{\begin{waarheidstabel}{3}
+$p$ & $q$ & $p \dan q$ \\ \hline
+W & W & W \\ \hline
+W & O & O \\ \hline
+O & W & W \\ \hline
+O & O & W \\ \hline
+\end{waarheidstabel}}
+\end{theorie}
+
+In $p \dan q$ heet $p$ het \textit{als-deel} en $q$ het \textit{dan-deel}. Je leest $p \dan q$ ook als \textit{$p$ impliceert $q$} of \textit{uit $p$ volgt $q$}. De laatste twee rijen voelen misschien vreemd aan. Denk dan aan de belofte: is het als-deel onwaar, dan kan de implicatie niet gebroken worden, en dus is ze waar.
+
+\voorbeeld{}{Is de uitspraak \textit{als 9 oneven is, dan is 9 een priemgetal} waar?\label{vb:h2-impl}}{%
+\uitleg{Een implicatie. We bepalen de waarheidswaarde van het als-deel en het dan-deel, en zoeken de rij in de tabel.}
+\begin{stappen}
+p\colon \text{ 9 is oneven} & W. \\
+q\colon \text{ 9 is een priemgetal} & O, want $9 = 3 \cdot 3$. \\
+p \dan q\colon \text{ O} & De rij WO: het enige geval waarin een implicatie onwaar is.
+\end{stappen}}
+
+\voorbeeld{}{Is de uitspraak \textit{als $2 > 5$, dan is $2^2 > 5^2$} waar?\label{vb:h2-impl2}}{%
+\uitleg{Ook hier zoeken we eerst de waarheidswaarden van de delen.}
+\begin{stappen}
+p\colon\ 2 > 5 & O. \\
+q\colon\ 4 > 25 & O. \\
+p \dan q\colon \text{ W} & De rij OO: het als-deel is onwaar, dus de implicatie is waar.
+\end{stappen}
+De implicatie zegt alleen iets over het geval waarin $2 > 5$. Dat geval doet zich nooit voor, dus de uitspraak kan niet fout zijn.}
+
+\begin{oefeningen}
+\oef{h2-impl}
+\end{oefeningen}
+
+\subsection{Implicaties in de wiskunde}
+
+In de wiskunde staat in een implicatie bijna altijd een letter: \textit{als een getal $n$ deelbaar is door 4, dan is $n$ even}. Dat is een regel voor alle getallen tegelijk. Vul je een getal in, dan krijg je telkens een gewone implicatie. Bij $n = 12$ zijn beide delen waar (de rij WW). Bij $n = 6$ is het als-deel onwaar en het dan-deel waar (OW), bij $n = 7$ zijn beide onwaar (OO). Telkens is de implicatie waar. Een getal dat deelbaar is door 4 maar niet even, bestaat niet: de rij WO komt nooit voor.
+
+\begin{theorie}
+Een implicatie met een letter is waar als ze waar is voor elke waarde van die letter.
+
+\vspace{1mm}
+Een \textbf{\textcolor{accent}{tegenvoorbeeld}} van een implicatie $p \dan q$ is een waarde waarvoor het als-deel $p$ waar is en het dan-deel $q$ onwaar.
+\end{theorie}
+
+Eén tegenvoorbeeld is genoeg om te tonen dat een implicatie met een letter onwaar is. Voorbeelden waarvoor ze klopt, tonen nooit dat ze altijd klopt: misschien heb je net het tegenvoorbeeld niet geprobeerd.
+
+\voorbeeld{}{Is de implicatie \textit{als een getal deelbaar is door 3, dan is het oneven} waar?\label{vb:h2-tegen}}{%
+\uitleg{Voor 3, 9 en 15 klopt ze. Maar we zoeken een tegenvoorbeeld: een getal dat deelbaar is door 3 (als-deel waar) en even is (dan-deel onwaar).}
+\begin{stappen}
+6 = 3 \cdot 2 & 6 is deelbaar door 3: het als-deel is waar. \\
+6 \text{ is even} & Het dan-deel is onwaar.
+\end{stappen}
+6 is een tegenvoorbeeld: de implicatie is onwaar.}
+
+\voorbeeld{}{Is de implicatie \textit{als een vierhoek vier gelijke zijden heeft, dan is hij een vierkant} waar?\label{vb:h2-tegen2}}{%
+\naast{\uitleg{We zoeken een vierhoek met vier gelijke zijden die geen vierkant is.}
+Een ruit met een hoek van $70^\circ$ heeft vier gelijke zijden, maar geen rechte hoeken. Het als-deel is waar en het dan-deel onwaar: de ruit is een tegenvoorbeeld. De implicatie is onwaar.
+}{\begin{tikzpicture}[scale=.7]
+  \fill[accent!12] (0,0) -- (1.6,0) -- (2.147,1.504) -- (.547,1.504) -- cycle;
+  \draw[accent,thick] (0,0) -- (1.6,0) -- (2.147,1.504) -- (.547,1.504) -- cycle;
+  \node[font=\scriptsize] at (.42,.22) {$70^\circ$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Wil je weten of een implicatie met een letter waar is, zoek dan een tegenvoorbeeld: een geval waarin het als-deel waar is en het dan-deel onwaar. Vind je er een, dan is de implicatie onwaar. Vind je er geen, dan weet je het nog niet zeker: daarvoor heb je een uitleg nodig die voor elk geval werkt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-wisk}
+\end{oefeningen}
+
+\subsection{Het omgekeerde}
+
+\textit{Als het regent, wordt de straat nat.} Dat klopt. Mag je ook zeggen: \textit{als de straat nat is, heeft het geregend}? Nee: misschien stond er een sproeier aan, of werd de straat schoongespoten. Een implicatie omdraaien geeft een nieuwe uitspraak, die niet hetzelfde zegt.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{omgekeerde}} van de implicatie $p \dan q$ is de implicatie $\formule{q \dan p}$.
+\end{theorie}
+
+\voorbeeld{}{Geef het omgekeerde van \textit{als een getal deelbaar is door 4, dan is het even}. Is het omgekeerde waar?\label{vb:h2-omgekeerd}}{%
+\uitleg{We wisselen het als-deel en het dan-deel, en zoeken een tegenvoorbeeld.}
+Het omgekeerde is \textit{als een getal even is, dan is het deelbaar door 4}. Het getal 6 is even, maar niet deelbaar door 4: een tegenvoorbeeld. De implicatie zelf is waar, het omgekeerde niet.}
+
+Het omgekeerde van een ware implicatie kan ook waar zijn. \textit{Als een driehoek gelijkzijdig is, dan zijn zijn drie hoeken gelijk} is waar, en het omgekeerde \textit{als de drie hoeken van een driehoek gelijk zijn, dan is hij gelijkzijdig} ook. Je moet het dus telkens apart nagaan.
+
+\begin{oefeningen}
+\oef{h2-omgekeerd}
+\end{oefeningen}
+
+\subsection{De contrapositie}
+
+\textit{Als het regent, wordt de straat nat.} Wat weet je als de straat droog is? Dan heeft het niet geregend, want anders was ze nat. Uit de implicatie volgt dus ook: \textit{als de straat niet nat is, dan regent het niet}. Het dan-deel en het als-deel zijn gewisseld én allebei ontkend.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{contrapositie}} van de implicatie $p \dan q$ is de implicatie $\formule{\niet q \dan \niet p}$.
+\end{theorie}
+
+Zegt de contrapositie altijd hetzelfde als de implicatie zelf? Dat ga je na met een waarheidstabel, zoals in hoofdstuk 1.
+
+\voorbeeld{}{Zijn $p \dan q$ en $\niet q \dan \niet p$ gelijkwaardig?\label{vb:h2-contra}}{%
+\uitleg{We maken één tabel. Voor $\niet q \dan \niet p$ gebruiken we de regel van de implicatie op de kolommen $\niet q$ (als-deel) en $\niet p$ (dan-deel).}
+\figuren{\begin{waarheidstabel}{6}
+$p$ & $q$ & $p \dan q$ & $\niet q$ & $\niet p$ & $\niet q \dan \niet p$ \\ \hline
+W & W & \res{W} & O & O & \res{W} \\ \hline
+W & O & \res{O} & W & O & \res{O} \\ \hline
+O & W & \res{W} & O & W & \res{W} \\ \hline
+O & O & \res{W} & W & W & \res{W} \\ \hline
+\end{waarheidstabel}}
+De twee kolommen zijn gelijk: de uitspraken zijn gelijkwaardig.}
+
+\begin{theorie}
+\begin{stelling}{Contrapositie}
+\qquad $\formule{p \dan q}$ \ is gelijkwaardig met \ $\formule{\niet q \dan \niet p}$
+\end{stelling}
+\end{theorie}
+
+Pas op: de uitspraak \textit{als het niet regent, dan wordt de straat niet nat} ($\niet p \dan \niet q$) is geen contrapositie. Ze zegt iets anders, en is ook niet waar: de sproeier kan de straat nat maken als het droog weer is.
+
+\voorbeeld{}{Geef de contrapositie van \textit{als een getal deelbaar is door 10, dan eindigt het op 0}.\label{vb:h2-contra2}}{%
+\uitleg{Wissel het als-deel en het dan-deel, en ontken ze allebei.}
+\begin{stappen}
+\text{als een getal niet eindigt op 0,} & Het ontkende dan-deel wordt het als-deel. \\
+\text{dan is het niet deelbaar door 10} & Het ontkende als-deel wordt het dan-deel.
+\end{stappen}
+Zo zie je meteen dat 735 niet deelbaar is door 10.}
+
+\begin{oefeningen}
+\oef{h2-contra}
+\end{oefeningen}
+
+\subsection{Terug naar de kaarten}
+
+Met de contrapositie kunnen we het probleem van de vier kaarten oplossen. De regel is een implicatie. Een kaart maakt de regel alleen fout als ze een tegenvoorbeeld is: een even getal (als-deel waar) met aan de andere kant een kleur die niet rood is (dan-deel onwaar).
+
+\voorbeeld{}{Terug naar het probleem. Welke kaarten moet je omdraaien om de regel \textit{als op een kaart een even getal staat, dan is de andere kant rood} te controleren?\label{vb:h2-terug}}{%
+\uitleg{Neem $p$:~\textit{er staat een even getal op de kaart} en $q$:~\textit{de kaart is rood}. We bekijken elke kaart en vragen ons af: kan ze de rij WO zijn?}
+\begin{stappen}
+3\colon\ p \text{ is O} & Het als-deel is onwaar: de regel geldt sowieso. Niet omdraaien. \\
+8\colon\ p \text{ is W} & Staat er achteraan niet rood, dan is dit de rij WO. Omdraaien. \\
+\text{rood}\colon\ q \text{ is W} & Een ware $q$ maakt de implicatie altijd waar. Niet omdraaien. \\
+\text{blauw}\colon\ q \text{ is O} & Volgens de contrapositie $\niet q \dan \niet p$ moet hier een oneven getal achter staan. Omdraaien.
+\end{stappen}
+\textbf{Je draait de 8 en de blauwe kaart om.} De rode kaart omdraaien is de klassieke fout. Ze controleert het omgekeerde \textit{als de kaart rood is, dan staat er een even getal}, en dat zegt de regel niet.}
+
+\begin{alleenvoor}{2,3,4,5}
+\subsection{Voldoende en nodig}
+
+Om te slagen in de rijproef is het \textit{nodig} dat je een voorlopig rijbewijs hebt: zonder slaag je zeker niet. Maar het is niet \textit{voldoende}: je moet ook goed rijden. Omgekeerd is \textit{je haalt 20 op 20 voor een toets} voldoende om te slagen voor die toets, maar niet nodig: met 14 op 20 slaag je ook. Die twee woorden zeggen op een andere manier wat een implicatie zegt.
+
+\begin{theorie}
+Is $p \dan q$ waar, dan is $p$ een \textbf{\textcolor{accent}{voldoende voorwaarde}} voor $q$, en $q$ een \textbf{\textcolor{accent}{nodige voorwaarde}} voor $p$.
+\end{theorie}
+
+\textit{Voldoende}: weet je dat $p$ waar is, dan volstaat dat om te weten dat $q$ waar is. \textit{Nodig}: zonder $q$ kan $p$ niet, want als $q$ onwaar is, is ook $p$ onwaar. Dat is net de contrapositie.
+
+\voorbeeld{}{Vul aan met \textit{voldoende} of \textit{nodig}: deelbaar zijn door 4 is een \ldots{} voorwaarde om even te zijn.\label{vb:h2-nodig}}{%
+\uitleg{Schrijf de implicatie die waar is, en kijk welke voorwaarde in het als-deel staat.}
+\begin{stappen}
+\text{als } n \text{ deelbaar is door 4, dan is } n \text{ even} & Deze implicatie is waar. \\
+\text{deelbaar door 4: voldoende} & Het als-deel is voldoende. \\
+\text{even: nodig om deelbaar te zijn door 4} & Het dan-deel is nodig.
+\end{stappen}
+Deelbaar zijn door 4 is niet nodig om even te zijn: 6 is even en niet deelbaar door 4.}
+
+\begin{oefeningen}
+\oef{h2-nodig}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{De equivalentie}
+
+\subsection{Als en slechts als}
+
+\textit{Als een getal eindigt op 0 of 5, dan is het deelbaar door 5.} Het omgekeerde klopt ook: \textit{als een getal deelbaar is door 5, dan eindigt het op 0 of 5}. De twee implicaties samen zeggen dat de twee uitspraken altijd samen waar zijn of samen onwaar. Daarvoor is er een eigen voegwoord.
+
+\begin{theorie}
+\naast{De \textbf{\textcolor{accent}{equivalentie}} van $p$ en $q$ is de uitspraak \textit{$p$ als en slechts als $q$}, met als notatie $\formule{p \asa q}$.
+
+\vspace{1mm}
+$p \asa q$ is waar als $p$ en $q$ dezelfde waarheidswaarde hebben, en onwaar als ze verschillen.
+}{\begin{waarheidstabel}{3}
+$p$ & $q$ & $p \asa q$ \\ \hline
+W & W & W \\ \hline
+W & O & O \\ \hline
+O & W & O \\ \hline
+O & O & W \\ \hline
+\end{waarheidstabel}}
+\end{theorie}
+
+De naam zegt wat het betekent: \textit{$p$ als $q$} is $q \dan p$, en \textit{$p$ slechts als $q$} (alleen als $q$) is $p \dan q$. Een equivalentie is dus een implicatie in beide richtingen. De dubbele pijl toont dat ook.
+
+\voorbeeld{}{Toon met een waarheidstabel dat $(p \dan q) \en (q \dan p)$ dezelfde tabel heeft als \mbox{$p \asa q$}.\label{vb:h2-equiv}}{%
+\uitleg{We maken de kolommen van de twee implicaties en nemen er de conjunctie van.}
+\figuren{\begin{waarheidstabel}{5}
+$p$ & $q$ & $p \dan q$ & $q \dan p$ & $(p \dan q) \en (q \dan p)$ \\ \hline
+W & W & W & W & \res{W} \\ \hline
+W & O & O & W & \res{O} \\ \hline
+O & W & W & O & \res{O} \\ \hline
+O & O & W & W & \res{W} \\ \hline
+\end{waarheidstabel}}
+De laatste kolom is W, O, O, W, net als die van $p \asa q$.}
+
+Een equivalentie met een letter is waar als ze waar is voor elke waarde. Je controleert ze dus door beide implicaties na te gaan.
+
+\voorbeeld{}{Is de equivalentie \textit{een vierhoek is een vierkant als en slechts als hij vier gelijke zijden heeft} waar?\label{vb:h2-equiv2}}{%
+\uitleg{We onderzoeken de twee implicaties apart.}
+\begin{stappen}
+\text{vierkant} \dan \text{vier gelijke zijden} & Waar: zo is een vierkant gemaakt. \\
+\text{vier gelijke zijden} \dan \text{vierkant} & Onwaar: een ruit is een tegenvoorbeeld (voorbeeld \ref{vb:h2-tegen2}).
+\end{stappen}
+Eén richting is onwaar, dus de equivalentie is onwaar. \textit{Een vierhoek is een ruit als en slechts als hij vier gelijke zijden heeft} is wel waar.}
+
+\begin{werkwijze}
+Om na te gaan of een equivalentie met een letter waar is, onderzoek je de twee implicaties. Zijn ze allebei waar, dan is de equivalentie waar. Heeft één van beide een tegenvoorbeeld, dan is de equivalentie onwaar.
+\end{werkwijze}
+
+Een definitie is altijd een equivalentie, ook al staat er alleen \textit{als}. \textit{Een driehoek heet gelijkbenig als hij twee gelijke zijden heeft} betekent ook: elke gelijkbenige driehoek heeft twee gelijke zijden.\alleenvoor{2,3,4,5}{ En met de woorden van de vorige sectie: is $p \asa q$ waar, dan is $p$ een \textit{nodige en voldoende} voorwaarde voor $q$.}
+
+\begin{oefeningen}
+\oef{h2-equiv}
+\end{oefeningen}
+
+%========================================================================================
+\section{Tautologie en contradictie}
+
+\subsection{Altijd waar, altijd onwaar}
+
+Het weerbericht zegt: \textit{Morgen regent het, of morgen regent het niet.} Dat klopt zeker. Maar je weet nog steeds niet of je een paraplu moet meenemen. De uitspraak is waar, wat het weer ook doet: ze heeft de vorm $p \of \niet p$, en die is in elke rij van de waarheidstabel waar. Andere uitspraken zijn juist nooit waar, zoals \textit{het regent en het regent niet}.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{tautologie}} is een samengestelde uitspraak die in elke rij van haar waarheidstabel waar is.
+
+\vspace{1mm}
+Een \textbf{\textcolor{accent}{contradictie}} is een samengestelde uitspraak die in elke rij van haar waarheidstabel onwaar is.
+\end{theorie}
+
+Of een tautologie waar is, hangt dus niet af van de delen, alleen van de vorm. Een contradictie heet ook een \textit{tegenspraak}.
+
+\voorbeeld{}{Is $(p \en q) \dan p$ een tautologie, een contradictie of geen van beide?\label{vb:h2-taut}}{%
+\naast{\uitleg{We maken de waarheidstabel en kijken naar de laatste kolom.}
+De laatste kolom is overal W: het is een tautologie.
+
+In woorden: \textit{als het koud is en het regent, dan is het koud}. Dat klopt altijd, wat het weer ook is.
+}{\begin{waarheidstabel}{4}
+$p$ & $q$ & $p \en q$ & $(p \en q) \dan p$ \\ \hline
+W & W & W & \res{W} \\ \hline
+W & O & O & \res{W} \\ \hline
+O & W & O & \res{W} \\ \hline
+O & O & O & \res{W} \\ \hline
+\end{waarheidstabel}}}
+
+\voorbeeld{}{Is $p \dan (p \en q)$ een tautologie, een contradictie of geen van beide?\label{vb:h2-taut2}}{%
+\naast{\uitleg{Dezelfde delen, maar het als-deel en het dan-deel zijn gewisseld.}
+In de rij WO is de uitspraak onwaar, in de andere rijen waar. Ze is dus geen tautologie en geen contradictie.
+
+In woorden: \textit{als het koud is, dan is het koud en regent het}. Dat klopt niet als het koud en droog is.
+}{\begin{waarheidstabel}{4}
+$p$ & $q$ & $p \en q$ & $p \dan (p \en q)$ \\ \hline
+W & W & W & \res{W} \\ \hline
+W & O & O & \res{O} \\ \hline
+O & W & O & \res{W} \\ \hline
+O & O & O & \res{W} \\ \hline
+\end{waarheidstabel}}}
+
+\begin{oefeningen}
+\oef{h2-taut}
+\end{oefeningen}
+
+\subsection{Gelijkwaardig en tautologie}
+
+In hoofdstuk 1 noemden we twee uitspraken gelijkwaardig als ze in elke rij dezelfde waarheidswaarde hebben. Een equivalentie is net waar als beide delen dezelfde waarheidswaarde hebben. Zijn twee uitspraken gelijkwaardig, dan is hun equivalentie dus in elke rij waar.
+
+\begin{theorie}
+\begin{stelling}{Gelijkwaardig}
+Twee uitspraken $A$ en $B$ zijn gelijkwaardig als en slechts als $\formule{A \asa B}$ een tautologie is.
+\end{stelling}
+\end{theorie}
+
+Daarom schrijft men een gelijkwaardigheid vaak met het teken $\asa$. De contrapositie en de wetten van De Morgan worden dan:
+
+\smallskip
+\qquad $(p \dan q) \asa (\niet q \dan \niet p)$, \qquad $\niet(p \en q) \asa \niet p \of \niet q$, \qquad $\niet(p \of q) \asa \niet p \en \niet q$.
+
+\voorbeeld{}{Toon aan dat $(p \dan q) \asa (\niet p \of q)$ een tautologie is. Wat betekent dat in woorden?\label{vb:h2-gelijkw}}{%
+\naast{\uitleg{We berekenen de kolommen $p \dan q$ en $\niet p \of q$, en daarna hun equivalentie.}
+De twee kolommen zijn gelijk, dus de equivalentie is overal W: een tautologie.
+
+In woorden: \textit{als het regent, neem ik mijn paraplu} zegt hetzelfde als \textit{het regent niet of ik neem mijn paraplu}.
+}{\begin{waarheidstabel}{5}
+$p$ & $q$ & $p \dan q$ & $\niet p \of q$ & $(p \dan q) \asa (\niet p \of q)$ \\ \hline
+W & W & W & W & \res{W} \\ \hline
+W & O & O & O & \res{W} \\ \hline
+O & W & W & W & \res{W} \\ \hline
+O & O & W & W & \res{W} \\ \hline
+\end{waarheidstabel}}}
+
+\begin{oefeningen}
+\oef{h2-gelijkw}
+\end{oefeningen}
+
+\subsection{Juist redeneren}
+
+Lees deze twee redeneringen. \textit{Als het regent, neem ik de bus. Het regent. Dus neem ik de bus.} Dat klopt. \textit{Als het regent, neem ik de bus. Ik neem de bus. Dus regent het.} Dat klopt niet: misschien neem ik de bus omdat mijn fiets kapot is. Hoe zie je het verschil zonder te twijfelen? Een redenering vertrekt van gegevens en trekt een besluit. Ze is juist als het besluit waar moet zijn zodra alle gegevens waar zijn.
+
+\begin{theorie}
+Een redenering met gegevens $A$ en $B$ en besluit $C$ is \textbf{\textcolor{accent}{geldig}} als $\formule{(A \en B) \dan C}$ een tautologie is.
+\end{theorie}
+
+\voorbeeld{}{Is de redenering \textit{als het regent, neem ik de bus; het regent; dus neem ik de bus} geldig?\label{vb:h2-redeneer}}{%
+\naast{\uitleg{Neem $p$:~\textit{het regent} en $q$:~\textit{ik neem de bus}. De gegevens zijn $p \dan q$ en $p$, het besluit is $q$. We onderzoeken $\bigl((p \dan q) \en p\bigr) \dan q$.}
+De laatste kolom is overal W: de redenering is geldig. Waar de gegevens samen waar zijn (alleen de rij WW), is ook het besluit waar.
+}{\begin{waarheidstabel}{4}
+$p$ & $q$ & $(p \dan q) \en p$ & $\bigl((p \dan q) \en p\bigr) \dan q$ \\ \hline
+W & W & W & \res{W} \\ \hline
+W & O & O & \res{W} \\ \hline
+O & W & O & \res{W} \\ \hline
+O & O & O & \res{W} \\ \hline
+\end{waarheidstabel}}}
+
+\voorbeeld{}{Is de redenering \textit{als het regent, neem ik de bus; ik neem de bus; dus regent het} geldig?\label{vb:h2-redeneer2}}{%
+\naast{\uitleg{Nu zijn de gegevens $p \dan q$ en $q$, en het besluit is $p$.}
+In de rij OW zijn de gegevens waar, maar het besluit is onwaar: de redenering is niet geldig. Die rij is het tegenvoorbeeld: het regent niet, en ik neem toch de bus.
+}{\begin{waarheidstabel}{4}
+$p$ & $q$ & $(p \dan q) \en q$ & $\bigl((p \dan q) \en q\bigr) \dan p$ \\ \hline
+W & W & W & \res{W} \\ \hline
+W & O & O & \res{W} \\ \hline
+O & W & W & \res{O} \\ \hline
+O & O & O & \res{W} \\ \hline
+\end{waarheidstabel}}}
+
+\begin{werkwijze}
+Schrijf de gegevens en het besluit in symbolen. Maak de waarheidstabel van \textit{(gegevens samen) $\dan$ besluit}. Is die overal W, dan is de redenering geldig. Staat er een O, dan is die rij een tegenvoorbeeld: de gegevens zijn waar en het besluit niet.
+\end{werkwijze}
+
+De tweede redenering is een veelgemaakte fout: ze verwart een implicatie met haar omgekeerde. In de volgende oefening zie je ook een geldige redenering met de contrapositie.
+
+\begin{oefeningen}
+\oef{h2-redeneer}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o5}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o2}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o9}
+
+\oef{h2-o12}
+
+\oef{h2-o16}
+
+\oef{h2-o10}
+
+\oef{h2-o8}
+
+\oef{h2-o11}
+
+\oef{h2-o13}
+
+\oef{h2-o19}
+
+\oef{h2-o14}
+
+\oef{h2-o17}
+
+\oef{h2-o15}
+
+\oef{h2-o21}
+
+\oef{h2-o18}
+
+\oef{h2-o20}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-impl}{oef:h2-impl}%
+  \fv{oef:h2-t2}{vb:h2-contra}{oef:h2-o3}%
+  \fv{oef:h2-t3}{vb:h2-contra2}{oef:h2-contra}%
+  \fv{oef:h2-t4}{vb:h2-tegen}{oef:h2-wisk}%
+  \fv{oef:h2-t5}{vb:h2-equiv2}{oef:h2-equiv}%
+  \fv{oef:h2-t6}{vb:h2-taut}{oef:h2-taut}%
+  \fv{oef:h2-t7}{vb:h2-redeneer2}{oef:h2-redeneer}%
+  \alleenvoor{2,3,4,5}{\fv{oef:h2-t8}{vb:h2-nodig}{oef:h2-nodig}}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de waarheidstabel van de implicatie en van de equivalentie, wat een tegenvoorbeeld is, het omgekeerde en de contrapositie (en welke van de twee hetzelfde zegt als de implicatie),\alleenvoor{2,3,4,5}{ voldoende en nodige voorwaarde,} wat een tautologie en een contradictie zijn, en hoe je nagaat of een redenering geldig is. Vergelijk daarna met de kaders.
+\fi
