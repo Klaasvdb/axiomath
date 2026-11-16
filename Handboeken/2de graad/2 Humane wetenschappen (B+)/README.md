@@ -19,4 +19,4 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | Analyse/Tweedegraadsfuncties | 4de | LPD 24-28, K2 | gepland |
 | Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | gepland |
 | Meetkunde/Vectoren | 4de | LPD 13 | gepland |
-| Discrete wiskunde/Telproblemen | 4de | LPD 29 | gepland |
+| Discrete wiskunde/Telproblemen | 4de | LPD 29 | eerste versie |
