@@ -141,7 +141,7 @@ Beslist op 15 november 2026:
 | GO! pakket 2 en 3; GO! Grieks-Latijn en Humane; KOV Statistiek (Humane, Freinet) | telproblemen met binomium en driehoek van Pascal | de cursus Telproblemen van pakket 4 hergebruiken |
 | GO! 06.01; KOV Statistiek | betrouwbaarheidsintervallen en hypothesetoetsen als verplichte stof | staat al in Statistiek (hoofdstuk 3 en 4), daar nu keuze |
 | GO! 06.01 | grote datasets met statistische software | na te gaan: komt nu nauwelijks aan bod |
-| GO! 06.08; KOV Complementair | kegelsneden | **nieuwe cursus**, komt nog nergens voor |
+| GO! 06.08; KOV Complementair | kegelsneden | de cursus `4/Meetkunde/Kegelsneden` (eerste versie sinds 16 nov 2026) |
 | GO! Grieks-Latijn, Humane wetenschappen, Freinetpedagogie | de wiskunde van 06.05 | de handboeken van pakket 2 |
 | GO! talenrichtingen; KOV Statistiek' | combinaties, de betekenis van een hypothesetoets | Telproblemen (deel) en Statistiek hoofdstuk 3 |
 | GO! basis | geen matrices | Matrices van pakket 1 is voor GO! geen leerstof (toon het als uitbreiding) |

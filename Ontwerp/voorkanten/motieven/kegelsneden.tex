@@ -1,0 +1,22 @@
+% Kegelsneden. Wright of Derby: de ringen van het planetarium zijn ellipsen, de banen van de planeten,
+% en de lamp in het midden werpt schaduwen in de vorm van kegelsneden.
+% Motief: één brandpunt F en één top T, en drie kegelsneden erdoor: ellips (e = 1/2), parabool (e = 1)
+% en hyperbool (e = 2). Poolvergelijking r = q(1 + e)/(1 + e cos t) met q = |FT|.
+\def\omslagbestand{omslag-planetarium.jpg}
+\def\omslagbron{Joseph Wright of Derby, \textit{Een filosoof geeft uitleg bij het planetarium}, ca. 1766 (publiek domein)}
+\def\omslagrand{10.55 + 0.9*\x/21}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}
+    \clip (15.1,3.75) rectangle (20.6,10.25);
+    \draw[omslaglijn=.8pt] (14.9,6.9) -- (20.5,6.9);
+    \foreach \e/\tmax in {0.5/180,2/116}{%
+      \draw[omslaglijn=1pt] plot[domain=-\tmax:\tmax,samples=120,smooth,variable=\t]
+        ({18.85+0.75*(1+\e)/(1+\e*cos(\t))*cos(\t)},{6.9+0.75*(1+\e)/(1+\e*cos(\t))*sin(\t)});}
+    \draw[fel,line width=1.8pt] plot[domain=-150:150,samples=120,smooth,variable=\t]
+      ({18.85+1.5/(1+cos(\t))*cos(\t)},{6.9+1.5/(1+cos(\t))*sin(\t)});
+  \end{scope}
+  \fill[omslagstip] (18.85,6.9) circle (1.3mm);
+  \fill[omslagstip] (19.6,6.9) circle (1mm);
+  \node[omslaglabel,font=\footnotesize,inner sep=1.5pt] at (18.85,6.35) {$F$};
+}

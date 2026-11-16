@@ -98,6 +98,16 @@ Toegevoegd op 5 november 2026, na feedback op de cursus Integralen: de eerste ve
 - **Tussen voorbeelden en delen** staat een overgang: wat hebben we nu, en wat ontbreekt nog?
 - Een paar zinnen volstaan. Het blijft een boek voor in de les, met de focus op opgaven.
 
+## Vertrekken vanuit een probleem
+
+Toegevoegd op 16 november 2026, na feedback op de eerste versies: de uitleg was te constructief (eerst de definitie, daarna wat je ermee kunt) en te weinig verklarend. Geldt voor alle nieuwe en herwerkte hoofdstukken.
+
+- **Elk hoofdstuk begint met een vraag.** Meteen onder de titel staat het blok Probleem (`\begin{probleem}` in `Opmaak/opmaak.tex`): een concrete vraag die leerlingen met hun voorkennis begrijpen, maar nog niet helemaal kunnen oplossen. Bijvoorbeeld: waar zet je de ontvanger van een schotelantenne? Daarna volgt de korte alinea over het hoofdstuk.
+- **Laat de theorie uit het probleem ontstaan.** Begin te rekenen met wat leerlingen al kennen, stoot op een moeilijkheid, en laat het nieuwe begrip of de nieuwe formule die moeilijkheid oplossen. Een definitie is dan een antwoord, geen vertrekpunt. De volgorde wordt: probleem, poging, moeilijkheid, idee, theoriekader, voorbeeld, werkwijze.
+- **Ook een sectie begint met een vraag**, in de lopende tekst: "Waarom ...?", "Kan het ook zonder ...?", "Wat gebeurt er als ...?". Een korte Verken-opgave kan die vraag stellen.
+- **Kom terug op het probleem.** Waar de leerstof het probleem oplost, staat een voorbeeld "Terug naar het probleem" met de volledige oplossing. Zo ziet een leerling wat de nieuwe theorie oplevert.
+- **Verklaar, construeer niet alleen.** Zeg waarom een formule de vorm heeft die ze heeft, wat elke letter in de figuur betekent, en wat het idee van een bewijs is vóór de berekening begint ("we tonen aan dat de kromme volledig aan één kant van de rechte ligt").
+
 ## Grafieken
 
 Toegevoegd op 5 november 2026, om dezelfde reden: de eerste versie tekende alleen wat strikt nodig was.
@@ -186,6 +196,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Kansrekenen | Caravaggio, *De valsspelers*, ca. 1594 | Kaarten en vals spel | De 36 uitkomsten van twee dobbelstenen, gestapeld per som |
 | Statistiek | Rembrandt van Rijn, *De staalmeesters*, 1662 | Laken keuren op basis van stalen: een steekproef | De normale verdeling, met 68 % binnen één σ |
 | Onderzoekscompetentie | Johannes Vermeer, *De geograaf*, ca. 1669 | Een onderzoeker met passer en kaart | Meetpunten rond de best passende rechte, die de rand vormt |
+| Kegelsneden | Joseph Wright of Derby, *Een filosoof geeft uitleg bij het planetarium*, ca. 1766 | De ringen van het planetarium zijn ellipsen, de banen van de planeten, en de lamp werpt schaduwen | Eén brandpunt en één top, met een ellips, een parabool en een hyperbool erdoor |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 

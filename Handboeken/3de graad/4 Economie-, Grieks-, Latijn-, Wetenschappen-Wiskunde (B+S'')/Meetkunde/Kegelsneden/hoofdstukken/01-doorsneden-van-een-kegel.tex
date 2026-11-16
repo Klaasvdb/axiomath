@@ -1,0 +1,526 @@
+%----------------------------------------------------------------------------------------
+% DOORSNEDEN VAN EEN KEGEL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Doorsneden van een kegel}
+
+\begin{probleem}
+Richt een zaklamp loodrecht op een muur: je ziet een ronde lichtvlek. Kantel de lamp een beetje, en de vlek wordt langgerekt. Kantel nog verder, en op een bepaald moment sluit de vlek niet meer: ze loopt door tot ver over de muur. Welke vormen kan de lichtvlek aannemen? En is de langgerekte vlek een mooie, symmetrische ovaal, of eerder een ei: smal aan de kant van de lamp en breed aan de andere kant, omdat de lichtbundel daar al breder is?
+
+\figuren{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \begin{scope}
+    \clip (-.3,-1.3) rectangle (2.6,3.1);
+    \fill[accent!18] (2,0) -- (0,.65) -- (0,-.65) -- cycle;
+    \draw[accent] (2,0) -- (0,.65) (2,0) -- (0,-.65);
+    \draw[lijngrijs,dashed] (2,0) -- (0,0);
+  \end{scope}
+  \draw[grijs,line width=2.5pt] (0,-1.3) -- (0,3.1);
+  \fill (2,0) circle (2.5pt) node[right] {lamp};
+  \node at (1,-1.75) {1};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \begin{scope}
+    \clip (-.3,-1.3) rectangle (2.6,3.1);
+    \fill[accent!18] (2,0) -- (0,2.22) -- (0,.425) -- cycle;
+    \draw[accent] (2,0) -- (0,2.22) (2,0) -- (0,.425);
+    \draw[lijngrijs,dashed] (2,0) -- (0,1.155);
+  \end{scope}
+  \draw[grijs,line width=2.5pt] (0,-1.3) -- (0,3.1);
+  \fill (2,0) circle (2.5pt) node[right] {lamp};
+  \node at (1,-1.75) {2};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \begin{scope}
+    \clip (-.3,-1.3) rectangle (2.6,3.1);
+    \fill[accent!18] (2,0) -- (0,2.75) -- (0,3.2) -- (2,3.2) -- cycle;
+    \draw[accent] (2,0) -- (0,2.75) (2,0) -- (2,3.2);
+    \draw[lijngrijs,dashed] (2,0) -- (.2,3.2);
+  \end{scope}
+  \draw[grijs,line width=2.5pt] (0,-1.3) -- (0,3.1);
+  \fill (2,0) circle (2.5pt) node[right] {lamp};
+  \node at (1,-1.75) {3};
+\end{tikzpicture}}
+\begin{center}\small Drie keer dezelfde lamp en muur, van opzij gezien. De lichtbundel is getint.\end{center}
+\end{probleem}
+
+\lkr{GO!: WD3\_06.08.11, subdoel 1 (de doorsneden van een kegel ruimtelijk voorstellen) en subdoel 2 (de kegelsneden als meetkundige plaats). KOV: leerplan Complementair (III-WiCo-d), de keuzemodule over krommen en meetkundige plaatsen. Voorkennis: de afstand tussen twee punten en het kwadraat afsplitsen (2de graad), ruimtelijk inzicht uit Ruimtemeetkunde. Laat de leerlingen het probleem echt proberen met een zaklamp of de lamp van hun gsm: het kantelen naar een open vlek verrast.}
+
+Het licht van een zaklamp vormt een kegel, en de muur is een vlak. De lichtvlek is dus wat overblijft als je een kegel doorsnijdt met een vlak: een \emph{kegelsnede}. De Griekse wiskundige Apollonius schreef er rond 200 voor Christus al acht boeken over. Bijna twintig eeuwen later bleken ze overal op te duiken: planeten draaien in een ellips om de zon, een schotelantenne heeft de vorm van een parabool, en een kogel vliegt langs een parabool.
+
+In dit hoofdstuk zoeken we eerst welke doorsneden er zijn. Daarna stoten we op een probleem: een kegel heb je niet altijd bij de hand. We beschrijven de krommen daarom op een andere manier, met een eigenschap die al hun punten hebben. Op het einde beantwoorden we de vraag van het probleem: ellips of ei?
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een kegel doorsnijden}
+
+\subsection{Waarom een dubbelkegel?}
+
+Een lichtbundel is een halve kegel: het licht vertrekt in de lamp en gaat maar één kant op. In de wiskunde nemen we liever alle rechten door één punt. Draai je een rechte rond een as die ze snijdt, dan beschrijft ze een kegel aan beide kanten van dat snijpunt, zoals een zandloper. Zo'n dubbelkegel heeft een voordeel: een vlak dat de ene helft mist, kan de andere helft nog raken. We zullen zien dat precies dat het verschil maakt tussen de krommen.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+Neem een rechte $a$ en een rechte $b$ die $a$ snijdt in $T$, onder een hoek $\alpha$ met $0^\circ < \alpha < 90^\circ$. Draai $b$ rond $a$. De figuur die $b$ beschrijft, is een \textbf{\textcolor{accent}{dubbelkegel}} met \textbf{\textcolor{accent}{as}} $a$, \textbf{\textcolor{accent}{top}} $T$ en \textbf{\textcolor{accent}{halve tophoek}} $\alpha$. Elke rechte op de kegel door $T$ heet een \textbf{\textcolor{accent}{beschrijvende}}.
+
+\vspace{1.5mm}
+Een \textbf{\textcolor{accent}{kegelsnede}} is de doorsnede van een dubbelkegel met een vlak dat niet door de top gaat.
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[kegel,font=\scriptsize]
+  \dubbelkegel
+  \draw[accent,thick] (-1.2,0,2) -- (1.2,0,-2);
+  \node[left] at (0,0,0) {$T$};
+  \node[above] at (0,0,2.5) {$a$};
+  \node[left,text=accent] at (-1.2,0,2) {$b$};
+  \draw[accent] (0,0,.7) arc[start angle=90,end angle=121,radius=.5];
+  \node[text=accent] at (-.13,0,1.05) {$\alpha$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\subsection{Vier soorten doorsneden}
+
+Wat bepaalt de vorm van de doorsnede? Niet waar het vlak de as snijdt, want een vlak dat je evenwijdig verschuift, geeft dezelfde vorm, alleen groter of kleiner. Het komt aan op de stand van het vlak: de hoek $\beta$ tussen het vlak en de as. Vergelijk die hoek met de halve tophoek $\alpha$.
+
+Het idee is eenvoudig. Een beschrijvende die evenwijdig loopt met het vlak, snijdt het vlak nooit: in die richting loopt de doorsnede tot in het oneindige door. Hoeveel beschrijvenden zijn er evenwijdig met het vlak?
+
+\begin{itemize}
+\item Is $\beta > \alpha$, dan geen enkele. Het vlak snijdt elke beschrijvende, en wel allemaal in dezelfde helft. De doorsnede is gesloten.
+\item Is $\beta = \alpha$, dan precies één. De doorsnede is open in één richting, en ligt in één helft.
+\item Is $\beta < \alpha$, dan twee. Het vlak snijdt nu beide helften, en de doorsnede bestaat uit twee open stukken.
+\end{itemize}
+
+\begin{theorie}
+\begin{stelling}{Vier soorten kegelsneden}
+Een vlak maakt een hoek $\beta$ met de as van een dubbelkegel met halve tophoek $\alpha$, en gaat niet door de top.
+
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.4}%
+\begin{tabular}{|>{\centering\arraybackslash}m{3.3cm}|>{\centering\arraybackslash}m{3.3cm}|>{\centering\arraybackslash}m{3.3cm}|>{\centering\arraybackslash}m{3.3cm}|}
+\hline
+$\formule{\beta = 90^\circ}$ & $\formule{\alpha < \beta < 90^\circ}$ & $\formule{\beta = \alpha}$ & $\formule{\beta < \alpha}$ \\
+\textbf{\textcolor{accent}{cirkel}} & \textbf{\textcolor{accent}{ellips}} & \textbf{\textcolor{accent}{parabool}} & \textbf{\textcolor{accent}{hyperbool}} \\ \hline
+\end{tabular}\par}
+\end{stelling}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[kegel,scale=.85]
+  \dubbelkegel
+  \snijvlak{0}{1.2}{-1.7}{1.7}
+  \kegelsnede{0}{1.2}{0}{360}
+  \node[font=\small] at (0,0,-2.9) {cirkel};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[kegel,scale=.85]
+  \dubbelkegel
+  \snijvlak{.8}{.95}{-1.4}{1.6}
+  \kegelsnede{.8}{.95}{0}{360}
+  \node[font=\small] at (0,0,-2.9) {ellips};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[kegel,scale=.85]
+  \dubbelkegel
+  \snijvlak{1.6667}{1}{-.75}{.6}
+  \kegelsnede{1.6667}{1}{60}{300}
+  \node[font=\small] at (0,0,-2.9) {parabool};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[kegel,scale=.85]
+  \dubbelkegel
+  \hyperboolsnede{.45}{1.63}
+  \node[font=\small] at (0,0,-2.9) {hyperbool};
+\end{tikzpicture}}
+
+De cirkel is eigenlijk een bijzondere ellips: de stand waarbij het vlak loodrecht op de as staat. Het bewijs dat de gesloten doorsnede echt een ellips is, en geen ei, volgt in sectie~\ref{sec:h1-dandelin}. Voor de parabool en de hyperbool doen we dat in de opdrachten.
+
+Waarom geen vlak door de top? Dan krijg je enkel de top zelf, één beschrijvende of twee beschrijvenden die elkaar snijden. Die \emph{ontaarde kegelsneden} komen in hoofdstuk 5 nog even terug.
+
+\voorbeeld{}{Een kegel heeft een halve tophoek van $35^\circ$. Voor welke hoeken $\beta$ tussen het vlak en de as is de doorsnede een ellips? En een hyperbool?\label{vb:h1-soort}}{%
+\uitleg{We vergelijken telkens $\beta$ met de halve tophoek, en denken aan het geval van de cirkel: ook dat is een gesloten kromme.}
+\begin{stappen}
+35^\circ < \beta < 90^\circ & Het vlak maakt een grotere hoek met de as dan de beschrijvenden: het snijdt ze allemaal in dezelfde helft. Een ellips. \\[1ex]
+\beta = 90^\circ & Een cirkel, de bijzondere ellips. \\[1ex]
+0^\circ \leqslant \beta < 35^\circ & Het vlak staat dichter bij de as dan de beschrijvenden. Het snijdt beide helften: een hyperbool. Ook $\beta = 0^\circ$, een vlak evenwijdig met de as, geeft een hyperbool.
+\end{stappen}}
+
+\begin{werkwijze}
+Bepaal de halve tophoek $\alpha$ en de hoek $\beta$ tussen het vlak en de as. Vergelijk ze: groter geeft een ellips (een cirkel bij $90^\circ$), gelijk een parabool, kleiner een hyperbool.
+\end{werkwijze}
+
+Nu kunnen we het eerste deel van het probleem beantwoorden. De lichtbundel is één helft van een kegel, met de lamp als top. De hoek $\beta$ is de hoek tussen de muur en de as van de bundel. Zolang $\beta$ groter is dan de halve tophoek, is de vlek gesloten: een cirkel als de lamp loodrecht staat, anders een ellips (figuur 2). Is $\beta$ gelijk aan de halve tophoek, dan loopt de bovenste rand van de bundel evenwijdig met de muur: een parabool (figuur 3). Kantel je nog verder, dan wordt het een hyperbool. Maar je ziet er maar één stuk van, want de lamp schijnt niet naar achteren.
+
+\nujij{Een lichtbundel heeft een halve tophoek van $20^\circ$. Je richt de lamp zo dat de as een hoek van $15^\circ$ maakt met de muur. Welke vorm heeft de rand van de lichtvlek?}{$15^\circ < 20^\circ$: een hyperbool, waarvan je maar één tak ziet.}
+
+\begin{oefeningen}
+\oef{h1-soort}
+\end{oefeningen}
+
+%========================================================================================
+\section{Meetkundige plaatsen}
+
+\subsection{Een kromme zonder kegel}
+
+Een kegel is ruimtelijk, maar de kegelsneden zelf zijn vlakke krommen. Kunnen we ze beschrijven zonder kegel, rechtstreeks in het vlak? Dat lukt voor de cirkel al lang: een cirkel is de verzameling van alle punten op een vaste afstand van het middelpunt. Er komt geen kegel aan te pas, alleen een eigenschap die alle punten van de cirkel hebben en geen andere punten. Zo'n beschrijving heet een meetkundige plaats.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{meetkundige plaats}} van de punten met een eigenschap is de verzameling van alle punten die die eigenschap hebben.
+\end{theorie}
+
+Je kent al enkele voorbeelden. De middelloodlijn van $[AB]$ is de meetkundige plaats van de punten die even ver van $A$ als van $B$ liggen. De bissectrices van twee snijdende rechten zijn de meetkundige plaats van de punten die even ver van beide rechten liggen. En de cirkel met middelpunt $M$ en straal $r$ is de meetkundige plaats van de punten $P$ met $|PM| = r$.
+
+In een assenstelsel wordt de eigenschap een vergelijking in $x$ en $y$. Daarvoor gebruiken we steeds dezelfde formule: de afstand tussen $P(x, y)$ en $Q(x_1, y_1)$ is $|PQ| = \sqrt{(x - x_1)^2 + (y - y_1)^2}$, de stelling van Pythagoras in het rooster.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Vergelijking van een cirkel}
+De cirkel met middelpunt $M(a, b)$ en straal $r$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{(x - a)^2 + (y - b)^2 = r^2}$
+\end{stelling}
+
+\begin{bewijs}
+$P(x, y)$ ligt op de cirkel als en slechts als $|PM| = r$, of
+\bewijsregel{\sqrt{(x - a)^2 + (y - b)^2} = r .}
+Beide leden zijn positief, dus kwadrateren levert een gelijkwaardige vergelijking.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \assen{-.4}{4.4}{-.4}{4}
+  \draw[accent,thick] (2.2,1.8) circle (1.5);
+  \fill (2.2,1.8) circle (1.5pt) node[below left] {$M$};
+  \draw[grijs] (2.2,1.8) -- node[above left,inner sep=1pt] {$r$} ({2.2+1.5*cos(40)},{1.8+1.5*sin(40)});
+  \fill ({2.2+1.5*cos(40)},{1.8+1.5*sin(40)}) circle (1.5pt) node[above right] {$P(x, y)$};
+  \draw[lijngrijs,dashed] (2.2,1.8) -- (2.2,0) node[below,text=black] {$a$};
+  \draw[lijngrijs,dashed] (2.2,1.8) -- (0,1.8) node[left,text=black] {$b$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\lkr{De cirkel is in de 2de graad een keuzeonderwerp in B+S en B+S''. Wie hem al kent, gaat snel door dit deel; het gaat vooral om de werkwijze met een willekeurig punt $P(x, y)$, die in elk volgend hoofdstuk terugkomt.}
+
+\voorbeeld{}{Zoek een vergelijking van de meetkundige plaats van de punten die even ver liggen van $A(1, 0)$ als van $B(3, 4)$.\label{vb:h1-mp}}{%
+\uitleg{We weten al dat het de middelloodlijn van $[AB]$ wordt. Maar de werkwijze is belangrijker dan de uitkomst: neem een willekeurig punt, schrijf de eigenschap uit, en werk de vergelijking uit.}
+\naast{\begin{stappenvrij}{5.6cm}{4.6cm}
+|PA| = |PB| & Neem een willekeurig punt $P(x, y)$ en schrijf de eigenschap op. \\[1ex]
+(x - 1)^2 + y^2 = (x - 3)^2 + (y - 4)^2 & Beide afstanden zijn positief: we mogen kwadrateren. Zo verdwijnen de wortels. \\[1ex]
+-2x + 1 = -6x + 9 - 8y + 16 & Werk uit. De kwadraten $x^2$ en $y^2$ vallen weg. \\[1ex]
+x + 2y = 6 & Vereenvoudig: een rechte, zoals verwacht.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \rooster{-1}{1}{5}{-1}{1}{5}
+  \draw[accent,thick] (-1,3.5) -- (5,.5);
+  \draw[grijs,dashed] (1,0) -- (3,4);
+  \fill (1,0) circle (2pt) node[below right] {$A$};
+  \fill (3,4) circle (2pt) node[right] {$B$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Neem een willekeurig punt $P(x, y)$. Schrijf de eigenschap op met afstanden. Kwadrateer om de wortels kwijt te raken, maar enkel als beide leden positief zijn. Werk uit en herken de figuur.
+\end{werkwijze}
+
+\nujij{Zoek een vergelijking van de meetkundige plaats van de punten op afstand 3 van $M(-1, 2)$.}{$(x + 1)^2 + (y - 2)^2 = 9$, een cirkel.}
+
+\begin{oefeningen}
+\oef{h1-mp}
+\end{oefeningen}
+
+\subsection{Een cirkel herkennen}
+
+Werk je de vergelijking van een cirkel uit, dan verdwijnen de haakjes. Zo wordt $(x - 3)^2 + (y + 2)^2 = 25$ de vergelijking $x^2 + y^2 - 6x + 4y - 12 = 0$, en daaraan zie je het middelpunt niet meer. Hoe vind je het terug? Door de haakjes opnieuw te maken: het kwadraat afsplitsen, zoals bij de top van een parabool in de 2de graad.
+
+\voorbeeld{}{Toon aan dat $x^2 + y^2 + 8x - 2y + 8 = 0$ een cirkel is. Bepaal het middelpunt en de straal.\label{vb:h1-cirkel}}{%
+\uitleg{De termen in $x$ en die in $y$ vullen we elk aan tot een kwadraat. Wat we toevoegen, trekken we er meteen weer af.}
+\naast{\begin{stappenvrij}{6cm}{4.2cm}
+x^2 + 8x = (x + 4)^2 - 16 & De helft van 8 is 4, en $4^2 = 16$ moet er weer af. \\[1ex]
+y^2 - 2y = (y - 1)^2 - 1 & De helft van $-2$ is $-1$. \\[1ex]
+(x + 4)^2 - 16 + (y - 1)^2 - 1 + 8 = 0 & Vervang in de vergelijking. \\[1ex]
+(x + 4)^2 + (y - 1)^2 = 9 & Het rechterlid is positief: een cirkel met $M(-4, 1)$ en $r = 3$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{-8}{2}{2}{-2}{2}{4}
+  \draw[accent,thick] (-4,1) circle (3);
+  \fill (-4,1) circle (2.5pt) node[below] {$M$};
+\end{tikzpicture}}}
+
+Was het rechterlid negatief geweest, dan zou geen enkel punt aan de vergelijking voldoen: een som van kwadraten is nooit negatief. Bij 0 is er maar één punt, het middelpunt zelf. Niet elke vergelijking van deze vorm is dus een cirkel.
+
+\begin{werkwijze}
+Zet de termen in $x$ en in $y$ bij elkaar en splits bij elk het kwadraat af. Breng de constanten naar rechts. Is het rechterlid positief, dan is het $r^2$ en lees je het middelpunt af in de haakjes. Let op het teken: $(x + 4)^2$ hoort bij $a = -4$.
+\end{werkwijze}
+
+\nujij{Bepaal het middelpunt en de straal van $x^2 + y^2 - 10y = 0$.}{$x^2 + (y - 5)^2 = 25$: $M(0, 5)$ en $r = 5$.}
+
+\begin{oefeningen}
+\oef{h1-cirkel}
+\end{oefeningen}
+
+\subsection{Een bekende kromme duikt op}
+
+Kunnen we op dezelfde manier de andere kegelsneden beschrijven? Probeer een eigenschap met een punt en een rechte: alle punten die even ver liggen van een punt $F$ als van een rechte $l$. Wat voor kromme is dat?
+
+\voorbeeld{}{Zoek een vergelijking van de meetkundige plaats van de punten die even ver liggen van $F(0, 1)$ als van de rechte $l \leftrightarrow y = -1$.\label{vb:h1-parabool}}{%
+\uitleg{Dezelfde werkwijze. Nieuw is de afstand tot een horizontale rechte: dat is het hoogteverschil, $|y - (-1)| = |y + 1|$.}
+\naast{\begin{stappenvrij}{5.6cm}{4.6cm}
+|PF| = \afst{P}{l} & Neem $P(x, y)$. De afstand tot $l$ meet je loodrecht op $l$. \\[1ex]
+x^2 + (y - 1)^2 = (y + 1)^2 & Kwadrateer: $|y + 1|^2 = (y + 1)^2$. \\[1ex]
+x^2 - 2y + 1 = 2y + 1 & De termen $y^2$ vallen weg. \\[1ex]
+y = \tfrac14 x^2 & De grafiek van een tweedegraadsfunctie!
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-4}{1}{4}{-2}{1}{4}
+  \draw[grijs,thick] (-4,-1) -- (4,-1) node[above left,text=black] {$l$};
+  \kromme{-4}{4}{(\x)^2/4}
+  \fill[accent] (0,1) circle (2.5pt) node[right,text=black] {$F$};
+  \fill (2.8,1.96) circle (2pt) node[left] {$P$};
+  \draw[grijs] (0,1) -- (2.8,1.96) (2.8,1.96) -- (2.8,-1);
+\end{tikzpicture}}}
+
+Dat is verrassend: een kromme die je uit de 2de graad kent als grafiek van $y = ax^2$, duikt hier op als meetkundige plaats. Is dat dezelfde parabool als de doorsnede van een kegel? Ja, en hoofdstuk 2 vertrekt precies van deze eigenschap. Voor de ellips zoeken we eerst een eigenschap in de kegel zelf.
+
+%========================================================================================
+\section{Ellips of ei?}\label{sec:h1-dandelin}
+
+\subsection{De bollen van Dandelin}
+
+Terug naar de schuine lichtvlek. De bundel wordt breder naarmate het licht verder gaat, dus je zou een ei verwachten: smal aan de kant van de lamp en breed aan de andere kant. Toch is de vlek perfect symmetrisch. In 1822 vond de Belgische wiskundige Germinal Pierre Dandelin daar een prachtig bewijs voor, met twee bollen in de kegel. Het gebruikt één eigenschap van een bol.
+
+Trek je vanuit een punt $P$ buiten een bol een raaklijn aan de bol, dan raakt ze in een punt $Q$. Hoe lang is het raaklijnstuk $|PQ|$? De straal $MQ$ staat loodrecht op de raaklijn, dus volgens Pythagoras is $|PQ|^2 = |PM|^2 - r^2$. Dat hangt niet af van welke raaklijn je neemt.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Raaklijnstukken aan een bol}
+Alle raaklijnstukken uit een punt $P$ aan een bol met middelpunt $M$ en straal $r$ zijn even lang: \quad $\formule{|PQ| = \sqrt{|PM|^2 - r^2}}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \shade[ball color=accent!25] (0,0) circle (1.2);
+  \draw[accent] (0,0) circle (1.2);
+  \fill (0,0) circle (1.5pt) node[below] {$M$};
+  \fill (3.4,.3) circle (1.5pt) node[right] {$P$};
+  \pgfmathsetmacro{\d}{sqrt(3.4^2+.3^2)}
+  \foreach \s in {1,-1}{%
+    \pgfmathsetmacro{\h}{atan2(.3,3.4)+\s*acos(1.2/\d)}
+    \draw[grijs] (3.4,.3) -- ({1.2*cos(\h)},{1.2*sin(\h)});
+    \fill ({1.2*cos(\h)},{1.2*sin(\h)}) circle (1.5pt);}
+  \pgfmathsetmacro{\h}{atan2(.3,3.4)+acos(1.2/\d)}
+  \draw[grijs,dashed] (0,0) -- ({1.2*cos(\h)},{1.2*sin(\h)}) node[above,text=black] {$Q$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Leg nu een bol in de kegel, boven het vlak, en blaas hem op tot hij het vlak raakt. Hij raakt de kegel langs een cirkel $c_1$ en het vlak in één punt $F_1$. Doe hetzelfde met een bol onder het vlak: die raakt de kegel langs een cirkel $c_2$ en het vlak in $F_2$. De figuur toont de kegel van opzij, met het vlak als een schuine lijn. Een bol is daar een cirkel, en een raakcirkel een horizontaal lijnstuk.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Dandelin}
+Snijdt een vlak een kegel volgens een gesloten kromme, en raken twee bollen in de kegel het vlak in $F_1$ en $F_2$, dan is voor elk punt $P$ van die kromme
+
+\vspace{1mm}
+\qquad $\formule{|PF_1| + |PF_2| = \text{constant}}$
+\end{stelling}
+
+\begin{bewijs}
+De beschrijvende door $P$ snijdt de raakcirkels in $Q_1$ en $Q_2$. Zowel $PF_1$ als $PQ_1$ raakt de bovenste bol: $PF_1$ ligt in het vlak dat de bol raakt, en $PQ_1$ op de kegel die de bol raakt. Volgens de vorige stelling is dus
+\bewijsregel{|PF_1| = |PQ_1| , \quad\text{en net zo}\quad |PF_2| = |PQ_2| .}
+Daaruit volgt
+\bewijsregel{|PF_1| + |PF_2| = |PQ_1| + |PQ_2| = |Q_1 Q_2| .}
+Dat is het stuk van een beschrijvende tussen de twee evenwijdige raakcirkels, en dat is voor elke beschrijvende even lang.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.78,font=\scriptsize]
+  \draw[lijngrijs,thick] (-2.847,-6.395) -- (0,0) -- (2.847,-6.395);
+  \fill (0,0) circle (1.5pt) node[above] {$T$};
+  \shade[ball color=accent!20] (0,-1.676) circle (.682);
+  \draw[accent] (0,-1.676) circle (.682);
+  \shade[ball color=accent!20] (0,-6.205) circle (2.524);
+  \draw[accent] (0,-6.205) circle (2.524);
+  \draw[grijs,dashed] (-.623,-1.399) -- (.623,-1.399);
+  \draw[grijs,dashed] (-2.306,-5.179) -- (2.306,-5.179);
+  \node[right,inner sep=1pt] at (.65,-1.25) {$c_1$};
+  \node[above,inner sep=1pt] at (.8,-5.18) {$c_2$};
+  \draw[accent,very thick] (-1.25,-1.39) -- (2.6,-5.24);
+  \fill[accent] (-.482,-2.158) circle (2pt) node[above right,text=black,inner sep=1pt] {$F_1$};
+  \fill[accent] (1.783,-4.419) circle (2pt) node[above right,text=black,inner sep=1pt] {$F_2$};
+  \fill (-.813,-1.827) circle (2pt) node[below left,inner sep=1pt] {$P$};
+  \fill (-.623,-1.399) circle (1.5pt) node[above left,inner sep=1pt] {$Q_1$};
+  \fill (-2.306,-5.179) circle (1.5pt) node[left] {$Q_2$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+In de figuur ligt $P$ toevallig op de rand, zodat je alles ziet. Maar het bewijs werkt voor elk punt van de kromme, ook voor de punten achter en voor het vlak van de tekening.
+
+Dit is een kleine revolutie. De doorsnede is nu beschreven zonder kegel: het zijn de punten waarvan de som van de afstanden tot twee vaste punten constant is. Zo'n kromme kun je zelf tekenen. Sla twee punaises in een blad, leg er een lus touw rond en span het touw met een potlood. Terwijl je ronddraait, blijft de som van de afstanden tot de punaises gelijk aan de lengte van het touw.
+
+Dandelin vond ook bollen voor de parabool en de hyperbool. Voor de parabool is er maar één bol, en die levert een punt en een rechte, zoals in voorbeeld~\ref{vb:h1-parabool}. Voor de hyperbool liggen de twee bollen elk in een andere helft van de dubbelkegel, en wordt de som een verschil. De opdrachten werken die bewijzen uit. Dat levert drie meetkundige plaatsen, die we in de volgende hoofdstukken één voor één bestuderen.
+
+\begin{theorie}
+Neem twee punten $F_1$ en $F_2$, een punt $F$ en een rechte $l$ die niet door $F$ gaat, en een getal $a > 0$.
+\begin{itemize}
+\item Een \textbf{\textcolor{accent}{ellips}} is de meetkundige plaats van de punten $P$ met $\formule{|PF_1| + |PF_2| = 2a}$, waarbij $2a > |F_1F_2|$.
+\item Een \textbf{\textcolor{accent}{parabool}} is de meetkundige plaats van de punten $P$ met $\formule{|PF| = \afst{P}{l}}$.
+\item Een \textbf{\textcolor{accent}{hyperbool}} is de meetkundige plaats van de punten $P$ met $\formule{\bigl||PF_1| - |PF_2|\bigr| = 2a}$, waarbij $2a < |F_1F_2|$.
+\end{itemize}
+De punten $F_1$, $F_2$ en $F$ heten \textbf{\textcolor{accent}{brandpunten}}, de rechte $l$ de \textbf{\textcolor{accent}{richtlijn}}.
+\end{theorie}
+
+Waarom die voorwaarden op $2a$? Is $2a = |F_1F_2|$, dan geeft de som enkel het lijnstuk $[F_1F_2]$, en een kleinere som kan niet, door de driehoeksongelijkheid. Bij de hyperbool kan het verschil nooit groter zijn dan $|F_1F_2|$, om dezelfde reden.
+
+\voorbeeld{}{Een tuinier slaat twee piketten in de grond, 6 meter van elkaar, en legt er een lus touw van 16 meter rond. Met een stok spant hij het touw en trekt zo de rand van een perk. Het touw loopt van de stok naar het ene piket, naar het andere en terug, dus de som van de afstanden van de stok tot de piketten is $16 - 6 = 10$ meter. Hoe lang en hoe breed wordt het perk?\label{vb:h1-touw}}{%
+\uitleg{We zoeken twee bijzondere punten van de ellips: het punt op de rechte door de piketten, en het punt op de middelloodlijn. Daar volstaat Pythagoras.}
+\naast{\begin{stappenvrij}{5.8cm}{4.2cm}
+|PF_1| + |PF_2| = 10 & De eigenschap van elk punt $P$ van de rand. \\[1ex]
+x + (x - 6) = 10 \ \Rightarrow \ x = 8 & Voor een punt $A$ op de rechte door de piketten, op afstand $x$ van $F_1$, voorbij $F_2$. Het ligt dus $8 - 3 = 5$ m van het midden: het perk is 10 m lang. \\[1ex]
+|BF_1| = |BF_2| = 5 & Een punt $B$ op de middelloodlijn ligt even ver van beide piketten. \\[1ex]
+h = \sqrt{5^2 - 3^2} = 4 & Pythagoras in de driehoek met het midden: het perk is 8 m breed.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \fill[accent!15] (0,0) ellipse (5 and 4);
+  \draw[accent,thick] (0,0) ellipse (5 and 4);
+  \draw[grijs] (-3,0) -- (0,4) -- (3,0);
+  \draw[lijngrijs,dashed] (-5,0) -- (5,0) (0,0) -- (0,4);
+  \fill[accent] (-3,0) circle (3pt) node[below,text=black] {$F_1$};
+  \fill[accent] (3,0) circle (3pt) node[below,text=black] {$F_2$};
+  \fill (5,0) circle (2.5pt) node[right] {$A$};
+  \fill (0,4) circle (2.5pt) node[above] {$B$};
+  \node[left] at (-1.5,2.2) {5};
+  \node[below] at (1.5,0) {3};
+\end{tikzpicture}}}
+
+Merk op dat de lengte van het perk precies de som van de afstanden is: $10 = 2a$. Dat is geen toeval. Aan het uiteinde $A$ telt het touw het stuk tussen $F_2$ en $A$ twee keer mee, en het uiteinde ligt even ver voorbij $F_2$ als het andere uiteinde voorbij $F_1$.
+
+\nujij{Twee piketten staan 8 m van elkaar, en de som van de afstanden is 10 m. Hoe breed wordt het perk?}{$h = \sqrt{25 - 16} = 3$, dus 6 m breed (en 10 m lang).}
+
+\begin{oefeningen}
+\oef{h1-touw}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+De vlek is dus geen ei: de eigenschap $|PF_1| + |PF_2| = 2a$ verandert niet als je $F_1$ en $F_2$ van plaats wisselt, en daarom is de kromme symmetrisch ten opzichte van de middelloodlijn van $[F_1F_2]$. Waar komt het idee van het ei dan vandaan? Het volgende voorbeeld toont het.
+
+\voorbeeld{}{Een lamp hangt 1 meter van een muur. De lichtbundel heeft een halve tophoek van $20^\circ$, en de as van de bundel maakt een hoek van $60^\circ$ met de muur. Waar raakt de as de muur, en waar ligt het midden van de lichtvlek?\label{vb:h1-terug}}{%
+\uitleg{Van opzij gezien is de muur een rechte en de bundel een hoek van $40^\circ$. Meet alles vanaf $H$, het punt van de muur het dichtst bij de lamp. Een straal die een hoek $\theta$ maakt met de muur, raakt de muur op afstand $\tfrac{1}{\tan\theta}$ van $H$.}
+\naast{\begin{stappenvrij}{5.8cm}{4.4cm}
+\dfrac{1}{\tan 60^\circ} \approx 0{,}577 & De as raakt de muur 57,7 cm boven $H$. \\[2ex]
+\dfrac{1}{\tan 80^\circ} \approx 0{,}176 & De onderste rand van de bundel maakt een hoek van $60^\circ + 20^\circ$ met de muur. \\[2ex]
+\dfrac{1}{\tan 40^\circ} \approx 1{,}192 & De bovenste rand, onder $60^\circ - 20^\circ$. \\[2ex]
+\dfrac{0{,}176 + 1{,}192}{2} \approx 0{,}684 & Het midden van de vlek ligt 68,4 cm boven $H$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=2.2,font=\scriptsize]
+  \fill[accent!15] (1,0) -- (0,1.192) -- (0,.176) -- cycle;
+  \draw[accent] (1,0) -- (0,1.192) (1,0) -- (0,.176);
+  \draw[lijngrijs,dashed] (1,0) -- (0,.577);
+  \draw[grijs,line width=2pt] (0,-.2) -- (0,1.4);
+  \draw[grijs] (1,0) -- (0,0) node[left,text=black] {$H$};
+  \fill (1,0) circle (1.2pt) node[right] {lamp};
+  \fill (0,.577) circle (.7pt) node[below left,inner sep=1pt] {as};
+  \fill[accent] (0,.684) circle (.7pt) node[above left,text=accent,inner sep=1pt] {midden};
+  \node[below] at (.5,0) {1 m};
+\end{tikzpicture}}
+Het midden van de vlek ligt bijna 11 cm boven het punt waar de as van de bundel de muur raakt. Wie de as als midden neemt, ziet een vlek die naar boven breder wordt: een ei. Maar de vlek zelf is symmetrisch rond haar eigen midden.}
+
+Zo is het probleem helemaal opgelost: de lichtvlek is een cirkel, een ellips, een parabool of één tak van een hyperbool, en de ellips is echt symmetrisch. In de volgende hoofdstukken geven we elke kegelsnede een vergelijking, en ontdekken we waarom een schotelantenne een parabool is en waarom je in sommige zalen een fluistering aan de overkant hoort.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\needspace{9\baselineskip}
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Ruimtemeetkunde en Kegelsneden staan beide in het 6de jaar: geef de koppeling met Ruimtemeetkunde pas als vergelijkingen van vlakken gezien zijn. Complexe getallen en Goniometrische functies zijn gezien in het 5de jaar.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-soort}{oef:h1-soort}%
+  \fv{oef:h1-t2}{vb:h1-mp}{oef:h1-mp}%
+  \fv{oef:h1-t3}{vb:h1-cirkel}{oef:h1-cirkel}%
+  \fv{oef:h1-t4}{vb:h1-parabool}{oef:h1-o12}%
+  \fv{oef:h1-t5}{vb:h1-touw}{oef:h1-touw}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de vier soorten kegelsneden met de hoeken $\alpha$ en $\beta$, wat een meetkundige plaats is, de vergelijking van een cirkel en hoe je ze herkent, het bewijs van Dandelin in je eigen woorden, en de drie meetkundige plaatsen. Vergelijk daarna met de kaders.
+\fi

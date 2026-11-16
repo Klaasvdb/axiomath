@@ -1,0 +1,379 @@
+%----------------------------------------------------------------------------------------
+% DE HYPERBOOL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h4-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{De hyperbool}
+
+\begin{probleem}
+\naast{Anna en Bert staan 2 km van elkaar tijdens een onweer. Ze zien een bliksem op hetzelfde ogenblik, want licht gaat bijna oneindig snel. Maar Anna hoort de donder 3 seconden vroeger dan Bert. Geluid legt 340 meter per seconde af. Waar kan de bliksem ingeslagen zijn? Is er één mogelijke plaats, of meer? En als de inslag ver weg was: in welke richting moeten ze dan kijken?}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[lijngrijs,dashed] (-3,0) -- (3,0);
+  \fill (-2,0) circle (2.5pt) node[below] {Anna};
+  \fill (2,0) circle (2.5pt) node[below] {Bert};
+  \draw[accent,thick] (-.8,2.6) -- (-1.2,1.7) -- (-.9,1.7) -- (-1.3,.8);
+  \node[above] at (-.8,2.6) {?};
+  \draw[<->,grijs] (-2,-.9) -- node[below] {2 km} (2,-.9);
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{GO!: WD3\_06.08.11, subdoel 2 (de hyperbool als meetkundige plaats) en subdoel 3 (de standaardvergelijking). KOV Complementair: krommen en meetkundige plaatsen. Voorkennis: limieten (asymptoten) en de grafiek van $\tfrac kx$ uit Rationale functies. Het probleem is het principe van plaatsbepaling met tijdsverschillen, zoals bij oude navigatiesystemen en bij het lokaliseren van aardbevingen.}
+
+De ellips was de kromme waarvan de som van de afstanden tot twee brandpunten constant is. Wat gebeurt er als je het verschil neemt? Dan krijg je de hyperbool: de doorsnede van een vlak dat beide helften van een kegel snijdt. Ze bestaat uit twee takken die zich tot in het oneindige uitstrekken, en daar bijna rechten worden. In dit hoofdstuk blijkt dat die kromme al lang een oude bekende is: de grafiek van $y = \tfrac1x$.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De vergelijking van een hyperbool}
+
+\subsection{Van het probleem naar een kromme}
+
+Zet de assen zoals bij de ellips: Anna in $F_1(-c, 0)$, Bert in $F_2(c, 0)$, met $c = 1000$ m. De bliksem $P$ ligt verder van Bert dan van Anna, en het verschil is de afstand die het geluid in 3 seconden aflegt: $|PF_2| - |PF_1| = 1020$ m. Er is dus niet één plaats, maar een hele kromme van mogelijke plaatsen. Noem het verschil $2a$. Door de driehoeksongelijkheid is het verschil kleiner dan $|F_1F_2|$, dus $a < c$.
+
+Laat je toe dat Bert de donder eerst hoort, dan krijg je een tweede, gespiegelde tak. Samen vormen ze een hyperbool. Ze snijdt de $x$-as in de \emph{toppen} $(\pm a, 0)$: voor een punt tussen de brandpunten op afstand $a$ van het midden is het verschil precies $(c + a) - (c - a) = 2a$.
+
+\subsection{Weer twee wortels}
+
+De vergelijking volgt net als bij de ellips, met dezelfde truc: zet een wortel alleen, en kwadrateer twee keer. Er is één verschil. Bij de ellips was $a > c$, en noemden we $b^2 = a^2 - c^2$. Nu is $c > a$, en dan is $c^2 - a^2$ positief.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{hyperbool}} met brandpunten $(\pm c, 0)$ en verschil $2a$ heeft als \textbf{\textcolor{accent}{middelpunt}} de oorsprong en als \textbf{\textcolor{accent}{toppen}} $(\pm a, 0)$. Noem $\formule{b^2 = c^2 - a^2}$.
+
+\begin{stelling}{Vergelijking van een hyperbool}
+De hyperbool met brandpunten $(\pm c, 0)$ en verschil $2a$ heeft als vergelijking \qquad $\formule{\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1}$
+
+\vspace{1mm}
+Liggen de brandpunten op de $y$-as, in $(0, \pm c)$, dan is het \qquad $\formule{\dfrac{y^2}{a^2} - \dfrac{x^2}{b^2} = 1}$
+\end{stelling}
+
+\begin{bewijs}
+$\bigl||PF_1| - |PF_2|\bigr| = 2a$ betekent $\sqrt{(x + c)^2 + y^2} = \sqrt{(x - c)^2 + y^2} \pm 2a$. Kwadrateer, vereenvoudig en kwadrateer opnieuw, zoals bij de ellips:
+\bewijsregel{cx - a^2 = \pm a\sqrt{(x - c)^2 + y^2} \ \Rightarrow\ (c^2 - a^2)\,x^2 - a^2y^2 = a^2(c^2 - a^2) .}
+Met $b^2 = c^2 - a^2$ is dat $b^2x^2 - a^2y^2 = a^2b^2$. Deel door $a^2b^2$.
+
+Omgekeerd: ligt $P$ op de kromme, dan is $y^2 = \tfrac{b^2}{a^2}x^2 - b^2$ en $|x| \geqslant a$. Net als bij de ellips is dan
+\bewijsregel{|PF_1| = \Bigl|\dfrac ca x + a\Bigr| \quad\text{en}\quad |PF_2| = \Bigl|\dfrac ca x - a\Bigr| .}
+Voor $x \geqslant a$ is $\tfrac ca x > a$, dus het verschil is $\bigl(\tfrac ca x + a\bigr) - \bigl(\tfrac ca x - a\bigr) = 2a$. Voor $x \leqslant -a$ net zo, met $F_1$ en $F_2$ gewisseld.
+\end{bewijs}
+\end{theorie}
+
+Het verschil met de ellips zit in één teken: een min. Daardoor snijdt de hyperbool de $y$-as niet, want $-\tfrac{y^2}{b^2} = 1$ heeft geen oplossing. Waar is $b$ dan te zien in de figuur? Dat volgt in de volgende sectie. Welke letter de brandpunten draagt, zie je aan de positieve term: bij $\tfrac{y^2}{a^2} - \tfrac{x^2}{b^2} = 1$ liggen ze op de $y$-as. En $a$ hoeft niet groter te zijn dan $b$.
+
+\voorbeeld{}{Bepaal de toppen en de brandpunten van de hyperbool $9x^2 - 16y^2 = 144$.\label{vb:h4-std}}{%
+\uitleg{Breng in de standaardvorm. De positieve term staat bij $x^2$: de brandpunten liggen op de $x$-as.}
+\naast{\begin{stappenvrij}{4.6cm}{4.4cm}
+\dfrac{x^2}{16} - \dfrac{y^2}{9} = 1 & Deel door 144. \\[2.5ex]
+a = 4, \quad b = 3 & $a^2$ staat bij de positieve term. \\[1ex]
+c = \sqrt{16 + 9} = 5 & Nu $c^2 = a^2 + b^2$. \\[1ex]
+(\pm4, 0), \quad F(\pm5, 0) & Toppen en brandpunten.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \rooster{-6}{2}{6}{-5}{1}{5}
+  \hyperbool{0}{0}{4}{3}{1.0}
+  \brandpunt[above]{-5}{0}{F_1}
+  \brandpunt[above]{5}{0}{F_2}
+\end{tikzpicture}}}
+
+\voorbeeld{}{Geef een vergelijking van de hyperbool met toppen $(0, \pm3)$ en brandpunten $(0, \pm5)$.\label{vb:h4-opstellen}}{%
+\uitleg{De brandpunten liggen op de $y$-as, dus de positieve term staat bij $y^2$.}
+\begin{stappen}
+a = 3, \quad c = 5, \quad b^2 = 25 - 9 = 16 & $b^2 = c^2 - a^2$. \\[1ex]
+\dfrac{y^2}{9} - \dfrac{x^2}{16} = 1 & De positieve term bij $y^2$.
+\end{stappen}}
+
+\begin{werkwijze}
+Zorg voor 1 in het rechterlid. De positieve term bepaalt de as met de brandpunten, en zijn noemer is $a^2$. Bereken $c = \sqrt{a^2 + b^2}$: let op het plusteken, anders dan bij de ellips.
+\end{werkwijze}
+
+\nujij{Bepaal de brandpunten van $x^2 - 3y^2 = 3$.}{$\tfrac{x^2}{3} - y^2 = 1$: $c = \sqrt{3 + 1} = 2$, dus $F(\pm2, 0)$.}
+
+\begin{oefeningen}
+\oef{h4-std}
+\end{oefeningen}
+
+%========================================================================================
+\section{Asymptoten}
+
+\subsection{Ver weg wordt een tak bijna een rechte}
+
+Hoe ziet een hyperbool eruit ver van het middelpunt? Los de vergelijking op naar $y$: $y = \pm\tfrac ba\sqrt{x^2 - a^2}$. Voor een grote $x$ verschilt $\sqrt{x^2 - a^2}$ weinig van $x$, en dan is $y \approx \pm\tfrac ba x$. De takken naderen dus twee rechten door het middelpunt. Dat is meteen ook de betekenis van $b$.
+
+\begin{theorie}
+\begin{stelling}{Asymptoten van een hyperbool}
+De hyperbool $\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1$ heeft twee schuine asymptoten: \qquad $\formule{y = \pm\dfrac ba\, x}$
+\end{stelling}
+
+\begin{bewijs}
+Neem de tak rechtsboven, $y = \tfrac ba\sqrt{x^2 - a^2}$. Het verschil met de rechte is
+\bewijsregel{\dfrac ba\bigl(x - \sqrt{x^2 - a^2}\bigr) = \dfrac ba \cdot \dfrac{x^2 - (x^2 - a^2)}{x + \sqrt{x^2 - a^2}} = \dfrac{ab}{x + \sqrt{x^2 - a^2}} ,}
+en dat gaat naar 0 als $x \to +\infty$. De andere stukken volgen door symmetrie.
+\end{bewijs}
+\end{theorie}
+
+\naast{Zo krijgt $b$ een plaats in de figuur. Teken de \emph{hulprechthoek} met hoekpunten $(\pm a, \pm b)$. Zijn diagonalen zijn de asymptoten, want ze hebben richtingscoëfficiënt $\pm\tfrac ba$. Zijn halve diagonaal is $\sqrt{a^2 + b^2} = c$: met een passer in het middelpunt breng je de brandpunten zo over op de as.
+
+Daarmee teken je snel een hyperbool: eerst de hulprechthoek, dan de asymptoten, dan de takken door de toppen, die de asymptoten steeds dichter naderen.}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \draw[lijngrijs] (-6.5,0) -- (6.5,0) (0,-4.8) -- (0,4.8);
+  \draw[grijs,dashed] (-4,-3) rectangle (4,3);
+  \draw[grijs] (-6.4,-4.8) -- (6.4,4.8) (-6.4,4.8) -- (6.4,-4.8);
+  \draw[lijngrijs,densely dotted] (5,0) arc[start angle=0,end angle=36.87,radius=5];
+  \hyperbool{0}{0}{4}{3}{1.0}
+  \brandpunt[below]{-5}{0}{F_1}
+  \brandpunt[below]{5}{0}{F_2}
+  \node[above left,inner sep=1pt] at (4,0) {$a$};
+  \node[left,inner sep=1pt] at (0,1.5) {$b$};
+  \node[above,inner sep=1pt] at (2,1.6) {$c$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Geef de asymptoten van de hyperbool $\dfrac{x^2}{25} - \dfrac{y^2}{4} = 1$ en teken ze met de hulprechthoek.\label{vb:h4-asym}}{%
+\uitleg{Lees $a$ en $b$ af. De hulprechthoek reikt tot $\pm a$ in de richting van de brandpunten, en tot $\pm b$ loodrecht daarop.}
+\naast{\begin{stappenvrij}{4.4cm}{4cm}
+a = 5, \quad b = 2 & Hulprechthoek met hoekpunten $(\pm5, \pm2)$. \\[1ex]
+y = \pm\tfrac25 x & De diagonalen. \\[1ex]
+c = \sqrt{29} \approx 5{,}4 & Brandpunten, net buiten de toppen.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.33,font=\scriptsize]
+  \rooster{-7}{1}{7}{-3}{1}{3}
+  \draw[grijs,dashed] (-5,-2) rectangle (5,2);
+  \draw[grijs] (-7,-2.8) -- (7,2.8) (-7,2.8) -- (7,-2.8);
+  \hyperbool{0}{0}{5}{2}{.9}
+\end{tikzpicture}}}
+
+Let op bij een staande hyperbool $\tfrac{y^2}{a^2} - \tfrac{x^2}{b^2} = 1$: dan zijn de asymptoten $y = \pm\tfrac ab x$. Wie de hulprechthoek tekent, maakt hier geen fout, want de diagonalen zijn altijd juist. Een snelle controle: vervang 1 door 0 in de vergelijking. Uit $\tfrac{x^2}{a^2} - \tfrac{y^2}{b^2} = 0$ volgt precies $y = \pm\tfrac ba x$.
+
+\begin{werkwijze}
+Teken de hulprechthoek met zijden $2a$ langs de as met de brandpunten en $2b$ loodrecht erop. Trek de diagonalen: dat zijn de asymptoten. Of vervang 1 door 0 in de vergelijking en los op naar $y$.
+\end{werkwijze}
+
+\nujij{Geef de asymptoten van $\dfrac{y^2}{4} - \dfrac{x^2}{9} = 1$.}{$\tfrac{y^2}{4} = \tfrac{x^2}{9}$, dus $y = \pm\tfrac23 x$.}
+
+\begin{oefeningen}
+\oef{h4-asym}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{Anna en Bert staan 2 km van elkaar, en Anna hoort de donder 3 seconden vroeger. Geef een vergelijking van de mogelijke plaatsen van de inslag. In welke richting ligt een verre inslag?\label{vb:h4-terug}}{%
+\uitleg{Anna staat in $F_1(-1000, 0)$ en Bert in $F_2(1000, 0)$, in meter. De inslag ligt op de tak het dichtst bij Anna.}
+\naast{\begin{stappenvrij}{5.2cm}{3.6cm}
+2a = 3 \cdot 340 = 1020 & Het verschil in afstand. \\[1ex]
+a = 510, \quad c = 1000 & \\[1ex]
+b = \sqrt{1000^2 - 510^2} \approx 860 & $b^2 = c^2 - a^2 = 739\,900$. \\[1ex]
+\dfrac{x^2}{260\,100} - \dfrac{y^2}{739\,900} = 1, \ x < 0 & De linkertak. \\[2.5ex]
+\tan\theta = \dfrac ba \approx 1{,}69 \ \Rightarrow \ \theta \approx 59^\circ & De hoek van de asymptoot met de as.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=1.55,font=\scriptsize]
+  \draw[lijngrijs,dashed] (-1.6,0) -- (1.6,0);
+  \draw[grijs] (0,0) -- (-1,1.687) (0,0) -- (-1,-1.687);
+  \draw[accent,thick] plot[domain=-1.35:1.35,samples=50,smooth] ({-.51*cosh(\x)},{.86*sinh(\x)});
+  \fill (-1,0) circle (.028) node[below right] {A};
+  \fill (1,0) circle (.028) node[below] {B};
+\end{tikzpicture}}
+Eén meting geeft dus geen plaats, maar een kromme. Ligt de inslag ver weg, dan valt de tak bijna samen met de asymptoot: Anna en Bert weten dan de richting, ongeveer $59^\circ$ met de lijn tussen hen, aan de kant van Anna. Met een derde persoon krijg je een tweede hyperbool, en het snijpunt geeft de plaats. Zo bepalen seismologen de plaats van een aardbeving.}
+
+\subsection{Een oude bekende: \texorpdfstring{$y = \tfrac kx$}{y = k/x}}
+
+Bij een hyperbool waarvan de hulprechthoek een vierkant is, dus $a = b$, staan de asymptoten loodrecht op elkaar. Zo'n \emph{gelijkzijdige hyperbool} ken je al. De grafiek van $y = \tfrac1x$ heeft de assen als asymptoten, die loodrecht op elkaar staan. Is dat een gekantelde gelijkzijdige hyperbool? Waar liggen dan de brandpunten? Door de symmetrie zoeken we ze op de rechte $y = x$.
+
+\begin{theorie}
+\begin{stelling}{De grafiek van $xy = k$}
+Voor $k > 0$ is de grafiek van $xy = k$ een gelijkzijdige hyperbool met de assen als asymptoten, toppen $(\sqrt k, \sqrt k)$ en $(-\sqrt k, -\sqrt k)$, en brandpunten
+
+\vspace{1mm}
+\qquad $\formule{F_1(s, s) \text{ en } F_2(-s, -s) \text{ met } s = \sqrt{2k}}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $P(x, y)$ met $xy = k$. Dan is $(x + y)^2 = x^2 + y^2 + 2k$ en $2s^2 = 4k$, dus
+\bewijsregel{|PF_1|^2 = x^2 + y^2 - 2s(x + y) + 2s^2 = (x + y)^2 - 2s(x + y) + 2k = (x + y - s)^2 ,}
+want $s^2 = 2k$. Zo is $|PF_1| = |x + y - s|$ en net zo $|PF_2| = |x + y + s|$. Voor $x, y > 0$ is $x + y \geqslant 2\sqrt{xy} = 2\sqrt k > s$, dus $|PF_2| - |PF_1| = 2s$. Voor $x, y < 0$ net zo. Het verschil is constant, met $2a = 2s$: de afstand tussen de toppen, $2\sqrt{2k}$.
+\end{bewijs}
+\end{theorie}
+
+Zo valt alles samen: de grafiek van $\tfrac1x$ uit de rationale functies is een kegelsnede, met brandpunten in $(\sqrt2, \sqrt2)$ en $(-\sqrt2, -\sqrt2)$. Ook elke grafiek van $y = \tfrac{ax + b}{cx + d}$ is een gelijkzijdige hyperbool: een verschoven en uitgerekte versie van $\tfrac1x$ (zie de Koppel).
+
+\voorbeeld{}{Bepaal de toppen en de brandpunten van de grafiek van $y = \dfrac8x$.\label{vb:h4-kx}}{%
+\uitleg{Rechtstreeks met de stelling, met $k = 8$.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+\sqrt k = 2\sqrt2 & Toppen $(2\sqrt2, 2\sqrt2)$ en $(-2\sqrt2, -2\sqrt2)$. \\[1ex]
+s = \sqrt{16} = 4 & Brandpunten $(4, 4)$ en $(-4, -4)$. \\[1ex]
+2a = 2\sqrt{2k} = 8 & Controle met $P(2, 4)$: $|PF_2| - |PF_1| = 10 - 2 = 8$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \rooster{-6}{2}{6}{-6}{2}{6}
+  \kromme{1.4}{6}{8/\x}
+  \kromme{-6}{-1.4}{8/\x}
+  \brandpunt[right]{4}{4}{F_1}
+  \brandpunt[left]{-4}{-4}{F_2}
+  \fill (2.83,2.83) circle (5pt);
+  \fill (-2.83,-2.83) circle (5pt);
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h4-kx}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vorm, verschuiving en raaklijn}
+
+\subsection{Excentriciteit en verschuiving}
+
+Ook bij een hyperbool meet de excentriciteit $e = \tfrac ca$ de vorm. Nu is $c > a$, dus $e > 1$. Hoe groter $e$, hoe verder de takken openstaan, want $\tfrac ba = \tfrac{\sqrt{c^2 - a^2}}{a} = \sqrt{e^2 - 1}$. Een gelijkzijdige hyperbool heeft $e = \sqrt2$.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{excentriciteit}} van een hyperbool is \qquad $\formule{e = \dfrac ca}$ \qquad met $e > 1$.
+\end{theorie}
+
+Een verschoven hyperbool herken je zoals een verschoven ellips: twee kwadraten, maar nu met tegengestelde tekens. Het middelpunt vind je met het kwadraat afsplitsen, en de asymptoten gaan door het middelpunt.
+
+\voorbeeld{}{Bepaal het middelpunt, de brandpunten en de asymptoten van $4x^2 - y^2 - 8x - 4y - 4 = 0$.\label{vb:h4-versch}}{%
+\uitleg{Coëfficiënten buiten haakjes, kwadraat afsplitsen, en let op het minteken voor de haakjes van $y$.}
+\naast{\begin{stappenvrij}{6.2cm}{3.8cm}
+4(x^2 - 2x) - (y^2 + 4y) - 4 = 0 & Groepeer. \\[1ex]
+4(x - 1)^2 - 4 - (y + 2)^2 + 4 - 4 = 0 & Min maal $-4$ is $+4$. \\[1ex]
+(x - 1)^2 - \dfrac{(y + 2)^2}{4} = 1 & Deel door 4. \\[2.5ex]
+M(1, -2),\ a = 1,\ b = 2,\ c = \sqrt5 & Liggend. \\[1ex]
+F(1 \pm \sqrt5, -2) & Brandpunten. \\[1ex]
+y + 2 = \pm 2(x - 1) & Asymptoten door $M$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \rooster{-3}{1}{5}{-6}{1}{2}
+  \draw[grijs] (-1,2) -- (3,-6) (-1,-6) -- (3,2);
+  \hyperbool{1}{-2}{1}{2}{1.4}
+  \fill (1,-2) circle (4pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Herken een hyperbool aan twee kwadraten met tegengestelde tekens. Splits het kwadraat af en deel tot er 1 staat. De positieve term geeft de richting van de brandpunten. Schrijf de asymptoten met het middelpunt: $y - y_0 = \pm\tfrac ba(x - x_0)$.
+\end{werkwijze}
+
+\nujij{Bepaal het middelpunt van $x^2 - y^2 + 6x + 2y + 4 = 0$.}{$(x + 3)^2 - (y - 1)^2 = 4$: middelpunt $(-3, 1)$.}
+
+\begin{oefeningen}
+\oef{h4-versch}
+\end{oefeningen}
+
+\subsection{De raaklijn}
+
+Bij de ellips toonden we dat de hele kromme aan één kant van de raaklijn ligt. Bij een hyperbool kan dat niet: de twee takken liggen aan verschillende kanten. Daarom gebruiken we de afgeleide, en vinden we opnieuw de regel van het ontdubbelen.
+
+\begin{theorie}
+\begin{stelling}{Raaklijn aan een hyperbool}
+De raaklijn in het punt $P(x_1, y_1)$ van de hyperbool $\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1$ is \qquad $\formule{\dfrac{x_1x}{a^2} - \dfrac{y_1y}{b^2} = 1}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $y_1 > 0$. Op de bovenste helft is $y = \tfrac ba\sqrt{x^2 - a^2}$, met
+\bewijsregel{y' = \dfrac ba \cdot \dfrac{x}{\sqrt{x^2 - a^2}} = \dfrac{b^2 x}{a^2 y} ,}
+want $\sqrt{x^2 - a^2} = \tfrac ab y$. De raaklijn is $y - y_1 = \tfrac{b^2x_1}{a^2y_1}(x - x_1)$. Vermenigvuldig met $\tfrac{y_1}{b^2}$ en herschik:
+\bewijsregel{\dfrac{x_1x}{a^2} - \dfrac{y_1y}{b^2} = \dfrac{x_1^2}{a^2} - \dfrac{y_1^2}{b^2} = 1 .}
+Voor $y_1 < 0$ werkt het net zo, en in de toppen geeft de formule de verticale raaklijnen $x = \pm a$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bepaal de raaklijn aan de hyperbool $\dfrac{x^2}{4} - \dfrac{y^2}{9} = 1$ in het punt $P(4, 3\sqrt3)$.\label{vb:h4-raak}}{%
+\uitleg{Controleer, en ontdubbel.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+\dfrac{16}{4} - \dfrac{27}{9} = 4 - 3 = 1 & $P$ ligt op de hyperbool. \\[2.5ex]
+\dfrac{4x}{4} - \dfrac{3\sqrt3\,y}{9} = 1 & Ontdubbelen. \\[2.5ex]
+y = \sqrt3\,(x - 1) & Vereenvoudig: $x - \tfrac{\sqrt3}{3}y = 1$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \rooster{-6}{2}{6}{-6}{2}{8}
+  \hyperbool{0}{0}{2}{3}{1.7}
+  \draw[grijs,thick] (.2,-1.39) -- (5.6,7.97);
+  \fill (4,5.196) circle (5pt) node[right] {$P$};
+\end{tikzpicture}}}
+
+Zoals de ellips heeft ook de hyperbool een spiegeleigenschap: de raaklijn in $P$ is de bissectrice van de hoek $F_1PF_2$ (opdracht~\ref{oef:h4-o18}). Een straal die naar het ene brandpunt gericht is, weerkaatst op een hyperbolische spiegel naar het andere. Grote telescopen combineren zo een parabolische en een hyperbolische spiegel.
+
+\begin{oefeningen}
+\oef{h4-raak}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h4-o1}
+
+\oef{h4-o2}
+
+\oef{h4-o3}
+
+\oef{h4-o4}
+
+\oef{h4-o5}
+
+\oef{h4-o6}
+
+\oef{h4-o7}
+
+\oef{h4-o8}
+
+\oef{h4-o9}
+
+\oef{h4-o10}
+
+\oef{h4-o11}
+
+\oef{h4-o12}
+
+\oef{h4-o13}
+
+\oef{h4-o14}
+
+\oef{h4-o15}
+
+\oef{h4-o16}
+
+\oef{h4-o17}
+
+\oef{h4-o18}
+
+\oef{h4-o19}
+
+\oef{h4-o20}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Rationale functies, de exponentiële functies en Complexe getallen zijn gezien in het 5de jaar.}
+
+\begin{oefeningen}
+\oef{h4-koppel-1}
+
+\oef{h4-koppel-2}
+
+\oef{h4-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-std}{oef:h4-std}%
+  \fv{oef:h4-t2}{vb:h4-opstellen}{oef:h4-o2}%
+  \fv{oef:h4-t3}{vb:h4-asym}{oef:h4-asym}%
+  \fv{oef:h4-t4}{vb:h4-versch}{oef:h4-versch}%
+  \fv{oef:h4-t5}{vb:h4-raak}{oef:h4-raak}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de hyperbool als meetkundige plaats, $a$, $b$ en $c$ met hun verband, de standaardvergelijkingen, de asymptoten en de hulprechthoek, de grafiek van $xy = k$, de excentriciteit, en de raaklijn door te ontdubbelen. Vergelijk daarna met de kaders, en zet ook de verschillen met de ellips op een rij.
+\fi

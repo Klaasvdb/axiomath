@@ -55,6 +55,7 @@ SCHILDERIJEN = {
     "valsspelers": ("File:Caravaggio (Michelangelo Merisi) - The Cardsharps - Google Art Project.jpg", 0.5, 0.5),
     "staalmeesters": ("File:Rembrandt - De Staalmeesters- het college van staalmeesters (waardijns) van het Amsterdamse lakenbereidersgilde - Google Art Project.jpg", 0.5, 0.5),
     "geograaf": ("File:Johannes Vermeer - The Geographer - Google Art Project.jpg", 0.5, 0.3),
+    "planetarium": ("File:Wright of Derby, The Orrery.jpg", 0.5, 0.45),  # Wright of Derby, kegelsneden
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),

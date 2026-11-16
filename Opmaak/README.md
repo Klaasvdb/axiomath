@@ -65,6 +65,7 @@ Voor de inhoud en de opbouw van een hoofdstuk: zie de [ontwerpregels](../Ontwerp
 
 ## Bijzonderheden van de opmaak
 
+- `probleem` is het blok waarmee een hoofdstuk begint: een lijn boven en onder, met het label Probleem (ontwerpregel van 16 nov 2026).
 - De uitlegkolom van `stappen` is cursief, en `\uitleg` zet de zin over de aanpak bovenaan een voorbeeld.
 - `stelling` is een wit kader met de naam op de lijn. `bewijs` eindigt met een vierkantje in de kleur van het hoofdstuk en gebruikt `\bewijsregel` voor formules.
 - `theorie` mag over twee pagina's breken, tussen een stelling en haar bewijs.

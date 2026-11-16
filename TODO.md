@@ -33,7 +33,8 @@ Nog geen enkele cursus geschreven. Indeling, leerplandoelen per pakket en voorka
 
 ### 3de graad: wat nog ontbreekt
 
-- **Kegelsneden** (GO! Gevorderde wiskunde; KOV Complementair). Een nieuwe cursus, met een kunstwerk en een motief voor de voorkant. **[Ingmar]**
+- **Kegelsneden**: eerste versie klaar sinds 16 nov 2026 (`4/Meetkunde/Kegelsneden`, vijf hoofdstukken). Nog na te lezen, en eventueel prenten bij de opdrachten. **[Ingmar]**
+- **Vertrekken vanuit een probleem** (ontwerpregel van 16 nov 2026): de andere handboeken herwerken met een blok Probleem per hoofdstuk en een voorbeeld "Terug naar het probleem". Kegelsneden is het voorbeeld. **[Ingmar]**
 - **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken.
 - **Telproblemen voor pakket 2 en 3**: GO! vraagt telproblemen met het binomium van Newton ook in de economische en wetenschapsrichtingen. Nu verwijst de site naar de cursus van pakket 4, die voor 6 uur wiskunde geschreven is. Maak een lichtere versie. **[Ingmar]**
 - **Modules voor KOV Complementair** (uitbreiding voor wiskunderichtingen met meer dan 6 uur; een menu, niet alles is nodig): predicatenlogica, krommen en meetkundige plaatsen, oppervlakken in de ruimte, euclidische, affiene en projectieve meetkunde, extra integratiemethodes, differentiaalvergelijkingen, reeksen, numerieke methodes, vectorruimten, getaltheorie, lineair programmeren, financiële algebra, iteraties en fractalen, kansverdelingen, lineaire regressie, multivariate statistiek. **[Ingmar]**

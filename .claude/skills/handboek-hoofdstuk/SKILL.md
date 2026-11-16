@@ -43,6 +43,7 @@ Elk boek heeft na de voorkant een inhoudstafel: `\inhoudstafel` in `handboek.tex
 
 ```latex
 \mychapter{2}{Titel}                  % het nummer is ook de kleur: moet het echte hoofdstuknummer zijn
+\begin{probleem} ... \end{probleem}   % de vraag waarmee het hoofdstuk begint; later een voorbeeld "Terug naar het probleem"
 \begin{oefeningen}[Start]             % strook; Opwarmer en Verken met \blokkop{...}
 \section{Groot deel}                  % genummerd
 \subsection{Onderdeel}                % zonder nummer
@@ -107,7 +108,9 @@ Kies voor elk stuk tekst bewust, en wees streng met het theoriekader: leerlingen
 
 ## Bindtekst en grafieken
 
-Zie de delen Bindtekst en Grafieken in de ontwerpregels. In de praktijk:
+Zie de delen Bindtekst, Vertrekken vanuit een probleem en Grafieken in de ontwerpregels. In de praktijk:
+
+- Begin elk hoofdstuk met `\begin{probleem} ... \end{probleem}` meteen onder `\mychapter`: een concrete vraag die leerlingen nog niet kunnen oplossen. Laat de theorie daaruit ontstaan (poging, moeilijkheid, idee, kader), en sluit af met een voorbeeld "Terug naar het probleem". Ook een sectie begint met een vraag in de tekst. Wees verklarend: eerst waarom, dan wat.
 
 - Schrijf een hoofdstuk niet als een reeks kaders. Begin met een korte alinea over het hoofdstuk, en laat elke sectie en elk onderdeel starten met tekst die het probleem en het idee uitlegt. Zeg in voorbeelden ook waarom je iets doet: begin de uitwerking met `\uitleg{...}` over de aanpak, en leg elke stap in volzinnen uit. Die uitleg staat cursief. `\uitleg` en de cursieve kolom van `stappen` staan in `Opmaak/opmaak.tex`.
 - Leerstof per onderdeel: uitleg, `theorie`, `\voorbeeld`, `werkwijze`, korte oefening. De werkwijze komt dus na het voorbeeld. Geef bij alles wat je uitlegt een voorbeeld, ook per regel van een tabel. Werk voorbeelden uit: alleen een lijst met één opgave per regel van een tabel mag met de vermelding "(Niet uitgewerkt.)". Elk voorbeeld is één opgave, tenzij het net draait om het verschil tussen twee opgaven.

@@ -1,0 +1,328 @@
+%----------------------------------------------------------------------------------------
+% EEN FAMILIE: brandpunt en richtlijn, herkennen, poolvergelijking. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h5-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{5}{Eén familie}
+
+\begin{probleem}
+\naast{Een komeet die uit de verre ruimte naar de zon valt, zwaait er in een boog omheen. Sommige kometen keren telkens terug, zoals die van Halley om de 76 jaar. Andere verdwijnen voorgoed. Hun banen zijn ellipsen, parabolen of hyperbolen, met de zon in een brandpunt. Astronomen beschrijven ze allemaal met één formule, waarin één getal beslist welke kegelsnede het is. Welk getal? En hoe kan één formule drie zo verschillende krommen geven?}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \begin{scope}
+    \clip (-3.2,-2.4) rectangle (1.4,2.4);
+    \foreach \ee/\tm in {.5/180,1/165,2/116}{%
+      \draw[accent,thick] plot[domain=-\tm:\tm,samples=100,smooth,variable=\t]
+        ({(1+\ee)/(1+\ee*cos(\t))*cos(\t)},{(1+\ee)/(1+\ee*cos(\t))*sin(\t)});}
+  \end{scope}
+  \fill[accent!60] (0,0) circle (4pt);
+  \node[below] at (0,-.15) {zon};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{GO!: WD3\_06.08.11, subdoel 2 en 3, als synthese. KOV Complementair: krommen en meetkundige plaatsen, met de poolvergelijking die het leerplan suggereert. Voorkennis: de hoofdstukken 1 tot 4, en de goniometrische vorm van een complex getal (modulus en argument) als opstap naar poolcoördinaten. De laatste opdrachten over meetkundige plaatsen in hoofdstuk 3 en 4, waarin de excentriciteit als verhouding opdook, zijn een goede start voor de klas.}
+
+Vier hoofdstukken lang hebben we de kegelsneden één voor één bestudeerd, elk met een eigen definitie: een som, een verschil, een afstand tot een rechte. Toch komen ze uit dezelfde kegel. In de opdrachten van hoofdstuk 3 en 4 dook iets vreemds op. De punten die half zo ver van een punt $F$ liggen als van een rechte, vormden een ellips met excentriciteit $\tfrac12$. Bij het dubbele kreeg je een hyperbool met excentriciteit 2. En bij \textit{even ver} is het een parabool. Is dat toeval? Dit hoofdstuk toont dat het niet zo is: één definitie volstaat voor alle kegelsneden.
+
+\begin{oefeningen}[Start]
+\oef{h5-start-1}
+
+\oef{h5-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Brandpunt en richtlijn}
+
+\subsection{Eén definitie voor alles}
+
+Bij de parabool was $|PF| = \afst{P}{l}$. Wat gebeurt er als we een factor toevoegen? Neem een getal $e > 0$ en zoek de punten met $|PF| = e \cdot \afst{P}{l}$. Leg $F$ in de oorsprong en $l$ verticaal, op afstand $d$ links: $l \leftrightarrow x = -d$. Rechts van $l$ is $\afst{P}{l} = x + d$, en kwadrateren geeft
+\[ x^2 + y^2 = e^2(x + d)^2 \iff (1 - e^2)\,x^2 - 2e^2d\,x + y^2 = e^2d^2 . \]
+Kijk naar de coëfficiënt van $x^2$. Is $e = 1$, dan valt $x^2$ weg en blijft er een parabool. Is $e < 1$, dan staan $x^2$ en $y^2$ allebei met een positieve coëfficiënt: na het kwadraat afsplitsen een ellips. Is $e > 1$, dan hebben ze tegengestelde tekens: een hyperbool.
+
+\begin{theorie}
+\begin{stelling}{Brandpunt en richtlijn}
+Neem een punt $F$, een rechte $l$ die niet door $F$ gaat, en een getal $e > 0$. De meetkundige plaats van de punten $P$ met
+
+\vspace{1mm}
+\qquad $\formule{|PF| = e \cdot \afst{P}{l}}$
+
+\vspace{1mm}
+is een ellips als $e < 1$, een parabool als $e = 1$ en een hyperbool als $e > 1$. Het getal $e$ is de excentriciteit, $F$ een brandpunt en $l$ een \textbf{\textcolor{accent}{richtlijn}}.
+\end{stelling}
+
+\begin{bewijs}
+Voor $e = 1$ is $y^2 = 2d\bigl(x + \tfrac d2\bigr)$: een parabool met brandpunt $F$ en richtlijn $l$. Voor $e \neq 1$ geeft het kwadraat afsplitsen
+\bewijsregel{(1 - e^2)\Bigl(x - \dfrac{e^2d}{1 - e^2}\Bigr)^2 + y^2 = \dfrac{e^2d^2}{1 - e^2} .}
+Is $e < 1$, dan zijn de drie coëfficiënten positief: een ellips. Is $e > 1$, dan zijn de coëfficiënt van het eerste kwadraat en het rechterlid negatief: deel door het rechterlid, en er staat een hyperbool. Dat $F$ een brandpunt is en $e$ de excentriciteit, reken je na in opdracht~\ref{oef:h5-o14}.
+\end{bewijs}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \begin{scope}
+    \clip (-3.3,-2.3) rectangle (2.4,2.3);
+    \foreach \ee/\tm in {.5/180,1/170,2/118}{%
+      \draw[accent,thick] plot[domain=-\tm:\tm,samples=100,smooth,variable=\t]
+        ({2*\ee/(1+\ee*cos(\t))*cos(\t)},{2*\ee/(1+\ee*cos(\t))*sin(\t)});}
+  \end{scope}
+  \draw[grijs,thick] (2,-2.3) -- (2,2.3) node[below right,text=black] {$l$};
+  \brandpunt[below left]{0}{0}{F}
+  \node[text=accent] at (-2.1,1.15) {$e = \tfrac12$};
+  \node[text=accent,left] at (-.15,2.05) {$e = 1$};
+  \node[text=accent] at (1.45,1.95) {$e = 2$};
+\end{tikzpicture}}
+\begin{center}\small Drie kegelsneden met hetzelfde brandpunt $F$ en dezelfde richtlijn $l$.\end{center}
+
+Nu begrijp je de naam \textit{excentriciteit}: bij een kleine $e$ trekt het brandpunt het sterkst, en blijft de kromme er dicht omheen. Hoe groter $e$, hoe meer de richtlijn het haalt, en hoe verder de kromme openstaat.
+
+\voorbeeld{}{Zoek de meetkundige plaats van de punten $P$ met $|PF| = \tfrac12\,\afst{P}{l}$, met $F(2, 0)$ en $l \leftrightarrow x = 8$. Controleer de excentriciteit.\label{vb:h5-mp}}{%
+\uitleg{De stelling voorspelt een ellips met $e = \tfrac12$. We rekenen het na met de werkwijze voor een meetkundige plaats.}
+\begin{stappen}
+(x - 2)^2 + y^2 = \tfrac14(x - 8)^2 & Kwadrateer de eigenschap. \\[1ex]
+4x^2 - 16x + 16 + 4y^2 = x^2 - 16x + 64 & Maal 4 en werk uit. \\[1ex]
+\dfrac{x^2}{16} + \dfrac{y^2}{12} = 1 & $3x^2 + 4y^2 = 48$: een ellips. \\[2ex]
+a = 4,\ c = \sqrt{16 - 12} = 2,\ e = \tfrac24 = \tfrac12 & Klopt, en $F(2, 0)$ is een brandpunt.
+\end{stappen}}
+
+\nujij{Welke kegelsnede vormen de punten waarvan de afstand tot $(0, 0)$ gelijk is aan drie keer de afstand tot de rechte $x = 1$?}{$e = 3 > 1$: een hyperbool.}
+
+\begin{oefeningen}
+\oef{h5-mp}
+\end{oefeningen}
+
+\subsection{De richtlijnen van een ellips en een hyperbool}
+
+Omgekeerd: heeft elke ellips en elke hyperbool zo'n richtlijn? Bij de ellips vonden we in hoofdstuk 3 dat $|PF_2| = a - \tfrac ca x$. Haal $e = \tfrac ca$ buiten haakjes: $|PF_2| = e\bigl(\tfrac ae - x\bigr)$. Dat is $e$ maal de afstand tot de rechte $x = \tfrac ae$. De richtlijn zat dus al in die formule.
+
+\begin{theorie}
+\begin{stelling}{Richtlijnen}
+De ellips $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$ en de hyperbool $\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1$ hebben bij het brandpunt $(\pm c, 0)$ de richtlijn \qquad $\formule{x = \pm\dfrac ae}$
+\end{stelling}
+
+\begin{bewijs}
+Voor de ellips is $|PF_2| = a - ex = e\bigl(\tfrac ae - x\bigr)$, en omdat $x \leqslant a < \tfrac ae$, is dat $e \cdot \afst{P}{l_2}$ met $l_2 \leftrightarrow x = \tfrac ae$. Voor de hyperbool is $|PF_2| = |ex - a| = e\,\bigl|x - \tfrac ae\bigr|$. Voor $F_1$ en $x = -\tfrac ae$ net zo.
+\end{bewijs}
+\end{theorie}
+
+Bij de ellips liggen de richtlijnen buiten de ellips, want $\tfrac ae > a$. Bij de hyperbool liggen ze tussen de takken, want $\tfrac ae < a$. Een cirkel heeft geen richtlijn: bij $e = 0$ schuift ze naar het oneindige.
+
+\voorbeeld{}{Bepaal de excentriciteit en de richtlijnen van de ellips $\dfrac{x^2}{25} + \dfrac{y^2}{16} = 1$. Controleer met de top $(5, 0)$.\label{vb:h5-richt}}{%
+\uitleg{Eerst $c$ en $e$, dan $\tfrac ae$.}
+\begin{stappen}
+c = \sqrt{25 - 16} = 3, \quad e = \tfrac35 & Brandpunten $(\pm3, 0)$. \\[1ex]
+x = \pm\dfrac{5}{3/5} = \pm\dfrac{25}{3} & De richtlijnen. \\[2ex]
+|PF_2| = 2, \quad \afst{P}{l_2} = \tfrac{25}{3} - 5 = \tfrac{10}{3} & Voor de top $P(5, 0)$. \\[1ex]
+2 = \tfrac35 \cdot \tfrac{10}{3} & Klopt.
+\end{stappen}}
+
+\begin{werkwijze}
+Bereken $c$ en $e = \tfrac ca$. De richtlijnen staan loodrecht op de as met de brandpunten, op afstand $\tfrac ae$ van het middelpunt, aan de kant van het bijbehorende brandpunt.
+\end{werkwijze}
+
+\nujij{Geef de richtlijnen van $\dfrac{x^2}{9} - \dfrac{y^2}{16} = 1$.}{$c = 5$, $e = \tfrac53$, dus $x = \pm\tfrac{9}{5}$.}
+
+\begin{oefeningen}
+\oef{h5-richt}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een vergelijking herkennen}
+
+\subsection{Het teken van de kwadraten}
+
+Elke kegelsnede in de standaardstand, ook verschoven, heeft een vergelijking van de vorm
+\[ Ax^2 + Cy^2 + Dx + Ey + F = 0 . \]
+Omgekeerd: is elke zo'n vergelijking een kegelsnede? Splits het kwadraat af, en het teken van $A$ en $C$ beslist. Maar er kan iets mislopen: het rechterlid kan 0 of negatief worden. Dan krijg je een punt, rechten of zelfs niets. Herinner je de ontaarde kegelsneden uit hoofdstuk 1, met een vlak door de top: ook die duiken hier op.
+
+\begin{theorie}
+\begin{stelling}{Soort van een kegelsnede}
+De vergelijking $Ax^2 + Cy^2 + Dx + Ey + F = 0$, met $A$ en $C$ niet allebei 0, stelt voor:
+
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.6}%
+\begin{tabular}{|>{\centering\arraybackslash}m{2.8cm}|>{\centering\arraybackslash}m{4.4cm}|>{\centering\arraybackslash}m{5.4cm}|}
+\hline
+\textbf{teken} & \textbf{soort} & \textbf{of ontaard} \\ \hline
+$\formule{AC > 0}$ & ellips (cirkel als $A = C$) & één punt, of geen enkel punt \\ \hline
+$\formule{AC = 0}$ & parabool & een of twee evenwijdige rechten, of niets \\ \hline
+$\formule{AC < 0}$ & hyperbool & twee snijdende rechten \\ \hline
+\end{tabular}\par}
+\end{stelling}
+\end{theorie}
+
+Waarom? Na het kwadraat afsplitsen staat er bij $AC > 0$ een som van twee kwadraten met dezelfde tekens. Is het rechterlid 0, dan moeten beide kwadraten 0 zijn: één punt. Heeft het het verkeerde teken, dan is er geen oplossing. Bij $AC < 0$ is het verschil van twee kwadraten, en bij een rechterlid 0 ontbinden ze in twee factoren: twee rechten. Bij $AC = 0$ blijft er één kwadraat, en als ook de andere letter wegvalt, krijg je bijvoorbeeld $x^2 = 4$: twee evenwijdige rechten.
+
+\voorbeeld{}{Welke figuur stelt $4x^2 - y^2 + 8x + 4 = 0$ voor?\label{vb:h5-herken}}{%
+\uitleg{$AC = 4 \cdot (-1) < 0$: een hyperbool, of ontaard. Het kwadraat afsplitsen beslist.}
+\begin{stappen}
+4(x + 1)^2 - 4 - y^2 + 4 = 0 & Kwadraat in $x$. \\[1ex]
+4(x + 1)^2 - y^2 = 0 & Het rechterlid is 0: ontaard. \\[1ex]
+\bigl(2(x + 1) - y\bigr)\bigl(2(x + 1) + y\bigr) = 0 & Verschil van twee kwadraten. \\[1ex]
+y = 2x + 2 \ \text{ of } \ y = -2x - 2 & Twee rechten, die elkaar snijden in $(-1, 0)$.
+\end{stappen}
+Vergelijk met de hyperbool $4(x + 1)^2 - y^2 = 4$: dat zijn precies haar asymptoten.}
+
+\voorbeeld{}{Voor elke regel van de tabel een vergelijking. (Niet uitgewerkt, reken ze zelf na.)\label{vb:h5-tabel}}{%
+\uitleg{Telkens het kwadraat afsplitsen en kijken naar het rechterlid.}
+\begin{tabular}{@{}>{$}l<{$}@{\hspace{6mm}}l@{}}
+x^2 + 2y^2 - 4x = 0 & ellips: $\tfrac{(x - 2)^2}{4} + \tfrac{y^2}{2} = 1$ \\[.8ex]
+x^2 + y^2 + 2x + 2 = 0 & niets: $(x + 1)^2 + y^2 = -1$ \\[.8ex]
+y^2 - 4x - 2y + 9 = 0 & parabool: $(y - 1)^2 = 4(x - 2)$ \\[.8ex]
+x^2 - 6x + 5 = 0 & twee evenwijdige rechten: $x = 1$ en $x = 5$ \\[.8ex]
+3x^2 - 3y^2 + 6y = 0 & hyperbool: $(y - 1)^2 - x^2 = 1$
+\end{tabular}}
+
+\begin{werkwijze}
+Kijk eerst naar het teken van $AC$: dat geeft de soort. Splits dan het kwadraat af en kijk naar het rechterlid: is het 0 of heeft het het verkeerde teken, dan is de kegelsnede ontaard.
+\end{werkwijze}
+
+\nujij{Welke figuur stelt $x^2 + 4y^2 - 2x + 8y + 5 = 0$ voor?}{$(x - 1)^2 + 4(y + 1)^2 = 0$: alleen het punt $(1, -1)$.}
+
+\begin{oefeningen}
+\oef{h5-herken}
+\end{oefeningen}
+
+\subsection{En een term in \texorpdfstring{$xy$}{xy}?}
+
+Een gekantelde kegelsnede heeft ook een term in $xy$. Zo is $xy = 1$ een hyperbool, en in hoofdstuk 2 vond je de gekantelde parabool $x^2 - 2xy + y^2 + 4x + 4y - 4 = 0$. Voor de algemene vergelijking $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$ beslist dan het teken van $B^2 - 4AC$: negatief geeft een ellips, 0 een parabool en positief een hyperbool (telkens op ontaarde gevallen na). Zonder $xy$-term is dat $-4AC$, en dan zie je de tabel hierboven terug. Het bewijs gebruikt een draaiing van de assen, en valt buiten dit boek. Controleer zelf: bij $xy = 1$ is $B^2 - 4AC = 1 > 0$, en bij de gekantelde parabool $(-2)^2 - 4 \cdot 1 \cdot 1 = 0$.
+
+%========================================================================================
+\section{De poolvergelijking}
+
+\subsection{Meten vanuit het brandpunt}
+
+Terug naar de kometen. Een astronoom meet niet $x$ en $y$, maar de afstand $r$ van de komeet tot de zon, en de hoek $\theta$ tussen de richting van de komeet en de richting van het perihelium, het punt van de baan het dichtst bij de zon. Die twee getallen heten \emph{poolcoördinaten}. Je kent ze van de complexe getallen: $r$ is de modulus en $\theta$ het argument, met $x = r\cos\theta$ en $y = r\sin\theta$.
+
+Leg de zon, een brandpunt, in de oorsprong, en de richtlijn rechts, $l \leftrightarrow x = d$. Dan is $|PF| = r$ en $\afst{P}{l} = d - r\cos\theta$. De eigenschap $|PF| = e \cdot \afst{P}{l}$ wordt zo een vergelijking in $r$ en $\theta$, en die kun je oplossen naar $r$.
+
+\begin{theorie}
+\begin{stelling}{Poolvergelijking}
+De kegelsnede met brandpunt de oorsprong, excentriciteit $e$ en richtlijn $x = d$ heeft als poolvergelijking
+
+\vspace{1mm}
+\qquad $\formule{r = \dfrac{p}{1 + e\cos\theta}}$ \qquad met $p = e\,d$.
+\end{stelling}
+
+\begin{bewijs}
+$r = e\,(d - r\cos\theta) \iff r + e\,r\cos\theta = e\,d \iff r = \dfrac{ed}{1 + e\cos\theta}$.
+\end{bewijs}
+\end{theorie}
+
+Wat zegt die formule? Het perihelium ligt bij $\theta = 0$, waar de noemer het grootst is: $r = \tfrac{p}{1 + e}$. Recht boven het brandpunt, bij $\theta = 90^\circ$, is $r = p$. Bij een ellips ($e < 1$) wordt de noemer nooit 0, en blijft $r$ begrensd: de komeet komt terug. Bij een parabool wordt de noemer 0 bij $\theta = 180^\circ$, en bij een hyperbool al eerder, als $\cos\theta = -\tfrac1e$: in die richting verdwijnt de komeet in het oneindige. Bij de parabool is $p = d$ de parameter uit hoofdstuk 2.
+
+\voorbeeld{}{Welke kegelsnede is $r = \dfrac{6}{1 + 2\cos\theta}$? Waar ligt de top bij het brandpunt, en in welke richtingen gaat $r$ naar oneindig?\label{vb:h5-pool}}{%
+\uitleg{Lees $e$ af in de noemer. Let op: de noemer moet de vorm $1 + e\cos\theta$ hebben, met een 1 vooraan.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+e = 2 & Een hyperbool. \\[1ex]
+r(0) = \dfrac{6}{3} = 2 & De top in $(2, 0)$. \\[2ex]
+1 + 2\cos\theta = 0 \ \Rightarrow \ \theta = \pm120^\circ & De richtingen van de asymptoten.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \rooster{-6}{2}{4}{-6}{2}{6}
+  \draw[grijs] (0,0) -- (-3,5.2) (0,0) -- (-3,-5.2);
+  \begin{scope}
+    \clip (-6,-6) rectangle (4.4,6);
+    \draw[accent,thick] plot[domain=-114:114,samples=120,smooth,variable=\t]
+      ({6/(1+2*cos(\t))*cos(\t)},{6/(1+2*cos(\t))*sin(\t)});
+  \end{scope}
+  \brandpunt[below left]{0}{0}{F}
+\end{tikzpicture}}
+De richtingen van $\pm120^\circ$ zijn de richtingen van de asymptoten, gezien vanuit het brandpunt. Die gaan zelf niet door $F$, maar door het middelpunt $(4, 0)$ (opdracht~\ref{oef:h5-o10}).}
+
+\begin{werkwijze}
+Breng de noemer in de vorm $1 + e\cos\theta$ door teller en noemer te delen. Lees $e$ af: dat geeft de soort. De top bij het brandpunt ligt bij $\theta = 0$ op afstand $\tfrac{p}{1 + e}$.
+\end{werkwijze}
+
+\nujij{Welke kegelsnede is $r = \dfrac{10}{4 + 2\cos\theta}$?}{Deel door 4: $r = \tfrac{2{,}5}{1 + 0{,}5\cos\theta}$, een ellips met $e = 0{,}5$.}
+
+\begin{oefeningen}
+\oef{h5-pool}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{De komeet van Halley komt tot 0,59 AE bij de zon, met een excentriciteit van 0,967. Geef de poolvergelijking van haar baan, en bereken haar grootste afstand tot de zon. Wat als een komeet even dicht bij de zon komt, maar met $e = 1{,}1$?\label{vb:h5-terug}}{%
+\uitleg{Het perihelium geeft $\tfrac{p}{1 + e}$. Daaruit volgt $p$, en dan de hele baan.}
+\begin{stappen}
+p = 0{,}59 \cdot (1 + 0{,}967) \approx 1{,}16 & Uit $r(0) = \tfrac{p}{1 + e}$. \\[1ex]
+r = \dfrac{1{,}16}{1 + 0{,}967\cos\theta} & De poolvergelijking. \\[2ex]
+r(180^\circ) = \dfrac{1{,}16}{0{,}033} \approx 35 & Het verste punt, aan de andere kant: ongeveer 35 AE, voorbij Neptunus. \\[2ex]
+1 + 1{,}1\cos\theta = 0 \ \Rightarrow \ \theta \approx \pm155^\circ & Bij $e = 1{,}1$ is de noemer 0 bij die hoeken: de komeet ontsnapt.
+\end{stappen}}
+
+Het getal uit het probleem is dus de excentriciteit $e$. Eén formule, $r = \tfrac{p}{1 + e\cos\theta}$, beschrijft elke baan rond de zon. Is $e < 1$, dan is de baan gesloten en keert de komeet terug. Is $e \geqslant 1$, dan komt ze één keer langs en verdwijnt ze. In de natuurkunde leer je later dat $e$ afhangt van de snelheid: wie snel genoeg gaat, ontsnapt. Zo zijn de cirkel, de ellips, de parabool en de hyperbool geen vier verschillende krommen, maar één familie, met de excentriciteit als knop: van de cirkel bij $e = 0$ tot een steeds verder openende hyperbool.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h5-o1}
+
+\oef{h5-o2}
+
+\oef{h5-o3}
+
+\oef{h5-o4}
+
+\oef{h5-o5}
+
+\oef{h5-o6}
+
+\oef{h5-o7}
+
+\oef{h5-o8}
+
+\oef{h5-o9}
+
+\oef{h5-o10}
+
+\oef{h5-o11}
+
+\oef{h5-o12}
+
+\oef{h5-o13}
+
+\oef{h5-o14}
+
+\oef{h5-o15}
+
+\oef{h5-o16}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Ruimtemeetkunde staat net als Kegelsneden in het 6de jaar; Matrices zijn gezien in het 5de jaar. De eerste oefening sluit het boek af door terug te keren naar de kegel van hoofdstuk 1.}
+
+\begin{oefeningen}
+\oef{h5-koppel-1}
+
+\oef{h5-koppel-2}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h5-t1}
+
+\oef{h5-t2}
+
+\oef{h5-t3}
+
+\oef{h5-t4}
+
+\oef{h5-t5}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h5-t1}{vb:h5-richt}{oef:h5-richt}%
+  \fv{oef:h5-t2}{vb:h5-herken}{oef:h5-herken}%
+  \fv{oef:h5-t3}{vb:h5-mp}{oef:h5-mp}%
+  \fv{oef:h5-t4}{vb:h5-pool}{oef:h5-pool}%
+  \fv{oef:h5-t5}{vb:h5-terug}{oef:h5-o8}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie met brandpunt, richtlijn en excentriciteit, de richtlijnen van een ellips en een hyperbool, hoe je aan een vergelijking de soort herkent (ook ontaard), en de poolvergelijking met wat $e$ en $p$ betekenen. Maak tot slot één tabel met de vier kegelsneden naast elkaar. Vergelijk daarna met de kaders.
+\fi
