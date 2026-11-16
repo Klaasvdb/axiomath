@@ -127,9 +127,9 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 
 ### 2de graad
 
-**Totaal** &nbsp; `█░░░░░░░░░░░░░░░░░░░` &nbsp; **5 %** van 72 handboeken
+**Totaal** &nbsp; `█░░░░░░░░░░░░░░░░░░░` &nbsp; **7 %** van 72 handboeken
 
-⚪ 57 gepland · 🔴 15 eerste versie
+⚪ 52 gepland · 🔴 20 eerste versie
 
 #### Per richting
 
@@ -137,29 +137,29 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 
 | Richting | Pakket | Voortgang | |
 |---|---|---|---:|
-| Beeldende en audiovisuele vorming | 1 (Basis) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Dans | 1 (Basis) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Maatschappij- en welzijnswetenschappen | 1 (Basis) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Muziek | 1 (Basis) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Woordkunst-drama | 1 (Basis) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Humane wetenschappen | 2 (B+) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Bedrijfswetenschappen | 3 (B+S') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Topsport-Economie | 3 (B+S') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
-| Economische wetenschappen | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   5 % |
-| Grieks-Latijn | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   5 % |
-| Latijn | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   5 % |
-| Moderne talen | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   5 % |
-| Sportwetenschappen | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   5 % |
-| Technologische wetenschappen en andere | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   5 % |
-| Economische wetenschappen | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   4 % |
-| Grieks-Latijn | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   4 % |
-| Latijn | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   4 % |
-| Natuurwetenschappen | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   4 % |
-| Technologische wetenschappen | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   4 % |
+| Beeldende en audiovisuele vorming | 1 (Basis) | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Dans | 1 (Basis) | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Maatschappij- en welzijnswetenschappen | 1 (Basis) | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Muziek | 1 (Basis) | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Woordkunst-drama | 1 (Basis) | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Humane wetenschappen | 2 (B+) | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Bedrijfswetenschappen | 3 (B+S') | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Topsport-Economie | 3 (B+S') | `██░░░░░░░░░░░░░░░░░░` |   8 % |
+| Economische wetenschappen | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Grieks-Latijn | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Latijn | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Moderne talen | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Sportwetenschappen | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Technologische wetenschappen en andere | 4 (B+S) | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Economische wetenschappen | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Grieks-Latijn | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Latijn | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Natuurwetenschappen | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
+| Technologische wetenschappen | 5 (B+S'') | `█░░░░░░░░░░░░░░░░░░░` |   6 % |
 
 #### Per handboek
 
-##### Pakket 1 · Basis &nbsp; `█░░░░░░░░░░░░░░░░░░░` 6 %
+##### Pakket 1 · Basis &nbsp; `██░░░░░░░░░░░░░░░░░░` 8 %
 
 <sub>Beeldende en audiovisuele vorming, Dans, Maatschappij- en welzijnswetenschappen, Muziek, Woordkunst-drama</sub>
 
@@ -170,7 +170,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | [Gelijkvormigheid](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Driehoeksmeting](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
@@ -178,7 +178,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 
-##### Pakket 2 · B+ &nbsp; `█░░░░░░░░░░░░░░░░░░░` 6 %
+##### Pakket 2 · B+ &nbsp; `██░░░░░░░░░░░░░░░░░░` 8 %
 
 <sub>Humane wetenschappen</sub>
 
@@ -189,7 +189,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | [Gelijkvormigheid](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Driehoeksmeting](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
@@ -198,7 +198,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 
-##### Pakket 3 · B+S' &nbsp; `█░░░░░░░░░░░░░░░░░░░` 6 %
+##### Pakket 3 · B+S' &nbsp; `██░░░░░░░░░░░░░░░░░░` 8 %
 
 <sub>Bedrijfswetenschappen, Topsport-Economie</sub>
 
@@ -209,7 +209,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | [Gelijkvormigheid](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Driehoeksmeting](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
@@ -218,7 +218,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 
-##### Pakket 4 · B+S &nbsp; `█░░░░░░░░░░░░░░░░░░░` 5 %
+##### Pakket 4 · B+S &nbsp; `█░░░░░░░░░░░░░░░░░░░` 6 %
 
 <sub>Economische wetenschappen, Grieks-Latijn, Latijn, Moderne talen, Sportwetenschappen, Technologische wetenschappen en andere</sub>
 
@@ -229,7 +229,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | [Gelijkvormigheid](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Driehoeksmeting](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
@@ -241,7 +241,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Grafen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 
-##### Pakket 5 · B+S'' &nbsp; `█░░░░░░░░░░░░░░░░░░░` 4 %
+##### Pakket 5 · B+S'' &nbsp; `█░░░░░░░░░░░░░░░░░░░` 6 %
 
 <sub>Economische wetenschappen, Grieks-Latijn, Latijn, Natuurwetenschappen, Technologische wetenschappen</sub>
 
@@ -252,7 +252,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | [Gelijkvormigheid](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Driehoeksmeting](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
