@@ -1,0 +1,478 @@
+%----------------------------------------------------------------------------------------
+% VAN RATIONALE NAAR REËLE GETALLEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Verschillen per pakket: gemengd repeterende getallen omzetten (2-5), het bewijs dat sqrt(2) irrationaal is (5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Van rationale naar reële getallen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Teken op een getallenas een vierkant met zijde 1, van 0 tot 1. Zet de passer in 0 en draai de diagonaal van het vierkant naar de getallenas. Je komt uit tussen 1 en 2, iets voorbij 1,4. Welk getal hoort bij dat punt? Kun je het schrijven als een breuk, of als een decimaal getal met een paar cijfers na de komma?}{\begin{tikzpicture}[x=1.3cm,y=1.3cm]
+  \getallenas{-1}{2}
+  \fill[accent!12] (0,0) rectangle (1,1);
+  \draw[accent,thick] (0,0) rectangle (1,1);
+  \draw[accent,very thick] (0,0) -- (1,1);
+  \draw[grijs,dashed] (1,1) arc[start angle=45,end angle=0,radius=1.4142];
+  \fill[accent] (1.4142,0) circle (2.2pt) node[above right,inner sep=1pt,text=black] {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 5-7 (dit hoofdstuk: rationale en irrationale getallen, de getallenas, ordenen). De verdeling van de doelen over de drie hoofdstukken is na te kijken in het leerplan. Voorkennis uit de 1ste graad: breuken, decimale getallen, de gehele getallen en de getallenas. De stelling van Pythagoras is nog niet gezien: de diagonaal van het vierkant volgt hier uit een oppervlakte.\alleenvoor{5}{ In pakket 5 staat het bewijs dat $\sqrt2$ irrationaal is, uit het ongerijmde. Komt Logica pas later, leg dan kort uit wat een bewijs uit het ongerijmde is.}}
+
+Je kent al heel wat soorten getallen: natuurlijke getallen om te tellen, gehele getallen voor temperaturen onder nul, breuken en decimale getallen om te meten. Lang dachten mensen dat je daarmee elke lengte kon schrijven. Het probleem hierboven toont dat dat niet zo is. In dit hoofdstuk kijken we eerst goed naar de decimale vorm van een breuk. Dan zien we waarom de diagonaal van het vierkant daar niet tussen staat, en maken we de getallenas volledig met de reële getallen.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Decimale vormen van rationale getallen}
+
+\subsection{Een breuk als decimaal getal}
+
+Een breuk is een deling: $\tfrac38$ is $3 : 8$. Reken je die deling uit, dan krijg je de decimale vorm. Bij $\tfrac38$ stopt de deling: $\tfrac38 = 0,375$. Bij $\tfrac13$ stopt ze nooit: je vindt $0,333\ldots$, en de 3 blijft terugkomen. In de Verken zag je dat bij $\tfrac17$ zelfs een heel blok van zes cijfers terugkomt. Kan het ook dat een deling nooit stopt, en dat er geen blok terugkomt? We bekijken eerst wat een breuk precies is.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{rationaal getal}} is een getal dat je kunt schrijven als een breuk $\formule{\dfrac ab}$, met $a$ en $b$ gehele getallen en $b \neq 0$. De verzameling van de rationale getallen noteren we $\formule{\Q}$.
+
+De decimale vorm van een rationaal getal is
+\begin{itemize}
+\item \textbf{\textcolor{accent}{begrensd}}: de deling stopt, zoals $\formule{\tfrac38 = 0,375}$, of
+\item \textbf{\textcolor{accent}{repeterend}}: vanaf een bepaalde plaats komt een blok cijfers steeds terug, zoals $\formule{\tfrac{4}{11} = 0,363636\ldots = 0,\overline{36}}$. Dat blok heet de \textbf{\textcolor{accent}{periode}}. We zetten er een streep boven.
+\end{itemize}
+\end{theorie}
+
+Ook de gehele getallen zijn rationaal: $-5 = \tfrac{-5}{1}$. En een begrensd decimaal getal is altijd een breuk met noemer 10, 100, 1000, \ldots: $0,375 = \tfrac{375}{1000}$.
+
+\voorbeeld{}{Schrijf $\tfrac{4}{11}$ als decimaal getal.\label{vb:h1-deling}}{%
+\uitleg{We delen 4 door 11 en houden de resten bij. Zodra een rest terugkomt, weten we dat de cijfers zich herhalen.}
+\naast{\begin{stappenvrij}{4.4cm}{5.4cm}
+4 = 0 \cdot 11 + 4 & 11 gaat 0 keer in 4: we schrijven 0, en de rest is 4. \\
+40 = 3 \cdot 11 + 7 & Het eerste cijfer na de komma is 3, de rest is 7. \\
+70 = 6 \cdot 11 + 4 & Het tweede cijfer is 6, de rest is weer 4. \\
+\dfrac{4}{11} = 0,\overline{36} & Rest 4 hadden we al: vanaf hier komen 3 en 6 steeds terug.
+\end{stappenvrij}}{\begin{tikzpicture}[font=\footnotesize]
+  \node[draw=accent,rounded corners=2pt,inner sep=4pt] (a) at (0,0) {rest 4};
+  \node[draw=accent,rounded corners=2pt,inner sep=4pt] (b) at (0,-1.3) {rest 7};
+  \draw[->,accent,thick] (a.east) to[bend left=50] node[right] {cijfer 3} (b.east);
+  \draw[->,accent,thick] (b.west) to[bend left=50] node[left] {cijfer 6} (a.west);
+\end{tikzpicture}}}
+
+Waarom moet een deling door 11 altijd repeteren als ze niet stopt? Een rest bij een deling door 11 is altijd kleiner dan 11. Er zijn dus maar tien mogelijke resten verschillend van nul. Na hoogstens tien stappen komt een rest terug, en vanaf dan herhaalt alles zich. Dat werkt voor elke noemer: bij een deling door $b$ is de periode hoogstens $b - 1$ cijfers lang.
+
+\voorbeeld{}{Schrijf $\tfrac{7}{12}$ als decimaal getal.\label{vb:h1-gemengd}}{%
+\uitleg{Ook hier delen we, maar de periode begint niet meteen na de komma.}
+\begin{stappen}
+7 : 12 = 0,58333\ldots & Na de cijfers 5 en 8 is de rest telkens 4, en $40 = 3 \cdot 12 + 4$. \\
+\dfrac{7}{12} = 0,58\overline{3} & De streep staat alleen boven de periode 3.
+\end{stappen}
+Zo'n getal, met eerst een paar cijfers die niet terugkomen, heet \textit{gemengd repeterend}. Bij $0,\overline{36}$ begint de periode meteen na de komma: dat getal is \textit{zuiver repeterend}.}
+
+\begin{werkwijze}
+Deel de teller door de noemer, met de rekenmachine of op papier. Stopt de deling, dan is het getal begrensd. Komt er een rest terug, dan herhalen de cijfers zich vanaf daar: zet een streep boven het blok dat terugkomt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-deling}
+\end{oefeningen}
+
+\subsection{Begrensd of repeterend?}
+
+Kun je zonder te delen zien of een breuk een begrensde decimale vorm heeft? Een begrensd decimaal getal is een breuk met als noemer een macht van 10, zoals $0,35 = \tfrac{35}{100}$. En $10 = 2 \cdot 5$, dus $100 = 2 \cdot 2 \cdot 5 \cdot 5$. Een breuk kun je alleen tot zo'n noemer uitbreiden als haar noemer geen andere priemfactoren heeft dan 2 en 5.
+
+\begin{theorie}
+\begin{stelling}{Begrensde decimale vorm}
+Een onvereenvoudigbare breuk heeft een begrensde decimale vorm als haar noemer geen andere priemfactoren heeft dan 2 en 5. Anders is de decimale vorm repeterend.
+\end{stelling}
+\end{theorie}
+
+Let op het woord \textit{onvereenvoudigbaar}. De breuk $\tfrac{9}{12}$ heeft de priemfactor 3 in de noemer, maar ze is gelijk aan $\tfrac34$, en dat is $0,75$.
+
+\voorbeeld{}{Is de decimale vorm van $\tfrac{21}{60}$ begrensd of repeterend?\label{vb:h1-begrensd}}{%
+\uitleg{We vereenvoudigen eerst, en ontbinden dan de noemer in priemfactoren.}
+\begin{stappen}
+\dfrac{21}{60} = \dfrac{7}{20} & Deel teller en noemer door 3. \\[2ex]
+20 = 2 \cdot 2 \cdot 5 & Alleen de priemfactoren 2 en 5: begrensd. \\[1ex]
+\dfrac{7}{20} = \dfrac{35}{100} = 0,35 & Controle: breid uit met 5 tot de noemer 100.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-begrensd}
+\end{oefeningen}
+
+\subsection{Van repeterend decimaal getal naar breuk}
+
+Elke breuk geeft dus een begrensd of een repeterend decimaal getal. Werkt het ook omgekeerd: is elk repeterend decimaal getal een breuk? Welke breuk is bijvoorbeeld $0,\overline{27}$? Het idee is om de staart die zich eindeloos herhaalt, weg te werken door af te trekken.
+
+\voorbeeld{}{Schrijf $0,\overline{27}$ als onvereenvoudigbare breuk.\label{vb:h1-zuiver}}{%
+\uitleg{De periode heeft twee cijfers. Vermenigvuldig je met 100, dan schuiven de cijfers twee plaatsen op, en staat dezelfde staart achter de komma.}
+\begin{stappen}
+x = 0,272727\ldots & Noem het getal $x$. \\
+100x = 27,272727\ldots & Twee plaatsen opschuiven, want de periode is 2 cijfers lang. \\
+100x - x = 27 & Trek af: de staarten na de komma zijn gelijk en vallen weg. \\
+99x = 27 \quad\Rightarrow\quad x = \dfrac{27}{99} = \dfrac{3}{11} & Deel door 99 en vereenvoudig met 9.
+\end{stappen}
+Controle met de rekenmachine: $3 : 11 = 0,272727\ldots$}
+
+\begin{alleenvoor}{2,3,4,5}
+Bij een gemengd repeterend getal staan er cijfers vóór de periode. Die schuiven we eerst voor de komma, zodat de periode meteen na de komma begint.
+
+\voorbeeld{}{Schrijf $0,1\overline{6}$ als onvereenvoudigbare breuk.\label{vb:h1-gemengdbreuk}}{%
+\uitleg{De 1 komt niet terug. Met 10 vermenigvuldigen brengt hem voor de komma; daarna gaat het zoals in het vorige voorbeeld, met een periode van één cijfer.}
+\begin{stappen}
+10x = 1,666\ldots & Nu is $10x$ zuiver repeterend. \\
+100x = 16,666\ldots & Nog één plaats verder: dezelfde staart. \\
+90x = 15 \quad\Rightarrow\quad x = \dfrac{15}{90} = \dfrac16 & Trek $10x$ af van $100x$, en vereenvoudig met 15.
+\end{stappen}}
+\end{alleenvoor}
+
+\begin{werkwijze}
+Noem het getal $x$. Vermenigvuldig met een macht van 10 zodat de periode net voor en net na de komma staat\alleenvoor{2,3,4,5}{ (bij een gemengd repeterend getal: twee keer, zodat je twee getallen met dezelfde staart krijgt)}. Trek af, zodat de staart wegvalt. Los op naar $x$ en vereenvoudig.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-zuiver}
+
+\oef{h1-gemengdbreuk}
+\end{oefeningen}
+
+Het antwoord op de vraag is dus ja. Elk repeterend decimaal getal is een breuk, en elk begrensd decimaal getal ook. Dat vatten we samen.
+
+\begin{theorie}
+\begin{stelling}{Rationale getallen en hun decimale vorm}
+Een getal is rationaal als en slechts als zijn decimale vorm begrensd of repeterend is.
+\end{stelling}
+\end{theorie}
+
+Een vreemd gevolg: $0,\overline{9} = 1$. Met de werkwijze is $10x - x = 9,999\ldots - 0,999\ldots = 9$, dus $x = 1$. Het zijn twee schrijfwijzen van hetzelfde getal, zoals $\tfrac12$ en $0,5$.
+
+%========================================================================================
+\section{Irrationale getallen}
+
+\subsection{De diagonaal van het vierkant}
+
+Nu kunnen we het probleem aanpakken. Hoe lang is de diagonaal $d$ van een vierkant met zijde 1? Meten helpt niet veel: een lat geeft je hoogstens 1,41. Maar we weten iets anders. Teken op de diagonaal een nieuw vierkant, zoals in de figuur. Het bestaat uit vier halve eenheidsvierkanten, dus zijn oppervlakte is 2. Zijn zijde is $d$, dus
+\[ d \cdot d = d^2 = 2 . \]
+
+\naast{We zoeken dus een getal waarvan het kwadraat 2 is. Dat getal noemen we $\sqrt2$, de \textit{vierkantswortel} uit 2. In hoofdstuk 3 komen we uitgebreid terug op vierkantswortels; hier willen we weten wat voor getal $\sqrt2$ is. Is het een breuk? Heeft het een begrensde of een repeterende decimale vorm?}{\begin{tikzpicture}[scale=.95]
+  \draw[black!20] (0,0) grid (2,2);
+  \fill[accent!15] (1,0) -- (2,1) -- (1,2) -- (0,1) -- cycle;
+  \draw[accent,thick] (1,0) -- (2,1) -- (1,2) -- (0,1) -- cycle;
+  \draw[grijs] (0,0) rectangle (1,1);
+  \draw[accent,very thick] (0,1) -- (1,0);
+  \node[font=\footnotesize] at (.5,.42) {$d$};
+  \node[font=\footnotesize,text=accent] at (1.15,1.1) {$2$};
+  \node[font=\scriptsize,below] at (.5,0) {1};
+  \node[font=\scriptsize,left] at (0,.5) {1};
+\end{tikzpicture}}
+
+We zoeken de decimalen een voor een. Kwadrateer getallen tussen 1 en 2, en kijk of het kwadraat onder of boven 2 ligt.
+
+{\centering\renewcommand{\arraystretch}{1.25}\begin{tabular}{|c|c|c|}
+\hline
+\textbf{onder 2} & \textbf{boven 2} & \textbf{dus} \\ \hline
+$1^2 = 1$ & $2^2 = 4$ & $1 < \sqrt2 < 2$ \\ \hline
+$1,4^2 = 1,96$ & $1,5^2 = 2,25$ & $1,4 < \sqrt2 < 1,5$ \\ \hline
+$1,41^2 = 1,9881$ & $1,42^2 = 2,0164$ & $1,41 < \sqrt2 < 1,42$ \\ \hline
+$1,414^2 = 1,999396$ & $1,415^2 = 2,002225$ & $1,414 < \sqrt2 < 1,415$ \\ \hline
+\end{tabular}\par}
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[x=10cm]
+    \draw[->,grijs] (.96,0) -- (2.05,0);
+    \foreach \t in {1,1.1,...,2.01}{\draw[grijs] (\t,-.07) -- (\t,.07);}
+    \node[below=3pt] at (1,0) {$1$}; \node[below=3pt] at (1.4,0) {$1,4$}; \node[below=3pt] at (1.5,0) {$1,5$}; \node[below=3pt] at (2,0) {$2$};
+    \fill[accent] (1.4142,0) circle (1.8pt) node[above=1pt,text=black] {$\sqrt2$};
+    \draw[accent!50,dashed] (1.4,0) -- (1,-1.3) (1.5,0) -- (2,-1.3);
+  \end{scope}
+  \begin{scope}[x=100cm,yshift=-1.3cm,xshift=-130cm]
+    \draw[->,grijs] (1.3995,0) -- (1.5005,0);
+    \foreach \t in {1.4,1.41,...,1.501}{\draw[grijs] (\t,-.07) -- (\t,.07);}
+    \node[below=3pt] at (1.4,0) {$1,40$}; \node[below=3pt] at (1.41,0) {$1,41$}; \node[below=3pt] at (1.42,0) {$1,42$}; \node[below=3pt] at (1.5,0) {$1,50$};
+    \fill[accent] (1.4142,0) circle (1.8pt) node[above=1pt,text=black] {$\sqrt2$};
+  \end{scope}
+\end{tikzpicture}}
+
+Elke rij in de tabel sluit $\sqrt2$ tien keer nauwer in, zoals een zoom op de getallenas. Met de rekenmachine vind je $\sqrt2 = 1,41421356\ldots$ Maar de deling stopt niet, en er verschijnt geen periode. Zou ze verderop toch nog komen? Een tabel kan dat nooit uitsluiten. Daarvoor is een redenering nodig.
+
+\begin{theorie}
+\begin{stelling}{$\sqrt2$ is geen breuk}
+Er bestaat geen breuk waarvan het kwadraat 2 is. De decimale vorm van $\sqrt2$ is dus niet begrensd en niet repeterend.
+\end{stelling}
+\begin{alleenvoor}{5}
+
+\begin{bewijs}
+We bewijzen dit \textit{uit het ongerijmde}: we nemen aan dat het wel kan, en tonen dat dat tot een tegenspraak leidt. Stel dus $\sqrt2 = \tfrac pq$, met $p$ en $q$ natuurlijke getallen en de breuk onvereenvoudigbaar. Kwadrateer:
+\bewijsregel{2 = \frac{p^2}{q^2} \quad\text{dus}\quad p^2 = 2q^2 .}
+Dus is $p^2$ even. Dan is ook $p$ even, want het kwadraat van een oneven getal $2k + 1$ is $4k^2 + 4k + 1$, en dat is oneven. Neem $p = 2k$:
+\bewijsregel{(2k)^2 = 2q^2 \quad\text{dus}\quad 4k^2 = 2q^2 \quad\text{dus}\quad q^2 = 2k^2 .}
+Zo is ook $q^2$ even, en dus $q$ even. Maar dan zijn $p$ en $q$ allebei deelbaar door 2, en dat kan niet bij een onvereenvoudigbare breuk. Die tegenspraak toont dat $\sqrt2$ geen breuk is.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+\begin{alleenvoor}{1,2,3,4}
+Waarom is dat zo? Het idee is eenvoudig. Neem een onvereenvoudigbare breuk, zoals $\tfrac75$. Teller en noemer hebben geen gemeenschappelijke priemfactor. Kwadrateren verdubbelt alleen de priemfactoren die er al zijn: $\tfrac{49}{25} = \tfrac{7 \cdot 7}{5 \cdot 5}$, en ook die breuk is onvereenvoudigbaar. Het kwadraat van een breuk met een noemer groter dan 1 is dus nooit een geheel getal zoals 2. En een geheel getal zelf heeft als kwadraat 1, 4, 9, \ldots, maar nooit 2. Dit idee kenden de Grieken al meer dan 2000 jaar geleden.
+\end{alleenvoor}
+\begin{alleenvoor}{5}
+Het bewijs werkt met een kleine aanpassing ook voor $\sqrt3$, $\sqrt5$ of $\sqrt6$: probeer het in opdracht~\ref{oef:h1-o21}. Bij $\sqrt4$ loopt het mis, en dat moet ook: $\sqrt4 = 2$.
+\end{alleenvoor}
+
+\subsection{De reële getallen}
+
+Een getal zoals $\sqrt2$ heeft een eindeloze decimale vorm zonder periode. Zulke getallen zijn er veel meer. Ook $\sqrt3$, $\sqrt5$ en $\pi = 3,14159\ldots$ horen erbij. Je kunt er ook zelf een maken. In het getal $0,1010010001\ldots$ komt er telkens een nul bij, dus er is geen blok dat steeds terugkomt.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{irrationaal getal}} is een getal waarvan de decimale vorm niet begrensd en niet repeterend is. Het is geen breuk.
+
+De rationale en de irrationale getallen samen vormen de \textbf{\textcolor{accent}{reële getallen}}, met als verzameling $\formule{\R}$. Elk punt van de getallenas hoort bij precies één reëel getal.
+
+\begin{minipage}[t]{.5\linewidth}
+\vspace{0pt}
+De getallenverzamelingen zitten in elkaar:
+
+\vspace{1mm}
+\qquad $\formule{\N \subset \Z \subset \Q \subset \R}$
+
+\vspace{1mm}
+$\N$: de natuurlijke getallen $0, 1, 2, \ldots$\\
+$\Z$: de gehele getallen $\ldots, {-2}, {-1}, 0, 1, 2, \ldots$
+\end{minipage}\hfill
+\begin{minipage}[t]{.46\linewidth}
+\vspace{0pt}\centering
+\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thick,fill=white,rounded corners=10pt] (0,0) rectangle (6.4,3.2);
+  \draw[accent,thick,fill=accent!8,rounded corners=8pt] (.2,.2) rectangle (4.4,3);
+  \draw[accent,thick,fill=accent!16,rounded corners=6pt] (.4,.4) rectangle (3,2.8);
+  \draw[accent,thick,fill=accent!26,rounded corners=4pt] (.6,.6) rectangle (1.8,2.6);
+  \node[text=accent,font=\footnotesize\bfseries] at (1.2,2.3) {$\N$};
+  \node[text=accent,font=\footnotesize\bfseries] at (2.4,2.5) {$\Z$};
+  \node[text=accent,font=\footnotesize\bfseries] at (3.7,2.7) {$\Q$};
+  \node[text=accent,font=\footnotesize\bfseries] at (5.9,2.9) {$\R$};
+  \node at (1.2,1.6) {$5$}; \node at (1.2,1) {$0$};
+  \node at (2.4,1.6) {${-3}$}; \node at (2.4,1) {$-12$};
+  \node at (3.7,1.8) {$\tfrac23$}; \node at (3.7,1.1) {$0,\overline{4}$};
+  \node at (5.4,1.9) {$\sqrt2$}; \node at (5.4,1.1) {$\pi$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Het buitenste stuk, in $\R$ maar niet in $\Q$, zijn de irrationale getallen. Zonder hen zou de getallenas vol gaten zitten: het punt van het probleem zou er niet op liggen. Daarom zeggen we dat de reële getallen de getallenas \textit{vervolledigen}.
+
+\voorbeeld{}{Is het getal rationaal of irrationaal: $\sqrt{9}$, $\sqrt{10}$, $\tfrac{22}{7}$ en $\pi$?\label{vb:h1-soort}}{%
+\uitleg{Deze vier getallen lijken twee aan twee op elkaar. Het verschil zit in de vraag of het een breuk is.}
+\begin{stappen}
+\sqrt9 = 3 = \tfrac31 & Rationaal: $3^2 = 9$, en 3 is een breuk. \\
+\sqrt{10} = 3,16227766\ldots & Irrationaal: 10 is geen kwadraat van een geheel getal, en zoals bij $\sqrt2$ is $\sqrt{10}$ dan geen breuk. \\
+\tfrac{22}{7} = 3,\overline{142857} & Rationaal: een breuk, dus repeterend. \\
+\pi = 3,14159265\ldots & Irrationaal. Dat $\tfrac{22}{7}$ er dicht bij ligt, maakt de twee niet gelijk.
+\end{stappen}}
+
+Bij $\sqrt{10}$ gebruikten we een regel die we hier niet bewijzen: de vierkantswortel uit een natuurlijk getal is ofwel een natuurlijk getal, ofwel irrationaal. Een rekenmachine kan je dat niet tonen. Ze toont maar tien cijfers, en ook $\tfrac{1}{17} = 0,\overline{0588235294117647}$ heeft een periode die daar niet in past.
+
+\begin{oefeningen}
+\oef{h1-soort}
+\end{oefeningen}
+
+\subsection{Irrationale getallen op de getallenas}
+
+Een breuk zet je op de getallenas door de eenheid in gelijke stukken te verdelen. Voor $\sqrt2$ werkt dat niet: het is geen breuk. Toch kun je het punt exact tekenen, met de passer. Daarmee kunnen we het probleem oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Welk getal hoort bij het punt dat je met de passer vindt? Kun je het als breuk of als decimaal getal schrijven?\label{vb:h1-terug}}{%
+\uitleg{De passer brengt de lengte van de diagonaal over op de getallenas, vanaf 0. Het punt hoort dus bij het getal dat zo lang is als de diagonaal.}
+\naast{\begin{stappenvrij}{3.4cm}{4.8cm}
+d^2 = 2 & Het vierkant op de diagonaal heeft oppervlakte 2. \\
+d = \sqrt2 & Het punt hoort bij $\sqrt2$. \\
+1,414 < \sqrt2 < 1,415 & De tabel sluit het in.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.3cm,y=1.3cm]
+  \getallenas{-1}{2}
+  \draw[accent,thick] (0,0) rectangle (1,1);
+  \draw[accent,very thick] (0,0) -- (1,1);
+  \draw[grijs,dashed] (1,1) arc[start angle=45,end angle=0,radius=1.4142];
+  \aspunt{1.4142}{\sqrt2}
+\end{tikzpicture}}
+Het punt hoort bij $\sqrt2 = 1,41421356\ldots$ Dat getal is irrationaal: je kunt het niet als breuk schrijven, en ook niet als een decimaal getal met een eindig aantal cijfers of met een periode. Elk decimaal getal dat je opschrijft, zoals $1,414$, is maar een benadering. Met de passer teken je het punt wel exact.}
+
+Zo heeft het probleem een verrassend antwoord: er zijn punten op de getallenas die bij geen enkele breuk horen. Op dezelfde manier vind je ook het punt $-\sqrt2$, door de passer naar links te draaien.
+
+\begin{oefeningen}
+\oef{h1-as}
+\end{oefeningen}
+
+%========================================================================================
+\section{Reële getallen ordenen}
+
+\subsection{Groter en kleiner}
+
+Welk getal is groter: $\sqrt2$ of $1,\overline{41}$? En $-0,7$ of $-0,65$? Op de getallenas is het antwoord eenvoudig: het getal dat rechts ligt, is het grootste. Om te rekenen gebruiken we de decimale vorm.
+
+\begin{theorie}
+Voor twee reële getallen $a$ en $b$ is $\formule{a < b}$ (\textit{$a$ is kleiner dan $b$}) als $a$ links van $b$ ligt op de getallenas. We schrijven dan ook $\formule{b > a}$. Met $\formule{a \leqslant b}$ bedoelen we: $a < b$ of $a = b$.
+\end{theorie}
+
+Twee positieve decimale getallen vergelijk je cijfer per cijfer van links naar rechts: het eerste cijfer dat verschilt, beslist. Bij negatieve getallen is het omgekeerd. Hoe verder van 0, hoe verder links, dus hoe kleiner: $-3 < -2$.
+
+\voorbeeld{}{Welk getal is groter: $\sqrt2$ of $1,\overline{41}$?\label{vb:h1-vergelijk}}{%
+\uitleg{We schrijven beide getallen met genoeg decimalen onder elkaar, tot er een cijfer verschilt.}
+\begin{stappen}
+\sqrt2 = 1,41421\ldots & Met de rekenmachine. \\
+1,\overline{41} = 1,41414\ldots & De periode uitschrijven. \\
+\sqrt2 > 1,\overline{41} & Het vijfde cijfer na de komma verschilt: $2 > 1$.
+\end{stappen}}
+
+\voorbeeld{}{Rangschik van klein naar groot: $-0,65$, \ $-\tfrac23$, \ $-0,\overline{6}$, \ $-0,7$.\label{vb:h1-rangschik}}{%
+\uitleg{We schrijven alles als decimaal getal en zetten de getallen op een getallenas. Twee van de vier zijn hetzelfde getal.}
+\naast{\begin{stappenvrij}{4.6cm}{3.4cm}
+-\tfrac23 = -0,\overline{6} = -0,666\ldots & Gelijk. \\
+-0,7 < -0,\overline{6} < -0,65 & Het verst van 0 ligt links.
+\end{stappenvrij}}{\begin{tikzpicture}[x=40cm,font=\scriptsize]
+  \draw[->,grijs] (-.72,0) -- (-.59,0);
+  \draw[grijs] (-.6,-.1) -- (-.6,.1);
+  \foreach \t in {-.7,-.65}{\draw[grijs] (\t,-.1) -- (\t,.1);}
+  \node[below=3pt] at (-.7,0) {$-0,7$};
+  \node[below=3pt] at (-.65,0) {$-0,65$};
+  \node[below=3pt] at (-.6,0) {$-0,6$};
+  \fill[accent] (-.7,0) circle (1.8pt) (-.6667,0) circle (1.8pt) (-.65,0) circle (1.8pt);
+  \node[above=2pt] at (-.6667,0) {$-\tfrac23$};
+\end{tikzpicture}}
+Dus $-0,7 < -\tfrac23 = -0,\overline{6} < -0,65$.}
+
+\begin{werkwijze}
+Schrijf de getallen als decimaal getal, met genoeg cijfers, en zet ze onder elkaar. Vergelijk cijfer per cijfer. Bij negatieve getallen is het getal dat het verst van 0 ligt, het kleinste. Twijfel je, teken dan een getallenas.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-orde}
+\end{oefeningen}
+
+\subsection{Altijd nog een getal ertussen}
+
+Tussen 1 en 2 ligt geen geheel getal. Maar tussen twee verschillende reële getallen ligt altijd nog een ander getal, bijvoorbeeld het gemiddelde $\tfrac{a + b}{2}$, precies in het midden. En tussen die twee ligt er weer een. Er liggen er dus oneindig veel tussen, hoe dicht $a$ en $b$ ook bij elkaar liggen.
+
+\voorbeeld{}{Zoek een rationaal en een irrationaal getal tussen $1,41$ en $1,42$.\label{vb:h1-tussen}}{%
+\uitleg{Een rationaal getal vind je door een cijfer toe te voegen. Voor een irrationaal getal kennen we er al een in dat interval.}
+\begin{stappen}
+1,41 < 1,415 < 1,42 & Rationaal: $1,415 = \tfrac{1415}{1000}$, het midden. \\
+1,41 < \sqrt2 < 1,42 & Irrationaal: zie de tabel. \\
+1,41 < 1,41010010001\ldots < 1,42 & Ook irrationaal: geen periode.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-tussen}
+\end{oefeningen}
+
+\subsection{Absolute waarde}
+
+Hoe ver ligt $-3$ van 0? Drie eenheden, net als $3$. Bij een afstand doet de kant er niet toe. Daarvoor bestaat een eigen notatie.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{absolute waarde}} $\formule{\abs{a}}$ van een reëel getal $a$ is de afstand van $a$ tot 0 op de getallenas. Ze is nooit negatief:
+
+\vspace{1mm}
+\qquad $\formule{\abs{a} = a}$ als $a \geqslant 0$, \qquad en \qquad $\formule{\abs{a} = -a}$ als $a < 0$.
+\end{theorie}
+
+Voor een negatief getal is $-a$ positief: $\abs{-3} = -(-3) = 3$. De absolute waarde laat dus het minteken weg. Zo is ook de afstand tussen twee getallen op de getallenas de absolute waarde van hun verschil: tussen $-2$ en $5$ ligt $\abs{5 - (-2)} = 7$.
+
+\voorbeeld{}{Bereken $\Abs{-\tfrac34} + \abs{2 - 4,5}$.\label{vb:h1-abs}}{%
+\uitleg{Bereken eerst wat tussen de strepen staat, en neem dan de afstand tot 0.}
+\begin{stappen}
+\bigl|-\tfrac34\bigr| = \tfrac34 & De afstand van $-\tfrac34$ tot 0. \\
+|2 - 4,5| = |-2,5| = 2,5 & Eerst het verschil, dan de absolute waarde. \\
+\tfrac34 + 2,5 = 3,25 & Samen.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-abs}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\lkr{Pakket 1 heeft geen opdracht over gemengd repeterende getallen.\alleenvoor{5}{ Opdrachten~\ref{oef:h1-o21} en~\ref{oef:h1-o22} zijn bewijzen uit het ongerijmde; ze staan alleen in pakket 5.}}
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-gemengd}{oef:h1-deling}%
+  \fv{oef:h1-t2}{vb:h1-zuiver}{oef:h1-zuiver}%
+  \alleenvoor{1}{\fv{oef:h1-t3}{vb:h1-begrensd}{oef:h1-begrensd}}%
+  \alleenvoor{2,3,4,5}{\fv{oef:h1-t3}{vb:h1-gemengdbreuk}{oef:h1-gemengdbreuk}}%
+  \fv{oef:h1-t4}{vb:h1-soort}{oef:h1-soort}%
+  \fv{oef:h1-t5}{vb:h1-rangschik}{oef:h1-orde}%
+  \fv{oef:h1-t6}{vb:h1-tussen}{oef:h1-tussen}%
+  \fv{oef:h1-t7}{vb:h1-abs}{oef:h1-abs}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een rationaal getal is, de twee soorten decimale vormen van een breuk, hoe je een repeterend decimaal getal als breuk schrijft, waarom $\sqrt2$ geen breuk is, wat irrationale en reële getallen zijn, hoe je getallen ordent, en wat de absolute waarde is. Vergelijk daarna met de kaders.
+\fi

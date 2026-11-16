@@ -7,7 +7,7 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 
 | Cursus | Jaar (voorstel) | Leerplandoelen | Status |
 | --- | --- | --- | --- |
-| Algebra/Reële getallen | 3de | LPD 5-7 | gepland |
+| Algebra/Reële getallen | 3de | LPD 5-7 | eerste versie |
 | Algebra/Eerstegraadsvergelijkingen | 3de | LPD 18-20 | gepland |
 | Analyse/Functies | 3de | LPD 21-25, 28 | gepland |
 | Algebra/Stelsels | 3de | LPD 26-27 | gepland |

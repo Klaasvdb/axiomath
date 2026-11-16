@@ -1,0 +1,463 @@
+%----------------------------------------------------------------------------------------
+% MACHTEN MET GEHELE EXPONENTEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Verschillen per pakket: een zwaardere drillbundel (2-5) en letters in de exponent (5), in de oefeningenbank.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Machten met gehele exponenten}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een rode bloedcel is ongeveer $0,000\,007\,5$ m breed. In het bloed van een volwassene zitten er ongeveer $25\,000\,000\,000\,000$. Leg je ze allemaal naast elkaar op een rij, hoe lang wordt die rij dan? En hoeveel keer kun je daarmee rond de aarde, die een omtrek van ongeveer $40\,000$ km heeft? Met zoveel nullen raak je snel de tel kwijt, en je rekenmachine toont de uitkomst in een vreemde vorm.}{\begin{tikzpicture}[scale=.5]
+  \foreach \i in {0,...,4}{%
+    \fill[accent!25] (\i*1.1,0) ellipse (.5 and .5);
+    \draw[accent,thick] (\i*1.1,0) ellipse (.5 and .5);
+    \fill[accent!45] (\i*1.1,0) ellipse (.22 and .22);}
+  \node[font=\footnotesize] at (5.9,0) {$\cdots$};
+  \draw[grijs,<->] (-.5,-.85) -- (.5,-.85);
+  \node[font=\scriptsize,below] at (0,-.9) {$0,000\,007\,5$ m};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 5-7 (dit hoofdstuk: machten met gehele exponenten, de rekenregels, wetenschappelijke notatie, grootteorde en afronden). De verdeling van de doelen over de drie hoofdstukken is na te kijken in het leerplan. Voorkennis uit de 1ste graad: machten met een natuurlijke exponent en de volgorde van de bewerkingen. De rekenregels krijgen geen formeel bewijs: leerlingen zien ze door de factoren uit te schrijven. De getallen in het probleem zijn afgeronde waarden uit de biologie.}
+
+Machten ken je al: $2^5$ is $2 \cdot 2 \cdot 2 \cdot 2 \cdot 2$. Daarmee schrijf je grote getallen kort, zoals $10^{13}$ voor een 1 met dertien nullen. Maar hoe schrijf je een heel klein getal kort, zoals de breedte van een bloedcel? Daarvoor breiden we de machten uit naar negatieve exponenten. We bekijken de rekenregels, één voor één, en gebruiken ze om met heel grote en heel kleine getallen te rekenen: in de wetenschappelijke notatie.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Machten met een gehele exponent}
+
+\subsection{Een natuurlijke exponent}
+
+Uit de 1ste graad ken je de macht $a^n$ met $n$ een natuurlijk getal: het product van $n$ factoren $a$. Het getal $a$ heet het \textit{grondtal}, $n$ de \textit{exponent}. Zo is $3^4 = 3 \cdot 3 \cdot 3 \cdot 3 = 81$, en $a^1 = a$. Let goed op het minteken. Bij $(-3)^4$ is het grondtal $-3$, maar bij $-3^4$ is het grondtal 3, en staat het minteken ervoor.
+
+\voorbeeld{}{Bereken $(-2)^4$, \ $-2^4$ en $(-2)^3$.\label{vb:h2-teken}}{%
+\uitleg{Deze drie lijken op elkaar. Het voorbeeld draait net om het verschil: wat is het grondtal, en hoeveel mintekens vermenigvuldig je?}
+\begin{stappen}
+(-2)^4 = (-2)(-2)(-2)(-2) = 16 & Vier negatieve factoren: het product is positief. \\
+-2^4 = -(2 \cdot 2 \cdot 2 \cdot 2) = -16 & De macht gaat voor: eerst $2^4$, dan het minteken. \\
+(-2)^3 = (-2)(-2)(-2) = -8 & Drie negatieve factoren: het product is negatief.
+\end{stappen}}
+
+Een negatief grondtal met een even exponent geeft dus een positieve macht, met een oneven exponent een negatieve.
+
+\subsection{Exponent nul en negatieve exponenten}
+
+Wat zou $10^0$ of $10^{-3}$ kunnen betekenen? Je kunt geen $-3$ factoren 10 vermenigvuldigen. Kijk naar de rij hieronder. Telkens de exponent met 1 daalt, deel je door 10. Als we dat patroon gewoon voortzetten, krijgen we vanzelf een betekenis.
+
+{\centering\renewcommand{\arraystretch}{1.5}\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$10^3$ & $10^2$ & $10^1$ & $10^0$ & $10^{-1}$ & $10^{-2}$ & $10^{-3}$ \\ \hline
+$1000$ & $100$ & $10$ & $1$ & $\tfrac{1}{10} = 0,1$ & $\tfrac{1}{100} = 0,01$ & $\tfrac{1}{1000} = 0,001$ \\ \hline
+\multicolumn{7}{c}{\small telkens $: 10$ naar rechts} \\
+\end{tabular}\par}
+
+\naast{Bij grondtal 2 halveer je telkens, zoals in de Verken: $2^0 = 1$, $2^{-1} = \tfrac12$, $2^{-2} = \tfrac14$. De figuur toont de lengtes. Een negatieve exponent maakt het getal dus niet negatief, maar klein: het is het omgekeerde van een macht met een positieve exponent. Dat leggen we vast in een definitie.}{\begin{tikzpicture}[x=.9cm,y=.42cm,font=\scriptsize]
+  \foreach \e/\w/\l [count=\i] in {2/4/4,1/2/2,0/1/1,-1/.5/\tfrac12,-2/.25/\tfrac14}{%
+    \fill[accent!35] (0,-\i) rectangle (\w,-\i+.65);
+    \node[left] at (0,-\i+.32) {$2^{\e}$};
+    \node[right] at (\w,-\i+.32) {$\l$};}
+  \draw[grijs] (0,-5.2) -- (0,-.2);
+\end{tikzpicture}}
+
+\begin{theorie}
+Voor een reëel getal $a \neq 0$ en een natuurlijk getal $n$ is
+
+\vspace{1mm}
+\qquad $\formule{a^0 = 1}$ \qquad en \qquad $\formule{a^{-n} = \dfrac{1}{a^n}}$
+\end{theorie}
+
+We nemen $a \neq 0$, want door 0 kun je niet delen: $0^{-1} = \tfrac10$ bestaat niet. Ook $0^0$ laten we ongedefinieerd.
+
+\voorbeeld{}{Bereken $2^{-3}$.\label{vb:h2-neg}}{%
+\uitleg{Een negatieve exponent: neem het omgekeerde van de macht met de positieve exponent.}
+\begin{stappen}
+2^{-3} = \dfrac{1}{2^3} = \dfrac18 & De definitie, met $n = 3$. Het antwoord is positief, niet $-8$.
+\end{stappen}}
+
+\voorbeeld{}{Bereken $\bigl(\tfrac23\bigr)^{-2}$.\label{vb:h2-negbreuk}}{%
+\uitleg{Het grondtal is een breuk. Het omgekeerde van een breuk krijg je door teller en noemer te wisselen.}
+\begin{stappen}
+\Bigl(\dfrac23\Bigr)^{-2} = \dfrac{1}{\bigl(\frac23\bigr)^2} = \dfrac{1}{\frac49} = \dfrac94 & De definitie, en delen door $\tfrac49$ is vermenigvuldigen met $\tfrac94$.
+\end{stappen}
+Korter: $\bigl(\tfrac23\bigr)^{-2} = \bigl(\tfrac32\bigr)^2 = \tfrac94$. Een negatieve exponent bij een breuk keert de breuk om.}
+
+\voorbeeld{}{Schrijf $10^{-4}$ als decimaal getal.\label{vb:h2-tien}}{%
+\uitleg{Een macht van 10 met een negatieve exponent is een decimaal getal met veel nullen.}
+\begin{stappen}
+10^{-4} = \dfrac{1}{10^4} = \dfrac{1}{10\,000} = 0,0001 & De exponent $-4$ geeft vier cijfers na de komma: de 1 staat op de vierde plaats.
+\end{stappen}}
+
+\begin{werkwijze}
+Is de exponent 0, dan is de macht 1. Is de exponent negatief, neem dan het omgekeerde: schrijf $\tfrac{1}{a^n}$, of keer de breuk om en maak de exponent positief. Reken daarna de macht uit.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-negatief}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenregels}
+
+Een uitdrukking zoals $\dfrac{a^5 \cdot a^{-2}}{a^7}$ kun je korter schrijven. Daarvoor zijn er rekenregels. Je hoeft ze niet blind te leren: schrijf de factoren uit, en je ziet waarom ze kloppen. We bekijken ze één voor één, en gaan na dat ze ook voor negatieve exponenten werken.
+
+\subsection{Product van machten met hetzelfde grondtal}
+
+Hoeveel factoren 2 staan er in $2^3 \cdot 2^4$? Schrijf ze uit: $(2 \cdot 2 \cdot 2) \cdot (2 \cdot 2 \cdot 2 \cdot 2)$. Dat zijn er $3 + 4 = 7$, dus $2^3 \cdot 2^4 = 2^7$. En met een negatieve exponent? $2^5 \cdot 2^{-2} = 32 \cdot \tfrac14 = 8 = 2^3$, en ook $5 + (-2) = 3$.
+
+\begin{theorie}
+\begin{stelling}{Product van machten}
+Voor $a \neq 0$ en gehele getallen $m$ en $n$ is
+
+\vspace{1mm}
+\qquad $\formule{a^m \cdot a^n = a^{m+n}}$
+\end{stelling}
+\end{theorie}
+
+Bij een product van machten met hetzelfde grondtal tel je dus de exponenten op. Let op: het grondtal moet hetzelfde zijn. Bij $2^3 \cdot 5^4$ kun je niets samennemen.
+
+\voorbeeld{}{Schrijf $x^{-4} \cdot x^7 \cdot x$ als één macht.\label{vb:h2-product}}{%
+\uitleg{Drie machten van $x$: tel de exponenten op. Vergeet niet dat $x = x^1$.}
+\begin{stappen}
+x^{-4} \cdot x^7 \cdot x^1 = x^{-4 + 7 + 1} = x^4 & Tel $-4$, $7$ en $1$ op.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-product}
+\end{oefeningen}
+
+\subsection{Quotiënt van machten met hetzelfde grondtal}
+
+Bij een deling vallen factoren weg: $\dfrac{5^6}{5^2} = \dfrac{5 \cdot 5 \cdot 5 \cdot 5 \cdot 5 \cdot 5}{5 \cdot 5} = 5^4$, en $4 = 6 - 2$. Wat gebeurt er als de noemer meer factoren heeft? Dan vallen ze in de teller weg: $\dfrac{5^2}{5^6} = \dfrac{1}{5^4} = 5^{-4}$, en ook nu is $-4 = 2 - 6$. En $\dfrac{5^3}{5^3} = 1 = 5^0$, met $0 = 3 - 3$. De definitie van de vorige sectie past dus precies bij deze regel.
+
+\begin{theorie}
+\begin{stelling}{Quotiënt van machten}
+Voor $a \neq 0$ en gehele getallen $m$ en $n$ is
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{a^m}{a^n} = a^{m-n}}$
+\end{stelling}
+\end{theorie}
+
+Bij een deling trek je dus de exponent van de noemer af van die van de teller. Met een negatieve exponent in de noemer moet je goed op de mintekens letten.
+
+\voorbeeld{}{Schrijf $\dfrac{a^3}{a^{-2}}$ als één macht.\label{vb:h2-quotient}}{%
+\uitleg{Trek de exponenten af: teller min noemer. Een min een negatief getal wordt een plus.}
+\begin{stappen}
+\dfrac{a^3}{a^{-2}} = a^{3 - (-2)} = a^5 & Controle: delen door $a^{-2} = \tfrac{1}{a^2}$ is vermenigvuldigen met $a^2$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-quotient}
+\end{oefeningen}
+
+\subsection{Macht van een macht}
+
+Wat is $(2^3)^2$? Dat is $2^3 \cdot 2^3$, en met de productregel $2^{3+3} = 2^6$. Je vermenigvuldigt de exponenten: twee keer drie factoren.
+
+\begin{theorie}
+\begin{stelling}{Macht van een macht}
+Voor $a \neq 0$ en gehele getallen $m$ en $n$ is
+
+\vspace{1mm}
+\qquad $\formule{(a^m)^n = a^{m \cdot n}}$
+\end{stelling}
+\end{theorie}
+
+Verwar dit niet met de productregel: bij $a^3 \cdot a^2$ tel je op, bij $(a^3)^2$ vermenigvuldig je.
+
+\voorbeeld{}{Schrijf $(x^{-2})^3$ als één macht.\label{vb:h2-machtmacht}}{%
+\uitleg{Een macht van een macht: vermenigvuldig de exponenten, met hun teken.}
+\begin{stappen}
+(x^{-2})^3 = x^{-2 \cdot 3} = x^{-6} & Controle: $x^{-2} \cdot x^{-2} \cdot x^{-2} = x^{-6}$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-machtmacht}
+\end{oefeningen}
+
+\subsection{Macht van een product}
+
+Nu verschillen de grondtallen. Wat is $(3x)^2$? Schrijf uit: $3x \cdot 3x = 3 \cdot 3 \cdot x \cdot x = 9x^2$. Elke factor in het product krijgt de exponent.
+
+\begin{theorie}
+\begin{stelling}{Macht van een product}
+Voor $a \neq 0$, $b \neq 0$ en een geheel getal $n$ is
+
+\vspace{1mm}
+\qquad $\formule{(a \cdot b)^n = a^n \cdot b^n}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bereken $(-2a^3)^4$.\label{vb:h2-machtproduct}}{%
+\uitleg{Er staan drie factoren tussen de haakjes: $-1$, $2$ en $a^3$. Elk krijgt de exponent 4.}
+\begin{stappen}
+(-2a^3)^4 = (-2)^4 \cdot (a^3)^4 & Macht van een product. \\
+= 16\,a^{12} & Een even exponent maakt het minteken weg, en $(a^3)^4 = a^{12}$.
+\end{stappen}}
+
+Dit geldt alleen voor een \textit{product}, niet voor een som. Probeer maar: $(3 + 4)^2 = 7^2 = 49$, maar $3^2 + 4^2 = 9 + 16 = 25$. Dus $(a + b)^2 \neq a^2 + b^2$: dat is een van de meest gemaakte fouten.
+
+\subsection{Macht van een quotiënt}
+
+Bij een breuk werkt het net zo: $\bigl(\tfrac23\bigr)^3 = \tfrac23 \cdot \tfrac23 \cdot \tfrac23 = \tfrac{2 \cdot 2 \cdot 2}{3 \cdot 3 \cdot 3} = \tfrac{8}{27}$. De teller en de noemer krijgen allebei de exponent.
+
+\begin{theorie}
+\begin{stelling}{Macht van een quotiënt}
+Voor $a \neq 0$, $b \neq 0$ en een geheel getal $n$ is
+
+\vspace{1mm}
+\qquad $\formule{\Bigl(\dfrac ab\Bigr)^n = \dfrac{a^n}{b^n}}$
+\end{stelling}
+\end{theorie}
+
+Daaruit volgt ook wat we in voorbeeld~\ref{vb:h2-negbreuk} zagen: $\bigl(\tfrac ab\bigr)^{-n} = \tfrac{a^{-n}}{b^{-n}} = \tfrac{b^n}{a^n} = \bigl(\tfrac ba\bigr)^n$.
+
+\voorbeeld{}{Bereken $\Bigl(\dfrac{x^2}{3}\Bigr)^3$.\label{vb:h2-machtquotient}}{%
+\uitleg{De teller en de noemer krijgen allebei de exponent 3. In de teller is dat een macht van een macht.}
+\begin{stappen}
+\Bigl(\dfrac{x^2}{3}\Bigr)^3 = \dfrac{(x^2)^3}{3^3} = \dfrac{x^6}{27} & Macht van een quotiënt, dan macht van een macht.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-machtprodquot}
+\end{oefeningen}
+
+\subsection{Rekenregels combineren}
+
+Meestal heb je meerdere regels tegelijk nodig. Werk dan stap voor stap, en noteer welke regel je gebruikt. Een uitkomst schrijven we meestal zonder negatieve exponenten: $\tfrac{3}{a^2}$ in plaats van $3a^{-2}$.
+
+\voorbeeld{}{Vereenvoudig $\dfrac{(2a^{-3}b^2)^3 \cdot a^{10}}{4b^5}$ en schrijf zonder negatieve exponenten.\label{vb:h2-combineren}}{%
+\uitleg{We werken eerst de haakjes uit, en nemen dan de machten met hetzelfde grondtal samen: eerst de getallen, dan $a$, dan $b$.}
+\begin{stappenbreed}
+= \dfrac{2^3 a^{-9} b^6 \cdot a^{10}}{4b^5} & Macht van een product en macht van een macht. \\[2ex]
+= \dfrac{8}{4} \cdot a^{-9+10} \cdot b^{6-5} & Productregel voor $a$, quotiëntregel voor $b$. \\[2ex]
+= 2ab & $a^1 = a$ en $b^1 = b$.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Werk eerst de haakjes uit met de macht van een product of een quotiënt en de macht van een macht. Neem dan per grondtal de machten samen: tel de exponenten op bij een product, trek ze af bij een quotiënt. Schrijf tot slot een negatieve exponent als een macht in de noemer.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-combineren}
+\end{oefeningen}
+
+%========================================================================================
+\section{Wetenschappelijke notatie}
+
+\subsection{Heel grote en heel kleine getallen}
+
+Terug naar de bloedcellen. Hoe schrijf je $25\,000\,000\,000\,000$ en $0,000\,007\,5$ korter? Met machten van 10. Het eerste getal is $2,5 \cdot 10\,000\,000\,000\,000 = 2,5 \cdot 10^{13}$. Het tweede is $7,5 \cdot 0,000\,001 = 7,5 \cdot 10^{-6}$. Zo zie je in één oogopslag hoe groot of hoe klein een getal is.
+
+\begin{theorie}
+Een getal staat in \textbf{\textcolor{accent}{wetenschappelijke notatie}} als het geschreven is als
+
+\vspace{1mm}
+\qquad $\formule{a \cdot 10^n}$ \qquad met $\formule{1 \leqslant \abs{a} < 10}$ en $n$ een geheel getal.
+\end{theorie}
+
+Voor de komma van $a$ staat dus precies één cijfer, en dat cijfer is geen 0. Zo is $25 \cdot 10^{12}$ wel gelijk aan $2,5 \cdot 10^{13}$, maar niet in wetenschappelijke notatie. Een rekenmachine schrijft $2,5 \cdot 10^{13}$ vaak als \texttt{2.5E13}: de E staat voor \textit{exponent}.
+
+\voorbeeld{}{De maan staat gemiddeld $384\,400$ km van de aarde. Schrijf dat getal in wetenschappelijke notatie.\label{vb:h2-wetgroot}}{%
+\uitleg{We verschuiven de komma tot er één cijfer voor staat, en tellen hoeveel plaatsen dat is.}
+\begin{stappen}
+384\,400 = 3,844 \cdot 100\,000 & De komma schuift 5 plaatsen naar links. \\
+= 3,844 \cdot 10^5 & Een groot getal: positieve exponent.
+\end{stappen}}
+
+\voorbeeld{}{Een stofdeeltje is $0,000\,025$ m breed. Schrijf in wetenschappelijke notatie.\label{vb:h2-wetklein}}{%
+\uitleg{Nu schuift de komma naar rechts, tot achter het eerste cijfer dat geen 0 is.}
+\begin{stappen}
+0,000\,025 = 2,5 \cdot 0,000\,01 & De komma schuift 5 plaatsen naar rechts. \\
+= 2,5 \cdot 10^{-5} & Een getal kleiner dan 1: negatieve exponent.
+\end{stappen}}
+
+\begin{werkwijze}
+Verschuif de komma tot er precies één cijfer verschillend van 0 voor staat. Het aantal plaatsen is de exponent: positief als het getal groter is dan 10, negatief als het kleiner is dan 1.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-wet}
+\end{oefeningen}
+
+\subsection{Rekenen in wetenschappelijke notatie}
+
+Hoe vermenigvuldig je twee getallen in wetenschappelijke notatie? Met de rekenregels: neem de getallen samen en de machten van 10 samen. Soms staat de uitkomst dan niet meer in wetenschappelijke notatie, en moet je de komma nog verschuiven.
+
+\voorbeeld{}{Bereken $(3 \cdot 10^4) \cdot (5 \cdot 10^{-7})$ zonder rekenmachine.\label{vb:h2-rekenwet}}{%
+\uitleg{We wisselen de volgorde van de factoren, zodat de getallen en de machten van 10 samen staan.}
+\begin{stappen}
+= (3 \cdot 5) \cdot (10^4 \cdot 10^{-7}) & Volgorde wisselen mag bij een product. \\
+= 15 \cdot 10^{-3} & Productregel: $4 + (-7) = -3$. \\
+= 1,5 \cdot 10^{1} \cdot 10^{-3} = 1,5 \cdot 10^{-2} & $15$ is geen getal tussen 1 en 10: schrijf $15 = 1,5 \cdot 10^1$.
+\end{stappen}}
+
+\voorbeeld{}{Terug naar het probleem. Hoe lang is de rij van alle rode bloedcellen? Hoeveel keer kun je daarmee rond de aarde?\label{vb:h2-terug}}{%
+\uitleg{De lengte van de rij is het aantal bloedcellen maal de breedte van één bloedcel. We rekenen in wetenschappelijke notatie, zodat we geen nullen hoeven te tellen.}
+\begin{stappenbreed}
+(2,5 \cdot 10^{13}) \cdot (7,5 \cdot 10^{-6}) = 18,75 \cdot 10^{7} & In meter: $2,5 \cdot 7,5 = 18,75$ en $13 + (-6) = 7$. \\
+= 1,875 \cdot 10^{8} \text{ m} & Wetenschappelijke notatie. \\
+= 1,875 \cdot 10^{5} \text{ km} & $1 \text{ km} = 10^3$ m: deel door $10^3$. \\
+\dfrac{1,875 \cdot 10^5}{4 \cdot 10^4} \approx 0,47 \cdot 10^{1} = 4,7 & Deel door de omtrek van de aarde.
+\end{stappenbreed}
+De rij is ongeveer $187\,500$ km lang: daarmee kun je bijna vijf keer rond de aarde. Je rekenmachine toont de lengte in meter als \texttt{1.875E8}.}
+
+\begin{oefeningen}
+\oef{h2-rekenwet}
+\end{oefeningen}
+
+\subsection{Grootteorde}
+
+Is de rij bloedcellen eerder 100 km, 1000 km of een miljoen km lang? Vaak wil je alleen weten hoe groot een getal ongeveer is. Dat zegt de macht van 10 in de wetenschappelijke notatie.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{grootteorde}} van een getal $a \cdot 10^n$ in wetenschappelijke notatie is $\formule{10^n}$.
+\end{theorie}
+
+De rij bloedcellen ($1,875 \cdot 10^5$ km) heeft grootteorde $10^5$ km. Twee getallen verschillen \textit{drie grootteordes} als de ene ongeveer duizend keer zo groot is als de andere. De figuur zet een paar lengtes op een as waar elke stap een grootteorde is: zo passen een atoom en de afstand tot de zon op één lijn.
+
+\figuren{\begin{tikzpicture}[x=.68cm,font=\scriptsize]
+  \draw[->,grijs] (-10.5,0) -- (11.6,0);
+  \foreach \e in {-10,-8,...,10}{\draw[grijs] (\e,-.1) -- (\e,.1); \node[below=2pt] at (\e,-.05) {$10^{\e}$};}
+  \foreach \e in {-9,-7,...,11}{\draw[grijs] (\e,-.06) -- (\e,.06);}
+  \foreach \e/\t/\h in {-10/atoom/.35,-5.1/bloedcel/.35,-3.6/zandkorrel/.85,0.2/mens/.35,3.9/Mount Everest/.85,7.1/diameter aarde/.35,11.2/afstand zon/.85}{%
+    \fill[accent] (\e,0) circle (1.8pt);
+    \draw[accent!50] (\e,0) -- (\e,\h);
+    \node[above,inner sep=1pt] at (\e,\h) {\t};}
+  \node[right] at (11.6,0) {m};
+\end{tikzpicture}}
+
+\voorbeeld{}{Wat is de grootteorde van het aantal seconden in een jaar?\label{vb:h2-orde}}{%
+\uitleg{We rekenen het aantal seconden uit, en schrijven het in wetenschappelijke notatie.}
+\begin{stappen}
+365 \cdot 24 \cdot 60 \cdot 60 = 31\,536\,000 & Dagen maal uren maal minuten maal seconden. \\
+= 3,1536 \cdot 10^7 & Grootteorde $10^7$.
+\end{stappen}
+Een jaar duurt dus enkele tientallen miljoenen seconden.}
+
+\begin{oefeningen}
+\oef{h2-orde}
+\end{oefeningen}
+
+\subsection{Afronden}
+
+Het aantal bloedcellen ken je maar ongeveer, dus is het niet zinvol om de lengte van de rij tot op de meter te geven. We ronden af. Je kent al afronden op een aantal cijfers na de komma: kijk naar het eerste cijfer dat wegvalt. Is het 5 of meer, dan verhoog je het laatste cijfer dat je houdt met 1. In de wetenschappelijke notatie ronden we liever af op een aantal \textit{beduidende cijfers}.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{beduidende cijfers}} van een getal zijn alle cijfers vanaf het eerste cijfer dat geen 0 is. In wetenschappelijke notatie $a \cdot 10^n$ zijn het de cijfers van $a$.
+\end{theorie}
+
+Zo heeft $0,004\,07$ drie beduidende cijfers: 4, 0 en 7. De nullen vooraan tellen niet, want ze zeggen alleen waar de komma staat. In wetenschappelijke notatie zie je dat meteen: $4,07 \cdot 10^{-3}$.
+
+\voorbeeld{}{Rond de lengte van de rij bloedcellen, $1,875 \cdot 10^8$ m, af op twee beduidende cijfers.\label{vb:h2-afronden}}{%
+\uitleg{We houden twee cijfers van $1,875$, en kijken naar het eerste cijfer dat wegvalt.}
+\begin{stappen}
+1,8\,|\,75 & We houden 1 en 8. Het eerste cijfer dat wegvalt, is 7. \\
+1,875 \cdot 10^8 \approx 1,9 \cdot 10^8 \text{ m} & $7 \geqslant 5$: de 8 wordt een 9.
+\end{stappen}}
+
+\voorbeeld{}{Rond $0,004\,567\,8$ af op drie beduidende cijfers.\label{vb:h2-afronden2}}{%
+\uitleg{De nullen vooraan tellen niet mee. De drie beduidende cijfers zijn 4, 5 en 6.}
+\begin{stappen}
+0,004\,56\,|\,78 & Het eerste cijfer dat wegvalt, is 7. \\
+0,004\,567\,8 \approx 0,004\,57 = 4,57 \cdot 10^{-3} & $7 \geqslant 5$: de 6 wordt een 7.
+\end{stappen}}
+
+Rond pas af op het einde van een berekening. Rond je tussendoor af, dan stapelen de kleine fouten zich op, en kan het laatste cijfer van je antwoord verkeerd zijn.
+
+\begin{oefeningen}
+\oef{h2-afronden}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o9}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-negbreuk}{oef:h2-negatief}%
+  \fv{oef:h2-t2}{vb:h2-quotient}{oef:h2-quotient}%
+  \fv{oef:h2-t3}{vb:h2-combineren}{oef:h2-combineren}%
+  \fv{oef:h2-t4}{vb:h2-wetklein}{oef:h2-wet}%
+  \fv{oef:h2-t5}{vb:h2-rekenwet}{oef:h2-rekenwet}%
+  \fv{oef:h2-t6}{vb:h2-afronden2}{oef:h2-afronden}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-o12}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat $a^0$ en $a^{-n}$ betekenen, de vijf rekenregels met telkens een voorbeeld, wat de wetenschappelijke notatie is en hoe je ermee vermenigvuldigt, wat de grootteorde van een getal is, en wat beduidende cijfers zijn. Vergelijk daarna met de kaders.
+\fi
