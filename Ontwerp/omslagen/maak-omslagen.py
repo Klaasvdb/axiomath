@@ -75,7 +75,8 @@ SCHILDERIJEN = {
 # deel dat rondom wegvalt: Seurat schilderde een stippelrand mee, de andere foto's tonen de lijst of de stofrand.
 # Eén getal voor alle kanten, of (links, boven, rechts, onder): bij de zeilwagen vallen de titel en de witte rand weg.
 RAND = {"grande-jatte": 0.015, "broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
-        "zeilwagen": (0.01, 0.07, 0.01, 0.03), "goudweegster": (0.03, 0.01, 0.03, 0.01)}
+        "zeilwagen": (0.01, 0.07, 0.01, 0.03), "goudweegster": (0.03, 0.01, 0.03, 0.01),
+        "bui": (0.056, 0, 0.026, 0)}  # Hiroshige: de papierrand en het kaderlijntje, links breder dan rechts
 
 
 def haal(url):
