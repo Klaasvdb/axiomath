@@ -9,7 +9,7 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | --- | --- | --- | --- |
 | Algebra/Reële getallen | 3de | LPD 5-7 | eerste versie |
 | Algebra/Eerstegraadsvergelijkingen | 3de | LPD 14-16 | eerste versie |
-| Analyse/Functies | 3de | LPD 17-21, 24 | gepland |
+| Analyse/Functies | 3de | LPD 17-21, 24 | eerste versie |
 | Algebra/Stelsels | 3de | LPD 22-23 | gepland |
 | Meetkunde/Gelijkvormigheid | 3de | LPD 8-9 | eerste versie |
 | Meetkunde/Driehoeksmeting | 3de | LPD 10-11 | eerste versie |

@@ -1,0 +1,477 @@
+%----------------------------------------------------------------------------------------
+% DE FUNCTIE f(x) = c/x. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h4-.
+% Pakketten: dit hoofdstuk staat niet in pakket 1; in pakket 2 is het een keuzehoofdstuk (K1).
+% Verschillen: het woord asymptoot in een kader en de puntsymmetrie (4-5), een verschoven hyperbool als opdracht (5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{De functie $f(x) = \tfrac{c}{x}$}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een klas huurt voor een uitstap een bus met chauffeur. De bus kost $720$ euro voor de hele dag, hoeveel leerlingen er ook meegaan, en heeft $50$ plaatsen. De kosten worden eerlijk verdeeld over de leerlingen. Met $24$ leerlingen betaalt elke leerling $30$ euro. Als er twee keer zoveel leerlingen meegaan, betaalt dan elke leerling de helft? En hoeveel leerlingen moeten er minstens mee, opdat de uitstap per leerling hoogstens $20$ euro kost?}{\begin{tikzpicture}[scale=.55]
+  \fill[accent!20,rounded corners=4pt] (0,0) rectangle (5,2);
+  \draw[accent,thick,rounded corners=4pt] (0,0) rectangle (5,2);
+  \foreach \i in {0,...,3}{\fill[white] (.35+\i*1.05,1.05) rectangle (1.15+\i*1.05,1.7);
+    \draw[accent] (.35+\i*1.05,1.05) rectangle (1.15+\i*1.05,1.7);}
+  \fill[white] (4.55,.35) rectangle (4.85,1.7);\draw[accent] (4.55,.35) rectangle (4.85,1.7);
+  \foreach \x in {1.1,3.9}{\fill[inkt] (\x,0) circle (.38);\fill[white] (\x,0) circle (.15);}
+  \node[font=\scriptsize] at (2.5,-.85) {$720$ euro};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: \alleenvoor{2}{keuzedoel K1 (een school mag dit hoofdstuk weglaten)}\alleenvoor{3}{LPD 24}\alleenvoor{4,5}{LPD 28} (dit hoofdstuk: omgekeerd evenredige grootheden herkennen in een tabel, een verwoording en een grafiek, de functie $f(x) = \tfrac cx$ met haar grafiek en kenmerken, en problemen oplossen met omgekeerd evenredige grootheden). Voorkennis: hoofdstuk 1 tot 3 (functies, rechte evenredigheid, kenmerken, grafisch oplossen) en het oplossen van eenvoudige vergelijkingen. \alleenvoor{4,5}{De asymptoten krijgen hier hun naam, maar zonder limieten: een rechte waar de grafiek steeds dichter bij komt. }\alleenvoor{2,3}{Het woord asymptoot valt niet: we zeggen dat de grafiek steeds dichter bij de assen komt zonder ze te raken. }Het probleem komt terug in voorbeeld~\ref{vb:h4-terug}.}
+
+In hoofdstuk 2 zag je grootheden die recht evenredig zijn: neemt de ene toe, dan neemt de andere in dezelfde verhouding toe. Bij de bus is het net andersom. Hoe meer leerlingen, hoe minder elke leerling betaalt. In dit hoofdstuk onderzoeken we zulke verbanden. We zoeken wat er gelijk blijft als de grootheden veranderen, tekenen de grafiek, een kromme met twee delen die nooit de assen raakt, en lossen er vergelijkingen en ongelijkheden mee op.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Omgekeerd evenredige grootheden}
+
+\subsection{Het product blijft gelijk}
+
+Wat betaalt een leerling als er $10$, $12$, $16$ of $40$ leerlingen meegaan? Je deelt telkens $720$ euro door het aantal leerlingen. De tabel toont een paar mogelijkheden. Het aantal leerlingen noemen we $n$, de prijs per leerling $p$ (in euro).
+
+\figuren{\waardetabel[$n$][$p$]{9}{10 & 12 & 16 & 20 & 24 & 30 & 36 & 40 & 48}{72 & 60 & 45 & 36 & 30 & 24 & 20 & 18 & 15}}
+
+Wat valt op? Verdubbelt het aantal leerlingen (van $12$ naar $24$, of van $20$ naar $40$), dan halveert de prijs. Gaan er drie keer zoveel leerlingen mee (van $10$ naar $30$), dan wordt de prijs drie keer zo klein. Het quotiënt $\tfrac pn$ blijft niet gelijk, zoals bij een rechte evenredigheid. Maar vermenigvuldig je het aantal leerlingen met de prijs, dan krijg je altijd hetzelfde: $10 \cdot 72 = 12 \cdot 60 = 24 \cdot 30 = 720$. Dat is logisch: samen betalen de leerlingen altijd de hele bus.
+
+\begin{theorie}
+Twee grootheden $x$ en $y$ zijn \textbf{\textcolor{accent}{omgekeerd evenredig}} als hun product constant is:
+
+\vspace{1mm}
+\qquad $\formule{x \cdot y = c}$ \qquad of \qquad $\formule{y = \dfrac{c}{x}}$ \qquad met $c$ een getal verschillend van 0.
+\end{theorie}
+
+Bij de bus is $c = 720$, en $p = \tfrac{720}{n}$. Uit het kader volgt wat we in de tabel zagen: wordt $x$ een aantal keer zo groot, dan wordt $y$ evenveel keer zo klein. Zo blijft het product gelijk. Vergelijk met wat je al kent:
+
+{\centering\renewcommand{\arraystretch}{1.45}\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{recht evenredig} & \textbf{omgekeerd evenredig} \\ \hline
+wat constant is & het quotiënt $\tfrac yx$ & het product $x \cdot y$ \\ \hline
+voorschrift & $y = m \cdot x$ & $y = \tfrac cx$ \\ \hline
+$x$ wordt $2$ keer zo groot & $y$ wordt $2$ keer zo groot & $y$ wordt $2$ keer zo klein \\ \hline
+\end{tabular}\par}
+
+\subsection{Herkennen in een tabel}
+
+Niet elk verband waarbij $y$ kleiner wordt als $x$ groter wordt, is omgekeerd evenredig. Je moet het product nagaan.
+
+\voorbeeld{}{Zijn $x$ en $y$ in de tabel hieronder omgekeerd evenredig? Geef dan het voorschrift.\label{vb:h4-herken}}{%
+\waardetabel[$x$][$y$]{5}{2 & 3 & 5 & 6 & 10}{15 & 10 & 6 & 5 & 3}
+
+\medskip
+\uitleg{We vermenigvuldigen elke $x$ met de $y$ eronder, en kijken of er telkens hetzelfde uitkomt.}
+\begin{stappen}
+2 \cdot 15 = 3 \cdot 10 = 5 \cdot 6 = 6 \cdot 5 = 10 \cdot 3 = 30 & Het product is overal $30$. \\[1ex]
+y = \dfrac{30}{x} & Omgekeerd evenredig, met $c = 30$.
+\end{stappen}}
+
+\voorbeeld{}{Zijn $x$ en $y$ in de tabel hieronder omgekeerd evenredig?\label{vb:h4-niet}}{%
+\waardetabel[$x$][$y$]{4}{1 & 2 & 3 & 4}{12 & 10 & 8 & 6}
+
+\medskip
+\uitleg{Ook hier daalt $y$ als $x$ stijgt. Maar dat volstaat niet: we rekenen de producten uit.}
+\begin{stappen}
+1 \cdot 12 = 12, \quad 2 \cdot 10 = 20 & De producten zijn verschillend. \\
+\text{niet omgekeerd evenredig} & Eén verschillend product is genoeg.
+\end{stappen}
+Hier daalt $y$ telkens met $2$ als $x$ met $1$ stijgt: dat is een eerstegraadsfunctie, $y = -2x + 14$.}
+
+\begin{werkwijze}
+Bereken voor elke kolom van de tabel het product $x \cdot y$. Is het overal hetzelfde getal $c$, dan zijn $x$ en $y$ omgekeerd evenredig, met voorschrift $y = \tfrac cx$. Is één product anders, dan niet.
+\end{werkwijze}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h4-herkennen}
+\end{oefeningen}
+
+\subsection{Een ontbrekende waarde berekenen}
+
+Weet je dat twee grootheden omgekeerd evenredig zijn, dan volstaat één paar waarden om de constante $c$ te vinden. Daarna bereken je elke andere waarde.
+
+\voorbeeld{}{Zes schilders hebben samen $10$ dagen nodig om een schoolgebouw te schilderen. Hoeveel dagen hebben vier schilders nodig, als ze allemaal even snel werken?\label{vb:h4-schilders}}{%
+\uitleg{Hoe meer schilders, hoe minder dagen: het aantal schilders en het aantal dagen zijn omgekeerd evenredig. Het product is het totale werk, in werkdagen.}
+\begin{stappen}
+c = 6 \cdot 10 = 60 & Er zijn $60$ werkdagen nodig. \\[1ex]
+d = \dfrac{60}{s} & Het aantal dagen $d$ voor $s$ schilders. \\[1ex]
+d = \dfrac{60}{4} = 15 & Vier schilders hebben $15$ dagen nodig.
+\end{stappen}
+Controle: met minder schilders duurt het langer, dus meer dan $10$ dagen klopt.}
+
+\begin{oefeningen}
+\oef{h4-ontbrekend}
+\end{oefeningen}
+
+\nujij{Bij een vaste afstand zijn de snelheid en de reistijd omgekeerd evenredig. Aan $60$ km/h doe je er $2$ uur over. Hoelang doe je erover aan $80$ km/h?}{$c = 60 \cdot 2 = 120$ (de afstand in km), dus $t = \tfrac{120}{80} = 1,5$ uur.}
+
+%========================================================================================
+\section{De grafiek: een hyperbool}
+
+\subsection{Waarom niet $x = 0$?}
+
+Bij de bus heeft alleen een positief aantal leerlingen zin. Maar het voorschrift $f(x) = \tfrac cx$ kun je ook voor negatieve getallen uitrekenen. Wat gebeurt er dan met de grafiek? En wat met $x = 0$? Probeer maar: $\tfrac60$ bestaat niet. Er is geen getal dat je met $0$ kunt vermenigvuldigen om $6$ te krijgen. De functie heeft dus geen functiewaarde in $0$, en de grafiek heeft geen punt op de $y$-as.
+
+\subsection{Een tabel en een grafiek}
+
+We maken een tabel voor $f(x) = \tfrac6x$, met positieve en negatieve getallen. Delers van $6$ geven mooie getallen.
+
+\figuren{\waardetabel{8}{-6 & -3 & -2 & -1 & 1 & 2 & 3 & 6}{-1 & -2 & -3 & -6 & 6 & 3 & 2 & 1}}
+
+\naast{Hoe dichter $x$ bij $0$ komt, hoe groter $f(x)$ wordt: $f(0,5) = 12$ en $f(0,1) = 60$. Hoe groter $x$ wordt, hoe dichter $f(x)$ bij $0$ komt: $f(60) = 0,1$. Maar $0$ wordt het nooit, want $\tfrac6x = 0$ zou betekenen dat $6 = 0 \cdot x = 0$.
+
+Voor negatieve $x$ is $f(x)$ negatief. Daar zie je hetzelfde, in spiegelbeeld: $f(-0,5) = -12$ en $f(-60) = -0,1$.
+
+De grafiek bestaat dus uit twee losse delen, links en rechts van de $y$-as. Ze komen steeds dichter bij de assen, maar raken ze nooit.}{\begin{tikzpicture}[x=.36cm,y=.36cm]
+  \roosterleeg{-6}{1}{6}{-6}{1}{6}
+  \xgetallen{-6,-4,-2,2,4,6}\ygetallen{-6,-4,-2,2,4,6}
+  \kromme{1}{6.4}{6/\x}
+  \kromme{-6.4}{-1}{6/\x}
+  \foreach \a in {1,2,3,6}{\punt{\a}{6/\a}\punt{-\a}{-6/\a}}
+  \node[accent,font=\scriptsize] at (4.6,2.9) {$f$};
+\end{tikzpicture}}
+
+\begin{theorie}
+De grafiek van een functie $\formule{f(x) = \dfrac{c}{x}}$ met $c \neq 0$ heet een \textbf{\textcolor{accent}{hyperbool}}. Ze bestaat uit twee delen: de \textbf{\textcolor{accent}{takken}}.
+\end{theorie}
+
+Teken een tak altijd als één vloeiende kromme, en verbind de twee takken nooit met elkaar: er ligt geen punt van de grafiek op de $y$-as.
+
+\begin{alleenvoor}{4,5}
+Een rechte waar de grafiek zo dicht bij komt, krijgt een naam.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{asymptoot}} van een grafiek is een rechte waar de grafiek steeds dichter bij komt, zonder ze te bereiken, als $x$ heel groot wordt of heel dicht bij een getal komt. De hyperbool $y = \tfrac cx$ heeft twee asymptoten: de $x$-as en de $y$-as.
+\end{theorie}
+
+De $x$-as is een asymptoot omdat $f(x)$ dicht bij $0$ komt als $x$ heel groot (of heel negatief) wordt. De $y$-as is een asymptoot omdat $f(x)$ heel groot (of heel negatief) wordt als $x$ dicht bij $0$ komt.
+\end{alleenvoor}
+
+\voorbeeld{}{Teken de grafiek van $f(x) = -\dfrac{4}{x}$.\label{vb:h4-teken}}{%
+\uitleg{We maken een tabel met delers van $4$, positief en negatief. Nu is $c$ negatief: een positieve $x$ geeft een negatieve functiewaarde.}
+\naast{\waardetabel{6}{-4 & -2 & -1 & 1 & 2 & 4}{1 & 2 & 4 & -4 & -2 & -1}
+
+\medskip
+\textit{We tekenen de punten, en verbinden ze per tak met een vloeiende kromme. De tak voor negatieve $x$ ligt nu boven de $x$-as, de tak voor positieve $x$ eronder.}
+
+\medskip
+\textit{Controle: $f(1) = -\tfrac41 = -4$, en het punt $(1, -4)$ ligt op de grafiek.}}{\begin{tikzpicture}[x=.36cm,y=.36cm]
+  \roosterleeg{-5}{1}{5}{-5}{1}{5}
+  \xgetallen{-4,-2,2,4}\ygetallen{-4,-2,2,4}
+  \kromme{.8}{5.2}{-4/\x}
+  \kromme{-5.2}{-.8}{-4/\x}
+  \foreach \a in {1,2,4}{\punt{\a}{-4/\a}\punt{-\a}{4/\a}}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Maak een tabel met positieve en negatieve waarden van $x$, bijvoorbeeld de delers van $c$. Teken de punten. Verbind de punten met positieve $x$ tot één vloeiende tak, en ook die met negatieve $x$. Laat de takken naar de assen toe lopen zonder ze te raken.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-tekenen}
+\end{oefeningen}
+
+\subsection{De invloed van $c$}
+
+Hoe verandert de hyperbool als je $c$ verandert? De figuren tonen $y = \tfrac1x$, $y = \tfrac4x$ en $y = -\tfrac4x$ op hetzelfde rooster.
+
+\figuren{\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-5}{1}{5}{-5}{1}{5}\xgetallen{-4,4}\ygetallen{-4,4}
+  \kromme{.2}{5.2}{1/\x}\kromme{-5.2}{-.2}{1/\x}
+  \node[font=\scriptsize] at (0,-6.6) {$y = \tfrac1x$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-5}{1}{5}{-5}{1}{5}\xgetallen{-4,4}\ygetallen{-4,4}
+  \kromme{.8}{5.2}{4/\x}\kromme{-5.2}{-.8}{4/\x}
+  \kromme[tweede,thin]{.2}{5.2}{1/\x}\kromme[tweede,thin]{-5.2}{-.2}{1/\x}
+  \punt{2}{2}\punt{-2}{-2}
+  \node[font=\scriptsize] at (0,-6.6) {$y = \tfrac4x$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-5}{1}{5}{-5}{1}{5}\xgetallen{-4,4}\ygetallen{-4,4}
+  \kromme{.8}{5.2}{-4/\x}\kromme{-5.2}{-.8}{-4/\x}
+  \punt{2}{-2}\punt{-2}{2}
+  \node[font=\scriptsize] at (0,-6.6) {$y = -\tfrac4x$};
+\end{tikzpicture}}
+
+Een groter getal $c$ duwt de takken verder van de oorsprong weg: $y = \tfrac4x$ gaat door $(2, 2)$, $y = \tfrac1x$ door $(1, 1)$. Het teken van $c$ bepaalt in welke delen van het vlak de takken liggen. De assen verdelen het vlak in vier \textit{kwadranten}, genummerd tegen de wijzers van de klok in: het 1ste kwadrant rechtsboven (positieve $x$ en $y$), het 2de linksboven, het 3de linksonder en het 4de rechtsonder.
+
+\begin{theorie}
+\begin{stelling}{Ligging van de hyperbool}
+De grafiek van $f(x) = \tfrac cx$ ligt
+
+\vspace{1mm}
+\qquad in het 1ste en het 3de kwadrant als $\formule{c > 0}$,
+
+\qquad in het 2de en het 4de kwadrant als $\formule{c < 0}$.
+\end{stelling}
+\end{theorie}
+
+Waarom? Is $c > 0$, dan hebben $x$ en $\tfrac cx$ hetzelfde teken: positieve $x$ geeft een positieve $y$, negatieve $x$ een negatieve $y$. Is $c < 0$, dan hebben ze een tegengesteld teken.
+
+\begin{alleenvoor}{4,5}
+\subsection{Symmetrie}
+
+Kijk nog eens naar de punten $(2, 3)$ en $(-2, -3)$ op de grafiek van $y = \tfrac6x$. Ze liggen even ver van de oorsprong, aan de overkant. Dat geldt voor elk punt van de hyperbool.
+
+\begin{theorie}
+\begin{stelling}{Puntsymmetrie}
+De hyperbool $y = \tfrac cx$ is \textbf{\textcolor{accent}{puntsymmetrisch}} ten opzichte van de oorsprong: ligt $(a, b)$ op de grafiek, dan ligt ook $\formule{(-a, -b)}$ op de grafiek.
+\end{stelling}
+\begin{bewijs}
+Ligt $(a, b)$ op de grafiek, dan is $b = \tfrac ca$. Dan is ook
+\bewijsregel{\frac{c}{-a} = -\frac ca = -b,}
+zodat $(-a, -b)$ op de grafiek ligt.
+\end{bewijs}
+\end{theorie}
+
+Draai je de hyperbool een halve slag om de oorsprong, dan valt ze dus precies op zichzelf. Je hoeft maar één tak te tekenen: de andere tak vind je door elk punt door de oorsprong heen te spiegelen.
+
+\begin{oefeningen}
+\oef{h4-symmetrie}
+\end{oefeningen}
+\end{alleenvoor}
+
+\subsection{Het voorschrift uit een punt}
+
+Je ziet een hyperbool, en je wilt het voorschrift weten. Daarvoor heb je maar één getal nodig: $c$. En $c$ is het product $x \cdot y$ van eender welk punt van de grafiek.
+
+\voorbeeld{}{Een hyperbool met voorschrift $y = \tfrac cx$ gaat door het punt $(-3, 4)$. Wat is het voorschrift?\label{vb:h4-voorschrift}}{%
+\uitleg{Elk punt van de grafiek voldoet aan $x \cdot y = c$. We vullen het gegeven punt in.}
+\naast{\begin{stappenvrij}{4.3cm}{5.2cm}
+c = (-3) \cdot 4 = -12 & Het product van de coördinaten. \\[1ex]
+y = -\dfrac{12}{x} & Het voorschrift. \\[1ex]
+\text{controle: } \dfrac{-12}{-3} = 4 & Het punt ligt op de grafiek.
+\end{stappenvrij}
+\textit{De constante is negatief: de takken liggen in het 2de en het 4de kwadrant.}}{\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-6,-3,3,6}\ygetallen{-4,4}
+  \kromme{2}{6.3}{-12/\x}\kromme{-6.3}{-2}{-12/\x}
+  \punt{-3}{4}\node[above left,font=\scriptsize,inner sep=1pt] at (-3,4) {$(-3, 4)$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h4-voorschrift}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kenmerken en vergelijkingen}
+
+In hoofdstuk 3 las je de kenmerken van een functie af op de grafiek. Wat levert dat op voor een hyperbool? Op de grafiek zag je al dat er twee bijzondere getallen zijn: $0$ heeft geen functiewaarde, en $0$ is nooit een functiewaarde.
+
+\subsection{Domein en bereik}
+
+Het domein bevat alle getallen behalve $0$. Ook het bereik bevat alle getallen behalve $0$: elk getal $k \neq 0$ is een functiewaarde, namelijk die van $x = \tfrac ck$, want $f\bigl(\tfrac ck\bigr) = c : \tfrac ck = k$. Zo hoort bij $f(x) = \tfrac6x$ de functiewaarde $2$ bij $x = 3$. De verzameling van alle reële getallen zonder $0$ schrijven we $\R_0$ (lees: R nul). Je kunt ook $\R \setminus \{0\}$ schrijven, of $\ivoo{\minf}{0} \cup \ivoo{0}{\pinf}$.
+
+\begin{theorie}
+Voor de functie $f(x) = \tfrac cx$ met $c \neq 0$ is
+
+\vspace{1mm}
+\qquad $\formule{\dom f = \R_0}$ \qquad en \qquad $\formule{\ber f = \R_0}$
+\end{theorie}
+
+Er is dus ook geen nulwaarde: de grafiek snijdt de $x$-as nooit. In een context is het domein vaak kleiner. Bij de bus zijn alleen de gehele getallen van $1$ tot $50$ zinvol.
+
+\subsection{Tekenschema}
+
+Het teken van $f(x)$ volgt uit de ligging van de takken. In het tekenschema zetten we bij $x = 0$ een streep: daar bestaat $f(x)$ niet, en daar kan het teken wisselen zonder dat de functie $0$ wordt.
+
+\figuren{\begin{tabular}{c@{\qquad\qquad}c}
+$c > 0$ & $c < 0$ \\[1mm]
+\tekenschema{3}{ & 0 & }{- & | & +} & \tekenschema{3}{ & 0 & }{+ & | & -}
+\end{tabular}}
+
+\subsection{Stijgen en dalen}
+
+Op de grafiek van $f(x) = \tfrac6x$ zie je dat de rechtertak daalt, en ook de linkertak daalt. Daalt de functie dan op haar hele domein? Nee. Kijk naar $x = -1$ en $x = 1$: het getal $-1$ is kleiner dan $1$, maar $f(-1) = -6$ is ook kleiner dan $f(1) = 6$. Van de linkertak naar de rechtertak gaat het omhoog.
+
+\begin{theorie}
+Voor $c > 0$ is $f(x) = \tfrac cx$ \textbf{\textcolor{accent}{dalend}} op $\formule{\ivoo{\minf}{0}}$ en dalend op $\formule{\ivoo{0}{\pinf}}$.
+
+Voor $c < 0$ is $f(x) = \tfrac cx$ \textbf{\textcolor{accent}{stijgend}} op $\formule{\ivoo{\minf}{0}}$ en stijgend op $\formule{\ivoo{0}{\pinf}}$.
+\end{theorie}
+
+Schrijf dus nooit dat $\tfrac6x$ dalend is op $\R_0$: ze daalt op elk van de twee intervallen apart. Een hyperbool heeft ook geen maximum of minimum.
+
+\voorbeeld{}{Geef de kenmerken van $f(x) = -\dfrac{8}{x}$: domein, bereik, nulwaarden, tekenschema, stijgen en dalen.\label{vb:h4-kenmerken}}{%
+\uitleg{Hier is $c = -8 < 0$: de takken liggen in het 2de en het 4de kwadrant. Daaruit volgen het teken en het verloop.}
+\naast{\begin{stappenvrij}{4.2cm}{5.3cm}
+\dom f = \R_0 & In $0$ is er geen functiewaarde. \\
+\ber f = \R_0 & De functiewaarde $0$ komt niet voor. \\
+\text{geen nulwaarden} & De grafiek snijdt de $x$-as niet. \\
+\multicolumn{2}{@{}l}{\tekenschema{3}{ & 0 & }{+ & | & -}} \\
+\text{stijgend op } \ivoo{\minf}{0} & Elke tak stijgt, \\
+\text{stijgend op } \ivoo{0}{\pinf} & maar niet het geheel.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-4,4}\ygetallen{-4,4}
+  \kromme{1.3}{6.3}{-8/\x}\kromme{-6.3}{-1.3}{-8/\x}
+  \punt{2}{-4}\punt{-2}{4}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h4-kenmerken}
+\end{oefeningen}
+
+\subsection{De vergelijking $\tfrac cx = k$}
+
+Bij welke $x$ hoort een gegeven functiewaarde? Bij de bus: hoeveel leerlingen moeten er mee om $20$ euro per leerling te betalen? Dat is de vergelijking $\tfrac{720}{n} = 20$. Op de grafiek zoek je het snijpunt met de horizontale rechte $y = 20$. Algebraïsch vermenigvuldig je beide leden met $x$, want $x \neq 0$.
+
+\voorbeeld{}{Los op: $\dfrac{12}{x} = 3$. Controleer op de grafiek.\label{vb:h4-vgl}}{%
+\uitleg{De onbekende staat in de noemer. We vermenigvuldigen beide leden met $x$, en delen daarna door $3$.}
+\naast{\begin{stappenvrij}{3.6cm}{5.3cm}
+\dfrac{12}{x} = 3 & $x \neq 0$, want $0$ zit niet in het domein. \\[1ex]
+12 = 3x & Beide leden maal $x$. \\
+x = 4 & Beide leden gedeeld door $3$.
+\end{stappenvrij}
+\textit{Controle: $\tfrac{12}{4} = 3$. Op de grafiek snijdt de rechte $y = 3$ de hyperbool in één punt: $(4, 3)$. De linkertak ligt onder de $x$-as en snijdt de rechte niet.}}{\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-4,4}\ygetallen{-3,3}
+  \kromme{2}{6.3}{12/\x}\kromme{-6.3}{-2}{12/\x}
+  \draw[hulplijn] (-6,3) -- (6,3);
+  \aflezen{4}{3}\punt{4}{3}
+\end{tikzpicture}}}
+
+In het algemeen geeft $\tfrac cx = k$ met $k \neq 0$ de oplossing $x = \tfrac ck$. De vergelijking $\tfrac cx = 0$ heeft geen oplossing.
+
+\begin{oefeningen}
+\oef{h4-vergelijking}
+\end{oefeningen}
+
+\subsection{Ongelijkheden grafisch oplossen}
+
+Voor welke $x$ is $\tfrac6x < 2$? Zo'n ongelijkheid los je het veiligst op met de grafiek, zoals in hoofdstuk 3: je zoekt waar de hyperbool onder de rechte $y = 2$ ligt. Let op de linkertak: die ligt helemaal onder de $x$-as, en dus zeker onder de rechte.
+
+\voorbeeld{}{Los grafisch op: $\dfrac{6}{x} < 2$.\label{vb:h4-ongelijkheid}}{%
+\uitleg{We tekenen de hyperbool en de rechte $y = 2$, zoeken het snijpunt, en kijken waar de hyperbool onder de rechte ligt.}
+\naast{\begin{stappenvrij}{3.9cm}{5.2cm}
+\dfrac6x = 2 \iff x = 3 & Het snijpunt is $(3, 2)$. \\[1ex]
+x > 3 & De rechtertak ligt rechts van $3$ onder de rechte. \\
+x < 0 & De hele linkertak ligt onder de rechte. \\
+V = \ivoo{\minf}{0} \cup \ivoo{3}{\pinf} & $0$ hoort er niet bij, $3$ ook niet.
+\end{stappenvrij}
+\textit{Wie alleen $x > 3$ noteert, vergeet de linkertak. Wie de ongelijkheid met $x$ vermenigvuldigt, maakt een fout: voor negatieve $x$ keert het teken om.}}{\begin{tikzpicture}[x=.3cm,y=.3cm]
+  \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-4,3}\ygetallen{-4,2,4}
+  \asdeel{-6}{0}\asdeel{3}{6}
+  \kromme{1}{6.3}{6/\x}\kromme{-6.3}{-1}{6/\x}
+  \draw[hulplijn] (-6,2) -- (6,2);
+  \aflezen{3}{2}\openpunt{3}{2}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h4-ongelijkheid}
+\end{oefeningen}
+
+\voorbeeld{}{Terug naar het probleem. Betaalt elke leerling de helft als er twee keer zoveel leerlingen meegaan? Hoeveel leerlingen moeten er minstens mee, opdat de uitstap hoogstens $20$ euro per leerling kost?\label{vb:h4-terug}}{%
+\uitleg{Het aantal leerlingen $n$ en de prijs $p$ zijn omgekeerd evenredig: samen betalen ze altijd $720$ euro. Het domein bestaat uit de gehele getallen van $1$ tot $50$, dus de grafiek bestaat uit losse punten.}
+\naast{\begin{stappenvrij}{3.7cm}{3.9cm}
+p = \dfrac{720}{n} & $n \cdot p = 720$. \\[1ex]
+\dfrac{720}{48} = 15 = \dfrac{30}{2} & Met $48$ in plaats van $24$ leerlingen: de helft. \\[1ex]
+\dfrac{720}{n} = 20 & Het snijpunt met de rechte $p = 20$: \\[1ex]
+n = \dfrac{720}{20} = 36 & beide leden maal $n$, en delen door $20$. \\[1ex]
+36 \leqslant n \leqslant 50 & Vanaf $n = 36$ liggen de punten op of onder de rechte.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.105cm,y=.055cm]
+  \roosterleeg[$n$][$p$]{0}{5}{50}{0}{10}{80}
+  \xgetallen{10,20,30,40,50}\ygetallen{20,40,60,80}
+  \foreach \n in {10,...,35}{\fill[accent!40] (\n,{720/\n}) circle (.9pt);}
+  \foreach \n in {36,...,50}{\fill[accent] (\n,{720/\n}) circle (.9pt);}
+  \draw[hulplijn] (0,20) -- (50,20);
+  \aflezen{36}{20}
+  \node[below,font=\scriptsize,inner sep=1pt] at (36,-6) {$36$};
+\end{tikzpicture}}
+Ja, als het aantal leerlingen verdubbelt, halveert de prijs per leerling. Er moeten minstens $36$ leerlingen mee om hoogstens $20$ euro te betalen. Met een volle bus van $50$ leerlingen kost de uitstap $\tfrac{720}{50} = 14,40$ euro per leerling: goedkoper kan niet.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{14\baselineskip}
+\oef{h4-o1}
+
+\oef{h4-o2}
+
+\oef{h4-o5}
+
+\oef{h4-o4}
+
+\needspace{12\baselineskip}
+\oef{h4-o3}
+
+\oef{h4-o8}
+
+\oef{h4-o6}
+
+\oef{h4-o7}
+
+\oef{h4-o9}
+
+\oef{h4-o14}
+
+\oef{h4-o10}
+
+\oef{h4-o13}
+
+\oef{h4-o11}
+
+\oef{h4-o19}
+
+\oef{h4-o12}
+
+\oef{h4-o15}
+
+\oef{h4-o16}
+
+\oef{h4-o18}
+
+\oef{h4-o17}
+
+\oef{h4-o20}
+
+\oef{h4-o21}
+
+\oef{h4-o22}
+
+\oef{h4-o25}
+
+\oef{h4-o23}
+
+\oef{h4-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\needspace{14\baselineskip}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+
+\oef{h4-t6}
+
+\oef{h4-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-niet}{oef:h4-herkennen}%
+  \fv{oef:h4-t2}{vb:h4-schilders}{oef:h4-ontbrekend}%
+  \fv{oef:h4-t3}{vb:h4-teken}{oef:h4-tekenen}%
+  \fv{oef:h4-t4}{vb:h4-voorschrift}{oef:h4-voorschrift}%
+  \fv{oef:h4-t5}{vb:h4-kenmerken}{oef:h4-kenmerken}%
+  \fv{oef:h4-t6}{vb:h4-vgl}{oef:h4-vergelijking}%
+  \fv{oef:h4-t7}{vb:h4-terug}{oef:h4-ongelijkheid}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wanneer twee grootheden omgekeerd evenredig zijn en hoe je dat in een tabel nagaat, het verschil met recht evenredige grootheden, hoe de grafiek van $f(x) = \tfrac cx$ eruitziet voor $c > 0$ en voor $c < 0$\alleenvoor{4,5}{, wat de asymptoten zijn en waarom de hyperbool puntsymmetrisch is}, het domein, het bereik, het tekenschema en het verloop, en hoe je $\tfrac cx = k$ oplost. Vergelijk daarna met de kaders.
+\fi
