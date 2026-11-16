@@ -129,7 +129,7 @@ def maak_figuren():
         figuren = FIGUUR.findall(tekst)
         code = hashlib.sha1(basis + "\0".join(figuren).encode("utf-8")).hexdigest()[:12]
         naam = f"h{nummer}-{code}"
-        if not (CACHE / f"{naam}.pdf").exists():
+        if figuren and not (CACHE / f"{naam}.pdf").exists():  # zonder figuren geen PDF (pdflatex maakt er dan geen)
             print(f"  figuren van hoofdstuk {nummer}: {len(figuren)} opnieuw maken")
             bouw = MAP / f"_figuren-{nummer}.tex"
             inhoud = VOORAF.replace("@@HOOFDMAP@@", HOOFDMAP) + rf"\colorlet{{accent}}{{hd{nummer}}}\colorlet{{fel}}{{hf{nummer}}}" + "\n"
