@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoelen 31-33, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Seurat (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`). De herkomst van de prenten staat in `afbeeldingen/prenten/README.md`.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Integralen/](<../../../cursussen/Integralen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. De bepaalde integraal | `hoofdstukken/01-bepaalde-integraal.tex` | LPD 31 | eerste versie, nog na te lezen |

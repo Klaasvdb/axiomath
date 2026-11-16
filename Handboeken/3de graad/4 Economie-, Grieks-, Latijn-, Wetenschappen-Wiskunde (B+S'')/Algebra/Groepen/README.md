@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoel 43 (verzamelingen met een bewerking analyseren aan de hand van een algebraïsche structuur), volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). De cursus is volledig opnieuw geschreven vanuit het leerplan (III-WisS''-d, versie oktober 2024). Alle opgaven, contexten en figuren zijn eigen werk. De voorkant (Morris) komt uit `Ontwerp/voorkanten/`: pas ze daar aan.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Groepen/](<../../../cursussen/Groepen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Bewerkingen | `hoofdstukken/01-bewerkingen.tex` | LPD 43 (eigenschappen van bewerkingen), LPD 4 | eerste versie, nog na te lezen |

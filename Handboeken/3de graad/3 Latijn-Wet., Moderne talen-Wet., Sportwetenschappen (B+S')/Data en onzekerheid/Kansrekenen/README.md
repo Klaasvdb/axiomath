@@ -2,6 +2,8 @@
 
 Cursus voor pakket 3 (B+S'), LPD 35, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Kansrekenen/](<../../../cursussen/Kansrekenen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 **Afgeleide versie.** Afgeleid van de versie voor pakket 4 (PR #4): dezelfde vier hoofdstukken. Pakket 3 heeft één doel (LPD 35) waar pakket 4 er twee heeft (LPD 48-49); de verwijzingen zijn alle naar LPD 35 omgezet. Pakket 3 heeft geen cursus Telproblemen: verwijzingen ernaar zijn vervangen door het rekentoestel (nCr), en de Koppel-opdrachten erover geschrapt. Of combinaties hier ingevoerd moeten worden, is na te kijken. Aangepast: de leerplanverwijzingen in de leerkrachtennota's, de voorkant, en de Koppel-opdrachten (die naar cursussen buiten dit pakket zijn geschrapt). Nog te doen: de inhoud inkorten of aanvullen tot de doelen van dit pakket, na vergelijking met de leerplantekst; de verdeling over de afzonderlijke doelen is niet nagekeken.
 
 | Hoofdstuk | Bestand | Leerplan | Status |

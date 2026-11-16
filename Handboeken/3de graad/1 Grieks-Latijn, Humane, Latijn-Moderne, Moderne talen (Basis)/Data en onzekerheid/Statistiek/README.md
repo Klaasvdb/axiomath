@@ -2,6 +2,8 @@
 
 Cursus voor pakket 1 (Basis), LPD 18-21 en K5, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Statistiek/](<../../../cursussen/Statistiek/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 **Afgeleide versie.** Afgeleid van de versie voor pakket 2 (PR #33), die via pakket 3 van pakket 4 (PR #5) komt: dezelfde vier hoofdstukken. LPD-nummers omgerekend (30-33 naar 18-21); hoofdstuk 3 (hypothesetoetsen) is voorlopig aan keuzedoel K5 gekoppeld en hoofdstuk 4 (betrouwbaarheidsintervallen) aan een keuzedoel van pakket 4: beide na te kijken. Voor het Basispakket (125 lestijden) is dit waarschijnlijk te veel: kies hoofdstukken en opdrachten na vergelijking met de leerplantekst. Aangepast: de leerplanverwijzingen in de leerkrachtennota's, de voorkant, en de Koppel-opdrachten (die naar cursussen buiten dit pakket zijn geschrapt). Nog te doen: de inhoud inkorten of aanvullen tot de doelen van dit pakket, na vergelijking met de leerplantekst; de verdeling over de afzonderlijke doelen is niet nagekeken.
 
 | Hoofdstuk | Bestand | Leerplan | Status |

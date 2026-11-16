@@ -139,7 +139,7 @@ Alles is klaar voor de 2de graad, ook al staat ze nog niet online.
 
 ## Een cursus beginnen
 
-Met de skill `handboek-hoofdstuk`: kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` uit Integralen naar `Handboeken/2de graad/<pakket>/<rubriek>/<cursus>/` (`\hoofdmap` is `../../../../../`). Bouwen vanuit de hoofdmap:
+Met de skill `handboek-hoofdstuk`. Schrijf een onderwerp één keer, in de bron `Handboeken/2de graad/cursussen/<cursus>/` (hoofdstukken, oefeningen, `notatie.tex`), met de verschillen per pakket in `\alleenvoor` (zie "Eén bron per cursus" in `Opmaak/README.md`). Kopieer per pakket `handboek.tex`, `leerkracht.tex` en `zelfstudie.tex` uit Integralen naar `Handboeken/2de graad/<pakket>/<rubriek>/<cursus>/` (`\hoofdmap` is `../../../../../`). Bouwen vanuit de hoofdmap:
 
 ```
 py -3.13 -P Opmaak/maak-pdf.py "2de graad/5/Algebra/Reële getallen"

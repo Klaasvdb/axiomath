@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoel 4 (bewijstechnieken), volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Logica en bewijzen/](<../../../cursussen/Logica en bewijzen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Uitspraken | `hoofdstukken/01-uitspraken.tex` | LPD 4 (taal: connectieven, kwantoren) | eerste versie, nog na te lezen |

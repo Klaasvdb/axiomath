@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), als uitbreiding: bij GO! hoort ze bij de doelen van Gevorderde wiskunde (WD3\_06.08.11), bij KOV bij het leerplan Complementair (III-WiCo-d) voor richtingen met meer dan 6 uur wiskunde. Volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is *Een filosoof geeft uitleg bij het planetarium* van Joseph Wright of Derby (publiek domein): de ringen van het planetarium zijn ellipsen, de banen van de planeten. De voorkant komt uit `Ontwerp/voorkanten/` (motief `kegelsneden`).
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Kegelsneden/](<../../../cursussen/Kegelsneden/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 Dit is de eerste cursus volgens de regel *Vertrekken vanuit een probleem* (16 nov 2026): elk hoofdstuk begint met een blok Probleem, de theorie ontstaat uit dat probleem, en een voorbeeld "Terug naar het probleem" lost het op.
 
 | Hoofdstuk | Bestand | Probleem | Leerplan | Status |

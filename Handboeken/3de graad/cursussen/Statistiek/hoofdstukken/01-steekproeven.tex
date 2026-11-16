@@ -1,0 +1,388 @@
+%----------------------------------------------------------------------------------------
+% STEEKPROEVEN EN SAMENHANG. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Steekproeven en samenhang}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{50}\alleenvoor{3}{36}\alleenvoor{2}{30}\alleenvoor{1}{18} (randomisatie en representativiteit bij steekproeven, steekproefvariabiliteit, aselecte steekproef) en LPD \alleenvoor{4}{51}\alleenvoor{3}{37}\alleenvoor{2}{31}\alleenvoor{1}{19} (samenhang tegenover causaliteit), met de wenken over selectiebias, andere steekproefmethodes, simulaties, observationeel en experimenteel onderzoek. Spreidingsdiagrammen en de correlatiecoëfficiënt kennen leerlingen uit de 2de graad; hier gaat het om de interpretatie. Dit hoofdstuk heeft weinig rekenwerk: laat de leerlingen vooral argumenteren, in volzinnen.}
+
+Hoeveel jongeren lezen elke dag? Werkt een nieuw medicijn? Gaan leerlingen die meer slapen, beter presteren? Je kunt niet iedereen ondervragen of testen. Daarom onderzoek je een steekproef, en trek je daaruit een besluit over de hele groep. Dat lukt alleen als de steekproef goed gekozen is, en als je voorzichtig bent met wat je besluit. In dit hoofdstuk leer je hoe je een steekproef kiest, waarom resultaten van steekproef tot steekproef verschillen, en waarom samenhang nog geen oorzaak is.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg, het liefst met de hele klas: elke leerling of elk groepje trekt een eigen steekproef met het rekentoestel. Zet de gemiddelden op het bord. Zo zien ze steekproefvariabiliteit voor ze het woord kennen.}
+
+%========================================================================================
+\section{Populatie en steekproef}
+
+\subsection{Parameter en steekproefgrootheid}
+
+Je werkt met een steekproef omdat het onmogelijk is iedereen te bereiken, omdat het te lang duurt of te veel kost, of omdat het onderzoek de onderzochte dingen vernielt, zoals bij het testen van de levensduur van lampen. Wat je eigenlijk wilt weten, is een getal over de hele groep. Wat je echt berekent, is een getal over het deel dat je onderzocht. Die twee krijgen een eigen naam.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{populatie}} is de hele groep waarover je iets wilt weten. Een \textbf{\textcolor{accent}{steekproef}} is een deel van de populatie dat je echt onderzoekt. Het aantal elementen in de steekproef is de \textbf{\textcolor{accent}{steekproefgrootte}} $n$.
+
+\vspace{1mm}
+Een getal dat de populatie beschrijft, zoals het populatiegemiddelde $\formule{\mu}$ of de populatieproportie $\formule{p}$, heet een \textbf{\textcolor{accent}{parameter}}. Het overeenkomstige getal uit de steekproef, zoals het steekproefgemiddelde $\formule{\xbar}$ of het aandeel $\formule{\hat{p}}$ in de steekproef, is een \textbf{\textcolor{accent}{steekproefgrootheid}}.
+\end{theorie}
+
+Een parameter ligt vast, maar is meestal onbekend. Een steekproefgrootheid ken je, en je gebruikt ze als schatting van de parameter: $\xbar$ schat $\mu$, en $\hat{p}$ (\textit{p hoed}) schat $p$. Een handig geheugensteuntje: Griekse letters en $p$ zonder hoedje gaan over de populatie.
+
+\voorbeeld{}{Een school wil weten hoeveel uur haar 600 leerlingen per week sporten. Ze laat de computer 60 leerlingnummers kiezen, en die leerlingen vullen een vragenlijst in. Gemiddeld sporten ze 3,4 uur. Wat is de populatie, de steekproef, de parameter en de steekproefgrootheid?\label{vb:h1-begrippen}}{%
+\uitleg{We zoeken welke groep de school wil kennen, welke groep ze echt onderzoekt, en welk getal bij elk hoort.}
+\begin{stappenbreed}
+\text{populatie: de 600 leerlingen} & De groep waarover de school iets wil weten. \\[.6ex]
+\text{steekproef: de 60 gekozen leerlingen} & De groep die de vragenlijst invult, met $n = 60$. \\[.6ex]
+\text{parameter } \mu \text{: gemiddeld aantal uren van alle 600} & Onbekend: niet iedereen is ondervraagd. \\[.6ex]
+\text{steekproefgrootheid } \xbar = 3{,}4 & Een schatting van $\mu$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h1-begrippen}
+\end{oefeningen}
+
+\subsection{Aselect kiezen}
+
+Een schatting is maar zo goed als de steekproef. Die moet een goede afspiegeling zijn van de populatie. Dat kun je niet rechtstreeks controleren, want je kent de populatie niet volledig. Kies je zelf \textit{willekeurig} wie je ondervraagt, dan kies je onbewust: de leerlingen die vooraan zitten, of de vrienden die je kent. Daarom laat je het toeval kiezen. Dat heet \textbf{randomisatie}: lootjes trekken, of de leden nummeren en willekeurige nummers laten kiezen door een rekentoestel.
+
+\begin{theorie}
+Een steekproef is \textbf{\textcolor{accent}{representatief}} als ze een goede afspiegeling is van de populatie.
+
+\vspace{1mm}
+Bij een \textbf{\textcolor{accent}{aselecte}} steekproef heeft elk lid van de populatie dezelfde kans om gekozen te worden.
+\end{theorie}
+
+Een aselecte steekproef is niet gegarandeerd representatief: door toeval kan ze toch scheef uitvallen. Maar ze bevoordeelt niemand, en in hoofdstuk 3 zie je dat je de schommeling door het toeval kunt berekenen. Bij een steekproef die je zelf samenstelt, kan dat niet.
+
+\voorbeeld{}{Een klas telt 24 leerlingen, genummerd van 1 tot 24. Kies aselect 4 leerlingen met het rekentoestel. \texttt{randInt(1,24)} geeft na elkaar 11, 3, 11, 20 en 7.\label{vb:h1-aselect}}{%
+\uitleg{Het rekentoestel kiest elk nummer door het toeval. Een nummer dat al gekozen is, slaan we over: niemand komt twee keer in de steekproef.}
+\begin{stappenbreed}
+11,\ 3 & De eerste twee nummers. \\[.6ex]
+11 \text{ overslaan} & Leerling 11 zit al in de steekproef. \\[.6ex]
+20,\ 7 & Nu hebben we 4 verschillende leerlingen: 11, 3, 20 en 7.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Nummer de leden van de populatie. Laat het rekentoestel nummers kiezen (\texttt{randInt}), sla nummers over die al gekozen zijn, en ga door tot je $n$ verschillende leden hebt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-aselect}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vertekende steekproeven}
+
+\subsection{Oorzaken van bias}
+
+Wat gebeurt er als de steekproef niet aselect gekozen is? Dan kunnen sommige groepen systematisch te veel of te weinig meetellen, en dan zit de schatting er telkens in dezelfde richting naast.
+
+\begin{theorie}
+Een steekproef heeft \textbf{\textcolor{accent}{bias}} of is \textbf{\textcolor{accent}{vertekend}} als de manier van kiezen of meten de schatting systematisch in één richting duwt.
+\end{theorie}
+
+De bekendste oorzaken, elk met een voorbeeld:
+
+{\renewcommand{\arraystretch}{1.4}%
+\begin{tabular}{@{}>{\RaggedRight\arraybackslash\bfseries}p{3.6cm}>{\RaggedRight\arraybackslash}p{12cm}@{}}
+selectiebias & Sommige leden hebben meer kans om in de steekproef te komen: een enquête aan de schoolpoort om 8 uur mist wie met de bus later komt. \\
+vrijwilligers & Wie zelf kiest om mee te doen, heeft vaak een uitgesproken mening: een online peiling op een sportsite over sport. \\
+non-respons & Wie niet antwoordt, kan anders zijn dan wie wel antwoordt: drukke mensen beantwoorden minder enquêtes over vrije tijd. \\
+vraagstelling & Een sturende vraag stuurt het antwoord: \textit{Vind jij ook dat de school te weinig doet voor het klimaat?}
+\end{tabular}\par}
+
+Een grote steekproef is niet vanzelf representatief. Een online peiling met 100\,000 stemmen kan sterk vertekend zijn, terwijl een aselecte steekproef van 1000 personen een goede schatting geeft. Meer mensen ondervragen herhaalt dezelfde fout alleen vaker: de grootte helpt pas als de steekproef aselect is.
+
+\voorbeeld{}{Een gemeente wil weten of haar inwoners een nieuw zwembad willen. Ze stelt de vraag aan de bezoekers van het huidige zwembad. 85~\% is voor. Is dat een goede schatting? Hoe zou je het beter doen?\label{vb:h1-bias}}{%
+\uitleg{We vragen ons af of elke inwoner dezelfde kans had om ondervraagd te worden, en of de ondervraagden anders kunnen zijn dan de anderen.}
+De steekproef is niet representatief: zwembadbezoekers zwemmen graag, en zijn dus waarschijnlijk vaker voor een nieuw zwembad dan de gemiddelde inwoner (selectiebias). De 85~\% overschat het aandeel voorstanders. Beter: kies aselect inwoners uit het bevolkingsregister, en vraag het hun op een neutrale manier.}
+
+\begin{oefeningen}
+\oef{h1-bias}
+\end{oefeningen}
+
+\subsection{Gestratificeerde en getrapte steekproeven}
+
+Een enkelvoudige aselecte steekproef kan door toeval een groep missen, of onpraktisch zijn: denk aan honderden scholen bezoeken. Twee andere methodes gebruiken ook het toeval.
+
+\begin{theorie}
+Bij een \textbf{\textcolor{accent}{gestratificeerde}} steekproef verdeel je de populatie in groepen (\textbf{\textcolor{accent}{strata}}) en neem je uit elke groep een aselecte steekproef. Telt groep $i$ $N_i$ van de $N$ leden, dan neem je er in verhouding
+
+\vspace{1mm}
+\qquad $\formule{n_i = \dfrac{N_i}{N} \cdot n}$
+
+\vspace{1mm}
+Bij een \textbf{\textcolor{accent}{getrapte}} steekproef kies je eerst aselect enkele groepen, en daarbinnen aselect leden.
+\end{theorie}
+
+\voorbeeld{}{De school uit voorbeeld \ref{vb:h1-begrippen} telt 200 leerlingen in de eerste graad, 220 in de tweede en 180 in de derde. Hoe kies je een gestratificeerde steekproef van 60 leerlingen?\label{vb:h1-strata}}{%
+\uitleg{Elke graad krijgt evenveel plaatsen in verhouding tot zijn aantal leerlingen: telkens 60 op 600, dus een tiende.}
+\begin{stappenbreed}
+200 \cdot \tfrac{60}{600} = 20, \quad 220 \cdot \tfrac{60}{600} = 22, \quad 180 \cdot \tfrac{60}{600} = 18 & Per graad een tiende: samen 60. \\[1ex]
+\text{binnen elke graad aselect kiezen} & Bijvoorbeeld met \texttt{randInt} op het rekentoestel.
+\end{stappenbreed}
+Zo is elke graad zeker vertegenwoordigd in de juiste verhouding. Is $\frac{N_i}{N} \cdot n$ geen geheel getal, dan rond je af zodat de som $n$ blijft.}
+
+\voorbeeld{}{Een onderzoeker wil 400 leerlingen van het vijfde jaar in Vlaanderen ondervragen. Hoe kiest hij een getrapte steekproef?\label{vb:h1-getrapt}}{%
+\uitleg{Een lijst met alle leerlingen heeft hij niet, wel een lijst met alle scholen.}
+\begin{stappenbreed}
+\text{trap 1: aselect 20 scholen} & Nummer alle scholen en laat het rekentoestel kiezen. \\[.6ex]
+\text{trap 2: per school aselect 20 leerlingen} & Uit de leerlingenlijst van elke gekozen school: $20 \cdot 20 = 400$.
+\end{stappenbreed}
+Zo bezoekt hij maar 20 scholen. Wel lijken leerlingen van één school op elkaar, dus de schatting schommelt iets meer.}
+
+\begin{oefeningen}
+\oef{h1-strata}
+
+\oef{h1-afronden}
+\end{oefeningen}
+
+%========================================================================================
+\section{Steekproefvariabiliteit}
+
+In de Verken gaven drie aselecte steekproeven uit dezelfde klas drie verschillende gemiddelden. Dat is geen rekenfout: wie de steekproef opnieuw trekt, krijgt andere leden, en dus een ander resultaat.
+
+\begin{theorie}
+\textbf{\textcolor{accent}{Steekproefvariabiliteit}} is het verschijnsel dat een steekproefgrootheid verschilt van steekproef tot steekproef. Een steekproefgrootheid hangt af van het toeval: ze is een \textbf{\textcolor{accent}{toevalsvariabele}}.
+\end{theorie}
+
+\voorbeeld{}{In een populatie heeft 40~\% een bepaalde eigenschap. De computer trok 40 aselecte steekproeven van 20 personen en 40 van 200 personen, en berekende telkens het aandeel $\hat{p}$ (zie de figuur: elke stip is een steekproef). Wat leer je uit de simulatie?\label{vb:h1-variabiliteit}}{%
+\uitleg{We lezen af hoe ver de aandelen rond de parameter $p = 0{,}4$ liggen, eerst bij $n = 20$, dan bij $n = 200$.}
+\naast{\begin{stappenvrij}{3.6cm}{4.2cm}
+n = 20\colon\ 0{,}10 \text{ tot } 0{,}60 & Eén steekproef kan er 0,3 naast zitten. \\[1ex]
+n = 200\colon\ 0{,}30 \text{ tot } 0{,}52 & Veel dichter bij 0,4. \\[1ex]
+\text{midden: } 0{,}4 & Beide wolken liggen rond $p$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=11cm,y=.16cm,font=\scriptsize]
+  \begin{scope}[yshift=2.6cm]
+  \draw[grijs] (.05,0) -- (.65,0);
+  \foreach \p in {(0.1,1),(0.15,1),(0.2,1),(0.2,2),(0.2,3),(0.25,1),(0.25,2),(0.25,3),(0.3,1),(0.3,2),(0.3,3),(0.35,1),(0.35,2),(0.35,3),(0.35,4),(0.35,5),(0.35,6),(0.35,7),(0.35,8),(0.35,9),(0.35,10),(0.4,1),(0.4,2),(0.4,3),(0.4,4),(0.4,5),(0.45,1),(0.45,2),(0.45,3),(0.45,4),(0.5,1),(0.5,2),(0.5,3),(0.5,4),(0.5,5),(0.55,1),(0.55,2),(0.55,3),(0.55,4),(0.6,1)}{\fill[accent] \p circle (1.5pt);}
+  \node[anchor=west] at (.05,11.5) {$n = 20$};
+  \end{scope}
+  \draw[grijs] (.05,0) -- (.65,0);
+  \foreach \p in {(0.3,1),(0.325,1),(0.35,1),(0.35,2),(0.35,3),(0.35,4),(0.375,1),(0.375,2),(0.375,3),(0.375,4),(0.375,5),(0.375,6),(0.375,7),(0.375,8),(0.4,1),(0.4,2),(0.4,3),(0.4,4),(0.4,5),(0.4,6),(0.4,7),(0.4,8),(0.4,9),(0.4,10),(0.4,11),(0.425,1),(0.425,2),(0.425,3),(0.425,4),(0.425,5),(0.425,6),(0.425,7),(0.45,1),(0.45,2),(0.45,3),(0.45,4),(0.475,1),(0.475,2),(0.475,3),(0.525,1)}{\fill[fel!80!black] \p circle (1.5pt);}
+  \node[anchor=west] at (.05,11.5) {$n = 200$};
+  \foreach \t/\l in {.1/{0,1},.2/{0,2},.3/{0,3},.4/{0,4},.5/{0,5},.6/{0,6}}{\draw[grijs] (\t,0) -- (\t,-.5) node[below,text=black] {\l};}
+  \node[below] at (.35,-3.5) {aandeel $\hat{p}$ in de steekproef};
+\end{tikzpicture}}
+Grotere aselecte steekproeven schommelen minder rond de parameter. Hoe groot die schommeling precies is, bereken je in hoofdstuk 3.}
+
+Let op: een grotere steekproef verkleint alleen de schommeling door het toeval. Een vertekende steekproef blijft vertekend, hoe groot ze ook is.
+
+\begin{oefeningen}
+\oef{h1-variabiliteit}
+\end{oefeningen}
+
+%========================================================================================
+\section{Samenhang en causaliteit}
+
+\subsection{Samenhang is geen oorzaak}
+
+Uit een spreidingsdiagram zie je of twee variabelen samenhangen: stijgt de ene meestal als de andere stijgt, dan is er een positieve samenhang. De correlatiecoëfficiënt $r$, tussen $-1$ en $1$, meet hoe sterk een lineaire samenhang is. Maar samenhang zegt niet dat de ene variabele de andere veroorzaakt.
+
+\begin{theorie}
+Twee variabelen hangen \textbf{\textcolor{accent}{samen}} (zijn \textbf{\textcolor{accent}{gecorreleerd}}) als hun waarden samen variëren. Er is \textbf{\textcolor{accent}{causaliteit}} als een verandering van de ene variabele een verandering van de andere veroorzaakt.
+\end{theorie}
+
+Samenhang zonder causaliteit kan op drie manieren ontstaan. We bekijken ze één voor één.
+
+\subsection{Een verborgen variabele}
+
+Vaak zit er achter twee variabelen die samen stijgen een derde variabele, die je niet gemeten hebt.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{verborgen variabele}} is een derde variabele die beide variabelen beïnvloedt, en zo een samenhang tussen hen veroorzaakt.
+\end{theorie}
+
+\voorbeeld{}{Over een jaar hangen de verkoop van zonnecrème en het aantal huisartsbezoeken voor hooikoorts sterk samen. Veroorzaakt zonnecrème hooikoorts?\label{vb:h1-verborgen}}{%
+\uitleg{We zoeken een derde variabele die beide kan verklaren.}
+Nee. In de lente en de zomer schijnt de zon meer, waardoor mensen meer zonnecrème kopen, en is er meer pollen in de lucht, waardoor er meer hooikoorts is. Het seizoen is een verborgen variabele: het verklaart de samenhang, zonder dat het ene het andere veroorzaakt.}
+
+\begin{oefeningen}
+\oef{h1-samenhang}
+\end{oefeningen}
+
+\subsection{Omgekeerde causaliteit}
+
+Soms is er wel een oorzaak, maar in de andere richting dan je denkt.
+
+\begin{theorie}
+Er is \textbf{\textcolor{accent}{omgekeerde causaliteit}} als de variabele die je als gevolg ziet, eigenlijk de oorzaak is.
+\end{theorie}
+
+\voorbeeld{}{Uit een onderzoek blijkt dat mensen die veel naar de huisarts gaan, minder gezond zijn dan wie weinig gaat. Besluit iemand: \textit{huisartsbezoeken maken je ziek}. Wat is er fout?\label{vb:h1-omgekeerd}}{%
+\uitleg{We kijken of oorzaak en gevolg niet omgekeerd kunnen zijn.}
+Wie ziek is, gaat vaker naar de huisarts: de slechte gezondheid is de oorzaak van de bezoeken, niet het gevolg. Dat is omgekeerde causaliteit.}
+
+\begin{oefeningen}
+\oef{h1-causaliteit}
+\end{oefeningen}
+
+\subsection{Toeval}
+
+Ook zonder verborgen variabele of omgekeerde richting kunnen twee variabelen samenhangen: puur door het toeval. Dat gebeurt vooral bij weinig waarnemingen, of als je zoveel paren variabelen vergelijkt dat er vanzelf een paar sterk lijken samen te hangen.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{toevallige samenhang}} is een samenhang in de data die alleen door het toeval ontstaat, en die verdwijnt als je het onderzoek herhaalt.
+\end{theorie}
+
+\voorbeeld{}{In een klas van 6 leerlingen vindt iemand $r = 0{,}85$ tussen de lengte van hun voornaam (in letters) en hun punten op een toets. Moet je met een lange naam beter scoren?\label{vb:h1-toeval}}{%
+\uitleg{Er is geen verborgen variabele te bedenken, en de punten veranderen je naam niet. We kijken naar het aantal waarnemingen.}
+Met maar 6 punten vind je vaak een grote $r$, zelfs als er geen enkel verband is: één of twee leerlingen bepalen het hele diagram. Neem je een andere klas, dan krijg je waarschijnlijk een heel andere $r$, misschien zelfs negatief. Een samenhang telt pas als ze terugkomt in een grote, nieuwe steekproef.}
+
+\begin{oefeningen}
+\oef{h1-toeval}
+\end{oefeningen}
+
+\subsection{Observationeel en experimenteel onderzoek}
+
+Hoe toon je dan wel aan dat iets een oorzaak is? Kijken alleen volstaat niet, want een verborgen variabele kun je nooit helemaal uitsluiten. Je moet zelf ingrijpen.
+
+\begin{theorie}
+Bij \textbf{\textcolor{accent}{observationeel onderzoek}} kijk je alleen en grijp je niet in. Bij een \textbf{\textcolor{accent}{experiment}} verdeel je de deelnemers \textit{aselect} in een \textbf{\textcolor{accent}{testgroep}}, die een behandeling krijgt, en een \textbf{\textcolor{accent}{controlegroep}}, die ze niet krijgt (of een nepbehandeling, een \textbf{\textcolor{accent}{placebo}}).
+\end{theorie}
+
+Door de aselecte verdeling zijn de groepen gemiddeld gelijk in alle andere opzichten, ook in variabelen waaraan je niet gedacht hebt. Een duidelijk verschil tussen de groepen kun je dan aan de behandeling toeschrijven.
+
+\voorbeeld{}{Hoe zou je onderzoeken of naar muziek luisteren tijdens het studeren de toetsresultaten verbetert?\label{vb:h1-experiment}}{%
+\uitleg{Alleen vragen wie met muziek studeert, is observationeel: wie met muziek studeert, kan in andere opzichten verschillen. We ontwerpen een experiment.}
+Neem een groep vrijwillige leerlingen en verdeel ze door loting in twee groepen. Beide groepen studeren dezelfde tekst, even lang, in hetzelfde lokaal: de ene groep met muziek, de andere zonder. Daarna maken ze dezelfde toets. Een duidelijk verschil in de gemiddelde score kun je aan de muziek toeschrijven, omdat de loting de andere verschillen gemiddeld wegwerkt. Of het verschil \textit{duidelijk} genoeg is, leer je in hoofdstuk 3.}
+
+Een experiment is niet altijd mogelijk of toegelaten. Of roken schadelijk is, kun je niet testen door mensen te laten roken; dan blijft observationeel onderzoek over, met veel voorzichtigheid en met veel verschillende studies.
+
+\begin{werkwijze}
+Zie je een samenhang, vraag je dan af: kan een derde variabele beide verklaren? Kan het omgekeerd zijn? Kan het toeval zijn? Was het onderzoek observationeel of een experiment met een aselecte verdeling in groepen? Alleen bij een goed experiment mag je over oorzaak spreken.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-experiment}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{14\baselineskip}
+\oef{h1-d2}
+
+\needspace{10\baselineskip}
+\oef{h1-o11}
+
+\needspace{16\baselineskip}
+\oef{h1-d1}
+
+\oef{h1-o1}
+
+\needspace{10\baselineskip}
+\oef{h1-o12}
+
+\needspace{16\baselineskip}
+\oef{h1-o13}
+
+\needspace{18\baselineskip}
+\oef{h1-d3}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\needspace{14\baselineskip}
+\oef{h1-o17}
+
+\needspace{14\baselineskip}
+\oef{h1-o14}
+
+\needspace{10\baselineskip}
+\oef{h1-o19}
+
+\needspace{10\baselineskip}
+\oef{h1-o5}
+
+\needspace{12\baselineskip}
+\oef{h1-o15}
+
+\needspace{10\baselineskip}
+\oef{h1-o18}
+
+\needspace{14\baselineskip}
+\oef{h1-o16}
+
+\oef{h1-o8}
+
+\needspace{12\baselineskip}
+\oef{h1-o21}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\needspace{10\baselineskip}
+\oef{h1-o9}
+
+\needspace{12\baselineskip}
+\oef{h1-o20}
+
+\needspace{12\baselineskip}
+\oef{h1-o22}
+
+\needspace{12\baselineskip}
+\oef{h1-o23}
+
+\oef{h1-o10}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening gebruikt de verwachtingswaarde en de standaardafwijking van een binomiale verdeling (Kansrekenen, zelfde jaar), de tweede de regressierechte uit de 2de graad.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-begrippen}{oef:h1-begrippen}%
+  \fv{oef:h1-t2}{vb:h1-bias}{oef:h1-bias}%
+  \fv{oef:h1-t3}{vb:h1-strata}{oef:h1-strata}%
+  \fv{oef:h1-t4}{vb:h1-verborgen}{oef:h1-samenhang}%
+  \fv{oef:h1-t5}{vb:h1-variabiliteit}{oef:h1-variabiliteit}%
+  \fv{oef:h1-t6}{vb:h1-experiment}{oef:h1-experiment}%
+  \fv{oef:h1-t7}{vb:h1-omgekeerd}{oef:h1-causaliteit}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een populatie, een steekproef, een parameter en een steekproefgrootheid zijn, wat representatief en aselect betekenen, de oorzaken van bias, gestratificeerde en getrapte steekproeven, wat steekproefvariabiliteit is en hoe ze afhangt van de grootte, en de drie oorzaken van samenhang zonder causaliteit, met het verschil tussen observationeel en experimenteel onderzoek. Vergelijk daarna met de kaders.
+\fi

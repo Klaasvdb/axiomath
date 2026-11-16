@@ -6,7 +6,7 @@ Open `index.html` met een dubbelklik: de site werkt zonder server en zonder inte
 
 | Inhoud | Bron | Aanpassen |
 |---|---|---|
-| Oefeningen, antwoorden, uitwerkingen, figuren bij de opgaven, nummers, schema Fout? Herhaal | `oefeningen/01-*.yaml`, `hoofdstukken/01-*.tex`, `figuren-cache/` van de cursus | In de cursus, daarna `py -3.13 -P maak-site.py` (na een nieuwe figuur eerst `maak-pdf.py` van de cursus) |
+| Oefeningen, antwoorden, uitwerkingen, figuren bij de opgaven, nummers, schema Fout? Herhaal | `oefeningen/01-*.yaml` en `hoofdstukken/01-*.tex` van de bron (`Handboeken/3de graad/cursussen/Integralen/`), `figuren-cache/` van de map van pakket 4 | In de cursus, daarna `py -3.13 -P maak-site.py` (na een nieuwe figuur eerst `maak-pdf.py` van de cursus) |
 | Lopende tekst, theoriekaders, werkwijzen | Overgenomen uit `hoofdstukken/01-*.tex` | `assets/h1/inhoud.js`: **staat dubbel met het boek**, een wijziging in het boek loopt hier niet vanzelf door |
 | Voorbeelden, stap per stap | Overgenomen uit het boek, met eigen figuren per stap | `assets/h1/voorbeelden.js`: **staat ook dubbel** |
 | Nu jij | Overgenomen uit `\nujij` in het boek | `assets/h1/voorbeelden.js`: staat ook dubbel |

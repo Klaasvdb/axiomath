@@ -1,0 +1,533 @@
+%----------------------------------------------------------------------------------------
+% LOGARITMEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Logaritmen}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{12-17}\alleenvoor{2,3}{7-12}\alleenvoor{1}{7-10 en K1} (exponentiële en logaritmische functies), het deel over de logaritme als getal, de rekenregels en exponentiële vergelijkingen. De notatie $\log_a x$ is die van de meeste rekentoestellen; de Vlaamse notatie ${}^a\!\log x$ betekent hetzelfde, vermeld ze als leerlingen ze elders tegenkomen. De logaritmische functie zelf komt in hoofdstuk 3.}
+
+Hoe lang duurt het voor een kapitaal aan $3$\,\% intrest verdubbelt? Dan moet $1{,}03^t = 2$, en de onbekende staat in de exponent. Met de rekenregels voor machten raak je ze daar niet uit. Daarvoor dient de logaritme: ze geeft de exponent.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Wat is een logaritme?}
+
+In hoofdstuk 1 zag je dat een exponentiële functie $a^x$ elk positief getal precies één keer als beeld heeft: elk positief getal is een beeld (het bereik is $\left]0, +\infty\right[$), en twee verschillende exponenten geven nooit dezelfde macht. Bij een positief getal $x$ hoort dus precies één exponent $y$ met $a^y = x$. Die exponent krijgt een naam.
+
+\begin{theorie}
+Voor $a > 0$ met $a \neq 1$ en $x > 0$ is de \textbf{\textcolor{accent}{logaritme}} van $x$ met grondtal $a$ de exponent waartoe je $a$ moet verheffen om $x$ te krijgen:
+\[\formule{\log_a x = y \iff a^y = x}.\]
+\end{theorie}
+
+Een logaritme is dus een exponent. Lees $\log_2 8$ als: \textit{tot welke macht moet je 2 verheffen om 8 te krijgen?} Het antwoord is 3.
+
+Wanneer bestaat een logaritme niet? Van een negatief getal of van $0$ bestaat geen logaritme: een macht van een positief grondtal is altijd positief, dus $\log_2(-8)$ heeft geen betekenis. En het grondtal $1$ kan niet: $1^y = 1$ voor elke $y$, dus $\log_1 5$ bestaat niet en $\log_1 1$ zou elk getal kunnen zijn.
+
+\voorbeeld{}{Bereken zonder rekentoestel: $\log_4 8$.\label{vb:h2-definitie}}{%
+\uitleg{Noem de logaritme $y$ en schrijf de definitie als macht. Schrijf beide leden als macht van hetzelfde grondtal.}
+\begin{stappenbreed}
+\log_4 8 = y \iff 4^y = 8 & Definitie. \\
+2^{2y} = 2^3 & Beide leden als macht van 2. \\
+y = \frac32 & Gelijke machten. Controle: $4^{\frac32} = (\sqrt4)^3 = 8$.
+\end{stappenbreed}}
+
+\nujij{Bereken $\log_2 32$, $\log 0{,}001$ en $\ln \e^5$.}{$5$, want $2^5 = 32$; $-3$, want $10^{-3} = 0{,}001$; $5$.}
+
+\begin{oefeningen}
+\oef{h2-k-omzetten}
+
+\oef{h2-definitie}
+\end{oefeningen}
+
+\subsection{De briggse en de natuurlijke logaritme}
+
+Twee grondtallen komen zo vaak voor dat ze een eigen notatie hebben, en een eigen toets op het rekentoestel: $10$, het grondtal van ons talstelsel, en $\e$, het grondtal van continue groei.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{briggse logaritme}} heeft grondtal 10: \qquad $\formule{\log x = \log_{10} x}$
+
+De \textbf{\textcolor{accent}{natuurlijke logaritme}} heeft grondtal $\e$: \qquad $\formule{\ln x = \log_{\e} x}$
+\end{theorie}
+
+De briggse logaritme zegt hoe groot een getal is in machten van 10: $\log 1000 = 3$ en $\log 0{,}01 = -2$. Voor andere getallen geeft het rekentoestel een benadering, en die kun je vooraf schatten.
+
+\voorbeeld{}{Bereken $\log 2000$ met je rekentoestel. Leg uit waarom de uitkomst tussen 3 en 4 ligt.\label{vb:h2-briggs}}{%
+\uitleg{Een logaritme is een exponent. Zoek de machten van 10 waartussen 2000 ligt.}
+\begin{stappenbreed}
+\log 2000 \approx 3{,}301 & Met de toets $\log$. \\
+10^3 = 1000 < 2000 < 10\,000 = 10^4 & 2000 ligt tussen twee machten van 10. \\
+3 < \log 2000 < 4 & Omdat $10^x$ stijgt, ligt ook de exponent ertussen.
+\end{stappenbreed}
+Controle: $10^{3{,}301} \approx 2000$.}
+
+\begin{oefeningen}
+\oef{h2-k-tussen}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Logaritme en macht heffen elkaar op}
+
+Een logaritme vraagt naar een exponent. Wat gebeurt er als je de logaritme neemt van een macht van het grondtal, of omgekeerd het grondtal verheft tot een logaritme? Twee eigenschappen volgen meteen uit de definitie.
+
+\begin{theorie}
+\begin{stelling}{Logaritme van een macht van het grondtal}
+Voor $a > 0$ met $a \neq 1$ en elke $y \in \R$ is \qquad $\formule{\log_a a^y = y}$
+
+In het bijzonder is \qquad $\formule{\log_a 1 = 0}$ \qquad en \qquad $\formule{\log_a a = 1}$
+\end{stelling}
+\begin{bewijs}
+Volgens de definitie is $\log_a a^y$ de exponent waartoe je $a$ moet verheffen om $a^y$ te krijgen. Die exponent is $y$, en hij is uniek. Neem je $y = 0$ en $y = 1$, dan is
+\bewijsregel{\log_a 1 = \log_a a^0 = 0 \qquad \text{en} \qquad \log_a a = \log_a a^1 = 1 .}
+\end{bewijs}
+\end{theorie}
+
+Staat er onder de logaritme een macht van het grondtal, dan is de logaritme gewoon de exponent. Dat werkt ook als de exponent een uitdrukking is.
+
+\voorbeeld{}{Vereenvoudig $\log_3 9^x$.\label{vb:h2-logmacht}}{%
+\uitleg{$9$ is geen 3, maar wel een macht van 3. Schrijf $9^x$ eerst als macht van het grondtal 3.}
+\begin{stappenbreed}
+9^x = \bigl(3^2\bigr)^x = 3^{2x} & Macht van een macht. \\
+\log_3 9^x = \log_3 3^{2x} = 2x & De logaritme van een macht van het grondtal.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-logmacht}
+\end{oefeningen}
+
+De tweede eigenschap gaat de andere kant op: eerst de logaritme, dan de macht.
+
+\begin{theorie}
+\begin{stelling}{Macht met een logaritme als exponent}
+Voor $a > 0$ met $a \neq 1$ en $x > 0$ is \qquad $\formule{a^{\log_a x} = x}$
+\end{stelling}
+\begin{bewijs}
+Stel $y = \log_a x$. Volgens de definitie is dan $a^y = x$, dus
+\bewijsregel{a^{\log_a x} = a^y = x .}
+\end{bewijs}
+\end{theorie}
+
+Logaritme en macht met hetzelfde grondtal doen elkaars werk teniet, in welke volgorde je ze ook toepast. In hoofdstuk 3 zie je dat dit betekent: $\log_a x$ is de inverse functie van $a^x$.
+
+\voorbeeld{}{Bereken zonder rekentoestel: $10^{2 + \log 3}$.\label{vb:h2-machtlog}}{%
+\uitleg{De exponent is een som. Splits de macht met de productregel voor machten, zodat $10^{\log 3}$ apart komt te staan.}
+\begin{stappenbreed}
+10^{2 + \log 3} = 10^2 \cdot 10^{\log 3} & Product van machten. \\
+= 100 \cdot 3 = 300 & $10^{\log 3} = 3$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-machtlog}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenregels}
+
+Elke rekenregel voor machten geeft een rekenregel voor logaritmen. Het idee is telkens hetzelfde: een logaritme is een exponent, dus schrijf de getallen als machten van het grondtal en gebruik de regels voor machten.
+
+\subsection{De productregel}
+
+Bij het vermenigvuldigen van machten tel je de exponenten op. Omdat logaritmen exponenten zijn, wordt een product onder de logaritme een som.
+
+\begin{theorie}
+\begin{stelling}{Productregel}
+Voor $a > 0$, $a \neq 1$ en $x, y > 0$ is \qquad $\formule{\log_a (xy) = \log_a x + \log_a y}$
+\end{stelling}
+\begin{bewijs}
+Stel $p = \log_a x$ en $q = \log_a y$, dus $x = a^p$ en $y = a^q$. Dan is
+\bewijsregel{xy = a^p \cdot a^q = a^{p + q},}
+dus volgens de definitie is $\log_a(xy) = p + q = \log_a x + \log_a y$.
+\end{bewijs}
+\end{theorie}
+
+De logaritme van een product is de som van de logaritmen. Dat was eeuwenlang de reden om logaritmen te gebruiken: vermenigvuldigen werd optellen, en optellen gaat met de hand veel sneller.
+
+\voorbeeld{}{Bereken zonder rekentoestel: $\log_2 12 + \log_2 \dfrac83$.\label{vb:h2-product}}{%
+\uitleg{Geen van beide logaritmen is een mooi getal. Lees de productregel van rechts naar links: neem ze samen tot één logaritme.}
+\begin{stappenbreed}
+\log_2 12 + \log_2 \frac83 = \log_2 \Bigl(12 \cdot \frac83\Bigr) & Productregel. \\
+= \log_2 32 = 5 & $2^5 = 32$.
+\end{stappenbreed}}
+
+Pas op: voor een som is er geen regel. $\log(x + y)$ is \textit{niet} $\log x + \log y$: neem $x = y = 1$, dan is $\log 2 \approx 0{,}301$ maar $\log 1 + \log 1 = 0$.
+
+\begin{oefeningen}
+\oef{h2-k-product}
+\end{oefeningen}
+
+\subsection{De quotiëntregel}
+
+Bij het delen van machten trek je de exponenten af. Dus wordt een quotiënt onder de logaritme een verschil.
+
+\begin{theorie}
+\begin{stelling}{Quotiëntregel}
+Voor $a > 0$, $a \neq 1$ en $x, y > 0$ is \qquad $\formule{\log_a \frac{x}{y} = \log_a x - \log_a y}$
+\end{stelling}
+\begin{bewijs}
+Stel $p = \log_a x$ en $q = \log_a y$, dus $x = a^p$ en $y = a^q$. Dan is
+\bewijsregel{\frac{x}{y} = \frac{a^p}{a^q} = a^{p - q},}
+dus $\log_a \frac{x}{y} = p - q = \log_a x - \log_a y$.
+\end{bewijs}
+\end{theorie}
+
+Neem je $x = 1$, dan zie je dat $\log_a \frac1y = 0 - \log_a y = -\log_a y$: het omgekeerde van een getal heeft de tegengestelde logaritme.
+
+\voorbeeld{}{Bereken zonder rekentoestel: $\log_3 54 - \log_3 2$.\label{vb:h2-quotient}}{%
+\uitleg{Een verschil van logaritmen met hetzelfde grondtal is de logaritme van een quotiënt.}
+\begin{stappenbreed}
+\log_3 54 - \log_3 2 = \log_3 \frac{54}{2} & Quotiëntregel. \\
+= \log_3 27 = 3 & $3^3 = 27$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-quotient}
+\end{oefeningen}
+
+\subsection{De machtregel}
+
+Bij een macht van een macht vermenigvuldig je de exponenten. Dus komt een exponent onder de logaritme als factor ervoor.
+
+\begin{theorie}
+\begin{stelling}{Machtregel}
+Voor $a > 0$, $a \neq 1$, $x > 0$ en $r \in \R$ is \qquad $\formule{\log_a x^r = r \log_a x}$
+\end{stelling}
+\begin{bewijs}
+Stel $p = \log_a x$, dus $x = a^p$. Dan is
+\bewijsregel{x^r = \bigl(a^p\bigr)^r = a^{pr},}
+dus $\log_a x^r = pr = r \log_a x$.
+\end{bewijs}
+\end{theorie}
+
+De machtregel haalt een exponent naar beneden, en dat maakt hem zo nuttig: in de volgende sectie haal je er de onbekende mee uit de exponent. Let op het verschil tussen $\log x^2 = 2\log x$ en $(\log x)^2$, het kwadraat van de logaritme.
+
+\voorbeeld{}{Gegeven: $\log 2 \approx 0{,}301$. Bereken zonder rekentoestel $\log 8$.\label{vb:h2-macht}}{%
+\uitleg{$8$ is een macht van 2. Schrijf het zo, en breng de exponent naar voor.}
+\begin{stappenbreed}
+\log 8 = \log 2^3 & $8 = 2^3$. \\
+= 3 \log 2 \approx 3 \cdot 0{,}301 = 0{,}903 & Machtregel. Controle: $10^{0{,}903} \approx 8$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-macht}
+\end{oefeningen}
+
+\subsection{De rekenregels samen}
+
+Met de drie regels kun je een som van logaritmen samenvoegen tot één logaritme, of omgekeerd één logaritme uitsplitsen. Begin bij het samenvoegen met de machtregel, zodat er geen factoren meer voor de logaritmen staan.
+
+\voorbeeld{}{Schrijf als één logaritme en bereken: $2\log 5 + \log 4$.\label{vb:h2-rekenregels}}{%
+\uitleg{Breng eerst de factor 2 naar binnen als exponent, en tel dan op met de productregel.}
+\begin{stappenbreed}
+2\log 5 + \log 4 = \log 5^2 + \log 4 & Machtregel. \\
+= \log (25 \cdot 4) = \log 100 & Productregel. \\
+= 2 & $10^2 = 100$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-samen}
+\end{oefeningen}
+
+Bij het uitsplitsen ga je de andere kant op: eerst de productregel en de quotiëntregel, dan de machtregel.
+
+\voorbeeld{}{Schrijf met $\log a$ en $\log b$ (met $a, b > 0$): $\log \dfrac{100\,a^2}{\sqrt{b}}$.\label{vb:h2-uitsplitsen}}{%
+\uitleg{Splits eerst het quotiënt en het product, schrijf dan de wortel als macht en breng de exponenten naar voor.}
+\begin{stappenbreed}
+\log \frac{100\,a^2}{\sqrt{b}} = \log 100 + \log a^2 - \log b^{\frac12} & Product- en quotiëntregel, $\sqrt b = b^{\frac12}$. \\
+= 2 + 2\log a - \frac12 \log b & $\log 100 = 2$ en de machtregel.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-uitsplitsen}
+\end{oefeningen}
+
+\subsection{Verandering van grondtal}
+
+Het rekentoestel kent $\log$ en $\ln$, maar niet altijd $\log_2$ of $\log_5$. Met de machtregel reken je elke logaritme om naar een ander grondtal.
+
+\begin{theorie}
+\begin{stelling}{Verandering van grondtal}
+Voor $a, b > 0$, $a, b \neq 1$ en $x > 0$ is
+\[\formule{\log_a x = \frac{\log_b x}{\log_b a}}, \qquad \text{bijvoorbeeld} \qquad \formule{\log_a x = \frac{\ln x}{\ln a}}.\]
+\end{stelling}
+\begin{bewijs}
+Stel $y = \log_a x$, dus $a^y = x$. Neem van beide leden $\log_b$ en gebruik de machtregel:
+\bewijsregel{\log_b a^y = \log_b x \quad\Longrightarrow\quad y \log_b a = \log_b x .}
+Nu is $\log_b a \neq 0$, want $\log_b a = 0$ zou betekenen dat $a = b^0 = 1$. Deel dus door $\log_b a$:
+\bewijsregel{\log_a x = y = \frac{\log_b x}{\log_b a} .}
+\end{bewijs}
+\end{theorie}
+
+Alle logaritmen zijn dus veelvouden van elkaar: $\log_2 x = \frac{1}{\ln 2} \cdot \ln x$, voor elke $x$. Welk grondtal $b$ je kiest om te rekenen, maakt niet uit.
+
+\voorbeeld{}{Bereken $\log_2 7$ met je rekentoestel.\label{vb:h2-grondtal}}{%
+\uitleg{Het rekentoestel kent $\log$ en $\ln$ (sommige ook $\log_a$). Gebruik de verandering van grondtal.}
+\begin{stappenbreed}
+\log_2 7 = \frac{\ln 7}{\ln 2} \approx 2{,}807 & Of $\frac{\log 7}{\log 2}$: hetzelfde. \\
+2^{2{,}807} \approx 7{,}00 & Controle.
+\end{stappenbreed}
+Dat klopt met een schatting: $2^2 = 4 < 7 < 8 = 2^3$, dus $\log_2 7$ ligt tussen 2 en 3, dicht bij 3.}
+
+\begin{oefeningen}
+\oef{h2-rekenregels}
+
+\oef{h2-k-grondtal}
+\end{oefeningen}
+
+%========================================================================================
+\section{Exponentiële vergelijkingen}
+
+In hoofdstuk 1 loste je $2^x = 5$ niet op: $5$ is geen macht van 2 met een exponent die je kent. Met een logaritme haal je de onbekende wel uit de exponent: volgens de definitie is $2^x = 5 \iff x = \log_2 5$.
+
+\voorbeeld{}{Los op: $3 \cdot 2^x = 50$.\label{vb:h2-vergelijking}}{%
+\uitleg{Zonder eerst de macht af. Dan geeft de definitie van de logaritme meteen de exponent.}
+\begin{stappenbreed}
+2^x = \frac{50}{3} & Delen door 3. \\
+x = \log_2 \frac{50}{3} = \frac{\ln \frac{50}{3}}{\ln 2} \approx 4{,}059 & Definitie, dan rekentoestel.
+\end{stappenbreed}}
+
+Een klassieke fout is $3 \cdot 2^x$ schrijven als $6^x$. De exponent hoort alleen bij de 2: $3 \cdot 2^x$ is $3 \cdot 2 \cdot 2 \cdots 2$, met $x$ factoren 2 en maar één factor 3.
+
+\begin{oefeningen}
+\oef{h2-k-afzonderen}
+\end{oefeningen}
+
+\voorbeeld{}{Na hoeveel jaar is een kapitaal verdubbeld bij $3$\,\% samengestelde intrest per jaar?\label{vb:h2-verdubbeling}}{%
+\uitleg{Het beginkapitaal $K_0$ valt weg: de verdubbelingstijd hangt er niet van af.}
+\begin{stappenbreed}
+K_0 \cdot 1{,}03^t = 2K_0 \iff 1{,}03^t = 2 & Delen door $K_0$. \\
+t = \frac{\ln 2}{\ln 1{,}03} \approx 23{,}45 & In jaren.
+\end{stappenbreed}
+Na 24 jaar (de intrest wordt per jaar bijgeteld) is het kapitaal meer dan verdubbeld.}
+
+\begin{oefeningen}
+\oef{h2-k-verdubbeling}
+\end{oefeningen}
+
+Staat de onbekende in twee exponenten met een ander grondtal, dan kun je geen van beide machten afzonderen. Neem dan van beide leden de logaritme: twee gelijke positieve getallen hebben dezelfde logaritme.
+
+\voorbeeld{}{Los op: $2^{x + 1} = 3^x$.\label{vb:h2-twee}}{%
+\uitleg{Neem $\ln$ van beide leden en breng de exponenten naar voor met de machtregel. Dan staat er een eerstegraadsvergelijking.}
+\begin{stappenbreed}
+(x + 1)\ln 2 = x \ln 3 & $\ln$ van beide leden. \\
+x(\ln 3 - \ln 2) = \ln 2 & Termen met $x$ samen. \\
+x = \frac{\ln 2}{\ln 3 - \ln 2} = \frac{\ln 2}{\ln 1{,}5} \approx 1{,}710 & Controle: $2^{2{,}710} \approx 6{,}54 \approx 3^{1{,}710}$.
+\end{stappenbreed}}
+
+Niet elke exponentiële vergelijking heeft een oplossing. Bij $2^x = -4$ of $2^x + 3 = 1$ moet een macht van 2 negatief zijn, en dat kan niet: $\log_2(-4)$ bestaat niet.
+
+\begin{werkwijze}
+Zonder de macht af. Staat er één macht, gebruik dan de definitie: $a^x = c \iff x = \log_a c$ (met $c > 0$; anders is er geen oplossing). Staan er machten met een verschillend grondtal, neem dan $\ln$ van beide leden en los de eerstegraadsvergelijking op. Controleer met het rekentoestel.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-vergelijking}
+\end{oefeningen}
+
+%========================================================================================
+\section{Logaritmische schalen}
+
+Sommige grootheden lopen over vele machten van 10. De zuurtegraad van een oplossing, de geluidssterkte en de helderheid van sterren meten we daarom met een logaritme: een stap op de schaal is dan een vermenigvuldiging met een vaste factor. Dat volgt uit de quotiëntregel. Is een schaal $L = k \log \frac{I}{I_0}$, met een vaste referentie $I_0$, dan is
+\[L_1 - L_2 = k \log \frac{I_1}{I_0} - k \log \frac{I_2}{I_0} = k \log \frac{I_1}{I_2} .\]
+Een verschil op de schaal hangt dus alleen af van het quotiënt van de grootheden, niet van de referentie.
+
+\subsection{Zuurtegraad}
+
+De \textbf{zuurtegraad} is $\mathrm{pH} = -\log [\mathrm{H}^+]$, met $[\mathrm{H}^+]$ de concentratie waterstofionen in mol per liter. Door het minteken hoort bij een zuurdere oplossing een kleinere pH. Eén pH-eenheid lager is tien keer zuurder.
+
+\figuren{\begin{tikzpicture}[x=.85cm,font=\scriptsize]
+  \shade[left color=accent!60,right color=accent!5] (0,0) rectangle (14,.35);
+  \draw[accent] (0,0) rectangle (14,.35);
+  \foreach \p in {0,...,14}{\draw (\p,0) -- (\p,-.12) node[below] {$\p$};}
+  \node[left] at (-.1,.17) {pH};
+  \foreach \p/\naam in {2/citroensap,5/koffie,7/zuiver water,10/zeep}{
+    \draw[accent,thick] (\p,.35) -- (\p,.7) node[above,text=black] {\naam};}
+  \draw[<->,accent] (2,-.75) -- node[below,text=black] {3 eenheden: $10^3 = 1000$ keer minder zuur} (5,-.75);
+\end{tikzpicture}}
+
+\voorbeeld{}{Het water van een zwembad heeft pH $7{,}4$. Na een zure regenbui is dat $6{,}8$. Hoeveel keer zuurder is het water geworden?\label{vb:h2-ph}}{%
+\uitleg{Zoek de concentratie bij elke pH met de definitie van de logaritme, en deel ze door elkaar.}
+\begin{stappenbreed}
+[\mathrm{H}^+] = 10^{-\mathrm{pH}} & $-\log [\mathrm{H}^+] = \mathrm{pH}$, dan de definitie. \\
+\frac{10^{-6{,}8}}{10^{-7{,}4}} = 10^{-6{,}8 + 7{,}4} = 10^{0{,}6} \approx 4{,}0 & Quotiënt van machten.
+\end{stappenbreed}
+Het water is ongeveer 4 keer zuurder. Een verschil van $0{,}6$ in pH is een factor $10^{0{,}6}$.}
+
+\begin{oefeningen}
+\oef{h2-k-ph}
+\end{oefeningen}
+
+\subsection{Geluidsniveau}
+
+Het \textbf{geluidsniveau} in decibel is $L = 10 \log \frac{I}{I_0}$, met $I$ de intensiteit en $I_0$ de gehoordrempel. $10$ dB meer is tien keer intenser, $20$ dB meer is honderd keer intenser.
+
+\voorbeeld{}{Een gesprek is $60$ dB, een rockconcert $105$ dB. Hoeveel keer intenser is het concert?\label{vb:h2-schaal}}{%
+\uitleg{Trek de twee geluidsniveaus af: de referentie $I_0$ valt weg door de quotiëntregel.}
+\begin{stappenbreed}
+105 - 60 = 10 \log \frac{I_c}{I_0} - 10 \log \frac{I_g}{I_0} = 10 \log \frac{I_c}{I_g} & Quotiëntregel. \\
+\log \frac{I_c}{I_g} = 4{,}5 \iff \frac{I_c}{I_g} = 10^{4{,}5} \approx 31\,600 & Definitie.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-k-db}
+\end{oefeningen}
+
+\subsection{Magnitude van sterren}
+
+De \textbf{magnitude} van een ster is $m = -2{,}5 \log \frac{I}{I_0}$, met $I$ de helderheid en $I_0$ die van een vaste referentiester. Door het minteken is een helderdere ster een ster met een kleinere magnitude. Een verschil van 5 magnitudes is precies een factor $100$ in helderheid, want $10^{\frac{5}{2{,}5}} = 10^2$.
+
+\voorbeeld{}{Vega heeft magnitude $0{,}03$. De zwakste sterren die je met het blote oog ziet, hebben magnitude $6$. Hoeveel keer helderder is Vega?\label{vb:h2-magnitude}}{%
+\uitleg{Trek de magnitudes af, zoals bij het geluidsniveau. Let op het minteken: de zwakke ster heeft de grootste magnitude.}
+\begin{stappenbreed}
+6 - 0{,}03 = 2{,}5 \log \frac{I_V}{I_z} & Quotiëntregel, met $I_V$ voor Vega. \\
+\log \frac{I_V}{I_z} = \frac{5{,}97}{2{,}5} = 2{,}388 & Delen door $2{,}5$. \\
+\frac{I_V}{I_z} = 10^{2{,}388} \approx 244 & Definitie.
+\end{stappenbreed}
+Vega is ongeveer 244 keer helderder. Dat klopt met een schatting: het verschil is meer dan 5 magnitudes, dus de factor is meer dan 100.}
+
+\begin{oefeningen}
+\oef{h2-schaal}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h2-o1}
+
+\oef{h2-o16}
+
+\needspace{14\baselineskip}
+\oef{h2-o2}
+
+\needspace{16\baselineskip}
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\needspace{12\baselineskip}
+\oef{h2-o13}
+
+\oef{h2-o3}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\needspace{10\baselineskip}
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\needspace{14\baselineskip}
+\oef{h2-o17}
+
+\needspace{8\baselineskip}
+\oef{h2-o22}
+
+\oef{h2-o18}
+
+\needspace{18\baselineskip}
+\oef{h2-o19}
+
+\oef{h2-o7}
+
+\needspace{8\baselineskip}
+\oef{h2-o24}
+
+\oef{h2-o6}
+
+\oef{h2-o21}
+
+\needspace{18\baselineskip}
+\oef{h2-o23}
+
+\oef{h2-o20}
+
+\oef{h2-o8}
+
+\oef{h2-o25}
+
+\needspace{14\baselineskip}
+\oef{h2-o9}
+
+\oef{h2-o26}
+
+\needspace{14\baselineskip}
+\oef{h2-o10}
+
+\needspace{16\baselineskip}
+\oef{h2-o27}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\begin{alleenvoor}{4}
+\lkr{Telproblemen, Kansrekenen en Integralen: kijk na wat al gezien is. Het pakket legt de volgorde niet vast.}
+\end{alleenvoor}
+\begin{alleenvoor}{2,3}
+\lkr{Kansrekenen en Integralen: kijk na wat al gezien is. Het pakket legt de volgorde niet vast.}
+\end{alleenvoor}
+\begin{alleenvoor}{1}
+\lkr{Kansrekenen: kijk na wat al gezien is. Het pakket legt de volgorde niet vast.}
+\end{alleenvoor}
+
+\begin{oefeningen}
+\begin{alleenvoor}{4}
+\oef{h2-koppel-1}
+\end{alleenvoor}
+
+\oef{h2-koppel-2}
+
+\begin{alleenvoor}{2,3,4}
+\oef{h2-koppel-3}
+\end{alleenvoor}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t8}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t6}
+
+\oef{h2-t5}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-definitie}{oef:h2-definitie}%
+  \fv{oef:h2-t2}{vb:h2-rekenregels}{oef:h2-k-samen}%
+  \fv{oef:h2-t8}{vb:h2-uitsplitsen}{oef:h2-k-uitsplitsen}%
+  \fv{oef:h2-t3}{vb:h2-grondtal}{oef:h2-k-grondtal}%
+  \fv{oef:h2-t4}{vb:h2-vergelijking}{oef:h2-k-afzonderen}%
+  \fv{oef:h2-t6}{vb:h2-twee}{oef:h2-vergelijking}%
+  \fv{oef:h2-t5}{vb:h2-verdubbeling}{oef:h2-k-verdubbeling}%
+  \fv{oef:h2-t7}{vb:h2-ph}{oef:h2-k-ph}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van $\log_a x$ en de vier gevolgen, $\log$ en $\ln$, de drie rekenregels met het bewijs van de productregel, de verandering van grondtal, en hoe je een exponentiële vergelijking oplost. Vergelijk daarna met de kaders.
+\fi

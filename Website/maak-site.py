@@ -2,10 +2,10 @@
 
     py -3.13 -P maak-site.py
 
-Leest uit de cursus Integralen:
+Leest uit de cursus Integralen (de bron in Handboeken/3de graad/cursussen/, zoals pakket 4 ze ziet):
   - oefeningen/01-*.yaml: opgaven, antwoorden en uitwerkingen;
   - hoofdstukken/01-*.tex: de volgorde (dus de nummers uit het boek), de voorbeelden en het schema Fout? Herhaal;
-  - figuren-cache/h1-*.pdf: de grafieken van de opgaven, gemaakt door maak-pdf.py.
+  - figuren-cache/h1-*.pdf (in de map van pakket 4): de grafieken van de opgaven, gemaakt door maak-pdf.py.
 
 Schrijft assets/h1/oefeningen.js en assets/fig/h1-*.svg. Pas de oefeningen dus aan in de YAML, nooit hier.
 Het script meldt welke antwoorden de website automatisch kan nakijken; de rest kijkt de leerling zelf na.
@@ -21,9 +21,14 @@ import pymupdf
 import yaml
 
 HIER = Path(__file__).resolve().parent
-CURSUS = next((HIER.parent / "Handboeken" / "3de graad").glob("4 *")) / "Analyse" / "Integralen"
+PAKKETMAP = next((HIER.parent / "Handboeken" / "3de graad").glob("4 *"))
+CURSUS = PAKKETMAP / "Analyse" / "Integralen"  # figuren-cache/
+BRON = HIER.parent / "Handboeken" / "3de graad" / "cursussen" / "Integralen"  # hoofdstukken, oefeningen, afbeeldingen
 sys.path.insert(0, str(HIER.parent / "Opmaak"))
 import oefeningenbank  # noqa: E402
+import pakketten  # noqa: E402
+
+PAKKET, PAKKETNAAM = 4, pakketten.naam_van(PAKKETMAP.name)
 
 NUMMER = 1
 UIT = HIER / "assets" / "h1"
@@ -211,8 +216,9 @@ def zet_om(oef, nr, om, verslag):
 
 
 def main():
-    tex = next((CURSUS / "hoofdstukken").glob(f"{NUMMER:02d}-*.tex")).read_text(encoding="utf-8")
-    bank = oefeningenbank.laad(CURSUS)
+    tex = next((BRON / "hoofdstukken").glob(f"{NUMMER:02d}-*.tex")).read_text(encoding="utf-8")
+    tex = pakketten.kies(tex, PAKKET, PAKKETNAAM)
+    bank = oefeningenbank.laad(BRON, PAKKET)
     gevuld = oefeningenbank.vul_in(tex, bank)
     figuren = [f.strip() for f in FIGUUR.findall(gevuld)]
 
@@ -224,7 +230,7 @@ def main():
         sys.exit(f"De figuren-PDF heeft {pdf.page_count} pagina's en het hoofdstuk {len(figuren)} figuren: draai eerst maak-pdf.py.")
 
     om = Omzetter(figuren)
-    volgorde = re.findall(r"^\\oef\{([^}]+)\}", tex, re.M)
+    volgorde = [c for c in re.findall(r"^\\oef\{([^}]+)\}", tex, re.M) if bank[c] is not None]
     verslag = []
     oefeningen = [zet_om(bank[code], nr, om, verslag) for nr, code in enumerate(volgorde, 1)]
     voorbeelden = {code: nr for nr, code in enumerate(re.findall(r"\\label\{vb:([^}]+)\}", tex), 1)}
@@ -240,7 +246,7 @@ def main():
         (FIG / f"h{NUMMER}-{nummer}.svg").write_text(svg, encoding="utf-8")
     if any(o.get("prent") for o in oefeningen):
         for naam in {o["prent"] for o in oefeningen if o.get("prent")}:
-            shutil.copyfile(CURSUS / "afbeeldingen" / "prenten" / f"{naam}.png", FIG / f"prent-{naam}.png")
+            shutil.copyfile(BRON / "afbeeldingen" / "prenten" / f"{naam}.png", FIG / f"prent-{naam}.png")
 
     data = {"oefeningen": oefeningen, "voorbeelden": voorbeelden, "herhaal": herhaal}
     (UIT / "oefeningen.js").write_text(

@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoel 55, volgens de [ontwerpregels](../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk; alle meetgegevens zijn voorbeeldgegevens.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Onderzoekscompetentie/](<../../cursussen/Onderzoekscompetentie/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Van vraag tot onderzoek | `hoofdstukken/01-onderzoeksvraag.tex` | LPD 55 | eerste versie, nog na te lezen |

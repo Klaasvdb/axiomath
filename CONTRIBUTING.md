@@ -5,7 +5,7 @@ Fijn dat je meewerkt. Alle leerkrachten en iedereen die wiskunde geeft of leert 
 ## Wat je kunt doen
 
 - **Nalezen:** de cursussen zijn eerste versies. Fouten in uitleg, opgaven of antwoorden meld je als *issue*, met de plaats (cursus, hoofdstuk, nummer van de oefening).
-- **Oefeningen schrijven:** in `oefeningen/*.yaml` van de cursus. De velden staan bovenaan `Opmaak/oefeningenbank.py`.
+- **Oefeningen schrijven:** in `oefeningen/*.yaml` van de cursus, in `Handboeken/<graad>/cursussen/<cursus>/` (één bron voor alle pakketten). De velden staan bovenaan `Opmaak/oefeningenbank.py`.
 - **Een hoofdstuk of cursus maken:** begin met een issue, zodat we niet dubbel werk doen. Gebruik de [ontwerpregels](Ontwerp/ontwerpregels.md) en de cursus Integralen als model.
 - **Het leerplan van een ander net koppelen** aan de cursussen.
 - **De website of de tooling verbeteren.**

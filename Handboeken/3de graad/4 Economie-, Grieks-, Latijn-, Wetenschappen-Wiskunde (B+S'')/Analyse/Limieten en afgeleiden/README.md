@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoelen 26-30, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Limieten en afgeleiden/](<../../../cursussen/Limieten en afgeleiden/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Limieten en continuïteit | `hoofdstukken/01-limieten.tex` | LPD 26-30 | eerste versie, nog na te lezen |

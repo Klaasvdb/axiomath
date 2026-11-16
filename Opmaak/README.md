@@ -9,25 +9,44 @@ Alles wat alle cursussen gemeen hebben, staat hier, op één plaats. **Pas het a
 | `zo-werk-je.tex` | De pagina "Zo werk je met dit boek", voor elk boek dezelfde |
 | `maak-pdf.py` | Bouwt een cursus: figuren, oefeningen uit de bank, alle PDF's |
 | `oefeningenbank.py` | Leest `oefeningen/*.yaml` en maakt er LaTeX van. De velden van een oefening staan bovenaan dit bestand |
+| `pakketten.py` | Eén bron voor alle pakketten: houdt van een hoofdstuk alleen wat voor één pakket is (`\alleenvoor`, `\pakketnaam`) |
 
 De voorkant, de motieven, de schilderijen en het logo staan in [Ontwerp/](../Ontwerp/). De opmaak leest ze rechtstreeks.
 
-## Wat een cursus zelf heeft
+## Eén bron per cursus
+
+Een cursus staat één keer op schijf, voor alle pakketten. Elk pakket heeft een dunne map die kiest welke hoofdstukken het krijgt:
 
 ```
-Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/
-  handboek.tex           titel en lijst met hoofdstukken, meer niet
-  leerkracht.tex         twee regels: de leerkrachtenversie
-  zelfstudie.tex         twee regels: de zelfstudieversie
+Handboeken/<graad>/cursussen/<cursus>/        de bron, voor alle pakketten
   notatie.tex            eigen macro's en figuren van deze cursus
-  voorkant-gegevens.tex  gemaakt door Ontwerp/voorkanten/maak-voorkanten.py
   hoofdstukken/          de hoofdstukken (NN-naam.tex)
   oefeningen/            de oefeningenbank (NN-naam.yaml), de bron voor PDF's en website
   afbeeldingen/prenten/  kleine prenten, met hun bron in een README
-  README.md              leerplandoelen, afbakening en status
+
+Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/   per pakket
+  handboek.tex           titel en lijst met hoofdstukken, meer niet
+  leerkracht.tex         twee regels: de leerkrachtenversie
+  zelfstudie.tex         twee regels: de zelfstudieversie
+  voorkant-gegevens.tex  gemaakt door Ontwerp/voorkanten/maak-voorkanten.py
+  README.md              leerplandoelen, afbakening en status voor dit pakket
+  Feedback/              opmerkingen van nalezers
 ```
 
-`handboek.tex` van een cursus ziet er zo uit:
+Het pakket is het nummer vooraan de map van het pakket, de naam van het pakket staat er tussen haakjes. Wat maar voor sommige pakketten geldt, krijgt in de bron een voorwaarde (zie `pakketten.py`):
+
+```latex
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{31}\alleenvoor{2,3}{22}, ...}   % binnen een regel
+
+\begin{alleenvoor}{4}                                                         % een blok regels
+\subsection{Oneigenlijke integralen}
+...
+\end{alleenvoor}
+```
+
+Een oefening die niet in alle pakketten staat, krijgt in de YAML een veld `pakketten: [3, 4]`; in een ander pakket valt `\oef{id}` vanzelf weg. Twee oefeningen mogen hetzelfde `id` hebben als hun pakketten niet overlappen. Een pakket mag een hoofdstuk ook anders nummeren: Matrices van pakket 1 heeft `\hoofdstuk{2}{04-matrixmodellen}`.
+
+`handboek.tex` van een pakket ziet er zo uit:
 
 ```latex
 \ifdefined\hoofdmap\else\def\hoofdmap{../../../../}\fi
@@ -38,7 +57,7 @@ Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/
 \input{\hoofdmap Opmaak/boek}
 ```
 
-`\hoofdmap` is het pad van de map van de cursus naar de hoofdmap van de repo. Cursussen staan vijf mappen diep (`Handboeken/<graad>/<pakket>/<rubriek>/<cursus>`), Onderzoekscompetentie vier.
+`\hoofdmap` is het pad van de map van het pakket naar de hoofdmap van de repo. Cursussen staan vijf mappen diep (`Handboeken/<graad>/<pakket>/<rubriek>/<cursus>`), Onderzoekscompetentie vier. Heeft een cursus (nog) geen map in `cursussen/`, dan leest `maak-pdf.py` `hoofdstukken/`, `oefeningen/` en `notatie.tex` uit de map van het pakket zelf.
 
 ## Een PDF bouwen
 
@@ -51,15 +70,16 @@ python Opmaak/maak-pdf.py 4/Analyse/Integralen --hoofdstuk 2     snel: alleen ho
 
 De cursus is `<pakketnummer>/<rubriek>/<cursus>`, of het pad naar de map. Zonder cursus bouwt het script de map waar je staat. De PDF's verschijnen in de map van de cursus.
 
-Het script bewaart de grafieken per hoofdstuk in `figuren-cache/` en maakt ze alleen opnieuw als een figuur, `notatie.tex` of `Opmaak/opmaak.tex` verandert. In `gen/` komen kopieën van de hoofdstukken waarin de figuren vervangen zijn en de oefeningen uit de bank staan: pas de hoofdstukken dus aan in `hoofdstukken/`, nooit in `gen/`. LaTeX leest altijd `gen/`, dus draai het script ook vóór een gewone `latexmk`. Beide mappen en de PDF's staan niet in git.
+Het script bewaart de grafieken per hoofdstuk in `figuren-cache/` en maakt ze alleen opnieuw als een figuur, `notatie.tex` of `Opmaak/opmaak.tex` verandert. In `gen/` komen kopieën van de hoofdstukken zoals het pakket ze ziet, met de figuren vervangen en de oefeningen uit de bank, samen met `notatie.tex` en `afbeeldingen/`: pas de hoofdstukken dus aan in de bron, nooit in `gen/`. LaTeX leest altijd `gen/`, dus draai het script ook vóór een gewone `latexmk`. Beide mappen en de PDF's staan niet in git.
 
 ## Een nieuwe cursus beginnen
 
-1. Maak de map `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/` en kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` van een bestaande cursus. Pas de titel en de hoofdstukken aan.
-2. Schrijf de hoofdstukken in `hoofdstukken/` en de oefeningen in `oefeningen/`.
-3. Zet de cursus in `voortgang.yaml` en draai `python maak-voortgang.py`.
-4. Draai `python Ontwerp/voorkanten/maak-voorkanten.py`: dat maakt `voorkant-gegevens.tex`.
-5. Bouw de PDF's en kijk de pagina's na.
+1. Maak de bron `Handboeken/<graad>/cursussen/<cursus>/` met `notatie.tex` (kopieer die van een bestaande cursus), `hoofdstukken/` en `oefeningen/`.
+2. Maak per pakket de map `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/` en kopieer `handboek.tex`, `leerkracht.tex` en `zelfstudie.tex` van een bestaande cursus. Pas de titel en de hoofdstukken aan.
+3. Schrijf de hoofdstukken en de oefeningen in de bron. Verschilt iets per pakket: `\alleenvoor` en `pakketten:` (zie hierboven), geen kopie.
+4. Zet de cursus in `voortgang.yaml` en draai `python maak-voortgang.py`.
+5. Draai `python Ontwerp/voorkanten/maak-voorkanten.py`: dat maakt `voorkant-gegevens.tex`.
+6. Bouw de PDF's en kijk de pagina's na.
 
 Voor de inhoud en de opbouw van een hoofdstuk: zie de [ontwerpregels](../Ontwerp/ontwerpregels.md) en de skill in `.claude/skills/handboek-hoofdstuk/`.
 

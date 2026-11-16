@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoelen 48 en 49, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk; de simulatie in hoofdstuk 1 is een eigen computerrun. De voorkant (Caravaggio) komt uit `Ontwerp/voorkanten/`.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Kansrekenen/](<../../../cursussen/Kansrekenen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Kans | `hoofdstukken/01-kans.tex` | LPD 48 (Laplace, relatieve frequentie) | eerste versie, nog na te lezen |

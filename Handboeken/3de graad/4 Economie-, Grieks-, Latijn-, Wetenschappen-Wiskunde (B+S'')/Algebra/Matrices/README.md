@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde), leerplandoelen 34-37, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk. De voorkant (Mondriaan) komt uit `Ontwerp/voorkanten/`: pas ze daar aan. De herkomst van de prenten staat in `afbeeldingen/prenten/README.md`.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Matrices/](<../../../cursussen/Matrices/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Rekenen met matrices | `hoofdstukken/01-rekenen-met-matrices.tex` | LPD 34 | eerste versie, nog na te lezen |

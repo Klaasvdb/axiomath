@@ -2,6 +2,8 @@
 
 Cursus voor pakket 2 (B+S), LPD 30-34, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Statistiek/](<../../../cursussen/Statistiek/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 **Afgeleide versie.** Afgeleid van de versie voor pakket 3 (PR #22), die zelf van pakket 4 (PR #5) komt: dezelfde vier hoofdstukken; LPD-nummers omgerekend naar 30-34. Hoofdstuk 4 hoort in pakket 4 bij keuzedoel K1; of het in pakket 2 aan bod komt, is na te kijken. Aangepast: de leerplanverwijzingen in de leerkrachtennota's, de voorkant, en de Koppel-opdrachten (die naar cursussen buiten dit pakket zijn geschrapt). Nog te doen: de inhoud inkorten of aanvullen tot de doelen van dit pakket, na vergelijking met de leerplantekst; de verdeling over de afzonderlijke doelen is niet nagekeken.
 
 | Hoofdstuk | Bestand | Leerplan | Status |

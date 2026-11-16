@@ -7,6 +7,12 @@
 <cursus> is <pakketnummer>/<rubriek>/<cursus>, bijvoorbeeld 4/Analyse/Integralen, of het pad naar de map
 van de cursus. Zonder <cursus> bouwt het script de map waar je staat. De bestanden verschijnen in de map van de cursus.
 
+Eén bron per cursus: de hoofdstukken, oefeningen, notatie.tex en afbeeldingen/ staan één keer in
+Handboeken/<graad>/cursussen/<cursus>/, voor alle pakketten. De map van een pakket heeft alleen handboek.tex
+(welke hoofdstukken), de voorkant, de README en de PDF's. Het pakket is het nummer vooraan de map van het
+pakket. Dit script houdt van de bron alleen wat voor dat pakket is (zie pakketten.py) en schrijft het in gen/,
+samen met notatie.tex en afbeeldingen/. Heeft een cursus (nog) geen map in cursussen/, dan is de bron de map zelf.
+
 Twee dingen maken het sneller, zonder dat er iets aan de bronbestanden verandert.
 
 Grafieken: TikZ rekent elke kromme in LaTeX uit, en dat is traag. Daarom zet dit script de
@@ -36,11 +42,13 @@ OPMAAK = Path(__file__).resolve().parent
 HOOFD = OPMAAK.parent
 sys.path.insert(0, str(OPMAAK))  # py -P zoekt niet in de map van het script
 import oefeningenbank
+import pakketten
 
 TEXLIVE = Path(r"C:\texlive\2024\bin\windows")  # wordt aan het PATH toegevoegd als pdflatex ontbreekt
-# De map van de cursus: zet_cursus() vult dit in
-MAP = CACHE = GEN = None
+# De map van de cursus, de bron en het pakket: zet_cursus() vult dit in
+MAP = CACHE = GEN = BRON = PAKKET = NAAM = None
 HOOFDMAP = "../../../../"
+HOOFDSTUK = re.compile(r"\\hoofdstuk\{(\d+)\}\{([^}]+)\}")
 FIGUUR = re.compile(r"\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}", re.S)
 TUSSENBESTANDEN = (".aux", ".log", ".out", ".toc", ".fls", ".fdb_latexmk", ".synctex.gz")
 OPLOSSINGEN = [("numeriek", "numerieke oplossingen"), ("uitgewerkt", "uitgewerkte oplossingen")]
@@ -51,7 +59,7 @@ VOORAF = r"""\def\hoofdmap{@@HOOFDMAP@@}\documentclass[11pt,fleqn,oneside,openan
 \newcommand{\cursusauteur}{}
 \newcommand{\schooljaar}{}
 \input{\hoofdmap Opmaak/opmaak}
-\input{notatie}
+\input{gen/notatie}
 % Elke figuur op een eigen pagina, met een marge van 3bp: lijnen mogen iets buiten de figuur steken.
 \hoffset=-1in \voffset=-1in
 \newcommand{\figuurpagina}{%
@@ -84,16 +92,40 @@ def tot_stabiel(job, invoer, maximum=5):
     return maximum
 
 
+def kopieer_bron():
+    """Zet notatie.tex (voor dit pakket) en afbeeldingen/ van de bron in gen/."""
+    notatie = pakketten.kies((BRON / "notatie.tex").read_text(encoding="utf-8"), PAKKET, NAAM)
+    if not (GEN / "notatie.tex").exists() or (GEN / "notatie.tex").read_text(encoding="utf-8") != notatie:
+        (GEN / "notatie.tex").write_text(notatie, encoding="utf-8")
+    bron, doel = BRON / "afbeeldingen", GEN / "afbeeldingen"
+    gezien = set()
+    for f in bron.rglob("*") if bron.exists() else []:
+        if f.is_file():
+            kopie = doel / f.relative_to(bron)
+            gezien.add(kopie)
+            if not kopie.exists() or kopie.read_bytes() != f.read_bytes():
+                kopie.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(f, kopie)
+    for f in doel.rglob("*") if doel.exists() else []:
+        if f.is_file() and f not in gezien:
+            f.unlink()
+    return notatie
+
+
 def maak_figuren():
     """Zorgt dat elk hoofdstuk zijn figuren-PDF heeft, en schrijft de kopieën in gen/."""
     CACHE.mkdir(exist_ok=True)
     GEN.mkdir(exist_ok=True)
-    basis = hashlib.sha1((MAP / "notatie.tex").read_bytes() + (OPMAAK / "opmaak.tex").read_bytes()).digest()
-    bank = oefeningenbank.laad(MAP)
+    notatie = kopieer_bron()
+    basis = hashlib.sha1(notatie.encode("utf-8") + (OPMAAK / "opmaak.tex").read_bytes()).digest()
+    bank = oefeningenbank.laad(BRON, PAKKET)
     gebruikt = set()
-    for bron in sorted((MAP / "hoofdstukken").glob("0[1-9]-*.tex")):
-        nummer = int(bron.name[:2])
-        tekst = oefeningenbank.vul_in(bron.read_text(encoding="utf-8"), bank, gebruikt)
+    # alleen de hoofdstukken die handboek.tex van dit pakket kiest, met het nummer dat ze daar krijgen
+    # (een pakket mag een hoofdstuk anders nummeren: Matrices, pakket 1, \hoofdstuk{2}{04-matrixmodellen})
+    for nummer, naam in HOOFDSTUK.findall((MAP / "handboek.tex").read_text(encoding="utf-8")):
+        nummer, bron = int(nummer), BRON / "hoofdstukken" / f"{naam}.tex"
+        tekst = pakketten.kies(bron.read_text(encoding="utf-8"), PAKKET, NAAM)
+        tekst = oefeningenbank.vul_in(tekst, bank, gebruikt)
         figuren = FIGUUR.findall(tekst)
         code = hashlib.sha1(basis + "\0".join(figuren).encode("utf-8")).hexdigest()[:12]
         naam = f"h{nummer}-{code}"
@@ -123,7 +155,7 @@ def bouw(job, hoofd, extra=""):
 
 def zet_cursus(naam):
     """Zoekt de map van de cursus en zet de paden die ervan afhangen."""
-    global MAP, CACHE, GEN, HOOFDMAP
+    global MAP, CACHE, GEN, HOOFDMAP, BRON, PAKKET, NAAM
     pad = Path(naam) if naam else Path.cwd()
     if naam and not (pad / "handboek.tex").exists():
         naam_ = naam.replace("\\", "/")
@@ -139,6 +171,16 @@ def zet_cursus(naam):
                  "(2de graad: 2de graad/<pakketnummer>/<rubriek>/<cursus>), of het pad naar de map.")
     MAP = pad.resolve()
     CACHE, GEN = MAP / "figuren-cache", MAP / "gen"
+    BRON, PAKKET, NAAM = MAP, None, None
+    try:
+        graad, pakketmap = MAP.relative_to(HOOFD / "Handboeken").parts[:2]
+    except ValueError:  # een map buiten Handboeken/: de bron is de map zelf
+        graad = pakketmap = None
+    if pakketmap and pakketmap.split(" ")[0].isdigit():
+        PAKKET, NAAM = int(pakketmap.split(" ")[0]), pakketten.naam_van(pakketmap)
+        gedeeld = HOOFD / "Handboeken" / graad / "cursussen" / MAP.name
+        if (gedeeld / "hoofdstukken").exists():
+            BRON = gedeeld
     HOOFDMAP = os.path.relpath(HOOFD, MAP).replace("\\", "/") + "/"
 
 

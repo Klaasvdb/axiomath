@@ -4,6 +4,9 @@ Een hoofdstuk bevat alleen \\oef{id} op een eigen regel, op de plaats waar de oe
 komt. maak-pdf.py vervangt die regel door de LaTeX uit de bank. Velden van een oefening:
 
     id          vast en uniek binnen de cursus; verandert nooit, ook niet als de oefening verhuist
+    pakketten   de pakketten waarin de oefening staat, bv. [2, 3]; ontbreekt als ze in alle pakketten staat.
+                Twee oefeningen mogen hetzelfde id hebben als hun pakketten niet overlappen: zo
+                verschilt een oefening per pakket, met hetzelfde id. In een ander pakket valt \\oef{id} weg.
     soort       start, kort, opdracht, koppel of test (informatie voor de website, niet voor LaTeX)
     niveau      1, 2 of 3 (de balkjes); ontbreekt bij Start en bij de korte oefeningen
     thema       onderwerp, alleen zichtbaar in de leerkrachtenversie
@@ -24,18 +27,25 @@ from pathlib import Path
 
 import yaml
 
-OEF = re.compile(r"^\\oef\{([^}]+)\}[ ]*$", re.M)
+OEF = re.compile(r"^\\oef\{([^}]+)\}[ ]*(\n|$)", re.M)
 LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 
-def laad(cursusmap):
-    """Geeft alle oefeningen van een cursus, als {id: oefening}."""
+def laad(cursusmap, pakket=None):
+    """Geeft de oefeningen van een cursus, als {id: oefening}.
+
+    Met een pakket alleen de oefeningen van dat pakket; een oefening van een ander pakket staat er
+    met de waarde None, zodat vul_in() haar weglaat. Zonder pakket alle oefeningen: dan mag een id
+    maar één keer voorkomen.
+    """
     bank = {}
     for bestand in sorted((Path(cursusmap) / "oefeningen").glob("*.yaml")):
         for oef in yaml.safe_load(bestand.read_text(encoding="utf-8")) or []:
-            if oef["id"] in bank:
+            hier = pakket is None or "pakketten" not in oef or pakket in oef["pakketten"]
+            if bank.get(oef["id"]) is not None and hier:
                 raise ValueError(f"oefening {oef['id']} staat twee keer in de bank ({bestand.name})")
-            bank[oef["id"]] = oef
+            if hier or oef["id"] not in bank:
+                bank[oef["id"]] = oef if hier else None
     return bank
 
 
@@ -106,9 +116,11 @@ def vul_in(tekst, bank, gebruikt=None):
         code = treffer.group(1)
         if code not in bank:
             raise KeyError(f"\\oef{{{code}}}: deze oefening staat niet in de bank")
+        if bank[code] is None:  # een oefening van een ander pakket: de hele regel valt weg
+            return ""
         if code in gebruikt:
             raise ValueError(f"\\oef{{{code}}} staat twee keer in het boek")
         gebruikt.add(code)
-        return latex(bank[code])
+        return latex(bank[code]) + treffer.group(2)
 
     return OEF.sub(vervang, tekst)

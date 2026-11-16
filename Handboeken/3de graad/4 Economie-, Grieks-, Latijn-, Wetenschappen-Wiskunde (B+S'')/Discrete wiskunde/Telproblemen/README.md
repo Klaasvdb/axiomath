@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoel 47, met het binomium van Newton en de driehoek van Pascal uit de leerplantabel, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk. De voorkant (Bruegel) komt uit `Ontwerp/voorkanten/`.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Telproblemen/](<../../../cursussen/Telproblemen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Tellen | `hoofdstukken/01-tellen.tex` | LPD 47 (met volgorde) | eerste versie, nog na te lezen |

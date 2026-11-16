@@ -1,0 +1,766 @@
+%----------------------------------------------------------------------------------------
+% DE BEPAALDE INTEGRAAL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{De bepaalde integraal}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{31,}\alleenvoor{3}{23,}\alleenvoor{2}{22,} de bepaalde integraal als limiet van een som en als georiënteerde oppervlakte. In dit hoofdstuk bestaan nog geen primitieven: leerlingen rekenen met rechthoeken, met de formules voor driehoek, trapezium en cirkel, en met de limiet van een som. Dat is bewust: zo blijft de betekenis staan voor de rekenregel uit hoofdstuk 2 alle aandacht opeist. De somformule voor kwadraten is hier gereedschap, ze wordt niet bewezen (zie Rijen, hoofdstuk 3, Koppel). Volgens de README van het pakket komt Rijen na Analyse 3: kijk na wat er al gezien is.}
+
+Uit een constante snelheid haal je meteen een afstand: snelheid maal tijd. Maar een auto rijdt zelden constant. Hoe ver rijdt hij dan? Op een grafiek van de snelheid wordt dat dezelfde vraag als: hoe groot is de oppervlakte onder de grafiek? En voor een gebied onder een kromme ken je geen formule.
+
+In dit hoofdstuk pakken we dat aan met iets wat je al kunt: rechthoeken optellen. We snijden het gebied in smalle stroken, tellen ze op en kijken wat er gebeurt als de stroken steeds smaller worden. Zo komen we bij de bepaalde integraal. Het rekenwerk is hier nog omslachtig; in hoofdstuk 2 komt een veel snellere manier. Eerst moet je goed zien wat een integraal is.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. Het belangrijkste inzicht zit in vraag d: een product van snelheid en tijd is een oppervlakte. Vraag wat er gebeurt met de twee schattingen als de stukjes nog kleiner worden.}
+
+%========================================================================================
+\section{Van som naar oppervlakte}
+
+\subsection{Ondersom en bovensom}
+
+\naast[4.6cm]{Bekijk een functie $f$ die op $[a, b]$ positief is. We zoeken de oppervlakte $A$ van het gebied tussen de grafiek, de horizontale as en de verticale rechten $x = a$ en $x = b$.
+
+Voor zo'n gebied bestaat geen formule, voor een rechthoek wel. Daarom verdelen we het interval in stukken die even breed zijn, en zetten we op elk stuk een rechthoek. Kies je de kleinste functiewaarde als hoogte, dan blijft de rechthoek onder de grafiek en krijg je te weinig. Kies je de grootste, dan steekt ze erboven uit en krijg je te veel. De echte oppervlakte zit daartussen.
+
+De figuur toont dat voor een algemene functie, die op $[a, b]$ eerst stijgt en dan daalt. Elk stuk heeft een donkere rechthoek met de kleinste functiewaarde en een lichtere met de grootste. De kleinste waarde ligt dus niet altijd links: dat hangt ervan af of de functie op dat stuk stijgt of daalt.}{\begin{tikzpicture}[x=1.25cm,y=1.05cm,font=\scriptsize]
+  \foreach \l/\h in {.5/2.300,1/2.294,1.5/1.990,2/1.421,2.5/.974,3/1.371}{\draw[accent,fill=accent!16] (\l,0) rectangle ++(.5,\h);}
+  \foreach \l/\h in {.5/2.126,1/1.990,1.5/1.421,2/.974,2.5/.900,3/.952}{\draw[accent,fill=accent!48] (\l,0) rectangle ++(.5,\h);}
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+\end{tikzpicture}}
+
+
+\begin{theorie}
+Verdeel $[a, b]$ in $n$ delen met dezelfde breedte $\formule{\Delta x = \dfrac{b - a}{n}}$. Neem op elk deel een rechthoek.
+
+\vspace{1mm}
+\textbf{\textcolor{accent}{Ondersom}} $O_n$: de hoogte is telkens de kleinste functiewaarde op dat deel.
+
+\textbf{\textcolor{accent}{Bovensom}} $B_n$: de hoogte is telkens de grootste functiewaarde op dat deel.
+
+\begin{stelling}{Oppervlakte insluiten}
+Is $f(x) \geqslant 0$ op $[a, b]$ en is $A$ de oppervlakte onder de grafiek, dan geldt \quad $\formule{O_n \leqslant A \leqslant B_n}$
+\end{stelling}
+\end{theorie}
+
+Bij dezelfde functie zie je de ongelijkheid meteen: de rechthoeken van de ondersom passen in het gebied, en het gebied past in de rechthoeken van de bovensom.
+
+\figuren{\begin{tikzpicture}[x=1cm,y=.8cm,font=\scriptsize]
+  \foreach \l/\h in {.5/2.126,1/1.990,1.5/1.421,2/.974,2.5/.900,3/.952}{\draw[accent,fill=accent!30] (\l,0) rectangle ++(.5,\h);}
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+  \node[text=accent,font=\small\bfseries] at (2.6,2.3) {$O_n$};
+\end{tikzpicture}\ \raisebox{9mm}{$\leqslant$}\
+\begin{tikzpicture}[x=1cm,y=.8cm,font=\scriptsize]
+  \gebied{.5}{3.5}{1.6+.7*sin(1.7*\x r)}
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+  \node[text=accent,font=\small\bfseries] at (2.6,2.3) {$A$};
+\end{tikzpicture}\ \raisebox{9mm}{$\leqslant$}\
+\begin{tikzpicture}[x=1cm,y=.8cm,font=\scriptsize]
+  \foreach \l/\h in {.5/2.300,1/2.294,1.5/1.990,2/1.421,2.5/.974,3/1.371}{\draw[accent,fill=accent!30] (\l,0) rectangle ++(.5,\h);}
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+  \node[text=accent,font=\small\bfseries] at (2.6,2.3) {$B_n$};
+\end{tikzpicture}}
+
+Laten we dat nu uitrekenen voor een concrete functie.
+
+\voorbeeld{}{Bereken $O_4$ en $B_4$ voor $f(x) = x^2$ op $[0, 2]$.\label{vb:h1-oboven}}{%
+\uitleg{We kunnen de oppervlakte niet rechtstreeks berekenen, dus sluiten we ze in tussen twee sommen van rechthoeken. Eerst bepalen we hoe breed de rechthoeken zijn, daarna welke hoogte elke rechthoek krijgt.}
+\begin{stappen}
+\Delta x = \dfrac{2 - 0}{4} = \dfrac12 & Elk deel is $\tfrac12$ breed, dus de deelpunten zijn $0,\ \tfrac12,\ 1,\ \tfrac32,\ 2$. De functie stijgt op $[0, 2]$: dat bepaalt waar de kleinste en de grootste waarde liggen. \\[1.5ex]
+O_4 = \tfrac12\bigl(0 + \tfrac14 + 1 + \tfrac94\bigr) = \tfrac74 & Omdat $f$ stijgt, is de waarde links de kleinste van elk deel. We tellen de vier hoogtes op en vermenigvuldigen met de breedte. \\[1ex]
+B_4 = \tfrac12\bigl(\tfrac14 + 1 + \tfrac94 + 4\bigr) = \tfrac{15}{4} & Nu de waarde rechts, de grootste van elk deel. Drie hoogtes zijn dezelfde: alleen 0 valt weg en 4 komt erbij.
+\end{stappen}
+
+\vspace{1mm}
+\begin{tikzpicture}[x=1.7cm,y=.48cm,font=\scriptsize]
+  \riemann{4}{0}{2}{(\x)^2}{0}
+  \assen{-.1}{2.35}{-.2}{4.8}
+  \kromme{0}{2.1}{(\x)^2}
+  \foreach \t/\l in {.5/{0,5},1/1,1.5/{1,5},2/2} \node[below] at (\t,0) {\l};
+  \node[text=accent,font=\small\bfseries] at (1,4) {$O_4 = 1{,}75$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=1.7cm,y=.48cm,font=\scriptsize]
+  \riemann{4}{0}{2}{(\x)^2}{1}
+  \assen{-.1}{2.35}{-.2}{4.8}
+  \kromme{0}{2.1}{(\x)^2}
+  \foreach \t/\l in {.5/{0,5},1/1,1.5/{1,5},2/2} \node[below] at (\t,0) {\l};
+  \node[text=accent,font=\small\bfseries] at (.75,4) {$B_4 = 3{,}75$};
+\end{tikzpicture}}
+
+De echte oppervlakte ligt dus ergens tussen 1,75 en 3,75. Dat is nog ruim, maar het is een begin: we weten nu hoe we de oppervlakte kunnen insluiten.
+
+\begin{werkwijze}
+Bereken $\Delta x$ en de deelpunten. Stijgt $f$, dan zit de kleinste waarde links en de grootste rechts in elk deel. Daalt $f$, dan is het omgekeerd. Tel de functiewaarden op en vermenigvuldig met $\Delta x$.
+\end{werkwijze}
+
+\nujij{Bereken $O_4$ en $B_4$ voor $f(x) = x + 1$ op $[0, 4]$.}{$\Delta x = 1$, $O_4 = 1+2+3+4 = 10$ en $B_4 = 2+3+4+5 = 14$. De echte oppervlakte (een trapezium) is 12.}
+
+\begin{oefeningen}
+\oef{h1-oboven}
+\end{oefeningen}
+
+\subsection{De limiet van de som}
+
+Verdeel je het interval fijner, dan passen de rechthoeken beter bij de grafiek. De figuur toont de bovensom van $f(x) = x^2$ op $[0, 2]$ met 4, 8 en 16 rechthoeken. De stukjes die boven de grafiek uitsteken, worden steeds kleiner.
+
+\figuren{\begin{tikzpicture}[x=1.15cm,y=.42cm,font=\scriptsize]
+  \riemann{4}{0}{2}{(\x)^2}{1}
+  \assen{-.1}{2.25}{-.2}{4.5}
+  \kromme{0}{2}{(\x)^2}
+  \node[above,text=accent] at (.8,3.2) {$n = 4$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=1.15cm,y=.42cm,font=\scriptsize]
+  \riemann{8}{0}{2}{(\x)^2}{1}
+  \assen{-.1}{2.25}{-.2}{4.5}
+  \kromme{0}{2}{(\x)^2}
+  \node[above,text=accent] at (.8,3.2) {$n = 8$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=1.15cm,y=.42cm,font=\scriptsize]
+  \riemann{16}{0}{2}{(\x)^2}{1}
+  \assen{-.1}{2.25}{-.2}{4.5}
+  \kromme{0}{2}{(\x)^2}
+  \node[above,text=accent] at (.8,3.2) {$n = 16$};
+\end{tikzpicture}}
+
+Ook de cijfers tonen dat. Ondersom en bovensom naderen elkaar van twee kanten, en lijken naar hetzelfde getal te gaan.
+
+\figuren{\begin{tabular}{@{}l*{4}{>{\centering\arraybackslash}p{13mm}}@{}}
+\toprule
+$n$ & 4 & 8 & 16 & 100 \\
+\midrule
+$O_n$ & 1,75 & 2,19 & 2,42 & 2,63 \\
+$B_n$ & 3,75 & 3,19 & 2,92 & 2,71 \\
+\bottomrule
+\end{tabular}}
+
+Dat kunnen we ook algebraïsch tonen. Omdat $f$ stijgt, staan in $O_n$ en $B_n$ bijna dezelfde hoogtes: alleen de eerste hoogte $f(0)$ valt weg en de laatste $f(2)$ komt erbij. Dus
+\[ B_n - O_n = \bigl(f(2) - f(0)\bigr)\,\Delta x = 4 \cdot \frac{2}{n} = \frac{8}{n} , \]
+en dat gaat naar 0 voor $n \to +\infty$. Uit $O_n \leqslant A \leqslant B_n$ volgt bovendien
+\[ 0 \leqslant A - O_n \leqslant B_n - O_n \qquad\text{en}\qquad 0 \leqslant B_n - A \leqslant B_n - O_n . \]
+Volgens de insluitstelling gaan $A - O_n$ en $B_n - A$ dus allebei naar 0. Ondersom en bovensom hebben dezelfde limiet, en die limiet is precies de oppervlakte $A$.
+
+Welk getal is dat? Om dat te weten, moeten we de som opschrijven met $n$ als letter en de limiet nemen voor $n \to +\infty$. We doen dat één keer helemaal, voor een iets groter interval.
+
+\voorbeeld{}{Bereken de limiet van de bovensom van $f(x) = x^2$ op $[0, 3]$.\label{vb:h1-limiet}}{%
+\uitleg{Nu houden we het aantal rechthoeken open: we schrijven $n$ en rekenen alsof het een gewoon getal is. De figuur toont de bovensom met $n = 6$. Elke rechthoek is $\Delta x$ breed, en de $k$-de is $f(x_k)$ hoog. Pas op het einde laten we $n$ groeien.}
+\figuren{\begin{tikzpicture}[x=1.7cm,y=.34cm,font=\scriptsize]
+  \riemann{6}{0}{3}{(\x)^2}{1}
+  \draw[accent,fill=accent!50] (2,0) rectangle (2.5,6.25);
+  \assen{-.1}{3.4}{-.3}{10}
+  \kromme{0}{3.1}{(\x)^2}
+  \foreach \t in {1,2,3} \node[below] at (\t,0) {\t};
+  \node[left] at (2,5.6) {$f(x_k)$};
+  \node[below,text=accent] at (2.5,0) {$x_k$};
+  \draw[decorate,decoration={brace,mirror,amplitude=2pt},grijs] (0,-.2) -- (.5,-.2) node[midway,below=1pt,text=black] {$\Delta x$};
+\end{tikzpicture}}
+\begin{stappen}
+\Delta x = \dfrac{3}{n}, \qquad x_k = \dfrac{3k}{n} & De functie stijgt, dus de bovensom neemt de waarde rechts in elk deel. Dat rechterpunt van deel $k$ is $k$ keer de breedte. \\[2ex]
+B_n = \sum_{k=1}^{n} \Bigl(\dfrac{3k}{n}\Bigr)^{\!2} \cdot \dfrac{3}{n} = \dfrac{27}{n^3}\sum_{k=1}^{n} k^2 & Elke term is hoogte maal breedte. In de som verandert alleen $k$, dus 27 en $n$ mogen voor het somteken. \\[3ex]
+B_n = \dfrac{27}{n^3} \cdot \dfrac{n(n+1)(2n+1)}{6} & Nu hebben we de somformule voor kwadraten nodig: $\sum_{k=1}^{n} k^2 = \tfrac{n(n+1)(2n+1)}{6}$. Daarmee is het somteken weg. \\[2.5ex]
+\phantom{B_n} = \dfrac{9(n+1)(2n+1)}{2n^2} & Vereenvoudig met $3n$: er blijft één breuk over, met enkel nog $n$. \\[2.5ex]
+\lim_{n \to +\infty} B_n = \dfrac{9 \cdot 2}{2} = 9 & Teller en noemer zijn allebei van de tweede graad, dus de hoogste machten bepalen de limiet: $\tfrac{9 \cdot 2n^2}{2n^2}$.
+\end{stappen}}
+
+De bovensom gaat dus naar 9. Om zeker te zijn dat dit de oppervlakte is, hebben we ook de ondersom nodig: pas als die naar hetzelfde getal gaat, zit de oppervlakte ertussen vast.
+
+\voorbeeld{}{Bereken de limiet van de ondersom van $f(x) = x^2$ op $[0, 3]$, en besluit wat de oppervlakte is.\label{vb:h1-limiet2}}{%
+\uitleg{De aanpak is dezelfde, maar elke rechthoek krijgt nu als hoogte de waarde links in het deel.}
+\begin{stappen}
+O_n = \sum_{k=1}^{n} \Bigl(\dfrac{3(k-1)}{n}\Bigr)^{\!2} \cdot \dfrac{3}{n} = \dfrac{27}{n^3}\sum_{k=1}^{n-1} k^2 & De waarde links in elk deel is die in het deelpunt ervoor. De term met $k = 1$ is 0, dus de som loopt in feite maar tot $n - 1$. \\[3ex]
+\phantom{O_n} = \dfrac{9(n-1)(2n-1)}{2n^2} & Vul $n - 1$ in de plaats van $n$ in de somformule in, en vereenvoudig. \\[2.5ex]
+\lim_{n \to +\infty} O_n = \dfrac{9 \cdot 2}{2} = 9 & Weer dezelfde hoogste machten, en dus dezelfde limiet. \\[1.5ex]
+A = 9 & Omdat $O_n \leqslant A \leqslant B_n$ en beide sommen naar 9 gaan, zit $A$ volgens de insluitstelling vast op 9.
+\end{stappen}}
+
+Merk op wat er gebeurt: de letter $n$ verdwijnt, en er blijft een exact getal over. Het gebied heeft een kromme rand, en toch is de oppervlakte precies 9.
+
+Bij een rechte lijn, zoals in de oefening hieronder, staan in de som geen kwadraten maar de getallen $k$ zelf. Dan heb je deze somformule nodig:
+\[ \sum_{k=1}^{n} k = \frac{n(n+1)}{2} . \]
+
+\begin{werkwijze}
+Schrijf het $k$-de deelpunt als $x_k = a + k \cdot \Delta x$. Stel de som op met $n$ als letter, haal alles wat niet van $k$ afhangt voor het somteken, gebruik de somformule en neem de limiet voor $n \to +\infty$.
+\end{werkwijze}
+
+\nujij{Bereken zo de oppervlakte onder $f(x) = x$ op $[0, 6]$.}{$B_n = \tfrac{36}{n^2}\sum k = \tfrac{18(n+1)}{n}$, met limiet 18. Dat is ook de driehoek: $\tfrac12 \cdot 6 \cdot 6$.}
+
+\begin{oefeningen}
+\oef{h1-limiet}
+\end{oefeningen}
+
+\subsection{Riemannsommen}
+
+Je hoeft de hoogte van de rechthoeken niet per se als grootste of kleinste waarde te nemen: elke waarde in het deel is goed. Dat geeft een Riemannsom.
+
+\begin{theorie}
+\begin{minipage}[t]{.60\linewidth}
+Een \textbf{\textcolor{accent}{Riemannsom}} van $f$ op $[a, b]$ is een som
+
+\vspace{1mm}
+\qquad $\formule{\sum_{k=1}^{n} f(c_k)\,\Delta x}$
+
+\vspace{1mm}
+met $\Delta x = \dfrac{b-a}{n}$ en $c_k$ een willekeurig punt in het $k$-de deel.
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{-1mm}
+\begin{tikzpicture}[x=.9cm,y=.75cm,font=\scriptsize]
+  \riemann{6}{.5}{3.5}{1+.8*sin((\x-.5)*60)+.2*\x}{.5}
+  \assen{-.1}{3.9}{-.15}{3.2}
+  \kromme{.3}{3.7}{1+.8*sin((\x-.5)*60)+.2*\x}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+  \draw[decorate,decoration={brace,mirror,amplitude=2pt},grijs] (1,-.05) -- (1.5,-.05) node[midway,below=1pt,text=black] {$\Delta x$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\voorbeeld{}{Bereken de Riemannsom van $f(x) = x^2$ op $[0, 2]$ met $n = 4$, met $c_k$ telkens het midden van elk deel.\label{vb:h1-riemann}}{%
+\uitleg{Nu kiezen we de hoogte niet links of rechts, maar in het midden. Dan steekt een deel van elke rechthoek boven de grafiek uit, en blijft er een ander deel onder. Die fouten heffen elkaar grotendeels op.}
+\naast{\begin{stappenvrij}{5.7cm}{4.7cm}
+\Delta x = \dfrac12, \quad c_k = \tfrac14,\ \tfrac34,\ \tfrac54,\ \tfrac74 & Hetzelfde $\Delta x$ als in voorbeeld 1, maar andere punten: de middens van de vier delen. \\[2ex]
+\tfrac12\Bigl(\tfrac{1}{16} + \tfrac{9}{16} + \tfrac{25}{16} + \tfrac{49}{16}\Bigr) = \tfrac{21}{8} & Tel de kwadraten op en vermenigvuldig met de breedte. Dat is $2{,}625$: veel dichter bij de oppervlakte dan $O_4$ of $B_4$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.15cm,y=.42cm,font=\scriptsize]
+  \riemann{4}{0}{2}{(\x)^2}{.5}
+  \assen{-.1}{2.25}{-.2}{4.5}
+  \kromme{0}{2.05}{(\x)^2}
+\end{tikzpicture}}}
+
+\subsection{De bepaalde integraal}
+
+Voor een continue functie hebben alle Riemannsommen dezelfde limiet, welke punten $c_k$ je ook kiest; dat aanvaarden we zonder bewijs. Die limiet krijgt een eigen naam en een eigen teken.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{bepaalde integraal}} van een continue functie $f$ van $a$ tot $b$ is de limiet van haar Riemannsommen:
+
+\vspace{1mm}
+\qquad $\formule{\int_a^b f(x)\dx = \lim_{n \to +\infty} \sum_{k=1}^{n} f(c_k)\,\Delta x}$
+
+\vspace{1mm}
+$a$ is de ondergrens, $b$ de bovengrens, $f$ de integrand.
+\end{theorie}
+
+Je leest $\int_a^b f(x)\dx$ als \textit{de integraal van $a$ tot $b$ van $f(x)\,\mathrm{d}x$}. Het teken $\int$ is een uitgerekte S, van som, en $\mathrm{d}x$ herinnert aan de breedte $\Delta x$: de notatie vertelt dus nog hoe de integraal ontstaan is. De letter $x$ doet er niet toe, want $\int_a^b f(x)\dx = \int_a^b f(t)\dt$.
+
+Je kunt de definitie ook omgekeerd lezen. Staat er een limiet van een som met een factor $\tfrac1n$, dan zit er misschien een integraal in verstopt.
+
+\voorbeeld{}{Schrijf $\displaystyle\lim_{n \to +\infty} \sum_{k=1}^{n} \Bigl(2 + \dfrac{k}{n}\Bigr)^{\!3} \cdot \dfrac{1}{n}$ als een bepaalde integraal.\label{vb:h1-herken}}{%
+\uitleg{We lezen de definitie achterstevoren: we zoeken in de som eerst de breedte $\Delta x$ en het punt $x_k$, en daarna de functie.}
+\begin{stappen}
+\Delta x = \dfrac1n & De factor die niet van $k$ afhangt, is de breedte van een stuk. Er zijn $n$ stukken, dus het interval is $n \cdot \tfrac1n = 1$ lang. \\[1.5ex]
+x_k = 2 + \dfrac{k}{n} & Wat tussen de haakjes staat, is het punt $x_k$. Voor $k = 0$ is dat 2, voor $k = n$ is dat 3. Het interval is dus $[2, 3]$. \\[2ex]
+\ig_2^3 x^3 \dx & Wat er met $x_k$ gebeurt, is het voorschrift van de functie: hier de derde macht.
+\end{stappen}}
+
+\nujij{Schrijf $\displaystyle\lim_{n \to +\infty} \sum_{k=1}^{n} \sqrt{\dfrac{3k}{n}} \cdot \dfrac{3}{n}$ als een bepaalde integraal.}{$\Delta x = \tfrac3n$ en $x_k = \tfrac{3k}{n}$, dus $\int_0^3 \sqrt{x}\dx$.}
+
+\begin{oefeningen}
+\oef{h1-herken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Georiënteerde oppervlakte}
+
+Tot nu toe lag de grafiek boven de as, maar niets in de definitie verplicht dat. Als $f$ negatief is, dan is ook $f(c_k)\,\Delta x$ negatief, en dan telt die rechthoek in de som negatief mee. De integraal is dus geen gewone oppervlakte meer: stukken boven en onder de as kunnen elkaar opheffen.
+
+\begin{theorie}
+\begin{stelling}{Georiënteerde oppervlakte}
+\begin{minipage}[t]{.54\linewidth}
+\vspace{0pt}
+De bepaalde integraal telt oppervlakte boven de horizontale as positief, en oppervlakte eronder negatief:
+
+\vspace{1.5mm}
+\qquad $\formule{\int_a^b f(x)\dx = A_1 - A_2 + A_3}$
+
+\vspace{1.5mm}
+De \emph{werkelijke} oppervlakte is $A_1 + A_2 + A_3$.
+\end{minipage}\hfill
+\begin{minipage}[t]{.42\linewidth}
+\vspace{0pt}
+\begin{tikzpicture}[x=1.05cm,y=.9cm,font=\scriptsize]
+  \gebied{0}{2}{.25*\x*(\x-2)*(\x-4)}
+  \gebied[accent!15]{2}{4}{.25*\x*(\x-2)*(\x-4)}
+  \gebied{4}{4.6}{.25*\x*(\x-2)*(\x-4)}
+  \assen{-.15}{5}{-1}{2}
+  \kromme{0}{4.62}{.25*\x*(\x-2)*(\x-4)}
+  \node at (1,.3) {$A_1$};
+  \node at (3,-.3) {$A_2$};
+  \node at (4.42,.25) {$A_3$};
+  \node[below left] at (0,0) {$a$};
+  \node[below] at (4.6,0) {$b$};
+\end{tikzpicture}
+\end{minipage}
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\displaystyle\int_{-1}^{3} (x - 1)\dx$ en de werkelijke oppervlakte tussen de grafiek en de horizontale as op dat interval.\label{vb:h1-georienteerd}}{%
+\uitleg{De grafiek is een rechte die de as snijdt in $x = 1$. Daar wisselt het teken, dus daar splitsen we. Beide stukken zijn driehoeken.}
+\begin{minipage}[t]{.68\linewidth}
+\begin{tabular}{@{}>{$\displaystyle}l<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.8cm}@{}}
+-\tfrac12 \cdot 2 \cdot 2 = -2 & Van $-1$ tot 1: basis en hoogte zijn 2, en het minteken komt omdat dit stuk onder de as ligt. \\[1ex]
+\tfrac12 \cdot 2 \cdot 2 = 2 & Van 1 tot 3: dezelfde driehoek, maar boven de as. \\[1ex]
+\ig_{-1}^{3} (x-1)\dx = -2 + 2 = 0 & De integraal telt de stukken met hun teken, en die heffen elkaar op. \\[1.5ex]
+A = 2 + 2 = 4 & De werkelijke oppervlakte telt beide stukken positief.
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{.28\linewidth}
+\vspace{-2mm}
+\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
+  \gebied[accent!15]{-1}{1}{\x-1}
+  \gebied{1}{3}{\x-1}
+  \assen{-1.4}{3.5}{-2.3}{2.4}
+  \kromme{-1.2}{3.2}{\x-1}
+  \node[below] at (3,0) {3};
+  \node[above] at (-1,0) {$-1$};
+  \node[above] at (1,0) {1};
+\end{tikzpicture}
+\end{minipage}}
+
+Een integraal van 0 betekent dus niet dat er geen oppervlakte is. Let ook op de vraag: \textit{bereken de integraal} is iets anders dan \textit{bereken de oppervlakte}.
+
+\begin{werkwijze}
+Teken de grafiek. Splits het gebied waar de functie van teken wisselt. Bereken elk deel met een formule uit de meetkunde, en zet een minteken voor de delen onder de as.
+\end{werkwijze}
+
+\nujij{Bereken $\displaystyle\int_{-2}^{4} (x + 1)\dx$ en de werkelijke oppervlakte.}{De driehoek van $-2$ tot $-1$ telt voor $-\tfrac12$, die van $-1$ tot 4 voor $\tfrac{25}{2}$. De integraal is 12, de oppervlakte 13.}
+
+Niet alleen rechte lijnen lenen zich hiertoe. De functie $y = \sqrt{r^2 - x^2}$ is de bovenste helft van de cirkel $x^2 + y^2 = r^2$. Herken je die vorm, dan reken je met de oppervlakte van een cirkel.
+
+\voorbeeld{}{Bereken $\ig_{-2}^{2} \sqrt{4 - x^2}\dx$ en $\ig_{0}^{2} -\sqrt{4 - x^2}\dx$.\label{vb:h1-cirkel}}{%
+\uitleg{Geen rechte lijn dit keer, maar we herkennen de vorm $\sqrt{r^2 - x^2}$ met $r = 2$. De grenzen zeggen welk stuk van de cirkel we nodig hebben, en het teken zegt of het boven of onder de as ligt.}
+\naast[3.7cm]{\begin{stappenvrij}{6.1cm}{4.5cm}
+\ig_{-2}^{2} \sqrt{4 - x^2}\dx = \tfrac12 \cdot \pi \cdot 2^2 = 2\pi & Een halve cirkel met straal 2, boven de as. \\[2.5ex]
+\ig_{0}^{2} -\sqrt{4 - x^2}\dx = -\tfrac14 \cdot \pi \cdot 2^2 = -\pi & Een kwart van die cirkel, onder de as, dus negatief.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.62cm,y=.62cm,font=\scriptsize]
+  \fill[accent!30] (-2,0) arc (180:0:2) -- cycle;
+  \fill[accent!15] (0,0) -- (2,0) arc (0:-90:2) -- cycle;
+  \rooster{-2}{1}{2}{-2}{1}{2}
+  \draw[accent,thick] (-2,0) arc (180:0:2);
+  \draw[accent,thick] (2,0) arc (0:-90:2);
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-georienteerd}
+\end{oefeningen}
+
+\subsection{Wat betekent een georiënteerde oppervlakte?}
+
+Een oppervlakte die negatief telt: wat moet je je daarbij voorstellen? In een toepassing is het antwoord vaak eenvoudig. Op een snelheidsgrafiek betekent een stuk onder de as dat je achteruit gaat, dus die meters tellen terecht negatief. De integraal geeft dan de \emph{verplaatsing}, en de werkelijke oppervlakte de \emph{afgelegde weg}.
+
+Welke grootheid je berekent, lees je af uit de eenheden: de eenheid van een integraal is de eenheid op de verticale as maal de eenheid op de horizontale as. Snelheid in m/s maal tijd in s geeft meter.
+
+\voorbeeld{}{Welke eenheid krijgt de integraal, en wat betekent ze?\label{vb:h1-eenheden}}{%
+\uitleg{Telkens is het de eenheid op de verticale as maal die op de horizontale as.}
+Een kracht in newton over een afstand in meter geeft $\text{N} \cdot \text{m} = $ joule: de arbeid. Een debiet in liter per minuut over een tijd in minuten geeft liter: de hoeveelheid. Een vermogen in kilowatt over een tijd in uur geeft kilowattuur: de energie.}
+
+\voorbeeld{}{De figuur toont de snelheid van een robotkarretje op een rechte baan (in m/s, $t$ in seconden). Bereken de verplaatsing en de afgelegde weg.\label{vb:h1-snelheid}}{%
+\uitleg{De oppervlakte onder een snelheidsgrafiek is een afstand. Boven de as rijdt het karretje vooruit, onder de as achteruit. We splitsen dus in twee stukken, en zetten ze daarna op twee manieren samen.}
+\begin{minipage}[t]{.46\linewidth}
+\vspace{0pt}
+\begin{tikzpicture}[x=.62cm,y=.45cm,font=\scriptsize]
+  \fill[accent!30] (0,0) -- (2,4) -- (5,4) -- (7,0) -- cycle;
+  \fill[accent!15] (7,0) -- (9,-2) -- (9,0) -- cycle;
+  \draw[->,lijngrijs] (-.2,0) -- (9.6,0) node[right,text=black] {$t$};
+  \draw[->,lijngrijs] (0,-2.6) -- (0,4.9) node[above,text=black] {$v$};
+  \draw[accent,thick] (0,0) -- (2,4) -- (5,4) -- (7,0) -- (9,-2);
+  \foreach \t in {2,5,7,9} \node[above=1pt,fill=white,inner sep=.5pt] at (\t,0) {\t};
+  \node[left] at (0,4) {4};
+  \node[left] at (0,-2) {$-2$};
+  \draw[lijngrijs,dashed] (0,4) -- (2,4) (0,-2) -- (9,-2);
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{.5\linewidth}
+\vspace{0pt}
+\begin{tabular}{@{}>{$}l<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{3.5cm}@{}}
+\dfrac{3 + 7}{2} \cdot 4 = 20 & Boven de as: een trapezium. \\[2ex]
+\tfrac12 \cdot 2 \cdot 2 = 2 & Eronder: een driehoek. \\[1.5ex]
+20 - 2 = 18 \text{ m} & Verplaatsing: achteruit telt negatief. \\[1ex]
+20 + 2 = 22 \text{ m} & Afgelegde weg: elke meter telt.
+\end{tabular}
+\end{minipage}}
+
+\nujij{Een lift heeft snelheid $v(t) = 4 - t$ (in m/s) op $[0, 6]$. Bereken de verplaatsing en de afgelegde weg.}{Boven de as: $\tfrac12 \cdot 4 \cdot 4 = 8$. Eronder: $\tfrac12 \cdot 2 \cdot 2 = 2$. Verplaatsing 6 m, afgelegde weg 10 m.}
+
+\begin{oefeningen}
+\oef{h1-snelheid}
+\end{oefeningen}
+
+%========================================================================================
+\needspace{22\baselineskip}
+\section{Rekenregels}
+
+\subsection{Grenzen, som en veelvoud}
+
+Veel rekenregels zie je meteen op een grafiek. Leg twee gebieden naast elkaar, dan tellen hun oppervlaktes op: dat is de optelbaarheid (figuur links). Ligt de ene grafiek boven de andere, dan is ook de integraal groter: dat is de regel om te vergelijken (figuur rechts). En verdubbel je een functie, dan verdubbelt elke hoogte, en dus ook de oppervlakte.
+
+\figuren{\begin{tikzpicture}[x=1.1cm,y=.75cm,font=\scriptsize]
+  \gebied{.4}{1.8}{1.3+.5*sin(\x*80)}
+  \gebied[accent!14]{1.8}{3.4}{1.3+.5*sin(\x*80)}
+  \assen{-.1}{3.8}{-.1}{2.3}
+  \kromme{.2}{3.6}{1.3+.5*sin(\x*80)}
+  \node[below] at (.4,0) {$a$};
+  \node[below] at (1.8,0) {$b$};
+  \node[below] at (3.4,0) {$c$};
+  \node at (1.1,.8) {$\int_a^b$};
+  \node at (2.6,.45) {$\int_b^c$};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[x=1.1cm,y=.75cm,font=\scriptsize]
+  \gebiedtussen[accent!14]{.4}{3.4}{1.7+.35*sin(\x*90)}{.8+.3*sin(\x*120)}
+  \gebied{.4}{3.4}{.8+.3*sin(\x*120)}
+  \assen{-.1}{3.8}{-.1}{2.5}
+  \kromme{.2}{3.6}{1.7+.35*sin(\x*90)}
+  \kromme{.2}{3.6}{.8+.3*sin(\x*120)}
+  \node[below] at (.4,0) {$a$};
+  \node[below] at (3.4,0) {$b$};
+  \node[above] at (2,2) {$g$};
+  \node[above] at (2.6,.9) {$f$};
+\end{tikzpicture}}
+
+Bij het omwisselen van de grenzen is er geen figuur die helpt: dat is een afspraak. We kiezen die zo dat de optelbaarheid ook geldt als $b$ niet tussen $a$ en $c$ ligt.
+
+
+\begin{theorie}
+\begin{stelling}{Rekenregels}
+Voor continue functies $f$ en $g$:
+
+\vspace{1mm}
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{2.6}%
+\begin{tabular}{|>{\centering\arraybackslash}m{2.8cm}|>{\centering\arraybackslash$}m{10.2cm}<{$}|}
+\hline
+Gelijke grenzen & \formule{\int_a^a f(x)\dx = 0} \\ \hline
+Grenzen wisselen & \formule{\int_b^a f(x)\dx = -\int_a^b f(x)\dx} \\ \hline
+Optelbaarheid & \formule{\int_a^b f(x)\dx + \int_b^c f(x)\dx = \int_a^c f(x)\dx} \\ \hline
+Lineariteit & \formule{\int_a^b \bigl(r f(x) + s g(x)\bigr)\dx = r\int_a^b f(x)\dx + s\int_a^b g(x)\dx} \\ \hline
+Vergelijken, als $a \leqslant b$ en $f(x) \leqslant g(x)$ op $[a, b]$ & \formule{\int_a^b f(x)\dx \leqslant \int_a^b g(x)\dx} \\ \hline
+\end{tabular}\par}
+\end{stelling}
+
+\begin{bewijs}
+De eerste twee regels zijn afspraken; optelbaarheid en vergelijken lees je af op de figuren hierboven. Voor de lineariteit nemen we een Riemannsom van $rf + sg$. Omdat $r$ en $s$ niet van $k$ afhangen, is
+\bewijsregel{\sum_{k=1}^{n} \bigl(r f(c_k) + s g(c_k)\bigr)\Delta x = r \sum_{k=1}^{n} f(c_k)\,\Delta x + s \sum_{k=1}^{n} g(c_k)\,\Delta x .}
+Voor $n \to +\infty$ volgt hieruit de regel.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Gegeven: $\ig_0^2 f(x)\dx = 3$, \ $\ig_2^5 f(x)\dx = -1$ en $\ig_0^5 g(x)\dx = 4$.\\[1mm] Bereken $\ig_0^5 \bigl(2f(x) - 3g(x)\bigr)\dx$.\label{vb:h1-regels}}{%
+\uitleg{We willen de integraal van een combinatie van $f$ en $g$ op $[0, 5]$. Van $f$ kennen we alleen twee kleinere stukken, dus die leggen we eerst samen.}
+\begin{stappen}
+\ig_0^5 f(x)\dx = 3 + (-1) = 2 & De optelbaarheid: $[0, 2]$ en $[2, 5]$ vormen samen $[0, 5]$. \\[2.5ex]
+\ig_0^5 \bigl(2f(x) - 3g(x)\bigr)\dx = 2 \cdot 2 - 3 \cdot 4 = -8 & De lineariteit: de som mag je splitsen, en constanten komen voor de integraal.
+\end{stappen}}
+
+\voorbeeld{}{Gegeven: $\ig_1^4 f(x)\dx = 6$. Bereken $\ig_4^1 f(x)\dx$ en $\ig_2^2 f(x)\dx$. Toon ook aan dat $\ig_0^1 x^3\dx \leqslant \ig_0^1 x^2\dx$, zonder de integralen uit te rekenen.\label{vb:h1-regelskort}}{%
+\uitleg{Dit zijn de drie regels die nog niet aan bod kwamen: omgewisselde grenzen, gelijke grenzen en vergelijken. Telkens zie je op de figuur wat er gebeurt.}
+\begin{stappen}
+\ig_4^1 f(x)\dx = -\ig_1^4 f(x)\dx = -6 & Dezelfde oppervlakte, maar van 4 naar 1 doorlopen. Grenzen wisselen geeft een minteken (figuur links). \\[2.5ex]
+\ig_2^2 f(x)\dx = 0 & Van 2 tot 2 is er geen breedte, dus het gebied krimpt tot een lijnstuk zonder oppervlakte (figuur midden). \\[2.5ex]
+x^3 \leqslant x^2 \text{ op } [0, 1] & Op $[0, 1]$ is $x \leqslant 1$. Vermenigvuldig beide leden met $x^2 \geqslant 0$. De grafiek van $x^3$ ligt dus onder die van $x^2$ (figuur rechts). \\[1.5ex]
+\ig_0^1 x^3\dx \leqslant \ig_0^1 x^2\dx & De regel om te vergelijken: het kleine gebied past in het grote.
+\end{stappen}
+
+\vspace{1mm}
+\figuren{\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
+  \gebied{1}{4}{1.1+.5*sin(\x*70)}
+  \assen{-.1}{4.7}{-.1}{2.3}
+  \kromme{.5}{4.4}{1.1+.5*sin(\x*70)}
+  \node[below] at (1,0) {1};
+  \node[below] at (4,0) {4};
+  \draw[->,accent,thick] (3.8,.45) -- (1.2,.45);
+  \node[above,text=accent] at (2.5,.45) {$-6$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
+  \assen{-.1}{4.7}{-.1}{2.3}
+  \kromme{.5}{4.4}{1.1+.5*sin(\x*70)}
+  \draw[accent,very thick] (2,0) -- (2,{1.1+.5*sin(140)});
+  \node[below] at (2,0) {2};
+  \node[right,text=accent] at (2.05,.5) {$0$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=2.1cm,y=1.6cm,font=\scriptsize]
+  \gebied[accent!15]{0}{1}{(\x)^2}
+  \gebied[accent!40]{0}{1}{(\x)^3}
+  \rooster{0}{1}{1}{0}{1}{1}
+  \kromme{0}{1}{(\x)^2}
+  \kromme[dashed]{0}{1}{(\x)^3}
+  \node[left,text=accent] at (.72,.62) {$x^2$};
+  \node[right,text=accent] at (.72,.32) {$x^3$};
+\end{tikzpicture}}}
+
+Let op: een integraal van een product is niet het product van de integralen. Dat zie je al bij $f(x) = g(x) = 1$ op $[0, 2]$: de integraal van het product is 2, en het product van de integralen is 4.
+
+\nujij{Gegeven: $\int_1^4 f(x)\dx = 6$ en $\int_3^4 f(x)\dx = 2$. Bereken $\int_3^1 f(x)\dx$.}{$\int_1^3 f(x)\dx = 6 - 2 = 4$, dus met de grenzen gewisseld is het $-4$.}
+
+\begin{oefeningen}
+\oef{h1-regels}
+\end{oefeningen}
+
+\subsection{Even en oneven functies}
+
+Soms hoef je helemaal niet te rekenen, omdat de grafiek symmetrisch is. Een even functie is symmetrisch ten opzichte van de verticale as: de oppervlakte links is even groot als die rechts. Een oneven functie is symmetrisch ten opzichte van de oorsprong: het stuk onder de as is even groot als het stuk erboven, en samen geven ze 0.
+
+\figuren{\begin{tikzpicture}[x=.8cm,y=.55cm,font=\scriptsize]
+  \gebied{-2}{2}{.5+.5*(\x)^2}
+  \assen{-2.5}{2.6}{-.2}{3.1}
+  \kromme{-2.1}{2.1}{.5+.5*(\x)^2}
+  \node[below] at (-2,0) {$-a$};
+  \node[below] at (2,0) {$a$};
+  \node[above,text=accent] at (-1,2.1) {even};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[x=.8cm,y=.55cm,font=\scriptsize]
+  \gebied[accent!15]{-2}{0}{.3*(\x)^3}
+  \gebied{0}{2}{.3*(\x)^3}
+  \assen{-2.5}{2.6}{-2.7}{2.7}
+  \kromme{-2.1}{2.1}{.3*(\x)^3}
+  \node[above] at (-2,0) {$-a$};
+  \node[below] at (2,0) {$a$};
+  \node[above,text=accent] at (-1,1) {oneven};
+\end{tikzpicture}}
+
+
+\begin{theorie}
+\begin{stelling}{Even en oneven functies}
+Voor een continue functie op $[-a, a]$:
+
+\vspace{1mm}
+$f$ even, dus $f(-x) = f(x)$: \quad $\formule{\int_{-a}^{a} f(x)\dx = 2\int_0^a f(x)\dx}$
+
+\vspace{1.5mm}
+$f$ oneven, dus $f(-x) = -f(x)$: \quad $\formule{\int_{-a}^{a} f(x)\dx = 0}$
+\end{stelling}
+\end{theorie}
+
+Let op: de regel voor oneven functies geldt alleen op een interval dat symmetrisch rond 0 ligt.
+
+\voorbeeld{}{Bereken $\ig_{-2}^{2} (x^3 + \sin x + 3)\dx$.\label{vb:h1-symmetrie}}{%
+\uitleg{Een primitieve is niet nodig. De grenzen liggen symmetrisch rond 0, en dan kijken we eerst of er een oneven deel in de integrand zit.}
+\begin{stappen}
+\ig_{-2}^{2} (x^3 + \sin x)\dx = 0 & $x^3$ en $\sin x$ zijn oneven, en hun som ook. De stukken links en rechts van 0 heffen elkaar dus op. \\[2.5ex]
+\ig_{-2}^{2} 3\dx = 4 \cdot 3 = 12 & Wat overblijft, is een rechthoek met basis 4 en hoogte 3. De hele integraal is dus 12.
+\end{stappen}}
+
+\voorbeeld{}{Gegeven: $\ig_0^2 x^2\dx = \dfrac83$. Bereken $\ig_{-2}^{2} x^2\dx$.\label{vb:h1-even}}{%
+\uitleg{Nu is de functie even: de twee stukken heffen elkaar niet op, maar zijn even groot.}
+\begin{stappen}
+\ig_{-2}^{2} x^2\dx = 2 \ig_0^2 x^2\dx = 2 \cdot \dfrac83 = \dfrac{16}{3} & De grenzen liggen symmetrisch rond 0, en $(-x)^2 = x^2$. Dus twee keer het rechterdeel.
+\end{stappen}}
+
+\nujij{Bereken $\int_{-\pi}^{\pi} (x\cos x + 2)\dx$.}{$x\cos x$ is oneven, dus de uitkomst is de rechthoek: $2\pi \cdot 2 = 4\pi$.}
+
+\begin{oefeningen}
+\oef{h1-symmetrie}
+\end{oefeningen}
+
+\subsection{Gemiddelde waarde}
+
+Wat is de gemiddelde temperatuur op een dag, als die voortdurend verandert? Meet je $n$ keer, dan is het gemiddelde
+\[ \frac{f(c_1) + f(c_2) + \cdots + f(c_n)}{n} = \frac{1}{b - a} \sum_{k=1}^{n} f(c_k)\,\Delta x , \]
+want $\tfrac1n = \tfrac{\Delta x}{b - a}$. Meet je steeds vaker, dan wordt die som een integraal. Meetkundig betekent dit: maak het gebied onder de grafiek plat tot een rechthoek op hetzelfde interval, met dezelfde oppervlakte. De hoogte van die rechthoek is de gemiddelde waarde. Omdat de grafiek ergens door die hoogte moet gaan, is de gemiddelde waarde ook echt een functiewaarde: dat is de middelwaardestelling.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{gemiddelde waarde}} van $f$ op $[a, b]$ is \quad $\formule{\dfrac{1}{b-a}\int_a^b f(x)\dx}$
+
+\begin{stelling}{Middelwaardestelling}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+Is $f$ continu op $[a, b]$, dan is er een $c \in [a, b]$ met
+
+\vspace{1mm}
+\qquad $\formule{\int_a^b f(x)\dx = f(c)\,(b-a)}$
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{0pt}
+\begin{tikzpicture}[x=.95cm,y=.6cm,font=\scriptsize]
+  \fill[accent!18] (.5,0) rectangle (3.5,2.26);
+  \assen{-.1}{3.9}{-.1}{4.1}
+  \kromme{.3}{3.7}{.8+.75*\x+.25*sin(\x*150)}
+  \draw[accent,dashed] (.5,2.26) -- (3.5,2.26);
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+\end{tikzpicture}
+\end{minipage}
+\end{stelling}
+
+\begin{bewijs}
+Noem $m$ en $M$ het minimum en het maximum van $f$ op $[a, b]$; die bestaan omdat $f$ continu is. Uit $m \leqslant f(x) \leqslant M$ volgt met de regel om te vergelijken
+\bewijsregel{m(b - a) \leqslant \ig_a^b f(x)\dx \leqslant M(b - a), \quad\text{dus}\quad m \leqslant \dfrac{1}{b - a} \ig_a^b f(x)\dx \leqslant M .}
+De drie figuren tonen die ongelijkheid: het gebied past tussen een lage en een hoge rechthoek op hetzelfde interval.
+\figuren{\begin{tikzpicture}[x=.82cm,y=.72cm,font=\scriptsize]
+  \fill[accent!30] (.5,0) rectangle (3.5,.9);
+  \draw[accent] (.5,0) rectangle (3.5,.9);
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+  \node[left] at (0,.9) {$m$};
+\end{tikzpicture}\ \raisebox{9mm}{$\leqslant$}\
+\begin{tikzpicture}[x=.82cm,y=.72cm,font=\scriptsize]
+  \gebied{.5}{3.5}{1.6+.7*sin(1.7*\x r)}
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+\end{tikzpicture}\ \raisebox{9mm}{$\leqslant$}\
+\begin{tikzpicture}[x=.82cm,y=.72cm,font=\scriptsize]
+  \fill[accent!30] (.5,0) rectangle (3.5,2.3);
+  \draw[accent] (.5,0) rectangle (3.5,2.3);
+  \assen{-.1}{3.9}{-.1}{2.8}
+  \kromme{.3}{3.7}{1.6+.7*sin(1.7*\x r)}
+  \node[below] at (.5,0) {$a$};
+  \node[below] at (3.5,0) {$b$};
+  \node[left] at (0,2.3) {$M$};
+\end{tikzpicture}}
+De tussenwaardestelling geeft dan een $c \in [a, b]$ met
+\bewijsregel{f(c) = \dfrac{1}{b - a} \ig_a^b f(x)\dx, \quad\text{zodat}\quad \ig_a^b f(x)\dx = f(c)\,(b - a) .}
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bereken de gemiddelde waarde van $f(x) = \sqrt{9 - x^2}$ op $[0, 3]$ en de waarde $c$ uit de middelwaardestelling.\label{vb:h1-gemiddelde}}{%
+\uitleg{Voor het gemiddelde hebben we eerst de integraal nodig, en die lezen we uit de figuur. Daarna zoeken we waar de grafiek die hoogte bereikt.}
+\naast[3.9cm]{\begin{stappenvrij}{6.1cm}{3.9cm}
+\ig_0^3 \sqrt{9-x^2}\dx = \tfrac14 \cdot \pi \cdot 9 = \dfrac{9\pi}{4} & Een kwart van een cirkel met straal 3. \\[2.5ex]
+\text{gemiddelde} = \dfrac13 \cdot \dfrac{9\pi}{4} = \dfrac{3\pi}{4} \approx 2{,}36 & Delen door de lengte van het interval: 3. \\[2ex]
+\sqrt{9 - c^2} = \dfrac{3\pi}{4} \ \Rightarrow \ c \approx 1{,}86 & Los $f(c) = $ gemiddelde op. Er is ook een negatieve oplossing, maar $c$ moet in $[0, 3]$ liggen.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.85cm,y=.85cm,font=\scriptsize]
+  \fill[accent!18] (0,0) rectangle (3,2.356);
+  \fill[accent!30] (0,3) arc (90:0:3) -- (0,0) -- cycle;
+  \rooster{0}{1}{3}{0}{1}{3}
+  \draw[accent,thick] (0,3) arc (90:0:3);
+  \draw[accent,dashed] (0,2.356) -- (3,2.356);
+  \draw[accent,dashed] (1.857,0) -- (1.857,2.356);
+  \node[below=7pt,text=accent] at (1.857,0) {$c$};
+\end{tikzpicture}}}
+
+\nujij{Bereken de gemiddelde waarde van $f(x) = 2x$ op $[1, 5]$.}{De integraal is een trapezium: $\tfrac{2 + 10}{2} \cdot 4 = 24$, en $\tfrac{24}{4} = 6$.}
+
+\begin{oefeningen}
+\oef{h1-gemiddelde}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-oh}
+
+\oef{h1-ol}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+
+\oef{h1-o25}
+
+\oef{h1-o26}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Goniometrie komt uit het 5de jaar. Rijen en Statistiek staan in het 6de jaar, volgens de README van het pakket na Analyse 3: kijk na of de leerlingen ze al zagen.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-oboven}{oef:h1-oboven}%
+  \fv{oef:h1-t2}{vb:h1-limiet}{oef:h1-limiet}%
+  \fv{oef:h1-t3}{vb:h1-herken}{oef:h1-herken}%
+  \fv{oef:h1-t4}{vb:h1-georienteerd}{oef:h1-georienteerd}%
+  \fv{oef:h1-t5}{vb:h1-snelheid}{oef:h1-snelheid}%
+  \fv{oef:h1-t6}{vb:h1-regels}{oef:h1-regels}%
+  \fv{oef:h1-t7}{vb:h1-symmetrie}{oef:h1-symmetrie}%
+  \fv{oef:h1-t8}{vb:h1-gemiddelde}{oef:h1-gemiddelde}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een ondersom en een bovensom zijn, hoe je een bepaalde integraal definieert, het verschil tussen integraal en oppervlakte, de rekenregels, wat een gemiddelde waarde is en wat de middelwaardestelling zegt. Vergelijk daarna met de kaders.
+\fi

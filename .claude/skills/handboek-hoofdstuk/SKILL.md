@@ -5,14 +5,16 @@ description: Schrijf of herwerk een hoofdstuk of cursus van de eigen wiskundehan
 
 # Hoofdstuk van een eigen handboek schrijven
 
-De ontwerpregels staan in `Ontwerp/ontwerpregels.md`: lees die eerst, ze hebben voorrang op alles hieronder. Het werkende voorbeeld is de cursus `Analyse/Integralen/` (in `Handboeken/3de graad/4 .../`), met de hoofdstukken in `hoofdstukken/` als model. De opmaak en de bouwscripts staan gedeeld in `Opmaak/` (zie `Opmaak/README.md`): pas ze daar aan en kopieer ze nooit naar een cursus. De eigen macro's van een cursus staan in `notatie.tex`. Die volgt alle huidige regels. Kijk daar hoe iets eruitziet in plaats van het opnieuw uit te vinden.
+De ontwerpregels staan in `Ontwerp/ontwerpregels.md`: lees die eerst, ze hebben voorrang op alles hieronder. Het werkende voorbeeld is de cursus Integralen: de bron in `Handboeken/3de graad/cursussen/Integralen/`, met de hoofdstukken in `hoofdstukken/` als model, en de map van pakket 4 in `Handboeken/3de graad/4 .../Analyse/Integralen/`. De opmaak en de bouwscripts staan gedeeld in `Opmaak/` (zie `Opmaak/README.md`): pas ze daar aan en kopieer ze nooit naar een cursus. De eigen macro's van een cursus staan in `notatie.tex` van de bron.
+
+**Eén bron per cursus.** Een cursus staat één keer in `Handboeken/<graad>/cursussen/<cursus>/`, voor alle pakketten. Wat maar voor sommige pakketten geldt, krijgt `\alleenvoor{2,3}{...}` (binnen een regel) of `\begin{alleenvoor}{4}` ... `\end{alleenvoor}` (een blok regels); `\pakketnaam` geeft de naam van het pakket (bv. `B+S''`); een oefening die niet overal staat, krijgt `pakketten: [3, 4]` in de YAML. Zie `Opmaak/pakketten.py`. Maak nooit een kopie van een hoofdstuk voor een ander pakket: een aanpassing voor één pakket is een `\alleenvoor` in de bron. Die volgt alle huidige regels. Kijk daar hoe iets eruitziet in plaats van het opnieuw uit te vinden.
 
 De gebruiker is wiskundeleerkracht en schrijft Nederlands. Schrijf de leerstof in helder Nederlands voor leerlingen van 16-18 jaar.
 
 ## Werkwijze
 
 1. **Bepaal de leerstof.** Zoek de cursus, het pakket en de leerplandoelen op in de README van het pakket onder `Handboeken/` en in het leerplan van dat pakket (zie `Handboeken/README.md`; het leerplan zelf zit niet in de repo, lees het online). Een bestaande cursus toont wat erin hoort. Is de afbakening onduidelijk, leg dan kort voor wat je zou opnemen.
-2. **Zet de cursus klaar** als die nog niet bestaat: kopieer `handboek.tex`, `leerkracht.tex`, `zelfstudie.tex` en `notatie.tex` uit `Analyse/Integralen/` naar `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/` (graad: `2de graad` of `3de graad`), en maak `hoofdstukken/` en `oefeningen/`. De opmaak, het documentskelet, de bouwscripts en de voorkant staan in `Opmaak/` en `Ontwerp/` en worden niet gekopieerd. Pas in `handboek.tex` `\cursustitel` en `\cursushoofdstukken` aan.
+2. **Zet de cursus klaar** als die nog niet bestaat. De bron: maak `Handboeken/<graad>/cursussen/<cursus>/` (graad: `2de graad` of `3de graad`) met `hoofdstukken/`, `oefeningen/` en `notatie.tex` (uit `cursussen/Integralen/`). Per pakket: kopieer `handboek.tex`, `leerkracht.tex` en `zelfstudie.tex` uit `4 .../Analyse/Integralen/` naar `Handboeken/<graad>/<pakket>/<rubriek>/<cursus>/`, en pas `\cursustitel` en `\cursushoofdstukken` aan. Bestaat de cursus al voor een ander pakket, maak dan alleen de map van het nieuwe pakket en zet de verschillen met `\alleenvoor` in de bron. De opmaak, het documentskelet, de bouwscripts en de voorkant staan in `Opmaak/` en `Ontwerp/` en worden niet gekopieerd.
 3. **Schrijf het hoofdstuk** volgens de opbouw hieronder.
 4. **Bouw en kijk** (zie Controle).
 5. **Meld** wat er staat, wat je zelf hebt beslist en wat de leerkracht moet nakijken.

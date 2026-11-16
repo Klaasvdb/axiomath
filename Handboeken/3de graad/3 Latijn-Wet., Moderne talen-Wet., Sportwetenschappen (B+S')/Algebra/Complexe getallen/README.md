@@ -2,6 +2,8 @@
 
 Cursus voor pakket 3 (B+S'), LPD 29-33, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Complexe getallen/](<../../../cursussen/Complexe getallen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 **Afgeleide versie.** Afgeleid van de versie voor pakket 4 (PR #1): dezelfde vier hoofdstukken. De LPD-nummers in de leerkrachtennota's zijn omgerekend van pakket 4 (LPD 38-42) naar pakket 3 (LPD 29-33), in de veronderstelling dat de doelen één op één overeenkomen; dat is nog na te kijken. De prent en haar herkomst zijn mee gekopieerd. Aangepast: de leerplanverwijzingen in de leerkrachtennota's, de voorkant, en de Koppel-opdrachten (die naar cursussen buiten dit pakket zijn geschrapt). Nog te doen: de inhoud inkorten of aanvullen tot de doelen van dit pakket, na vergelijking met de leerplantekst; de verdeling over de afzonderlijke doelen is niet nagekeken.
 
 | Hoofdstuk | Bestand | Leerplan | Status |

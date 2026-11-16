@@ -165,10 +165,10 @@ De kopieën van een cursus over de pakketten zijn nu bijna identiek. Gemeten met
 
 Wat verschilt, zijn bijna alleen de leerplanverwijzingen in `\lkr{...}`. **Pakket 1 krijgt dus dezelfde leerstof als pakket 4,** behalve waar een hoofdstuk is weggelaten. Dat is meteen een inhoudelijk werkpunt: de leerstof van Basis is nu niet op Basis afgestemd.
 
-Voorstel:
+Werkwijze (stap 1 en 2 klaar sinds 16 nov 2026, zie "Eén bron per cursus" in `Opmaak/README.md`):
 
-1. **Eén map per cursus**, bv. `Handboeken/3de graad/cursussen/Statistiek/`, met alle hoofdstukken en oefeningen.
-2. **Per pakket een `handboek.tex`** dat kiest welke hoofdstukken erin komen (`\cursushoofdstukken` bestaat al) en per hoofdstuk het niveau zet. Verschillen binnen een hoofdstuk krijgen een voorwaarde, bv. `\alleenvoor{4}{...}`, en oefeningen een veld `pakketten:` in de YAML.
+1. **Eén map per cursus**, bv. `Handboeken/3de graad/cursussen/Statistiek/`, met alle hoofdstukken en oefeningen. *Klaar.*
+2. **Per pakket een `handboek.tex`** dat kiest welke hoofdstukken erin komen (`\cursushoofdstukken`). Verschillen binnen een hoofdstuk krijgen een voorwaarde, `\alleenvoor{4}{...}` of `\begin{alleenvoor}{4}`, en oefeningen een veld `pakketten:` in de YAML. *Klaar*; het niveau per hoofdstuk nog niet.
 3. **De leerplanverwijzing als gegevens**, niet als tekst in `\lkr`: per hoofdstuk de nummers van de overheid (MD/SMD), waaruit de nummers van KOV, GO! en POV volgen. Zo toont de leerkrachtenversie het leerplan dat de school volgt, en blijft het boek zelf "wat het is".
 4. **Uitgeverijen moeten knippen omdat ze per richting drukken.** Axiomath drukt niet: de website toont per graad, koepel en richting welke handboeken verplicht zijn, en daarachter de keuzes en uitbreidingen. Het handboek blijft één geheel.
 

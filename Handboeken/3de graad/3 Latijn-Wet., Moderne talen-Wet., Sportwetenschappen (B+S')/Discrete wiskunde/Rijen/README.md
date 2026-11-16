@@ -2,6 +2,8 @@
 
 Cursus voor pakket 3 (B+S'), LPD 34, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten en figuren zijn eigen werk. De herkomst van de prenten staat in `afbeeldingen/prenten/README.md`.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Rijen/](<../../../cursussen/Rijen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 **Afgeleide versie.** Afgeleid van [Rijen voor pakket 4](<../../../4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Rijen/README.md>): hoofdstuk 1-3, met dezelfde leerstof, voorbeelden en oefeningen (zelfde id's). LPD 34 vraagt hetzelfde als het rijen-deel van LPD 44 in B+S'': rekenkundige en meetkundige rijen om patronen te beschrijven, recursief en expliciet voorschrift, en de formule voor de som van de eerste $n$ termen, met enkelvoudige en samengestelde intrest als context. Hoofdstuk 4 (limiet van een rij) valt weg: dat is LPD 45-46 en bestaat alleen in B+S''.
 
 | Hoofdstuk | Bestand | Leerplan | Status |

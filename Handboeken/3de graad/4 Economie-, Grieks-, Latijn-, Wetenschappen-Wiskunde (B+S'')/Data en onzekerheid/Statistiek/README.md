@@ -2,6 +2,8 @@
 
 Cursus voor pakket 4 (B+S''), leerplandoelen 50-54 en keuzedoel K1, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). De opmaak en de bouwscripts zijn gedeeld: zie [Opmaak/README.md](../../../../../Opmaak/README.md). Alle opgaven, contexten, data en figuren zijn eigen werk; de simulaties zijn eigen computerruns, de data verzonnen (en zo gemarkeerd waar ze echt zouden kunnen lijken). De voorkant (Rembrandt) komt uit `Ontwerp/voorkanten/`.
 
+**Bron:** de hoofdstukken, oefeningen, `notatie.tex` en afbeeldingen staan één keer voor alle pakketten in [cursussen/Statistiek/](<../../../cursussen/Statistiek/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`.
+
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
 | 1. Steekproeven en samenhang | `hoofdstukken/01-steekproeven.tex` | LPD 50, 51 | eerste versie, nog na te lezen |
