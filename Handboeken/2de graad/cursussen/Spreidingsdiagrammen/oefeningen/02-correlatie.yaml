@@ -1,0 +1,1284 @@
+# Oefeningen van hoofdstuk 2 (De correlatiecoëfficiënt). Zie Opmaak/oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen. Elke r en elke regressielijn is nagerekend met Python (numpy.corrcoef, kleinste kwadraten).
+# pakketten: de formule van r (h2-formule, h2-o19) alleen in 5.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Reken uit of beantwoord.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        het gemiddelde van $4$, $7$, $9$ en $12$
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $\tfrac{32}{4} = 8$.
+    - opgave: |-
+        $(7 - 8) \cdot (15 - 20)$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $(-1) \cdot (-5) = 5$.
+    - opgave: |-
+        $(12 - 8) \cdot (18 - 20)$
+      antwoord: |-
+        $-8$
+      uitwerking: |-
+        $4 \cdot (-2) = -8$.
+    - opgave: |-
+        het teken van $a \cdot b$ als $a < 0$ en $b < 0$
+      antwoord: |-
+        positief
+      uitwerking: |-
+        Min maal min is plus.
+    - opgave: |-
+        $\abs{-0,7}$ en $\abs{0,45}$
+      antwoord: |-
+        $0,7$ en $0,45$
+      uitwerking: |-
+        De absolute waarde laat het teken weg.
+    - opgave: |-
+        positief of negatief verband: trainingsuren en looptijd
+      antwoord: |-
+        negatief
+      uitwerking: |-
+        Wie meer traint, loopt meestal sneller, dus in minder tijd: negatief.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Bekijk de vier spreidingsdiagrammen.
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.7,2.6) (2.1,2.8) (2.8,3.3) (3.3,4.3) (3.7,3.8) (4.7,4.3) (5.5,5.6) (5.7,6) (6.6,5.8) (7.7,6.9) (8.3,6.4) (9.1,8.1)}
+      \node[below,font=\small\bfseries] at (5,-.6) {A};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.7,6.5) (2.3,5.8) (2.8,2.9) (2.9,6.8) (2.9,7.6) (3.7,5.6) (5.3,4.2) (6,5.6) (6.1,3.8) (7.5,5.2) (8.6,1.8) (8.6,4.2)}
+      \node[below,font=\small\bfseries] at (5,-.6) {B};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.9,5) (2.6,2.4) (2.8,3.4) (2.9,3.5) (3.8,3.6) (4,7.4) (5.4,6.2) (5.5,5.6) (5.5,6) (6.1,7.6) (7.5,5.6) (8.5,3.7)}
+      \node[below,font=\small\bfseries] at (5,-.6) {C};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1,7.6) (2.6,5.3) (2.6,7) (3.6,6.2) (4.7,5.4) (5.4,5.9) (5.8,5.6) (6.3,5) (6.4,3.4) (6.6,3.3) (8.9,2.5) (9.1,2.8)}
+      \node[below,font=\small\bfseries] at (5,-.6) {D};
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke verbanden zijn positief, welke negatief?
+      antwoord: |-
+        A en C positief, B en D negatief
+      uitwerking: |-
+        A en C stijgen: positief. B en D dalen: negatief.
+    - opgave: |-
+        Rangschik de vier verbanden van het sterkste naar het zwakste.
+      antwoord: |-
+        A, D, B, C
+      uitwerking: |-
+        A ligt het dichtst bij een rechte, dan D, dan B, en C het minst. (ICT geeft $r = 0,97$; $-0,90$; $-0,60$ en $0,35$.)
+    - opgave: |-
+        Was het gemakkelijk om B en C te vergelijken? Waarom zou een getal voor de sterkte handig zijn?
+      antwoord: |-
+        nee; een getal is objectief
+      uitwerking: |-
+        Niet echt: de ene wolk daalt en de andere stijgt, en beide liggen vrij ver van een rechte. Met een getal kan iedereen de sterkte op dezelfde manier vergelijken, zonder te discussiëren.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h2-kwadrant
+  soort: kort
+  opgave: |-
+    In elk spreidingsdiagram tonen de streepjeslijnen het gemiddelde punt. Is $r$ positief of negatief? Ligt $r$ dicht bij $0$ of dicht bij $\pm 1$?
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \gemlijnen{4.44}{4.99}{0}{10}{0}{10}
+      \punten{(0.9,3.5) (1.7,3.4) (2.3,4.8) (2.5,3.3) (2.8,4.1) (3.1,3.9) (5,5.9) (5.6,6.8) (5.8,3.5) (7.1,5.9) (7.8,8.2) (8.7,6.6)}
+      \node[below,font=\small\bfseries] at (5,-.6) {A};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \gemlijnen{4.64}{5}{0}{10}{0}{10}
+      \punten{(1.2,5.9) (1.5,6.2) (1.8,6.2) (2,7) (4.7,7.1) (4.7,2.2) (5.5,4.3) (5.6,4) (6.5,2.9) (6.7,3.1) (6.9,4.9) (8.6,6.2)}
+      \node[below,font=\small\bfseries] at (5,-.6) {B};
+    \end{tikzpicture}}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        A
+      antwoord: |-
+        positief, vrij dicht bij 1
+      uitwerking: |-
+        A: elf van de twaalf punten liggen rechtsboven of linksonder, dus $r > 0$. De punten liggen vrij dicht bij een stijgende rechte: $r$ is vrij groot. (ICT: $r = 0,79$.)
+    - opgave: |-
+        B
+      antwoord: |-
+        negatief, dichter bij 0
+      uitwerking: |-
+        B: tien van de twaalf punten liggen linksboven of rechtsonder, dus $r < 0$. Maar de wolk is breed en de punten liggen ver van een rechte: $r$ ligt dichter bij 0. (ICT: $r = -0,45$.)
+
+- id: h2-sterkte
+  soort: kort
+  opgave: |-
+    Beschrijf het verband: positief of negatief, en sterk, matig of zwak.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $r = 0,85$
+      antwoord: |-
+        sterk positief
+      uitwerking: |-
+        $r > 0$ en $0,85 \geqslant 0,8$: sterk positief.
+    - opgave: |-
+        $r = -0,35$
+      antwoord: |-
+        zwak negatief
+      uitwerking: |-
+        $r < 0$ en $0,35 < 0,5$: zwak negatief.
+    - opgave: |-
+        $r = -0,92$
+      antwoord: |-
+        sterk negatief
+      uitwerking: |-
+        $r < 0$ en $0,92 \geqslant 0,8$: sterk negatief.
+    - opgave: |-
+        $r = 0,61$
+      antwoord: |-
+        matig positief
+      uitwerking: |-
+        $0,5 \leqslant 0,61 < 0,8$: matig positief.
+    - opgave: |-
+        $r = 0,08$
+      antwoord: |-
+        (bijna) geen lineair verband
+      uitwerking: |-
+        $r$ ligt heel dicht bij 0: (bijna) geen lineair verband.
+    - opgave: |-
+        $r = -0,55$
+      antwoord: |-
+        matig negatief
+      uitwerking: |-
+        $0,5 \leqslant 0,55 < 0,8$: matig negatief.
+
+- id: h2-schatten
+  soort: kort
+  opgave: |-
+    Welke waarde van $r$ hoort bij welk spreidingsdiagram? Kies uit $-0,95$, \ $0,30$, \ $0,90$ \ en \ ${-0,60}$.
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.5,6.5) (1.6,4.6) (3,6) (4.2,7) (5.3,5.7) (5.5,5.8) (6.2,6.3) (7.1,3.9) (7.9,5.7) (8.1,4.3) (8.5,1.2) (9,3.1)}
+      \node[below,font=\small\bfseries] at (5,-.6) {A};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(2.1,3.5) (2.5,3.3) (3.4,2.4) (3.4,3.2) (3.8,4) (4.2,5.5) (5.9,6.1) (6.4,5.4) (6.5,5.7) (8.3,7.5) (8.4,6.1) (8.6,7.3)}
+      \node[below,font=\small\bfseries] at (5,-.6) {B};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.5,7.1) (1.7,6.5) (2.5,5.9) (2.6,6.4) (2.9,6.6) (4.6,5) (6.7,4.8) (6.8,3.4) (7.9,3.3) (8.5,3.9) (9.1,3.4) (9.1,3.8)}
+      \node[below,font=\small\bfseries] at (5,-.6) {C};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.1,6.8) (1.2,5.9) (1.2,3) (1.3,5.7) (1.8,4.9) (1.9,4.5) (3.7,2.2) (3.7,3.8) (4.7,4.5) (5.4,4.2) (6.8,6.7) (7.7,7.9)}
+      \node[below,font=\small\bfseries] at (5,-.6) {D};
+    \end{tikzpicture}}
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        A
+      antwoord: |-
+        $-0,60$
+      uitwerking: |-
+        A daalt, maar de punten liggen vrij ver uit elkaar: $r = -0,60$.
+    - opgave: |-
+        B
+      antwoord: |-
+        $0,90$
+      uitwerking: |-
+        B stijgt, dicht bij een rechte: $r = 0,90$.
+    - opgave: |-
+        C
+      antwoord: |-
+        $-0,95$
+      uitwerking: |-
+        C daalt, dicht bij een rechte: $r = -0,95$.
+    - opgave: |-
+        D
+      antwoord: |-
+        $0,30$
+      uitwerking: |-
+        D stijgt een beetje, met veel spreiding: $r = 0,30$.
+
+- id: h2-ict
+  soort: kort
+  opgave: |-
+    Negen leerlingen noteren hun gemiddelde schermtijd per dag $s$ (in uur) en hun gemiddelde slaap per nacht $\ell$ (in uur).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$s$ (uur)][$\ell$ (uur)]{9}{1 & 1,5 & 2 & 2,5 & 3 & 3,5 & 4 & 5 & 6}{9,0 & 8,5 & 8,8 & 8,0 & 7,5 & 8,2 & 7,0 & 7,2 & 6,5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de correlatiecoëfficiënt en beschrijf het verband.
+      antwoord: |-
+        $r = -0,92$, sterk negatief
+      uitwerking: |-
+        ICT geeft $r \approx -0,92$: een sterk negatief verband. Meer schermtijd gaat samen met minder slaap.
+    - opgave: |-
+        Bereken ook de regressielijn. Wat betekent de rico?
+      antwoord: |-
+        $\ell = -0,48s + 9,38$
+      uitwerking: |-
+        $\ell \approx -0,48s + 9,38$. Per uur schermtijd meer slapen deze leerlingen gemiddeld ongeveer een half uur (0,48 uur, bijna 29 minuten) minder.
+
+- id: h2-formule
+  pakketten: [5]
+  soort: kort
+  opgave: |-
+    Bereken met de formule de correlatiecoëfficiënt van de punten $(1, 5)$, $(2, 4)$, $(3, 4)$, $(4, 2)$ en $(5, 1)$. Controleer met ICT.
+  antwoord: |-
+    $r \approx -0,96$
+  uitwerking: |-
+    Het gemiddelde punt is $(3;\ 3,2)$. De afwijkingen $x - \xbar$ zijn $-2, -1, 0, 1, 2$ en de afwijkingen $y - \ybar$ zijn $1,8;\ 0,8;\ 0,8;\ -1,2;\ -2,2$. De som van de producten is $-3,6 - 0,8 + 0 - 1,2 - 4,4 = -10$. Verder is $\sum (x - \xbar)^2 = 4 + 1 + 0 + 1 + 4 = 10$ en $\sum (y - \ybar)^2 = 3,24 + 0,64 + 0,64 + 1,44 + 4,84 = 10,8$. Dus $r = \tfrac{-10}{\sqrt{10 \cdot 10,8}} = \tfrac{-10}{\sqrt{108}} \approx -0,96$. ICT geeft hetzelfde.
+
+- id: h2-krom
+  soort: kort
+  opgave: |-
+    Een wagen rijdt telkens tien kilometer aan een vaste snelheid $v$ (in km/h). Men meet het verbruik $b$ (in liter per 100 km).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$v$ (km/h)][$b$ (l/100 km)]{6}{30 & 50 & 70 & 90 & 110 & 130}{7,8 & 5,9 & 5,2 & 5,4 & 6,4 & 8,0}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de correlatiecoëfficiënt.
+      antwoord: |-
+        $r = 0,12$
+      uitwerking: |-
+        ICT geeft $r \approx 0,12$.
+    - opgave: |-
+        Teken het spreidingsdiagram. Is er een verband tussen snelheid en verbruik?
+      antwoord: |-
+        ja, maar niet lineair
+      uitwerking: |-
+        Ja: het verbruik daalt eerst en stijgt daarna, met het kleinste verbruik rond 70 à 90 km/h. Het verband is duidelijk, maar niet lineair, en daarom is $r$ bijna 0.
+        \figuren{\begin{tikzpicture}[x=.05cm,y=.5cm]
+          \diagram[$v$ (km/h)][$b$]{20}{10}{140}{4}{1}{9}
+          \xas{20,60,100,140}\yas{4,6,8}
+          \punten{(30,7.8) (50,5.9) (70,5.2) (90,5.4) (110,6.4) (130,8)}
+        \end{tikzpicture}}
+
+- id: h2-uitschieter
+  soort: kort
+  opgave: |-
+    Acht jongeren noteren hun zakgeld per week $z$ (in euro) en het aantal boeken $b$ dat ze vorig jaar lazen.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$z$ (euro)][$b$]{8}{5 & 6 & 7 & 8 & 9 & 10 & 11 & 19}{5 & 3 & 6 & 4 & 5 & 3 & 6 & 14}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT $r$ voor de acht jongeren.
+      antwoord: |-
+        $r = 0,86$
+      uitwerking: |-
+        $r \approx 0,86$: een sterk positief verband?
+    - opgave: |-
+        Bereken $r$ zonder de jongere met 19 euro zakgeld.
+      antwoord: |-
+        $r = 0,12$
+      uitwerking: |-
+        Zonder het punt $(19, 14)$: $r \approx 0,12$, bijna geen verband.
+    - opgave: |-
+        Wat besluit je?
+      antwoord: |-
+        één uitschieter maakt het verband
+      uitwerking: |-
+        Het ``sterke verband'' komt volledig van één jongere. Bij de andere zeven is er geen verband tussen zakgeld en lezen. Een uitschieter kan een verband dus ook doen ontstaan, niet alleen verzwakken.
+
+- id: h2-oorzaak
+  soort: kort
+  opgave: |-
+    Elke uitspraak beschrijft een correlatie. Bewijst ze een oorzakelijk verband? Zoek een andere verklaring: een verborgen variabele, een omgekeerde richting of toeval.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In maanden waarin meer zonnecrème verkocht wordt, worden ook meer barbecues verkocht.
+      antwoord: |-
+        verborgen variabele: het weer
+      uitwerking: |-
+        Zonnecrème doet geen barbecues kopen. Het warme, zonnige weer (de zomer) doet beide stijgen: een verborgen variabele.
+    - opgave: |-
+        Steden met meer politieagenten hebben meer misdrijven.
+      antwoord: |-
+        verborgen variabele: de grootte; ook omgekeerd
+      uitwerking: |-
+        Grote steden hebben meer inwoners, dus meer misdrijven en meer agenten (verborgen variabele). Bovendien zet een stad met veel misdrijven extra agenten in (omgekeerde richting).
+    - opgave: |-
+        Mensen die vaak in de fitness komen, zijn gezonder.
+      antwoord: |-
+        ook omgekeerd en verborgen variabele
+      uitwerking: |-
+        Sporten is gezond, maar ook omgekeerd: wie ziek is, gaat niet naar de fitness. En wie op zijn gezondheid let, sport meer \textit{en} eet gezonder (verborgen variabele).
+    - opgave: |-
+        Op de vijf dagen dat Tom zijn geluksbroek droeg, won zijn ploeg vier keer.
+      antwoord: |-
+        toeval
+      uitwerking: |-
+        Vijf matchen zijn veel te weinig gegevens: toeval.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    r interpreteren
+  opgave: |-
+    Beschrijf het verband: richting en sterkte.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $r = 0,92$
+      antwoord: |-
+        sterk positief
+      uitwerking: |-
+        Sterk positief.
+    - opgave: |-
+        $r = -0,15$
+      antwoord: |-
+        zwak negatief
+      uitwerking: |-
+        Zwak negatief, bijna geen lineair verband.
+    - opgave: |-
+        $r = -0,78$
+      antwoord: |-
+        matig negatief
+      uitwerking: |-
+        $0,5 \leqslant 0,78 < 0,8$: matig negatief (bijna sterk).
+    - opgave: |-
+        $r = 0,45$
+      antwoord: |-
+        zwak positief
+      uitwerking: |-
+        Zwak positief.
+    - opgave: |-
+        $r = -1$
+      antwoord: |-
+        alle punten op een dalende rechte
+      uitwerking: |-
+        Een perfect negatief lineair verband: alle punten liggen op een dalende rechte.
+    - opgave: |-
+        $r = 0,03$
+      antwoord: |-
+        geen lineair verband
+      uitwerking: |-
+        Geen lineair verband.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    r koppelen aan een spreidingsdiagram
+  opgave: |-
+    Welke waarde van $r$ hoort bij welk spreidingsdiagram? Kies uit $-0,95$, \ ${-0,60}$, \ $0$, \ $0,30$, \ $0,80$ \ en \ $0,99$.
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=.26cm,y=.26cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.5,1.2) (3.1,4.2) (3.4,4.2) (4.2,4.9) (5.8,3.4) (6.2,5.6) (6.4,7.1) (6.5,4.9) (6.8,4.9) (7.3,7.1) (7.7,6.4) (8.4,6.2)}
+      \node[below,font=\small\bfseries] at (5,-.6) {A};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.26cm,y=.26cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.3,8.8) (2.6,7) (4.2,6.6) (4.8,4.3) (5.3,5.4) (5.5,4.5) (5.6,4.9) (6.2,3.8) (6.3,4.1) (6.4,4.2) (7.2,4.1) (8,2.3)}
+      \node[below,font=\small\bfseries] at (5,-.6) {B};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.26cm,y=.26cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.4,2) (3.1,7.2) (4.7,5.2) (5,5.2) (5.4,6.6) (5.5,5.5) (5.9,7.6) (6.6,3.6) (7,5.3) (7,3.1) (7.4,4.8) (8.5,3.9)}
+      \node[below,font=\small\bfseries] at (5,-.6) {C};
+    \end{tikzpicture}}
+    \figuren{
+    \begin{tikzpicture}[x=.26cm,y=.26cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(0.8,2.4) (2.1,3.4) (2.2,3.6) (3,4) (3.4,4.7) (3.8,4.7) (4.3,4.6) (4.4,5.1) (4.9,5.6) (5.2,6) (6.7,7.1) (8.6,8.9)}
+      \node[below,font=\small\bfseries] at (5,-.6) {D};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.26cm,y=.26cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.7,8.2) (1.9,5.6) (2.4,5.4) (3.1,6.3) (4.4,5.1) (4.7,4.4) (5.1,4.8) (5.5,3.8) (6,4.6) (6.4,1.1) (6.9,5.8) (7,5)}
+      \node[below,font=\small\bfseries] at (5,-.6) {E};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.26cm,y=.26cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(0.9,6) (1.2,1.8) (4.2,6.6) (4.3,6.2) (4.9,3.8) (5.8,6.1) (5.9,3.1) (6.2,4.6) (6.9,4.6) (7.7,3.9) (8.9,7.6) (8.9,5.7)}
+      \node[below,font=\small\bfseries] at (5,-.6) {F};
+    \end{tikzpicture}}
+  lijst: reeks
+  kolommen: 6
+  delen:
+    - opgave: |-
+        A
+      antwoord: |-
+        $0,80$
+      uitwerking: |-
+        A: stijgend, vrij dicht bij een rechte: $0,80$.
+    - opgave: |-
+        B
+      antwoord: |-
+        $-0,95$
+      uitwerking: |-
+        B: dalend, dicht bij een rechte: $-0,95$.
+    - opgave: |-
+        C
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        C: geen richting: $0$.
+    - opgave: |-
+        D
+      antwoord: |-
+        $0,99$
+      uitwerking: |-
+        D: stijgend, bijna op een rechte: $0,99$.
+    - opgave: |-
+        E
+      antwoord: |-
+        $-0,60$
+      uitwerking: |-
+        E: dalend, met veel spreiding: $-0,60$.
+    - opgave: |-
+        F
+      antwoord: |-
+        $0,30$
+      uitwerking: |-
+        F: een beetje stijgend, met veel spreiding: $0,30$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    juist of fout over r
+  opgave: |-
+    Juist of fout? Verbeter de foute uitspraken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij een heel sterk verband kan $r = 1,2$ zijn.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: altijd is $-1 \leqslant r \leqslant 1$.
+    - opgave: |-
+        Een verband met $r = -0,9$ is sterker dan een verband met $r = 0,6$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: $\abs{-0,9} = 0,9 > 0,6$.
+    - opgave: |-
+        Als $r = 0$, liggen de punten op een horizontale rechte.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $r = 0$ betekent dat er geen lineair verband is. De punten kunnen overal liggen, of op een boog. (Liggen ze precies op een horizontale rechte, dan kan ICT $r$ zelfs niet berekenen.)
+    - opgave: |-
+        Als alle punten op een dalende rechte liggen, is $r = -1$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist.
+    - opgave: |-
+        Hoe groter $r$, hoe steiler de regressielijn.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $r$ zegt hoe dicht de punten bij een rechte liggen, niet hoe steil die rechte is. De steilheid is de rico.
+    - opgave: |-
+        Een sterke correlatie bewijst dat $x$ de oorzaak is van $y$.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: er kan een verborgen variabele zijn, de richting kan omgekeerd zijn, of het kan toeval zijn.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    welk verband is sterker
+  opgave: |-
+    Welk verband is het sterkst?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $r = 0,6$ of $r = -0,8$
+      antwoord: |-
+        $r = -0,8$
+      uitwerking: |-
+        $0,8 > 0,6$: het verband met $r = -0,8$.
+    - opgave: |-
+        $r = -0,3$ of $r = 0,25$
+      antwoord: |-
+        $r = -0,3$
+      uitwerking: |-
+        $0,3 > 0,25$ (beide zijn zwak).
+    - opgave: |-
+        $r = 0,9$ of $r = 0,95$
+      antwoord: |-
+        $r = 0,95$
+      uitwerking: |-
+        $0,95 > 0,9$.
+    - opgave: |-
+        $r = -0,99$ of $r = 0,5$
+      antwoord: |-
+        $r = -0,99$
+      uitwerking: |-
+        $0,99 > 0,5$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    verwacht teken van r
+  opgave: |-
+    Verwacht je dat $r$ positief is, negatief, of ongeveer 0? Leg kort uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de leeftijd van een wagen en zijn kilometerstand
+      antwoord: |-
+        positief
+      uitwerking: |-
+        Oudere wagens hebben meestal meer kilometers gereden: positief.
+    - opgave: |-
+        de buitentemperatuur en het aantal verkochte kopjes warme chocolademelk in een café
+      antwoord: |-
+        negatief
+      uitwerking: |-
+        Bij koud weer drinken mensen meer warme chocolademelk: negatief.
+    - opgave: |-
+        het huisnummer en de leeftijd van de bewoner
+      antwoord: |-
+        ongeveer 0
+      uitwerking: |-
+        Er is geen reden voor een verband: ongeveer 0.
+    - opgave: |-
+        het aantal uren pianoles en het aantal fouten bij een moeilijk stuk
+      antwoord: |-
+        negatief
+      uitwerking: |-
+        Wie meer oefent, maakt meestal minder fouten: negatief.
+    - opgave: |-
+        het gewicht van een meloen en zijn prijs, als meloenen per kilogram verkocht worden
+      antwoord: |-
+        positief, $r = 1$
+      uitwerking: |-
+        De prijs is recht evenredig met het gewicht: alle punten liggen op een stijgende rechte, $r = 1$.
+    - opgave: |-
+        de lengte van een leerling van 16 jaar en zijn punten voor wiskunde
+      antwoord: |-
+        ongeveer 0
+      uitwerking: |-
+        Geen reden voor een verband: ongeveer 0.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    r en regressielijn met ICT
+  opgave: |-
+    Een boekhandel noteert van tien romans het aantal bladzijden $x$ en de prijs $y$ (in euro).
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$x$][$y$ (euro)]{10}{180 & 220 & 250 & 300 & 320 & 380 & 410 & 450 & 520 & 600}{15 & 18 & 16 & 22 & 17 & 20 & 25 & 19 & 24 & 23}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT $r$ en beschrijf het verband.
+      antwoord: |-
+        $r = 0,75$, matig positief
+      uitwerking: |-
+        $r \approx 0,75$: een matig positief verband. Dikkere boeken zijn meestal duurder, maar niet altijd.
+    - opgave: |-
+        Bereken de regressielijn. Rond de rico af op vier cijfers na de komma.
+      antwoord: |-
+        $y = 0,0192x + 12,92$
+      uitwerking: |-
+        $y \approx 0,0192x + 12,92$. Per 100 bladzijden meer kost een roman gemiddeld ongeveer 1,92 euro meer.
+    - opgave: |-
+        Welke prijs verwacht je voor een roman van 350 bladzijden? Hoeveel vertrouwen heb je in die voorspelling?
+      antwoord: |-
+        ongeveer 19,65 euro; matig
+      uitwerking: |-
+        $0,0192 \cdot 350 + 12,92 \approx 19,64$ euro (met de onafgeronde rechte $19,65$). Het is interpoleren, maar het verband is maar matig: de echte prijs kan een paar euro afwijken.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    uitschieter: r met en zonder
+  opgave: |-
+    Een openluchtzwembad noteert op negen dagen de temperatuur $T$ (in °C) en het aantal bezoekers $B$. Op één dag sloot het zwembad 's middags door onweer.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$T$ (°C)][$B$]{9}{20 & 22 & 23 & 25 & 26 & 27 & 28 & 30 & 31}{310 & 370 & 420 & 450 & 180 & 540 & 530 & 620 & 640}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke dag was de onweersdag?
+      antwoord: |-
+        de dag van 26 °C
+      uitwerking: |-
+        De dag van 26 °C met maar 180 bezoekers: een duidelijke uitschieter.
+    - opgave: |-
+        Bereken $r$ met alle dagen en zonder de onweersdag.
+      antwoord: |-
+        $0,71$ en $0,99$
+      uitwerking: |-
+        Met alle dagen: $r \approx 0,71$ (matig). Zonder de onweersdag: $r \approx 0,99$ (sterk).
+    - opgave: |-
+        Welke $r$ beschrijft het verband tussen temperatuur en bezoekers het best? Mag je de onweersdag zomaar weglaten?
+      antwoord: |-
+        zonder; ja, met vermelding
+      uitwerking: |-
+        Zonder de onweersdag: die dag zegt iets over het onweer, niet over de temperatuur. Je mag hem weglaten als je dat vermeldt en uitlegt waarom. Een uitschieter weglaten omdat hij je niet bevalt, mag niet.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    r = 0 maar wel een verband
+  opgave: |-
+    Een bal wordt opgegooid. Op zeven tijdstippen $t$ (in s) meet men de hoogte $h$ (in m).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$t$ (s)][$h$ (m)]{7}{0 & 0,4 & 0,8 & 1,2 & 1,6 & 2,0 & 2,4}{1,5 & 5,5 & 7,9 & 8,7 & 7,9 & 5,5 & 1,5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de correlatiecoëfficiënt.
+      antwoord: |-
+        $r = 0$
+      uitwerking: |-
+        ICT geeft $r = 0$.
+    - opgave: |-
+        Teken het spreidingsdiagram. Is er geen verband tussen $t$ en $h$?
+      antwoord: |-
+        er is een sterk verband, een parabool
+      uitwerking: |-
+        Er is een heel sterk verband: de bal gaat omhoog en weer omlaag, en de punten liggen precies op een boog (een parabool). Alleen is dat verband niet lineair.
+        \figuren{\begin{tikzpicture}[x=2cm,y=.4cm]
+          \diagram[$t$ (s)][$h$ (m)]{0}{0.2}{2.6}{0}{1}{10}
+          \xas{0,0.4,...,2.4}\yas{0,2,...,10}
+          \kromme[hulplijn]{0}{2.4}{1.5+12*\x-5*\x*\x}
+          \punten{(0,1.5) (0.4,5.5) (0.8,7.9) (1.2,8.7) (1.6,7.9) (2.0,5.5) (2.4,1.5)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Waarom is $r$ precies 0? Denk aan de kwadranten.
+      antwoord: |-
+        de wolk is symmetrisch
+      uitwerking: |-
+        Het gemiddelde punt is $(1,2;\ 5,5)$. De boog is symmetrisch rond $t = 1,2$: voor elk punt links met een positief product ligt er rechts een punt met een even groot negatief product. De som is 0, dus $r = 0$.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    verborgen variabele zoeken
+  opgave: |-
+    Elke uitspraak beschrijft een echte samenhang, maar geen oorzaak. Zoek een verborgen variabele.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe meer brandweerwagens er bij een brand komen, hoe groter de schade.
+      antwoord: |-
+        de grootte van de brand
+      uitwerking: |-
+        Een grote brand veroorzaakt veel schade \textit{en} doet veel brandweerwagens uitrukken.
+    - opgave: |-
+        In een basisschool hebben de leerlingen met een grotere woordenschat ook een groter lichaam.
+      antwoord: |-
+        de leeftijd
+      uitwerking: |-
+        Oudere kinderen zijn groter en kennen meer woorden.
+    - opgave: |-
+        In zomers waarin meer ventilatoren verkocht worden, zijn er meer bosbranden.
+      antwoord: |-
+        de temperatuur en de droogte
+      uitwerking: |-
+        Een hete, droge zomer doet beide stijgen.
+    - opgave: |-
+        Gemeenten met meer bakkers hebben meer verkeersongevallen.
+      antwoord: |-
+        het aantal inwoners
+      uitwerking: |-
+        Gemeenten met meer inwoners hebben meer bakkers en meer verkeer.
+    - opgave: |-
+        Wie meer koffie drinkt, heeft vaker longproblemen.
+      antwoord: |-
+        roken
+      uitwerking: |-
+        Een mogelijke verklaring: wie rookt, drinkt vaak ook meer koffie, en roken veroorzaakt de longproblemen.
+    - opgave: |-
+        Landen met meer smartphones per inwoner hebben een hogere levensverwachting.
+      antwoord: |-
+        de welvaart
+      uitwerking: |-
+        In rijkere landen hebben mensen meer smartphones \textit{en} betere gezondheidszorg.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    krantenkoppen kritisch lezen
+  opgave: |-
+    Wat is er mis met de conclusie in elke krantenkop? Bedenk een andere verklaring.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        ``Leerlingen die ontbijten, halen betere punten. Ontbijt maakt slim!''
+      antwoord: |-
+        verborgen variabele, bijvoorbeeld het gezin of de slaap
+      uitwerking: |-
+        Leerlingen die elke dag ontbijten, hebben misschien ook een vaster dagritme, slapen beter of krijgen meer hulp thuis. Die verborgen variabelen kunnen de punten verklaren. Een ontbijt kan helpen, maar deze samenhang bewijst het niet.
+    - opgave: |-
+        ``Hoe langer leerlingen aan hun huiswerk zitten, hoe lager hun punten. Schaf het huiswerk af!''
+      antwoord: |-
+        omgekeerde richting
+      uitwerking: |-
+        Omgekeerd: wie het moeilijk heeft met de leerstof, doet langer over zijn huiswerk. De lage punten (of de moeite) veroorzaken het lange huiswerk, niet omgekeerd.
+    - opgave: |-
+        ``Wie een hond heeft, wandelt meer. Koop een hond en je wordt fitter!''
+      antwoord: |-
+        deels oorzakelijk, deels omgekeerd
+      uitwerking: |-
+        Een hond moet uitgelaten worden, dus een deel is wel oorzakelijk. Maar ook omgekeerd: mensen die graag wandelen, nemen sneller een hond. De gegevens alleen tonen niet hoeveel van elk.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    x en y wisselen: r blijft, de regressielijn niet
+  opgave: |-
+    Neem de lopers uit het voorbeeld: trainingsuren $u$ en tijd $t$ (in minuten) op 5 km.
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$u$][$t$]{11}{2 & 3 & 3 & 4 & 5 & 5 & 6 & 7 & 8 & 9 & 10}{31,5 & 30,0 & 32,0 & 29,0 & 28,5 & 26,5 & 27,0 & 25,5 & 24,0 & 25,0 & 22,5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ en de regressielijn van $t$ in functie van $u$.
+      antwoord: |-
+        $r = -0,96$; \ $t = -1,12u + 33,73$
+      uitwerking: |-
+        $r \approx -0,96$ en $t \approx -1,12u + 33,73$.
+    - opgave: |-
+        Wissel de lijsten om. Bereken $r$ en de regressielijn van $u$ in functie van $t$.
+      antwoord: |-
+        $r = -0,96$; \ $u = -0,81t + 27,95$
+      uitwerking: |-
+        $r \approx -0,96$, hetzelfde. De regressielijn is $u \approx -0,81t + 27,95$.
+    - opgave: |-
+        Een loper wil 27 minuten halen. Hoeveel uur per week moet hij ongeveer trainen? Gebruik de tweede regressielijn.
+      antwoord: |-
+        ongeveer 6 uur
+      uitwerking: |-
+        $u \approx -0,81 \cdot 27 + 27,95 \approx 6,1$: ongeveer 6 uur per week.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eenheden veranderen: r blijft gelijk
+  opgave: |-
+    Een Amerikaanse toerist zet de temperaturen van het ijskraam om naar graden Fahrenheit met $F = 1,8\,T + 32$.
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$F$ (°F)][$N$]{10}{62,6 & 66,2 & 68 & 71,6 & 73,4 & 75,2 & 78,8 & 82,4 & 86 & 87,8}{85 & 89 & 125 & 120 & 165 & 145 & 180 & 225 & 221 & 245}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT $r$. Vergelijk met $r = 0,97$ in graden Celsius.
+      antwoord: |-
+        $r = 0,97$, hetzelfde
+      uitwerking: |-
+        $r \approx 0,97$: precies hetzelfde. De punten liggen even dicht bij een rechte; alleen de schaal op de $x$-as is anders.
+    - opgave: |-
+        Bereken de regressielijn. Is ze dezelfde als $N = 11,78\,T - 122,72$?
+      antwoord: |-
+        $N = 6,54F - 332,14$; nee
+      uitwerking: |-
+        $N \approx 6,54F - 332,14$: een andere rico en een ander snijpunt, want $F$ is een andere variabele.
+    - opgave: |-
+        27 °C is 80,6 °F. Geven de twee regressielijnen dezelfde voorspelling?
+      antwoord: |-
+        ja, ongeveer 195
+      uitwerking: |-
+        In °C: $11,78 \cdot 27 - 122,72 \approx 195$. In °F: $6,5444 \cdot 80,6 - 332,14 \approx 195$. Dezelfde voorspelling: het is dezelfde rechte, op een andere schaal getekend.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    r zegt niets over de steilheid
+  opgave: |-
+    Twee planten worden zes weken gevolgd. Plant A groeit snel, plant B traag.
+
+    \vspace{1mm}
+    {\centering\waardetabel[week][A (cm)]{6}{1 & 2 & 3 & 4 & 5 & 6}{20 & 26 & 29 & 39 & 41 & 50}\quad
+    \waardetabel[week][B (cm)]{6}{1 & 2 & 3 & 4 & 5 & 6}{2,0 & 2,6 & 2,9 & 3,9 & 4,1 & 5,0}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elke plant $r$ en de rico van de regressielijn.
+      antwoord: |-
+        A: $r = 0,99$, $m = 5,86$; \ B: $r = 0,99$, $m = 0,59$
+      uitwerking: |-
+        A: $r \approx 0,99$ en $m \approx 5,86$ cm per week. B: $r \approx 0,99$ en $m \approx 0,59$ cm per week.
+    - opgave: |-
+        Bij welke plant is het verband tussen tijd en hoogte het sterkst? Welke plant groeit het snelst?
+      antwoord: |-
+        even sterk; A groeit sneller
+      uitwerking: |-
+        Het verband is even sterk: de hoogtes van A zijn precies tien keer die van B, dus de punten liggen even dicht bij hun rechte. Plant A groeit wel tien keer zo snel: dat zie je aan de rico, niet aan $r$.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    toeval bij weinig gegevens
+  opgave: |-
+    Jonas gooit vier keer met twee dobbelstenen, een rode en een blauwe. Hij noteert de ogen: $(2, 1)$, $(5, 6)$, $(3, 2)$ en $(6, 5)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de correlatiecoëfficiënt.
+      antwoord: |-
+        $r = 0,92$
+      uitwerking: |-
+        $r \approx 0,92$.
+    - opgave: |-
+        Jonas besluit: ``Als de rode dobbelsteen hoog gooit, gooit de blauwe ook hoog.'' Klopt dat?
+      antwoord: |-
+        nee, toeval
+      uitwerking: |-
+        Nee: de dobbelstenen beïnvloeden elkaar niet. Met maar vier worpen kan $r$ toevallig groot zijn.
+    - opgave: |-
+        Na 50 worpen vindt Jonas $r = 0,04$. Wat leer je hieruit?
+      antwoord: |-
+        met meer gegevens verdwijnt het toeval
+      uitwerking: |-
+        Met veel gegevens komt $r$ dicht bij de echte waarde 0. Een grote $r$ bij weinig gegevens is geen bewijs van een verband.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    twee reeksen die allebei in de tijd stijgen
+  opgave: |-
+    Van 2015 tot 2024 steeg in een land zowel het aantal elektrische wagens $e$ (in duizend) als het aantal verkochte avocado's $a$ (in miljoen).
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$e$][$a$]{10}{5 & 8 & 12 & 18 & 27 & 40 & 62 & 85 & 110 & 140}{3,1 & 3,4 & 3,9 & 4,2 & 4,8 & 5,1 & 5,9 & 6,2 & 6,8 & 7,1}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT $r$.
+      antwoord: |-
+        $r = 0,96$
+      uitwerking: |-
+        $r \approx 0,96$: een sterk positief verband.
+    - opgave: |-
+        Kopen bestuurders van elektrische wagens meer avocado's? Wat is de verborgen variabele?
+      antwoord: |-
+        nee; de tijd
+      uitwerking: |-
+        Waarschijnlijk niet. Beide stijgen in de loop van de jaren, om heel verschillende redenen (nieuwe technologie, nieuwe eetgewoonten). De verborgen variabele is de tijd. Twee reeksen die allebei groeien, hebben altijd een grote $r$.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    volledige analyse met ICT
+  opgave: |-
+    Een technicus test de batterij van negen smartphones van verschillende ouderdom $x$ (in maanden). Hij noteert hoeveel procent $y$ van de oorspronkelijke capaciteit er nog over is.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$x$ (mnd)][$y$ (\%)]{9}{3 & 6 & 9 & 12 & 15 & 18 & 24 & 30 & 36}{99 & 97 & 97 & 94 & 94 & 91 & 89 & 87 & 82}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.17cm,y=.22cm]
+          \diagram[$x$ (mnd)][$y$ (\%)]{0}{3}{39}{80}{2}{100}
+          \xas{0,6,...,36}\yas{80,85,...,100}
+          \rechte{0}{39}{-0.4889}{100.5333}
+          \punten{(3,99) (6,97) (9,97) (12,94) (15,94) (18,91) (24,89) (30,87) (36,82)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Bereken met ICT $r$ en de regressielijn. Beschrijf het verband.
+      antwoord: |-
+        $r = -0,99$; \ $y = -0,49x + 100,53$
+      uitwerking: |-
+        $r \approx -0,99$ en $y \approx -0,49x + 100,53$: een sterk negatief, lineair verband. Per maand verliest de batterij gemiddeld ongeveer een half procent capaciteit.
+    - opgave: |-
+        Hoeveel capaciteit verwacht je na 20 maanden?
+      antwoord: |-
+        ongeveer 91 \%
+      uitwerking: |-
+        $-0,49 \cdot 20 + 100,53 \approx 90,7$: ongeveer 91 \% (interpoleren).
+    - opgave: |-
+        Na hoeveel maanden zakt de batterij onder 80 \%? Hoe betrouwbaar is dat?
+      antwoord: |-
+        na ongeveer 42 maanden; matig betrouwbaar
+      uitwerking: |-
+        $-0,49x + 100,53 = 80$ geeft $x \approx 42$ maanden. Dat is een beetje extrapoleren (de gegevens gaan tot 36 maanden): een redelijke schatting, maar oude batterijen gaan soms sneller achteruit.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    omgekeerde richting
+  opgave: |-
+    In elke uitspraak is de richting van oorzaak en gevolg waarschijnlijk omgekeerd. Leg uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wie een bril draagt, heeft slechtere ogen. Brillen maken je ogen dus slechter.
+      antwoord: |-
+        de ogen veroorzaken de bril
+      uitwerking: |-
+        Wie slechte ogen heeft, krijgt een bril. Niet omgekeerd.
+    - opgave: |-
+        Gemeenten met meer windmolens hebben meer wind. Windmolens maken dus wind.
+      antwoord: |-
+        molens staan waar het waait
+      uitwerking: |-
+        Windmolens worden gebouwd waar het veel waait.
+    - opgave: |-
+        Kinderen die vaak gestraft worden, zijn vaker ongehoorzaam. Straffen maakt kinderen dus ongehoorzaam.
+      antwoord: |-
+        ongehoorzaam leidt tot straf
+      uitwerking: |-
+        Minstens voor een deel omgekeerd: kinderen die ongehoorzaam zijn, worden vaker gestraft.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    zelf punten kiezen bij een gegeven r
+  opgave: |-
+    Bedenk telkens vier punten met $x = 1, 2, 3, 4$. Controleer met ICT.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $r = 1$
+      antwoord: |-
+        bijvoorbeeld $(1, 3)$, $(2, 5)$, $(3, 7)$, $(4, 9)$
+      uitwerking: |-
+        Alle punten op een stijgende rechte, bijvoorbeeld $y = 2x + 1$: $(1, 3)$, $(2, 5)$, $(3, 7)$, $(4, 9)$.
+    - opgave: |-
+        $r = -1$
+      antwoord: |-
+        bijvoorbeeld $(1, 8)$, $(2, 6)$, $(3, 4)$, $(4, 2)$
+      uitwerking: |-
+        Alle punten op een dalende rechte, bijvoorbeeld $y = -2x + 10$.
+    - opgave: |-
+        $r = 0$, terwijl de punten niet op een horizontale rechte liggen
+      antwoord: |-
+        bijvoorbeeld $(1, 3)$, $(2, 1)$, $(3, 1)$, $(4, 3)$
+      uitwerking: |-
+        Een symmetrische V-vorm: $(1, 3)$, $(2, 1)$, $(3, 1)$, $(4, 3)$. Het gemiddelde punt is $(2,5;\ 2)$, en de producten zijn $-1,5$; $0,5$; $-0,5$ en $1,5$, samen 0. Dus $r = 0$.
+
+- id: h2-o19
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    r met de formule
+  opgave: |-
+    Bereken met de formule de correlatiecoëfficiënt van de punten $(2, 4)$, $(4, 5)$, $(6, 9)$, $(8, 8)$ en $(10, 14)$. Welke punten dragen het meest bij tot $r$? Controleer met ICT.
+  antwoord: |-
+    $r \approx 0,92$; $(2, 4)$ en $(10, 14)$
+  uitwerking: |-
+    Het gemiddelde punt is $(6, 8)$. De afwijkingen zijn $x - \xbar$: $-4, -2, 0, 2, 4$ en $y - \ybar$: $-4, -3, 1, 0, 6$. De producten zijn $16, 6, 0, 0, 24$, samen $46$. Verder is $\sum (x - \xbar)^2 = 40$ en $\sum (y - \ybar)^2 = 16 + 9 + 1 + 0 + 36 = 62$. Dus $r = \tfrac{46}{\sqrt{40 \cdot 62}} = \tfrac{46}{\sqrt{2480}} \approx 0,92$. De punten $(2, 4)$ en $(10, 14)$ ver van het gemiddelde punt geven de grootste producten (16 en 24): punten aan de uiteinden wegen het zwaarst door.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een kleiner bereik geeft een kleinere r
+  opgave: |-
+    Veertien leerlingen meten hun lengte $\ell$ (in cm) en gewicht $g$ (in kg).
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$\ell$][$g$]{14}{150 & 155 & 158 & 160 & 163 & 165 & 168 & 170 & 172 & 175 & 178 & 180 & 183 & 188}{45 & 48 & 52 & 50 & 55 & 58 & 56 & 62 & 60 & 66 & 63 & 70 & 68 & 72}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ voor alle veertien leerlingen.
+      antwoord: |-
+        $r = 0,97$
+      uitwerking: |-
+        $r \approx 0,97$.
+    - opgave: |-
+        Een basketbalclub kijkt alleen naar de leerlingen van 170 cm of meer. Bereken $r$ voor die zeven leerlingen.
+      antwoord: |-
+        $r = 0,88$
+      uitwerking: |-
+        $r \approx 0,88$.
+    - opgave: |-
+        Waarom is $r$ kleiner geworden, hoewel het om dezelfde soort gegevens gaat?
+      antwoord: |-
+        het bereik van $\ell$ is kleiner
+      uitwerking: |-
+        Binnen een klein bereik van lengtes zijn de verschillen in gewicht vooral toevallige schommelingen (bouw, spieren), en die wegen dan zwaarder door tegenover de lengteverschillen. Over een groot bereik overheerst het verband. Vergelijk dus geen $r$ van gegevens met een heel verschillend bereik.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    twee groepen samen geven een schijnverband
+  opgave: |-
+    Mila herhaalt haar onderzoek met zes kinderen uit het eerste leerjaar en zes uit het zesde leerjaar (schoenmaat $s$, score $c$ op de leestest).
+
+    \vspace{1mm}
+    {\centering\waardetabel[1ste: $s$][$c$]{6}{28 & 29 & 29 & 30 & 30 & 31}{14 & 10 & 16 & 12 & 15 & 11}\quad
+    \waardetabel[6de: $s$][$c$]{6}{36 & 37 & 37 & 38 & 39 & 40}{40 & 43 & 38 & 42 & 39 & 41}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ voor elk leerjaar apart.
+      antwoord: |-
+        $-0,32$ en $0,04$
+      uitwerking: |-
+        Eerste leerjaar: $r \approx -0,32$. Zesde leerjaar: $r \approx 0,04$. Binnen elk leerjaar is er geen of een zwak (zelfs negatief) verband.
+    - opgave: |-
+        Bereken $r$ voor de twaalf kinderen samen.
+      antwoord: |-
+        $0,95$
+      uitwerking: |-
+        Samen: $r \approx 0,95$, een sterk positief verband.
+    - opgave: |-
+        Hoe kan dat? Maak een schets van het spreidingsdiagram.
+      antwoord: |-
+        twee groepjes, het verband ligt tussen de groepen
+      uitwerking: |-
+        De punten vormen twee groepjes: linksonder het eerste leerjaar, rechtsboven het zesde. Binnen elk groepje is er geen verband, maar samen liggen ze op een stijgende lijn. Het hele ``verband'' komt van het leerjaar: de verborgen variabele.
+        \figuren{\begin{tikzpicture}[x=.3cm,y=.07cm]
+          \diagram[$s$][$c$]{26}{1}{42}{0}{5}{50}
+          \xas{28,32,...,40}\yas{0,10,...,50}
+          \punten{(28,14) (29,10) (29,16) (30,12) (30,15) (31,11) (36,40) (37,43) (37,38) (38,42) (39,39) (40,41)}
+        \end{tikzpicture}}
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    invloed van een extra punt op r
+  opgave: |-
+    Vijf punten $(1, 2)$, $(2, 4)$, $(3, 3)$, $(4, 5)$ en $(5, 6)$ hebben $r = 0,90$ en de regressielijn $y = 0,9x + 1,3$. Voeg telkens één punt toe en bereken de nieuwe $r$ met ICT. Verklaar wat er gebeurt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        het punt $(10;\ 10,3)$, dat op de regressielijn ligt
+      antwoord: |-
+        $r = 0,98$
+      uitwerking: |-
+        $r \approx 0,98$: groter. Een punt ver weg dat precies op de rechte ligt, maakt het lineaire verband duidelijker.
+    - opgave: |-
+        het punt $(10, 2)$
+      antwoord: |-
+        $r = -0,10$
+      uitwerking: |-
+        $r \approx -0,10$: het verband verdwijnt bijna, en wordt zelfs een beetje negatief. Eén punt ver van de rest heeft veel invloed.
+    - opgave: |-
+        het punt $(3, 4)$
+      antwoord: |-
+        $r = 0,90$
+      uitwerking: |-
+        $r \approx 0,90$: niets verandert. $(3, 4)$ is het gemiddelde punt: zijn afwijkingen zijn 0, dus het verandert de sommen niet.
+
+- id: h2-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een experiment opzetten
+  opgave: |-
+    Een school leest in een enquête dat leerlingen die tijdens het studeren naar muziek luisteren, gemiddeld lagere punten halen ($r = -0,4$).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Mag de school besluiten dat muziek het studeren slechter maakt? Geef twee andere verklaringen.
+      antwoord: |-
+        nee; verborgen variabele of omgekeerd
+      uitwerking: |-
+        Nee: het verband is zwak en het is geen experiment. Andere verklaringen: leerlingen die minder gemotiveerd zijn, zetten vaker muziek op en halen lagere punten (verborgen variabele); leerlingen die het moeilijk hebben, zoeken afleiding in muziek (omgekeerde richting).
+    - opgave: |-
+        Beschrijf een experiment waarmee je kunt nagaan of muziek de punten echt beïnvloedt.
+      antwoord: |-
+        loting in twee groepen
+      uitwerking: |-
+        Verdeel een grote groep leerlingen door loting in twee groepen. Beide groepen studeren dezelfde leerstof even lang, in hetzelfde lokaal, de ene groep met muziek en de andere zonder. Daarna maken ze dezelfde toets. Door de loting zijn motivatie en kennis in beide groepen gemiddeld gelijk; een duidelijk verschil in punten komt dan door de muziek.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    r interpreteren
+  opgave: |-
+    Beschrijf het verband: richting en sterkte.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $r = -0,83$
+      antwoord: |-
+        sterk negatief
+      uitwerking: |-
+        Sterk negatief.
+    - opgave: |-
+        $r = 0,35$
+      antwoord: |-
+        zwak positief
+      uitwerking: |-
+        Zwak positief.
+    - opgave: |-
+        $r = 0,66$
+      antwoord: |-
+        matig positief
+      uitwerking: |-
+        Matig positief.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    r schatten uit een spreidingsdiagram
+  opgave: |-
+    Welke waarde hoort bij welk diagram: $r = 0,95$, \ $r = -0,70$ \ of \ $r = 0,10$?
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=.25cm,y=.25cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.4,5.4) (2.3,3.8) (2.4,5.6) (3.4,4.1) (3.5,4.6) (3.6,3.7) (5.7,7.5) (7.2,5.9) (7.5,3.5) (7.6,8.4) (8.2,4.7) (8.3,2.8)}
+      \node[below,font=\small\bfseries] at (5,-.6) {A};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.25cm,y=.25cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(1.5,3) (1.5,3.8) (2,3.7) (2,3.9) (2.2,3) (3.2,5.2) (4.1,4.7) (5.5,4.8) (6.2,6.5) (7.5,6.2) (8.6,7.6) (9,7.6)}
+      \node[below,font=\small\bfseries] at (5,-.6) {B};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.25cm,y=.25cm,font=\scriptsize]
+      \diagram[][]{0}{2}{10}{0}{2}{10}
+      \punten{(3,6.4) (3.8,7.6) (4.8,5.4) (5.2,4.9) (5.2,6.6) (6.2,4.1) (6.5,6.7) (7,5.2) (7.1,2.8) (7.9,2.9) (8,2.4) (8.5,4.9)}
+      \node[below,font=\small\bfseries] at (5,-.6) {C};
+    \end{tikzpicture}}
+  antwoord: |-
+    A: $0,10$; \ B: $0,95$; \ C: $-0,70$
+  uitwerking: |-
+    B stijgt dicht bij een rechte: $0,95$. C daalt met spreiding: $-0,70$. A heeft geen duidelijke richting: $0,10$.
+
+- id: h2-t3
+  soort: test
+  niveau: 2
+  thema: |-
+    r met ICT
+  opgave: |-
+    Een pretpark noteert op acht dagen het aantal bezoekers $b$ (in duizend) en de gemiddelde wachttijd $w$ (in minuten) bij de achtbaan. Bereken met ICT $r$ en beschrijf het verband.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$b$][$w$ (min)]{8}{4 & 6 & 7 & 9 & 10 & 12 & 13 & 15}{15 & 25 & 20 & 35 & 40 & 45 & 55 & 60}\par}
+  antwoord: |-
+    $r = 0,98$, sterk positief
+  uitwerking: |-
+    ICT geeft $r \approx 0,98$: een sterk positief verband. Hoe drukker, hoe langer de wachttijd.
+
+- id: h2-t4
+  soort: test
+  niveau: 2
+  thema: |-
+    r bijna 0 bij een niet-lineair verband
+  opgave: |-
+    Voor deze puntenwolk geeft ICT $r = -0,03$. Sven besluit: ``Er is geen verband tussen $x$ en $y$.'' Heeft hij gelijk?
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+        \diagram{0}{2}{10}{0}{2}{10}
+        \punten{(0.8,3.3) (1.6,6) (2.3,6.9) (2.9,7.1) (3.7,8.3) (4.4,8.9) (5.4,8.7) (6.5,8.4) (6.8,7.8) (7.5,7.2) (8.6,5.4) (9.3,3)}
+      \end{tikzpicture}
+  antwoord: |-
+    nee: geen lineair verband, wel een ander verband
+  uitwerking: |-
+    Nee. $r \approx 0$ betekent alleen dat er geen lineair verband is. De punten liggen duidelijk op een boog: $y$ stijgt eerst en daalt daarna. Er is dus wel een (sterk) verband, maar het is niet lineair.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    uitschieter en r
+  opgave: |-
+    Bereken met ICT $r$ voor deze zeven punten, en daarna zonder het laatste punt. Wat besluit je?
+
+    \vspace{1mm}
+    {\centering\waardetabel{7}{2 & 3 & 4 & 5 & 6 & 7 & 8}{9 & 8 & 8 & 6 & 5 & 5 & 20}\par}
+  antwoord: |-
+    $0,35$ en $-0,96$
+  uitwerking: |-
+    Met alle punten: $r \approx 0,35$. Zonder $(8, 20)$: $r \approx -0,96$. Eén uitschieter verandert een sterk negatief verband in een zwak positief: het teken draait zelfs om. Kijk na of $(8, 20)$ een fout is.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    correlatie en oorzaak
+  opgave: |-
+    ``In gemeenten met meer zwembaden zijn er meer apotheken.'' Bewijst dat dat zwembaden de mensen ziek maken? Geef een betere verklaring.
+  antwoord: |-
+    nee; verborgen variabele: het aantal inwoners
+  uitwerking: |-
+    Nee. Een correlatie bewijst geen oorzaak. Gemeenten met meer inwoners hebben meer zwembaden \textit{en} meer apotheken: het aantal inwoners is een verborgen variabele.
+
+- id: h2-t7
+  soort: test
+  niveau: 1
+  thema: |-
+    teken van r met de kwadranten
+  opgave: |-
+    De streepjeslijnen gaan door het gemiddelde punt. Is $r$ positief of negatief? Leg uit met de kwadranten.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+        \diagram{0}{2}{10}{0}{2}{10}
+        \gemlijnen{5.5}{4.99}{0}{10}{0}{10}
+        \punten{(2.3,6.9) (2.3,6.8) (3.3,6.8) (3.8,5) (3.9,5.4) (4.7,6.9) (6.2,4.8) (6.3,2.1) (7.4,3.4) (8.4,5.2) (8.5,3.3) (8.9,3.3)}
+      \end{tikzpicture}
+  antwoord: |-
+    negatief
+  uitwerking: |-
+    Elf van de twaalf punten liggen linksboven of rechtsonder, waar $(x - \xbar)(y - \ybar)$ negatief is. Dus $r < 0$. (ICT: $r = -0,76$.)
