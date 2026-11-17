@@ -8,9 +8,26 @@
 
 \mychapter{3}{De goniometrische vorm}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{41}\alleenvoor{3}{32} (cartesische vorm omzetten naar goniometrische vorm en omgekeerd) en het eerste deel van LPD \alleenvoor{4}{42}\alleenvoor{3}{33} (vermenigvuldigen en delen in goniometrische vorm), met de wenken over het verband met de somformules en de meetkundige betekenis. Machten en $n$-de machtswortels volgen in hoofdstuk 4. Het argument staat in radialen, met de hoofdwaarde in $]-\pi, \pi]$; wie liever in graden werkt, kan dat overal doen.}
+\begin{probleem}
+\naast{Op de kaart van een nieuw windpark staan twee windturbines, in $A(0, 0)$ en $B(4, 1)$. De eenheid is 100 meter. Een derde turbine $C$ moet even ver van $A$ en van $B$ staan als $A$ en $B$ van elkaar, ten noorden van de rechte $AB$: de drie turbines vormen een gelijkzijdige driehoek. Waar komt $C$, exact en op 10 meter nauwkeurig?
 
-In hoofdstuk 1 zag je dat vermenigvuldigen met $i$ een kwartslag is: het punt draait om de oorsprong, en zijn afstand tot de oorsprong blijft dezelfde. Dat is geen toeval voor $i$ alleen. Vermenigvuldigen met een complex getal is altijd een draaiing gevolgd door een uitrekking. Je ziet dat het best als je een complex getal niet beschrijft met zijn reëel en imaginair deel, maar met zijn afstand tot de oorsprong en een hoek. Dat is de goniometrische vorm.
+Je vindt $C$ door $B$ over $60^\circ$ om $A$ te draaien. Een kwartslag draaien kun je al: in het vlak van Gauss is dat vermenigvuldigen met $i$. Maar hoe draai je over $60^\circ$?}{\begin{tikzpicture}[x=.55cm,y=.55cm,font=\scriptsize]
+  \draw[black!14,very thin] (-1,-1) grid (5,5);
+  \draw[->,grijs] (-1,0) -- (5.4,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1) -- (0,5.4) node[above,text=black] {$y$};
+  \foreach \t in {1,...,4}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] (0,0) -- (4,1);
+  \draw[hulplijn] (0,0) -- (1.134,3.964) -- (4,1);
+  \fill[accent] (0,0) circle (2.2pt) node[below left,text=black,inner sep=2pt] {$A$};
+  \fill[accent] (4,1) circle (2.2pt) node[above right,text=black,inner sep=1.5pt] {$B$};
+  \node[text=black,font=\small] at (1.134,3.964) {$C\,?$};
+  \draw[->,grijs] (4.4,3.3) -- (4.4,4.5) node[above,text=black] {N};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{41}\alleenvoor{3}{32} (cartesische vorm omzetten naar goniometrische vorm en omgekeerd) en het eerste deel van LPD \alleenvoor{4}{42}\alleenvoor{3}{33} (vermenigvuldigen en delen in goniometrische vorm), met de wenken over het verband met de somformules en de meetkundige betekenis. Machten en $n$-de machtswortels volgen in hoofdstuk 4. Het argument staat in radialen, met de hoofdwaarde in $]-\pi, \pi]$; wie liever in graden werkt, kan dat overal doen. Het windpark is verzonnen; de afstand van ongeveer 400 m tussen turbines is realistisch. Een sterke leerling vindt $C$ misschien al met het midden van $[AB]$ en een loodrechte vector: vraag dan naar een draaiing over een andere hoek. De oplossing staat in voorbeeld \ref{vb:h3-terug}.}
+
+Voor het probleem moet je een punt draaien over $60^\circ$. In hoofdstuk 1 zag je dat vermenigvuldigen met $i$ een kwartslag is: het punt draait om de oorsprong, en zijn afstand tot de oorsprong blijft dezelfde. Bestaat er ook een getal waarmee je over $60^\circ$ draait? Ja: vermenigvuldigen met een complex getal is altijd een draaiing gevolgd door een uitrekking. Je ziet dat het best als je een complex getal niet beschrijft met zijn reëel en imaginair deel, maar met zijn afstand tot de oorsprong en een hoek. Dat is de goniometrische vorm. Op het einde van het hoofdstuk vind je zo de plaats van de derde turbine.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -23,9 +40,13 @@ In hoofdstuk 1 zag je dat vermenigvuldigen met $i$ een kwartslag is: het punt dr
 %========================================================================================
 \section{Modulus en argument}
 
-Een punt in het vlak ligt vast door zijn twee coördinaten, maar ook door zijn afstand tot de oorsprong en de richting waarin het ligt. Voor een complex getal is die afstand de modulus. De richting geven we met een hoek, zoals op de goniometrische cirkel.
+Probeer het probleem met wat je al kent. Leg de oorsprong in $A$, zodat $B$ het complex getal $4 + i$ is. Bij een draaiing om $A$ verandert de afstand tot $A$ niet, $|4 + i| = \sqrt{17}$, en komt er $60^\circ$ bij de hoek die $B$ maakt met de positieve reële as. Het reëel en het imaginair deel van $C$ volgen daar niet zomaar uit, want die hoek staat niet rechtstreeks in de schrijfwijze $4 + i$. Afstand en hoek zijn de natuurlijke gegevens bij een draaiing.
+
+Een punt in het vlak ligt dus niet alleen vast door zijn twee coördinaten, maar ook door zijn afstand tot de oorsprong en de richting waarin het ligt. Voor een complex getal is die afstand de modulus.
 
 \subsection{Het argument}
+
+Hoe geef je de richting van een punt met één getal? Zoals op de goniometrische cirkel: met de hoek die de pijl maakt met de positieve reële as.
 
 \begin{theorie}
 \begin{minipage}[t]{.57\linewidth}
@@ -338,7 +359,7 @@ Voor een som bestaat zo'n regel niet. Tel je $\cos 0 + i\sin 0 = 1$ en $\cos\fra
 
 \subsection{Het quotiënt}
 
-Delen is het omgekeerde van vermenigvuldigen. Dus deel je de moduli, en trek je de argumenten af.
+Wat gebeurt er bij een deling? Delen is het omgekeerde van vermenigvuldigen. Je verwacht dus dat je de moduli deelt en de argumenten aftrekt, en dat klopt.
 
 \begin{theorie}
 \begin{stelling}{Quotiënt in goniometrische vorm}
@@ -378,7 +399,7 @@ Zet de getallen in goniometrische vorm, als ze dat nog niet zijn. Bij een produc
 
 \subsection{Draaien om de oorsprong}
 
-Een getal met modulus 1 rekt niets uit. Vermenigvuldigen ermee is dus een zuivere draaiing. Zo kun je een punt draaien zonder goniometrie op de figuur zelf.
+Hoe draai je een punt over een gegeven hoek, zoals de $60^\circ$ uit het probleem? Een getal met modulus 1 rekt niets uit. Vermenigvuldigen ermee is dus een zuivere draaiing. Zo kun je een punt draaien zonder goniometrie op de figuur zelf.
 
 \begin{theorie}
 \begin{stelling}{Draaiing om de oorsprong}
@@ -422,6 +443,32 @@ Vermenigvuldig het punt met $\cos\alpha + i\sin\alpha$, met $\alpha > 0$ voor ee
 \begin{oefeningen}
 \oef{h3-draai}
 \end{oefeningen}
+
+Met de draaiing om de oorsprong kun je het probleem van het windpark oplossen.
+
+\voorbeeld{}{Terug naar het probleem. De windturbines $A$ en $B$ staan in $0$ en $4 + i$, met als eenheid 100 m. Bepaal de plaats van de derde turbine $C$, ten noorden van de rechte $AB$, zodat $ABC$ een gelijkzijdige driehoek is.\label{vb:h3-terug}}{%
+\uitleg{In een gelijkzijdige driehoek is $|AC| = |AB|$ en is de hoek $BAC$ gelijk aan $60^\circ$. We draaien $B$ dus over $\frac{\pi}{3}$ om de oorsprong, tegen de wijzers van de klok in. We rekenen cartesisch, want we willen coördinaten.}
+\naast{\begin{minipage}{9.8cm}
+\begin{stappenvrij}{5.4cm}{4.1cm}
+C = (4 + i)\Bigl(\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}\Bigr) & De draaiing over $\frac{\pi}{3}$, of $60^\circ$. \\[2ex]
+= (4 + i)\Bigl(\frac12 + \frac{\sqrt3}{2}i\Bigr) & De bijzondere waarden. \\[2ex]
+= \Bigl(2 - \frac{\sqrt3}{2}\Bigr) + \Bigl(2\sqrt3 + \frac12\Bigr)i & Uitwerken, met $i^2 = -1$. \\[2ex]
+\approx 1{,}13 + 3{,}96\,i & Op 10 m nauwkeurig.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[x=.55cm,y=.55cm]
+  \gauss{-1}{5}{-1}{4}
+  \draw[accent!60] (0,0) -- (4,1) -- (1.134,3.964) -- cycle;
+  \draw[hulplijn] (14.04:4.123) arc[start angle=14.04,end angle=74.04,radius=4.123];
+  \draw[vector] (0,0) -- (4,1);
+  \draw[vector,fel!80!black] (0,0) -- (1.134,3.964);
+  \draw[accent,thick] (14.04:1.1) arc[start angle=14.04,end angle=74.04,radius=1.1];
+  \node[font=\scriptsize] at (44:1.6) {$\frac{\pi}{3}$};
+  \cpunt[below right]{4}{1}{$B$}
+  \cpunt[above right]{1.134}{3.964}{$C$}
+\end{tikzpicture}}
+De derde turbine staat dus ongeveer 113 m ten oosten en 396 m ten noorden van $A$.}
+
+Controle: $|C - B|^2 = \bigl(2 + \tfrac{\sqrt3}{2}\bigr)^2 + \bigl(2\sqrt3 - \tfrac12\bigr)^2 = 17$, en $|C| = |4 + i| = \sqrt{17}$, want $\cos\frac{\pi}{3} + i\sin\frac{\pi}{3}$ heeft modulus 1. Ten zuiden van $AB$ vind je met de hoek $-\frac{\pi}{3}$ ongeveer $2{,}87 - 2{,}96\,i$.
 
 %========================================================================================
 \opdrachtenkop
