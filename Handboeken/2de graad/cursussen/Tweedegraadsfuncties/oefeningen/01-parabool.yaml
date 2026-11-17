@@ -1,0 +1,1837 @@
+# Oefeningen van hoofdstuk 1 (de parabool). Zie Opmaak/oefeningenbank.py voor de velden.
+# Pakket 1 heeft alleen y = ax^2: de korte oefeningen h1-vglax en h1-context en de opdrachten h1-o20 tot h1-o30 (pakketten: [1]).
+# Pakket 2-5: h1-verschuif, h1-tekentop, h1-aflezen en de opdrachten h1-o40 tot h1-o48; h1-o49 in 4-5, h1-o50 in 5.
+# De testvragen h1-t5, h1-t6 en h1-t7 hebben een variant voor pakket 1 en een voor 2-5, met hetzelfde id.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken zonder rekenmachine.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $(-4)^2$
+      antwoord: |-
+        $16$
+      uitwerking: |-
+        $(-4) \cdot (-4) = 16$.
+    - opgave: |-
+        $-4^2$
+      antwoord: |-
+        $-16$
+      uitwerking: |-
+        Alleen $4$ wordt gekwadrateerd: $-(4 \cdot 4) = -16$.
+    - opgave: |-
+        $0,3^2$
+      antwoord: |-
+        $0,09$
+      uitwerking: |-
+        $0,3 \cdot 0,3 = 0,09$.
+    - opgave: |-
+        $2 \cdot (-3)^2$
+      antwoord: |-
+        $18$
+      uitwerking: |-
+        Eerst het kwadraat: $2 \cdot 9 = 18$.
+    - opgave: |-
+        $\bigl(2 \cdot (-3)\bigr)^2$
+      antwoord: |-
+        $36$
+      uitwerking: |-
+        Eerst het product: $(-6)^2 = 36$.
+    - opgave: |-
+        $-\tfrac12 \cdot 6^2$
+      antwoord: |-
+        $-18$
+      uitwerking: |-
+        $-\tfrac12 \cdot 36 = -18$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem de functie $f(x) = x^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $f(-2,5)$, $f(-1,5)$, $f(1,5)$ en $f(2,5)$. Wat valt op?
+      antwoord: |-
+        $6,25$; $2,25$; $2,25$; $6,25$
+      uitwerking: |-
+        $f(-2,5) = 6,25$, $f(-1,5) = 2,25$, $f(1,5) = 2,25$ en $f(2,5) = 6,25$. Tegengestelde getallen hebben hetzelfde kwadraat.
+    - opgave: |-
+        Welke punten van de grafiek liggen op hoogte $4$?
+      antwoord: |-
+        $(2, 4)$ en $(-2, 4)$
+      uitwerking: |-
+        $x^2 = 4$ als $x = 2$ of $x = -2$: de punten $(2, 4)$ en $(-2, 4)$.
+    - opgave: |-
+        Ligt er een punt van de grafiek onder de $x$-as?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: een kwadraat is nooit negatief, dus $f(x) \geqslant 0$.
+    - opgave: |-
+        Wat gebeurt er met $f(x)$ als je $x$ verdubbelt van $1,5$ naar $3$? Is dat zoals bij een rechte?
+      antwoord: |-
+        $f(x)$ wordt $4$ keer zo groot; nee
+      uitwerking: |-
+        $f(1,5) = 2,25$ en $f(3) = 9 = 4 \cdot 2,25$. Bij een rechte door de oorsprong zou $f(x)$ verdubbelen.
+
+# --- Korte oefeningen (alle pakketten) ---------------------------------------------------
+
+- id: h1-xkwadraat
+  soort: kort
+  opgave: |-
+    Neem de parabool $y = x^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ligt het punt $(-6, 36)$ op de parabool? En het punt $(-3, -9)$?
+      antwoord: |-
+        ja; nee
+      uitwerking: |-
+        $(-6)^2 = 36$: ja. $(-3)^2 = 9 \neq -9$: nee.
+    - opgave: |-
+        Geef de punten van de parabool op hoogte $49$.
+      antwoord: |-
+        $(7, 49)$ en $(-7, 49)$
+      uitwerking: |-
+        $x^2 = 49$, dus $x = 7$ of $x = -7$.
+    - opgave: |-
+        Geef de punten van de parabool op hoogte $2$.
+      antwoord: |-
+        $(\sqrt2, 2)$ en $(-\sqrt2, 2)$
+      uitwerking: |-
+        $x^2 = 2$, dus $x = \sqrt2 \approx 1,41$ of $x = -\sqrt2$.
+    - opgave: |-
+        Waarom ligt er geen punt van de parabool op hoogte $-4$?
+      antwoord: |-
+        een kwadraat is nooit negatief
+      uitwerking: |-
+        Dan zou $x^2 = -4$, maar een kwadraat is nooit negatief.
+
+- id: h1-tekenax
+  soort: kort
+  opgave: |-
+    Maak een tabel en teken de grafiek.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = 1,5x^2$
+      antwoord: |-
+        naar boven, door $(\pm1;\ 1,5)$ en $(\pm2, 6)$
+      uitwerking: |-
+        \waardetabel{5}{-2 & -1 & 0 & 1 & 2}{6 & 1,5 & 0 & 1,5 & 6}
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.3cm]
+          \rooster{-3}{1}{3}{-1}{1}{7}
+          \parabool{1.5}{0}{0}{-2.15}{2.15}
+          \foreach \a in {-2,-1,1,2}{\punt{\a}{1.5*\a*\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $g(x) = -\tfrac14 x^2$
+      antwoord: |-
+        naar onder, door $(\pm2, -1)$ en $(\pm4, -4)$
+      uitwerking: |-
+        \waardetabel{5}{-4 & -2 & 0 & 2 & 4}{-4 & -1 & 0 & -1 & -4}
+        \figuren{\begin{tikzpicture}[x=.35cm,y=.35cm]
+          \rooster{-5}{1}{5}{-5}{1}{1}
+          \parabool{-.25}{0}{0}{-4.4}{4.4}
+          \foreach \a in {-4,-2,2,4}{\punt{\a}{-\a*\a/4}}
+        \end{tikzpicture}}
+
+- id: h1-viermaal
+  soort: kort
+  opgave: |-
+    Los op zonder het voorschrift volledig uit te rekenen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij $y = 4x^2$ wordt $x$ vijf keer zo groot. Hoeveel keer zo groot wordt $y$?
+      antwoord: |-
+        $25$ keer
+      uitwerking: |-
+        $(5x)^2 = 25x^2$, dus $y$ wordt $5^2 = 25$ keer zo groot.
+    - opgave: |-
+        Bij $y = ax^2$ wordt $x$ gehalveerd. Wat gebeurt er met $y$?
+      antwoord: |-
+        $y$ wordt $4$ keer zo klein
+      uitwerking: |-
+        $\bigl(\tfrac12\bigr)^2 = \tfrac14$: $y$ wordt een vierde van wat het was.
+    - opgave: |-
+        Hoeveel vierkante tegels van $20$ cm op $20$ cm hebben samen dezelfde oppervlakte als één tegel van $60$ cm op $60$ cm?
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        De zijde wordt $3$ keer zo groot, de oppervlakte dus $3^2 = 9$ keer.
+
+- id: h1-voorschriftax
+  soort: kort
+  opgave: |-
+    Een parabool met top in de oorsprong gaat door het gegeven punt. Geef het voorschrift.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $(1, 4)$
+      antwoord: |-
+        $y = 4x^2$
+      uitwerking: |-
+        $4 = a \cdot 1^2$, dus $a = 4$.
+    - opgave: |-
+        $(3, 3)$
+      antwoord: |-
+        $y = \tfrac13 x^2$
+      uitwerking: |-
+        $3 = 9a$, dus $a = \tfrac13$.
+    - opgave: |-
+        $(-2, -10)$
+      antwoord: |-
+        $y = -2,5x^2$
+      uitwerking: |-
+        $-10 = 4a$, dus $a = -2,5$.
+    - opgave: |-
+        $(4, 2)$
+      antwoord: |-
+        $y = \tfrac18 x^2$
+      uitwerking: |-
+        $2 = 16a$, dus $a = \tfrac{2}{16} = \tfrac18$.
+
+- id: h1-kenmerkenax
+  soort: kort
+  opgave: |-
+    Geef het bereik, het extremum, en waar de functie stijgt en daalt.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = 0,5x^2$
+      antwoord: |-
+        $\ivgo{0}{\pinf}$; minimum $0$ in $x = 0$; dalend op $\ivog{\minf}{0}$, stijgend op $\ivgo{0}{\pinf}$
+      uitwerking: |-
+        $a = 0,5 > 0$: naar boven geopend. $\ber f = \ivgo{0}{\pinf}$, minimum $0$ in $x = 0$, dalend op $\ivog{\minf}{0}$ en stijgend op $\ivgo{0}{\pinf}$.
+    - opgave: |-
+        $g(x) = -4x^2$
+      antwoord: |-
+        $\ivog{\minf}{0}$; maximum $0$ in $x = 0$; stijgend op $\ivog{\minf}{0}$, dalend op $\ivgo{0}{\pinf}$
+      uitwerking: |-
+        $a = -4 < 0$: naar onder geopend. $\ber g = \ivog{\minf}{0}$, maximum $0$ in $x = 0$, stijgend op $\ivog{\minf}{0}$ en dalend op $\ivgo{0}{\pinf}$.
+
+# --- Korte oefeningen, alleen pakket 1 -----------------------------------------------
+
+- id: h1-vglax
+  soort: kort
+  pakketten: [1]
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2x^2 = 18$
+      antwoord: |-
+        $x = 3$ of $x = -3$
+      uitwerking: |-
+        $x^2 = 9$, dus $x = \pm 3$.
+    - opgave: |-
+        $-x^2 = -49$
+      antwoord: |-
+        $x = 7$ of $x = -7$
+      uitwerking: |-
+        $x^2 = 49$, dus $x = \pm 7$.
+    - opgave: |-
+        $4x^2 = 0$
+      antwoord: |-
+        $x = 0$
+      uitwerking: |-
+        $x^2 = 0$, dus $x = 0$.
+    - opgave: |-
+        $0,5x^2 = 8$
+      antwoord: |-
+        $x = 4$ of $x = -4$
+      uitwerking: |-
+        $x^2 = 16$, dus $x = \pm 4$.
+    - opgave: |-
+        $3x^2 = -12$
+      antwoord: |-
+        geen oplossing
+      uitwerking: |-
+        $x^2 = -4$: een kwadraat is nooit negatief.
+    - opgave: |-
+        $5x^2 = 30$
+      antwoord: |-
+        $x = \pm\sqrt6 \approx \pm 2,45$
+      uitwerking: |-
+        $x^2 = 6$, dus $x = \pm\sqrt6 \approx \pm 2,45$.
+
+- id: h1-context
+  soort: kort
+  pakketten: [1]
+  opgave: |-
+    Een knikker rolt van een lange helling. Na $t$ seconden heeft hij $s = 0,8t^2$ meter afgelegd.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe ver is de knikker na $5$ seconden?
+      antwoord: |-
+        $20$ m
+      uitwerking: |-
+        $s = 0,8 \cdot 25 = 20$ m.
+    - opgave: |-
+        Na hoeveel seconden heeft hij $45$ m afgelegd?
+      antwoord: |-
+        na $7,5$ s
+      uitwerking: |-
+        $0,8t^2 = 45$, dus $t^2 = 56,25$ en $t = 7,5$ (een negatieve tijd heeft geen zin).
+    - opgave: |-
+        Hoeveel meter legt hij af in de vijfde seconde?
+      antwoord: |-
+        $7,2$ m
+      uitwerking: |-
+        Van $t = 4$ tot $t = 5$: $s(5) - s(4) = 20 - 12,8 = 7,2$ m.
+
+# --- Korte oefeningen, pakket 2-5 -----------------------------------------------------
+
+- id: h1-verschuif
+  soort: kort
+  pakketten: [2, 3, 4, 5]
+  opgave: |-
+    Geef de top en de symmetrieas van de parabool.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $y = x^2 - 5$
+      antwoord: |-
+        $(0, -5)$; $x = 0$
+      uitwerking: |-
+        $y = x^2$, $5$ omlaag: top $(0, -5)$, as $x = 0$.
+    - opgave: |-
+        $y = (x - 4)^2$
+      antwoord: |-
+        $(4, 0)$; $x = 4$
+      uitwerking: |-
+        $y = x^2$, $4$ naar rechts: top $(4, 0)$, as $x = 4$.
+    - opgave: |-
+        $y = -2(x + 3)^2$
+      antwoord: |-
+        $(-3, 0)$; $x = -3$
+      uitwerking: |-
+        $x + 3 = x - (-3)$, dus $p = -3$: top $(-3, 0)$, as $x = -3$.
+    - opgave: |-
+        $y = 3x^2 + 1$
+      antwoord: |-
+        $(0, 1)$; $x = 0$
+      uitwerking: |-
+        $y = 3x^2$, $1$ omhoog: top $(0, 1)$.
+    - opgave: |-
+        $y = (x + 0,5)^2$
+      antwoord: |-
+        $(-0,5;\ 0)$; $x = -0,5$
+      uitwerking: |-
+        $p = -0,5$: een halve eenheid naar links.
+    - opgave: |-
+        $y = -x^2 + 7$
+      antwoord: |-
+        $(0, 7)$; $x = 0$
+      uitwerking: |-
+        $y = -x^2$, $7$ omhoog: top $(0, 7)$, het hoogste punt.
+
+- id: h1-tekentop
+  soort: kort
+  pakketten: [2, 3, 4, 5]
+  opgave: |-
+    Teken de grafiek vanuit de top.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $y = (x - 2)^2 - 4$
+      antwoord: |-
+        top $(2, -4)$, door $(0, 0)$ en $(4, 0)$
+      uitwerking: |-
+        Top $(2, -4)$, $a = 1$: $1$ opzij en $1$ omhoog geeft $(1, -3)$ en $(3, -3)$, $2$ opzij en $4$ omhoog geeft $(0, 0)$ en $(4, 0)$.
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.35cm]
+          \rooster{-1}{1}{5}{-5}{1}{3}
+          \symas{2}{-5}{3}
+          \parabool{1}{2}{-4}{-.6}{4.6}
+          \toppunt[below]{2}{-4}{}
+          \foreach \a in {0,1,3,4}{\punt{\a}{(\a-2)^2-4}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $y = -\tfrac12(x + 1)^2 + 2$
+      antwoord: |-
+        top $(-1, 2)$, door $(1, 0)$ en $(-3, 0)$
+      uitwerking: |-
+        Top $(-1, 2)$, $a = -\tfrac12$: $2$ opzij en $4 \cdot \tfrac12 = 2$ omlaag geeft $(1, 0)$ en $(-3, 0)$, $4$ opzij en $8$ omlaag geeft $(3, -6)$ en $(-5, -6)$.
+        \figuren{\begin{tikzpicture}[x=.35cm,y=.35cm]
+          \rooster{-5}{1}{3}{-6}{1}{3}
+          \symas{-1}{-6}{3}
+          \parabool{-.5}{-1}{2}{-5}{3}
+          \toppunt[above]{-1}{2}{}
+          \foreach \a in {-5,-3,1,3}{\punt{\a}{-(\a+1)^2/2+2}}
+        \end{tikzpicture}}
+
+- id: h1-aflezen
+  soort: kort
+  pakketten: [2, 3, 4, 5]
+  opgave: |-
+    Geef het voorschrift van de parabolen $f$ en $g$ in de topvorm.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.4cm]
+        \rooster{-5}{1}{3}{-3}{1}{5}
+        \parabool{3}{1}{-2}{-.53}{2.53}
+        \parabool[inkt]{-1}{-2}{3}{-4.45}{.45}
+        \punt{1}{-2}\punt{0}{1}\punt{2}{1}
+        \punt[inkt]{-2}{3}\punt[inkt]{-1}{2}\punt[inkt]{-3}{2}\punt[inkt]{0}{-1}\punt[inkt]{-4}{-1}
+        \node[accent,font=\scriptsize] at (2.9,4) {$f$};
+        \node[inkt,font=\scriptsize] at (-4.4,.5) {$g$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de parabool $f$
+      antwoord: |-
+        $f(x) = 3(x - 1)^2 - 2$
+      uitwerking: |-
+        Top $(1, -2)$. Door $(2, 1)$: $1 = a \cdot 1^2 - 2$, dus $a = 3$. $f(x) = 3(x - 1)^2 - 2$.
+    - opgave: |-
+        de parabool $g$
+      antwoord: |-
+        $g(x) = -(x + 2)^2 + 3$
+      uitwerking: |-
+        Top $(-2, 3)$. Door $(0, -1)$: $-1 = a \cdot 2^2 + 3$, dus $4a = -4$ en $a = -1$. $g(x) = -(x + 2)^2 + 3$.
+
+# --- Opdrachten, alle pakketten --------------------------------------------------------
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    functiewaarden van y = ax²
+  opgave: |-
+    Gegeven is $f(x) = -2x^2$. Bereken.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $f(3)$
+      antwoord: |-
+        $-18$
+    - opgave: |-
+        $f(-1)$
+      antwoord: |-
+        $-2$
+    - opgave: |-
+        $f(0,5)$
+      antwoord: |-
+        $-0,5$
+    - opgave: |-
+        $f(-10)$
+      antwoord: |-
+        $-200$
+    - opgave: |-
+        $f\bigl(\tfrac13\bigr)$
+      antwoord: |-
+        $-\tfrac29$
+    - opgave: |-
+        $f(0)$
+      antwoord: |-
+        $0$
+    - opgave: |-
+        $f(\sqrt3)$
+      antwoord: |-
+        $-6$
+    - opgave: |-
+        $f(-0,1)$
+      antwoord: |-
+        $-0,02$
+  uitwerking: |-
+    Telkens eerst kwadrateren en dan met $-2$ vermenigvuldigen: $f(3) = -2 \cdot 9 = -18$, $f(-1) = -2 \cdot 1 = -2$, $f(0,5) = -2 \cdot 0,25 = -0,5$, $f(-10) = -2 \cdot 100 = -200$, $f\bigl(\tfrac13\bigr) = -2 \cdot \tfrac19 = -\tfrac29$, $f(0) = 0$, $f(\sqrt3) = -2 \cdot 3 = -6$, $f(-0,1) = -2 \cdot 0,01 = -0,02$.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    punten op een parabool
+  opgave: |-
+    Ligt het punt op de parabool $y = 3x^2$?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $(2, 12)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $3 \cdot 4 = 12$: ja.
+    - opgave: |-
+        $(-2, -12)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $3 \cdot (-2)^2 = 12 \neq -12$: nee.
+    - opgave: |-
+        $(-1, 3)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $3 \cdot 1 = 3$: ja.
+    - opgave: |-
+        $(0,5;\ 0,75)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $3 \cdot 0,25 = 0,75$: ja.
+    - opgave: |-
+        $(10, 30)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $3 \cdot 100 = 300 \neq 30$: nee.
+    - opgave: |-
+        $\bigl(-\tfrac13, \tfrac13\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $3 \cdot \tfrac19 = \tfrac13$: ja.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de invloed van a
+  opgave: |-
+    Is de parabool naar boven of naar onder geopend? Is ze smaller of breder dan $y = x^2$?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $y = 5x^2$
+      antwoord: |-
+        boven, smaller
+      uitwerking: |-
+        $a = 5 > 0$ en $\abs{5} > 1$.
+    - opgave: |-
+        $y = -0,2x^2$
+      antwoord: |-
+        onder, breder
+      uitwerking: |-
+        $a < 0$ en $\abs{-0,2} < 1$.
+    - opgave: |-
+        $y = \tfrac34 x^2$
+      antwoord: |-
+        boven, breder
+      uitwerking: |-
+        $a > 0$ en $\tfrac34 < 1$.
+    - opgave: |-
+        $y = -1,5x^2$
+      antwoord: |-
+        onder, smaller
+      uitwerking: |-
+        $a < 0$ en $\abs{-1,5} > 1$.
+    - opgave: |-
+        $y = -x^2$
+      antwoord: |-
+        onder, even breed
+      uitwerking: |-
+        $\abs{-1} = 1$: het spiegelbeeld van $y = x^2$.
+    - opgave: |-
+        $y = 0,01x^2$
+      antwoord: |-
+        boven, veel breder
+      uitwerking: |-
+        $a > 0$ en $0,01$ ligt dicht bij $0$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    grafiek en voorschrift koppelen
+  opgave: |-
+    Welk voorschrift hoort bij welke parabool? Kies uit $y = -x^2$, $y = 2x^2$, $y = 0,5x^2$ en $y = -3x^2$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.7cm,y=.3cm]
+        \rooster{-3}{1}{3}{-6}{1}{6}
+        \parabool{2}{0}{0}{-1.73}{1.73}
+        \parabool{-3}{0}{0}{-1.41}{1.41}
+        \parabool{.5}{0}{0}{-3.2}{3.2}
+        \parabool{-1}{0}{0}{-2.45}{2.45}
+        \node[font=\scriptsize\bfseries,right] at (1.7,5.6) {A};
+        \node[font=\scriptsize\bfseries,left] at (-1.4,-5.6) {B};
+        \node[font=\scriptsize\bfseries,above] at (3.2,5.1) {C};
+        \node[font=\scriptsize\bfseries,right] at (2.45,-6) {D};
+      \end{tikzpicture}
+  antwoord: |-
+    A: $y = 2x^2$, B: $y = -3x^2$, C: $y = 0,5x^2$, D: $y = -x^2$
+  uitwerking: |-
+    A en C zijn naar boven geopend, dus $a > 0$: de smalste (A) is $y = 2x^2$, de breedste (C) is $y = 0,5x^2$. Controle: A gaat door $(1, 2)$, C door $(2, 2)$. B en D zijn naar onder geopend: de smalste (B) is $y = -3x^2$, door $(1, -3)$, en D is $y = -x^2$, door $(2, -4)$.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    parabolen tekenen
+  opgave: |-
+    Teken de drie parabolen in één assenstelsel. Wat hebben ze gemeen, en waarin verschillen ze?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $y = x^2$
+    - opgave: |-
+        $y = 3x^2$
+    - opgave: |-
+        $y = \tfrac13 x^2$
+  antwoord: |-
+    zelfde top $(0, 0)$ en as, naar boven geopend; $y = 3x^2$ is het smalst, $y = \tfrac13x^2$ het breedst
+  uitwerking: |-
+    Alle drie hebben de top $(0, 0)$, de $y$-as als symmetrieas, en ze zijn naar boven geopend. Bij $x = 1$ liggen ze op hoogte $1$, $3$ en $\tfrac13$; bij $x = 3$ op hoogte $9$, $27$ en $3$. De parabool $y = 3x^2$ is het smalst, $y = \tfrac13 x^2$ het breedst.
+    \figuren{\begin{tikzpicture}[x=.4cm,y=.3cm]
+      \rooster{-4}{1}{4}{-1}{1}{9}
+      \parabool[tweede]{1}{0}{0}{-3}{3}
+      \parabool{3}{0}{0}{-1.73}{1.73}
+      \parabool{.3333}{0}{0}{-4.2}{4.2}
+      \node[font=\scriptsize,right] at (1.7,8.6) {$3x^2$};
+      \node[font=\scriptsize,right] at (3,8.4) {$x^2$};
+      \node[font=\scriptsize,right] at (4.2,5.9) {$\tfrac13x^2$};
+    \end{tikzpicture}}
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    voorschrift y = ax² uit een punt
+  opgave: |-
+    Een parabool met top in de oorsprong gaat door het gegeven punt. Geef het voorschrift.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $(1, -7)$
+      antwoord: |-
+        $y = -7x^2$
+      uitwerking: |-
+        $-7 = a \cdot 1$.
+    - opgave: |-
+        $(2, 2)$
+      antwoord: |-
+        $y = 0,5x^2$
+      uitwerking: |-
+        $2 = 4a$, dus $a = 0,5$.
+    - opgave: |-
+        $(-3, 18)$
+      antwoord: |-
+        $y = 2x^2$
+      uitwerking: |-
+        $18 = 9a$, dus $a = 2$.
+    - opgave: |-
+        $(5, -5)$
+      antwoord: |-
+        $y = -0,2x^2$
+      uitwerking: |-
+        $-5 = 25a$, dus $a = -0,2$.
+    - opgave: |-
+        $(0,5;\ 3)$
+      antwoord: |-
+        $y = 12x^2$
+      uitwerking: |-
+        $3 = 0,25a$, dus $a = 12$.
+    - opgave: |-
+        $(-4, 4)$
+      antwoord: |-
+        $y = 0,25x^2$
+      uitwerking: |-
+        $4 = 16a$, dus $a = 0,25$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kenmerken van y = ax²
+  opgave: |-
+    Geef het bereik, het extremum, en waar de functie stijgt en daalt.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = 6x^2$
+      antwoord: |-
+        $\ivgo{0}{\pinf}$; min.\ $0$ in $0$; dalend op $\ivog{\minf}{0}$, stijgend op $\ivgo{0}{\pinf}$
+      uitwerking: |-
+        $a > 0$: bereik $\ivgo{0}{\pinf}$, minimum $0$ in $x = 0$, dalend op $\ivog{\minf}{0}$, stijgend op $\ivgo{0}{\pinf}$.
+    - opgave: |-
+        $g(x) = -0,5x^2$
+      antwoord: |-
+        $\ivog{\minf}{0}$; max.\ $0$ in $0$; stijgend op $\ivog{\minf}{0}$, dalend op $\ivgo{0}{\pinf}$
+      uitwerking: |-
+        $a < 0$: bereik $\ivog{\minf}{0}$, maximum $0$ in $x = 0$, stijgend op $\ivog{\minf}{0}$, dalend op $\ivgo{0}{\pinf}$.
+    - opgave: |-
+        $h(x) = \tfrac23 x^2$
+      antwoord: |-
+        $\ivgo{0}{\pinf}$; min.\ $0$ in $0$; dalend op $\ivog{\minf}{0}$, stijgend op $\ivgo{0}{\pinf}$
+      uitwerking: |-
+        $a > 0$: zoals $f$. De breedte verandert niets aan de kenmerken.
+    - opgave: |-
+        $k(x) = -x^2$
+      antwoord: |-
+        $\ivog{\minf}{0}$; max.\ $0$ in $0$; stijgend op $\ivog{\minf}{0}$, dalend op $\ivgo{0}{\pinf}$
+      uitwerking: |-
+        $a < 0$: zoals $g$.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eigenschappen van y = ax²: waar of niet waar
+  opgave: |-
+    Waar of niet waar? Verklaar je antwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De parabool $y = -4x^2$ is smaller dan de parabool $y = 3x^2$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: $\abs{-4} = 4 > 3$.
+    - opgave: |-
+        Elke parabool $y = ax^2$ gaat door de oorsprong.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: $a \cdot 0^2 = 0$.
+    - opgave: |-
+        Ligt $(2, 8)$ op een parabool $y = ax^2$, dan ligt ook $(-2, 8)$ erop.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: $(-2)^2 = 2^2$, dus beide punten geven dezelfde $y$. De $y$-as is een symmetrieas.
+    - opgave: |-
+        De functie $f(x) = 0,5x^2$ heeft een maximum.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: de parabool is naar boven geopend en heeft een minimum. Ze stijgt rechts van $0$ onbeperkt.
+    - opgave: |-
+        Als $a > 1$, dan is $y = ax^2$ breder dan $y = x^2$.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: dan is ze smaller, want elke hoogte wordt met $a > 1$ vermenigvuldigd.
+    - opgave: |-
+        De parabolen $y = ax^2$ en $y = -ax^2$ zijn elkaars spiegelbeeld ten opzichte van de $y$-as.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: ze zijn elkaars spiegelbeeld ten opzichte van de $x$-as. Elke parabool $y = ax^2$ is haar eigen spiegelbeeld ten opzichte van de $y$-as.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kwadratisch verband in een context
+  opgave: |-
+    Een kunstenaar maakt vierkante muurschilderingen, en vraagt een vaste prijs per m$^2$. Een schildering met een zijde van $1,5$ m kost $360$ euro.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat kost een schildering met een zijde van $3$ m?
+      antwoord: |-
+        $1440$ euro
+      uitwerking: |-
+        De zijde verdubbelt, dus de oppervlakte en de prijs worden $4$ keer zo groot: $4 \cdot 360 = 1440$ euro.
+    - opgave: |-
+        Wat kost een schildering met een zijde van $0,75$ m?
+      antwoord: |-
+        $90$ euro
+      uitwerking: |-
+        De zijde halveert: de prijs wordt $4$ keer zo klein, $\tfrac{360}{4} = 90$ euro.
+    - opgave: |-
+        Geef de prijs $P$ (in euro) in functie van de zijde $z$ (in m).
+      antwoord: |-
+        $P = 160z^2$
+      uitwerking: |-
+        $P = az^2$ met $360 = a \cdot 1,5^2 = 2,25a$, dus $a = 160$: $P = 160z^2$. De prijs per m$^2$ is $160$ euro.
+    - opgave: |-
+        Hoe groot is de zijde van een schildering van $1000$ euro?
+      antwoord: |-
+        $2,5$ m
+      uitwerking: |-
+        $160z^2 = 1000$, dus $z^2 = 6,25$ en $z = 2,5$ m (een negatieve zijde heeft geen zin).
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    voorschrift aflezen, top in de oorsprong
+  opgave: |-
+    Geef het voorschrift van de parabolen $f$ en $g$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.6cm,y=.35cm]
+        \rooster{-4}{1}{4}{-5}{1}{5}
+        \parabool{.5}{0}{0}{-3.15}{3.15}
+        \parabool[inkt]{-3}{0}{0}{-1.29}{1.29}
+        \punt{2}{2}\punt{-2}{2}
+        \punt[inkt]{1}{-3}\punt[inkt]{-1}{-3}
+        \node[accent,font=\scriptsize] at (3.6,4.1) {$f$};
+        \node[inkt,font=\scriptsize] at (1.8,-4.4) {$g$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de parabool $f$
+      antwoord: |-
+        $f(x) = 0,5x^2$
+      uitwerking: |-
+        Door $(2, 2)$: $2 = 4a$, dus $a = 0,5$.
+    - opgave: |-
+        de parabool $g$
+      antwoord: |-
+        $g(x) = -3x^2$
+      uitwerking: |-
+        Door $(1, -3)$: $-3 = a \cdot 1$, dus $a = -3$.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tabel van y = ax² aanvullen
+  opgave: |-
+    Elke tabel hoort bij een functie $f(x) = ax^2$. Geef het voorschrift en vul de tabel aan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        \waardetabel{5}{-4 & 2 & \vak & -1 & 3}{\vak & 6 & 0 & \vak & \vak}
+      antwoord: |-
+        $f(x) = 1,5x^2$; $24$, $0$, $1,5$, $13,5$
+      uitwerking: |-
+        Uit $(2, 6)$: $6 = 4a$, dus $a = 1,5$. Dan $f(-4) = 1,5 \cdot 16 = 24$, $f(x) = 0$ alleen voor $x = 0$, $f(-1) = 1,5$ en $f(3) = 1,5 \cdot 9 = 13,5$.
+    - opgave: |-
+        \waardetabel{4}{2 & -6 & \vak & 10}{-1 & \vak & -4 & \vak}
+      antwoord: |-
+        $f(x) = -0,25x^2$; $-9$, $4$ of $-4$, $-25$
+      uitwerking: |-
+        Uit $(2, -1)$: $-1 = 4a$, dus $a = -0,25$. Dan $f(-6) = -0,25 \cdot 36 = -9$ en $f(10) = -25$. Voor $f(x) = -4$ is $x^2 = 16$: zowel $x = 4$ als $x = -4$ passen in het lege vakje.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    parabool en horizontale rechte
+  opgave: |-
+    De rechte $y = 6$ snijdt de parabool $y = ax^2$ in twee punten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De twee snijpunten liggen $4$ eenheden uit elkaar. Bepaal $a$.
+      antwoord: |-
+        $a = 1,5$
+      uitwerking: |-
+        Door de symmetrie liggen de snijpunten in $(-2, 6)$ en $(2, 6)$. Dan is $6 = 4a$, dus $a = 1,5$.
+    - opgave: |-
+        Voor welke $a$ liggen de snijpunten $12$ eenheden uit elkaar?
+      antwoord: |-
+        $a = \tfrac16$
+      uitwerking: |-
+        Snijpunten $(\pm6, 6)$: $6 = 36a$, dus $a = \tfrac16$.
+    - opgave: |-
+        Voor welke waarden van $a$ zijn er geen snijpunten?
+      antwoord: |-
+        $a < 0$
+      uitwerking: |-
+        Als $a < 0$ ligt de parabool op of onder de $x$-as, en de rechte $y = 6$ erboven. Voor elke $a > 0$ zijn er wel twee snijpunten.
+    - opgave: |-
+        Wat gebeurt er met de afstand tussen de snijpunten als je $a$ vier keer zo groot maakt?
+      antwoord: |-
+        ze halveert
+      uitwerking: |-
+        De snijpunten hebben $x^2 = \tfrac6a$. Wordt $a$ vier keer zo groot, dan wordt $x^2$ vier keer zo klein, en $x$ twee keer zo klein: de afstand halveert. (Voorbeeld: $a = 1,5$ geeft afstand $4$, $a = 6$ geeft $x^2 = 1$ en afstand $2$.)
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de parabool buigt: een lijnstuk tussen twee punten
+  opgave: |-
+    De punten $(1, 1)$ en $(3, 9)$ liggen op de parabool $y = x^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het midden van het lijnstuk tussen die twee punten.
+      antwoord: |-
+        $(2, 5)$
+      uitwerking: |-
+        Het midden heeft als coördinaten de gemiddelden: $\bigl(\tfrac{1 + 3}{2}, \tfrac{1 + 9}{2}\bigr) = (2, 5)$.
+    - opgave: |-
+        Ligt dat midden boven of onder de parabool?
+      antwoord: |-
+        erboven
+      uitwerking: |-
+        Op de parabool hoort bij $x = 2$ de hoogte $4$. Het midden ligt op hoogte $5$: erboven.
+    - opgave: |-
+        Neem nu twee willekeurige punten $(a, a^2)$ en $(b, b^2)$ met $a \neq b$. Toon aan dat het midden van het lijnstuk altijd boven de parabool ligt.
+      antwoord: |-
+        het verschil is $\tfrac{(a - b)^2}{4} > 0$
+      uitwerking: |-
+        Het midden is $\bigl(\tfrac{a + b}{2}, \tfrac{a^2 + b^2}{2}\bigr)$. Het punt van de parabool eronder ligt op hoogte $\bigl(\tfrac{a + b}{2}\bigr)^2 = \tfrac{a^2 + 2ab + b^2}{4}$. Het verschil is
+        \[\frac{a^2 + b^2}{2} - \frac{a^2 + 2ab + b^2}{4} = \frac{2a^2 + 2b^2 - a^2 - 2ab - b^2}{4} = \frac{a^2 - 2ab + b^2}{4} = \frac{(a - b)^2}{4},\]
+        en dat is positief omdat $a \neq b$. Daarom mag je de punten van een parabool nooit met rechte stukjes verbinden.
+
+# --- Opdrachten, alleen pakket 1 ------------------------------------------------------
+
+- id: h1-o20
+  soort: opdracht
+  pakketten: [1]
+  niveau: 1
+  thema: |-
+    vergelijkingen ax² = k
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $x^2 = 81$
+      antwoord: |-
+        $\pm 9$
+    - opgave: |-
+        $4x^2 = 36$
+      antwoord: |-
+        $\pm 3$
+    - opgave: |-
+        $-3x^2 = -27$
+      antwoord: |-
+        $\pm 3$
+    - opgave: |-
+        $0,2x^2 = 5$
+      antwoord: |-
+        $\pm 5$
+    - opgave: |-
+        $7x^2 = 0$
+      antwoord: |-
+        $0$
+    - opgave: |-
+        $-x^2 = 16$
+      antwoord: |-
+        geen oplossing
+    - opgave: |-
+        $2x^2 = 14$
+      antwoord: |-
+        $\pm\sqrt7 \approx \pm 2,65$
+    - opgave: |-
+        $\tfrac12 x^2 = 1,62$
+      antwoord: |-
+        $\pm 1,8$
+  uitwerking: |-
+    Deel telkens door het getal voor $x^2$: $x^2 = 81$; $x^2 = 9$; $x^2 = 9$; $x^2 = 25$; $x^2 = 0$; $x^2 = -16$ (geen oplossing, een kwadraat is nooit negatief); $x^2 = 7$; $x^2 = 3,24$, en $1,8^2 = 3,24$.
+
+- id: h1-o21
+  soort: opdracht
+  pakketten: [1]
+  niveau: 1
+  thema: |-
+    tabel en grafiek in een context
+  opgave: |-
+    Een glazenmaker verkoopt vierkante glasplaten aan $40$ euro per m$^2$. Een plaat met zijde $z$ meter kost dus $P = 40z^2$ euro.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Maak een tabel voor $z = 0,5$; $1$; $1,5$ en $2$.
+      antwoord: |-
+        $10$, $40$, $90$, $160$ euro
+      uitwerking: |-
+        \waardetabel[$z$ (m)][$P$ (euro)]{4}{0,5 & 1 & 1,5 & 2}{10 & 40 & 90 & 160}
+    - opgave: |-
+        Teken de grafiek. Welk deel van de parabool heeft hier zin?
+      antwoord: |-
+        alleen de rechterhelft ($z > 0$)
+      uitwerking: |-
+        Alleen de rechterhelft: een zijde is positief.
+        \figuren{\begin{tikzpicture}[x=1.4cm,y=.012cm]
+          \roosterleeg[$z$][$P$]{0}{.5}{2.5}{0}{20}{260}
+          \xlabels{.5/{0,5},1/1,1.5/{1,5},2/2,2.5/{2,5}}\ygetallen{40,80,120,160,200,240}\oorsprong
+          \parabool{40}{0}{0}{0}{2.5}
+          \foreach \z in {.5,1,1.5,2}{\punt{\z}{40*\z*\z}}
+        \end{tikzpicture}}
+    - opgave: |-
+        Hoe groot is de zijde van een plaat van $250$ euro?
+      antwoord: |-
+        $2,5$ m
+      uitwerking: |-
+        $40z^2 = 250$, dus $z^2 = 6,25$ en $z = 2,5$ m.
+
+- id: h1-o22
+  soort: opdracht
+  pakketten: [1]
+  niveau: 1
+  thema: |-
+    vergelijkingen grafisch oplossen
+  opgave: |-
+    De figuur toont de parabool $y = 0,5x^2$ en drie horizontale rechten. Los op met de grafiek, en controleer met een berekening.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.6cm,y=.45cm]
+        \rooster{-4}{1}{4}{-2}{1}{5}
+        \parabool{.5}{0}{0}{-3.15}{3.15}
+        \draw[hulplijn] (-4,2) -- (4,2);
+        \draw[hulplijn] (-4,4.5) -- (4,4.5);
+        \draw[hulplijn] (-4,-1) -- (4,-1);
+      \end{tikzpicture}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $0,5x^2 = 2$
+      antwoord: |-
+        $x = \pm 2$
+      uitwerking: |-
+        Snijpunten $(\pm2, 2)$. Controle: $x^2 = 4$.
+    - opgave: |-
+        $0,5x^2 = 4,5$
+      antwoord: |-
+        $x = \pm 3$
+      uitwerking: |-
+        Snijpunten $(\pm3;\ 4,5)$. Controle: $x^2 = 9$.
+    - opgave: |-
+        $0,5x^2 = -1$
+      antwoord: |-
+        geen oplossing
+      uitwerking: |-
+        De rechte $y = -1$ ligt onder de parabool. Controle: $x^2 = -2$ kan niet.
+    - opgave: |-
+        $0,5x^2 = 0$
+      antwoord: |-
+        $x = 0$
+      uitwerking: |-
+        Alleen de top ligt op de $x$-as.
+
+- id: h1-o23
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    remweg en snelheid
+  opgave: |-
+    Stel dat de remweg van een auto op een droge weg $d = 0,008v^2$ meter is, met $v$ de snelheid in km/h.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de remweg bij $50$ km/h en bij $100$ km/h. Hoeveel keer zo lang is de tweede?
+      antwoord: |-
+        $20$ m en $80$ m; $4$ keer
+      uitwerking: |-
+        $0,008 \cdot 2500 = 20$ m en $0,008 \cdot 10\,000 = 80$ m. De snelheid verdubbelt, de remweg wordt $4$ keer zo lang.
+    - opgave: |-
+        Hoe snel mocht een auto hoogstens rijden om binnen $30$ m tot stilstand te komen?
+      antwoord: |-
+        ongeveer $61$ km/h
+      uitwerking: |-
+        $0,008v^2 = 30$, dus $v^2 = 3750$ en $v = \sqrt{3750} \approx 61,2$ km/h.
+    - opgave: |-
+        Hoeveel procent korter is de remweg aan $30$ km/h dan aan $50$ km/h?
+      antwoord: |-
+        $64$ \%
+      uitwerking: |-
+        $\bigl(\tfrac{30}{50}\bigr)^2 = 0,36$: de remweg is $36$ \% van die aan $50$ km/h, dus $64$ \% korter. (Controle: $7,2$ m tegenover $20$ m.)
+
+- id: h1-o24
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    de kabel van een hangbrug
+  opgave: |-
+    De kabel van een hangbrug hangt aan de toppen van twee pijlers die $200$ m uit elkaar staan. De toppen steken $25$ m boven het wegdek uit. In het midden raakt de kabel net het wegdek. De kabel heeft de vorm van een parabool. Leg de oorsprong in het laagste punt van de kabel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het voorschrift van de kabel.
+      antwoord: |-
+        $y = 0,0025x^2$
+      uitwerking: |-
+        De top van een pijler ligt in $(100, 25)$: $25 = a \cdot 100^2$, dus $a = \tfrac{25}{10\,000} = 0,0025$.
+    - opgave: |-
+        Hoe hoog hangt de kabel op $30$ m van het midden?
+      antwoord: |-
+        $2,25$ m
+      uitwerking: |-
+        $0,0025 \cdot 30^2 = 0,0025 \cdot 900 = 2,25$ m.
+    - opgave: |-
+        Waar hangt de kabel $9$ m boven het wegdek?
+      antwoord: |-
+        $60$ m links en rechts van het midden
+      uitwerking: |-
+        $0,0025x^2 = 9$, dus $x^2 = 3600$ en $x = \pm 60$: op $60$ m links en rechts van het midden.
+
+- id: h1-o25
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    de doorsnede van een schotelantenne
+  opgave: |-
+    De doorsnede van een schotelantenne is een parabool. De schotel is $60$ cm breed en $9$ cm diep.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken de doorsnede met de top in de oorsprong, en geef het voorschrift (in cm).
+      antwoord: |-
+        $y = 0,01x^2$
+      uitwerking: |-
+        De rand ligt in $(30, 9)$: $9 = 900a$, dus $a = 0,01$.
+        \figuren{\begin{tikzpicture}[x=.1cm,y=.25cm]
+          \roosterleeg{-32}{5}{32}{0}{1}{10}
+          \xgetallen{-30,-20,-10,10,20,30}\ygetallen{4,9}
+          \parabool{.01}{0}{0}{-30}{30}
+          \punt{30}{9}\punt{-30}{9}
+        \end{tikzpicture}}
+    - opgave: |-
+        Hoe diep ligt de schotel op $10$ cm van het midden, gemeten vanaf de top?
+      antwoord: |-
+        $1$ cm boven de top
+      uitwerking: |-
+        $0,01 \cdot 100 = 1$: daar ligt de schotel $1$ cm hoger dan de top, dus $9 - 1 = 8$ cm onder de rand.
+    - opgave: |-
+        Op welke afstand van het midden ligt de schotel $4$ cm hoger dan de top?
+      antwoord: |-
+        $20$ cm
+      uitwerking: |-
+        $0,01x^2 = 4$, dus $x^2 = 400$ en $x = \pm 20$: op $20$ cm van het midden.
+
+- id: h1-o26
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    de oppervlakte van een cirkel
+  opgave: |-
+    De oppervlakte van een cirkel met straal $r$ is $A = \pi r^2$. Rond af op twee decimalen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de oppervlakte van een cirkel met straal $3$ cm.
+      antwoord: |-
+        $28,27$ cm$^2$
+      uitwerking: |-
+        $\pi \cdot 9 \approx 28,27$ cm$^2$.
+    - opgave: |-
+        Welke straal heeft een cirkel met een oppervlakte van $100$ cm$^2$?
+      antwoord: |-
+        $5,64$ cm
+      uitwerking: |-
+        $\pi r^2 = 100$, dus $r^2 = \tfrac{100}{\pi} \approx 31,83$ en $r \approx 5,64$ cm.
+    - opgave: |-
+        Een rond tafelblad heeft een oppervlakte van $1,5$ m$^2$. Hoe groot is de diameter?
+      antwoord: |-
+        $1,38$ m
+      uitwerking: |-
+        $r^2 = \tfrac{1,5}{\pi} \approx 0,4775$, dus $r \approx 0,691$ m en de diameter is $2r \approx 1,38$ m.
+    - opgave: |-
+        Hoeveel keer zo groot wordt de oppervlakte als de straal tien keer zo groot wordt?
+      antwoord: |-
+        $100$ keer
+      uitwerking: |-
+        $10^2 = 100$.
+
+- id: h1-o27
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    parabool door een punt
+  opgave: |-
+    De parabool $y = ax^2$ gaat door het punt $(3, -6)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $a$.
+      antwoord: |-
+        $a = -\tfrac23$
+      uitwerking: |-
+        $-6 = 9a$, dus $a = -\tfrac69 = -\tfrac23$.
+    - opgave: |-
+        Geef de punten van de parabool met $y = -24$.
+      antwoord: |-
+        $(6, -24)$ en $(-6, -24)$
+      uitwerking: |-
+        $-\tfrac23 x^2 = -24$, dus $x^2 = 36$ en $x = \pm 6$.
+    - opgave: |-
+        Ligt het punt $(-1,5;\ -1,5)$ op de parabool?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $-\tfrac23 \cdot 2,25 = -1,5$: ja.
+
+- id: h1-o28
+  soort: opdracht
+  pakketten: [1]
+  niveau: 3
+  thema: |-
+    een vallende bal
+  opgave: |-
+    Een bal valt uit een raam op $20$ m hoogte. Na $t$ seconden is hij ongeveer $5t^2$ meter gevallen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe hoog is de bal na $1$ seconde?
+      antwoord: |-
+        $15$ m
+      uitwerking: |-
+        Hij is $5$ m gevallen, dus $20 - 5 = 15$ m hoog.
+    - opgave: |-
+        Schrijf de hoogte $h$ van de bal in functie van $t$.
+      antwoord: |-
+        $h = 20 - 5t^2$
+      uitwerking: |-
+        Hoogte = beginhoogte min de gevallen afstand: $h = 20 - 5t^2$.
+    - opgave: |-
+        Wanneer is de bal op $10$ m hoogte?
+      antwoord: |-
+        na ongeveer $1,41$ s
+      uitwerking: |-
+        Dan is hij $10$ m gevallen: $5t^2 = 10$, dus $t^2 = 2$ en $t = \sqrt2 \approx 1,41$ s.
+    - opgave: |-
+        Wanneer raakt de bal de grond?
+      antwoord: |-
+        na $2$ s
+      uitwerking: |-
+        $5t^2 = 20$, dus $t^2 = 4$ en $t = 2$ s.
+
+- id: h1-o29
+  soort: opdracht
+  pakketten: [1]
+  niveau: 3
+  thema: |-
+    procentuele verandering bij een kwadratisch verband
+  opgave: |-
+    De remweg van een auto is evenredig met het kwadraat van de snelheid: $d = av^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Met hoeveel procent stijgt de remweg als de snelheid met $30$ \% stijgt?
+      antwoord: |-
+        $69$ \%
+      uitwerking: |-
+        $v$ wordt $1,3v$, dus $d$ wordt $1,3^2 = 1,69$ keer zo groot: $69$ \% meer.
+    - opgave: |-
+        Met hoeveel procent daalt de remweg als de snelheid met $30$ \% daalt?
+      antwoord: |-
+        $51$ \%
+      uitwerking: |-
+        $0,7^2 = 0,49$: de remweg is nog $49$ \%, dus $51$ \% minder.
+    - opgave: |-
+        Met hoeveel procent moet de snelheid stijgen om de remweg te verdubbelen?
+      antwoord: |-
+        ongeveer $41$ \%
+      uitwerking: |-
+        Zoek $k$ met $k^2 = 2$: $k = \sqrt2 \approx 1,414$. De snelheid moet met ongeveer $41$ \% stijgen.
+
+- id: h1-o30
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    de regel van de oneven getallen
+  opgave: |-
+    Galileo Galilei ontdekte rond $1604$ dat een bal die van een helling rolt, in de eerste, tweede, derde \ldots\ seconde afstanden aflegt die zich verhouden als $1 : 3 : 5 : 7 : \ldots$ Neem een helling waarop de bal na $t$ seconden $s = 3t^2$ meter heeft afgelegd.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $s$ na $0$, $1$, $2$, $3$ en $4$ seconden.
+      antwoord: |-
+        $0$, $3$, $12$, $27$, $48$ m
+      uitwerking: |-
+        $3 \cdot 0 = 0$, $3 \cdot 1 = 3$, $3 \cdot 4 = 12$, $3 \cdot 9 = 27$, $3 \cdot 16 = 48$.
+    - opgave: |-
+        Hoeveel meter legt de bal af in de eerste, de tweede, de derde en de vierde seconde? Klopt de regel van Galilei?
+      antwoord: |-
+        $3$, $9$, $15$, $21$ m; ja
+      uitwerking: |-
+        $3 - 0 = 3$, $12 - 3 = 9$, $27 - 12 = 15$ en $48 - 27 = 21$. Dat is $3 \cdot 1$, $3 \cdot 3$, $3 \cdot 5$ en $3 \cdot 7$: de verhouding is $1 : 3 : 5 : 7$.
+    - opgave: |-
+        Hoeveel meter legt de bal af in de tiende seconde?
+      antwoord: |-
+        $57$ m
+      uitwerking: |-
+        $s(10) - s(9) = 300 - 243 = 57 = 3 \cdot 19$, en $19$ is het tiende oneven getal.
+
+# --- Opdrachten, pakket 2-5 ------------------------------------------------------------
+
+- id: h1-o40
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 1
+  thema: |-
+    top en symmetrieas uit de topvorm
+  opgave: |-
+    Geef de top en de symmetrieas. Is de parabool naar boven of naar onder geopend?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $y = (x - 5)^2 + 2$
+      antwoord: |-
+        $(5, 2)$; $x = 5$; boven
+    - opgave: |-
+        $y = -3(x + 1)^2 - 4$
+      antwoord: |-
+        $(-1, -4)$; $x = -1$; onder
+    - opgave: |-
+        $y = 2x^2 - 7$
+      antwoord: |-
+        $(0, -7)$; $x = 0$; boven
+    - opgave: |-
+        $y = \tfrac12(x - 6)^2$
+      antwoord: |-
+        $(6, 0)$; $x = 6$; boven
+    - opgave: |-
+        $y = -(x + 2,5)^2 + 1$
+      antwoord: |-
+        $(-2,5;\ 1)$; $x = -2,5$; onder
+    - opgave: |-
+        $y = 4(x - 1)^2 - 1$
+      antwoord: |-
+        $(1, -1)$; $x = 1$; boven
+  uitwerking: |-
+    Schrijf telkens in de vorm $y = a(x - p)^2 + q$: de top is $(p, q)$, de as $x = p$, en het teken van $a$ geeft de opening. Let op: $x + 1 = x - (-1)$ en $x + 2,5 = x - (-2,5)$. Bij $2x^2 - 7$ is $p = 0$ en $q = -7$, bij $\tfrac12(x - 6)^2$ is $q = 0$.
+
+- id: h1-o41
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 1
+  thema: |-
+    verschuivingen beschrijven
+  opgave: |-
+    Uit welke parabool $y = ax^2$ ontstaat de grafiek, en hoe moet je die verschuiven?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $y = (x + 3)^2 - 1$
+      antwoord: |-
+        $y = x^2$, $3$ naar links, $1$ omlaag
+    - opgave: |-
+        $y = x^2 + 4$
+      antwoord: |-
+        $y = x^2$, $4$ omhoog
+    - opgave: |-
+        $y = -2(x - 1)^2 + 5$
+      antwoord: |-
+        $y = -2x^2$, $1$ naar rechts, $5$ omhoog
+    - opgave: |-
+        $y = 0,5(x + 4)^2$
+      antwoord: |-
+        $y = 0,5x^2$, $4$ naar links
+  uitwerking: |-
+    Het getal $a$ geeft de vorm, $p$ de horizontale en $q$ de verticale verschuiving: $(x + 3)^2$ geeft $p = -3$ (links), $(x - 1)^2$ geeft $p = 1$ (rechts), $(x + 4)^2$ geeft $p = -4$ (links).
+
+- id: h1-o42
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 1
+  thema: |-
+    tekenen vanuit de top
+  opgave: |-
+    Teken de grafiek vanuit de top.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $y = (x + 2)^2 - 3$
+      antwoord: |-
+        top $(-2, -3)$
+      uitwerking: |-
+        Top $(-2, -3)$, as $x = -2$; door $(-1, -2)$, $(-3, -2)$, $(0, 1)$ en $(-4, 1)$.
+        \figuren{\begin{tikzpicture}[x=.35cm,y=.35cm]
+          \rooster{-5}{1}{1}{-4}{1}{2}
+          \symas{-2}{-4}{2}
+          \parabool{1}{-2}{-3}{-4.2}{.2}
+          \toppunt[below]{-2}{-3}{}
+          \foreach \a in {-4,-3,-1,0}{\punt{\a}{(\a+2)^2-3}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $y = -(x - 1)^2 + 4$
+      antwoord: |-
+        top $(1, 4)$
+      uitwerking: |-
+        Top $(1, 4)$, naar onder; door $(0, 3)$, $(2, 3)$, $(-1, 0)$ en $(3, 0)$.
+        \figuren{\begin{tikzpicture}[x=.35cm,y=.35cm]
+          \rooster{-2}{1}{4}{-1}{1}{5}
+          \symas{1}{-1}{5}
+          \parabool{-1}{1}{4}{-1.2}{3.2}
+          \toppunt[above]{1}{4}{}
+          \foreach \a in {-1,0,2,3}{\punt{\a}{-(\a-1)^2+4}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $y = 0,5(x - 3)^2 - 2$
+      antwoord: |-
+        top $(3, -2)$
+      uitwerking: |-
+        Top $(3, -2)$, breed; $2$ opzij en $0,5 \cdot 4 = 2$ omhoog: door $(1, 0)$ en $(5, 0)$.
+        \figuren{\begin{tikzpicture}[x=.35cm,y=.35cm]
+          \rooster{0}{1}{6}{-3}{1}{3}
+          \symas{3}{-3}{3}
+          \parabool{.5}{3}{-2}{-.1}{6.1}
+          \toppunt[below]{3}{-2}{}
+          \foreach \a in {1,2,4,5}{\punt{\a}{(\a-3)^2/2-2}}
+        \end{tikzpicture}}
+
+- id: h1-o43
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 1
+  thema: |-
+    voorschrift uit een beschrijving
+  opgave: |-
+    Geef het voorschrift in de topvorm.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De parabool $y = x^2$, verschoven $4$ naar rechts en $2$ omhoog.
+      antwoord: |-
+        $y = (x - 4)^2 + 2$
+      uitwerking: |-
+        $p = 4$ en $q = 2$.
+    - opgave: |-
+        De parabool $y = -3x^2$, verschoven $1$ naar links en $5$ omlaag.
+      antwoord: |-
+        $y = -3(x + 1)^2 - 5$
+      uitwerking: |-
+        $p = -1$ en $q = -5$.
+    - opgave: |-
+        Een parabool met dezelfde vorm als $y = 2x^2$ en de top in $(-2, 6)$.
+      antwoord: |-
+        $y = 2(x + 2)^2 + 6$
+      uitwerking: |-
+        $a = 2$, $p = -2$, $q = 6$.
+    - opgave: |-
+        Een parabool die even breed is als $y = x^2$, naar onder geopend, met de top in $(0, -1)$.
+      antwoord: |-
+        $y = -x^2 - 1$
+      uitwerking: |-
+        $a = -1$, $p = 0$, $q = -1$.
+
+- id: h1-o44
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 2
+  thema: |-
+    voorschrift aflezen bij een grafiek
+  opgave: |-
+    Geef het voorschrift van de parabolen $f$, $g$ en $h$ in de topvorm.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.36cm]
+        \rooster{-6}{1}{5}{-5}{1}{5}
+        \parabool{1}{-3}{-2}{-5.65}{-.35}
+        \parabool[inkt]{-2}{2}{4}{-.12}{4.12}
+        \parabool[densely dashdotted,accent!70!black]{.5}{1}{-4}{-3}{5}
+        \punt{-3}{-2}\punt[inkt]{2}{4}\punt[accent!70!black]{1}{-4}
+        \node[accent,font=\scriptsize] at (-5.4,4.4) {$f$};
+        \node[inkt,font=\scriptsize] at (4.4,-4.2) {$g$};
+        \node[accent!70!black,font=\scriptsize] at (5.4,3.2) {$h$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de parabool $f$
+      antwoord: |-
+        $f(x) = (x + 3)^2 - 2$
+      uitwerking: |-
+        Top $(-3, -2)$; $1$ opzij gaat $1$ omhoog, dus $a = 1$. Controle: door $(-1, 2)$.
+    - opgave: |-
+        de parabool $g$
+      antwoord: |-
+        $g(x) = -2(x - 2)^2 + 4$
+      uitwerking: |-
+        Top $(2, 4)$; door $(1, 2)$: $2 = a + 4$, dus $a = -2$. Controle: door $(4, -4)$.
+    - opgave: |-
+        de parabool $h$
+      antwoord: |-
+        $h(x) = 0,5(x - 1)^2 - 4$
+      uitwerking: |-
+        Top $(1, -4)$; door $(3, -2)$: $-2 = 4a - 4$, dus $a = 0,5$. Controle: door $(-3, 4)$.
+
+- id: h1-o45
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 2
+  thema: |-
+    voorschrift uit de top en een punt
+  opgave: |-
+    Geef het voorschrift van de parabool met de gegeven top, die door het gegeven punt gaat.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        top $(2, 1)$, punt $(4, 9)$
+      antwoord: |-
+        $y = 2(x - 2)^2 + 1$
+      uitwerking: |-
+        $9 = a(4 - 2)^2 + 1$, dus $4a = 8$ en $a = 2$.
+    - opgave: |-
+        top $(-1, 5)$, punt $(1, -3)$
+      antwoord: |-
+        $y = -2(x + 1)^2 + 5$
+      uitwerking: |-
+        $-3 = a(1 + 1)^2 + 5$, dus $4a = -8$ en $a = -2$.
+    - opgave: |-
+        top $(0, -4)$, punt $(2, 0)$
+      antwoord: |-
+        $y = x^2 - 4$
+      uitwerking: |-
+        $0 = a \cdot 4 - 4$, dus $a = 1$.
+    - opgave: |-
+        top $(3, 0)$, punt $(0, -3)$
+      antwoord: |-
+        $y = -\tfrac13(x - 3)^2$
+      uitwerking: |-
+        $-3 = a(0 - 3)^2$, dus $9a = -3$ en $a = -\tfrac13$.
+
+- id: h1-o46
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 2
+  thema: |-
+    de baan van een bal
+  opgave: |-
+    Een voetballer trapt een bal hoog in de lucht. Na $t$ seconden is de bal $h(t) = -5(t - 1,2)^2 + 7,2$ meter hoog.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe hoog komt de bal, en wanneer?
+      antwoord: |-
+        $7,2$ m, na $1,2$ s
+      uitwerking: |-
+        De top is $(1,2;\ 7,2)$: na $1,2$ s is de bal op zijn hoogste punt, $7,2$ m.
+    - opgave: |-
+        Hoe hoog was de bal op het moment van de trap?
+      antwoord: |-
+        $0$ m
+      uitwerking: |-
+        $h(0) = -5 \cdot 1,44 + 7,2 = 0$: de bal lag op de grond.
+    - opgave: |-
+        Na $0,5$ s is de bal $4,75$ m hoog. Op welk ander moment is hij even hoog?
+      antwoord: |-
+        na $1,9$ s
+      uitwerking: |-
+        De as is $t = 1,2$. Het moment $0,5$ ligt $0,7$ s ervoor, dus het andere moment ligt $0,7$ s erna: $1,9$ s. Controle: $h(1,9) = -5 \cdot 0,49 + 7,2 = 4,75$.
+    - opgave: |-
+        Wanneer komt de bal weer op de grond? Gebruik de symmetrie.
+      antwoord: |-
+        na $2,4$ s
+      uitwerking: |-
+        Op $t = 0$ ligt de bal op de grond, $1,2$ s voor de top. Door de symmetrie is hij $1,2$ s na de top weer op de grond: $t = 2,4$ s.
+
+- id: h1-o47
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 2
+  thema: |-
+    de symmetrie gebruiken
+  opgave: |-
+    Los op met de symmetrie van de parabool.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een parabool heeft als symmetrieas $x = 3$ en gaat door $(1, 7)$. Geef nog een punt van de parabool.
+      antwoord: |-
+        $(5, 7)$
+      uitwerking: |-
+        $1$ ligt $2$ links van de as, dus $5$ ligt er $2$ rechts van, op dezelfde hoogte: $(5, 7)$.
+    - opgave: |-
+        Een parabool gaat door $(-2, 4)$ en $(6, 4)$, en haar top ligt op hoogte $-4$. Geef de top.
+      antwoord: |-
+        $(2, -4)$
+      uitwerking: |-
+        Twee punten op dezelfde hoogte liggen symmetrisch: de as ligt in het midden, bij $x = \tfrac{-2 + 6}{2} = 2$. De top is $(2, -4)$.
+    - opgave: |-
+        Geef het voorschrift van de parabool uit vraag b.
+      antwoord: |-
+        $y = 0,5(x - 2)^2 - 4$
+      uitwerking: |-
+        $y = a(x - 2)^2 - 4$ door $(6, 4)$: $4 = 16a - 4$, dus $a = 0,5$.
+    - opgave: |-
+        Een parabool snijdt de $x$-as in $-5$ en $1$. Wat is haar symmetrieas?
+      antwoord: |-
+        $x = -2$
+      uitwerking: |-
+        In het midden van $-5$ en $1$: $\tfrac{-5 + 1}{2} = -2$.
+
+- id: h1-o48
+  soort: opdracht
+  pakketten: [2, 3, 4, 5]
+  niveau: 3
+  thema: |-
+    parabolen met een onbekend getal
+  opgave: |-
+    Zoek de onbekende getallen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke $q$ gaat de parabool $y = 2(x - 1)^2 + q$ door het punt $(4, 10)$?
+      antwoord: |-
+        $q = -8$
+      uitwerking: |-
+        $10 = 2 \cdot 3^2 + q = 18 + q$, dus $q = -8$.
+    - opgave: |-
+        Voor welke waarden van $q$ snijdt de parabool $y = 2(x - 1)^2 + q$ de $x$-as in twee punten?
+      antwoord: |-
+        $q < 0$
+      uitwerking: |-
+        De parabool is naar boven geopend met top $(1, q)$. Ze snijdt de $x$-as twee keer als de top onder de $x$-as ligt: $q < 0$. Voor $q = 0$ raakt ze de as in de top.
+    - opgave: |-
+        Voor welke $p$ gaat de parabool $y = (x - p)^2$ door het punt $(0, 9)$?
+      antwoord: |-
+        $p = 3$ of $p = -3$
+      uitwerking: |-
+        $9 = (0 - p)^2 = p^2$, dus $p = 3$ of $p = -3$. Er zijn twee zulke parabolen, met top $(3, 0)$ en $(-3, 0)$, elkaars spiegelbeeld ten opzichte van de $y$-as.
+
+- id: h1-o49
+  soort: opdracht
+  pakketten: [4, 5]
+  niveau: 3
+  thema: |-
+    spiegelen en verschuiven
+  opgave: |-
+    Gegeven is de parabool $y = 2(x - 1)^2 + 3$. Geef het voorschrift van het beeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        bij een spiegeling ten opzichte van de $x$-as
+      antwoord: |-
+        $y = -2(x - 1)^2 - 3$
+      uitwerking: |-
+        Elke hoogte krijgt het tegengestelde teken: $y = -\bigl(2(x - 1)^2 + 3\bigr) = -2(x - 1)^2 - 3$. De top gaat naar $(1, -3)$.
+    - opgave: |-
+        bij een spiegeling ten opzichte van de $y$-as
+      antwoord: |-
+        $y = 2(x + 1)^2 + 3$
+      uitwerking: |-
+        De top $(1, 3)$ gaat naar $(-1, 3)$, de vorm blijft: $y = 2(x + 1)^2 + 3$.
+    - opgave: |-
+        bij een verschuiving van $3$ naar links en $5$ omlaag
+      antwoord: |-
+        $y = 2(x + 2)^2 - 2$
+      uitwerking: |-
+        De top gaat van $(1, 3)$ naar $(-2, -2)$.
+    - opgave: |-
+        bij een spiegeling ten opzichte van de horizontale rechte $y = 3$
+      antwoord: |-
+        $y = -2(x - 1)^2 + 3$
+      uitwerking: |-
+        De top ligt op die rechte en blijft staan; de parabool klapt om en is nu naar onder geopend.
+
+- id: h1-o50
+  soort: opdracht
+  pakketten: [5]
+  niveau: 3
+  thema: |-
+    bewijs: de as ligt midden tussen twee punten op gelijke hoogte
+  opgave: |-
+    Twee verschillende punten $(x_1, y)$ en $(x_2, y)$ liggen op dezelfde hoogte op de parabool $y = a(x - p)^2 + q$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $(x_1 - p)^2 = (x_2 - p)^2$.
+      antwoord: |-
+        uit $a(x_1 - p)^2 + q = a(x_2 - p)^2 + q$
+      uitwerking: |-
+        Beide punten liggen op de parabool: $a(x_1 - p)^2 + q = y = a(x_2 - p)^2 + q$. Trek $q$ af en deel door $a \neq 0$.
+    - opgave: |-
+        Leid daaruit af dat $p = \dfrac{x_1 + x_2}{2}$.
+      antwoord: |-
+        $x_1 - p = -(x_2 - p)$
+      uitwerking: |-
+        Twee getallen met hetzelfde kwadraat zijn gelijk of tegengesteld. Gelijk kan niet, want dan is $x_1 = x_2$. Dus $x_1 - p = -(x_2 - p)$, zodat $x_1 + x_2 = 2p$ en $p = \tfrac{x_1 + x_2}{2}$.
+    - opgave: |-
+        Een parabool gaat door $(-3, 5)$ en $(7, 5)$. Geef de symmetrieas.
+      antwoord: |-
+        $x = 2$
+      uitwerking: |-
+        $p = \tfrac{-3 + 7}{2} = 2$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Rangschik de parabolen van smal naar breed. Welke zijn naar onder geopend?
+    \[y = -0,5x^2 \qquad y = 3x^2 \qquad y = -4x^2 \qquad y = x^2\]
+  antwoord: |-
+    $-4x^2$, $3x^2$, $x^2$, $-0,5x^2$; naar onder: $y = -4x^2$ en $y = -0,5x^2$
+  uitwerking: |-
+    Rangschik volgens $\abs{a}$, van groot naar klein: $4$, $3$, $1$, $0,5$. Dus $y = -4x^2$, $y = 3x^2$, $y = x^2$, $y = -0,5x^2$. Naar onder geopend zijn de parabolen met $a < 0$: $y = -4x^2$ en $y = -0,5x^2$.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Maak een tabel en teken de grafiek van $f(x) = -2x^2$.
+  antwoord: |-
+    naar onder, door $(\pm1, -2)$ en $(\pm2, -8)$
+  uitwerking: |-
+    \waardetabel{5}{-2 & -1 & 0 & 1 & 2}{-8 & -2 & 0 & -2 & -8}
+    \figuren{\begin{tikzpicture}[x=.4cm,y=.3cm]
+      \rooster{-3}{1}{3}{-9}{1}{1}
+      \parabool{-2}{0}{0}{-2.1}{2.1}
+      \foreach \a in {-2,-1,1,2}{\punt{\a}{-2*\a*\a}}
+    \end{tikzpicture}}
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een parabool met top in de oorsprong gaat door $(-3, 6)$. Geef het voorschrift.
+  antwoord: |-
+    $y = \tfrac23 x^2$
+  uitwerking: |-
+    $6 = a \cdot (-3)^2 = 9a$, dus $a = \tfrac69 = \tfrac23$.
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Geef het bereik en het extremum van $f(x) = 0,25x^2$, en waar $f$ stijgt en daalt.
+  antwoord: |-
+    $\ivgo{0}{\pinf}$; minimum $0$ in $x = 0$; dalend op $\ivog{\minf}{0}$, stijgend op $\ivgo{0}{\pinf}$
+  uitwerking: |-
+    $a = 0,25 > 0$: naar boven geopend met top $(0, 0)$. Bereik $\ivgo{0}{\pinf}$, minimum $0$ in $x = 0$, dalend op $\ivog{\minf}{0}$ en stijgend op $\ivgo{0}{\pinf}$.
+
+- id: h1-t5
+  soort: test
+  pakketten: [1]
+  niveau: 1
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $5x^2 = 45$
+      antwoord: |-
+        $x = \pm 3$
+      uitwerking: |-
+        $x^2 = 9$, dus $x = 3$ of $x = -3$.
+    - opgave: |-
+        $-2x^2 = 18$
+      antwoord: |-
+        geen oplossing
+      uitwerking: |-
+        $x^2 = -9$: een kwadraat is nooit negatief.
+    - opgave: |-
+        $0,5x^2 = 12,5$
+      antwoord: |-
+        $x = \pm 5$
+      uitwerking: |-
+        $x^2 = 25$, dus $x = 5$ of $x = -5$.
+
+- id: h1-t5
+  soort: test
+  pakketten: [2, 3, 4, 5]
+  niveau: 1
+  opgave: |-
+    Geef de top en de symmetrieas. Is de parabool naar boven of naar onder geopend?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $y = -(x - 4)^2 + 6$
+      antwoord: |-
+        $(4, 6)$; $x = 4$; onder
+      uitwerking: |-
+        $p = 4$, $q = 6$, $a = -1 < 0$.
+    - opgave: |-
+        $y = 3(x + 2)^2$
+      antwoord: |-
+        $(-2, 0)$; $x = -2$; boven
+      uitwerking: |-
+        $p = -2$, $q = 0$, $a = 3 > 0$.
+    - opgave: |-
+        $y = 0,5x^2 - 1$
+      antwoord: |-
+        $(0, -1)$; $x = 0$; boven
+      uitwerking: |-
+        $p = 0$, $q = -1$, $a = 0,5 > 0$.
+
+- id: h1-t6
+  soort: test
+  pakketten: [1]
+  niveau: 2
+  opgave: |-
+    Een kogel rolt van een helling. Na $t$ seconden heeft hij $s = 1,5t^2$ meter afgelegd.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe ver is de kogel na $4$ seconden?
+      antwoord: |-
+        $24$ m
+      uitwerking: |-
+        $1,5 \cdot 16 = 24$ m.
+    - opgave: |-
+        Na hoeveel seconden heeft hij $37,5$ m afgelegd?
+      antwoord: |-
+        na $5$ s
+      uitwerking: |-
+        $1,5t^2 = 37,5$, dus $t^2 = 25$ en $t = 5$ (een negatieve tijd heeft geen zin).
+
+- id: h1-t6
+  soort: test
+  pakketten: [2, 3, 4, 5]
+  niveau: 2
+  opgave: |-
+    Teken de grafiek van $y = -2(x - 1)^2 + 3$ vanuit de top.
+  antwoord: |-
+    top $(1, 3)$, door $(0, 1)$, $(2, 1)$, $(-1, -5)$ en $(3, -5)$
+  uitwerking: |-
+    Top $(1, 3)$, as $x = 1$, naar onder geopend. $1$ opzij en $2$ omlaag: $(0, 1)$ en $(2, 1)$. $2$ opzij en $8$ omlaag: $(-1, -5)$ en $(3, -5)$.
+    \figuren{\begin{tikzpicture}[x=.4cm,y=.3cm]
+      \rooster{-2}{1}{4}{-6}{1}{4}
+      \symas{1}{-6}{4}
+      \parabool{-2}{1}{3}{-1.1}{3.1}
+      \toppunt[above]{1}{3}{}
+      \foreach \a in {-1,0,2,3}{\punt{\a}{-2*(\a-1)^2+3}}
+    \end{tikzpicture}}
+
+- id: h1-t7
+  soort: test
+  pakketten: [1]
+  niveau: 2
+  opgave: |-
+    De boog van een poort heeft de vorm van een parabool. Op de grond is de boog $4$ m breed, en in het midden is hij $3$ m hoog. Leg de oorsprong in de top.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het voorschrift van de boog.
+      antwoord: |-
+        $y = -0,75x^2$
+      uitwerking: |-
+        De voeten liggen in $(\pm2, -3)$: $-3 = 4a$, dus $a = -0,75$.
+    - opgave: |-
+        Hoe hoog is de boog op $0,5$ m van de kant? Rond af op een cm.
+      antwoord: |-
+        $1,31$ m
+      uitwerking: |-
+        Op $0,5$ m van de kant is $x = 1,5$: $y = -0,75 \cdot 2,25 = -1,6875$. De hoogte boven de grond is $3 - 1,6875 = 1,3125 \approx 1,31$ m.
+
+- id: h1-t7
+  soort: test
+  pakketten: [2, 3, 4, 5]
+  niveau: 2
+  opgave: |-
+    Geef het voorschrift van de parabool in de topvorm.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.55cm,y=.42cm]
+        \rooster{-1}{1}{5}{-4}{1}{2}
+        \parabool{1}{2}{-3}{-.24}{4.24}
+        \punt{2}{-3}\punt{0}{1}\punt{4}{1}\punt{1}{-2}\punt{3}{-2}
+      \end{tikzpicture}
+  antwoord: |-
+    $y = (x - 2)^2 - 3$
+  uitwerking: |-
+    Top $(2, -3)$, dus $y = a(x - 2)^2 - 3$. Door $(0, 1)$: $1 = 4a - 3$, dus $a = 1$. Controle: $1$ opzij vanaf de top gaat $1$ omhoog.

@@ -1,0 +1,462 @@
+%----------------------------------------------------------------------------------------
+% DE VORM ax^2 + bx + c EN DE KENMERKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: dit hoofdstuk staat in pakket 2-5. Verschillen: kwadraatafsplitsen (4-5), het bewijs van de formule
+% voor de top in een kader (5; in 2-4 als uitleg), opdrachten met kwadraatafsplitsen (4-5) en een bewijsopdracht (5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{De vorm $ax^2 + bx + c$}
+
+\begin{probleem}
+\vspace{-1mm}\naast{In een park staat een fontein met een spuitmond op de rand van een vijver. De spuitmond zit $40$ cm boven het water en spuit de straal schuin omhoog. Een ingenieur beschrijft de straal met
+\[h(x) = -0,8x^2 + 3,2x + 0,4,\]
+met $x$ de horizontale afstand tot de spuitmond en $h$ de hoogte boven het water, allebei in meter. Hoe hoog komt het water, en hoe ver van de spuitmond ligt dat hoogste punt? En waar is de straal weer even hoog als de spuitmond? Het voorschrift staat niet in de topvorm, dus de top lees je niet zomaar af.}{\begin{tikzpicture}[x=.6cm,y=.6cm,font=\scriptsize]
+  \fill[accent!12] (-.6,-.5) rectangle (5.4,0);
+  \draw[grijs] (-.6,0) -- (5.4,0);
+  \fill[inkt] (-.15,0) rectangle (.15,.4);
+  \draw[accent,very thick] plot[domain=0:4.12,samples=60,smooth] (\x,{-0.8*\x*\x+3.2*\x+0.4});
+  \foreach \t in {.6,1.1,1.6}{\draw[accent!60,thin] plot[domain=0:4.12,samples=40,smooth] (\x,{(-0.8*\x*\x+3.2*\x+0.4)*\t/1.6});}
+  \draw[grijs,dashed] (2,0) -- (2,3.6);
+  \node[above] at (2,3.6) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{2}{24-28}\alleenvoor{3}{25-30}\alleenvoor{4,5}{29-34} (dit hoofdstuk: de tweedegraadsfunctie in de vorm $ax^2 + bx + c$, de top en de symmetrieas berekenen, van de algemene vorm naar de topvorm\alleenvoor{4,5}{ (ook met kwadraatafsplitsen)}, de grafiek tekenen, de kenmerken, en problemen met een maximum of minimum). Welk nummer precies bij welk hoofdstuk hoort, is na te kijken in het leerplan. Voorkennis: hoofdstuk 1, de merkwaardige producten $(a \pm b)^2$ uit de 1ste graad (ze worden kort herhaald) en de kenmerken uit het handboek Functies. De nulwaarden worden hier alleen afgelezen; berekenen komt in hoofdstuk 3. Het probleem komt terug in voorbeeld~\ref{vb:h2-terug}.}
+
+In hoofdstuk 1 stond het voorschrift van een parabool altijd in de topvorm $y = a(x - p)^2 + q$: de top lees je dan meteen af. Maar in de praktijk krijg je vaak een voorschrift zoals dat van de fontein, met een term in $x^2$, een term in $x$ en een getal. In dit hoofdstuk leer je dat zo'n voorschrift ook een parabool geeft, hoe je de top berekent, en hoe je daarmee de grafiek tekent, de kenmerken bepaalt en een grootste of kleinste waarde vindt.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Van topvorm naar algemene vorm}
+
+\subsection{Haakjes uitwerken}
+
+Wat gebeurt er als je in de topvorm de haakjes uitwerkt? Je gebruikt het merkwaardig product $(A - B)^2 = A^2 - 2AB + B^2$, dat je kent uit de 1ste graad. Zo is $(x - 3)^2 = x^2 - 6x + 9$ en $(x + 5)^2 = x^2 + 10x + 25$.
+
+\voorbeeld{}{Schrijf $y = 2(x - 3)^2 + 1$ zonder haakjes.\label{vb:h2-uitwerken}}{%
+\uitleg{Eerst werken we het kwadraat uit, dan vermenigvuldigen we met $2$, en tot slot tellen we $1$ op.}
+\begin{stappen}
+y = 2(x^2 - 6x + 9) + 1 & Het merkwaardig product $(x - 3)^2$. \\
+y = 2x^2 - 12x + 18 + 1 & Elke term maal $2$. \\
+y = 2x^2 - 12x + 19 & Tel de getallen samen.
+\end{stappen}
+Controle met $x = 0$: in de topvorm is $2 \cdot 9 + 1 = 19$, en dat is ook het getal achteraan.}
+
+Na het uitwerken staat er altijd een term in $x^2$, een term in $x$ en een getal. Het getal voor $x^2$ is hetzelfde als in de topvorm: hier $2$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{tweedegraadsfunctie}} is een functie met een voorschrift van de vorm
+
+\qquad $\formule{f(x) = ax^2 + bx + c}$ \qquad met $a$, $b$, $c$ reële getallen en $\formule{a \neq 0}$.
+
+Dat voorschrift heet de \textbf{\textcolor{accent}{algemene vorm}}. Het getal $c$ heet de \textbf{\textcolor{accent}{constante term}}.
+\end{theorie}
+
+Waarom moet $a \neq 0$? Als $a = 0$ verdwijnt de term in $x^2$, en dan heb je een eerstegraadsfunctie $f(x) = bx + c$, met een rechte als grafiek. De getallen $b$ en $c$ mogen wel $0$ zijn: $y = 3x^2 - 5$ heeft $b = 0$, en $y = x^2 + 4x$ heeft $c = 0$. Let ook op het teken: bij $y = 4 - x^2 + 2x$ is $a = -1$, $b = 2$ en $c = 4$.
+
+\begin{oefeningen}
+\oef{h2-uitwerken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De top berekenen}
+
+\subsection{Twee punten op dezelfde hoogte}
+
+Omgekeerd: kun je bij $y = ax^2 + bx + c$ de top vinden, zonder de topvorm te kennen? Het idee komt uit hoofdstuk 1: twee punten op dezelfde hoogte liggen symmetrisch ten opzichte van de as. Vind je zo'n paar punten, dan ligt de as precies in het midden.
+
+Neem $f(x) = x^2 - 4x + 1$. Een tabel toont meteen zo'n paar.
+
+\naast{\waardetabel{6}{-1 & 0 & 1 & 2 & 3 & 4}{6 & 1 & -2 & -3 & -2 & 1}
+
+\medskip
+De waarde $1$ komt voor bij $x = 0$ en bij $x = 4$. De symmetrieas ligt in het midden: $x = 2$. De top is dus $(2, f(2)) = (2, -3)$. Ook $1$ en $3$ geven dezelfde waarde, net als $-1$ en $5$.
+
+Het punt bij $x = 0$ is altijd gemakkelijk: $f(0) = c$. Waar ligt het tweede punt op hoogte $c$? Dan is $x^2 - 4x + 1 = 1$, dus $x^2 - 4x = 0$, of $x(x - 4) = 0$. Een product is $0$ als een van de factoren $0$ is: $x = 0$ of $x = 4$.}{\begin{tikzpicture}[x=.55cm,y=.45cm]
+  \rooster{-1}{1}{5}{-4}{1}{6}
+  \symas{2}{-4}{6}
+  \parabool{1}{2}{-3}{-1.15}{5.15}
+  \draw[hulplijn] (-1,1) -- (5,1);
+  \punt{0}{1}\punt{4}{1}
+  \toppunt[below right]{2}{-3}{$(2, -3)$}
+\end{tikzpicture}}
+
+Dat werkt voor elke tweedegraadsfunctie. Het tweede punt op hoogte $c$ vind je uit $ax^2 + bx = 0$, dus $x(ax + b) = 0$: naast $x = 0$ is dat $x = -\tfrac ba$. Het midden van $0$ en $-\tfrac ba$ is $-\tfrac{b}{2a}$.
+
+\begin{theorie}
+\begin{stelling}{De top}
+De parabool $y = ax^2 + bx + c$ heeft als symmetrieas de rechte
+
+\qquad $\formule{x = -\dfrac{b}{2a}}$.
+
+
+De top is het punt op die as: $\formule{\Bigl(-\dfrac{b}{2a},\ f\Bigl(-\dfrac{b}{2a}\Bigr)\Bigr)}$.
+\end{stelling}
+\alleenvoor{5}{\begin{bewijs}
+Het punt $(0, c)$ ligt op de parabool. Een punt $(x, y)$ van de parabool ligt op dezelfde hoogte als
+\bewijsregel{ax^2 + bx + c = c \iff ax^2 + bx = 0 \iff x(ax + b) = 0 \iff x = 0 \ \text{ of } \ x = -\frac ba.}
+Is $b \neq 0$, dan zijn dat twee verschillende punten op dezelfde hoogte. Ze liggen symmetrisch ten opzichte van de as, dus de as ligt in het midden: $x = \tfrac12\bigl(0 - \tfrac ba\bigr) = -\tfrac{b}{2a}$. Is $b = 0$, dan is $f(x) = ax^2 + c$, met de $y$-as als symmetrieas, en ook dan is $-\tfrac{b}{2a} = 0$.
+\end{bewijs}}
+\end{theorie}
+
+Het teken in de formule is een valkuil. Bij $y = x^2 - 4x + 1$ is $b = -4$, dus $-\tfrac{b}{2a} = -\tfrac{-4}{2} = 2$. Vul $b$ dus altijd met zijn teken in, tussen haakjes als het negatief is.
+
+\begin{oefeningen}
+\oef{h2-tweepunten}
+\end{oefeningen}
+
+\voorbeeld{}{Bereken de top van de parabool $y = 2x^2 - 8x + 3$.\label{vb:h2-top}}{%
+\uitleg{We lezen $a$, $b$ en $c$ af, berekenen de $x$-coördinaat van de top met de formule, en vullen die in het voorschrift in.}
+\naast{\begin{stappenvrij}{5.1cm}{3.5cm}
+a = 2,\ b = -8,\ c = 3 & Let op het teken van $b$. \\[1ex]
+x = -\dfrac{-8}{2 \cdot 2} = 2 & De symmetrieas is $x = 2$. \\[1ex]
+y = 2 \cdot 2^2 - 8 \cdot 2 + 3 = -5 & Vul $x = 2$ in. \\
+\text{top } (2, -5) & $a > 0$: het laagste punt.
+\end{stappenvrij}
+\textit{Controle: $(0, 3)$ en $(4, 3)$ liggen symmetrisch, want $2 \cdot 16 - 32 + 3 = 3$.}}{\begin{tikzpicture}[x=.45cm,y=.27cm]
+  \rooster{-1}{1}{5}{-6}{1}{4}
+  \symas{2}{-6}{4}
+  \parabool{2}{2}{-5}{-.2}{4.2}
+  \toppunt[below right]{2}{-5}{}
+  \punt{0}{3}\punt{4}{3}
+\end{tikzpicture}}}
+
+\voorbeeld{}{Bereken de top van de parabool $y = -0,5x^2 - 3x + 1$.\label{vb:h2-top2}}{%
+\uitleg{Nu zijn $a$ en $b$ allebei negatief. We vullen ze met hun teken in.}
+\naast{\begin{stappenvrij}{5.6cm}{3.3cm}
+a = -0,5,\ b = -3,\ c = 1 & \\[1ex]
+x = -\dfrac{-3}{2 \cdot (-0,5)} = -\dfrac{-3}{-1} = -3 & De symmetrieas is $x = -3$. \\[1ex]
+y = -0,5 \cdot 9 - 3 \cdot (-3) + 1 = 5,5 & Vul $x = -3$ in. \\
+\text{top } (-3;\ 5,5) & $a < 0$: het hoogste punt.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.32cm]
+  \rooster{-7}{1}{1}{-2}{1}{6}
+  \symas{-3}{-2}{6}
+  \parabool{-.5}{-3}{5.5}{-6.9}{.9}
+  \toppunt[above]{-3}{5.5}{}
+  \punt{0}{1}\punt{-6}{1}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Lees $a$, $b$ en $c$ af, met hun teken. Bereken $x = -\tfrac{b}{2a}$: dat is de symmetrieas. Vul die $x$ in het voorschrift in: dat geeft de $y$-coördinaat van de top. Controleer met het teken van $a$: bij $a > 0$ is de top het laagste punt, bij $a < 0$ het hoogste.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-top}
+\end{oefeningen}
+
+\subsection{Van algemene vorm naar topvorm}
+
+Ken je de top $(p, q)$, dan ken je ook de topvorm $y = a(x - p)^2 + q$. Het getal $a$ is hetzelfde in beide vormen, zoals je bij het uitwerken zag.
+
+\voorbeeld{}{Schrijf $y = 2x^2 - 8x + 3$ in de topvorm.\label{vb:h2-naartop}}{%
+\uitleg{In voorbeeld~\ref{vb:h2-top} vonden we de top $(2, -5)$. Het getal $a = 2$ blijft.}
+\begin{stappen}
+y = 2(x - 2)^2 - 5 & $a = 2$, $p = 2$, $q = -5$. \\
+2(x^2 - 4x + 4) - 5 = 2x^2 - 8x + 3 & Controle: werk de haakjes uit.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-naartop}
+\end{oefeningen}
+
+\begin{alleenvoor}{4,5}
+\subsection{Kwadraatafsplitsen}
+
+Er is ook een manier om de topvorm te vinden zonder formule. Je leest het merkwaardig product achterstevoren. Bij $x^2 + 6x$ denk je aan $(x + 3)^2 = x^2 + 6x + 9$: dat is bijna hetzelfde, op $9$ na. Dus $x^2 + 6x = (x + 3)^2 - 9$. Het getal $3$ is de helft van $6$, het getal voor $x$. Deze techniek heet \textit{kwadraatafsplitsen}.
+
+\voorbeeld{}{Schrijf $y = x^2 + 6x + 2$ in de topvorm door kwadraatafsplitsen.\label{vb:h2-afsplitsen}}{%
+\uitleg{De helft van $6$ is $3$. We vervangen $x^2 + 6x$ door $(x + 3)^2 - 9$.}
+\begin{stappen}
+y = (x + 3)^2 - 9 + 2 & $x^2 + 6x = (x + 3)^2 - 9$. \\
+y = (x + 3)^2 - 7 & De top is $(-3, -7)$.
+\end{stappen}
+Controle met de formule: $-\tfrac{6}{2} = -3$ en $9 - 18 + 2 = -7$.}
+
+Staat er een getal $a \neq 1$ voor $x^2$, dan zet je dat eerst buiten haakjes bij de termen met $x$.
+
+\voorbeeld{}{Schrijf $y = 2x^2 + 12x + 7$ in de topvorm door kwadraatafsplitsen.\label{vb:h2-afsplitsen2}}{%
+\uitleg{We brengen $2$ buiten haakjes bij $2x^2 + 12x$, en splitsen daarbinnen het kwadraat af.}
+\begin{stappen}
+y = 2(x^2 + 6x) + 7 & $2$ buiten haakjes. \\
+y = 2\bigl((x + 3)^2 - 9\bigr) + 7 & Binnen de haakjes: de helft van $6$ is $3$. \\
+y = 2(x + 3)^2 - 18 + 7 & Vermenigvuldig $-9$ met $2$. \\
+y = 2(x + 3)^2 - 11 & De top is $(-3, -11)$.
+\end{stappen}}
+
+\begin{werkwijze}
+Zet $a$ buiten haakjes bij de termen met $x^2$ en $x$ (als $a \neq 1$). Neem binnen de haakjes de helft van het getal voor $x$, zeg $k$, en vervang $x^2 + 2kx$ door $(x + k)^2 - k^2$. Werk de buitenste haakjes uit en tel de getallen samen.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-afsplitsen}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{De grafiek tekenen}
+
+Met de top alleen teken je nog geen parabool. Welke punten geven snel een goede grafiek? Het snijpunt met de $y$-as krijg je gratis: $f(0) = c$. En door de symmetrie heeft dat punt een spiegelbeeld aan de andere kant van de as.
+
+\voorbeeld{}{Teken de grafiek van $f(x) = x^2 + 2x - 3$.\label{vb:h2-teken}}{%
+\uitleg{We bepalen de opening, de top, het snijpunt met de $y$-as en zijn spiegelbeeld, en nog twee punten met een tabel.}
+\naast{\begin{stappenvrij}{3.9cm}{4.8cm}
+a = 1 > 0 & Naar boven geopend. \\[1ex]
+x = -\dfrac{2}{2 \cdot 1} = -1 & De symmetrieas. \\[1ex]
+f(-1) = 1 - 2 - 3 = -4 & De top is $(-1, -4)$. \\
+(0, -3) \text{ en } (-2, -3) & Het snijpunt met de $y$-as en zijn spiegelbeeld. \\
+(1, 0) \text{ en } (-3, 0) & $f(1) = 1 + 2 - 3 = 0$, en gespiegeld.
+\end{stappenvrij}
+\textit{De grafiek snijdt de $x$-as in $(-3, 0)$ en $(1, 0)$: de nulwaarden zijn $-3$ en $1$.}}{\begin{tikzpicture}[x=.5cm,y=.4cm]
+  \rooster{-4}{1}{2}{-5}{1}{3}
+  \symas{-1}{-5}{3}
+  \parabool{1}{-1}{-4}{-3.8}{1.8}
+  \toppunt[below right]{-1}{-4}{}
+  \punt{0}{-3}\punt{-2}{-3}\punt{1}{0}\punt{-3}{0}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Het teken van $a$ zegt naar welke kant de parabool opent. Bereken de top en teken de symmetrieas. Teken het snijpunt $(0, c)$ met de $y$-as en zijn spiegelbeeld om de as. Bereken zo nodig nog een paar punten en spiegel ze. Verbind alles met een vloeiende kromme.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-teken}
+\end{oefeningen}
+
+\nujij{Teken de grafiek van $f(x) = -x^2 + 4x - 3$.}{Naar onder geopend, top $(2, 1)$, door $(0, -3)$, $(4, -3)$, $(1, 0)$ en $(3, 0)$.}
+
+%========================================================================================
+\section{Kenmerken}
+
+In het handboek Functies las je kenmerken af op een grafiek: domein, bereik, extrema, stijgen en dalen, nulwaarden. Bij een parabool volgen ze bijna allemaal uit de top en het teken van $a$. Het domein is altijd $\R$: in $ax^2 + bx + c$ mag je elk getal invullen.
+
+\subsection{Extremum en bereik}
+
+Is de parabool naar boven geopend, dan is de top het laagste punt. De functie bereikt daar haar kleinste waarde, en elke grotere waarde komt ook voor.
+
+\begin{theorie}
+\begin{stelling}{Extremum en bereik}
+Neem een tweedegraadsfunctie $f$ met top $(p, q)$.
+
+\qquad Als $a > 0$, heeft $f$ een \textbf{\textcolor{accent}{minimum}} $q$ in $x = p$, en $\formule{\ber f = \ivgo{q}{\pinf}}$.
+
+\qquad Als $a < 0$, heeft $f$ een \textbf{\textcolor{accent}{maximum}} $q$ in $x = p$, en $\formule{\ber f = \ivog{\minf}{q}}$.
+\end{stelling}
+\end{theorie}
+
+\subsection{Stijgen en dalen}
+
+Een parabool die naar boven openstaat, daalt tot aan de top en stijgt daarna. Bij een parabool die naar onder openstaat, is het andersom. De top is het keerpunt.
+
+\begin{theorie}
+\begin{stelling}{Stijgen en dalen}
+Neem een tweedegraadsfunctie $f$ met top $(p, q)$.
+
+\qquad Als $a > 0$, is $f$ dalend op $\formule{\ivog{\minf}{p}}$ en stijgend op $\formule{\ivgo{p}{\pinf}}$.
+
+\qquad Als $a < 0$, is $f$ stijgend op $\formule{\ivog{\minf}{p}}$ en dalend op $\formule{\ivgo{p}{\pinf}}$.
+\end{stelling}
+\end{theorie}
+
+\subsection{Snijpunten met de assen}
+
+De grafiek snijdt de $y$-as in $(0, c)$, want $f(0) = a \cdot 0 + b \cdot 0 + c = c$. De snijpunten met de $x$-as geven de nulwaarden. Die lees je voorlopig af op de grafiek; in hoofdstuk 3 leer je ze berekenen. Hoeveel het er zijn, zie je al aan de top. Ligt de top onder de $x$-as en is de parabool naar boven geopend, dan zijn er twee nulwaarden. Ligt de top op de $x$-as, dan is er één. Ligt de top boven de $x$-as en staat de parabool naar boven open, dan zijn er geen.
+
+\voorbeeld{}{Geef de kenmerken van $f(x) = -2x^2 + 4x + 6$: top, extremum, bereik, stijgen en dalen, snijpunt met de $y$-as en nulwaarden.\label{vb:h2-kenmerken}}{%
+\uitleg{We berekenen eerst de top. Daaruit en uit het teken van $a$ volgen de andere kenmerken. De nulwaarden lezen we af op de grafiek.}
+\naast{\begin{stappenvrij}{4.6cm}{3.8cm}
+x = -\dfrac{4}{2 \cdot (-2)} = 1 & De symmetrieas. \\[1ex]
+f(1) = -2 + 4 + 6 = 8 & De top is $(1, 8)$. \\
+\text{maximum } 8 \text{ in } x = 1 & $a = -2 < 0$. \\
+\ber f = \ivog{\minf}{8} & \\
+\text{stijgend op } \ivog{\minf}{1} & Tot aan de top, \\
+\text{dalend op } \ivgo{1}{\pinf} & daarna dalend. \\
+(0, 6) & Het snijpunt met de $y$-as. \\
+\text{nulwaarden } -1 \text{ en } 3 & Afgelezen.
+\end{stappenvrij}
+\textit{Controle van de nulwaarden: $f(3) = -18 + 12 + 6 = 0$ en $f(-1) = -2 - 4 + 6 = 0$. Ze liggen symmetrisch om de as $x = 1$.}}{\begin{tikzpicture}[x=.5cm,y=.27cm]
+  \rooster{-2}{1}{4}{-4}{1}{9}
+  \symas{1}{-4}{9}
+  \parabool{-2}{1}{8}{-1.45}{3.45}
+  \toppunt[above]{1}{8}{}
+  \punt{0}{6}\punt{-1}{0}\punt{3}{0}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-kenmerken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Problemen met een maximum of minimum}
+
+Waar is iets het grootst of het kleinst? Die vraag stel je vaak: de grootste oppervlakte, de hoogste opbrengst, de laagste kost. Is die grootheid een tweedegraadsfunctie, dan ligt het antwoord in de top.
+
+\voorbeeld{}{Een school wil met $60$ m dranghekken een rechthoekige speelzone afbakenen tegen de gevel van het gebouw. Langs de gevel komen geen hekken. Hoe moet de zone eruitzien om zo groot mogelijk te zijn?\label{vb:h2-zone}}{%
+\uitleg{Noem de breedte van de zone loodrecht op de gevel $x$ (in m). Er zijn twee zulke zijden. De zijde evenwijdig met de gevel krijgt wat overblijft: $60 - 2x$. De oppervlakte is lengte maal breedte.}
+\naast{\begin{stappenvrij}{4.1cm}{4.1cm}
+A(x) = x(60 - 2x) & De oppervlakte in m$^2$. \\
+A(x) = -2x^2 + 60x & De algemene vorm, $a < 0$. \\[1ex]
+x = -\dfrac{60}{2 \cdot (-2)} = 15 & De top: de grootste oppervlakte. \\[1ex]
+A(15) = 15 \cdot 30 = 450 & De andere zijde is $60 - 30 = 30$ m.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.08cm,y=.08cm,font=\scriptsize]
+  \fill[black!15] (-4,30) rectangle (34,34);
+  \node at (15,32) {gevel};
+  \fill[accent!15] (0,0) rectangle (30,30);
+  \draw[accent,very thick] (0,30) -- (0,0) -- (30,0) -- (30,30);
+  \node[left] at (0,15) {$x$};
+  \node[right] at (30,15) {$x$};
+  \node[below] at (15,0) {$60 - 2x$};
+\end{tikzpicture}}
+Kies de zone $15$ m diep en $30$ m breed langs de gevel. Dan is ze $450$ m$^2$ groot. Een zone van $10$ m diep geeft maar $10 \cdot 40 = 400$ m$^2$.}
+
+\begin{werkwijze}
+Kies een onbekende en schrijf de grootheid die maximaal of minimaal moet zijn als een functie van die onbekende. Werk uit tot de vorm $ax^2 + bx + c$. Bereken de top: de $x$-coördinaat zegt waar het maximum of minimum ligt, de $y$-coördinaat hoe groot het is. Beantwoord de vraag in een zin, en kijk of het antwoord zin heeft.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-maxmin}
+\end{oefeningen}
+
+\voorbeeld{}{Terug naar het probleem. De straal van de fontein volgt $h(x) = -0,8x^2 + 3,2x + 0,4$. Hoe hoog komt het water, en op welke afstand van de spuitmond? Waar is de straal weer even hoog als de spuitmond?\label{vb:h2-terug}}{%
+\uitleg{Het hoogste punt is de top van de parabool. De spuitmond is het punt $(0;\ 0,4)$: het snijpunt met de $y$-as. Het punt op dezelfde hoogte ligt symmetrisch ten opzichte van de as.}
+\naast{\begin{stappenvrij}{5.3cm}{3.3cm}
+x = -\dfrac{3,2}{2 \cdot (-0,8)} = 2 & De symmetrieas. \\[1ex]
+h(2) = -3,2 + 6,4 + 0,4 = 3,6 & De top is $(2;\ 3,6)$. \\[1ex]
+h(0) = 0,4 & De spuitmond. \\
+2 + 2 = 4 & Het spiegelbeeld van $x = 0$ om de as $x = 2$. \\[1ex]
+h(x) = -0,8(x - 2)^2 + 3,6 & De topvorm.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.6cm,y=.6cm]
+  \fill[accent!12] (-.6,-.5) rectangle (5,0);
+  \roosterleeg[$x$][$h$]{0}{1}{4.5}{0}{1}{4}
+  \xgetallen{1,2,3,4}\ygetallen{1,2,3,4}
+  \symas{2}{0}{3.6}
+  \parabool{-.8}{2}{3.6}{0}{4.12}
+  \toppunt[above]{2}{3.6}{}
+  \punt{0}{.4}\punt{4}{.4}
+  \draw[hulplijn] (0,.4) -- (4.4,.4);
+\end{tikzpicture}}
+Het water komt $3,6$ m hoog, op $2$ m van de spuitmond. Op $4$ m van de spuitmond is de straal weer $40$ cm hoog. Waar het water de vijver raakt, is een nulwaarde: die berekenen we in hoofdstuk 3.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h2-o1}
+
+\needspace{6\baselineskip}
+\oef{h2-o2}
+
+\needspace{6\baselineskip}
+\oef{h2-o3}
+
+\needspace{6\baselineskip}
+\oef{h2-o24}
+
+\needspace{6\baselineskip}
+\oef{h2-o4}
+
+\needspace{6\baselineskip}
+\oef{h2-o5}
+
+\needspace{6\baselineskip}
+\oef{h2-o6}
+
+\needspace{6\baselineskip}
+\oef{h2-o11}
+
+\needspace{6\baselineskip}
+\oef{h2-o7}
+
+\needspace{6\baselineskip}
+\oef{h2-o12}
+
+\needspace{6\baselineskip}
+\oef{h2-o8}
+
+\needspace{6\baselineskip}
+\oef{h2-o13}
+
+\needspace{6\baselineskip}
+\oef{h2-o21}
+
+\needspace{6\baselineskip}
+\oef{h2-o9}
+
+\needspace{6\baselineskip}
+\oef{h2-o14}
+
+\needspace{6\baselineskip}
+\oef{h2-o15}
+
+\needspace{6\baselineskip}
+\oef{h2-o10}
+
+\needspace{6\baselineskip}
+\oef{h2-o16}
+
+\needspace{6\baselineskip}
+\oef{h2-o17}
+
+\needspace{6\baselineskip}
+\oef{h2-o19}
+
+\needspace{6\baselineskip}
+\oef{h2-o18}
+
+\needspace{6\baselineskip}
+\oef{h2-o20}
+
+\needspace{6\baselineskip}
+\oef{h2-o22}
+
+\needspace{6\baselineskip}
+\oef{h2-o23}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{14\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h2-t1}
+
+\needspace{6\baselineskip}
+\oef{h2-t2}
+
+\needspace{6\baselineskip}
+\oef{h2-t3}
+
+\needspace{6\baselineskip}
+\oef{h2-t4}
+
+\needspace{6\baselineskip}
+\oef{h2-t5}
+
+\needspace{6\baselineskip}
+\oef{h2-t6}
+
+\needspace{6\baselineskip}
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-uitwerken}{oef:h2-uitwerken}%
+  \fv{oef:h2-t2}{vb:h2-top2}{oef:h2-top}%
+  \fv{oef:h2-t3}{vb:h2-naartop}{oef:h2-naartop}%
+  \fv{oef:h2-t4}{vb:h2-teken}{oef:h2-teken}%
+  \fv{oef:h2-t5}{vb:h2-kenmerken}{oef:h2-kenmerken}%
+  \fv{oef:h2-t6}{vb:h2-zone}{oef:h2-maxmin}%
+  \alleenvoor{2,3}{\fv{oef:h2-t7}{vb:h2-top}{oef:h2-o18}}\alleenvoor{4,5}{\fv{oef:h2-t7}{vb:h2-afsplitsen}{oef:h2-afsplitsen}}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een tweedegraadsfunctie is, hoe je van de topvorm naar de algemene vorm gaat, de formule voor de symmetrieas en waarom ze klopt, hoe je de top en de topvorm vindt\alleenvoor{4,5}{ (ook met kwadraatafsplitsen)}, hoe je snel een grafiek tekent, de kenmerken bij $a > 0$ en bij $a < 0$, en hoe je een maximum of minimum vindt in een context. Vergelijk daarna met de kaders.
+\fi
