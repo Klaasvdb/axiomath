@@ -1,0 +1,500 @@
+%----------------------------------------------------------------------------------------
+% EEN GRAAF ALS MODEL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Verschillen per pakket: pakket 5 heeft twee extra bewijsopdrachten (niveau 3).
+% De grafen zijn nagerekend met een Python-script (graden, aantal bogen, routes, volgordes).
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Een graaf als model}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Op een sociaal netwerk is vriendschap wederzijds: als Lien bevriend is met Omar, dan is Omar ook bevriend met Lien. Een leerkracht zegt over haar klas van 25 leerlingen: \textit{Ik heb het nagekeken. Elke leerling is op het netwerk bevriend met precies drie klasgenoten.} Kan dat kloppen? En als de klas 24 leerlingen telt?
+
+Bij acht leerlingen kan het wel, zoals de figuur toont: elke stip is een leerling, en elke lijn een vriendschap.}{\begin{tikzpicture}[scale=.95]
+  \foreach \i in {0,...,7}{\coordinate (p\i) at ({90-45*\i}:1.25);}
+  \foreach \i in {0,...,7}{\pgfmathtruncatemacro{\j}{mod(\i+1,8)}\draw[boog] (p\i) -- (p\j);}
+  \foreach \i in {0,...,3}{\pgfmathtruncatemacro{\j}{\i+4}\draw[boog] (p\i) -- (p\j);}
+  \foreach \i in {0,...,7}{\node[punt] at (p\i) {};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: keuzedoelen K2-K3 (dit hoofdstuk: een situatie modelleren met een graaf, de graad van een knoop, de handdrukstelling, gerichte en gewogen grafen). Welk deel precies bij K2 en welk bij K3 hoort, is na te kijken in het leerplan. Voorkennis: geen, behalve rekenen met even en oneven getallen. Het hoofdstuk staat los van de andere handboeken. Laat de leerlingen het probleem eerst proberen: wie een netwerk van 25 stippen begint te tekenen, merkt dat er telkens één leerling overschiet.\alleenvoor{5}{ In pakket 5 staan twee extra bewijsopdrachten (opdracht~\ref{oef:h1-o22} en~\ref{oef:h1-o23}).}}
+
+Een kaart van een wegennet, een netwerk van vrienden, het schema van een metro en de wedstrijden van een competitie lijken weinig op elkaar. Toch kun je ze allemaal tekenen met stippen en lijnen. Zo'n tekening heet een \emph{graaf}. Ze laat alles weg wat er voor een vraag niet toe doet, en houdt alleen over wie met wie verbonden is. In dit hoofdstuk leer je situaties voorstellen met een graaf, en tellen in een graaf. Met één eenvoudige telling los je het probleem hierboven op. In hoofdstuk 2 gebruiken we grafen om echte problemen op te lossen: een wandeling over alle bruggen van een stad, en de kortste route.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Knopen en bogen}
+
+\subsection{Van kaart naar graaf}
+
+In de Verken telde je de wegen die in elk dorp vertrekken. Hoe lang een weg is, hoeveel bochten hij maakt of waar een dorp precies ligt, deed er daarvoor niet toe. Het enige wat telde, was welk dorp met welk dorp verbonden is. Daarom mag je de kaart vervangen door een eenvoudiger tekening: een stip per dorp en een lijn per weg.
+
+\figuren{\begin{tikzpicture}[font=\footnotesize]
+  \coordinate (A) at (0,.6); \coordinate (B) at (1.8,1.6); \coordinate (C) at (1.9,0); \coordinate (D) at (3.6,1); \coordinate (E) at (3.8,-.6);
+  \begin{scope}[black!28,line width=2.2pt]
+    \draw (A) to[out=40,in=200] (B); \draw (A) to[out=-30,in=170] (C); \draw (B) to[out=-60,in=110] (C);
+    \draw (B) to[out=10,in=150] (D); \draw (C) to[out=30,in=240] (D); \draw (D) to[out=-60,in=80] (E);
+    \draw (C) to[out=-40,in=190] (E);
+  \end{scope}
+  \foreach \p in {A,B,C,D,E}{\fill[accent] ($(\p)+(-.11,-.11)$) rectangle ($(\p)+(.11,.11)$);}
+  \node[above left] at (A) {$A$}; \node[above] at (B) {$B$}; \node[below left] at (C) {$C$}; \node[above right] at (D) {$D$}; \node[below right] at (E) {$E$};
+  \node[grijs] at (1.9,-1.3) {de kaart};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}
+  \knopen{A/0/.6, B/1.8/1.6, C/1.9/0, D/3.6/1, E/3.8/-.6}
+  \bogen{A/B, A/C, B/C, B/D, C/D, D/E, C/E}
+  \node[grijs,font=\footnotesize] at (1.9,-1.3) {de graaf};
+\end{tikzpicture}}
+
+Zo'n tekening is een graaf. De stippen heten knopen, de lijnen bogen. In dit boek staat de naam van een knoop meestal in een cirkeltje.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{graaf}} bestaat uit \textbf{\textcolor{accent}{knopen}} en \textbf{\textcolor{accent}{bogen}}. Elke boog verbindt twee knopen. Twee knopen die door een boog verbonden zijn, heten \textbf{\textcolor{accent}{buren}}.
+\end{theorie}
+
+Een graaf is een \textit{model}: een vereenvoudigde voorstelling van een situatie, die net genoeg overhoudt om een vraag te beantwoorden. Wat de knopen en de bogen zijn, kies je zelf, afhankelijk van de vraag.
+
+{\centering\renewcommand{\arraystretch}{1.25}\begin{tabular}{|c|c|c|}
+\hline
+\textbf{situatie} & \textbf{knopen} & \textbf{bogen} \\ \hline
+wegennet & dorpen of kruispunten & wegen \\ \hline
+sociaal netwerk & personen & vriendschappen \\ \hline
+metronet & stations & rechtstreekse verbindingen \\ \hline
+competitie & ploegen & gespeelde wedstrijden \\ \hline
+molecule & atomen & bindingen \\ \hline
+\end{tabular}\par}
+
+\voorbeeld{}{Amir, Bo, Chloé, Dries en Emma zitten in een jeugdbeweging. Amir kent Bo en Chloé al van school. Bo kent ook Dries. Chloé kent Dries en Emma. Stel de situatie voor met een graaf. Wie kent de meeste anderen?\label{vb:h1-model}}{%
+\uitleg{De vraag gaat over wie wie kent. De personen worden dus de knopen, en elke keer dat twee personen elkaar kennen, tekenen we een boog. We noteren elke persoon met zijn beginletter.}
+\naast{\begin{stappenvrij}{3.2cm}{5.2cm}
+A, B, C, D, E & Vijf personen: vijf knopen. \\
+AB,\ AC,\ BD & Amir kent Bo en Chloé, Bo kent Dries. \\
+CD,\ CE & Chloé kent Dries en Emma. \\
+C & Chloé heeft drie buren, de anderen hoogstens twee.
+\end{stappenvrij}}{\begin{tikzpicture}
+  \knopen{A/0/1, B/1.6/1.6, C/1.2/0, D/2.8/.8, E/2.6/-.6}
+  \bogen{A/B, A/C, B/D, C/D, C/E}
+\end{tikzpicture}}
+Chloé kent de meeste anderen: drie. Dat zie je in de graaf meteen, ook zonder de tekst nog eens te lezen.}
+
+\begin{werkwijze}
+Beslis wat de knopen zijn en wanneer twee knopen verbonden zijn. Teken een knoop voor elk ding en een boog voor elke verbinding. Overloop de gegevens nog eens, zodat je geen verbinding vergeet.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-model}
+\end{oefeningen}
+
+\subsection{Eén graaf, veel tekeningen}
+
+In een graaf telt alleen welke knopen verbonden zijn. Waar je een knoop tekent, en of een boog recht of krom is, maakt dus niet uit. Eenzelfde graaf kan er daardoor heel anders uitzien. Twee bogen mogen elkaar ook snijden: dat snijpunt is geen knoop, net zoals een brug over een autosnelweg geen kruispunt is.
+
+\voorbeeld{}{Stellen de twee tekeningen dezelfde graaf voor?\label{vb:h1-zelfde}
+
+\figuren{\begin{tikzpicture}
+  \knopen{A/0/0, B/2/0, C/2/2, D/0/2}
+  \bogen{A/B, B/C, C/D, D/A, A/C, B/D}
+  \node[grijs,font=\footnotesize] at (1,-.7) {tekening 1};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}
+  \knopen{B/0/0, C/2.4/0, D/1.2/2, A/1.2/.75}
+  \bogen{A/B, B/C, C/D, D/A, A/C, B/D}
+  \node[grijs,font=\footnotesize] at (1.2,-.7) {tekening 2};
+\end{tikzpicture}}}{%
+\uitleg{We vergelijken niet hoe de tekeningen eruitzien, maar welke knopen verbonden zijn. Daarvoor schrijven we bij elke tekening de lijst van de bogen.}
+\begin{stappen}
+AB,\ AC,\ AD,\ BC,\ BD,\ CD & Tekening 1: de vier zijden en de twee diagonalen. \\
+AB,\ AC,\ AD,\ BC,\ BD,\ CD & Tekening 2: de drie zijden van de driehoek en de drie bogen naar $A$.
+\end{stappen}
+De lijsten zijn gelijk, dus het is dezelfde graaf: elke knoop is met elke andere verbonden. In tekening 1 snijden de diagonalen elkaar, maar dat snijpunt is geen knoop. Tekening 2 toont dat je dezelfde graaf ook zonder snijdende bogen kunt tekenen.}
+
+\begin{werkwijze}
+Schrijf bij elke tekening de lijst van de bogen, met de namen van de knopen. Zijn de lijsten gelijk, dan stellen de tekeningen dezelfde graaf voor.
+\end{werkwijze}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-zelfde}
+\end{oefeningen}
+
+\subsection{Meervoudige bogen en lussen}
+
+Tussen twee dorpen lopen soms twee wegen, en tussen twee oevers van een rivier soms meer dan één brug. Wil je weten welke wegen of bruggen er zijn, dan teken je ze allemaal. Er komen dan meerdere bogen tussen dezelfde twee knopen. Een weg die een rondje maakt en terugkomt in hetzelfde dorp, zoals een ringweg, wordt een boog van een knoop naar zichzelf.
+
+\figuren{\begin{tikzpicture}
+  \knopen{P/0/0, Q/2.2/0, R/4/.8}
+  \draw[boog] (P) to[bend left=25] (Q);
+  \draw[boog] (P) to[bend right=25] (Q);
+  \bogen{Q/R}
+  \draw[boog] (R) to[out=20,in=-20,looseness=12] (R);
+  \node[grijs,font=\footnotesize,align=center] at (1.1,-.85) {twee bogen tussen $P$ en $Q$};
+  \node[grijs,font=\footnotesize] at (4.4,-.3) {een lus};
+\end{tikzpicture}}
+
+\begin{theorie}
+Twee of meer bogen tussen dezelfde twee knopen heten \textbf{\textcolor{accent}{meervoudige bogen}}. Een boog die een knoop met zichzelf verbindt, heet een \textbf{\textcolor{accent}{lus}}. Een graaf zonder meervoudige bogen en zonder lussen heet \textbf{\textcolor{accent}{enkelvoudig}}.
+\end{theorie}
+
+Bij een sociaal netwerk ben je met iemand bevriend of niet, en ben je niet met jezelf bevriend: zo'n graaf is altijd enkelvoudig. Bij de bruggen van een stad heb je wel meervoudige bogen nodig. Een graaf mag in dit boek meervoudige bogen en lussen hebben, tenzij er uitdrukkelijk \textit{enkelvoudig} staat.
+
+%========================================================================================
+\section{De graad van een knoop}
+
+\subsection{De graad}
+
+In de Verken telde je hoeveel wegen er in elk dorp vertrekken. Dat getal zegt veel over een knoop: in een netwerk van vrienden is het het aantal vrienden, in een competitie het aantal gespeelde wedstrijden. Het krijgt daarom een eigen naam.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{graad}} van een knoop $A$ is het aantal bogen dat in $A$ eindigt. We noteren $\formule{\gr{A}}$. Een lus in $A$ telt voor 2, want haar twee uiteinden liggen in $A$. Een knoop met graad 0 heet \textbf{\textcolor{accent}{geïsoleerd}}.
+\end{theorie}
+
+Waarom telt een lus voor twee? Kijk naar een ringweg: als je het dorp uitrijdt over de ringweg, kom je er ook weer langs de ringweg in. In het dorp komen dus twee uiteinden van wegen samen.
+
+\voorbeeld{}{Bepaal de graad van elke knoop.\label{vb:h1-graad}
+
+\figuren{\begin{tikzpicture}
+  \knopen{P/0/0, Q/2/0, R/3.4/1.1, S/4.2/-.4, T/5.6/.6}
+  \draw[boog] (P) to[bend left=25] (Q);
+  \draw[boog] (P) to[bend right=25] (Q);
+  \bogen{Q/R, Q/S, R/S}
+  \draw[boog] (S) to[out=-30,in=-90,looseness=10] (S);
+\end{tikzpicture}}}{%
+\uitleg{We tellen per knoop de uiteinden van bogen. De twee bogen tussen $P$ en $Q$ tellen allebei mee, en de lus in $S$ telt voor twee.}
+\begin{stappen}
+\gr{P} = 2 & De twee bogen naar $Q$. \\
+\gr{Q} = 4 & Twee bogen naar $P$, één naar $R$ en één naar $S$. \\
+\gr{R} = 2 & Naar $Q$ en naar $S$. \\
+\gr{S} = 4 & Naar $Q$ en naar $R$, en de lus telt voor 2. \\
+\gr{T} = 0 & Geen enkele boog: $T$ is geïsoleerd.
+\end{stappen}}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-graad}
+\end{oefeningen}
+
+\subsection{De handdrukstelling}
+
+Kijk nog eens naar de graden die we al tegenkwamen. In de Verken waren de graden $2, 3, 4, 3$ en $2$: samen $14$, en er waren 7 wegen. In voorbeeld~\ref{vb:h1-model} zijn de graden $2, 2, 3, 2, 1$: samen $10$, met 5 bogen. In voorbeeld~\ref{vb:h1-graad} is de som $2 + 4 + 2 + 4 + 0 = 12$, met 6 bogen. Telkens is de som van de graden het dubbele van het aantal bogen. Is dat toeval, of moet dat zo zijn?
+
+\begin{theorie}
+\begin{stelling}{Handdrukstelling}
+In elke graaf is de som van de graden van alle knopen gelijk aan twee keer het aantal bogen. Heeft de graaf de knopen $A_1, A_2, \ldots, A_n$ en $b$ bogen, dan is
+\[ \formule{\gr{A_1} + \gr{A_2} + \cdots + \gr{A_n} = 2b} . \]
+\end{stelling}
+\begin{bewijs}
+Elke boog heeft twee uiteinden. Tel alle uiteinden van alle bogen op twee manieren. Per boog: dat geeft $2b$. Per knoop: in $A_1$ liggen $\gr{A_1}$ uiteinden, in $A_2$ liggen er $\gr{A_2}$, enzovoort. Bij een lus liggen beide uiteinden in dezelfde knoop, en daarom telt een lus voor 2. Beide tellingen tellen hetzelfde, dus
+\bewijsregel{\gr{A_1} + \gr{A_2} + \cdots + \gr{A_n} = 2b .}
+\end{bewijs}
+\end{theorie}
+
+Waarom die naam? Denk aan een feest waar mensen elkaar de hand geven. Vraag je elke gast hoeveel handen hij gaf, en tel je die getallen op, dan heb je elke handdruk twee keer geteld: één keer bij elke gast die meedeed. De som is dus het dubbele van het aantal handdrukken.
+
+\voorbeeld{}{De hoekpunten en ribben van een kubus vormen een graaf. Elk van de 8 hoekpunten ligt op 3 ribben. Hoeveel ribben heeft een kubus?\label{vb:h1-hand}}{%
+\uitleg{De knopen zijn de hoekpunten en de bogen de ribben. We kennen alle graden, dus de handdrukstelling geeft het aantal bogen, zonder dat we ze een voor een tellen.}
+\naast{\begin{stappenvrij}{3.6cm}{4.4cm}
+8 \cdot 3 = 24 & De som van de graden: 8 knopen met graad 3. \\
+2b = 24 & De handdrukstelling. \\
+b = 12 & De kubus heeft 12 ribben.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.8]
+  \foreach \n/\x/\y in {1/0/0, 2/2/0, 3/2/2, 4/0/2, 5/.9/.7, 6/2.9/.7, 7/2.9/2.7, 8/.9/2.7}{\node[punt] (k\n) at (\x,\y) {};}
+  \foreach \a/\b in {1/2, 2/3, 3/4, 4/1, 5/6, 6/7, 7/8, 8/5, 1/5, 2/6, 3/7, 4/8}{\draw[boog] (k\a) -- (k\b);}
+  \foreach \n in {1,...,8}{\node[punt] at (k\n) {};}
+\end{tikzpicture}}
+Tel ze na op de figuur: vier ribben vooraan, vier achteraan en vier die ze verbinden.}
+
+\begin{oefeningen}
+\oef{h1-hand}
+\end{oefeningen}
+
+\subsection{Een even aantal oneven graden}
+
+Bestaat er een graaf met drie knopen die allemaal graad 3 hebben? Probeer je hem te tekenen, dan blijft er telkens één uiteinde van een boog over. De handdrukstelling zegt waarom: de som van de graden zou $3 + 3 + 3 = 9$ zijn, en dat is oneven. Een dubbel van een geheel getal is altijd even. Wat zegt dat over de knopen met een oneven graad?
+
+\begin{theorie}
+\begin{stelling}{Oneven graden}
+In elke graaf is het aantal knopen met een oneven graad even.
+\end{stelling}
+\begin{bewijs}
+Volgens de handdrukstelling is de som van alle graden $2b$, een even getal. Splits die som in twee delen: de som van de even graden en de som van de oneven graden. De som van even getallen is even. Dus is ook de som van de oneven graden even, want even min even is even. Neem de oneven graden twee aan twee samen: elk paar geeft een even som. Blijft er één oneven graad over, dan is de totale som oneven. Een som van oneven getallen is dus alleen even als er een even aantal termen is. Er zijn dus een even aantal knopen met een oneven graad.
+\end{bewijs}
+\end{theorie}
+
+Een graaf kan dus twee, vier of zes knopen met een oneven graad hebben, of geen enkele, maar nooit één, drie of vijf.
+
+\voorbeeld{}{Bestaat er een graaf met vijf knopen met de graden $4, 3, 3, 2$ en $1$?\label{vb:h1-oneven}}{%
+\uitleg{In plaats van lang te proberen tekenen, tellen we de oneven graden.}
+\begin{stappen}
+3,\ 3,\ 1 & De oneven graden: drie knopen. \\
+4 + 3 + 3 + 2 + 1 = 13 & De som is oneven, en dat kan niet: ze moet $2b$ zijn.
+\end{stappen}
+Zo'n graaf bestaat niet, ook niet met meervoudige bogen of lussen.}
+
+\begin{werkwijze}
+Wil je weten of een graaf met gegeven graden kan bestaan, tel dan de oneven graden. Is hun aantal oneven, dan bestaat de graaf niet. Is het aantal even, probeer dan een graaf te tekenen.
+\end{werkwijze}
+
+Let op: een even aantal oneven graden is nodig, maar het volstaat niet altijd. Wil je een enkelvoudige graaf, dan zijn er nog andere voorwaarden. Met vier knopen kan een knoop in een enkelvoudige graaf hoogstens graad 3 hebben, want er zijn maar drie andere knopen.
+
+\begin{oefeningen}
+\oef{h1-oneven}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Nu kunnen we de vraag van de leerkracht beantwoorden, zonder ook maar één netwerk van 25 leerlingen te tekenen.
+
+\voorbeeld{}{Terug naar het probleem. Kan in een klas van 25 leerlingen elke leerling met precies drie klasgenoten bevriend zijn? En in een klas van 24 leerlingen?\label{vb:h1-terug}}{%
+\uitleg{We maken een graaf: de leerlingen zijn de knopen, en elke vriendschap is een boog. Elke knoop heeft dan graad 3. We tellen de som van de graden.}
+\naast{\begin{stappenvrij}{3.8cm}{4.6cm}
+25 \cdot 3 = 75 & De som van de graden bij 25 leerlingen. \\
+75 = 2b\ ? & Kan niet: 75 is oneven. \\
+24 \cdot 3 = 72 = 2 \cdot 36 & Bij 24 leerlingen: 36 vriendschappen.
+\end{stappenvrij}}{\begin{tikzpicture}
+  \foreach \i in {1,...,4}{\node[punt] (v\i) at ({45+90*\i}:.8) {};}
+  \foreach \a/\b in {1/2, 2/3, 3/4, 4/1, 1/3, 2/4}{\draw[boog] (v\a) -- (v\b);}
+  \foreach \i in {1,...,4}{\node[punt] at (v\i) {};}
+  \node[grijs,font=\footnotesize] at (0,-1.05) {een groepje van 4};
+\end{tikzpicture}}
+Bij 25 leerlingen klopt de uitspraak niet: de som van de graden zou oneven zijn. Bij 24 leerlingen kan het wel. De leerkracht kan de klas bijvoorbeeld verdelen in zes groepjes van vier vrienden. In een groepje is iedereen met de drie anderen bevriend, zoals in de figuur. Zo heeft iedereen precies drie vrienden. Met 24 is het dus mogelijk; dat het in een echte klas ook zo is, zegt de berekening niet.}
+
+\subsection{Iedereen met iedereen}
+
+In een competitie met 6 ploegen speelt elke ploeg één keer tegen elke andere ploeg. Hoeveel wedstrijden zijn dat? Als graaf: de ploegen zijn de knopen, en tussen elke twee knopen ligt een boog. Zo'n graaf komt zo vaak voor dat hij een eigen naam heeft.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{volledige graaf}} is een enkelvoudige graaf waarin elke twee knopen buren zijn.
+
+\begin{stelling}{Aantal bogen van een volledige graaf}
+Een volledige graaf met $n$ knopen heeft $\formule{\dfrac{n(n-1)}{2}}$ bogen.
+\end{stelling}
+\begin{bewijs}
+Elke knoop is verbonden met alle $n - 1$ andere knopen, dus elke knoop heeft graad $n - 1$. De som van de graden is $n(n - 1)$. Volgens de handdrukstelling is dat $2b$, dus
+\bewijsregel{b = \frac{n(n-1)}{2} .}
+\end{bewijs}
+\end{theorie}
+
+In woorden: elke ploeg speelt $n - 1$ wedstrijden, maar zo tel je elke wedstrijd twee keer, één keer bij elke ploeg.
+
+\voorbeeld{}{In een competitie met 6 ploegen speelt elke ploeg één keer tegen elke andere ploeg. Hoeveel wedstrijden zijn er?\label{vb:h1-volledig}}{%
+\uitleg{De graaf van de wedstrijden is de volledige graaf met 6 knopen.}
+\naast{\begin{stappenvrij}{3.4cm}{4.8cm}
+6 - 1 = 5 & Elke ploeg speelt 5 wedstrijden. \\
+\dfrac{6 \cdot 5}{2} = 15 & Elke wedstrijd is twee keer geteld.
+\end{stappenvrij}}{\begin{tikzpicture}
+  \foreach \i in {1,...,6}{\node[punt] (w\i) at ({60*\i}:1) {};}
+  \foreach \i in {1,...,6}{\foreach \j in {1,...,6}{\ifnum\i<\j \draw[boog] (w\i) -- (w\j);\fi}}
+  \foreach \i in {1,...,6}{\node[punt] at (w\i) {};}
+\end{tikzpicture}}
+Er zijn 15 wedstrijden. Tel ze na in de figuur: 6 zijden van de zeshoek, 6 korte diagonalen en 3 lange.}
+
+\begin{oefeningen}
+\oef{h1-volledig}
+\end{oefeningen}
+
+%========================================================================================
+\section{Gerichte en gewogen grafen}
+
+\subsection{Gerichte grafen}
+
+Tot nu toe ging een verbinding altijd in twee richtingen: als Lien met Omar bevriend is, dan ook Omar met Lien. Dat is niet altijd zo. In een eenrichtingsstraat rij je maar in één richting. Op sommige netwerken volg je iemand, zonder dat die persoon jou volgt. Hoe teken je dat? Met een pijl in plaats van een lijn.
+
+\begin{theorie}
+In een \textbf{\textcolor{accent}{gerichte graaf}} heeft elke boog een richting: een \textbf{\textcolor{accent}{pijl}} van de ene knoop naar de andere. Het aantal pijlen dat in een knoop aankomt, is de \textbf{\textcolor{accent}{ingraad}} van die knoop. Het aantal pijlen dat vertrekt, is de \textbf{\textcolor{accent}{uitgraad}}.
+\end{theorie}
+
+\voorbeeld{}{Vijf vrienden volgen elkaar op een netwerk. Een pijl van $A$ naar $B$ betekent: $A$ volgt $B$. Bepaal van elke persoon de ingraad en de uitgraad. Wie heeft de meeste volgers?\label{vb:h1-gericht}}{%
+\uitleg{De volgers van een persoon zijn de pijlen die bij hem aankomen. We tellen per knoop de aankomende en de vertrekkende pijlen.}
+\naast{{\renewcommand{\arraystretch}{1.2}\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & $A$ & $B$ & $C$ & $D$ & $E$ \\ \hline
+ingraad & 1 & 3 & 2 & 1 & 1 \\ \hline
+uitgraad & 2 & 2 & 1 & 2 & 1 \\ \hline
+\end{tabular}}
+
+\vspace{2mm}
+\textit{Bij $B$ komen pijlen aan van $A$, $C$ en $D$.}}{\begin{tikzpicture}
+  \knopen{A/0/1.4, B/1.8/1.4, C/0/0, D/1.8/0, E/3.4/.7}
+  \draw[pijl] (A) to[bend left=15] (B);
+  \draw[pijl] (B) to[bend left=15] (A);
+  \pijlen{A/C, C/B, D/B, D/C, E/D, B/E}
+\end{tikzpicture}}
+$B$ heeft de meeste volgers: drie. $A$ en $B$ volgen elkaar: tussen hen staan twee pijlen, in elke richting één.}
+
+Tel je in dit voorbeeld alle ingraden op, dan vind je $1 + 3 + 2 + 1 + 1 = 8$. De uitgraden geven $2 + 2 + 1 + 2 + 1 = 8$. En er zijn precies 8 pijlen. Dat is een handdrukstelling voor gerichte grafen.
+
+\begin{theorie}
+\begin{stelling}{Ingraden en uitgraden}
+In een gerichte graaf is de som van alle ingraden gelijk aan de som van alle uitgraden, en die is gelijk aan het aantal pijlen.
+\end{stelling}
+\begin{bewijs}
+Elke pijl vertrekt in precies één knoop en komt aan in precies één knoop. Tel je per knoop de vertrekkende pijlen, dan tel je elke pijl één keer. Tel je de aankomende pijlen, dan ook. Beide sommen zijn dus gelijk aan het aantal pijlen.
+\end{bewijs}
+\end{theorie}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-gericht}
+\end{oefeningen}
+
+\subsection{Schema's}
+
+Ook een planning is een gerichte graaf. Bij veel klussen moet de ene taak klaar zijn voor de andere kan beginnen. Teken je een pijl van taak $X$ naar taak $Y$ als $X$ eerst moet, dan krijg je een schema. De vraag is dan: in welke volgorde kun je alle taken doen?
+
+\voorbeeld{}{Je bakt pannenkoeken. Het schema toont welke taak eerst moet: beslag maken ($B$), het beslag laten rusten ($R$), de pan opwarmen ($P$), bakken ($K$), de tafel dekken ($T$) en smullen ($S$). Geef een volgorde waarin je de taken kunt doen.\label{vb:h1-schema}
+
+\figuren{\begin{tikzpicture}
+  \knopen{B/0/.9, R/1.6/.9, P/1.6/-.3, K/3.2/.3, T/3.2/-.9, S/4.8/0}
+  \pijlen{B/R, R/K, P/K, K/S, T/S}
+\end{tikzpicture}}}{%
+\uitleg{Je kunt beginnen met een taak waar geen pijl naartoe gaat: daar moet niets voor gebeuren. Is een taak klaar, dan vallen haar pijlen weg, en zoek je opnieuw een taak zonder aankomende pijl.}
+\begin{stappen}
+B,\ P,\ T & Geen aankomende pijl: hiermee kun je beginnen, in eender welke volgorde. \\
+R & Na $B$ heeft $R$ geen aankomende pijl meer. \\
+K & Na $R$ en $P$ kan het bakken beginnen. \\
+S & Na $K$ en $T$: smullen.
+\end{stappen}
+Een mogelijke volgorde is $B, P, T, R, K, S$. Er zijn er nog andere, zoals $T, B, R, P, K, S$. Een volgorde is goed als elke pijl naar een latere taak wijst.}
+
+\begin{werkwijze}
+Zoek een taak waar geen pijl naartoe gaat, en zet ze in je volgorde. Schrap die taak en haar pijlen. Herhaal tot alle taken een plaats hebben.
+\end{werkwijze}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-schema}
+\end{oefeningen}
+
+\subsection{Gewogen grafen}
+
+Een fietser die van $A$ naar $E$ wil, vraagt zich niet af welke dorpen verbonden zijn, maar hoe lang de tocht is. Dan heb je bij elke boog een getal nodig: de lengte van de weg. Zo'n getal kan ook een reistijd zijn, of een prijs.
+
+\begin{theorie}
+In een \textbf{\textcolor{accent}{gewogen graaf}} staat bij elke boog een getal: het \textbf{\textcolor{accent}{gewicht}} van de boog. De \textbf{\textcolor{accent}{lengte}} van een route is de som van de gewichten van de bogen die je volgt.
+\end{theorie}
+
+\voorbeeld{}{De graaf toont de fietspaden tussen vijf dorpen, met de lengte in km. Hoe lang is de route $A, C, E$? En de route $A, B, C, D, E$? Welke is de kortste?\label{vb:h1-gewogen}
+
+\figuren{\begin{tikzpicture}
+  \knopen{A/0/0, B/1.8/1.3, C/2.2/-.5, D/4/1, E/4.6/-.8}
+  \gbogen{A/B/4, A/C/7, B/C/2, B/D/6, C/D/3, C/E/8, D/E/4}
+\end{tikzpicture}}}{%
+\uitleg{We tellen de gewichten op van de bogen langs elke route.}
+\begin{stappen}
+7 + 8 = 15 & $A, C, E$: twee bogen, samen 15 km. \\
+4 + 2 + 3 + 4 = 13 & $A, B, C, D, E$: vier bogen, samen 13 km.
+\end{stappen}
+De route over vier bogen is korter dan de route over twee bogen. In een gewogen graaf telt de som van de gewichten, niet het aantal bogen.}
+
+Is $A, B, C, D, E$ de kortste route van allemaal? Hier kun je alle routes nog proberen, maar in een grote graaf zijn het er veel te veel. In hoofdstuk 2 leer je een methode die de kortste route altijd vindt.
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-gewogen}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\lkr{De opdrachten mengen alle onderwerpen van het hoofdstuk. Een graaf mag meervoudige bogen en lussen hebben, tenzij de opgave \textit{enkelvoudig} zegt.\alleenvoor{5}{ Opdrachten~\ref{oef:h1-o22} en~\ref{oef:h1-o23} zijn bewijzen; ze staan alleen in pakket 5.}}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\needspace{12\baselineskip}
+\oef{h1-o6}
+
+\needspace{12\baselineskip}
+\oef{h1-o7}
+
+\needspace{12\baselineskip}
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\needspace{12\baselineskip}
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\needspace{12\baselineskip}
+\oef{h1-t6}
+
+\needspace{12\baselineskip}
+\oef{h1-t7}
+
+\needspace{12\baselineskip}
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-graad}{oef:h1-graad}%
+  \fv{oef:h1-t2}{vb:h1-model}{oef:h1-model}%
+  \fv{oef:h1-t3}{vb:h1-hand}{oef:h1-hand}%
+  \fv{oef:h1-t4}{vb:h1-oneven}{oef:h1-oneven}%
+  \fv{oef:h1-t5}{vb:h1-volledig}{oef:h1-volledig}%
+  \fv{oef:h1-t6}{vb:h1-gericht}{oef:h1-gericht}%
+  \fv{oef:h1-t7}{vb:h1-schema}{oef:h1-schema}%
+  \fv{oef:h1-t8}{vb:h1-gewogen}{oef:h1-gewogen}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een graaf, een knoop, een boog en buren zijn, wanneer twee tekeningen dezelfde graaf voorstellen, wat meervoudige bogen en lussen zijn, wat de graad van een knoop is, de handdrukstelling met haar bewijs, waarom het aantal knopen met een oneven graad even is, het aantal bogen van een volledige graaf, wat ingraad en uitgraad zijn, hoe je een volgorde vindt bij een schema, en hoe je de lengte van een route in een gewogen graaf berekent. Vergelijk daarna met de kaders.
+\fi

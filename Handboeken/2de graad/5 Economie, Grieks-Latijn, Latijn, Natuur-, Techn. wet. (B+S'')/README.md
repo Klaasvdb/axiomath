@@ -24,4 +24,4 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | Meetkunde/Analytische meetkunde | 4de | LPD B2-B5 | eerste versie |
 | Meetkunde/De cirkel (keuze) | 4de | LPD K1 | eerste versie |
 | Discrete wiskunde/Telproblemen | 4de | LPD 35 | eerste versie |
-| Discrete wiskunde/Grafen (keuze) | 4de | LPD K2-K3 | gepland |
+| Discrete wiskunde/Grafen (keuze) | 4de | LPD K2-K3 | eerste versie |
