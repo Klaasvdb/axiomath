@@ -247,7 +247,23 @@ Hetzelfde idee telt wegen in een rooster. Een kortste weg is een rijtje stappen,
 
 \subsection{Combinaties met herhaling}
 
-In een fruitwinkel kies je 6 stuks fruit uit 4 soorten: appels, peren, bananen en kiwi's. Van elke soort is er genoeg, dus je mag een soort meer dan eens nemen, en de volgorde telt niet. Een keuze schrijf je met sterretjes en streepjes: $\star\star|\star|\,|\star\star\star$ betekent 2 appels, 1 peer, geen bananen en 3 kiwi's. De streepjes scheiden de soorten.
+In een fruitwinkel kies je 6 stuks fruit uit 4 soorten: appels, peren, bananen en kiwi's. Van elke soort is er genoeg, dus je mag een soort meer dan eens nemen, en de volgorde telt niet: een tas met 2 appels en 4 peren is dezelfde keuze, in welke volgorde je ze ook in de tas legt. Een keuze ligt dus vast als je weet hoeveel stuks je van elke soort neemt.
+
+Zo'n keuze kun je kort opschrijven met sterretjes en streepjes. Elk stuk fruit is een sterretje, en de streepjes scheiden de soorten. Eerst komen de sterretjes van de appels, dan een streepje, dan de sterretjes van de peren, dan een streepje, dan de bananen, dan een streepje en ten slotte de kiwi's. Voor 4 soorten heb je dus 3 streepjes nodig.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l@{\qquad}l}
+\textbf{keuze} & \textbf{rijtje} \\
+2 appels, 1 peer, 0 bananen, 3 kiwi's & $\star\star\,|\,\star\,|\,|\,\star\star\star$ \\
+0 appels, 0 peren, 6 bananen, 0 kiwi's & $|\,|\,\star\star\star\star\star\star\,|$ \\
+1 appel, 2 peren, 2 bananen, 1 kiwi & $\star\,|\,\star\star\,|\,\star\star\,|\,\star$
+\end{tabular}
+\end{center}
+
+Bij elke keuze hoort zo precies één rijtje van 6 sterretjes en 3 streepjes. Omgekeerd hoort bij elk rijtje van 6 sterretjes en 3 streepjes precies één keuze: tel de sterretjes vóór het eerste streepje (de appels), tussen het eerste en het tweede streepje (de peren), enzovoort. Het rijtje $\star\,|\,|\,\star\star\star\,|\,\star\star$ is bijvoorbeeld 1 appel, geen peren, 3 bananen en 2 kiwi's. Twee verschillende keuzes geven nooit hetzelfde rijtje, en elk rijtje is een keuze. Er zijn dus evenveel keuzes als rijtjes, en rijtjes tellen is eenvoudig: een rijtje heeft $6 + 3 = 9$ tekens, en ligt vast als je kiest welke 6 plaatsen een sterretje krijgen.
+
+Dezelfde redenering werkt voor $p$ elementen uit $n$ soorten: een keuze is een rijtje van $p$ sterretjes en $n - 1$ streepjes, dus van $n + p - 1$ tekens, waarvan je de $p$ plaatsen van de sterretjes kiest.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{combinatie met herhaling}} van $p$ elementen uit $n$ soorten is een keuze van $p$ elementen waarbij de volgorde niet van belang is en een soort meer dan eens mag voorkomen.
@@ -258,10 +274,6 @@ Het aantal combinaties met herhaling van $p$ elementen uit $n$ soorten is
 \vspace{1mm}
 \qquad $\formule{\HComb{n}{p} = \binom{n + p - 1}{p}}$
 \end{stelling}
-
-\begin{bewijs}
-Schrijf een keuze als een rijtje van $p$ sterretjes en $n - 1$ streepjes: eerst een sterretje voor elk element van de eerste soort, dan een streepje, dan de sterretjes van de tweede soort, enzovoort. Elke keuze geeft zo één rijtje. Omgekeerd is elk rijtje van $p$ sterretjes en $n - 1$ streepjes een keuze: de sterretjes vóór het eerste streepje zijn van de eerste soort, die tussen het eerste en het tweede streepje van de tweede soort, enzovoort. Er zijn dus evenveel keuzes als rijtjes. Een rijtje heeft $n + p - 1$ tekens, en ligt vast als je kiest welke $p$ ervan sterretjes zijn: $\binom{n + p - 1}{p}$ manieren.
-\end{bewijs}
 \end{theorie}
 
 Je hebt $n - 1$ streepjes nodig, niet $n$: tussen $n$ soorten liggen $n - 1$ grenzen.
@@ -297,6 +309,8 @@ Alle $n$ elementen rangschikken: $\formule{n!}$, of $\formule{\frac{n!}{n_1! \cd
 \end{theorie}
 
 Een handige test voor de volgorde: wissel twee gekozen elementen. Krijg je iets anders (een andere uitslag, een ander woord, een andere functie), dan telt de volgorde.
+
+Het schema is een houvast voor één keuze. Moeilijkere telproblemen bestaan meestal uit verschillende stappen: eerst dit kiezen, dan dat, of de ene mogelijkheid of de andere. Splits zo'n probleem dan op, tel elke stap met het schema, en combineer de stappen met de productregel of de somregel uit hoofdstuk 1.
 
 \voorbeeld{}{Een winkel verkoopt verf in 7 kleuren. Op hoeveel manieren kan dat? a) Je schildert een vlag met 3 verticale banen; een kleur mag terugkomen. b) Een vlag met 3 banen in 3 verschillende kleuren. c) Je koopt 3 potten verf in 3 verschillende kleuren. d) Je koopt 3 potten verf; een kleur mag terugkomen.\label{vb:h2-schema}}{%
 \uitleg{Bij een vlag telt de volgorde: wissel je twee banen, dan krijg je een andere vlag. Bij potten in een tas telt ze niet. Het verschil tussen de vier opgaven zit alleen in de twee vragen van het schema.}

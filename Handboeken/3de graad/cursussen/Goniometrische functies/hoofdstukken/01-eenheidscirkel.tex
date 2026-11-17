@@ -23,7 +23,7 @@ Dit hoofdstuk legt de basis voor de rest van de cursus: de formules van hoofdstu
 %========================================================================================
 \section{Radialen}
 
-Dat een volle toer $360^\circ$ is, is een afspraak die al uit de oudheid stamt. Het getal $360$ heeft niets met de cirkel zelf te maken. Een natuurlijkere maat vertrekt van de cirkel: hoeveel keer past de straal op de boog die de hoek afsnijdt?
+Dat een volledige omwenteling $360^\circ$ is, is een afspraak die al uit de oudheid stamt: de Babyloniërs rekenden graag met $60$ en zijn veelvouden. Het getal $360$ heeft niets met de cirkel zelf te maken. Een natuurlijkere maat vertrekt van de cirkel: hoeveel keer past de straal op de boog die de hoek afsnijdt?
 
 \subsection{De radiaal}
 
@@ -31,10 +31,10 @@ Dat een volle toer $360^\circ$ is, is een afspraak die al uit de oudheid stamt. 
 \begin{theorie}
 Een hoek van \textbf{\textcolor{accent}{1 radiaal}} (1 rad) is de middelpuntshoek die op een cirkel met straal $r$ een boog met lengte $r$ afsnijdt.
 \end{theorie}
-Op de figuur rechts is de gekleurde boog even lang als de straal. Die hoek is ongeveer $57^\circ$: iets kleiner dan de hoek van $60^\circ$ in een gelijkzijdige driehoek, want de boog is langer dan de rechte zijde.}{%
+Op de figuur rechts is de gekleurde boog even lang als de straal. Die hoek is ongeveer $57^\circ$, iets kleiner dan de hoek van $60^\circ$ in een gelijkzijdige driehoek, want de boog is langer dan de rechte zijde.}{%
 \begin{tikzpicture}[scale=1.25,font=\scriptsize]
   \fill[accent!15] (0,0) -- (0:1) arc (0:57.3:1) -- cycle;
-  \draw[grijs] (0,0) circle (1);
+  \draw[grijs,semithick] (0,0) circle (1);
   \draw[accent,thick] (0:1) arc (0:57.3:1);
   \draw (0,0) -- node[below] {$r$} (1,0);
   \draw (0,0) -- node[above left] {$r$} (57.3:1);
@@ -42,16 +42,39 @@ Op de figuur rechts is de gekleurde boog even lang als de straal. Die hoek is on
   \node at (25:.4) {$1$ rad};
 \end{tikzpicture}}
 
-Hoeveel radialen is een volle toer? Dat hangt niet af van de straal: op een grote cirkel is de boog langer, maar de straal ook.
+Hoeveel radialen is een volledige omwenteling? Dat hangt niet af van de straal: op een grote cirkel is de boog langer, maar de straal ook. Kijk dus op de eenheidscirkel, met straal $1$. Daar is een hoek in radialen gewoon de lengte van de boog die hij afsnijdt.
+
+\naast{%
+De hele omtrek van de eenheidscirkel is $2\pi \approx 6{,}28$: een volledige omwenteling is dus $2\pi$ rad. Een halve omwenteling ($180^\circ$) is een halve omtrek, $\pi$ rad. Een rechte hoek is een kwart van de omtrek, $\frac{\pi}{2}$ rad, en zo verder.
+
+Daarom is de radiaal natuurlijker dan de graad: de maat komt uit de cirkel zelf, en niet uit een afspraak. Een hoek in radialen is een lengte op de eenheidscirkel, en zo kun je hoeken en lengtes met elkaar vergelijken. Straks zie je dat de formules voor de booglengte en de oppervlakte van een sector daardoor heel eenvoudig worden.}{%
+\begin{tikzpicture}[scale=1.6,font=\footnotesize]
+  \draw[->,lijngrijs] (-1.35,0) -- (1.45,0);
+  \draw[->,lijngrijs] (0,-1.35) -- (0,1.45);
+  \draw[grijs,semithick] (0,0) circle (1);
+  \draw[accent,very thick] (0:1) arc (0:90:1);
+  \foreach \h in {30,45,90,135,180,270}{\draw[lijngrijs] (0,0) -- (\h:1); \fill[accent] (\h:1) circle (.03);}
+  \fill[accent] (0:1) circle (.03);
+  \node[accent,anchor=south west,inner sep=1pt] at (30:1.04) {$\frac{\pi}{6}$};
+  \node[accent,anchor=south west,inner sep=1pt] at (49:1.06) {$\frac{\pi}{4}$};
+  \node[accent,anchor=south west,inner sep=1.5pt] at (90:1) {$\frac{\pi}{2}$};
+  \node[accent,anchor=south east,inner sep=1pt] at (135:1.04) {$\frac{3\pi}{4}$};
+  \node[accent,anchor=south east,inner sep=1.5pt] at (180:1) {$\pi$};
+  \node[accent,anchor=north west,inner sep=1.5pt] at (270:1) {$\frac{3\pi}{2}$};
+  \node[accent,anchor=north west,inner sep=1.5pt] at (0:1) {$0$};
+  \node[font=\scriptsize] at (0,-1.7) {een kwart van de omtrek: $\frac{\pi}{2}$ rad};
+\end{tikzpicture}}
 
 \begin{theorie}
 \begin{stelling}{Graden en radialen}
 \qquad $\formule{180^\circ = \pi \text{ rad}}$
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Een boog is evenredig met zijn middelpuntshoek. Een volle hoek snijdt de hele omtrek $2\pi r$ af, en die is $2\pi$ keer zo lang als de boog $r$ bij een hoek van $1$ rad. Een volle hoek is dus $2\pi$ rad:
 \bewijsregel{360^\circ = 2\pi \text{ rad}, \quad \text{zodat} \quad 180^\circ = \pi \text{ rad}.}
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 Delen door $\pi$ geeft $1 \text{ rad} = \frac{180^\circ}{\pi} \approx 57{,}3^\circ$, en delen door $180$ geeft $1^\circ = \frac{\pi}{180}$ rad. De hoeken die je het vaakst tegenkomt, zijn breuken met $\pi$:
@@ -100,10 +123,29 @@ Een middelpuntshoek van $\theta$ rad snijdt op een cirkel met straal $r$ een boo
 \vspace{1mm}
 \qquad $\formule{s = r\theta}$
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Een boog is evenredig met zijn middelpuntshoek. Een hoek van $1$ rad snijdt een boog met lengte $r$ af, dus een hoek van $\theta$ rad een boog die $\theta$ keer zo lang is: $s = \theta \cdot r$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
+
+\naast{%
+Op de figuur rechts is de hoek $2{,}5$ rad. Een hoek van $1$ rad snijdt een boog af die even lang is als de straal. Bij $2$ rad past de straal twee keer op de boog, en bij $2{,}5$ rad tweeënhalve keer. De boog is dus $2{,}5$ keer de straal: $s = 2{,}5 \cdot r$. Zo geldt voor elke hoek in radialen dat de boog $\theta$ keer de straal is.}{%
+\begin{tikzpicture}[scale=1.3,font=\scriptsize]
+  \draw[grijs,semithick] (0,0) circle (1);
+  \fill[accent!12] (0,0) -- (0:1) arc (0:143.2:1) -- cycle;
+  \draw[accent,very thick] (0:1) arc (0:57.3:1);
+  \draw[fel,very thick] (57.3:1) arc (57.3:114.6:1);
+  \draw[accent,very thick] (114.6:1) arc (114.6:143.2:1);
+  \draw (0,0) -- node[below] {$r$} (1,0);
+  \draw (0,0) -- (143.2:1);
+  \foreach \h in {57.3,114.6}{\draw[lijngrijs] (0,0) -- (\h:1);}
+  \node[accent] at (28.6:1.22) {$r$};
+  \node at (86:1.22) {$r$};
+  \node[accent] at (128.9:1.25) {$\frac{r}{2}$};
+  \node at (70:.35) {$2{,}5$ rad};
+\end{tikzpicture}}
 
 Op de eenheidscirkel is $r = 1$, en dan is $s = \theta$: de hoek in radialen \textit{is} de lengte van de boog. Omgekeerd is $\theta = \frac{s}{r}$: een hoek in radialen is een verhouding van twee lengtes, en heeft dus geen eenheid.
 
@@ -136,6 +178,20 @@ De oppervlakte van een sector is evenredig met zijn middelpuntshoek. De volle ho
 \end{bewijs}
 \end{theorie}
 
+\naast{%
+De figuur toont het idee. De hele schijf hoort bij de hoek $2\pi$ en heeft oppervlakte $\pi r^2$. De sector met hoek $\theta$ is daar het deel $\frac{\theta}{2\pi}$ van. Een sector met hoek $\frac{\pi}{2}$ is bijvoorbeeld een kwart van de schijf, en inderdaad: $\frac12 r^2 \cdot \frac{\pi}{2} = \frac14 \pi r^2$.}{%
+\begin{tikzpicture}[scale=1.2,font=\scriptsize]
+  \fill[grijs!12] (0,0) circle (1);
+  \draw[grijs,semithick] (0,0) circle (1);
+  \fill[accent!25] (0,0) -- (0:1) arc (0:70:1) -- cycle;
+  \draw[accent,thick] (0,0) -- (0:1) arc (0:70:1) -- cycle;
+  \draw[->,accent] (.3,0) arc (0:70:.3);
+  \node[accent] at (35:.45) {$\theta$};
+  \node[below] at (.5,0) {$r$};
+  \node[accent] at (35:.75) {$A$};
+  \node at (215:.55) {$\pi r^2$};
+\end{tikzpicture}}
+
 \naast{Met $s = r\theta$ kun je de formule ook schrijven als $A = \frac12 \cdot s \cdot r$. Dat is de formule van een driehoek met basis $s$ en hoogte $r$. Snij de sector in heel smalle puntjes: elk puntje is bijna een driehoek met hoogte $r$, en hun basissen vormen samen de boog $s$.}{%
 \begin{tikzpicture}[scale=1.3,font=\scriptsize]
   \foreach \h in {0,10,...,50}{\fill[accent!15,draw=accent!60] (0,0) -- (\h:1) arc (\h:{\h+10}:1) -- cycle;}
@@ -164,7 +220,7 @@ In een rechthoekige driehoek liggen de scherpe hoeken tussen $0$ en $\frac{\pi}{
 
 \subsection{Georiënteerde hoeken}
 
-De \textbf{eenheidscirkel} heeft middelpunt $O(0, 0)$ en straal $1$. Een \textbf{georiënteerde hoek} $\theta$ meten we vanaf de positieve $x$-as: in tegenwijzerzin positief, in wijzerzin negatief. Een hoek groter dan $2\pi$ is meer dan één volle toer. Zo hoort bij elk reëel getal $\theta$ één punt $P$ op de cirkel: vertrek in $(1, 0)$ en draai over de hoek $\theta$.
+De \textbf{eenheidscirkel} heeft middelpunt $O(0, 0)$ en straal $1$. Een \textbf{georiënteerde hoek} $\theta$ meten we vanaf de positieve $x$-as: in tegenwijzerzin positief, in wijzerzin negatief. Een hoek groter dan $2\pi$ is meer dan één volledige omwenteling. Zo hoort bij elk reëel getal $\theta$ één punt $P$ op de cirkel: vertrek in $(1, 0)$ en draai over de hoek $\theta$.
 
 \figuren{%
 \begin{tikzpicture}[scale=1.1,font=\scriptsize]
@@ -188,16 +244,16 @@ De \textbf{eenheidscirkel} heeft middelpunt $O(0, 0)$ en straal $1$. Een \textbf
   \draw[accent] (0,0) -- (45:1);
   \draw[->,accent,thick] plot[domain=0:405,samples=80,smooth] ({(.2+.0005*\x)*cos(\x)},{(.2+.0005*\x)*sin(\x)});
   \fill[accent] (45:1) circle (.035) node[above right] {$P$};
-  \node at (0,-1.6) {$\theta = \frac{9\pi}{4}$: een toer en $\frac{\pi}{4}$};
+  \node at (0,-1.6) {$\theta = \frac{9\pi}{4}$: een omwenteling en $\frac{\pi}{4}$};
 \end{tikzpicture}}
 
-Draai je een volle toer verder, dan kom je weer in hetzelfde punt. Hoeken die een veelvoud van $2\pi$ verschillen, zoals $\frac{\pi}{4}$ en $\frac{9\pi}{4}$, horen dus bij hetzelfde punt. Omgekeerd hoort bij een punt niet één hoek, maar een hele rij hoeken $\theta + k \cdot 2\pi$ met $k \in \Z$.
+Draai je een volledige omwenteling verder, dan kom je weer in hetzelfde punt. Hoeken die een veelvoud van $2\pi$ verschillen, zoals $\frac{\pi}{4}$ en $\frac{9\pi}{4}$, horen dus bij hetzelfde punt. Omgekeerd hoort bij een punt niet één hoek, maar een hele rij hoeken $\theta + k \cdot 2\pi$ met $k \in \Z$.
 
 \voorbeeld{}{Welke hoeken in $[-2\pi, 4\pi]$ horen bij hetzelfde punt als $\frac{\pi}{3}$?\label{vb:h1-toer}}{%
-\uitleg{Bij hetzelfde punt horen de hoeken $\frac{\pi}{3} + k \cdot 2\pi$. We tellen dus volle toeren op en trekken ze af, tot we buiten het interval vallen.}
+\uitleg{Bij hetzelfde punt horen de hoeken $\frac{\pi}{3} + k \cdot 2\pi$. We tellen dus volledige omwentelingen op en trekken ze af, tot we buiten het interval vallen.}
 \begin{stappenbreed}
-\tfrac{\pi}{3} + 2\pi = \tfrac{7\pi}{3}, \quad \tfrac{\pi}{3} + 4\pi = \tfrac{13\pi}{3} & Eén toer erbij ligt in het interval, twee toeren niet: $\frac{13\pi}{3} > \frac{12\pi}{3} = 4\pi$. \\
-\tfrac{\pi}{3} - 2\pi = -\tfrac{5\pi}{3}, \quad \tfrac{\pi}{3} - 4\pi = -\tfrac{11\pi}{3} & Eén toer eraf ligt in het interval, twee toeren niet: $-\frac{11\pi}{3} < -\frac{6\pi}{3} = -2\pi$. \\
+\tfrac{\pi}{3} + 2\pi = \tfrac{7\pi}{3}, \quad \tfrac{\pi}{3} + 4\pi = \tfrac{13\pi}{3} & Eén omwenteling erbij ligt in het interval, twee niet: $\frac{13\pi}{3} > \frac{12\pi}{3} = 4\pi$. \\
+\tfrac{\pi}{3} - 2\pi = -\tfrac{5\pi}{3}, \quad \tfrac{\pi}{3} - 4\pi = -\tfrac{11\pi}{3} & Eén omwenteling eraf ligt in het interval, twee niet: $-\frac{11\pi}{3} < -\frac{6\pi}{3} = -2\pi$. \\
 -\tfrac{5\pi}{3},\ \tfrac{\pi}{3} \text{ en } \tfrac{7\pi}{3} & De drie hoeken.
 \end{stappenbreed}}
 
@@ -265,15 +321,15 @@ Voor elke hoek $\theta$ en elk geheel getal $k$:
 \qquad $\formule{\sin(\theta + k \cdot 2\pi) = \sin\theta} \qquad \formule{\cos(\theta + k \cdot 2\pi) = \cos\theta}$
 \end{stelling}
 \begin{bewijs}
-De hoek $\theta + k \cdot 2\pi$ is de hoek $\theta$, gevolgd door $k$ volle toeren (in wijzerzin als $k < 0$). Beide hoeken horen dus bij hetzelfde punt $P$, en sinus en cosinus zijn de coördinaten van dat punt.
+De hoek $\theta + k \cdot 2\pi$ is de hoek $\theta$, gevolgd door $k$ volledige omwentelingen (in wijzerzin als $k < 0$). Beide hoeken horen dus bij hetzelfde punt $P$, en sinus en cosinus zijn de coördinaten van dat punt.
 \end{bewijs}
 \end{theorie}
 
 \voorbeeld{}{Bepaal $\sin\frac{7\pi}{2}$, $\cos\frac{7\pi}{2}$ en $\tan\frac{7\pi}{2}$.\label{vb:h1-assen}}{%
-\uitleg{De hoek is groter dan $2\pi$. We trekken eerst een volle toer af, zodat we het punt op de cirkel herkennen.}
+\uitleg{De hoek is groter dan $2\pi$. We trekken eerst een volledige omwenteling af, zodat we het punt op de cirkel herkennen.}
 \begin{stappenbreed}
-\tfrac{7\pi}{2} = \tfrac{3\pi}{2} + 2\pi & Een volle toer en nog drie kwart toer. \\
-P(0, -1) & Na drie kwart toer sta je onderaan de cirkel. \\
+\tfrac{7\pi}{2} = \tfrac{3\pi}{2} + 2\pi & Een volledige omwenteling en nog driekwart omwenteling. \\
+P(0, -1) & Na driekwart omwenteling sta je onderaan de cirkel. \\
 \sin\tfrac{7\pi}{2} = -1, \quad \cos\tfrac{7\pi}{2} = 0 & De coördinaten van $P$. \\
 \tan\tfrac{7\pi}{2} \text{ bestaat niet} & De noemer $\cos\frac{7\pi}{2}$ is $0$: de rechte $OP$ staat verticaal.
 \end{stappenbreed}}
@@ -284,7 +340,7 @@ P(0, -1) & Na drie kwart toer sta je onderaan de cirkel. \\
 
 \subsection{De grondformule}
 
-In de 2de graad gold $\sin^2\alpha + \cos^2\alpha = 1$ voor een scherpe hoek: dat is de stelling van Pythagoras in de driehoek met schuine zijde $1$. Op de eenheidscirkel geldt dat voor elke hoek. Daarbij betekent $\sin^2\theta$ het kwadraat $(\sin\theta)^2$.
+Voor een scherpe hoek $\alpha$ volgt $\sin^2\alpha + \cos^2\alpha = 1$ uit de stelling van Pythagoras, in de rechthoekige driehoek met schuine zijde $1$. Op de eenheidscirkel geldt dat voor elke hoek. Daarbij betekent $\sin^2\theta$ het kwadraat $(\sin\theta)^2$.
 
 \begin{theorie}
 \begin{stelling}{Grondformule}
@@ -481,7 +537,7 @@ Supplementaire hoeken hebben dus dezelfde sinus. Daarom heeft een vergelijking a
 
 \subsection{Antisupplementaire hoeken}
 
-De hoeken $\theta$ en $\pi + \theta$ verschillen een halve toer. Hun punten liggen diametraal tegenover elkaar: ze zijn elkaars spiegelbeeld om de oorsprong. Het bewijs volgt nu uit de twee vorige eigenschappen.
+De hoeken $\theta$ en $\pi + \theta$ verschillen een halve omwenteling. Hun punten liggen diametraal tegenover elkaar: ze zijn elkaars spiegelbeeld om de oorsprong. Het bewijs volgt nu uit de twee vorige eigenschappen.
 
 \begin{theorie}
 \begin{stelling}{Antisupplementaire hoeken}
@@ -495,7 +551,7 @@ Delen geeft $\tan(\pi + \theta) = \dfrac{-\sin\theta}{-\cos\theta} = \tan\theta$
 \end{bewijs}
 \end{theorie}
 
-Een halve toer verder keren beide coördinaten van teken, en hun quotiënt blijft gelijk. De tangens herhaalt zich dus al na $\pi$, en niet pas na $2\pi$.
+Een halve omwenteling verder keren beide coördinaten van teken, en hun quotiënt blijft gelijk. De tangens herhaalt zich dus al na $\pi$, en niet pas na $2\pi$.
 
 \voorbeeld{}{Bepaal exact $\cos\frac{4\pi}{3}$.\label{vb:h1-verwant}}{%
 \uitleg{$\frac{4\pi}{3} = \pi + \frac{\pi}{3}$: een antisupplementaire hoek van $\frac{\pi}{3}$. Het punt ligt in het derde kwadrant.}
@@ -545,9 +601,9 @@ Hier komt de naam \textit{cosinus} vandaan: het is de sinus van de complementair
 Met de veelvouden van $2\pi$ en de vier soorten verwante hoeken herleid je sinus, cosinus en tangens van elke hoek tot die van een hoek tussen $0$ en $\frac{\pi}{2}$.
 
 \voorbeeld{}{Bepaal exact $\cos\frac{23\pi}{4}$.\label{vb:h1-herleiden}}{%
-\uitleg{De hoek is bijna drie volle toeren. We trekken die toeren af, en herkennen dan een verwante hoek van $\frac{\pi}{4}$.}
+\uitleg{De hoek is bijna drie volledige omwentelingen. We trekken die omwentelingen af, en herkennen dan een verwante hoek van $\frac{\pi}{4}$.}
 \begin{stappenbreed}
-\tfrac{23\pi}{4} - 3 \cdot 2\pi = \tfrac{23\pi}{4} - \tfrac{24\pi}{4} = -\tfrac{\pi}{4} & Drie toeren eraf: dezelfde cosinus. \\
+\tfrac{23\pi}{4} - 3 \cdot 2\pi = \tfrac{23\pi}{4} - \tfrac{24\pi}{4} = -\tfrac{\pi}{4} & Drie omwentelingen eraf: dezelfde cosinus. \\
 \cos\tfrac{23\pi}{4} = \cos\bigl(-\tfrac{\pi}{4}\bigr) = \cos\tfrac{\pi}{4} & Tegengestelde hoeken. \\
 = \tfrac{\sqrt2}{2} & Het punt ligt in het vierde kwadrant: de cosinus is positief.
 \end{stappenbreed}}
