@@ -2,7 +2,7 @@
 
 De 2de graad volgt dezelfde aanpak als de 3de graad: één map per **leerplanpakket**, daarin een map per rubriek en per cursus, opgebouwd zoals [Integralen](<../3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>). De verschillen staan in [de ontwerpregels](../../Ontwerp/ontwerpregels.md#2de-graad): kleinere handboeken, eerst een voorbeeld en dan de definitie, minder bewijzen, geen Koppel, en een bordeaux voorkant.
 
-Stand op 13 november 2026: de indeling ligt klaar en de voorkanten zijn goedgekeurd. Er is nog geen enkele cursus geschreven. De leerkrachtensite en het voortgangsoverzicht kennen de 2de graad al (zie Website hieronder).
+Stand op 17 november 2026: alle 18 onderwerpen hebben een eerste versie (72 handboeken), elk uit één bron in `cursussen/<cursus>/`. Nog na te lezen: elke bron heeft in haar README een lijst "Na te kijken", vooral over de afbakening per pakket, want de leerplantekst was bij het schrijven niet beschikbaar. De leerkrachtensite en het voortgangsoverzicht kennen de 2de graad al (zie Website hieronder).
 
 ## Pakketten en richtingen
 

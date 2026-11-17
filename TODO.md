@@ -6,30 +6,32 @@ Alles wat nog moet gebeuren, op één plaats. **[Ingmar]**: dit mag Ingmar maken
 
 ### 2de graad: alle 72 handboeken (18 onderwerpen) **[Ingmar]**
 
-Nog geen enkele cursus geschreven. Indeling, leerplandoelen per pakket en voorkanten: [Handboeken/2de graad/README.md](<Handboeken/2de graad/README.md>). Het jaar is een voorstel. Schrijf een onderwerp het best één keer, met de verschillen per pakket erin (zie "Eén bron per cursus" in [Opmaak/README.md](Opmaak/README.md)): één bron in `Handboeken/2de graad/cursussen/<cursus>/`, en per pakket alleen een `handboek.tex`.
+Alle 18 onderwerpen hebben een eerste versie sinds 17 nov 2026 (72 handboeken, PR #46), elk uit één bron met de verschillen per pakket in `\alleenvoor`. De leerplantekst was bij het schrijven niet beschikbaar: elke bron heeft in haar README een lijst "Na te kijken" met de keuzes over de afbakening per pakket en de verdeling van de LPD over de hoofdstukken. Die moeten getoetst worden aan het leerplan, daarna tweede en derde versie. Indeling, leerplandoelen per pakket en voorkanten: [Handboeken/2de graad/README.md](<Handboeken/2de graad/README.md>). Het jaar is een voorstel. Schrijf een onderwerp het best één keer, met de verschillen per pakket erin (zie "Eén bron per cursus" in [Opmaak/README.md](Opmaak/README.md)): één bron in `Handboeken/2de graad/cursussen/<cursus>/`, en per pakket alleen een `handboek.tex`.
 
 | Jaar | Handboek | Pakketten | |
 |---|---|---|---|
-| 3 | Algebra/Reële getallen | 1-5 | **[Ingmar]** |
-| 3 | Algebra/Eerstegraadsvergelijkingen | 1-5 | **[Ingmar]** |
-| 3 | Analyse/Functies | 1-5 | **[Ingmar]** |
-| 3 | Algebra/Stelsels | 1-5 | **[Ingmar]** |
-| 3 | Meetkunde/Gelijkvormigheid | 1-5 | **[Ingmar]** |
-| 3 | Meetkunde/Driehoeksmeting | 1-5 | **[Ingmar]** |
-| 3 | Discrete wiskunde/Logica | 1-5 (bewijzen B1 in pakket 5) | **[Ingmar]** |
-| 3 | Data en onzekerheid/Statistiek | 1-5 | **[Ingmar]** |
-| 3 | Data en onzekerheid/Spreidingsdiagrammen | 2-5 | **[Ingmar]** |
-| 4 | Analyse/Tweedegraadsfuncties | 1-5 | **[Ingmar]** |
-| 4 | Algebra/Veeltermen | 5 (ook GO!-optiepakket, POV-uitbreiding) | **[Ingmar]** |
-| 4 | Meetkunde/Goniometrie | 4-5 | **[Ingmar]** |
-| 4 | Meetkunde/Ruimtemeetkunde | 1-5 | **[Ingmar]** |
-| 4 | Meetkunde/Vectoren | 1-5 | **[Ingmar]** |
-| 4 | Meetkunde/Analytische meetkunde | 5 (ook GO!-optiepakket, POV-uitbreiding) | **[Ingmar]** |
-| 4 | Meetkunde/De cirkel (keuze) | 4-5 | **[Ingmar]** |
-| 4 | Discrete wiskunde/Telproblemen | 1-5 | **[Ingmar]** |
-| 4 | Discrete wiskunde/Grafen (keuze) | 4-5 (ook GO!-optiepakket) | **[Ingmar]** |
+| 3 | Algebra/Reële getallen | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Algebra/Eerstegraadsvergelijkingen | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Analyse/Functies | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Algebra/Stelsels | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Meetkunde/Gelijkvormigheid | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Meetkunde/Driehoeksmeting | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Discrete wiskunde/Logica | 1-5 (bewijzen B1 in pakket 5) | eerste versie **[Ingmar]** |
+| 3 | Data en onzekerheid/Statistiek | 1-5 | eerste versie **[Ingmar]** |
+| 3 | Data en onzekerheid/Spreidingsdiagrammen | 2-5 | eerste versie **[Ingmar]** |
+| 4 | Analyse/Tweedegraadsfuncties | 1-5 | eerste versie **[Ingmar]** |
+| 4 | Algebra/Veeltermen | 5 (ook GO!-optiepakket, POV-uitbreiding) | eerste versie **[Ingmar]** |
+| 4 | Meetkunde/Goniometrie | 4-5 | eerste versie **[Ingmar]** |
+| 4 | Meetkunde/Ruimtemeetkunde | 1-5 | eerste versie **[Ingmar]** |
+| 4 | Meetkunde/Vectoren | 1-5 | eerste versie **[Ingmar]** |
+| 4 | Meetkunde/Analytische meetkunde | 5 (ook GO!-optiepakket, POV-uitbreiding) | eerste versie **[Ingmar]** |
+| 4 | Meetkunde/De cirkel (keuze) | 4-5 | eerste versie **[Ingmar]** |
+| 4 | Discrete wiskunde/Telproblemen | 1-5 | eerste versie **[Ingmar]** |
+| 4 | Discrete wiskunde/Grafen (keuze) | 4-5 (ook GO!-optiepakket) | eerste versie **[Ingmar]** |
 
-- **Voor GO!:** homothetie en constructies met passer en liniaal. Kijk of ze in Gelijkvormigheid en Driehoeksmeting passen, of maak er een eigen hoofdstuk van. **[Ingmar]**
+- **Voor GO!:** de homothetie staat sinds 17 nov 2026 in Gelijkvormigheid (hoofdstuk 1). Constructies met passer en liniaal ontbreken nog; `Handboeken/koepels.yaml` vermeldt voor GO! nog een aparte module "Homothetie en constructies". **[Ingmar]**
+- **Afspraken tussen de handboeken van de 2de graad, na te kijken:** W/O (Logica, 2de graad) tegenover W/V (Logica en bewijzen, 3de graad); het bewijs dat √2 irrationaal is staat in pakket 5 zowel in Reële getallen als in Logica; kwartielen en standaardafwijking (Statistiek: mediaan van elke helft, delen door n); de rico heet m en een rechte ax + by = c (Functies, Stelsels, Analytische meetkunde).
+- **3de graad, Goniometrische functies:** de leerkrachtentip zegt dat leerlingen uit de 2de graad alleen de rechthoekige driehoek kennen. Wie pakket 4 of 5 volgde, kent nu de goniometrische cirkel in graden (Goniometrie, 2de graad). **[Ingmar]**
 
 ### 3de graad: wat nog ontbreekt
 
