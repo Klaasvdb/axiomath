@@ -1,0 +1,1350 @@
+# Oefeningen van hoofdstuk 1 (alleen pakket 5). Zie Opmaak/oefeningenbank.py voor de velden.
+# Alle uitkomsten nagerekend met SymPy (controle-script in de scratchpad van de schrijfsessie).
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken of beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de componenten van $\vect{AB}$ voor $A\vc{2}{-1}$ en $B\vc{5}{3}$
+      antwoord: |-
+        $\vc{3}{4}$
+      uitwerking: |-
+        Eindpunt min beginpunt: $(5 - 2,\ 3 - ({-1})) = \vc{3}{4}$.
+    - opgave: |-
+        Zijn de vectoren $\vc{3}{-2}$ en $\vc{-6}{4}$ evenwijdig?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\vc{-6}{4} = -2\,\vc{3}{-2}$: dezelfde factor voor beide componenten.
+    - opgave: |-
+        de rico van de rechte door $\vc{1}{2}$ en $\vc{3}{8}$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $m = \frac{8 - 2}{3 - 1} = \frac{6}{2} = 3$.
+    - opgave: |-
+        Ligt het punt $\vc{2}{1}$ op de rechte $3x - 2y = 4$?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $3 \cdot 2 - 2 \cdot 1 = 4$: de vergelijking klopt.
+    - opgave: |-
+        de oplossing van het stelsel $x + y = 5$ en $2x - y = 1$
+      antwoord: |-
+        $x = 2$, $y = 3$
+      uitwerking: |-
+        Optellen geeft $3x = 6$, dus $x = 2$ en $y = 5 - 2 = 3$.
+
+- id: h1-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+        \rooster{-2}{1}{8}{-1}{1}{5}
+        \draw[vector] (1,1) -- (3,2);
+        \punt[below right]{1}{1}{A}
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad Een robot rijdt over een rooster. Hij is nu in $A\vc{1}{1}$, en elke seconde zet hij dezelfde stap $\vc{2}{1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waar is de robot na 1, 2 en 3 seconden?
+      antwoord: |-
+        $\vc{3}{2}$, $\vc{5}{3}$, $\vc{7}{4}$
+      uitwerking: |-
+        Telkens $\vc{2}{1}$ erbij: $\vc{1 + 2}{1 + 1}$, $\vc{1 + 4}{1 + 2}$, $\vc{1 + 6}{1 + 3}$.
+    - opgave: |-
+        Teken die punten. Wat merk je?
+      antwoord: |-
+        ze liggen op één rechte
+      uitwerking: |-
+        Alle punten liggen op de rechte door $A$ in de richting van $\vc{2}{1}$.
+    - opgave: |-
+        De robot reed al voor hij in $A$ was, met dezelfde stap. Waar was hij 1 seconde geleden? Waar is hij na $2{,}5$ seconden?
+      antwoord: |-
+        $\vc{-1}{0}$; $\vc{6}{3{,}5}$
+      uitwerking: |-
+        Een stap terug: $\vc{1 - 2}{1 - 1} = \vc{-1}{0}$. Na $2{,}5$ s: $\vc{1 + 2{,}5 \cdot 2}{1 + 2{,}5 \cdot 1} = \vc{6}{3{,}5}$.
+    - opgave: |-
+        Schrijf de coördinaten van de robot na $t$ seconden.
+      antwoord: |-
+        $\vc{1 + 2t}{1 + t}$
+      uitwerking: |-
+        Na $t$ seconden heeft hij $t$ keer de stap $\vc{2}{1}$ gezet: $x = 1 + 2t$ en $y = 1 + t$.
+
+- id: h1-richting
+  soort: kort
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef twee richtingsvectoren van de rechte door $A\vc{2}{5}$ en $B\vc{6}{-1}$.
+      antwoord: |-
+        bv. $\vc{4}{-6}$ en $\vc{2}{-3}$
+      uitwerking: |-
+        $\vect{AB} = \vc{4}{-6}$, en de helft ervan, $\vc{2}{-3}$. Elk veelvoud verschillend van $\nulvec$ is goed.
+    - opgave: |-
+        Is $\vc{6}{-9}$ ook een richtingsvector van de rechte $AB$ uit a?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\vc{6}{-9} = 3\,\vc{2}{-3}$: evenwijdig met de rechte.
+    - opgave: |-
+        Geef een richtingsvector met zo klein mogelijke gehele componenten van de rechte door de oorsprong en $P\vc{-3}{9}$.
+      antwoord: |-
+        $\vc{-1}{3}$ (of $\vc{1}{-3}$)
+      uitwerking: |-
+        $\vect{OP} = \vc{-3}{9} = 3\,\vc{-1}{3}$.
+    - opgave: |-
+        Geef een richtingsvector van de $x$-as, van de $y$-as en van de rechte door $\vc{1}{4}$ en $\vc{1}{-2}$.
+      antwoord: |-
+        $\vc{1}{0}$, $\vc{0}{1}$, $\vc{0}{1}$
+      uitwerking: |-
+        De $x$-as is horizontaal, de $y$-as verticaal. De rechte door $\vc{1}{4}$ en $\vc{1}{-2}$ is verticaal: $\vc{0}{-6} = -6\,\vc{0}{1}$.
+
+- id: h1-vectorverg
+  soort: kort
+  opgave: |-
+    Gegeven zijn de punten $A\vc{-2}{1}$ en $B\vc{1}{5}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een vectorvergelijking van de rechte $AB$, met $A$ als vertrekpunt.
+      antwoord: |-
+        $\vect{OP} = \vc{-2}{1} + r\,\vc{3}{4}$
+      uitwerking: |-
+        $\vect{AB} = \vc{3}{4}$ is een richtingsvector.
+    - opgave: |-
+        Bereken de punten met parameter $r = 3$ en $r = -1$.
+      antwoord: |-
+        $\vc{7}{13}$ en $\vc{-5}{-3}$
+      uitwerking: |-
+        $\vc{-2}{1} + \vc{9}{12} = \vc{7}{13}$ en $\vc{-2}{1} - \vc{3}{4} = \vc{-5}{-3}$.
+    - opgave: |-
+        Welke waarde van $r$ hoort bij het punt $\vc{4}{9}$?
+      antwoord: |-
+        $r = 2$
+      uitwerking: |-
+        $\vc{4}{9} - \vc{-2}{1} = \vc{6}{8} = 2\,\vc{3}{4}$.
+    - opgave: |-
+        Geef een andere vectorvergelijking van dezelfde rechte, met $B$ als vertrekpunt. Welke waarde van de parameter hoort nu bij $A$?
+      antwoord: |-
+        bv. $\vect{OP} = \vc{1}{5} + r\,\vc{3}{4}$; $r = -1$
+      uitwerking: |-
+        Vanuit $B$ één keer $\vc{3}{4}$ terug: $\vc{1}{5} - \vc{3}{4} = \vc{-2}{1} = A$.
+
+- id: h1-param
+  soort: kort
+  opgave: |-
+    Gegeven is de rechte $l\colon x = 4 - r,\ y = -1 + 3r$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees een punt en een richtingsvector van $l$ af.
+      antwoord: |-
+        $\vc{4}{-1}$ en $\vc{-1}{3}$
+      uitwerking: |-
+        De getallen zonder $r$ geven het punt, de getallen bij $r$ de richtingsvector.
+    - opgave: |-
+        Bereken de punten van $l$ met $r = 2$ en $r = -3$.
+      antwoord: |-
+        $\vc{2}{5}$ en $\vc{7}{-10}$
+      uitwerking: |-
+        $\vc{4 - 2}{-1 + 6}$ en $\vc{4 + 3}{-1 - 9}$.
+    - opgave: |-
+        Ligt $P\vc{1}{8}$ op $l$?
+      antwoord: |-
+        ja ($r = 3$)
+      uitwerking: |-
+        $1 = 4 - r$ geeft $r = 3$, en dan is $y = -1 + 9 = 8$. Klopt.
+    - opgave: |-
+        Ligt $Q\vc{6}{-6}$ op $l$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $6 = 4 - r$ geeft $r = -2$, en dan is $y = -1 - 6 = -7 \neq -6$.
+    - opgave: |-
+        Geef een parametervoorstelling van de rechte door $C\vc{0}{3}$ en $D\vc{5}{1}$.
+      antwoord: |-
+        bv. $x = 5r$, $y = 3 - 2r$
+      uitwerking: |-
+        Vertrekpunt $C$, richtingsvector $\vect{CD} = \vc{5}{-2}$.
+
+- id: h1-lijnstuk
+  soort: kort
+  opgave: |-
+    Gegeven zijn $A\vc{1}{-3}$ en $B\vc{7}{6}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een parametervoorstelling van de rechte $AB$, met vertrekpunt $A$ en richtingsvector $\vect{AB}$. Welke waarden van $r$ horen bij het lijnstuk $[AB]$?
+      antwoord: |-
+        $x = 1 + 6r$, $y = -3 + 9r$; $0 \leqslant r \leqslant 1$
+      uitwerking: |-
+        $\vect{AB} = \vc{6}{9}$. Met $r = 0$ ben je in $A$, met $r = 1$ in $B$.
+    - opgave: |-
+        Bereken de twee punten die $[AB]$ in drie gelijke stukken verdelen.
+      antwoord: |-
+        $\vc{3}{0}$ en $\vc{5}{3}$
+      uitwerking: |-
+        $r = \tfrac13$ geeft $\vc{1 + 2}{-3 + 3}$ en $r = \tfrac23$ geeft $\vc{1 + 4}{-3 + 6}$.
+    - opgave: |-
+        Ligt $C\vc{-1}{-6}$ op de rechte $AB$? Op het lijnstuk $[AB]$?
+      antwoord: |-
+        op de rechte wel, op het lijnstuk niet
+      uitwerking: |-
+        $-1 = 1 + 6r$ geeft $r = -\tfrac13$, en dan is $y = -3 - 3 = -6$. Klopt, maar $r < 0$: $C$ ligt aan de andere kant van $A$.
+
+- id: h1-elimineer
+  soort: kort
+  opgave: |-
+    Geef een cartesiaanse vergelijking van de rechte.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\pv{2 + r}{3 - 2r}$
+      antwoord: |-
+        $2x + y = 7$
+      uitwerking: |-
+        $r = x - 2$, dus $y = 3 - 2(x - 2) = 7 - 2x$.
+    - opgave: |-
+        $\pv{1 + 3r}{4r}$
+      antwoord: |-
+        $4x - 3y = 4$
+      uitwerking: |-
+        $4x - 3y = 4 + 12r - 12r = 4$.
+    - opgave: |-
+        $\pv{-2 + 4r}{1 + 6r}$
+      antwoord: |-
+        $3x - 2y = -8$
+      uitwerking: |-
+        $6x - 4y = -12 + 24r - 4 - 24r = -16$; deel door 2.
+    - opgave: |-
+        $\pv{5}{2 + r}$
+      antwoord: |-
+        $x = 5$
+      uitwerking: |-
+        $x$ is altijd 5, $y$ mag alles zijn: een verticale rechte.
+    - opgave: |-
+        $\pv{3 - 2r}{-1 + 5r}$
+      antwoord: |-
+        $5x + 2y = 13$
+      uitwerking: |-
+        $5x + 2y = 15 - 10r - 2 + 10r = 13$.
+
+- id: h1-rico
+  soort: kort
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de rico van de rechte met richtingsvector $\vc{2}{5}$, met $\vc{-3}{6}$ en met $\vc{0}{4}$.
+      antwoord: |-
+        $\tfrac52$, $-2$, geen rico
+      uitwerking: |-
+        $m = \tfrac{u_y}{u_x}$: $\tfrac52$ en $\tfrac{6}{-3} = -2$. Bij $\vc{0}{4}$ is de rechte verticaal.
+    - opgave: |-
+        Geef een richtingsvector van $y = -4x + 1$ en een richtingsvector met gehele componenten van $y = \tfrac23 x$.
+      antwoord: |-
+        $\vc{1}{-4}$; $\vc{3}{2}$
+      uitwerking: |-
+        $\vc{1}{m}$ is een richtingsvector: $\vc{1}{-4}$ en $\vc{1}{\tfrac23}$, en $3\,\vc{1}{\tfrac23} = \vc{3}{2}$.
+    - opgave: |-
+        Geef een vergelijking $y = mx + q$ van de rechte door $A\vc{-1}{4}$ met richtingsvector $\vc{2}{-6}$.
+      antwoord: |-
+        $y = -3x + 1$
+      uitwerking: |-
+        $m = \tfrac{-6}{2} = -3$ en $4 = -3 \cdot ({-1}) + q$, dus $q = 1$.
+    - opgave: |-
+        Geef een parametervoorstelling van $y = \tfrac12 x + 2$.
+      antwoord: |-
+        bv. $x = 2r$, $y = 2 + r$
+      uitwerking: |-
+        Punt $\vc{0}{2}$, richtingsvector $2\,\vc{1}{\tfrac12} = \vc{2}{1}$.
+
+- id: h1-cartparam
+  soort: kort
+  opgave: |-
+    Geef een richtingsvector en een parametervoorstelling van de rechte.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $3x + y = 6$
+      antwoord: |-
+        $\vc{1}{-3}$; bv. $x = r$, $y = 6 - 3r$
+      uitwerking: |-
+        $\vc{b}{-a} = \vc{1}{-3}$; voor $x = 0$ is $y = 6$.
+    - opgave: |-
+        $2x - 5y = 10$
+      antwoord: |-
+        $\vc{5}{2}$; bv. $x = 5 + 5r$, $y = 2r$
+      uitwerking: |-
+        $\vc{b}{-a} = \vc{-5}{-2}$, of het tegengestelde $\vc{5}{2}$; voor $y = 0$ is $x = 5$.
+    - opgave: |-
+        $4x + 6y = 12$
+      antwoord: |-
+        $\vc{3}{-2}$; bv. $x = 3r$, $y = 2 - 2r$
+      uitwerking: |-
+        $\vc{6}{-4} = 2\,\vc{3}{-2}$; voor $x = 0$ is $y = 2$.
+    - opgave: |-
+        $y = -2$
+      antwoord: |-
+        $\vc{1}{0}$; $x = r$, $y = -2$
+      uitwerking: |-
+        $a = 0$ en $b = 1$: $\vc{1}{0}$, een horizontale rechte.
+    - opgave: |-
+        $x = -3$
+      antwoord: |-
+        $\vc{0}{1}$; $x = -3$, $y = r$
+      uitwerking: |-
+        $a = 1$ en $b = 0$: $\vc{0}{-1}$, of $\vc{0}{1}$, een verticale rechte.
+
+- id: h1-ligging
+  soort: kort
+  opgave: |-
+    Onderzoek de onderlinge ligging van de rechten $l$ en $m$. Het snijpunt hoef je niet te berekenen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $l\colon x = 1 + 3r,\ y = 2 - r$ \quad en \quad $m\colon x = 4 - 6s,\ y = 1 + 2s$
+      antwoord: |-
+        samenvallend
+      uitwerking: |-
+        $\vc{-6}{2} = -2\,\vc{3}{-1}$; $\vc{1}{2}$ ligt op $m$: $1 = 4 - 6s$ geeft $s = \tfrac12$ en $y = 1 + 1 = 2$.
+    - opgave: |-
+        $l\colon x = 2r,\ y = 1 + 3r$ \quad en \quad $m\colon x = 1 + 4s,\ y = 6s$
+      antwoord: |-
+        strikt evenwijdig
+      uitwerking: |-
+        $\vc{4}{6} = 2\,\vc{2}{3}$; $\vc{0}{1}$ op $m$? $0 = 1 + 4s$ geeft $s = -\tfrac14$ en $y = -\tfrac32 \neq 1$.
+    - opgave: |-
+        $l\colon x = 2 + r,\ y = -1 + 2r$ \quad en \quad $m\colon x = 3 + s,\ y = 4 - s$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $\vc{1}{2}$ en $\vc{1}{-1}$ zijn geen veelvoud van elkaar.
+    - opgave: |-
+        $l\colon x = 1 + 2r,\ y = 5 - 4r$ \quad en \quad $m\colon 2x + y = 3$
+      antwoord: |-
+        strikt evenwijdig
+      uitwerking: |-
+        $m$ heeft richtingsvector $\vc{1}{-2}$, en $\vc{2}{-4} = 2\,\vc{1}{-2}$. Het punt $\vc{1}{5}$: $2 + 5 = 7 \neq 3$.
+    - opgave: |-
+        $l\colon x = -1,\ y = 2 + r$ \quad en \quad $m\colon y = 3x - 2$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $\vc{0}{1}$ (verticaal) en $\vc{1}{3}$ zijn geen veelvoud van elkaar.
+
+- id: h1-snijpunt
+  soort: kort
+  opgave: |-
+    Bereken het snijpunt van $l$ en $m$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $l\colon x = 2 + r,\ y = 1 - r$ \quad en \quad $m\colon 2x + y = 9$
+      antwoord: |-
+        $\vc{6}{-3}$
+      uitwerking: |-
+        $2(2 + r) + (1 - r) = 9$, dus $5 + r = 9$ en $r = 4$. Controle: $12 - 3 = 9$.
+    - opgave: |-
+        $l\colon x = 3r,\ y = 2 + r$ \quad en \quad $m\colon x = 1 + s,\ y = 5 - s$
+      antwoord: |-
+        $\vc{3}{3}$
+      uitwerking: |-
+        $3r = 1 + s$ en $2 + r = 5 - s$. Optellen: $2 + 4r = 6$, dus $r = 1$ en $s = 2$.
+    - opgave: |-
+        $l\colon x - y = 1$ \quad en \quad $m\colon 2x + 3y = 12$
+      antwoord: |-
+        $\vc{3}{2}$
+      uitwerking: |-
+        $x = 1 + y$ invullen: $2 + 2y + 3y = 12$, dus $y = 2$ en $x = 3$.
+    - opgave: |-
+        $l\colon x = -2 + 4r,\ y = 3 - 2r$ \quad en \quad $m\colon x = 2$
+      antwoord: |-
+        $\vc{2}{1}$
+      uitwerking: |-
+        $-2 + 4r = 2$ geeft $r = 1$, en $y = 3 - 2 = 1$.
+
+#----------------------------------------------------------------------------------------
+# OPDRACHTEN: niveau 1 (o1-o8), niveau 2 (o9-o19), niveau 3 (o20-o24)
+#----------------------------------------------------------------------------------------
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    punt en richtingsvector aflezen, een punt berekenen
+  opgave: |-
+    Lees van elke rechte een punt en een richtingsvector af, en bereken het punt met parameter $r = 2$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\pv{3 + r}{-2 + 4r}$
+      antwoord: |-
+        $\vc{3}{-2}$, $\vc{1}{4}$; $\vc{5}{6}$
+    - opgave: |-
+        $\pv{-1 - 2r}{5r}$
+      antwoord: |-
+        $\vc{-1}{0}$, $\vc{-2}{5}$; $\vc{-5}{10}$
+    - opgave: |-
+        $\pv{4}{1 - 3r}$
+      antwoord: |-
+        $\vc{4}{1}$, $\vc{0}{-3}$; $\vc{4}{-5}$
+    - opgave: |-
+        $\pv{\tfrac12 r}{2 + r}$
+      antwoord: |-
+        $\vc{0}{2}$, $\vc{\tfrac12}{1}$; $\vc{1}{4}$
+    - opgave: |-
+        $\pv{2 - 3r}{-4 + 2r}$
+      antwoord: |-
+        $\vc{2}{-4}$, $\vc{-3}{2}$; $\vc{-4}{0}$
+    - opgave: |-
+        $\pv{6r}{-r}$
+      antwoord: |-
+        $\vc{0}{0}$, $\vc{6}{-1}$; $\vc{12}{-2}$
+  uitwerking: |-
+    Het punt is het vertrekpunt (de getallen zonder $r$), de richtingsvector staat bij $r$. Voor $r = 2$ tel je twee keer de richtingsvector bij het vertrekpunt op. Bij d is $\vc{1}{2}$ ook een richtingsvector.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vergelijkingen van rechten uit een figuur
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.38cm,y=.38cm,font=\scriptsize]
+        \roosterleeg{-5}{1}{5}{-4}{1}{6}
+        \xgetallen{-4,-2,2,4} \ygetallen{-4,-2,2,4,6}
+        \begin{scope}\knip{-5}{-4}{5}{6}
+          \rechte{-3}{3}{2}{1}
+          \rechteabc{-5}{5}{2}{3}{0}
+          \rechteabc{-5}{5}{1}{-2}{2}
+          \verticaal{3}{-4}{6}
+        \end{scope}
+        \node[accent,left] at (2.4,5.7) {$a$};
+        \node[accent,above right] at (-5,3.1) {$b$};
+        \node[accent,above left] at (5,1.5) {$c$};
+        \node[accent,right] at (3,5.4) {$d$};
+      \end{tikzpicture}
+  opgave: |-
+    Geef van elke rechte in de figuur een richtingsvector, een parametervoorstelling en een cartesiaanse vergelijking.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        rechte $a$
+      antwoord: |-
+        $\vc{1}{2}$; $x = r$, $y = 1 + 2r$; $2x - y = -1$
+      uitwerking: |-
+        Door $\vc{0}{1}$ en $\vc{2}{5}$: $\vc{2}{4} = 2\,\vc{1}{2}$. Controle met $\vc{2}{5}$: $4 - 5 = -1$.
+    - opgave: |-
+        rechte $b$
+      antwoord: |-
+        $\vc{3}{-2}$; $x = 3r$, $y = -2r$; $2x + 3y = 0$
+      uitwerking: |-
+        Door $\vc{0}{0}$ en $\vc{3}{-2}$. Controle met $\vc{-3}{2}$: $-6 + 6 = 0$.
+    - opgave: |-
+        rechte $c$
+      antwoord: |-
+        $\vc{2}{1}$; $x = 2r$, $y = -1 + r$; $x - 2y = 2$
+      uitwerking: |-
+        Door $\vc{0}{-1}$ en $\vc{4}{1}$: $\vc{4}{2} = 2\,\vc{2}{1}$. Controle met $\vc{4}{1}$: $4 - 2 = 2$.
+    - opgave: |-
+        rechte $d$
+      antwoord: |-
+        $\vc{0}{1}$; $x = 3$, $y = r$; $x = 3$
+      uitwerking: |-
+        Een verticale rechte: geen rico, wel een richtingsvector.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    parametervoorstelling door twee punten
+  opgave: |-
+    Geef een parametervoorstelling van de rechte $AB$. Kies een richtingsvector met zo klein mogelijke gehele componenten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $A\vc{1}{2}$ en $B\vc{4}{8}$
+      antwoord: |-
+        $x = 1 + r$, $y = 2 + 2r$
+      uitwerking: |-
+        $\vect{AB} = \vc{3}{6} = 3\,\vc{1}{2}$.
+    - opgave: |-
+        $A\vc{-3}{0}$ en $B\vc{0}{-6}$
+      antwoord: |-
+        $x = -3 + r$, $y = -2r$
+      uitwerking: |-
+        $\vect{AB} = \vc{3}{-6} = 3\,\vc{1}{-2}$.
+    - opgave: |-
+        $A\vc{2}{-1}$ en $B\vc{2}{5}$
+      antwoord: |-
+        $x = 2$, $y = -1 + r$
+      uitwerking: |-
+        $\vect{AB} = \vc{0}{6} = 6\,\vc{0}{1}$: een verticale rechte.
+    - opgave: |-
+        $A\vc{-4}{3}$ en $B\vc{5}{3}$
+      antwoord: |-
+        $x = -4 + r$, $y = 3$
+      uitwerking: |-
+        $\vect{AB} = \vc{9}{0} = 9\,\vc{1}{0}$: een horizontale rechte.
+    - opgave: |-
+        $O\vc{0}{0}$ en $B\vc{-5}{2}$
+      antwoord: |-
+        $x = -5r$, $y = 2r$
+      uitwerking: |-
+        $\vect{OB} = \vc{-5}{2}$ heeft geen gemeenschappelijke deler.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ligt een punt op een rechte
+  opgave: |-
+    Gegeven is $l\colon x = -2 + 3r,\ y = 4 - 2r$. Welke van de punten liggen op $l$? Geef bij die punten de parameter.
+  lijst: reeks
+  kolommen: 5
+  delen:
+    - opgave: |-
+        $\vc{4}{0}$
+      antwoord: |-
+        ja, $r = 2$
+      uitwerking: |-
+        $4 = -2 + 3r$ geeft $r = 2$, en $y = 4 - 4 = 0$.
+    - opgave: |-
+        $\vc{1}{3}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $r = 1$ geeft $y = 2 \neq 3$.
+    - opgave: |-
+        $\vc{-5}{6}$
+      antwoord: |-
+        ja, $r = -1$
+      uitwerking: |-
+        $r = -1$ geeft $y = 4 + 2 = 6$.
+    - opgave: |-
+        $\vc{0}{\tfrac83}$
+      antwoord: |-
+        ja, $r = \tfrac23$
+      uitwerking: |-
+        $0 = -2 + 3r$ geeft $r = \tfrac23$, en $y = 4 - \tfrac43 = \tfrac83$.
+    - opgave: |-
+        $\vc{-2}{0}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $r = 0$ geeft $y = 4 \neq 0$.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    van parametervoorstelling naar cartesiaanse vergelijking
+  opgave: |-
+    Geef een cartesiaanse vergelijking van de rechte.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\pv{1 + r}{2 + 3r}$
+      antwoord: |-
+        $3x - y = 1$
+      uitwerking: |-
+        $r = x - 1$, dus $y = 2 + 3x - 3$.
+    - opgave: |-
+        $\pv{2r}{5 - r}$
+      antwoord: |-
+        $x + 2y = 10$
+      uitwerking: |-
+        $x + 2y = 2r + 10 - 2r = 10$.
+    - opgave: |-
+        $\pv{-3 + 2r}{1 + 5r}$
+      antwoord: |-
+        $5x - 2y = -17$
+      uitwerking: |-
+        $5x - 2y = -15 + 10r - 2 - 10r = -17$.
+    - opgave: |-
+        $\pv{4 - 3r}{-2 + 6r}$
+      antwoord: |-
+        $2x + y = 6$
+      uitwerking: |-
+        $2x + y = 8 - 6r - 2 + 6r = 6$.
+    - opgave: |-
+        $\pv{r}{-4}$
+      antwoord: |-
+        $y = -4$
+      uitwerking: |-
+        Een horizontale rechte.
+    - opgave: |-
+        $\pv{1 - r}{1 + r}$
+      antwoord: |-
+        $x + y = 2$
+      uitwerking: |-
+        Optellen: $x + y = 2$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    van cartesiaanse vergelijking naar parametervoorstelling
+  opgave: |-
+    Geef een parametervoorstelling van de rechte. Controleer door ze in de vergelijking in te vullen.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $x + 2y = 4$
+      antwoord: |-
+        bv. $x = 2r$, $y = 2 - r$
+      uitwerking: |-
+        Richtingsvector $\vc{2}{-1}$, punt $\vc{0}{2}$; $2r + 4 - 2r = 4$.
+    - opgave: |-
+        $3x - y = 5$
+      antwoord: |-
+        bv. $x = r$, $y = -5 + 3r$
+      uitwerking: |-
+        $\vc{-1}{-3}$, of $\vc{1}{3}$; punt $\vc{0}{-5}$; $3r + 5 - 3r = 5$.
+    - opgave: |-
+        $5x + 2y = 10$
+      antwoord: |-
+        bv. $x = 2 + 2r$, $y = -5r$
+      uitwerking: |-
+        Richtingsvector $\vc{2}{-5}$, punt $\vc{2}{0}$; $10 + 10r - 10r = 10$.
+    - opgave: |-
+        $y = 3x - 1$
+      antwoord: |-
+        bv. $x = r$, $y = -1 + 3r$
+      uitwerking: |-
+        Rico 3, dus richtingsvector $\vc{1}{3}$; punt $\vc{0}{-1}$.
+    - opgave: |-
+        $x = 7$
+      antwoord: |-
+        $x = 7$, $y = r$
+      uitwerking: |-
+        Verticaal: richtingsvector $\vc{0}{1}$.
+    - opgave: |-
+        $4x - 6y = 3$
+      antwoord: |-
+        bv. $x = 3r$, $y = -\tfrac12 + 2r$
+      uitwerking: |-
+        $\vc{-6}{-4} = -2\,\vc{3}{2}$; voor $x = 0$ is $y = -\tfrac12$; $12r + 3 - 12r = 3$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    richtingsvector en rico
+  opgave: |-
+    Bereken de rico van de rechte met de gegeven richtingsvector, of geef een richtingsvector met gehele componenten van de rechte met de gegeven rico of vergelijking.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\vc{3}{6}$
+      antwoord: |-
+        $m = 2$
+    - opgave: |-
+        $\vc{-4}{2}$
+      antwoord: |-
+        $m = -\tfrac12$
+    - opgave: |-
+        $\vc{5}{0}$
+      antwoord: |-
+        $m = 0$
+    - opgave: |-
+        $\vc{0}{-2}$
+      antwoord: |-
+        geen rico
+    - opgave: |-
+        $m = 4$
+      antwoord: |-
+        $\vc{1}{4}$
+    - opgave: |-
+        $m = -\tfrac35$
+      antwoord: |-
+        $\vc{5}{-3}$
+    - opgave: |-
+        $y = 7 - 2x$
+      antwoord: |-
+        $\vc{1}{-2}$
+    - opgave: |-
+        $y = 5$
+      antwoord: |-
+        $\vc{1}{0}$
+  uitwerking: |-
+    $m = \tfrac{u_y}{u_x}$: $\tfrac63 = 2$, $\tfrac{2}{-4} = -\tfrac12$, $\tfrac05 = 0$ (horizontaal); bij $\vc{0}{-2}$ is de rechte verticaal. Omgekeerd is $\vc{1}{m}$ een richtingsvector: $\vc{1}{4}$, $\vc{1}{-\tfrac35}$ en vijf keer die vector $\vc{5}{-3}$, $\vc{1}{-2}$ en $\vc{1}{0}$.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    onderlinge ligging, met het snijpunt
+  opgave: |-
+    Onderzoek de onderlinge ligging van $l$ en $m$. Bereken het snijpunt als ze snijdend zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $l\colon x = 1 + 2r,\ y = -r$ \quad en \quad $m\colon x = 3 + 4s,\ y = -1 - 2s$
+      antwoord: |-
+        samenvallend
+      uitwerking: |-
+        $\vc{4}{-2} = 2\,\vc{2}{-1}$, en $\vc{3}{-1}$ ligt op $l$: $r = 1$ geeft $y = -1$.
+    - opgave: |-
+        $l\colon x = r,\ y = 2 + 3r$ \quad en \quad $m\colon 6x - 2y = 1$
+      antwoord: |-
+        strikt evenwijdig
+      uitwerking: |-
+        $m$ heeft richtingsvector $\vc{-2}{-6} = -2\,\vc{1}{3}$. Het punt $\vc{0}{2}$: $0 - 4 \neq 1$.
+    - opgave: |-
+        $l\colon x = 2 - r,\ y = 4 + r$ \quad en \quad $m\colon x + y = 6$
+      antwoord: |-
+        samenvallend
+      uitwerking: |-
+        $m$ heeft richtingsvector $\vc{1}{-1}$, evenwijdig met $\vc{-1}{1}$. Het punt $\vc{2}{4}$: $2 + 4 = 6$. Of: $x + y = 2 - r + 4 + r = 6$ voor elke $r$.
+    - opgave: |-
+        $l\colon 2x + 3y = 5$ \quad en \quad $m\colon 3x + 2y = 5$
+      antwoord: |-
+        snijdend in $\vc{1}{1}$
+      uitwerking: |-
+        Rico's $-\tfrac23$ en $-\tfrac32$ verschillen. Het stelsel aftrekken: $-x + y = 0$, dus $x = y$ en $5x = 5$.
+    - opgave: |-
+        $l\colon y = 2$ \quad en \quad $m\colon x = 2 + 3s,\ y = 4 - 6s$
+      antwoord: |-
+        snijdend in $\vc{3}{2}$
+      uitwerking: |-
+        $\vc{1}{0}$ en $\vc{3}{-6}$ zijn niet evenwijdig. $4 - 6s = 2$ geeft $s = \tfrac13$ en $x = 3$.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snijpunten berekenen, ook met breuken
+  opgave: |-
+    Bereken het snijpunt van $l$ en $m$, als het bestaat.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $l\colon x = 1 + r,\ y = 3 - 2r$ \quad en \quad $m\colon 4x + y = 13$
+      antwoord: |-
+        $\vc{4}{-3}$
+      uitwerking: |-
+        $4 + 4r + 3 - 2r = 13$, dus $r = 3$.
+    - opgave: |-
+        $l\colon x = -1 + 2r,\ y = 2 + r$ \quad en \quad $m\colon x = 5 - s,\ y = 1 + 2s$
+      antwoord: |-
+        $\vc{\tfrac{17}{5}}{\tfrac{21}{5}}$
+      uitwerking: |-
+        $-1 + 2r = 5 - s$ en $2 + r = 1 + 2s$. Uit de tweede: $r = 2s - 1$. Invullen: $4s - 3 = 5 - s$, dus $s = \tfrac85$ en $r = \tfrac{11}{5}$. Controle met $m$: $5 - \tfrac85 = \tfrac{17}{5}$ en $1 + \tfrac{16}{5} = \tfrac{21}{5}$.
+    - opgave: |-
+        $l\colon x = 3r,\ y = -2 + r$ \quad en \quad $m\colon y = 2x + 3$
+      antwoord: |-
+        $\vc{-3}{-3}$
+      uitwerking: |-
+        $-2 + r = 6r + 3$, dus $r = -1$.
+    - opgave: |-
+        $l\colon 3x - 2y = 7$ \quad en \quad $m\colon x = 1 + 2s,\ y = 4 + 3s$
+      antwoord: |-
+        geen snijpunt
+      uitwerking: |-
+        $3 + 6s - 8 - 6s = -5$, en $-5 = 7$ is onmogelijk: er is geen $s$. De rechten zijn strikt evenwijdig, met richtingsvector $\vc{2}{3}$.
+    - opgave: |-
+        $l\colon x = 2 + 4r,\ y = -1 + 2r$ \quad en \quad $m\colon x = 4 - 2s,\ y = s$
+      antwoord: |-
+        $\vc{4}{0}$
+      uitwerking: |-
+        Uit de tweede vergelijking: $s = -1 + 2r$. Dan $2 + 4r = 4 + 2 - 4r$, dus $r = \tfrac12$ en $s = 0$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snijpunten met de assen en een kwadrant
+  opgave: |-
+    Gegeven is de rechte $l\colon x = 6 - 3r,\ y = -1 + r$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de snijpunten van $l$ met de $x$-as en met de $y$-as.
+      antwoord: |-
+        $\vc{3}{0}$ en $\vc{0}{1}$
+      uitwerking: |-
+        Op de $x$-as is $y = 0$: $r = 1$ en $x = 3$. Op de $y$-as is $x = 0$: $r = 2$ en $y = 1$.
+    - opgave: |-
+        Teken $l$ met die twee punten.
+      antwoord: |-
+        de rechte door $\vc{3}{0}$ en $\vc{0}{1}$
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm,font=\scriptsize]\rooster{-1}{1}{6}{-2}{1}{3}\begin{scope}\knip{-1}{-2}{6}{3}\rechteabc{-1}{6}{1}{3}{3}\end{scope}\punt[above right]{3}{0}{}\punt[above right]{0}{1}{}\end{tikzpicture}}
+    - opgave: |-
+        Geef een cartesiaanse vergelijking van $l$.
+      antwoord: |-
+        $x + 3y = 3$
+      uitwerking: |-
+        $x + 3y = 6 - 3r - 3 + 3r = 3$.
+    - opgave: |-
+        Voor welke waarden van $r$ ligt het punt van $l$ in het eerste kwadrant ($x > 0$ en $y > 0$)?
+      antwoord: |-
+        $1 < r < 2$
+      uitwerking: |-
+        $x > 0$ als $6 - 3r > 0$, dus $r < 2$. $y > 0$ als $r > 1$. Dat is het stuk van $l$ tussen de twee snijpunten met de assen.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een evenwijdige rechte door een punt
+  opgave: |-
+    Gegeven zijn de rechte $l\colon 2x - 3y = 6$ en het punt $P\vc{1}{4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een parametervoorstelling van de rechte $m$ door $P$, evenwijdig met $l$.
+      antwoord: |-
+        $x = 1 + 3r$, $y = 4 + 2r$
+      uitwerking: |-
+        $l$ heeft richtingsvector $\vc{b}{-a} = \vc{-3}{-2}$, of $\vc{3}{2}$. Die neemt $m$ over.
+    - opgave: |-
+        Geef een cartesiaanse vergelijking van $m$.
+      antwoord: |-
+        $2x - 3y = -10$
+      uitwerking: |-
+        Dezelfde $a$ en $b$ als $l$, want dezelfde richting. Met $P$: $2 - 12 = -10$.
+    - opgave: |-
+        Geef een vergelijking van de vorm $y = mx + q$ voor $m$. Welke rico heeft $l$?
+      antwoord: |-
+        $y = \tfrac23 x + \tfrac{10}{3}$; ook $\tfrac23$
+      uitwerking: |-
+        $3y = 2x + 10$. Evenwijdige rechten hebben dezelfde rico.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de zwaartelijnen van een driehoek
+  opgave: |-
+    Een zwaartelijn van een driehoek verbindt een hoekpunt met het midden van de overstaande zijde. Gegeven is de driehoek met $A\vc{-2}{-1}$, $B\vc{6}{1}$ en $C\vc{2}{9}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het midden $M$ van $[BC]$ en het midden $N$ van $[AC]$.
+      antwoord: |-
+        $M\vc{4}{5}$, $N\vc{0}{4}$
+      uitwerking: |-
+        $M\bigl(\tfrac{6 + 2}{2}, \tfrac{1 + 9}{2}\bigr)$ en $N\bigl(\tfrac{-2 + 2}{2}, \tfrac{-1 + 9}{2}\bigr)$.
+    - opgave: |-
+        Geef een parametervoorstelling van de zwaartelijnen $AM$ en $BN$.
+      antwoord: |-
+        $AM\colon x = -2 + r,\ y = -1 + r$; $BN\colon x = 6 - 2s,\ y = 1 + s$
+      uitwerking: |-
+        $\vect{AM} = \vc{6}{6} = 6\,\vc{1}{1}$ en $\vect{BN} = \vc{-6}{3} = 3\,\vc{-2}{1}$.
+    - opgave: |-
+        Bereken het snijpunt $G$ van $AM$ en $BN$.
+      antwoord: |-
+        $G\vc{2}{3}$
+      uitwerking: |-
+        $-2 + r = 6 - 2s$ en $-1 + r = 1 + s$. Uit de tweede: $r = 2 + s$; dan $s = 6 - 2s$, dus $s = 2$ en $r = 4$.
+    - opgave: |-
+        Ga na dat $G$ ook op de derde zwaartelijn ligt, en dat de coördinaten van $G$ de gemiddelden zijn van die van $A$, $B$ en $C$.
+      antwoord: |-
+        klopt
+      uitwerking: |-
+        Het midden van $[AB]$ is $\vc{2}{0}$, dus de derde zwaartelijn is de verticale rechte $x = 2$, en daar ligt $G\vc{2}{3}$ op. En $\tfrac{-2 + 6 + 2}{3} = 2$, $\tfrac{-1 + 1 + 9}{3} = 3$. Het snijpunt $G$ heet het zwaartepunt van de driehoek.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een drone en een verboden zone
+  opgave: |-
+    Een drone vertrekt in $D\vc{-3}{2}$ (eenheid 100~m) en vliegt elke minuut $\vc{4}{1}$ verder. De grens van een zone waar drones verboden zijn, is de rechte $x + 2y = 19$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de coördinaten van de drone na $t$ minuten.
+      antwoord: |-
+        $x = -3 + 4t$, $y = 2 + t$
+      uitwerking: |-
+        Een parametervoorstelling met de tijd als parameter, voor $t \geqslant 0$.
+    - opgave: |-
+        Na hoeveel minuten bereikt de drone de grens, en waar?
+      antwoord: |-
+        na 3 minuten, in $\vc{9}{5}$
+      uitwerking: |-
+        $-3 + 4t + 2(2 + t) = 19$, dus $1 + 6t = 19$ en $t = 3$. Controle: $9 + 10 = 19$.
+    - opgave: |-
+        Hoeveel meter heeft de drone dan gevlogen?
+      antwoord: |-
+        ongeveer $1237$~m
+      uitwerking: |-
+        Drie keer $\norm{\vc{4}{1}} = \sqrt{17}$: $3\sqrt{17} \approx 12{,}37$ eenheden van 100~m.
+    - opgave: |-
+        Hoe snel vliegt de drone, in km/h?
+      antwoord: |-
+        ongeveer $24{,}7$~km/h
+      uitwerking: |-
+        $\sqrt{17} \cdot 100 \approx 412{,}3$~m per minuut, dus $\sqrt{17} \cdot 6000 \approx 24\,739$~m per uur.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een fietser op een lijnstuk, met de tijd als parameter
+  opgave: |-
+    Lies fietst in een rechte lijn van $A\vc{2}{1}$ naar $B\vc{14}{10}$ (eenheid 1~km). Ze doet er precies een uur over, met een constante snelheid.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een parametervoorstelling van haar plaats, met als parameter de tijd $t$ in uur. Welke waarden van $t$ horen bij haar rit?
+      antwoord: |-
+        $x = 2 + 12t$, $y = 1 + 9t$; $0 \leqslant t \leqslant 1$
+      uitwerking: |-
+        In een uur legt ze $\vect{AB} = \vc{12}{9}$ af.
+    - opgave: |-
+        Waar is ze na 20 minuten?
+      antwoord: |-
+        $\vc{6}{4}$
+      uitwerking: |-
+        $t = \tfrac13$: $\vc{2 + 4}{1 + 3}$.
+    - opgave: |-
+        Wanneer passeert ze het punt $\vc{10}{7}$?
+      antwoord: |-
+        na 40 minuten
+      uitwerking: |-
+        $2 + 12t = 10$ geeft $t = \tfrac23$, en $y = 1 + 6 = 7$ klopt.
+    - opgave: |-
+        Hoe snel fietst ze?
+      antwoord: |-
+        $15$~km/h
+      uitwerking: |-
+        $\norm{\vc{12}{9}} = \sqrt{144 + 81} = 15$~km in een uur.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een rechte met een parameter
+  opgave: |-
+    Gegeven zijn $l\colon x = 1 + 2r,\ y = 3 + kr$, met $k$ een getal, en $m\colon 3x - y = 4$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke waarde van $k$ zijn $l$ en $m$ evenwijdig?
+      antwoord: |-
+        $k = 6$
+      uitwerking: |-
+        $m$ heeft rico 3, dus richtingsvector $\vc{1}{3}$. $\vc{2}{k}$ is evenwijdig met $\vc{1}{3}$ als $k = 2 \cdot 3 = 6$.
+    - opgave: |-
+        Zijn ze dan samenvallend of strikt evenwijdig?
+      antwoord: |-
+        strikt evenwijdig
+      uitwerking: |-
+        Het punt $\vc{1}{3}$ van $l$: $3 - 3 = 0 \neq 4$.
+    - opgave: |-
+        Bereken het snijpunt voor $k = 2$.
+      antwoord: |-
+        $\vc{3}{5}$
+      uitwerking: |-
+        $3(1 + 2r) - (3 + 2r) = 4$, dus $4r = 4$ en $r = 1$.
+    - opgave: |-
+        Neem nu $n\colon x = 1 + 2r,\ y = c + 6r$. Voor welke waarde van $c$ vallen $n$ en $m$ samen?
+      antwoord: |-
+        $c = -1$
+      uitwerking: |-
+        $n$ is evenwijdig met $m$. Ze vallen samen als $\vc{1}{c}$ op $m$ ligt: $3 - c = 4$.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    foutenanalyse: dezelfde letter voor twee parameters
+  opgave: |-
+    Lotte zoekt het snijpunt van $l\colon x = 2r,\ y = 1 + r$ en $m\colon x = 4 - r,\ y = 2r$. Uit de $x$-coördinaten vindt ze $2r = 4 - r$, dus $r = \tfrac43$, en uit de $y$-coördinaten $1 + r = 2r$, dus $r = 1$. Ze besluit dat er geen snijpunt is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat doet Lotte fout?
+      antwoord: |-
+        ze gebruikt dezelfde letter voor beide parameters
+      uitwerking: |-
+        Het snijpunt kan bij $l$ een andere parameter hebben dan bij $m$. Ze moet $m$ schrijven met een andere letter, zoals $x = 4 - s$, $y = 2s$.
+    - opgave: |-
+        Bereken het snijpunt.
+      antwoord: |-
+        $\vc{\tfrac{14}{5}}{\tfrac{12}{5}}$
+      uitwerking: |-
+        $2r = 4 - s$ en $1 + r = 2s$. Uit de tweede: $s = \tfrac{1 + r}{2}$. Dan $4r = 8 - 1 - r$, dus $r = \tfrac75$ en $s = \tfrac65$. Controle met $m$: $4 - \tfrac65 = \tfrac{14}{5}$ en $\tfrac{12}{5}$.
+    - opgave: |-
+        Kan dezelfde letter toevallig toch het juiste snijpunt geven?
+      antwoord: |-
+        ja, als het snijpunt bij beide dezelfde parameter heeft
+      uitwerking: |-
+        Bijvoorbeeld als beide parametervoorstellingen in het snijpunt vertrekken: dan is het $r = s = 0$. Daar kun je niet op rekenen.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    dezelfde rechte, verschillende parametervoorstellingen
+  opgave: |-
+    Drie leerlingen geven een parametervoorstelling van de rechte door $A\vc{-1}{2}$ en $B\vc{3}{0}$. Ilias schrijft $x = -1 + 4r,\ y = 2 - 2r$, Noor schrijft $x = 1 - 2s,\ y = 1 + s$, en Sem schrijft $x = 3 + 2t,\ y = -1 - t$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wie heeft gelijk? Leg uit.
+      antwoord: |-
+        Ilias en Noor
+      uitwerking: |-
+        Alle richtingsvectoren zijn evenwijdig met $\vect{AB} = \vc{4}{-2}$. Ilias vertrekt in $A$. Noor vertrekt in $\vc{1}{1}$, het midden van $[AB]$, dat op de rechte ligt. Sem vertrekt in $\vc{3}{-1}$: bij Ilias geeft $3 = -1 + 4r$ dan $r = 1$ en $y = 0 \neq -1$. Dat punt ligt niet op de rechte.
+    - opgave: |-
+        Welke waarde van $s$ hoort bij $A$, en welke bij $B$?
+      antwoord: |-
+        $s = 1$ en $s = -1$
+      uitwerking: |-
+        $1 - 2s = -1$ geeft $s = 1$ (en $y = 2$); $1 - 2s = 3$ geeft $s = -1$ (en $y = 0$).
+    - opgave: |-
+        Verbeter de parametervoorstelling van Sem door alleen het vertrekpunt aan te passen.
+      antwoord: |-
+        bv. $x = 3 + 2t,\ y = -t$
+      uitwerking: |-
+        Neem $B\vc{3}{0}$ als vertrekpunt; de richtingsvector $\vc{2}{-1}$ is goed.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de diagonalen van een parallellogram
+  opgave: |-
+    Gegeven zijn $A\vc{1}{1}$, $B\vc{7}{3}$ en $C\vc{8}{7}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het punt $D$ zodat $ABCD$ een parallellogram is.
+      antwoord: |-
+        $D\vc{2}{5}$
+      uitwerking: |-
+        $\vect{AD} = \vect{BC} = \vc{1}{4}$, dus $D\vc{1 + 1}{1 + 4}$.
+    - opgave: |-
+        Geef een parametervoorstelling van de diagonalen $AC$ en $BD$, met $\vect{AC}$ en $\vect{BD}$ als richtingsvector.
+      antwoord: |-
+        $AC\colon x = 1 + 7r,\ y = 1 + 6r$; $BD\colon x = 7 - 5s,\ y = 3 + 2s$
+      uitwerking: |-
+        $\vect{AC} = \vc{7}{6}$ en $\vect{BD} = \vc{-5}{2}$.
+    - opgave: |-
+        Bereken het snijpunt van de diagonalen.
+      antwoord: |-
+        $\vc{4{,}5}{4}$
+      uitwerking: |-
+        $1 + 7r = 7 - 5s$ en $1 + 6r = 3 + 2s$. Uit de tweede: $s = 3r - 1$. Dan $1 + 7r = 12 - 15r$, dus $r = \tfrac12$ en $s = \tfrac12$.
+    - opgave: |-
+        Welke waarden van $r$ en $s$ vond je? Wat betekent dat voor de diagonalen?
+      antwoord: |-
+        $r = s = \tfrac12$: ze delen elkaar middendoor
+      uitwerking: |-
+        Met $r = \tfrac12$ ben je halfweg $A$ en $C$, met $s = \tfrac12$ halfweg $B$ en $D$. Het snijpunt is het midden van beide diagonalen.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een halfrechte en een lijnstuk: een laser en een spiegel
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.36cm,y=.36cm,font=\scriptsize]
+        \roosterleeg{-1}{1}{9}{-1}{1}{7}
+        \xgetallen{1,3,5,7,9} \ygetallen{1,3,5,7}
+        \draw[inkt,line width=2pt] (5,6) -- (8,0);
+        \punt[left]{0}{2}{L} \punt[above]{5}{6}{P} \punt[below]{8}{0}{Q}
+        \draw[vector] (0,2) -- (3,3);
+      \end{tikzpicture}
+  opgave: |-
+    Een laser in $L\vc{0}{2}$ zendt een straal uit in de richting van $\vc{3}{1}$. Een spiegel is het lijnstuk $[PQ]$ met $P\vc{5}{6}$ en $Q\vc{8}{0}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een parametervoorstelling van de straal. Welke waarden van $r$ horen erbij?
+      antwoord: |-
+        $x = 3r$, $y = 2 + r$; $r \geqslant 0$
+      uitwerking: |-
+        Een halfrechte vanuit $L$: alleen vooruit.
+    - opgave: |-
+        Geef een parametervoorstelling van $[PQ]$, met de waarden van $s$.
+      antwoord: |-
+        $x = 5 + 3s$, $y = 6 - 6s$; $0 \leqslant s \leqslant 1$
+      uitwerking: |-
+        Vertrekpunt $P$, richtingsvector $\vect{PQ} = \vc{3}{-6}$.
+    - opgave: |-
+        Raakt de straal de spiegel? Zo ja, waar?
+      antwoord: |-
+        ja, in $\vc{6}{4}$
+      uitwerking: |-
+        $3r = 5 + 3s$ en $2 + r = 6 - 6s$. Uit de tweede: $r = 4 - 6s$; dan $12 - 18s = 5 + 3s$, dus $s = \tfrac13$ en $r = 2$. Beide liggen in het juiste gebied.
+    - opgave: |-
+        Raakt de straal de spiegel ook als de laser in de richting van $\vc{3}{-1}$ wijst?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $3r = 5 + 3s$ en $2 - r = 6 - 6s$ geven $s = \tfrac{17}{15}$ en $r = \tfrac{14}{5}$. Omdat $s > 1$, ligt het snijpunt $\vc{8{,}4}{-0{,}8}$ wel op de rechte $PQ$, maar voorbij $Q$: de straal mist de spiegel.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: een vergelijking van de rechte door twee punten
+  opgave: |-
+    Neem twee verschillende punten $A(x_1, y_1)$ en $B(x_2, y_2)$. Je bewijst dat de rechte $AB$ als vergelijking heeft
+    \[ (y_2 - y_1)(x - x_1) - (x_2 - x_1)(y - y_1) = 0. \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ga na dat $A$ en $B$ de vergelijking kloppen.
+      antwoord: |-
+        invullen geeft $0 = 0$
+      uitwerking: |-
+        Voor $A$ zijn beide haakjes $x - x_1$ en $y - y_1$ nul. Voor $B$: $(y_2 - y_1)(x_2 - x_1) - (x_2 - x_1)(y_2 - y_1) = 0$.
+    - opgave: |-
+        Schrijf de vergelijking in de vorm $ax + by = c$. Leg uit waarom $a$ en $b$ niet allebei $0$ zijn, zodat het een rechte is.
+      antwoord: |-
+        $a = y_2 - y_1$, $b = -(x_2 - x_1)$; $A \neq B$
+      uitwerking: |-
+        Uitwerken: $(y_2 - y_1)x - (x_2 - x_1)y = (y_2 - y_1)x_1 - (x_2 - x_1)y_1$. Waren $a$ en $b$ allebei $0$, dan was $x_2 = x_1$ en $y_2 = y_1$, dus $A = B$. Een rechte door $A$ en $B$ is de rechte $AB$, want er gaat maar één rechte door twee punten.
+    - opgave: |-
+        Gebruik de formule voor $A\vc{1}{2}$ en $B\vc{4}{-3}$, en controleer.
+      antwoord: |-
+        $5x + 3y = 11$
+      uitwerking: |-
+        $-5(x - 1) - 3(y - 2) = 0$ geeft $-5x - 3y + 11 = 0$. Controle: $5 + 6 = 11$ en $20 - 9 = 11$.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    drie rechten door één punt
+  opgave: |-
+    Gegeven zijn de rechten $l\colon x + y = 5$, $m\colon x = r,\ y = -1 + 2r$ en $n\colon kx - y = 3$, met $k$ een getal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het snijpunt van $l$ en $m$.
+      antwoord: |-
+        $\vc{2}{3}$
+      uitwerking: |-
+        $r - 1 + 2r = 5$, dus $r = 2$.
+    - opgave: |-
+        Voor welke waarde van $k$ gaan de drie rechten door één punt?
+      antwoord: |-
+        $k = 3$
+      uitwerking: |-
+        $\vc{2}{3}$ moet op $n$ liggen: $2k - 3 = 3$.
+    - opgave: |-
+        Voor welke waarde van $k$ is $n$ evenwijdig met $l$? Liggen ze dan samen?
+      antwoord: |-
+        $k = -1$; nee, strikt evenwijdig
+      uitwerking: |-
+        $n$ heeft rico $k$ en $l$ rico $-1$. Met $k = -1$ is $n\colon -x - y = 3$, of $x + y = -3$, en dat is niet $x + y = 5$.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    botsen of niet: de tijd als gemeenschappelijke parameter
+  opgave: |-
+    In het probleem van dit hoofdstuk is de koers van de veerboot \mbox{$x = 2t$, $y = 1 + t$}, met $t$ in stappen van 10 minuten vanaf 10.00 uur. Om 10.00 uur vertrekt ook een vissersboot in $V\vc{3}{7}$, die elke 10 minuten $\vc{1}{-1}$ verder vaart.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken waar de koersen van de vissersboot en de veerboot kruisen.
+      antwoord: |-
+        in $\vc{6}{4}$
+      uitwerking: |-
+        Vissersboot: $x = 3 + u$, $y = 7 - u$. Dan $3 + u = 2t$ en $7 - u = 1 + t$. Optellen: $10 = 1 + 3t$, dus $t = 3$ en $u = 3$.
+    - opgave: |-
+        Botsen de vissersboot en de veerboot?
+      antwoord: |-
+        ja, om 10.30 uur
+      uitwerking: |-
+        Beide zijn na 3 stappen in $\vc{6}{4}$: dezelfde plaats op hetzelfde moment.
+    - opgave: |-
+        De vissersboot vertrekt 5 minuten later dan gepland. Botsen ze dan nog?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De koers blijft dezelfde, maar de vissersboot komt een halve stap later in $\vc{6}{4}$: na $t = 3{,}5$ stappen, om 10.35 uur. De veerboot is daar om 10.30 uur.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: de diagonalen van een parallellogram
+  opgave: |-
+    Neem een parallellogram $OABC$ met $O\vc{0}{0}$, $A\vc{a}{0}$ en $C\vc{c}{d}$, met $a \neq 0$ en $d \neq 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $B$ de coördinaten $\vc{a + c}{d}$ heeft.
+      antwoord: |-
+        $\vect{OB} = \vect{OA} + \vect{OC}$
+      uitwerking: |-
+        In een parallellogram is $\vect{AB} = \vect{OC}$, dus $B\vc{a + c}{0 + d}$.
+    - opgave: |-
+        Geef een parametervoorstelling van de diagonalen $OB$ en $AC$.
+      antwoord: |-
+        $OB\colon x = r(a + c),\ y = rd$; $AC\colon x = a + s(c - a),\ y = sd$
+      uitwerking: |-
+        Richtingsvectoren $\vect{OB} = \vc{a + c}{d}$ en $\vect{AC} = \vc{c - a}{d}$.
+    - opgave: |-
+        Toon aan dat $r = s = \tfrac12$ een gemeenschappelijk punt geeft. Wat heb je bewezen?
+      antwoord: |-
+        het snijpunt is het midden van beide diagonalen
+      uitwerking: |-
+        $r = \tfrac12$ geeft $\vc{\tfrac{a + c}{2}}{\tfrac d2}$, en $s = \tfrac12$ geeft $\vc{a + \tfrac{c - a}{2}}{\tfrac d2} = \vc{\tfrac{a + c}{2}}{\tfrac d2}$. De diagonalen zijn niet evenwijdig (ze snijden elkaar binnen het parallellogram), dus dat is hun enige snijpunt. Het ligt halfweg $O$ en $B$ en halfweg $A$ en $C$: de diagonalen van een parallellogram delen elkaar middendoor.
+
+- id: h1-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    snijden twee lijnstukken elkaar?
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.34cm,y=.34cm,font=\scriptsize]
+        \roosterleeg{-1}{1}{10}{-2}{1}{5}
+        \xgetallen{2,4,8,10} \ygetallen{-2,2,4}
+        \draw[accent,line width=1.4pt] (0,0) -- (6,3);
+        \draw[inkt,line width=1.4pt] (1,4) -- (5,-2);
+        \draw[inkt,line width=1.4pt,dashed] (4,5) -- (10,1);
+        \punt[below right]{0}{0}{A} \punt[above]{6}{3}{B} \punt[left]{1}{4}{C} \punt[right]{5}{-2}{D}
+        \punt[above]{4}{5}{E} \punt[below]{10}{1}{F}
+      \end{tikzpicture}
+  opgave: |-
+    Drie wandelpaden in een park zijn rechte lijnstukken: $[AB]$ met $A\vc{0}{0}$ en $B\vc{6}{3}$, $[CD]$ met $C\vc{1}{4}$ en $D\vc{5}{-2}$, en $[EF]$ met $E\vc{4}{5}$ en $F\vc{10}{1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kruisen de paden $[AB]$ en $[CD]$ elkaar? Zo ja, waar?
+      antwoord: |-
+        ja, in $\vc{\tfrac{11}{4}}{\tfrac{11}{8}}$
+      uitwerking: |-
+        $AB\colon x = 6r,\ y = 3r$ en $CD\colon x = 1 + 4s,\ y = 4 - 6s$. Uit $6r = 1 + 4s$ en $6r = 8 - 12s$ volgt $1 + 4s = 8 - 12s$, dus $s = \tfrac{7}{16}$ en $r = \tfrac{11}{24}$. Beide liggen tussen 0 en 1, dus het snijpunt ligt op beide paden.
+    - opgave: |-
+        Kruisen de paden $[AB]$ en $[EF]$ elkaar?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $EF\colon x = 4 + 6t,\ y = 5 - 4t$. Uit $6r = 4 + 6t$ en $6r = 10 - 8t$ volgt $t = \tfrac37$ en $r = \tfrac{23}{21}$. De rechten snijden elkaar in $\vc{\tfrac{46}{7}}{\tfrac{23}{7}}$, maar $r > 1$: dat punt ligt voorbij $B$, niet op het pad $[AB]$.
+    - opgave: |-
+        Hoe zie je aan $r$ en $s$ of twee lijnstukken elkaar snijden?
+      antwoord: |-
+        beide parameters liggen tussen 0 en 1
+      uitwerking: |-
+        Met de beginpunten als vertrekpunt en de lijnstukken zelf als richtingsvector loopt elke parameter van 0 tot 1 over het lijnstuk. Het snijpunt van de rechten ligt op beide lijnstukken als en slechts als beide parameters in $[0, 1]$ liggen.
+
+#----------------------------------------------------------------------------------------
+# TEST JEZELF
+#----------------------------------------------------------------------------------------
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    parametervoorstelling door twee punten
+  opgave: |-
+    Geef een parametervoorstelling van de rechte door $A\vc{3}{-2}$ en $B\vc{-1}{4}$.
+  antwoord: |-
+    bv. $x = 3 - 2r$, $y = -2 + 3r$
+  uitwerking: |-
+    $\vect{AB} = \vc{-4}{6} = 2\,\vc{-2}{3}$, vertrekpunt $A$.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    ligt een punt op een rechte
+  opgave: |-
+    Gegeven is $l\colon x = 1 - 2r,\ y = 1 + 3r$. Ligt $P\vc{-3}{7}$ op $l$? En $Q\vc{5}{-4}$?
+  antwoord: |-
+    $P$ wel ($r = 2$), $Q$ niet
+  uitwerking: |-
+    $P$: $-3 = 1 - 2r$ geeft $r = 2$, en $y = 1 + 6 = 7$. $Q$: $5 = 1 - 2r$ geeft $r = -2$, en $y = 1 - 6 = -5 \neq -4$.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    van parametervoorstelling naar cartesiaanse vergelijking
+  opgave: |-
+    Geef een cartesiaanse vergelijking van $l\colon x = 2 - r,\ y = 1 + 4r$.
+  antwoord: |-
+    $4x + y = 9$
+  uitwerking: |-
+    $4x + y = 8 - 4r + 1 + 4r = 9$.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  thema: |-
+    van cartesiaanse vergelijking naar parametervoorstelling
+  opgave: |-
+    Geef een richtingsvector en een parametervoorstelling van $3x - 4y = 12$.
+  antwoord: |-
+    $\vc{4}{3}$; bv. $x = 4 + 4r$, $y = 3r$
+  uitwerking: |-
+    $\vc{b}{-a} = \vc{-4}{-3}$, of $\vc{4}{3}$. Voor $y = 0$ is $x = 4$. Controle: $12 + 12r - 12r = 12$.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    richtingsvector en rico
+  opgave: |-
+    Een rechte gaat door $A\vc{-2}{5}$ en heeft richtingsvector $\vc{3}{-6}$. Bereken de rico en geef een vergelijking van de vorm $y = mx + q$.
+  antwoord: |-
+    $m = -2$; $y = -2x + 1$
+  uitwerking: |-
+    $m = \tfrac{-6}{3} = -2$ en $5 = -2 \cdot ({-2}) + q$, dus $q = 1$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    onderlinge ligging
+  opgave: |-
+    Gegeven zijn $l\colon x = 1 + 3r,\ y = 2 - r$, $m\colon x = -2 - 6s,\ y = 3 + 2s$ en $n\colon x + 3y = 4$. Onderzoek de ligging van $l$ en $m$, en van $l$ en $n$.
+  antwoord: |-
+    $l$ en $m$ samenvallend; $l$ en $n$ strikt evenwijdig
+  uitwerking: |-
+    $\vc{-6}{2} = -2\,\vc{3}{-1}$, en $\vc{1}{2}$ ligt op $m$: $s = -\tfrac12$ geeft $y = 3 - 1 = 2$. $n$ heeft richtingsvector $\vc{3}{-1}$, maar $1 + 6 = 7 \neq 4$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    snijpunt van een parametervoorstelling en een cartesiaanse vergelijking
+  opgave: |-
+    Bereken het snijpunt van $l\colon x = 3 + r,\ y = -1 + 2r$ en $m\colon x + y = 8$.
+  antwoord: |-
+    $\vc{5}{3}$
+  uitwerking: |-
+    $3 + r - 1 + 2r = 8$, dus $r = 2$. Controle: $5 + 3 = 8$.
+
+- id: h1-t8
+  soort: test
+  niveau: 2
+  thema: |-
+    snijpunt van twee parametervoorstellingen in een context
+  opgave: |-
+    Twee mieren vertrekken tegelijk. De eerste vertrekt in $\vc{1}{0}$ en loopt elke seconde $\vc{1}{2}$ verder, de tweede vertrekt in $\vc{9}{1}$ en loopt elke seconde $\vc{-2}{1}$ verder (eenheid 1~cm). Kruisen hun paden? Ontmoeten de mieren elkaar?
+  antwoord: |-
+    de paden kruisen in $\vc{3}{4}$; ze ontmoeten elkaar niet
+  uitwerking: |-
+    $1 + t = 9 - 2s$ en $2t = 1 + s$. Uit de tweede: $s = 2t - 1$; dan $1 + t = 11 - 4t$, dus $t = 2$ en $s = 3$. De eerste mier is na 2 s in $\vc{3}{4}$, de tweede pas na 3 s.

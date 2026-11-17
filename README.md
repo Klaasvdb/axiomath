@@ -127,9 +127,9 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 
 ### 2de graad
 
-**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **23 %** van 72 handboeken
+**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **24 %** van 72 handboeken
 
-⚪ 5 gepland · 🔴 67 eerste versie
+⚪ 4 gepland · 🔴 68 eerste versie
 
 #### Per richting
 
@@ -151,11 +151,11 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Moderne talen | 4 (B+S) | `████░░░░░░░░░░░░░░░░` |  22 % |
 | Sportwetenschappen | 4 (B+S) | `████░░░░░░░░░░░░░░░░` |  22 % |
 | Technologische wetenschappen en andere | 4 (B+S) | `████░░░░░░░░░░░░░░░░` |  22 % |
-| Economische wetenschappen | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  21 % |
-| Grieks-Latijn | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  21 % |
-| Latijn | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  21 % |
-| Natuurwetenschappen | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  21 % |
-| Technologische wetenschappen | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  21 % |
+| Economische wetenschappen | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  22 % |
+| Grieks-Latijn | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  22 % |
+| Latijn | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  22 % |
+| Natuurwetenschappen | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  22 % |
+| Technologische wetenschappen | 5 (B+S'') | `████░░░░░░░░░░░░░░░░` |  22 % |
 
 #### Per handboek
 
@@ -241,7 +241,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Telproblemen](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Grafen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 
-##### Pakket 5 · B+S'' &nbsp; `████░░░░░░░░░░░░░░░░` 21 %
+##### Pakket 5 · B+S'' &nbsp; `████░░░░░░░░░░░░░░░░` 22 %
 
 <sub>Economische wetenschappen, Grieks-Latijn, Latijn, Natuurwetenschappen, Technologische wetenschappen</sub>
 
@@ -261,7 +261,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Goniometrie](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Goniometrie/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Ruimtemeetkunde](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Vectoren](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Vectoren/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
-| Analytische meetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Analytische meetkunde](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Analytische meetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | De cirkel | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | [Telproblemen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | Grafen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
