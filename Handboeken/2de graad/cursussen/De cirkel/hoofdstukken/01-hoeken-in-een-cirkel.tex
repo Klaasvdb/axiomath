@@ -1,0 +1,659 @@
+%----------------------------------------------------------------------------------------
+% HOEKEN IN EEN CIRKEL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Pakketten: de cursus staat alleen in pakket 4 en 5 (keuzedoel K1). Pakket 5 krijgt ook het derde geval in het
+% bewijs van de omtrekshoekstelling, de omgekeerde stelling van de hoek in een halve cirkel (met bewijs), het
+% kenmerk van een koordenvierhoek (zonder bewijs) en meer bewijsopdrachten.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Hoeken in een cirkel}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een fotograaf wil de voorgevel van een kapel op de foto, precies van de ene hoek tot de andere. De gevel is 12~m breed. De lens van zijn camera heeft een beeldhoek van $60^\circ$: alles wat binnen een hoek van $60^\circ$ voor de lens ligt, komt op de foto. Recht voor het midden van de gevel moet hij dus op een bepaalde afstand staan. Hoe ver is dat? En waar kan hij nog staan, als hij de kapel schuin wil fotograferen?}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \fill[accent!20] (-6,0) rectangle (6,1.2);
+  \fill[accent!20] (-6,1.2) -- (0,4) -- (6,1.2) -- cycle;
+  \draw[accent,thick] (-6,0) -- (-6,1.2) -- (0,4) -- (6,1.2) -- (6,0);
+  \draw[accent,very thick] (-6,0) coordinate (A) -- (6,0) coordinate (B);
+  \coordinate (C) at (3.2,-9.6);
+  \draw[grijs] (A) -- (C) -- (B);
+  \hoeklabel{B}{C}{A}{6mm}{60^\circ}
+  \fill[grijs] ($(C)+(-.5,-.35)$) rectangle ($(C)+(.5,.35)$);
+  \node[below] at (0,0) {12 m};
+  \node[below=2pt] at (C) {camera};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD K1 (keuzedoel De cirkel: middelpuntshoek, omtrekshoek en de eigenschappen die eruit volgen). De verdeling van K1 over de twee hoofdstukken is na te kijken in het leerplan. De bewijzen van de omtrekshoekstelling, de hoek in een halve cirkel en de koordenvierhoek staan in beide pakketten: ze zijn kort en leggen uit waarom de eigenschap klopt.\alleenvoor{5}{ In dit pakket ook het derde geval in het bewijs van de omtrekshoekstelling, de omgekeerde stelling van de hoek in een halve cirkel met bewijs, en meer bewijsopdrachten (doel B1).} Voorkennis: de hoekensom in een driehoek, de gelijkbenige en de gelijkzijdige driehoek, de stelling van Pythagoras en de exacte waarden van sinus, cosinus en tangens van $30^\circ$ en $60^\circ$ (handboek Driehoeksmeting).}
+
+Een cirkel is de eenvoudigste kromme die er is: alle punten liggen even ver van het middelpunt. Toch zit er verrassend veel meetkunde in. Kies twee punten op een cirkel en kijk vanuit een derde punt op de cirkel naar die twee: je ziet ze altijd onder dezelfde hoek, waar je ook staat. In dit hoofdstuk ontdek je waarom. Je gebruikt daarvoor wat je al weet over gelijkbenige driehoeken en de hoekensom, en je lost er het probleem van de fotograaf mee op.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Middelpuntshoeken}
+
+\subsection{Koorde en boog}
+
+Hoe groot is een stuk van een cirkel? Om daarover te praten, hebben we eerst een paar namen nodig. Je kent al het \emph{middelpunt} $M$ en de \emph{straal} $r$: elk punt van de cirkel ligt op afstand $r$ van $M$. Een \emph{middellijn} is een lijnstuk door $M$ met beide eindpunten op de cirkel; het is twee keer zo lang als de straal. Maar een lijnstuk tussen twee punten van de cirkel hoeft niet door het middelpunt te gaan.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+Een \textbf{\textcolor{accent}{koorde}} van een cirkel is een lijnstuk met beide eindpunten op de cirkel.
+
+\vspace{1mm}
+Twee punten $A$ en $B$ op een cirkel verdelen de cirkel in twee stukken. Elk stuk heet een \textbf{\textcolor{accent}{boog}} $\boog{AB}$. Liggen $A$ en $B$ niet op een middellijn, dan is er een kleine en een grote boog.
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.85,font=\scriptsize]
+  \cirkel
+  \boogdeel{40}{140}
+  \cpunt{A}{40}{A} \cpunt{B}{140}{B}
+  \cpunt{C}{180}{C} \cpunt{D}{0}{D}
+  \draw[accent,thick] (A) -- (B);
+  \draw[grijs] (C) -- (D);
+  \punt[below]{0}{0}{M}
+  \node[fel!70!black,above] at (90:1.75) {$\boog{AB}$};
+  \node[accent,below] at (0,1.03) {koorde};
+  \node[grijs,above] at (-.75,0) {middellijn};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Een middellijn is dus ook een koorde: de langste die er is. Zeg je \textit{de boog} $\boog{AB}$ zonder meer, dan bedoel je meestal de kleine boog. Bedoel je de grote, dan zeg je het erbij, of je noemt een punt dat erop ligt: de boog $\boog{ACB}$ loopt van $A$ via $C$ naar $B$.
+
+\begin{oefeningen}
+\oef{h1-koorde}
+\end{oefeningen}
+
+\subsection{De middelpuntshoek}
+
+Een pizza snij je in gelijke stukken door telkens vanuit het midden te snijden. Bij zes stukken krijgt elk stuk een hoek van $360^\circ : 6 = 60^\circ$ in het midden. Die hoek zegt hoe groot het stuk van de rand is: een hoek van $60^\circ$ hoort bij een zesde van de cirkel.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+Een \textbf{\textcolor{accent}{middelpuntshoek}} is een hoek met het hoekpunt in het middelpunt $M$ van de cirkel. Liggen $A$ en $B$ op de cirkel, dan \textbf{\textcolor{accent}{staat}} de middelpuntshoek $\formule{\hoek{AMB}}$ \textbf{\textcolor{accent}{op de boog}} $\boog{AB}$ die binnen de hoek ligt.
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \cirkel
+  \boogdeel{-30}{70}
+  \cpunt{A}{-30}{A} \cpunt{B}{70}{B}
+  \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (M) -- (B);
+  \hoekboog{A}{M}{B}{4mm}
+  \punt[left]{0}{0}{M}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Bij de kleine boog hoort een middelpuntshoek kleiner dan $180^\circ$. De grote boog ligt binnen de rest van de volle hoek: daarbij hoort een middelpuntshoek van $360^\circ$ min de kleine. Zo'n hoek groter dan $180^\circ$ heet een \emph{inspringende hoek}. Een middellijn verdeelt de cirkel in twee halve cirkels, met elk een gestrekte middelpuntshoek van $180^\circ$.
+
+\voorbeeld{}{Een regelmatige zeshoek $ABCDEF$ heeft zijn hoekpunten op een cirkel met middelpunt $M$ en straal 5~cm. Bereken de middelpuntshoek op een zijde, en de lengte van een zijde.\label{vb:h1-zeshoek}}{%
+\uitleg{De zes zijden zijn even lang, dus de zes middelpuntshoeken zijn gelijk en vullen samen de volle hoek. Daarna kijken we naar de driehoek $AMB$: twee zijden zijn stralen.}
+\naast{\begin{stappenvrij}{4.6cm}{4.6cm}
+\hoek{AMB} = 360^\circ : 6 = 60^\circ & Zes gelijke middelpuntshoeken. \\[1ex]
+\lengte{MA} = \lengte{MB} = 5 & Twee stralen: $\drieh{AMB}$ is gelijkbenig. \\[1ex]
+\hoek{A} = \hoek{B} = \dfrac{180^\circ - 60^\circ}{2} = 60^\circ & De basishoeken. \\[2ex]
+\lengte{AB} = 5~\text{cm} & $\drieh{AMB}$ is gelijkzijdig.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \def\straal{1.9}
+  \cirkel
+  \foreach \h/\n in {270/A,330/B,30/C,90/D,150/E,210/F} {\cpunt{\n}{\h}{\n}}
+  \draw[grijs] (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- cycle;
+  \coordinate (M) at (0,0);
+  \filldraw[fill=accent!25,draw=accent,thick] (A) -- (M) -- (B) -- cycle;
+  \hoeklabel{A}{M}{B}{4mm}{60^\circ}
+  \punt[above]{0}{0}{M}
+\end{tikzpicture}}
+De zijde van de zeshoek is even lang als de straal. Daarom kun je een regelmatige zeshoek tekenen door de passeropening zes keer op de cirkel af te zetten.}
+
+\begin{oefeningen}
+\oef{h1-mph}
+\end{oefeningen}
+
+Hoe lang is een boog? De omtrek van een cirkel is $2\pi r$. Een middelpuntshoek van $60^\circ$ hoort bij een zesde van de cirkel, dus bij een zesde van de omtrek. Zo hoort bij elke middelpuntshoek $\alpha$ hetzelfde deel van de omtrek als $\alpha$ van de volle hoek $360^\circ$.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{lengte van een boog}} met middelpuntshoek $\alpha$ in een cirkel met straal $r$ is
+
+\vspace{1mm}
+\qquad $\formule{\ell = \dfrac{\alpha}{360^\circ} \cdot 2\pi r}$
+\end{theorie}
+
+\voorbeeld{}{De grote wijzer van een torenklok is 1,2~m lang. Welke middelpuntshoek beschrijft hij in 20 minuten? Welke afstand legt de punt van de wijzer dan af?\label{vb:h1-booglengte}}{%
+\uitleg{In 60 minuten draait de wijzer een volle toer van $360^\circ$. In 20 minuten is dat een derde. De punt beschrijft een boog van een cirkel met straal 1,2~m.}
+\begin{stappen}
+\alpha = \dfrac{20}{60} \cdot 360^\circ = 120^\circ & Een derde van de volle hoek. \\[2ex]
+\ell = \dfrac{120^\circ}{360^\circ} \cdot 2\pi \cdot 1{,}2 = 0{,}8\pi \approx 2{,}51~\text{m} & Een derde van de omtrek.
+\end{stappen}
+De wijzer laat de grote boog van $360^\circ - 120^\circ = 240^\circ$ nog over: die is twee keer zo lang.}
+
+\nujij{Een cirkel heeft straal 6~cm. Hoe lang is de boog bij een middelpuntshoek van $90^\circ$?}{Een vierde van de omtrek: $\tfrac14 \cdot 2\pi \cdot 6 = 3\pi \approx 9{,}42$~cm.}
+
+\begin{oefeningen}
+\oef{h1-boog}
+\end{oefeningen}
+
+%========================================================================================
+\section{De omtrekshoek}
+
+\subsection{Omtrekshoek en middelpuntshoek}
+
+In de Verken stond het hoekpunt niet in het middelpunt, maar op de cirkel zelf. Je mat drie hoeken die op dezelfde boog stonden, en ze waren alle drie $50^\circ$: de helft van de middelpuntshoek van $100^\circ$. Is dat toeval? We geven zo'n hoek eerst een naam.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+Een \textbf{\textcolor{accent}{omtrekshoek}} is een hoek met het hoekpunt op de cirkel en twee koorden als benen. Liggen $A$, $B$ en $C$ op de cirkel, dan \textbf{\textcolor{accent}{staat}} de omtrekshoek $\formule{\hoek{ACB}}$ \textbf{\textcolor{accent}{op de boog}} $\boog{AB}$ die binnen de hoek ligt: de boog waar $C$ niet op ligt.
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \cirkel
+  \boogdeel{-40}{40}
+  \cpunt{A}{-40}{A} \cpunt{B}{40}{B} \cpunt{C}{180}{C}
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \hoekboog{A}{C}{B}{5mm}
+  \punt[below]{0}{0}{M}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\naast{Hoe hangen een omtrekshoek en een middelpuntshoek op dezelfde boog samen? Begin met het eenvoudigste geval: $M$ ligt op een been, zoals op $[CB]$ in de figuur. Dan is driehoek $AMC$ gelijkbenig, want $\lengte{MA}$ en $\lengte{MC}$ zijn allebei een straal. De twee basishoeken zijn gelijk; noem ze $x$. De tophoek is dan $\hoek{AMC} = 180^\circ - 2x$. De middelpuntshoek $\hoek{AMB}$ ligt naast die tophoek, en vormt er samen een gestrekte hoek mee:
+\[ \hoek{AMB} = 180^\circ - (180^\circ - 2x) = 2x. \]
+De middelpuntshoek is dus twee keer zo groot als de omtrekshoek $x$. Werkt dat ook als $M$ niet op een been ligt? Dan splitsen we de hoek met een middellijn in twee hoeken waarvoor dit geval geldt.}{\begin{tikzpicture}[scale=.95,font=\scriptsize]
+  \cirkel
+  \cpunt{C}{200}{C} \cpunt{B}{20}{B} \cpunt{A}{280}{A}
+  \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \draw[grijs] (A) -- (M);
+  \hoeklabel{A}{C}{M}{9mm}{x}
+  \hoeklabel{M}{A}{C}{7mm}{x}
+  \hoeklabel[fel!70!black,angle eccentricity=1.7]{A}{M}{B}{3.5mm}{2x}
+  \node[above] at (M) {$M$};
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Omtrekshoekstelling}
+Een omtrekshoek is de helft van de middelpuntshoek op dezelfde boog:
+
+\vspace{1mm}
+\qquad $\formule{\hoek{ACB} = \tfrac12\,\hoek{AMB}}$
+\end{stelling}
+
+\begin{bewijs}
+\begin{minipage}[t]{\dimexpr\linewidth-\alleenvoor{4}{3.4cm}\alleenvoor{5}{6.1cm}\relax}
+\vspace{0pt}
+\textit{Geval 1: het middelpunt ligt op een been.} Dat zagen we hierboven: $\hoek{AMB} = 2\,\hoek{ACB}$.
+
+\textit{Geval 2: het middelpunt ligt binnen de omtrekshoek.} Teken de middellijn $[CD]$. Die verdeelt de omtrekshoek in twee hoeken $x$ en $y$, en de middelpuntshoek in twee delen. Voor elk deel geldt geval 1, dus $\hoek{AMD} = 2x$ en $\hoek{DMB} = 2y$, zodat
+\bewijsregel{\hoek{AMB} = 2x + 2y = 2(x + y) = 2\,\hoek{ACB}}
+\begin{alleenvoor}{4}
+Ligt het middelpunt buiten de omtrekshoek, dan werkt dezelfde redenering met een verschil in plaats van een som.
+\end{alleenvoor}
+\begin{alleenvoor}{5}
+\textit{Geval 3: het middelpunt ligt buiten de omtrekshoek.} Nu is $\hoek{ACB}$ het verschil van $\hoek{ACD} = x$ en $\hoek{BCD} = y$. Uit geval 1 volgt $\hoek{AMD} = 2x$ en $\hoek{BMD} = 2y$, zodat
+\bewijsregel{\hoek{AMB} = 2x - 2y = 2(x - y) = 2\,\hoek{ACB}}
+\end{alleenvoor}
+\end{minipage}\hfill
+\begin{minipage}[t]{\alleenvoor{4}{3.1cm}\alleenvoor{5}{5.8cm}}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.72,font=\scriptsize]
+  \cirkel
+  \cpunt{C}{95}{C} \cpunt{A}{215}{A} \cpunt{B}{325}{B} \cpunt{D}{275}{D}
+  \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \draw[grijs] (C) -- (D) (A) -- (M) -- (B);
+  \hoeklabel{A}{C}{D}{11mm}{x}
+  \hoeklabel{D}{C}{B}{11mm}{y}
+  \node[right=1pt] at (M) {$M$};
+  \node[grijs] at (0,-2.35) {geval 2};
+\end{tikzpicture}%
+\alleenvoor{5}{\hspace{1mm}\begin{tikzpicture}[scale=.72,font=\scriptsize]
+  \cirkel
+  \cpunt{C}{150}{C} \cpunt{A}{245}{A} \cpunt{B}{295}{B} \cpunt{D}{330}{D}
+  \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \draw[grijs] (C) -- (D) (A) -- (M) (B) -- (M);
+  \hoeklabel[angle eccentricity=1.2]{A}{C}{D}{15mm}{x}
+  \hoeklabel[angle eccentricity=1.3]{B}{C}{D}{10mm}{y}
+  \node[above] at (M) {$M$};
+  \node[grijs] at (0,-2.35) {geval 3};
+\end{tikzpicture}}
+\end{minipage}
+\end{bewijs}
+\end{theorie}
+
+In woorden: vanaf de rand van de cirkel zie je een boog onder een hoek die half zo groot is als vanuit het middelpunt. Dat klinkt logisch, want het middelpunt ligt dichter bij de boog dan de meeste punten van de rand. Maar dat de factor precies $\tfrac12$ is, voor elk punt van de rand, is een verrassing.
+
+\voorbeeld{}{Op een cirkel met middelpunt $M$ liggen $A$, $B$ en $C$, met $\hoek{AMB} = 130^\circ$ en $C$ op de grote boog $\boog{AB}$. Bereken $\hoek{ACB}$ en de hoeken van driehoek $AMB$.\label{vb:h1-omtrek}}{%
+\uitleg{De omtrekshoek $\hoek{ACB}$ staat op de kleine boog $\boog{AB}$, net als de middelpuntshoek van $130^\circ$. De driehoek $AMB$ is gelijkbenig, want twee zijden zijn stralen.}
+\naast{\begin{stappenvrij}{6.4cm}{4.2cm}
+\hoek{ACB} = \tfrac12 \cdot 130^\circ = 65^\circ & De omtrekshoekstelling. \\[1ex]
+\hoek{MAB} = \hoek{MBA} = \dfrac{180^\circ - 130^\circ}{2} = 25^\circ & De basishoeken van $\drieh{AMB}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.72,font=\scriptsize]
+  \cirkel
+  \boogdeel{-65}{65}
+  \cpunt{A}{-65}{A} \cpunt{B}{65}{B} \cpunt{C}{190}{C}
+  \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \draw[grijs] (A) -- (M) -- (B) -- cycle;
+  \hoeklabel[angle eccentricity=1.9]{A}{M}{B}{3mm}{130^\circ}
+  \hoekboog{A}{C}{B}{5mm}
+  \node[left] at (M) {$M$};
+\end{tikzpicture}}}
+
+Staat het hoekpunt van de omtrekshoek op de kleine boog, dan staat de hoek op de grote boog. De middelpuntshoek op die boog is dan een inspringende hoek, groter dan $180^\circ$, en de omtrekshoek is stomp.
+
+\voorbeeld{}{Op een cirkel met middelpunt $M$ liggen $A$ en $B$, met $\hoek{AMB} = 140^\circ$. Het punt $D$ ligt op de kleine boog $\boog{AB}$. Bereken $\hoek{ADB}$.\label{vb:h1-stomp}}{%
+\uitleg{De hoek $\hoek{ADB}$ staat op de boog waar $D$ niet op ligt: de grote boog. Daarbij hoort de inspringende middelpuntshoek.}
+\naast{\begin{stappenvrij}{5.2cm}{4cm}
+360^\circ - 140^\circ = 220^\circ & De middelpuntshoek op de grote boog. \\[1ex]
+\hoek{ADB} = \tfrac12 \cdot 220^\circ = 110^\circ & De omtrekshoekstelling.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.72,font=\scriptsize]
+  \cirkel
+  \boogdeel{70}{290}
+  \cpunt{A}{-70}{A} \cpunt{B}{70}{B} \cpunt{D}{5}{D}
+  \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (D) -- (B);
+  \draw[grijs] (A) -- (M) -- (B);
+  \hoeklabel[angle eccentricity=1.7]{B}{M}{A}{3mm}{220^\circ}
+  \hoekboog{B}{D}{A}{3mm}
+  \node[right=1pt] at (M) {$M$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Zoek de boog waarop de omtrekshoek staat: de boog binnen de hoek, waar het hoekpunt niet op ligt. Bepaal de middelpuntshoek op die boog; bij de grote boog is dat $360^\circ$ min de kleine middelpuntshoek. De omtrekshoek is de helft daarvan. Zoek daarna gelijkbenige driehoeken met twee stralen als zijden.
+\end{werkwijze}
+
+\nujij{Op een cirkel met middelpunt $M$ is $\hoek{AMB} = 76^\circ$. Hoe groot is een omtrekshoek op de kleine boog $\boog{AB}$? En een omtrekshoek op de grote boog?}{Op de kleine boog: $38^\circ$. Op de grote boog: $\tfrac12(360^\circ - 76^\circ) = 142^\circ$.}
+
+\begin{oefeningen}
+\oef{h1-omtrek}
+\end{oefeningen}
+
+\subsection{Omtrekshoeken op dezelfde boog}
+
+Neem nu twee omtrekshoeken op dezelfde boog, met hun hoekpunt op verschillende plaatsen van de cirkel. Zijn ze even groot? De omtrekshoekstelling geeft meteen het antwoord: beide zijn de helft van dezelfde middelpuntshoek.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Omtrekshoeken op dezelfde boog}
+Omtrekshoeken die op dezelfde boog staan, zijn even groot:
+
+\vspace{1mm}
+\qquad $\formule{\hoek{ACB} = \hoek{ADB}}$
+\end{stelling}
+
+\begin{bewijs}
+Beide zijn de helft van de middelpuntshoek op de boog $\boog{AB}$:
+\bewijsregel{\hoek{ACB} = \tfrac12\,\hoek{AMB} = \hoek{ADB}}
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \cirkel
+  \boogdeel{-50}{20}
+  \cpunt{A}{-50}{A} \cpunt{B}{20}{B} \cpunt{C}{120}{C} \cpunt{D}{185}{D}
+  \draw[accent,thick] (A) -- (C) -- (B) (A) -- (D) -- (B);
+  \hoekboog{A}{C}{B}{5mm}
+  \hoekboog{A}{D}{B}{5mm}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Dit is wat je in de Verken zag: vanaf elk punt van de grote boog zie je de koorde $[AB]$ onder dezelfde hoek. Je hebt het middelpunt niet eens nodig om gelijke hoeken te vinden. Dat maakt de eigenschap handig in figuren met snijdende koorden.
+
+\voorbeeld{}{De punten $A$, $B$, $C$ en $D$ liggen in die volgorde op een cirkel. De koorden $[AC]$ en $[BD]$ snijden elkaar in $S$. Verder is $\hoek{BAC} = 28^\circ$ en $\hoek{ABD} = 47^\circ$. Bereken $\hoek{BDC}$, $\hoek{ACD}$ en $\hoek{ASB}$.\label{vb:h1-zelfde}}{%
+\uitleg{We zoeken telkens een omtrekshoek op dezelfde boog: $\hoek{BAC}$ en $\hoek{BDC}$ staan allebei op $\boog{BC}$, en $\hoek{ABD}$ en $\hoek{ACD}$ allebei op $\boog{AD}$.}
+\naast{\begin{stappenvrij}{5.4cm}{4cm}
+\hoek{BDC} = \hoek{BAC} = 28^\circ & Beide staan op $\boog{BC}$. \\[1ex]
+\hoek{ACD} = \hoek{ABD} = 47^\circ & Beide staan op $\boog{AD}$. \\[1ex]
+\hoek{ASB} = 180^\circ - 28^\circ - 47^\circ = 105^\circ & De hoekensom in $\drieh{ABS}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{200}{A} \cpunt{B}{270}{B} \cpunt{C}{326}{C} \cpunt{D}{106}{D}
+  \draw[accent,thick] (A) -- (C) (B) -- (D) (A) -- (B) (C) -- (D);
+  \coordinate (S) at (intersection of A--C and B--D);
+  \fill (S) circle (1.2pt) node[above right=-1pt] {$S$};
+  \hoeklabel[angle eccentricity=1.45]{B}{A}{C}{10mm}{28^\circ}
+  \hoeklabel[angle eccentricity=1.6]{D}{B}{A}{6mm}{47^\circ}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-zelfde}
+\end{oefeningen}
+
+Nu kunnen we het probleem van de fotograaf oplossen. Vanuit welke punten zie je de gevel $[AB]$ onder een hoek van $60^\circ$? Teken een cirkel door $A$ en $B$ waarop een omtrekshoek van $60^\circ$ op $\boog{AB}$ staat. Dan zie je de gevel vanaf elk punt van die boog onder $60^\circ$. De middelpuntshoek is dan $120^\circ$.
+
+\voorbeeld{}{Terug naar het probleem. De gevel $[AB]$ van de kapel is 12~m breed, en de beeldhoek van de camera is $60^\circ$. Waar kan de fotograaf staan? Hoe ver staat hij van de gevel als hij recht voor het midden staat?\label{vb:h1-terug}}{%
+\uitleg{We zoeken het middelpunt $M$ van een cirkel door $A$ en $B$, met $\hoek{AMB} = 2 \cdot 60^\circ = 120^\circ$. Omdat $\lengte{MA} = \lengte{MB}$, ligt $M$ recht voor het midden $N$ van de gevel. De driehoek $AMN$ is rechthoekig in $N$, met $\hoek{AMN} = 60^\circ$ en dus $\hoek{MAN} = 30^\circ$.}
+\naast{\begin{stappenvrij}{6.4cm}{3cm}
+\lengte{MN} = 6 \cdot \tan 30^\circ = 6 \cdot \dfrac{\sqrt3}{3} = 2\sqrt3 & In $\drieh{AMN}$, met $\lengte{AN} = 6$. \\[2ex]
+r = \lengte{MA} = \dfrac{\lengte{MN}}{\sin 30^\circ} = 4\sqrt3 \approx 6{,}93 & De straal. \\[2ex]
+\lengte{NC} = 2\sqrt3 + 4\sqrt3 = 6\sqrt3 \approx 10{,}39 & $C$ is het punt van de boog recht voor $N$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.27,font=\scriptsize]
+  \coordinate (A) at (-6,0); \coordinate (B) at (6,0); \coordinate (N) at (0,0);
+  \coordinate (M) at (0,-3.464); \coordinate (C) at (0,-10.392); \coordinate (P) at (-5.307,-7.917);
+  \draw[accent,thick] (A) arc[start angle=150,end angle=390,radius=6.928];
+  \draw[accent!40,dashed] (B) arc[start angle=30,end angle=150,radius=6.928];
+  \draw[grijs,very thick] (A) -- (B);
+  \draw[grijs] (A) -- (M) -- (B) (M) -- (N) (M) -- (C);
+  \draw[fel!70!black] (A) -- (C) -- (B) (A) -- (P) -- (B);
+  \rechtehoek{A}{N}{M}
+  \hoeklabel[angle eccentricity=2.3]{B}{M}{A}{3mm}{120^\circ}
+  \fill (A) circle (5pt) node[above] {$A$}; \fill (B) circle (5pt) node[above] {$B$};
+  \fill (N) circle (5pt) node[above] {$N$}; \fill (M) circle (5pt) node[right=1pt] {$M$};
+  \fill (C) circle (5pt) node[below] {$C$}; \fill (P) circle (5pt) node[left] {$P$};
+\end{tikzpicture}}
+Recht voor het midden staat de fotograaf dus $6\sqrt3 \approx 10{,}39$~m van de gevel, in het punt $C$. Daar is $\drieh{ABC}$ gelijkzijdig, want alle hoeken zijn $60^\circ$. Schuin voor de gevel kan hij staan in elk punt $P$ van de grote boog $\boog{ACB}$ van de cirkel met middelpunt $M$, $2\sqrt3 \approx 3{,}46$~m voor het midden van de gevel, en straal $4\sqrt3 \approx 6{,}93$~m.}
+
+Waarom kan de fotograaf niet ergens anders staan? Staat hij binnen de cirkel, dan ziet hij de gevel onder een grotere hoek dan $60^\circ$, en past ze niet meer op de foto. Staat hij buiten de cirkel, dan is de hoek kleiner, en past er meer op de foto dan de gevel. Je kunt dat nagaan met een tekening en een geodriehoek.\alleenvoor{5}{ In de Opdrachten bewijs je het.}
+
+\begin{oefeningen}
+\oef{h1-kijk}
+\end{oefeningen}
+
+\subsection{De hoek in een halve cirkel}
+
+Wat gebeurt er als de koorde $[AB]$ een middellijn is? Dan is de middelpuntshoek $\hoek{AMB}$ een gestrekte hoek van $180^\circ$, en elke omtrekshoek op die halve cirkel is de helft daarvan.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Hoek in een halve cirkel}
+Is $[AB]$ een middellijn en ligt $C$ op de cirkel, verschillend van $A$ en $B$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\hoek{ACB} = 90^\circ}$
+\end{stelling}
+
+\begin{bewijs}
+De middelpuntshoek op de halve cirkel is gestrekt, dus
+\bewijsregel{\hoek{ACB} = \tfrac12 \cdot 180^\circ = 90^\circ}
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{180}{A} \cpunt{B}{0}{B} \cpunt{C}{115}{C} \cpunt{D}{58}{D}
+  \draw[accent,thick] (A) -- (B) (A) -- (C) -- (B) (A) -- (D) -- (B);
+  \rechtehoek{A}{C}{B} \rechtehoek{A}{D}{B}
+  \punt[below]{0}{0}{M}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Deze eigenschap wordt toegeschreven aan Thales van Milete, een Griekse wiskundige uit de 6de eeuw voor Christus. De cirkel met middellijn $[AB]$ heet daarom ook de \emph{cirkel van Thales}. Verwar ze niet met de stelling van Thales over evenwijdige rechten uit het handboek Gelijkvormigheid. In woorden: elke driehoek met een middellijn als zijde en het derde hoekpunt op de cirkel is rechthoekig.
+
+\voorbeeld{}{Driehoek $ABC$ heeft zijn hoekpunten op een cirkel met middellijn $[AB]$, met $\lengte{AB} = 10$ en $\lengte{AC} = 6$. Bereken $\hoek{ACB}$ en $\lengte{BC}$.\label{vb:h1-thales}}{%
+\uitleg{De zijde $[AB]$ is een middellijn, dus de hoek in $C$ is recht. Dan kunnen we de stelling van Pythagoras gebruiken, met $[AB]$ als schuine zijde.}
+\naast{\begin{stappenvrij}{5.2cm}{4cm}
+\hoek{ACB} = 90^\circ & Hoek in een halve cirkel. \\[1ex]
+\lengte{BC}^2 = 10^2 - 6^2 = 64 & Pythagoras. \\[1ex]
+\lengte{BC} = 8 & Een lengte is positief.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \def\straal{2}
+  \cirkel
+  \cpunt{A}{180}{A} \cpunt{B}{0}{B} \cpunt{C}{106.26}{C}
+  \draw[accent,thick] (A) -- (B) -- (C) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \node[above left] at ($(A)!.5!(C)$) {6}; \node[below] at (-1,0) {10};
+\end{tikzpicture}}}
+
+De hoek in een halve cirkel geeft ook een handige manier om het middelpunt van een cirkel te vinden, zonder te meten.
+
+\voorbeeld{}{Hoe vind je het middelpunt van een rond bord met alleen een blad papier en een potlood?\label{vb:h1-blad}}{%
+\uitleg{Een hoek van een blad papier is recht. Leg je die hoek op de rand van het bord, dan snijden de twee randen van het blad de cirkel in de eindpunten van een middellijn.}
+\naast{\begin{stappenvrij}{4.2cm}{5.4cm}
+\text{hoekpunt } C \text{ op de rand} & Leg een hoek van het blad op de rand van het bord. \\[1ex]
+\hoek{ACB} = 90^\circ & De randen van het blad snijden de cirkel in $A$ en $B$. \\[1ex]
+[AB] \text{ is een middellijn} & Een rechte omtrekshoek staat op een middelpuntshoek van $180^\circ$. \\[1ex]
+M = [AB] \cap [A'B'] & Doe het nog eens op een andere plaats. Het middelpunt ligt op beide middellijnen.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.65,font=\scriptsize]
+  \def\straal{1.8}
+  \cirkel
+  \cpunt{C}{250}{C}
+  \coordinate (A) at (170:1.8); \coordinate (B) at (-10:1.8);
+  \fill[accent!10] (C) -- ++(30:3) -- ++(120:3) -- ++(210:3) -- cycle;
+  \draw[grijs] ($(C)+(120:3)$) -- (C) -- ++(30:3);
+  \cirkel
+  \fill (C) circle (1.4pt);
+  \fill (A) circle (1.4pt) node[left] {$A$}; \fill (B) circle (1.4pt) node[right] {$B$};
+  \draw[fel!70!black,thick] (A) -- (B);
+  \draw[fel!70!black,thick] (60:1.8) -- (240:1.8);
+  \punt[below right]{0}{0}{M}
+  \rechtehoek{B}{C}{A}
+\end{tikzpicture}}
+Dat de tweede rand van het blad door het punt $A$ gaat en de eerste door $B$, is geen toeval: dat zegt de omtrekshoekstelling.}
+
+\begin{oefeningen}
+\oef{h1-thales}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+Geldt ook het omgekeerde? Als je een koorde $[AB]$ vanuit een punt $C$ onder een rechte hoek ziet, ligt $C$ dan op de cirkel met middellijn $[AB]$? Het antwoord is ja, en het bewijs gebruikt een rechthoek.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Omgekeerde stelling}
+Is $\hoek{ACB} = 90^\circ$, dan ligt $C$ op de cirkel met middellijn $[AB]$.
+\end{stelling}
+
+\begin{bewijs}
+Spiegel $C$ in het midden $M$ van $[AB]$; noem het beeld $D$. De diagonalen van $ACBD$ snijden elkaar middendoor, dus $ACBD$ is een parallellogram, met een rechte hoek in $C$: een rechthoek. De diagonalen van een rechthoek zijn even lang, zodat
+\bewijsregel{\lengte{MC} = \tfrac12\,\lengte{CD} = \tfrac12\,\lengte{AB} = \lengte{MA}}
+Dus ligt $C$ op de cirkel met middelpunt $M$ en straal $\lengte{MA}$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \cirkel[dashed]
+  \cpunt{A}{180}{A} \cpunt{B}{0}{B} \cpunt{C}{120}{C} \cpunt{D}{300}{D}
+  \draw[accent,thick] (A) -- (C) -- (B) -- (D) -- cycle;
+  \draw[grijs] (A) -- (B) (C) -- (D);
+  \rechtehoek{A}{C}{B}
+  \node[below left=-1pt] at (0,0) {$M$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\voorbeeld{}{In een assenstelsel is $A(0, 0)$, $B(10, 0)$ en $C(2, 4)$. Toon aan dat $C$ op de cirkel met middellijn $[AB]$ ligt.\label{vb:h1-omgekeerd}}{%
+\uitleg{Met de omgekeerde stelling volstaat het om aan te tonen dat de hoek in $C$ recht is. Dat doen we met de omgekeerde stelling van Pythagoras.}
+\begin{stappenbreed}
+\lengte{AC}^2 = 2^2 + 4^2 = 20, \quad \lengte{BC}^2 = 8^2 + 4^2 = 80 & De afstanden met Pythagoras. \\[1ex]
+\lengte{AC}^2 + \lengte{BC}^2 = 100 = \lengte{AB}^2 & Dus is $\hoek{ACB} = 90^\circ$. \\[1ex]
+C \text{ ligt op de cirkel met middellijn } [AB] & De omgekeerde stelling.
+\end{stappenbreed}
+Controle: het midden $M(5, 0)$ ligt op afstand $\sqrt{3^2 + 4^2} = 5$ van $C$, en dat is de straal.}
+
+\begin{oefeningen}
+\oef{h1-omgekeerd}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{De koordenvierhoek}
+
+Door drie punten die niet op een rechte liggen, kun je altijd een cirkel tekenen: dat zie je in hoofdstuk 2. Maar lukt dat ook door de vier hoekpunten van een vierhoek? Bij een rechthoek wel: het snijpunt van de diagonalen ligt even ver van de vier hoekpunten. Bij een ruit die geen vierkant is, lukt het niet. Wat hebben de vierhoeken gemeen waarbij het wel lukt?
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+Een \textbf{\textcolor{accent}{koordenvierhoek}} is een vierhoek waarvan de vier hoekpunten op een cirkel liggen. De zijden zijn dan koorden van die cirkel.
+
+\begin{stelling}{Koordenvierhoek}
+In een koordenvierhoek zijn de overstaande hoeken samen $180^\circ$:
+
+\vspace{1mm}
+\qquad $\formule{\hoek{A} + \hoek{C} = 180^\circ} \qquad \formule{\hoek{B} + \hoek{D} = 180^\circ}$
+\end{stelling}
+
+\begin{bewijs}
+De hoeken $\hoek{A}$ en $\hoek{C}$ staan op de twee bogen $\boog{BCD}$ en $\boog{BAD}$, die samen de hele cirkel vormen. De middelpuntshoeken $\alpha$ en $\gamma$ op die bogen zijn samen $360^\circ$, dus
+\bewijsregel{\hoek{A} + \hoek{C} = \tfrac12\,\alpha + \tfrac12\,\gamma = \tfrac12 \cdot 360^\circ = 180^\circ}
+Voor $\hoek{B}$ en $\hoek{D}$ is het bewijs hetzelfde.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{200}{A} \cpunt{B}{290}{B} \cpunt{C}{10}{C} \cpunt{D}{120}{D}
+  \coordinate (M) at (0,0);
+  \fill[accent!15] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[accent,thick] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[grijs] (B) -- (M) -- (D);
+  \hoekboog{B}{A}{D}{4mm}
+  \hoekboog{D}{C}{B}{4mm}
+  \hoeklabel[grijs]{B}{M}{D}{3mm}{\alpha}
+  \hoeklabel[grijs,angle eccentricity=1.8]{D}{M}{B}{2.5mm}{\gamma}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+In woorden: tegenover een spitse hoek ligt in een koordenvierhoek een stompe, en tegenover een rechte hoek een rechte. Twee overstaande spitse hoeken kan een koordenvierhoek dus niet hebben.
+
+\voorbeeld{}{$ABCD$ is een koordenvierhoek met $\hoek{A} = 75^\circ$ en $\hoek{B} = 110^\circ$. Bereken $\hoek{C}$ en $\hoek{D}$.\label{vb:h1-kvh}}{%
+\uitleg{De overstaande hoek van $\hoek{A}$ is $\hoek{C}$, die van $\hoek{B}$ is $\hoek{D}$.}
+\begin{stappen}
+\hoek{C} = 180^\circ - 75^\circ = 105^\circ & Overstaande hoeken samen $180^\circ$. \\[1ex]
+\hoek{D} = 180^\circ - 110^\circ = 70^\circ & Idem. \\[1ex]
+75^\circ + 110^\circ + 105^\circ + 70^\circ = 360^\circ & Controle: de hoekensom van een vierhoek.
+\end{stappen}}
+
+De eigenschap zegt ook welke vierhoeken geen koordenvierhoek kunnen zijn.
+
+\voorbeeld{}{Welke parallellogrammen zijn een koordenvierhoek?\label{vb:h1-parallellogram}}{%
+\uitleg{In een parallellogram zijn de overstaande hoeken gelijk. In een koordenvierhoek zijn ze samen $180^\circ$. Beide moeten tegelijk gelden.}
+\begin{stappen}
+\hoek{A} = \hoek{C} \quad \text{en} \quad \hoek{A} + \hoek{C} = 180^\circ & Parallellogram en koordenvierhoek. \\[1ex]
+\hoek{A} = \hoek{C} = 90^\circ & Twee gelijke hoeken met som $180^\circ$. \\[1ex]
+\text{een rechthoek} & Een parallellogram met een rechte hoek.
+\end{stappen}
+Alleen een rechthoek (en dus ook een vierkant) is een koordenvierhoek. Een ruit die geen vierkant is, is het niet. Dat een rechthoek wel een koordenvierhoek is, wist je al: het snijpunt van de diagonalen ligt even ver van de vier hoekpunten.}
+
+\begin{alleenvoor}{5}
+Ook het omgekeerde geldt: is de som van twee overstaande hoeken $180^\circ$, dan is de vierhoek een koordenvierhoek. Het bewijs is uit het ongerijmde, maar vraagt veel gevallen: we laten het weg.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van een koordenvierhoek}
+Een vierhoek waarvan twee overstaande hoeken samen $180^\circ$ zijn, is een koordenvierhoek.
+\end{stelling}
+\end{theorie}
+\end{alleenvoor}
+
+\begin{oefeningen}
+\oef{h1-kvh}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+
+\oef{h1-o25}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-zeshoek}{oef:h1-mph}%
+  \fv{oef:h1-t2}{vb:h1-booglengte}{oef:h1-boog}%
+  \fv{oef:h1-t3}{vb:h1-omtrek}{oef:h1-omtrek}%
+  \fv{oef:h1-t4}{vb:h1-zelfde}{oef:h1-zelfde}%
+  \fv{oef:h1-t5}{vb:h1-thales}{oef:h1-thales}%
+  \fv{oef:h1-t6}{vb:h1-kvh}{oef:h1-kvh}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-o15}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een koorde, een boog, een middelpuntshoek en een omtrekshoek zijn, op welke boog een hoek staat, de omtrekshoekstelling en het idee van het bewijs, waarom omtrekshoeken op dezelfde boog gelijk zijn, de hoek in een halve cirkel, en de eigenschap van een koordenvierhoek. Vergelijk daarna met de kaders.
+\fi
