@@ -1,0 +1,452 @@
+%----------------------------------------------------------------------------------------
+% REKENEN MET VEELTERMEN EN DE EUCLIDISCHE DELING. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Pakketten: dit handboek staat alleen in pakket 5 (B+S'', LPD B6). Er zijn dus geen \alleenvoor nodig.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Rekenen met veeltermen en delen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een fabrikant maakt aquaria in verschillende maten. Bij model $x$ is de bodem $x + 1$~dm breed en $x + 2$~dm lang, en de inhoud is $x^3 + 7x^2 + 14x + 8$~liter (een liter is een dm$^3$). Hoe hoog is het aquarium van model $x$? Voor model $1$ is de inhoud $30$~liter en de bodem $2 \cdot 3 = 6$~dm$^2$, dus de hoogte $30 : 6 = 5$~dm. Voor model $2$ vind je $72 : 12 = 6$~dm. Bij getallen deel je gewoon. Maar kun je ook de uitdrukking voor de inhoud delen door die voor de bodem, zodat je de hoogte voor elk model in één keer kent?}{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \fill[accent!12] (0,0) rectangle (4,2.6);
+  \fill[accent!12] (4,0) -- (5.4,1.1) -- (5.4,3.7) -- (4,2.6) -- cycle;
+  \draw[accent,thick] (0,0) rectangle (4,3.5);
+  \draw[accent,thick] (4,0) -- (5.4,1.1) -- (5.4,4.6) -- (4,3.5);
+  \draw[accent,thick] (0,3.5) -- (1.4,4.6) -- (5.4,4.6);
+  \draw[accent,dashed] (0,0) -- (1.4,1.1) -- (5.4,1.1) (1.4,1.1) -- (1.4,4.6);
+  \draw[accent!60] (0,2.6) -- (4,2.6) -- (5.4,3.7);
+  \node[below] at (2,0) {$x + 2$};
+  \node[below right,inner sep=1pt] at (4.7,.5) {$x + 1$};
+  \node[left] at (0,1.75) {$?$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD B6 (dit hoofdstuk: veeltermen, graad en coëfficiënten, getalwaarde, optellen en vermenigvuldigen, de merkwaardige producten herhalen, de Euclidische deling met de staartdeling, deelbaarheid, en de deling door $x - a$ met het schema van Horner). Voorkennis: het rekenen met letters en de merkwaardige producten uit de 1ste graad, en het ontbinden in factoren uit Tweedegraadsfuncties. Het probleem komt terug in voorbeeld~\ref{vb:h1-terug}. Laat de leerlingen eerst model $3$ en $4$ uitrekenen: dan raden ze de hoogte $x + 4$, en de vraag wordt waarom dat voor elk model klopt.}
+
+Met getallen kun je optellen, vermenigvuldigen en delen. In dit hoofdstuk doe je dat met \textit{veeltermen}: uitdrukkingen zoals $x^3 + 7x^2 + 14x + 8$. Optellen en vermenigvuldigen ken je al uit de 1ste graad, dus dat herhalen we kort. Nieuw is het delen. Net als bij getallen gaat een deling niet altijd op: dan blijft er een rest over. Je leert delen met een staartdeling, en voor de deling door $x - a$ met een snel schema. Zo vind je ook de hoogte van de aquaria.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Veeltermen}
+
+\subsection{Wat is een veelterm?}
+
+De inhoud van de aquaria is $x^3 + 7x^2 + 14x + 8$. Elke term is een getal maal een macht van $x$: $1 \cdot x^3$, $7 \cdot x^2$, $14 \cdot x^1$ en $8 \cdot x^0$, want $x^0 = 1$. Zo'n term heet een \textit{eenterm}, en een som van eentermen een veelterm. De getallen voor de machten zijn de coëfficiënten. We schrijven de termen meestal van de hoogste naar de laagste macht.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{veelterm}} in $x$ is een som van termen van de vorm $ax^n$, met $a$ een reëel getal en $n$ een natuurlijk getal:
+
+\qquad $\formule{A(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0}$ \qquad met $a_n \neq 0$.
+
+De getallen $a_n, \ldots, a_1, a_0$ zijn de \textbf{\textcolor{accent}{coëfficiënten}}. De hoogste exponent $n$ is de \textbf{\textcolor{accent}{graad}} van de veelterm: $\formule{\gr A(x) = n}$. Het getal $a_n$ is de \textbf{\textcolor{accent}{hoogstegraadscoëfficiënt}} en $a_0$ de \textbf{\textcolor{accent}{constante term}}.
+\end{theorie}
+
+Een getal verschillend van $0$, zoals $5$, is een veelterm van graad $0$. Het getal $0$ heet de \textit{nulveelterm}: die heeft geen graad, want er is geen term met een coëfficiënt verschillend van $0$. Een veelterm van graad $1$ ken je als eerstegraadsvorm $ax + b$, een veelterm van graad $2$ uit het handboek Tweedegraadsfuncties als $ax^2 + bx + c$.
+
+Niet elke uitdrukking met $x$ is een veelterm. In $\tfrac{3}{x}$ staat $x$ in de noemer, en in $\sqrt x$ onder een wortel: dat zijn geen termen van de vorm $ax^n$ met $n$ natuurlijk.
+
+\voorbeeld{}{Orden $A(x) = 3x^2 - 5x^4 + x - 7$. Geef de graad, de hoogstegraadscoëfficiënt, de constante term en de coëfficiënt van $x^3$.\label{vb:h1-veelterm}}{%
+\uitleg{We zetten de termen van de hoogste naar de laagste macht, met hun teken.}
+\begin{stappen}
+A(x) = -5x^4 + 3x^2 + x - 7 & Geordend volgens dalende machten. \\
+\gr A(x) = 4 & De hoogste exponent. \\
+\text{hoogstegraadscoëfficiënt } {-5} & Het teken hoort erbij. \\
+\text{constante term } {-7} & De term zonder $x$. \\
+\text{coëfficiënt van } x^3\text{: } 0 & De term in $x^3$ ontbreekt.
+\end{stappen}
+Bij $x$ staat geen getal: de coëfficiënt is $1$. Een ontbrekende macht heeft coëfficiënt $0$. Bij het delen schrijf je die $0$ er altijd bij: $-5x^4 + 0x^3 + 3x^2 + x - 7$.}
+
+\begin{oefeningen}
+\oef{h1-graad}
+\end{oefeningen}
+
+\subsection{De getalwaarde}
+
+Hoeveel liter past er in het aquarium van model $3$? Vul $x = 3$ in: $3^3 + 7 \cdot 3^2 + 14 \cdot 3 + 8 = 27 + 63 + 42 + 8 = 140$. Zo bereken je een functiewaarde, zoals in het handboek Functies. Bij een veelterm heet die uitkomst de getalwaarde.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{getalwaarde}} van de veelterm $A(x)$ voor $x = a$ is het getal $\formule{A(a)}$ dat je krijgt als je $a$ invult voor $x$.
+\end{theorie}
+
+\naast{Noem de inhoud $V(x) = x^3 + 7x^2 + 14x + 8$. Dan is $V(1) = 30$, $V(2) = 72$ en $V(3) = 140$. Elke getalwaarde is de $y$-coördinaat van een punt van de grafiek van $y = V(x)$. Die grafiek is geen rechte en geen parabool: hoe groter het model, hoe sneller de inhoud groeit.}{\begin{tikzpicture}[x=1.1cm,y=.022cm]
+  \roosterleeg{0}{1}{3}{0}{30}{150}
+  \xgetallen{1,2,3}\ygetallen{30,60,90,120,150}
+  \kromme{0}{3.05}{(\x)^3+7*(\x)^2+14*\x+8}
+  \punt{1}{30}\punt{2}{72}\punt{3}{140}
+  \aflezen{2}{72}
+\end{tikzpicture}}
+
+\voorbeeld{}{Bereken $A(-2)$ voor $A(x) = 2x^3 - 3x^2 + 5$.\label{vb:h1-getalwaarde}}{%
+\uitleg{We vullen $-2$ in, tussen haakjes, en rekenen eerst de machten uit.}
+\begin{stappen}
+A(-2) = 2 \cdot (-2)^3 - 3 \cdot (-2)^2 + 5 & Vul $-2$ in tussen haakjes. \\
+= 2 \cdot (-8) - 3 \cdot 4 + 5 & Een oneven macht van een negatief getal is negatief, een even macht positief. \\
+= -16 - 12 + 5 = -23 &
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-getalwaarde}
+\end{oefeningen}
+
+\subsection{Optellen en aftrekken}
+
+Veeltermen tel je op zoals in de 1ste graad: je telt de coëfficiënten van gelijksoortige termen op, dus van dezelfde macht van $x$. Staat er een minteken voor haakjes, dan verandert het teken van elke term tussen de haakjes.
+
+\voorbeeld{}{Bereken $(3x^3 - 2x^2 + 5) - (x^3 + 4x^2 - x + 2)$.\label{vb:h1-optellen}}{%
+\uitleg{Het minteken voor de tweede haakjes verandert het teken van alle vier de termen. Daarna nemen we de termen van dezelfde graad samen.}
+\begin{stappen}
+3x^3 - 2x^2 + 5 - x^3 - 4x^2 + x - 2 & Haakjes weg: alle tekens van de tweede veelterm veranderen. \\
+= 2x^3 - 6x^2 + x + 3 & $3x^3 - x^3$, $-2x^2 - 4x^2$, $x$ en $5 - 2$.
+\end{stappen}}
+
+De graad van een som is nooit groter dan de grootste graad van de termen. Hij kan wel kleiner zijn, als de hoogste termen elkaar opheffen: $(x^2 + 3x) + (-x^2 + 1) = 3x + 1$ heeft graad $1$.
+
+\begin{oefeningen}
+\oef{h1-optellen}
+\end{oefeningen}
+
+\subsection{Vermenigvuldigen}
+
+De bodem van de aquaria is een rechthoek van $x + 1$ op $x + 2$. Met \textit{algebrategels} zie je de oppervlakte: een vierkant $x$ op $x$, staafjes $x$ op $1$ en eenheden $1$ op $1$. De rechthoek bestaat uit één vierkant $x^2$, drie staafjes $x$ en twee eenheden:
+\[(x + 1)(x + 2) = x^2 + 2x + x + 2 = x^2 + 3x + 2.\]
+
+\naast{Elk stukje van de rechthoek is het product van een term van de ene zijde met een term van de andere zijde. Zo vermenigvuldig je veeltermen: elke term van de eerste veelterm met elke term van de tweede, en daarna neem je de gelijksoortige termen samen. Dat is de distributiviteit uit de 1ste graad.}{\begin{tikzpicture}
+  \tegels{2}{1}
+\end{tikzpicture}}
+
+\voorbeeld{}{Bereken $(2x - 3)(x^2 + x - 4)$.\label{vb:h1-product}}{%
+\uitleg{Elke term van $2x - 3$ gaat maal elke term van $x^2 + x - 4$: dat zijn $2 \cdot 3 = 6$ producten.}
+\begin{stappen}
+2x^3 + 2x^2 - 8x - 3x^2 - 3x + 12 & Eerst $2x$ maal elke term, dan $-3$ maal elke term. \\
+= 2x^3 - x^2 - 11x + 12 & Gelijksoortige termen samen.
+\end{stappen}
+Controle met een getal, bijvoorbeeld $x = 1$: links $(-1) \cdot (-2) = 2$, rechts $2 - 1 - 11 + 12 = 2$.}
+
+In het voorbeeld heeft het product graad $3 = 1 + 2$. Dat is altijd zo: de hoogste term van het product is het product van de twee hoogste termen, hier $2x \cdot x^2 = 2x^3$. Die kan niet wegvallen, want het product van twee getallen verschillend van $0$ is nooit $0$.
+
+\begin{theorie}
+\begin{stelling}{Graad van een product}
+Voor veeltermen $A(x)$ en $B(x)$, verschillend van de nulveelterm, is
+
+\qquad $\formule{\gr\bigl(A(x) \cdot B(x)\bigr) = \gr A(x) + \gr B(x)}$.
+\end{stelling}
+\end{theorie}
+
+\begin{oefeningen}
+\oef{h1-product}
+\end{oefeningen}
+
+\subsection{Merkwaardige producten}
+
+Sommige producten komen zo vaak voor dat je de uitkomst beter meteen kent. Je kent ze uit de 1ste graad:
+\[(A + B)^2 = A^2 + 2AB + B^2, \qquad (A - B)^2 = A^2 - 2AB + B^2, \qquad (A + B)(A - B) = A^2 - B^2.\]
+\naast{Met algebrategels zie je waarom $(x + 2)^2$ niet gelijk is aan $x^2 + 4$: het vierkant bestaat uit $x^2$, vier staafjes $x$ en vier eenheden. Het dubbel product $2 \cdot x \cdot 2 = 4x$ zijn de twee rechthoeken van $x$ op $2$.
+
+In de formules mogen $A$ en $B$ zelf veeltermen zijn, zoals $3x$ of $x^2$. Zet ze dan tussen haakjes als je ze kwadrateert: $(3x)^2 = 9x^2$ en niet $3x^2$.}{\begin{tikzpicture}
+  \tegels{2}{2}
+\end{tikzpicture}}
+
+\voorbeeld{}{Werk uit: $(3x - 2)^2$.\label{vb:h1-merkwaardig}}{%
+\uitleg{Dit is $(A - B)^2$ met $A = 3x$ en $B = 2$.}
+\begin{stappen}
+(3x)^2 - 2 \cdot 3x \cdot 2 + 2^2 & $A^2 - 2AB + B^2$. \\
+= 9x^2 - 12x + 4 & Het dubbel product niet vergeten.
+\end{stappen}}
+
+\voorbeeld{}{Werk uit: $(2x^2 + 5)(2x^2 - 5)$.\label{vb:h1-merkwaardig2}}{%
+\uitleg{Een som maal een verschil van dezelfde termen: $(A + B)(A - B)$ met $A = 2x^2$ en $B = 5$.}
+\begin{stappen}
+(2x^2)^2 - 5^2 & $A^2 - B^2$. \\
+= 4x^4 - 25 & $(2x^2)^2 = 4x^4$: de exponenten vermenigvuldigen.
+\end{stappen}
+De termen $+10x^2$ en $-10x^2$ heffen elkaar op. Daarom is dit product zo kort.}
+
+\begin{oefeningen}
+\oef{h1-merkwaardig}
+\end{oefeningen}
+
+%========================================================================================
+\section{De Euclidische deling}
+
+\subsection{Delen met rest}
+
+Hoe deel je een veelterm door een veelterm? Kijk eerst nog eens naar getallen, zoals in de Verken-opgave. Deel je $247$ door $12$, dan gaat $12$ er $20$ keer in, en blijft er $7$ over:
+\[247 = 12 \cdot 20 + 7 \qquad\text{met}\qquad 0 \leqslant 7 < 12.\]
+Het getal $247$ is het \textit{deeltal}, $12$ de \textit{deler}, $20$ het \textit{quotiënt} en $7$ de \textit{rest}. De rest moet kleiner zijn dan de deler: anders gaat de deler er nog een keer in.
+
+Bij veeltermen gaat het net zo. Alleen is de rest niet kleiner als getal, maar heeft ze een kleinere graad dan de deler. Je zoekt het quotiënt term per term, met een \textit{staartdeling}, zoals de staartdeling met getallen uit de lagere school.
+
+\subsection{De staartdeling}
+
+\voorbeeld{}{Deel $2x^3 - 3x^2 + 5$ door $x - 2$.\label{vb:h1-staart}}{%
+\naast{\uitleg{We orden het deeltal en schrijven de ontbrekende term $0x$ erbij, zodat elke macht een eigen kolom heeft. Telkens delen we de hoogste term van wat overblijft door de hoogste term $x$ van de deler.}
+\begin{enumerate}[leftmargin=5mm,itemsep=1pt]
+\item \textit{$2x^3 : x = 2x^2$: de eerste term van het quotiënt.}
+\item \textit{$2x^2 \cdot (x - 2) = 2x^3 - 4x^2$. Trek dat af: tel het tegengestelde $-2x^3 + 4x^2$ op. Er blijft $x^2 + 0x + 5$.}
+\item \textit{$x^2 : x = x$. Tel het tegengestelde van $x \cdot (x - 2)$ op. Er blijft $2x + 5$.}
+\item \textit{$2x : x = 2$. Tel het tegengestelde van $2 \cdot (x - 2)$ op. Er blijft $9$.}
+\end{enumerate}}{\begin{staartdeling}{4}
+2x^3 & {}-3x^2 & {}+0x & {}+5 & \ x - 2 \\ \cline{5-5}
+{}-2x^3 & {}+4x^2 & & & \ 2x^2 + x + 2 \\ \cline{1-2}
+ & x^2 & {}+0x & {}+5 \\
+ & {}-x^2 & {}+2x & \\ \cline{2-3}
+ & & 2x & {}+5 \\
+ & & {}-2x & {}+4 \\ \cline{3-4}
+ & & & \strest{9}
+\end{staartdeling}}
+De rest $9$ heeft graad $0$, kleiner dan de graad $1$ van de deler: we stoppen. Het quotiënt is $2x^2 + x + 2$ en de rest $9$. Controle: $(x - 2)(2x^2 + x + 2) + 9 = 2x^3 + x^2 + 2x - 4x^2 - 2x - 4 + 9 = 2x^3 - 3x^2 + 5$.}
+
+Net als bij getallen geldt dus: deeltal $=$ deler $\cdot$ quotiënt $+$ rest. Dat lukt bij elke deling door een veelterm die niet de nulveelterm is, en het quotiënt en de rest liggen dan vast.
+
+\begin{theorie}
+\begin{stelling}{Euclidische deling}
+Voor veeltermen $A(x)$ en $B(x)$, met $B(x)$ niet de nulveelterm, bestaan er precies één veelterm $Q(x)$ en één veelterm $R(x)$ met
+
+\qquad $\formule{A(x) = B(x) \cdot Q(x) + R(x)}$ \qquad en \qquad $\formule{\gr R(x) < \gr B(x)}$ of $R(x) = 0$.
+
+$A(x)$ is het \textbf{\textcolor{accent}{deeltal}}, $B(x)$ de \textbf{\textcolor{accent}{deler}}, $Q(x)$ het \textbf{\textcolor{accent}{quotiënt}} en $R(x)$ de \textbf{\textcolor{accent}{rest}}.
+\end{stelling}
+\end{theorie}
+
+De staartdeling toont hoe je $Q(x)$ en $R(x)$ altijd vindt: bij elke stap daalt de graad van wat overblijft, tot ze kleiner is dan die van de deler. Dat er maar één quotiënt en één rest mogelijk zijn, bewijzen we niet. De letters komen van \textit{quotiënt} en \textit{rest}.
+
+Uit de graad van een product volgt ook de graad van het quotiënt. Is $R(x)$ van lagere graad, dan heeft $B(x) \cdot Q(x)$ dezelfde graad als $A(x)$, dus $\gr Q(x) = \gr A(x) - \gr B(x)$. In het voorbeeld is dat $3 - 1 = 2$. Bij een deler van graad $1$ is de rest altijd een getal.
+
+\begin{werkwijze}
+Orden deeltal en deler volgens dalende machten, en vul de ontbrekende termen van het deeltal aan met $0$. Deel de hoogste term van wat overblijft door de hoogste term van de deler: dat is de volgende term van het quotiënt. Vermenigvuldig die term met de deler, schrijf het tegengestelde eronder en tel op. Herhaal tot de graad van wat overblijft kleiner is dan de graad van de deler: dat is de rest. Controleer met deler $\cdot$ quotiënt $+$ rest $=$ deeltal.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-staart}
+\end{oefeningen}
+
+\subsection{Delen door een veelterm van graad 2}
+
+Bij een deler van graad $2$ werk je op dezelfde manier. De rest heeft dan een graad kleiner dan $2$: het is een getal of een veelterm van graad $1$.
+
+\voorbeeld{}{Deel $x^4 + 2x^3 - x + 3$ door $x^2 + 1$.\label{vb:h1-staart2}}{%
+\naast{\uitleg{In het deeltal ontbreekt $x^2$, in de deler ontbreekt $x$. We vullen beide aan met $0$, zodat gelijke machten onder elkaar staan. Elke stap begint met de hoogste term: $x^4 : x^2 = x^2$, dan $2x^3 : x^2 = 2x$, dan $-x^2 : x^2 = -1$.}
+
+\textit{Na drie stappen blijft $-3x + 4$ over. Dat heeft graad $1$, kleiner dan de graad $2$ van de deler: het is de rest.}}{\begin{staartdeling}{5}
+x^4 & {}+2x^3 & {}+0x^2 & {}-x & {}+3 & \ x^2 + 0x + 1 \\ \cline{6-6}
+{}-x^4 & & {}-x^2 & & & \ x^2 + 2x - 1 \\ \cline{1-3}
+ & 2x^3 & {}-x^2 & {}-x & {}+3 \\
+ & {}-2x^3 & & {}-2x & \\ \cline{2-4}
+ & & {}-x^2 & {}-3x & {}+3 \\
+ & & {}+x^2 & & {}+1 \\ \cline{3-5}
+ & & & \strest{-3x} & \strest{{}+4}
+\end{staartdeling}}
+Het quotiënt is $x^2 + 2x - 1$ en de rest $-3x + 4$. Controle: $(x^2 + 1)(x^2 + 2x - 1) - 3x + 4 = x^4 + 2x^3 - x^2 + x^2 + 2x - 1 - 3x + 4 = x^4 + 2x^3 - x + 3$.}
+
+\nujij{Deel $x^3 - 2x^2 + 4$ door $x^2 - x$.}{Quotiënt $x - 1$, rest $-x + 4$. Controle: $(x^2 - x)(x - 1) - x + 4 = x^3 - 2x^2 + x - x + 4$.}
+
+\begin{oefeningen}
+\oef{h1-staart2}
+\end{oefeningen}
+
+\subsection{Deelbaarheid}
+
+De deling $247 : 12$ gaat niet op, maar $252 : 12 = 21$ wel: de rest is $0$, en $12$ is een deler van $252$. Zo spreek je ook bij veeltermen af wanneer een deling opgaat.
+
+\begin{theorie}
+De veelterm $A(x)$ is \textbf{\textcolor{accent}{deelbaar}} door $B(x)$ als de rest van de deling $0$ is. Dan is
+
+\qquad $\formule{A(x) = B(x) \cdot Q(x)}$,
+
+en $B(x)$ en $Q(x)$ zijn \textbf{\textcolor{accent}{delers}} van $A(x)$.
+\end{theorie}
+
+Is $A(x)$ deelbaar door $B(x)$, dan heb je $A(x)$ geschreven als een product: dat is ontbinden in factoren, zoals in het handboek Tweedegraadsfuncties. In hoofdstuk 2 gebruik je dat om veeltermen van een hogere graad te ontbinden.
+
+\voorbeeld{}{Terug naar het probleem. De inhoud van het aquarium van model $x$ is $x^3 + 7x^2 + 14x + 8$~liter, de bodem is $(x + 1)(x + 2)$~dm$^2$. Hoe hoog is het aquarium?\label{vb:h1-terug}}{%
+\naast{\uitleg{De hoogte is de inhoud gedeeld door de oppervlakte van de bodem. Werk de bodem uit: $(x + 1)(x + 2) = x^2 + 3x + 2$. Dan delen we met een staartdeling: $x^3 : x^2 = x$, en daarna $4x^2 : x^2 = 4$.}
+
+\textit{De rest is $0$: de deling gaat op. De inhoud is dus deelbaar door de bodem.}}{\begin{staartdeling}{4}
+x^3 & {}+7x^2 & {}+14x & {}+8 & \ x^2 + 3x + 2 \\ \cline{5-5}
+{}-x^3 & {}-3x^2 & {}-2x & & \ x + 4 \\ \cline{1-3}
+ & 4x^2 & {}+12x & {}+8 \\
+ & {}-4x^2 & {}-12x & {}-8 \\ \cline{2-4}
+ & & & \strest{0}
+\end{staartdeling}}
+Dus $x^3 + 7x^2 + 14x + 8 = (x^2 + 3x + 2)(x + 4)$: het aquarium van model $x$ is $x + 4$~dm hoog. Voor model $1$ is dat $5$~dm en voor model $2$ is dat $6$~dm, zoals we eerder vonden. Model $5$ heeft een bodem van $6$~dm op $7$~dm en is $9$~dm hoog.}
+
+\begin{oefeningen}
+\oef{h1-deelbaar}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het schema van Horner}
+
+\subsection{Een staartdeling zonder letters}
+
+Delen door $x - a$ komt in hoofdstuk 2 zo vaak voor dat een snellere manier welkom is. Kijk nog eens naar de staartdeling van voorbeeld~\ref{vb:h1-staart}. De letters $x^3$, $x^2$ en $x$ staan er telkens bij, maar de kolom zegt al welke macht het is. En de onderste rij van elke stap herhaalt alleen wat erboven staat. Laat je alles weg wat dubbel is, dan houd je een kort schema over met alleen de coëfficiënten. Dat schema is genoemd naar de Engelse wiskundige William Horner (1786-1837).
+
+\voorbeeld{}{Deel $2x^3 - 3x^2 + 5$ door $x - 2$ met het schema van Horner.\label{vb:h1-horner}}{%
+\naast{\uitleg{Bovenaan staan de coëfficiënten van het deeltal, ook de $0$ van $x$. Links staat $2$, want de deler is $x - 2$.}
+\begin{enumerate}[leftmargin=5mm,itemsep=1pt]
+\item \textit{Breng de eerste coëfficiënt $2$ naar beneden.}
+\item \textit{Vermenigvuldig met $2$ en zet de uitkomst $4$ onder de volgende coëfficiënt. Tel op: $-3 + 4 = 1$.}
+\item \textit{Herhaal: $1 \cdot 2 = 2$ en $0 + 2 = 2$, dan $2 \cdot 2 = 4$ en $5 + 4 = 9$.}
+\end{enumerate}}{\horner{3}{2}{2 & -3 & 0 & 5}{ & 4 & 2 & 4}{2 & 1 & 2}{9}}
+De onderste rij geeft het quotiënt $2x^2 + x + 2$, één graad lager dan het deeltal, en de rest $9$: hetzelfde als met de staartdeling.}
+
+Waarom klopt dat? Vergelijk het schema met de staartdeling. De onderste rij, $2$, $1$, $2$, zijn de coëfficiënten van het quotiënt, en ook de hoogste coëfficiënten van wat telkens overblijft: $2x^3$, $x^2$ en $2x$. De middelste rij, $4$, $2$, $4$, staat ook in de staartdeling: het zijn de tweede termen van de tegengestelde producten, $+4x^2$, $+2x$ en $+4$. Het tegengestelde van $2x^2(x - 2)$ is $-2x^3 + 2 \cdot 2x^2$: je vermenigvuldigt met $+2$ en telt op. Daarom staat in het schema $a$ en niet $-a$, en tel je op in plaats van af te trekken.
+
+\begin{werkwijze}
+Schrijf de coëfficiënten van het deeltal op een rij, geordend volgens dalende machten, met een $0$ voor elke ontbrekende macht. Zet links het getal $a$ van de deler $x - a$. Breng de eerste coëfficiënt naar beneden. Vermenigvuldig het laatste getal van de onderste rij met $a$, zet de uitkomst onder de volgende coëfficiënt en tel op. Herhaal tot het einde. Het laatste getal is de rest, de andere getallen zijn de coëfficiënten van het quotiënt, dat één graad lager is dan het deeltal.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-horner}
+\end{oefeningen}
+
+\subsection{Delen door \texorpdfstring{$x + a$}{x + a}}
+
+Het schema werkt voor elke deler van de vorm $x - a$. Is de deler $x + 2$, schrijf die dan als $x - (-2)$: links in het schema staat dan $-2$. Dat is de plaats waar de meeste fouten gebeuren.
+
+\voorbeeld{}{Deel $x^4 - 3x^2 + x - 6$ door $x + 2$.\label{vb:h1-horner2}}{%
+\naast{\uitleg{Er ontbreekt een term in $x^3$: die coëfficiënt is $0$. De deler is $x + 2 = x - (-2)$, dus links staat $-2$.}
+\begin{stappenvrij}{4.6cm}{4cm}
+1 \cdot (-2) = -2, \ \ 0 + (-2) = -2 & \\
+-2 \cdot (-2) = 4, \ \ -3 + 4 = 1 & Min maal min is plus. \\
+1 \cdot (-2) = -2, \ \ 1 + (-2) = -1 & \\
+-1 \cdot (-2) = 2, \ \ -6 + 2 = -4 & De rest.
+\end{stappenvrij}}{\horner{4}{-2}{1 & 0 & -3 & 1 & -6}{ & -2 & 4 & -2 & 2}{1 & -2 & 1 & -1}{-4}}
+Het quotiënt is $x^3 - 2x^2 + x - 1$ en de rest $-4$. Controle: $(x + 2)(x^3 - 2x^2 + x - 1) - 4 = x^4 - 2x^3 + x^2 - x + 2x^3 - 4x^2 + 2x - 2 - 4 = x^4 - 3x^2 + x - 6$.}
+
+Het schema van Horner werkt alleen voor een deler van de vorm $x - a$. Is de deler van graad $2$, zoals $x^2 + 3x + 2$ bij de aquaria, dan maak je een staartdeling.
+
+\thuis{Een ezelsbruggetje voor het getal links: het is het getal waarvoor de deler nul wordt. Bij $x - 2$ is dat $2$, bij $x + 2$ is dat $-2$, en bij $x$ alleen is dat $0$.}
+
+\begin{oefeningen}
+\oef{h1-horner2}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h1-o1}
+
+\needspace{6\baselineskip}
+\oef{h1-o2}
+
+\needspace{6\baselineskip}
+\oef{h1-o3}
+
+\needspace{6\baselineskip}
+\oef{h1-o4}
+
+\needspace{6\baselineskip}
+\oef{h1-o5}
+
+\needspace{6\baselineskip}
+\oef{h1-o6}
+
+\needspace{6\baselineskip}
+\oef{h1-o7}
+
+\needspace{6\baselineskip}
+\oef{h1-o8}
+
+\needspace{6\baselineskip}
+\oef{h1-o9}
+
+\needspace{6\baselineskip}
+\oef{h1-o10}
+
+\needspace{6\baselineskip}
+\oef{h1-o11}
+
+\needspace{6\baselineskip}
+\oef{h1-o12}
+
+\needspace{6\baselineskip}
+\oef{h1-o13}
+
+\needspace{6\baselineskip}
+\oef{h1-o14}
+
+\needspace{6\baselineskip}
+\oef{h1-o15}
+
+\needspace{6\baselineskip}
+\oef{h1-o16}
+
+\needspace{6\baselineskip}
+\oef{h1-o17}
+
+\needspace{6\baselineskip}
+\oef{h1-o18}
+
+\needspace{6\baselineskip}
+\oef{h1-o19}
+
+\needspace{6\baselineskip}
+\oef{h1-o20}
+
+\needspace{6\baselineskip}
+\oef{h1-o21}
+
+\needspace{6\baselineskip}
+\oef{h1-o22}
+
+\needspace{6\baselineskip}
+\oef{h1-o23}
+
+\needspace{6\baselineskip}
+\oef{h1-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{14\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h1-t1}
+
+\needspace{6\baselineskip}
+\oef{h1-t2}
+
+\needspace{6\baselineskip}
+\oef{h1-t3}
+
+\needspace{6\baselineskip}
+\oef{h1-t4}
+
+\needspace{6\baselineskip}
+\oef{h1-t5}
+
+\needspace{6\baselineskip}
+\oef{h1-t6}
+
+\needspace{6\baselineskip}
+\oef{h1-t7}
+
+\needspace{6\baselineskip}
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-veelterm}{oef:h1-graad}%
+  \fv{oef:h1-t2}{vb:h1-getalwaarde}{oef:h1-getalwaarde}%
+  \fv{oef:h1-t3}{vb:h1-optellen}{oef:h1-optellen}%
+  \fv{oef:h1-t4}{vb:h1-merkwaardig}{oef:h1-merkwaardig}%
+  \fv{oef:h1-t5}{vb:h1-staart2}{oef:h1-staart2}%
+  \fv{oef:h1-t6}{vb:h1-horner2}{oef:h1-horner2}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-deelbaar}%
+  \fv{oef:h1-t8}{vb:h1-staart}{oef:h1-o11}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een veelterm is, met graad, coëfficiënten, hoogstegraadscoëfficiënt en constante term, wat een getalwaarde is, hoe je veeltermen optelt en vermenigvuldigt en wat de graad van een product is, de drie merkwaardige producten, de Euclidische deling met de namen deeltal, deler, quotiënt en rest, hoe een staartdeling werkt, wanneer een veelterm deelbaar is door een andere, en hoe je deelt door $x - a$ met het schema van Horner. Vergelijk daarna met de kaders.
+\fi
