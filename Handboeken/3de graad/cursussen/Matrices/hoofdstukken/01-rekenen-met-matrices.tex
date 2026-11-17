@@ -8,6 +8,18 @@
 
 \mychapter{1}{Rekenen met matrices}
 
+\begin{probleem}
+\naast{Een vertaalbureau vertaalt teksten naar het Frans, het Engels en het Duits, voor een museum en voor een reisbureau. De prijs per pagina hangt af van de taal, en is hoger als de vertaling met spoed klaar moet. Op 1 oktober stegen alle prijzen met 10~\%. Hoeveel pagina's elke klant liet vertalen, staat in de Verken hieronder.
+
+Het bureau stuurt elke klant een overzicht: wat kosten de vertalingen van september en oktober samen, aan het gewone tarief en aan het spoedtarief? Dat zijn vier bedragen, en elk bedrag is een som van zes producten. Kun je die hele berekening in één korte formule schrijven?}{\small\begin{tabular}[t]{l|cc}
+\multicolumn{3}{l}{prijs per pagina in september} \\[.3ex]
+ & gewoon & spoed \\ \hline
+Frans & 25 euro & 35 euro \\
+Engels & 20 euro & 28 euro \\
+Duits & 30 euro & 42 euro
+\end{tabular}}
+\end{probleem}
+
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 34 (bewerkingen met matrices: optelling, scalaire vermenigvuldiging, matrixvermenigvuldiging, machtsverheffing en transpositie), met de wenken over rekenregels, nuldelers en niet-commutativiteit. Elke rekenregel krijgt een eigen bewijs; laat leerlingen een algemeen bewijs eventueel eerst nagaan voor $2 \times 2$-matrices. Het accent ligt op het product: wanneer het bestaat, hoe je het uitrekent en wat het betekent in een context. Het product $AX$ met een kolom komt terug in hoofdstuk 2 (stelsels) en hoofdstuk 3 (de inverse).}
 \end{alleenvoor}
@@ -21,13 +33,13 @@
 \lkr{Leerplan Basis: keuzedoel K3 (bewerkingen met matrices: optelling, scalaire vermenigvuldiging, matrixvermenigvuldiging, machtsverheffing en transpositie). Het leerplan vraagt geen bewijzen; alleen de eenvoudige eigenschappen krijgen er een, op het niveau van $2 \times 2$-matrices. Het accent ligt op het product: wanneer het bestaat, hoe je het uitrekent en wat het betekent in een context. Het rekentoestel komt pas in het onderdeel over machten.}
 \end{alleenvoor}
 
-Een tabel met getallen kom je overal tegen: een puntenlijst, een uurrooster, de verkoop van een winkel per dag. Laat je de opschriften weg en houd je alleen de getallen over, dan heb je een matrix. Dat lijkt een kleine stap, maar zo kun je met hele tabellen tegelijk rekenen.
+Het vertaalbureau werkt met tabellen: pagina's per klant en per taal, prijzen per taal en per tarief. Zo'n tabel met getallen kom je overal tegen: een puntenlijst, een uurrooster, de verkoop van een winkel per dag. Laat je de opschriften weg en houd je alleen de getallen over, dan heb je een matrix. Dat lijkt een kleine stap, maar zo kun je met hele tabellen tegelijk rekenen, en dat is precies wat het bureau nodig heeft.
 
 \begin{alleenvoor}{2,3,4}
-Optellen en vermenigvuldigen met een getal gaan zoals je verwacht: element per element. Het product van twee matrices is minder voor de hand liggend, maar het is de bewerking die matrices zo nuttig maakt. Je ziet het al gebeuren als je een factuur opmaakt: aantallen maal prijzen, en alles opgeteld. In de volgende hoofdstukken schrijf je er stelsels mee, zoek je het omgekeerde van een matrix, en voorspel je hoe een situatie evolueert.
+Optellen en vermenigvuldigen met een getal gaan zoals je verwacht: element per element. Daarmee tel je twee maanden samen en verwerk je een prijsstijging. Het product van twee matrices is minder voor de hand liggend: je vermenigvuldigt niet plaats per plaats, maar een rij met een kolom. Waarom precies zo? Het vertaalbureau geeft het antwoord: een factuur is aantallen maal prijzen, en alles opgeteld. Dat product maakt matrices zo nuttig. In de volgende hoofdstukken schrijf je er stelsels mee, zoek je het omgekeerde van een matrix, en voorspel je hoe een situatie evolueert.
 \end{alleenvoor}
 \begin{alleenvoor}{1}
-Optellen en vermenigvuldigen met een getal gaan zoals je verwacht: element per element. Het product van twee matrices is minder voor de hand liggend, maar het is de bewerking die matrices zo nuttig maakt. Je ziet het al gebeuren als je een factuur opmaakt: aantallen maal prijzen, en alles opgeteld. In hoofdstuk 2 gebruiken we het product om te voorspellen hoe een situatie evolueert.
+Optellen en vermenigvuldigen met een getal gaan zoals je verwacht: element per element. Daarmee tel je twee maanden samen en verwerk je een prijsstijging. Het product van twee matrices is minder voor de hand liggend: je vermenigvuldigt niet plaats per plaats, maar een rij met een kolom. Waarom precies zo? Het vertaalbureau geeft het antwoord: een factuur is aantallen maal prijzen, en alles opgeteld. Dat product maakt matrices zo nuttig. In hoofdstuk 2 gebruiken we het product om te voorspellen hoe een situatie evolueert.
 \end{alleenvoor}
 
 \begin{oefeningen}[Start]
@@ -36,14 +48,14 @@ Optellen en vermenigvuldigen met een getal gaan zoals je verwacht: element per e
 \oef{h1-verken}
 \end{oefeningen}
 
-\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. Vraag a is de optelling, b en c zijn het product van een rij met een kolom. Vraag d is de kern: leerlingen formuleren zelf dat je de getallen van een rij combineert met die van een kolom.}
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. Vraag a is de optelling, b en c zijn het product van een rij met een kolom. Vraag d is de kern: leerlingen formuleren zelf dat je de getallen van een rij combineert met die van een kolom. De Verken levert ook de aantallen voor het probleem; de oplossing staat in voorbeeld \ref{vb:h1-terug}.}
 
 %========================================================================================
 \section{Matrices}
 
 \subsection{Wat is een matrix?}
 
-De filmzaal \textit{Polyglot} toont films in de originele taal. De tabel geeft hoeveel tickets er in een weekend verkocht werden, per dag en per taal van de film.
+Hoe schrijf je een tabel zo kort mogelijk op, zonder iets te verliezen? We nemen een voorbeeld. De filmzaal \textit{Polyglot} toont films in de originele taal. De tabel geeft hoeveel tickets er in een weekend verkocht werden, per dag en per taal van de film.
 
 \figuren{\begin{tabular}{l|cccc}
  & Frans & Engels & Spaans & Italiaans \\ \hline
@@ -173,7 +185,7 @@ Het element $g_{12}$ zegt hoe vaak leerling 1 met leerling 2 samenzat, en $g_{21
 
 \subsection{De som van matrices}
 
-In oefening \ref{oef:h1-verken} tel je de pagina's van september en oktober samen. Dat doe je plaats per plaats: de pagina's Frans voor het museum bij de pagina's Frans voor het museum. Dat lukt alleen als beide tabellen dezelfde vorm hebben.
+Om het probleem op te lossen, moet je twee maanden samennemen. In oefening \ref{oef:h1-verken} tel je de pagina's van september en oktober samen. Dat doe je plaats per plaats: de pagina's Frans voor het museum bij de pagina's Frans voor het museum. Dat lukt alleen als beide tabellen dezelfde vorm hebben.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{som}} van twee matrices met dezelfde dimensie krijg je door de elementen op dezelfde plaats op te tellen: \quad $\formule{(A + B)_{ij} = a_{ij} + b_{ij}}$
@@ -299,7 +311,7 @@ Het antwoord is dus $B = \km{2 & -1 \\ 0 & 5}$, zonder één element van $A$ te 
 
 \subsection{Een matrix vermenigvuldigen met een getal}
 
-Stijgen alle prijzen van het vertaalbureau met 10~\%, dan vermenigvuldig je elke prijs met 1,1. Bij een matrix gaat dat net zo: elk element maal hetzelfde getal. Zo'n getal heet een \textbf{scalair}, om het te onderscheiden van een matrix.
+In het probleem stijgen alle prijzen van het vertaalbureau met 10~\%. Dan vermenigvuldig je elke prijs met 1,1. Bij een matrix gaat dat net zo: elk element maal hetzelfde getal. Zo'n getal heet een \textbf{scalair}, om het te onderscheiden van een matrix.
 
 \begin{theorie}
 Het \textbf{\textcolor{accent}{product van een getal}} $r$ en een matrix $A$ krijg je door elk element met $r$ te vermenigvuldigen: \quad $\formule{(rA)_{ij} = r \cdot a_{ij}}$
@@ -421,7 +433,7 @@ Breng alle termen met $X$ naar het ene lid en de rest naar het andere, zoals bij
 
 \subsection{Een rij maal een kolom}
 
-In oefening \ref{oef:h1-verken} bereken je wat het museum betaalt: elk aantal pagina's maal de prijs per pagina in die taal, en alles opgeteld. De aantallen staan in een rij, de prijzen in een kolom. Die berekening noemen we het product van de rij en de kolom.
+In oefening \ref{oef:h1-verken} bereken je wat het museum betaalt: elk aantal pagina's maal de prijs per pagina in die taal, en alles opgeteld. De aantallen staan in een rij, de prijzen in een kolom. Elk bedrag in het probleem is zo'n berekening, of een som van twee. Die berekening noemen we het product van de rij en de kolom.
 
 \begin{theorie}
 Het \textbf{\textcolor{accent}{product van een rij en een kolom}} met evenveel elementen is de $1 \times 1$-matrix met de som van de producten:
@@ -439,7 +451,7 @@ Het \textbf{\textcolor{accent}{product van een rij en een kolom}} met evenveel e
 
 \subsection{Het product van twee matrices}
 
-Het vertaalbureau heeft meer klanten, en ook een duurder tarief voor teksten die met spoed klaar moeten. We zetten de klanten onder elkaar en de tarieven naast elkaar. Elke klant met elk tarief is dan telkens een rij maal een kolom. Zo krijg je een hele tabel van producten.
+Het vertaalbureau heeft twee klanten en twee tarieven: vier bedragen per maand. Moet je die allemaal apart uitrekenen? Het idee is om ze samen te nemen: we zetten de klanten onder elkaar en de tarieven naast elkaar. Elke klant met elk tarief is dan telkens een rij maal een kolom. Zo krijg je in één keer een hele tabel van bedragen.
 
 \begin{theorie}
 Is $A$ een $m \times n$-matrix en $B$ een $n \times p$-matrix, dan is hun \textbf{\textcolor{accent}{product}} $AB$ de $m \times p$-matrix waarvan het element in rij $i$ en kolom $j$ het product is van rij $i$ van $A$ en kolom $j$ van $B$:
@@ -510,6 +522,21 @@ Zet de matrices zo dat de opschriften van de kolommen van de eerste matrix dezel
 \begin{oefeningen}
 \oef{h1-context}
 \end{oefeningen}
+
+Nu heb je alles om het probleem op te lossen: de som, het product met een getal en het product van twee matrices.
+
+\voorbeeld{}{Terug naar het probleem. Wat kosten de vertalingen van september en oktober samen voor het museum en voor het reisbureau, aan het gewone tarief en aan het spoedtarief? Op 1 oktober stegen alle prijzen met 10~\%.\label{vb:h1-terug}}{%
+\uitleg{Neem $S$ en $P$ uit voorbeeld \ref{vb:h1-context}, en zet de aantallen van oktober uit de Verken in een matrix $T$, met dezelfde opschriften als $S$. Voor september is $SP$ de tabel met de bedragen. In oktober gelden de prijzen $1{,}1P$. Elk bedrag is een som van aantallen maal prijzen, dus als elke prijs 1,1 keer zo groot wordt, dan ook elk bedrag.}
+\begin{stappenbreed}
+SP = \begin{bmatrix} 850 & 1190 \\ 1370 & 1918 \end{bmatrix} & September, uit voorbeeld \ref{vb:h1-context}. \\[3.5ex]
+TP = \begin{bmatrix} 8 & 14 & 6 \\ 22 & 25 & 4 \end{bmatrix} \begin{bmatrix} 25 & 35 \\ 20 & 28 \\ 30 & 42 \end{bmatrix} = \begin{bmatrix} 660 & 924 \\ 1170 & 1638 \end{bmatrix} & Oktober aan de oude prijzen. Rij 1 maal kolom 1 is $8 \cdot 25 + 14 \cdot 20 + 6 \cdot 30 = 660$. \\[5ex]
+1{,}1 \cdot TP = \begin{bmatrix} 726 & 1016{,}4 \\ 1287 & 1801{,}8 \end{bmatrix} & Oktober aan de nieuwe prijzen: elk element maal 1,1. \\[3.5ex]
+SP + 1{,}1 \cdot TP = \begin{bmatrix} 1576 & 2206{,}4 \\ 2657 & 3719{,}8 \end{bmatrix} & Plaats per plaats optellen. Rij 1 is het museum, rij 2 het reisbureau; kolom 1 is het gewone tarief, kolom 2 spoed.
+\end{stappenbreed}
+Het museum betaalt dus 1576 euro aan het gewone tarief en 2206,40 euro met spoed, het reisbureau 2657 euro en 3719,80 euro. De hele berekening past in één formule: $SP + 1{,}1 \cdot TP$.}
+
+Zo is het probleem opgelost, en je ziet meteen waarom het product van matrices rij maal kolom is: zo werkt elke factuur. Met de rekenregels voor het product kan het nog korter, met één product in plaats van twee:
+\[ SP + 1{,}1 \cdot TP = (S + 1{,}1\,T)P . \]
 
 \begin{alleenvoor}{2,3,4}
 %========================================================================================

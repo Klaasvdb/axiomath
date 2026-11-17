@@ -8,6 +8,25 @@
 
 \alleenvoor{2,3,4}{\mychapter{4}{Matrixmodellen}}\alleenvoor{1}{\mychapter{2}{Matrixmodellen}}
 
+\begin{probleem}
+\naast{Een stad zet 300 deelfietsen aan drie stations: het Station ($S$), de Markt ($M$) en de Campus ($C$). Je neemt een fiets aan het ene station en zet hem aan een ander terug. Het diagram toont hoe de fietsen elke dag verhuizen: van de fietsen aan het Station staat 50~\% er de volgende ochtend opnieuw, 30~\% aan de Markt en 20~\% aan de Campus.
+
+Op maandag staan er 120 fietsen aan het Station, 80 aan de Markt en 100 aan de Campus. Hoeveel zijn het er een week later? En raakt een station op den duur leeg, zodat het bedrijf fietsen met een bestelwagen moet verplaatsen?}{\begin{tikzpicture}[font=\small]
+  \node[knoop] (s) at (0,0) {S};
+  \node[knoop] (m) at (3.4,0) {M};
+  \node[knoop] (c) at (1.7,-2.9) {C};
+  \draw[boog] (s) to[bend left=18] node[kans,above] {0,3} (m);
+  \draw[boog] (m) to[bend left=18] node[kans,below] {0,2} (s);
+  \draw[boog] (s) to[bend left=18] node[kans,pos=.45,right=1pt] {0,2} (c);
+  \draw[boog] (c) to[bend left=18] node[kans,pos=.55,left=1pt] {0,3} (s);
+  \draw[boog] (m) to[bend left=18] node[kans,pos=.45,right=1pt] {0,2} (c);
+  \draw[boog] (c) to[bend left=18] node[kans,pos=.55,left=1pt] {0,2} (m);
+  \draw[boog] (s) to[lus=180] node[kans,left] {0,5} (s);
+  \draw[boog] (m) to[lus=0] node[kans,right] {0,6} (m);
+  \draw[boog] (c) to[lus=270] node[kans,below] {0,5} (c);
+\end{tikzpicture}}
+\end{probleem}
+
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 35 (matrixmodellen gebruiken om evoluties te beschrijven), met de contexten uit de wenken: verbindingsmatrices van een netwerk, overgangsmatrices (Markovketens, migratie) en lesliematrices. Het leerplan laat ICT toe voor hoge machten en vraagt de evolutie op lange termijn te bekijken. Het evenwicht berekenen we exact: bij twee toestanden met één vergelijking, bij drie met de methode van Gauss-Jordan uit hoofdstuk 2. Een hoge macht op het rekentoestel dient als controle. Afspraak in heel het hoofdstuk: de kolom is \textit{van}, de rij is \textit{naar}.}
 \end{alleenvoor}
@@ -22,13 +41,13 @@
 \end{alleenvoor}
 
 \begin{alleenvoor}{2,3,4}
-In de vorige hoofdstukken leerde je rekenen met matrices en stelsels oplossen. Nu gebruiken we matrices om iets te voorspellen. Hoeveel leerlingen eten morgen warm in de refter? Hoeveel fietsen staan er volgende week aan het station? Groeit een populatie uilen, of sterft ze uit?
+In de vorige hoofdstukken leerde je rekenen met matrices en stelsels oplossen. Nu gebruiken we matrices om iets te voorspellen, zoals waar de deelfietsen uit het probleem volgende week staan. Of: hoeveel leerlingen eten morgen warm in de refter? Groeit een populatie uilen, of sterft ze uit?
 \end{alleenvoor}
 \begin{alleenvoor}{1}
-In hoofdstuk 1 leerde je rekenen met matrices. Nu gebruiken we ze om iets te voorspellen. Hoeveel leerlingen eten morgen warm in de refter? Hoeveel fietsen staan er volgende week aan het station? Groeit een populatie uilen, of sterft ze uit?
+In hoofdstuk 1 leerde je rekenen met matrices. Nu gebruiken we ze om iets te voorspellen, zoals waar de deelfietsen uit het probleem volgende week staan. Of: hoeveel leerlingen eten morgen warm in de refter? Groeit een populatie uilen, of sterft ze uit?
 \end{alleenvoor}
 
-In al die situaties verandert een toestand stap voor stap, telkens volgens dezelfde regels. Die regels zetten we in een matrix. De toestand na één stap is dan een product: matrix maal kolom. En de toestand na tien stappen vind je met de tiende macht van die matrix. Eerst bekijken we een eenvoudiger vraag: hoeveel wegen er zijn in een netwerk.
+In al die situaties verandert een toestand stap voor stap, telkens volgens dezelfde regels. Die regels zetten we in een matrix. De toestand na één stap is dan een product: matrix maal kolom. En de toestand na tien stappen vind je met de tiende macht van die matrix. Het diagram van de fietsen is een netwerk: stations met pijlen ertussen. Daarom bekijken we eerst een eenvoudiger vraag: hoe zet je een netwerk in een matrix, en hoeveel wegen zijn er?
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -36,7 +55,7 @@ In al die situaties verandert een toestand stap voor stap, telkens volgens dezel
 \oef{h4-verken}
 \end{oefeningen}
 
-\lkr{Laat oefening \ref{oef:h4-verken} maken vóór de uitleg. De leerlingen rekenen met percentages en zien dat het totaal gelijk blijft. In vraag c schrijven ze de berekening zelf als product: zo wordt duidelijk waarom de kolommen bij \textit{van} horen. Vraag d mag een gok blijven; het antwoord volgt in sectie 2.}
+\lkr{Laat oefening \ref{oef:h4-verken} maken vóór de uitleg. De leerlingen rekenen met percentages en zien dat het totaal gelijk blijft. In vraag c schrijven ze de berekening zelf als product: zo wordt duidelijk waarom de kolommen bij \textit{van} horen. Vraag d mag een gok blijven; het antwoord volgt in sectie 2. Het probleem komt terug in voorbeeld \ref{vb:h4-fietsen} (na een week) en voorbeeld \ref{vb:h4-terug} (op lange termijn).}
 
 %========================================================================================
 \section{Grafen en verbindingsmatrices}
@@ -127,6 +146,8 @@ Stel de verbindingsmatrix op, met het vertrek in de kolommen. Voor wegen van len
 
 \subsection{Van toestand naar toestand}
 
+Hoe reken je uit waar de fietsen uit het probleem morgen staan? Elke fiets heeft elke dag dezelfde kansen, wat er ook eerder gebeurde. We bekijken eerst een eenvoudiger situatie, met maar twee toestanden.
+
 In de refter van een school kunnen de 800 leerlingen elke middag kiezen: een warme maaltijd ($W$) of boterhammen ($B$). Wie vandaag warm eet, doet dat morgen met een kans van 60~\% opnieuw, en neemt met een kans van 40~\% boterhammen. Van wie boterhammen eet, eet morgen 20~\% warm en blijft 80~\% bij de boterhammen.
 
 Die percentages tonen we in een graaf, met bij elke boog de kans. Zo'n graaf heet een \textbf{overgangsdiagram}. De kansen zetten we, met dezelfde afspraak als bij de vluchten, in een matrix.
@@ -178,7 +199,7 @@ Teken het overgangsdiagram en zet de kansen in de overgangsmatrix: van in de kol
 
 Een model met drie toestanden werkt op dezelfde manier, maar het rekenwerk groeit. Dan laat je het rekentoestel de machten berekenen.
 
-\voorbeeld{}{Een stad heeft deelfietsen aan drie stations: het Station ($S$), de Markt ($M$) en de Campus ($C$). Elke dag komen de fietsen aan een station terecht volgens het diagram. Op maandagochtend staan er 120 fietsen aan het Station, 80 aan de Markt en 100 aan de Campus. Hoeveel fietsen staan er een week later aan elk station?\label{vb:h4-fietsen}}{%
+\voorbeeld{}{Neem de deelfietsen uit het probleem. Op maandagochtend staan er 120 fietsen aan het Station ($S$), 80 aan de Markt ($M$) en 100 aan de Campus ($C$). Hoeveel fietsen staan er een week later aan elk station?\label{vb:h4-fietsen}}{%
 \uitleg{Eerst lezen we de overgangsmatrix af uit het diagram, kolom per vertrekstation. Een week later is zeven stappen verder, dus we hebben $F^7$ nodig, en dat laten we aan het rekentoestel over.}
 \figuren{\begin{tikzpicture}[font=\small]
   \node[knoop] (s) at (0,0) {S};
@@ -205,7 +226,7 @@ X_7 = F^7 \begin{bmatrix} 120 \\ 80 \\ 100 \end{bmatrix} \approx \begin{bmatrix}
 
 \subsection{Op lange termijn}
 
-Rekenen we in de refter verder, dan verandert het aantal warme maaltijden steeds minder: 280, 272, 268,8, \ldots{} Het lijkt naar een vaste waarde te gaan. En dat gebeurt ook als je op maandag met heel andere aantallen begint. De figuur toont het aandeel leerlingen dat warm eet, voor twee verschillende begintoestanden: na een week of twee zijn ze niet meer van elkaar te onderscheiden.
+Raakt een station van de deelfietsen op den duur leeg? Om dat te weten, moeten we verder kijken dan een week. Rekenen we eerst in de refter verder, dan verandert het aantal warme maaltijden steeds minder: 280, 272, 268,8, \ldots{} Het lijkt naar een vaste waarde te gaan. En dat gebeurt ook als je op maandag met heel andere aantallen begint. De figuur toont het aandeel leerlingen dat warm eet, voor twee verschillende begintoestanden: na een week of twee zijn ze niet meer van elkaar te onderscheiden.
 
 \figuren{\begin{tikzpicture}[x=.62cm,y=4.2cm,font=\scriptsize]
   \draw[black!14,very thin] (0,0) grid[xstep=1,ystep=.1] (10,1);
@@ -244,7 +265,7 @@ Bij drie toestanden geeft $MX = X$ een stelsel met drie onbekenden, dat je oplos
 Bij drie toestanden geeft $MX = X$ een stelsel met drie onbekenden. Dat kun je vermijden met een hoge macht van $M$. In hoofdstuk 1 zag je al dat de kolommen van zo'n macht bijna gelijk worden. Dat is geen toeval: $M^{n} X_0$ gaat naar het evenwicht voor elke begintoestand, dus ook voor de begintoestand met alles in toestand 1, en dan is $M^n X_0$ precies de eerste kolom van $M^n$.
 \end{alleenvoor}
 
-\voorbeeld{}{Bepaal het evenwicht van de deelfietsen uit voorbeeld \ref{vb:h4-fietsen}.\label{vb:h4-lang}}{%
+\voorbeeld{}{Terug naar het probleem. Hoeveel fietsen staan er op lange termijn aan elk station? Raakt een station leeg?\label{vb:h4-terug}}{%
 \begin{alleenvoor}{2,3,4}
 \uitleg{We lossen $(F - I)X = O$ op met Gauss-Jordan. Om met gehele getallen te rekenen, vermenigvuldigen we elke vergelijking eerst met 10. Daarna kiezen we de parameter zo dat de aandelen samen 1 zijn.}
 \begin{stappenbreed}
@@ -252,9 +273,23 @@ Bij drie toestanden geeft $MX = X$ een stelsel met drie onbekenden. Dat kun je v
 \left[\begin{array}{ccc|c} 1 & 0 & -\frac87 & 0 \\[.3ex] 0 & 1 & -\frac{19}{14} & 0 \\[.3ex] 0 & 0 & 0 & 0 \end{array}\right] & Na rijherleiden, of met \texttt{rref} op het rekentoestel. Eén nulrij: onbepaald. \\[6ex]
 x = \tfrac{16}{14}z, \quad y = \tfrac{19}{14}z & Uit de eerste twee rijen, met $z$ als parameter. \\[1.5ex]
 \tfrac{16}{14}z + \tfrac{19}{14}z + \tfrac{14}{14}z = 1 \ \Rightarrow \ z = \tfrac{14}{49} & De aandelen zijn samen 1. \\[1.5ex]
-X = \begin{bmatrix} 16/49 \\ 19/49 \\ 14/49 \end{bmatrix} \approx \begin{bmatrix} 0{,}327 \\ 0{,}388 \\ 0{,}286 \end{bmatrix} & Met 300 fietsen: ongeveer 98 aan het Station, 116 aan de Markt en 86 aan de Campus. Een week na de start zat het aantal dus al zo goed als op het evenwicht.
+X = \begin{bmatrix} 16/49 \\ 19/49 \\ 14/49 \end{bmatrix} \approx \begin{bmatrix} 0{,}327 \\ 0{,}388 \\ 0{,}286 \end{bmatrix} & Met 300 fietsen: ongeveer 98 aan het Station, 116 aan de Markt en 86 aan de Campus.
 \end{stappenbreed}
-Controle met het rekentoestel: alle kolommen van $F^{30}$ zijn op drie decimalen gelijk aan $X$.}
+Controle met het rekentoestel: alle kolommen van $F^{30}$ zijn op drie decimalen gelijk aan $X$. De figuur toont de aantallen van dag tot dag, vanaf maandag: na een week zitten ze al zo goed als op het evenwicht.
+\figuren{\begin{tikzpicture}[x=.62cm,y=.055cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=1,ystep=10] (10,60);
+  \draw[->,grijs] (0,0) -- (10.6,0) node[right,text=black] {dag $n$};
+  \draw[->,grijs] (0,0) -- (0,65) node[above,text=black] {aantal fietsen};
+  \foreach \t in {0,2,...,10} \node[below] at (\t,0) {\t};
+  \foreach \t/\l in {0/70,10/80,20/90,30/100,40/110,50/120,60/130} \node[left] at (0,\t) {\l};
+  \draw[accent,thick] plot[mark=*,mark size=1.2pt] coordinates {(0,50) (1,36) (2,30.8) (3,28.9) (4,28.3) (5,28.1) (6,28) (7,28) (8,28) (9,28) (10,28)};
+  \draw[fel!80!black,thick] plot[mark=*,mark size=1.1pt] coordinates {(0,10) (1,34) (2,42.2) (3,45) (4,45.9) (5,46.2) (6,46.3) (7,46.3) (8,46.3) (9,46.3) (10,46.3)};
+  \draw[black!60,thick] plot[mark=*,mark size=1.1pt] coordinates {(0,30) (1,20) (2,17) (3,16.1) (4,15.8) (5,15.7) (6,15.7) (7,15.7) (8,15.7) (9,15.7) (10,15.7)};
+  \node[right,text=fel!80!black] at (10.1,46.3) {Markt};
+  \node[right,text=accent] at (10.1,28) {Station};
+  \node[right,text=black!60] at (10.1,15.7) {Campus};
+\end{tikzpicture}}
+Geen enkel station raakt dus leeg, en het bedrijf hoeft geen fietsen te verplaatsen: de aantallen gaan vanzelf naar een vast evenwicht, met de meeste fietsen aan de Markt. Daar heeft het rek op lange termijn plaats nodig voor minstens 117 fietsen. Het model geeft wel gemiddelden: op een drukke dag wijken de aantallen af, dus houdt het bedrijf best wat marge.}
 
 Dat de kolommen van een hoge macht gelijk worden, is geen toeval: $M^{n} X_0$ gaat naar het evenwicht voor elke begintoestand, dus ook voor de begintoestand met alles in toestand 1, en dan is $M^n X_0$ precies de eerste kolom van $M^n$. Je zag dat al in hoofdstuk 1.
 \end{alleenvoor}
@@ -262,8 +297,23 @@ Dat de kolommen van een hoge macht gelijk worden, is geen toeval: $M^{n} X_0$ ga
 \uitleg{We berekenen een hoge macht van $F$ met het rekentoestel. Zijn de kolommen gelijk, dan is elke kolom het evenwicht in aandelen. Met het totaal van 300 fietsen vinden we de aantallen.}
 \begin{stappen}
 F^{30} \approx \begin{bmatrix} 0{,}327 & 0{,}327 & 0{,}327 \\ 0{,}388 & 0{,}388 & 0{,}388 \\ 0{,}286 & 0{,}286 & 0{,}286 \end{bmatrix} & De kolommen zijn gelijk op drie decimalen. Dat blijft zo voor hogere machten. \\[5ex]
-300 \cdot \begin{bmatrix} 0{,}327 \\ 0{,}388 \\ 0{,}286 \end{bmatrix} \approx \begin{bmatrix} 98 \\ 116 \\ 86 \end{bmatrix} & Op lange termijn staan er ongeveer 98 fietsen aan het Station, 116 aan de Markt en 86 aan de Campus. Een week na de start zat het aantal al zo goed als op het evenwicht.
-\end{stappen}}
+300 \cdot \begin{bmatrix} 0{,}327 \\ 0{,}388 \\ 0{,}286 \end{bmatrix} \approx \begin{bmatrix} 98 \\ 116 \\ 86 \end{bmatrix} & Op lange termijn staan er ongeveer 98 fietsen aan het Station, 116 aan de Markt en 86 aan de Campus.
+\end{stappen}
+De figuur toont de aantallen van dag tot dag, vanaf maandag: na een week zitten ze al zo goed als op het evenwicht.
+\figuren{\begin{tikzpicture}[x=.62cm,y=.055cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=1,ystep=10] (10,60);
+  \draw[->,grijs] (0,0) -- (10.6,0) node[right,text=black] {dag $n$};
+  \draw[->,grijs] (0,0) -- (0,65) node[above,text=black] {aantal fietsen};
+  \foreach \t in {0,2,...,10} \node[below] at (\t,0) {\t};
+  \foreach \t/\l in {0/70,10/80,20/90,30/100,40/110,50/120,60/130} \node[left] at (0,\t) {\l};
+  \draw[accent,thick] plot[mark=*,mark size=1.2pt] coordinates {(0,50) (1,36) (2,30.8) (3,28.9) (4,28.3) (5,28.1) (6,28) (7,28) (8,28) (9,28) (10,28)};
+  \draw[fel!80!black,thick] plot[mark=*,mark size=1.1pt] coordinates {(0,10) (1,34) (2,42.2) (3,45) (4,45.9) (5,46.2) (6,46.3) (7,46.3) (8,46.3) (9,46.3) (10,46.3)};
+  \draw[black!60,thick] plot[mark=*,mark size=1.1pt] coordinates {(0,30) (1,20) (2,17) (3,16.1) (4,15.8) (5,15.7) (6,15.7) (7,15.7) (8,15.7) (9,15.7) (10,15.7)};
+  \node[right,text=fel!80!black] at (10.1,46.3) {Markt};
+  \node[right,text=accent] at (10.1,28) {Station};
+  \node[right,text=black!60] at (10.1,15.7) {Campus};
+\end{tikzpicture}}
+Geen enkel station raakt dus leeg, en het bedrijf hoeft geen fietsen te verplaatsen: de aantallen gaan vanzelf naar een vast evenwicht, met de meeste fietsen aan de Markt. Daar heeft het rek op lange termijn plaats nodig voor minstens 117 fietsen. Het model geeft wel gemiddelden: op een drukke dag wijken de aantallen af, dus houdt het bedrijf best wat marge.}
 \end{alleenvoor}
 
 \begin{werkwijze}
@@ -532,7 +582,7 @@ Bereken met het rekentoestel de toestand na veel stappen en na één stap meer. 
   \fv{oef:h4-t5}{vb:h4-leslie}{oef:h4-leslie}%
 \begin{alleenvoor}{2,3,4}
   \fv{oef:h4-t6}{vb:h4-groei}{oef:h4-groei}%
-  \fv{oef:h4-t7}{vb:h4-lang}{oef:h4-evenwicht3}}
+  \fv{oef:h4-t7}{vb:h4-terug}{oef:h4-evenwicht3}}
 \end{alleenvoor}
 \begin{alleenvoor}{1}
   \fv{oef:h4-t6}{vb:h4-groei}{oef:h4-groei}}

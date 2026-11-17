@@ -8,6 +8,19 @@
 
 \mychapter{3}{Inverse, determinant en rang}
 
+\begin{probleem}
+\naast{Lien en Arno sturen elkaar geheime berichten. Ze vervangen elke letter door haar plaats in het alfabet: A~=~1, B~=~2, \ldots, Z~=~26. Die getallen zetten ze per twee in een kolom, en elke kolom vermenigvuldigen ze met de sleutel $K = \km{3 & 5 \\ 1 & 2}$. Zo wordt OK de code 100 37.
+
+Arno ontvangt de code \ 46 17 49 18 92 35. Welk woord stuurde Lien? En Lien stelt voor om voortaan de sleutel $\km{2 & 4 \\ 1 & 2}$ te gebruiken. Is dat een goed idee?}{\begin{tikzpicture}[font=\small]
+  \node (w) at (0,0) {O\,K};
+  \node (x) at (1.7,0) {$\km{15 \\ 11}$};
+  \node (c) at (4.1,0) {$\km{100 \\ 37}$};
+  \draw[boog] (w) -- (x);
+  \draw[boog] (x) -- node[above,font=\scriptsize,text=black] {maal $K$} (c);
+  \draw[boog,dashed] (c.south) to[bend left=35] node[below,font=\scriptsize,text=black] {terug?} (w.south);
+\end{tikzpicture}}
+\end{probleem}
+
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 36 (de rang van matrices, de inverse van inverteerbare matrices en de determinant van vierkante matrices), met de wenken: de inverse via $[M \,|\, I] \to [I \,|\, M^{-1}]$, de determinant ingeleid met de inverse van een $2 \times 2$-matrix, ontwikkelen naar een rij of kolom en de regel van Sarrus, en het verband tussen rang, inverteerbaarheid, determinant en stelsels. De regel van Cramer (wenk bij LPD 37) staat bij de determinant. Grote berekeningen mogen met het rekentoestel.}
 \end{alleenvoor}
@@ -18,7 +31,7 @@
 \lkr{Leerplan B+S: LPD 25-27 (matrices), met de wenken: de inverse via $[M \,|\, I] \to [I \,|\, M^{-1}]$, de determinant ingeleid met de inverse van een $2 \times 2$-matrix, ontwikkelen naar een rij of kolom en de regel van Sarrus, en het verband tussen rang, inverteerbaarheid, determinant en stelsels. De regel van Cramer (wenk bij LPD 37) staat bij de determinant. Grote berekeningen mogen met het rekentoestel.}
 \end{alleenvoor}
 
-Een vergelijking $3x = 12$ los je op door beide leden met $\frac13$ te vermenigvuldigen, het omgekeerde van 3. Kan dat ook met een matrixvergelijking $AX = B$? Delen door een matrix bestaat niet, maar soms is er een matrix die de rol van $\frac13$ speelt: de inverse. In dit hoofdstuk leer je wanneer die bestaat en hoe je ze berekent. Een enkel getal, de determinant, zegt meteen of ze bestaat. En de rang telt hoeveel echt verschillende vergelijkingen er in een stelsel zitten.
+Om de code te lezen, moet Arno de vermenigvuldiging met $K$ ongedaan maken. Bij getallen is dat eenvoudig: een vergelijking $3x = 12$ los je op door beide leden met $\frac13$ te vermenigvuldigen, het omgekeerde van 3. Kan dat ook met een matrixvergelijking $AX = B$? Delen door een matrix bestaat niet, maar soms is er een matrix die de rol van $\frac13$ speelt: de inverse. In dit hoofdstuk leer je wanneer die bestaat en hoe je ze berekent. Een enkel getal, de determinant, zegt meteen of ze bestaat: zo zie je ook of de nieuwe sleutel van Lien deugt. En de rang telt hoeveel echt verschillende vergelijkingen er in een stelsel zitten.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -26,12 +39,16 @@ Een vergelijking $3x = 12$ los je op door beide leden met $\frac13$ te vermenigv
 \oef{h3-verken}
 \end{oefeningen}
 
-\lkr{Laat oefening \ref{oef:h3-verken} maken vóór de uitleg. In a vinden leerlingen dat $AB = BA = I$. In b lossen ze een stelsel op door met $B$ te vermenigvuldigen, zonder rijherleiden. In c merken ze dat het voor sommige matrices niet lukt: de tweede rij is het dubbel van de eerste.}
+\lkr{Laat oefening \ref{oef:h3-verken} maken vóór de uitleg. In a vinden leerlingen dat $AB = BA = I$. In b lossen ze een stelsel op door met $B$ te vermenigvuldigen, zonder rijherleiden. In c merken ze dat het voor sommige matrices niet lukt: de tweede rij is het dubbel van de eerste. Het probleem is een vereenvoudigd geheimschrift van Lester Hill (1929), zonder rekenen modulo 26; de oplossing staat in voorbeeld \ref{vb:h3-terug}.}
 
 %========================================================================================
 \section{De inverse matrix}
 
 \subsection{Definitie}
+
+Arno kan elke kolom van de code apart oplossen als een stelsel. Voor 46 17 zoekt hij de letters $a$ en $b$ met $3a + 5b = 46$ en $a + 2b = 17$, en met de methode van Gauss-Jordan vindt hij $a = 7$ en $b = 5$. Maar voor elke kolom opnieuw rijherleiden is omslachtig, terwijl de coëfficiënten telkens dezelfde zijn. Beter is één matrix $L$ die de vermenigvuldiging met $K$ in één keer ongedaan maakt. Is $LK = I$, dan is
+\[ L(KX) = (LK)X = IX = X , \]
+en vind je elke kolom $X$ van het bericht terug als $L$ maal de code. Zo'n matrix zoeken we.
 
 Bij getallen is $\frac13$ het omgekeerde van 3, omdat $3 \cdot \frac13 = 1$. Bij matrices speelt de eenheidsmatrix $I$ de rol van 1. Omdat het product van matrices niet commutatief is, eisen we dat het in beide volgordes lukt.
 
@@ -223,6 +240,22 @@ A^{-1} = \frac{1}{-5}\begin{bmatrix} -1 & -1 \\ -2 & 3 \end{bmatrix} = \begin{bm
 \begin{oefeningen}
 \oef{h3-inverse2k}
 \end{oefeningen}
+
+Met de formule voor de inverse en de determinant kun je nu de code van Lien en Arno kraken, en hun nieuwe sleutel beoordelen.
+
+\voorbeeld{}{Terug naar het probleem. Ontcijfer de code 46 17 49 18 92 35, gemaakt met de sleutel $K = \km{3 & 5 \\ 1 & 2}$. Is $\km{2 & 4 \\ 1 & 2}$ een goede sleutel?\label{vb:h3-terug}}{%
+\uitleg{Elke kolom $X$ van het bericht werd $KX$. Is $K$ inverteerbaar, dan is $X = K^{-1}(KX)$. We zetten de drie kolommen van de code naast elkaar in één matrix: zo vinden we het hele bericht met één product.}
+\begin{stappenbreed}
+\det K = 3 \cdot 2 - 5 \cdot 1 = 1 & Niet 0: $K$ is inverteerbaar. \\[1ex]
+K^{-1} = \begin{bmatrix} 2 & -5 \\ -1 & 3 \end{bmatrix} & Diagonaal verwisselen, de andere twee van teken veranderen, en delen door 1. \\[3.5ex]
+K^{-1} \begin{bmatrix} 46 & 49 & 92 \\ 17 & 18 & 35 \end{bmatrix} = \begin{bmatrix} 7 & 8 & 9 \\ 5 & 5 & 13 \end{bmatrix} & Rij 1 maal kolom 1 is \mbox{$2 \cdot 46 - 5 \cdot 17 = 7$}, enzovoort. \\[3.5ex]
+7, \ 5, \ 8, \ 5, \ 9, \ 13 & Kolom per kolom gelezen: G, E, H, E, I, M. Lien stuurde het woord GEHEIM. \\[1ex]
+\begin{vmatrix} 2 & 4 \\ 1 & 2 \end{vmatrix} = 2 \cdot 2 - 4 \cdot 1 = 0 & De nieuwe sleutel is niet inverteerbaar. \\[3ex]
+\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 4 \end{bmatrix} = \begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 7 \\ 1 \end{bmatrix} = \begin{bmatrix} 18 \\ 9 \end{bmatrix} & AD en GA krijgen dezelfde code: de eerste rij is het dubbel van de tweede, dus telt alleen $a + 2b$.
+\end{stappenbreed}
+De nieuwe sleutel is dus geen goed idee. Ontvangt Arno 18 9, dan weet hij niet of Lien AD of GA bedoelde: de vermenigvuldiging is niet ongedaan te maken. De oude sleutel is extra handig: met $\det K = 1$ heeft de inverse alleen gehele getallen.}
+
+Zo is het probleem opgelost: een sleutel werkt alleen als haar determinant niet 0 is. Dit soort geheimschrift beschreef de Amerikaanse wiskundige Lester Hill in 1929. Echte versies rekenen bovendien met resten na deling door 26, zodat de code opnieuw letters geeft.
 
 \subsection{De determinant van een \texorpdfstring{$3 \times 3$}{3x3}-matrix}
 

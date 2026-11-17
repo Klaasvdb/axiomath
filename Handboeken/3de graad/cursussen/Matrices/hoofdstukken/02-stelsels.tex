@@ -8,6 +8,25 @@
 
 \mychapter{2}{Stelsels en de methode van Gauss-Jordan}
 
+\begin{probleem}
+\naast{Zo'n 2000 jaar geleden ontstond in China het rekenboek \textit{Negen hoofdstukken over de rekenkunst}. Daarin staat deze vraag. Drie bundels van een goede oogst, twee van een middelmatige en één van een slechte geven samen 39 \textit{dou} graan. Twee goede, drie middelmatige en één slechte geven 34 \textit{dou}, en één goede, twee middelmatige en drie slechte 26 \textit{dou}. Hoeveel graan geeft één bundel van elke soort?
+
+De Chinese rekenmeesters schreven geen letters op. Ze legden alleen de getallen met staafjes op een rekenbord, één kolom per voorwaarde, en schoven ermee tot het antwoord er lag. Hoe kan dat werken?}{\begin{tikzpicture}[x=.8cm,y=.6cm,font=\small]
+  \fill[accent!8] (0,0) rectangle (3,4);
+  \foreach \k in {1,2} \draw[black!25] (\k,0) -- (\k,4);
+  \foreach \k in {2,3} \draw[black!25] (0,\k) -- (3,\k);
+  \draw[accent] (0,1) -- (3,1);
+  \draw[accent,thick] (0,0) rectangle (3,4);
+  \foreach \k/\a/\b/\c/\d in {0/1/2/3/26,1/2/3/1/34,2/3/2/1/39}{
+    \node at (\k+.5,3.5) {\a}; \node at (\k+.5,2.5) {\b};
+    \node at (\k+.5,1.5) {\c}; \node at (\k+.5,.5) {\d};}
+  \foreach \y/\t in {3.5/goed,2.5/middelmatig,1.5/slecht,.5/{samen (\textit{dou})}}
+    \node[right,font=\scriptsize] at (3.05,\y) {\t};
+  \foreach \k/\t in {2.5/1ste,1.5/2de,.5/3de}
+    \node[above,font=\scriptsize] at (\k,4) {\t};
+\end{tikzpicture}}
+\end{probleem}
+
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 37 (stelsels van eerstegraadsvergelijkingen oplossen met de methode van Gauss-Jordan), met de wenken: minstens één stelsel met drie onbekenden, aandacht voor bepaalde, onbepaalde en strijdige stelsels, en stelsels met één parameter. Rekenwerk met de hand blijft beperkt; bij moeilijkere stelsels mag het rekentoestel (op de TI-84: \texttt{rref(} in het menu MATRIX, MATH). De regel van Cramer komt in hoofdstuk 3, bij de determinant.}
 \end{alleenvoor}
@@ -18,7 +37,7 @@
 \lkr{Leerplan B+S: LPD 25-27 (matrices), met de wenken: minstens één stelsel met drie onbekenden, aandacht voor bepaalde, onbepaalde en strijdige stelsels, en stelsels met één parameter. Rekenwerk met de hand blijft beperkt; bij moeilijkere stelsels mag het rekentoestel (op de TI-84: \texttt{rref(} in het menu MATRIX, MATH). De regel van Cramer komt in hoofdstuk 3, bij de determinant.}
 \end{alleenvoor}
 
-In de 2de graad loste je stelsels van twee vergelijkingen met twee onbekenden op, door een onbekende te elimineren of te substitueren. Met drie of meer onbekenden wordt dat snel onoverzichtelijk. In dit hoofdstuk leer je een vaste methode die altijd werkt: je schrijft alleen de getallen van het stelsel in een matrix, en je vereenvoudigt die rij per rij tot je de oplossing kunt aflezen. Zo zie je ook meteen of een stelsel één oplossing heeft, oneindig veel, of geen enkele.
+Het probleem is een stelsel van drie vergelijkingen met drie onbekenden. In de 2de graad loste je stelsels van twee vergelijkingen met twee onbekenden op, door een onbekende te elimineren of te substitueren. Met drie of meer onbekenden wordt dat snel onoverzichtelijk. In dit hoofdstuk leer je een vaste methode die altijd werkt, en die in de grond dezelfde is als die van de Chinese rekenmeesters: je schrijft alleen de getallen van het stelsel in een matrix, en je vereenvoudigt die rij per rij tot je de oplossing kunt aflezen. In Europa draagt ze de namen van Carl Friedrich Gauss en Wilhelm Jordan, uit de 19de eeuw. Zo zie je ook meteen of een stelsel één oplossing heeft, oneindig veel, of geen enkele.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -26,12 +45,16 @@ In de 2de graad loste je stelsels van twee vergelijkingen met twee onbekenden op
 \oef{h2-verken}
 \end{oefeningen}
 
-\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. In a lossen leerlingen een stelsel in trapvorm op van onder naar boven. In b moeten ze zelf zo'n trapvorm maken door $x$ te elimineren uit de tweede en de derde vergelijking. In c benoemen ze de toegelaten bewerkingen: dat zijn de rijbewerkingen van sectie 2.}
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. In a lossen leerlingen een stelsel in trapvorm op van onder naar boven. In b moeten ze zelf zo'n trapvorm maken door $x$ te elimineren uit de tweede en de derde vergelijking. In c benoemen ze de toegelaten bewerkingen: dat zijn de rijbewerkingen van sectie 2. Het probleem komt uit de \textit{Jiuzhang suanshu} (hoofdstuk 8, opgave 1); laat leerlingen het eerst met substitutie proberen. De oplossing staat in voorbeeld \ref{vb:h2-terug}.}
 
 %========================================================================================
 \section{Stelsels en matrices}
 
-Een stelsel van eerstegraadsvergelijkingen heet ook een \textit{lineair} stelsel: de onbekenden komen alleen voor in de eerste macht, vermenigvuldigd met een getal. Alles wat je nodig hebt, zijn die getallen. Met het product van matrices uit hoofdstuk 1 schrijf je het hele stelsel als één vergelijking.
+Noem $x$, $y$ en $z$ het aantal \textit{dou} graan in een goede, een middelmatige en een slechte bundel. Het probleem wordt dan het stelsel
+\[ \begin{cases} 3x + 2y + z = 39 \\ 2x + 3y + z = 34 \\ x + 2y + 3z = 26 . \end{cases} \]
+Probeer het zoals in de 2de graad. Uit de eerste vergelijking is $z = 39 - 3x - 2y$. Vul je dat in de andere twee in, dan houd je $-x + y = -5$ en $-8x - 4y = -91$ over, een stelsel met twee onbekenden, en daarna nog een vergelijking met één onbekende. Dat lukt, maar je schrijft telkens dezelfde letters over, de getallen worden lastiger, en een rekenfout is snel gemaakt. Bij vier of vijf onbekenden verlies je het overzicht helemaal.
+
+De Chinese rekenmeesters zagen dat de letters niets bijdragen. Een stelsel van eerstegraadsvergelijkingen heet ook een \textit{lineair} stelsel: de onbekenden komen alleen voor in de eerste macht, vermenigvuldigd met een getal. Alles wat je nodig hebt, zijn die getallen, op een vaste plaats. Met het product van matrices uit hoofdstuk 1 schrijf je het hele stelsel als één vergelijking.
 
 \begin{theorie}
 Een stelsel van $m$ eerstegraadsvergelijkingen met $n$ onbekenden schrijf je als \quad $\formule{AX = B}$
@@ -56,7 +79,7 @@ Hierin is $A$ de $m \times n$-\textbf{\textcolor{accent}{coëfficiëntenmatrix}}
 
 \subsection{Rijbewerkingen}
 
-In de Verken heb je vergelijkingen van elkaar afgetrokken om een onbekende te laten verdwijnen. Op de uitgebreide matrix zijn dat bewerkingen met rijen. Drie soorten zijn toegelaten, omdat ze de oplossingen van het stelsel niet veranderen.
+In de Verken heb je vergelijkingen van elkaar afgetrokken om een onbekende te laten verdwijnen. Op de uitgebreide matrix zijn dat bewerkingen met rijen. Op het Chinese rekenbord deden de rekenmeesters hetzelfde met kolommen: ze vermenigvuldigden een kolom met een getal en trokken er een andere kolom van af, tot er bovenaan nullen lagen. Drie soorten zijn toegelaten, omdat ze de oplossingen van het stelsel niet veranderen.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{elementaire rijbewerkingen}} zijn:
@@ -144,6 +167,21 @@ x = 1, \quad y = 1, \quad z = 2 & Controle: $1 + 4 = 5$, $1 + 1 + 2 = 4$ en $2 +
 
 \oef{h2-wissel}
 \end{oefeningen}
+
+Met de methode van Gauss-Jordan kun je nu ook het Chinese rekenbord nadoen.
+
+\voorbeeld{}{Terug naar het probleem. Drie goede, twee middelmatige en één slechte bundel geven 39 \textit{dou} graan; twee goede, drie middelmatige en één slechte geven 34 \textit{dou}; één goede, twee middelmatige en drie slechte geven 26 \textit{dou}. Hoeveel graan geeft één bundel van elke soort?\label{vb:h2-terug}}{%
+\uitleg{Met $x$, $y$ en $z$ het aantal \textit{dou} in een goede, een middelmatige en een slechte bundel krijgen we het stelsel uit sectie 1. Wat op het rekenbord een kolom was, is bij ons een rij. Om met een spil 1 te beginnen, verwisselen we eerst de eerste en de derde rij.}
+\begin{stappenbreed}
+\um{ccc|c}{3 & 2 & 1 & 39 \\ 2 & 3 & 1 & 34 \\ 1 & 2 & 3 & 26} & De uitgebreide matrix: dezelfde getallen als op het rekenbord. \\[5ex]
+\um{ccc|c}{1 & 2 & 3 & 26 \\ 0 & -1 & -5 & -18 \\ 0 & -4 & -8 & -39} \ \begin{array}{l} \rb{R_1 \leftrightarrow R_3} \\ \rb{R_2 - 2R_1} \\ \rb{R_3 - 3R_1} \end{array} & Na de verwisseling: nullen onder de spil van kolom 1. \\[5ex]
+\um{ccc|c}{1 & 0 & -7 & -10 \\ 0 & 1 & 5 & 18 \\ 0 & 0 & 12 & 33} \ \begin{array}{l} \rb{R_1 - 2R_2'} \\ \rb{R_2' = -R_2} \\ \rb{R_3 + 4R_2'} \end{array} & Maak eerst de spil van kolom 2 gelijk aan 1, dan nullen erboven en eronder. \\[5ex]
+\um{ccc|c}{1 & 0 & 0 & \frac{37}{4} \\[.3ex] 0 & 1 & 0 & \frac{17}{4} \\[.3ex] 0 & 0 & 1 & \frac{11}{4}} \ \begin{array}{l} \rb{R_1 + 7R_3'} \\ \rb{R_2 - 5R_3'} \\ \rb{R_3' = \frac{1}{12}R_3} \end{array} & Kolom 3: deel $R_3$ door 12, dan nullen erboven. Zo is $-10 + 7 \cdot \tfrac{11}{4} = \tfrac{37}{4}$. \\[6ex]
+x = 9\tfrac14, \quad y = 4\tfrac14, \quad z = 2\tfrac34 & Controle in de eerste vergelijking: $\tfrac{111 + 34 + 11}{4} = \tfrac{156}{4} = 39$.
+\end{stappenbreed}
+Een goede bundel geeft dus $9\tfrac14$ \textit{dou} graan, een middelmatige $4\tfrac14$ en een slechte $2\tfrac34$. Dat is ook het antwoord in het Chinese boek.}
+
+De rekenmeesters gingen een beetje anders te werk: ze maakten alleen nullen onder de diagonaal, en vonden de onbekenden daarna van onder naar boven, zoals in de Verken. Maar het idee is hetzelfde: werk alleen met de getallen, en vereenvoudig met bewerkingen die de oplossingen niet veranderen.
 
 %========================================================================================
 \section{Bepaald, onbepaald of strijdig}
