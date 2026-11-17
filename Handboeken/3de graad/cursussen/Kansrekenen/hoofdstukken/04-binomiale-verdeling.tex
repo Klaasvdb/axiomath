@@ -1,16 +1,27 @@
 %----------------------------------------------------------------------------------------
 % DE BINOMIALE VERDELING. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h4-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{4}{De binomiale verdeling}
 
+\begin{probleem}
+Noor beweert dat ze blind het verschil proeft tussen een bekend merk cola en het goedkope huismerk van de supermarkt. Je test het: je zet haar tien bekers voor, en bij elke beker beslist een muntworp welke cola erin gaat. Noor ziet de flessen niet en zegt telkens welk merk ze proeft. Ze heeft er 9 van de 10 juist. Kan ze het echt, of gebeurt zoiets ook als ze gewoon gokt?
+
+\figuren{\begin{tikzpicture}[font=\small]
+  \foreach \i in {1,...,10}{
+    \draw[accent,thick,fill=accent!10] (\i*.85-.28,0) -- (\i*.85-.35,.8) -- (\i*.85+.35,.8) -- (\i*.85+.28,0) -- cycle;
+    \ifnum\i=7 \draw[fel!80!black,very thick] (\i*.85-.12,-.24) -- (\i*.85+.12,-.48) (\i*.85-.12,-.48) -- (\i*.85+.12,-.24);
+    \else \draw[accent,very thick] (\i*.85-.14,-.36) -- (\i*.85-.04,-.48) -- (\i*.85+.15,-.22);\fi}
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{49}\alleenvoor{3}{35}\alleenvoor{2}{29}\alleenvoor{1}{17} (kansen berekenen en interpreteren met de binomiale verdeling), met de wenken over ICT, verwachtingswaarde en standaardafwijking, en het grafische verband met de normale verdeling. Die normale verdeling zelf (kansen berekenen) hoort bij de cursus Statistiek; hier blijft het bij de figuur. Op de TI-84: \texttt{binompdf(n,p,k)} en \texttt{binomcdf(n,p,k)} in het menu DISTR.}
 
-Een leerling gokt op een meerkeuzetoets. Een speler neemt vijf strafschoppen. Een fabriek controleert vijftig lampen. Telkens herhaal je hetzelfde experiment een aantal keer, met elke keer dezelfde kans op succes, en tel je de successen. Het aantal successen volgt dan altijd hetzelfde patroon: de binomiale verdeling. In dit hoofdstuk leer je de formule, het gebruik van je rekentoestel, en hoe je beoordeelt of een uitkomst verrassend is.
+Stel dat Noor gokt. Dan is elke beker een kansexperiment met kans $\frac12$ op een juist antwoord, en tel je hoe vaak het juist is. Dat patroon zie je vaak: een leerling gokt op een meerkeuzetoets, een speler neemt vijf strafschoppen, een fabriek controleert vijftig lampen. Telkens herhaal je hetzelfde experiment een aantal keer, met elke keer dezelfde kans op succes, en tel je de successen. Het aantal successen volgt dan altijd hetzelfde patroon: de binomiale verdeling. In dit hoofdstuk leer je de formule, het gebruik van je rekentoestel, en hoe je beoordeelt of een uitkomst verrassend is. Zo kun je op het einde zeggen of de 9 juiste antwoorden van Noor nog bij gokken passen.
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -25,7 +36,7 @@ Een leerling gokt op een meerkeuzetoets. Een speler neemt vijf strafschoppen. Ee
 
 \subsection{Binomiale experimenten}
 
-Wat hebben een gokkende leerling, een strafschoppenreeks en een lampencontrole gemeen? Telkens herhaal je hetzelfde experiment, met maar twee uitkomsten die je interesseren, en tel je hoe vaak de ene uitkomst voorkomt. Zo'n situatie krijgt een naam.
+Wat hebben de proef met Noor, een gokkende leerling, een strafschoppenreeks en een lampencontrole gemeen? Telkens herhaal je hetzelfde experiment, met maar twee uitkomsten die je interesseren, en tel je hoe vaak de ene uitkomst voorkomt. Zo'n situatie krijgt een naam.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{binomiaal experiment}} bestaat uit $n$ herhalingen van een kansexperiment met twee uitkomsten, \textit{succes} en \textit{mislukking}, waarbij
@@ -56,7 +67,7 @@ Het aantal successen $X$ heeft dan een \textbf{\textcolor{accent}{binomiale verd
 \needspace{16\baselineskip}
 \subsection{De binomiale kans}
 
-In de Verken vond je de kans op precies twee keer scoren bij vier vrijworpen: elk rijtje met twee keer scoren heeft dezelfde kans $0{,}7^2 \cdot 0{,}3^2$, en er zijn $\binom42 = 6$ zulke rijtjes. Die redenering werkt voor elke $n$, $p$ en $k$.
+Als Noor gokt, hoe groot is dan de kans op precies 9 juiste antwoorden? Een boomdiagram met tien vertakkingen na elkaar heeft $2^{10} = 1024$ paden: veel te veel om te tekenen. Er is een kortere weg. In de Verken vond je de kans op precies twee keer scoren bij vier vrijworpen: elk rijtje met twee keer scoren heeft dezelfde kans $0{,}7^2 \cdot 0{,}3^2$, en er zijn $\binom42 = 6$ zulke rijtjes. Die redenering werkt voor elke $n$, $p$ en $k$.
 
 \begin{theorie}
 \begin{stelling}{Binomiale kans}
@@ -263,6 +274,32 @@ Stel het model op dat je wilt toetsen, $X \sim B(n, p)$, en bereken $\mu$. Ligt 
 
 \oef{h4-verrassend-laag}
 \end{oefeningen}
+
+\needspace{12\baselineskip}
+\subsection{Terug naar het probleem}
+
+Nu kunnen we de vraag over Noor beantwoorden. We nemen aan dat ze gokt, en kijken of 9 juiste antwoorden dan verrassend zijn.
+
+\voorbeeld{}{Terug naar het probleem. Noor had 9 van de 10 bekers juist. Hoe groot is de kans op zo'n resultaat als ze gokt?\label{vb:h4-terug}}{%
+\uitleg{Als Noor gokt, is elke beker een succes met kans $\frac12$, onafhankelijk van de andere bekers: \mbox{$X \sim B(10;\, 0{,}5)$}, met $\mu = 5$. Haar 9 ligt boven $\mu$, dus berekenen we de kans op 9 of meer juiste antwoorden.}
+\begin{stappenbreed}
+P(X = 9) = \binom{10}{9} \cdot 0{,}5^9 \cdot 0{,}5^1 = \frac{10}{1024} & De ene fout kan bij elk van de 10 bekers zitten. \\[3ex]
+P(X = 10) = 0{,}5^{10} = \frac{1}{1024} & Alles juist. \\[2.5ex]
+P(X \geqslant 9) = \frac{11}{1024} \approx 0{,}011 & Op het rekentoestel: 1 min \texttt{binomcdf(10,0.5,8)}.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=.5cm,y=8cm,font=\scriptsize]
+  \draw[black!14,very thin] (-.5,0) grid[xstep=20,ystep=.1] (10.5,.25);
+  \foreach \k/\h in {0/.001,1/.0098,2/.0439,3/.1172,4/.2051,5/.2461,6/.2051,7/.1172,8/.0439}{\staaf{\k}{\h}{.6}}
+  \foreach \k/\h in {9/.0098,10/.001}{\fill[fel!80!black] (\k-.3,0) rectangle (\k+.3,\h);}
+  \draw[->,grijs] (-.5,0) -- (10.9,0) node[right,text=black] {$k$};
+  \draw[->,grijs] (-.5,0) -- (-.5,.27);
+  \foreach \k in {0,2,...,10}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.2/{0,2}}{\node[left] at (-.5,\t) {\l};}
+  \draw[fel!80!black,->] (9.5,.07) node[above,text=black] {9 of 10 juist} -- (9.5,.02);
+\end{tikzpicture}}
+Wie gokt, haalt zo'n score maar in ongeveer 1 op de 100 proeven. Dat is een sterke aanwijzing dat Noor het verschil echt proeft.}
+
+Een bewijs is het niet: ook met gokken gebeurt het af en toe. Misschien zag Noor ook iets aan de bekers, zoals meer of minder bubbels. Daarom doe je zo'n proef blind, en kies je de cola met een muntworp en niet zelf. Een gelijkaardige proef beschreef de Britse statisticus Ronald Fisher al in 1935, met een dame die beweerde te proeven of de melk of de thee eerst in de kop was gegaan.
 
 %========================================================================================
 \opdrachtenkop
