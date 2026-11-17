@@ -1,0 +1,80 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS GONIOMETRIE (2de graad)
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% Vertrekpunt: notatie.tex van Driehoeksmeting (2de graad), zonder de ruimtefiguren; nieuw: \gonicirkel en \gonipunt.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+\usetikzlibrary{angles,quotes}
+
+% Lengte van een lijnstuk: \lengte{AB} geeft |AB|; \abs{-2} de absolute waarde (\Abs met grotere strepen).
+% Met \lvert en \rvert, zodat een minteken na de streep geen aftrekking wordt.
+\newcommand{\lengte}[1]{\lvert #1\rvert}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\Abs}[1]{\bigl\lvert #1\bigr\rvert}
+% Driehoek en hoek: \drieh{ABC} geeft de driehoek ABC, \hoek{A} een hoek met een dakje
+\newcommand{\drieh}[1]{\triangle #1}
+\newcommand{\hoek}[1]{\widehat{#1}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een figuur rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster zonder assen, voor schaaltekeningen: \ruitjes{xmin}{ymin}{xmax}{ymax}
+\newcommand{\ruitjes}[4]{\draw[black!14,very thin] (#1,#2) grid (#3,#4);}
+% Een punt als stip: \stip{x}{y}, of met label: \punt[positie]{x}{y}{label}
+\newcommand{\stip}[2]{\fill (#1,#2) circle (1.5pt);}
+\newcommand{\punt}[4][above]{\fill (#2,#3) circle (1.5pt) node[#1,inner sep=2pt] {$#4$};}
+% Een hoekboogje bij hoekpunt B tussen de stralen naar A en C (tegenwijzerzin van A naar C):
+% \hoekboog[opties]{A}{B}{C}{straal}; werkt met benoemde coördinaten
+\newcommand{\hoekboog}[5][]{\pic[draw,accent,angle radius=#5,#1] {angle=#2--#3--#4};}
+% Een rechte hoek bij B tussen A en C: \rechtehoek{A}{B}{C}
+\newcommand{\rechtehoek}[3]{\pic[draw,grijs,angle radius=2.2mm] {right angle=#1--#2--#3};}
+% Hetzelfde met coördinaten: \rechtehoekxy{(0,3)}{(0,0)}{(4,0)}
+\newcommand{\rechtehoekxy}[3]{\coordinate (rh@a) at #1; \coordinate (rh@b) at #2; \coordinate (rh@c) at #3;
+  \pic[draw,grijs,angle radius=2.2mm] {right angle=rh@a--rh@b--rh@c};}
+
+% Hoeklabel: \hoeklabel[opties]{A}{B}{C}{straal}{tekst}: boogje bij B en de tekst in de hoek
+\newcommand{\hoeklabel}[6][]{\pic[draw,accent,angle radius=#5,"$#6$",angle eccentricity=1.55,font=\scriptsize,#1] {angle=#2--#3--#4};}
+
+% De goniometrische cirkel met assen: \gonicirkel (straal 1 in de eenheden van de tikzpicture),
+% \gonicirkel[t] met de getallen 1 en -1 op de assen
+\newcommand{\gonicirkel}[1][]{%
+  \draw[->,lijngrijs] (-1.3,0) -- (1.4,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-1.3) -- (0,1.4) node[above,text=black] {$y$};
+  \draw[grijs] (0,0) circle (1);
+  \ifx\relax#1\relax\else
+  \node[below right,inner sep=1.5pt] at (1,0) {\tiny $1$}; \node[below left,inner sep=1.5pt] at (-1,0) {\tiny $-1$};
+  \node[above left,inner sep=1.5pt] at (0,1) {\tiny $1$}; \node[below left,inner sep=1.5pt] at (0,-1) {\tiny $-1$};
+  \fi}
+% Het punt van de goniometrische cirkel bij een hoek, met de straal en een draaipijl vanaf de x-as:
+% \gonipunt{hoek}{label}{positie van het label}
+\newcommand{\gonipunt}[3]{%
+  \draw[accent,thick] (0,0) -- (#1:1);
+  \draw[->,accent] (.24,0) arc[start angle=0,end angle=#1,radius=.24];
+  \fill[accent] (#1:1) circle (.035) node[#3] {$#2$};}
