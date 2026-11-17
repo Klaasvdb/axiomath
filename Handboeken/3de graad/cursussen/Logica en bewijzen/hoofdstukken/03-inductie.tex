@@ -1,16 +1,32 @@
 %----------------------------------------------------------------------------------------
 % VOLLEDIGE INDUCTIE. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{3}{Volledige inductie}
 
-\lkr{Leerplan B+S'': de bewijstechniek volledige inductie bij LPD 4. Toepassingen uit andere cursussen (de somformule van een meetkundige rij, De Moivre, het aantal deelverzamelingen) staan als Koppel. De beeldspraak van de dominostenen helpt, maar laat leerlingen de inductiestap telkens als een implicatie formuleren: \textit{als het klopt voor $k$, dan voor $k + 1$}.}
+\begin{probleem}
+\vspace{-1mm}\naast{\begin{minipage}{10.6cm}
+Bij het spel \textit{de toren van Hanoi} liggen schijven op een pin, van groot onderaan tot klein bovenaan. Je moet de hele toren naar een andere pin brengen. Je verplaatst telkens één schijf, je mag een derde pin als hulp gebruiken, en je legt nooit een schijf op een kleinere. Met 3 schijven lukt het in 7 zetten. Lukt het met elk aantal schijven? En hoeveel zetten heb je minstens nodig?
 
-Een uitspraak over alle natuurlijke getallen kun je niet nagaan door ze één voor één te controleren: dat zijn er oneindig veel. Volledige inductie is een bewijstechniek precies voor zulke uitspraken. Je bewijst twee dingen: dat de uitspraak klopt voor het eerste getal, en dat ze \textit{doorgegeven} wordt van elk getal naar het volgende. Dan klopt ze voor allemaal, zoals een rij dominostenen die allemaal omvalt.
+De Franse wiskundige Édouard Lucas bracht het spel in 1883 op de markt, met een legende erbij: monniken verplaatsen een toren van 64 gouden schijven, en als ze klaar zijn, vergaat de wereld. Stel dat ze één zet per seconde doen. Moeten we ons zorgen maken?
+\end{minipage}}{\begin{tikzpicture}[scale=.5]
+  \fill[grijs!60] (-.2,-.15) rectangle (9.2,0);
+  \foreach \x in {1.5,4.5,7.5}{\fill[grijs!80] (\x-.06,0) rectangle (\x+.06,3.1);}
+  \foreach \b [count=\i] in {2.6,2.15,1.7,1.25,.8}{%
+    \filldraw[draw=accent,fill=accent!\the\numexpr 15+12*\i\relax] (1.5-\b/2,{(\i-1)*.5}) rectangle (1.5+\b/2,{\i*.5});}
+  \node[below,font=\scriptsize] at (1.5,-.15) {start};
+  \node[below,font=\scriptsize] at (4.5,-.15) {hulppin};
+  \node[below,font=\scriptsize] at (7.5,-.15) {doel};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan B+S'': de bewijstechniek volledige inductie bij LPD 4. Toepassingen uit andere cursussen (de somformule van een meetkundige rij, De Moivre, het aantal deelverzamelingen) staan als Koppel. De beeldspraak van de dominostenen helpt, maar laat leerlingen de inductiestap telkens als een implicatie formuleren: \textit{als het klopt voor $k$, dan voor $k + 1$}. Laat het probleem echt spelen, met munten van verschillende grootte of een online versie, met 3 en 4 schijven: zo ontdekken leerlingen zelf dat je de kleinere toren eerst opzij moet zetten. De oplossing staat in voorbeeld~\ref{vb:h3-terug}.}
+
+Je kunt de toren van Hanoi proberen met 3, 4 en 5 schijven, maar \textit{elk aantal} schijven proberen gaat niet. Zo is het met elke uitspraak over alle natuurlijke getallen: je kunt ze niet één voor één controleren, want dat zijn er oneindig veel. Volledige inductie is een bewijstechniek precies voor zulke uitspraken. Je bewijst twee dingen: dat de uitspraak klopt voor het eerste getal, en dat ze \textit{doorgegeven} wordt van elk getal naar het volgende. Dan klopt ze voor allemaal, zoals een rij dominostenen die allemaal omvalt. Op het einde van het hoofdstuk berekenen we hoe lang de monniken uit de legende bezig zijn.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -21,7 +37,28 @@ Een uitspraak over alle natuurlijke getallen kun je niet nagaan door ze één vo
 %========================================================================================
 \section{Het principe}\label{sec:h3-principe}
 
-In de Verken gaf je het patroon door van 50 naar 51, en daarna van $k$ naar $k + 1$. Dat doorgeven is het hart van volledige inductie. Samen met een eerste geval levert het een bewijs voor alle natuurlijke getallen.
+Lukt de toren van Hanoi met elk aantal schijven? Met één schijf is het één zet. Met twee schijven: de kleine opzij, de grote naar het doel, de kleine erop. Maar met tien schijven verlies je snel het overzicht. Het idee is om niet bij het begin te starten, maar te veronderstellen dat je een toren van $k$ schijven al kunt verplaatsen. Dan kun je ook een toren van $k + 1$ schijven verplaatsen:
+\figuren{\begin{tikzpicture}[scale=.36,font=\scriptsize,>={Stealth[length=1.6mm]}]
+  \foreach \p/\sx in {0/0,1/11,2/22,3/33}{%
+    \begin{scope}[shift={(\sx,0)}]
+      \fill[grijs!60] (-.2,-.15) rectangle (8.2,0);
+      \foreach \x in {1.3,4,6.7}{\fill[grijs!80] (\x-.07,0) rectangle (\x+.07,3);}
+      % grootste schijf
+      \pgfmathsetmacro{\gx}{\p<2 ? 1.3 : 6.7}
+      \filldraw[draw=accent,fill=accent!65] (\gx-1.25,0) rectangle (\gx+1.25,.55);
+      % de k kleinere schijven samen
+      \pgfmathsetmacro{\kx}{\p==0 ? 1.3 : (\p==3 ? 6.7 : 4)}
+      \pgfmathsetmacro{\ky}{(\p==0 || \p==3) ? .55 : 0}
+      \filldraw[draw=accent,fill=accent!25] (\kx-.95,\ky) -- (\kx+.95,\ky) -- (\kx+.45,\ky+1.8) -- (\kx-.45,\ky+1.8) -- cycle;
+      \node at (\kx,\ky+.85) {$k$};
+    \end{scope}}
+  \foreach \sx/\t in {8.6/{$k$ schijven},19.6/{grootste},30.6/{$k$ schijven}}{%
+    \draw[->,thick,accent] (\sx,1.5) -- (\sx+2,1.5);
+    \node[above,align=center] at (\sx+1,1.6) {\t};}
+\end{tikzpicture}}
+Verplaats eerst de $k$ bovenste schijven naar de hulppin. Dat kun je, want de grootste schijf ligt onderaan en stoort niet: elke schijf mag erop. Zet dan de grootste schijf op het doel, en verplaats de $k$ schijven er weer bovenop. Uit \textit{het lukt met 1 schijf} volgt zo \textit{het lukt met 2}, daaruit \textit{het lukt met 3}, en zo verder: het lukt met elk aantal.
+
+Ook in de Verken gaf je iets door: het patroon van 50 naar 51, en daarna van $k$ naar $k + 1$. Dat doorgeven is het hart van volledige inductie. Samen met een eerste geval levert het een bewijs voor alle natuurlijke getallen.
 
 \begin{theorie}
 \begin{stelling}{Volledige inductie}
@@ -166,6 +203,24 @@ Vertrek van de linkerkant van $P(k + 1)$, en schrijf ze met de linkerkant van $P
 
 \oef{h3-ongelijkheid}
 \end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Terug naar het probleem}
+
+In sectie~\ref{sec:h3-principe} zagen we dat de toren van Hanoi met elk aantal schijven lukt. Nu tellen we de zetten. Noem $z_n$ het kleinste aantal zetten voor een toren van $n$ schijven. Met de drie stappen uit de figuur in sectie~\ref{sec:h3-principe} lukt het met $z_k + 1 + z_k$ zetten. Kan het sneller? Nee: de grootste schijf moet minstens één keer bewegen. Vóór haar eerste zet liggen de $k$ andere schijven allemaal op één andere pin, want op of onder haar kunnen ze niet liggen. Dat kost minstens $z_k$ zetten. Na haar laatste zet moeten ze er nog allemaal op: opnieuw minstens $z_k$ zetten. Dus
+\[ z_{k + 1} = 2z_k + 1 . \]
+Met inductie volgt daaruit een formule voor $z_n$.
+
+\voorbeeld{}{Terug naar het probleem. Bewijs dat je voor een toren van $n$ schijven $2^n - 1$ zetten nodig hebt. Hoe lang zijn de monniken bezig met 64 schijven, aan één zet per seconde?\label{vb:h3-terug}}{%
+\uitleg{$P(n)$ is $z_n = 2^n - 1$. In de inductiestap gebruiken we het verband $z_{k + 1} = 2z_k + 1$ en de inductiehypothese.}
+\begin{stappenbreed}
+n = 1\colon \ z_1 = 1 = 2^1 - 1 & Basisstap: één schijf, één zet. \\[1ex]
+\text{stel } z_k = 2^k - 1 & Inductiehypothese. \\[1ex]
+z_{k + 1} = 2z_k + 1 = 2(2^k - 1) + 1 = 2^{k + 1} - 1 & Dat is $P(k + 1)$. Volgens het principe van volledige inductie is $z_n = 2^n - 1$ voor alle $n \geqslant 1$. \\[1ex]
+z_{64} = 2^{64} - 1 \approx 1{,}84 \cdot 10^{19} & Het aantal zetten, en dus seconden, voor 64 schijven. \\[1ex]
+\dfrac{1{,}84 \cdot 10^{19}}{3{,}16 \cdot 10^{7}} \approx 5{,}8 \cdot 10^{11} & Een jaar telt ongeveer \mbox{$365{,}25 \cdot 24 \cdot 3600$} $\approx 3{,}16 \cdot 10^7$ seconden.
+\end{stappenbreed}
+De monniken zijn ongeveer 585 miljard jaar bezig. Het heelal is volgens de huidige schattingen 13,8 miljard jaar oud: de legende hoeft ons geen zorgen te baren. Dat komt door de verdubbeling in $z_{k + 1} = 2z_k + 1$: met één schijf meer duurt het ruim twee keer zo lang.}
 
 %========================================================================================
 \opdrachtenkop

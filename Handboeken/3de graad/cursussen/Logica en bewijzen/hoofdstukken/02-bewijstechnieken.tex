@@ -1,16 +1,29 @@
 %----------------------------------------------------------------------------------------
 % BEWIJSTECHNIEKEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Bewijstechnieken}
 
-\lkr{Leerplan B+S'': LPD 4 met de bewijstechnieken rechtstreeks bewijs, bewijs uit het ongerijmde en ontkrachting door tegenvoorbeeld (volledige inductie volgt in hoofdstuk 3), en de wenk dat de focus ligt op beargumenteren, niet op reproduceren. Sectie 1 is een korte training in het lezen van bewijzen met zelfuitleg: onderzoek bij studenten toont dat zo'n training het begrip van bewijzen sterk verbetert (zie \texttt{Ontwerp/ideale-cursus.md}). Gebruik de vragen uit die sectie ook later, bij elk bewijs in de andere cursussen.}
+\begin{probleem}
+\vspace{-1mm}\naast{\begin{minipage}{11.2cm}
+Op een snelschaakavond van de club zijn 25 spelers. De organisator wil dat elke speler precies 3 partijen speelt, telkens tegen een andere tegenstander. Hij tekent schema's: een stip is een speler, een lijn een partij. Met 6 spelers lukt het, zoals rechts. Met 25 spelers lukt het hem na een uur nog altijd niet. Is hij niet slim genoeg, of kan het echt niet? En als er een 26ste speler bijkomt?
+\end{minipage}}{\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \foreach \i in {0,1,2}{%
+    \coordinate (a\i) at ({90+120*\i}:1.5);
+    \coordinate (b\i) at ({90+120*\i}:.65);}
+  \draw[accent,thick] (a0) -- (a1) -- (a2) -- cycle (b0) -- (b1) -- (b2) -- cycle;
+  \foreach \i in {0,1,2}{\draw[accent,thick] (a\i) -- (b\i);}
+  \foreach \i in {0,1,2}{\fill (a\i) circle (2.6pt); \fill (b\i) circle (2.6pt);}
+\end{tikzpicture}}
+\end{probleem}
 
-Waarom is de som van twee oneven getallen altijd even? Je kunt het nagaan voor $3 + 5$ en $7 + 11$, maar niet voor alle getallen: dat zijn er oneindig veel. Een bewijs toont met een redenering dat iets \textit{altijd} klopt. In dit hoofdstuk leer je eerst bewijzen lezen, en daarna zelf bewijzen schrijven, met drie technieken: rechtstreeks, via de contrapositie, en uit het ongerijmde.
+\lkr{Leerplan B+S'': LPD 4 met de bewijstechnieken rechtstreeks bewijs, bewijs uit het ongerijmde en ontkrachting door tegenvoorbeeld (volledige inductie volgt in hoofdstuk 3), en de wenk dat de focus ligt op beargumenteren, niet op reproduceren. Sectie 1 is een korte training in het lezen van bewijzen met zelfuitleg: onderzoek bij studenten toont dat zo'n training het begrip van bewijzen sterk verbetert (zie \texttt{Ontwerp/ideale-cursus.md}). Gebruik de vragen uit die sectie ook later, bij elk bewijs in de andere cursussen. Laat leerlingen het probleem eerst proberen met kleine aantallen (4, 5, 6, 7 spelers): wie het patroon ziet (even lukt, oneven niet), heeft een vermoeden, maar nog geen bewijs. De oplossing staat in voorbeeld~\ref{vb:h2-terug}.}
+
+De organisator kan blijven proberen, maar zolang hij geen schema vindt, weet hij niet of het onmogelijk is of alleen moeilijk: er zijn veel te veel schema's om ze allemaal te tekenen. Hetzelfde gebeurt bij getallen. Waarom is de som van twee oneven getallen altijd even? Je kunt het nagaan voor $3 + 5$ en $7 + 11$, maar niet voor alle getallen: dat zijn er oneindig veel. Een bewijs toont met een redenering dat iets \textit{altijd} klopt, of dat iets \textit{nooit} kan. In dit hoofdstuk leer je eerst bewijzen lezen, en daarna zelf bewijzen schrijven, met drie technieken: rechtstreeks, via de contrapositie, en uit het ongerijmde.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -23,7 +36,7 @@ Waarom is de som van twee oneven getallen altijd even? Je kunt het nagaan voor $
 
 \subsection{Even, oneven en deelbaar}
 
-Een bewijs steunt op definities: alleen wat je precies kunt opschrijven, kun je bewijzen. De bewijzen in dit hoofdstuk gaan over gehele getallen, en gebruiken vooral drie definities.
+Wie de schaakavond met kleine aantallen probeert, merkt dat even en oneven een rol spelen: elke partij heeft twee spelers. Maar wat betekent \textit{even} precies? Een bewijs steunt op definities: alleen wat je precies kunt opschrijven, kun je bewijzen. De bewijzen in dit hoofdstuk gaan over gehele getallen, en gebruiken vooral drie definities.
 
 \begin{theorie}
 Een geheel getal $n$ is \textbf{\textcolor{accent}{even}} als $\formule{n = 2k}$ voor een geheel getal $k$, en \textbf{\textcolor{accent}{oneven}} als $\formule{n = 2k + 1}$ voor een geheel getal $k$.
@@ -84,7 +97,7 @@ Het idee kun je ook tekenen. Een even getal is een aantal stippen in paren, een 
 
 \subsection{Van veronderstelling naar besluit}
 
-De meeste stellingen zijn implicaties $p \dan q$: uit een veronderstelling $p$ volgt een besluit $q$. De meest voor de hand liggende aanpak vertrekt bij $p$ en werkt naar $q$ toe.
+Hoe begin je aan een bewijs? De meeste stellingen zijn implicaties $p \dan q$: uit een veronderstelling $p$ volgt een besluit $q$. De meest voor de hand liggende aanpak vertrekt bij $p$ en werkt naar $q$ toe.
 
 \begin{theorie}
 Bij een \textbf{\textcolor{accent}{rechtstreeks bewijs}} van $p \dan q$ neem je aan dat $p$ waar is, en leid je in stappen af dat $q$ waar is.
@@ -134,7 +147,7 @@ Kies gevallen die samen alle mogelijkheden dekken, zoals $n$ even en $n$ oneven,
 
 \subsection{Het idee}
 
-Soms is $p \dan q$ moeilijk rechtstreeks te bewijzen, omdat $p$ weinig houvast geeft. De contrapositie $\niet q \dan \niet p$ is gelijkwaardig (stelling Contrapositie in~\ref{sec:h1-contrapositie}): is de ene waar, dan ook de andere. Het volstaat dus de contrapositie rechtstreeks te bewijzen.
+Wat doe je als je bij $p$ vastloopt? Soms is $p \dan q$ moeilijk rechtstreeks te bewijzen, omdat $p$ weinig houvast geeft. De contrapositie $\niet q \dan \niet p$ is gelijkwaardig (stelling Contrapositie in~\ref{sec:h1-contrapositie}): is de ene waar, dan ook de andere. Het volstaat dus de contrapositie rechtstreeks te bewijzen.
 
 \voorbeeld{}{Bewijs: als $n^2$ even is, dan is $n$ even.\label{vb:h2-contrapositie}}{%
 \uitleg{Rechtstreeks zou je uit $n^2 = 2k$ iets over $n$ moeten halen, met een wortel. De contrapositie \textit{als $n$ oneven is, dan is $n^2$ oneven} is eenvoudig.}
@@ -176,7 +189,7 @@ De contrapositie \textit{als $m$ en $n$ oneven zijn, dan is $mn$ oneven} is bewe
 
 \subsection{Het principe}
 
-Hoe bewijs je dat iets \textit{niet} bestaat? Je kunt niet alle getallen nagaan. Wel kun je aannemen dat het toch bestaat, en tonen dat daaruit onzin volgt.
+Hoe bewijs je dat iets \textit{niet} bestaat, zoals een schema voor 25 schakers? Je kunt niet alle schema's tekenen, en bij getallen kun je niet alle getallen nagaan. Wel kun je aannemen dat het toch bestaat, en tonen dat daaruit onzin volgt.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{tegenspraak}} is een uitspraak van de vorm $\formule{r \en \niet r}$: iets wat tegelijk waar en vals zou zijn.
@@ -294,6 +307,26 @@ Schrijf de uitspraak als $\forall x\colon P(x) \dan Q(x)$. Zoek een $x$ waarvoor
 
 \oef{h2-tegen}
 \end{oefeningen}
+
+Nu kun je de organisator van de schaakavond uit het probleem antwoorden. Dat er met 25 spelers geen schema bestaat, bewijs je uit het ongerijmde. Het idee is een telling: tel het aantal keer dat een speler aan een partij deelneemt op twee manieren, per speler en per partij. Dat het met 26 spelers wel kan, toon je zoals bij een tegenvoorbeeld: één schema dat werkt, volstaat.
+
+\voorbeeld{}{Terug naar het probleem. Toon aan dat 25 spelers niet elk precies 3 partijen kunnen spelen. Lukt het met 26 spelers?\label{vb:h2-terug}}{%
+\uitleg{Voor 25 spelers nemen we aan dat er toch een schema is, en zoeken we een tegenspraak. Voor 26 spelers volstaat één schema dat werkt.}
+\begin{stappen}
+\text{stel: een schema met } P \text{ partijen} & Uit het ongerijmde: we nemen aan dat het kan. \\[1ex]
+25 \cdot 3 = 75 & Elke speler speelt 3 partijen: samen 75 deelnames. \\[1ex]
+2P = 75 & Elke partij heeft twee spelers: ook $2P$ deelnames. Dus is 75 even. \\[1ex]
+75 = 2 \cdot 37 + 1 & Maar 75 is oneven, en geen getal is beide (opdracht~\ref{oef:h2-o22}). Tegenspraak.
+\end{stappen}
+\naast{\begin{minipage}{9.6cm}
+Met 25 spelers bestaat er dus geen schema. Met 26 spelers wel: zet de spelers in een kring, en laat elke speler spelen tegen zijn twee buren en tegen de speler recht tegenover hem. Dat zijn drie verschillende tegenstanders, en \mbox{$26 \cdot 3 = 2 \cdot 39$}: er zijn 39 partijen.
+
+Hetzelfde bewijs toont dat het met een oneven aantal spelers nooit lukt, en de kring werkt voor elk even aantal vanaf 4.
+\end{minipage}}{\begin{tikzpicture}[scale=1.2]
+  \foreach \i in {0,...,12}{\draw[accent!70] ({90-360/26*\i}:1.3) -- ({270-360/26*\i}:1.3);}
+  \draw[accent,thick] (0,0) circle (1.3);
+  \foreach \i in {0,...,25}{\fill ({90-360/26*\i}:1.3) circle (1.6pt);}
+\end{tikzpicture}}}
 
 %========================================================================================
 \opdrachtenkop
