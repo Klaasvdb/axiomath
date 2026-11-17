@@ -1,0 +1,554 @@
+%----------------------------------------------------------------------------------------
+% ONDERLINGE LIGGING VAN VLAKKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: alle pakketten hebben dezelfde leerstof. Pakket 5 krijgt de bewijzen van de kenmerken van een rechte die
+% evenwijdig is met een vlak en van evenwijdige vlakken, en bewijsopdrachten. De moeilijkste doorsnede staat niet in
+% pakket 1, de methode met een verticaal hulpvlak alleen in pakket 4 en 5 (opdrachten).
+% Kubus ABCD.EFGH zoals in hoofdstuk 1; in de figuren heeft de kubus ribbe 4.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Onderlinge ligging van vlakken}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een kaasboer verkoopt kaas in kubussen. Voor een feest snijdt hij een kubus met één rechte snede door drie punten: het midden $P$ van $[AB]$, het midden $Q$ van $[BC]$ en het midden $R$ van $[GH]$. Welke vorm heeft het snijvlak? Is het een driehoek, omdat je door drie punten snijdt? Of iets anders?}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \pnt[below]{2,0,0}{$P$}
+  \pnt[below right]{4,0,2}{$Q$}
+  \pnt[below]{2,4,4}{$R$}
+  \balknamen
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 12 (ruimtemeetkunde), het deel over de onderlinge ligging van een rechte en een vlak en van twee vlakken, met snijpunten, snijlijnen en doorsneden. Een kubus van karton of een stuk kaas of zeep dat je echt doorsnijdt, maakt de doorsneden tastbaar. Laat leerlingen de figuren zelf natekenen: het tekenen in cavalièreperspectief komt uit hoofdstuk~1.\alleenvoor{5}{ In dit pakket staan ook de bewijzen van de kenmerken van een rechte die evenwijdig is met een vlak en van evenwijdige vlakken (doel B1).}}
+
+In hoofdstuk~1 onderzocht je hoe twee rechten ten opzichte van elkaar liggen. Nu komen de vlakken erbij: hoe ligt een rechte ten opzichte van een vlak, en hoe liggen twee vlakken ten opzichte van elkaar? Met wat je leert, kun je tekenen waar een rechte door een vlak prikt, waar twee vlakken elkaar snijden, en hoe het snijvlak eruitziet als je een kubus of een piramide doorsnijdt.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een rechte en een vlak}
+
+\subsection{Drie mogelijke liggingen}
+
+Hoeveel punten kan een rechte gemeen hebben met een vlak? Uit hoofdstuk~1 weet je: liggen twee punten van een rechte in een vlak, dan ligt de hele rechte erin. Er zijn dus maar drie mogelijkheden: oneindig veel punten, precies één punt, of geen enkel punt. In de kubus zie je ze alle drie bij het grondvlak: $AC$ ligt erin, $BF$ prikt erdoor in $B$, en $EF$ blijft erboven zonder het ooit te raken.
+
+\figuren{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \vlakje{0}{0}{3.4}{1.5}{\alpha}
+  \draw[accent,thick] (.4,.3) -- (3.6,.9) node[right] {$a$};
+  \node[grijs] at (2.2,-.45) {$a$ ligt in $\alpha$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \vlakje{0}{0}{3.4}{1.5}{\alpha}
+  \draw[accent,thick] (1.9,.55) -- (2.3,2.1) node[above] {$a$};
+  \draw[accent,thick,dashed] (1.9,.55) -- (1.75,0);
+  \draw[accent,thick] (1.75,0) -- (1.65,-.4);
+  \fill (1.9,.55) circle (1.5pt) node[right] {$S$};
+  \node[grijs] at (2.2,-.75) {$a$ snijdt $\alpha$ in $S$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \vlakje{0}{0}{3.4}{1.5}{\alpha}
+  \draw[accent,thick] (.6,1.9) -- (3.8,2.5) node[right] {$a$};
+  \draw[lijngrijs,dashed] (.6,1.9) -- (.6,.5) (3.8,2.5) -- (3.8,1.1);
+  \node[grijs] at (2.2,-.45) {$a$ is strikt evenwijdig met $\alpha$};
+\end{tikzpicture}}
+
+\begin{theorie}
+Een rechte en een vlak zijn \textbf{\textcolor{accent}{snijdend}} als ze precies één punt gemeen hebben, het \textbf{\textcolor{accent}{snijpunt}}.
+
+Een rechte $a$ is \textbf{\textcolor{accent}{evenwijdig}} met een vlak $\alpha$ als ze geen punt gemeen hebben, of als $a$ in $\alpha$ ligt. Je schrijft $\formule{a \parallel \alpha}$. Hebben ze geen punt gemeen, dan is $a$ \textbf{\textcolor{accent}{strikt evenwijdig}} met $\alpha$.
+\end{theorie}
+
+Waarom telt een rechte die in het vlak ligt ook als evenwijdig? Dat maakt de eigenschappen verderop eenvoudiger, net zoals samenvallende rechten evenwijdig heten.
+
+\voorbeeld{}{Hoe ligt de rechte ten opzichte van het vlak $ABFE$ (het voorvlak)? Bekijk $HG$, $BG$ en $EB$.\label{vb:h2-ligging-rv}}{%
+\uitleg{We tellen telkens de gemeenschappelijke punten: zoek punten van de rechte die in het voorvlak liggen.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$HG$ ligt achteraan, en heeft geen punt in het voorvlak. & Strikt evenwijdig. \\[1ex]
+$B$ ligt in het voorvlak, $G$ niet. & $BG$ snijdt het voorvlak in $B$. \\[1ex]
+$E$ en $B$ liggen allebei in het voorvlak. & $EB$ ligt in het voorvlak.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \fill[vlakdeel] (A) -- (B) -- (F) -- (E) -- cycle;
+  \draw[nadruk] (H) -- (G) (B) -- (G) (E) -- (B);
+  \balknamen
+\end{tikzpicture}}
+$HG \parallel ABFE$ (strikt), $BG$ en het voorvlak snijden elkaar in $B$, en $EB \subset ABFE$, dus ook $EB \parallel ABFE$.}
+
+\begin{oefeningen}
+\oef{h2-ligging-rv}
+\end{oefeningen}
+
+\subsection{Een rechte evenwijdig met een vlak}
+
+Hoe toon je aan dat een rechte strikt evenwijdig is met een vlak? Je kunt niet alle punten van de rechte nagaan, want het zijn er oneindig veel. Het idee: zoek in het vlak een rechte die evenwijdig is met de gegeven rechte. Denk aan een lat die je evenwijdig met een rand van de tafel houdt, boven het tafelblad: de lat raakt het tafelblad nooit.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van een rechte evenwijdig met een vlak}
+Is een rechte $a$ evenwijdig met een rechte $b$ die in het vlak $\alpha$ ligt, dan is $a$ evenwijdig met $\alpha$:
+
+\vspace{1mm}
+\qquad $\formule{a \parallel b \ \text{en} \ b \subset \alpha \ \Rightarrow \ a \parallel \alpha}$
+\end{stelling}
+\begin{alleenvoor}{5}
+\begin{bewijs}
+Ligt $a$ in $\alpha$, dan is er niets te bewijzen. Ligt $a$ niet in $\alpha$, dan is $a \neq b$, en liggen $a$ en $b$ in één vlak $\beta$, want ze zijn evenwijdig. Dan is $\beta \neq \alpha$, want $a$ ligt niet in $\alpha$. Stel dat $a$ het vlak $\alpha$ snijdt in een punt $P$. Ligt $P$ op $b$, dan hebben $a$ en $b$ een punt gemeen, en dat kan niet. Ligt $P$ niet op $b$, dan gaan $\alpha$ en $\beta$ allebei door $b$ en door $P$. Door een rechte en een punt erbuiten gaat maar één vlak, dus $\alpha = \beta$. Ook dat kan niet. Dus heeft $a$ geen punt gemeen met $\alpha$.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+\alleenvoor{1,2,3,4}{Waarom klopt dat? De rechten $a$ en $b$ liggen samen in een vlak $\beta$, en $a$ blijft daarin altijd op dezelfde afstand van $b$. Het vlak $\beta$ snijdt $\alpha$ volgens $b$, dus de enige plaats waar $a$ het vlak $\alpha$ zou kunnen raken, is op $b$. En daar komt $a$ nooit.}
+
+\voorbeeld{}{Toon aan dat de diagonaal $EG$ van het bovenvlak evenwijdig is met het grondvlak $ABCD$.\label{vb:h2-evw-vlak}}{%
+\uitleg{We zoeken in het grondvlak een rechte die evenwijdig is met $EG$. De diagonaal $AC$ eronder ligt voor de hand.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$AE \parallel CG$ en $\lengte{AE} = \lengte{CG}$, dus $ACGE$ is een rechthoek. & Zoals in hoofdstuk~1. \\[1ex]
+Dus $EG \parallel AC$, en $AC \subset ABCD$. & Overstaande zijden van de rechthoek. \\[1ex]
+Dus $EG \parallel ABCD$. & Kenmerk.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \fill[vlakdeel] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[nadruk] (E) -- (G);
+  \draw[nadruk,dashed] (A) -- (C);
+  \balknamen
+\end{tikzpicture}}
+$EG$ is evenwijdig met het grondvlak, en zelfs strikt evenwijdig, want $EG$ ligt er niet in.}
+
+\begin{werkwijze}
+Aantonen dat een rechte evenwijdig is met een vlak: zoek in het vlak een rechte die evenwijdig is met de gegeven rechte.
+\end{werkwijze}
+
+Let op: een rechte die evenwijdig is met een vlak, is niet evenwijdig met elke rechte van dat vlak. $EG$ is evenwijdig met het grondvlak, maar $EG$ en $BD$ zijn kruisend (hoofdstuk~1).
+
+\begin{oefeningen}
+\oef{h2-evw-vlak}
+\end{oefeningen}
+
+\subsection{Het snijpunt van een rechte en een vlak}
+
+Waar prikt een rechte door een vlak? Soms is dat een hoekpunt, maar meestal ligt het snijpunt buiten de figuur, en moet je het tekenen. Het idee: zoek een vlak waarin de rechte ligt, en dat het gegeven vlak snijdt volgens een rechte die je kent. In dat vlak zijn het twee gewone rechten, en hun snijpunt vind je door ze te verlengen.
+
+\voorbeeld{}{Een kubus heeft ribben van 4~cm. $P$ ligt op $[AE]$ met $\lengte{AP} = 3$~cm, en $Q$ ligt op $[BF]$ met $\lengte{BQ} = 1$~cm. Teken het snijpunt $S$ van de rechte $PQ$ met het grondvlak.\label{vb:h2-snijpunt}}{%
+\uitleg{$P$ en $Q$ liggen in het voorvlak, dus de rechte $PQ$ ligt erin. Het voorvlak snijdt het grondvlak volgens $AB$. Het snijpunt van $PQ$ met het grondvlak ligt dus op $AB$.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$PQ$ ligt in het voorvlak $ABFE$. & Twee punten in het voorvlak. \\[1ex]
+Verleng $PQ$ en $AB$ in het voorvlak tot ze elkaar snijden in $S$. & Twee rechten in één vlak, niet evenwijdig. \\[1ex]
+$S$ ligt op $AB$, dus in het grondvlak, en op $PQ$. & $S$ is het snijpunt.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.45,font=\scriptsize]
+  \draadkubus{4}
+  \draw[accent,thick] (B) -- (6,0,0);
+  \draw[nadruk] (0,3,0) -- (6,0,0);
+  \pnt[left]{0,3,0}{$P$} \pnt[above right]{4,1,0}{$Q$} \pnt[below]{6,0,0}{$S$}
+  \balknamen
+\end{tikzpicture}}
+Het snijpunt $S$ ligt op het verlengde van $[AB]$, voorbij $B$. Op het voorvlak in ware grootte zie je dat $\lengte{BS} = 2$~cm: $PQ$ daalt 2~cm over 4~cm, dus nog 1~cm over de volgende 2~cm.}
+
+Ligt de rechte niet in een zijvlak, dan zoek je een ander vlak door de rechte, bijvoorbeeld een diagonaalvlak.
+
+\voorbeeld{}{In dezelfde kubus ligt $P$ op $[AE]$ met $\lengte{AP} = 3$~cm, en $Q$ op $[CG]$ met $\lengte{CQ} = 1$~cm. Teken het snijpunt $S$ van $PQ$ met het grondvlak.\label{vb:h2-snijpunt2}}{%
+\uitleg{$PQ$ ligt in geen enkel zijvlak. Maar $P$ en $Q$ liggen in de rechthoek $ACGE$, en die snijdt het grondvlak volgens $AC$.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$PQ$ ligt in het vlak $ACGE$. & $P \in AE$ en $Q \in CG$. \\[1ex]
+$ACGE$ snijdt het grondvlak volgens $AC$. & $A$ en $C$ liggen in beide vlakken. \\[1ex]
+Verleng $PQ$ en $AC$ tot ze elkaar snijden in $S$. & In het vlak $ACGE$.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.45,font=\scriptsize]
+  \draadkubus{4}
+  \fill[vlakdeel] (A) -- (C) -- (G) -- (E) -- cycle;
+  \draw[accent,thick,dashed] (A) -- (C);
+  \draw[accent,thick] (C) -- (6,0,6);
+  \draw[nadruk] (0,3,0) -- (6,0,6);
+  \pnt[left]{0,3,0}{$P$} \pnt[above right]{4,1,4}{$Q$} \pnt[below right]{6,0,6}{$S$}
+  \balknamen
+\end{tikzpicture}}
+Het snijpunt $S$ ligt op het verlengde van $[AC]$, voorbij $C$, op de helft van $\lengte{AC}$: in de rechthoek $ACGE$ gebeurt hetzelfde als in het vorige voorbeeld.}
+
+\begin{werkwijze}
+Het snijpunt van een rechte $a$ met een vlak $\alpha$ tekenen: zoek een vlak $\beta$ waarin $a$ ligt, en zoek de snijlijn $s$ van $\beta$ en $\alpha$. Het snijpunt van $a$ en $s$ is het snijpunt van $a$ en $\alpha$. Zijn $a$ en $s$ evenwijdig, dan is $a$ evenwijdig met $\alpha$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-snijpunt}
+\end{oefeningen}
+
+%========================================================================================
+\section{Twee vlakken}
+
+\subsection{Drie mogelijke liggingen}
+
+Hoe kunnen twee vlakken ten opzichte van elkaar liggen? Denk aan de vloer, het plafond en de muren van een lokaal. De vloer en het plafond hebben geen punt gemeen. Een muur en de vloer komen samen in een rechte lijn: de rand onderaan de muur. Twee vlakken hebben nooit precies één punt gemeen, zoals de rechten in hoofdstuk~1 wel. Dat aanvaarden we als grondeigenschap.
+
+\begin{theorie}
+\begin{stelling}{Snijlijn van twee vlakken}
+Hebben twee verschillende vlakken een punt gemeen, dan hebben ze een rechte gemeen, en alleen die rechte.
+\end{stelling}
+\end{theorie}
+
+\naast{Waarom maar één rechte? Hadden de vlakken nog een punt buiten die rechte gemeen, dan gingen ze allebei door een rechte en een punt erbuiten, en dan zouden ze samenvallen. Er zijn dus drie mogelijkheden.}{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \vlakje{0}{0}{3.6}{1.3}{\alpha}
+  \filldraw[vlakvulling] (.4,.45) -- (4,.45) -- (4,2.4) -- (.4,2.4) -- cycle;
+  \node[accent,font=\small] at (3.7,2.1) {$\beta$};
+  \draw[accent,thick] (.4,.45) -- (4,.45) node[right] {$s$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \vlakje{0}{0}{3.6}{1.3}{\beta}
+  \vlakje{0}{1.5}{3.6}{1.3}{\alpha}
+\end{tikzpicture}}
+
+\begin{theorie}
+Twee vlakken zijn \textbf{\textcolor{accent}{snijdend}} als ze een rechte gemeen hebben, de \textbf{\textcolor{accent}{snijlijn}}. Je schrijft $\formule{\alpha \cap \beta = s}$.
+
+Twee vlakken zijn \textbf{\textcolor{accent}{evenwijdig}} als ze geen punt gemeen hebben (\textbf{\textcolor{accent}{strikt evenwijdig}}), of als ze samenvallen. Je schrijft $\formule{\alpha \parallel \beta}$.
+\end{theorie}
+
+\voorbeeld{}{Hoe liggen de vlakken? Bekijk het grondvlak $ABCD$ met het bovenvlak $EFGH$, met het voorvlak $ABFE$ en met het vlak $BDHF$.\label{vb:h2-ligging-vv}}{%
+\uitleg{Zoek gemeenschappelijke punten. Vind je er twee, dan is de rechte erdoor de snijlijn.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+Het bovenvlak ligt helemaal boven het grondvlak. & $ABCD \parallel EFGH$, strikt. \\[1ex]
+$A$ en $B$ liggen in het grondvlak en in het voorvlak. & $ABCD \cap ABFE = AB$. \\[1ex]
+$B$ en $D$ liggen in het grondvlak en in $BDHF$. & $ABCD \cap BDHF = BD$.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \fill[vlakdeel] (B) -- (D) -- (H) -- (F) -- cycle;
+  \draw[accent!60] (H) -- (F) -- (B);
+  \draw[nadruk,dashed] (B) -- (D);
+  \balknamen
+\end{tikzpicture}}
+Het grondvlak is evenwijdig met het bovenvlak, en snijdt het voorvlak volgens $AB$ en het vlak $BDHF$ volgens de diagonaal $BD$.}
+
+\begin{oefeningen}
+\oef{h2-ligging-vv}
+\end{oefeningen}
+
+\subsection{De snijlijn van twee vlakken tekenen}
+
+Een rechte ligt vast door twee punten. Om de snijlijn van twee vlakken te tekenen, zoek je dus twee punten die in beide vlakken liggen. Soms zijn dat hoekpunten. Anders zoek je in elk vlak een rechte, zo dat die twee rechten elkaar snijden: hun snijpunt ligt in beide vlakken.
+
+\voorbeeld{}{Teken de snijlijn van de vlakken $ACGE$ en $BDHF$.\label{vb:h2-snijlijn}}{%
+\uitleg{De twee rechthoeken hebben geen hoekpunt gemeen. Maar $AC$ en $BD$ liggen in het grondvlak en snijden elkaar, en net zo $EG$ en $FH$ in het bovenvlak.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$AC \cap BD = \{N\}$, het midden van het grondvlak. & $AC \subset ACGE$, $BD \subset BDHF$. \\[1ex]
+$EG \cap FH = \{M\}$, het midden van het bovenvlak. & $EG \subset ACGE$, $FH \subset BDHF$. \\[1ex]
+$M$ en $N$ liggen in beide vlakken. & De snijlijn is $MN$.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \fill[vlakdeel] (A) -- (C) -- (G) -- (E) -- cycle;
+  \fill[vlakdeel] (B) -- (D) -- (H) -- (F) -- cycle;
+  \draw[accent!60,dashed] (A) -- (C) (B) -- (D);
+  \draw[accent!60] (E) -- (G) (F) -- (H);
+  \draw[nadruk,shorten <=-3mm,shorten >=-3mm] (2,0,2) -- (2,4,2);
+  \pnt[below right]{2,0,2}{$N$} \pnt[above right]{2,4,2}{$M$}
+  \balknamen
+\end{tikzpicture}}
+De snijlijn is de verticale rechte $MN$ door het midden van het grondvlak en het midden van het bovenvlak.}
+
+\begin{werkwijze}
+De snijlijn van twee vlakken tekenen: zoek twee punten die in beide vlakken liggen. Vind je ze niet meteen, zoek dan in elk van de twee vlakken een rechte, zo dat die rechten in één vlak liggen en elkaar snijden. Hun snijpunt ligt in beide vlakken.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-snijlijn}
+\end{oefeningen}
+
+\subsection{Evenwijdige vlakken}
+
+Hoe toon je aan dat twee vlakken evenwijdig zijn? Eén rechte die evenwijdig is met het andere vlak, volstaat niet: het voorvlak $ABFE$ bevat de rechte $EF$, die evenwijdig is met het grondvlak, en toch snijdt het voorvlak het grondvlak. Met twee snijdende rechten lukt het wel. Denk aan een tafelblad: leg je er twee latten kruiselings op, dan ligt een plaat die op de twee latten rust, evenwijdig met het tafelblad.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van evenwijdige vlakken}
+Bevat een vlak $\alpha$ twee snijdende rechten die elk evenwijdig zijn met een vlak $\beta$, dan is $\formule{\alpha \parallel \beta}$.
+\end{stelling}
+\begin{alleenvoor}{5}
+\begin{bewijs}
+Noem de rechten $a$ en $b$, met snijpunt $S$. Stel dat $\alpha$ en $\beta$ niet evenwijdig zijn. Dan snijden ze elkaar volgens een rechte $s$. Ligt $a$ in $\beta$, dan ligt $a$ in $\alpha$ en in $\beta$, dus $a = s$. Ligt $a$ niet in $\beta$, dan heeft $a$ geen punt gemeen met $\beta$, dus ook niet met $s$. Omdat $a$ en $s$ allebei in $\alpha$ liggen, is $a \parallel s$. In beide gevallen is $a \parallel s$, en net zo $b \parallel s$. Dan gaan door $S$ twee rechten evenwijdig met $s$. Door een punt gaat maar één evenwijdige met een rechte, dus $a = b$. Dat is een tegenspraak, want $a$ en $b$ snijden elkaar.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+\voorbeeld{}{Toon aan dat de vlakken $BDE$ en $CFH$ evenwijdig zijn.\label{vb:h2-evw-vlakken}}{%
+\uitleg{We zoeken in het vlak $BDE$ twee snijdende rechten die evenwijdig zijn met $CFH$. Elk ervan toon je aan met het kenmerk van een rechte evenwijdig met een vlak.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$BD \parallel FH$, want $BDHF$ is een rechthoek, en $FH \subset CFH$. & Dus $BD \parallel CFH$. \\[1ex]
+$DE \parallel CF$, want $CDEF$ is een rechthoek, en $CF \subset CFH$. & Dus $DE \parallel CFH$. \\[1ex]
+$BD$ en $DE$ snijden elkaar in $D$. & Kenmerk van evenwijdige vlakken.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \fill[vlakdeel] (B) -- (D) -- (E) -- cycle;
+  \fill[vlakdeel] (C) -- (F) -- (H) -- cycle;
+  \draw[nadruk,dashed] (B) -- (D) -- (E) (C) -- (H);
+  \draw[nadruk] (E) -- (B) (C) -- (F) -- (H);
+  \balknamen
+\end{tikzpicture}}
+De vlakken $BDE$ en $CFH$ zijn evenwijdig. Elk van de twee driehoeken snijdt een hoek van de kubus af: de hoek $A$ en de hoek $G$.}
+
+Wordt een kubus door een vlak gesneden, dan snijdt dat vlak het grondvlak en het bovenvlak volgens twee rechten. Hoe liggen die? Ze liggen in hetzelfde snijvlak, en ze kunnen elkaar niet raken, want het grondvlak en het bovenvlak hebben geen punt gemeen. Ze zijn dus evenwijdig.
+
+\begin{theorie}
+\begin{stelling}{Snijlijnen met evenwijdige vlakken}
+Snijdt een vlak $\gamma$ twee strikt evenwijdige vlakken $\alpha$ en $\beta$, dan zijn de snijlijnen evenwijdig:
+
+\vspace{1mm}
+\qquad $\formule{\alpha \parallel \beta, \ \ \gamma \cap \alpha = a, \ \ \gamma \cap \beta = b \ \Rightarrow \ a \parallel b}$
+\end{stelling}
+\begin{bewijs}
+De rechten $a$ en $b$ liggen allebei in $\gamma$. Een gemeenschappelijk punt zou in $\alpha$ en in $\beta$ liggen, maar $\alpha$ en $\beta$ hebben geen punt gemeen. Twee rechten in één vlak zonder gemeenschappelijk punt zijn evenwijdig.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{$P$ is het midden van $[AB]$. Het vlak door $E$, $G$ en $P$ snijdt het bovenvlak volgens $EG$. Teken de snijlijn met het grondvlak.\label{vb:h2-evw-snijlijnen}}{%
+\uitleg{Het bovenvlak en het grondvlak zijn evenwijdig, dus de snijlijn met het grondvlak is evenwijdig met $EG$. Ze gaat door $P$.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+De snijlijn met het grondvlak gaat door $P$ en is evenwijdig met $EG$. & Snijlijnen met evenwijdige vlakken. \\[1ex]
+$EG \parallel AC$, dus de snijlijn is de evenwijdige met $AC$ door $P$. & In het grondvlak. \\[1ex]
+Ze snijdt $[BC]$ in het midden $Q$. & Middenparallel in de driehoek $ABC$.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \draw[nadruk] (E) -- (G);
+  \draw[accent!60,dashed] (A) -- (C);
+  \draw[nadruk,dashed] (2,0,0) -- (4,0,2);
+  \pnt[below]{2,0,0}{$P$} \pnt[right]{4,0,2}{$Q$}
+  \balknamen
+\end{tikzpicture}}
+De snijlijn met het grondvlak is $PQ$, met $Q$ het midden van $[BC]$.}
+
+\begin{oefeningen}
+\oef{h2-evw-vlakken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Doorsneden}
+
+Wat zie je als je een kubus doorsnijdt met één rechte snede? Het snijvlak is een veelhoek, en elke zijde ervan ligt in een zijvlak van de kubus. Met de snijlijnen van de vorige paragraaf kun je die veelhoek tekenen.
+
+\begin{theorie}
+Snijd je een veelvlak, zoals een kubus, een balk of een piramide, met een vlak, dan is de \textbf{\textcolor{accent}{doorsnede}} de veelhoek waarin het vlak het veelvlak snijdt. Elke zijde van de doorsnede ligt in een zijvlak van het veelvlak.
+\end{theorie}
+
+\subsection{Twee punten in hetzelfde zijvlak}
+
+Liggen twee punten van het snijvlak in hetzelfde zijvlak, dan ligt de rechte erdoor in het snijvlak en in dat zijvlak: het lijnstuk ertussen is een zijde van de doorsnede.
+
+\voorbeeld{}{Teken de doorsnede van de kubus met het vlak $BDE$.\label{vb:h2-doorsnede1}}{%
+\uitleg{Elke twee van de drie punten liggen in hetzelfde zijvlak: we verbinden ze.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$B$ en $D$ liggen in het grondvlak: teken $[BD]$. & In stippellijn, want het grondvlak zie je niet. \\[1ex]
+$D$ en $E$ liggen in het linkerzijvlak: teken $[DE]$. & Ook in stippellijn. \\[1ex]
+$E$ en $B$ liggen in het voorvlak: teken $[EB]$. & Volle lijn.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \fill[snede] (B) -- (D) -- (E) -- cycle;
+  \draw[accent,thick,dashed] (B) -- (D) -- (E);
+  \draw[accent,thick] (E) -- (B);
+  \balknamen
+\end{tikzpicture}}
+De doorsnede is de driehoek $BDE$. Hij is gelijkzijdig, want elke zijde is een diagonaal van een zijvlak.}
+
+\begin{werkwijze}
+Regel 1: liggen twee punten van het snijvlak in hetzelfde zijvlak, verbind ze dan. Teken een zijde in een zijvlak dat je niet ziet in stippellijn.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-doorsnede1}
+\end{oefeningen}
+
+\subsection{Evenwijdige zijvlakken}
+
+Wat als een zijvlak maar één punt van het snijvlak bevat? Dan helpt het overstaande zijvlak, als je daar al een zijde van de doorsnede kent. Overstaande zijvlakken van een kubus of een balk zijn evenwijdig, dus de zijden van de doorsnede erin zijn evenwijdig.
+
+\voorbeeld{}{$P$ is het midden van $[AB]$. Teken de doorsnede van de kubus met het vlak door $E$, $G$ en $P$.\label{vb:h2-doorsnede2}}{%
+\uitleg{$E$ en $G$ liggen in het bovenvlak, $E$ en $P$ in het voorvlak. In het grondvlak kennen we alleen $P$: het overstaande bovenvlak helpt.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+Teken $[EG]$ en $[EP]$. & Regel 1. \\[1ex]
+Teken in het grondvlak door $P$ de evenwijdige met $EG$. Ze snijdt $[BC]$ in het midden $Q$. & Snijlijnen met evenwijdige vlakken (voorbeeld~\ref{vb:h2-evw-snijlijnen}). \\[1ex]
+Teken $[QG]$. & $Q$ en $G$ liggen in het rechterzijvlak.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \draadkubus{4}
+  \coordinate (P) at (2,0,0); \coordinate (Q) at (4,0,2);
+  \fill[snede] (P) -- (Q) -- (G) -- (E) -- cycle;
+  \draw[accent,thick,dashed] (P) -- (Q);
+  \draw[accent,thick] (Q) -- (G) -- (E) -- (P);
+  \pnt[below]{P}{$P$} \pnt[right]{Q}{$Q$}
+  \balknamen
+\end{tikzpicture}}
+De doorsnede is het trapezium $PQGE$, met $PQ \parallel EG$.}
+
+\begin{werkwijze}
+Regel 2: snijdt het vlak twee evenwijdige zijvlakken, dan zijn de zijden van de doorsnede in die zijvlakken evenwijdig. Ken je er één, teken dan de andere evenwijdig ermee, door een punt dat je al hebt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-doorsnede2}
+\end{oefeningen}
+
+\subsection{Verlengen}
+
+Soms helpen de twee regels niet: in een zijvlak ligt maar één punt, en het overstaande zijvlak helpt niet. Dan verleng je een zijde van de doorsnede tot ze een ribbe snijdt, of het verlengde van een ribbe. Dat snijpunt ligt in het snijvlak, en in twee zijvlakken tegelijk.
+
+\voorbeeld{}{$P$ is het midden van $[AB]$ en $Q$ het midden van $[BC]$. Teken de doorsnede van de kubus met het vlak door $P$, $Q$ en $H$.\label{vb:h2-doorsnede3}}{%
+\uitleg{$P$ en $Q$ liggen in het grondvlak. $H$ ligt in het bovenvlak, maar de evenwijdige met $PQ$ door $H$ loopt meteen uit de kubus. In het voorvlak, het linkerzijvlak en het achtervlak kennen we telkens maar één punt. We verlengen $PQ$ in het grondvlak.}
+\begin{redenering}{8.6cm}{6.1cm}
+Teken $[PQ]$, en verleng $PQ$ tot ze $DA$ snijdt in $X$ en $DC$ in $Y$. & $X$ en $Y$ liggen in het snijvlak en in het grondvlak. \\[1ex]
+$X$ ligt op $DA$, dus ook in het linkerzijvlak, net als $H$. Teken $XH$: die snijdt $[AE]$ in $V$. & Regel 1 in het linkerzijvlak. \\[1ex]
+$Y$ ligt op $DC$, dus ook in het achtervlak, net als $H$. Teken $YH$: die snijdt $[CG]$ in $U$. & Regel 1 in het achtervlak. \\[1ex]
+Teken $[VP]$ en $[QU]$. & In het voorvlak en het rechterzijvlak.
+\end{redenering}
+\figuren{\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadkubus{4}
+  \coordinate (P) at (2,0,0); \coordinate (Q) at (4,0,2); \coordinate (X) at (0,0,-2); \coordinate (Y) at (6,0,4);
+  \coordinate (V) at (0,4/3,0); \coordinate (U) at (4,4/3,4);
+  \draw[lijngrijs] (A) -- (X) (C) -- (Y);
+  \draw[accent!70,thin] (X) -- (P) (Q) -- (Y) (X) -- (V) (U) -- (Y);
+  \fill[snede] (P) -- (Q) -- (U) -- (H) -- (V) -- cycle;
+  \draw[accent,thick,dashed] (P) -- (Q) (U) -- (H) -- (V);
+  \draw[accent,thick] (V) -- (P) (Q) -- (U);
+  \pnt[below]{P}{$P$} \pnt[below right]{Q}{$Q$} \pnt[below]{X}{$X$} \pnt[below]{Y}{$Y$}
+  \pnt[left]{V}{$V$} \pnt[right]{U}{$U$}
+  \balknamen
+\end{tikzpicture}}
+De doorsnede is de vijfhoek $PQUHV$. Het vlak door drie punten snijdt de kubus dus niet altijd volgens een driehoek.}
+
+\begin{werkwijze}
+Regel 3: verleng een zijde van de doorsnede in een zijvlak tot ze een ribbe (of het verlengde ervan) snijdt. Dat snijpunt ligt ook in het zijvlak aan de andere kant van die ribbe. Verbind het daar met een punt van het snijvlak dat je al kent.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-doorsnede3}
+\end{oefeningen}
+
+Nu kunnen we de kaas van het begin doorsnijden.
+
+\voorbeeld{}{Terug naar het probleem. Welke vorm heeft de doorsnede van de kubus met het vlak door het midden $P$ van $[AB]$, het midden $Q$ van $[BC]$ en het midden $R$ van $[GH]$?\label{vb:h2-terug}}{%
+\uitleg{$P$ en $Q$ liggen in het grondvlak, $R$ in het bovenvlak: regel 2 geeft een tweede punt in het bovenvlak. Voor de zijvlakken verlengen we $PQ$, zoals in het vorige voorbeeld.}
+\begin{redenering}{8.6cm}{6.1cm}
+Teken $[PQ]$. Teken in het bovenvlak door $R$ de evenwijdige met $PQ$: ze snijdt $[EH]$ in het midden $S$. & Regel 2: grondvlak en bovenvlak zijn evenwijdig. \\[1ex]
+Verleng $PQ$ tot $X$ op $DA$ en $Y$ op $DC$. Teken $XS$ in het linkerzijvlak: die snijdt $[AE]$ in het midden $V$. & Regel 3. \\[1ex]
+Teken $YR$ in het achtervlak: die snijdt $[CG]$ in het midden $U$. & Regel 3. \\[1ex]
+Teken $[VP]$ en $[QU]$. & Regel 1.
+\end{redenering}
+\figuren{\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadkubus{4}
+  \coordinate (P) at (2,0,0); \coordinate (Q) at (4,0,2); \coordinate (X) at (0,0,-2); \coordinate (Y) at (6,0,4);
+  \coordinate (R) at (2,4,4); \coordinate (S) at (0,4,2); \coordinate (V) at (0,2,0); \coordinate (U) at (4,2,4);
+  \draw[lijngrijs] (A) -- (X) (C) -- (Y);
+  \draw[accent!70,thin] (X) -- (P) (Q) -- (Y) (X) -- (V) (U) -- (Y);
+  \fill[snede] (P) -- (Q) -- (U) -- (R) -- (S) -- (V) -- cycle;
+  \draw[accent,thick,dashed] (P) -- (Q) (U) -- (R) (S) -- (V);
+  \draw[accent,thick] (Q) -- (U) (R) -- (S) (V) -- (P);
+  \pnt[below]{P}{$P$} \pnt[below right]{Q}{$Q$} \pnt[below]{X}{$X$} \pnt[below]{Y}{$Y$}
+  \pnt[left]{V}{$V$} \pnt[right]{U}{$U$} \pnt[above]{R}{$R$} \pnt[above left]{S}{$S$}
+  \balknamen
+\end{tikzpicture}}
+De doorsnede is een zeshoek $PQURSV$, geen driehoek. Elke zijde verbindt de middens van twee ribben van hetzelfde zijvlak, dus alle zes zijden zijn even lang: de helft van een diagonaal van een zijvlak. De zeshoek is zelfs regelmatig. Snijd je een kaaskubus zo door, dan zie je een mooie zeshoek.}
+
+\subsection{Doorsneden van een piramide}
+
+De drie regels werken ook bij andere veelvlakken. Een piramide heeft geen evenwijdige zijvlakken, maar wel evenwijdige ribben in het grondvlak. Een vlak door een rechte die evenwijdig is met een ribbe, bevat soms die hele ribbe.
+
+\voorbeeld{}{$T.ABCD$ is een piramide met een vierkant grondvlak. $P$ is het midden van $[TA]$ en $Q$ het midden van $[TB]$. Teken de doorsnede met het vlak door $P$, $Q$ en $C$.\label{vb:h2-piramide}}{%
+\uitleg{$P$ en $Q$ liggen in het zijvlak $TAB$, en $Q$ en $C$ in het zijvlak $TBC$. We zoeken waar het vlak de ribbe $[TD]$ of het grondvlak snijdt.}
+\naast{\begin{redenering}{6.2cm}{4cm}
+Teken $[PQ]$ en $[QC]$. & Regel 1. \\[1ex]
+$PQ \parallel AB$ en $AB \parallel CD$, dus $PQ \parallel CD$. & Middenparallel in de driehoek $TAB$. \\[1ex]
+Het vlak door $PQ$ en $C$ bevat dus de hele rechte $CD$. Teken $[CD]$ en $[DP]$. & Vlak door twee evenwijdige rechten.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadpiramide{4}{4.4}
+  \coordinate (P) at ($(A)!.5!(T)$); \coordinate (Q) at ($(B)!.5!(T)$);
+  \fill[snede] (P) -- (Q) -- (C) -- (D) -- cycle;
+  \draw[accent,thick] (P) -- (Q) -- (C);
+  \draw[accent,thick,dashed] (C) -- (D) -- (P);
+  \pnt[left]{P}{$P$} \pnt[right]{Q}{$Q$}
+  \piramidenamen
+\end{tikzpicture}}
+De doorsnede is het trapezium $PQCD$, met $PQ \parallel CD$ en $\lengte{PQ} = \tfrac12 \lengte{CD}$.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+
+\oef{h2-o25}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-ligging-rv}{oef:h2-ligging-rv}%
+  \fv{oef:h2-t2}{vb:h2-ligging-vv}{oef:h2-ligging-vv}%
+  \fv{oef:h2-t3}{vb:h2-evw-vlak}{oef:h2-evw-vlak}%
+  \fv{oef:h2-t4}{vb:h2-snijpunt}{oef:h2-snijpunt}%
+  \fv{oef:h2-t5}{vb:h2-snijlijn}{oef:h2-snijlijn}%
+  \fv{oef:h2-t6}{vb:h2-doorsnede2}{oef:h2-doorsnede2}%
+  \fv{oef:h2-t7}{vb:h2-piramide}{oef:h2-o15}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de drie liggingen van een rechte en een vlak, het kenmerk van een rechte die evenwijdig is met een vlak, hoe je het snijpunt van een rechte en een vlak tekent, de drie liggingen van twee vlakken, hoe je een snijlijn tekent, het kenmerk van evenwijdige vlakken, de eigenschap van de snijlijnen met evenwijdige vlakken, en de drie regels om een doorsnede te tekenen. Vergelijk daarna met de kaders.
+\fi

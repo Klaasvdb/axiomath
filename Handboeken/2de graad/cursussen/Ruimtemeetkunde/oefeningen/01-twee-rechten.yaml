@@ -1,0 +1,1681 @@
+# Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
+# Kubus ABCD.EFGH: grondvlak ABCD (A vooraan links, B vooraan rechts, C achteraan rechts, D achteraan links),
+# E boven A, F boven B, G boven C, H boven D. De liggingen zijn nagerekend met coördinaten (Python).
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Wat je al weet uit het vlak en over ruimtefiguren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe noem je twee rechten in een vlak die precies één punt gemeen hebben? En twee rechten in een vlak zonder gemeenschappelijk punt?
+      antwoord: |-
+        snijdend; (strikt) evenwijdig
+      uitwerking: |-
+        Snijdende rechten hebben één punt gemeen, het snijpunt. Rechten in een vlak zonder gemeenschappelijk punt zijn evenwijdig.
+    - opgave: |-
+        Hoeveel rechten gaan er door twee verschillende punten $A$ en $B$? Wat is het verschil tussen $AB$ en $[AB]$?
+      antwoord: |-
+        precies één; $AB$ is de rechte, $[AB]$ het lijnstuk
+      uitwerking: |-
+        Door twee punten gaat precies één rechte. De rechte $AB$ loopt onbeperkt door, het lijnstuk $[AB]$ stopt in $A$ en in $B$.
+    - opgave: |-
+        Hoeveel hoekpunten, ribben en zijvlakken heeft een kubus? En een piramide met een vierkant grondvlak?
+      antwoord: |-
+        kubus: 8, 12 en 6; piramide: 5, 8 en 5
+      uitwerking: |-
+        Een kubus heeft 4 hoekpunten onderaan en 4 bovenaan, 4 ribben onderaan, 4 bovenaan en 4 opstaande, en 6 vierkante zijvlakken. De piramide heeft de 4 hoekpunten van het grondvlak en de top, de 4 ribben van het grondvlak en 4 opstaande ribben, en het grondvlak met 4 driehoekige zijvlakken.
+    - opgave: |-
+        In een vlak is de rechte $a$ evenwijdig met $b$, en $b$ evenwijdig met $c$. Hoe liggen $a$ en $c$?
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        In een vlak zijn twee rechten die evenwijdig zijn met een derde rechte, ook onderling evenwijdig.
+    - opgave: |-
+        $ABCD$ is een rechthoek. Welke zijden zijn evenwijdig? Wat weet je over de diagonalen $[AC]$ en $[BD]$?
+      antwoord: |-
+        $AB \parallel DC$ en $AD \parallel BC$; ze zijn even lang en snijden elkaar in hun midden
+      uitwerking: |-
+        In een rechthoek zijn de overstaande zijden evenwijdig en even lang. De diagonalen zijn even lang en delen elkaar middendoor.
+
+- id: h1-verken
+  soort: start
+  figuur:
+    opties: |-
+      2.6cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.6,font=\scriptsize]
+        \draadkubus{3}
+        \draw[nadruk] (A) -- (B);
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad Bekijk de ribbe $AB$ van de kubus $ABCD.EFGH$. Neem er een echte kubus of een doos bij als dat helpt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke ribben hebben een punt gemeen met $AB$?
+      antwoord: |-
+        $AD$, $AE$, $BC$ en $BF$
+      uitwerking: |-
+        De ribben die in $A$ of in $B$ beginnen: $AD$ en $AE$ in $A$, $BC$ en $BF$ in $B$.
+    - opgave: |-
+        Welke ribben lopen in dezelfde richting als $AB$?
+      antwoord: |-
+        $DC$, $EF$ en $HG$
+      uitwerking: |-
+        De ribben van links naar rechts: $DC$ onderaan achter, $EF$ bovenaan voor en $HG$ bovenaan achter.
+    - opgave: |-
+        Welke ribben blijven over? Snijden ze $AB$ als je ze verlengt? Lopen ze in dezelfde richting als $AB$?
+      antwoord: |-
+        $CG$, $DH$, $EH$ en $FG$; nee; nee
+      uitwerking: |-
+        Van de 11 andere ribben blijven er $11 - 4 - 3 = 4$ over: $CG$, $DH$, $EH$ en $FG$. Ze snijden $AB$ niet, ook niet verlengd, en ze lopen van onder naar boven of van voor naar achter.
+    - opgave: |-
+        Kun je een groot blad karton zo houden dat het tegen de hele ribbe $AB$ en tegen de hele ribbe $CG$ ligt? En tegen $AB$ en $HG$?
+      antwoord: |-
+        nee; ja
+      uitwerking: |-
+        Tegen $AB$ en $HG$ lukt het: het karton loopt schuin door de kubus. Tegen $AB$ en $CG$ lukt het niet: draai je het karton om $AB$, dan raakt het $CG$ hoogstens in één punt.
+
+- id: h1-tekenen
+  soort: kort
+  opgave: |-
+    Teken in cavalièreperspectief.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        een balk $ABCD.EFGH$ met $\lengte{AB} = 6$~cm, $\lengte{AD} = 4$~cm en $\lengte{AE} = 3$~cm
+      antwoord: |-
+        voorvlak 6~cm bij 3~cm, ribben naar achter 2~cm
+      uitwerking: |-
+        Het voorvlak $ABFE$ is een rechthoek van 6~cm breed en 3~cm hoog. De ribben naar achter, zoals $[AD]$, zijn 4~cm, dus je tekent ze 2~cm lang, onder $45^\circ$.
+        \figuren{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+          \draadbalk{6}{3}{4}
+          \balknamen
+        \end{tikzpicture}}
+    - opgave: |-
+        een kubus $ABCD.EFGH$ met ribben van 4~cm, met het midden $P$ van $[EF]$, het midden $Q$ van $[CG]$ en het lijnstuk $[PQ]$
+      antwoord: |-
+        $P$ 2~cm rechts van $E$, $Q$ halverwege $C$ en $G$
+      uitwerking: |-
+        Het midden van een ribbe is ook in de tekening het midden: $P$ ligt 2~cm rechts van $E$, en $Q$ ligt halverwege $C$ en $G$, 2~cm boven $C$.
+        \figuren{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+          \draadkubus{4}
+          \draw[nadruk] (2,4,0) -- (4,2,4);
+          \pnt[above left]{2,4,0}{$P$} \pnt[right]{4,2,4}{$Q$}
+          \balknamen
+        \end{tikzpicture}}
+    - opgave: |-
+        een piramide $T.ABCD$ met een vierkant grondvlak $ABCD$ met zijde 4~cm, en de top $T$ 5~cm recht boven het snijpunt $M$ van de diagonalen van het grondvlak
+      antwoord: |-
+        grondvlak als in een kubus, $T$ 5~cm boven $M$
+      uitwerking: |-
+        Teken het grondvlak zoals het grondvlak van een kubus: $[AB]$ is 4~cm, $[AD]$ en $[BC]$ zijn 2~cm, onder $45^\circ$. Teken de diagonalen in stippellijn, en $T$ 5~cm recht boven hun snijpunt $M$. De ribben naar $D$ zijn verborgen.
+        \figuren{\begin{tikzpicture}[schuin,scale=.45,font=\scriptsize]
+          \draadpiramide{4}{5}
+          \draw[verborgen] (A) -- (C) (B) -- (D) (M) -- (T);
+          \pnt[below]{M}{$M$}
+          \piramidenamen
+        \end{tikzpicture}}
+
+- id: h1-in-vlak
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Ligt de rechte in het vlak? Verklaar.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $EG$ in het vlak $EFGH$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $E$ en $G$ liggen in het bovenvlak.
+    - opgave: |-
+        $BH$ in het vlak $ABCD$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Alleen $B$ ligt in het grondvlak, $H$ ligt erboven.
+    - opgave: |-
+        $AF$ in het vlak $ABFE$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $A$ en $F$ liggen in het voorvlak.
+    - opgave: |-
+        $CE$ in het vlak $BCGF$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Alleen $C$ ligt in het rechterzijvlak, $E$ ligt links.
+    - opgave: |-
+        $AG$ in het vlak $ACGE$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $A$ en $G$ liggen in de rechthoek $ACGE$.
+    - opgave: |-
+        $DF$ in het vlak $BDHF$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $D$ en $F$ liggen in de rechthoek $BDHF$.
+
+- id: h1-snijdend
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Snijden de rechten elkaar? Zo ja, waar?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AD$ en $DH$
+      antwoord: |-
+        ja, in $D$
+      uitwerking: |-
+        Twee ribben uit hetzelfde hoekpunt $D$.
+    - opgave: |-
+        $EG$ en $FH$
+      antwoord: |-
+        ja, in het midden van $EFGH$
+      uitwerking: |-
+        De diagonalen van het vierkant $EFGH$ snijden elkaar in het midden.
+    - opgave: |-
+        $AF$ en $BE$
+      antwoord: |-
+        ja, in het midden van $ABFE$
+      uitwerking: |-
+        De diagonalen van het voorvlak snijden elkaar in het midden.
+    - opgave: |-
+        $AG$ en $CE$
+      antwoord: |-
+        ja, in het midden van de kubus
+      uitwerking: |-
+        Ze zijn de diagonalen van de rechthoek $ACGE$, en snijden elkaar in het midden van die rechthoek: het midden van de kubus.
+    - opgave: |-
+        $AH$ en $DE$
+      antwoord: |-
+        ja, in het midden van $ADHE$
+      uitwerking: |-
+        De diagonalen van het linkerzijvlak snijden elkaar in het midden.
+    - opgave: |-
+        $AB$ en $GH$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Ze lopen in dezelfde richting en hebben geen punt gemeen: ze zijn strikt evenwijdig.
+
+- id: h1-evenwijdig
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    In de kubus $ABCD.EFGH$:
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Noem alle ribben die evenwijdig zijn met $BF$.
+      antwoord: |-
+        $AE$, $CG$ en $DH$
+      uitwerking: |-
+        De andere drie ribben van onder naar boven.
+    - opgave: |-
+        Noem een diagonaal van een zijvlak die evenwijdig is met de diagonaal $AC$.
+      antwoord: |-
+        $EG$
+      uitwerking: |-
+        $ACGE$ is een rechthoek, dus $EG \parallel AC$.
+    - opgave: |-
+        Noem een diagonaal van een zijvlak die evenwijdig is met de diagonaal $AH$.
+      antwoord: |-
+        $BG$
+      uitwerking: |-
+        $ABGH$ is een rechthoek, dus $BG \parallel AH$.
+    - opgave: |-
+        $M$ is het midden van $[EH]$. Door $M$ gaat de evenwijdige $m$ met $AE$. Waar snijdt $m$ de ribbe $[AD]$?
+      antwoord: |-
+        in het midden van $[AD]$
+      uitwerking: |-
+        $m$ ligt in het linkerzijvlak $ADHE$ en loopt van onder naar boven, halverwege $AE$ en $DH$. Ze snijdt $[AD]$ in het midden.
+
+- id: h1-transitief
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Toon aan dat de rechten evenwijdig zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $EF$ en $DC$
+      antwoord: |-
+        $EF \parallel AB$ en $AB \parallel DC$
+      uitwerking: |-
+        $EF \parallel AB$ (voorvlak) en $AB \parallel DC$ (grondvlak). Evenwijdig met een derde rechte: $EF \parallel DC$.
+    - opgave: |-
+        $BD$ en $FH$
+      antwoord: |-
+        $BDHF$ is een parallellogram
+      uitwerking: |-
+        $BF \parallel AE$ en $AE \parallel DH$, dus $BF \parallel DH$, en $\lengte{BF} = \lengte{DH}$. Een vierhoek met twee overstaande zijden even lang en evenwijdig is een parallellogram, dus $BD \parallel FH$.
+    - opgave: |-
+        $CF$ en $DE$
+      antwoord: |-
+        $CDEF$ is een parallellogram
+      uitwerking: |-
+        $DC \parallel AB$ en $AB \parallel EF$, dus $DC \parallel EF$, en $\lengte{DC} = \lengte{EF}$. Dus is $CDEF$ een parallellogram, en $DE \parallel CF$.
+
+- id: h1-kruisend
+  soort: kort
+  opgave: |-
+    Waar of niet waar? Verbeter wat niet klopt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Twee rechten die geen punt gemeen hebben, zijn evenwijdig.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Ze kunnen ook kruisend zijn, zoals $AB$ en $CG$ in een kubus.
+    - opgave: |-
+        Twee kruisende rechten hebben geen punt gemeen.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Snijdende rechten liggen in één vlak, kruisende niet.
+    - opgave: |-
+        Twee rechten die in één vlak liggen, kunnen kruisend zijn.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Kruisende rechten liggen per definitie niet in één vlak.
+    - opgave: |-
+        Twee rechten die niet evenwijdig zijn, snijden elkaar.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        In de ruimte kunnen ze ook kruisend zijn.
+    - opgave: |-
+        Noem twee ribben van een kubus $ABCD.EFGH$ die kruisend zijn met $AD$.
+      antwoord: |-
+        bijvoorbeeld $BF$ en $EF$
+      uitwerking: |-
+        De ribben die kruisend zijn met $AD$: $BF$, $CG$, $EF$ en $HG$.
+
+- id: h1-ligging
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Onderzoek de ligging van de rechten.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $AE$ en $CG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Allebei van onder naar boven; ze liggen in de rechthoek $ACGE$.
+    - opgave: |-
+        $AE$ en $GH$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $GH$ ligt in het bovenvlak, $AE$ prikt erdoor in $E$, en $E$ ligt niet op $GH$. Ze lopen in een andere richting.
+    - opgave: |-
+        $AC$ en $BD$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        De diagonalen van het grondvlak snijden elkaar in het midden.
+    - opgave: |-
+        $AF$ en $CH$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $AF$ ligt in het voorvlak, $CH$ in het achtervlak: geen gemeenschappelijk punt. $CH \parallel BE$, en $BE$ snijdt $AF$, dus $CH$ is niet evenwijdig met $AF$.
+    - opgave: |-
+        $BG$ en $DE$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $BG$ ligt in het rechterzijvlak, $DE$ in het linkerzijvlak: geen gemeenschappelijk punt. $DE \parallel CF$, en $CF$ snijdt $BG$, dus $DE$ is niet evenwijdig met $BG$.
+    - opgave: |-
+        $BH$ en $DF$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        Ze liggen allebei in de rechthoek $BDHF$, als diagonalen: ze snijden elkaar in het midden van de kubus.
+
+- id: h1-vlak-drie
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Welke andere hoekpunten van de kubus liggen nog in het vlak?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        het vlak $ABG$
+      antwoord: |-
+        $H$
+      uitwerking: |-
+        $AB \parallel HG$ en $\lengte{AB} = \lengte{HG}$: het vlak is de rechthoek $ABGH$.
+    - opgave: |-
+        het vlak $EFC$
+      antwoord: |-
+        $D$
+      uitwerking: |-
+        $EF \parallel DC$ en $\lengte{EF} = \lengte{DC}$: het vlak is de rechthoek $EFCD$.
+    - opgave: |-
+        het vlak $ACH$
+      antwoord: |-
+        geen
+      uitwerking: |-
+        Het vlak snijdt drie hoeken van de kubus af en is een driehoek $ACH$. Geen ander hoekpunt ligt erin.
+    - opgave: |-
+        het vlak $BEG$
+      antwoord: |-
+        geen
+      uitwerking: |-
+        Net als $ACH$ is dit een driehoek die een hoek van de kubus afsnijdt (de hoek $F$).
+
+- id: h1-vlak-twee
+  soort: kort
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Bepalen de rechten een vlak? Zo ja, noem het vlak met hoekpunten van de kubus.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AB$ en $CD$
+      antwoord: |-
+        ja, $ABCD$
+      uitwerking: |-
+        Strikt evenwijdig: het grondvlak.
+    - opgave: |-
+        $AE$ en $HG$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Kruisend: $HG$ ligt in het bovenvlak, $AE$ prikt erdoor in $E$, en $E$ ligt niet op $HG$.
+    - opgave: |-
+        $BF$ en $BD$
+      antwoord: |-
+        ja, $BDHF$
+      uitwerking: |-
+        Snijdend in $B$: het vlak door $B$, $F$ en $D$ is de rechthoek $BDHF$.
+    - opgave: |-
+        $AH$ en $BG$
+      antwoord: |-
+        ja, $ABGH$
+      uitwerking: |-
+        Strikt evenwijdig, zoals in het voorbeeld over $AH$ en $BG$: de rechthoek $ABGH$.
+    - opgave: |-
+        $EG$ en $BD$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Kruisend: ze liggen in het bovenvlak en het grondvlak, en zijn niet evenwijdig.
+    - opgave: |-
+        $AG$ en $CE$
+      antwoord: |-
+        ja, $ACGE$
+      uitwerking: |-
+        Snijdend in het midden van de kubus: het vlak is de rechthoek $ACGE$.
+
+#----------------------------------------------------------------------------------------
+# Opdrachten: niveau 1 (o1-o8), niveau 2 (o9-o18), niveau 3 (o19-o24)
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ligging van twee rechten in een kubus
+  figuur:
+    opties: |-
+      2.6cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.6,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Onderzoek de ligging van de rechten in de kubus $ABCD.EFGH$: snijdend, evenwijdig of kruisend?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $AB$ en $EF$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Overstaande zijden van het voorvlak.
+    - opgave: |-
+        $AE$ en $BC$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $BC$ ligt in het grondvlak, $AE$ prikt erdoor in $A$, niet op $BC$. Andere richting.
+    - opgave: |-
+        $EH$ en $DH$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In het hoekpunt $H$.
+    - opgave: |-
+        $AD$ en $FG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Allebei van voor naar achter; ze liggen in de rechthoek $ADGF$.
+    - opgave: |-
+        $BF$ en $EH$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $EH$ ligt in het bovenvlak, $BF$ prikt erdoor in $F$, niet op $EH$. Andere richting.
+    - opgave: |-
+        $AC$ en $EG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Overstaande zijden van de rechthoek $ACGE$.
+    - opgave: |-
+        $CH$ en $DG$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        Diagonalen van het achtervlak $CDHG$: ze snijden elkaar in het midden ervan.
+    - opgave: |-
+        $BD$ en $FH$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Overstaande zijden van de rechthoek $BDHF$.
+    - opgave: |-
+        $DC$ en $BF$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $DC$ ligt in het grondvlak, $BF$ prikt erdoor in $B$, niet op $DC$. Andere richting.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een vlak bepalen, grondeigenschappen
+  opgave: |-
+    Waar of niet waar? Geef bij wat niet waar is een voorbeeld dat het tegendeel toont.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Door twee punten gaat precies één vlak.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Door twee punten gaan oneindig veel vlakken, zoals de standen van een deur rond de rechte door haar scharnieren.
+    - opgave: |-
+        Door drie punten gaat altijd precies één vlak.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Alleen als de punten niet collineair zijn. Door $A$, $B$ en het midden van $[AB]$ gaan oneindig veel vlakken.
+    - opgave: |-
+        Een rechte die twee punten gemeen heeft met een vlak, ligt in dat vlak.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Dat is de grondeigenschap \textit{rechte in een vlak} (als de twee punten verschillend zijn).
+    - opgave: |-
+        Twee snijdende rechten liggen altijd in één vlak.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Ze bepalen precies één vlak.
+    - opgave: |-
+        Twee rechten die geen punt gemeen hebben, liggen altijd in één vlak.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Kruisende rechten, zoals $AB$ en $CG$ in een kubus, hebben geen punt gemeen en liggen niet in één vlak.
+    - opgave: |-
+        Door een rechte en een punt gaat altijd precies één vlak.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Alleen als het punt niet op de rechte ligt. Ligt het punt op de rechte, dan gaan er oneindig veel vlakken door.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tekenen in cavalièreperspectief
+  opgave: |-
+    Teken in cavalièreperspectief.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        een kubus $ABCD.EFGH$ met ribben van 5~cm, met de diagonalen $[BH]$ en $[DF]$
+      antwoord: |-
+        ribben naar achter 2,5~cm
+      uitwerking: |-
+        Het voorvlak is een vierkant van 5~cm, de ribben naar achter teken je 2,5~cm lang onder $45^\circ$. De diagonalen snijden elkaar in het midden van de kubus.
+        \figuren{\begin{tikzpicture}[schuin,scale=.4,font=\scriptsize]
+          \draadkubus{5}
+          \draw[nadruk] (B) -- (H) (D) -- (F);
+          \balknamen
+        \end{tikzpicture}}
+    - opgave: |-
+        een balk $ABCD.EFGH$ met $\lengte{AB} = 3$~cm, $\lengte{AD} = 6$~cm en $\lengte{AE} = 2$~cm
+      antwoord: |-
+        voorvlak 3~cm bij 2~cm, ribben naar achter 3~cm
+      uitwerking: |-
+        Een lange, platte balk die naar achter loopt: het voorvlak is 3~cm breed en 2~cm hoog, de ribben naar achter teken je 3~cm lang.
+        \figuren{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+          \draadbalk{3}{2}{6}
+          \balknamen
+        \end{tikzpicture}}
+    - opgave: |-
+        een kubus $ABCD.EFGH$ met ribben van 4~cm, en de driehoek $ACH$ in kleur
+      antwoord: |-
+        $[AC]$ en $[CH]$ in stippellijn
+      uitwerking: |-
+        $[AC]$ ligt in het grondvlak en $[CH]$ in het achtervlak: die zie je niet, dus stippellijn. $[AH]$ ligt in het linkerzijvlak, dat je ook niet ziet, maar de driehoek zelf loopt door de kubus.
+        \figuren{\begin{tikzpicture}[schuin,scale=.45,font=\scriptsize]
+          \draadkubus{4}
+          \fill[vlakdeel] (A) -- (C) -- (H) -- cycle;
+          \draw[accent,thick,dashed] (A) -- (C) -- (H) -- cycle;
+          \balknamen
+        \end{tikzpicture}}
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ligging van twee rechten in het dagelijks leven
+  opgave: |-
+    Snijdend, evenwijdig of kruisend? Denk aan de rechten waarop de lijnen liggen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        twee randen van een tafelblad die samenkomen in een hoek
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        Ze hebben de hoek als gemeenschappelijk punt.
+    - opgave: |-
+        de twee rails van een recht spoor
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Ze liggen in het vlak van de grond en hebben geen punt gemeen.
+    - opgave: |-
+        een rechte spoorweg en een rechte autoweg op een brug die er dwars over loopt
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        Ze hebben geen punt gemeen (de brug ligt hoger) en lopen in een andere richting.
+    - opgave: |-
+        een verticale vlaggenmast en een rechte witte lijn op het voetbalveld die niet door de voet van de mast gaat
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        De lijn ligt in het vlak van het veld, de mast prikt erdoor in zijn voet, en die ligt niet op de lijn.
+    - opgave: |-
+        twee lijnen op hetzelfde blad van een gelijnd schrift
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Ze liggen in het vlak van het blad en hebben geen punt gemeen.
+    - opgave: |-
+        de grote en de kleine wijzer van een klok
+      antwoord: |-
+        snijdend (of samenvallend)
+      uitwerking: |-
+        Ze draaien allebei om de as in het midden van de klok: dat punt hebben ze gemeen. Om 12 uur vallen ze samen.
+    - opgave: |-
+        de bovenrand van het bord en de rand van de vloer onder het bord
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Ze liggen in het vlak van de muur en hebben geen punt gemeen.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ligging van twee rechten in een balk
+  figuur:
+    opties: |-
+      3.2cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.6,font=\scriptsize]
+        \draadbalk{4}{2}{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Onderzoek de ligging van de rechten in de balk $ABCD.EFGH$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AB$ en $HG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Allebei van links naar rechts; ze liggen in het vlak $ABGH$.
+    - opgave: |-
+        $AD$ en $GH$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $GH$ ligt in het bovenvlak, $AD$ in het grondvlak: geen gemeenschappelijk punt. Andere richting.
+    - opgave: |-
+        $BF$ en $DH$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Allebei van onder naar boven; ze liggen in het vlak $BDHF$.
+    - opgave: |-
+        $AH$ en $BG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        $AB \parallel HG$ en $\lengte{AB} = \lengte{HG}$, dus $ABGH$ is een parallellogram.
+    - opgave: |-
+        $AC$ en $BD$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        De diagonalen van het grondvlak snijden elkaar in het midden.
+    - opgave: |-
+        $CE$ en $DF$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        Ze liggen in het vlak $CDEF$ (een rechthoek) als diagonalen, en snijden elkaar in het midden van de balk.
+    - opgave: |-
+        $AE$ en $CD$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $CD$ ligt in het grondvlak, $AE$ prikt erdoor in $A$, niet op $CD$. Andere richting.
+    - opgave: |-
+        $EG$ en $BC$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        Bovenvlak en grondvlak: geen gemeenschappelijk punt. $EG \parallel AC$ en $AC$ snijdt $BC$, dus $EG$ is niet evenwijdig met $BC$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    coplanaire punten
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Zijn de punten coplanair? Noem het vlak als dat kan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $A$, $B$, $C$ en $D$
+      antwoord: |-
+        ja, het grondvlak
+      uitwerking: |-
+        Ze liggen in het grondvlak.
+    - opgave: |-
+        $A$, $B$, $C$ en $G$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $A$, $B$ en $C$ bepalen het grondvlak, en $G$ ligt erboven.
+    - opgave: |-
+        $A$, $B$, $G$ en $H$
+      antwoord: |-
+        ja, $ABGH$
+      uitwerking: |-
+        $AB \parallel HG$: de rechthoek $ABGH$.
+    - opgave: |-
+        $B$, $D$, $E$ en $G$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Het vlak $BDE$ snijdt de hoek $A$ af en bevat geen ander hoekpunt.
+    - opgave: |-
+        $E$, $F$, $C$ en $D$
+      antwoord: |-
+        ja, $EFCD$
+      uitwerking: |-
+        $EF \parallel DC$: de rechthoek $EFCD$.
+    - opgave: |-
+        $A$, $G$ en het midden $M$ van $[AG]$
+      antwoord: |-
+        ja, oneindig veel vlakken
+      uitwerking: |-
+        De drie punten zijn collineair: ze liggen op de rechte $AG$, en door een rechte gaan oneindig veel vlakken.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ligging van twee rechten in een piramide
+  figuur:
+    opties: |-
+      2.6cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadpiramide{3}{3.4}
+        \draw[verborgen] (A) -- (C) (B) -- (D) (M) -- (T);
+        \pnt[below]{M}{$M$}
+        \piramidenamen
+      \end{tikzpicture}
+  opgave: |-
+    $T.ABCD$ is een piramide met een vierkant grondvlak $ABCD$. De top $T$ ligt recht boven het midden $M$ van het grondvlak. Onderzoek de ligging van de rechten.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $TA$ en $TC$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In de top $T$.
+    - opgave: |-
+        $AB$ en $CD$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Overstaande zijden van het vierkant $ABCD$.
+    - opgave: |-
+        $TA$ en $BC$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $BC$ ligt in het grondvlak, $TA$ prikt erdoor in $A$, niet op $BC$. Andere richting.
+    - opgave: |-
+        $TB$ en $AD$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $AD$ ligt in het grondvlak, $TB$ prikt erdoor in $B$, niet op $AD$.
+    - opgave: |-
+        $AC$ en $BD$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In het midden $M$ van het grondvlak.
+    - opgave: |-
+        $TM$ en $AB$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $AB$ ligt in het grondvlak, $TM$ prikt erdoor in $M$, niet op $AB$.
+    - opgave: |-
+        $TM$ en $AC$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In $M$, want $M$ ligt op $AC$.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kruisende rechten in een kubus
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Noem alle ribben van de kubus die kruisend zijn met de rechte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de ribbe $AB$
+      antwoord: |-
+        $CG$, $DH$, $EH$ en $FG$
+      uitwerking: |-
+        Van de 11 andere ribben snijden er 4 de ribbe $AB$ (in $A$ of $B$) en zijn er 3 evenwijdig. De overige 4 zijn kruisend.
+    - opgave: |-
+        de diagonaal $AC$ van het grondvlak
+      antwoord: |-
+        $BF$, $DH$, $EF$, $FG$, $GH$ en $EH$
+      uitwerking: |-
+        $AC$ snijdt de vier ribben van het grondvlak en $AE$ en $CG$. Evenwijdig met $AC$ is geen enkele ribbe. De zes andere ribben zijn kruisend: de vier ribben van het bovenvlak, en $BF$ en $DH$.
+    - opgave: |-
+        de diagonaal $BH$ van de kubus
+      antwoord: |-
+        $AE$, $CG$, $AD$, $DC$, $EF$ en $FG$
+      uitwerking: |-
+        $BH$ snijdt de drie ribben uit $B$ en de drie ribben uit $H$. Geen ribbe is evenwijdig met $BH$. De zes andere ribben zijn kruisend.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ligging van twee rechten in een huisje met een zadeldak
+  figuur:
+    opties: |-
+      3.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.6,font=\scriptsize]
+        \balkpunten{4}{2}{2}
+        \coordinate (K) at (0,3,1); \coordinate (L) at (4,3,1);
+        \fill[accent!5] (A) -- (B) -- (C) -- (G) -- (L) -- (K) -- (E) -- cycle;
+        \draw[verborgen] (D) -- (A) (D) -- (C) (D) -- (H) (E) -- (H) -- (G) (H) -- (K);
+        \draw[ribbe] (A) -- (B) -- (F) -- (E) -- cycle (B) -- (C) -- (G) -- (F) (E) -- (K) -- (L) -- (F) (G) -- (L);
+        \node[above,inner sep=1.5pt] at (K) {$K$}; \node[above,inner sep=1.5pt] at (L) {$L$};
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Een huisje is een balk $ABCD.EFGH$ met een zadeldak. De nok $[KL]$ ligt recht boven het midden van $[EH]$ en van $[FG]$. Onderzoek de ligging van de rechten.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $KL$ en $EF$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        De nok loopt van links naar rechts, net als $EF$. Ze liggen in het dakvlak $EFLK$.
+    - opgave: |-
+        $KL$ en $BC$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $BC$ ligt in het grondvlak, $KL$ hoog erboven: geen gemeenschappelijk punt. Andere richting.
+    - opgave: |-
+        $EK$ en $FL$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        $KL \parallel EF$ en $\lengte{KL} = \lengte{EF}$, dus $EFLK$ is een parallellogram, en $EK \parallel FL$.
+    - opgave: |-
+        $EK$ en $HK$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In de nok, in $K$.
+    - opgave: |-
+        $KL$ en $CG$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $KL$ ligt in het dakvlak $HGLK$, $CG$ prikt erdoor in $G$, en $G$ ligt niet op $KL$. Andere richting.
+    - opgave: |-
+        $FL$ en $AD$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $FL$ ligt in het vlak van de rechtergevel, $AD$ in het vlak van de linkergevel, en die vlakken hebben geen punt gemeen. Ze zijn niet evenwijdig: $AD$ is horizontaal, $FL$ loopt schuin omhoog.
+    - opgave: |-
+        $EK$ en $GL$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        Linkergevel en rechtergevel: geen gemeenschappelijk punt. $FL \parallel EK$, en $FL$ snijdt $GL$ in $L$, dus $GL$ is niet evenwijdig met $EK$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hoeveel vlakken bepalen rechten en punten
+  opgave: |-
+    Hoeveel vlakken bepalen deze punten of rechten samen? Tel de vlakken die door minstens drie van de punten of door minstens twee van de rechten gaan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de vier hoekpunten $A$, $B$, $C$ en $T$ van een piramide met een driehoekig grondvlak
+      antwoord: |-
+        4
+      uitwerking: |-
+        Elke drie punten bepalen een vlak: $ABC$, $ABT$, $ACT$ en $BCT$. Dat zijn het grondvlak en de drie zijvlakken.
+    - opgave: |-
+        de ribben $AB$, $AD$ en $AE$ van een kubus
+      antwoord: |-
+        3
+      uitwerking: |-
+        Elke twee ervan zijn snijdend in $A$: $ABCD$, $ABFE$ en $ADHE$.
+    - opgave: |-
+        de ribben $AE$, $BF$ en $CG$ van een kubus
+      antwoord: |-
+        3
+      uitwerking: |-
+        Elke twee zijn strikt evenwijdig: $ABFE$, $BCGF$ en $ACGE$.
+    - opgave: |-
+        de vier opstaande ribben $AE$, $BF$, $CG$ en $DH$ van een kubus
+      antwoord: |-
+        6
+      uitwerking: |-
+        Elke twee bepalen een ander vlak: de vier zijvlakken en de twee rechthoeken $ACGE$ en $BDHF$.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een vlak bepalen met twee rechten in een piramide
+  figuur:
+    opties: |-
+      2.6cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadpiramide{3}{3.4}
+        \draw[verborgen] (A) -- (C) (B) -- (D) (M) -- (T);
+        \pnt[below]{M}{$M$}
+        \piramidenamen
+      \end{tikzpicture}
+  opgave: |-
+    $T.ABCD$ is een piramide met een vierkant grondvlak en de top recht boven het midden $M$ van het grondvlak. Bepalen de rechten een vlak? Zo ja, welk?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $TA$ en $TB$
+      antwoord: |-
+        ja, $TAB$
+      uitwerking: |-
+        Snijdend in $T$: het zijvlak $TAB$.
+    - opgave: |-
+        $AB$ en $CD$
+      antwoord: |-
+        ja, $ABCD$
+      uitwerking: |-
+        Strikt evenwijdig: het grondvlak.
+    - opgave: |-
+        $TA$ en $CD$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Kruisend: $CD$ ligt in het grondvlak, $TA$ prikt erdoor in $A$, niet op $CD$.
+    - opgave: |-
+        $TA$ en $TC$
+      antwoord: |-
+        ja, $TAC$
+      uitwerking: |-
+        Snijdend in $T$: het vlak $TAC$, een driehoek die door $M$ en door het inwendige van de piramide gaat.
+    - opgave: |-
+        $AC$ en $TM$
+      antwoord: |-
+        ja, $TAC$
+      uitwerking: |-
+        Snijdend in $M$: het vlak door $A$, $C$ en $T$, hetzelfde vlak als in de vorige vraag.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eigenschappen van liggingen, met tegenvoorbeelden
+  opgave: |-
+    Waar of niet waar? Zoek bij wat niet waar is een tegenvoorbeeld met ribben van een kubus $ABCD.EFGH$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Als $a \parallel b$ en $b \parallel c$, dan is $a \parallel c$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Dat is de eigenschap \textit{evenwijdig met een derde rechte}.
+    - opgave: |-
+        Als $a$ en $b$ kruisend zijn en $b$ en $c$ kruisend, dan zijn $a$ en $c$ kruisend.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $a = AB$, $b = CG$ en $c = AD$: $AB$ en $CG$ zijn kruisend, $CG$ en $AD$ ook, maar $AB$ en $AD$ snijden elkaar in $A$.
+    - opgave: |-
+        Als $a$ en $b$ snijdend zijn en $b$ en $c$ snijdend, dan zijn $a$ en $c$ snijdend.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $a = AB$, $b = BC$ en $c = CG$: $AB$ en $BC$ snijden in $B$, $BC$ en $CG$ in $C$, maar $AB$ en $CG$ zijn kruisend.
+    - opgave: |-
+        Als $a \parallel b$ en $b$ en $c$ kruisend zijn, dan zijn ook $a$ en $c$ kruisend.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $a = AB$, $b = EF$ en $c = BC$: $AB \parallel EF$, $EF$ en $BC$ zijn kruisend, maar $AB$ en $BC$ snijden in $B$.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ligging van een rechte door de middens van twee ribben
+  figuur:
+    opties: |-
+      2.6cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.6,font=\scriptsize]
+        \draadkubus{3}
+        \draw[nadruk] (0,1.5,0) -- (3,1.5,3);
+        \pnt[left]{0,1.5,0}{$P$} \pnt[right]{3,1.5,3}{$Q$}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    In de kubus $ABCD.EFGH$ is $P$ het midden van $[AE]$ en $Q$ het midden van $[CG]$. Onderzoek de ligging van $PQ$ en de rechte.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AC$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        $AP \parallel CQ$ en $\lengte{AP} = \lengte{CQ}$, dus $ACQP$ is een parallellogram en $PQ \parallel AC$.
+    - opgave: |-
+        $EG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        $PQ \parallel AC$ en $AC \parallel EG$.
+    - opgave: |-
+        $BD$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $PQ$ ligt halverwege tussen grondvlak en bovenvlak en heeft geen punt in het grondvlak, waar $BD$ ligt. $PQ \parallel AC$ en $AC$ snijdt $BD$, dus niet evenwijdig.
+    - opgave: |-
+        $BH$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $PQ$ verbindt de middens van twee overstaande zijden van de rechthoek $ACGE$, dus gaat ze door het midden van die rechthoek: het midden van de kubus. Ook de diagonaal $BH$ gaat door het midden van de kubus. Daar snijden ze elkaar.
+    - opgave: |-
+        $AE$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In $P$.
+    - opgave: |-
+        $BF$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $BF$ ligt in het voorvlak, en $PQ$ heeft daarmee alleen $P$ gemeen, dat niet op $BF$ ligt. $PQ$ loopt schuin naar achter, $BF$ verticaal.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    evenwijdige door een punt
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Welke rechte door het gegeven hoekpunt is evenwijdig met de gegeven rechte? Geef ze met twee hoekpunten van de kubus.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        door $A$, evenwijdig met $BG$
+      antwoord: |-
+        $AH$
+      uitwerking: |-
+        $ABGH$ is een rechthoek.
+    - opgave: |-
+        door $H$, evenwijdig met $BE$
+      antwoord: |-
+        $HC$
+      uitwerking: |-
+        $BCHE$ is een rechthoek.
+    - opgave: |-
+        door $E$, evenwijdig met $AC$
+      antwoord: |-
+        $EG$
+      uitwerking: |-
+        $ACGE$ is een rechthoek.
+    - opgave: |-
+        door $B$, evenwijdig met $DH$
+      antwoord: |-
+        $BF$
+      uitwerking: |-
+        Ribben van onder naar boven.
+    - opgave: |-
+        door $C$, evenwijdig met $DE$
+      antwoord: |-
+        $CF$
+      uitwerking: |-
+        $CDEF$ is een rechthoek.
+    - opgave: |-
+        door $F$, evenwijdig met $DA$
+      antwoord: |-
+        $FG$
+      uitwerking: |-
+        Ribben van voor naar achter.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tekenen en ligging onderzoeken
+  opgave: |-
+    Teken een kubus $ABCD.EFGH$ met ribben van 4~cm. Teken het midden $M$ van $[AB]$, het midden $N$ van $[GH]$ en de rechte $MN$. Onderzoek de ligging van $MN$ en de rechte.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $AH$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        $AM \parallel HN$ en $\lengte{AM} = \lengte{HN}$, dus $AMNH$ is een parallellogram en $MN \parallel AH$.
+        \figuren{\begin{tikzpicture}[schuin,scale=.45,font=\scriptsize]
+          \draadkubus{4}
+          \draw[nadruk] (2,0,0) -- (2,4,4);
+          \draw[accent,dashed] (A) -- (H);
+          \pnt[below]{2,0,0}{$M$} \pnt[above]{2,4,4}{$N$}
+          \balknamen
+        \end{tikzpicture}}
+    - opgave: |-
+        $BG$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        $MN \parallel AH$ en $AH \parallel BG$.
+    - opgave: |-
+        $CE$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $MC \parallel EN$ en $\lengte{MC} = \lengte{EN}$, dus $MCNE$ is een parallellogram. $MN$ en $CE$ zijn de diagonalen ervan: ze snijden elkaar, in het midden van de kubus.
+    - opgave: |-
+        $EF$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $EF$ ligt in het voorvlak, $MN$ heeft daarmee alleen $M$ gemeen, dat niet op $EF$ ligt. $MN \parallel AH$, en $AH$ is niet evenwijdig met $EF$.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ligging van twee rechten in een prisma
+  figuur:
+    opties: |-
+      3cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.6,font=\scriptsize]
+        \coordinate (A) at (0,0,0); \coordinate (B) at (3.4,0,0); \coordinate (C) at (1.7,0,2.6);
+        \coordinate (D) at (0,2.4,0); \coordinate (E) at (3.4,2.4,0); \coordinate (F) at (1.7,2.4,2.6);
+        \fill[accent!5] (A) -- (B) -- (E) -- (F) -- (D) -- cycle;
+        \draw[verborgen] (A) -- (C) -- (B) (C) -- (F);
+        \draw[ribbe] (A) -- (B) -- (E) -- (D) -- cycle (D) -- (F) -- (E);
+        \node[below left,inner sep=1.5pt] at (A) {$A$}; \node[below right,inner sep=1.5pt] at (B) {$B$};
+        \node[right,inner sep=2pt] at (C) {$C$}; \node[left,inner sep=1.5pt] at (D) {$D$};
+        \node[right,inner sep=1.5pt] at (E) {$E$}; \node[above,inner sep=1.5pt] at (F) {$F$};
+      \end{tikzpicture}
+  opgave: |-
+    $ABC.DEF$ is een recht prisma met als grondvlak de driehoek $ABC$. De opstaande ribben $[AD]$, $[BE]$ en $[CF]$ staan loodrecht op het grondvlak. Onderzoek de ligging van de rechten.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AB$ en $DE$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Overstaande zijden van de rechthoek $ABED$.
+    - opgave: |-
+        $AD$ en $CF$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Twee opstaande ribben: ze liggen in de rechthoek $ACFD$.
+    - opgave: |-
+        $AB$ en $CF$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $AB$ ligt in het grondvlak, $CF$ prikt erdoor in $C$, niet op $AB$. Andere richting.
+    - opgave: |-
+        $BC$ en $DF$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        Grondvlak en bovenvlak: geen gemeenschappelijk punt. $DF \parallel AC$, en $AC$ snijdt $BC$, dus $DF$ is niet evenwijdig met $BC$.
+    - opgave: |-
+        $AE$ en $BD$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        Diagonalen van de rechthoek $ABED$: ze snijden elkaar in het midden.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een vlak bepalen met drie punten, in het dagelijks leven
+  opgave: |-
+    Een tafel met drie poten wiebelt nooit, ook niet op een ongelijke vloer. Een tafel met vier poten soms wel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verklaar dat met een grondeigenschap.
+      antwoord: |-
+        door drie punten gaat altijd een vlak, door vier niet altijd
+      uitwerking: |-
+        De drie uiteinden van de poten liggen niet op één rechte, dus er gaat precies één vlak door: de tafel staat altijd stevig op die drie punten. Bij vier poten hoeven de vier uiteinden niet coplanair te zijn: dan raken maar drie ervan tegelijk de vloer, en wiebelt de tafel tussen twee standen.
+    - opgave: |-
+        Kan een tafel met drie poten toch wiebelen als de uiteinden van de poten op één rechte liggen? Hoe ziet zo'n tafel eruit?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Door drie collineaire punten gaan oneindig veel vlakken: de tafel kan kantelen rond die rechte, zoals een tafel met drie poten op een rij onder het blad.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rechten bij een vlak tekenen
+  opgave: |-
+    Teken een vlak $\alpha$ als een parallellogram, en daarin een rechte $a$. Teken daarna:
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        een rechte $b$ die niet in $\alpha$ ligt en $a$ snijdt
+      antwoord: |-
+        $b$ prikt door $\alpha$ in een punt van $a$
+      uitwerking: |-
+        Kies een punt $S$ op $a$ en een punt $P$ boven het vlak: $b = SP$.
+    - opgave: |-
+        een rechte $c$ die kruisend is met $a$
+      antwoord: |-
+        $c$ prikt door $\alpha$ in een punt buiten $a$
+      uitwerking: |-
+        Kies een punt $R$ van $\alpha$ dat niet op $a$ ligt, en een punt $Q$ boven het vlak: $c = RQ$. Het stuk van $c$ onder het vlak teken je in stippellijn.
+    - opgave: |-
+        een rechte $d$ die strikt evenwijdig is met $a$ en niet in $\alpha$ ligt
+      antwoord: |-
+        $d$ boven $\alpha$, evenwijdig getekend met $a$
+      uitwerking: |-
+        Teken $d$ boven het vlak, evenwijdig met $a$ in de tekening: evenwijdige rechten blijven evenwijdig in de tekening.
+        \figuren{\begin{tikzpicture}[scale=.8,font=\scriptsize]
+          \vlakje{0}{0}{4.4}{1.8}{\alpha}
+          \draw[accent,thick] (.3,.3) -- (4.3,.9) node[right] {$a$};
+          \draw[accent,thick] (.9,1.9) -- (4.9,2.5) node[right] {$d$};
+          \draw[grijs,thick] (1.6,.495) -- (1.1,2.2) node[above] {$b$};
+          \fill (1.6,.495) circle (1.5pt) node[below] {$S$};
+          \draw[grijs,thick] (3.3,1.05) -- (3.8,2.4) node[above] {$c$};
+          \draw[grijs,thick,dashed] (3.3,1.05) -- (3.1,.5);
+          \fill (3.3,1.05) circle (1.5pt) node[right] {$R$};
+        \end{tikzpicture}}
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    rechten die twee aan twee kruisend zijn
+  opgave: |-
+    Rechten zijn \textit{twee aan twee kruisend} als elke twee ervan kruisend zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zoek drie ribben van een kubus $ABCD.EFGH$ die twee aan twee kruisend zijn.
+      antwoord: |-
+        bijvoorbeeld $AB$, $CG$ en $EH$
+      uitwerking: |-
+        $AB$ en $CG$ zijn kruisend. $EH$ ligt in het bovenvlak, $CG$ prikt erdoor in $G$, niet op $EH$: kruisend. $EH$ en $AB$: $EH$ prikt door het voorvlak in $E$, niet op $AB$, en de richtingen verschillen: kruisend.
+    - opgave: |-
+        Kun je vier ribben van een kubus vinden die twee aan twee kruisend zijn? Leg uit.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De ribben lopen in maar drie richtingen. Bij vier ribben lopen er dus minstens twee in dezelfde richting, en die zijn evenwijdig, niet kruisend.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    paren ribben van een kubus tellen
+  opgave: |-
+    Een kubus heeft 12 ribben. Neem telkens twee ribben.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel paren van twee ribben zijn er? Tip: elke ribbe vormt een paar met 11 andere, maar zo tel je elk paar twee keer.
+      antwoord: |-
+        66
+      uitwerking: |-
+        $\tfrac{12 \cdot 11}{2} = 66$.
+    - opgave: |-
+        Hoeveel van die paren zijn snijdend?
+      antwoord: |-
+        24
+      uitwerking: |-
+        In elk van de 8 hoekpunten komen 3 ribben samen, en die vormen 3 paren: $8 \cdot 3 = 24$.
+    - opgave: |-
+        Hoeveel paren zijn evenwijdig?
+      antwoord: |-
+        18
+      uitwerking: |-
+        Per richting zijn er 4 ribben, die 6 paren vormen: $3 \cdot 6 = 18$.
+    - opgave: |-
+        Hoeveel paren zijn kruisend? Controleer met de Verken: hoeveel ribben zijn kruisend met één ribbe?
+      antwoord: |-
+        24
+      uitwerking: |-
+        $66 - 24 - 18 = 24$. Controle: elke ribbe is kruisend met 4 andere, en $\tfrac{12 \cdot 4}{2} = 24$.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een rechte en twee evenwijdige rechten
+  opgave: |-
+    De rechten $b$ en $c$ zijn strikt evenwijdig. Zoek telkens een voorbeeld met ribben of diagonalen van een kubus, of leg uit waarom het niet kan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        een rechte $a$ die kruisend is met $b$ en met $c$
+      antwoord: |-
+        bijvoorbeeld $b = AB$, $c = EF$, $a = CG$
+      uitwerking: |-
+        $CG$ is kruisend met $AB$, en ook met $EF$: $CG$ heeft geen punt in het voorvlak, waar $EF$ ligt, en de richtingen verschillen.
+    - opgave: |-
+        een rechte $a$ die $b$ snijdt en kruisend is met $c$
+      antwoord: |-
+        bijvoorbeeld $b = AB$, $c = HG$, $a = BF$
+      uitwerking: |-
+        $BF$ snijdt $AB$ in $B$. $HG$ ligt in het bovenvlak, $BF$ prikt erdoor in $F$, niet op $HG$: kruisend.
+    - opgave: |-
+        een rechte $a$ die $b$ en $c$ allebei snijdt
+      antwoord: |-
+        bijvoorbeeld $b = AB$, $c = EF$, $a = BE$
+      uitwerking: |-
+        $BE$ snijdt $AB$ in $B$ en $EF$ in $E$.
+    - opgave: |-
+        In welk vlak ligt $a$ in de vorige vraag? Is dat altijd zo als $a$ beide rechten in twee verschillende punten snijdt?
+      antwoord: |-
+        in het vlak van $b$ en $c$; ja
+      uitwerking: |-
+        $BE$ ligt in het voorvlak, het vlak van $AB$ en $EF$. Altijd: $a$ heeft twee verschillende punten in het vlak van $b$ en $c$, dus ligt ze erin.
+
+- id: h1-o22
+  pakketten: [1, 2, 3, 4]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    kruisende rechten en evenwijdigheid
+  opgave: |-
+    De rechten $a$ en $b$ zijn kruisend. Kan een rechte $c$ evenwijdig zijn met $a$ én met $b$? Leg uit.
+  antwoord: |-
+    nee
+  uitwerking: |-
+    Was $c \parallel a$ en $c \parallel b$, dan zou $a \parallel b$ (evenwijdig met een derde rechte). Maar evenwijdige rechten liggen in één vlak, en kruisende niet. Dus kan dat niet.
+
+- id: h1-o22
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs uit het ongerijmde met kruisende rechten
+  opgave: |-
+    Bewijs uit het ongerijmde: als $a$ en $b$ kruisend zijn, dan bestaat er geen rechte $c$ die evenwijdig is met $a$ én met $b$.
+  antwoord: |-
+    stel van wel, dan is $a \parallel b$
+  uitwerking: |-
+    Stel dat er een rechte $c$ is met $c \parallel a$ en $c \parallel b$. Dan is $a \parallel c$ en $c \parallel b$, dus $a \parallel b$ (evenwijdig met een derde rechte). Evenwijdige rechten liggen in één vlak, terwijl kruisende rechten niet in één vlak liggen. Dat is een tegenspraak, dus zo'n rechte $c$ bestaat niet.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een rechte die twee snijdende rechten snijdt
+  opgave: |-
+    De rechten $a$ en $b$ snijden elkaar in $S$. Een rechte $c$ snijdt $a$ in $P$ en $b$ in $Q$, met $P \neq Q$. Toon aan dat $c$ in het vlak van $a$ en $b$ ligt. Wat als $P = Q = S$?
+  antwoord: |-
+    $c$ heeft twee punten in dat vlak; dan hoeft $c$ er niet in te liggen
+  uitwerking: |-
+    $a$ en $b$ bepalen een vlak $\alpha$. Het punt $P$ ligt op $a$, dus in $\alpha$, en $Q$ ligt op $b$, dus in $\alpha$. De rechte $c$ heeft dus twee verschillende punten in $\alpha$, en ligt erin. Gaat $c$ door $S$ en verder niet door $a$ of $b$, dan kan ze uit het vlak steken, zoals de ribbe $AE$ bij $a = AB$ en $b = AD$.
+
+- id: h1-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    vlakken door hoekpunten van een kubus tellen
+  opgave: |-
+    Hoeveel verschillende vlakken gaan er door minstens drie hoekpunten van een kubus? Tip: tel de zijvlakken, de vlakken door twee overstaande ribben, en de vlakken die een hoek afsnijden, zoals $BDE$.
+  antwoord: |-
+    20
+  uitwerking: |-
+    Er zijn 6 zijvlakken. Een vlak door twee evenwijdige ribben die niet in hetzelfde zijvlak liggen, zoals $ACGE$: per richting zijn er 2, dus 6. Een vlak dat een hoek afsnijdt, gaat door de drie hoekpunten naast een hoekpunt, zoals $BDE$ naast $A$: één per hoekpunt, dus 8. Samen $6 + 6 + 8 = 20$. Controle: elk vlak met 4 hoekpunten bevat 4 drietallen, elk afgesneden hoek 1, en $12 \cdot 4 + 8 = 56$ is het aantal drietallen van 8 hoekpunten.
+
+#----------------------------------------------------------------------------------------
+# Test jezelf
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  figuur:
+    opties: |-
+      2.4cm
+    code: |-
+      \begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+        \draadkubus{3}
+        \balknamen
+      \end{tikzpicture}
+  opgave: |-
+    Onderzoek de ligging van de rechten in de kubus $ABCD.EFGH$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AD$ en $HG$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        Grondvlak en bovenvlak: geen gemeenschappelijk punt. Andere richting.
+    - opgave: |-
+        $AE$ en $DH$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Twee opstaande ribben, in het linkerzijvlak.
+    - opgave: |-
+        $AF$ en $BE$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        Diagonalen van het voorvlak.
+    - opgave: |-
+        $CE$ en $DH$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $DH$ ligt in het linkerzijvlak, $CE$ prikt erdoor in $E$, niet op $DH$. $CE$ loopt schuin, $DH$ verticaal.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Waar of niet waar? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Twee rechten die elkaar niet snijden, zijn evenwijdig.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Ze kunnen ook kruisend zijn.
+    - opgave: |-
+        Een rechte met twee verschillende punten in een vlak ligt in dat vlak.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Grondeigenschap \textit{rechte in een vlak}.
+    - opgave: |-
+        Kruisende rechten liggen in één vlak.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Kruisende rechten zijn net rechten die niet in één vlak liggen.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Teken in cavalièreperspectief een balk $ABCD.EFGH$ met $\lengte{AB} = 5$~cm, $\lengte{AD} = 4$~cm en $\lengte{AE} = 3$~cm, en de diagonaal $[BH]$.
+  antwoord: |-
+    voorvlak 5~cm bij 3~cm, ribben naar achter 2~cm
+  uitwerking: |-
+    Het voorvlak is 5~cm bij 3~cm. De ribben naar achter teken je 2~cm lang onder $45^\circ$. De verborgen ribben uit $D$ staan in stippellijn.
+    \figuren{\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+      \draadbalk{5}{3}{4}
+      \draw[nadruk] (B) -- (H);
+      \balknamen
+    \end{tikzpicture}}
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    $T.ABCD$ is een piramide met een vierkant grondvlak. Onderzoek de ligging van de rechten.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $TB$ en $CD$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $CD$ ligt in het grondvlak, $TB$ prikt erdoor in $B$, niet op $CD$.
+    - opgave: |-
+        $AB$ en $DC$
+      antwoord: |-
+        evenwijdig
+      uitwerking: |-
+        Overstaande zijden van het vierkant.
+    - opgave: |-
+        $TC$ en $BD$
+      antwoord: |-
+        kruisend
+      uitwerking: |-
+        $BD$ ligt in het grondvlak, $TC$ prikt erdoor in $C$, niet op $BD$.
+    - opgave: |-
+        $TA$ en $TD$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        In de top $T$.
+
+- id: h1-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Welk ander hoekpunt van de kubus $ABCD.EFGH$ ligt nog in het vlak $ADG$? Verklaar.
+  antwoord: |-
+    $F$
+  uitwerking: |-
+    $AD \parallel FG$ en $\lengte{AD} = \lengte{FG}$, dus $ADGF$ is een rechthoek: $F$ ligt in het vlak $ADG$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    In de kubus $ABCD.EFGH$ is $P$ het midden van $[BF]$ en $Q$ het midden van $[DH]$. Toon aan dat de rechten $PQ$ en $BD$ evenwijdig zijn.
+  antwoord: |-
+    $BDQP$ is een parallellogram
+  uitwerking: |-
+    $BF \parallel AE$ en $AE \parallel DH$, dus $BP \parallel DQ$, en $\lengte{BP} = \lengte{DQ}$ (halve ribben). Een vierhoek met twee overstaande zijden even lang en evenwijdig is een parallellogram: $BDQP$. Dus $PQ \parallel BD$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepalen de rechten een vlak in de kubus $ABCD.EFGH$? Zo ja, welk?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $AC$ en $EG$
+      antwoord: |-
+        ja, $ACGE$
+      uitwerking: |-
+        Strikt evenwijdig.
+    - opgave: |-
+        $BF$ en $EH$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Kruisend: $EH$ ligt in het bovenvlak, $BF$ prikt erdoor in $F$, niet op $EH$.
+    - opgave: |-
+        $AF$ en $BE$
+      antwoord: |-
+        ja, $ABFE$
+      uitwerking: |-
+        Snijdend: het voorvlak.
+    - opgave: |-
+        $AB$ en $GH$
+      antwoord: |-
+        ja, $ABGH$
+      uitwerking: |-
+        Strikt evenwijdig.

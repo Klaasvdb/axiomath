@@ -17,6 +17,6 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | Data en onzekerheid/Statistiek | 3de | LPD 33-35 | eerste versie |
 | Data en onzekerheid/Spreidingsdiagrammen | 3de | LPD 36 | eerste versie |
 | Analyse/Tweedegraadsfuncties | 4de | LPD 25-30 | gepland |
-| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | gepland |
+| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | eerste versie |
 | Meetkunde/Vectoren | 4de | LPD 13 | gepland |
 | Discrete wiskunde/Telproblemen | 4de | LPD 31 | eerste versie |

@@ -19,7 +19,7 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | Analyse/Tweedegraadsfuncties | 4de | LPD 29-34 | gepland |
 | Algebra/Veeltermen | 4de | LPD B6 | gepland |
 | Meetkunde/Goniometrie | 4de | LPD 15-17 | gepland |
-| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | gepland |
+| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | eerste versie |
 | Meetkunde/Vectoren | 4de | LPD 13-14 | gepland |
 | Meetkunde/Analytische meetkunde | 4de | LPD B2-B5 | gepland |
 | Meetkunde/De cirkel (keuze) | 4de | LPD K1 | gepland |

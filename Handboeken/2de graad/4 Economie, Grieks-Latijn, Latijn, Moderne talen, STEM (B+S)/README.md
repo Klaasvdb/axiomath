@@ -18,7 +18,7 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | Data en onzekerheid/Spreidingsdiagrammen | 3de | LPD 40 | eerste versie |
 | Analyse/Tweedegraadsfuncties | 4de | LPD 29-34 | gepland |
 | Meetkunde/Goniometrie | 4de | LPD 15-17 | gepland |
-| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | gepland |
+| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | eerste versie |
 | Meetkunde/Vectoren | 4de | LPD 13-14 | gepland |
 | Meetkunde/De cirkel (keuze) | 4de | LPD K1 | gepland |
 | Discrete wiskunde/Telproblemen | 4de | LPD 35 | eerste versie |
