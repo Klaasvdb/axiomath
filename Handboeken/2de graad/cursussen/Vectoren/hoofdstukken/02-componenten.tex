@@ -1,0 +1,696 @@
+%----------------------------------------------------------------------------------------
+% REKENEN MET VECTOREN: COMPONENTEN, NORM, ONTBINDEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: dit hoofdstuk staat alleen in pakket 4 en 5 (LPD 14, met een deel van LPD 13). Pakket 5 krijgt
+% ook evenwijdige vectoren en collineaire punten met componenten, als basis voor het handboek Analytische
+% meetkunde (richtingsvector van een rechte). Het inproduct komt pas daar.
+% Hoeken: alleen scherpe hoeken met sinus en cosinus (zoals in Driehoeksmeting). Wijst een vector naar links
+% of naar beneden, dan nemen we de scherpe hoek met de horizontale en kiezen we de tekens uit de figuur.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Rekenen met vectoren}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Mila trekt haar broertje op een slee door de sneeuw. Het touw maakt een hoek van $35^\circ$ met de grond, en ze trekt met een kracht van $120$~N. Maar niet die hele kracht trekt de slee vooruit: een deel ervan trekt de slee een beetje omhoog. Hoe groot is het deel dat de slee vooruit trekt? En hoe groot is het deel dat haar omhoog trekt?}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \fill[black!6] (-.6,-.25) rectangle (5.4,0);
+  \draw[grijs] (-.6,0) -- (5.4,0);
+  \draw[inkt,thick,rounded corners=2pt] (-.3,.12) -- (1.5,.12) -- (1.75,.4);
+  \filldraw[fill=accent!20,draw=inkt] (0,.12) rectangle (1.4,.55);
+  \coordinate (P) at (1.4,.4);
+  \draw[grijs] (P) -- ++(35:4.6);
+  \draw[som] (P) -- ++(35:3.2) coordinate (Q) node[above left] {$120$ N};
+  \draw[hulplijn] (Q) -- (Q |- P) (P) -- (Q |- P);
+  \draw[accent!70,thin] ($(P)+(.8,0)$) arc (0:35:.8);
+  \node[accent] at ($(P)+(17:1.1)$) {$35^\circ$};
+  \node[accent] at ($(Q |- P)+(.25,.9)$) {?};
+  \node[accent,below] at ($(P)!.5!(Q |- P)$) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 14 (componenten van een vector in een assenstelsel, de norm, een vector ontbinden in componenten volgens twee richtingen), samen met het rekenen met som en veelvoud uit LPD 13. De verdeling over LPD 13 en 14 is na te kijken in het leerplan.\alleenvoor{5}{ In dit pakket ook evenwijdige vectoren en collineaire punten met componenten: de basis voor de richtingsvector van een rechte in het handboek Analytische meetkunde. Het inproduct komt daar pas aan bod.} Voorkennis: hoofdstuk 1, coördinaten van punten, de stelling van Pythagoras en sinus, cosinus en tangens van een scherpe hoek (handboek Driehoeksmeting), stelsels van twee vergelijkingen (handboek Stelsels). Rekenmachine in graden (DEG).}
+
+In hoofdstuk 1 tekenden we vectoren als pijlen, en beschreven we een pijl op een rooster met woorden als \textit{4 hokjes naar rechts en 3 omhoog}. In dit hoofdstuk maken we daar getallen van: de componenten van een vector. Daarmee kun je vectoren optellen en vermenigvuldigen zonder te tekenen, en de lengte van een pijl berekenen in plaats van meten. Op het einde leer je een vector splitsen in twee stukken, zoals de kracht van Mila in een deel vooruit en een deel omhoog.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Componenten van een vector}
+
+\subsection{Een vector in een assenstelsel}
+
+Op een rooster beschreven we een vector met het aantal hokjes opzij en het aantal hokjes omhoog. Leg je een assenstelsel op het rooster, dan kun je dat korter schrijven: met twee getallen. Een stap naar rechts telt positief, een stap naar links negatief; een stap omhoog positief, een stap omlaag negatief.
+
+\naast{In de figuur gaat $\vect{v}$ 4 eenheden in de zin van de $x$-as en 3 eenheden in de zin van de $y$-as. We schrijven $\vect{v} = \vc{4}{3}$. De vector $\vect{w}$ gaat 2 naar links en 3 omlaag: $\vect{w} = \vc{-2}{-3}$. Waar je de pijl tekent, maakt niet uit: elke pijl van $\vect{v}$ gaat 4 naar rechts en 3 omhoog.}{\begin{tikzpicture}[x=.45cm,y=.45cm,font=\scriptsize]
+  \rooster{-3}{1}{6}{-4}{1}{4}
+  \draw[vector] (0,0) -- (4,3) node[midway,above left,inner sep=1pt] {$\vect{v}$};
+  \draw[hulplijn] (0,0) -- (4,0) -- (4,3);
+  \draw[vectorb] (-1,4) -- (-3,1) node[midway,left] {$\vect{w}$};
+  \draw[vector] (1,-4) -- (5,-1) node[midway,below right,inner sep=1pt] {$\vect{v}$};
+\end{tikzpicture}}
+
+\begin{theorie}
+Gaat een vector $\vect{v}$ in een assenstelsel $v_x$ eenheden in de zin van de $x$-as en $v_y$ eenheden in de zin van de $y$-as, dan zijn $v_x$ en $v_y$ de \textbf{\textcolor{accent}{componenten}} van $\vect{v}$. Je schrijft
+
+\vspace{1mm}
+\qquad $\formule{\vect{v} = (v_x, v_y)}$
+\end{theorie}
+
+Een negatieve component wijst naar links of naar beneden. De nulvector heeft componenten $\vc{0}{0}$. Let op het verschil met een punt: $P\vc{4}{3}$ is één plaats in het vlak, maar de vector $\vc{4}{3}$ is een verschuiving, die je overal kunt tekenen. Teken je hem vanuit de oorsprong $O$, dan komt hij uit in $P\vc{4}{3}$: de componenten van $\vect{OP}$ zijn de coördinaten van $P$. Daarom noemen we $\vect{OP}$ de \textit{plaatsvector} van $P$.
+
+\voorbeeld{}{Lees de componenten af van de vectoren $\vect{a}$, $\vect{b}$, $\vect{c}$ en $\vect{d}$ in de figuur.\label{vb:h2-aflezen}}{%
+\uitleg{Per vector tellen we hoeveel eenheden hij opzij gaat (rechts positief) en hoeveel omhoog (omhoog positief), van het beginpunt naar de punt.}
+\naast{\begin{stappenvrij}{4.2cm}{4.6cm}
+\vect{a} = \vc{3}{1} & 3 rechts, 1 omhoog. \\[1ex]
+\vect{b} = \vc{-2}{3} & 2 links, 3 omhoog. \\[1ex]
+\vect{c} = \vc{0}{-4} & Niet opzij, 4 omlaag. \\[1ex]
+\vect{d} = \vc{-3}{-1} & 3 links, 1 omlaag: $\vect{d} = -\vect{a}$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.45cm,y=.45cm,font=\scriptsize]
+  \rooster{-4}{1}{5}{-5}{1}{4}
+  \draw[vector] (1,1) -- (4,2) node[midway,above left,inner sep=1pt] {$\vect{a}$};
+  \draw[vectorb] (-1,1) -- (-3,4) node[midway,left] {$\vect{b}$};
+  \draw[vectorb] (3,-1) -- (3,-5) node[midway,right] {$\vect{c}$};
+  \draw[vectorb] (-1,-3) -- (-4,-4) node[midway,below,inner sep=2pt] {$\vect{d}$};
+\end{tikzpicture}}}
+
+Omgekeerd kun je een vector met gegeven componenten tekenen vanuit elk punt dat je kiest.
+
+\voorbeeld{}{Teken de vector $\vect{v} = \vc{-3}{2}$ vanuit het punt $A\vc{2}{1}$. In welk punt $B$ komt de pijl uit?\label{vb:h2-tekenen}}{%
+\uitleg{Vanuit $A$ gaan we 3 eenheden naar links (de $x$-coördinaat daalt met 3) en 2 omhoog (de $y$-coördinaat stijgt met 2).}
+\naast{\begin{stappenvrij}{4.4cm}{3.6cm}
+x_B = 2 + ({-3}) = -1 & 3 naar links. \\[1ex]
+y_B = 1 + 2 = 3 & 2 omhoog. \\[1ex]
+B\vc{-1}{3} &
+\end{stappenvrij}}{\begin{tikzpicture}[x=.45cm,y=.45cm,font=\scriptsize]
+  \rooster{-2}{1}{3}{-1}{1}{4}
+  \draw[hulplijn] (2,1) -- (-1,1) -- (-1,3);
+  \draw[vector] (2,1) -- (-1,3) node[midway,above right,inner sep=1pt] {$\vect{v}$};
+  \punt[right]{2}{1}{A} \punt[above]{-1}{3}{B}
+\end{tikzpicture}}
+Je telt de componenten van de vector op bij de coördinaten van het beginpunt.}
+
+\begin{oefeningen}
+\oef{h2-aflezen}
+\end{oefeningen}
+
+\subsection{De vector tussen twee punten}
+
+In de Verken las je de componenten van $\vect{AB}$ af door te tellen. Kan het ook zonder tekening, alleen met de coördinaten? Van $A\vc{1}{1}$ naar $B\vc{5}{4}$ ga je horizontaal van $x = 1$ naar $x = 5$, dus $5 - 1 = 4$ naar rechts, en verticaal van $y = 1$ naar $y = 4$, dus $4 - 1 = 3$ omhoog.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Vector tussen twee punten}
+Voor de punten $A(x_A, y_A)$ en $B(x_B, y_B)$ is
+
+\vspace{1mm}
+\qquad $\formule{\vect{AB} = (x_B - x_A,\ y_B - y_A)}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \draw[->,grijs] (-.3,0) -- (6,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-.3) -- (0,4.4) node[above,text=black] {$y$};
+  \draw[hulplijn] (1,1) -- (5,1) -- (5,3.5);
+  \draw[hulplijn] (1,1) -- (1,0) (5,1) -- (5,0) (1,1) -- (0,1) (5,3.5) -- (0,3.5);
+  \draw[vector] (1,1) -- (5,3.5);
+  \fill (1,1) circle (2pt) node[above left] {$A$}; \fill (5,3.5) circle (2pt) node[above] {$B$};
+  \node[below] at (1,0) {$x_A$}; \node[below] at (5,0) {$x_B$};
+  \node[left] at (0,1) {$y_A$}; \node[left] at (0,3.5) {$y_B$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Kort gezegd: \textit{eindpunt min beginpunt}. Dat geldt ook als een coördinaat negatief is: het verschil telt dan vanzelf het juiste aantal stappen, met het juiste teken. Je kunt de formule ook zien als $\vect{AB} = \vect{OB} - \vect{OA}$, het verschil van de plaatsvectoren uit hoofdstuk 1.
+
+\voorbeeld{}{Bereken de componenten van $\vect{AB}$ en $\vect{BA}$ voor $A\vc{-2}{3}$ en $B\vc{4}{-1}$.\label{vb:h2-tussen}}{%
+\uitleg{Eindpunt min beginpunt. Bij $\vect{BA}$ is $A$ het eindpunt.}
+\naast{\begin{stappenvrij}{6.4cm}{3.2cm}
+\vect{AB} = (4 - ({-2}),\ {-1} - 3) = \vc{6}{-4} & 6 rechts, 4 omlaag. \\[1ex]
+\vect{BA} = ({-2} - 4,\ 3 - ({-1})) = \vc{-6}{4} & De tegengestelde.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.36cm,font=\scriptsize]
+  \roosterleeg{-3}{1}{5}{-2}{1}{4}
+  \xgetallen{-2,2,4} \ygetallen{-1,1,3}
+  \draw[vector] (-2,3) -- (4,-1);
+  \punt[above]{-2}{3}{A} \punt[below]{4}{-1}{B}
+\end{tikzpicture}}
+Zoals verwacht is $\vect{BA} = -\vect{AB}$: de componenten veranderen van teken.}
+
+\begin{werkwijze}
+De componenten van $\vect{AB}$: trek de coördinaten van het beginpunt $A$ af van die van het eindpunt $B$. Zet negatieve getallen tussen haakjes. Het eindpunt $B$ van een pijl vanuit $A$: tel de componenten op bij de coördinaten van $A$.
+\end{werkwijze}
+
+Met de componenten van $\vect{AB}$ kun je nagaan of een vierhoek een parallellogram is, of het ontbrekende hoekpunt vinden. Uit hoofdstuk 1 weet je dat $ABCD$ een parallellogram is als $\vect{AB} = \vect{DC}$.
+
+\voorbeeld{}{Gegeven zijn $A\vc{1}{1}$, $B\vc{5}{2}$ en $C\vc{6}{5}$. Bereken de coördinaten van $D$, zodat $ABCD$ een parallellogram is.\label{vb:h2-parallellogram}}{%
+\uitleg{$ABCD$ is een parallellogram als $\vect{DC} = \vect{AB}$. We berekenen $\vect{AB}$, en gaan dan vanuit $C$ terug over die vector om $D$ te vinden.}
+\naast{\begin{stappenvrij}{5.6cm}{3.6cm}
+\vect{AB} = (5 - 1,\ 2 - 1) = \vc{4}{1} & Eindpunt min beginpunt. \\[1ex]
+D = (6 - 4,\ 5 - 1) = \vc{2}{4} & $\vect{DC} = \vc{4}{1}$, dus $D$ ligt 4 links en 1 onder $C$. \\[1ex]
+\vect{DC} = (6 - 2,\ 5 - 4) = \vc{4}{1} & Controle.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \rooster{-1}{1}{7}{-1}{1}{6}
+  \fill[accent!10] (1,1) -- (5,2) -- (6,5) -- (2,4) -- cycle;
+  \draw[vector] (1,1) -- (5,2); \draw[vector] (2,4) -- (6,5);
+  \draw[lijngrijs] (5,2) -- (6,5) (2,4) -- (1,1);
+  \punt[below]{1}{1}{A} \punt[below right]{5}{2}{B} \punt[above]{6}{5}{C} \punt[above left]{2}{4}{D}
+\end{tikzpicture}}
+$D\vc{2}{4}$.}
+
+\begin{oefeningen}
+\oef{h2-tussen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenen met componenten}
+
+\subsection{De som}
+
+In hoofdstuk 1 telde je bij de som de hokjes naar rechts bij elkaar op, en de hokjes omhoog ook. Met componenten wordt dat een eenvoudige regel. Neem $\vect{u} = \vc{3}{1}$ en $\vect{v} = \vc{1}{2}$. Kop aan staart ga je eerst 3 en dan 1 naar rechts, en eerst 1 en dan 2 omhoog: de som is $\vc{3 + 1}{1 + 2} = \vc{4}{3}$.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Som met componenten}
+Voor $\vect{u} = (u_x, u_y)$ en $\vect{v} = (v_x, v_y)$ is
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} + \vect{v} = (u_x + v_x,\ u_y + v_y)}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \draw[hulplijn] (0,0) -- (4,0) -- (4,3);
+  \draw[vector] (0,0) -- (3,1) node[midway,below right,inner sep=1pt] {$\vect{u}$};
+  \draw[vectorb] (3,1) -- (4,3) node[midway,right] {$\vect{v}$};
+  \draw[som] (0,0) -- (4,3) node[midway,above left,inner sep=1pt] {$\vect{u} + \vect{v}$};
+  \node[below,grijs] at (1.5,0) {$u_x$}; \node[below,grijs] at (3.5,0) {$v_x$};
+  \draw[grijs] (3,.1) -- (3,-.1);
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\vect{u} + \vect{v}$ voor $\vect{u} = \vc{5}{-2}$ en $\vect{v} = \vc{-7}{6}$.\label{vb:h2-som}}{%
+\uitleg{We tellen de eerste componenten op, en de tweede componenten ook.}
+\begin{stappen}
+\vect{u} + \vect{v} = (5 + ({-7}),\ {-2} + 6) = \vc{-2}{4} & Component per component.
+\end{stappen}
+Teken je het, dan gaat de som 2 naar links en 4 omhoog: precies wat de kop-staartregel geeft.}
+
+\subsection{Het veelvoud}
+
+Ook een veelvoud vermenigvuldigt beide aantallen hokjes, zoals je zag in hoofdstuk 1: $\vect{v}$ ging 2 rechts en 4 omhoog, en $2\vect{v}$ ging 4 rechts en 8 omhoog. De rechthoekige driehoek met de componenten wordt een vergroting met factor 2.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Veelvoud met componenten}
+Voor een getal $k$ en $\vect{v} = (v_x, v_y)$ is
+
+\vspace{1mm}
+\qquad $\formule{k\,\vect{v} = (k\,v_x,\ k\,v_y)}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[x=.38cm,y=.38cm,font=\scriptsize]
+  \draw[hulplijn] (0,0) -- (6,0) -- (6,3);
+  \draw[hulplijn] (2,0) -- (2,1);
+  \draw[som] (0,0) -- (6,3) node[pos=.75,above left,inner sep=1pt] {$3\vect{v}$};
+  \draw[vector] (0,0) -- (2,1) node[midway,above left,inner sep=1pt] {$\vect{v}$};
+  \node[below,grijs] at (1,0) {$v_x$}; \node[below,grijs] at (4,0) {$3v_x$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Met $k = -1$ geeft dat de tegengestelde vector: $-\vect{v} = ({-v_x}, {-v_y})$. Een verschil reken je dus ook component per component uit: $\vect{u} - \vect{v} = \vect{u} + (-\vect{v}) = (u_x - v_x,\ u_y - v_y)$.
+
+\voorbeeld{}{Bereken $3\vect{u} - 2\vect{v}$ voor $\vect{u} = \vc{2}{-1}$ en $\vect{v} = \vc{-4}{3}$.\label{vb:h2-combi}}{%
+\uitleg{Eerst de veelvouden, dan het verschil, telkens component per component.}
+\begin{stappen}
+3\vect{u} = \vc{6}{-3}, \quad 2\vect{v} = \vc{-8}{6} & Veelvoud: elke component maal het getal. \\[1ex]
+3\vect{u} - 2\vect{v} = (6 - ({-8}),\ {-3} - 6) = \vc{14}{-9} & Verschil: component per component.
+\end{stappen}}
+
+Met componenten kun je ook een onbekende vector berekenen, zoals een onbekende in een vergelijking.
+
+\voorbeeld{}{Bereken de vector $\vect{x}$ waarvoor $2\vect{x} + \vc{3}{-5} = \vc{-1}{7}$.\label{vb:h2-vergelijking}}{%
+\uitleg{We lossen de vergelijking op zoals een gewone vergelijking: eerst de bekende vector naar het rechterlid brengen, dan delen door 2.}
+\begin{stappen}
+2\vect{x} = \vc{-1}{7} - \vc{3}{-5} = \vc{-4}{12} & Trek $\vc{3}{-5}$ af van beide leden. \\[1ex]
+\vect{x} = \tfrac12\vc{-4}{12} = \vc{-2}{6} & Vermenigvuldig met $\tfrac12$.
+\end{stappen}
+Controle: $2\vc{-2}{6} + \vc{3}{-5} = \vc{-4}{12} + \vc{3}{-5} = \vc{-1}{7}$.}
+
+\begin{oefeningen}
+\oef{h2-rekenen}
+\end{oefeningen}
+
+\subsection{Het midden van een lijnstuk}
+
+Waar ligt het midden van een lijnstuk, als je de coördinaten van de eindpunten kent? In hoofdstuk 1 zagen we: $M$ is het midden van $[AB]$ precies dan als $\vect{AM} = \tfrac12\,\vect{AB}$. Met componenten kun je daarmee rekenen.
+
+\voorbeeld{}{Bereken het midden $M$ van $[AB]$, met $A\vc{1}{5}$ en $B\vc{7}{1}$.\label{vb:h2-midden}}{%
+\uitleg{We vertrekken in $A$ en gaan de helft van $\vect{AB}$ ver.}
+\naast{\begin{stappenvrij}{6cm}{3.4cm}
+\vect{AB} = \vc{6}{-4} & Eindpunt min beginpunt. \\[1ex]
+\vect{AM} = \tfrac12\,\vect{AB} = \vc{3}{-2} & De helft. \\[1ex]
+M = (1 + 3,\ 5 + ({-2})) = \vc{4}{3} & Vanuit $A$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.4cm,y=.4cm,font=\scriptsize]
+  \rooster{-1}{1}{8}{-1}{1}{6}
+  \draw[accent,thick] (1,5) -- (7,1);
+  \punt[above]{1}{5}{A} \punt[above right]{4}{3}{M} \punt[above right]{7}{1}{B}
+\end{tikzpicture}}
+Merk op: $4$ is het gemiddelde van $1$ en $7$, en $3$ is het gemiddelde van $5$ en $1$.}
+
+Die laatste opmerking geldt altijd: $x_M = x_A + \tfrac12(x_B - x_A) = \tfrac12(x_A + x_B)$, en zo ook voor $y_M$.
+
+\begin{theorie}
+\begin{stelling}{Midden van een lijnstuk}
+Het midden $M$ van het lijnstuk met eindpunten $A(x_A, y_A)$ en $B(x_B, y_B)$ is
+
+\vspace{1mm}
+\qquad $\formule{M\Bigl(\frac{x_A + x_B}{2},\ \frac{y_A + y_B}{2}\Bigr)}$
+\end{stelling}
+\end{theorie}
+
+\begin{oefeningen}
+\oef{h2-midden}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+\subsection{Evenwijdige vectoren}
+
+Wanneer zijn twee vectoren evenwijdig? In hoofdstuk 1 zagen we dat $\vect{v}$ en $k\,\vect{v}$ altijd evenwijdig zijn, en dat je omgekeerd elke vector die evenwijdig is met $\vect{v} \neq \nulvec$ kunt schrijven als $k\,\vect{v}$. Met componenten betekent dat: de componenten zijn \textit{evenredig}, met dezelfde factor $k$ voor beide.
+
+\begin{theorie}
+\begin{stelling}{Evenwijdige vectoren}
+Voor $\vect{u} = (u_x, u_y) \neq \nulvec$ geldt: $\vect{v}$ is evenwijdig met $\vect{u}$ precies dan als er een getal $k$ is met
+
+\vspace{1mm}
+\qquad $\formule{(v_x, v_y) = (k\,u_x,\ k\,u_y)}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Zijn de vectoren $\vect{u} = \vc{2}{-3}$ en $\vect{v} = \vc{-6}{9}$ evenwijdig? En $\vect{u}$ en $\vect{w} = \vc{4}{-5}$?\label{vb:h2-evenwijdig}}{%
+\uitleg{We zoeken de factor $k$ met de eerste component, en controleren of dezelfde $k$ ook de tweede component geeft.}
+\begin{stappen}
+k = -6 : 2 = -3, \quad -3 \cdot ({-3}) = 9 & Dezelfde factor: $\vect{v} = -3\,\vect{u}$, evenwijdig. \\[1ex]
+k = 4 : 2 = 2, \quad 2 \cdot ({-3}) = -6 \neq -5 & Niet dezelfde factor: niet evenwijdig.
+\end{stappen}
+$\vect{v}$ is evenwijdig met $\vect{u}$, drie keer zo lang en met de andere zin. $\vect{w}$ is niet evenwijdig met $\vect{u}$.}
+
+Zo kun je ook nagaan of drie punten op één rechte liggen: $A$, $B$ en $C$ liggen op één rechte als $\vect{AB}$ en $\vect{AC}$ evenwijdig zijn. Je zegt dan dat de punten \textit{collineair} zijn.
+
+\voorbeeld{}{Liggen de punten $A\vc{1}{2}$, $B\vc{3}{5}$ en $C\vc{7}{11}$ op één rechte?\label{vb:h2-collineair}}{%
+\uitleg{We berekenen $\vect{AB}$ en $\vect{AC}$, en gaan na of het ene een veelvoud is van het andere.}
+\begin{stappen}
+\vect{AB} = \vc{2}{3}, \quad \vect{AC} = \vc{6}{9} & Eindpunt min beginpunt. \\[1ex]
+\vect{AC} = 3\,\vect{AB} & $6 = 3 \cdot 2$ en $9 = 3 \cdot 3$.
+\end{stappen}
+$\vect{AB}$ en $\vect{AC}$ zijn evenwijdig en hebben het punt $A$ gemeenschappelijk: de drie punten liggen op één rechte. Een vector zoals $\vc{2}{3}$ legt de richting van die rechte vast. In het handboek Analytische meetkunde noem je hem een \textit{richtingsvector} van de rechte.}
+
+\begin{oefeningen}
+\oef{h2-evenwijdig}
+\end{oefeningen}
+
+\end{alleenvoor}
+%========================================================================================
+\section{De norm van een vector}
+
+\subsection{De lengte van een pijl berekenen}
+
+Hoe lang is de pijl van $\vect{v} = \vc{4}{3}$? Op een rooster kun je hem meten, maar je kunt hem ook berekenen. De pijl is de schuine zijde van een rechthoekige driehoek, met de componenten als rechthoekszijden. Volgens de stelling van Pythagoras is de lengte $\sqrt{4^2 + 3^2} = \sqrt{25} = 5$.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{norm}} van een vector is de lengte van zijn pijl. Voor $\vect{v} = (v_x, v_y)$ is
+
+\vspace{1mm}
+\qquad $\formule{\norm{\vect{v}} = \sqrt{v_x^2 + v_y^2}}$
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[x=.6cm,y=.6cm,font=\scriptsize]
+  \draw[hulplijn] (0,0) -- (4,0) -- (4,2.6);
+  \rechtehoekxy{(0,0)}{(4,0)}{(4,2.6)}
+  \draw[vector] (0,0) -- (4,2.6) node[midway,above left,inner sep=1pt] {$\norm{\vect{v}}$};
+  \node[below] at (2,0) {$v_x$}; \node[right] at (4,1.3) {$v_y$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+De norm is de grootte van de vector uit hoofdstuk 1. Ze is nooit negatief, en alleen de nulvector heeft norm 0. Een negatieve component geeft geen probleem, want je neemt het kwadraat: zet een negatief getal wel tussen haakjes.
+
+\voorbeeld{}{Bereken de norm van $\vect{v} = \vc{-5}{12}$.\label{vb:h2-norm}}{%
+\uitleg{We kwadrateren de componenten, met de haakjes rond $-5$.}
+$\displaystyle \norm{\vect{v}} = \sqrt{({-5})^2 + 12^2} = \sqrt{25 + 144} = \sqrt{169} = 13$}
+
+\voorbeeld{}{Bereken de norm van $\vect{w} = \vc{2}{-3}$, exact en afgerond op twee decimalen.\label{vb:h2-norm2}}{%
+\uitleg{Dezelfde formule; 13 is geen kwadraat, dus we geven de exacte waarde met een wortel en een benadering.}
+$\displaystyle \norm{\vect{w}} = \sqrt{2^2 + ({-3})^2} = \sqrt{13} \approx 3{,}61$}
+
+Vermenigvuldig je een vector met $k$, dan wordt de norm $\abs{k}$ keer zo groot: $\vc{6}{8} = 2\vc{3}{4}$ heeft norm $10 = 2 \cdot 5$. Bij een som tel je de normen niet zomaar op. Zo hebben $\vc{3}{0}$ en $\vc{0}{4}$ normen 3 en 4, maar hun som $\vc{3}{4}$ heeft norm 5 en niet 7. Dat is de resultante van twee loodrechte krachten uit hoofdstuk 1.
+
+\begin{oefeningen}
+\oef{h2-norm}
+\end{oefeningen}
+
+\subsection{De afstand tussen twee punten}
+
+De afstand tussen twee punten $A$ en $B$ is de lengte van het lijnstuk $[AB]$, en dus de norm van $\vect{AB}$. In het handboek Driehoeksmeting berekende je die afstand al met een rechthoekige driehoek op een rooster. Met componenten wordt het een formule.
+
+\begin{theorie}
+\begin{stelling}{Afstand tussen twee punten}
+De afstand tussen $A(x_A, y_A)$ en $B(x_B, y_B)$ is
+
+\vspace{1mm}
+\qquad $\formule{\lengte{AB} = \norm{\vect{AB}} = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bereken de afstand tussen $A\vc{-1}{2}$ en $B\vc{5}{-6}$.\label{vb:h2-afstand}}{%
+\uitleg{Eerst de componenten van $\vect{AB}$, dan de norm.}
+\begin{stappen}
+\vect{AB} = (5 - ({-1}),\ {-6} - 2) = \vc{6}{-8} & Eindpunt min beginpunt. \\[1ex]
+\lengte{AB} = \sqrt{6^2 + ({-8})^2} = \sqrt{100} = 10 & De norm.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-afstand}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een vector ontbinden}
+
+\subsection{Volgens twee richtingen}
+
+In hoofdstuk 1 telde je twee vectoren op tot één vector. Soms wil je het omgekeerde: één vector splitsen in twee vectoren in gegeven richtingen. Denk aan een zeilboot. De wind duwt op het zeil, maar de boot kan alleen vooruit varen. Welk deel van de kracht duwt de boot vooruit, en welk deel duwt haar opzij? Zo'n splitsing heet ontbinden.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+Een vector $\vect{v}$ \textbf{\textcolor{accent}{ontbinden}} volgens twee richtingen die niet evenwijdig zijn, betekent $\vect{v}$ schrijven als een som
+
+\vspace{1mm}
+\qquad $\formule{\vect{v} = \vect{a} + \vect{b}}$
+
+\vspace{1mm}
+met $\vect{a}$ in de eerste richting en $\vect{b}$ in de tweede. De vectoren $\vect{a}$ en $\vect{b}$ heten de \textbf{\textcolor{accent}{componenten}} van $\vect{v}$ volgens die richtingen.
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \draw[lijngrijs] (-.6,0) -- (4.4,0) node[right,grijs] {$l$};
+  \draw[lijngrijs] (-.4,-.4) -- (2.8,2.8) node[above,grijs] {$m$};
+  \draw[hulplijn] (4,2.4) -- (2.4,2.4) (4,2.4) -- (1.6,0);
+  \draw[vectorb] (0,0) -- (1.6,0) node[midway,below] {$\vect{a}$};
+  \draw[vectorb] (0,0) -- (2.4,2.4) node[pos=.4,above left,inner sep=1pt] {$\vect{b}$};
+  \draw[som] (0,0) -- (4,2.4) node[pos=.75,below right,inner sep=1pt] {$\vect{v}$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Het idee: je zoekt een parallellogram met $\vect{v}$ als diagonaal en zijden langs de twee richtingen. Teken door de kop van $\vect{v}$ een evenwijdige met elke richting; waar ze de andere richting snijden, eindigen $\vect{a}$ en $\vect{b}$. Er is maar één zo'n parallellogram, dus de componenten liggen vast. Ontbinden is het omgekeerde van de parallellogramregel.
+
+\voorbeeld{}{Ontbind de vector $\vect{v}$ volgens de richtingen van de rechten $l$ en $m$ in de figuur. Schrijf $\vect{v}$ als combinatie van $\vect{u}$ en $\vect{w}$.\label{vb:h2-ontbind}}{%
+\uitleg{$\vect{v} = \vc{5}{3}$. We trekken door de kop van $\vect{v}$ een evenwijdige met $m$ (schuin) tot aan $l$, en een evenwijdige met $l$ (horizontaal) tot aan $m$.}
+\naast{\begin{stappenvrij}{5.2cm}{3.6cm}
+\vect{a} = \vc{2}{0} = 2\,\vect{u} & Langs $l$. \\[1ex]
+\vect{b} = \vc{3}{3} = 3\,\vect{w} & Langs $m$. \\[1ex]
+\vect{v} = 2\,\vect{u} + 3\,\vect{w} & Controle: $\vc{2}{0} + \vc{3}{3} = \vc{5}{3}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \ruitjes{-1}{-1}{6}{4}
+  \draw[lijngrijs] (-1,0) -- (6,0) node[right,grijs] {$l$};
+  \draw[lijngrijs] (-1,-1) -- (4,4) node[above,grijs] {$m$};
+  \draw[hulplijn] (5,3) -- (2,0) (5,3) -- (3,3);
+  \draw[vector] (0,0) -- (1,0); \node[above,accent] at (.5,0) {$\vect{u}$};
+  \draw[vector] (0,0) -- (1,1); \node[left,accent] at (.4,.7) {$\vect{w}$};
+  \draw[vectorb] (0,0) -- (2,0); \node[below] at (1.3,0) {$\vect{a}$};
+  \draw[vectorb] (0,0) -- (3,3); \node[above left] at (2.2,2.2) {$\vect{b}$};
+  \draw[som] (0,0) -- (5,3) node[pos=.8,below right,inner sep=1pt] {$\vect{v}$};
+\end{tikzpicture}}
+De component volgens $l$ is $\vc{2}{0}$, de component volgens $m$ is $\vc{3}{3}$.}
+
+\begin{werkwijze}
+Teken de vector vanuit het snijpunt van de twee richtingen. Trek door zijn kop een evenwijdige met elke richting. De snijpunten met de andere richting zijn de koppen van de twee componenten. Controleer: hun som is de vector.
+\end{werkwijze}
+
+Op een rooster kun je zo aflezen. Zonder rooster, of met lastige getallen, reken je met componenten: je zoekt de getallen $a$ en $b$ waarvoor $\vect{v} = a\,\vect{u} + b\,\vect{w}$. Dat geeft een stelsel van twee vergelijkingen.
+
+\voorbeeld{}{Schrijf $\vect{v} = \vc{7}{4}$ als $a\,\vect{u} + b\,\vect{w}$, met $\vect{u} = \vc{3}{1}$ en $\vect{w} = \vc{1}{2}$.\label{vb:h2-ontbindstelsel}}{%
+\uitleg{Component per component geeft $a\,\vc{3}{1} + b\,\vc{1}{2} = \vc{3a + b}{a + 2b}$. Dat moet $\vc{7}{4}$ zijn: twee vergelijkingen met twee onbekenden.}
+\begin{stappen}
+3a + b = 7 \quad \text{en} \quad a + 2b = 4 & Eerste en tweede component. \\[1ex]
+b = 7 - 3a, \quad a + 14 - 6a = 4 & Substitutie. \\[1ex]
+a = 2, \quad b = 1 & \\[1ex]
+\vect{v} = 2\,\vect{u} + \vect{w} & Controle: $\vc{6}{2} + \vc{1}{2} = \vc{7}{4}$.
+\end{stappen}
+De componenten van $\vect{v}$ volgens de richtingen van $\vect{u}$ en $\vect{w}$ zijn $2\,\vect{u} = \vc{6}{2}$ en $\vect{w} = \vc{1}{2}$.}
+
+\begin{oefeningen}
+\oef{h2-ontbind}
+\end{oefeningen}
+
+\subsection{Volgens de assen}
+
+De eenvoudigste richtingen zijn de horizontale en de verticale. Ontbind je $\vect{v} = (v_x, v_y)$ volgens de assen, dan zijn de componenten $(v_x, 0)$ en $(0, v_y)$: dat zijn precies de getallen $v_x$ en $v_y$ uit het begin van dit hoofdstuk. Daarom heten die getallen ook componenten.
+
+Vaak ken je de componenten niet, maar wel de grootte van een vector en zijn hoek met de horizontale. Een kracht van 50~N onder een hoek van $30^\circ$, bijvoorbeeld. De vector is dan de schuine zijde van een rechthoekige driehoek, en de componenten zijn de rechthoekszijden. Met de cosinus en de sinus uit het handboek Driehoeksmeting bereken je ze.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Componenten uit norm en hoek}
+Maakt $\vect{v}$ een scherpe hoek $\alpha$ met de positieve $x$-as, en wijst hij naar rechts boven, dan is
+
+\vspace{1mm}
+\qquad $\formule{v_x = \norm{\vect{v}}\cos\alpha \quad \text{en} \quad v_y = \norm{\vect{v}}\sin\alpha}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[x=.6cm,y=.6cm,font=\scriptsize]
+  \draw[->,grijs] (-.3,0) -- (4.6,0) node[right,text=black] {$x$};
+  \draw[hulplijn] (4,0) -- (4,2.6);
+  \rechtehoekxy{(0,0)}{(4,0)}{(4,2.6)}
+  \draw[vector] (0,0) -- (4,2.6) node[midway,above left,inner sep=1pt] {$\norm{\vect{v}}$};
+  \draw[accent,thin] (1,0) arc (0:33:1); \node[accent] at (1.35,.35) {$\alpha$};
+  \node[below] at (2.4,0) {$v_x$}; \node[right] at (4,1.3) {$v_y$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+In de rechthoekige driehoek is $v_x$ de aanliggende rechthoekszijde van $\alpha$ en $v_y$ de overstaande: CAS geeft $\cos\alpha = \tfrac{v_x}{\norm{\vect{v}}}$ en SOS geeft $\sin\alpha = \tfrac{v_y}{\norm{\vect{v}}}$. Vermenigvuldig met $\norm{\vect{v}}$ en je hebt de formules.
+
+\voorbeeld{}{Een kracht van $50$~N maakt een hoek van $30^\circ$ met de horizontale en wijst naar rechts boven. Bereken de horizontale en de verticale component, afgerond op $0{,}01$~N.\label{vb:h2-assen}}{%
+\uitleg{De kracht is de schuine zijde. De horizontale component is aanliggend aan de hoek van $30^\circ$, de verticale overstaand.}
+\naast{\begin{stappenvrij}{5.6cm}{3.4cm}
+F_x = 50\cos 30^\circ \approx 43{,}30 \text{ N} & Aanliggend: cosinus. \\[1ex]
+F_y = 50\sin 30^\circ = 25 \text{ N} & Overstaand: sinus.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.08cm,y=.08cm,font=\scriptsize]
+  \draw[hulplijn] (43.3,0) -- (43.3,25);
+  \draw[vectorb] (0,0) -- (43.3,0) node[midway,below] {$F_x$};
+  \draw[vectorb] (43.3,0) -- (43.3,25) node[midway,right] {$F_y$};
+  \draw[som] (0,0) -- (43.3,25) node[midway,above left,inner sep=1pt] {$50$ N};
+  \draw[accent,thin] (10,0) arc (0:30:10); \node[accent] at (14,3.6) {$30^\circ$};
+\end{tikzpicture}}
+$\vect{F} \approx \vc{43{,}30}{25}$. Controle met Pythagoras: $\sqrt{43{,}30^2 + 25^2} \approx 50$.}
+
+Wijst de vector naar links of naar beneden, dan neem je de scherpe hoek met de horizontale. Je rekent de lengtes van de componenten zoals hierboven uit, en kiest het teken uit de figuur: naar links of naar beneden is negatief.
+
+\voorbeeld{}{Een bal vertrekt met een snelheid van $20$~m/s, schuin naar links boven, onder een hoek van $40^\circ$ met de horizontale. Bereken de componenten van de snelheid, afgerond op $0{,}01$~m/s.\label{vb:h2-assen2}}{%
+\uitleg{De horizontale component wijst naar links, dus ze is negatief. De verticale wijst omhoog: positief.}
+\naast{\begin{stappenvrij}{6cm}{3cm}
+20\cos 40^\circ \approx 15{,}32 & Lengte horizontaal. \\[1ex]
+20\sin 40^\circ \approx 12{,}86 & Lengte verticaal. \\[1ex]
+\vect{v} \approx \vc{-15{,}32}{12{,}86} & Naar links: minteken.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.12cm,y=.12cm,font=\scriptsize]
+  \draw[hulplijn] (-15.32,0) -- (-15.32,12.86) (0,0) -- (-15.32,0);
+  \draw[som] (0,0) -- (-15.32,12.86) node[midway,above right,inner sep=1pt] {$20$};
+  \draw[accent,thin] (-6,0) arc (180:140:6); \node[accent] at (-9,2.4) {$40^\circ$};
+  \fill[inkt] (0,0) circle (1.6pt);
+\end{tikzpicture}}}
+
+Het kan ook omgekeerd: ken je de componenten, dan vind je de norm met Pythagoras en de hoek met de tangens.
+
+\voorbeeld{}{Bereken de norm van $\vect{v} = \vc{6}{8}$ en de hoek die $\vect{v}$ maakt met de positieve $x$-as.\label{vb:h2-hoek}}{%
+\uitleg{De componenten zijn de rechthoekszijden. Voor de hoek gebruiken we TOA: overstaand $v_y$, aanliggend $v_x$.}
+\begin{stappen}
+\norm{\vect{v}} = \sqrt{36 + 64} = 10 & Pythagoras. \\[1ex]
+\tan\alpha = \tfrac{8}{6}, \quad \alpha = \tan^{-1}\tfrac{8}{6} \approx 53{,}13^\circ & TOA, met de rekenmachine.
+\end{stappen}}
+
+\begin{werkwijze}
+Teken de vector en zijn componenten als een rechthoekige driehoek, met de scherpe hoek $\alpha$ tussen de vector en de horizontale. Van norm en hoek naar componenten: $\norm{\vect{v}}\cos\alpha$ horizontaal en $\norm{\vect{v}}\sin\alpha$ verticaal, met het teken uit de figuur. Van componenten naar norm en hoek: Pythagoras voor de norm, en $\tan\alpha = \tfrac{\abs{v_y}}{\abs{v_x}}$ voor de hoek.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-assen}
+\end{oefeningen}
+
+\subsection{Krachten ontbinden en samenstellen}
+
+Nu kunnen we Mila helpen. Haar kracht op het touw ontbinden we volgens de horizontale (vooruit) en de verticale (omhoog).
+
+\voorbeeld{}{Terug naar het probleem. Mila trekt met $120$~N aan een touw dat een hoek van $35^\circ$ maakt met de grond. Hoe groot is het deel dat de slee vooruit trekt, en het deel dat de slee omhoog trekt?\label{vb:h2-terug}}{%
+\uitleg{We ontbinden de kracht volgens de assen. Vooruit is de horizontale component, aanliggend aan de hoek van $35^\circ$; omhoog is de verticale, overstaand.}
+\naast{\begin{stappenvrij}{6cm}{3.6cm}
+F_x = 120\cos 35^\circ \approx 98{,}3 \text{ N} & Vooruit. \\[1ex]
+F_y = 120\sin 35^\circ \approx 68{,}8 \text{ N} & Omhoog.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.03cm,y=.03cm,font=\scriptsize]
+  \draw[hulplijn] (98.3,0) -- (98.3,68.8);
+  \draw[vectorb] (0,0) -- (98.3,0) node[midway,below] {$98{,}3$ N};
+  \draw[vectorb] (98.3,0) -- (98.3,68.8) node[midway,right] {$68{,}8$ N};
+  \draw[som] (0,0) -- (98.3,68.8) node[midway,above left,inner sep=1pt] {$120$ N};
+  \draw[accent,thin] (30,0) arc (0:35:30); \node[accent] at (42,11) {$35^\circ$};
+\end{tikzpicture}}
+Ongeveer $98$~N trekt de slee vooruit, en ongeveer $69$~N trekt haar omhoog. Samen is dat meer dan $120$~N: de groottes van componenten tel je niet zomaar op. Trekt Mila met het touw lager, dan wordt de hoek kleiner, $\cos\alpha$ groter, en gaat een groter deel van haar kracht naar vooruit. Helemaal horizontaal gaat de volle $120$~N naar vooruit.}
+
+Ook bij een voorwerp op een helling ontbind je een kracht, maar niet volgens de horizontale en de verticale. Je kiest de richting langs de helling en de richting loodrecht erop. Het deel langs de helling trekt het voorwerp naar beneden; het deel loodrecht erop duwt het tegen de helling.
+
+\voorbeeld{}{Een kist met een gewicht van $200$~N staat op een helling van $25^\circ$. Ontbind het gewicht in een component langs de helling en een component loodrecht op de helling.\label{vb:h2-helling}}{%
+\uitleg{Het gewicht wijst recht naar beneden. De hoek tussen het gewicht en de loodlijn op de helling is ook $25^\circ$ (de benen staan loodrecht op die van de hellingshoek). In de rechthoekige driehoek is het gewicht de schuine zijde; de component langs de helling ligt tegenover de hoek van $25^\circ$.}
+\naast{\begin{stappenvrij}{6cm}{3.4cm}
+F_{\parallel} = 200\sin 25^\circ \approx 84{,}5 \text{ N} & Langs de helling. \\[1ex]
+F_{\perp} = 200\cos 25^\circ \approx 181{,}3 \text{ N} & Loodrecht op de helling.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \fill[black!8] (0,0) -- (4.3,0) -- (4.3,2.005) -- cycle;
+  \draw[grijs] (0,0) -- (4.3,2.005) (0,0) -- (4.3,0);
+  \draw[accent!70,thin] (.8,0) arc (0:25:.8); \node[accent] at (1.15,.22) {$25^\circ$};
+  \begin{scope}[shift={(2.6,1.212)},rotate=25]
+    \filldraw[fill=accent!15,draw=inkt] (-.35,0) rectangle (.35,.6);
+  \end{scope}
+  \coordinate (Z) at ($(2.6,1.212)+(115:.3)$);
+  \draw[som] (Z) -- ++(0,-1.6) coordinate (G) node[below] {$200$ N};
+  \draw[vectorb] (Z) -- ++(205:{1.6*sin(25)}) coordinate (P) node[left] {$F_{\parallel}$};
+  \draw[vectorb] (Z) -- ++(295:{1.6*cos(25)}) coordinate (Q) node[right] {$F_{\perp}$};
+  \draw[hulplijn] (P) -- (G) -- (Q);
+\end{tikzpicture}}
+De kist wordt met ongeveer $84{,}5$~N langs de helling naar beneden getrokken, en met ongeveer $181{,}3$~N tegen de helling geduwd. Hoe steiler de helling, hoe groter het eerste deel.}
+
+Met componenten kun je ook de resultante van krachten berekenen in plaats van ze te meten op een tekening. Je ontbindt elke kracht volgens de assen, telt de componenten op, en berekent de norm.
+
+\voorbeeld{}{Op een ring werken een kracht van $40$~N naar rechts en een kracht van $30$~N onder een hoek van $60^\circ$ met de eerste (naar rechts boven). Bereken de grootte van de resultante en haar hoek met de eerste kracht.\label{vb:h2-resultante}}{%
+\uitleg{De eerste kracht ligt al langs de $x$-as. De tweede ontbinden we. Daarna tellen we op, component per component.}
+\naast{\begin{stappenvrij}{6.6cm}{3.2cm}
+\vect{F}_1 = \vc{40}{0} & Langs de $x$-as. \\[1ex]
+\vect{F}_2 = \vc{30\cos 60^\circ}{30\sin 60^\circ} & Ontbinden. \\[1ex]
+\phantom{\vect{F}_2} \approx \vc{15}{25{,}98} & \\[1ex]
+\vect{F} = \vect{F}_1 + \vect{F}_2 \approx \vc{55}{25{,}98} & Som. \\[1ex]
+F \approx \sqrt{55^2 + 25{,}98^2} \approx 60{,}83 \text{ N} & Norm. \\[1ex]
+\alpha = \tan^{-1}\tfrac{25{,}98}{55} \approx 25{,}28^\circ & Hoek.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.065cm,y=.065cm,font=\scriptsize]
+  \draw[hulplijn] (40,0) -- (55,25.98) -- (15,25.98);
+  \draw[vector] (0,0) -- (40,0) node[midway,below] {$40$};
+  \draw[vectorb] (0,0) -- (15,25.98) node[midway,left] {$30$};
+  \draw[som] (0,0) -- (55,25.98) node[pos=.8,below right,inner sep=1pt] {$\vect{F}$};
+\end{tikzpicture}}
+De resultante is ongeveer $60{,}83$~N, onder een hoek van ongeveer $25{,}28^\circ$ met de eerste kracht. Met een tekening op schaal vond je dat alleen bij benadering.}
+
+\begin{oefeningen}
+\oef{h2-kracht}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-tussen}{oef:h2-tussen}%
+  \fv{oef:h2-t2}{vb:h2-combi}{oef:h2-rekenen}%
+  \fv{oef:h2-t3}{vb:h2-afstand}{oef:h2-afstand}%
+  \fv{oef:h2-t4}{vb:h2-midden}{oef:h2-midden}%
+  \fv{oef:h2-t5}{vb:h2-ontbindstelsel}{oef:h2-ontbind}%
+  \fv{oef:h2-t6}{vb:h2-assen}{oef:h2-assen}%
+  \fv{oef:h2-t7}{vb:h2-hoek}{oef:h2-assen}%
+  \alleenvoor{5}{\fv{oef:h2-t8}{vb:h2-collineair}{oef:h2-evenwijdig}}\alleenvoor{4}{\fv{oef:h2-t8}{vb:h2-parallellogram}{oef:h2-tussen}}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat de componenten van een vector zijn, hoe je de componenten van $\vect{AB}$ berekent, hoe je optelt en vermenigvuldigt met componenten, het midden van een lijnstuk,\alleenvoor{5}{ wanneer twee vectoren evenwijdig zijn,} de norm en de afstand tussen twee punten, wat ontbinden betekent met een figuur, en hoe je componenten berekent uit de norm en de hoek (en omgekeerd). Vergelijk daarna met de kaders.
+\fi
