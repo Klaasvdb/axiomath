@@ -1,0 +1,23 @@
+% Rijen zonder limieten (pakket 1, 2 en 3). Monet: een rij populieren langs het water, stam na stam.
+% Motief: de trappen uit het probleem van hoofdstuk 1. Trap n is trap n - 1 met een kolom van n blokjes
+% erbij (fel): 1, 3, 6, 10, 15 blokjes. Wat erbij komt, 1, 2, 3, 4, 5, is een rekenkundige rij.
+\def\omslagbestand{omslag-populieren.jpg}
+\def\omslagbron{Claude Monet, \textit{Populieren aan de Epte}, 1891 (publiek domein)}
+\def\omslagrand{10.5 + 0.5*\x/21}
+\def\omslagmotief{%
+  \randlijn
+  \def\blok{.66}%
+  \foreach \n/\links/\aantal in {1/8.9/1,2/9.98/3,3/11.72/6,4/14.12/10,5/17.18/15}{%
+    \foreach \k in {1,...,\n}{%
+      \foreach \h in {1,...,\k}{%
+        \ifnum\k=\n
+          \fill[fel,draw=accent,line width=.6pt] ({\links+(\k-1)*\blok},{5+(\h-1)*\blok}) rectangle ++(\blok,\blok);
+        \else
+          \fill[white,fill opacity=.2] ({\links+(\k-1)*\blok},{5+(\h-1)*\blok}) rectangle ++(\blok,\blok);
+          \draw[white,line width=.6pt] ({\links+(\k-1)*\blok},{5+(\h-1)*\blok}) rectangle ++(\blok,\blok);
+        \fi
+      }%
+    }%
+    \node[text=white,font=\small,inner sep=1pt,anchor=north] at ({\links+\n*\blok/2},4.85) {$\aantal$};
+  }%
+}

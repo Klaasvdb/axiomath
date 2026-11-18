@@ -37,7 +37,7 @@ Op maandag staan er 120 fietsen aan het Station, 80 aan de Markt en 100 aan de C
 \lkr{Leerplan B+S: LPD 25-27 (matrices), met de contexten uit de wenken: verbindingsmatrices van een netwerk, overgangsmatrices (Markovketens, migratie) en lesliematrices. Het leerplan laat ICT toe voor hoge machten en vraagt de evolutie op lange termijn te bekijken. Het evenwicht berekenen we exact: bij twee toestanden met één vergelijking, bij drie met de methode van Gauss-Jordan uit hoofdstuk 2. Een hoge macht op het rekentoestel dient als controle. Afspraak in heel het hoofdstuk: de kolom is \textit{van}, de rij is \textit{naar}.}
 \end{alleenvoor}
 \begin{alleenvoor}{1}
-\lkr{Leerplan Basis: keuzedoel K4 (matrixmodellen gebruiken om evoluties te beschrijven), met de contexten uit de wenken: verbindingsmatrices van een netwerk, overgangsmatrices (Markovketens, migratie) en lesliematrices. Het leerplan laat ICT toe voor hoge machten en vraagt de evolutie op lange termijn te bekijken. Een evenwicht berekenen we algebraïsch alleen bij twee toestanden: daar volstaat één vergelijking. Bij drie toestanden gebruiken leerlingen het rekentoestel. Afspraak in heel het hoofdstuk: de kolom is \textit{van}, de rij is \textit{naar}.}
+\lkr{Leerplan Basis: keuzedoel K4 (matrixmodellen gebruiken om evoluties te beschrijven), met de contexten uit de wenken: verbindingsmatrices van een netwerk, overgangsmatrices (Markovketens, migratie) en lesliematrices. Het leerplan laat ICT toe voor hoge machten en vraagt de evolutie op lange termijn te bekijken. Een evenwicht berekenen we algebraïsch alleen bij twee toestanden: daar volstaat één vergelijking. Bij drie toestanden gebruiken leerlingen het rekentoestel (wenk: ICT voor machten van matrices). De twee eigenschappen (wegen tellen met $V^n$, het matrixmodel $X_{n+1} = MX_n$) krijgen geen bewijs maar een korte uitleg. Afspraak in heel het hoofdstuk: de kolom is \textit{van}, de rij is \textit{naar}.}
 \end{alleenvoor}
 
 \begin{alleenvoor}{2,3,4}
@@ -113,13 +113,19 @@ Hoeveel wegen van lengte 2 lopen er van $j$ naar $i$? Elke weg gaat via een tuss
 \begin{stelling}{Aantal wegen}
 Is $V$ de verbindingsmatrix van een graaf, dan is het element in rij $i$ en kolom $j$ van $\formule{V^n}$ het aantal wegen van lengte $n$ van knoop $j$ naar knoop $i$.
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 
 \begin{bewijs}
 Neem eerst $n = 2$. Een weg van lengte 2 van $j$ naar $i$ gaat via een knoop $k$. Voor de eerste boog zijn er $v_{kj}$ mogelijkheden, voor de tweede $v_{ik}$, samen $v_{ik} \cdot v_{kj}$ wegen via $k$. Tel op over alle tussenknopen:
 \bewijsregel{v_{i1} v_{1j} + v_{i2} v_{2j} + \cdots + v_{im} v_{mj} = (V^2)_{ij} .}
 Een weg van lengte 3 is een weg van lengte 2 gevolgd door één boog. Met dezelfde redenering, nu met $V^2$ en $V$, telt $V^3 = V \cdot V^2$ die wegen, en zo verder voor elke $n$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
+\begin{alleenvoor}{1}
+
+Waarom klopt dat? Rij $i$ van $V$ maal kolom $j$ van $V$ is een som met één term per tussenknoop: het aantal bogen van $j$ naar die knoop maal het aantal bogen van die knoop naar $i$, dus het aantal wegen via die knoop. De som telt alle wegen van lengte 2. Voor langere wegen gaat het net zo: $V^3 = V \cdot V^2$ voegt telkens één boog toe.
+\end{alleenvoor}
 
 \voorbeeld{}{Bereken $V^2$ voor het vluchtennet. Hoeveel verbindingen met precies één overstap zijn er van Wenen naar Rome? Tussen welke steden is er geen verbinding met precies één overstap?\label{vb:h4-wegen}}{%
 \uitleg{Met één overstap neem je precies twee vluchten: dat is een weg van lengte 2, dus we hebben $V^2$ nodig. Daarna lezen we het element af in de kolom van het vertrek en de rij van de aankomst.}
@@ -171,11 +177,17 @@ De \textbf{\textcolor{accent}{toestandsvector}} $X_n$ is de kolom met de aantall
 \begin{stelling}{Matrixmodel}
 \qquad $\formule{X_{n+1} = M X_n}$ \qquad en dus \qquad $\formule{X_n = M^n X_0}$
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 
 \begin{bewijs}
 Na één stap is het aantal in toestand $i$ de som over alle toestanden $j$ van (kans van $j$ naar $i$) maal (aantal in $j$), en dat is rij $i$ van $M$ maal de kolom $X_n$. Herhaal je dat, dan is $X_2 = M X_1 = M (M X_0) = M^2 X_0$, en zo verder.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
+\begin{alleenvoor}{1}
+
+Waarom? Na één stap is het aantal in toestand $i$ een som: voor elke toestand de kans om van daar naar $i$ te gaan, maal het aantal dat er nu is. Dat is rij $i$ van $M$ maal de kolom $X_n$, zoals in de Verken. Herhaal je dat, dan is $X_2 = M X_1 = M (M X_0) = M^2 X_0$, en zo verder.
+\end{alleenvoor}
 
 De kolomsom is 1, omdat iedereen die vertrekt uit een toestand ergens terechtkomt. Daarom blijft ook het totaal gelijk: er komen geen leerlingen bij en er gaan er geen weg. Zo'n systeem heet \textbf{gesloten}.
 
