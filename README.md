@@ -24,9 +24,9 @@ Een percentage hoort bij een status: ⚪ **gepland** (0 %): nog niet begonnen, �
 
 ### 3de graad
 
-**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 48 handboeken
+**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 50 handboeken
 
-🔴 47 eerste versie · 🟠 1 tweede versie
+🔴 49 eerste versie · 🟠 1 tweede versie
 
 #### Per richting
 
@@ -78,6 +78,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Integralen](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Analyse/Integralen/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Matrices](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Algebra/Matrices/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Rijen](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Discrete wiskunde/Rijen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Kansrekenen](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Data en onzekerheid/Kansrekenen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Statistiek](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Onderzoekscompetentie](<Handboeken/3de graad/2 Economie-Moderne talen (B+S)/Onderzoekscompetentie/README.md>) | – | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
@@ -97,6 +98,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Matrices](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Algebra/Matrices/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Complexe getallen](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Algebra/Complexe getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Rijen](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Discrete wiskunde/Rijen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Kansrekenen](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Data en onzekerheid/Kansrekenen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Statistiek](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Onderzoekscompetentie](<Handboeken/3de graad/3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Onderzoekscompetentie/README.md>) | – | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |

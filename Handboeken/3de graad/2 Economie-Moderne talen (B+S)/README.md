@@ -13,6 +13,7 @@ Leerplan: B+S (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met leer
 | [Analyse/Integralen](Analyse/Integralen) | LPD 22-24 | 4 hoofdstukken, eerste versie (afgeleid van pakket 4), nog na te lezen |
 | [Algebra/Matrices](Algebra/Matrices) | LPD 25-27 | 4 hoofdstukken, eerste versie (afgeleid van pakket 4), nog na te lezen |
 | [Discrete wiskunde/Rijen](Discrete%20wiskunde/Rijen) | LPD 28 | 3 hoofdstukken, eerste versie (afgeleid van pakket 4), nog na te lezen |
+| [Discrete wiskunde/Telproblemen](Discrete%20wiskunde/Telproblemen) | geen LPD: alleen voor GO! (telproblemen met het binomium van Newton) | 3 hoofdstukken, eerste versie (lichtere versie van pakket 4), nog na te lezen |
 | [Data en onzekerheid/Kansrekenen](Data%20en%20onzekerheid/Kansrekenen) | LPD 29 | 4 hoofdstukken, eerste versie (afgeleid van pakket 4), nog na te lezen |
 | [Data en onzekerheid/Statistiek](Data%20en%20onzekerheid/Statistiek) | LPD 30-34 | 4 hoofdstukken, eerste versie (afgeleid van pakket 4), nog na te lezen |
 | [Onderzoekscompetentie](Onderzoekscompetentie) | LPD 35 | 3 hoofdstukken, eerste versie (afgeleid van pakket 4), nog na te lezen |
