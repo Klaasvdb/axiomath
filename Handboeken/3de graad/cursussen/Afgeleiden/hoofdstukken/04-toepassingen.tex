@@ -8,9 +8,25 @@
 
 \mychapter{4}{Toepassingen van afgeleiden}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{3}{19-22}\alleenvoor{2}{18-21}\alleenvoor{1}{14-15} (afgeleiden), het deel over het verloop van functies (stijgen, dalen, extrema, holheid, buigpunten) en optimaliseringsproblemen. Over \textit{hol} en \textit{bol} bestaan verschillende afspraken; dit boek koppelt ze telkens aan de vorm van een dal- of bergparabool, zodat er geen misverstand kan zijn. De stelling dat $f' > 0$ stijgen geeft, wordt hier niet bewezen (ze volgt uit de middelwaardestelling).}
+\begin{probleem}
+\naast{Een windturbine haalt energie uit de wind door de lucht af te remmen. Remt ze weinig, dan haalt ze er weinig uit. Remt ze te sterk, dan stroomt de lucht om de wieken heen in plaats van erdoor. Remt de turbine de wind ter hoogte van de wieken af met een fractie $a$, dan oogst ze volgens een eenvoudig natuurkundig model een fractie
+\[P(a) = 4a\,(1 - a)^2 \qquad \bigl(0 \leqslant a \leqslant \tfrac12\bigr)\]
+van de energie die de wind door de rotor aanvoert. Hoeveel moet de turbine de wind afremmen om zo veel mogelijk energie te oogsten? En kan een turbine ooit $60\,\%$ van die energie halen?}{%
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \fill[black!10] (-.25,-4) -- (.25,-4) -- (.12,0) -- (-.12,0) -- cycle;
+  \fill[grijs] (-.1,-.35) rectangle (.9,.35);
+  \fill[accent!60] (-.35,0) ellipse (.18 and 2.6);
+  \fill[grijs] (-.35,0) circle (.22);
+  \foreach \y in {-1.6,-.5,.6,1.7}{\draw[->,accent,thick] (-4.2,\y) -- (-1.4,\y);}
+  \foreach \y in {-1.6,-.5,.6,1.7}{\draw[->,accent!60,thick] (1.4,\y) -- (2.8,\y);}
+  \node[above] at (-2.8,2.2) {wind};
+  \node[above] at (2.1,2.2) {trager};
+\end{tikzpicture}}
+\end{probleem}
 
-In Algemene functies las je toppen en dalen af op een grafiek. Nu kun je ze berekenen: in een top of een dal is de raaklijn horizontaal, dus de afgeleide nul. Daarmee los je ook praktische vragen op: hoe maak je een blik met zo weinig mogelijk metaal, of een weide zo groot mogelijk?
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{3}{19-22}\alleenvoor{2}{18-21}\alleenvoor{1}{14-15} (afgeleiden), het deel over het verloop van functies (stijgen, dalen, extrema, holheid, buigpunten) en optimaliseringsproblemen. Over \textit{hol} en \textit{bol} bestaan verschillende afspraken; dit boek koppelt ze telkens aan de vorm van een dal- of bergparabool, zodat er geen misverstand kan zijn. De stelling dat $f' > 0$ stijgen geeft, wordt hier niet bewezen (ze volgt uit de middelwaardestelling). Het model in het probleem is dat van Betz (impulstheorie, $a$ is de axiale inductiefactor); het wordt niet afgeleid. Voor $a > \frac12$ zou de wind achter de turbine achteruit waaien, daarom geldt het model maar tot $\frac12$. De oplossing staat in voorbeeld \ref{vb:h4-terug}, op het einde van sectie 1.}
+
+In Algemene functies las je toppen en dalen af op een grafiek. Maar de top van $P(a)$ uit het probleem lees je niet precies af: een grafiek of een tabel geeft alleen een benadering. Nu kun je hem berekenen: in een top of een dal is de raaklijn horizontaal, dus de afgeleide nul. In sectie 1 vinden we zo de beste afremming voor de windturbine. Daarna bekijken we met de tweede afgeleide hoe een grafiek buigt, en lossen we andere praktische vragen op: hoe maak je een blik met zo weinig mogelijk metaal, of een weide zo groot mogelijk?
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -20,6 +36,16 @@ In Algemene functies las je toppen en dalen af op een grafiek. Nu kun je ze bere
 
 %========================================================================================
 \section{Stijgen, dalen en extrema}
+
+Probeer het probleem eerst met een tabel:
+
+\figuren{{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{c|cccccc}
+$a$ & $0$ & $0{,}1$ & $0{,}2$ & $0{,}3$ & $0{,}4$ & $0{,}5$ \\ \hline
+$P(a)$ & $0$ & $0{,}324$ & $0{,}512$ & $0{,}588$ & $0{,}576$ & $0{,}5$
+\end{tabular}}}
+
+De grootste opbrengst ligt ergens tussen $a = 0{,}2$ en $a = 0{,}4$. Maar waar precies, en is ze groter dan $0{,}6$? Een fijnere tabel geeft alleen betere benaderingen, en tussen twee waarden kan de functie nog hoger komen. Kijk daarom naar de vorm van de grafiek: links van de top stijgt ze, rechts ervan daalt ze. Kunnen we uit het voorschrift afleiden waar een functie stijgt en waar ze daalt? Dan vinden we ook de top.
 
 \subsection{Stijgen en dalen}
 
@@ -230,6 +256,32 @@ Zoek de nulwaarden van $f'$ die in het interval liggen (en de punten waar $f'$ n
 \begin{oefeningen}
 \oef{h4-interval}
 \end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+De opbrengst van de windturbine is een continue functie op het gesloten interval $\bigl[0, \frac12\bigr]$. Haar grootste waarde vind je dus met de werkwijze hierboven.
+
+\voorbeeld{}{Terug naar het probleem. Een windturbine die de wind met een fractie $a$ afremt, oogst een fractie $P(a) = 4a\,(1 - a)^2$ van de energie in de wind, met $0 \leqslant a \leqslant \frac12$. Bij welke $a$ is dat het meest? Kan een turbine $60\,\%$ halen?\label{vb:h4-terug}}{%
+\naast{%
+\uitleg{Zoek de nulwaarden van $P'$ in het interval, en vergelijk hun functiewaarden met die in de randen.}
+\begin{stappenvrij}{4.5cm}{4.1cm}
+P(a) = 4a - 8a^2 + 4a^3 & Uitwerken. \\
+P'(a) = 4 - 16a + 12a^2 & Afleiden. \\
+= 4(1 - a)(1 - 3a) & Nulwaarden $\frac13$ en $1$; alleen $\frac13$ ligt in het interval. \\
+P(0) = 0, \quad P\bigl(\tfrac12\bigr) = \tfrac12 & De randen. \\
+P\bigl(\tfrac13\bigr) = \tfrac43 \cdot \tfrac49 = \tfrac{16}{27} \approx 0{,}593 & De grootste waarde.
+\end{stappenvrij}}{%
+\begin{tikzpicture}[x=6cm,y=4.4cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.6cm,ystep=.44cm] (0,0) grid (.5,.6);
+  \draw[->,grijs] (0,0) -- (.56,0) node[right,text=black] {$a$};
+  \draw[->,grijs] (0,0) -- (0,.68) node[above,text=black] {$P$};
+  \foreach \t/\l in {.1/0{,}1,.3/0{,}3,.5/0{,}5}{\node[below,inner sep=1.5pt] at (\t,0) {$\l$};}
+  \foreach \t/\l in {.2/0{,}2,.4/0{,}4,.6/0{,}6}{\node[left,inner sep=1.5pt] at (0,\t) {$\l$};}
+  \kromme{0}{.5}{4*\x*(1-\x)^2}
+  \draw[grijs,thick] (.21,.5926) -- (.45,.5926);
+  \vol{(.3333,.5926)}
+\end{tikzpicture}}
+De turbine moet de wind ter hoogte van de wieken dus met een derde afremmen, en oogst dan hoogstens $\frac{16}{27} \approx 59{,}3\,\%$ van de energie: $60\,\%$ haalt geen enkele turbine, hoe goed ze ook gebouwd is. Die grens heet de \textit{limiet van Betz}, naar de Duitse ingenieur Albert Betz, die ze rond 1920 vond. Echte turbines halen op hun best ongeveer $45$ à $50\,\%$.}
 
 %========================================================================================
 \section{Holheid en buigpunten}
