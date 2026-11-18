@@ -42,7 +42,7 @@ Nog geen enkele cursus geschreven. Indeling, leerplandoelen per pakket en voorka
 ## Handboeken afwerken (3de graad)
 
 - **Alle 47 handboeken** staan op "eerste versie" (Integralen in pakket 4 op "tweede versie"). Ze moeten door de stadia van `voortgang.yaml`: tweede en derde versie, dan nalezen door leerkrachten. **[Ingmar]**
-- **Pakket 1 afstemmen op Basis:** de leerstof is nu die van pakket 4: elke cursus staat één keer in `Handboeken/3de graad/cursussen/`, en buiten de leerplanverwijzingen verschilt pakket 1 er bijna nergens. Schrap of herschrijf wat buiten het leerplan Basis valt, met `\alleenvoor{1}` of `\begin{alleenvoor}{2,3,4}` in de bron (zie `Opmaak/pakketten.py`), nooit met een kopie. Bezig in PR #48 (Kansrekenen en Statistiek klaar). Hetzelfde geldt voor pakket 2 en 3 tegenover pakket 4. **[Ingmar]**
+- **Pakket 1 afstemmen op Basis:** gedaan op 18 nov 2026 voor alle acht cursussen van pakket 1 (PR #48), met het leerplan III-Wis-d; wat twijfelachtig is, staat onder "Na te kijken" in de README van elke cursus van pakket 1. Nog te doen: hetzelfde voor pakket 2 en 3 tegenover pakket 4, met de leerplannen III-WisS-d en III-WisS'-d (online niet gevonden). **[Ingmar]**
 - **Rijen in pakket 1, 2 en 3:** ingekort sinds 18 nov 2026 (PR #48), met een eigen motief zonder limiet. Na te kijken: de lestijden per pakket (schattingen).
 
 ## Koepels
