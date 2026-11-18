@@ -1,0 +1,101 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS TELPROBLEMEN (2de graad)
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% Vertrokken van notatie.tex van Integralen; wat hier niet nodig is, is geschrapt.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een figuur rechts: \begin{metgrafiek}{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+%----------------------------------------------------------------------------------------
+% BOOMDIAGRAM, binnen een tikzpicture, met de syntaxis child{node{..}} van TikZ:
+%   \begin{tikzpicture}[boom=18mm, level 1/.style={sibling distance=16mm}, level 2/.style={sibling distance=8mm}]
+%   \node[wortel] {} child{node{K} child{node{K}} child{node{M}}} child{node{M} ...};
+% boom=<afstand tussen de niveaus>; de takken groeien naar rechts, in de kleur van het hoofdstuk.
+% uitkomst: een grijs label rechts van een blad, met de uitkomst, bv. node[uitkomst=KKM]{M}.
+%----------------------------------------------------------------------------------------
+\tikzset{
+  boom/.style={grow'=right,level distance=#1,
+    every node/.style={font=\small,inner sep=1.5pt},
+    edge from parent/.style={draw=accent,thick},
+    edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}},
+  boom/.default=16mm,
+  wortel/.style={circle,fill=accent,inner sep=1.6pt},
+  knoop/.style={circle,fill=accent,inner sep=1.2pt},
+  uitkomst/.style={label={[font=\scriptsize,text=grijs,inner sep=1pt]right:#1}},
+  tak/.style={accent,thick},
+  blad/.style={font=\small,inner sep=1.5pt},
+  plaats/.style={font=\small,inner sep=1.5pt,fill=white},
+  verz/.style={draw=accent,thick,fill=accent,fill opacity=.10,text opacity=1},
+  stad/.style={circle,fill=accent,inner sep=1.8pt},
+}
+
+%----------------------------------------------------------------------------------------
+% VENNDIAGRAM MET TWEE VERZAMELINGEN, binnen een tikzpicture.
+% \venntwee{naam A}{naam B}: de omgevingsverzameling U en twee cirkels. Daarna zijn er coördinaten
+% (vA) alleen in A, (vAB) in beide, (vB) alleen in B, (vU) buiten de cirkels.
+% \vennaantal{alleen A}{beide}{alleen B}{buiten}: de aantallen in de vier stukken (leeg laten mag).
+% Een stuk kleuren vóór \venntwee: \fill[accent!35] \cirkelA; of met \clip \cirkelA; \fill \cirkelB;
+% \vennU geeft de rechthoek, voor het complement: \fill[accent!35,even odd rule] \vennU \cirkelA;
+%----------------------------------------------------------------------------------------
+\newcommand{\cirkelA}{(0,0) circle (.95)}
+\newcommand{\cirkelB}{(1.1,0) circle (.95)}
+\newcommand{\vennU}{(-1.45,-1.25) rectangle (3.05,1.3)}
+\newcommand{\venntwee}[2]{%
+  \draw[grijs] \vennU;
+  \node[font=\scriptsize,text=grijs,anchor=south west,inner sep=2pt] at (-1.45,-1.25) {$U$};
+  \draw[verz] \cirkelA; \draw[verz] \cirkelB;
+  \node[font=\footnotesize,text=accent,anchor=south east,inner sep=1pt] at (-.5,.8) {#1};
+  \node[font=\footnotesize,text=accent,anchor=south west,inner sep=1pt] at (1.6,.8) {#2};
+  \coordinate (vA) at (-.4,0); \coordinate (vAB) at (.55,0); \coordinate (vB) at (1.5,0);
+  \coordinate (vU) at (2.65,-.95);}
+\newcommand{\vennaantal}[4]{%
+  \node at (vA) {#1}; \node at (vAB) {#2}; \node at (vB) {#3}; \node at (vU) {#4};}
+
+% VENNDIAGRAM MET DRIE VERZAMELINGEN: \venndrie{A}{B}{C}, met coördinaten (vA), (vB), (vC) (alleen in die
+% verzameling), (vAB), (vAC), (vBC) (in precies die twee), (vABC) (in alle drie) en (vU) (buiten).
+\newcommand{\cirkelP}{(0,0) circle (1)}
+\newcommand{\cirkelQ}{(1.2,0) circle (1)}
+\newcommand{\cirkelR}{(.6,-1.03) circle (1)}
+\newcommand{\vennUdrie}{(-1.5,-2.35) rectangle (2.7,1.4)}
+\newcommand{\venndrie}[3]{%
+  \draw[grijs] \vennUdrie;
+  \node[font=\scriptsize,text=grijs,anchor=south west,inner sep=2pt] at (-1.5,-2.35) {$U$};
+  \draw[verz] \cirkelP; \draw[verz] \cirkelQ; \draw[verz] \cirkelR;
+  \node[font=\footnotesize,text=accent,anchor=south east,inner sep=1pt] at (-.55,.82) {#1};
+  \node[font=\footnotesize,text=accent,anchor=south west,inner sep=1pt] at (1.75,.82) {#2};
+  \node[font=\footnotesize,text=accent,anchor=north,inner sep=1pt] at (.6,-2.06) {#3};
+  \coordinate (vA) at (-.4,.2); \coordinate (vB) at (1.6,.2); \coordinate (vC) at (.6,-1.5);
+  \coordinate (vAB) at (.6,.42); \coordinate (vAC) at (-.05,-.68); \coordinate (vBC) at (1.25,-.68);
+  \coordinate (vABC) at (.6,-.35); \coordinate (vU) at (2.3,-2.05);}
+\newcommand{\vennaantaldrie}[8]{%
+  \node at (vA) {#1}; \node at (vB) {#2}; \node at (vC) {#3}; \node at (vAB) {#4};
+  \node at (vAC) {#5}; \node at (vBC) {#6}; \node at (vABC) {#7}; \node at (vU) {#8};}

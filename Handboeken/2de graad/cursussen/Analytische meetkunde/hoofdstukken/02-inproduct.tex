@@ -1,0 +1,626 @@
+%----------------------------------------------------------------------------------------
+% HET INPRODUCT, DE AFSTAND VAN EEN PUNT TOT EEN RECHTE EN DE HOEK TUSSEN TWEE RECHTEN.
+% Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: alleen pakket 5 (LPD B2-B5).
+% Voorkennis: hoofdstuk 1, de norm (Vectoren), de stelling van Pythagoras en haar omgekeerde (Driehoeksmeting),
+% de cosinus van een stompe hoek, supplementaire hoeken en de cosinusregel (Goniometrie).
+% Naam: inproduct (in de 3de graad ook scalair product). Een cartesiaanse vergelijking blijft ax + by = c,
+% dus de afstandsformule is |ax0 + by0 - c| / sqrt(a^2 + b^2).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Inproduct, afstand en hoek}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een zeilboot ligt voor anker in het punt $P\vc{10}{11}$. De kade van de haven ligt langs de rechte $3x + 4y = 24$. De eenheid is 10~m. De schipper wil met zijn rubberbootje zo snel mogelijk aan wal. Hij weet dat hij dan loodrecht op de kade moet roeien. Maar in welke richting is dat? Waar komt hij aan, en hoeveel meter moet hij roeien?}{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+  \fill[black!8] (0,0) -- (8,0) -- (0,6) -- cycle;
+  \roosterleeg{0}{1}{12}{0}{1}{12}
+  \xgetallen{2,4,6,8,10,12} \ygetallen{2,4,6,8,10,12}
+  \draw[inkt,line width=1.6pt] (0,6) -- (8,0);
+  \node[inkt,below left,inner sep=1pt] at (2.2,4.2) {kade};
+  \punt[above right]{10}{11}{P}
+  \node[accent] at (6.4,6.4) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD B4-B5 (het inproduct van twee vectoren in het vlak, met componenten en met de cosinus; loodrechte stand; de normaalvector van een rechte; de afstand van een punt tot een rechte en de hoek tussen twee rechten). Welke nummers precies bij dit hoofdstuk horen, is na te kijken in het leerplan. Voorkennis: hoofdstuk 1, de norm (handboek Vectoren), de stelling van Pythagoras en haar omgekeerde (handboek Driehoeksmeting), de cosinus van een stompe hoek, supplementaire hoeken en de cosinusregel (handboek Goniometrie). Komt Goniometrie in jullie school na dit handboek, laat dan het bewijs van $\vect{u} \cdot \vect{v} = \norm{\vect{u}}\,\norm{\vect{v}}\cos\theta$ weg en beperk de hoeken tot scherpe hoeken. In de 3de graad (Ruimtemeetkunde) heet het inproduct het scalair product en komt er een derde component bij; de afstand van een punt tot een vlak en de normaalvector van een vlak blijven daar.}
+
+In hoofdstuk 1 beschreef je rechten met vectoren, en onderzocht je of ze evenwijdig zijn of elkaar snijden. Maar staan ze ook loodrecht op elkaar? Hoe ver ligt een punt van een rechte? Onder welke hoek snijden twee rechten? Al die vragen gaan over hoeken en lengtes. In dit hoofdstuk leer je één nieuwe bewerking met vectoren, het inproduct, en die beantwoordt ze allemaal. Op het einde van het tweede deel weet de schipper waar hij aan wal komt.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het inproduct}
+
+\subsection{Wanneer staan twee vectoren loodrecht?}
+
+In de Verken gaf de som $u_x v_x + u_y v_y$ telkens $0$ bij twee vectoren die loodrecht op elkaar staan. Is dat toeval? We zoeken een verklaring met de stelling van Pythagoras.
+
+\naast{Teken $\vect{u}$ en $\vect{v}$ vanuit de oorsprong, met eindpunten $U(u_x, u_y)$ en $V(v_x, v_y)$. De hoek in $O$ is recht precies dan als in driehoek $OUV$ geldt: $\lengte{UV}^2 = \lengte{OU}^2 + \lengte{OV}^2$. Dat zeggen de stelling van Pythagoras en haar omgekeerde. Met componenten is $\lengte{OU}^2 = u_x^2 + u_y^2$, $\lengte{OV}^2 = v_x^2 + v_y^2$, en
+\[ \lengte{UV}^2 = (v_x - u_x)^2 + (v_y - u_y)^2 = u_x^2 + u_y^2 + v_x^2 + v_y^2 - 2(u_x v_x + u_y v_y). \]
+Het verschil met $\lengte{OU}^2 + \lengte{OV}^2$ is dus precies $-2(u_x v_x + u_y v_y)$. Pythagoras klopt als en slechts als die som nul is.}{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \draw[->,grijs] (-.4,0) -- (5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-.4) -- (0,4.6) node[above,text=black] {$y$};
+  \draw[vector] (0,0) -- (4,1) node[right,text=black] {$U$};
+  \draw[vectorb] (0,0) -- (-1,4) node[above,text=black] {$V$};
+  \draw[grijs,thick] (4,1) -- (-1,4);
+  \node[accent,below] at (2.2,.5) {$\vect{u}$};
+  \node[inkt,left] at (-.5,2) {$\vect{v}$};
+  \node[below left] at (0,0) {$O$};
+  \rechtehoekxy{(4,1)}{(0,0)}{(-1,4)}
+\end{tikzpicture}}
+
+Die som is zo belangrijk dat ze een eigen naam krijgt.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{inproduct}} van $\vect{u} = (u_x, u_y)$ en $\vect{v} = (v_x, v_y)$ is het getal
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} \cdot \vect{v} = u_x v_x + u_y v_y}$
+\end{theorie}
+
+Het inproduct van twee vectoren is een getal, geen vector. Je vermenigvuldigt de eerste componenten, de tweede componenten, en telt op. De volgorde speelt geen rol: $\vect{u} \cdot \vect{v} = \vect{v} \cdot \vect{u}$. In de 3de graad heet het ook het \textit{scalair product}.
+
+\voorbeeld{}{Bereken $\vect{u} \cdot \vect{v}$ voor $\vect{u} = \vc{4}{-1}$ en $\vect{v} = \vc{2}{5}$.\label{vb:h2-inproduct}}{%
+\uitleg{Eerste componenten maal elkaar, plus tweede componenten maal elkaar. Let op het minteken.}
+$\displaystyle \vect{u} \cdot \vect{v} = 4 \cdot 2 + ({-1}) \cdot 5 = 8 - 5 = 3$}
+
+Nu kunnen we zeggen wat we met Pythagoras vonden.
+
+\begin{theorie}
+\begin{stelling}{Loodrechte vectoren}
+Voor twee vectoren $\vect{u} \neq \nulvec$ en $\vect{v} \neq \nulvec$ geldt:
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} \perp \vect{v} \iff \vect{u} \cdot \vect{v} = 0}$
+\end{stelling}
+\begin{bewijs}
+Teken $\vect{u} = \vect{OU}$ en $\vect{v} = \vect{OV}$. Liggen $O$, $U$ en $V$ op één rechte, dan staan $\vect{u}$ en $\vect{v}$ niet loodrecht en is $\vect{v} = k\,\vect{u}$, dus $\vect{u} \cdot \vect{v} = k(u_x^2 + u_y^2) \neq 0$. Anders is $OUV$ een driehoek, en met de berekening hierboven is
+\bewijsregel{\lengte{UV}^2 = \lengte{OU}^2 + \lengte{OV}^2 - 2\,\vect{u} \cdot \vect{v}.}
+Volgens de stelling van Pythagoras en haar omgekeerde is de hoek in $O$ recht als en slechts als $\lengte{UV}^2 = \lengte{OU}^2 + \lengte{OV}^2$, dus als en slechts als $\vect{u} \cdot \vect{v} = 0$.
+\end{bewijs}
+\end{theorie}
+
+Het teken $\perp$ betekent \textit{staat loodrecht op}. Om na te gaan of twee vectoren loodrecht staan, hoef je dus niet te tekenen of te meten: één kleine berekening volstaat.
+
+\voorbeeld{}{Staan $\vect{a} = \vc{6}{-4}$ en $\vect{b} = \vc{2}{3}$ loodrecht op elkaar?\label{vb:h2-loodrecht}}{%
+\uitleg{We berekenen het inproduct. Is het $0$, dan staan ze loodrecht.}
+\naast{\begin{stappenvrij}{6cm}{3.6cm}
+\vect{a} \cdot \vect{b} = 6 \cdot 2 + ({-4}) \cdot 3 = 12 - 12 = 0 & Het inproduct is $0$.
+\end{stappenvrij}
+\vspace{1mm}
+Ja: $\vect{a} \perp \vect{b}$. De figuur bevestigt het.}{\begin{tikzpicture}[x=.36cm,y=.36cm,font=\scriptsize]
+  \ruitjes{-1}{-4}{7}{3}
+  \draw[vector] (0,0) -- (6,-4) node[pos=.7,above right,inner sep=1pt] {$\vect{a}$};
+  \draw[vectorb] (0,0) -- (2,3) node[pos=.7,left] {$\vect{b}$};
+  \rechtehoekxy{(6,-4)}{(0,0)}{(2,3)}
+\end{tikzpicture}}}
+
+\voorbeeld{}{Bepaal $k$ zodat $\vect{u} = \vc{k}{3}$ loodrecht staat op $\vect{v} = \vc{4}{-2}$.\label{vb:h2-loodrechtk}}{%
+\uitleg{Loodrecht betekent: het inproduct is $0$. Dat geeft een vergelijking in $k$.}
+\begin{stappen}
+\vect{u} \cdot \vect{v} = 4k - 6 = 0 & Het inproduct moet $0$ zijn. \\[1ex]
+k = \tfrac32 & Controle: $\vc{\tfrac32}{3} \cdot \vc{4}{-2} = 6 - 6 = 0$.
+\end{stappen}}
+
+Een vector loodrecht op $\vect{v} = (a, b)$ vind je meteen: \textit{wissel de componenten en verander één teken}. Zowel $(-b, a)$ als $(b, -a)$ staat loodrecht op $(a, b)$, want $a \cdot ({-b}) + b \cdot a = 0$. In het handboek Vectoren zag je dat $(-b, a)$ de vector $\vect{v}$ is, een kwartslag gedraaid in tegenwijzerzin. Zo staat $\vc{-3}{5}$ loodrecht op $\vc{5}{3}$.
+
+\begin{oefeningen}
+\oef{h2-inproduct}
+
+\oef{h2-loodrechtvec}
+\end{oefeningen}
+
+\subsection{Het inproduct van een vector met zichzelf}
+
+Wat geeft het inproduct van een vector met zichzelf? Voor $\vect{u} = \vc{3}{4}$ is $\vect{u} \cdot \vect{u} = 9 + 16 = 25$, en dat is $5^2$, het kwadraat van de norm. Dat is geen toeval: in beide staat de som van de kwadraten van de componenten.
+
+\begin{theorie}
+\begin{stelling}{Inproduct met zichzelf}
+Voor elke vector $\vect{u}$ is
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} \cdot \vect{u} = \norm{\vect{u}}^2}$
+\end{stelling}
+\begin{bewijs}
+$\vect{u} \cdot \vect{u} = u_x u_x + u_y u_y = u_x^2 + u_y^2 = \norm{\vect{u}}^2$, want $\norm{\vect{u}} = \sqrt{u_x^2 + u_y^2}$.
+\end{bewijs}
+\end{theorie}
+
+Het inproduct bevat dus ook de lengte van een vector. Met deze regel schrijf je de berekening uit het begin van deze sectie korter: $\norm{\vect{v} - \vect{u}}^2 = \norm{\vect{u}}^2 + \norm{\vect{v}}^2 - 2\,\vect{u} \cdot \vect{v}$. Die formule gebruiken we straks opnieuw.
+
+\subsection{Inproduct en hoek}
+
+Het inproduct is $0$ bij een rechte hoek. Wat zegt het over andere hoeken? Neem $\vect{u} = \vc{2}{0}$. Met $\vc{1}{1}$ maakt $\vect{u}$ een scherpe hoek, en het inproduct is $2$. Met $\vc{-1}{1}$ maakt $\vect{u}$ een stompe hoek, en het inproduct is $-2$. Het teken van het inproduct lijkt de soort hoek te verraden. Om dat precies te maken, spreken we eerst af welke hoek we bedoelen.
+
+De \textit{hoek tussen twee vectoren} $\vect{u}$ en $\vect{v}$, beide verschillend van $\nulvec$, is de hoek $\theta$ tussen hun pijlen als je ze vanuit hetzelfde punt tekent. Er geldt $0^\circ \leqslant \theta \leqslant 180^\circ$. De cosinusregel uit het handboek Goniometrie verbindt die hoek met het inproduct.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Inproduct en hoek}
+Is $\theta$ de hoek tussen $\vect{u} \neq \nulvec$ en $\vect{v} \neq \nulvec$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} \cdot \vect{v} = \norm{\vect{u}}\,\norm{\vect{v}}\cos\theta}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[x=.62cm,y=.62cm,font=\scriptsize]
+  \draw[vector] (0,0) -- (4,0) node[below,text=black] {$U$};
+  \draw[vectorb] (0,0) -- (1.2,2.4) node[above,text=black] {$V$};
+  \draw[grijs,thick] (4,0) -- (1.2,2.4);
+  \node[below left] at (0,0) {$O$};
+  \node[accent,below] at (2,0) {$\vect{u}$};
+  \node[inkt,left] at (.6,1.3) {$\vect{v}$};
+  \draw[accent,thin] (.7,0) arc (0:63.4:.7); \node[accent] at (.95,.45) {$\theta$};
+\end{tikzpicture}
+\end{minipage}
+\begin{bewijs}
+Teken $\vect{u} = \vect{OU}$ en $\vect{v} = \vect{OV}$, zoals in de figuur. Liggen $O$, $U$ en $V$ niet op één rechte, dan is $OUV$ een driehoek met hoek $\theta$ in $O$. De cosinusregel geeft
+\bewijsregel{\lengte{UV}^2 = \norm{\vect{u}}^2 + \norm{\vect{v}}^2 - 2\norm{\vect{u}}\,\norm{\vect{v}}\cos\theta ,}
+en met het inproduct vonden we
+\bewijsregel{\lengte{UV}^2 = \norm{\vect{u}}^2 + \norm{\vect{v}}^2 - 2\,\vect{u} \cdot \vect{v} .}
+Vergelijk beide: $\vect{u} \cdot \vect{v} = \norm{\vect{u}}\,\norm{\vect{v}}\cos\theta$. Liggen $O$, $U$ en $V$ wel op één rechte, dan is $\vect{v} = k\,\vect{u}$ en $\vect{u} \cdot \vect{v} = k\norm{\vect{u}}^2$. Voor $k > 0$ is $\theta = 0^\circ$ en $\norm{\vect{v}} = k\norm{\vect{u}}$; voor $k < 0$ is $\theta = 180^\circ$ en $\norm{\vect{v}} = -k\norm{\vect{u}}$. In beide gevallen is $\norm{\vect{u}}\,\norm{\vect{v}}\cos\theta = k\norm{\vect{u}}^2$.
+\end{bewijs}
+\end{theorie}
+
+Het inproduct zegt dus hoe goed twee vectoren dezelfde kant op wijzen. Omdat de normen positief zijn, heeft het inproduct het teken van $\cos\theta$: positief bij een scherpe hoek, $0$ bij een rechte hoek, negatief bij een stompe hoek. Om de hoek te berekenen, deel je door de normen:
+\[ \cos\theta = \frac{\vect{u} \cdot \vect{v}}{\norm{\vect{u}}\,\norm{\vect{v}}}. \]
+
+\voorbeeld{}{Bereken de hoek tussen $\vect{u} = \vc{3}{1}$ en $\vect{v} = \vc{1}{2}$.\label{vb:h2-hoek}}{%
+\uitleg{We berekenen het inproduct en de twee normen, en lossen op naar $\cos\theta$.}
+\naast{\begin{stappenvrij}{6cm}{4.4cm}
+\vect{u} \cdot \vect{v} = 3 + 2 = 5 & Positief: een scherpe hoek. \\[1ex]
+\norm{\vect{u}} = \sqrt{10}, \quad \norm{\vect{v}} = \sqrt5 & \\[1ex]
+\cos\theta = \frac{5}{\sqrt{10}\,\sqrt5} = \frac{5}{\sqrt{50}} \approx 0{,}7071 & \\[2ex]
+\theta = \cos^{-1} 0{,}7071\ldots = 45^\circ & Rekenmachine in graden.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.55cm,y=.55cm,font=\scriptsize]
+  \ruitjes{0}{0}{3}{2}
+  \draw[vector] (0,0) -- (3,1) node[right] {$\vect{u}$};
+  \draw[vectorb] (0,0) -- (1,2) node[above] {$\vect{v}$};
+  \draw[accent,thin] (.8,.267) arc (18.43:63.43:.84); \node[accent] at (1.1,.85) {$\theta$};
+\end{tikzpicture}}
+Exact: $\frac{5}{\sqrt{50}} = \frac{5}{5\sqrt2} = \frac{\sqrt2}{2} = \cos 45^\circ$.}
+
+\voorbeeld{}{Bereken de hoek tussen $\vect{u} = \vc{4}{-3}$ en $\vect{v} = \vc{-1}{2}$, afgerond op $0{,}01^\circ$.\label{vb:h2-stomp}}{%
+\uitleg{Dezelfde werkwijze. Het inproduct is negatief, dus we verwachten een stompe hoek.}
+\naast{\begin{stappenvrij}{6cm}{4.4cm}
+\vect{u} \cdot \vect{v} = -4 - 6 = -10 & Negatief: een stompe hoek. \\[1ex]
+\norm{\vect{u}} = 5, \quad \norm{\vect{v}} = \sqrt5 & \\[1ex]
+\cos\theta = \frac{-10}{5\sqrt5} \approx -0{,}8944 & \\[2ex]
+\theta \approx 153{,}43^\circ & De rekenmachine geeft een hoek tussen $0^\circ$ en $180^\circ$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \ruitjes{-1}{-3}{4}{2}
+  \draw[vector] (0,0) -- (4,-3) node[below] {$\vect{u}$};
+  \draw[vectorb] (0,0) -- (-1,2) node[above] {$\vect{v}$};
+  \draw[accent,thin] (.64,-.48) arc (-36.87:116.57:.8); \node[accent] at (.75,.55) {$\theta$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+De hoek tussen twee vectoren: bereken het inproduct en de twee normen, deel het inproduct door het product van de normen, en neem $\cos^{-1}$ op de rekenmachine (in graden). Het teken van het inproduct zegt vooraf of de hoek scherp of stomp is.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-hoek}
+\end{oefeningen}
+
+%========================================================================================
+\section{Loodrechte rechten en de normaalvector}
+
+\subsection{Loodrechte rechten}
+
+Twee rechten staan loodrecht op elkaar als hun richtingen loodrecht staan. Met het inproduct is dat snel na te gaan.
+
+\begin{theorie}
+\begin{stelling}{Loodrechte rechten}
+Een rechte met richtingsvector $\vect{u}$ en een rechte met richtingsvector $\vect{v}$ staan loodrecht op elkaar als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} \cdot \vect{v} = 0}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Staan $l\colon x = 1 + 2r,\ y = 3 - r$ en $m\colon x = 4 + s,\ y = 2s$ loodrecht op elkaar?\label{vb:h2-loodrechterechten}}{%
+\uitleg{We lezen de richtingsvectoren af en berekenen hun inproduct.}
+\begin{stappen}
+\vc{2}{-1} \cdot \vc{1}{2} = 2 - 2 = 0 & Het inproduct van de richtingsvectoren is $0$.
+\end{stappen}
+Ja, $l \perp m$.}
+
+In het handboek Functies beschreef je een niet-verticale rechte met haar rico. Kun je ook aan de rico's zien of twee rechten loodrecht staan? De figuur toont de rechten met rico $2$ en $-\tfrac12$: ze staan loodrecht, en $2 \cdot ({-\tfrac12}) = -1$.
+
+\naast{\begin{theorie}
+\begin{stelling}{Loodrechte rechten en rico}
+Twee rechten met rico $m_1$ en $m_2$ staan loodrecht op elkaar als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{m_1 \cdot m_2 = -1}$
+\end{stelling}
+\begin{bewijs}
+$\vc{1}{m_1}$ en $\vc{1}{m_2}$ zijn richtingsvectoren. De rechten staan loodrecht als en slechts als
+\bewijsregel{\vc{1}{m_1} \cdot \vc{1}{m_2} = 1 + m_1 m_2 = 0 \iff m_1 m_2 = -1.}
+\end{bewijs}
+\end{theorie}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{-3}{1}{4}{-2}{1}{4}
+  \xgetallen{-2,2,4} \ygetallen{-2,2,4}
+  \begin{scope}\knip{-3}{-2}{4}{4}
+    \rechte{-3}{4}{2}{1}
+    \rechte[tweede]{-3}{4}{-1/2}{1}
+  \end{scope}
+  \trapje{0}{1}{1}{2}{$1$}{$2$}
+  \rechtehoekxy{(1,3)}{(0,1)}{(2,0)}
+\end{tikzpicture}}
+
+Een rico en de omgekeerde met het andere teken horen dus bij loodrechte rechten: rico $\tfrac23$ en rico $-\tfrac32$, rico $-4$ en rico $\tfrac14$. Een horizontale en een verticale rechte staan ook loodrecht, maar de verticale heeft geen rico. Daar werkt alleen de stelling met de richtingsvectoren.
+
+\voorbeeld{}{Geef een vergelijking van de rechte door $P\vc{2}{-1}$ die loodrecht staat op $y = \tfrac23 x + 1$.\label{vb:h2-loodrico}}{%
+\uitleg{De gezochte rico $m$ voldoet aan $\tfrac23 \cdot m = -1$. Daarna vinden we $q$ door $P$ in te vullen.}
+\begin{stappen}
+m = -\tfrac32 & Want $\tfrac23 \cdot ({-\tfrac32}) = -1$. \\[1ex]
+-1 = -\tfrac32 \cdot 2 + q \iff q = 2 & $P$ ligt op de rechte. \\[1ex]
+y = -\tfrac32 x + 2 &
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-loodrecht}
+\end{oefeningen}
+
+\subsection{De normaalvector}
+
+Een richtingsvector wijst langs de rechte. Soms is een vector die loodrecht op de rechte staat handiger, zoals voor de schipper uit het probleem: hij wil loodrecht op de kade roeien.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{normaalvector}} van een rechte is een vector $\vect{n} \neq \nulvec$ die loodrecht staat op de richtingsvectoren van die rechte.
+\end{theorie}
+
+Hoe vind je een normaalvector? In hoofdstuk 1 zag je dat $\vc{b}{-a}$ een richtingsvector is van de rechte $ax + by = c$. De vector $\vc{a}{b}$ staat daar loodrecht op, want $\vc{a}{b} \cdot \vc{b}{-a} = ab - ba = 0$.
+
+\naast{\begin{theorie}
+\begin{stelling}{Normaalvector uit een cartesiaanse vergelijking}
+De rechte $ax + by = c$ heeft als normaalvector
+
+\vspace{1mm}
+\qquad $\formule{\vect{n} = \vc{a}{b}}$
+\end{stelling}
+\end{theorie}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{-1}{1}{5}{-1}{1}{4}
+  \xgetallen{2,4} \ygetallen{2,4}
+  \begin{scope}\knip{-1}{-1}{5}{4}\rechteabc{-1}{5}{2}{3}{6}\end{scope}
+  \draw[vector] (1.5,1) -- (3.5,4) node[above] {$\vect{n} = \vc{2}{3}$};
+  \draw[vectorb] (1.5,1) -- (4.5,-1);
+  \node[inkt,below left] at (4.5,-1) {$\vc{3}{-2}$};
+  \rechtehoekxy{(3.5,4)}{(1.5,1)}{(4.5,-1)}
+\end{tikzpicture}}
+
+De getallen voor $x$ en $y$ in de vergelijking geven dus meteen een normaalvector. Zo heeft $2x + 3y = 6$ de normaalvector $\vc{2}{3}$ en de richtingsvector $\vc{3}{-2}$, zoals in de figuur. Omgekeerd kun je met een punt en een normaalvector meteen een vergelijking opstellen.
+
+\begin{theorie}
+\begin{stelling}{Vergelijking met een normaalvector}
+De rechte door $P_0(x_0, y_0)$ met normaalvector $\vect{n} = \vc{a}{b}$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{a(x - x_0) + b(y - y_0) = 0}$
+\end{stelling}
+\begin{bewijs}
+Een punt $P(x, y)$ ligt op de rechte als en slechts als $P = P_0$ of $\vect{P_0P}$ loodrecht staat op $\vect{n}$. In beide gevallen is
+\bewijsregel{\vect{P_0P} \cdot \vect{n} = (x - x_0,\ y - y_0) \cdot \vc{a}{b} = a(x - x_0) + b(y - y_0) = 0.}
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Gegeven zijn $A\vc{1}{2}$, $B\vc{5}{4}$ en $P\vc{3}{-1}$. Geef een vergelijking van de rechte door $P$ die loodrecht staat op $AB$.\label{vb:h2-normaal}}{%
+\uitleg{De gezochte rechte staat loodrecht op $AB$, dus $\vect{AB}$ is een normaalvector. We vereenvoudigen hem eerst.}
+\naast{\begin{stappenvrij}{5.8cm}{3.8cm}
+\vect{AB} = \vc{4}{2} = 2\,\vc{2}{1} & Normaalvector $\vc{2}{1}$. \\[1ex]
+2(x - 3) + 1(y + 1) = 0 & Met $P\vc{3}{-1}$. \\[1ex]
+2x + y = 5 & Uitgewerkt.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.4cm,y=.4cm,font=\scriptsize]
+  \roosterleeg{-1}{1}{6}{-2}{1}{5}
+  \xgetallen{2,4,6} \ygetallen{-2,2,4}
+  \begin{scope}\knip{-1}{-2}{6}{5}\rechteabc{-1}{6}{2}{1}{5}\end{scope}
+  \draw[vectorb] (1,2) -- (5,4);
+  \punt[above left]{1}{2}{A} \punt[above]{5}{4}{B} \punt[right]{3}{-1}{P}
+\end{tikzpicture}}
+Controle: $P$ ligt erop, want $6 - 1 = 5$, en de richtingsvector $\vc{1}{-2}$ staat loodrecht op $\vc{4}{2}$, want $4 - 4 = 0$.}
+
+Een bekende toepassing is de middelloodlijn van een lijnstuk: de rechte door het midden die loodrecht staat op het lijnstuk. Elk punt van de middelloodlijn ligt even ver van de twee eindpunten.
+
+\voorbeeld{}{Geef een vergelijking van de middelloodlijn van $[AB]$, met $A\vc{-1}{1}$ en $B\vc{5}{3}$.\label{vb:h2-middelloodlijn}}{%
+\uitleg{De middelloodlijn gaat door het midden $M$ van $[AB]$, en $\vect{AB}$ is een normaalvector.}
+\naast{\begin{stappenvrij}{5.8cm}{3.8cm}
+M\bigl(\tfrac{-1 + 5}{2}, \tfrac{1 + 3}{2}\bigr) = \vc{2}{2} & Het midden. \\[1ex]
+\vect{AB} = \vc{6}{2} = 2\,\vc{3}{1} & Normaalvector $\vc{3}{1}$. \\[1ex]
+3(x - 2) + (y - 2) = 0 & \\[1ex]
+3x + y = 8 &
+\end{stappenvrij}}{\begin{tikzpicture}[x=.4cm,y=.4cm,font=\scriptsize]
+  \roosterleeg{-2}{1}{6}{-1}{1}{8}
+  \xgetallen{-2,2,4,6} \ygetallen{2,4,6}
+  \begin{scope}\knip{-2}{-1}{6}{8}\rechteabc{-2}{6}{3}{1}{8}\end{scope}
+  \draw[inkt,thick] (-1,1) -- (5,3);
+  \draw[hulplijn] (-1,1) -- (0,8) -- (5,3);
+  \punt[below]{-1}{1}{A} \punt[below]{5}{3}{B} \punt[below right]{2}{2}{M} \punt[right]{0}{8}{Q}
+\end{tikzpicture}}
+Controle: het punt $Q\vc{0}{8}$ ligt op de middelloodlijn, en $\lengte{QA} = \sqrt{1 + 49} = \sqrt{50}$ en $\lengte{QB} = \sqrt{25 + 25} = \sqrt{50}$: even ver van $A$ en $B$.}
+
+\begin{werkwijze}
+Een rechte door een gegeven punt, loodrecht op een gegeven richting: neem die richting als normaalvector $\vc{a}{b}$, en vul in in $a(x - x_0) + b(y - y_0) = 0$. Werk uit tot $ax + by = c$, en controleer met het punt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-normaal}
+\end{oefeningen}
+
+\subsection{Het voetpunt van de loodlijn}
+
+Nu kan de schipper uit het probleem op weg. De kortste weg naar een rechte is de loodlijn: de rechte door het punt die loodrecht staat op de rechte. Het punt waar ze de rechte snijdt, heet het \textit{voetpunt}. Een normaalvector van de rechte is een richtingsvector van de loodlijn. Zo kun je het voetpunt berekenen met wat je in hoofdstuk 1 leerde: een parametervoorstelling snijden met een cartesiaanse vergelijking.
+
+\voorbeeld{}{Bereken het voetpunt $V$ van de loodlijn uit $P\vc{5}{4}$ op de rechte $l\colon x + 2y = 3$.\label{vb:h2-voetpunt}}{%
+\uitleg{De normaalvector $\vc{1}{2}$ van $l$ is een richtingsvector van de loodlijn door $P$. We snijden die loodlijn met $l$.}
+\naast{\begin{stappenvrij}{5.8cm}{3.8cm}
+\pv{5 + r}{4 + 2r} & De loodlijn door $P$. \\[3ex]
+(5 + r) + 2(4 + 2r) = 3 & Invullen in $l$. \\[1ex]
+13 + 5r = 3 \iff r = -2 & \\[1ex]
+V\vc{5 - 2}{4 - 4} = \vc{3}{0} & Het voetpunt.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{-1}{1}{6}{-1}{1}{5}
+  \xgetallen{2,4,6} \ygetallen{2,4}
+  \begin{scope}\knip{-1}{-1}{6}{5}\rechteabc{-1}{6}{1}{2}{3}\end{scope}
+  \draw[tweede] (5,4) -- (3,0);
+  \punt[right]{5}{4}{P} \punt[below]{3}{0}{V}
+  \rechtehoekxy{(5,4)}{(3,0)}{(5,-1)}
+  \node[accent,above] at (-.6,1.8) {$l$};
+\end{tikzpicture}}
+Controle: $3 + 2 \cdot 0 = 3$. De loodlijn is twee keer de vector $\vc{1}{2}$ lang, dus $\lengte{PV} = 2\sqrt5 \approx 4{,}47$.}
+
+\begin{werkwijze}
+Het voetpunt van de loodlijn uit $P$ op de rechte $ax + by = c$: schrijf een parametervoorstelling van de loodlijn met vertrekpunt $P$ en richtingsvector $\vc{a}{b}$. Vul ze in in de vergelijking van de rechte, los op naar $r$, en vul $r$ in.
+\end{werkwijze}
+
+\voorbeeld{}{Terug naar het probleem. Een zeilboot ligt in $P\vc{10}{11}$, de kade ligt langs $3x + 4y = 24$, en de eenheid is 10~m. Waar komt de schipper aan wal als hij loodrecht op de kade roeit, en hoe ver roeit hij?\label{vb:h2-terug}}{%
+\uitleg{De normaalvector $\vc{3}{4}$ van de kade is de richting waarin de schipper roeit. We snijden die loodlijn door $P$ met de kade, en berekenen de afstand van $P$ tot het voetpunt.}
+\naast{\begin{stappenvrij}{6.2cm}{3.6cm}
+\pv{10 + 3r}{11 + 4r} & De loodlijn door $P$. \\[3ex]
+3(10 + 3r) + 4(11 + 4r) = 24 & Invullen in de kade. \\[1ex]
+74 + 25r = 24 \iff r = -2 & \\[1ex]
+V\vc{10 - 6}{11 - 8} = \vc{4}{3} & Hier komt hij aan. \\[1ex]
+\lengte{PV} = \norm{-2\,\vc{3}{4}} = 2 \cdot 5 = 10 & Of: $\sqrt{6^2 + 8^2} = 10$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+  \fill[black!8] (0,0) -- (8,0) -- (0,6) -- cycle;
+  \roosterleeg{0}{1}{12}{0}{1}{12}
+  \xgetallen{4,8,12} \ygetallen{4,8,12}
+  \draw[inkt,line width=1.6pt] (0,6) -- (8,0);
+  \draw[accent,thick,->] (10,11) -- (4.15,3.2);
+  \punt[above right]{10}{11}{P} \punt[below left]{4}{3}{V}
+  \rechtehoekxy{(10,11)}{(4,3)}{(8,0)}
+\end{tikzpicture}}
+De schipper roeit in de richting van $\vc{-3}{-4}$ naar het punt $V\vc{4}{3}$ van de kade, en legt 10 eenheden af: 100~m. Elk ander punt van de kade ligt verder.}
+
+\begin{oefeningen}
+\oef{h2-voetpunt}
+\end{oefeningen}
+
+%========================================================================================
+\section{De afstand van een punt tot een rechte}
+
+\subsection{De kortste afstand}
+
+Hoe ver ligt een punt van een rechte? Een punt ligt van elk punt van de rechte op een andere afstand. Met de afstand tot de rechte bedoelen we de kortste. Waarom is dat de afstand tot het voetpunt van de loodlijn? Neem een ander punt $Q$ van de rechte. Dan is $PVQ$ een rechthoekige driehoek met de rechte hoek in $V$, en $\lengte{PQ}$ is de schuine zijde. Die is langer dan de rechthoekszijde $\lengte{PV}$, want $\lengte{PQ}^2 = \lengte{PV}^2 + \lengte{VQ}^2$.
+
+\naast{\begin{theorie}
+De \textbf{\textcolor{accent}{afstand}} van een punt $P$ tot een rechte $l$ is de afstand van $P$ tot het voetpunt $V$ van de loodlijn uit $P$ op $l$:
+
+\vspace{1mm}
+\qquad $\formule{d(P, l) = \lengte{PV}}$
+\end{theorie}}{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \draw[accent,thick] (-.5,0) -- (5,0) node[right] {$l$};
+  \draw[inkt,thick] (1.5,2.4) -- (1.5,0);
+  \draw[grijs] (1.5,2.4) -- (4,0);
+  \fill (1.5,2.4) circle (1.6pt) node[above] {$P$};
+  \fill (1.5,0) circle (1.6pt) node[below] {$V$};
+  \fill (4,0) circle (1.6pt) node[below] {$Q$};
+  \rechtehoekxy{(1.5,2.4)}{(1.5,0)}{(4,0)}
+\end{tikzpicture}}
+
+In het vorige voorbeeld was de afstand van de zeilboot tot de kade dus $10$ eenheden. Ligt $P$ op $l$, dan is $V = P$ en is de afstand $0$.
+
+\subsection{Een formule voor de afstand}
+
+Het voetpunt berekenen kost een paar stappen. Kan het sneller, als je alleen de afstand wilt kennen? In het voorbeeld van de zeilboot zag je dat $\lengte{PV} = \abs{r} \cdot \norm{\vect{n}}$, met $r$ de parameter van het voetpunt. Die parameter kun je in het algemeen berekenen, en dan krijg je een formule.
+
+\begin{theorie}
+\begin{stelling}{Afstand van een punt tot een rechte}
+De afstand van $P(x_0, y_0)$ tot de rechte $l\colon ax + by = c$ is
+
+\vspace{1mm}
+\qquad $\formule{d(P, l) = \frac{\abs{a x_0 + b y_0 - c}}{\sqrt{a^2 + b^2}}}$
+\end{stelling}
+\begin{bewijs}
+De loodlijn uit $P$ heeft richtingsvector $\vect{n} = \vc{a}{b}$, dus het voetpunt is $V(x_0 + ra,\ y_0 + rb)$ voor een getal $r$. Omdat $V$ op $l$ ligt, is
+\bewijsregel{a(x_0 + ra) + b(y_0 + rb) = c \iff r(a^2 + b^2) = c - a x_0 - b y_0 \iff r = \frac{c - a x_0 - b y_0}{a^2 + b^2}.}
+Nu is $\vect{PV} = r\,\vect{n}$, dus
+\bewijsregel{d(P, l) = \norm{r\,\vect{n}} = \abs{r} \cdot \sqrt{a^2 + b^2} = \frac{\abs{a x_0 + b y_0 - c}}{a^2 + b^2} \cdot \sqrt{a^2 + b^2} = \frac{\abs{a x_0 + b y_0 - c}}{\sqrt{a^2 + b^2}}.}
+\end{bewijs}
+\end{theorie}
+
+Lees de formule zo: vul de coördinaten van $P$ in in $ax + by - c$, neem de absolute waarde, en deel door de norm van de normaalvector. Ligt $P$ op de rechte, dan is de teller $0$, zoals het hoort. Controle met de zeilboot: $\frac{\abs{30 + 44 - 24}}{\sqrt{9 + 16}} = \frac{50}{5} = 10$.
+
+\voorbeeld{}{Bereken de afstand van $P\vc{4}{-1}$ tot de rechte $l\colon 5x - 12y = 6$.\label{vb:h2-afstand}}{%
+\uitleg{De vergelijking staat al in de vorm $ax + by = c$, met $a = 5$, $b = -12$ en $c = 6$. We vullen in.}
+$\displaystyle d(P, l) = \frac{\abs{5 \cdot 4 - 12 \cdot ({-1}) - 6}}{\sqrt{25 + 144}} = \frac{\abs{20 + 12 - 6}}{13} = \frac{26}{13} = 2$}
+
+\voorbeeld{}{Bereken de afstand van $P\vc{1}{2}$ tot de rechte $l\colon x = 3 + 2r,\ y = -1 + r$, exact en afgerond op $0{,}01$.\label{vb:h2-afstandpv}}{%
+\uitleg{De formule vraagt een cartesiaanse vergelijking. We zoeken die eerst, zoals in hoofdstuk 1.}
+\begin{stappen}
+x - 2y = 3 + 2r + 2 - 2r = 5 & Cartesiaanse vergelijking van $l$. \\[1ex]
+d(P, l) = \frac{\abs{1 - 4 - 5}}{\sqrt{1 + 4}} = \frac{8}{\sqrt5} \approx 3{,}58 & Afstandsformule.
+\end{stappen}}
+
+\begin{werkwijze}
+De afstand van een punt tot een rechte: schrijf de rechte als $ax + by = c$. Vul de coördinaten van het punt in in $ax + by - c$, neem de absolute waarde, en deel door $\sqrt{a^2 + b^2}$.
+\end{werkwijze}
+
+Twee strikt evenwijdige rechten liggen overal even ver van elkaar. Die afstand vind je door een punt te kiezen op de ene rechte, en zijn afstand tot de andere te berekenen.
+
+\voorbeeld{}{Bereken de afstand tussen de evenwijdige rechten $l\colon 3x - 4y = 2$ en $m\colon 3x - 4y = 17$.\label{vb:h2-evenwijdig}}{%
+\uitleg{Een punt van $l$: kies $x = 2$, dan is $6 - 4y = 2$, dus $y = 1$. Dan berekenen we de afstand van dat punt tot $m$.}
+\begin{stappen}
+P\vc{2}{1} \text{ ligt op } l & $6 - 4 = 2$. \\[1ex]
+d(P, m) = \frac{\abs{6 - 4 - 17}}{\sqrt{9 + 16}} = \frac{15}{5} = 3 & De afstand tussen de rechten.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-afstand}
+\end{oefeningen}
+
+%========================================================================================
+\section{De hoek tussen twee rechten}
+
+\subsection{De scherpe hoek}
+
+Twee rechte wegen kruisen elkaar. Onder welke hoek? Twee snijdende rechten vormen vier hoeken: twee keer een hoek $\varphi$ en twee keer zijn supplement $180^\circ - \varphi$. Welke bedoel je? Je spreekt af dat de hoek tussen twee rechten de kleinste is, dus nooit groter dan $90^\circ$. Voor evenwijdige rechten is de hoek $0^\circ$.
+
+Met de richtingsvectoren vind je de hoek $\theta$ tussen twee vectoren. Is $\theta$ stomp, dan is de hoek tussen de rechten $180^\circ - \theta$, en die heeft een tegengestelde cosinus (handboek Goniometrie, supplementaire hoeken). Neem je de absolute waarde, dan heb je altijd de cosinus van de scherpe hoek.
+
+\naast{\begin{theorie}
+\begin{stelling}{Hoek tussen twee rechten}
+Voor de hoek $\varphi$ tussen een rechte met richtingsvector $\vect{u}$ en een rechte met richtingsvector $\vect{v}$ geldt $0^\circ \leqslant \varphi \leqslant 90^\circ$ en
+
+\vspace{1mm}
+\qquad $\formule{\cos\varphi = \frac{\abs{\vect{u} \cdot \vect{v}}}{\norm{\vect{u}}\,\norm{\vect{v}}}}$
+\end{stelling}
+\begin{bewijs}
+Is $\theta$ de hoek tussen $\vect{u}$ en $\vect{v}$, dan is $\varphi = \theta$ of $\varphi = 180^\circ - \theta$, dus $\cos\varphi = \cos\theta$ of $\cos\varphi = -\cos\theta$. Omdat $\varphi \leqslant 90^\circ$, is $\cos\varphi \geqslant 0$, dus
+\bewijsregel{\cos\varphi = \abs{\cos\theta} = \frac{\abs{\vect{u} \cdot \vect{v}}}{\norm{\vect{u}}\,\norm{\vect{v}}}.}
+\end{bewijs}
+\end{theorie}}{\begin{tikzpicture}[scale=.85,font=\footnotesize]
+  \draw[accent,thick] (-2,-.8) -- (2.6,1.04);
+  \draw[tweede] (-1.2,-2) -- (1.2,2);
+  \draw[accent] (.75,.3) arc (21.8:59.04:.8); \node[accent] at (1.25,.85) {$\varphi$};
+  \draw[grijs] (.41,.69) arc (59.04:201.8:.8); \node[grijs] at (-1.1,.9) {$180^\circ - \varphi$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Bereken de hoek tussen $l\colon x = 1 + 3r,\ y = 2 + r$ en $m\colon 2x + y = 4$, afgerond op $0{,}01^\circ$.\label{vb:h2-hoekrechten}}{%
+\uitleg{$l$ heeft richtingsvector $\vc{3}{1}$. Voor $m$ nemen we $\vc{b}{-a} = \vc{1}{-2}$. Dan vullen we de formule in.}
+\begin{stappen}
+\vc{3}{1} \cdot \vc{1}{-2} = 3 - 2 = 1 & Het inproduct. \\[1ex]
+\cos\varphi = \frac{\abs{1}}{\sqrt{10}\,\sqrt5} = \frac{1}{\sqrt{50}} \approx 0{,}1414 & De normen zijn $\sqrt{10}$ en $\sqrt5$. \\[2ex]
+\varphi \approx 81{,}87^\circ & $\cos^{-1}$ in graden.
+\end{stappen}}
+
+Zijn beide rechten gegeven met een cartesiaanse vergelijking, dan kun je ook de normaalvectoren nemen. Elke normaalvector is een richtingsvector die een kwartslag gedraaid is. Draai je beide rechten een kwartslag, dan blijft de hoek ertussen dezelfde.
+
+\voorbeeld{}{Bereken de hoek tussen $l\colon 4x - 3y = 1$ en $m\colon 5x + 12y = 7$, afgerond op $0{,}01^\circ$.\label{vb:h2-hoeknormaal}}{%
+\uitleg{De normaalvectoren $\vc{4}{-3}$ en $\vc{5}{12}$ lezen we zo af. Ze hebben mooie normen: $5$ en $13$.}
+\begin{stappen}
+\vc{4}{-3} \cdot \vc{5}{12} = 20 - 36 = -16 & Negatief: de vectoren maken een stompe hoek. \\[1ex]
+\cos\varphi = \frac{\abs{-16}}{5 \cdot 13} = \frac{16}{65} & De absolute waarde geeft de scherpe hoek. \\[2ex]
+\varphi \approx 75{,}75^\circ &
+\end{stappen}
+De normaalvectoren zelf maken een hoek van ongeveer $180^\circ - 75{,}75^\circ = 104{,}25^\circ$, maar de hoek tussen de rechten is de scherpe.}
+
+\begin{werkwijze}
+De hoek tussen twee rechten: neem van elke rechte een richtingsvector (of van beide een normaalvector). Bereken de absolute waarde van hun inproduct, deel door het product van de normen, en neem $\cos^{-1}$. De uitkomst ligt tussen $0^\circ$ en $90^\circ$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-hoekrechten}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+
+\oef{h2-o25}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-loodrechtk}{oef:h2-loodrechtvec}%
+  \fv{oef:h2-t2}{vb:h2-stomp}{oef:h2-hoek}%
+  \fv{oef:h2-t3}{vb:h2-loodrico}{oef:h2-loodrecht}%
+  \fv{oef:h2-t4}{vb:h2-middelloodlijn}{oef:h2-normaal}%
+  \fv{oef:h2-t5}{vb:h2-voetpunt}{oef:h2-voetpunt}%
+  \fv{oef:h2-t6}{vb:h2-afstand}{oef:h2-afstand}%
+  \fv{oef:h2-t7}{vb:h2-hoekrechten}{oef:h2-hoekrechten}%
+  \fv{oef:h2-t8}{vb:h2-loodrecht}{oef:h2-loodrechtvec}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van het inproduct, wanneer twee vectoren loodrecht staan en waarom (met Pythagoras), het inproduct van een vector met zichzelf, het verband met de cosinus en het bewijs met de cosinusregel, loodrechte rechten (met richtingsvectoren en met de rico), wat een normaalvector is en hoe je hem afleest, de vergelijking van een rechte met een punt en een normaalvector, hoe je een voetpunt berekent, de afstandsformule met haar bewijs, en hoe je de hoek tussen twee rechten berekent. Vergelijk daarna met de kaders.
+\fi

@@ -1,0 +1,1414 @@
+# Oefeningen van hoofdstuk 1 (Het spreidingsdiagram en de trendlijn). Zie Opmaak/oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen. Regressielijnen en gemiddelden zijn nagerekend met Python (kleinste kwadraten).
+# pakketten: residuen (h1-residu, h1-o17) in 4-5, de bewijsopdracht h1-o25 in 5.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Reken uit of los op.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        de rico van de rechte door $(2, 5)$ en $(6, 17)$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $m = \tfrac{17 - 5}{6 - 2} = \tfrac{12}{4} = 3$.
+    - opgave: |-
+        de rico van de rechte door $(10, 40)$ en $(30, 20)$
+      antwoord: |-
+        $-1$
+      uitwerking: |-
+        $m = \tfrac{20 - 40}{30 - 10} = \tfrac{-20}{20} = -1$.
+    - opgave: |-
+        het gemiddelde van $12$, $15$, $9$, $20$ en $14$
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $\tfrac{12 + 15 + 9 + 20 + 14}{5} = \tfrac{70}{5} = 14$.
+    - opgave: |-
+        $y = 2,5x + 10$ voor $x = 8$
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        $2,5 \cdot 8 + 10 = 20 + 10 = 30$.
+    - opgave: |-
+        $q$ als de rechte $y = 4x + q$ door $(5, 23)$ gaat
+      antwoord: |-
+        $q = 3$
+      uitwerking: |-
+        $23 = 4 \cdot 5 + q$, dus $q = 23 - 20 = 3$.
+    - opgave: |-
+        $3x - 12 = 30$
+      antwoord: |-
+        $x = 14$
+      uitwerking: |-
+        $3x = 42$, dus $x = 14$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Ilse fietst elke dag naar een andere vriendin. Ze noteert de afstand $d$ (in km) en hoe lang ze onderweg is, $t$ (in minuten).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$d$ (km)][$t$ (min)]{6}{4 & 6 & 8 & 10 & 12 & 14}{15 & 21 & 30 & 34 & 45 & 50}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken de zes koppels $(d, t)$ als punten in een assenstelsel, met $d$ op de horizontale as.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.08cm]
+          \diagram[$d$ (km)][$t$ (min)]{0}{2}{16}{0}{10}{60}
+          \xas{0,4,...,16}\yas{0,20,40,60}
+          \punten{(4,15) (6,21) (8,30) (10,34) (12,45) (14,50)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Liggen de punten op één rechte?
+      antwoord: |-
+        nee, maar wel bijna
+      uitwerking: |-
+        Nee: van 4 naar 6 km komen er 6 minuten bij, van 6 naar 8 km 9 minuten. Maar de punten liggen wel dicht bij een stijgende rechte.
+    - opgave: |-
+        Trek een rechte die zo goed mogelijk bij de punten past. Hoe lang zou Ilse ongeveer onderweg zijn voor 9 km?
+      antwoord: |-
+        ongeveer 32 minuten
+      uitwerking: |-
+        Een rechte die tussen de punten door loopt, geeft bij 9 km ongeveer 32 à 33 minuten.
+    - opgave: |-
+        Waarom liggen de punten niet precies op een rechte?
+      antwoord: |-
+        wind, verkeerslichten, vermoeidheid, \ldots
+      uitwerking: |-
+        Ilse rijdt niet altijd even snel: er is wind, ze moet wachten aan verkeerslichten, de ene weg is drukker of steiler dan de andere.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h1-tekenen
+  soort: kort
+  opgave: |-
+    Acht jongeren noteren hoeveel uur ze per week sporten, $s$, en hun hartslag in rust, $h$ (in slagen per minuut).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$s$ (uur)][$h$ (per min)]{8}{0 & 1 & 2 & 3 & 4 & 5 & 6 & 8}{78 & 80 & 74 & 72 & 70 & 71 & 66 & 62}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram. Kies een geschikte schaal.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        De sporturen op de $x$-as, van 0 tot 9. De hartslag op de $y$-as, bijvoorbeeld van 60 tot 82.
+        \figuren{\begin{tikzpicture}[x=.55cm,y=.16cm]
+          \diagram[$s$ (uur)][$h$ (per min)]{0}{1}{9}{60}{2}{82}
+          \xas{0,2,...,8}\yas{60,64,...,80}
+          \punten{(0,78) (1,80) (2,74) (3,72) (4,70) (5,71) (6,66) (8,62)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Wat valt je op?
+      antwoord: |-
+        wie meer sport, heeft meestal een lagere rusthartslag
+      uitwerking: |-
+        De wolk daalt: wie meer sport, heeft meestal een lagere hartslag in rust. De punten liggen vrij dicht bij een dalende rechte.
+
+- id: h1-verband
+  soort: kort
+  opgave: |-
+    Beschrijf het verband in elk spreidingsdiagram: richting, vorm, sterkte en uitschieters.
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=1cm,y=.15cm,font=\scriptsize]
+      \diagram[hoogte (km)][$T$ (°C)]{0}{0.5}{3}{-2}{2}{18}
+      \xas{0,1,2,3}\yas{0,8,16}
+      \punten{(0.2,16.8) (0.5,16.1) (0.8,14.2) (1.1,11) (1.4,9.4) (1.6,8) (1.9,7.1) (2.2,4.8) (2.5,3.6) (2.8,-0.3)}
+      \node[font=\small\bfseries] at (2.8,16) {A};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.3cm,y=.25cm,font=\scriptsize]
+      \diagram[schoenmaat][punten op 20]{35}{1}{45}{6}{1}{17}
+      \xas{36,40,44}\yas{6,10,14}
+      \punten{(36,14) (37,9) (38,16) (38,11) (39,13) (40,8) (41,15) (42,12) (43,10) (44,14)}
+      \node[font=\small\bfseries] at (44,16.5) {B};
+    \end{tikzpicture}}
+    \figuren{
+    \begin{tikzpicture}[x=.026cm,y=.038cm,font=\scriptsize]
+      \diagram[$v$ (km/h)][remweg (m)]{0}{20}{120}{0}{10}{80}
+      \xas{0,40,80,120}\yas{0,40,80}
+      \punten{(20,6) (30,5) (40,11) (50,15) (60,21) (70,30) (80,40) (90,48) (100,60) (110,74)}
+      \node[font=\small\bfseries] at (20,72) {C};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}[x=.58cm,y=.19cm,font=\scriptsize]
+      \diagram[studie (uur)][score op 20]{0}{1}{5}{2}{2}{16}
+      \xas{0,1,...,5}\yas{4,8,12,16}
+      \punten{(0.5,8) (1,10) (1.5,9) (2,12) (2.5,10) (3,13) (3.5,14) (4,12) (4.5,15) (5,5)}
+      \node[font=\small\bfseries] at (.6,15.5) {D};
+    \end{tikzpicture}}
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        A
+      antwoord: |-
+        negatief, lineair, sterk
+      uitwerking: |-
+        A: hoe hoger, hoe kouder: een negatief, lineair en sterk verband, zonder uitschieters.
+    - opgave: |-
+        B
+      antwoord: |-
+        geen verband
+      uitwerking: |-
+        B: de punten liggen kriskras: geen verband tussen schoenmaat en punten.
+    - opgave: |-
+        C
+      antwoord: |-
+        positief, niet-lineair
+      uitwerking: |-
+        C: hoe sneller, hoe langer de remweg: een positief verband, maar de punten volgen een boog die steeds steiler wordt. Het verband is niet lineair.
+    - opgave: |-
+        D
+      antwoord: |-
+        positief, zwak, uitschieter $(5, 5)$
+      uitwerking: |-
+        D: meer studie geeft meestal een hogere score: een positief, ongeveer lineair maar zwak verband. De leerling die 5 uur studeerde en 5 op 20 haalde, is een uitschieter.
+
+- id: h1-trendoog
+  soort: kort
+  opgave: |-
+    Het spreidingsdiagram toont de oppervlakte $x$ (in m²) en de maandelijkse huurprijs $y$ (in euro) van acht appartementen in dezelfde straat.
+
+    \vspace{1mm}
+    \naast{\kleinetabel[$x$ (m²)][$y$ (euro)]{8}{40 & 50 & 55 & 60 & 70 & 75 & 80 & 90}{520 & 560 & 640 & 610 & 720 & 700 & 780 & 830}}{\begin{tikzpicture}[x=.065cm,y=.0065cm,font=\scriptsize]
+        \diagram[$x$ (m²)][$y$ (euro)]{30}{10}{100}{450}{50}{900}
+        \xas{30,50,...,90}\yas{500,600,...,900}
+        \punten{(40,520) (50,560) (55,640) (60,610) (70,720) (75,700) (80,780) (90,830)}
+      \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde punt.
+      antwoord: |-
+        $(65, 670)$
+      uitwerking: |-
+        $\xbar = \tfrac{520}{8} = 65$ en $\ybar = \tfrac{5360}{8} = 670$: het gemiddelde punt is $(65, 670)$.
+    - opgave: |-
+        Teken het spreidingsdiagram over in je schrift, en trek op het oog een trendlijn door het gemiddelde punt.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        Bijvoorbeeld de rechte door $(65, 670)$ en $(45, 550)$.
+        \figuren{\begin{tikzpicture}[x=.075cm,y=.0075cm,font=\scriptsize]
+          \diagram[$x$ (m²)][$y$ (euro)]{30}{10}{100}{450}{50}{900}
+          \xas{30,50,...,90}\yas{500,600,...,900}
+          \rechte{30}{100}{6}{280}
+          \punten{(40,520) (50,560) (55,640) (60,610) (70,720) (75,700) (80,780) (90,830)}
+          \gempunt{65}{670}
+          \punt[inkt]{45}{550}
+        \end{tikzpicture}}
+    - opgave: |-
+        Lees een tweede punt van je trendlijn af en stel haar vergelijking op.
+      antwoord: |-
+        bijvoorbeeld $y = 6x + 280$
+      uitwerking: |-
+        Met $(65, 670)$ en $(45, 550)$: $m = \tfrac{670 - 550}{65 - 45} = \tfrac{120}{20} = 6$ en $670 = 6 \cdot 65 + q$, dus $q = 280$. De trendlijn is $y = 6x + 280$. Een rico tussen ongeveer 5,5 en 7 is ook goed (ICT geeft $y = 6,26x + 263,33$).
+
+- id: h1-betekenis
+  soort: kort
+  opgave: |-
+    Wat betekenen $m$ en $q$ in elke trendlijn? Heeft $q$ hier een zinvolle betekenis?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $p = -1,9a + 24,5$: de prijs $p$ (in duizend euro) van een tweedehandswagen in functie van zijn leeftijd $a$ (in jaar), voor wagens van 1 tot 10 jaar.
+      antwoord: |-
+        1900 euro minder per jaar; nieuwprijs 24\,500 euro
+      uitwerking: |-
+        $m = -1,9$: per jaar ouder is de wagen gemiddeld ongeveer 1900 euro minder waard. $q = 24,5$: een nieuwe wagen ($a = 0$) kost ongeveer 24\,500 euro. Dat is zinvol, want 0 jaar ligt dicht bij de gegevens.
+    - opgave: |-
+        $y = 6x + 280$: de huurprijs $y$ (in euro per maand) in functie van de oppervlakte $x$ (in m²), voor appartementen van 40 tot 90 m².
+      antwoord: |-
+        6 euro meer per m²; $q$ niet zinvol
+      uitwerking: |-
+        $m = 6$: per m² extra betaal je gemiddeld ongeveer 6 euro meer huur per maand. $q = 280$ zou de huur van een appartement van 0 m² zijn: dat bestaat niet, dus $q$ is niet zinvol.
+    - opgave: |-
+        $T = -6,2h + 16,7$: de temperatuur $T$ (in °C) op een berg in functie van de hoogte $h$ (in km), gemeten tussen 0,4 en 3 km.
+      antwoord: |-
+        6,2 °C kouder per km; 16,7 °C op zeeniveau
+      uitwerking: |-
+        $m = -6,2$: per kilometer hoger is het ongeveer 6,2 °C kouder. $q = 16,7$: op zeeniveau ($h = 0$) zou het ongeveer 16,7 °C zijn. Dat ligt net buiten de gegevens, maar is redelijk.
+
+- id: h1-voorspel
+  soort: kort
+  opgave: |-
+    Voor de appartementen uit de straat geldt de trendlijn $y = 6x + 280$, met $x$ de oppervlakte (in m²) en $y$ de huur (in euro per maand).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke huur verwacht je voor een appartement van 72 m²?
+      antwoord: |-
+        ongeveer 712 euro
+      uitwerking: |-
+        $y = 6 \cdot 72 + 280 = 712$: ongeveer 710 euro.
+    - opgave: |-
+        Hoe groot is een appartement van ongeveer 800 euro?
+      antwoord: |-
+        ongeveer 87 m²
+      uitwerking: |-
+        $6x + 280 = 800$ geeft $6x = 520$, dus $x \approx 86,7$: ongeveer 87 m².
+    - opgave: |-
+        Hoeveel meer huur verwacht je voor 80 m² dan voor 60 m²?
+      antwoord: |-
+        ongeveer 120 euro
+      uitwerking: |-
+        20 m² meer, en per m² 6 euro: $20 \cdot 6 = 120$ euro. Je hebt de vergelijking niet eens nodig, alleen de rico.
+
+- id: h1-residu
+  pakketten: [4, 5]
+  soort: kort
+  opgave: |-
+    Gegeven zijn de punten $(1, 5)$, $(2, 4)$, $(3, 4)$, $(4, 2)$ en $(5, 1)$, en de rechten $a\colon y = -x + 6$ en $b\colon y = -x + 6,2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elke rechte de residuen, hun som en de som van hun kwadraten.
+      antwoord: |-
+        $a$: som $1$, kwadraten $1$; \ $b$: som $0$, kwadraten $0,8$
+      uitwerking: |-
+        Rechte $a$ voorspelt $5, 4, 3, 2, 1$: residuen $0, 0, 1, 0, 0$, som $1$, som van de kwadraten $1$. Rechte $b$ voorspelt $5,2;\ 4,2;\ 3,2;\ 2,2;\ 1,2$: residuen $-0,2;\ -0,2;\ 0,8;\ -0,2;\ -0,2$, som $0$, som van de kwadraten $4 \cdot 0,04 + 0,64 = 0,8$.
+    - opgave: |-
+        Welke rechte past het best volgens de kleinste kwadraten?
+      antwoord: |-
+        rechte $b$
+      uitwerking: |-
+        Rechte $b$: $0,8 < 1$. Ze is zelfs de regressielijn (controleer met ICT).
+    - opgave: |-
+        Rechte $a$ gaat door vier van de vijf punten. Waarom is ze toch niet de beste?
+      antwoord: |-
+        één groot residu weegt zwaar door
+      uitwerking: |-
+        Het punt $(3, 4)$ heeft bij $a$ een residu van 1, en dat weegt in het kwadraat zwaar door. Rechte $b$ verdeelt de afwijking over alle punten: vijf kleine residuen geven samen een kleinere som van kwadraten. Door zoveel mogelijk punten gaan is dus niet het criterium.
+
+- id: h1-ict
+  soort: kort
+  opgave: |-
+    Een wandelaar meet op een bergtocht op acht hoogtes $h$ (in km) de temperatuur $T$ (in °C).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$h$ (km)][$T$ (°C)]{8}{0,4 & 0,8 & 1,2 & 1,5 & 1,9 & 2,3 & 2,6 & 3,0}{14,0 & 12,5 & 8,5 & 8,0 & 4,5 & 2,5 & 0,0 & -1,5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de regressielijn. Rond af op twee cijfers na de komma.
+      antwoord: |-
+        $T = -6,23h + 16,74$
+      uitwerking: |-
+        ICT geeft $m \approx -6,23$ en $q \approx 16,74$: $T = -6,23h + 16,74$.
+    - opgave: |-
+        Controleer dat de regressielijn door het gemiddelde punt gaat.
+      antwoord: |-
+        $(1,7125;\ 6,0625)$
+      uitwerking: |-
+        $\xbar = \tfrac{13,7}{8} = 1,7125$ en $\ybar = \tfrac{48,5}{8} = 6,0625$. Invullen: $-6,23 \cdot 1,7125 + 16,74 \approx 6,07$. Op de afronding na klopt het.
+    - opgave: |-
+        Welke temperatuur verwacht je op 2 km hoogte?
+      antwoord: |-
+        ongeveer 4,3 °C
+      uitwerking: |-
+        $T = -6,23 \cdot 2 + 16,74 = 4,28$: ongeveer 4,3 °C.
+    - opgave: |-
+        Op welke hoogte verwacht je 0 °C?
+      antwoord: |-
+        ongeveer 2,7 km
+      uitwerking: |-
+        $-6,23h + 16,74 = 0$ geeft $h = \tfrac{16,74}{6,23} \approx 2,69$: ongeveer op 2,7 km.
+
+- id: h1-interextra
+  soort: kort
+  opgave: |-
+    Een pizzeria verkoopt pizza's van 20 tot 40 cm diameter. Voor de prijs $p$ (in euro) in functie van de diameter $d$ (in cm) geldt de regressielijn $p = 0,45d - 1$. Bereken de voorspelde prijs. Interpoleer of extrapoleer je? Is de voorspelling betrouwbaar?
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $d = 30$
+      antwoord: |-
+        $12,50$ euro, interpoleren
+      uitwerking: |-
+        $p = 0,45 \cdot 30 - 1 = 12,50$ euro. 30 cm ligt tussen 20 en 40 cm: interpoleren, betrouwbaar.
+    - opgave: |-
+        $d = 25$
+      antwoord: |-
+        $10,25$ euro, interpoleren
+      uitwerking: |-
+        $p = 0,45 \cdot 25 - 1 = 10,25$ euro: interpoleren, betrouwbaar.
+    - opgave: |-
+        $d = 50$
+      antwoord: |-
+        $21,50$ euro, extrapoleren
+      uitwerking: |-
+        $p = 0,45 \cdot 50 - 1 = 21,50$ euro. 50 cm ligt buiten de gegevens: extrapoleren. Onzeker: zo'n pizza bestaat hier niet, en een pizza van 50 cm heeft veel meer deeg (de oppervlakte groeit sneller dan de diameter).
+    - opgave: |-
+        $d = 0$
+      antwoord: |-
+        $-1$ euro, onzin
+      uitwerking: |-
+        $p = -1$ euro: extrapoleren, en de uitkomst is onmogelijk. Een pizza van 0 cm bestaat niet.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    welke variabele op de x-as, welk verband verwacht je
+  opgave: |-
+    Welke variabele zet je op de $x$-as? Verwacht je een positief verband, een negatief verband of geen verband?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de buitentemperatuur en het gasverbruik van de verwarming van een huis
+      antwoord: |-
+        temperatuur op de $x$-as; negatief
+      uitwerking: |-
+        De temperatuur verklaart het verbruik: temperatuur op de $x$-as. Hoe kouder, hoe meer je verwarmt: een negatief verband.
+    - opgave: |-
+        het gewicht van een pakje en de verzendingskosten
+      antwoord: |-
+        gewicht op de $x$-as; positief
+      uitwerking: |-
+        Gewicht op de $x$-as. Zwaardere pakjes kosten meer: positief.
+    - opgave: |-
+        het aantal uren zon op een dag en de opbrengst van zonnepanelen
+      antwoord: |-
+        uren zon op de $x$-as; positief
+      uitwerking: |-
+        Uren zon op de $x$-as. Meer zon geeft meer stroom: positief.
+    - opgave: |-
+        de geboortemaand van een leerling en zijn lengte
+      antwoord: |-
+        geen verband
+      uitwerking: |-
+        Het maakt weinig uit welke je op de $x$-as zet; er is geen verband te verwachten. (Een geboortemaand is bovendien eerder een categorie dan een getal.)
+    - opgave: |-
+        de prijs van een concertticket en het aantal verkochte tickets
+      antwoord: |-
+        prijs op de $x$-as; negatief
+      uitwerking: |-
+        De organisator kiest de prijs: prijs op de $x$-as. Hoe duurder, hoe minder tickets meestal: negatief.
+    - opgave: |-
+        de leeftijd van een kind tussen 2 en 12 jaar en zijn lengte
+      antwoord: |-
+        leeftijd op de $x$-as; positief
+      uitwerking: |-
+        Leeftijd op de $x$-as. Oudere kinderen zijn meestal groter: positief.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een spreidingsdiagram lezen, uitschieter
+  opgave: |-
+    Twaalf leerlingen noteren hoeveel uur ze sliepen de nacht voor een toets, en hun score op 20.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=1.05cm,y=.25cm,font=\scriptsize]
+        \diagram[slaap (uur)][score op 20]{4.5}{0.5}{9.5}{6}{1}{18}
+        \xas{5,6,...,9}\yas{6,8,...,18}
+        \punten{(5,9) (5.5,10) (6,11) (6,12) (6.5,11) (7,13) (7,14) (7.5,14) (8,15) (8,16) (8.5,7) (9,17)}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel leerlingen sliepen 8 uur of meer?
+      antwoord: |-
+        4
+      uitwerking: |-
+        De punten bij 8, 8, 8,5 en 9 uur: 4 leerlingen.
+    - opgave: |-
+        Wat was de hoogste score, en hoe lang sliep die leerling?
+      antwoord: |-
+        17, na 9 uur slaap
+      uitwerking: |-
+        Het hoogste punt is $(9, 17)$: 17 op 20 na 9 uur slaap.
+    - opgave: |-
+        Welk punt is een uitschieter? Bedenk een mogelijke verklaring.
+      antwoord: |-
+        $(8,5;\ 7)$
+      uitwerking: |-
+        De leerling die 8,5 uur sliep en maar 7 op 20 haalde. Misschien was hij ziek, of had hij niet gestudeerd.
+    - opgave: |-
+        Beschrijf het verband tussen slaap en score.
+      antwoord: |-
+        positief, lineair, vrij sterk (op de uitschieter na)
+      uitwerking: |-
+        Op de uitschieter na stijgen de punten bijna als een rechte: een positief, lineair en vrij sterk verband.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rekenen met een trendlijn
+  opgave: |-
+    Bereken $y$ of $x$ met de gegeven trendlijn.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $y = 2,4x + 15$, \ $x = 10$
+      antwoord: |-
+        $y = 39$
+      uitwerking: |-
+        $2,4 \cdot 10 + 15 = 39$.
+    - opgave: |-
+        $y = -0,6x + 48$, \ $x = 30$
+      antwoord: |-
+        $y = 30$
+      uitwerking: |-
+        $-18 + 48 = 30$.
+    - opgave: |-
+        $y = 1,25x - 7$, \ $x = 12$
+      antwoord: |-
+        $y = 8$
+      uitwerking: |-
+        $15 - 7 = 8$.
+    - opgave: |-
+        $y = 0,35x + 2,1$, \ $x = 40$
+      antwoord: |-
+        $y = 16,1$
+      uitwerking: |-
+        $14 + 2,1 = 16,1$.
+    - opgave: |-
+        $y = 2,4x + 15$, \ $y = 75$
+      antwoord: |-
+        $x = 25$
+      uitwerking: |-
+        $2,4x = 60$, dus $x = 25$.
+    - opgave: |-
+        $y = -0,6x + 48$, \ $y = 39$
+      antwoord: |-
+        $x = 15$
+      uitwerking: |-
+        $-0,6x = -9$, dus $x = 15$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    spreidingsdiagram en beschrijving koppelen
+  opgave: |-
+    Welke beschrijving hoort bij welk spreidingsdiagram?
+
+    \vspace{1mm}
+    \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+      \diagram{0}{2}{10}{0}{2}{10}
+      \punten{(0.6,1.3) (1.3,2.2) (2.4,3.1) (3,3.3) (3.5,4) (4.5,4.9) (5.3,5.2) (5.9,5.5) (6.6,6.4) (7.7,7.2) (8.6,8.2) (9.2,8)}
+      \node[below,font=\small\bfseries] at (5,-1) {A};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+      \diagram{0}{2}{10}{0}{2}{10}
+      \punten{(0.6,6.8) (1.3,6.3) (2.4,4.5) (3,6.7) (3.5,6.9) (4.5,4.8) (5.3,7.2) (5.9,6.1) (6.6,5.5) (7.7,4.7) (8.6,4.9) (9.2,1.7)}
+      \node[below,font=\small\bfseries] at (5,-1) {B};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+      \diagram{0}{2}{10}{0}{2}{10}
+      \punten{(0.6,1.2) (1.3,1.3) (2.4,1) (3,1.9) (3.5,2) (4.5,3.1) (5.3,3.4) (5.9,4.1) (6.6,5) (7.7,6.1) (8.6,7.8) (9.2,8.6)}
+      \node[below,font=\small\bfseries] at (5,-1) {C};
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+      \diagram{0}{2}{10}{0}{2}{10}
+      \punten{(0.6,8.9) (1.3,8) (2.4,7.6) (3,7) (3.5,6.3) (4.5,5.8) (5.3,5.3) (5.9,5) (6.6,3.4) (7.7,3.3) (8.6,2.5) (9.2,1.8)}
+      \node[below,font=\small\bfseries] at (5,-1) {D};
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        een sterk negatief, lineair verband
+      antwoord: |-
+        D
+      uitwerking: |-
+        D: de punten liggen dicht bij een dalende rechte.
+    - opgave: |-
+        een positief verband dat niet lineair is
+      antwoord: |-
+        C
+      uitwerking: |-
+        C: de wolk stijgt, maar eerst traag en dan steeds sneller: een boog.
+    - opgave: |-
+        een zwak negatief verband
+      antwoord: |-
+        B
+      uitwerking: |-
+        B: de wolk daalt een beetje, maar de punten liggen ver uit elkaar.
+    - opgave: |-
+        een sterk positief, lineair verband
+      antwoord: |-
+        A
+      uitwerking: |-
+        A: de punten liggen dicht bij een stijgende rechte.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    spreidingsdiagram tekenen, verband, gemiddelde punt
+  opgave: |-
+    Een webwinkel verkocht een koptelefoon telkens een maand aan een andere prijs $p$ (in euro), en noteerde het aantal verkochte stuks $v$.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$p$ (euro)][$v$]{8}{20 & 30 & 40 & 50 & 60 & 80 & 100 & 120}{340 & 300 & 290 & 230 & 220 & 160 & 110 & 60}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.055cm,y=.011cm]
+          \diagram[$p$ (euro)][$v$]{0}{10}{130}{0}{50}{350}
+          \xas{0,20,...,120}\yas{0,100,...,300}
+          \punten{(20,340) (30,300) (40,290) (50,230) (60,220) (80,160) (100,110) (120,60)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Beschrijf het verband.
+      antwoord: |-
+        negatief, lineair, sterk
+      uitwerking: |-
+        Hoe duurder, hoe minder stuks: een negatief, lineair en sterk verband, zonder uitschieters.
+    - opgave: |-
+        Bereken het gemiddelde punt.
+      antwoord: |-
+        $(62,5;\ 213,75)$
+      uitwerking: |-
+        $\xbar = \tfrac{500}{8} = 62,5$ en $\ybar = \tfrac{1710}{8} = 213,75$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    interpoleren of extrapoleren
+  opgave: |-
+    Een gezin noteerde een winter lang de gemiddelde temperatuur $T$ van de dag (van $-2$ tot 15 °C) en het gasverbruik $G$ (in m³). De regressielijn is $G = -0,8T + 22$. Bereken $G$, zeg of je interpoleert of extrapoleert, en of de uitkomst betrouwbaar is.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $T = 12$
+      antwoord: |-
+        $12,4$ m³, interpoleren
+      uitwerking: |-
+        $G = -9,6 + 22 = 12,4$ m³. 12 °C ligt tussen $-2$ en 15 °C: interpoleren, betrouwbaar.
+    - opgave: |-
+        $T = -5$
+      antwoord: |-
+        $26$ m³, extrapoleren
+      uitwerking: |-
+        $G = 4 + 22 = 26$ m³. Extrapoleren, maar net buiten de gegevens: een redelijke schatting, met wat voorzichtigheid.
+    - opgave: |-
+        $T = 8$
+      antwoord: |-
+        $15,6$ m³, interpoleren
+      uitwerking: |-
+        $G = -6,4 + 22 = 15,6$ m³: interpoleren, betrouwbaar.
+    - opgave: |-
+        $T = 30$
+      antwoord: |-
+        $-2$ m³, onzin
+      uitwerking: |-
+        $G = -24 + 22 = -2$ m³: ver extrapoleren, en een negatief verbruik is onmogelijk. In de zomer brandt de verwarming niet, en het verbruik blijft hoogstens op een klein bedrag voor warm water.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    betekenis van m en q in een context
+  opgave: |-
+    Wat betekenen $m$ en $q$ in de trendlijn? Is $q$ zinvol?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\ell = 0,45t + 1,2$: de hoogte $\ell$ (in m) van jonge eiken in een bos in functie van hun leeftijd $t$ (in jaar), voor bomen van 2 tot 20 jaar.
+      antwoord: |-
+        45 cm per jaar; $q$ niet zinvol
+      uitwerking: |-
+        $m = 0,45$: per jaar groeit een eik gemiddeld ongeveer 45 cm. $q = 1,2$ zou de hoogte bij 0 jaar zijn: een zaadje van 1,2 m bestaat niet, dus $q$ is niet zinvol. Het verband is bij heel jonge bomen niet lineair.
+    - opgave: |-
+        $B = -12t + 98$: de batterij $B$ (in \%) van een gsm in functie van de tijd $t$ (in uur) sinds hij van de lader kwam, gemeten bij acht leerlingen.
+      antwoord: |-
+        12 \% minder per uur; volle batterij
+      uitwerking: |-
+        $m = -12$: per uur daalt de batterij gemiddeld met ongeveer 12 procentpunt. $q = 98$: van de lader is de batterij ongeveer 98 \% vol. Dat is zinvol.
+    - opgave: |-
+        $A = -15p + 260$: het aantal toeschouwers $A$ van een filmvoorstelling in functie van de ticketprijs $p$ (in euro), voor prijzen van 6 tot 12 euro.
+      antwoord: |-
+        15 toeschouwers minder per euro; $q$ onzeker
+      uitwerking: |-
+        $m = -15$: per euro duurder komen er gemiddeld ongeveer 15 toeschouwers minder. $q = 260$ zou het aantal bij een gratis voorstelling zijn: ver buiten de gegevens, dus onbetrouwbaar (misschien komen er dan veel meer, of is de zaal te klein).
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    juist of fout: begrippen
+  opgave: |-
+    Juist of fout? Verbeter de foute uitspraken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een spreidingsdiagram verbind je de punten van links naar rechts.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: elk punt is een aparte meting, je verbindt ze niet.
+    - opgave: |-
+        Bij een positief verband ligt elk punt hoger dan het punt links ervan.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: meestal hoort bij een grotere $x$ een grotere $y$, niet altijd. Je kijkt naar de wolk als geheel.
+    - opgave: |-
+        Een trendlijn moet door minstens twee punten van de puntenwolk gaan.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: een trendlijn volgt de wolk, maar hoeft door geen enkel punt te gaan.
+    - opgave: |-
+        De regressielijn gaat altijd door het gemiddelde punt.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist.
+    - opgave: |-
+        Een negatief verband is een zwak verband.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: negatief zegt iets over de richting (de wolk daalt), niet over de sterkte. Een negatief verband kan sterk zijn.
+    - opgave: |-
+        Een voorspelling door te extrapoleren is minder betrouwbaar dan een voorspelling door te interpoleren.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: buiten de gegevens weet je niet of het verband nog lineair is.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    regressielijn met ICT, betekenis, voorspellen
+  opgave: |-
+    Acht gezinnen vergelijken de oppervlakte $x$ (in m²) van de zonnepanelen op hun dak met de opbrengst $y$ (in kWh) in een jaar.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$x$ (m²)][$y$ (kWh)]{8}{8 & 10 & 12 & 14 & 16 & 18 & 20 & 24}{1450 & 1650 & 2150 & 2250 & 2800 & 2950 & 3500 & 3950}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram en beschrijf het verband.
+      antwoord: |-
+        positief, lineair, sterk
+      uitwerking: |-
+        Een positief, lineair en sterk verband.
+        \figuren{\begin{tikzpicture}[x=.3cm,y=.0012cm]
+          \diagram[$x$ (m²)][$y$ (kWh)]{6}{2}{26}{1000}{500}{4500}
+          \xas{6,10,...,26}\yas{1000,2000,3000,4000}
+          \rechte{6}{26}{162.53}{108.90}
+          \punten{(8,1450) (10,1650) (12,2150) (14,2250) (16,2800) (18,2950) (20,3500) (24,3950)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Bereken met ICT de regressielijn.
+      antwoord: |-
+        $y = 162,53x + 108,90$
+      uitwerking: |-
+        ICT geeft $y \approx 162,53x + 108,90$.
+    - opgave: |-
+        Wat betekent de rico?
+      antwoord: |-
+        ongeveer 163 kWh per m² extra
+      uitwerking: |-
+        Per m² panelen extra levert de installatie gemiddeld ongeveer 163 kWh per jaar meer op.
+    - opgave: |-
+        Welke opbrengst verwacht je voor 22 m² panelen?
+      antwoord: |-
+        ongeveer 3685 kWh
+      uitwerking: |-
+        $162,53 \cdot 22 + 108,90 \approx 3685$ kWh (interpoleren).
+    - opgave: |-
+        Volgens de regressielijn levert 0 m² panelen nog 109 kWh op. Hoe verklaar je dat?
+      antwoord: |-
+        rekenhulp buiten de gegevens
+      uitwerking: |-
+        Zonder panelen is de opbrengst natuurlijk 0. Het getal $q$ komt uit de rechte door de gegevens van 8 tot 24 m²; bij 0 m² extrapoleer je, en daar heeft $q$ geen betekenis.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    trendlijn op het oog en met ICT
+  opgave: |-
+    Een boswachter meet de omtrek $y$ (in cm, op 1 m hoogte) van negen beuken van gekende leeftijd $x$ (in jaar).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$x$ (jaar)][$y$ (cm)]{9}{10 & 15 & 20 & 25 & 30 & 40 & 45 & 50 & 60}{35 & 50 & 68 & 80 & 95 & 115 & 145 & 140 & 180}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram en duid het gemiddelde punt aan.
+      antwoord: |-
+        $(32,8;\ 100,9)$
+      uitwerking: |-
+        $\xbar = \tfrac{295}{9} \approx 32,8$ en $\ybar = \tfrac{908}{9} \approx 100,9$.
+        \figuren{\begin{tikzpicture}[x=.11cm,y=.022cm]
+          \diagram[$x$ (jaar)][$y$ (cm)]{0}{10}{70}{0}{20}{200}
+          \xas{0,10,...,70}\yas{0,40,...,200}
+          \rechte{0}{70}{3}{2}
+          \punten{(10,35) (15,50) (20,68) (25,80) (30,95) (40,115) (45,145) (50,140) (60,180)}
+          \gempunt{32.8}{100.9}
+        \end{tikzpicture}}
+    - opgave: |-
+        Trek op het oog een trendlijn en stel haar vergelijking op.
+      antwoord: |-
+        bijvoorbeeld $y = 3x + 2$
+      uitwerking: |-
+        Bijvoorbeeld de rechte door ongeveer $(33, 101)$ en $(60, 182)$: $m = \tfrac{81}{27} = 3$ en $q = 101 - 99 = 2$, dus $y = 3x + 2$ (de figuur toont die rechte). Een rico tussen 2,6 en 3,2 is ook goed.
+    - opgave: |-
+        Bereken met ICT de regressielijn en vergelijk.
+      antwoord: |-
+        $y = 2,81x + 8,87$
+      uitwerking: |-
+        ICT geeft $y \approx 2,81x + 8,87$: iets minder steil dan $y = 3x + 2$, maar het verschil is klein.
+    - opgave: |-
+        Welke omtrek verwacht je bij een beuk van 35 jaar? Gebruik de regressielijn.
+      antwoord: |-
+        ongeveer 107 cm
+      uitwerking: |-
+        $2,81 \cdot 35 + 8,87 \approx 107$ cm.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    invloed van een uitschieter op de regressielijn
+  opgave: |-
+    De garage uit het voorbeeld met de tweedehandswagens heeft deze gegevens (leeftijd $a$ in jaar, prijs $p$ in duizend euro). De wagen van 9 jaar is een uitschieter.
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$a$][$p$]{11}{1 & 2 & 3 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10}{24 & 21 & 20 & 18 & 16 & 15 & 12 & 11 & 8 & 22 & 6}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de regressielijn met alle wagens.
+      antwoord: |-
+        $p = -1,39a + 23,03$
+      uitwerking: |-
+        $p \approx -1,39a + 23,03$.
+    - opgave: |-
+        Bereken de regressielijn zonder de uitschieter.
+      antwoord: |-
+        $p = -2,03a + 25,04$
+      uitwerking: |-
+        $p \approx -2,03a + 25,04$.
+    - opgave: |-
+        Welke prijs voorspelt elke rechte voor een wagen van 4,5 jaar?
+      antwoord: |-
+        ongeveer 16\,800 en 15\,900 euro
+      uitwerking: |-
+        Met de uitschieter: $-1,39 \cdot 4,5 + 23,03 \approx 16,8$, dus ongeveer 16\,800 euro. Zonder: $-2,03 \cdot 4,5 + 25,04 \approx 15,9$, dus ongeveer 15\,900 euro.
+    - opgave: |-
+        Welke rechte beschrijft de gewone wagens het best? Leg uit.
+      antwoord: |-
+        de rechte zonder uitschieter
+      uitwerking: |-
+        De rechte zonder de uitschieter: die ene dure wagen trekt de rechte naar boven aan de rechterkant, zodat ze minder steil wordt en alle andere wagens slechter volgt. Eén uitschieter kan de regressielijn dus sterk veranderen.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    niet-lineair verband: een trendlijn past niet
+  opgave: |-
+    Bij een remtest meet men de remweg $s$ (in m) van een wagen bij verschillende snelheden $v$ (in km/h).
+
+    \vspace{1mm}
+    \waardetabel[$v$ (km/h)][$s$ (m)]{6}{30 & 50 & 70 & 90 & 110 & 130}{6 & 15 & 29 & 48 & 71 & 100}
+  prent:
+    naam: auto
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram en beschrijf het verband.
+      antwoord: |-
+        positief, niet lineair
+      uitwerking: |-
+        De remweg neemt steeds sneller toe: een positief verband, maar de punten liggen op een boog. Niet lineair.
+        \figuren{\begin{tikzpicture}[x=.04cm,y=.04cm]
+          \diagram[$v$ (km/h)][$s$ (m)]{0}{10}{150}{-30}{10}{110}
+          \xas{0,50,100,150}\yas{-20,0,...,100}
+          \rechte[tweede]{1}{150}{0.9386}{-30.25}
+          \punten{(30,6) (50,15) (70,29) (90,48) (110,71) (130,100)}
+        \end{tikzpicture}}
+    - opgave: |-
+        ICT geeft toch een regressielijn. Bereken ze.
+      antwoord: |-
+        $s = 0,94v - 30,25$
+      uitwerking: |-
+        $s \approx 0,94v - 30,25$ (de streepjeslijn in de figuur).
+    - opgave: |-
+        Welke remweg voorspelt die rechte bij 10 km/h? En bij 150 km/h, als de echte remweg daar ongeveer 135 m is?
+      antwoord: |-
+        $-21$ m; $111$ m
+      uitwerking: |-
+        Bij 10 km/h: $0,94 \cdot 10 - 30,25 \approx -21$ m, onmogelijk. Bij 150 km/h: $0,94 \cdot 150 - 30,25 \approx 111$ m, veel te weinig.
+    - opgave: |-
+        Waarom is een trendlijn hier geen goed idee?
+      antwoord: |-
+        het verband is niet lineair
+      uitwerking: |-
+        De punten liggen niet rond een rechte: aan de uiteinden liggen ze boven de rechte, in het midden eronder. Buiten de gegevens loopt de boog steeds verder van de rechte weg. Een trendlijn past alleen bij een lineair verband.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    voorspellen in twee richtingen, extrapoleren
+  opgave: |-
+    Een fietsenverhuur aan zee noteerde op dagen van 12 tot 30 °C de temperatuur $T$ (in °C) en het aantal verhuurde fietsen $F$. De regressielijn is $F = 4,2T - 18$.
+  prent:
+    naam: fiets
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel fietsen verwacht je bij 20 °C?
+      antwoord: |-
+        ongeveer 66
+      uitwerking: |-
+        $4,2 \cdot 20 - 18 = 66$ fietsen.
+    - opgave: |-
+        Vanaf welke temperatuur verwacht je meer dan 80 fietsen?
+      antwoord: |-
+        vanaf ongeveer 23 °C
+      uitwerking: |-
+        $4,2T - 18 = 80$ geeft $4,2T = 98$, dus $T \approx 23,3$: vanaf ongeveer 23 °C.
+    - opgave: |-
+        Bij welke temperatuur voorspelt de regressielijn 0 fietsen? Is dat betrouwbaar?
+      antwoord: |-
+        ongeveer 4 °C; niet betrouwbaar
+      uitwerking: |-
+        $4,2T = 18$ geeft $T \approx 4,3$ °C. Dat ligt ver onder 12 °C: extrapoleren. Ook op koude dagen huurt waarschijnlijk nog iemand een fiets.
+    - opgave: |-
+        Hoeveel fietsen meer verwacht je op een dag van 28 °C dan op een dag van 18 °C?
+      antwoord: |-
+        42
+      uitwerking: |-
+        10 graden meer, telkens 4,2 fietsen: $10 \cdot 4,2 = 42$ fietsen meer.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    twee trendlijnen op het oog vergelijken
+  opgave: |-
+    Een museum noteerde op acht dagen het aantal bezoekers $x$ en de opbrengst van de museumwinkel $y$ (in euro). Arne en Bo trokken elk een trendlijn: Arne $y = 5x$, Bo $y = 4,6x + 44$.
+
+    \vspace{1mm}
+    \naast{\kleinetabel[$x$][$y$ (euro)]{8}{120 & 150 & 180 & 200 & 230 & 260 & 300 & 320}{600 & 780 & 820 & 1000 & 1050 & 1240 & 1400 & 1560}}{\begin{tikzpicture}[x=.016cm,y=.0032cm,font=\scriptsize]
+        \diagram[$x$][$y$ (euro)]{100}{20}{340}{500}{100}{1700}
+        \xas{100,200,300}\yas{600,1000,...,1600}
+        \rechte[tweede]{100}{340}{5}{0}
+        \rechte{100}{340}{4.6}{44}
+        \punten{(120,600) (150,780) (180,820) (200,1000) (230,1050) (260,1240) (300,1400) (320,1560)}
+        \node[right,text=inkt] at (300,1500) {A};
+        \node[right] at (340,1608) {B};
+      \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke rechte in de figuur is van Arne en welke van Bo?
+      antwoord: |-
+        A is van Arne, B van Bo
+      uitwerking: |-
+        Arne: $5 \cdot 300 = 1500$, dat is rechte A. Bo: $4,6 \cdot 340 + 44 = 1608$, dat is rechte B.
+    - opgave: |-
+        Bereken het gemiddelde punt. Door welke rechte gaat het?
+      antwoord: |-
+        $(220;\ 1056,25)$, door de rechte van Bo
+      uitwerking: |-
+        $\xbar = \tfrac{1760}{8} = 220$ en $\ybar = \tfrac{8450}{8} = 1056,25$. Arne: $5 \cdot 220 = 1100$, niet. Bo: $4,6 \cdot 220 + 44 = 1056$, wel.
+    - opgave: |-
+        Hoeveel punten liggen boven en onder elke rechte?
+      antwoord: |-
+        Arne: 1 boven, 5 onder; Bo: 4 boven, 4 onder
+      uitwerking: |-
+        Arne: alleen $(150, 780)$ ligt erboven, vijf punten liggen eronder en twee erop: $(120, 600)$ en $(200, 1000)$. Bo: vier boven en vier onder.
+    - opgave: |-
+        Wiens trendlijn is het best? Controleer met ICT.
+      antwoord: |-
+        die van Bo
+      uitwerking: |-
+        Die van Bo: ze gaat door het gemiddelde punt en heeft aan elke kant evenveel punten. ICT geeft $y \approx 4,59x + 46,14$, bijna dezelfde rechte.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    extrapoleren: groei van een puppy
+  opgave: |-
+    Een puppy wordt elke week gewogen, van week 2 tot week 10.
+
+    \vspace{1mm}
+    {\centering\waardetabel[week $w$][$g$ (kg)]{9}{2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10}{1,1 & 1,6 & 2,2 & 2,6 & 3,1 & 3,7 & 4,1 & 4,6 & 5,2}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de regressielijn. Wat betekent de rico?
+      antwoord: |-
+        $g = 0,51w + 0,10$; ongeveer 0,5 kg per week
+      uitwerking: |-
+        ICT geeft $g \approx 0,505w + 0,10$, afgerond $g = 0,51w + 0,10$. De puppy komt ongeveer een halve kilogram per week bij.
+    - opgave: |-
+        Hoeveel woog de puppy na 6,5 weken ongeveer?
+      antwoord: |-
+        ongeveer 3,4 kg
+      uitwerking: |-
+        $0,51 \cdot 6,5 + 0,10 \approx 3,4$ kg (interpoleren).
+    - opgave: |-
+        Hoeveel weegt de hond volgens de regressielijn na 2 jaar (104 weken)? Een volwassen hond van dit ras weegt ongeveer 8 kg. Wat besluit je?
+      antwoord: |-
+        ongeveer 53 kg; onzin
+      uitwerking: |-
+        $0,51 \cdot 104 + 0,10 \approx 53$ kg, meer dan zes keer te veel. Een jonge hond groeit snel en stopt daarna met groeien: de grafiek buigt af. Zo ver extrapoleren is zinloos.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tijdreeks: tijd vanaf een beginjaar, extrapoleren
+  opgave: |-
+    Het aantal deelnemers $D$ aan een stadsloop groeit elk jaar.
+
+    \vspace{1mm}
+    {\centering\waardetabel[jaar][$D$]{7}{2019 & 2020 & 2021 & 2022 & 2023 & 2024 & 2025}{820 & 900 & 960 & 1010 & 1100 & 1150 & 1240}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voer de jaren zelf in als $x$, en bereken de regressielijn. Wat is het probleem met $q$?
+      antwoord: |-
+        $D = 67,86x - 136\,181,43$; $q$ is zinloos
+      uitwerking: |-
+        ICT geeft $D \approx 67,86x - 136\,181,43$. Het getal $q$ is het aantal deelnemers in het jaar 0: een groot negatief getal zonder betekenis, en elke afronding van $m$ geeft grote fouten.
+    - opgave: |-
+        Neem daarom als $x$ het aantal jaar sinds 2019 (dus $x = 0$ voor 2019). Bereken opnieuw de regressielijn.
+      antwoord: |-
+        $D = 67,86x + 822,14$
+      uitwerking: |-
+        ICT geeft $D \approx 67,86x + 822,14$: dezelfde rico, en nu is $q$ ongeveer het aantal deelnemers in 2019.
+    - opgave: |-
+        Hoeveel deelnemers verwacht je in 2026? En in 2050?
+      antwoord: |-
+        ongeveer 1297; ongeveer 2926
+      uitwerking: |-
+        2026: $x = 7$, $D \approx 67,86 \cdot 7 + 822,14 \approx 1297$. 2050: $x = 31$, $D \approx 2926$.
+    - opgave: |-
+        Welke voorspelling vertrouw je het meest? Waarom?
+      antwoord: |-
+        die voor 2026
+      uitwerking: |-
+        Die voor 2026: dat is een klein beetje extrapoleren. Voor 2050 extrapoleer je 25 jaar ver; de loop kan stoppen, de stad kan een maximum opleggen, of de belangstelling kan dalen.
+
+- id: h1-o17
+  pakketten: [4, 5]
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    residuen en de som van de kwadraten
+  opgave: |-
+    Gegeven zijn de punten $(2, 10)$, $(4, 13)$, $(6, 13)$, $(8, 18)$ en $(10, 21)$, en drie rechten:
+    \[a\colon y = x + 9 \qquad b\colon y = 1,5x + 6,5 \qquad c\colon y = 1,35x + 6,9\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elke rechte de som van de residuen.
+      antwoord: |-
+        $a$: $0$; \ $b$: $-2,5$; \ $c$: $0$
+      uitwerking: |-
+        $a$ voorspelt $11, 13, 15, 17, 19$: residuen $-1, 0, -2, 1, 2$, som $0$. $b$ voorspelt $9,5;\ 12,5;\ 15,5;\ 18,5;\ 21,5$: residuen $0,5;\ 0,5;\ -2,5;\ -0,5;\ -0,5$, som $-2,5$. $c$ voorspelt $9,6;\ 12,3;\ 15;\ 17,7;\ 20,4$: residuen $0,4;\ 0,7;\ -2;\ 0,3;\ 0,6$, som $0$.
+    - opgave: |-
+        Welke rechten gaan door het gemiddelde punt?
+      antwoord: |-
+        $a$ en $c$
+      uitwerking: |-
+        Het gemiddelde punt is $(6, 15)$. $a$: $6 + 9 = 15$ en $c$: $1,35 \cdot 6 + 6,9 = 15$ wel; $b$: $1,5 \cdot 6 + 6,5 = 15,5$ niet. Dat zijn net de rechten met som 0.
+    - opgave: |-
+        Bereken voor elke rechte de som van de kwadraten van de residuen. Welke is de regressielijn?
+      antwoord: |-
+        $10$; $7,25$; $5,1$; rechte $c$
+      uitwerking: |-
+        $a$: $1 + 0 + 4 + 1 + 4 = 10$. $b$: $0,25 + 0,25 + 6,25 + 0,25 + 0,25 = 7,25$. $c$: $0,16 + 0,49 + 4 + 0,09 + 0,36 = 5,1$. Rechte $c$ heeft de kleinste som: zij is de regressielijn (controleer met ICT).
+    - opgave: |-
+        Waarom kun je de beste rechte niet kiezen met de som van de residuen?
+      antwoord: |-
+        die is 0 voor elke rechte door het gemiddelde punt
+      uitwerking: |-
+        De som van de residuen is 0 voor elke rechte door het gemiddelde punt, zoals $a$ en $c$, ook als die rechte slecht past. Positieve en negatieve residuen heffen elkaar op.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    twee trendlijnen: wanneer is de ene groter
+  opgave: |-
+    Twee ijskramen op de zeedijk berekenden met gegevens van 15 tot 32 °C hun regressielijn. Kraam A: $N = 11,8T - 123$. Kraam B: $N = 8T - 40$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke kraam verkoopt meer ijsjes bij 18 °C? En bij 30 °C?
+      antwoord: |-
+        bij 18 °C kraam B, bij 30 °C kraam A
+      uitwerking: |-
+        18 °C: A $\approx 89$, B $= 104$. 30 °C: A $= 231$, B $= 200$.
+    - opgave: |-
+        Vanaf welke temperatuur verkoopt kraam A meer dan kraam B?
+      antwoord: |-
+        vanaf ongeveer 22 °C
+      uitwerking: |-
+        $11,8T - 123 > 8T - 40$ geeft $3,8T > 83$, dus $T > 21,8$: vanaf ongeveer 22 °C.
+    - opgave: |-
+        Wat zeggen de rico's over het verschil tussen de kramen?
+      antwoord: |-
+        A reageert sterker op de temperatuur
+      uitwerking: |-
+        Per graad warmer verkoopt A ongeveer 11,8 ijsjes meer, B maar 8. A hangt sterker af van het weer: misschien ligt A meer in de zon, of trekt B meer vaste klanten.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    zelf punten kiezen bij een regressielijn
+  opgave: |-
+    Bedenk vijf punten met $x = 1, 2, 3, 4, 5$ waarvan de regressielijn $y = 2x + 1$ is, terwijl geen enkel punt op die rechte ligt. Controleer met ICT.
+  antwoord: |-
+    bijvoorbeeld $(1, 5)$, $(2, 4)$, $(3, 5)$, $(4, 8)$, $(5, 13)$
+  uitwerking: |-
+    De rechte voorspelt $3, 5, 7, 9, 11$. Kies residuen die symmetrisch liggen, zodat de rechte niet kantelt: bijvoorbeeld $+2, -1, -2, -1, +2$. Dat geeft $(1, 5)$, $(2, 4)$, $(3, 5)$, $(4, 8)$ en $(5, 13)$. ICT geeft inderdaad $y = 2x + 1$. Er zijn veel andere antwoorden: residuen $a, b, c, b, a$ met $2a + 2b + c = 0$ werken altijd, want de wolk ligt dan symmetrisch rond $x = 3$.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    ontbrekend punt met het gemiddelde punt
+  opgave: |-
+    De regressielijn van vijf punten is $y = 3x + 4$. Vier punten zijn $(1, 7)$, $(2, 9)$, $(4, 17)$ en $(5, 18)$. Het vijfde punt heeft $x = 3$. Bereken zijn $y$-waarde met het gemiddelde punt, en controleer met ICT.
+  antwoord: |-
+    $y = 14$
+  uitwerking: |-
+    $\xbar = \tfrac{1 + 2 + 3 + 4 + 5}{5} = 3$. De regressielijn gaat door het gemiddelde punt, dus $\ybar = 3 \cdot 3 + 4 = 13$. De som van de vijf $y$-waarden is dan $5 \cdot 13 = 65$, en $7 + 9 + 17 + 18 = 51$. Het vijfde punt is $(3, 14)$. ICT geeft met deze vijf punten inderdaad $y = 3x + 4$.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    extrapoleren in de tijd: een clubrecord
+  opgave: |-
+    Het clubrecord op de 100 m bij een atletiekclub daalde zo ($t$ is het aantal jaar sinds 2000, het record in seconden).
+
+    \vspace{1mm}
+    {\centering\waardetabel[$t$][record (s)]{7}{0 & 4 & 8 & 12 & 16 & 20 & 24}{11,9 & 11,7 & 11,6 & 11,3 & 11,2 & 11,0 & 10,9}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de regressielijn. Rond $m$ af op drie cijfers na de komma.
+      antwoord: |-
+        $y = -0,043t + 11,89$
+      uitwerking: |-
+        ICT geeft $y \approx -0,043t + 11,89$: elk jaar gaat het record gemiddeld ongeveer vier honderdsten van een seconde omlaag.
+    - opgave: |-
+        Welk record voorspelt de rechte voor 2030?
+      antwoord: |-
+        ongeveer 10,6 s
+      uitwerking: |-
+        $t = 30$: $-0,043 \cdot 30 + 11,89 \approx 10,6$ s. Een beetje extrapoleren: dat kan.
+    - opgave: |-
+        In welk jaar zou het record volgens de rechte 0 seconden zijn? Wat besluit je?
+      antwoord: |-
+        rond 2276; zinloos
+      uitwerking: |-
+        $-0,043t + 11,89 = 0$ geeft $t \approx 276$, dus rond het jaar 2276. Dat is onmogelijk: niemand loopt 100 m in 0 seconden. Records worden steeds moeilijker te breken, dus de grafiek buigt af en blijft boven een grens.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    y in functie van x of x in functie van y
+  opgave: |-
+    Neem de lengtes $\ell$ en spanwijdtes $s$ (in cm) van de acht leerlingen uit het voorbeeld.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$\ell$ (cm)][$s$ (cm)]{8}{158 & 162 & 165 & 168 & 171 & 175 & 178 & 184}{155 & 163 & 162 & 170 & 169 & 177 & 176 & 186}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken met ICT de regressielijn van $s$ in functie van $\ell$. Rond de rico af op vier cijfers na de komma.
+      antwoord: |-
+        $s = 1,1136\ell - 19,69$
+      uitwerking: |-
+        $s \approx 1,1136\ell - 19,69$.
+    - opgave: |-
+        Wissel de lijsten om en bereken de regressielijn van $\ell$ in functie van $s$.
+      antwoord: |-
+        $\ell = 0,8569s + 24,67$
+      uitwerking: |-
+        $\ell \approx 0,8569s + 24,67$.
+    - opgave: |-
+        Een leerling heeft een spanwijdte van 180 cm. Hoe groot schat je hem met elk van de twee rechten?
+      antwoord: |-
+        ongeveer 179,3 cm en ongeveer 178,9 cm
+      uitwerking: |-
+        Met de eerste rechte los je $1,1136\ell - 19,69 = 180$ op: $\ell = \tfrac{199,69}{1,1136} \approx 179,3$ cm. Met de tweede vul je in: $\ell = 0,8569 \cdot 180 + 24,67 \approx 178,9$ cm.
+    - opgave: |-
+        Zijn de twee rechten dezelfde? Welke gebruik je om de lengte te schatten?
+      antwoord: |-
+        nee; de tweede
+      uitwerking: |-
+        Nee: de eerste minimaliseert de verticale afwijkingen van $s$, de tweede die van $\ell$. Beide gaan wel door het gemiddelde punt. Om $\ell$ te voorspellen uit $s$, gebruik je de regressielijn van $\ell$ in functie van $s$. Hier liggen de punten dicht bij een rechte, dus het verschil is klein.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    klein onderzoek: van tabel tot voorspelling
+  opgave: |-
+    Twaalf leerlingen van een klas meten hun lengte $\ell$ (in cm) en noteren hun schoenmaat $s$.
+
+    \vspace{1mm}
+    {\centering\kleinetabel[$\ell$][$s$]{12}{152 & 158 & 160 & 163 & 165 & 168 & 170 & 173 & 175 & 178 & 182 & 186}{37 & 38 & 39 & 39 & 40 & 41 & 41 & 42 & 43 & 43 & 45 & 46}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram en beschrijf het verband.
+      antwoord: |-
+        positief, lineair, sterk
+      uitwerking: |-
+        Een positief, lineair en sterk verband.
+        \figuren{\begin{tikzpicture}[x=.17cm,y=.3cm]
+          \diagram[$\ell$ (cm)][$s$]{150}{5}{190}{36}{1}{47}
+          \xas{150,160,...,190}\yas{36,38,...,46}
+          \rechte{150}{190}{0.2692}{-4.3648}
+          \punten{(152,37) (158,38) (160,39) (163,39) (165,40) (168,41) (170,41) (173,42) (175,43) (178,43) (182,45) (186,46)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Bereken met ICT de regressielijn en controleer met het gemiddelde punt.
+      antwoord: |-
+        $s = 0,27\ell - 4,36$
+      uitwerking: |-
+        ICT geeft $s \approx 0,27\ell - 4,36$ (nauwkeuriger $0,2692\ell - 4,365$). Het gemiddelde punt is $(169,17;\ 41,17)$ en $0,2692 \cdot 169,17 - 4,365 \approx 41,17$.
+    - opgave: |-
+        Wat betekent de rico? Hoeveel cm moet je groeien voor één schoenmaat meer?
+      antwoord: |-
+        $0,27$ maat per cm; ongeveer 3,7 cm
+      uitwerking: |-
+        Per cm lengte hoort er gemiddeld 0,27 schoenmaat bij. Voor één maat meer: $\tfrac{1}{0,27} \approx 3,7$ cm.
+    - opgave: |-
+        Welke schoenmaat verwacht je bij een leerling van 185 cm? En bij een kind van 120 cm?
+      antwoord: |-
+        ongeveer 45 à 46; ongeveer 28 (onzeker)
+      uitwerking: |-
+        Bij 185 cm: $0,2692 \cdot 185 - 4,365 \approx 45,4$, maat 45 à 46 (interpoleren). Bij 120 cm: $\approx 27,9$, maat 28. Dat is extrapoleren, met gegevens van tieners: bij kinderen kunnen voet en lengte anders verhouden. Controleren met echte kindermaten.
+
+- id: h1-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een verband dat alleen in een deel lineair is
+  opgave: |-
+    Het ijskraam uit het probleem houdt een heel jaar bij hoeveel ijsjes het op een dag verkoopt.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.17cm,y=.017cm,font=\scriptsize]
+        \diagram[$T$ (°C)][$N$]{-4}{2}{34}{0}{20}{260}
+        \xas{0,10,20,30}\yas{0,40,...,240}
+        \punten{(-2,4) (1,6) (3,3) (5,8) (7,10) (9,9) (11,18) (13,22) (15,45) (17,80) (19,95) (21,118) (23,150) (25,170) (27,198) (29,212) (31,240)}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Beschrijf het verband over het hele jaar.
+      antwoord: |-
+        positief, maar niet lineair
+      uitwerking: |-
+        Positief, maar niet lineair: onder 12 °C verkoopt de kraam bijna niets, en vanaf 15 °C stijgt de verkoop als een rechte.
+    - opgave: |-
+        Waarom gaf de regressielijn uit het probleem een negatief aantal bij 5 °C?
+      antwoord: |-
+        gegevens van 17 tot 31 °C
+      uitwerking: |-
+        Ze werd berekend met gegevens van 17 tot 31 °C, waar het verband lineair is. Bij 5 °C volgt de echte wolk een horizontale lijn net boven 0, en loopt de rechte eronder door.
+    - opgave: |-
+        De uitbater wil één trendlijn. Welke gegevens neemt hij best, als hij vooral de zomer wil voorspellen?
+      antwoord: |-
+        alleen de dagen vanaf ongeveer 15 °C
+      uitwerking: |-
+        Alleen de dagen vanaf ongeveer 15 °C: daar is het verband lineair. Neem je de koude dagen mee, dan kantelt de rechte en voorspelt ze de zomer slechter.
+
+- id: h1-o25
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: som van de residuen is 0 voor een rechte door het gemiddelde punt
+  opgave: |-
+    Neem $n$ punten $(x_1, y_1)$, \ldots, $(x_n, y_n)$ met gemiddelde punt $(\xbar, \ybar)$, en een rechte $y = mx + q$ door dat gemiddelde punt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $q = \ybar - m\xbar$.
+      antwoord: |-
+        vul het gemiddelde punt in
+      uitwerking: |-
+        De rechte gaat door $(\xbar, \ybar)$, dus $\ybar = m\xbar + q$, waaruit $q = \ybar - m\xbar$.
+    - opgave: |-
+        Bewijs dat de som van de residuen $\bigl(y_1 - (mx_1 + q)\bigr) + \cdots + \bigl(y_n - (mx_n + q)\bigr)$ gelijk is aan 0.
+      antwoord: |-
+        gebruik $y_1 + \cdots + y_n = n\ybar$
+      uitwerking: |-
+        Herschik de som: $(y_1 + \cdots + y_n) - m(x_1 + \cdots + x_n) - nq$. Uit de definitie van het gemiddelde volgt $y_1 + \cdots + y_n = n\ybar$ en $x_1 + \cdots + x_n = n\xbar$. De som is dus $n\ybar - mn\xbar - n(\ybar - m\xbar) = 0$.
+    - opgave: |-
+        Wat betekent dat voor een trendlijn op het oog door het gemiddelde punt?
+      antwoord: |-
+        de afwijkingen erboven en eronder zijn samen even groot
+      uitwerking: |-
+        De punten boven de rechte wijken samen evenveel af als de punten eronder, welke rico je ook kiest. Het gemiddelde punt legt dus de hoogte van de rechte goed vast, maar niet haar rico: daarvoor heb je de kleinste kwadraten nodig.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    spreidingsdiagram tekenen en verband
+  opgave: |-
+    Een supermarkt meet op zeven momenten het aantal klanten per uur $k$ en de gemiddelde wachttijd $w$ (in minuten) aan de kassa.
+
+    \vspace{1mm}
+    {\centering\waardetabel[$k$][$w$ (min)]{7}{10 & 15 & 20 & 25 & 30 & 35 & 40}{2 & 3 & 3,5 & 5 & 5,5 & 7 & 8}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het spreidingsdiagram.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.17cm,y=.5cm]
+          \diagram[$k$][$w$ (min)]{5}{5}{45}{0}{1}{9}
+          \xas{10,20,30,40}\yas{0,2,...,8}
+          \punten{(10,2) (15,3) (20,3.5) (25,5) (30,5.5) (35,7) (40,8)}
+        \end{tikzpicture}}
+    - opgave: |-
+        Beschrijf het verband.
+      antwoord: |-
+        positief, lineair, sterk
+      uitwerking: |-
+        Meer klanten, langer wachten: een positief, lineair en sterk verband.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    verband beschrijven met uitschieter
+  opgave: |-
+    Tien leerlingen noteren de afstand $d$ van huis naar school (in km) en hoe lang ze onderweg zijn, $t$ (in minuten). Beschrijf het verband. Is er een uitschieter? Bedenk een verklaring.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.6cm,y=.1cm,font=\scriptsize]
+        \diagram[$d$ (km)][$t$ (min)]{0}{1}{10}{0}{5}{35}
+        \xas{0,2,...,10}\yas{0,10,20,30}
+        \punten{(1,6) (2,9) (2.5,12) (3,11) (4,15) (5,17) (6,21) (7,24) (8,5) (9,30)}
+      \end{tikzpicture}
+  antwoord: |-
+    positief, lineair, sterk; uitschieter $(8, 5)$
+  uitwerking: |-
+    Hoe verder, hoe langer onderweg: een positief, lineair en sterk verband. Het punt $(8, 5)$ is een uitschieter: 8 km in 5 minuten. Misschien wordt die leerling met de auto gebracht, of is het een tikfout.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    trendlijn door het gemiddelde punt
+  opgave: |-
+    Gegeven zijn vijf punten.
+
+    \vspace{1mm}
+    {\centering\waardetabel{5}{4 & 8 & 12 & 16 & 20}{15 & 22 & 28 & 38 & 47}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde punt.
+      antwoord: |-
+        $(12, 30)$
+      uitwerking: |-
+        $\xbar = \tfrac{60}{5} = 12$ en $\ybar = \tfrac{150}{5} = 30$.
+    - opgave: |-
+        Een trendlijn gaat door het gemiddelde punt en door $(4, 14)$. Stel haar vergelijking op.
+      antwoord: |-
+        $y = 2x + 6$
+      uitwerking: |-
+        $m = \tfrac{30 - 14}{12 - 4} = 2$ en $30 = 2 \cdot 12 + q$, dus $q = 6$: $y = 2x + 6$.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  thema: |-
+    betekenis van m en q
+  opgave: |-
+    Voor rugzakken met 2 tot 10 boeken geldt de trendlijn $G = 0,6B + 1,4$, met $B$ het aantal boeken en $G$ het gewicht (in kg). Wat betekenen $0,6$ en $1,4$?
+  antwoord: |-
+    per boek ongeveer 0,6 kg; lege rugzak ongeveer 1,4 kg
+  uitwerking: |-
+    $m = 0,6$: elk boek extra maakt de rugzak gemiddeld ongeveer 0,6 kg zwaarder. $q = 1,4$: zonder boeken weegt de rugzak ongeveer 1,4 kg (de rugzak zelf, een pennenzak en een brooddoos). Dat ligt een beetje buiten de gegevens, maar is zinvol.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    regressielijn met ICT
+  opgave: |-
+    Bereken met ICT de regressielijn van deze punten, en controleer dat ze door het gemiddelde punt gaat.
+
+    \vspace{1mm}
+    {\centering\waardetabel{7}{2 & 4 & 5 & 7 & 8 & 10 & 12}{31 & 40 & 42 & 52 & 55 & 63 & 74}\par}
+  antwoord: |-
+    $y = 4,2x + 22,2$
+  uitwerking: |-
+    ICT geeft $y = 4,2x + 22,2$. Het gemiddelde punt: $\xbar = \tfrac{48}{7}$ en $\ybar = \tfrac{357}{7} = 51$. Controle: $4,2 \cdot \tfrac{48}{7} + 22,2 = 28,8 + 22,2 = 51$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    voorspellen in twee richtingen
+  opgave: |-
+    Een bakker noteerde op dagen van 0 tot 25 °C de temperatuur $T$ (in °C) en het aantal verkochte kommen soep $S$. De trendlijn is $S = -3,2T + 95$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel kommen soep verwacht de bakker bij 15 °C?
+      antwoord: |-
+        $47$
+      uitwerking: |-
+        $-3,2 \cdot 15 + 95 = 47$ kommen.
+    - opgave: |-
+        Bij welke temperatuur verwacht hij 60 kommen?
+      antwoord: |-
+        ongeveer 11 °C
+      uitwerking: |-
+        $-3,2T + 95 = 60$ geeft $T = \tfrac{35}{3,2} \approx 10,9$: ongeveer 11 °C.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    interpoleren en extrapoleren
+  opgave: |-
+    Een plant werd gemeten van dag 5 tot dag 30. De regressielijn van de hoogte $h$ (in cm) in functie van de dag $d$ is $h = 1,4d + 3$. Bereken de hoogte op dag 20 en op dag 365. Welke voorspelling vertrouw je? Leg uit.
+  antwoord: |-
+    31 cm (betrouwbaar); 514 cm (niet betrouwbaar)
+  uitwerking: |-
+    Dag 20: $1,4 \cdot 20 + 3 = 31$ cm. Dat is interpoleren, dus betrouwbaar. Dag 365: $1,4 \cdot 365 + 3 = 514$ cm. Dat is ver extrapoleren: een plant groeit niet een heel jaar lang even snel, dus deze voorspelling is niet te vertrouwen.

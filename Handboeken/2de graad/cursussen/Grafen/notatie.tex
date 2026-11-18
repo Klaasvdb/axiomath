@@ -1,0 +1,58 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS GRAFEN (2de graad)
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% Vertrokken van notatie.tex van Integralen; wat hier niet nodig is, is geschrapt.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+% De graad van een knoop: \gr{A}
+\DeclareMathOperator{\grop}{gr}
+\newcommand{\gr}[1]{\grop(#1)}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een figuur rechts: \begin{metgrafiek}{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% GRAFEN TEKENEN, binnen een tikzpicture.
+% \knopen{A/0/0, B/2/0, C/1/1.5}   knopen met hun naam erin, op de gegeven plaats (x/y in cm, of de schaal van de figuur)
+% \bogen{A/B, B/C}                 bogen tussen knopen (een rechte lijn); een kromme boog: \draw[boog] (A) to[bend left=25] (B);
+% \pijlen{A/B, C/A}                gerichte bogen, van de eerste naar de tweede knoop
+% \gbogen{A/B/5, B/C/3}            gewogen bogen, met het gewicht op een wit vlakje in het midden
+% \gpijlen{A/B/5}                  gewogen gerichte bogen
+% \knoopgraad[hoek]{A}{3}          een getal naast een knoop (de graad), in de kleur van het hoofdstuk; hoek in graden (standaard 45)
+% Stijlen: knoop (cirkel met naam), punt (kleine stip zonder naam), boog, pijl, gewicht, accentboog (dik, voor een pad).
+\tikzset{
+  knoop/.style={circle,draw=accent,thick,fill=white,inner sep=0pt,minimum size=5.4mm,font=\footnotesize,text=black},
+  punt/.style={circle,fill=accent,inner sep=0pt,minimum size=4.5pt},
+  boog/.style={black!65,thick},
+  pijl/.style={boog,-{Stealth[length=2.2mm,width=1.8mm]},shorten >=.5pt},
+  gewicht/.style={fill=white,inner sep=1pt,font=\scriptsize,text=black},
+  accentboog/.style={accent,line width=2.2pt},
+  graadlabel/.style={text=accent,font=\scriptsize\bfseries,inner sep=1.5pt},
+}
+\newcommand{\knopen}[1]{\foreach \kn/\kx/\ky in {#1}{\node[knoop] (\kn) at (\kx,\ky) {$\kn$};}}
+\newcommand{\bogen}[1]{\foreach \ka/\kb in {#1}{\draw[boog] (\ka) -- (\kb);}}
+\newcommand{\pijlen}[1]{\foreach \ka/\kb in {#1}{\draw[pijl] (\ka) -- (\kb);}}
+\newcommand{\gbogen}[1]{\foreach \ka/\kb/\kw in {#1}{\draw[boog] (\ka) -- node[gewicht] {$\kw$} (\kb);}}
+\newcommand{\gpijlen}[1]{\foreach \ka/\kb/\kw in {#1}{\draw[pijl] (\ka) -- node[gewicht] {$\kw$} (\kb);}}
+\newcommand{\knoopgraad}[3][45]{\node[graadlabel] at ($(#2)+(#1:5mm)$) {#3};}

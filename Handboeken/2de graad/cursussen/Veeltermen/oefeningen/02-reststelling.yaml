@@ -1,0 +1,1120 @@
+# Oefeningen van hoofdstuk 2 (de reststelling en ontbinden). Zie Opmaak/oefeningenbank.py voor de velden.
+# Dit handboek staat alleen in pakket 5: geen veld pakketten nodig.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Ontbind in factoren, als het kan.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $x^2 - 5x + 6$
+      antwoord: |-
+        $(x - 2)(x - 3)$
+      uitwerking: |-
+        Som $-5$, product $6$.
+    - opgave: |-
+        $x^2 - 16$
+      antwoord: |-
+        $(x - 4)(x + 4)$
+      uitwerking: |-
+        $A^2 - B^2$.
+    - opgave: |-
+        $2x^2 + 3x - 2$
+      antwoord: |-
+        $(2x - 1)(x + 2)$
+      uitwerking: |-
+        $D = 25$, oplossingen $\tfrac12$ en $-2$: $2\bigl(x - \tfrac12\bigr)(x + 2)$.
+    - opgave: |-
+        $x^2 + 6x + 9$
+      antwoord: |-
+        $(x + 3)^2$
+      uitwerking: |-
+        $A^2 + 2AB + B^2$.
+    - opgave: |-
+        $x^2 - 2x - 2$
+      antwoord: |-
+        $\bigl(x - 1 - \sqrt3\bigr)\bigl(x - 1 + \sqrt3\bigr)$
+      uitwerking: |-
+        $D = 12$, oplossingen $\tfrac{2 \pm 2\sqrt3}{2} = 1 \pm \sqrt3$.
+    - opgave: |-
+        $x^2 + x + 1$
+      antwoord: |-
+        kan niet
+      uitwerking: |-
+        $D = 1 - 4 = -3 < 0$: geen ontbinding in factoren van graad $1$.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem $A(x) = x^3 - 4x + 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Deel $A(x)$ met het schema van Horner door $x - 1$, door $x - 2$ en door $x + 3$. Noteer telkens de rest.
+      antwoord: |-
+        $-2$, $1$ en $-14$
+      uitwerking: |-
+        \horner{3}{1}{1 & 0 & -4 & 1}{ & 1 & 1 & -3}{1 & 1 & -3}{-2}\qquad
+        \horner{3}{2}{1 & 0 & -4 & 1}{ & 2 & 4 & 0}{1 & 2 & 0}{1}\qquad
+        \horner{3}{-3}{1 & 0 & -4 & 1}{ & -3 & 9 & -15}{1 & -3 & 5}{-14}
+    - opgave: |-
+        Bereken $A(1)$, $A(2)$ en $A(-3)$.
+      antwoord: |-
+        $-2$, $1$ en $-14$
+      uitwerking: |-
+        $1 - 4 + 1 = -2$, $8 - 8 + 1 = 1$, $-27 + 12 + 1 = -14$.
+    - opgave: |-
+        Wat merk je? Voorspel de rest van $A(x) : (x - 5)$ zonder te delen, en controleer.
+      antwoord: |-
+        de rest is $A(a)$; $106$
+      uitwerking: |-
+        De rest van de deling door $x - a$ is telkens $A(a)$. Voor $x - 5$: $A(5) = 125 - 20 + 1 = 106$, en het schema geeft ook $106$.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h2-rest
+  soort: kort
+  opgave: |-
+    Bereken de rest met de reststelling, zonder te delen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(x^3 - 4x^2 + x + 5) : (x - 2)$
+      antwoord: |-
+        $-1$
+      uitwerking: |-
+        $8 - 16 + 2 + 5$.
+    - opgave: |-
+        $(2x^4 + x - 3) : (x + 1)$
+      antwoord: |-
+        $-2$
+      uitwerking: |-
+        $2 - 1 - 3$.
+    - opgave: |-
+        $(x^5 - 3x^3 + 2) : (x - 1)$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        $1 - 3 + 2$.
+    - opgave: |-
+        $(x^{20} + x^{11} - 1) : (x + 1)$
+      antwoord: |-
+        $-1$
+      uitwerking: |-
+        $1 - 1 - 1$: een even macht van $-1$ is $1$, een oneven $-1$.
+    - opgave: |-
+        $(3x^3 - x^2 + 4) : (x + 2)$
+      antwoord: |-
+        $-24$
+      uitwerking: |-
+        $3 \cdot (-8) - 4 + 4$.
+    - opgave: |-
+        $(x^3 - 27) : (x - 3)$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        $27 - 27$.
+
+- id: h2-restpar
+  soort: kort
+  opgave: |-
+    Bepaal $k$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De deling van $x^3 + kx - 4$ door $x - 2$ heeft de rest $6$.
+      antwoord: |-
+        $k = 1$
+      uitwerking: |-
+        $8 + 2k - 4 = 6$, dus $2k = 2$.
+    - opgave: |-
+        De deling van $2x^3 - x^2 + kx + 3$ door $x + 1$ heeft de rest $-4$.
+      antwoord: |-
+        $k = 4$
+      uitwerking: |-
+        $-2 - 1 - k + 3 = -4$, dus $-k = -4$.
+
+- id: h2-deelbaar
+  soort: kort
+  opgave: |-
+    Deelbaarheid door $x - a$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is $x^3 - 3x^2 - 4x + 12$ deelbaar door $x - 2$? Schrijf de veelterm zo ja als een product.
+      antwoord: |-
+        ja: $(x - 2)(x^2 - x - 6)$
+      uitwerking: |-
+        $A(2) = 8 - 12 - 8 + 12 = 0$. \horner{3}{2}{1 & -3 & -4 & 12}{ & 2 & -2 & -12}{1 & -1 & -6}{0}
+    - opgave: |-
+        Is $x^3 + 4x^2 + x - 6$ deelbaar door $x + 1$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $A(-1) = -1 + 4 - 1 - 6 = -4 \neq 0$.
+    - opgave: |-
+        Is $x^4 - 5x^2 + 4$ deelbaar door $x + 2$? Schrijf de veelterm zo ja als een product.
+      antwoord: |-
+        ja: $(x + 2)(x^3 - 2x^2 - x + 2)$
+      uitwerking: |-
+        $A(-2) = 16 - 20 + 4 = 0$. \horner{4}{-2}{1 & 0 & -5 & 0 & 4}{ & -2 & 4 & 2 & -4}{1 & -2 & -1 & 2}{0}
+    - opgave: |-
+        Bepaal $m$ zo dat $x^3 + mx^2 - 3x + 6$ deelbaar is door $x - 1$.
+      antwoord: |-
+        $m = -4$
+      uitwerking: |-
+        $A(1) = 1 + m - 3 + 6 = m + 4 = 0$.
+    - opgave: |-
+        Bepaal $m$ zo dat $x^4 - 2x^3 + mx - 8$ deelbaar is door $x + 2$.
+      antwoord: |-
+        $m = 12$
+      uitwerking: |-
+        $A(-2) = 16 + 16 - 2m - 8 = 24 - 2m = 0$.
+
+- id: h2-kandidaten
+  soort: kort
+  opgave: |-
+    Geef de gehele kandidaat-nulwaarden en zoek er een nulwaarde tussen. Ontbind daarna in factoren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^3 - 2x^2 - 5x + 6$
+      antwoord: |-
+        $\pm1, \pm2, \pm3, \pm6$; $(x - 1)(x + 2)(x - 3)$
+      uitwerking: |-
+        $A(1) = 1 - 2 - 5 + 6 = 0$. Horner geeft $x^2 - x - 6 = (x + 2)(x - 3)$.
+    - opgave: |-
+        $x^3 + x^2 - 10x + 8$
+      antwoord: |-
+        $\pm1, \pm2, \pm4, \pm8$; $(x - 1)(x - 2)(x + 4)$
+      uitwerking: |-
+        $A(1) = 1 + 1 - 10 + 8 = 0$. Horner geeft $x^2 + 2x - 8 = (x - 2)(x + 4)$.
+    - opgave: |-
+        $x^3 + 2x^2 + 3x + 6$
+      antwoord: |-
+        $\pm1, \pm2, \pm3, \pm6$; $(x + 2)(x^2 + 3)$
+      uitwerking: |-
+        $A(1) = 12$, $A(-1) = 4$, $A(-2) = -8 + 8 - 6 + 6 = 0$. Horner geeft $x^2 + 3$, en dat ontbindt niet verder ($D = -12 < 0$).
+
+- id: h2-ontbind3
+  soort: kort
+  opgave: |-
+    Ontbind in factoren.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 + 3x^2 - 4$
+      antwoord: |-
+        $(x - 1)(x + 2)^2$
+      uitwerking: |-
+        Nulwaarde $1$; quotiënt $x^2 + 4x + 4 = (x + 2)^2$.
+    - opgave: |-
+        $x^3 - x^2 - 3x + 3$
+      antwoord: |-
+        $(x - 1)\bigl(x - \sqrt3\bigr)\bigl(x + \sqrt3\bigr)$
+      uitwerking: |-
+        Nulwaarde $1$; quotiënt $x^2 - 3$, met oplossingen $\pm\sqrt3$.
+    - opgave: |-
+        $x^3 + x^2 + x - 3$
+      antwoord: |-
+        $(x - 1)(x^2 + 2x + 3)$
+      uitwerking: |-
+        Nulwaarde $1$; quotiënt $x^2 + 2x + 3$ met $D = 4 - 12 < 0$: niet verder.
+    - opgave: |-
+        $2x^3 - 3x^2 - 3x + 2$
+      antwoord: |-
+        $(x - 2)(x + 1)(2x - 1)$
+      uitwerking: |-
+        Nulwaarde $2$ (of $-1$). Quotiënt $2x^2 + x - 1$, $D = 9$, oplossingen $\tfrac12$ en $-1$: $2x^2 + x - 1 = (2x - 1)(x + 1)$.
+
+- id: h2-ontbind4
+  soort: kort
+  opgave: |-
+    Ontbind in factoren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^4 - 5x^2 + 4$
+      antwoord: |-
+        $(x - 1)(x + 1)(x - 2)(x + 2)$
+      uitwerking: |-
+        Nulwaarde $1$: quotiënt $x^3 + x^2 - 4x - 4$. Nulwaarde $-1$ daarvan: quotiënt $x^2 - 4 = (x - 2)(x + 2)$.
+    - opgave: |-
+        $x^4 + x^3 - 3x^2 - x + 2$
+      antwoord: |-
+        $(x - 1)^2(x + 1)(x + 2)$
+      uitwerking: |-
+        Nulwaarde $1$: quotiënt $x^3 + 2x^2 - x - 2$. Daarvan is $1$ opnieuw een nulwaarde: quotiënt $x^2 + 3x + 2 = (x + 1)(x + 2)$.
+
+- id: h2-vgl
+  soort: kort
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 - 6x^2 + 11x - 6 = 0$
+      antwoord: |-
+        $V = \{1, 2, 3\}$
+      uitwerking: |-
+        $(x - 1)(x^2 - 5x + 6) = (x - 1)(x - 2)(x - 3) = 0$.
+    - opgave: |-
+        $x^3 + x^2 = 4x + 4$
+      antwoord: |-
+        $V = \{-2, -1, 2\}$
+      uitwerking: |-
+        $x^3 + x^2 - 4x - 4 = (x + 1)(x^2 - 4) = 0$.
+    - opgave: |-
+        $x^4 - 3x^3 + 2x^2 = 0$
+      antwoord: |-
+        $V = \{0, 1, 2\}$
+      uitwerking: |-
+        $x^2(x^2 - 3x + 2) = x^2(x - 1)(x - 2) = 0$.
+    - opgave: |-
+        $x^3 - 3x + 2 = 0$
+      antwoord: |-
+        $V = \{-2, 1\}$
+      uitwerking: |-
+        $(x - 1)(x^2 + x - 2) = (x - 1)^2(x + 2) = 0$: twee verschillende oplossingen.
+
+- id: h2-aantal
+  soort: kort
+  opgave: |-
+    Geef een veelterm van graad $3$, geschreven als een product, die voldoet aan de voorwaarde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De nulwaarden zijn $2$, $-1$ en $4$.
+      antwoord: |-
+        bv. $(x - 2)(x + 1)(x - 4)$
+      uitwerking: |-
+        Bij elke nulwaarde hoort een factor. Ook elk veelvoud, zoals $3(x - 2)(x + 1)(x - 4)$, is goed.
+    - opgave: |-
+        Er zijn precies twee nulwaarden: $0$ en $3$.
+      antwoord: |-
+        bv. $x^2(x - 3)$ of $x(x - 3)^2$
+      uitwerking: |-
+        Een van beide factoren komt twee keer voor, zodat de graad $3$ wordt. De grafiek raakt de $x$-as in die nulwaarde.
+    - opgave: |-
+        Er is precies één nulwaarde: $1$.
+      antwoord: |-
+        bv. $(x - 1)(x^2 + 1)$ of $(x - 1)^3$
+      uitwerking: |-
+        Een factor van graad $2$ zonder nulwaarden ($D < 0$), zoals $x^2 + 1$, of drie keer dezelfde factor.
+    - opgave: |-
+        Er zijn geen nulwaarden.
+      antwoord: |-
+        kan niet
+      uitwerking: |-
+        Een veelterm van graad $3$ heeft altijd minstens één nulwaarde: de grafiek gaat van heel laag naar heel hoog, of omgekeerd, en snijdt dus de $x$-as.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de reststelling
+  opgave: |-
+    Bereken de rest zonder te delen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(x^3 + 2x^2 - 5) : (x - 1)$
+      antwoord: |-
+        $-2$
+    - opgave: |-
+        $(x^4 - 3x^2 + 2x) : (x + 2)$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        $16 - 12 - 4 = 0$.
+    - opgave: |-
+        $(2x^3 - x + 7) : (x + 1)$
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        $-2 + 1 + 7 = 6$.
+    - opgave: |-
+        $(x^6 - 1) : (x + 1)$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        $(-1)^6 - 1 = 0$.
+    - opgave: |-
+        $(x^3 - 5x^2 + 3x - 1) : x$
+      antwoord: |-
+        $-1$
+      uitwerking: |-
+        De deler is $x - 0$: de rest is $A(0)$, de constante term.
+    - opgave: |-
+        $(4x^3 - 2x^2 + 1) : \bigl(x - \tfrac12\bigr)$
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        $4 \cdot \tfrac18 - 2 \cdot \tfrac14 + 1 = \tfrac12 - \tfrac12 + 1$.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de product-nulregel
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(x - 1)(x + 2)(x - 5) = 0$
+      antwoord: |-
+        $V = \{-2, 1, 5\}$
+    - opgave: |-
+        $x(x^2 - 9) = 0$
+      antwoord: |-
+        $V = \{-3, 0, 3\}$
+    - opgave: |-
+        $(x + 4)(x^2 + 1) = 0$
+      antwoord: |-
+        $V = \{-4\}$
+    - opgave: |-
+        $(2x - 1)(x^2 - 2x - 3) = 0$
+      antwoord: |-
+        $V = \bigl\{-1, \tfrac12, 3\bigr\}$
+  uitwerking: |-
+    \textbf{b.}~$x = 0$ of $x^2 = 9$. \textbf{c.}~$x^2 + 1 = 0$ heeft geen oplossing. \textbf{d.}~$x^2 - 2x - 3 = (x - 3)(x + 1)$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de factorstelling
+  opgave: |-
+    Is de veelterm deelbaar door de gegeven deler?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 - 7x - 6$, door $x - 3$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $27 - 21 - 6 = 0$.
+    - opgave: |-
+        $x^3 - 7x - 6$, door $x + 1$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $-1 + 7 - 6 = 0$.
+    - opgave: |-
+        $x^3 - 7x - 6$, door $x - 1$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $1 - 7 - 6 = -12$.
+    - opgave: |-
+        $x^4 + 1$, door $x + 1$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $1 + 1 = 2$.
+    - opgave: |-
+        $x^5 + 32$, door $x + 2$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $-32 + 32 = 0$.
+    - opgave: |-
+        $2x^3 + 3x^2 - 1$, door $x + 1$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $-2 + 3 - 1 = 0$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ontbinden: eerst buiten haakjes
+  opgave: |-
+    Ontbind in factoren.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 - 5x^2 + 6x$
+      antwoord: |-
+        $x(x - 2)(x - 3)$
+    - opgave: |-
+        $2x^3 - 8x$
+      antwoord: |-
+        $2x(x - 2)(x + 2)$
+    - opgave: |-
+        $x^4 - 9x^2$
+      antwoord: |-
+        $x^2(x - 3)(x + 3)$
+    - opgave: |-
+        $x^4 - 2x^3 + x^2$
+      antwoord: |-
+        $x^2(x - 1)^2$
+  uitwerking: |-
+    \textbf{a.}~$x(x^2 - 5x + 6)$. \textbf{b.}~$2x(x^2 - 4)$. \textbf{c.}~$x^2(x^2 - 9)$. \textbf{d.}~$x^2(x^2 - 2x + 1)$. Het schema van Horner is hier niet nodig.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kandidaat-nulwaarden
+  opgave: |-
+    Geef alle gehele kandidaat-nulwaarden. Welke zijn echt nulwaarden?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^3 - 3x^2 - x + 3$
+      antwoord: |-
+        $\pm1, \pm3$; nulwaarden $1$, $-1$, $3$
+      uitwerking: |-
+        $A(1) = 0$, $A(-1) = -1 - 3 + 1 + 3 = 0$, $A(3) = 27 - 27 - 3 + 3 = 0$, $A(-3) = -48$.
+    - opgave: |-
+        $x^3 + 2x^2 - x - 2$
+      antwoord: |-
+        $\pm1, \pm2$; nulwaarden $1$, $-1$, $-2$
+      uitwerking: |-
+        $A(1) = 0$, $A(-1) = 0$, $A(2) = 12$, $A(-2) = -8 + 8 + 2 - 2 = 0$.
+    - opgave: |-
+        $x^3 - x^2 + 2$
+      antwoord: |-
+        $\pm1, \pm2$; alleen $-1$
+      uitwerking: |-
+        $A(1) = 2$, $A(-1) = 0$, $A(2) = 6$, $A(-2) = -10$. Het quotiënt $x^2 - 2x + 2$ heeft $D < 0$: er zijn geen andere nulwaarden.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ontbinden in factoren
+  opgave: |-
+    Ontbind in factoren.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 - 6x^2 + 11x - 6$
+      antwoord: |-
+        $(x - 1)(x - 2)(x - 3)$
+    - opgave: |-
+        $x^3 + 4x^2 + x - 6$
+      antwoord: |-
+        $(x - 1)(x + 2)(x + 3)$
+    - opgave: |-
+        $x^3 - 3x - 2$
+      antwoord: |-
+        $(x + 1)^2(x - 2)$
+    - opgave: |-
+        $x^3 + x^2 - 8x - 12$
+      antwoord: |-
+        $(x + 2)^2(x - 3)$
+    - opgave: |-
+        $x^3 - 7x^2 + 7x + 15$
+      antwoord: |-
+        $(x + 1)(x - 3)(x - 5)$
+    - opgave: |-
+        $x^3 + 27$
+      antwoord: |-
+        $(x + 3)(x^2 - 3x + 9)$
+  uitwerking: |-
+    \textbf{a.}~Nulwaarde $1$, quotiënt $x^2 - 5x + 6$. \textbf{b.}~Nulwaarde $1$, quotiënt $x^2 + 5x + 6$. \textbf{c.}~Nulwaarde $-1$, quotiënt $x^2 - x - 2 = (x + 1)(x - 2)$. \textbf{d.}~Nulwaarde $-2$, quotiënt $x^2 - x - 6 = (x + 2)(x - 3)$. \textbf{e.}~Nulwaarde $-1$, quotiënt $x^2 - 8x + 15$. \textbf{f.}~Nulwaarde $-3$, quotiënt $x^2 - 3x + 9$ met $D = -27 < 0$.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    derdegraadsvergelijkingen
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 - 2x^2 - 5x + 6 = 0$
+      antwoord: |-
+        $V = \{-2, 1, 3\}$
+      uitwerking: |-
+        $(x - 1)(x^2 - x - 6) = (x - 1)(x + 2)(x - 3)$.
+    - opgave: |-
+        $x^3 = 13x - 12$
+      antwoord: |-
+        $V = \{-4, 1, 3\}$
+      uitwerking: |-
+        $x^3 - 13x + 12 = (x - 1)(x^2 + x - 12) = (x - 1)(x + 4)(x - 3) = 0$.
+    - opgave: |-
+        $2x^3 + x^2 - 5x + 2 = 0$
+      antwoord: |-
+        $V = \bigl\{-2, \tfrac12, 1\bigr\}$
+      uitwerking: |-
+        Nulwaarde $1$, quotiënt $2x^2 + 3x - 2$ met $D = 25$: $x = \tfrac12$ of $x = -2$.
+    - opgave: |-
+        $x^3 - 4x^2 + 4x - 1 = 0$
+      antwoord: |-
+        $V = \bigl\{1, \tfrac{3 - \sqrt5}{2}, \tfrac{3 + \sqrt5}{2}\bigr\}$
+      uitwerking: |-
+        Nulwaarde $1$, quotiënt $x^2 - 3x + 1$ met $D = 5$: $x = \tfrac{3 \pm \sqrt5}{2}$, ongeveer $0,38$ en $2,62$.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de reststelling met een parameter
+  opgave: |-
+    Bepaal $k$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De deling van $x^3 - 2x^2 + kx + 1$ door $x - 2$ heeft de rest $7$.
+      antwoord: |-
+        $k = 3$
+      uitwerking: |-
+        $8 - 8 + 2k + 1 = 7$, dus $k = 3$.
+    - opgave: |-
+        De deling van $kx^3 + x^2 - 4$ door $x + 1$ heeft de rest $-1$.
+      antwoord: |-
+        $k = -2$
+      uitwerking: |-
+        $-k + 1 - 4 = -1$, dus $k = -2$.
+    - opgave: |-
+        De veelterm $x^4 + kx^2 - 3$ heeft bij deling door $x - 1$ dezelfde rest als bij deling door $x + 2$.
+      antwoord: |-
+        $k = -5$
+      uitwerking: |-
+        De resten zijn $A(1) = k - 2$ en $A(-2) = 16 + 4k - 3 = 4k + 13$. Uit $k - 2 = 4k + 13$ volgt $-3k = 15$.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ontbinden met de discriminant
+  opgave: |-
+    Ontbind zo ver mogelijk in factoren.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^3 - 5x^2 + 5x - 1$
+      antwoord: |-
+        $(x - 1)\bigl(x - 2 - \sqrt3\bigr)\bigl(x - 2 + \sqrt3\bigr)$
+      uitwerking: |-
+        Nulwaarde $1$, quotiënt $x^2 - 4x + 1$, $D = 12$, oplossingen $2 \pm \sqrt3$.
+    - opgave: |-
+        $x^3 - 2x^2 - 2x - 3$
+      antwoord: |-
+        $(x - 3)(x^2 + x + 1)$
+      uitwerking: |-
+        $A(1) = -6$, $A(-1) = -4$, $A(3) = 27 - 18 - 6 - 3 = 0$. Quotiënt $x^2 + x + 1$ met $D = -3$.
+    - opgave: |-
+        $x^3 + 2x^2 - 2x - 4$
+      antwoord: |-
+        $(x + 2)\bigl(x - \sqrt2\bigr)\bigl(x + \sqrt2\bigr)$
+      uitwerking: |-
+        Nulwaarde $-2$, quotiënt $x^2 - 2$.
+    - opgave: |-
+        $x^3 - 8$
+      antwoord: |-
+        $(x - 2)(x^2 + 2x + 4)$
+      uitwerking: |-
+        Nulwaarde $2$, quotiënt $x^2 + 2x + 4$ met $D = -12$.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    nulwaarden op een grafiek
+  opgave: |-
+    De figuur toont de grafiek van $y = x^3 - 3x^2 - x + 3$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.6cm,y=.3cm]
+        \roosterleeg{-2}{1}{4}{-5}{1}{6}
+        \xgetallen{-2,-1,1,2,3,4}\ygetallen{-4,-2,2,4,6}
+        \kromme{-1.4}{3.5}{(\x)^3-3*(\x)^2-\x+3}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de nulwaarden af.
+      antwoord: |-
+        $-1$, $1$ en $3$
+      uitwerking: |-
+        De grafiek snijdt de $x$-as in $-1$, $1$ en $3$.
+    - opgave: |-
+        Controleer ze met de getalwaarde.
+      antwoord: |-
+        telkens $0$
+      uitwerking: |-
+        $A(-1) = -1 - 3 + 1 + 3 = 0$, $A(1) = 1 - 3 - 1 + 3 = 0$, $A(3) = 27 - 27 - 3 + 3 = 0$.
+    - opgave: |-
+        Schrijf de veelterm als een product. Controleer door uit te werken.
+      antwoord: |-
+        $(x + 1)(x - 1)(x - 3)$
+      uitwerking: |-
+        Bij elke nulwaarde hoort een factor, en de hoogstegraadscoëfficiënt is $1$. Controle: $(x^2 - 1)(x - 3) = x^3 - 3x^2 - x + 3$.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de factorstelling met een parameter
+  opgave: |-
+    Bepaal $m$ zo dat de veelterm deelbaar is door de gegeven deler.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^3 + mx^2 + 5x + 6$, door $x + 2$. Ontbind daarna zo ver mogelijk.
+      antwoord: |-
+        $m = 3$; $(x + 2)(x^2 + x + 3)$
+      uitwerking: |-
+        $-8 + 4m - 10 + 6 = 4m - 12 = 0$. Horner geeft het quotiënt $x^2 + x + 3$, met $D = -11 < 0$.
+    - opgave: |-
+        $2x^3 - x^2 + mx + 6$, door $x - 2$. Ontbind daarna zo ver mogelijk.
+      antwoord: |-
+        $m = -9$; $(x - 2)(2x^2 + 3x - 3)$, verder met $D = 33$
+      uitwerking: |-
+        $16 - 4 + 2m + 6 = 18 + 2m = 0$. Horner geeft $2x^2 + 3x - 3$, met $D = 33$ en oplossingen $\tfrac{-3 \pm \sqrt{33}}{4}$: \[2x^3 - x^2 - 9x + 6 = 2(x - 2)\Bigl(x - \frac{-3 + \sqrt{33}}{4}\Bigr)\Bigl(x - \frac{-3 - \sqrt{33}}{4}\Bigr).\]
+    - opgave: |-
+        $x^2 + mx - 6$, door $x - m$
+      antwoord: |-
+        $m = \sqrt3$ of $m = -\sqrt3$
+      uitwerking: |-
+        Vul $x = m$ in: $m^2 + m^2 - 6 = 0$, dus $m^2 = 3$.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    veeltermen van graad 4 ontbinden
+  opgave: |-
+    Ontbind zo ver mogelijk in factoren.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x^4 - 10x^2 + 9$
+      antwoord: |-
+        $(x - 1)(x + 1)(x - 3)(x + 3)$
+      uitwerking: |-
+        Nulwaarden $1$ en $-1$; daarna $x^2 - 9$.
+    - opgave: |-
+        $x^4 - x^3 - 7x^2 + x + 6$
+      antwoord: |-
+        $(x - 1)(x + 1)(x + 2)(x - 3)$
+      uitwerking: |-
+        Nulwaarde $1$: quotiënt $x^3 - 7x - 6$. Daarvan is $-1$ een nulwaarde: quotiënt $x^2 - x - 6 = (x + 2)(x - 3)$.
+    - opgave: |-
+        $x^4 + 2x^3 - 3x^2 - 4x + 4$
+      antwoord: |-
+        $(x - 1)^2(x + 2)^2$
+      uitwerking: |-
+        Nulwaarde $1$: quotiënt $x^3 + 3x^2 - 4$. Opnieuw nulwaarde $1$: quotiënt $x^2 + 4x + 4 = (x + 2)^2$.
+    - opgave: |-
+        $x^4 - 2x^3 - x + 2$
+      antwoord: |-
+        $(x - 1)(x - 2)(x^2 + x + 1)$
+      uitwerking: |-
+        Nulwaarde $1$: quotiënt $x^3 - x^2 - x - 2$. Daarvan is $2$ een nulwaarde: quotiënt $x^2 + x + 1$ met $D < 0$.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snijpunten van twee grafieken
+  opgave: |-
+    Bereken de snijpunten van de twee grafieken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $y = x^3 - 2x$ en de rechte $y = x + 2$
+      antwoord: |-
+        $(-1, 1)$ en $(2, 4)$
+      uitwerking: |-
+        $x^3 - 2x = x + 2 \iff x^3 - 3x - 2 = 0 \iff (x + 1)^2(x - 2) = 0$. In $(-1, 1)$ raakt de rechte de grafiek.
+    - opgave: |-
+        $y = x^3 + x^2$ en de rechte $y = 4x + 4$
+      antwoord: |-
+        $(-2, -4)$, $(-1, 0)$ en $(2, 12)$
+      uitwerking: |-
+        $x^3 + x^2 - 4x - 4 = 0 \iff (x + 1)(x - 2)(x + 2) = 0$. Vul in in $y = 4x + 4$.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hoogstegraadscoëfficiënt verschillend van 1
+  opgave: |-
+    Ontbind in factoren.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2x^3 - 5x^2 + x + 2$
+      antwoord: |-
+        $(x - 1)(x - 2)(2x + 1)$
+      uitwerking: |-
+        Nulwaarde $1$, quotiënt $2x^2 - 3x - 2$, $D = 25$, oplossingen $2$ en $-\tfrac12$: $2(x - 2)\bigl(x + \tfrac12\bigr) = (x - 2)(2x + 1)$.
+    - opgave: |-
+        $3x^3 + 2x^2 - 7x + 2$
+      antwoord: |-
+        $(x - 1)(x + 2)(3x - 1)$
+      uitwerking: |-
+        Nulwaarde $1$, quotiënt $3x^2 + 5x - 2$, $D = 49$, oplossingen $\tfrac13$ en $-2$.
+    - opgave: |-
+        $-x^3 + 3x + 2$
+      antwoord: |-
+        $-(x + 1)^2(x - 2)$
+      uitwerking: |-
+        Breng $-1$ buiten haakjes: $-(x^3 - 3x - 2)$. Nulwaarde $-1$, quotiënt $x^2 - x - 2 = (x + 1)(x - 2)$.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een veelterm met gegeven nulwaarden
+  opgave: |-
+    Geef een veelterm van graad $3$ met de nulwaarden $1$, $-2$ en $3$, uitgewerkt, die voldoet aan de voorwaarde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De hoogstegraadscoëfficiënt is $1$.
+      antwoord: |-
+        $x^3 - 2x^2 - 5x + 6$
+      uitwerking: |-
+        $(x - 1)(x + 2)(x - 3) = (x^2 + x - 2)(x - 3)$.
+    - opgave: |-
+        De hoogstegraadscoëfficiënt is $2$.
+      antwoord: |-
+        $2x^3 - 4x^2 - 10x + 12$
+      uitwerking: |-
+        $2(x - 1)(x + 2)(x - 3)$.
+    - opgave: |-
+        De getalwaarde in $2$ is $8$.
+      antwoord: |-
+        $-2x^3 + 4x^2 + 10x - 12$
+      uitwerking: |-
+        $A(x) = a(x - 1)(x + 2)(x - 3)$ en $A(2) = a \cdot 1 \cdot 4 \cdot (-1) = -4a = 8$, dus $a = -2$.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vergelijkingen van graad 4
+  opgave: |-
+    Los op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^4 - 5x^2 + 4 = 0$
+      antwoord: |-
+        $V = \{-2, -1, 1, 2\}$
+      uitwerking: |-
+        $(x - 1)(x + 1)(x - 2)(x + 2) = 0$.
+    - opgave: |-
+        $x^4 - 2x^3 - 3x^2 + 4x + 4 = 0$
+      antwoord: |-
+        $V = \{-1, 2\}$
+      uitwerking: |-
+        Nulwaarde $-1$: quotiënt $x^3 - 3x^2 + 4$. Opnieuw nulwaarde $-1$: quotiënt $x^2 - 4x + 4 = (x - 2)^2$. Dus $(x + 1)^2(x - 2)^2 = 0$.
+    - opgave: |-
+        $x^4 + x^3 - x - 1 = 0$
+      antwoord: |-
+        $V = \{-1, 1\}$
+      uitwerking: |-
+        Nulwaarde $1$: quotiënt $x^3 + 2x^2 + 2x + 1$. Nulwaarde $-1$ daarvan: quotiënt $x^2 + x + 1$, met $D < 0$.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    fouten bij nulwaarden en factoren
+  opgave: |-
+    Klopt de redenering? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tom: ``$1$ is een nulwaarde van $x^3 - 2x^2 - x + 2$, dus $x + 1$ is een factor.''
+      antwoord: |-
+        nee: $x - 1$ is een factor
+      uitwerking: |-
+        Bij de nulwaarde $1$ hoort de factor $x - 1$. (Toevallig is $x + 1$ ook een factor, want ook $-1$ is een nulwaarde: $x^3 - 2x^2 - x + 2 = (x - 1)(x + 1)(x - 2)$. Maar dat volgt niet uit $A(1) = 0$.)
+    - opgave: |-
+        Lies: ``$x^3 + x + 1$ heeft geen gehele nulwaarde, dus $x^3 + x + 1 = 0$ heeft geen oplossing.''
+      antwoord: |-
+        nee: er is een oplossing tussen $-1$ en $0$
+      uitwerking: |-
+        De kandidaten $\pm 1$ zijn geen nulwaarden, maar een nulwaarde hoeft geen geheel getal te zijn. $A(-1) = -1 < 0$ en $A(0) = 1 > 0$: de grafiek snijdt de $x$-as tussen $-1$ en $0$ (ongeveer in $-0,68$).
+    - opgave: |-
+        Ahmed: ``$\tfrac12$ is een nulwaarde van $2x^3 - x^2 - 2x + 1$, maar $\tfrac12$ is geen deler van $1$. De stelling over gehele nulwaarden klopt dus niet.''
+      antwoord: |-
+        nee: de stelling gaat alleen over gehele nulwaarden
+      uitwerking: |-
+        $A\bigl(\tfrac12\bigr) = \tfrac14 - \tfrac14 - 1 + 1 = 0$ klopt. Maar $\tfrac12$ is geen geheel getal, en de stelling zegt niets over zulke nulwaarden. De gehele nulwaarden $1$ en $-1$ zijn wel delers van $1$: $2x^3 - x^2 - 2x + 1 = (x - 1)(x + 1)(2x - 1)$.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vraagstuk: de afmetingen van een balk
+  opgave: |-
+    Een balk is $2$~cm langer en $3$~cm breder dan hij hoog is. De inhoud is $90$~cm$^3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Noem de hoogte $x$. Stel een vergelijking op.
+      antwoord: |-
+        $x(x + 2)(x + 3) = 90$
+      uitwerking: |-
+        Hoogte $x$, lengte $x + 2$, breedte $x + 3$.
+    - opgave: |-
+        Los de vergelijking op.
+      antwoord: |-
+        $x = 3$
+      uitwerking: |-
+        $x^3 + 5x^2 + 6x - 90 = 0$. Nulwaarde $3$ (een deler van $90$): $27 + 45 + 18 - 90 = 0$. Het quotiënt $x^2 + 8x + 30$ heeft $D = 64 - 120 < 0$.
+    - opgave: |-
+        Is er nog een andere balk die aan de voorwaarden voldoet?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De vergelijking heeft maar één oplossing. De enige balk is $3$~cm hoog, $5$~cm lang en $6$~cm breed.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vraagstuk: drie opeenvolgende getallen
+  opgave: |-
+    Het product van drie opeenvolgende natuurlijke getallen is $504$. Welke getallen zijn het? Los op met een vergelijking, en toon aan dat er geen andere oplossing is.
+  antwoord: |-
+    $7$, $8$ en $9$
+  uitwerking: |-
+    $n(n + 1)(n + 2) = 504$, dus $n^3 + 3n^2 + 2n - 504 = 0$. Omdat $8^3 = 512$, proberen we $n = 7$: $343 + 147 + 14 - 504 = 0$. Horner geeft het quotiënt $n^2 + 10n + 72$ met $D = 100 - 288 < 0$: geen andere oplossingen.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    vergelijkingen met $x^4$ en $x^2$
+  opgave: |-
+    In een vergelijking als $x^4 - 13x^2 + 36 = 0$ komen alleen $x^4$ en $x^2$ voor. Stel $y = x^2$: dan is $x^4 = y^2$, en krijg je een tweedegraadsvergelijking in $y$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Los zo op: $x^4 - 13x^2 + 36 = 0$.
+      antwoord: |-
+        $V = \{-3, -2, 2, 3\}$
+      uitwerking: |-
+        $y^2 - 13y + 36 = 0$ geeft $y = 4$ of $y = 9$. Dan is $x^2 = 4$ of $x^2 = 9$.
+    - opgave: |-
+        Los zo op: $x^4 - 3x^2 - 4 = 0$.
+      antwoord: |-
+        $V = \{-2, 2\}$
+      uitwerking: |-
+        $y^2 - 3y - 4 = 0$ geeft $y = 4$ of $y = -1$. $x^2 = -1$ heeft geen oplossing.
+    - opgave: |-
+        Leg uit waarom een vergelijking $ax^4 + bx^2 + c = 0$ (met $a \neq 0$) hoogstens vier oplossingen heeft. Kan ze er ook drie hebben?
+      antwoord: |-
+        hoogstens twee $y$, elk met hoogstens twee $x$; drie als één $y$ nul is
+      uitwerking: |-
+        De vergelijking in $y$ heeft hoogstens twee oplossingen, en elke positieve $y$ geeft twee waarden $\pm\sqrt y$. Drie oplossingen kan, als één oplossing $y = 0$ is en de andere positief: bijvoorbeeld $x^4 - x^2 = 0$ heeft de oplossingen $-1$, $0$ en $1$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    som en verschil van derdemachten
+  opgave: |-
+    Derdemachten ontbinden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Deel $x^3 - 8$ door $x - 2$ en schrijf $x^3 - 8$ als een product.
+      antwoord: |-
+        $(x - 2)(x^2 + 2x + 4)$
+      uitwerking: |-
+        \horner{3}{2}{1 & 0 & 0 & -8}{ & 2 & 4 & 8}{1 & 2 & 4}{0}
+    - opgave: |-
+        Deel op dezelfde manier $x^3 - a^3$ door $x - a$, met $a$ een getal. Welke formule vind je?
+      antwoord: |-
+        $x^3 - a^3 = (x - a)(x^2 + ax + a^2)$
+      uitwerking: |-
+        \horner{3}{a}{1 & 0 & 0 & -a^3}{ & a & a^2 & a^3}{1 & a & a^2}{0}
+    - opgave: |-
+        Zoek ook een formule voor $x^3 + a^3$. Welke deler kies je?
+      antwoord: |-
+        $x^3 + a^3 = (x + a)(x^2 - ax + a^2)$
+      uitwerking: |-
+        $-a$ is een nulwaarde: $(-a)^3 + a^3 = 0$. Delen door $x + a$: \horner{3}{-a}{1 & 0 & 0 & a^3}{ & -a & a^2 & -a^3}{1 & -a & a^2}{0}
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    twee voorwaarden: een stelsel
+  opgave: |-
+    Bepaal $a$ en $b$ zo dat $x^3 + ax^2 + bx - 6$ deelbaar is door $x - 1$ en door $x + 2$. Ontbind de veelterm daarna in factoren.
+  antwoord: |-
+    $a = 4$, $b = 1$; $(x - 1)(x + 2)(x + 3)$
+  uitwerking: |-
+    $A(1) = 1 + a + b - 6 = 0$ geeft $a + b = 5$. $A(-2) = -8 + 4a - 2b - 6 = 0$ geeft $2a - b = 7$. Tel op: $3a = 12$, dus $a = 4$ en $b = 1$. Dan is $x^3 + 4x^2 + x - 6 = (x - 1)(x^2 + 5x + 6) = (x - 1)(x + 2)(x + 3)$.
+
+- id: h2-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    deelbaarheid van $x^n - 1$ en $x^n + 1$
+  opgave: |-
+    Neem $n$ een natuurlijk getal, $n \geqslant 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $x^n - 1$ voor elke $n$ deelbaar is door $x - 1$.
+      antwoord: |-
+        $1^n - 1 = 0$
+      uitwerking: |-
+        De getalwaarde in $1$ is $1^n - 1 = 0$. Volgens de factorstelling is $x^n - 1$ deelbaar door $x - 1$.
+    - opgave: |-
+        Voor welke $n$ is $x^n + 1$ deelbaar door $x + 1$?
+      antwoord: |-
+        als $n$ oneven is
+      uitwerking: |-
+        De getalwaarde in $-1$ is $(-1)^n + 1$. Die is $0$ als $n$ oneven is, en $2$ als $n$ even is.
+    - opgave: |-
+        Toon met b aan dat $2^{15} + 1$ een veelvoud is van $3$.
+      antwoord: |-
+        $2^{15} + 1 = 3 \cdot Q(2)$
+      uitwerking: |-
+        $15$ is oneven, dus $x^{15} + 1 = (x + 1) \cdot Q(x)$, en het schema van Horner geeft $Q(x)$ met gehele coëfficiënten. Vul $x = 2$ in: $2^{15} + 1 = 3 \cdot Q(2)$, met $Q(2)$ een geheel getal. (Inderdaad: $32\,769 = 3 \cdot 10\,923$.)
+
+- id: h2-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een nulwaarde die een breuk is
+  opgave: |-
+    Neem $A(x) = 8x^3 - 12x^2 - 2x + 3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $A(x)$ geen gehele nulwaarden heeft.
+      antwoord: |-
+        $A(\pm1)$ en $A(\pm3)$ zijn niet $0$
+      uitwerking: |-
+        De kandidaten zijn $\pm1$ en $\pm3$: $A(1) = -3$, $A(-1) = -15$, $A(3) = 105$ en $A(-3) = -315$.
+    - opgave: |-
+        Toon aan dat $\tfrac12$ een nulwaarde is.
+      antwoord: |-
+        $A\bigl(\tfrac12\bigr) = 0$
+      uitwerking: |-
+        $8 \cdot \tfrac18 - 12 \cdot \tfrac14 - 1 + 3 = 1 - 3 - 1 + 3 = 0$.
+    - opgave: |-
+        Ontbind $A(x)$ in factoren met gehele coëfficiënten.
+      antwoord: |-
+        $(2x - 1)(2x + 1)(2x - 3)$
+      uitwerking: |-
+        \horner{3}{\tfrac12}{8 & -12 & -2 & 3}{ & 4 & -4 & -3}{8 & -8 & -6}{0}
+        Dus $A(x) = \bigl(x - \tfrac12\bigr)(8x^2 - 8x - 6) = (2x - 1)(4x^2 - 4x - 3)$. Het quotiënt heeft $D = 16 + 48 = 64$ en oplossingen $\tfrac32$ en $-\tfrac12$: $4x^2 - 4x - 3 = (2x - 3)(2x + 1)$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de rest zonder te delen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(x^3 - 3x^2 + 2x - 5) : (x - 2)$
+      antwoord: |-
+        $-5$
+      uitwerking: |-
+        $8 - 12 + 4 - 5$.
+    - opgave: |-
+        $(x^{12} - x^7 + 2) : (x + 1)$
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        $1 - (-1) + 2$.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Is $x^3 + 2x^2 - 13x + 10$ deelbaar door $x - 2$? En door $x + 2$?
+  antwoord: |-
+    door $x - 2$ wel, door $x + 2$ niet
+  uitwerking: |-
+    $A(2) = 8 + 8 - 26 + 10 = 0$: deelbaar door $x - 2$. $A(-2) = -8 + 8 + 26 + 10 = 36 \neq 0$: niet deelbaar door $x + 2$.
+
+- id: h2-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepaal $k$ zo dat $x^3 - kx^2 + 2x + 8$ deelbaar is door $x - 2$.
+  antwoord: |-
+    $k = 5$
+  uitwerking: |-
+    $8 - 4k + 4 + 8 = 20 - 4k = 0$.
+
+- id: h2-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Ontbind $x^3 - 4x^2 + x + 6$ in factoren.
+  antwoord: |-
+    $(x + 1)(x - 2)(x - 3)$
+  uitwerking: |-
+    Kandidaten $\pm1, \pm2, \pm3, \pm6$. $A(-1) = -1 - 4 - 1 + 6 = 0$. Horner geeft $x^2 - 5x + 6 = (x - 2)(x - 3)$.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Ontbind $x^3 - 4x^2 + 3x + 2$ zo ver mogelijk in factoren.
+  antwoord: |-
+    $(x - 2)\bigl(x - 1 - \sqrt2\bigr)\bigl(x - 1 + \sqrt2\bigr)$
+  uitwerking: |-
+    $A(1) = 2$, $A(-1) = -6$, $A(2) = 8 - 16 + 6 + 2 = 0$. Horner geeft $x^2 - 2x - 1$, met $D = 8$ en oplossingen $1 \pm \sqrt2$.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Ontbind $x^4 - 2x^3 - 3x^2 + 8x - 4$ in factoren.
+  antwoord: |-
+    $(x - 1)^2(x - 2)(x + 2)$
+  uitwerking: |-
+    Nulwaarde $1$: quotiënt $x^3 - x^2 - 4x + 4$. Opnieuw nulwaarde $1$: quotiënt $x^2 - 4 = (x - 2)(x + 2)$.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Los op: $x^3 + 3x^2 = x + 3$.
+  antwoord: |-
+    $V = \{-3, -1, 1\}$
+  uitwerking: |-
+    $x^3 + 3x^2 - x - 3 = 0$. Nulwaarde $1$: $(x - 1)(x^2 + 4x + 3) = (x - 1)(x + 1)(x + 3) = 0$.
+
+- id: h2-t8
+  soort: test
+  niveau: 2
+  opgave: |-
+    Uit een vierkant stuk karton van $12$~cm op $12$~cm knip je in elke hoek een vierkantje van $x$~cm weg. Je plooit een open doosje van $128$~cm$^3$. Hoe groot is $x$?
+  antwoord: |-
+    $x = 2$~cm
+  uitwerking: |-
+    $x(12 - 2x)^2 = 128$ geeft $4x^3 - 48x^2 + 144x - 128 = 0$, of $x^3 - 12x^2 + 36x - 32 = 0$. Nulwaarde $2$: $8 - 48 + 72 - 32 = 0$. Horner geeft $x^2 - 10x + 16 = (x - 2)(x - 8)$. De oplossing $8$ kan niet, want $12 - 16 < 0$. Dus $x = 2$~cm.

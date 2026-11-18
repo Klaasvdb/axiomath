@@ -1,0 +1,630 @@
+%----------------------------------------------------------------------------------------
+% DE STELLING VAN PYTHAGORAS. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Pakketten: het bewijs met oppervlaktes staat in alle pakketten. Pakket 5 krijgt een tweede bewijs (met
+% gelijkvormige driehoeken) en het bewijs van de omgekeerde stelling. De algemene formule voor de hoogte van een
+% gelijkzijdige driehoek staat alleen in pakket 4 en 5.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{De stelling van Pythagoras}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Lotte verstuurt een affiche, opgerold in een dunne koker van 90~cm lang. Ze heeft een doos van 70~cm lang, 50~cm breed en 30~cm hoog. Past de koker plat op de bodem van de doos, schuin van hoek tot hoek? En als dat niet lukt: past hij dan schuin door de doos, van een hoek onderaan naar de overstaande hoek bovenaan?}{\begin{tikzpicture}[schuin,scale=.42,font=\scriptsize]
+  \draadbalk{7}{3}{5}
+  \draw[accent!70,dashed] (0,0,0) -- (7,0,5);
+  \draw[accent,line width=2pt,line cap=round] (0,0,0) -- (7,3,5);
+  \node[below] at (3.5,0,0) {70 cm};
+  \node[below right] at (7,0,2.5) {50 cm};
+  \node[left] at (0,1.5,0) {30 cm};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 10 (de stelling van Pythagoras in het vlak en in de ruimte). De verdeling van LPD 10-11 over de twee hoofdstukken is na te kijken in het leerplan. Het bewijs met oppervlaktes staat in alle pakketten: het is kort en legt uit waarom de stelling klopt.\alleenvoor{5}{ In dit pakket ook een tweede bewijs met gelijkvormige driehoeken en het bewijs van de omgekeerde stelling (doel B1).} Voorkennis: vierkantswortels (handboek Reële getallen), de oppervlakte van een driehoek, de hoekensom.\alleenvoor{5}{ Het tweede bewijs gebruikt het kenmerk HH uit Gelijkvormigheid; de tekst herhaalt het kort.}}
+
+Met een lintmeter meet je een lengte, maar niet elke lengte kun je zomaar meten. Hoe lang is de diagonaal van een sportveld, of de langste stok die in een doos past? In dit hoofdstuk leer je zo'n lengte berekenen uit lengtes die je wel kent. Alles draait om één stelling over rechthoekige driehoeken: de stelling van Pythagoras. Ze is meer dan 2500 jaar oud, en je gebruikt ze nog elke dag in de bouw, in de techniek en in de navigatie.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rechthoekige driehoeken}
+
+\subsection{Vierkanten op de zijden}
+
+In de Verken vond je bij een rechthoekige driehoek met zijden 3, 4 en 5 iets merkwaardigs: $9 + 16 = 25$, dus $3^2 + 4^2 = 5^2$. Je kunt dat ook zien in een figuur. Teken op elke zijde een vierkant. De vierkanten op de twee korte zijden hebben oppervlakte 9 en 16, het vierkant op de lange zijde heeft oppervlakte 25. Samen zijn de twee kleine even groot als het grote.
+
+\naast{Het grote vierkant staat schuin, dus je kunt zijn hokjes niet zomaar tellen. Teken er daarom een recht vierkant omheen, van 7 bij 7 hokjes. Daarvan neem je de vier driehoeken in de hoeken weg. Elke driehoek is even groot als de oorspronkelijke driehoek, met oppervlakte $\tfrac{3 \cdot 4}{2} = 6$. Het schuine vierkant heeft dus oppervlakte $49 - 4 \cdot 6 = 25$.
+
+Is dat toeval, of geldt het voor elke rechthoekige driehoek? Het volgende voorbeeld doet hetzelfde met een andere driehoek.}{\begin{tikzpicture}[scale=.27,font=\scriptsize]
+  \ruitjes{-4}{-3}{7}{7}
+  \draw[grijs,dashed] (0,0) rectangle (7,7);
+  \filldraw[fill=accent!12,draw=accent] (0,0) -- (3,0) -- (3,-3) -- (0,-3) -- cycle;
+  \filldraw[fill=accent!12,draw=accent] (0,0) -- (0,4) -- (-4,4) -- (-4,0) -- cycle;
+  \filldraw[fill=accent!25,draw=accent] (0,4) -- (3,0) -- (7,3) -- (4,7) -- cycle;
+  \filldraw[fill=accent!55,draw=accent,thick] (0,0) -- (3,0) -- (0,4) -- cycle;
+  \node at (1.5,-1.5) {$9$}; \node at (-2,2) {$16$}; \node at (3.5,3.5) {$25$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Een rechthoekige driehoek op een rooster heeft korte zijden van 2 en 3 hokjes. Bereken de oppervlakte van de vierkanten op de drie zijden.\label{vb:h1-rooster}}{%
+\uitleg{De vierkanten op de korte zijden kun je tellen. Rond het schuine vierkant tekenen we een recht vierkant, en daarvan trekken we de vier driehoeken af.}
+\naast{\begin{stappenvrij}{6cm}{4.4cm}
+2^2 = 4 \quad \text{en} \quad 3^2 = 9 & De vierkanten op de korte zijden. \\[1ex]
+5 \cdot 5 = 25 & Het rechte vierkant rond het schuine. \\[1ex]
+4 \cdot \dfrac{2 \cdot 3}{2} = 12 & De vier driehoeken in de hoeken. \\[2ex]
+25 - 12 = 13 & Het vierkant op de lange zijde.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.33,font=\scriptsize]
+  \ruitjes{-2}{-3}{5}{5}
+  \draw[grijs,dashed] (0,0) rectangle (5,5);
+  \filldraw[fill=accent!12,draw=accent] (0,0) rectangle (3,-3);
+  \filldraw[fill=accent!12,draw=accent] (0,0) rectangle (-2,2);
+  \filldraw[fill=accent!25,draw=accent] (0,2) -- (3,0) -- (5,3) -- (2,5) -- cycle;
+  \filldraw[fill=accent!55,draw=accent,thick] (0,0) -- (3,0) -- (0,2) -- cycle;
+  \node at (1.5,-1.5) {$9$}; \node at (-1,1) {$4$}; \node at (2.5,2.5) {$13$};
+\end{tikzpicture}}
+Opnieuw is $4 + 9 = 13$: de twee kleine vierkanten zijn samen even groot als het grote.}
+
+Bij een driehoek die niet rechthoekig is, lukt het niet. Een driehoek met zijden 3 en 4 en daartussen een hoek van $120^\circ$ heeft een derde zijde van ongeveer 6,08, en $6{,}08^2 \approx 37$, wat veel meer is dan $9 + 16 = 25$. De rechte hoek is dus nodig. Om de stelling uit te spreken, geven we de zijden van een rechthoekige driehoek eerst een naam.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+In een rechthoekige driehoek heet de zijde tegenover de rechte hoek de \textbf{\textcolor{accent}{schuine zijde}}. De twee zijden die de rechte hoek vormen, heten de \textbf{\textcolor{accent}{rechthoekszijden}}.
+
+\begin{stelling}{Stelling van Pythagoras}
+In een rechthoekige driehoek is het kwadraat van de schuine zijde gelijk aan de som van de kwadraten van de rechthoekszijden:
+
+\vspace{1mm}
+\qquad $\formule{a^2 + b^2 = c^2}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (C) at (0,0); \coordinate (B) at (3,0); \coordinate (A) at (0,2.2);
+  \filldraw[fill=accent!20,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \rechtehoek{B}{C}{A}
+  \node[below left] at (C) {$C$}; \node[below right] at (B) {$B$}; \node[above] at (A) {$A$};
+  \node[below] at (1.5,0) {$a$}; \node[left] at (0,1.1) {$b$}; \node[above right] at (1.5,1.1) {$c$};
+\end{tikzpicture}
+\end{minipage}
+
+\begin{bewijs}
+\begin{minipage}[t]{.56\linewidth}
+\vspace{0pt}
+Neem een vierkant met zijde $a + b$, en leg er vier kopieën van de driehoek in, op twee manieren.
+
+Links blijft in het midden een vierkant met zijde $c$ over. Het is echt een vierkant: in elk hoekpunt liggen de twee scherpe hoeken van de driehoek, en die zijn samen $90^\circ$. Er blijft dus $180^\circ - 90^\circ = 90^\circ$ over.
+
+Rechts blijven twee vierkanten over, met zijde $a$ en met zijde $b$.
+
+De vier driehoeken nemen in beide vierkanten evenveel plaats in. Wat overblijft, is dus ook even groot:
+\bewijsregel{c^2 = a^2 + b^2}
+\end{minipage}\hfill
+\begin{minipage}[t]{.42\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \def\a{1.2} \def\b{2} \def\s{3.2}
+  \fill[accent!10] (0,0) rectangle (\s,\s);
+  \filldraw[fill=accent!35,draw=accent] (\a,0) -- (\s,\a) -- (\b,\s) -- (0,\b) -- cycle;
+  \draw[accent,thick] (0,0) rectangle (\s,\s);
+  \node at (\s/2,\s/2) {$c^2$};
+  \node[below] at (\a/2,0) {$a$}; \node[below] at (\a+\b/2,0) {$b$};
+  \begin{scope}[xshift=3.8cm]
+  \fill[accent!10] (0,0) rectangle (\s,\s);
+  \filldraw[fill=accent!35,draw=accent] (0,0) rectangle (\a,\a);
+  \filldraw[fill=accent!35,draw=accent] (\a,\a) rectangle (\s,\s);
+  \draw[accent] (\a,0) -- (\s,\a) (0,\a) -- (\a,\s);
+  \draw[accent,thick] (0,0) rectangle (\s,\s);
+  \node at (\a/2,\a/2) {$a^2$}; \node at (\a+\b/2,\a+\b/2) {$b^2$};
+  \node[below] at (\a/2,0) {$a$}; \node[below] at (\a+\b/2,0) {$b$};
+  \end{scope}
+\end{tikzpicture}
+\end{minipage}
+\end{bewijs}
+\begin{alleenvoor}{5}
+
+\begin{bewijs}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\textit{Een tweede bewijs, met gelijkvormige driehoeken.} Teken de hoogtelijn $[CD]$ op de schuine zijde, en noem \mbox{$p = \lengte{AD}$} en \mbox{$q = \lengte{DB}$}, zodat $p + q = c$.
+
+De driehoeken $ADC$ en $ACB$ hebben de hoek in $A$ gemeenschappelijk, en allebei een rechte hoek. Volgens het kenmerk HH is $\drieh{ADC} \gv \drieh{ACB}$, dus
+\bewijsregel{\frac{\lengte{AD}}{\lengte{AC}} = \frac{\lengte{AC}}{\lengte{AB}} \quad \text{of} \quad \frac{p}{b} = \frac{b}{c}, \quad \text{zodat} \quad b^2 = pc}
+Op dezelfde manier is $\drieh{BDC} \gv \drieh{BCA}$, zodat $a^2 = qc$. Tel op:
+\bewijsregel{a^2 + b^2 = qc + pc = (p + q)\,c = c \cdot c = c^2}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (4.4,0); \coordinate (C) at (1.43,2.061);
+  \coordinate (D) at (1.43,0);
+  \filldraw[fill=accent!30,draw=accent,thick] (A) -- (D) -- (C) -- cycle;
+  \filldraw[fill=accent!12,draw=accent,thick] (D) -- (B) -- (C) -- cycle;
+  \rechtehoek{A}{C}{B} \rechtehoek{C}{D}{B}
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[above] at (C) {$C$}; \node[below] at (D) {$D$};
+  \node[above] at (.7,0) {$p$}; \node[above] at (2.9,0) {$q$};
+  \node[above left] at (.7,1.04) {$b$}; \node[above right] at (2.9,1.04) {$a$};
+\end{tikzpicture}
+\end{minipage}
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+In woorden: het vierkant op de schuine zijde is even groot als de twee vierkanten op de rechthoekszijden samen. Let op de letters: $c$ is altijd de schuine zijde, de zijde tegenover de rechte hoek. Ze is ook de langste zijde, want $c^2$ is groter dan $a^2$ en groter dan $b^2$.
+
+De stelling draagt de naam van de Griekse wiskundige Pythagoras (6de eeuw voor Christus), maar ze was al veel eerder bekend. Kleitabletten uit Babylonië van bijna 4000 jaar geleden staan vol met rechthoekige driehoeken met gehele zijden, zoals 3, 4 en 5.
+
+\begin{oefeningen}
+\oef{h1-rooster}
+\end{oefeningen}
+
+\subsection{De schuine zijde berekenen}
+
+Ken je de twee rechthoekszijden, dan geeft de stelling het kwadraat van de schuine zijde. De schuine zijde zelf vind je met een vierkantswortel. Een lengte is positief, dus je neemt de positieve wortel.
+
+\voorbeeld{}{De rechthoekszijden van een rechthoekige driehoek zijn 5~cm en 12~cm lang. Bereken de schuine zijde.\label{vb:h1-schuin}}{%
+\uitleg{We kennen de twee rechthoekszijden, dus we tellen hun kwadraten op.}
+\naast{\begin{stappenvrij}{5.6cm}{4.6cm}
+c^2 = 5^2 + 12^2 & Stelling van Pythagoras. \\[1ex]
+c^2 = 25 + 144 = 169 & \\[1ex]
+c = \sqrt{169} = 13 & Een lengte is positief.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.22,font=\scriptsize]
+  \filldraw[fill=accent!20,draw=accent,thick] (0,0) -- (12,0) -- (0,5) -- cycle;
+  \rechtehoekxy{(12,0)}{(0,0)}{(0,5)}
+  \node[below] at (6,0) {12}; \node[left] at (0,2.5) {5}; \node[above right] at (6,2.5) {$c$};
+\end{tikzpicture}}
+De schuine zijde is 13~cm lang. Ze is inderdaad langer dan elke rechthoekszijde.}
+
+Meestal is de uitkomst geen natuurlijk getal. Dan geef je de exacte waarde met een wortel, en een benadering die je afrondt.
+
+\voorbeeld{}{De rechthoekszijden van een rechthoekige driehoek zijn 4~cm en 7~cm lang. Bereken de schuine zijde, exact en afgerond op twee decimalen.\label{vb:h1-schuin2}}{%
+\uitleg{Dezelfde werkwijze, maar 65 is geen kwadraat. De wortel kan ook niet eenvoudiger, want 65 heeft geen kwadraat als deler.}
+\begin{stappen}
+c^2 = 4^2 + 7^2 = 16 + 49 = 65 & Stelling van Pythagoras. \\[1ex]
+c = \sqrt{65} \approx 8{,}06 & Exact $\sqrt{65}$~cm, ongeveer 8,06~cm.
+\end{stappen}}
+
+\begin{werkwijze}
+Zoek de rechte hoek: de zijde ertegenover is de schuine zijde. Schrijf de stelling van Pythagoras met de lengtes die je kent. Bereken het kwadraat van de schuine zijde, en neem daarna de vierkantswortel. Rond pas op het einde af.
+\end{werkwijze}
+
+\nujij{Een rechthoekige driehoek heeft rechthoekszijden van 8 en 15. Bereken de schuine zijde.}{$c^2 = 64 + 225 = 289$, dus $c = 17$.}
+
+\begin{oefeningen}
+\oef{h1-schuin}
+\end{oefeningen}
+
+\subsection{Een rechthoekszijde berekenen}
+
+Wat als je de schuine zijde kent, maar een rechthoekszijde zoekt? Denk aan een ladder die tegen een muur staat. De lengte van de ladder ken je, en de afstand van de voet tot de muur kun je meten. Hoe hoog komt de ladder? De ladder is nu de schuine zijde, en de hoogte is een rechthoekszijde. Je gebruikt dezelfde stelling, maar je moet aftrekken in plaats van optellen.
+
+\voorbeeld{}{Een ladder van 5~m staat tegen een muur. De voet staat 1,4~m van de muur. Hoe hoog komt de ladder?\label{vb:h1-ladder}}{%
+\uitleg{De muur staat loodrecht op de grond. De ladder ligt tegenover de rechte hoek: zij is de schuine zijde. We zoeken de hoogte $h$, een rechthoekszijde.}
+\naast{\begin{stappenvrij}{5.6cm}{5.4cm}
+1{,}4^2 + h^2 = 5^2 & Stelling van Pythagoras. \\[1ex]
+h^2 = 25 - 1{,}96 = 23{,}04 & Trek $1{,}4^2$ af van beide leden. \\[1ex]
+h = \sqrt{23{,}04} = 4{,}8 & Een lengte is positief.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \fill[black!8] (-.5,0) rectangle (0,5.2);
+  \draw[grijs,thick] (0,0) -- (0,5.2);
+  \draw[lijngrijs] (-.5,0) -- (2.4,0);
+  \draw[accent,line width=1.6pt] (1.4,0) -- (0,4.8);
+  \rechtehoekxy{(1.4,0)}{(0,0)}{(0,4.8)}
+  \node[below] at (.7,0) {1,4}; \node[right] at (.75,2.6) {5};
+  \node[left] at (-.5,2.4) {$h$};
+\end{tikzpicture}}
+De ladder komt 4,8~m hoog.}
+
+De klassieke fout is gewoon optellen: $1{,}4^2 + 5^2$. Dat geeft ongeveer 5,19~m, langer dan de ladder zelf, en dat kan niet: een rechthoekszijde is altijd korter dan de schuine zijde. Vraag je dus eerst af welke zijde de schuine zijde is. Bij een driehoek met andere letters is dat niet altijd $c$.
+
+\voorbeeld{}{Driehoek $KLM$ is rechthoekig in $K$, met $\lengte{LM} = 9$ en $\lengte{KM} = 5$. Bereken $\lengte{KL}$, exact en afgerond op twee decimalen.\label{vb:h1-letters}}{%
+\uitleg{De rechte hoek ligt in $K$. De zijde tegenover $K$ is $[LM]$: dat is de schuine zijde. We zoeken een rechthoekszijde.}
+\naast{\begin{stappenvrij}{5.8cm}{4.6cm}
+\lengte{KL}^2 + \lengte{KM}^2 = \lengte{LM}^2 & De schuine zijde staat alleen. \\[1ex]
+\lengte{KL}^2 = 81 - 25 = 56 & \\[1ex]
+\lengte{KL} = \sqrt{56} = 2\sqrt{14} \approx 7{,}48 & $\sqrt{56} = \sqrt{4 \cdot 14}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \coordinate (K) at (0,0); \coordinate (L) at (7.48,0); \coordinate (M) at (0,5);
+  \filldraw[fill=accent!20,draw=accent,thick] (K) -- (L) -- (M) -- cycle;
+  \rechtehoek{L}{K}{M}
+  \node[below left] at (K) {$K$}; \node[below] at (L) {$L$}; \node[above] at (M) {$M$};
+  \node[left] at (0,2.5) {5}; \node[above right] at (3.74,2.5) {9}; \node[below] at (3.74,0) {?};
+\end{tikzpicture}}}
+
+\nujij{Driehoek $PQR$ is rechthoekig in $R$, met $\lengte{PQ} = 26$ en $\lengte{QR} = 10$. Bereken $\lengte{PR}$.}{$[PQ]$ is de schuine zijde: $\lengte{PR}^2 = 676 - 100 = 576$, dus $\lengte{PR} = 24$.}
+
+\begin{oefeningen}
+\oef{h1-rhz}
+\end{oefeningen}
+
+\subsection{Is de driehoek rechthoekig?}
+
+Een tuinier wil een rechthoekig bloembed uitzetten, maar ze heeft geen grote winkelhaak. Ze neemt een touw met dertien knopen op gelijke afstanden, zodat er twaalf gelijke stukken zijn. Ze spant het touw als een driehoek met zijden van 3, 4 en 5 stukken. De hoek tussen de zijden van 3 en 4 is dan recht. Waarom? Omdat $3^2 + 4^2 = 5^2$. De stelling van Pythagoras werkt ook omgekeerd.
+
+\begin{theorie}
+\begin{stelling}{Omgekeerde stelling van Pythagoras}
+Is in een driehoek $ABC$, met zijden $a$, $b$ en $c$ tegenover $A$, $B$ en $C$, het kwadraat van één zijde gelijk aan de som van de kwadraten van de twee andere zijden, dan is de driehoek rechthoekig. De rechte hoek ligt tegenover die ene zijde:
+
+\vspace{1mm}
+\qquad $\formule{a^2 + b^2 = c^2 \ \Rightarrow \ \hoek{C} = 90^\circ}$
+\end{stelling}
+\begin{alleenvoor}{5}
+
+\begin{bewijs}
+Neem een driehoek $ABC$ met $a^2 + b^2 = c^2$. Teken een tweede driehoek $A'B'C'$, met een rechte hoek in $C'$ en rechthoekszijden $a$ en $b$. Volgens de stelling van Pythagoras is zijn schuine zijde
+\bewijsregel{\lengte{A'B'} = \sqrt{a^2 + b^2} = \sqrt{c^2} = c}
+De twee driehoeken hebben dus dezelfde drie zijden $a$, $b$ en $c$, en zijn congruent (ZZZ). Dan zijn ook hun hoeken gelijk, zodat $\hoek{C} = \hoek{C'} = 90^\circ$.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+Je kunt de stelling en de omgekeerde stelling samen lezen: een driehoek is rechthoekig \textit{precies dan als} $a^2 + b^2 = c^2$, met $c$ de langste zijde. Is $c^2$ groter dan $a^2 + b^2$, dan is de hoek tegenover $c$ stomp; is $c^2$ kleiner, dan is hij scherp.
+
+\voorbeeld{}{Is een driehoek met zijden 20, 21 en 29 rechthoekig?\label{vb:h1-omg}}{%
+\uitleg{Als de driehoek rechthoekig is, dan is de langste zijde de schuine zijde. We vergelijken dus het kwadraat van 29 met de som van de twee andere kwadraten.}
+\begin{stappen}
+20^2 + 21^2 = 400 + 441 = 841 & De twee kortste zijden. \\[1ex]
+29^2 = 841 & De langste zijde. \\[1ex]
+\text{gelijk, dus rechthoekig} & Omgekeerde stelling: de rechte hoek ligt tegenover de zijde van 29.
+\end{stappen}}
+
+\voorbeeld{}{Is een driehoek met zijden 6, 8 en 11 rechthoekig?\label{vb:h1-omgniet}}{%
+\uitleg{Op dezelfde manier: de langste zijde is 11.}
+\begin{stappen}
+6^2 + 8^2 = 36 + 64 = 100 & De twee kortste zijden. \\[1ex]
+11^2 = 121 \neq 100 & De langste zijde. \\[1ex]
+\text{niet rechthoekig} & Volgens de stelling van Pythagoras zou de schuine zijde 10 moeten zijn.
+\end{stappen}
+Omdat $121 > 100$, is de grootste hoek zelfs stomp: de zijde van 11 is te lang voor een rechte hoek.}
+
+\begin{werkwijze}
+Neem de langste zijde. Bereken het kwadraat ervan, en ook de som van de kwadraten van de twee andere zijden. Zijn die gelijk, dan is de driehoek rechthoekig, met de rechte hoek tegenover de langste zijde. Zijn ze niet gelijk, dan is de driehoek niet rechthoekig.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-omg}
+\end{oefeningen}
+
+%========================================================================================
+\section{Pythagoras in vlakke figuren}
+
+De stelling gaat over rechthoekige driehoeken. Toch kun je ze gebruiken in veel andere figuren: een rechthoek, een vierkant, een gelijkbenige driehoek, een ruit of een trapezium. Het idee is altijd hetzelfde: zoek een rechthoekige driehoek in de figuur, of maak er een door een diagonaal of een hoogte te tekenen.
+
+\subsection{Diagonalen}
+
+Een diagonaal verdeelt een rechthoek in twee rechthoekige driehoeken. De lengte en de breedte van de rechthoek zijn de rechthoekszijden, de diagonaal is de schuine zijde.
+
+\voorbeeld{}{Een deuropening is 2,10~m hoog en 90~cm breed. Krijgt Milan een plaat van 2,25~m bij 2,50~m door de opening, als hij de plaat schuin houdt?\label{vb:h1-deur}}{%
+\uitleg{De plaat past schuin door de opening als de korte zijde van de plaat (2,25~m) niet langer is dan de diagonaal van de opening. Alles in meter.}
+\naast{\begin{stappenvrij}{5.8cm}{4.6cm}
+d^2 = 2{,}10^2 + 0{,}90^2 & De diagonaal is de schuine zijde. \\[1ex]
+d^2 = 4{,}41 + 0{,}81 = 5{,}22 & \\[1ex]
+d = \sqrt{5{,}22} \approx 2{,}28 & Langer dan 2,25~m.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \fill[black!8] (-.4,0) rectangle (1.3,2.4);
+  \fill[white] (0,0) rectangle (.9,2.1);
+  \draw[grijs,thick] (0,0) -- (0,2.1) -- (.9,2.1) -- (.9,0);
+  \draw[accent,thick] (0,0) -- (.9,2.1);
+  \node[below] at (.45,0) {0,90}; \node[left] at (-.4,1.05) {2,10};
+  \node[right] at (.45,1.2) {$d$};
+\end{tikzpicture}}
+De plaat past, maar nipt: er is maar ongeveer 3~cm speling.}
+
+Bij een vierkant zijn de rechthoekszijden even lang. Dat geeft een eenvoudig verband tussen de zijde en de diagonaal.
+
+\voorbeeld{}{Bereken de diagonaal van een vierkant met zijde 6, exact en afgerond op twee decimalen. Wat is de diagonaal van een vierkant met zijde $z$?\label{vb:h1-vierkant}}{%
+\uitleg{Een diagonaal verdeelt het vierkant in twee rechthoekige driehoeken met twee rechthoekszijden van 6. Daarna doen we hetzelfde met een willekeurige zijde $z$.}
+\naast{\begin{stappenvrij}{6cm}{4.4cm}
+d^2 = 6^2 + 6^2 = 72 & Stelling van Pythagoras. \\[1ex]
+d = \sqrt{72} = 6\sqrt2 \approx 8{,}49 & $\sqrt{72} = \sqrt{36 \cdot 2}$. \\[1ex]
+d^2 = z^2 + z^2 = 2z^2 & Met zijde $z$. \\[1ex]
+d = \sqrt{2z^2} = z\sqrt2 & $\sqrt{z^2} = z$, want $z > 0$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \filldraw[fill=accent!12,draw=accent,thick] (0,0) rectangle (3,3);
+  \fill[accent!30] (0,0) -- (3,0) -- (3,3) -- cycle;
+  \draw[accent,thick] (0,0) -- (3,3);
+  \node[below] at (1.5,0) {$z$}; \node[right] at (3,1.5) {$z$};
+  \node[above left] at (1.5,1.5) {$d$};
+\end{tikzpicture}}
+De diagonaal van een vierkant is altijd $\sqrt2$ keer zo lang als de zijde: ongeveer 1,41 keer.}
+
+\begin{oefeningen}
+\oef{h1-diag}
+\end{oefeningen}
+
+\subsection{Hoogtes}
+
+In een gelijkbenige driehoek valt de hoogtelijn uit de top precies in het midden van de basis. De hoogte verdeelt de driehoek dus in twee rechthoekige driehoeken, met als rechthoekszijden de hoogte en de halve basis. Het been is de schuine zijde.
+
+\voorbeeld{}{Een gelijkbenige driehoek heeft een basis van 10~cm en benen van 13~cm. Bereken de hoogte en de oppervlakte.\label{vb:h1-gelijkbenig}}{%
+\uitleg{De hoogtelijn deelt de basis in twee stukken van 5~cm. In de rechthoekige driehoek is het been van 13~cm de schuine zijde.}
+\naast{\begin{stappenvrij}{6cm}{4.4cm}
+h^2 + 5^2 = 13^2 & In de helft van de driehoek. \\[1ex]
+h^2 = 169 - 25 = 144, \quad h = 12 & \\[1ex]
+A = \dfrac{10 \cdot 12}{2} = 60 & Basis maal hoogte, gedeeld door 2.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.2,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (10,0); \coordinate (T) at (5,12); \coordinate (M) at (5,0);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (T) -- cycle;
+  \fill[accent!30] (M) -- (B) -- (T) -- cycle;
+  \draw[accent,dashed] (T) -- (M);
+  \rechtehoek{B}{M}{T}
+  \node[below] at (7.5,0) {5}; \node[below] at (2.5,0) {5};
+  \node[right] at (7.5,6) {13}; \node[left] at (5,5) {$h$};
+\end{tikzpicture}}
+De hoogte is 12~cm en de oppervlakte $60$~cm$^2$.}
+
+Een gelijkzijdige driehoek is een bijzondere gelijkbenige driehoek: alle zijden zijn even lang.
+
+\voorbeeld{}{Bereken de hoogte van een gelijkzijdige driehoek met zijde 8, exact en afgerond op twee decimalen.\label{vb:h1-gelijkzijdig}}{%
+\uitleg{De hoogte deelt de basis in twee stukken van 4. Een zijde van 8 is de schuine zijde.}
+\naast{\begin{stappenvrij}{6cm}{4.4cm}
+h^2 + 4^2 = 8^2 & In de helft van de driehoek. \\[1ex]
+h^2 = 64 - 16 = 48 & \\[1ex]
+h = \sqrt{48} = 4\sqrt3 \approx 6{,}93 & $\sqrt{48} = \sqrt{16 \cdot 3}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (8,0); \coordinate (T) at (4,6.93); \coordinate (M) at (4,0);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (T) -- cycle;
+  \fill[accent!30] (M) -- (B) -- (T) -- cycle;
+  \draw[accent,dashed] (T) -- (M);
+  \rechtehoek{B}{M}{T}
+  \node[below] at (6,0) {4}; \node[right] at (6,3.5) {8}; \node[left] at (4,3) {$h$};
+\end{tikzpicture}}
+\alleenvoor{4,5}{Met zijde $z$ wordt dat $h^2 = z^2 - \bigl(\tfrac{z}{2}\bigr)^2 = \tfrac{3z^2}{4}$, dus $h = \tfrac{\sqrt3}{2}\,z$: de hoogte van een gelijkzijdige driehoek is ongeveer 0,87 keer de zijde.}}
+
+\begin{oefeningen}
+\oef{h1-hoogte}
+\end{oefeningen}
+
+\subsection{Afstand tussen twee punten}
+
+Op een rooster of in een assenstelsel kun je de afstand tussen twee punten niet aftellen als ze schuin van elkaar liggen. Maar je kunt wel een rechthoekige driehoek tekenen: ga eerst horizontaal en dan verticaal van het ene punt naar het andere. Die twee stappen tel je af, en de afstand is de schuine zijde.
+
+\voorbeeld{}{Bereken de afstand tussen de punten $A(1, 1)$ en $B(7, 9)$.\label{vb:h1-afstand}}{%
+\uitleg{We tekenen het punt $C(7, 1)$, zodat driehoek $ACB$ rechthoekig is in $C$. Horizontaal gaan we van $x = 1$ naar $x = 7$, verticaal van $y = 1$ naar $y = 9$.}
+\naast{\begin{stappenvrij}{6cm}{4cm}
+\lengte{AC} = 7 - 1 = 6 & Horizontaal. \\[1ex]
+\lengte{CB} = 9 - 1 = 8 & Verticaal. \\[1ex]
+\lengte{AB}^2 = 6^2 + 8^2 = 100 & Stelling van Pythagoras. \\[1ex]
+\lengte{AB} = 10 &
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \ruitjes{0}{0}{8}{10}
+  \draw[->,grijs] (0,0) -- (8.6,0) node[right] {$x$};
+  \draw[->,grijs] (0,0) -- (0,10.6) node[above] {$y$};
+  \foreach \i in {2,4,6} \node[below,grijs] at (\i,0) {\i};
+  \foreach \i in {2,4,6,8} \node[left,grijs] at (0,\i) {\i};
+  \fill[accent!20] (1,1) -- (7,1) -- (7,9) -- cycle;
+  \draw[accent,thick] (1,1) -- (7,9);
+  \draw[accent,dashed] (1,1) -- (7,1) -- (7,9);
+  \rechtehoekxy{(1,1)}{(7,1)}{(7,9)}
+  \punt[left]{1}{1}{A} \punt[above]{7}{9}{B} \punt[below right]{7}{1}{C}
+\end{tikzpicture}}
+De afstand is 10. Het maakt niet uit of je eerst horizontaal of eerst verticaal gaat.}
+
+\begin{oefeningen}
+\oef{h1-afst}
+\end{oefeningen}
+
+%========================================================================================
+\section{Pythagoras in de ruimte}
+
+\subsection{De diagonaal van een balk}
+
+Nu kunnen we terug naar de doos van Lotte. Hoe lang is de langste stok die in een balk past? Die loopt van een hoekpunt onderaan naar het tegenoverliggende hoekpunt bovenaan: de \emph{ruimtediagonaal}. Hij ligt niet in een zijvlak, dus je ziet niet meteen een rechthoekige driehoek. Het idee: werk in twee stappen. Bereken eerst de diagonaal van het grondvlak. Die vormt samen met een opstaande ribbe een rechthoekige driehoek, met de ruimtediagonaal als schuine zijde.
+
+\voorbeeld{}{Een balk is 4~cm breed, 3~cm diep en 12~cm hoog. Bereken de lengte van de ruimtediagonaal.\label{vb:h1-balk}}{%
+\uitleg{Eerst de diagonaal $e$ van het grondvlak, een rechthoek van 4 bij 3. De opstaande ribbe staat loodrecht op het grondvlak, dus ook op $e$: zo ontstaat een rechthoekige driehoek met rechthoekszijden $e$ en 12.}
+\naast{\begin{stappenvrij}{5.8cm}{4.8cm}
+e^2 = 4^2 + 3^2 = 25, \quad e = 5 & De diagonaal van het grondvlak. \\[1ex]
+d^2 = e^2 + 12^2 = 25 + 144 = 169 & De rechthoekige driehoek in de balk. \\[1ex]
+d = 13 & De ruimtediagonaal.
+\end{stappenvrij}}{\begin{tikzpicture}[schuin,scale=.26,font=\scriptsize]
+  \fill[accent!35,opacity=.6] (0,0,0) -- (4,0,3) -- (4,12,3) -- cycle;
+  \draadbalk{4}{12}{3}
+  \draw[accent,dashed,thick] (0,0,0) -- (4,0,3);
+  \draw[accent,very thick] (0,0,0) -- (4,12,3);
+  \node[below] at (2,0,0) {4}; \node[below right] at (4,0,1.5) {3}; \node[right] at (4,6,3) {12};
+  \node[left] at (2,6,1.5) {$d$}; \node[above] at (2.4,0,1.4) {$e$};
+\end{tikzpicture}}
+De ruimtediagonaal is 13~cm. Merk op: $4^2 + 3^2 + 12^2 = 169 = 13^2$.}
+
+Die laatste opmerking geldt voor elke balk. De twee stappen kun je samenvoegen tot één formule.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Diagonaal van een balk}
+Een balk met afmetingen $a$, $b$ en $c$ heeft een ruimtediagonaal
+
+\vspace{1mm}
+\qquad $\formule{d = \sqrt{a^2 + b^2 + c^2}}$
+\end{stelling}
+
+\begin{bewijs}
+De diagonaal $e$ van het grondvlak voldoet aan \mbox{$e^2 = a^2 + b^2$}. De opstaande ribbe $c$ staat loodrecht op $e$, en de ruimtediagonaal is de schuine zijde van die rechthoekige driehoek:
+\bewijsregel{d^2 = e^2 + c^2 = a^2 + b^2 + c^2}
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[schuin,scale=.5,font=\scriptsize]
+  \fill[accent!35,opacity=.6] (0,0,0) -- (5,0,3) -- (5,3,3) -- cycle;
+  \draadbalk{5}{3}{3}
+  \draw[accent,dashed,thick] (0,0,0) -- (5,0,3);
+  \draw[accent,very thick] (0,0,0) -- (5,3,3);
+  \node[below] at (2.5,0,0) {$a$}; \node[below right] at (5,0,1.5) {$b$}; \node[right] at (5,1.5,3) {$c$};
+  \node[above left] at (2.5,1.5,1.5) {$d$}; \node[below] at (3,0,2) {$e$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Bij een kubus met ribbe $z$ zijn alle afmetingen gelijk: $d = \sqrt{z^2 + z^2 + z^2} = \sqrt{3z^2} = z\sqrt3$.
+
+\voorbeeld{}{Een kubus heeft ribben van 5~cm. Bereken de diagonaal van een zijvlak en de ruimtediagonaal, exact en afgerond op twee decimalen.\label{vb:h1-kubus}}{%
+\uitleg{Een zijvlak is een vierkant. Voor de ruimtediagonaal gebruiken we de formule met drie gelijke afmetingen.}
+\begin{stappen}
+\sqrt{5^2 + 5^2} = \sqrt{50} = 5\sqrt2 \approx 7{,}07 & De diagonaal van een zijvlak. \\[1ex]
+\sqrt{5^2 + 5^2 + 5^2} = \sqrt{75} = 5\sqrt3 \approx 8{,}66 & De ruimtediagonaal.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-balk}
+\end{oefeningen}
+
+Nu kunnen we het probleem van het begin oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Past een dunne koker van 90~cm in een doos van 70~cm bij 50~cm bij 30~cm, plat op de bodem of schuin door de doos?\label{vb:h1-terug}}{%
+\uitleg{Plat op de bodem is de langste lengte de diagonaal van het grondvlak, een rechthoek van 70 bij 50. Schuin door de doos is het de ruimtediagonaal.}
+\begin{stappen}
+\sqrt{70^2 + 50^2} = \sqrt{7400} \approx 86{,}0 & De diagonaal van de bodem: korter dan 90~cm. \\[1ex]
+\sqrt{70^2 + 50^2 + 30^2} = \sqrt{8300} \approx 91{,}1 & De ruimtediagonaal: langer dan 90~cm.
+\end{stappen}
+Plat op de bodem past de koker niet, schuin door de doos wel, met ongeveer 1~cm over. Omdat een echte koker ook dik is, wordt het wel krap: de koker raakt de randen van de doos.}
+
+\subsection{Piramiden en kegels}
+
+Ook in andere ruimtefiguren zit vaak een rechthoekige driehoek, als je een hoogte tekent. Bij een piramide met een vierkant grondvlak staat de top recht boven het midden van het grondvlak. De hoogte, een stuk van het grondvlak en een schuine lijn langs een zijvlak vormen dan een rechthoekige driehoek. Teken die driehoek apart, in ware grootte: in de ruimtelijke figuur ziet een rechte hoek er vaak niet recht uit.
+
+\voorbeeld{}{Het dak van een tuinhuis is een piramide met een vierkant grondvlak van 6~m bij 6~m en een hoogte van 4~m. Bereken de hoogte van een driehoekig dakvlak en de oppervlakte van het hele dak.\label{vb:h1-piramide}}{%
+\uitleg{De top $T$ staat recht boven het midden $M$ van het grondvlak. Het midden $N$ van een ribbe van het grondvlak ligt 3~m van $M$. In driehoek $TMN$ is de hoek in $M$ recht, en $[TN]$ is de hoogte van een dakvlak.}
+\naast{\begin{stappenvrij}{6.4cm}{4cm}
+\lengte{TN}^2 = 4^2 + 3^2 = 25 & Driehoek $TMN$, recht in $M$. \\[1ex]
+\lengte{TN} = 5 & De hoogte van een dakvlak. \\[1ex]
+A = 4 \cdot \dfrac{6 \cdot 5}{2} = 60 & Vier driehoekige dakvlakken.
+\end{stappenvrij}}{\begin{tikzpicture}[schuin,scale=.36,font=\scriptsize]
+  \draw[accent!70,dashed] (0,0,0) -- (0,0,6) -- (6,0,6) (3,4,3) -- (0,0,6);
+  \fill[accent!30,opacity=.7] (3,4,3) -- (3,0,3) -- (3,0,0) -- cycle;
+  \draw[accent,thick,line join=round] (0,0,0) -- (6,0,0) -- (6,0,6) -- (3,4,3) -- cycle (6,0,0) -- (3,4,3);
+  \draw[accent,dashed] (3,4,3) -- (3,0,3) -- (3,0,0);
+  \draw[accent,thick] (3,4,3) -- (3,0,0);
+  \fill (3,4,3) circle (3pt) node[above] {$T$};
+  \fill (3,0,3) circle (3pt) node[right] {$M$};
+  \fill (3,0,0) circle (3pt) node[below] {$N$};
+  \node[below] at (5,0,0) {6};
+\end{tikzpicture}}
+Een dakvlak is 5~m hoog, en het dak heeft een oppervlakte van $60$~m$^2$.}
+
+Bij een kegel staat de top recht boven het middelpunt van de grondcirkel. De hoogte $h$, de straal $r$ en de schuine zijde $s$ van de kegel (de afstand van de top tot de rand) vormen een rechthoekige driehoek, met $s$ als schuine zijde: $r^2 + h^2 = s^2$.
+
+\voorbeeld{}{Een feesthoedje heeft de vorm van een kegel. De rand is een cirkel met straal 5~cm, en van de top tot de rand is het 13~cm. Hoe hoog is het hoedje?\label{vb:h1-kegel}}{%
+\uitleg{Het hoedje staat rechtop. De straal en de hoogte zijn de rechthoekszijden, de schuine zijde van 13~cm ligt tegenover de rechte hoek.}
+\naast{\begin{stappenvrij}{5.8cm}{4.8cm}
+5^2 + h^2 = 13^2 & In de doorsnede door de top. \\[1ex]
+h^2 = 169 - 25 = 144, \quad h = 12 & De hoogte van het hoedje.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.2,font=\scriptsize]
+  \fill[accent!12] (-5,0) -- (0,12) -- (5,0) arc[start angle=0,end angle=-180,x radius=5,y radius=1.3] -- cycle;
+  \fill[accent!35] (0,0) -- (5,0) -- (0,12) -- cycle;
+  \draw[accent,dashed] (5,0) arc[start angle=0,end angle=180,x radius=5,y radius=1.3];
+  \draw[accent,thick] (-5,0) arc[start angle=180,end angle=360,x radius=5,y radius=1.3];
+  \draw[accent,thick] (-5,0) -- (0,12) -- (5,0);
+  \draw[accent,dashed] (0,0) -- (0,12) (0,0) -- (5,0);
+  \rechtehoekxy{(5,0)}{(0,0)}{(0,12)}
+  \node[below] at (2.5,0) {5}; \node[right] at (2.6,6) {13}; \node[left] at (0,5) {$h$};
+\end{tikzpicture}}
+Het hoedje is 12~cm hoog.}
+
+\begin{werkwijze}
+Zoek in de ruimtefiguur een rechthoekige driehoek met de lengte die je zoekt. Teken die driehoek apart, met de rechte hoek erin. Ontbreekt er een zijde, zoek dan eerst een andere rechthoekige driehoek om ze te berekenen, zoals de diagonaal van het grondvlak.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-ruimte}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+
+\oef{h1-o25}
+
+\oef{h1-o26}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-schuin2}{oef:h1-schuin}%
+  \fv{oef:h1-t2}{vb:h1-letters}{oef:h1-rhz}%
+  \fv{oef:h1-t3}{vb:h1-omg}{oef:h1-omg}%
+  \fv{oef:h1-t4}{vb:h1-gelijkbenig}{oef:h1-hoogte}%
+  \fv{oef:h1-t5}{vb:h1-afstand}{oef:h1-afst}%
+  \fv{oef:h1-t6}{vb:h1-balk}{oef:h1-balk}%
+  \fv{oef:h1-t7}{vb:h1-ladder}{oef:h1-o7}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: hoe je de schuine zijde en de rechthoekszijden herkent, de stelling van Pythagoras met een figuur en het idee van het bewijs, hoe je een schuine zijde en een rechthoekszijde berekent, de omgekeerde stelling, hoe je een rechthoekige driehoek vindt in een rechthoek, een vierkant, een gelijkbenige driehoek en een assenstelsel, en de formule voor de diagonaal van een balk. Vergelijk daarna met de kaders.
+\fi

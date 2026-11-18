@@ -1106,3 +1106,234 @@
     Gemiddelde $\tfrac32$ en $c=\tfrac32$
   uitwerking: |-
     De integraal is $\tfrac12\cdot 3\cdot 3=\tfrac92$, en $\tfrac92\cdot\tfrac13=\tfrac32$. Uit $3-c=\tfrac32$ volgt $c=\tfrac32$.
+
+- id: h1-ograf1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rekenregels op een grafiek
+  figuur:
+    opties: |-
+      5.2cm
+    code: |-
+      \begin{tikzpicture}[x=.75cm,y=.6cm,font=\scriptsize]
+        \gebied{0}{3}{(\x<=2)*2+(\x>2)*(6-2*\x)}
+        \gebied[accent!12]{3}{6}{(\x<=4)*(6-2*\x)+(\x>4)*(\x-6)}
+        \rooster{0}{1}{6}{-2}{1}{2}
+        \draw[accent,thick] (0,2) -- (2,2) -- (4,-2) -- (6,0);
+        \node[above,text=accent] at (1,2) {$f$};
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont de grafiek van $f$ op $[0, 6]$. Bereken met de figuur en de rekenregels.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\ig_0^2 f(x)\dx$
+      antwoord: |-
+        4
+      uitwerking: |-
+        Een rechthoek van 2 bij 2.
+    - opgave: |-
+        $\ig_2^4 f(x)\dx$
+      antwoord: |-
+        0
+      uitwerking: |-
+        Twee driehoeken met oppervlakte 1: een boven de as (op $[2, 3]$) en een eronder (op $[3, 4]$). Samen $1 - 1 = 0$.
+    - opgave: |-
+        $\ig_0^4 f(x)\dx$
+      antwoord: |-
+        4
+      uitwerking: |-
+        Optelbaarheid: $4 + 0 = 4$.
+    - opgave: |-
+        $\ig_4^6 f(x)\dx$
+      antwoord: |-
+        $-2$
+      uitwerking: |-
+        Een driehoek onder de as met basis 2 en hoogte 2: $-\tfrac12 \cdot 2 \cdot 2 = -2$.
+    - opgave: |-
+        $\ig_0^6 f(x)\dx$
+      antwoord: |-
+        2
+      uitwerking: |-
+        Optelbaarheid: $4 + (-2) = 2$.
+    - opgave: |-
+        $\ig_6^0 f(x)\dx$
+      antwoord: |-
+        $-2$
+      uitwerking: |-
+        Grenzen wisselen: $-2$.
+    - opgave: |-
+        $\ig_0^6 \bigl(2f(x) + 1\bigr)\dx$
+      antwoord: |-
+        10
+      uitwerking: |-
+        Lineariteit: $2 \cdot 2 + \displaystyle\int_0^6 1\dx = 4 + 6 = 10$.
+    - opgave: |-
+        de oppervlakte van alle gekleurde stukken samen
+      antwoord: |-
+        8
+      uitwerking: |-
+        Alle stukken positief geteld: $4 + 1 + 1 + 2 = 8$.
+
+- id: h1-ograf2
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rekenregels op een grafiek met een halve cirkel
+  figuur:
+    opties: |-
+      5.2cm
+    code: |-
+      \begin{tikzpicture}[x=.7cm,y=.7cm,font=\scriptsize]
+        \fill[accent!30] (-2,0) arc (180:0:2) -- cycle;
+        \fill[accent!12] (2,0) -- (4,-2) -- (4,0) -- cycle;
+        \rooster{-2}{1}{4}{-2}{1}{2}
+        \draw[accent,thick] (-2,0) arc (180:0:2) -- (4,-2);
+        \node[above right,text=accent] at (45:2) {$f$};
+      \end{tikzpicture}
+  opgave: |-
+    De grafiek van $f$ op $[-2, 4]$ bestaat uit een halve cirkel en een lijnstuk. Bereken exact met de figuur en de rekenregels.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\ig_{-2}^{2} f(x)\dx$
+      antwoord: |-
+        $2\pi$
+      uitwerking: |-
+        Een halve cirkel met straal 2: $\tfrac12 \cdot \pi \cdot 2^2 = 2\pi$.
+    - opgave: |-
+        $\ig_2^4 f(x)\dx$
+      antwoord: |-
+        $-2$
+      uitwerking: |-
+        Een driehoek onder de as met basis 2 en hoogte 2: $-2$.
+    - opgave: |-
+        $\ig_0^4 f(x)\dx$
+      antwoord: |-
+        $\pi - 2$
+      uitwerking: |-
+        Een kwart cirkel en de driehoek: $\pi + (-2) = \pi - 2$.
+    - opgave: |-
+        $\ig_4^{-2} f(x)\dx$
+      antwoord: |-
+        $2 - 2\pi$
+      uitwerking: |-
+        $\displaystyle\int_{-2}^{4} f(x)\dx = 2\pi - 2$, en grenzen wisselen geeft $2 - 2\pi$.
+    - opgave: |-
+        $\ig_{-2}^{4} \bigl(f(x) - 1\bigr)\dx$
+      antwoord: |-
+        $2\pi - 8$
+      uitwerking: |-
+        Lineariteit: $(2\pi - 2) - \displaystyle\int_{-2}^{4} 1\dx = 2\pi - 2 - 6 = 2\pi - 8$.
+    - opgave: |-
+        de gemiddelde waarde van $f$ op $[-2, 4]$
+      antwoord: |-
+        $\dfrac{\pi - 1}{3} \approx 0{,}71$
+      uitwerking: |-
+        $\dfrac{1}{6}(2\pi - 2) = \dfrac{\pi - 1}{3} \approx 0{,}71$.
+
+- id: h1-ograf3
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    oneven functie op een grafiek
+  figuur:
+    opties: |-
+      4.6cm
+    code: |-
+      \begin{tikzpicture}[x=.7cm,y=.55cm,font=\scriptsize]
+        \gebied{0}{3}{(\x<=1)*2*\x+(\x>1)*2}
+        \rooster{-3}{1}{3}{-2}{1}{2}
+        \draw[accent,thick] (0,0) -- (1,2) -- (3,2);
+        \node[above,text=accent] at (2,2) {$f$};
+      \end{tikzpicture}
+  opgave: |-
+    $f$ is een oneven functie op $[-3, 3]$. De figuur toont alleen het deel op $[0, 3]$. Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\ig_0^3 f(x)\dx$
+      antwoord: |-
+        5
+      uitwerking: |-
+        Een driehoek met oppervlakte 1 en een rechthoek van 2 bij 2: $1 + 4 = 5$.
+    - opgave: |-
+        $\ig_{-3}^{0} f(x)\dx$
+      antwoord: |-
+        $-5$
+      uitwerking: |-
+        De grafiek is puntsymmetrisch rond de oorsprong: hetzelfde gebied, maar onder de as.
+    - opgave: |-
+        $\ig_{-3}^{3} f(x)\dx$
+      antwoord: |-
+        0
+      uitwerking: |-
+        Optelbaarheid: $-5 + 5 = 0$.
+    - opgave: |-
+        $\ig_{-3}^{3} \bigl(f(x) + 2\bigr)\dx$
+      antwoord: |-
+        12
+      uitwerking: |-
+        $0 + \displaystyle\int_{-3}^{3} 2\dx = 0 + 12 = 12$.
+    - opgave: |-
+        $\ig_{-1}^{3} f(x)\dx$
+      antwoord: |-
+        4
+      uitwerking: |-
+        Op $[-1, 1]$ heffen de stukken elkaar op, en $\displaystyle\int_1^3 f(x)\dx = 4$.
+    - opgave: |-
+        de totale oppervlakte tussen de grafiek en de $x$-as
+      antwoord: |-
+        10
+      uitwerking: |-
+        $5 + 5 = 10$.
+
+- id: h1-ocontinu
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    continuïteit in de middelwaardestelling
+  figuur:
+    opties: |-
+      4.2cm
+    code: |-
+      \begin{tikzpicture}[x=.8cm,y=.45cm,font=\scriptsize]
+        \fill[accent!18] (0,0) rectangle (1,4);
+        \rooster{0}{1}{3}{0}{1}{4}
+        \draw[accent,thick] (0,4) -- (1,4);
+        \draw[accent,thick] (1,0) -- (3,0);
+        \fill[accent] (1,4) circle (2pt);
+        \filldraw[draw=accent,thick,fill=white] (1,0) circle (2pt);
+      \end{tikzpicture}
+  opgave: |-
+    De functie $f$ is $4$ op $[0, 1]$ en $0$ op $]1, 3]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de gemiddelde waarde van $f$ op $[0, 3]$.
+      antwoord: |-
+        $\tfrac43$
+      uitwerking: |-
+        De integraal is een rechthoek van 1 bij 4: $4$. Delen door de lengte $3$ geeft $\tfrac43$.
+    - opgave: |-
+        Is er een $c \in [0, 3]$ met $f(c)$ gelijk aan die gemiddelde waarde?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: $f$ neemt alleen de waarden $4$ en $0$ aan.
+    - opgave: |-
+        Welke voorwaarde van de middelwaardestelling is niet voldaan?
+      antwoord: |-
+        $f$ is niet continu
+      uitwerking: |-
+        $f$ is niet continu in $1$: de grafiek springt van $4$ naar $0$. De stelling geldt dus niet.
+    - opgave: |-
+        Neem nu $g(x) = \tfrac89 x$ op $[0, 3]$. Toon aan dat $g$ dezelfde integraal heeft, en bepaal de $c$ uit de middelwaardestelling.
+      antwoord: |-
+        $c = \tfrac32$
+      uitwerking: |-
+        De integraal is een driehoek met basis 3 en hoogte $\tfrac83$: $\tfrac12 \cdot 3 \cdot \tfrac83 = 4$. De gemiddelde waarde is weer $\tfrac43$, en $\tfrac89 c = \tfrac43$ geeft $c = \tfrac32$. Die ligt in $[0, 3]$: $g$ is continu.

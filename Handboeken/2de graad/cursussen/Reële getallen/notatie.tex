@@ -1,0 +1,64 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS REËLE GETALLEN (2de graad)
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% Vertrokken van notatie.tex van Integralen; wat hier niet nodig is, is geschrapt.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+% Getallenverzamelingen
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+% Repeterend decimaal getal: \rep{0,}{3} geeft 0,333... met een streep boven het blok dat herhaalt
+\newcommand{\rep}[2]{#1\overline{#2}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een figuur rechts: \begin{metgrafiek}{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% GETALLENAS, binnen een tikzpicture. Zet de schaal met x=... (bv. [x=1cm] of [x=.5cm]).
+% \getallenas{min}{max}: as met een pijl, streepjes en getallen bij de gehele getallen van min tot max.
+% \getallenasleeg{min}{max}: hetzelfde zonder getallen (voor eigen labels).
+% \getallenasstap{min}{stap}{max}: streepjes en getallen met een andere stap, bv. {0}{0.1}{1} (de getallen met komma).
+\newcommand{\getallenasleeg}[2]{%
+  \draw[->,grijs] ({#1-.45},0) -- ({#2+.55},0);
+  \foreach \t in {#1,...,#2}{\draw[grijs] (\t,-.09) -- (\t,.09);}}
+\newcommand{\getallenas}[2]{%
+  \getallenasleeg{#1}{#2}
+  \foreach \t in {#1,...,#2}{\node[below,inner sep=2pt,text=black,font=\scriptsize] at (\t,-.08) {$\t$};}}
+\newcommand{\getallenasstap}[3]{%
+  \draw[->,grijs] ({#1-.45*(#2)*10},0) -- ({#3+.55*(#2)*10},0);
+  \pgfmathsetmacro{\gtwee}{#1+#2}%
+  \foreach \t in {#1,\gtwee,...,#3}{\draw[grijs] (\t,-.09) -- (\t,.09);}}
+% Een punt op de as, met een label erboven: \aspunt{x}{label} of \aspunt[below]{x}{label}
+\newcommand{\aspunt}[3][above]{\fill[accent] (#2,0) circle (2.2pt) node[#1,inner sep=3pt,text=black,font=\footnotesize] {$#3$};}
+% Absolute waarde: \abs{-3} geeft |-3| met een minteken (niet een aftrekking) na de streep; \Abs met grotere strepen
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\Abs}[1]{\bigl\lvert #1\bigr\rvert}

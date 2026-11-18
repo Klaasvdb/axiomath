@@ -1,0 +1,1073 @@
+# Oefeningen van hoofdstuk 2. Zie Opmaak/oefeningenbank.py voor de velden.
+# pakketten: drie verzamelingen (h2-drie, h2-o23, h2-o24, h2-t8) alleen in pakket 5; h2-o25 niet in pakket 1.
+# Alle aantallen zijn nagerekend met een Python-script (brute force waar het kan).
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Hoeveel getallen van 1 tot en met 20 zijn
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        even?
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        2, 4, \ldots, 20: $20 : 2 = 10$.
+    - opgave: |-
+        een veelvoud van 3?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        3, 6, 9, 12, 15, 18.
+    - opgave: |-
+        even en een veelvoud van 3?
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        6, 12 en 18: de veelvouden van 6.
+    - opgave: |-
+        geen veelvoud van 3?
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $20 - 6 = 14$.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Teken een rechthoek met twee cirkels die elkaar overlappen. Zet in de linkse cirkel de even getallen van 1 tot en met 15, in de rechtse de veelvouden van 3. De andere getallen van 1 tot 15 komen in de rechthoek, buiten de cirkels.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke getallen komen in het stuk waar de cirkels overlappen?
+      antwoord: |-
+        6 en 12
+      uitwerking: |-
+        Een getal dat even is én een veelvoud van 3: 6 en 12.
+    - opgave: |-
+        Welke getallen komen buiten de cirkels?
+      antwoord: |-
+        1, 5, 7, 11, 13
+      uitwerking: |-
+        De getallen die niet even zijn en geen veelvoud van 3: 1, 5, 7, 11 en 13.
+    - opgave: |-
+        Hoeveel getallen staan in minstens één cirkel? Is dat $7 + 5$?
+      antwoord: |-
+        $10$, niet $12$
+      uitwerking: |-
+        Er zijn 7 even getallen en 5 veelvouden van 3, maar 6 en 12 staan in allebei. In de cirkels staan er $15 - 5 = 10$, en geen 12.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h2-venn
+  soort: kort
+  opgave: |-
+    Van de 30 leerlingen van een klas lezen er 18 strips en 14 manga. Zeven leerlingen lezen allebei.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul een venndiagram in.
+      antwoord: |-
+        $11$, $7$, $7$, buiten $5$
+      uitwerking: |-
+        Midden 7, alleen strips $18 - 7 = 11$, alleen manga $14 - 7 = 7$, buiten $30 - 25 = 5$.\par
+        \begin{tikzpicture}[scale=.8]
+          \venntwee{strips}{manga}
+          \vennaantal{11}{7}{7}{5}
+        \end{tikzpicture}
+    - opgave: |-
+        Hoeveel leerlingen lezen alleen strips?
+      antwoord: |-
+        $11$
+      uitwerking: |-
+        $18 - 7 = 11$.
+    - opgave: |-
+        Hoeveel leerlingen lezen strips of manga?
+      antwoord: |-
+        $25$
+      uitwerking: |-
+        $11 + 7 + 7 = 25$.
+    - opgave: |-
+        Hoeveel leerlingen lezen geen van beide?
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $30 - 25 = 5$.
+
+- id: h2-doorsnede
+  soort: kort
+  opgave: |-
+    Bepaal $A \cap B$ en $A \cup B$, en tel hun elementen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $A = \{1, 2, 3, 4, 5, 6\}$ en $B = \{4, 5, 6, 7, 8\}$
+      antwoord: |-
+        $A \cap B = \{4, 5, 6\}$ (3), $A \cup B = \{1, \ldots, 8\}$ (8)
+      uitwerking: |-
+        In beide: 4, 5 en 6. In minstens één: 1 tot en met 8.
+    - opgave: |-
+        $A$ is de verzameling van de letters van SCHOOL, $B$ die van KLAS.
+      antwoord: |-
+        $A \cap B = \{\text{S, L}\}$ (2), $A \cup B = \{\text{S, C, H, O, L, K, A}\}$ (7)
+      uitwerking: |-
+        $A = \{\text{S, C, H, O, L}\}$: de O telt maar één keer. $B = \{\text{K, L, A, S}\}$.
+    - opgave: |-
+        $A$ is de verzameling van de delers van 12, $B$ die van de delers van 18.
+      antwoord: |-
+        $A \cap B = \{1, 2, 3, 6\}$ (4), $A \cup B = \{1, 2, 3, 4, 6, 9, 12, 18\}$ (8)
+      uitwerking: |-
+        $A = \{1, 2, 3, 4, 6, 12\}$ en $B = \{1, 2, 3, 6, 9, 18\}$.
+
+- id: h2-som
+  soort: kort
+  opgave: |-
+    Gebruik de somregel, en waar nodig de productregel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een boekenkast staan 12 romans, 8 strips en 5 kookboeken. Op hoeveel manieren kies je één boek?
+      antwoord: |-
+        $25$
+      uitwerking: |-
+        $12 + 8 + 5 = 25$.
+    - opgave: |-
+        Een gebruikersnaam bestaat uit één of twee letters. Hoeveel gebruikersnamen zijn er?
+      antwoord: |-
+        $702$
+      uitwerking: |-
+        $26 + 26 \cdot 26 = 26 + 676 = 702$.
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 999 hebben alleen verschillende cijfers?
+      antwoord: |-
+        $738$
+      uitwerking: |-
+        Eén cijfer: 9. Twee cijfers: $9 \cdot 9 = 81$. Drie cijfers: $9 \cdot 9 \cdot 8 = 648$. Samen $9 + 81 + 648 = 738$.
+
+- id: h2-gevallen
+  soort: kort
+  opgave: |-
+    Onderscheid gevallen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel even getallen van twee verschillende cijfers zijn er?
+      antwoord: |-
+        $41$
+      uitwerking: |-
+        Laatste cijfer 0: eerste 1 tot 9, dus 9. Laatste cijfer 2, 4, 6 of 8: eerste niet 0 en niet het laatste, dus $4 \cdot 8 = 32$. Samen $9 + 32 = 41$.
+    - opgave: |-
+        Hoeveel even getallen van drie verschillende cijfers zijn kleiner dan 500?
+      antwoord: |-
+        $144$
+      uitwerking: |-
+        Het eerste cijfer is 1, 2, 3 of 4. Eerste cijfer even (2 of 4): laatste even maar niet hetzelfde, dus 4, middelste 8: $2 \cdot 4 \cdot 8 = 64$. Eerste cijfer oneven (1 of 3): laatste 5, middelste 8: $2 \cdot 5 \cdot 8 = 80$. Samen $64 + 80 = 144$.
+    - opgave: |-
+        Van huis naar school rijdt Lina langs het park of langs het station. Naar het park zijn er 2 wegen en van het park naar school 3. Naar het station zijn er 4 wegen en van het station naar school 1. Hoeveel routes zijn er?
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        Langs het park $2 \cdot 3 = 6$, langs het station $4 \cdot 1 = 4$: samen $10$.
+
+- id: h2-overlap
+  soort: kort
+  opgave: |-
+    Gebruik de somregel met overlap.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 100 zijn deelbaar door 2 of door 7?
+      antwoord: |-
+        $57$
+      uitwerking: |-
+        $50 + 14 - 7 = 57$. Deelbaar door 2 en 7 is deelbaar door 14: $100 : 14 \approx 7{,}1$, dus 7 getallen.
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 50 zijn deelbaar door 4 of door 6?
+      antwoord: |-
+        $16$
+      uitwerking: |-
+        Door 4: 12. Door 6: 8. Door 4 en 6: dat zijn de veelvouden van 12 (niet van 24), dus 4. Samen $12 + 8 - 4 = 16$.
+    - opgave: |-
+        In een sportclub met 32 leden doet iedereen aan zwemmen of aan lopen. Er zijn 20 zwemmers en 19 lopers. Hoeveel leden doen allebei?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        $32 = 20 + 19 - x$, dus $x = 39 - 32 = 7$.
+
+- id: h2-complement
+  soort: kort
+  opgave: |-
+    Gebruik de complementregel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 50 zijn niet deelbaar door 7?
+      antwoord: |-
+        $43$
+      uitwerking: |-
+        Er zijn 7 veelvouden van 7 (7 tot 49): $50 - 7 = 43$.
+    - opgave: |-
+        Je gooit twee keer met een dobbelsteen. Bij hoeveel uitkomsten gooi je niet twee keer hetzelfde aantal ogen?
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        Twee keer hetzelfde: 6 uitkomsten. Dus $36 - 6 = 30$.
+    - opgave: |-
+        Hoeveel codes van vier cijfers hebben minstens twee gelijke cijfers?
+      antwoord: |-
+        $4960$
+      uitwerking: |-
+        Complement: vier verschillende cijfers, $10 \cdot 9 \cdot 8 \cdot 7 = 5040$. Dus $10\,000 - 5040 = 4960$.
+
+- id: h2-minstens
+  soort: kort
+  opgave: |-
+    Tel het complement.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je gooit drie keer met een dobbelsteen. Bij hoeveel uitkomsten gooi je minstens één 6?
+      antwoord: |-
+        $91$
+      uitwerking: |-
+        $6^3 - 5^3 = 216 - 125 = 91$.
+    - opgave: |-
+        Hoeveel codes van drie letters bevatten minstens één klinker (A, E, I, O of U)?
+      antwoord: |-
+        $8315$
+      uitwerking: |-
+        Zonder klinker: 21 letters per plaats. $26^3 - 21^3 = 17\,576 - 9261 = 8315$.
+    - opgave: |-
+        Hoeveel getallen van twee cijfers bevatten minstens één cijfer 5?
+      antwoord: |-
+        $18$
+      uitwerking: |-
+        Zonder 5: eerste cijfer 8 mogelijkheden (niet 0, niet 5), tweede 9. $90 - 8 \cdot 9 = 90 - 72 = 18$.
+
+- id: h2-geenvan
+  soort: kort
+  opgave: |-
+    Hoeveel zijn er in geen van beide verzamelingen?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 100 zijn niet deelbaar door 2 en ook niet door 5?
+      antwoord: |-
+        $40$
+      uitwerking: |-
+        Door 2 of door 5: $50 + 20 - 10 = 60$. Geen van beide: $100 - 60 = 40$.
+    - opgave: |-
+        Van 120 leerlingen hebben er 85 een smartphone en 40 een tablet. Dertig leerlingen hebben allebei. Hoeveel leerlingen hebben geen van beide?
+      antwoord: |-
+        $25$
+      uitwerking: |-
+        Minstens één: $85 + 40 - 30 = 95$. Geen van beide: $120 - 95 = 25$.
+
+- id: h2-drie
+  pakketten: [5]
+  soort: kort
+  opgave: |-
+    In een jeugdhuis zijn 40 jongeren. Er spelen er 16 voetbal, 14 tennis en 12 hockey. Er zijn 5 jongeren die voetbal en tennis spelen, 4 die voetbal en hockey spelen, en 3 die tennis en hockey spelen. Eén jongere speelt alle drie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul een venndiagram met drie cirkels in.
+      antwoord: |-
+        zie uitwerking
+      uitwerking: |-
+        Midden 1. Precies twee: $5 - 1 = 4$, $4 - 1 = 3$, $3 - 1 = 2$. Alleen voetbal $16 - 4 - 3 - 1 = 8$, alleen tennis $14 - 4 - 2 - 1 = 7$, alleen hockey $12 - 3 - 2 - 1 = 6$. Buiten $40 - 31 = 9$.\par
+        \begin{tikzpicture}[scale=.8]
+          \venndrie{voetbal}{tennis}{hockey}
+          \vennaantaldrie{8}{7}{6}{4}{3}{2}{1}{9}
+        \end{tikzpicture}
+    - opgave: |-
+        Hoeveel jongeren spelen geen van de drie sporten?
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        In de cirkels staan $8 + 7 + 6 + 4 + 3 + 2 + 1 = 31$ jongeren: $40 - 31 = 9$.
+    - opgave: |-
+        Hoeveel jongeren spelen precies één sport?
+      antwoord: |-
+        $21$
+      uitwerking: |-
+        $8 + 7 + 6 = 21$.
+    - opgave: |-
+        Hoeveel jongeren spelen precies twee sporten?
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $4 + 3 + 2 = 9$.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    venndiagram, doorsnede, unie, complement
+  opgave: |-
+    $U$ is de verzameling van de getallen van 1 tot en met 15. $A$ is de verzameling van de priemgetallen in $U$, $B$ die van de oneven getallen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken een venndiagram met alle getallen erin.
+      antwoord: |-
+        zie uitwerking
+      uitwerking: |-
+        $A = \{2, 3, 5, 7, 11, 13\}$ en $B = \{1, 3, 5, 7, 9, 11, 13, 15\}$. Alleen in $A$: 2. In beide: 3, 5, 7, 11, 13. Alleen in $B$: 1, 9, 15. Buiten: 4, 6, 8, 10, 12, 14.
+    - opgave: |-
+        Bepaal $\#(A \cap B)$.
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $A \cap B = \{3, 5, 7, 11, 13\}$: alle priemgetallen behalve 2.
+    - opgave: |-
+        Bepaal $\#(A \cup B)$.
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $A \cup B = \{1, 2, 3, 5, 7, 9, 11, 13, 15\}$.
+    - opgave: |-
+        Bepaal $\#\overline{A}$.
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $15 - 6 = 9$: $\overline{A} = \{1, 4, 6, 8, 9, 10, 12, 14, 15\}$.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    venndiagram lezen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.9]
+        \venntwee{broer}{zus}
+        \vennaantal{7}{4}{9}{5}
+      \end{tikzpicture}
+  opgave: |-
+    Het venndiagram toont de leerlingen van een klas. $A$ zijn de leerlingen met een broer, $B$ die met een zus. Bepaal
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\#A$
+      antwoord: |-
+        $11$
+      uitwerking: |-
+        $7 + 4 = 11$.
+    - opgave: |-
+        $\#B$
+      antwoord: |-
+        $13$
+      uitwerking: |-
+        $4 + 9 = 13$.
+    - opgave: |-
+        $\#(A \cap B)$
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        Het midden.
+    - opgave: |-
+        $\#(A \cup B)$
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $7 + 4 + 9 = 20$.
+    - opgave: |-
+        $\#U$
+      antwoord: |-
+        $25$
+      uitwerking: |-
+        $20 + 5 = 25$.
+    - opgave: |-
+        $\#\overline{A}$
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $25 - 11 = 14$, of $9 + 5$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    somregel
+  opgave: |-
+    Op hoeveel manieren kan dat?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een ijssalon heeft 14 smaken roomijs en 6 smaken sorbet. Je kiest één bol.
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $14 + 6 = 20$.
+    - opgave: |-
+        Je kiest een code van 2, 3 of 4 cijfers.
+      antwoord: |-
+        $11\,100$
+      uitwerking: |-
+        $100 + 1000 + 10\,000 = 11\,100$.
+    - opgave: |-
+        Bij een broodjeszaak kies je een broodje (4 soorten) met één beleg uit 6, of een wrap (2 soorten) met één vulling uit 5.
+      antwoord: |-
+        $34$
+      uitwerking: |-
+        Broodjes $4 \cdot 6 = 24$, wraps $2 \cdot 5 = 10$: samen $34$.
+    - opgave: |-
+        Je kiest een getal van één of twee cijfers waarvan alle cijfers oneven zijn.
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        Eén cijfer: 5. Twee cijfers: $5 \cdot 5 = 25$. Samen $30$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    somregel met overlap
+  opgave: |-
+    Hoeveel getallen zijn er?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Getallen van 1 tot en met 30 die even zijn of een veelvoud van 5.
+      antwoord: |-
+        $18$
+      uitwerking: |-
+        $15 + 6 - 3 = 18$ (de veelvouden van 10: 10, 20, 30).
+    - opgave: |-
+        Getallen van 1 tot en met 200 die deelbaar zijn door 5 of door 8.
+      antwoord: |-
+        $60$
+      uitwerking: |-
+        $40 + 25 - 5 = 60$ (de veelvouden van 40).
+    - opgave: |-
+        Getallen van 1 tot en met 100 die deelbaar zijn door 6 of door 9.
+      antwoord: |-
+        $22$
+      uitwerking: |-
+        $16 + 11 - 5 = 22$. Deelbaar door 6 en 9 is deelbaar door 18 (niet 54): $100 : 18 \approx 5{,}6$, dus 5.
+    - opgave: |-
+        Getallen van 1 tot en met 120 die deelbaar zijn door 4 of door 10.
+      antwoord: |-
+        $36$
+      uitwerking: |-
+        $30 + 12 - 6 = 36$. Deelbaar door 4 en 10 is deelbaar door 20 (niet 40).
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    complementregel
+  opgave: |-
+    Gebruik de complementregel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel getallen van twee cijfers zijn geen veelvoud van 10?
+      antwoord: |-
+        $81$
+      uitwerking: |-
+        $90 - 9 = 81$.
+    - opgave: |-
+        Hoeveel codes van vijf cijfers bevatten minstens één 0?
+      antwoord: |-
+        $40\,951$
+      uitwerking: |-
+        $10^5 - 9^5 = 100\,000 - 59\,049 = 40\,951$.
+    - opgave: |-
+        Je gooit vier keer met een muntstuk. Bij hoeveel uitkomsten gooi je minstens één keer kop?
+      antwoord: |-
+        $15$
+      uitwerking: |-
+        Alleen MMMM heeft geen kop: $2^4 - 1 = 15$.
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 200 zijn geen veelvoud van 3?
+      antwoord: |-
+        $134$
+      uitwerking: |-
+        $200 : 3 \approx 66{,}7$, dus 66 veelvouden van 3. Dan $200 - 66 = 134$.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    venndiagram invullen
+  opgave: |-
+    In een klas van 27 leerlingen spelen 15 leerlingen een instrument en zingen er 11 in een koor. Zes leerlingen doen allebei.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul een venndiagram in.
+      antwoord: |-
+        $9$, $6$, $5$, buiten $7$
+      uitwerking: |-
+        Het venndiagram:\par
+        \begin{tikzpicture}[scale=.8]
+          \venntwee{instrument}{koor}
+          \vennaantal{9}{6}{5}{7}
+        \end{tikzpicture}
+    - opgave: |-
+        Hoeveel leerlingen spelen alleen een instrument?
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $15 - 6 = 9$.
+    - opgave: |-
+        Hoeveel leerlingen spelen een instrument of zingen in een koor?
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $15 + 11 - 6 = 20$.
+    - opgave: |-
+        Hoeveel leerlingen doen geen van beide?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        $27 - 20 = 7$.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    klassieke fout: de overlap vergeten
+  opgave: |-
+    Tuur zegt: \textit{Van 1 tot 100 zijn er 50 even getallen en 33 veelvouden van 3. Dus zijn er $50 + 33 = 83$ getallen die even zijn of een veelvoud van 3.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is er fout aan zijn redenering?
+      antwoord: |-
+        de veelvouden van 6 zijn twee keer geteld
+      uitwerking: |-
+        Een getal zoals 6 of 12 is even én een veelvoud van 3: Tuur telt het twee keer.
+    - opgave: |-
+        Hoeveel getallen van 1 tot 100 zijn even of een veelvoud van 3?
+      antwoord: |-
+        $67$
+      uitwerking: |-
+        De veelvouden van 6: $100 : 6 \approx 16{,}7$, dus 16. Dan $50 + 33 - 16 = 67$.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    en, of, niet
+  opgave: |-
+    $U = \{1, 2, \ldots, 12\}$. $A$ zijn de even getallen, $B$ de getallen groter dan 7. Schrijf de verzameling op en tel haar elementen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $A \cap B$: de getallen die even zijn en groter dan 7
+      antwoord: |-
+        $\{8, 10, 12\}$, 3
+      uitwerking: |-
+        Even en groter dan 7: 8, 10, 12.
+    - opgave: |-
+        $A \cup B$: de getallen die even zijn of groter dan 7
+      antwoord: |-
+        $\{2, 4, 6, 8, 9, 10, 11, 12\}$, 8
+      uitwerking: |-
+        $6 + 5 - 3 = 8$.
+    - opgave: |-
+        de getallen die niet even zijn en niet groter dan 7
+      antwoord: |-
+        $\{1, 3, 5, 7\}$, 4
+      uitwerking: |-
+        Oneven en hoogstens 7: 1, 3, 5, 7.
+    - opgave: |-
+        $\overline{A \cup B}$. Vergelijk met c.
+      antwoord: |-
+        $\{1, 3, 5, 7\}$, 4: dezelfde
+      uitwerking: |-
+        $12 - 8 = 4$: het complement van de unie is precies wat in geen van beide zit. Dat is dezelfde verzameling als in c.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gevallen onderscheiden
+  opgave: |-
+    Hoeveel getallen zijn er? Onderscheid gevallen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Even getallen van vier verschillende cijfers.
+      antwoord: |-
+        $2296$
+      uitwerking: |-
+        Laatste cijfer 0: $9 \cdot 8 \cdot 7 = 504$. Laatste cijfer 2, 4, 6 of 8: $4 \cdot 8 \cdot 8 \cdot 7 = 1792$ (eerste cijfer niet 0 en niet het laatste). Samen $2296$.
+    - opgave: |-
+        Even getallen van vier verschillende cijfers die groter zijn dan 5000.
+      antwoord: |-
+        $1288$
+      uitwerking: |-
+        Eerste cijfer 6 of 8: laatste cijfer even maar niet hetzelfde (4), de twee middelste $8 \cdot 7$: $2 \cdot 4 \cdot 56 = 448$. Eerste cijfer 5, 7 of 9: laatste 5, middelste $8 \cdot 7$: $3 \cdot 5 \cdot 56 = 840$. Samen $1288$.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    somregel met overlap, omgekeerd
+  opgave: |-
+    Een school heeft 210 leerlingen. Er komen 130 leerlingen soms met de fiets, en 95 soms met de bus. Vijftien leerlingen komen nooit met de fiets en nooit met de bus.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel leerlingen komen soms met de fiets of soms met de bus?
+      antwoord: |-
+        $195$
+      uitwerking: |-
+        $210 - 15 = 195$.
+    - opgave: |-
+        Hoeveel leerlingen komen soms met de fiets en soms met de bus?
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        $195 = 130 + 95 - x$, dus $x = 225 - 195 = 30$.
+    - opgave: |-
+        Hoeveel leerlingen komen alleen met de bus?
+      antwoord: |-
+        $65$
+      uitwerking: |-
+        $95 - 30 = 65$.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    complementregel bij \textit{minstens}
+  opgave: |-
+    Tel het complement.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je gooit vijf keer met een muntstuk. Bij hoeveel uitkomsten gooi je minstens één keer kop?
+      antwoord: |-
+        $31$
+      uitwerking: |-
+        $2^5 - 1 = 31$.
+    - opgave: |-
+        Hoeveel woorden van vier letters (met of zonder betekenis) hebben minstens twee gelijke letters?
+      antwoord: |-
+        $98\,176$
+      uitwerking: |-
+        Alle woorden: $26^4 = 456\,976$. Vier verschillende letters: $26 \cdot 25 \cdot 24 \cdot 23 = 358\,800$. Verschil: $98\,176$.
+    - opgave: |-
+        Je gooit drie keer met een dobbelsteen. Bij hoeveel uitkomsten gooi je minstens twee keer hetzelfde aantal ogen?
+      antwoord: |-
+        $96$
+      uitwerking: |-
+        Drie verschillende: $6 \cdot 5 \cdot 4 = 120$. Dus $216 - 120 = 96$.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    wegendiagram met somregel en productregel
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \node[stad,label=left:A] (A) at (0,0) {};
+        \node[stad,label=above:B] (B) at (1.6,.9) {};
+        \node[stad,label=below:C] (C) at (1.6,-.9) {};
+        \node[stad,label=right:D] (D) at (3.2,0) {};
+        \draw[tak] (A) to[bend left=15] (B); \draw[tak] (A) to[bend right=15] (B);
+        \draw[tak] (B) to[bend left=25] (D); \draw[tak] (B) -- (D); \draw[tak] (B) to[bend right=25] (D);
+        \draw[tak] (A) to[bend left=25] (C); \draw[tak] (A) -- (C); \draw[tak] (A) to[bend right=25] (C);
+        \draw[tak] (C) to[bend left=25] (D); \draw[tak] (C) -- (D); \draw[tak] (C) to[bend right=25] (D);
+        \draw[tak] (A) -- (D);
+      \end{tikzpicture}
+  opgave: |-
+    Het wegendiagram toont de wegen tussen vier dorpen. Een route van A naar D gaat langs B, langs C, of rechtstreeks.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel routes zijn er van A naar D?
+      antwoord: |-
+        $16$
+      uitwerking: |-
+        Langs B $2 \cdot 3 = 6$, langs C $3 \cdot 3 = 9$, rechtstreeks 1. Samen $16$.
+    - opgave: |-
+        Hoeveel routes zijn er heen langs B en terug langs C?
+      antwoord: |-
+        $54$
+      uitwerking: |-
+        $6 \cdot 9 = 54$.
+    - opgave: |-
+        Hoeveel routes heen en terug zijn er, als de terugroute niet dezelfde is als de heenroute?
+      antwoord: |-
+        $240$
+      uitwerking: |-
+        Heen 16 routes, terug alle routes behalve die van de heenweg: 15. Dus $16 \cdot 15 = 240$.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    systematisch tellen met gevallen
+  opgave: |-
+    Hoeveel getallen van 1 tot en met 1000 hebben een cijfersom die gelijk is aan 3? Onderscheid de gevallen volgens het aantal cijfers.
+  antwoord: |-
+    $10$
+  uitwerking: |-
+    Eén cijfer: 3. Twee cijfers: 12, 21, 30. Drie cijfers: 102, 111, 120, 201, 210, 300. Het getal 1000 heeft cijfersom 1. Samen $1 + 3 + 6 = 10$.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    venndiagram met een onbekende doorsnede
+  opgave: |-
+    Op een feest zijn 40 gasten. Er drinken 22 gasten cola en 25 water. Vier gasten drinken niets.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel gasten drinken cola en water?
+      antwoord: |-
+        $11$
+      uitwerking: |-
+        Cola of water: $40 - 4 = 36$. Dan $36 = 22 + 25 - x$, dus $x = 11$.
+    - opgave: |-
+        Hoeveel gasten drinken alleen water?
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $25 - 11 = 14$.
+    - opgave: |-
+        Hoeveel gasten drinken maar één van de twee?
+      antwoord: |-
+        $25$
+      uitwerking: |-
+        Alleen cola $22 - 11 = 11$, alleen water 14: samen $25$. Of: $36 - 11 = 25$.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    complementregel met de productregel
+  opgave: |-
+    Hoeveel getallen van drie cijfers zijn er die
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        minstens één cijfer 0 bevatten?
+      antwoord: |-
+        $171$
+      uitwerking: |-
+        Zonder 0: $9^3 = 729$. Dus $900 - 729 = 171$.
+    - opgave: |-
+        minstens één even cijfer bevatten?
+      antwoord: |-
+        $775$
+      uitwerking: |-
+        Alleen oneven cijfers: $5^3 = 125$. Dus $900 - 125 = 775$.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    redeneren met een venndiagram
+  opgave: |-
+    In een klas van 30 leerlingen dragen er 17 een bril, en hebben er 20 bruin haar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel leerlingen dragen zeker een bril én hebben bruin haar? Met andere woorden: hoe klein kan de doorsnede zijn?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        De unie heeft hoogstens 30 elementen: $17 + 20 - x \leqslant 30$, dus $x \geqslant 7$. Met 7 leerlingen in de doorsnede, 10 alleen met een bril en 13 alleen met bruin haar kan het ook echt.
+    - opgave: |-
+        Hoe groot kan de doorsnede hoogstens zijn?
+      antwoord: |-
+        $17$
+      uitwerking: |-
+        De doorsnede ligt in de brildragers, dus hoogstens 17. Dat kan als alle brildragers bruin haar hebben.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tabel en somregel met overlap
+  opgave: |-
+    Je gooit met een rode en een blauwe dobbelsteen. $A$ zijn de uitkomsten met minstens één 6, $B$ die met som 8. Gebruik een tabel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $\#A$, $\#B$ en $\#(A \cap B)$.
+      antwoord: |-
+        $11$, $5$, $2$
+      uitwerking: |-
+        $A$: de rij en de kolom van de 6, met $(6, 6)$ één keer: $6 + 6 - 1 = 11$. $B$: $(2, 6)$, $(3, 5)$, $(4, 4)$, $(5, 3)$, $(6, 2)$. $A \cap B$: $(2, 6)$ en $(6, 2)$.
+    - opgave: |-
+        Bij hoeveel uitkomsten is er minstens één 6 of is de som 8?
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $11 + 5 - 2 = 14$.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    somregel met overlap en complement
+  opgave: |-
+    Een kaartspel heeft 52 kaarten: 13 harten, 13 ruiten, 13 klaveren en 13 schoppen. In elke soort zijn er drie prentkaarten: boer, dame en heer. Je trekt één kaart. Hoeveel mogelijkheden zijn er voor
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        een harten of een prentkaart?
+      antwoord: |-
+        $22$
+      uitwerking: |-
+        $13 + 12 - 3 = 22$: de harten boer, dame en heer zijn twee keer geteld.
+    - opgave: |-
+        geen harten en geen prentkaart?
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        $52 - 22 = 30$.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    complementregel met grote aantallen
+  opgave: |-
+    Een wachtwoord heeft 6 tekens. Elk teken is een kleine letter (26) of een cijfer (10). Gebruik je rekenmachine.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel wachtwoorden zijn er?
+      antwoord: |-
+        $2\,176\,782\,336$
+      uitwerking: |-
+        $36^6 = 2\,176\,782\,336$.
+    - opgave: |-
+        Hoeveel wachtwoorden bevatten minstens één cijfer?
+      antwoord: |-
+        $1\,867\,866\,560$
+      uitwerking: |-
+        Zonder cijfer: $26^6 = 308\,915\,776$. Dus $36^6 - 26^6 = 1\,867\,866\,560$.
+    - opgave: |-
+        Hoeveel wachtwoorden bevatten minstens één cijfer en minstens één letter?
+      antwoord: |-
+        $1\,866\,866\,560$
+      uitwerking: |-
+        Van de wachtwoorden met minstens één cijfer vallen nog die zonder letter af: $10^6$. Dus $1\,867\,866\,560 - 1\,000\,000 = 1\,866\,866\,560$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    somregel met overlap en complementregel samen
+  opgave: |-
+    Hoeveel getallen van 1 tot en met 1000 zijn niet deelbaar door 2 en ook niet door 3?
+  antwoord: |-
+    $333$
+  uitwerking: |-
+    Door 2: 500. Door 3: 333. Door 6: 166. Door 2 of 3: $500 + 333 - 166 = 667$. Geen van beide: $1000 - 667 = 333$.
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    kortste routes in een rooster, met de somregel
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=8mm,y=8mm,font=\scriptsize]
+        \draw[accent,thick] (0,0) grid[step=8mm] (3,2);
+        \node[stad,label=below left:A] at (0,0) {};
+        \node[stad,label=above right:B] at (3,2) {};
+        \node[above left,inner sep=1pt] at (1,1) {?};
+      \end{tikzpicture}
+  opgave: |-
+    In een stad met rechte straten wandel je van A naar B, telkens naar rechts of naar boven. In elk kruispunt kom je van links of van onder.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op hoeveel manieren kom je in het kruispunt met het vraagteken? Waarom tel je de aantallen van het kruispunt links en het kruispunt eronder op?
+      antwoord: |-
+        $2$; somregel
+      uitwerking: |-
+        Je komt van links (1 manier) of van onder (1 manier), nooit allebei: somregel, $1 + 1 = 2$.
+    - opgave: |-
+        Schrijf in elk kruispunt het aantal manieren om er te komen. Hoeveel routes zijn er van A naar B?
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        Onderste rij en linkse kolom: telkens 1. Middelste rij: 1, 2, 3, 4. Bovenste rij: 1, 3, 6, 10.\par
+        \begin{tikzpicture}[x=7mm,y=7mm,font=\scriptsize]
+          \draw[accent] (0,0) grid[step=7mm] (3,2);
+          \foreach \x/\y/\n in {0/0/1,1/0/1,2/0/1,3/0/1,0/1/1,1/1/2,2/1/3,3/1/4,0/2/1,1/2/3,2/2/6,3/2/10}{\node[fill=white,inner sep=1pt] at (\x,\y) {\n};}
+        \end{tikzpicture}
+    - opgave: |-
+        Hoeveel routes zijn er in een rooster van 3 blokken breed en 3 blokken hoog?
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        Een rij erbij: 1, 4, 10, 20.
+
+- id: h2-o23
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    drie verzamelingen
+  opgave: |-
+    $U$ is de verzameling van de getallen van 1 tot en met 30. $A$ zijn de even getallen, $B$ de veelvouden van 3 en $C$ de veelvouden van 5.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul een venndiagram met drie cirkels in, met de aantallen.
+      antwoord: |-
+        zie uitwerking
+      uitwerking: |-
+        In alle drie: 30 (1 getal). Precies $A$ en $B$: 6, 12, 18, 24 (4). Precies $A$ en $C$: 10, 20 (2). Precies $B$ en $C$: 15 (1). Alleen $A$: $15 - 4 - 2 - 1 = 8$. Alleen $B$: $10 - 4 - 1 - 1 = 4$. Alleen $C$: $6 - 2 - 1 - 1 = 2$. Buiten: $30 - 22 = 8$.\par
+        \begin{tikzpicture}[scale=.8]
+          \venndrie{$A$}{$B$}{$C$}
+          \vennaantaldrie{8}{4}{2}{4}{2}{1}{1}{8}
+        \end{tikzpicture}
+    - opgave: |-
+        Hoeveel getallen zijn deelbaar door 2, door 3 of door 5?
+      antwoord: |-
+        $22$
+      uitwerking: |-
+        $8 + 4 + 2 + 4 + 2 + 1 + 1 = 22$.
+    - opgave: |-
+        Welke getallen zijn door geen van de drie deelbaar?
+      antwoord: |-
+        1, 7, 11, 13, 17, 19, 23, 29
+      uitwerking: |-
+        Dat zijn er 8: het getal 1 en de priemgetallen groter dan 5.
+
+- id: h2-o24
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    somregel met overlap voor drie verzamelingen
+  opgave: |-
+    Voor drie verzamelingen geldt
+    \[ \#(A \cup B \cup C) = \#A + \#B + \#C - \#(A \cap B) - \#(A \cap C) - \#(B \cap C) + \#(A \cap B \cap C) . \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Controleer de regel met de getallen van opdracht \ref{oef:h2-o23}.
+      antwoord: |-
+        $15 + 10 + 6 - 5 - 3 - 2 + 1 = 22$
+      uitwerking: |-
+        $\#A = 15$, $\#B = 10$, $\#C = 6$, $\#(A \cap B) = 5$ (veelvouden van 6), $\#(A \cap C) = 3$ (van 10), $\#(B \cap C) = 2$ (van 15), $\#(A \cap B \cap C) = 1$ (30).
+    - opgave: |-
+        Een element in het midden wordt in $\#A + \#B + \#C$ drie keer geteld. Hoeveel keer wordt het afgetrokken? Waarom moet $\#(A \cap B \cap C)$ er dus weer bij?
+      antwoord: |-
+        drie keer; anders telt het niet mee
+      uitwerking: |-
+        Het zit in alle drie de doorsneden van twee, dus wordt het drie keer afgetrokken. Dan telt het $3 - 3 = 0$ keer mee: daarom tel je het er één keer bij.
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 100 zijn deelbaar door 2, door 3 of door 5?
+      antwoord: |-
+        $74$
+      uitwerking: |-
+        $50 + 33 + 20 - 16 - 10 - 6 + 3 = 74$.
+
+- id: h2-o25
+  pakketten: [2, 3, 4, 5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    complement van een unie
+  opgave: |-
+    Hoeveel getallen van vier cijfers bevatten minstens één cijfer 1 en minstens één cijfer 2? Tip: noem $A$ de getallen zonder 1 en $B$ de getallen zonder 2. Welke getallen moet je dan tellen?
+  antwoord: |-
+    $920$
+  uitwerking: |-
+    Je zoekt de getallen die in geen van beide zitten: $\overline{A \cup B}$. $\#A = 8 \cdot 9^3 = 5832$ (eerste cijfer niet 0 en niet 1). $\#B = 5832$. $\#(A \cap B) = 7 \cdot 8^3 = 3584$ (geen 1 en geen 2). $\#(A \cup B) = 5832 + 5832 - 3584 = 8080$. Dus $9000 - 8080 = 920$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Van 28 leerlingen hebben er 16 een fiets en 10 een step. Vijf leerlingen hebben allebei. Vul een venndiagram in. Hoeveel leerlingen hebben geen van beide?
+  antwoord: |-
+    $7$ (alleen fiets 11, allebei 5, alleen step 5)
+  uitwerking: |-
+    Midden 5, alleen fiets $16 - 5 = 11$, alleen step $10 - 5 = 5$, buiten $28 - 21 = 7$.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    $A = \{1, 3, 5, 7, 9\}$ en $B = \{1, 2, 3, 4\}$. Bepaal $A \cap B$ en $A \cup B$, en tel hun elementen.
+  antwoord: |-
+    $A \cap B = \{1, 3\}$ (2), $A \cup B = \{1, 2, 3, 4, 5, 7, 9\}$ (7)
+  uitwerking: |-
+    In beide: 1 en 3. In minstens één: $5 + 4 - 2 = 7$ elementen.
+
+- id: h2-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een code bestaat uit twee letters of uit drie cijfers. Hoeveel codes zijn er?
+  antwoord: |-
+    $1676$
+  uitwerking: |-
+    $26^2 + 10^3 = 676 + 1000 = 1676$.
+
+- id: h2-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Hoeveel even getallen van twee verschillende cijfers zijn minstens 50?
+  antwoord: |-
+    $23$
+  uitwerking: |-
+    Eerste cijfer 6 of 8: laatste cijfer even maar niet hetzelfde, dus $2 \cdot 4 = 8$. Eerste cijfer 5, 7 of 9: laatste 5 mogelijkheden, dus $3 \cdot 5 = 15$. Samen $23$.
+
+- id: h2-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Hoeveel getallen van 1 tot en met 90 zijn deelbaar door 6 of door 10?
+  antwoord: |-
+    $21$
+  uitwerking: |-
+    $15 + 9 - 3 = 21$: deelbaar door 6 en 10 is deelbaar door 30.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Je gooit vier keer met een dobbelsteen. Bij hoeveel uitkomsten gooi je minstens één 6?
+  antwoord: |-
+    $671$
+  uitwerking: |-
+    $6^4 - 5^4 = 1296 - 625 = 671$.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    In een straat met 60 huizen hebben er 25 zonnepanelen en 18 een warmtepomp. Zeven huizen hebben allebei. Hoeveel huizen hebben geen van beide?
+  antwoord: |-
+    $24$
+  uitwerking: |-
+    Minstens één: $25 + 18 - 7 = 36$. Geen van beide: $60 - 36 = 24$.
+
+- id: h2-t8
+  pakketten: [5]
+  soort: test
+  niveau: 2
+  opgave: |-
+    Van 60 toeristen bezoeken er 30 het museum, 25 de kathedraal en 20 de toren. Tien bezoeken het museum en de kathedraal, 8 het museum en de toren, 6 de kathedraal en de toren, en 3 bezoeken alle drie. Hoeveel toeristen bezoeken geen van de drie?
+  antwoord: |-
+    $6$
+  uitwerking: |-
+    In het venndiagram: midden 3, precies twee $7$, $5$ en $3$, alleen museum $30 - 7 - 5 - 3 = 15$, alleen kathedraal $25 - 7 - 3 - 3 = 12$, alleen toren $20 - 5 - 3 - 3 = 9$. Samen $54$, dus $60 - 54 = 6$.

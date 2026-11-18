@@ -1,0 +1,660 @@
+%----------------------------------------------------------------------------------------
+% DE SINUSREGEL EN DE COSINUSREGEL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Notatie: in driehoek ABC is a = |BC|, b = |CA|, c = |AB|, en alpha, beta, gamma de hoeken in A, B, C.
+% Pakket 5: het aantal driehoeken bij ZZH volledig (stelling met bewijs), de sinusregel met de omgeschreven
+% cirkel (2R, met bewijs), en opdrachten met het bewijs voor een stompe hoek en ZZH met de cosinusregel.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{De sinusregel en de cosinusregel}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een zeilboot vertrekt in de haven $H$ en vaart 12~km rechtdoor tot aan een boei $B$. Daar draait ze $50^\circ$ naar rechts, en vaart nog 7~km tot in $E$. Hoe ver ligt de boot nu van de haven? En welke hoek maakt de rechte $HE$ met haar eerste koers? De driehoek $HBE$ is niet rechthoekig: met de stelling van Pythagoras of met SOS-CAS-TOA lukt het niet.}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \fill[accent!8] (-1,-7.2) rectangle (18,2);
+  \coordinate (H) at (0,0); \coordinate (B) at (12,0); \coordinate (E) at (16.50,-5.36); \coordinate (K) at (16,0);
+  \draw[grijs,dashed] (B) -- (K);
+  \draw[accent,thick,->] (H) -- (B);
+  \draw[accent,thick,->] (B) -- (E);
+  \draw[accent,dashed] (H) -- node[below left] {?} (E);
+  \hoeklabel[angle eccentricity=1.7]{E}{B}{K}{6mm}{50^\circ}
+  \fill (H) circle (5pt) node[left] {$H$};
+  \fill (B) circle (5pt) node[above] {$B$};
+  \fill (E) circle (5pt) node[right] {$E$};
+  \node[above] at (6,0) {12 km};
+  \node[right] at (14.3,-2.5) {7 km};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 16-17 (de sinusregel en de cosinusregel, willekeurige driehoeken oplossen, de oppervlakte van een driehoek, toepassingen). De nummers en de verdeling over de twee hoofdstukken zijn na te kijken in het leerplan. Voorkennis: hoofdstuk 1 (vooral supplementaire hoeken en een hoek in een driehoek bij een gegeven sinus of cosinus), en uit Driehoeksmeting SOS-CAS-TOA, de stelling van Pythagoras en de afstand tussen twee punten in een assenstelsel.\alleenvoor{5}{ Pakket 5 behandelt het aantal driehoeken bij twee zijden en een niet-ingesloten hoek volledig, met bewijs, en de sinusregel met de straal van de omgeschreven cirkel. In de opdrachten bewijzen leerlingen het geval met een stompe hoek en lossen ze het dubbelzinnige geval ook op met de cosinusregel.} Zijden worden afgerond op twee decimalen en hoeken op $0{,}01^\circ$; laat leerlingen verder rekenen met niet-afgeronde tussenwaarden (geheugen van de rekenmachine).}
+
+In Driehoeksmeting rekende je in rechthoekige driehoeken. Maar de meeste driehoeken hebben geen rechte hoek: een perceel grond, een dakspant, de driehoek tussen twee schepen en een haven. In dit hoofdstuk leer je twee regels die in elke driehoek werken: de \emph{sinusregel} en de \emph{cosinusregel}. Daarvoor heb je de goniometrische cirkel uit hoofdstuk 1 nodig, want een driehoek kan een stompe hoek hebben. Met die twee regels kun je elke driehoek berekenen zodra je er genoeg van weet.
+
+We gebruiken telkens dezelfde letters. In driehoek $ABC$ zijn $\alpha$, $\beta$ en $\gamma$ de hoeken in $A$, $B$ en $C$. De zijde tegenover een hoek krijgt de kleine letter van dat hoekpunt: $a = \lengte{BC}$, $b = \lengte{CA}$ en $c = \lengte{AB}$.
+
+\figuren{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (6,0); \coordinate (C) at (1.8,3.2);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \hoeklabel{B}{A}{C}{6mm}{\alpha} \hoeklabel{C}{B}{A}{6mm}{\beta} \hoeklabel{A}{C}{B}{5mm}{\gamma}
+  \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[above] at (C) {$C$};
+  \node[below] at (3,0) {$c$}; \node[above right] at (3.9,1.6) {$a$}; \node[above left] at (.9,1.6) {$b$};
+\end{tikzpicture}}
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De oppervlakte van een driehoek}
+
+\subsection{Twee zijden en de ingesloten hoek}
+
+De oppervlakte van een driehoek is de helft van basis maal hoogte. Maar de hoogte ken je vaak niet. Bij een driehoekig perceel meet je makkelijker twee zijden en de hoek ertussen. Kun je de hoogte daaruit halen? Ja: de hoogte is een zijde van een rechthoekige driehoek, en daar werkt de sinus.
+
+\voorbeeld{}{In driehoek $ABC$ is $a = 8$, $b = 5$ en $\gamma = 40^\circ$. Bereken de hoogte uit $A$ en de oppervlakte. Rond af op twee decimalen.\label{vb:h2-hoogte}}{%
+\uitleg{De hoogtelijn uit $A$ staat loodrecht op $[BC]$, met voetpunt $D$. In de rechthoekige driehoek $ADC$ is $[AC]$ de schuine zijde, en de hoogte de overstaande zijde van $\gamma$: de sinus.}
+\naast{\begin{stappenvrij}{5.2cm}{4cm}
+h = 5 \sin 40^\circ \approx 3{,}21 & SOS in driehoek $ADC$. \\[1ex]
+A = \tfrac12 \cdot 8 \cdot 5 \sin 40^\circ \approx 12{,}86 & Halve basis maal hoogte, met basis $a = 8$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \coordinate (C) at (0,0); \coordinate (B) at (8,0); \coordinate (A) at (40:5); \coordinate (D) at ({5*cos(40)},0);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \draw[accent,dashed] (A) -- (D); \rechtehoek{A}{D}{B}
+  \hoeklabel{B}{C}{A}{7mm}{40^\circ}
+  \node[left] at (C) {$C$}; \node[right] at (B) {$B$}; \node[above] at (A) {$A$}; \node[below] at (D) {$D$};
+  \node[below] at (6,0) {$8$}; \node[above left] at (20:2.6) {$5$}; \node[right] at ({5*cos(40)},1.5) {$h$};
+\end{tikzpicture}}}
+
+In plaats van 5 en 8 kun je dat met letters doen: de hoogte uit $A$ is $b\sin\gamma$, en de oppervlakte is $\frac12 \cdot a \cdot b\sin\gamma$. Maar wat als $\gamma$ stomp is? Dan valt het voetpunt van de hoogte buiten de driehoek. Daar helpt hoofdstuk 1: een stompe hoek heeft dezelfde sinus als zijn supplement.
+
+\begin{theorie}
+\begin{stelling}{Oppervlakte van een driehoek}
+De oppervlakte van driehoek $ABC$ is de helft van het product van twee zijden en de sinus van de ingesloten hoek:
+
+\vspace{1mm}
+\qquad $\formule{A = \tfrac12\, ab \sin\gamma}$ \qquad (en net zo $A = \tfrac12\, bc\sin\alpha = \tfrac12\, ca\sin\beta$)
+\end{stelling}
+
+\begin{bewijs}
+\naast{Neem $[BC]$ als basis, en $h$ de hoogte uit $A$, met voetpunt $D$ op de rechte $BC$. We tonen aan dat altijd $h = b\sin\gamma$.
+
+Is $\gamma$ scherp, dan is in de rechthoekige driehoek $ADC$ de hoogte de overstaande zijde van $\gamma$, dus $h = b\sin\gamma$.
+
+Is $\gamma$ stomp, dan ligt $D$ op het verlengde van $[BC]$, voorbij $C$. In de rechthoekige driehoek $ADC$ is de hoek in $C$ nu $180^\circ - \gamma$, dus
+\bewijsregel{h = b\sin(180^\circ - \gamma) = b\sin\gamma .}
+Is $\gamma$ recht, dan is $h = b = b\sin 90^\circ$. In elk geval is de oppervlakte $\tfrac12 \cdot a \cdot h = \tfrac12\, ab\sin\gamma$.}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \coordinate (C) at (0,0); \coordinate (B) at (6,0); \coordinate (A) at (125:4); \coordinate (D) at ({4*cos(125)},0);
+  \draw[accent,dashed] (D) -- (C);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \draw[accent,dashed] (A) -- (D); \rechtehoek{A}{D}{C}
+  \hoeklabel{B}{C}{A}{5mm}{\gamma}
+  \node[below right] at (C) {$C$}; \node[right] at (B) {$B$}; \node[above] at (A) {$A$}; \node[below] at (D) {$D$};
+  \node[below] at (3,0) {$a$}; \node[right] at (110:2.4) {$b$}; \node[left] at ({4*cos(125)},1.6) {$h$};
+\end{tikzpicture}}
+\end{bewijs}
+\end{theorie}
+
+Je hebt dus geen hoogte nodig: twee zijden en de hoek ertussen volstaan. Let op: het moet de hoek \textit{tussen} de twee zijden zijn, de \emph{ingesloten hoek}.
+
+\voorbeeld{}{Een driehoekig perceel grond heeft twee zijden van 30~m en 45~m, die een hoek van $115^\circ$ insluiten. Bereken de oppervlakte, afgerond op een vierkante meter.\label{vb:h2-opp}}{%
+\naast{\uitleg{We kennen twee zijden en de ingesloten hoek. Die hoek is stomp, maar de formule geldt voor elke hoek.}
+\begin{stappenvrij}{5.6cm}{4.2cm}
+A = \tfrac12 \cdot 30 \cdot 45 \cdot \sin 115^\circ & Twee zijden, ingesloten hoek. \\[1ex]
+A \approx 612 & In m$^2$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.06,font=\scriptsize]
+  \coordinate (P) at (0,0); \coordinate (Q) at (45,0); \coordinate (R) at (115:30);
+  \filldraw[fill=accent!12,draw=accent,thick] (P) -- (Q) -- (R) -- cycle;
+  \hoeklabel{Q}{P}{R}{5mm}{115^\circ}
+  \node[below] at (22.5,0) {45 m}; \node[left] at (115:16) {30 m};
+\end{tikzpicture}}
+Controle: $\sin 115^\circ = \sin 65^\circ \approx 0{,}91$. Met een rechte hoek zou het perceel $\frac12 \cdot 30 \cdot 45 = 675$~m$^2$ groot zijn, het maximum.}
+
+\begin{werkwijze}
+Zoek twee zijden en de hoek die ze insluiten. Vermenigvuldig de twee zijden met de sinus van die hoek, en neem de helft. Ken je geen ingesloten hoek, bereken die dan eerst (zie verder in dit hoofdstuk).
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-opp}
+\end{oefeningen}
+
+%========================================================================================
+\section{De sinusregel}
+
+\subsection{De regel}
+
+In de Verken tekende je een driehoek en deelde je elke zijde door de sinus van de hoek ertegenover. Je vond drie keer bijna hetzelfde getal. Is dat toeval? De oppervlakteformule verklaart het. Je kunt de oppervlakte op drie manieren schrijven, met telkens een andere hoek.
+
+\begin{theorie}
+\begin{stelling}{Sinusregel}
+In elke driehoek $ABC$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\frac{a}{\sin\alpha} = \frac{b}{\sin\beta} = \frac{c}{\sin\gamma}}$
+\end{stelling}
+
+\begin{bewijs}
+De oppervlakte van de driehoek is op drie manieren te schrijven:
+\bewijsregel{\tfrac12\, bc\sin\alpha = \tfrac12\, ca\sin\beta = \tfrac12\, ab\sin\gamma .}
+Deel elk lid door $\tfrac12\, abc$, dat is niet 0. Dan krijg je $\dfrac{\sin\alpha}{a} = \dfrac{\sin\beta}{b} = \dfrac{\sin\gamma}{c}$. Neem van elk lid het omgekeerde: een sinus van een hoek van een driehoek is niet 0.
+\end{bewijs}
+\end{theorie}
+
+In woorden: in elke driehoek is een zijde gedeeld door de sinus van de overstaande hoek altijd hetzelfde getal. De zijden zijn dus evenredig met de sinussen van de hoeken ertegenover. Daaruit volgt ook dat de grootste zijde tegenover de grootste hoek ligt, en de kleinste zijde tegenover de kleinste hoek. Elke breuk in de regel koppelt een zijde aan de hoek \textit{ertegenover}: dat zijn de paren die je moet herkennen.
+
+\subsection{Twee hoeken en een zijde}
+
+Ken je twee hoeken, dan ken je de derde ook, door de hoekensom. Ken je daarbij één zijde, dan geeft de sinusregel de andere zijden: je kent dan een volledige breuk, en in elke andere breuk is er maar één onbekende.
+
+\voorbeeld{}{In driehoek $ABC$ is $c = 10$, $\alpha = 35^\circ$ en $\beta = 80^\circ$. Bereken de ontbrekende hoek en zijden. Rond af op twee decimalen.\label{vb:h2-sinus}}{%
+\naast{\uitleg{Eerst de hoekensom. Dan kennen we het paar $c$ en $\gamma$: dat is de breuk waarmee we de andere zijden vinden.}
+\begin{stappenvrij}{5.6cm}{4.4cm}
+\gamma = 180^\circ - 35^\circ - 80^\circ = 65^\circ & De hoekensom. \\[1ex]
+\dfrac{a}{\sin 35^\circ} = \dfrac{10}{\sin 65^\circ} & Sinusregel. \\[2ex]
+a = \dfrac{10 \sin 35^\circ}{\sin 65^\circ} \approx 6{,}33 & Vermenigvuldig met $\sin 35^\circ$. \\[2ex]
+b = \dfrac{10 \sin 80^\circ}{\sin 65^\circ} \approx 10{,}87 & Net zo.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (10,0); \coordinate (C) at (35:10.87);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \hoeklabel{B}{A}{C}{7mm}{35^\circ} \hoeklabel{C}{B}{A}{5mm}{80^\circ}
+  \node[left] at (A) {$A$}; \node[right] at (B) {$B$}; \node[above] at (C) {$C$};
+  \node[below] at (5,0) {$10$};
+\end{tikzpicture}}
+Controle: de grootste hoek, $80^\circ$, ligt tegenover de grootste zijde $b$.}
+
+Zo meet je ook een afstand die je niet kunt aflopen, bijvoorbeeld tot een punt aan de overkant van een rivier. Landmeters doen dat al eeuwen zo: ze meten een basislijn en twee hoeken.
+
+\voorbeeld{}{Op de oever van een rivier liggen de punten $A$ en $B$, 150~m uit elkaar. Aan de overkant staat een boom $C$. Je meet $\hoek{CAB} = 48^\circ$ en $\hoek{CBA} = 76^\circ$. Hoe ver staat de boom van $A$, en hoe breed is de rivier? Rond af op een decimeter.\label{vb:h2-rivier}}{%
+\uitleg{In driehoek $ABC$ kennen we twee hoeken en de zijde ertussen. De breedte van de rivier is de afstand van $C$ tot de oever: de hoogte uit $C$, in een rechthoekige driehoek.}
+\naast{\begin{stappenvrij}{5.8cm}{4.4cm}
+\gamma = 180^\circ - 48^\circ - 76^\circ = 56^\circ & De hoekensom. \\[1ex]
+\lengte{AC} = \dfrac{150 \sin 76^\circ}{\sin 56^\circ} \approx 175{,}56 & $[AC]$ ligt tegenover $\beta = 76^\circ$. \\[2ex]
+d = \lengte{AC} \sin 48^\circ \approx 130{,}47 & SOS in de rechthoekige driehoek bij $A$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.022,font=\scriptsize]
+  \fill[accent!8] (-20,25) rectangle (175,150);
+  \coordinate (A) at (0,0); \coordinate (B) at (150,0); \coordinate (C) at (48:175.56);
+  \draw[lijngrijs] (-20,0) -- (175,0);
+  \draw[accent,thick] (A) -- (B) -- (C) -- cycle;
+  \draw[accent,dashed] (C) -- ({175.56*cos(48)},0);
+  \hoeklabel{B}{A}{C}{6mm}{48^\circ} \hoeklabel{C}{B}{A}{5mm}{76^\circ}
+  \fill (C) circle (90pt) node[above] {$C$};
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$};
+  \node[below] at (75,0) {150 m}; \node[left] at ({175.56*cos(48)},65) {$d$};
+\end{tikzpicture}}
+De boom staat ongeveer 175,6~m van $A$, en de rivier is ongeveer 130,5~m breed.}
+
+\begin{werkwijze}
+Bereken de derde hoek met de hoekensom. Zoek het paar van een gekende zijde en de hoek ertegenover. Schrijf de sinusregel met dat paar en de breuk met de onbekende zijde, en los op.
+\end{werkwijze}
+
+\nujij{In driehoek $ABC$ is $a = 9$, $\alpha = 40^\circ$ en $\beta = 75^\circ$. Bereken $b$, afgerond op twee decimalen.}{$b = \tfrac{9 \sin 75^\circ}{\sin 40^\circ} \approx 13{,}52$.}
+
+\begin{oefeningen}
+\oef{h2-sinus}
+\end{oefeningen}
+
+\subsection{Twee zijden en een hoek tegenover een ervan}
+
+Met de sinusregel kun je ook een hoek berekenen: ken je twee zijden en de hoek tegenover een ervan, dan vind je de sinus van de hoek tegenover de andere zijde. Maar een sinus bepaalt een hoek van een driehoek niet altijd: een scherpe hoek en zijn supplement hebben dezelfde sinus. Dat geeft verrassingen.
+
+\voorbeeld{}{Bereken de driehoeken $ABC$ met $a = 7$, $b = 9$ en $\alpha = 40^\circ$. Rond af op twee decimalen.\label{vb:h2-twee}}{%
+\uitleg{We kennen het paar $a$ en $\alpha$. De sinusregel geeft $\sin\beta$. Er zijn twee hoeken met die sinus, en we gaan na of ze allebei in een driehoek passen.}
+\begin{stappen}
+\sin\beta = \dfrac{9 \sin 40^\circ}{7} \approx 0{,}8264 & Uit $\dfrac{7}{\sin 40^\circ} = \dfrac{9}{\sin\beta}$. \\[2ex]
+\beta_1 \approx 55{,}73^\circ \quad\text{of}\quad \beta_2 \approx 124{,}27^\circ & Scherp, of het supplement. \\[1ex]
+\alpha + \beta_2 \approx 164{,}27^\circ < 180^\circ & Ook $\beta_2$ past: er zijn twee driehoeken. \\[1ex]
+\gamma_1 \approx 84{,}27^\circ, \quad c_1 = \dfrac{7 \sin\gamma_1}{\sin 40^\circ} \approx 10{,}84 & Eerste driehoek. \\[2ex]
+\gamma_2 \approx 15{,}73^\circ, \quad c_2 = \dfrac{7 \sin\gamma_2}{\sin 40^\circ} \approx 2{,}95 & Tweede driehoek.
+\end{stappen}
+\naast{De figuur toont waarom. Teken de hoek van $40^\circ$ in $A$ en de zijde $\lengte{AC} = 9$. Het punt $B$ ligt op het andere been, op afstand 7 van $C$: op een cirkel met middelpunt $C$ en straal 7. Die cirkel snijdt het been in twee punten $B_1$ en $B_2$. Beide driehoeken hebben de gegeven zijden en hoek.}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (40:9); \coordinate (B1) at (10.84,0); \coordinate (B2) at (2.95,0);
+  \begin{scope}
+  \clip (-1.5,-2.2) rectangle (14,7);
+  \draw[grijs,dashed] (C) circle (7);
+  \end{scope}
+  \draw[lijngrijs] (0,0) -- (13,0);
+  \filldraw[fill=accent!10,draw=accent,thick] (A) -- (B1) -- (C) -- cycle;
+  \draw[accent,thick] (B2) -- (C);
+  \hoeklabel{B1}{A}{C}{7mm}{40^\circ}
+  \fill (B1) circle (4pt) node[below] {$B_1$}; \fill (B2) circle (4pt) node[below] {$B_2$};
+  \node[left] at (A) {$A$}; \node[above] at (C) {$C$};
+\end{tikzpicture}}}
+
+Er kan ook maar één driehoek zijn, of geen enkele. Dat beslist de hoekensom, of de sinus zelf.
+
+\voorbeeld{}{Bereken de driehoek $ABC$ met $a = 10$, $b = 6$ en $\alpha = 50^\circ$.\label{vb:h2-een}}{%
+\uitleg{Zoals in het vorige voorbeeld zoeken we $\beta$ met de sinusregel, en controleren we beide mogelijkheden.}
+\begin{stappen}
+\sin\beta = \dfrac{6 \sin 50^\circ}{10} \approx 0{,}4596 & Sinusregel. \\[2ex]
+\beta_1 \approx 27{,}36^\circ \quad\text{of}\quad \beta_2 \approx 152{,}64^\circ & Scherp, of het supplement. \\[1ex]
+\alpha + \beta_2 \approx 202{,}64^\circ > 180^\circ & $\beta_2$ past niet: maar één driehoek. \\[1ex]
+\gamma \approx 102{,}64^\circ, \quad c = \dfrac{10 \sin\gamma}{\sin 50^\circ} \approx 12{,}74 & De derde hoek en zijde.
+\end{stappen}
+Je kon het ook zonder rekenen zien: $b < a$, dus $\beta < \alpha$, en dan is $\beta$ zeker scherp.}
+
+\voorbeeld{}{Bestaat er een driehoek $ABC$ met $a = 4$, $b = 9$ en $\alpha = 40^\circ$?\label{vb:h2-geen}}{%
+\uitleg{We proberen het met de sinusregel.}
+\begin{stappen}
+\sin\beta = \dfrac{9 \sin 40^\circ}{4} \approx 1{,}45 & Groter dan 1: dat kan niet.
+\end{stappen}
+Er bestaat geen zo'n driehoek. In de figuur van voorbeeld \ref{vb:h2-twee} is de cirkel met straal 4 rond $C$ te klein: hij raakt het andere been van de hoek niet. De afstand van $C$ tot dat been is $9\sin 40^\circ \approx 5{,}79$, en dat is meer dan 4.}
+
+Twee zijden en een hoek die niet tussen die zijden ligt, bepalen de driehoek dus niet altijd. Daarom heet dit het \emph{dubbelzinnige geval}.
+
+\begin{werkwijze}
+Bereken de sinus van de ontbrekende hoek met de sinusregel. Is die groter dan 1, dan is er geen driehoek. Anders zijn er twee kandidaten: de scherpe hoek van de rekenmachine en zijn supplement. Controleer voor elk of de hoekensom kleiner blijft dan $180^\circ$, en reken elke driehoek die overblijft verder uit.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-zzh}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+\subsection{Hoeveel driehoeken?}
+
+Kun je zonder te rekenen zien hoeveel driehoeken er zijn? De cirkel in voorbeeld \ref{vb:h2-twee} zegt het. Het punt $B$ ligt op het andere been van $\alpha$, en op de cirkel met middelpunt $C$ en straal $a$. Hoeveel snijpunten er zijn, hangt af van $a$, vergeleken met $b$ en met de afstand $h = b\sin\alpha$ van $C$ tot dat been.
+
+\begin{theorie}
+\begin{stelling}{Aantal driehoeken bij twee zijden en een niet-ingesloten hoek}
+Gegeven zijn $\alpha$, $b$ en $a$, met $h = b\sin\alpha$. Het aantal driehoeken $ABC$ is
+
+\vspace{1mm}
+\centering
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$\alpha$ scherp & $a < h$ & $a = h$ & $h < a < b$ & $a \geqslant b$ \\ \hline
+aantal & $\formule{0}$ & $\formule{1}$ (rechthoekig in $B$) & $\formule{2}$ & $\formule{1}$ \\ \hline\hline
+$\alpha$ recht of stomp & \multicolumn{2}{c|}{$a \leqslant b$} & \multicolumn{2}{c|}{$a > b$} \\ \hline
+aantal & \multicolumn{2}{c|}{$\formule{0}$} & \multicolumn{2}{c|}{$\formule{1}$} \\ \hline
+\end{tabular}
+\end{stelling}
+
+\begin{bewijs}
+\naast{Noem $D$ het voetpunt van de loodlijn uit $C$ op de drager van het andere been, zodat $\lengte{CD} = h$. Het punt $B$ ligt op het been (een halfrechte uit $A$, zonder $A$) en op de cirkel met middelpunt $C$ en straal $a$.
+
+\textit{$\alpha$ scherp.} Dan ligt $D$ op het been. Is $a < h$, dan haalt de cirkel de drager niet. Is $a = h$, dan raakt hij in $D$. Is $a > h$, dan snijdt hij de drager in twee punten, op afstand $\sqrt{a^2 - h^2}$ aan weerszijden van $D$, terwijl $\lengte{AD} = \sqrt{b^2 - h^2}$. Is $a < b$, dan is $\sqrt{a^2 - h^2} < \lengte{AD}$, en liggen beide punten op het been: twee driehoeken. Is $a \geqslant b$, dan ligt het ene punt op het been en het andere in $A$ of aan de andere kant van $A$: één driehoek.
+
+\textit{$\alpha$ recht of stomp.} Dan ligt $D$ in $A$ of achter $A$, en de punten van het been liggen verder van $C$ dan $A$. De cirkel snijdt het been alleen als $a > b$, en dan in één punt.}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (40:9); \coordinate (D) at ({9*cos(40)},0);
+  \clip (-1.5,-3) rectangle (14.5,7.5);
+  \draw[lijngrijs] (-1,0) -- (14,0);
+  \draw[accent,thick] (A) -- (C);
+  \draw[accent,dashed] (C) -- (D); \rechtehoek{C}{D}{A}
+  \draw[grijs,dashed] (C) circle (5.79);
+  \draw[grijs] (C) circle (7);
+  \fill (10.84,0) circle (4pt); \fill (2.95,0) circle (4pt);
+  \fill (A) circle (4pt) node[below left] {$A$}; \fill (C) circle (4pt) node[above] {$C$};
+  \node[below] at (D) {$D$};
+  \node[right] at ({9*cos(40)},2.3) {$h$};
+\end{tikzpicture}}
+\end{bewijs}
+\end{theorie}
+
+In de figuur van het bewijs raakt de gestreepte cirkel met straal $h$ de drager in $D$, en snijdt de volle cirkel met straal $a$ (tussen $h$ en $b$) het been twee keer. In voorbeeld \ref{vb:h2-twee} is $h \approx 5{,}79 < 7 < 9$: twee driehoeken. In voorbeeld \ref{vb:h2-een} is $a = 10 \geqslant b = 6$: één driehoek. In voorbeeld \ref{vb:h2-geen} is $a = 4 < h$: geen driehoek.
+
+\voorbeeld{}{Hoeveel driehoeken $ABC$ zijn er met $\alpha = 30^\circ$, $b = 12$ en $a = 6$? En met $a = 8$?\label{vb:h2-aantal}}{%
+\uitleg{De hoek is scherp. We berekenen $h$ en vergelijken $a$ met $h$ en met $b$.}
+\begin{stappen}
+h = 12 \sin 30^\circ = 6 & De afstand van $C$ tot het andere been. \\[1ex]
+a = 6 = h: \text{ één driehoek} & De cirkel raakt: de driehoek is rechthoekig in $B$. \\[1ex]
+a = 8: \ 6 < 8 < 12, \text{ twee driehoeken} & De cirkel snijdt het been twee keer.
+\end{stappen}
+Controle met de sinusregel voor $a = 6$: $\sin\beta = \frac{12 \sin 30^\circ}{6} = 1$, dus $\beta = 90^\circ$.}
+
+\begin{oefeningen}
+\oef{h2-aantal}
+\end{oefeningen}
+
+\subsection{De sinusregel en de omgeschreven cirkel}
+
+Elke driehoek heeft een omgeschreven cirkel: de cirkel door de drie hoekpunten. Zijn middelpunt $M$ is het snijpunt van de middelloodlijnen van de zijden, en zijn straal noemen we $R$. Het gemeenschappelijke getal in de sinusregel blijkt een eenvoudige betekenis te hebben: het is de middellijn van die cirkel.
+
+\begin{theorie}
+\begin{stelling}{Sinusregel met de omgeschreven cirkel}
+In elke driehoek $ABC$ met omgeschreven cirkel met straal $R$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\frac{a}{\sin\alpha} = \frac{b}{\sin\beta} = \frac{c}{\sin\gamma} = 2R}$
+\end{stelling}
+
+\begin{bewijs}
+\naast{Door de sinusregel volstaat het om $\frac{a}{\sin\alpha} = 2R$ te bewijzen, voor de grootste hoek $\alpha$. Hier bewijzen we het als $\alpha$ scherp is; een rechte of stompe hoek is opdracht \ref{oef:h2-o24}.
+
+Zijn alle hoeken scherp, dan ligt $M$ binnen de driehoek, en $\lengte{MA} = \lengte{MB} = \lengte{MC} = R$. De driehoeken $MAB$, $MBC$ en $MCA$ zijn dus gelijkbenig. Noem hun basishoeken $x$, $y$ en $z$, zoals in de figuur. Dan is $\alpha = x + z$, $\beta = x + y$ en $\gamma = y + z$, en de hoekensom geeft
+\bewijsregel{2x + 2y + 2z = 180^\circ , \quad \text{dus} \quad y = 90^\circ - (x + z) = 90^\circ - \alpha .}
+In de gelijkbenige driehoek $MBC$ valt de hoogte uit $M$ in het midden $N$ van $[BC]$. In de rechthoekige driehoek $MNB$ is
+\bewijsregel{\tfrac{a}{2} = R\cos y = R\cos(90^\circ - \alpha) = R\sin\alpha ,}
+zodat $\frac{a}{\sin\alpha} = 2R$.}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \coordinate (M) at (0,0);
+  \coordinate (A) at (100:3); \coordinate (B) at (215:3); \coordinate (C) at (-25:3);
+  \coordinate (N) at ($(B)!.5!(C)$);
+  \draw[grijs] (M) circle (3);
+  \filldraw[fill=accent!10,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \draw[accent!70] (M) -- (A) (M) -- (B) (M) -- (C);
+  \draw[accent,dashed] (M) -- (N); \rechtehoek{M}{N}{C}
+  \hoeklabel{B}{A}{M}{5mm}{x} \hoeklabel{M}{B}{A}{5mm}{x}
+  \hoeklabel{C}{B}{M}{6mm}{y} \hoeklabel{M}{C}{B}{6mm}{y}
+  \hoeklabel{A}{C}{M}{6mm}{z}
+  \hoeklabel{M}{A}{C}{5mm}{z}
+  \fill (M) circle (3pt) node[above right] {$M$};
+  \node[above] at (A) {$A$}; \node[below left] at (B) {$B$}; \node[below right] at (C) {$C$};
+  \node[below] at (N) {$N$};
+\end{tikzpicture}}
+\end{bewijs}
+\end{theorie}
+
+Hoe groter de omgeschreven cirkel, hoe langer de zijden bij dezelfde hoeken. Voor een rechthoekige driehoek is $\sin 90^\circ = 1$, en dan is de schuine zijde precies de middellijn $2R$.
+
+\voorbeeld{}{Drie bomen $A$, $B$ en $C$ staan langs een cirkelvormig pad. De bomen $B$ en $C$ staan 30~m uit elkaar, en vanuit $A$ zie je ze onder een hoek van $40^\circ$. Wat is de straal van het pad, afgerond op een decimeter?\label{vb:h2-straal}}{%
+\uitleg{Het pad is de omgeschreven cirkel van driehoek $ABC$. We kennen $a = 30$ en de hoek ertegenover.}
+\begin{stappen}
+2R = \dfrac{30}{\sin 40^\circ} & Sinusregel met de omgeschreven cirkel. \\[2ex]
+R = \dfrac{30}{2 \sin 40^\circ} \approx 23{,}34 & De straal in meter.
+\end{stappen}
+De straal is ongeveer 23,3~m. Controle: de straal is groter dan de helft van 30~m, zoals het moet, want een koorde is nooit langer dan een middellijn.}
+
+\begin{oefeningen}
+\oef{h2-straal}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{De cosinusregel}
+
+\subsection{De regel}
+
+Neem het probleem van de zeilboot: twee zijden, 12~km en 7~km, en de hoek van $130^\circ$ ertussen. Probeer de sinusregel: $\frac{\lengte{HE}}{\sin 130^\circ} = \frac{7}{\sin\hoek{H}} = \frac{12}{\sin\hoek{E}}$. In elke breuk staat een onbekende, en geen enkele breuk is volledig gekend. De sinusregel helpt hier niet.
+
+Was de hoek recht, dan gaf de stelling van Pythagoras meteen de derde zijde. Is de hoek stomp, dan verwacht je een langere zijde, en bij een scherpe hoek een kortere. De cosinusregel is de stelling van Pythagoras met een correctieterm, die van de hoek afhangt.
+
+\begin{theorie}
+\begin{stelling}{Cosinusregel}
+In elke driehoek $ABC$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a^2 = b^2 + c^2 - 2bc\cos\alpha}$
+
+\vspace{1mm}
+en net zo $b^2 = c^2 + a^2 - 2ca\cos\beta$ en $c^2 = a^2 + b^2 - 2ab\cos\gamma$.
+\end{stelling}
+
+\begin{bewijs}
+\naast{Leg $A$ in de oorsprong en $B$ op de positieve $x$-as: $B(c, 0)$. Het punt $C$ ligt op afstand $b$ van $A$, op het eindbeen van de hoek $\alpha$. Volgens hoofdstuk 1 is dat het punt $C(b\cos\alpha, b\sin\alpha)$, ook als $\alpha$ stomp is.
+
+De afstand $a = \lengte{BC}$ volgt uit de stelling van Pythagoras met het horizontale en het verticale verschil:
+\bewijsregel{a^2 = (b\cos\alpha - c)^2 + (b\sin\alpha)^2}
+\bewijsregel{\phantom{a^2} = b^2\cos^2\alpha - 2bc\cos\alpha + c^2 + b^2\sin^2\alpha}
+\bewijsregel{\phantom{a^2} = b^2(\cos^2\alpha + \sin^2\alpha) + c^2 - 2bc\cos\alpha}
+\bewijsregel{\phantom{a^2} = b^2 + c^2 - 2bc\cos\alpha ,}
+met de grondformule. Voor de andere zijden leg je een ander hoekpunt in de oorsprong.}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \draw[->,lijngrijs] (-2.6,0) -- (5.3,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-.4) -- (0,3.4) node[above,text=black] {$y$};
+  \coordinate (A) at (0,0); \coordinate (B) at (4.5,0); \coordinate (C) at (118:3.2);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \draw[accent,dashed] (C) -- ({3.2*cos(118)},0);
+  \draw[->,accent] (.5,0) arc[start angle=0,end angle=118,radius=.5];
+  \node[accent] at (60:.85) {$\alpha$};
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B(c, 0)$};
+  \node[above,align=center] at (C) {$C(b\cos\alpha, b\sin\alpha)$};
+  \node[left] at (118:1.8) {$b$}; \node[above right] at (2.6,1.4) {$a$};
+\end{tikzpicture}}
+\end{bewijs}
+\end{theorie}
+
+Kijk naar de correctieterm $-2bc\cos\alpha$. Is $\alpha = 90^\circ$, dan is $\cos\alpha = 0$, en staat er de stelling van Pythagoras. Is $\alpha$ scherp, dan is $\cos\alpha > 0$ en is $a^2$ kleiner dan $b^2 + c^2$. Is $\alpha$ stomp, dan is $\cos\alpha < 0$ en is $a^2$ groter. Dat klopt met wat je verwacht.
+
+\begin{oefeningen}
+\oef{h2-cosregel}
+\end{oefeningen}
+
+\subsection{Twee zijden en de ingesloten hoek}
+
+Ken je twee zijden en de hoek ertussen, dan geeft de cosinusregel meteen de derde zijde.
+
+\voorbeeld{}{In driehoek $ABC$ is $b = 5$, $c = 8$ en $\alpha = 60^\circ$. Bereken $a$, en daarna de andere hoeken. Rond af op $0{,}01^\circ$.\label{vb:h2-cos}}{%
+\naast{\uitleg{$\alpha$ ligt tussen de zijden $b$ en $c$: de cosinusregel geeft $a$. Daarna kennen we drie zijden, en een hoek volgt opnieuw uit de cosinusregel.}
+\begin{stappenvrij}{6.4cm}{4cm}
+a^2 = 25 + 64 - 2 \cdot 5 \cdot 8 \cdot \tfrac12 = 49 & $\cos 60^\circ = \tfrac12$. \\[1ex]
+a = 7 & \\[1ex]
+25 = 49 + 64 - 2 \cdot 7 \cdot 8 \cos\beta & Cosinusregel voor $b$. \\[1ex]
+\cos\beta = \tfrac{88}{112}, \quad \beta \approx 38{,}21^\circ & \\[1ex]
+\gamma \approx 180^\circ - 60^\circ - 38{,}21^\circ = 81{,}79^\circ & De hoekensom.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (8,0); \coordinate (C) at (60:5);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \hoeklabel{B}{A}{C}{6mm}{60^\circ}
+  \node[left] at (A) {$A$}; \node[right] at (B) {$B$}; \node[above] at (C) {$C$};
+  \node[below] at (4,0) {$8$}; \node[left] at (60:2.6) {$5$}; \node[above right] at (5.3,2.2) {$a$};
+\end{tikzpicture}}}
+
+\voorbeeld{}{Een tunnel moet door een heuvel van $A$ naar $B$. Vanuit een punt $C$ waar je beide uiteinden ziet, meet je $\lengte{CA} = 420$~m, $\lengte{CB} = 650$~m en $\hoek{ACB} = 72^\circ$. Hoe lang wordt de tunnel, afgerond op een meter?\label{vb:h2-tunnel}}{%
+\naast{\uitleg{De hoek in $C$ ligt tussen de twee gemeten zijden: de cosinusregel geeft de derde zijde $c = \lengte{AB}$.}
+\begin{stappenvrij}{6.2cm}{3.6cm}
+c^2 = 420^2 + 650^2 - 2 \cdot 420 \cdot 650 \cos 72^\circ & Cosinusregel voor $c$. \\[1ex]
+c^2 \approx 430\,177 & \\[1ex]
+c \approx 656 & In meter.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.0045,font=\scriptsize]
+  \fill[accent!15] (237,437) ellipse [x radius=230, y radius=90, rotate=20];
+  \coordinate (C) at (200,0); \coordinate (A) at ($(C)+(130:420)$); \coordinate (B) at ($(C)+(58:650)$);
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \draw[accent,dashed] (A) -- (B);
+  \hoeklabel{B}{C}{A}{5mm}{72^\circ}
+  \fill (A) circle (300pt) node[left] {$A$}; \fill (B) circle (300pt) node[right] {$B$}; \fill (C) circle (300pt) node[below] {$C$};
+\end{tikzpicture}}
+De tunnel wordt ongeveer 656~m lang.}
+
+\nujij{In driehoek $ABC$ is $b = 4$, $c = 6$ en $\alpha = 110^\circ$. Bereken $a$, afgerond op twee decimalen.}{$a^2 = 16 + 36 - 48\cos 110^\circ \approx 68{,}42$, dus $a \approx 8{,}27$.}
+
+\begin{oefeningen}
+\oef{h2-cos}
+\end{oefeningen}
+
+\subsection{Drie zijden}
+
+Ken je de drie zijden, dan zijn de hoeken vastgelegd. Je vindt ze door de cosinusregel om te vormen naar de cosinus: breng $2bc\cos\alpha$ naar het linkerlid en $a^2$ naar het rechterlid, en deel door $2bc$.
+
+\begin{theorie}
+Een hoek uit de drie zijden:
+
+\vspace{1mm}
+\qquad $\formule{\cos\alpha = \frac{b^2 + c^2 - a^2}{2bc}}$ \qquad (en net zo voor $\beta$ en $\gamma$)
+\end{theorie}
+
+Dat is een groot voordeel tegenover de sinusregel: een cosinus bepaalt een hoek van een driehoek altijd, ook als die hoek stomp is (hoofdstuk 1).
+
+\voorbeeld{}{Een driehoek heeft zijden $a = 7$, $b = 8$ en $c = 13$. Bereken de hoeken, afgerond op $0{,}01^\circ$.\label{vb:h2-zzz}}{%
+\naast{\uitleg{We beginnen met de grootste hoek, $\gamma$, tegenover de grootste zijde. Alleen die kan stomp zijn.}
+\begin{stappenvrij}{6cm}{3.5cm}
+\cos\gamma = \dfrac{49 + 64 - 169}{2 \cdot 7 \cdot 8} = -\tfrac12 & Cosinusregel, omgevormd. \\[2ex]
+\gamma = 120^\circ & Een stompe hoek. \\[1ex]
+\cos\alpha = \dfrac{64 + 169 - 49}{2 \cdot 8 \cdot 13} = \dfrac{184}{208} & Net zo voor $\alpha$. \\[2ex]
+\alpha \approx 27{,}80^\circ, \quad \beta \approx 32{,}20^\circ & $\beta$ uit de hoekensom.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (13,0); \coordinate (C) at (27.80:8);
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \hoeklabel{A}{C}{B}{4mm}{120^\circ}
+  \node[left] at (A) {$A$}; \node[right] at (B) {$B$}; \node[above] at (C) {$C$};
+  \node[below] at (6.5,0) {$13$}; \node[above left] at (27.8:4) {$8$}; \node[above right] at (10,1.6) {$7$};
+\end{tikzpicture}}
+Wie eerst $\alpha$ berekent en daarna $\gamma$ met de sinusregel, vindt $\sin\gamma \approx 0{,}87$ en denkt aan $60^\circ$. Dat is fout: de sinus ziet het verschil niet tussen $60^\circ$ en $120^\circ$. Daarom begin je met de grootste hoek.}
+
+\begin{werkwijze}
+Bereken eerst de grootste hoek (tegenover de grootste zijde) met de cosinusregel, omgevormd naar de cosinus. De twee andere hoeken zijn dan zeker scherp: bereken er een met de cosinusregel of de sinusregel, en de laatste met de hoekensom.
+\end{werkwijze}
+
+\nujij{Bereken de grootste hoek van de driehoek met zijden 6, 9 en 13, afgerond op $0{,}01^\circ$.}{Tegenover 13: $\cos\gamma = \tfrac{36 + 81 - 169}{108} \approx -0{,}4815$, dus $\gamma \approx 118{,}78^\circ$.}
+
+Niet elk drietal getallen vormt een driehoek. Probeer je met zijden 2, 3 en 6 de hoek tegenover 6 te berekenen, dan vind je $\cos\gamma = \frac{4 + 9 - 36}{12} \approx -1{,}92$, en zo'n hoek bestaat niet. De zijden 2 en 3 zijn samen te kort om elkaar te raken: elke zijde moet korter zijn dan de som van de twee andere.
+
+\begin{oefeningen}
+\oef{h2-zzz}
+\end{oefeningen}
+
+%========================================================================================
+\section{Driehoeken oplossen}
+
+\subsection{Welke regel?}
+
+Een driehoek oplossen betekent: alle zijden en hoeken berekenen. Daarvoor moet je drie gegevens kennen, waaronder minstens één zijde. Met drie hoeken alleen lukt het niet: alle gelijkvormige driehoeken hebben dezelfde hoeken. Welke regel je eerst gebruikt, hangt af van welke drie gegevens je kent.
+
+\figuren{\renewcommand{\arraystretch}{1.4}\small%
+\begin{tabular}{|c|c|c|c|}
+\hline
+gegeven & voorbeeld & eerst & aantal driehoeken \\ \hline
+drie zijden & $a$, $b$, $c$ & cosinusregel (grootste hoek) & 1 of 0 \\ \hline
+twee zijden en de ingesloten hoek & $b$, $c$, $\alpha$ & cosinusregel (derde zijde) & 1 \\ \hline
+twee hoeken en een zijde & $\alpha$, $\beta$, $c$ & hoekensom, dan sinusregel & 1 \\ \hline
+twee zijden en een niet-ingesloten hoek & $a$, $b$, $\alpha$ & sinusregel (let op!) & 0, 1 of 2 \\ \hline
+\end{tabular}}
+
+Misschien herken je de rijen: het zijn de congruentiekenmerken ZZZ, ZHZ en HZH. Die zeggen dat de gegevens de driehoek vastleggen, en dus dat er maar één antwoord is. Voor twee zijden en een niet-ingesloten hoek bestaat er geen congruentiekenmerk, en daarom kunnen er twee driehoeken zijn.
+
+\begin{werkwijze}
+Maak een schets en duid aan wat je kent. Zoek in de tabel welk geval het is. Gebruik de cosinusregel als je geen paar van een zijde en de overstaande hoek kent; gebruik anders de sinusregel. Bereken een hoek liefst met de cosinus, want die bepaalt de hoek. Controleer op het einde: grootste zijde tegenover grootste hoek, en de hoekensom $180^\circ$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-regel}
+\end{oefeningen}
+
+\subsection{Toepassingen}
+
+In een toepassing staat de driehoek niet klaar. Je moet hem zelf vinden in de schets, en vaak combineer je de regels met een rechthoekige driehoek.
+
+\voorbeeld{}{Je wilt de hoogte van een toren weten, maar je kunt niet tot aan de voet. Je ziet de top onder een hoogtehoek van $25^\circ$. Je stapt 200~m recht naar de toren toe, en ziet de top nu onder $38^\circ$. Hoe hoog is de toren boven je ogen, afgerond op een meter?\label{vb:h2-toren}}{%
+\uitleg{In de driehoek $ABT$ met de twee meetpunten en de top kennen we één zijde en twee hoeken. In $B$ is de hoek $180^\circ - 38^\circ = 142^\circ$, dus in $T$ blijft $13^\circ$ over. De sinusregel geeft $\lengte{BT}$, en de hoogte volgt in de rechthoekige driehoek bij $B$.}
+\naast{\begin{stappenvrij}{5.6cm}{3.8cm}
+\hoek{T} = 180^\circ - 25^\circ - 142^\circ = 13^\circ & De hoekensom in driehoek $ABT$. \\[1ex]
+\lengte{BT} = \dfrac{200 \sin 25^\circ}{\sin 13^\circ} \approx 375{,}74 & Sinusregel: $[BT]$ ligt tegenover $25^\circ$. \\[2ex]
+h = \lengte{BT} \sin 38^\circ \approx 231 & SOS in de rechthoekige driehoek.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.0085,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (200,0); \coordinate (V) at (496.1,0); \coordinate (T) at (496.1,231.3);
+  \draw[lijngrijs] (-10,0) -- (520,0);
+  \draw[grijs,line width=1.6pt] (V) -- (T);
+  \draw[accent,thick] (A) -- (T) (B) -- (T);
+  \hoeklabel{V}{A}{T}{8mm}{25^\circ} \hoeklabel{V}{B}{T}{6mm}{38^\circ}
+  \fill (A) circle (180pt) node[below] {$A$}; \fill (B) circle (180pt) node[below] {$B$}; \fill (T) circle (180pt) node[above] {$T$};
+  \node[below] at (100,0) {200 m}; \node[right] at (496,115) {$h$};
+\end{tikzpicture}}
+De top ligt ongeveer 231~m boven je ogen. In Driehoeksmeting kon dat ook, met twee rechthoekige driehoeken en een stelsel; met de sinusregel gaat het rechtstreeks.}
+
+\begin{oefeningen}
+\oef{h2-toep}
+\end{oefeningen}
+
+Nu kunnen we het probleem van de zeilboot oplossen. In driehoek $HBE$ kennen we twee zijden en de hoek ertussen.
+
+\voorbeeld{}{Terug naar het probleem. Een zeilboot vaart 12~km van de haven $H$ naar een boei $B$, draait daar $50^\circ$ naar rechts en vaart nog 7~km tot in $E$. Hoe ver ligt $E$ van de haven, en welke hoek maakt $HE$ met de eerste koers? Rond af op $0{,}01$~km en op $0{,}01^\circ$.\label{vb:h2-terug}}{%
+\uitleg{De boot draait $50^\circ$ ten opzichte van haar koers, dus de hoek van de driehoek in $B$ is $180^\circ - 50^\circ = 130^\circ$. Die hoek ligt tussen de twee gekende zijden: eerst de cosinusregel. Daarna kennen we het paar $\lengte{HE}$ en $130^\circ$, en geeft de sinusregel de hoek in $H$.}
+\naast{\begin{stappenvrij}{6cm}{3.5cm}
+\lengte{HE}^2 = 12^2 + 7^2 - 2 \cdot 12 \cdot 7 \cos 130^\circ & Cosinusregel. \\[1ex]
+\lengte{HE}^2 \approx 300{,}99, \quad \lengte{HE} \approx 17{,}35 & In km. \\[1ex]
+\sin\hoek{H} = \dfrac{7 \sin 130^\circ}{\lengte{HE}} \approx 0{,}3091 & Sinusregel. \\[2ex]
+\hoek{H} \approx 18{,}00^\circ & Scherp: er is al een stompe hoek in $B$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.22,font=\scriptsize]
+  \coordinate (H) at (0,0); \coordinate (B) at (12,0); \coordinate (E) at (16.50,-5.36);
+  \draw[grijs,dashed] (B) -- (16,0);
+  \filldraw[fill=accent!12,draw=accent,thick] (H) -- (B) -- (E) -- cycle;
+  \hoeklabel{H}{B}{E}{5mm}{130^\circ}
+  \hoeklabel[angle eccentricity=2.2]{E}{H}{B}{9mm}{18^\circ}
+  \node[left] at (H) {$H$}; \node[above] at (B) {$B$}; \node[right] at (E) {$E$};
+  \node[above] at (6,0) {12}; \node[right] at (14.4,-2.4) {7};
+\end{tikzpicture}}
+De boot ligt ongeveer 17,35~km van de haven, en de rechte $HE$ maakt een hoek van ongeveer $18^\circ$ met de eerste koers. Met Pythagoras of SOS-CAS-TOA lukte het niet, omdat de driehoek geen rechte hoek heeft. De cosinusregel corrigeert Pythagoras voor de hoek van $130^\circ$, en de sinusregel koppelt daarna de zijden aan de hoeken.}
+
+\begin{werkwijze}
+Teken een schets en zoek de driehoek waarin je genoeg weet. Zet gegeven richtingen om in hoeken van de driehoek (een draai van $50^\circ$ geeft een hoek van $130^\circ$). Kies de regel met de tabel, en gebruik een rechthoekige driehoek voor hoogtes en afstanden tot een rechte.
+\end{werkwijze}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o26}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+
+\oef{h2-o25}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-opp}{oef:h2-opp}%
+  \fv{oef:h2-t2}{vb:h2-sinus}{oef:h2-sinus}%
+  \fv{oef:h2-t3}{vb:h2-cos}{oef:h2-cos}%
+  \fv{oef:h2-t4}{vb:h2-zzz}{oef:h2-zzz}%
+  \fv{oef:h2-t5}{vb:h2-twee}{oef:h2-zzh}%
+  \fv{oef:h2-t6}{vb:h2-tunnel}{oef:h2-o9}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-regel}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de afspraak over de letters $a$, $b$, $c$ en $\alpha$, $\beta$, $\gamma$, de oppervlakteformule met de ingesloten hoek en haar bewijs, de sinusregel met haar bewijs, wanneer je de sinusregel gebruikt en waarom er bij twee zijden en een niet-ingesloten hoek twee driehoeken kunnen zijn,\alleenvoor{5}{ het aantal driehoeken in dat geval, de sinusregel met $2R$,} de cosinusregel met haar bewijs, waarom je bij drie zijden met de grootste hoek begint, en de tabel met de gevallen. Vergelijk daarna met de kaders.
+\fi

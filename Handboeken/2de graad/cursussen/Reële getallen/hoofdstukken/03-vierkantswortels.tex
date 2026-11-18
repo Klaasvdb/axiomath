@@ -1,0 +1,463 @@
+%----------------------------------------------------------------------------------------
+% VIERKANTSWORTELS. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h3-.
+% Verschillen per pakket: sqrt(a^2) = |a| (4-5), de noemer wortelvrij maken (2-5), met de toegevoegde
+% uitdrukking (5); merkwaardige producten met wortels in de oefeningen (2-5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Vierkantswortels}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een vierkante moestuin is 3 m bij 3 m. De buurvrouw wil een vierkante moestuin die precies twee keer zo groot is. Hoe lang moet de zijde zijn? Haar rekenmachine geeft $4,242640687$ m. Haar zoon zegt: $\sqrt{18}$ m. Haar dochter zegt: $3\sqrt2$ m. Wie heeft gelijk? En hoeveel meter omheining moet ze kopen voor haar nieuwe tuin?}{\begin{tikzpicture}[scale=.55]
+  \fill[accent!12] (0,0) rectangle (3,3);
+  \draw[accent,thick] (0,0) rectangle (3,3);
+  \node[font=\footnotesize] at (1.5,1.5) {$9$~m$^2$};
+  \node[font=\scriptsize,below] at (1.5,0) {3 m};
+  \fill[accent!30] (4.2,0) rectangle (8.443,4.243);
+  \draw[accent,thick] (4.2,0) rectangle (8.443,4.243);
+  \node[font=\footnotesize] at (6.32,2.12) {$18$~m$^2$};
+  \node[font=\scriptsize,below] at (6.32,0) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 5-7 (dit hoofdstuk: de vierkantswortel, de rekenregels en vereenvoudigen). De verdeling van de doelen over de drie hoofdstukken is na te kijken in het leerplan. Voorkennis: hoofdstuk 1 ($\sqrt2$ is irrationaal) en hoofdstuk 2 (de macht van een product).\alleenvoor{4,5}{ De regel $\sqrt{a^2} = \abs{a}$ staat in pakket 4 en 5.}\alleenvoor{2,3,4,5}{ De noemer wortelvrij maken staat niet in pakket 1.}\alleenvoor{5}{ In pakket 5 ook met de toegevoegde uitdrukking.} Derdemachtswortels komen niet aan bod.}
+
+In hoofdstuk 1 maakten we kennis met $\sqrt2$: het getal waarvan het kwadraat 2 is, de zijde van een vierkant met oppervlakte 2. In dit hoofdstuk kijken we naar vierkantswortels in het algemeen. Wat betekent $\sqrt{a}$ precies, en wanneer bestaat het? Hoe reken je ermee? En waarom zijn $\sqrt{18}$ en $3\sqrt2$ hetzelfde getal, al zien ze er heel anders uit?
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De vierkantswortel}
+
+\subsection{Van oppervlakte naar zijde}
+
+Een vierkant met zijde 7 heeft oppervlakte $7^2 = 49$. Omgekeerd: een vierkant met oppervlakte 49 heeft zijde 7. Bij oppervlakte 2 vonden we in hoofdstuk 1 de zijde $\sqrt2$, en die is irrationaal. Je zoekt telkens een getal waarvan het kwadraat gegeven is. Maar er zijn er twee: $7^2 = 49$ en ook $(-7)^2 = 49$. Welk van de twee bedoelen we met $\sqrt{49}$? We spreken af: het positieve, zoals bij een lengte.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{vierkantswortel}} van een getal $a \geqslant 0$ is het getal $\formule{\sqrt a}$ dat niet negatief is en waarvan het kwadraat $a$ is:
+
+\vspace{1mm}
+\qquad $\formule{\sqrt a \geqslant 0}$ \qquad en \qquad $\formule{\bigl(\sqrt a\bigr)^2 = a}$
+\end{theorie}
+
+Waarom alleen voor $a \geqslant 0$? Een kwadraat is nooit negatief: $3^2 = 9$ en $(-3)^2 = 9$. Er bestaat dus geen reëel getal waarvan het kwadraat $-9$ is, en $\sqrt{-9}$ bestaat niet in $\R$.
+
+\naast{De figuur toont vierkanten met oppervlakte 1, 2, 4 en 9 met hun zijde. Bij 1, 4 en 9 is de zijde een natuurlijk getal. Bij 2 niet: $\sqrt2$ is irrationaal. Dat geldt voor elk natuurlijk getal: de vierkantswortel is een natuurlijk getal als het getal een kwadraat is ($1, 4, 9, 16, \ldots$), en anders irrationaal. Je rekenmachine geeft dan een benadering.}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \foreach \z/\x/\o in {1/0/1,1.4142/1.5/2,2/3.5/4,3/6/9}{%
+    \fill[accent!20] (\x,0) rectangle ({\x+\z},\z);
+    \draw[accent] (\x,0) rectangle ({\x+\z},\z);
+    \node at ({\x+\z/2},{\z/2}) {$\o$};}
+  \node[below] at (.5,0) {$1$};
+  \node[below] at (2.2,0) {$\sqrt2$};
+  \node[below] at (4.5,0) {$2$};
+  \node[below] at (7.5,0) {$3$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Bereken $\sqrt{0,09}$.\label{vb:h3-def}}{%
+\uitleg{We zoeken een getal dat niet negatief is en waarvan het kwadraat $0,09$ is.}
+\begin{stappen}
+0,3^2 = 0,3 \cdot 0,3 = 0,09 & $0,3$ is positief en heeft het goede kwadraat. \\
+\sqrt{0,09} = 0,3 & Dus volgens de definitie.
+\end{stappen}
+Let op: $\sqrt{0,09}$ is niet $0,03$, want $0,03^2 = 0,0009$.}
+
+\voorbeeld{}{Wat is het verschil tussen $\sqrt{-16}$ en $-\sqrt{16}$?\label{vb:h3-min}}{%
+\uitleg{De twee lijken op elkaar. Het verschil zit in de plaats van het minteken: binnen of buiten de wortel.}
+\begin{stappen}
+\sqrt{-16} \text{ bestaat niet} & Geen enkel kwadraat is $-16$. \\
+-\sqrt{16} = -4 & Eerst $\sqrt{16} = 4$, dan het minteken ervoor.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-def}
+\end{oefeningen}
+
+\subsection{De vergelijking \texorpdfstring{$x^2 = a$}{x² = a}}
+
+Welke getallen hebben 5 als kwadraat? Bij een lengte zoek je alleen het positieve getal, maar bij een vergelijking zoek je ze allemaal. Er zijn er twee: $\sqrt5$ en $-\sqrt5$. De figuur toont de kwadraten van alle getallen tussen $-3$ en $3$. De horizontale lijn op hoogte 5 snijdt die kromme twee keer. Een lijn op hoogte $-2$ snijdt haar niet.
+
+\begin{theorie}
+\naast{\begin{stelling}{De vergelijking $x^2 = a$}
+De vergelijking $\formule{x^2 = a}$ heeft
+
+\begin{itemize}
+\item twee oplossingen, $\formule{x = \sqrt a}$ en $\formule{x = -\sqrt a}$, als $a > 0$;
+\item één oplossing, $x = 0$, als $a = 0$;
+\item geen oplossingen, als $a < 0$.
+\end{itemize}
+\end{stelling}}{\begin{tikzpicture}[x=.62cm,y=.32cm,font=\scriptsize]
+  \draw[black!12,very thin,ystep=1] (-3,-2) grid (3,9);
+  \draw[->,grijs] (-3.3,0) -- (3.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-2.5) -- (0,9.6) node[above,text=black] {$x^2$};
+  \foreach \t in {-3,-1,1,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {5}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] plot[domain=-3:3,samples=50,smooth] (\x,{(\x)^2});
+  \draw[grijs,thick] (-3,5) -- (3,5);
+  \draw[grijs,dashed] (-3,-2) -- (3,-2) node[right,text=black] {$-2$};
+  \draw[accent,dashed] (2.236,5) -- (2.236,0) (-2.236,5) -- (-2.236,0);
+  \fill[accent] (2.236,0) circle (2pt) (-2.236,0) circle (2pt);
+  \node[below,inner sep=2pt] at (2.236,0) {$\sqrt5$};
+  \node[below,inner sep=2pt] at (-2.236,0) {$-\sqrt5$};
+\end{tikzpicture}}
+\end{theorie}
+
+We schrijven de twee oplossingen ook kort als $x = \pm\sqrt a$. Vergeet de negatieve oplossing niet: dat is de meest gemaakte fout.
+
+\voorbeeld{}{Los op: $x^2 = 12,25$.\label{vb:h3-vgl}}{%
+\uitleg{De vorm $x^2 = a$ met $a > 0$: er zijn twee oplossingen.}
+\begin{stappen}
+x = \sqrt{12,25} \ \text{ of } \ x = -\sqrt{12,25} & Twee oplossingen. \\
+x = 3,5 \ \text{ of } \ x = -3,5 & Controle: $3,5^2 = 12,25$.
+\end{stappen}}
+
+\voorbeeld{}{Los op: $2x^2 - 7 = 0$.\label{vb:h3-vgl2}}{%
+\uitleg{Eerst brengen we de vergelijking in de vorm $x^2 = a$.}
+\begin{stappen}
+2x^2 = 7 & Tel 7 op bij beide leden. \\
+x^2 = 3,5 & Deel beide leden door 2. \\
+x = \pm\sqrt{3,5} \approx \pm1,87 & $3,5$ is geen kwadraat van een breuk: de oplossingen zijn irrationaal.
+\end{stappen}}
+
+\begin{werkwijze}
+Breng de vergelijking in de vorm $x^2 = a$. Is $a$ positief, dan zijn er twee oplossingen $\pm\sqrt a$. Is $a = 0$, dan is $x = 0$. Is $a$ negatief, dan zijn er geen oplossingen.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-vgl}
+\end{oefeningen}
+
+\begin{alleenvoor}{4,5}
+\subsection{De vierkantswortel van een kwadraat}
+
+Is $\sqrt{x^2}$ altijd gelijk aan $x$? Probeer $x = 3$: $\sqrt{3^2} = \sqrt9 = 3$. Dat klopt. Maar bij $x = -3$ is $\sqrt{(-3)^2} = \sqrt9 = 3$, en niet $-3$. Een vierkantswortel is nooit negatief. Het minteken verdwijnt, en dat doet ook de absolute waarde uit hoofdstuk 1.
+
+\begin{theorie}
+\begin{stelling}{Vierkantswortel van een kwadraat}
+Voor elk reëel getal $a$ is
+
+\vspace{1mm}
+\qquad $\formule{\sqrt{a^2} = \abs{a}}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Vereenvoudig $\sqrt{(2 - \pi)^2}$.\label{vb:h3-abs}}{%
+\uitleg{Het grondtal $2 - \pi$ is negatief, want $\pi > 2$. De wortel geeft de absolute waarde.}
+\begin{stappen}
+\sqrt{(2 - \pi)^2} = \abs{2 - \pi} & De regel. \\
+= \pi - 2 & $2 - \pi < 0$, dus de absolute waarde is het tegengestelde.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-abs}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{Rekenregels}
+
+\subsection{Vierkantswortel van een product}
+
+Is $\sqrt{4 \cdot 9}$ hetzelfde als $\sqrt4 \cdot \sqrt9$? Reken uit: $\sqrt{36} = 6$, en $\sqrt4 \cdot \sqrt9 = 2 \cdot 3 = 6$. En bij getallen die geen kwadraat zijn? De rekenmachine geeft $\sqrt2 \cdot \sqrt8 = 1,4142\ldots \cdot 2,8284\ldots = 4$, en dat is $\sqrt{16}$. Waarom werkt dat? Kwadrateer $\sqrt a \cdot \sqrt b$ met de macht van een product uit hoofdstuk 2: $\bigl(\sqrt a \cdot \sqrt b\bigr)^2 = \bigl(\sqrt a\bigr)^2 \cdot \bigl(\sqrt b\bigr)^2 = a \cdot b$. Het product is ook niet negatief. Het is dus precies de vierkantswortel van $ab$.
+
+\begin{theorie}
+\begin{stelling}{Vierkantswortel van een product}
+Voor $a \geqslant 0$ en $b \geqslant 0$ is
+
+\vspace{1mm}
+\qquad $\formule{\sqrt{a \cdot b} = \sqrt a \cdot \sqrt b}$
+\end{stelling}
+\end{theorie}
+
+De regel werkt in twee richtingen. Van links naar rechts splits je een wortel in twee, zoals in sectie 3. Van rechts naar links neem je twee wortels samen, zoals in het voorbeeld.
+
+\voorbeeld{}{Bereken $\sqrt3 \cdot \sqrt{12}$ zonder rekenmachine.\label{vb:h3-product}}{%
+\uitleg{Geen van beide is een kwadraat, maar hun product misschien wel. We nemen de twee wortels samen.}
+\begin{stappen}
+\sqrt3 \cdot \sqrt{12} = \sqrt{3 \cdot 12} & De regel, van rechts naar links. \\
+= \sqrt{36} = 6 & Twee irrationale getallen met een natuurlijk getal als product.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-product}
+\end{oefeningen}
+
+\subsection{Vierkantswortel van een quotiënt}
+
+Voor een deling werkt het net zo: $\sqrt{\tfrac{36}{4}} = \sqrt9 = 3$, en $\tfrac{\sqrt{36}}{\sqrt4} = \tfrac62 = 3$.
+
+\begin{theorie}
+\begin{stelling}{Vierkantswortel van een quotiënt}
+Voor $a \geqslant 0$ en $b > 0$ is
+
+\vspace{1mm}
+\qquad $\formule{\sqrt{\frac ab} = \frac{\sqrt a}{\sqrt b}}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\dfrac{\sqrt{50}}{\sqrt2}$ zonder rekenmachine.\label{vb:h3-quotient}}{%
+\uitleg{We nemen de twee wortels samen tot één wortel van een quotiënt.}
+\begin{stappen}
+\dfrac{\sqrt{50}}{\sqrt2} = \sqrt{\dfrac{50}{2}} = \sqrt{25} = 5 & De regel, van rechts naar links.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-quotient}
+\end{oefeningen}
+
+\subsection{Geen regel voor een som}
+
+Is er dan ook een regel voor $\sqrt{a + b}$? Je zou denken dat $\sqrt{9 + 16} = \sqrt9 + \sqrt{16}$. Reken het na.
+
+\voorbeeld{}{Is $\sqrt{9 + 16} = \sqrt9 + \sqrt{16}$?\label{vb:h3-som}}{%
+\uitleg{We rekenen beide leden apart uit.}
+\naast{\begin{stappenvrij}{4.4cm}{4.6cm}
+\sqrt{9 + 16} = \sqrt{25} = 5 & Eerst optellen, dan de wortel. \\
+\sqrt9 + \sqrt{16} = 3 + 4 = 7 & Eerst de wortels, dan optellen. \\
+5 \neq 7 & De twee zijn niet gelijk.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.32,font=\scriptsize]
+  \fill[accent!15] (0,0) rectangle (5,5);
+  \draw[accent] (0,0) rectangle (5,5);
+  \node at (2.5,2.5) {25};
+  \fill[accent!35] (6.5,0) rectangle (9.5,3);
+  \draw[accent] (6.5,0) rectangle (9.5,3);
+  \node at (8,1.5) {9};
+  \fill[accent!35] (9.5,0) rectangle (13.5,4);
+  \draw[accent] (9.5,0) rectangle (13.5,4);
+  \node at (11.5,2) {16};
+  \node[below] at (2.5,0) {5};
+  \node[below] at (10,0) {$3 + 4 = 7$};
+\end{tikzpicture}}
+De figuur toont waarom: een vierkant met oppervlakte $9 + 16 = 25$ heeft zijde 5, en dat is minder dan de twee zijden 3 en 4 naast elkaar.}
+
+Er is dus geen rekenregel voor de wortel van een som of een verschil. Dat is dezelfde valkuil als \mbox{$(a + b)^2 \neq a^2 + b^2$} in hoofdstuk 2.
+
+\begin{oefeningen}
+\oef{h3-somfout}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vereenvoudigen en rekenen}
+
+\subsection{Een vierkantswortel vereenvoudigen}
+
+Terug naar de moestuin van $18$~m$^2$. Is $\sqrt{18}$ hetzelfde als $3\sqrt2$? In 18 zit het kwadraat 9 als deler: $18 = 9 \cdot 2$. Met de productregel splitsen we de wortel, en van de 9 kunnen we de wortel nemen: $\sqrt{18} = \sqrt9 \cdot \sqrt2 = 3\sqrt2$. Zo staat er een kleiner getal onder het wortelteken, en dat maakt rekenen met wortels veel eenvoudiger. Dat heet \textit{vereenvoudigen}.
+
+\voorbeeld{}{Vereenvoudig $\sqrt{72}$.\label{vb:h3-vereenv}}{%
+\uitleg{We zoeken het grootste kwadraat dat een deler is van 72. De kwadraten zijn $4, 9, 16, 25, 36, \ldots$ en $72 = 36 \cdot 2$.}
+\begin{stappen}
+\sqrt{72} = \sqrt{36 \cdot 2} & 36 is het grootste kwadraat in 72. \\
+= \sqrt{36} \cdot \sqrt2 = 6\sqrt2 & De productregel.
+\end{stappen}
+Had je eerst $72 = 4 \cdot 18$ gekozen, dan krijg je $2\sqrt{18}$. Dat is juist, maar nog niet eenvoudig: $2\sqrt{18} = 2 \cdot 3\sqrt2 = 6\sqrt2$.}
+
+\begin{werkwijze}
+Zoek het grootste kwadraat dat een deler is van het getal onder het wortelteken. Schrijf het getal als product van dat kwadraat en de rest. Splits de wortel met de productregel en bereken de wortel van het kwadraat.
+\end{werkwijze}
+
+Het omgekeerde kan ook: een factor voor de wortel breng je onder het wortelteken door hem te kwadrateren, $3\sqrt2 = \sqrt9 \cdot \sqrt2 = \sqrt{18}$. Zo vergelijk je makkelijk twee wortels.
+
+\voorbeeld{}{Welk getal is groter: $3\sqrt5$ of $4\sqrt3$? Beslis zonder rekenmachine.\label{vb:h3-onder}}{%
+\uitleg{We brengen de factoren onder het wortelteken. Dan vergelijk je gewoon de getallen onder de wortel.}
+\begin{stappen}
+3\sqrt5 = \sqrt{9 \cdot 5} = \sqrt{45} & Kwadrateer de 3. \\
+4\sqrt3 = \sqrt{16 \cdot 3} = \sqrt{48} & Kwadrateer de 4. \\
+4\sqrt3 > 3\sqrt5 & Want $48 > 45$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-vereenv}
+\end{oefeningen}
+
+Nu kunnen we het probleem van de moestuin oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Hoe lang is de zijde van een vierkante moestuin van $18$~m$^2$? Wie heeft gelijk? Hoeveel meter omheining is er nodig?\label{vb:h3-terug}}{%
+\uitleg{De zijde $z$ is een lengte, dus positief, met $z^2 = 18$. We vereenvoudigen de wortel en vergelijken met de rekenmachine.}
+\naast{\begin{stappenvrij}{3.8cm}{4.6cm}
+z = \sqrt{18} & De zoon heeft gelijk. \\
+= \sqrt{9 \cdot 2} = 3\sqrt2 & De dochter ook. \\
+\approx 4,242640687 & De rekenmachine geeft een benadering. \\
+4 \cdot 3\sqrt2 = 12\sqrt2 & De omtrek: vier zijden. \\
+12\sqrt2 \approx 16,97 & In meter.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5]
+  \fill[accent!30] (1.5,-1.5) -- (4.5,1.5) -- (1.5,4.5) -- (-1.5,1.5) -- cycle;
+  \draw[accent,thick] (1.5,-1.5) -- (4.5,1.5) -- (1.5,4.5) -- (-1.5,1.5) -- cycle;
+  \fill[accent!12] (0,0) rectangle (3,3);
+  \draw[grijs,thick] (0,0) rectangle (3,3);
+  \draw[accent,very thick] (0,0) -- (3,3);
+  \node[font=\scriptsize,below] at (1.5,0) {3};
+  \node[font=\scriptsize] at (2.2,1.5) {$3\sqrt2$};
+\end{tikzpicture}}
+Alle drie hebben dus gelijk, maar alleen $\sqrt{18}$ en $3\sqrt2$ zijn exact: het getal is irrationaal, en elk decimaal getal is een benadering. Voor de omheining koopt de buurvrouw 17 m. De figuur toont nog iets moois: de zijde van de nieuwe tuin is precies de diagonaal van de oude, net zoals in hoofdstuk 1.}
+
+\subsection{Optellen en aftrekken}
+
+Hoe tel je $2\sqrt3 + 5\sqrt3$ op? Net zoals $2x + 5x = 7x$: twee keer $\sqrt3$ plus vijf keer $\sqrt3$ is zeven keer $\sqrt3$. Maar $\sqrt2 + \sqrt3$ kun je niet samennemen, net zoals $x + y$. Wortels met hetzelfde getal onder het wortelteken heten \textit{gelijksoortig}. Soms worden twee wortels pas gelijksoortig na vereenvoudigen.
+
+\voorbeeld{}{Vereenvoudig $\sqrt{50} - \sqrt8 + \sqrt{18}$.\label{vb:h3-optellen}}{%
+\uitleg{De drie wortels zijn niet gelijksoortig. Vereenvoudig ze eerst: misschien zit overal $\sqrt2$ in.}
+\begin{stappen}
+= \sqrt{25 \cdot 2} - \sqrt{4 \cdot 2} + \sqrt{9 \cdot 2} & Zoek de kwadraten 25, 4 en 9. \\
+= 5\sqrt2 - 2\sqrt2 + 3\sqrt2 & Vereenvoudig elke wortel. \\
+= 6\sqrt2 & Gelijksoortig: $5 - 2 + 3 = 6$.
+\end{stappen}}
+
+\begin{werkwijze}
+Vereenvoudig eerst elke wortel. Neem daarna de gelijksoortige wortels samen door de getallen ervoor op te tellen of af te trekken. Wortels die niet gelijksoortig zijn, laat je staan.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-som}
+\end{oefeningen}
+
+\subsection{Vermenigvuldigen}
+
+Bij een product gebruik je de productregel, en vermenigvuldig je de getallen voor de wortels met elkaar. Staat er een som tussen haakjes, dan werk je de haakjes uit zoals je dat al kent: met de distributiviteit.
+
+\voorbeeld{}{Werk uit en vereenvoudig: $2\sqrt3 \cdot 5\sqrt6$.\label{vb:h3-maal}}{%
+\uitleg{Vermenigvuldig de getallen voor de wortel, en de wortels met de productregel. Vereenvoudig op het einde.}
+\begin{stappen}
+2\sqrt3 \cdot 5\sqrt6 = 10\sqrt{18} & $2 \cdot 5 = 10$ en $\sqrt3 \cdot \sqrt6 = \sqrt{18}$. \\
+= 10 \cdot 3\sqrt2 = 30\sqrt2 & $\sqrt{18} = 3\sqrt2$.
+\end{stappen}}
+
+\voorbeeld{}{Werk uit: $\sqrt2\,\bigl(3 + \sqrt2\bigr)$.\label{vb:h3-distr}}{%
+\uitleg{De distributiviteit: vermenigvuldig $\sqrt2$ met elke term.}
+\begin{stappen}
+\sqrt2 \cdot 3 + \sqrt2 \cdot \sqrt2 & Elke term tussen de haakjes. \\
+= 3\sqrt2 + 2 & $\sqrt2 \cdot \sqrt2 = \bigl(\sqrt2\bigr)^2 = 2$.
+\end{stappen}
+Je kunt $3\sqrt2 + 2$ niet verder samennemen, want $\sqrt2$ en $2$ zijn niet gelijksoortig.}
+
+\begin{oefeningen}
+\oef{h3-maal}
+\end{oefeningen}
+
+\begin{alleenvoor}{2,3,4,5}
+\subsection{De noemer wortelvrij maken}
+
+Hoeveel is $\dfrac{1}{\sqrt2}$ ongeveer? Delen door $1,414\ldots$ is lastig uit het hoofd. Maar vermenigvuldig je teller en noemer met $\sqrt2$, dan verandert de breuk niet, en verdwijnt de wortel uit de noemer:
+\[ \frac{1}{\sqrt2} = \frac{1 \cdot \sqrt2}{\sqrt2 \cdot \sqrt2} = \frac{\sqrt2}{2} . \]
+Dat is de helft van $1,414$, dus ongeveer $0,707$. Zo'n breuk met een getal zonder wortel in de noemer is ook makkelijker om mee verder te rekenen.
+
+\voorbeeld{}{Maak de noemer wortelvrij: $\dfrac{6}{\sqrt3}$.\label{vb:h3-noemer}}{%
+\uitleg{Vermenigvuldig teller en noemer met de wortel uit de noemer. Dan staat er onder de breukstreep $\bigl(\sqrt3\bigr)^2 = 3$.}
+\begin{stappen}
+\dfrac{6}{\sqrt3} = \dfrac{6 \cdot \sqrt3}{\sqrt3 \cdot \sqrt3} & Teller en noemer maal $\sqrt3$. \\[2ex]
+= \dfrac{6\sqrt3}{3} = 2\sqrt3 & Vereenvoudig de breuk.
+\end{stappen}}
+
+\begin{werkwijze}
+Staat er een vierkantswortel in de noemer, vermenigvuldig dan teller en noemer met die wortel. Vereenvoudig daarna.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-noemer}
+\end{oefeningen}
+\end{alleenvoor}
+\begin{alleenvoor}{5}
+
+Staat er een som of een verschil in de noemer, zoals $\sqrt3 - 1$, dan helpt vermenigvuldigen met $\sqrt3$ niet: je krijgt $3 - \sqrt3$. Het merkwaardig product $(a - b)(a + b) = a^2 - b^2$ uit de 1ste graad werkt wel, want het kwadrateert beide termen. De uitdrukking $\sqrt3 + 1$ heet de \textit{toegevoegde} van $\sqrt3 - 1$.
+
+\voorbeeld{}{Maak de noemer wortelvrij: $\dfrac{4}{\sqrt3 - 1}$.\label{vb:h3-toegevoegd}}{%
+\uitleg{Vermenigvuldig teller en noemer met de toegevoegde $\sqrt3 + 1$.}
+\begin{stappen}
+\dfrac{4\bigl(\sqrt3 + 1\bigr)}{\bigl(\sqrt3 - 1\bigr)\bigl(\sqrt3 + 1\bigr)} & Teller en noemer maal $\sqrt3 + 1$. \\[2ex]
+= \dfrac{4\bigl(\sqrt3 + 1\bigr)}{3 - 1} & $(a - b)(a + b) = a^2 - b^2$, met $a = \sqrt3$ en $b = 1$. \\[2ex]
+= 2\sqrt3 + 2 & Vereenvoudig de breuk.
+\end{stappen}}
+\end{alleenvoor}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+
+\oef{h3-o23}
+
+\oef{h3-o24}
+
+\oef{h3-o25}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-def}{oef:h3-def}%
+  \fv{oef:h3-t2}{vb:h3-vgl2}{oef:h3-vgl}%
+  \fv{oef:h3-t3}{vb:h3-vereenv}{oef:h3-vereenv}%
+  \fv{oef:h3-t4}{vb:h3-optellen}{oef:h3-som}%
+  \fv{oef:h3-t5}{vb:h3-maal}{oef:h3-maal}%
+  \alleenvoor{1}{\fv{oef:h3-t6}{vb:h3-onder}{oef:h3-o6}}%
+  \alleenvoor{2,3,4,5}{\fv{oef:h3-t6}{vb:h3-noemer}{oef:h3-noemer}}%
+  \fv{oef:h3-t7}{vb:h3-terug}{oef:h3-o9}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van $\sqrt a$, wanneer $x^2 = a$ twee, één of geen oplossingen heeft, de regels voor de wortel van een product en van een quotiënt, waarom er geen regel is voor een som, hoe je een wortel vereenvoudigt, en hoe je met wortels optelt en vermenigvuldigt. Vergelijk daarna met de kaders.
+\fi

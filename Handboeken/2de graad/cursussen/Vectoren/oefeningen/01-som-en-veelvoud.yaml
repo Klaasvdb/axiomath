@@ -1,0 +1,1825 @@
+# Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
+# Een pijl op een rooster beschrijven we in woorden: "3 rechts, 1 omhoog" (componenten komen pas in hoofdstuk 2).
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $ABCD$ is een parallellogram. Welke zijden zijn evenwijdig en even lang?
+      antwoord: |-
+        $[AB]$ en $[DC]$; $[AD]$ en $[BC]$
+      uitwerking: |-
+        In een parallellogram zijn de overstaande zijden evenwijdig en even lang.
+    - opgave: |-
+        Wat weet je over de diagonalen van een parallellogram?
+      antwoord: |-
+        ze snijden elkaar middendoor
+      uitwerking: |-
+        Het snijpunt is het midden van elke diagonaal.
+    - opgave: |-
+        Op een tekening stelt 1~cm een kracht van 10~N voor. Hoe lang teken je een kracht van 35~N? En hoe groot is een kracht die je als een pijl van 6,2~cm tekent?
+      antwoord: |-
+        3,5~cm; $62$~N
+      uitwerking: |-
+        $35 : 10 = 3{,}5$ en $6{,}2 \cdot 10 = 62$.
+    - opgave: |-
+        Een rechthoekige driehoek heeft rechthoekszijden van 9 en 12. Hoe lang is de schuine zijde?
+      antwoord: |-
+        $15$
+      uitwerking: |-
+        $\sqrt{81 + 144} = \sqrt{225} = 15$.
+    - opgave: |-
+        Een fietser rijdt 18~km/h. Hoeveel meter is dat per seconde?
+      antwoord: |-
+        $5$~m/s
+      uitwerking: |-
+        $18$~km/h is $18\,000$~m in $3600$~s, en $18\,000 : 3600 = 5$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een robot rijdt over een rooster. Opdracht A betekent: 3 hokjes naar rechts en 1 hokje omhoog. Opdracht B betekent: 1 hokje naar links en 2 hokjes omhoog. Werk op ruitjespapier.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De robot vertrekt in een punt $P$ en voert eerst A en dan B uit. Waar komt hij uit, gezien vanuit $P$?
+      antwoord: |-
+        2 hokjes rechts en 3 hokjes hoger dan $P$
+      uitwerking: |-
+        Naar rechts: $3 - 1 = 2$. Omhoog: $1 + 2 = 3$.
+    - opgave: |-
+        Een tweede robot vertrekt ook in $P$, maar voert eerst B en dan A uit. Waar komt hij uit?
+      antwoord: |-
+        in hetzelfde punt
+      uitwerking: |-
+        Opnieuw $-1 + 3 = 2$ naar rechts en $2 + 1 = 3$ omhoog.
+    - opgave: |-
+        Welke ene opdracht brengt de robot in één keer van $P$ naar dat punt?
+      antwoord: |-
+        2 hokjes naar rechts en 3 omhoog
+      uitwerking: |-
+        Twee bewegingen na elkaar kun je vervangen door één beweging.
+    - opgave: |-
+        Een derde robot vertrekt in een ander punt $Q$ en voert opdracht A uit. Teken de pijl van zijn beweging en die van de eerste robot bij opdracht A. Wat hebben de twee pijlen gemeen?
+      antwoord: |-
+        ze zijn evenwijdig, even lang en wijzen naar dezelfde kant
+      uitwerking: |-
+        Dezelfde opdracht geeft dezelfde pijl, alleen op een andere plaats.
+    - opgave: |-
+        Welke opdracht brengt een robot die net A uitvoerde, terug naar zijn vertrekpunt?
+      antwoord: |-
+        3 hokjes naar links en 1 omlaag
+      uitwerking: |-
+        Even ver, in dezelfde richting, maar naar de andere kant.
+
+- id: h1-pijl
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.45,font=\scriptsize]
+        \ruitjes{0}{0}{9}{6}
+        \filldraw[fill=accent!12,draw=accent,thick] (5,0) -- (8,0) -- (8,2) -- (6,3) -- cycle;
+        \node[below] at (5,0) {$A$}; \node[below] at (8,0) {$B$}; \node[right] at (8,2) {$C$}; \node[above] at (6,3) {$D$};
+        \draw[vector] (9,4) -- (5,6) node[midway,below,inner sep=2pt] {$\vect{v}$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de figuur over op ruitjespapier.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verschuif de vierhoek $ABCD$ over de vector $\vect{v}$.
+      antwoord: |-
+        elk hoekpunt 4 hokjes naar links en 2 omhoog
+      uitwerking: |-
+        $\vect{v}$ gaat 4 hokjes naar links en 2 omhoog. Zo verschuif je elk hoekpunt.
+        \figuren{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+          \ruitjes{0}{0}{9}{6}
+          \filldraw[fill=accent!12,draw=accent,thick] (5,0) -- (8,0) -- (8,2) -- (6,3) -- cycle;
+          \filldraw[fill=accent!35,draw=accent,thick] (1,2) -- (4,2) -- (4,4) -- (2,5) -- cycle;
+          \node[below] at (5,0) {$A$}; \node[below left] at (1,2) {$A'$};
+        \end{tikzpicture}}
+    - opgave: |-
+        Beschrijf de vector $\vect{AC}$ in hokjes.
+      antwoord: |-
+        3 rechts, 2 omhoog
+      uitwerking: |-
+        Van $A$ naar $C$: 3 hokjes naar rechts en 2 omhoog.
+    - opgave: |-
+        Beschrijf de vector $\vect{CA}$ in hokjes.
+      antwoord: |-
+        3 links, 2 omlaag
+      uitwerking: |-
+        De omgekeerde weg: 3 hokjes naar links en 2 omlaag.
+    - opgave: |-
+        Welke vector brengt $D$ naar zijn beeld $D'$?
+      antwoord: |-
+        $\vect{v}$
+      uitwerking: |-
+        Elk punt wordt verschoven over dezelfde vector $\vect{v}$.
+
+- id: h1-gelijk
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{11}{5}
+        \draw[vector] (0,0) -- (2,1) node[midway,above left,inner sep=1pt] {$\vect{a}$};
+        \draw[vectorb] (3,0) -- (5,1) node[midway,above left,inner sep=1pt] {$\vect{b}$};
+        \draw[vectorb] (8,1) -- (6,0) node[midway,above,inner sep=2pt] {$\vect{c}$};
+        \draw[vectorb] (0,2) -- (1,4) node[midway,left] {$\vect{d}$};
+        \draw[vectorb] (2,3) -- (4,4) node[midway,above left,inner sep=1pt] {$\vect{e}$};
+        \draw[vectorb] (10,0) -- (10,2) node[midway,left] {$\vect{f}$};
+        \draw[vectorb] (11,3) -- (10,5) node[midway,left] {$\vect{g}$};
+        \draw[vectorb] (5,3) -- (9,5) node[midway,above left,inner sep=1pt] {$\vect{h}$};
+      \end{tikzpicture}
+  opgave: |-
+    Bekijk de vectoren in de figuur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke vectoren zijn gelijk aan $\vect{a}$?
+      antwoord: |-
+        $\vect{b}$ en $\vect{e}$
+      uitwerking: |-
+        Ze gaan ook 2 hokjes naar rechts en 1 omhoog: dezelfde richting, zin en grootte.
+    - opgave: |-
+        Welke vector is de tegengestelde van $\vect{a}$?
+      antwoord: |-
+        $\vect{c}$
+      uitwerking: |-
+        $\vect{c}$ gaat 2 naar links en 1 omlaag: dezelfde richting en grootte, de andere zin.
+    - opgave: |-
+        Welke vectoren zijn even lang als $\vect{a}$, maar hebben een andere richting?
+      antwoord: |-
+        $\vect{d}$ en $\vect{g}$
+      uitwerking: |-
+        Ze gaan 1 hokje opzij en 2 omhoog: even lang als 2 opzij en 1 omhoog, maar steiler.
+    - opgave: |-
+        Welke vector heeft dezelfde richting en zin als $\vect{a}$, maar is niet even lang?
+      antwoord: |-
+        $\vect{h}$
+      uitwerking: |-
+        $\vect{h}$ gaat 4 naar rechts en 2 omhoog: twee keer zo lang als $\vect{a}$.
+
+- id: h1-tegen
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \coordinate (A) at (0,0); \coordinate (B) at (4,0); \coordinate (C) at (5.2,2.4); \coordinate (D) at (1.2,2.4); \coordinate (M) at (2.6,1.2);
+        \fill[accent!8] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[accent,thick] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[lijngrijs] (A) -- (C) (B) -- (D);
+        \fill (M) circle (1.5pt) node[below=2pt] {$M$};
+        \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[above right] at (C) {$C$}; \node[above left] at (D) {$D$};
+      \end{tikzpicture}
+  opgave: |-
+    $ABCD$ is een parallellogram met $M$ het snijpunt van de diagonalen. Schrijf met letters uit de figuur, op twee manieren als dat kan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $-\vect{AB}$
+      antwoord: |-
+        $\vect{BA} = \vect{CD}$
+      uitwerking: |-
+        Even lang, evenwijdig, naar links.
+    - opgave: |-
+        $-\vect{MC}$
+      antwoord: |-
+        $\vect{CM} = \vect{MA}$
+      uitwerking: |-
+        $M$ is het midden van $[AC]$.
+    - opgave: |-
+        $-\vect{DA}$
+      antwoord: |-
+        $\vect{AD} = \vect{BC}$
+      uitwerking: |-
+        Schuin omhoog, even lang als $[AD]$.
+    - opgave: |-
+        $\vect{AB} + \vect{BA}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        Heen en terug: je blijft op je plaats.
+
+- id: h1-kopstaart
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{7}{4}
+        \draw[vector] (0,0) -- (3,1) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+        \draw[vectorb] (4,4) -- (5,1) node[midway,left] {$\vect{v}$};
+        \draw[vector,dashed] (7,1) -- (5,3) node[pos=.4,above right,inner sep=1pt] {$\vect{w}$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de vectoren over op ruitjespapier en teken met de kop-staartregel.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vect{u} + \vect{v}$
+      antwoord: |-
+        4 rechts, 2 omlaag
+      uitwerking: |-
+        $\vect{u}$ gaat 3 rechts en 1 omhoog, $\vect{v}$ gaat 1 rechts en 3 omlaag. Samen: 4 rechts en 2 omlaag.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{4}{3}
+          \draw[vector] (0,2) -- (3,3); \draw[vectorb] (3,3) -- (4,0); \draw[som] (0,2) -- (4,0);
+        \end{tikzpicture}}
+    - opgave: |-
+        $\vect{v} + \vect{w}$
+      antwoord: |-
+        1 links, 1 omlaag
+      uitwerking: |-
+        $\vect{w}$ gaat 2 links en 2 omhoog. Samen met $\vect{v}$: $1 - 2 = {-1}$, dus 1 links, en $-3 + 2 = {-1}$, dus 1 omlaag.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{2}{3}
+          \draw[vectorb] (1,3) -- (2,0); \draw[vector,dashed] (2,0) -- (0,2); \draw[som] (1,3) -- (0,2);
+        \end{tikzpicture}}
+    - opgave: |-
+        $\vect{w} + \vect{u}$
+      antwoord: |-
+        1 rechts, 3 omhoog
+      uitwerking: |-
+        $-2 + 3 = 1$ naar rechts en $2 + 1 = 3$ omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{3}{3}
+          \draw[vector,dashed] (2,0) -- (0,2); \draw[vector] (0,2) -- (3,3); \draw[som] (2,0) -- (3,3);
+        \end{tikzpicture}}
+
+- id: h1-chasles
+  soort: kort
+  opgave: |-
+    Schrijf als één vector.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{AB} + \vect{BD}$
+      antwoord: |-
+        $\vect{AD}$
+      uitwerking: |-
+        De middelste letters zijn gelijk: Chasles.
+    - opgave: |-
+        $\vect{KL} + \vect{LM} + \vect{MN}$
+      antwoord: |-
+        $\vect{KN}$
+      uitwerking: |-
+        $\vect{KL} + \vect{LM} = \vect{KM}$ en $\vect{KM} + \vect{MN} = \vect{KN}$.
+    - opgave: |-
+        $\vect{CE} + \vect{DC}$
+      antwoord: |-
+        $\vect{DE}$
+      uitwerking: |-
+        Wissel: $\vect{DC} + \vect{CE} = \vect{DE}$.
+    - opgave: |-
+        $\vect{PQ} + \vect{QP}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{PQ} + \vect{QP} = \vect{PP} = \nulvec$.
+    - opgave: |-
+        $\vect{BC} + \vect{AB} + \vect{CA}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{AB} + \vect{BC} + \vect{CA} = \vect{AA} = \nulvec$.
+    - opgave: |-
+        $\vect{EF} + \vect{GE} + \vect{FH}$
+      antwoord: |-
+        $\vect{GH}$
+      uitwerking: |-
+        In de volgorde $\vect{GE} + \vect{EF} + \vect{FH}$ sluiten de letters aan: $\vect{GH}$.
+
+- id: h1-parallel
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{9}{4}
+        \draw[vector] (0,0) -- (3,0) node[midway,below] {$\vect{a}$};
+        \draw[vectorb] (0,0) -- (1,2) node[midway,left] {$\vect{b}$};
+        \fill (0,0) circle (2.5pt) node[below left] {$O$};
+        \draw[vector] (7,0) -- (4,1) node[midway,below,inner sep=2pt] {$\vect{c}$};
+        \draw[vectorb] (7,0) -- (8,3) node[midway,right] {$\vect{d}$};
+        \fill (7,0) circle (2.5pt) node[below] {$P$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de figuur over op ruitjespapier en teken de som met de parallellogramregel.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{a} + \vect{b}$
+      antwoord: |-
+        4 rechts, 2 omhoog
+      uitwerking: |-
+        De vierde hoek van het parallellogram ligt 4 rechts en 2 boven $O$.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{4}{2}
+          \draw[hulpvector] (3,0) -- (4,2); \draw[hulpvector] (1,2) -- (4,2);
+          \draw[vector] (0,0) -- (3,0); \draw[vectorb] (0,0) -- (1,2); \draw[som] (0,0) -- (4,2);
+        \end{tikzpicture}}
+    - opgave: |-
+        $\vect{c} + \vect{d}$
+      antwoord: |-
+        2 links, 4 omhoog
+      uitwerking: |-
+        $\vect{c}$ gaat 3 links en 1 omhoog, $\vect{d}$ gaat 1 rechts en 3 omhoog: de vierde hoek ligt 2 links en 4 boven $P$.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{4}{4}
+          \draw[hulpvector] (0,1) -- (1,4); \draw[hulpvector] (4,3) -- (1,4);
+          \draw[vector] (3,0) -- (0,1); \draw[vectorb] (3,0) -- (4,3); \draw[som] (3,0) -- (1,4);
+        \end{tikzpicture}}
+
+- id: h1-drie
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{7}{3}
+        \draw[vector] (0,0) -- (2,1) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+        \draw[vectorb] (3,3) -- (5,1) node[midway,above right,inner sep=1pt] {$\vect{v}$};
+        \draw[vector,dashed] (7,0) -- (6,3) node[midway,right] {$\vect{w}$};
+      \end{tikzpicture}
+  opgave: |-
+    Werk met de vectoren in de figuur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken $\vect{u} + \vect{v} + \vect{w}$ op ruitjespapier.
+      antwoord: |-
+        3 rechts, 2 omhoog
+      uitwerking: |-
+        Kop aan staart: $2 + 2 - 1 = 3$ naar rechts en $1 - 2 + 3 = 2$ omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{4}{3}
+          \draw[vector] (0,1) -- (2,2); \draw[vectorb] (2,2) -- (4,0); \draw[vector,dashed] (4,0) -- (3,3); \draw[som] (0,1) -- (3,3);
+        \end{tikzpicture}}
+    - opgave: |-
+        Welke vector moet je bij $\vect{u} + \vect{v} + \vect{w}$ optellen om de nulvector te krijgen?
+      antwoord: |-
+        3 links, 2 omlaag
+      uitwerking: |-
+        De tegengestelde vector $-(\vect{u} + \vect{v} + \vect{w})$: hij brengt je terug naar het beginpunt.
+    - opgave: |-
+        Schrijf zo eenvoudig mogelijk: $\vect{AB} + \vect{BC} + \vect{CD} + \vect{DA}$.
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        Je loopt rond en komt terug in $A$: $\vect{AA} = \nulvec$.
+
+- id: h1-verschil
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{5}{3}
+        \draw[vector] (0,0) -- (3,2) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+        \draw[vectorb] (4,3) -- (5,2) node[midway,above right,inner sep=1pt] {$\vect{v}$};
+      \end{tikzpicture}
+  opgave: |-
+    Teken op ruitjespapier, of schrijf als één vector.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\vect{u} - \vect{v}$, met $\vect{u}$ en $\vect{v}$ uit de figuur
+      antwoord: |-
+        2 rechts, 3 omhoog
+      uitwerking: |-
+        $-\vect{v}$ gaat 1 links en 1 omhoog. $\vect{u} + (-\vect{v})$: $3 - 1 = 2$ rechts en $2 + 1 = 3$ omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{3}{3}
+          \draw[vector] (0,0) -- (3,2); \draw[vectorb] (3,2) -- (2,3); \draw[som] (0,0) -- (2,3);
+        \end{tikzpicture}}
+    - opgave: |-
+        $\vect{v} - \vect{u}$, met $\vect{u}$ en $\vect{v}$ uit de figuur
+      antwoord: |-
+        2 links, 3 omlaag
+      uitwerking: |-
+        $\vect{v} - \vect{u} = -(\vect{u} - \vect{v})$: de tegengestelde van het vorige antwoord.
+    - opgave: |-
+        $\vect{AD} - \vect{AB}$, als $ABCD$ een parallellogram is
+      antwoord: |-
+        $\vect{BD}$
+      uitwerking: |-
+        Verschil vanuit één punt: van de kop van $\vect{AB}$ naar de kop van $\vect{AD}$.
+    - opgave: |-
+        $\vect{OA} - \vect{OB}$
+      antwoord: |-
+        $\vect{BA}$
+      uitwerking: |-
+        Van de kop van $\vect{OB}$ naar de kop van $\vect{OA}$.
+    - opgave: |-
+        $\vect{AB} - \vect{CB}$
+      antwoord: |-
+        $\vect{AC}$
+      uitwerking: |-
+        $-\vect{CB} = \vect{BC}$, dus $\vect{AB} + \vect{BC} = \vect{AC}$.
+
+- id: h1-veelvoud
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{6}{2}
+        \draw[vector] (0,0) -- (1,2) node[midway,left] {$\vect{v}$};
+        \draw[vectorb] (2,0) -- (6,2) node[midway,above left,inner sep=1pt] {$\vect{w}$};
+      \end{tikzpicture}
+  opgave: |-
+    Teken op ruitjespapier.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $3\vect{v}$
+      antwoord: |-
+        3 rechts, 6 omhoog
+      uitwerking: |-
+        $\vect{v}$ gaat 1 rechts en 2 omhoog: drie keer zoveel hokjes.
+    - opgave: |-
+        $-2\vect{v}$
+      antwoord: |-
+        2 links, 4 omlaag
+      uitwerking: |-
+        Twee keer zo lang, de andere zin.
+    - opgave: |-
+        $\tfrac12\vect{w}$
+      antwoord: |-
+        2 rechts, 1 omhoog
+      uitwerking: |-
+        $\vect{w}$ gaat 4 rechts en 2 omhoog: de helft.
+    - opgave: |-
+        $-1{,}5\,\vect{w}$
+      antwoord: |-
+        6 links, 3 omlaag
+      uitwerking: |-
+        $1{,}5 \cdot 4 = 6$ en $1{,}5 \cdot 2 = 3$, met de andere zin.
+
+- id: h1-factor
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.45,font=\scriptsize]
+        \draw[grijs] (-.5,0) -- (8.5,0);
+        \foreach \x in {0,1,...,8} \draw[grijs] (\x,.1) -- (\x,-.1);
+        \foreach \x/\n in {0/A,2/B,6/C,8/D} {\fill (\x,0) circle (2.5pt); \node[below=2pt] at (\x,0) {$\n$};}
+      \end{tikzpicture}
+  opgave: |-
+    De punten liggen op een rechte, met gelijke afstanden tussen de streepjes. Vul het getal in.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{AC} = \ldots\,\vect{AB}$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        6 streepjes tegenover 2, dezelfde zin.
+    - opgave: |-
+        $\vect{AB} = \ldots\,\vect{AC}$
+      antwoord: |-
+        $\tfrac13$
+      uitwerking: |-
+        2 streepjes tegenover 6.
+    - opgave: |-
+        $\vect{CA} = \ldots\,\vect{AB}$
+      antwoord: |-
+        $-3$
+      uitwerking: |-
+        Drie keer zo lang, de andere zin.
+    - opgave: |-
+        $\vect{BD} = \ldots\,\vect{AB}$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        6 streepjes naar rechts tegenover 2 naar rechts.
+    - opgave: |-
+        $\vect{DC} = \ldots\,\vect{AB}$
+      antwoord: |-
+        $-1$
+      uitwerking: |-
+        Even lang, de andere zin: $\vect{DC} = -\vect{AB}$.
+    - opgave: |-
+        $\vect{BC} = \ldots\,\vect{CD}$
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        4 streepjes tegenover 2, allebei naar rechts.
+
+- id: h1-combi
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{4}{1}
+        \draw[vector] (0,0) -- (1,1) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+        \draw[vectorb] (2,1) -- (4,0) node[midway,above right,inner sep=1pt] {$\vect{v}$};
+      \end{tikzpicture}
+  opgave: |-
+    Werk met de vectoren in de figuur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken $\vect{u} + 2\vect{v}$.
+      antwoord: |-
+        5 rechts, 1 omlaag
+      uitwerking: |-
+        $\vect{u}$: 1 rechts, 1 omhoog. $2\vect{v}$: 4 rechts, 2 omlaag. Samen 5 rechts en 1 omlaag.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{5}{2}
+          \draw[vector] (0,1) -- (1,2); \draw[vectorb] (1,2) -- (5,0); \draw[som] (0,1) -- (5,0);
+        \end{tikzpicture}}
+    - opgave: |-
+        Teken $3\vect{u} - \vect{v}$.
+      antwoord: |-
+        1 rechts, 4 omhoog
+      uitwerking: |-
+        $3\vect{u}$: 3 rechts, 3 omhoog. $-\vect{v}$: 2 links, 1 omhoog. Samen 1 rechts en 4 omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{3}{4}
+          \draw[vector] (0,0) -- (3,3); \draw[vectorb] (3,3) -- (1,4); \draw[som] (0,0) -- (1,4);
+        \end{tikzpicture}}
+    - opgave: |-
+        Vereenvoudig $2(\vect{u} + \vect{v}) - \vect{v}$.
+      antwoord: |-
+        $2\vect{u} + \vect{v}$
+      uitwerking: |-
+        $2\vect{u} + 2\vect{v} - \vect{v} = 2\vect{u} + \vect{v}$.
+    - opgave: |-
+        Vereenvoudig $4\vect{u} - 3(\vect{u} - \vect{v})$.
+      antwoord: |-
+        $\vect{u} + 3\vect{v}$
+      uitwerking: |-
+        $4\vect{u} - 3\vect{u} + 3\vect{v} = \vect{u} + 3\vect{v}$. Let op het minteken voor de haakjes.
+
+- id: h1-kracht
+  soort: kort
+  opgave: |-
+    Bepaal de resultante van de twee krachten met een tekening op schaal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $60$~N en $80$~N, loodrecht op elkaar (schaal: 1~cm voor 20~N). Controleer met de stelling van Pythagoras.
+      antwoord: |-
+        $100$~N
+      uitwerking: |-
+        Pijlen van 3~cm en 4~cm; de diagonaal is 5~cm, dus $100$~N. Controle: $\sqrt{60^2 + 80^2} = \sqrt{10\,000} = 100$.
+    - opgave: |-
+        $50$~N en $50$~N, in dezelfde richting en zin. En in tegengestelde zin?
+      antwoord: |-
+        $100$~N; $0$~N
+      uitwerking: |-
+        Dezelfde zin: de pijlen liggen in elkaars verlengde, $50 + 50 = 100$. Tegengestelde zin: ze heffen elkaar op.
+    - opgave: |-
+        $40$~N en $60$~N, met een hoek van $120^\circ$ tussen hen (schaal: 1~cm voor 10~N).
+      antwoord: |-
+        ongeveer $53$~N
+      uitwerking: |-
+        Teken pijlen van 4~cm en 6~cm met een hoek van $120^\circ$ en vul aan tot een parallellogram. De diagonaal vanuit het beginpunt meet ongeveer 5,3~cm, dus ongeveer $53$~N.
+
+- id: h1-snelheid
+  soort: kort
+  opgave: |-
+    Bepaal de snelheid ten opzichte van de grond.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een vliegtuig vliegt met 600~km/h naar het oosten ten opzichte van de lucht. Er staat een wind van 80~km/h naar het oosten. En als de wind 80~km/h naar het westen waait?
+      antwoord: |-
+        680~km/h; 520~km/h
+      uitwerking: |-
+        Rugwind: $600 + 80 = 680$. Tegenwind: $600 - 80 = 520$, nog altijd naar het oosten.
+    - opgave: |-
+        Een boot vaart met 4~m/s recht naar de overkant van een rivier, loodrecht op de stroming. Het water stroomt met 3~m/s. Hoe snel beweegt de boot ten opzichte van de oever?
+      antwoord: |-
+        5~m/s
+      uitwerking: |-
+        De twee snelheden staan loodrecht op elkaar: $\sqrt{4^2 + 3^2} = \sqrt{25} = 5$.
+    - opgave: |-
+        De rivier van de vorige vraag is 100~m breed. Hoe ver drijft de boot af tijdens de oversteek?
+      antwoord: |-
+        75~m
+      uitwerking: |-
+        De oversteek duurt $100 : 4 = 25$~s. In die tijd neemt het water de boot $25 \cdot 3 = 75$~m mee.
+
+#========================================================================================
+# OPDRACHTEN
+#========================================================================================
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    gelijke en tegengestelde vectoren, som, verschil en veelvoud in een zeshoek
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.75,font=\scriptsize]
+        \foreach \i/\n in {0/D,60/C,120/B,180/A,240/F,300/E} \coordinate (\n) at (\i:1.6);
+        \coordinate (M) at (0,0);
+        \fill[accent!8] (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- cycle;
+        \draw[accent,thick] (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- cycle;
+        \draw[lijngrijs] (A) -- (D) (B) -- (E) (C) -- (F);
+        \fill (M) circle (1.5pt) node[below=3pt] {$M$};
+        \foreach \n/\p in {A/left,B/above left,C/above right,D/right,E/below right,F/below left} \node[\p] at (\n) {$\n$};
+      \end{tikzpicture}
+  opgave: |-
+    $ABCDEF$ is een regelmatige zeshoek met middelpunt $M$. Schrijf met letters uit de figuur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        drie vectoren die gelijk zijn aan $\vect{AB}$
+      antwoord: |-
+        $\vect{FM}$, $\vect{MC}$, $\vect{ED}$
+      uitwerking: |-
+        Een regelmatige zeshoek bestaat uit zes gelijkzijdige driehoeken: $ABMF$, $ABCM$ en $FMDE$ zijn ruiten, met overstaande zijden die evenwijdig en even lang zijn.
+    - opgave: |-
+        drie vectoren die tegengesteld zijn aan $\vect{MB}$
+      antwoord: |-
+        $\vect{BM}$, $\vect{ME}$, $\vect{AF}$ (of $\vect{CD}$)
+      uitwerking: |-
+        Evenwijdig met $[BE]$, even lang als $[MB]$, schuin naar rechts onder.
+    - opgave: |-
+        $\vect{AB} + \vect{BC}$
+      antwoord: |-
+        $\vect{AC}$
+      uitwerking: |-
+        Chasles.
+    - opgave: |-
+        $\vect{AB} + \vect{AF}$
+      antwoord: |-
+        $\vect{AM}$
+      uitwerking: |-
+        Parallellogramregel: $ABMF$ is een parallellogram, de diagonaal vanuit $A$ is $[AM]$.
+    - opgave: |-
+        $\vect{MA} + \vect{MC} + \vect{ME}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{MC} + \vect{ME} = \vect{MD}$ (ruit $MCDE$), en $\vect{MA} + \vect{MD} = \nulvec$.
+    - opgave: |-
+        $2\,\vect{MD}$
+      antwoord: |-
+        $\vect{AD}$
+      uitwerking: |-
+        $\vect{AD}$ ligt op dezelfde rechte, wijst naar dezelfde kant en is twee keer zo lang.
+    - opgave: |-
+        $\vect{BC} - \vect{BA}$
+      antwoord: |-
+        $\vect{AC}$
+      uitwerking: |-
+        Verschil vanuit één punt: van de kop van $\vect{BA}$ naar de kop van $\vect{BC}$.
+    - opgave: |-
+        $\vect{FE} = \ldots\,\vect{AD}$
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        Evenwijdig, dezelfde zin, en de zijde is half zo lang als de lange diagonaal.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    som en verschil tekenen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{7}{3}
+        \draw[vector] (0,0) -- (2,1) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+        \draw[vectorb] (4,0) -- (3,2) node[midway,left] {$\vect{v}$};
+        \draw[vector,dashed] (5,3) -- (7,1) node[midway,above right,inner sep=1pt] {$\vect{w}$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de vectoren over op ruitjespapier en teken.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vect{u} + \vect{v}$
+      antwoord: |-
+        1 rechts, 3 omhoog
+      uitwerking: |-
+        $\vect{u}$: 2 rechts, 1 omhoog; $\vect{v}$: 1 links, 2 omhoog. Samen 1 rechts, 3 omhoog.
+    - opgave: |-
+        $\vect{u} + \vect{w}$
+      antwoord: |-
+        4 rechts, 1 omlaag
+      uitwerking: |-
+        $\vect{w}$: 2 rechts, 2 omlaag. Samen met $\vect{u}$: 4 rechts, 1 omlaag.
+    - opgave: |-
+        $\vect{v} + \vect{w}$
+      antwoord: |-
+        1 rechts
+      uitwerking: |-
+        $-1 + 2 = 1$ naar rechts, $2 - 2 = 0$ omhoog: een horizontale vector.
+    - opgave: |-
+        $\vect{u} - \vect{w}$
+      antwoord: |-
+        3 omhoog
+      uitwerking: |-
+        $-\vect{w}$: 2 links, 2 omhoog. Samen met $\vect{u}$: 0 opzij, 3 omhoog.
+    - opgave: |-
+        $\vect{w} - \vect{v}$
+      antwoord: |-
+        3 rechts, 4 omlaag
+      uitwerking: |-
+        $-\vect{v}$: 1 rechts, 2 omlaag. Samen met $\vect{w}$: 3 rechts, 4 omlaag.
+    - opgave: |-
+        $\vect{u} + \vect{v} + \vect{w}$
+      antwoord: |-
+        3 rechts, 1 omhoog
+      uitwerking: |-
+        $2 - 1 + 2 = 3$ naar rechts, $1 + 2 - 2 = 1$ omhoog.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    betrekking van Chasles en verschil vanuit één punt
+  opgave: |-
+    Schrijf als één vector.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{AB} + \vect{BC} + \vect{CD}$
+      antwoord: |-
+        $\vect{AD}$
+      uitwerking: |-
+        Twee keer Chasles.
+    - opgave: |-
+        $\vect{PR} + \vect{RP}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{PP} = \nulvec$.
+    - opgave: |-
+        $\vect{MN} + \vect{KM}$
+      antwoord: |-
+        $\vect{KN}$
+      uitwerking: |-
+        $\vect{KM} + \vect{MN} = \vect{KN}$.
+    - opgave: |-
+        $\vect{AB} - \vect{CB}$
+      antwoord: |-
+        $\vect{AC}$
+      uitwerking: |-
+        $\vect{AB} + \vect{BC} = \vect{AC}$.
+    - opgave: |-
+        $\vect{PB} - \vect{PC}$
+      antwoord: |-
+        $\vect{CB}$
+      uitwerking: |-
+        Verschil vanuit $P$: van de kop van $\vect{PC}$ naar de kop van $\vect{PB}$.
+    - opgave: |-
+        $\vect{AC} + \vect{BA} + \vect{CB}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{AC} + \vect{CB} + \vect{BA} = \vect{AA}$.
+    - opgave: |-
+        $\vect{DE} - \vect{DF} + \vect{EF}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{DE} - \vect{DF} = \vect{FE}$, en $\vect{FE} + \vect{EF} = \nulvec$.
+    - opgave: |-
+        $\vect{AB} + \vect{CD} + \vect{BC} + \vect{DE}$
+      antwoord: |-
+        $\vect{AE}$
+      uitwerking: |-
+        In de volgorde $\vect{AB} + \vect{BC} + \vect{CD} + \vect{DE}$ sluiten de letters aan.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    richting, zin en grootte; gelijke vectoren
+  opgave: |-
+    Waar of niet waar? Verklaar je antwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\vect{v}$ en $-3\vect{v}$ hebben dezelfde richting.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Een veelvoud verandert de richting nooit.
+    - opgave: |-
+        $\vect{v}$ en $-3\vect{v}$ hebben dezelfde zin.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Het getal is negatief, dus de zin keert om.
+    - opgave: |-
+        $-2\vect{v}$ is korter dan $\vect{v}$.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $-2\vect{v}$ is twee keer zo lang als $\vect{v}$: de grootte wordt vermenigvuldigd met $\abs{{-2}} = 2$.
+    - opgave: |-
+        Als $\vect{AB} = \vect{CD}$, dan is $\lengte{AB} = \lengte{CD}$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Gelijke vectoren hebben dezelfde grootte.
+    - opgave: |-
+        Als $\lengte{AB} = \lengte{CD}$, dan is $\vect{AB} = \vect{CD}$.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Even lange vectoren kunnen een andere richting of zin hebben, zoals $\vect{AB}$ en $\vect{BA}$.
+    - opgave: |-
+        $\vect{AB} = \vect{BA}$.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $\vect{BA} = -\vect{AB}$: dezelfde richting en grootte, de andere zin. Alleen als $A = B$ zijn ze gelijk (de nulvector).
+    - opgave: |-
+        Als $\vect{AB} = \vect{CD}$, dan is ook $\vect{AC} = \vect{BD}$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        $\vect{AC} = \vect{AB} + \vect{BD} + \vect{DC} = \vect{AB} + \vect{BD} - \vect{CD} = \vect{BD}$, want $\vect{AB} = \vect{CD}$. Liggen de punten niet op één rechte, dan is $ABDC$ een parallellogram.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    veelvouden en combinaties tekenen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{4}{2}
+        \draw[vector] (0,2) -- (2,1) node[midway,above right,inner sep=1pt] {$\vect{a}$};
+        \draw[vectorb] (4,0) -- (4,2) node[midway,left] {$\vect{b}$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de vectoren over op ruitjespapier en teken.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2\vect{a}$
+      antwoord: |-
+        4 rechts, 2 omlaag
+      uitwerking: |-
+        $\vect{a}$: 2 rechts, 1 omlaag. Twee keer zoveel.
+    - opgave: |-
+        $-\vect{a}$
+      antwoord: |-
+        2 links, 1 omhoog
+      uitwerking: |-
+        De andere zin.
+    - opgave: |-
+        $1{,}5\,\vect{b}$
+      antwoord: |-
+        3 omhoog
+      uitwerking: |-
+        $\vect{b}$: 2 omhoog. $1{,}5 \cdot 2 = 3$.
+    - opgave: |-
+        $-\tfrac12\vect{b}$
+      antwoord: |-
+        1 omlaag
+      uitwerking: |-
+        Half zo lang, de andere zin.
+    - opgave: |-
+        $2\vect{a} + \vect{b}$
+      antwoord: |-
+        4 rechts
+      uitwerking: |-
+        4 rechts en 2 omlaag, dan 2 omhoog: samen 4 rechts.
+    - opgave: |-
+        $\vect{a} - 1{,}5\,\vect{b}$
+      antwoord: |-
+        2 rechts, 4 omlaag
+      uitwerking: |-
+        2 rechts en 1 omlaag, dan 3 omlaag.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vereenvoudigen
+  opgave: |-
+    Vereenvoudig.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $2\vect{u} + 5\vect{u}$
+      antwoord: |-
+        $7\vect{u}$
+      uitwerking: |-
+        Gelijke vectoren samennemen.
+    - opgave: |-
+        $3\vect{v} - 7\vect{v}$
+      antwoord: |-
+        $-4\vect{v}$
+      uitwerking: |-
+        $3 - 7 = {-4}$.
+    - opgave: |-
+        $2(\vect{u} + 3\vect{v})$
+      antwoord: |-
+        $2\vect{u} + 6\vect{v}$
+      uitwerking: |-
+        Haakjes uitwerken.
+    - opgave: |-
+        $-(\vect{u} - \vect{v})$
+      antwoord: |-
+        $-\vect{u} + \vect{v}$
+      uitwerking: |-
+        Het minteken verandert beide tekens.
+    - opgave: |-
+        $4\vect{u} - 2(\vect{u} - \vect{v})$
+      antwoord: |-
+        $2\vect{u} + 2\vect{v}$
+      uitwerking: |-
+        $4\vect{u} - 2\vect{u} + 2\vect{v}$.
+    - opgave: |-
+        $\tfrac12(4\vect{u} - 6\vect{v}) + 3\vect{v}$
+      antwoord: |-
+        $2\vect{u}$
+      uitwerking: |-
+        $2\vect{u} - 3\vect{v} + 3\vect{v} = 2\vect{u}$.
+    - opgave: |-
+        $3(\vect{u} - \vect{v}) - 2(\vect{v} - \vect{u})$
+      antwoord: |-
+        $5\vect{u} - 5\vect{v}$
+      uitwerking: |-
+        $3\vect{u} - 3\vect{v} - 2\vect{v} + 2\vect{u} = 5\vect{u} - 5\vect{v}$.
+    - opgave: |-
+        $\vect{u} - (\vect{u} - \vect{v}) - \vect{v}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{u} - \vect{u} + \vect{v} - \vect{v} = \nulvec$. Het is een vector, dus niet het getal 0.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    som, verschil en veelvoud in een parallellogram
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \coordinate (A) at (0,0); \coordinate (B) at (4,0); \coordinate (C) at (5.2,2.4); \coordinate (D) at (1.2,2.4); \coordinate (M) at (2.6,1.2);
+        \fill[accent!8] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[accent,thick] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[lijngrijs] (A) -- (C) (B) -- (D);
+        \fill (M) circle (1.5pt) node[below=2pt] {$M$};
+        \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[above right] at (C) {$C$}; \node[above left] at (D) {$D$};
+      \end{tikzpicture}
+  opgave: |-
+    $ABCD$ is een parallellogram met $M$ het snijpunt van de diagonalen. Schrijf als één vector met letters uit de figuur.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{AB} + \vect{AD}$
+      antwoord: |-
+        $\vect{AC}$
+      uitwerking: |-
+        Parallellogramregel.
+    - opgave: |-
+        $\vect{AB} + \vect{BC} + \vect{CD}$
+      antwoord: |-
+        $\vect{AD}$
+      uitwerking: |-
+        Chasles.
+    - opgave: |-
+        $\vect{AM} + \vect{MB}$
+      antwoord: |-
+        $\vect{AB}$
+      uitwerking: |-
+        Chasles.
+    - opgave: |-
+        $\vect{MA} + \vect{MC}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{MC} = \vect{AM} = -\vect{MA}$, want $M$ is het midden van $[AC]$.
+    - opgave: |-
+        $2\,\vect{MB}$
+      antwoord: |-
+        $\vect{DB}$
+      uitwerking: |-
+        $M$ is het midden van $[DB]$, dus $\vect{DB}$ is twee keer $\vect{MB}$.
+    - opgave: |-
+        $\vect{AB} - \vect{AD}$
+      antwoord: |-
+        $\vect{DB}$
+      uitwerking: |-
+        Verschil vanuit $A$.
+    - opgave: |-
+        $\vect{DA} + \vect{DC}$
+      antwoord: |-
+        $\vect{DB}$
+      uitwerking: |-
+        Parallellogramregel vanuit $D$: $DABC$ is het parallellogram.
+    - opgave: |-
+        $\vect{AB} + \vect{CM}$
+      antwoord: |-
+        $\vect{MB}$
+      uitwerking: |-
+        $\vect{CM} = \vect{MA}$, en $\vect{MA} + \vect{AB} = \vect{MB}$.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de juiste figuur kiezen bij een som
+  latex: |-
+    \thema{de juiste figuur kiezen bij een som}In welke figuren is $\vect{w} = \vect{u} + \vect{v}$?
+
+    \figuren{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+      \draw[vector] (0,0) -- (2.4,.4) node[midway,below] {$\vect{u}$};
+      \draw[vectorb] (2.4,.4) -- (3,2) node[midway,right] {$\vect{v}$};
+      \draw[som] (0,0) -- (3,2) node[midway,above left,inner sep=1pt] {$\vect{w}$};
+      \node at (1.5,-1) {figuur 1};
+      \begin{scope}[xshift=4.6cm]
+      \draw[vector] (0,0) -- (2.4,.4) node[midway,below] {$\vect{u}$};
+      \draw[vectorb] (2.4,.4) -- (3,2) node[midway,right] {$\vect{v}$};
+      \draw[som] (3,2) -- (0,0) node[midway,above left,inner sep=1pt] {$\vect{w}$};
+      \node at (1.5,-1) {figuur 2};
+      \end{scope}
+      \begin{scope}[xshift=9.2cm]
+      \draw[hulplijn] (2.4,.4) -- (3,2) -- (.6,1.6);
+      \draw[vector] (0,0) -- (2.4,.4) node[midway,below] {$\vect{u}$};
+      \draw[vectorb] (0,0) -- (.6,1.6) node[midway,left] {$\vect{v}$};
+      \draw[som] (.6,1.6) -- (2.4,.4) node[pos=.35,above right,inner sep=1pt] {$\vect{w}$};
+      \node at (1.5,-1) {figuur 3};
+      \end{scope}
+      \begin{scope}[xshift=13.8cm]
+      \draw[hulplijn] (2.4,.4) -- (3,2) -- (.6,1.6);
+      \draw[vector] (0,0) -- (2.4,.4) node[midway,below] {$\vect{u}$};
+      \draw[vectorb] (0,0) -- (.6,1.6) node[midway,left] {$\vect{v}$};
+      \draw[som] (0,0) -- (3,2) node[pos=.7,below right,inner sep=1pt] {$\vect{w}$};
+      \node at (1.5,-1) {figuur 4};
+      \end{scope}
+    \end{tikzpicture}}
+    \begin{enumerate}
+      \item Welke figuren zijn juist?
+      \item Schrijf in de andere figuren $\vect{w}$ met $\vect{u}$ en $\vect{v}$.
+    \end{enumerate}
+    \begin{solution}
+    \textbf{a.}~figuur 1 en 4 \quad \textbf{b.}~figuur 2: $\vect{w} = -(\vect{u} + \vect{v})$; figuur 3: $\vect{w} = \vect{u} - \vect{v}$
+    \end{solution}
+    \begin{fullsolution}
+    \textbf{a.}~Figuur 1 is de kop-staartregel, figuur 4 de parallellogramregel.\par
+    \textbf{b.}~In figuur 2 wijst $\vect{w}$ de verkeerde kant op: $\vect{w} = -(\vect{u} + \vect{v}) = -\vect{u} - \vect{v}$. In figuur 3 is $\vect{w}$ de andere diagonaal, van de kop van $\vect{v}$ naar de kop van $\vect{u}$: $\vect{w} = \vect{u} - \vect{v}$.
+    \end{fullsolution}
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    resultante van twee krachten op schaal
+  opgave: |-
+    Bepaal de resultante van de twee krachten met een tekening op schaal. Kies zelf een geschikte schaal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $25$~N en $60$~N, loodrecht op elkaar. Controleer met de stelling van Pythagoras.
+      antwoord: |-
+        $65$~N
+      uitwerking: |-
+        Schaal 1~cm voor 10~N: pijlen van 2,5~cm en 6~cm, diagonaal 6,5~cm. Controle: $\sqrt{625 + 3600} = \sqrt{4225} = 65$.
+    - opgave: |-
+        $50$~N en $50$~N, loodrecht op elkaar
+      antwoord: |-
+        ongeveer $71$~N
+      uitwerking: |-
+        Het parallellogram is een vierkant. $\sqrt{50^2 + 50^2} = \sqrt{5000} \approx 70{,}7$.
+    - opgave: |-
+        $50$~N en $50$~N, met een hoek van $120^\circ$ tussen hen
+      antwoord: |-
+        $50$~N
+      uitwerking: |-
+        Het parallellogram is een ruit die bestaat uit twee gelijkzijdige driehoeken: de diagonaal is even lang als de zijden.
+    - opgave: |-
+        $80$~N en $30$~N, in tegengestelde zin
+      antwoord: |-
+        $50$~N, in de zin van de grootste kracht
+      uitwerking: |-
+        De pijlen liggen op één rechte en wijzen naar elkaar toe: $80 - 30 = 50$.
+    - opgave: |-
+        Vergelijk de vorige deelvragen. Wat gebeurt er met de resultante van twee krachten van $50$~N als de hoek tussen hen groter wordt?
+      antwoord: |-
+        ze wordt kleiner
+      uitwerking: |-
+        $100$~N bij $0^\circ$, ongeveer $71$~N bij $90^\circ$, $50$~N bij $120^\circ$ en $0$~N bij $180^\circ$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snelheden op één rechte
+  opgave: |-
+    Alle snelheden liggen op één rechte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een trein die met 30~m/s rijdt, wandelt een conducteur met 1,5~m/s. Hoe snel beweegt hij ten opzichte van de grond als hij naar voor wandelt? En naar achter?
+      antwoord: |-
+        31,5~m/s; 28,5~m/s
+      uitwerking: |-
+        Naar voor: $30 + 1{,}5$. Naar achter: $30 - 1{,}5$, nog altijd in de rijrichting van de trein.
+    - opgave: |-
+        Een zwemmer zwemt met 1,2~m/s ten opzichte van het water, in een rivier die stroomt met 0,5~m/s. Hoe snel komt hij vooruit stroomafwaarts? En stroomopwaarts?
+      antwoord: |-
+        1,7~m/s; 0,7~m/s
+      uitwerking: |-
+        $1{,}2 + 0{,}5 = 1{,}7$ en $1{,}2 - 0{,}5 = 0{,}7$.
+    - opgave: |-
+        Hoe lang doet die zwemmer erover om 210~m stroomopwaarts te zwemmen? En om terug te keren?
+      antwoord: |-
+        300~s; ongeveer 124~s
+      uitwerking: |-
+        $210 : 0{,}7 = 300$~s, dus 5 minuten. Terug: $210 : 1{,}7 \approx 123{,}5$~s.
+    - opgave: |-
+        Een vliegtuig vliegt met 800~km/h ten opzichte van de lucht, tegen een wind van 120~km/h in. Hoe lang duurt een vlucht van 2040~km?
+      antwoord: |-
+        3~h
+      uitwerking: |-
+        Snelheid ten opzichte van de grond: $800 - 120 = 680$~km/h. Tijd: $2040 : 680 = 3$~h.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een vector als veelvoud van een andere
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.42,font=\scriptsize]
+        \draw[grijs] (-.5,0) -- (10.5,0);
+        \foreach \x in {0,1,...,10} \draw[grijs] (\x,.1) -- (\x,-.1);
+        \foreach \x/\n in {0/A,2/M,4/B,6/C,10/D} {\fill (\x,0) circle (2.5pt); \node[below=2pt] at (\x,0) {$\n$};}
+      \end{tikzpicture}
+  opgave: |-
+    De punten liggen op een rechte, met gelijke afstanden tussen de streepjes. Vul het getal in.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{AD} = \ldots\,\vect{AM}$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        10 streepjes tegenover 2.
+    - opgave: |-
+        $\vect{AM} = \ldots\,\vect{AD}$
+      antwoord: |-
+        $\tfrac15$
+      uitwerking: |-
+        2 tegenover 10.
+    - opgave: |-
+        $\vect{CA} = \ldots\,\vect{AB}$
+      antwoord: |-
+        $-\tfrac32$
+      uitwerking: |-
+        6 streepjes naar links tegenover 4 naar rechts.
+    - opgave: |-
+        $\vect{BC} = \ldots\,\vect{DA}$
+      antwoord: |-
+        $-\tfrac15$
+      uitwerking: |-
+        2 naar rechts tegenover 10 naar links.
+    - opgave: |-
+        $\vect{MB} = \ldots\,\vect{CD}$
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        2 tegenover 4, allebei naar rechts.
+    - opgave: |-
+        $\vect{DM} = \ldots\,\vect{AB}$
+      antwoord: |-
+        $-2$
+      uitwerking: |-
+        8 naar links tegenover 4 naar rechts.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een vector schrijven met twee gegeven vectoren
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.4,font=\scriptsize]
+        \ruitjes{0}{0}{13}{4}
+        \draw[vector] (0,0) -- (2,1) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+        \draw[vector] (3,1) -- (3,3) node[midway,left] {$\vect{v}$};
+        \draw[vectorb] (4,0) -- (6,3) node[midway,right] {$\vect{a}$};
+        \draw[vectorb] (7,0) -- (11,2) node[midway,below right,inner sep=1pt] {$\vect{b}$};
+        \draw[vectorb] (7,4) -- (9,3) node[midway,above right,inner sep=1pt] {$\vect{c}$};
+        \draw[vectorb] (13,0) -- (11,3) node[midway,right] {$\vect{d}$};
+      \end{tikzpicture}
+  opgave: |-
+    Schrijf de vectoren $\vect{a}$, $\vect{b}$, $\vect{c}$ en $\vect{d}$ met $\vect{u}$ en $\vect{v}$, zoals \mbox{$3\vect{u} - \vect{v}$}. Controleer met een tekening.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\vect{a}$
+      antwoord: |-
+        $\vect{u} + \vect{v}$
+      uitwerking: |-
+        $\vect{a}$ gaat 2 rechts en 3 omhoog: eerst $\vect{u}$ (2 rechts, 1 omhoog), dan $\vect{v}$ (2 omhoog).
+    - opgave: |-
+        $\vect{b}$
+      antwoord: |-
+        $2\vect{u}$
+      uitwerking: |-
+        4 rechts en 2 omhoog: twee keer $\vect{u}$.
+    - opgave: |-
+        $\vect{c}$
+      antwoord: |-
+        $\vect{u} - \vect{v}$
+      uitwerking: |-
+        2 rechts en 1 omlaag: $\vect{u}$ en dan 2 omlaag.
+    - opgave: |-
+        $\vect{d}$
+      antwoord: |-
+        $2\vect{v} - \vect{u}$
+      uitwerking: |-
+        2 links en 3 omhoog: $-\vect{u}$ (2 links, 1 omlaag) en dan $2\vect{v}$ (4 omhoog).
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    verplaatsingen optellen
+  opgave: |-
+    Een wandelaar stapt 600~m naar het oosten, daarna 800~m naar het noorden en tot slot 300~m naar het westen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken de drie verplaatsingen op schaal, kop aan staart. Kies 1~cm voor 100~m.
+      antwoord: |-
+        pijlen van 6~cm (oost), 8~cm (noord) en 3~cm (west)
+      uitwerking: |-
+        De som gaat van het vertrekpunt naar de kop van de laatste pijl: 3~cm naar het oosten en 8~cm naar het noorden.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \draw[vector] (0,0) -- (6,0); \draw[vectorb] (6,0) -- (6,8); \draw[vector,dashed] (6,8) -- (3,8); \draw[som] (0,0) -- (3,8);
+        \end{tikzpicture}}
+    - opgave: |-
+        Hoe ver is hij hemelsbreed van zijn vertrekpunt?
+      antwoord: |-
+        ongeveer 854~m
+      uitwerking: |-
+        De som gaat 300~m oost en 800~m noord: $\sqrt{300^2 + 800^2} = \sqrt{730\,000} \approx 854{,}4$~m.
+    - opgave: |-
+        Hoeveel meter heeft hij gestapt? Waarom is dat meer dan het antwoord van de vorige vraag?
+      antwoord: |-
+        1700~m
+      uitwerking: |-
+        $600 + 800 + 300 = 1700$. De grootte van een som is niet de som van de groottes: de wandelaar stapt niet in een rechte lijn, en de rechte weg is de kortste.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Wie maakt een fout? Verbeter de fout.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ines schrijft: $\vect{AB} + \vect{BC} = \vect{CA}$.
+      antwoord: |-
+        fout: $\vect{AC}$
+      uitwerking: |-
+        De som gaat van het beginpunt van de eerste vector naar het eindpunt van de tweede.
+    - opgave: |-
+        Wout zegt: twee krachten van 30~N en 40~N geven samen altijd 70~N.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Dat klopt alleen als ze dezelfde richting en zin hebben. Loodrecht op elkaar geven ze bijvoorbeeld 50~N.
+    - opgave: |-
+        Sara schrijft: $-\vect{AB} = \vect{BA}$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        De tegengestelde vector keert de zin om.
+    - opgave: |-
+        Jonas schrijft: $\vect{AB} + \vect{CD} = \vect{AD}$, want je begint in $A$ en eindigt in $D$.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Chasles werkt alleen als de middelste letters gelijk zijn. Neem een parallellogram $ABDC$, dan is $\vect{CD} = \vect{AB}$ en $\vect{AB} + \vect{CD} = 2\vect{AB}$, en dat is niet $\vect{AD}$.
+    - opgave: |-
+        Fien schrijft: $\vect{OB} - \vect{OA} = \vect{BA}$.
+      antwoord: |-
+        fout: $\vect{AB}$
+      uitwerking: |-
+        Want $\vect{OA} + \vect{AB} = \vect{OB}$.
+    - opgave: |-
+        Daan zegt: als $\vect{v} = -2\vect{u}$, dan zijn $\vect{u}$ en $\vect{v}$ evenwijdig.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Een veelvoud heeft altijd dezelfde richting.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    punten construeren met som en verschil
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{5}{4}
+        \punt[below left]{0}{0}{A} \punt[below right]{4}{1}{B} \punt[above right]{5}{4}{C}
+      \end{tikzpicture}
+  opgave: |-
+    Neem de punten $A$, $B$ en $C$ over op ruitjespapier.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het punt $D$ zodat $\vect{AB} = \vect{DC}$. Wat voor vierhoek is $ABCD$?
+      antwoord: |-
+        $D$ ligt 1 rechts en 3 boven $A$; een parallellogram
+      uitwerking: |-
+        Vanuit $C$ ga je terug over $\vect{AB}$ (4 links, 1 omlaag): $D$ ligt 1 hokje rechts en 3 hokjes boven $A$. Omdat $\vect{AB} = \vect{DC}$, is $ABCD$ een parallellogram.
+    - opgave: |-
+        Teken het punt $E$ zodat $\vect{AE} = \vect{AB} + \vect{AC}$.
+      antwoord: |-
+        9 rechts en 5 boven $A$
+      uitwerking: |-
+        $\vect{AB}$: 4 rechts, 1 omhoog; $\vect{AC}$: 5 rechts, 4 omhoog. Samen 9 rechts, 5 omhoog.
+    - opgave: |-
+        Teken het punt $F$ zodat $\vect{AF} = \vect{AB} - \vect{AC}$.
+      antwoord: |-
+        1 links en 3 onder $A$
+      uitwerking: |-
+        $\vect{AB} - \vect{AC} = \vect{CB}$: 1 links, 3 omlaag. Vanuit $A$ kom je in $F$.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    evenwicht van krachten
+  opgave: |-
+    Een bootje ligt stil op het water, vastgemaakt met touwen aan een paal. De wind duwt het bootje met 60~N naar het oosten, de stroming met 80~N naar het zuiden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe groot is de resultante van de wind en de stroming? Teken op schaal en controleer met Pythagoras.
+      antwoord: |-
+        $100$~N, naar het zuidoosten
+      uitwerking: |-
+        $\sqrt{60^2 + 80^2} = \sqrt{10\,000} = 100$. Ze wijst schuin naar het zuiden en het oosten, dichter bij het zuiden.
+    - opgave: |-
+        Welke kracht oefenen de touwen samen uit op het bootje?
+      antwoord: |-
+        $100$~N, de tegengestelde van de resultante
+      uitwerking: |-
+        Het bootje ligt stil: de som van alle krachten is $\nulvec$. De touwen trekken dus met $100$~N naar het noordwesten.
+    - opgave: |-
+        De wind valt weg. Welke kracht oefenen de touwen nu uit?
+      antwoord: |-
+        $80$~N naar het noorden
+      uitwerking: |-
+        Alleen de stroming blijft over; de touwen trekken even hard terug.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snelheden samenstellen: zijwind
+  opgave: |-
+    Een sportvliegtuigje vliegt met 160~km/h naar het noorden ten opzichte van de lucht. Er waait een wind van 40~km/h naar het oosten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken de snelheden op schaal en bepaal de snelheid ten opzichte van de grond.
+      antwoord: |-
+        ongeveer 165~km/h
+      uitwerking: |-
+        De snelheden staan loodrecht op elkaar: $\sqrt{160^2 + 40^2} = \sqrt{27\,200} \approx 164{,}9$~km/h, schuin naar het noordoosten.
+    - opgave: |-
+        Hoe ver is het vliegtuigje na een half uur naar het oosten afgedreven?
+      antwoord: |-
+        20~km
+      uitwerking: |-
+        $40 \cdot 0{,}5 = 20$~km.
+    - opgave: |-
+        Hoe ver is het na een half uur van zijn vertrekpunt?
+      antwoord: |-
+        ongeveer 82~km
+      uitwerking: |-
+        Het vloog 80~km naar het noorden en dreef 20~km af: $\sqrt{80^2 + 20^2} = \sqrt{6800} \approx 82{,}5$~km.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    drie krachten optellen op een rooster
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{-2}{-4}{4}{2}
+        \draw[vector] (0,0) -- (3,1) node[midway,below right,inner sep=1pt] {$\vect{F}_1$};
+        \draw[vectorb] (0,0) -- (-1,2) node[midway,left] {$\vect{F}_2$};
+        \draw[vector,dashed] (0,0) -- (2,-4) node[midway,left] {$\vect{F}_3$};
+        \fill[inkt] (0,0) circle (3pt);
+      \end{tikzpicture}
+  opgave: |-
+    Drie touwen trekken aan een haak. Op de figuur stelt één hokje $10$~N voor.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken de resultante met de kop-staartregel. Hoe groot is ze, afgerond op 1~N?
+      antwoord: |-
+        4 rechts, 1 omlaag; ongeveer $41$~N
+      uitwerking: |-
+        Naar rechts: $3 - 1 + 2 = 4$; omhoog: $1 + 2 - 4 = {-1}$. Lengte $\sqrt{4^2 + 1^2} = \sqrt{17} \approx 4{,}12$ hokjes, dus ongeveer $41$~N.
+    - opgave: |-
+        Welke vierde kracht houdt de haak in evenwicht?
+      antwoord: |-
+        4 links, 1 omhoog; ongeveer $41$~N
+      uitwerking: |-
+        De tegengestelde van de resultante: dezelfde grootte, de andere zin.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    snelheden: recht oversteken
+  opgave: |-
+    Nora zwemt met 1~m/s ten opzichte van het water. De rivier stroomt met 0,6~m/s en is 40~m breed. Ze wil precies recht tegenover haar vertrekpunt aankomen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In welke richting moet ze zwemmen? Teken op schaal: haar snelheid ten opzichte van de oever moet loodrecht op de oever staan. Tip: teken eerst de stroming, en zoek dan een pijl van 1~m/s die eindigt op de loodlijn.
+      antwoord: |-
+        schuin stroomopwaarts, onder ongeveer $53^\circ$ met de oever
+      uitwerking: |-
+        Teken de stroming (0,6 eenheden) en vanaf haar kop een pijl met lengte 1 die eindigt op de loodlijn door het vertrekpunt. Die pijl wijst schuin tegen de stroming in. Met de geodriehoek meet je ongeveer $53^\circ$ met de oever.
+        \figuren{\begin{tikzpicture}[scale=1.6,font=\scriptsize]
+          \draw[hulplijn] (0,0) -- (0,1); \draw[grijs] (-.9,0) -- (.9,0);
+          \draw[vectorb] (0,0) -- (.6,0) node[midway,below] {$0{,}6$};
+          \draw[vector] (.6,0) -- (0,.8) node[midway,above right,inner sep=1pt] {$1$};
+          \draw[som] (0,0) -- (0,.8) node[midway,left] {$0{,}8$};
+        \end{tikzpicture}}
+    - opgave: |-
+        Hoe snel nadert ze de overkant?
+      antwoord: |-
+        $0{,}8$~m/s
+      uitwerking: |-
+        De drie snelheden vormen een rechthoekige driehoek met schuine zijde 1: $\sqrt{1^2 - 0{,}6^2} = \sqrt{0{,}64} = 0{,}8$.
+    - opgave: |-
+        Hoe lang duurt de oversteek? Vergelijk met de tijd als ze recht naar de overkant zou zwemmen en zich laten afdrijven.
+      antwoord: |-
+        50~s, tegenover 40~s
+      uitwerking: |-
+        $40 : 0{,}8 = 50$~s. Zwemt ze recht naar de overkant, dan nadert ze met 1~m/s en duurt het $40$~s, maar dan komt ze $40 \cdot 0{,}6 = 24$~m stroomafwaarts aan.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    som van vectoren in een klok
+  opgave: |-
+    Twaalf vectoren vertrekken in het middelpunt van een klok en wijzen naar de twaalf cijfers. Ze zijn allemaal even lang.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de som van de vectoren naar 12 en naar 6?
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        Ze zijn tegengesteld.
+    - opgave: |-
+        Wat is de som van alle twaalf vectoren? Leg uit zonder te tekenen.
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        Ze vormen zes paren van tegengestelde vectoren: 12 en 6, 1 en 7, enzovoort. Elk paar geeft $\nulvec$.
+    - opgave: |-
+        Wat is de som van de vectoren naar 12, 4 en 8? Tip: leg ze kop aan staart.
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        De hoek tussen twee opeenvolgende vectoren is $120^\circ$. Kop aan staart vormen ze een gelijkzijdige driehoek, die sluit: de som is $\nulvec$.
+    - opgave: |-
+        Je laat de vector naar 3 weg. Wat is de som van de elf andere?
+      antwoord: |-
+        de vector naar 9
+      uitwerking: |-
+        De som van alle twaalf is $\nulvec$, dus de som van de elf andere is de tegengestelde van de vector naar 3: de vector naar 9.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    grootste en kleinste resultante
+  opgave: |-
+    Op een punt werken twee krachten van $30$~N en $50$~N, met een hoek die je kunt kiezen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de grootst mogelijke resultante? Bij welke hoek?
+      antwoord: |-
+        $80$~N, bij $0^\circ$
+      uitwerking: |-
+        Dezelfde richting en zin: de pijlen liggen in elkaars verlengde.
+    - opgave: |-
+        Wat is de kleinst mogelijke resultante? Bij welke hoek?
+      antwoord: |-
+        $20$~N, bij $180^\circ$
+      uitwerking: |-
+        Tegengestelde zin: $50 - 30 = 20$.
+    - opgave: |-
+        Kan de resultante $10$~N zijn? En $60$~N?
+      antwoord: |-
+        $10$~N niet; $60$~N wel
+      uitwerking: |-
+        De resultante ligt altijd tussen $20$~N en $80$~N: $10$~N kan dus niet. $60$~N ligt ertussen; met een tekening vind je een hoek van ongeveer $86^\circ$.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    zwaartelijn met vectoren
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \coordinate (A) at (0,0); \coordinate (B) at (4.4,.4); \coordinate (C) at (1.6,3); \coordinate (M) at (3,1.7);
+        \fill[accent!8] (A) -- (B) -- (C) -- cycle;
+        \draw[accent,thick] (A) -- (B) -- (C) -- cycle;
+        \draw[accent,dashed] (A) -- (M);
+        \fill (M) circle (1.8pt) node[above right] {$M$};
+        \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[above] at (C) {$C$};
+      \end{tikzpicture}
+  opgave: |-
+    In driehoek $ABC$ is $M$ het midden van $[BC]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $\vect{BM}$ als een veelvoud van $\vect{BC}$.
+      antwoord: |-
+        $\vect{BM} = \tfrac12\,\vect{BC}$
+      uitwerking: |-
+        $M$ ligt midden op $[BC]$.
+    - opgave: |-
+        Toon aan dat $\vect{AM} = \vect{AB} + \tfrac12\,\vect{BC}$.
+      antwoord: |-
+        Chasles via $B$
+      uitwerking: |-
+        $\vect{AM} = \vect{AB} + \vect{BM} = \vect{AB} + \tfrac12\,\vect{BC}$.
+    - opgave: |-
+        Toon aan dat $\vect{AB} + \vect{AC} = 2\,\vect{AM}$. Tip: vul de driehoek aan tot een parallellogram $ABDC$.
+      antwoord: |-
+        de diagonalen van $ABDC$ snijden elkaar middendoor
+      uitwerking: |-
+        Met de parallellogramregel is $\vect{AB} + \vect{AC} = \vect{AD}$. De diagonalen $[AD]$ en $[BC]$ van het parallellogram snijden elkaar middendoor, in het midden $M$ van $[BC]$. Dus $M$ is ook het midden van $[AD]$, en $\vect{AD} = 2\,\vect{AM}$.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 3
+  pakketten: [4, 5]
+  thema: |-
+    bewijzen met vectoren: de middens van een vierhoek
+  opgave: |-
+    $ABCD$ is een willekeurige vierhoek, en $P$, $Q$, $R$ en $S$ zijn de middens van $[AB]$, $[BC]$, $[CD]$ en $[DA]$. Bewijs met vectoren dat $PQRS$ altijd een parallellogram is. Tip: gebruik de middenparallel in de driehoeken $ABC$ en $ADC$.
+  antwoord: |-
+    $\vect{PQ} = \vect{SR} = \tfrac12\,\vect{AC}$
+  uitwerking: |-
+    In driehoek $ABC$ is $\vect{PQ} = \vect{PB} + \vect{BQ} = \tfrac12\,\vect{AB} + \tfrac12\,\vect{BC} = \tfrac12\,\vect{AC}$. In driehoek $ADC$ is op dezelfde manier $\vect{SR} = \vect{SD} + \vect{DR} = \tfrac12\,\vect{AD} + \tfrac12\,\vect{DC} = \tfrac12\,\vect{AC}$. Dus $\vect{PQ} = \vect{SR}$, en volgens de eigenschap \textit{vector en parallellogram} is $PQRS$ een parallellogram.
+
+- id: h1-o24
+  soort: opdracht
+  niveau: 3
+  pakketten: [4, 5]
+  thema: |-
+    bewijzen met vectoren: de diagonalen van een parallellogram
+  opgave: |-
+    $ABCD$ is een parallellogram, dus $\vect{AB} = \vect{DC}$. Neem $M$ het midden van $[AC]$. Bewijs dat $\vect{BM} = \vect{MD}$. Waarom volgt daaruit dat de diagonalen elkaar middendoor snijden?
+  antwoord: |-
+    beide zijn gelijk aan $\tfrac12\,\vect{AC} - \vect{AB}$
+  uitwerking: |-
+    $\vect{BM} = \vect{BA} + \vect{AM} = -\vect{AB} + \tfrac12\,\vect{AC}$. Verder is $\vect{AD} = \vect{AC} + \vect{CD} = \vect{AC} - \vect{DC} = \vect{AC} - \vect{AB}$, zodat $\vect{MD} = \vect{MA} + \vect{AD} = -\tfrac12\,\vect{AC} + \vect{AC} - \vect{AB} = \tfrac12\,\vect{AC} - \vect{AB}$. Dus $\vect{BM} = \vect{MD}$: $B$, $M$ en $D$ liggen op één rechte, en $M$ is het midden van $[BD]$. Het midden van $[AC]$ is dus ook het midden van $[BD]$.
+
+#========================================================================================
+# TEST JEZELF
+#========================================================================================
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    gelijke en tegengestelde vectoren, veelvoud
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \coordinate (P) at (0,0); \coordinate (Q) at (4,0); \coordinate (R) at (4.8,2.2); \coordinate (S) at (.8,2.2); \coordinate (T) at (2.4,1.1);
+        \fill[accent!8] (P) -- (Q) -- (R) -- (S) -- cycle;
+        \draw[accent,thick] (P) -- (Q) -- (R) -- (S) -- cycle;
+        \draw[lijngrijs] (P) -- (R) (Q) -- (S);
+        \fill (T) circle (1.5pt) node[below=2pt] {$T$};
+        \node[below left] at (P) {$P$}; \node[below right] at (Q) {$Q$}; \node[above right] at (R) {$R$}; \node[above left] at (S) {$S$};
+      \end{tikzpicture}
+  opgave: |-
+    $PQRS$ is een parallellogram met $T$ het snijpunt van de diagonalen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke vector met letters uit de figuur is gelijk aan $\vect{PQ}$?
+      antwoord: |-
+        $\vect{SR}$
+      uitwerking: |-
+        Overstaande zijde, dezelfde zin.
+    - opgave: |-
+        Geef twee vectoren die tegengesteld zijn aan $\vect{TR}$.
+      antwoord: |-
+        $\vect{RT}$ en $\vect{TP}$
+      uitwerking: |-
+        $T$ is het midden van $[PR]$.
+    - opgave: |-
+        Vul aan: $\vect{PT} = \ldots\,\vect{PR}$.
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        Half zo lang, dezelfde zin.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    som en verschil tekenen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{5}{2}
+        \draw[vector] (0,1) -- (3,0) node[midway,below left,inner sep=1pt] {$\vect{u}$};
+        \draw[vectorb] (4,0) -- (5,2) node[midway,left] {$\vect{v}$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de vectoren over op ruitjespapier en teken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vect{u} + \vect{v}$
+      antwoord: |-
+        4 rechts, 1 omhoog
+      uitwerking: |-
+        $\vect{u}$: 3 rechts, 1 omlaag; $\vect{v}$: 1 rechts, 2 omhoog. Samen 4 rechts, 1 omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{4}{2}
+          \draw[vector] (0,1) -- (3,0); \draw[vectorb] (3,0) -- (4,2); \draw[som] (0,1) -- (4,2);
+        \end{tikzpicture}}
+    - opgave: |-
+        $\vect{v} - \vect{u}$
+      antwoord: |-
+        2 links, 3 omhoog
+      uitwerking: |-
+        $-\vect{u}$: 3 links, 1 omhoog. Samen met $\vect{v}$: 2 links, 3 omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{2}{3}
+          \draw[vectorb] (2,0) -- (3,2); \draw[vector] (3,2) -- (0,3); \draw[som] (2,0) -- (0,3);
+        \end{tikzpicture}}
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    betrekking van Chasles
+  opgave: |-
+    Schrijf als één vector.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vect{KL} + \vect{LM}$
+      antwoord: |-
+        $\vect{KM}$
+      uitwerking: |-
+        Chasles.
+    - opgave: |-
+        $\vect{AC} + \vect{BA}$
+      antwoord: |-
+        $\vect{BC}$
+      uitwerking: |-
+        $\vect{BA} + \vect{AC} = \vect{BC}$.
+    - opgave: |-
+        $\vect{PQ} + \vect{RP} + \vect{QR}$
+      antwoord: |-
+        $\nulvec$
+      uitwerking: |-
+        $\vect{PQ} + \vect{QR} + \vect{RP} = \vect{PP}$.
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  thema: |-
+    som en verschil in een parallellogram
+  opgave: |-
+    $ABCD$ is een parallellogram. Schrijf als één vector met letters van het parallellogram.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vect{AB} + \vect{AD}$
+      antwoord: |-
+        $\vect{AC}$
+      uitwerking: |-
+        Parallellogramregel.
+    - opgave: |-
+        $\vect{AD} - \vect{AB}$
+      antwoord: |-
+        $\vect{BD}$
+      uitwerking: |-
+        Verschil vanuit $A$.
+    - opgave: |-
+        $\vect{CB} - \vect{CD}$
+      antwoord: |-
+        $\vect{DB}$
+      uitwerking: |-
+        Verschil vanuit $C$: van $D$ naar $B$.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    som en veelvoud tekenen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \ruitjes{0}{0}{6}{2}
+        \draw[vector] (0,0) -- (2,2) node[midway,left] {$\vect{u}$};
+        \draw[vectorb] (3,2) -- (6,1) node[midway,above right,inner sep=1pt] {$\vect{v}$};
+      \end{tikzpicture}
+  opgave: |-
+    Neem de vectoren over op ruitjespapier en teken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $2\vect{u} - \vect{v}$
+      antwoord: |-
+        1 rechts, 5 omhoog
+      uitwerking: |-
+        $2\vect{u}$: 4 rechts, 4 omhoog; $-\vect{v}$: 3 links, 1 omhoog. Samen 1 rechts, 5 omhoog.
+        \figuren{\begin{tikzpicture}[scale=.3]
+          \ruitjes{0}{0}{4}{5}
+          \draw[vector] (0,0) -- (4,4); \draw[vectorb] (4,4) -- (1,5); \draw[som] (0,0) -- (1,5);
+        \end{tikzpicture}}
+    - opgave: |-
+        $-\tfrac12\vect{u}$
+      antwoord: |-
+        1 links, 1 omlaag
+      uitwerking: |-
+        Half zo lang als $\vect{u}$ (2 rechts, 2 omhoog), met de andere zin.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    vereenvoudigen
+  opgave: |-
+    Vereenvoudig.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $3(\vect{u} + 2\vect{v}) - 5\vect{v}$
+      antwoord: |-
+        $3\vect{u} + \vect{v}$
+      uitwerking: |-
+        $3\vect{u} + 6\vect{v} - 5\vect{v}$.
+    - opgave: |-
+        $2\vect{u} - (\vect{u} - 4\vect{v})$
+      antwoord: |-
+        $\vect{u} + 4\vect{v}$
+      uitwerking: |-
+        $2\vect{u} - \vect{u} + 4\vect{v}$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    resultante van twee krachten
+  opgave: |-
+    Op een kist werken twee krachten van $12$~N en $5$~N. Bepaal de resultante als de krachten
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        loodrecht op elkaar staan;
+      antwoord: |-
+        $13$~N
+      uitwerking: |-
+        $\sqrt{12^2 + 5^2} = \sqrt{169} = 13$.
+    - opgave: |-
+        in tegengestelde zin werken.
+      antwoord: |-
+        $7$~N, in de zin van de kracht van $12$~N
+      uitwerking: |-
+        $12 - 5 = 7$.

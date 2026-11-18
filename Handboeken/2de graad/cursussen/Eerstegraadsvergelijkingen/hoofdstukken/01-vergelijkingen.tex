@@ -1,0 +1,557 @@
+%----------------------------------------------------------------------------------------
+% EERSTEGRAADSVERGELIJKINGEN EN VRAAGSTUKKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf
+% (2de graad: geen Koppel). Labels van dit hoofdstuk beginnen met h1-.
+% Pakket 4 en 5: ook vergelijkingen met een parameter (\alleenvoor{4,5}).
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Vergelijkingen en vraagstukken}
+
+\begin{probleem}
+Het 3de jaar gaat met een bus op schoolreis. De school betaalt een vierde van de prijs van de bus, de oudervereniging geeft 120 euro, en elk van de 50 leerlingen betaalt 9 euro. Daarmee is de bus precies betaald. Hoeveel kost de bus?
+
+\figuren{\begin{tikzpicture}[x=.01579cm,font=\scriptsize]
+  \draw[accent,fill=accent!25] (0,0) rectangle (190,.7);
+  \draw[accent,fill=accent!10] (190,0) rectangle (310,.7);
+  \draw[accent,fill=white] (310,0) rectangle (760,.7);
+  \node at (95,.35) {een vierde};
+  \node at (250,.35) {120};
+  \node at (535,.35) {$50 \cdot 9$};
+  \draw[decorate,decoration={brace,amplitude=4pt}] (0,.85) -- (760,.85) node[midway,above=4pt] {de prijs van de bus: ?};
+  \node[below,text=grijs] at (95,-.05) {school};
+  \node[below,text=grijs] at (250,-.05) {ouders};
+  \node[below,text=grijs] at (535,-.05) {leerlingen};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{1,2,3}{14}\alleenvoor{4,5}{18} (eerstegraadsvergelijkingen oplossen en vraagstukken). Voorkennis uit de 1ste graad: eenvoudige vergelijkingen, haakjes uitwerken, rekenen met breuken. Laat leerlingen het probleem eerst door te gokken proberen: met 800 euro betalen school, ouders en leerlingen samen maar 770 euro, met 700 euro al 745 euro. Gokken lukt, maar het duurt. In sectie 4 wordt het probleem opgelost. \alleenvoor{4,5}{In dit pakket komen ook vergelijkingen met een parameter aan bod (sectie 3).}}
+
+In de 1ste graad loste je al vergelijkingen op zoals $2x + 1 = 7$. In dit hoofdstuk herhalen we waarom de rekenregels kloppen, met het beeld van een balans. Daarna leer je vergelijkingen met haakjes en breuken oplossen, en ontdek je dat een vergelijking soms geen enkele oplossing heeft, of net oneindig veel. Het belangrijkste komt op het einde: een vraagstuk zoals dat van de bus omzetten in een vergelijking. Dat is ook wat je later het vaakst nodig hebt.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vergelijkingen oplossen}
+
+\subsection{Wat is een vergelijking?}
+
+\naast{Op de balans van de Verken liggen links drie zakjes en twee blokjes, rechts één zakje en acht blokjes. Een blokje weegt 1~kg. Hoeveel weegt een zakje? Noem dat gewicht $x$. Links ligt dan $3x + 2$, rechts $x + 8$. De balans is in evenwicht, dus
+\[ 3x + 2 = x + 8 . \]
+Probeer $x = 2$: links is dat $3 \cdot 2 + 2 = 8$, rechts $2 + 8 = 10$. Dat klopt niet. Probeer $x = 3$: links $3 \cdot 3 + 2 = 11$ en rechts $3 + 8 = 11$. Een zakje weegt dus 3~kg.}{\begin{tikzpicture}[scale=.5]
+  \balans{3}{2}{1}{8}
+\end{tikzpicture}}
+
+Zo'n gelijkheid met een onbekend getal erin heet een vergelijking. Het getal 3 maakt ze waar, het getal 2 niet.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{vergelijking}} is een gelijkheid van twee uitdrukkingen waarin een onbekende staat, meestal $x$. Wat links van het gelijkheidsteken staat, is het \textbf{\textcolor{accent}{linkerlid}}, wat rechts staat het \textbf{\textcolor{accent}{rechterlid}}.
+
+Een \textbf{\textcolor{accent}{oplossing}} van een vergelijking is een getal dat, ingevuld voor de onbekende, een ware gelijkheid geeft. Alle oplossingen samen vormen de \textbf{\textcolor{accent}{oplossingsverzameling}} $V$. Een vergelijking \textbf{\textcolor{accent}{oplossen}} is alle oplossingen zoeken.
+\end{theorie}
+
+Bij de balans is $V = \{3\}$. Of een getal een oplossing is, ga je dus na door het in te vullen in beide leden. Zo controleer je ook altijd je antwoord.
+
+\voorbeeld{}{Is $-2$ een oplossing van de vergelijking $5x + 4 = 3(x + 1) - 3$?\label{vb:h1-controle}}{%
+\uitleg{We vullen $-2$ in voor $x$, in elk lid apart, en vergelijken de uitkomsten.}
+\begin{stappen}
+5 \cdot (-2) + 4 = -6 & Het linkerlid. \\
+3 \cdot (-2 + 1) - 3 = -3 - 3 = -6 & Het rechterlid. Eerst de haakjes, dan vermenigvuldigen, dan aftrekken.
+\end{stappen}
+Beide leden zijn gelijk: $-2$ is een oplossing.}
+
+\begin{oefeningen}
+\oef{h1-controle}
+\end{oefeningen}
+
+Gokken en invullen werkt, maar het is traag, en een oplossing als $\tfrac{13}{7}$ vind je zo nooit. Daarom zoeken we regels die een vergelijking stap voor stap eenvoudiger maken, zonder dat de oplossingen veranderen.
+
+\subsection{Bij beide leden hetzelfde optellen}
+
+Waarom mag je bij een vergelijking een term naar het andere lid brengen, als je het teken verandert? De balans geeft het antwoord. Leg je links en rechts evenveel bij, of neem je links en rechts evenveel weg, dan blijft ze in evenwicht.
+
+\figuren{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \balans{2}{5}{1}{9}
+  \draw[->,grijs,thick] (5.3,0) -- (7.7,0) node[midway,above=2pt,text=black] {$-5$};
+  \begin{scope}[xshift=13cm]\balans{2}{0}{1}{4}\end{scope}
+  \draw[->,grijs,thick] (18.3,0) -- (20.7,0) node[midway,above=2pt,text=black] {$-x$};
+  \begin{scope}[xshift=26cm]\balans{1}{0}{0}{4}\end{scope}
+  \node at (0,-2.2) {$2x + 5 = x + 9$};
+  \node at (13,-2.2) {$2x = x + 4$};
+  \node at (26,-2.2) {$x = 4$};
+\end{tikzpicture}}
+
+Eerst nemen we links en rechts vijf blokjes weg, daarna links en rechts één zakje. Elke balans blijft in evenwicht, en de laatste toont meteen het antwoord: een zakje weegt 4~kg. De drie vergelijkingen hebben dus dezelfde oplossing.
+
+\begin{theorie}
+Twee vergelijkingen zijn \textbf{\textcolor{accent}{gelijkwaardig}} als ze dezelfde oplossingen hebben.
+
+\begin{stelling}{Bij beide leden optellen}
+Tel je bij beide leden van een vergelijking hetzelfde getal of dezelfde term op, of trek je het van beide leden af, dan krijg je een gelijkwaardige vergelijking.
+
+\vspace{1mm}
+\qquad $\formule{A = B \iff A + c = B + c}$
+\end{stelling}
+\end{theorie}
+
+Hier staan $A$ en $B$ voor de twee leden. In de praktijk schrijf je de stap korter. Trek je 5 af van beide leden van $2x + 5 = x + 9$, dan krijg je $2x = x + 9 - 5$: de term $+5$ verdwijnt links en verschijnt rechts als $-5$. Dat is wat je in de 1ste graad \textit{een term overbrengen} noemde: een term verandert van lid en krijgt het tegengestelde teken. Het werkt ook voor termen met $x$.
+
+\voorbeeld{}{Los op: $5x + 3 = 4x - 6$.\label{vb:h1-optellen}}{%
+\uitleg{We willen $x$ alleen in één lid. Daarvoor halen we $4x$ weg uit het rechterlid, en daarna 3 uit het linkerlid.}
+\begin{stappen}
+5x - 4x + 3 = -6 & Trek $4x$ af van beide leden: $4x$ gaat naar links als $-4x$. \\
+x + 3 = -6 & Reken uit: $5x - 4x = x$. \\
+x = -6 - 3 = -9 & Trek 3 af van beide leden. \\
+V = \{-9\} & Controle: $5 \cdot (-9) + 3 = -42$ en $4 \cdot (-9) - 6 = -42$.
+\end{stappen}}
+
+\nujij{Los op: $3x - 7 = 2x + 5$.}{$x = 12$. Controle: $36 - 7 = 29$ en $24 + 5 = 29$.}
+
+\begin{oefeningen}
+\oef{h1-optellen}
+\end{oefeningen}
+
+\subsection{Beide leden met hetzelfde getal vermenigvuldigen}
+
+Met optellen alleen kom je niet ver. Bij $3x = 9$ blijft er $3x$ staan, en je wilt $x$. Ook nu helpt de balans: verdeel je de inhoud van beide schalen in drie gelijke delen en houd je telkens één deel over, dan blijft ze in evenwicht.
+
+\figuren{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \balans{3}{0}{0}{9}
+  \draw[->,grijs,thick] (5.3,0) -- (7.7,0) node[midway,above=2pt,text=black] {$:3$};
+  \begin{scope}[xshift=13cm]\balans{1}{0}{0}{3}\end{scope}
+  \node at (0,-2.2) {$3x = 9$};
+  \node at (13,-2.2) {$x = 3$};
+\end{tikzpicture}}
+
+Zo mag je beide leden ook verdubbelen, of met eender welk ander getal vermenigvuldigen. Op één getal na.
+
+\begin{theorie}
+\begin{stelling}{Beide leden vermenigvuldigen}
+Vermenigvuldig je beide leden van een vergelijking met hetzelfde getal verschillend van 0, of deel je ze door hetzelfde getal verschillend van 0, dan krijg je een gelijkwaardige vergelijking.
+
+\vspace{1mm}
+\qquad $\formule{A = B \iff A \cdot c = B \cdot c}$ \qquad met $c \neq 0$
+\end{stelling}
+\end{theorie}
+
+Waarom niet met 0? Vermenigvuldig beide leden van $x = 3$ met 0, en je krijgt $0 = 0$. Dat klopt voor elk getal $x$: de nieuwe vergelijking heeft andere oplossingen dan $x = 3$. En door 0 delen kan helemaal niet.
+
+\voorbeeld{}{Los op: $-4x = 10$.\label{vb:h1-delen}}{%
+\uitleg{Voor $x$ staat $-4$. We delen beide leden door $-4$, ook het minteken.}
+\begin{stappen}
+x = \dfrac{10}{-4} = -\dfrac52 & Deel beide leden door $-4$ en vereenvoudig. \\[2ex]
+V = \Bigl\{-\dfrac52\Bigr\} & Controle: $-4 \cdot \bigl(-\tfrac52\bigr) = 10$.
+\end{stappen}}
+
+Een veelgemaakte fout is $x = \tfrac{10}{4}$: wie door $-4$ deelt, deelt ook door het minteken. Staat er een breuk voor $x$, dan vermenigvuldig je met het omgekeerde.
+
+\voorbeeld{}{Los op: $\dfrac{2x}{3} = 8$.\label{vb:h1-omgekeerde}}{%
+\uitleg{Het getal voor $x$ is $\tfrac23$. Vermenigvuldigen met het omgekeerde, $\tfrac32$, laat $x$ alleen over. Je kunt ook eerst met 3 vermenigvuldigen en dan door 2 delen.}
+\begin{stappen}
+x = 8 \cdot \dfrac32 = 12 & Vermenigvuldig beide leden met $\tfrac32$, want $\tfrac32 \cdot \tfrac23 = 1$. \\[2ex]
+V = \{12\} & Controle: $\tfrac{2 \cdot 12}{3} = 8$.
+\end{stappen}}
+
+\nujij{Los op: $\dfrac{3x}{5} = -6$.}{$x = -6 \cdot \tfrac53 = -10$.}
+
+\begin{oefeningen}
+\oef{h1-vermenigvuldigen}
+\end{oefeningen}
+
+\subsection{Een vergelijking herleiden}
+
+Meestal heb je beide regels nodig. Je brengt eerst alle termen met $x$ naar één lid en alle getallen naar het andere. Dan staat er iets als $4x = 14$, en deel je door het getal voor $x$. Elke vergelijking in deze sectie konden we zo herleiden. Dat geeft haar een naam.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{eerstegraadsvergelijking}} in $x$ is een vergelijking die je met de rekenregels kunt herleiden tot de vorm
+\[ \formule{ax = b} \qquad \text{met } a \neq 0 . \]
+Ze heeft precies één oplossing: $\formule{x = \dfrac ba}$.
+\end{theorie}
+
+Het woord \textit{eerstegraads} zegt dat $x$ er alleen tot de eerste macht in staat: geen $x^2$, geen $x$ in een noemer. Het getal $a$ heet de \textit{coëfficiënt} van $x$.
+
+\voorbeeld{}{Los op: $7x - 4 = 3x + 10$.\label{vb:h1-herleid}}{%
+\uitleg{De termen met $x$ gaan naar links, de getallen naar rechts. Daarna delen we door de coëfficiënt van $x$.}
+\begin{stappen}
+7x - 3x = 10 + 4 & Breng $3x$ naar links en $-4$ naar rechts, met het tegengestelde teken. \\
+4x = 14 & Reken beide leden uit: de vorm $ax = b$. \\
+x = \dfrac{14}{4} = \dfrac72 & Deel door 4 en vereenvoudig. \\[2ex]
+V = \Bigl\{\dfrac72\Bigr\} & Controle met $x = 3{,}5$: $7 \cdot 3{,}5 - 4 = 20{,}5$ en $3 \cdot 3{,}5 + 10 = 20{,}5$.
+\end{stappen}}
+
+Je mag zelf kiezen in welk lid je de termen met $x$ verzamelt. Kies het lid waar de coëfficiënt positief wordt: dan heb je minder mintekens.
+
+\voorbeeld{}{Los op: $4 - 3x = 2x + 19$.\label{vb:h1-herleid2}}{%
+\uitleg{Rechts staat $2x$, links $-3x$. Brengen we $-3x$ naar rechts, dan wordt de coëfficiënt $+5$.}
+\begin{stappen}
+4 - 19 = 2x + 3x & Breng $-3x$ naar rechts en $19$ naar links. \\
+-15 = 5x & Reken uit. \\
+x = -3 & Deel door 5. Controle: $4 + 9 = 13$ en $-6 + 19 = 13$.
+\end{stappen}}
+
+\begin{werkwijze}
+Breng de termen met $x$ naar één lid en de getallen naar het andere, met het tegengestelde teken. Reken beide leden uit tot $ax = b$. Deel door $a$. Controleer door je oplossing in te vullen in de opgave, en noteer $V$.
+\end{werkwijze}
+
+\nujij{Los op: $9 - 2x = 4x - 3$.}{$12 = 6x$, dus $x = 2$.}
+
+\begin{oefeningen}
+\oef{h1-herleid}
+\end{oefeningen}
+
+%========================================================================================
+\section{Haakjes en breuken}
+
+Wat doe je als $x$ tussen haakjes staat, of in de teller van een breuk? Het idee is telkens hetzelfde: werk eerst de haakjes en de noemers weg. Dan krijg je een vergelijking zoals in sectie 1.
+
+\subsection{Vergelijkingen met haakjes}
+
+Haakjes werk je uit met de distributiviteit uit de 1ste graad: $a(b + c) = ab + ac$. Let op het minteken voor haakjes: het keert alle tekens tussen de haakjes om, zodat $-(2x - 5) = -2x + 5$.
+
+\voorbeeld{}{Los op: $4(x - 3) - (2x - 7) = 3(x - 2)$.\label{vb:h1-haakjes}}{%
+\uitleg{Eerst werken we alle haakjes uit. Daarna is het een gewone vergelijking.}
+\begin{stappen}
+4x - 12 - 2x + 7 = 3x - 6 & Werk de haakjes uit. Het minteken voor $(2x - 7)$ keert beide tekens om. \\
+2x - 5 = 3x - 6 & Neem de gelijksoortige termen samen. \\
+-5 + 6 = 3x - 2x & Breng $2x$ naar rechts en $-6$ naar links. \\
+x = 1 & Controle: $4 \cdot (-2) - (-5) = -3$ en $3 \cdot (-1) = -3$.
+\end{stappen}}
+
+Staat er een getal voor de haakjes, met een minteken ervoor, dan gaat het vaak mis.
+
+\voorbeeld{}{Los op: $5 - 2(x - 4) = 3x - 2$.\label{vb:h1-haakjes2}}{%
+\uitleg{Je mag niet eerst $5 - 2$ uitrekenen: vermenigvuldigen gaat voor aftrekken. We vermenigvuldigen $-2$ met beide termen tussen de haakjes.}
+\begin{stappen}
+5 - 2x + 8 = 3x - 2 & Want $-2 \cdot x = -2x$ en $-2 \cdot (-4) = +8$. \\
+13 + 2 = 3x + 2x & Neem samen en breng over. \\
+15 = 5x & Reken uit. \\
+x = 3 & Controle: $5 - 2 \cdot (-1) = 7$ en $9 - 2 = 7$.
+\end{stappen}}
+
+\nujij{Los op: $3(x + 2) = 5 - (x - 9)$.}{$3x + 6 = 14 - x$, dus $4x = 8$ en $x = 2$.}
+
+\begin{oefeningen}
+\oef{h1-haakjes}
+\end{oefeningen}
+
+\subsection{Vergelijkingen met breuken}
+
+Kun je ook $\tfrac x3 + \tfrac x4 = 7$ oplossen? Je kunt de breuken gelijknamig maken en optellen. Eenvoudiger is het om de noemers eerst weg te werken. Vermenigvuldig daarvoor beide leden met een getal dat een veelvoud is van alle noemers, het liefst het kleinste: het \textit{kleinste gemeenschappelijk veelvoud} (kgv). Dat mag, want het is een getal verschillend van 0.
+
+\voorbeeld{}{Los op: $\dfrac x3 + \dfrac x4 = 7$.\label{vb:h1-breuken}}{%
+\uitleg{Het kgv van 3 en 4 is 12. We vermenigvuldigen elke term met 12.}
+\begin{stappen}
+12 \cdot \dfrac x3 + 12 \cdot \dfrac x4 = 12 \cdot 7 & Vermenigvuldig beide leden met 12, dus elke term. \\[2ex]
+4x + 3x = 84 & Vereenvoudig: $12 : 3 = 4$ en $12 : 4 = 3$. \\
+7x = 84 \ \Rightarrow \ x = 12 & Controle: $\tfrac{12}{3} + \tfrac{12}{4} = 4 + 3 = 7$.
+\end{stappen}}
+
+Staat er een som in de teller, dan zet je die teller tussen haakjes zodra de noemer verdwijnt. Een breukstreep werkt namelijk als haakjes: in $\tfrac{2x - 3}{5}$ deel je de hele teller door 5.
+
+\voorbeeld{}{Los op: $\dfrac{x + 1}{2} - \dfrac{2x - 3}{5} = 1$.\label{vb:h1-breuken2}}{%
+\uitleg{Het kgv van 2 en 5 is 10. Het minteken voor de tweede breuk slaat op de hele teller $2x - 3$: daarom komen er haakjes.}
+\begin{stappen}
+5(x + 1) - 2(2x - 3) = 10 & Vermenigvuldig elke term met 10. \\
+5x + 5 - 4x + 6 = 10 & Werk de haakjes uit: $-2 \cdot (-3) = +6$. \\
+x + 11 = 10 & Neem samen. \\
+x = -1 & Controle: $\tfrac{0}{2} - \tfrac{-5}{5} = 0 + 1 = 1$.
+\end{stappen}}
+
+Vergeet bij het vermenigvuldigen de termen zonder noemer niet. In $x - \tfrac{x - 2}{3} = 4$ wordt $x$ na vermenigvuldigen met 3 gelijk aan $3x$, en 4 wordt 12. Kommagetallen werk je op dezelfde manier weg: vermenigvuldig $0{,}2x + 1{,}5 = 0{,}5x - 0{,}3$ met 10, en je krijgt $2x + 15 = 5x - 3$.
+
+\begin{werkwijze}
+Vermenigvuldig elke term met het kgv van de noemers, en zet elke teller tussen haakjes. Werk de haakjes uit. Breng de termen met $x$ naar één lid en de getallen naar het andere. Herleid tot $ax = b$ en deel door $a$. Controleer in de opgave.
+\end{werkwijze}
+
+\nujij{Los op: $x - \dfrac{x - 2}{3} = 4$.}{$3x - (x - 2) = 12$, dus $2x + 2 = 12$ en $x = 5$.}
+
+\begin{oefeningen}
+\oef{h1-breuken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Geen of oneindig veel oplossingen}
+
+\subsection{Als \texorpdfstring{$x$}{x} verdwijnt}
+
+Heeft elke vergelijking precies één oplossing? Probeer $2(x + 3) = 2x + 5$. Na het uitwerken staat er $2x + 6 = 2x + 5$. Breng je $2x$ naar links, dan blijft er $0x = -1$ over, of $0 = -1$. Geen enkel getal maal 0 geeft $-1$. Op een balans liggen links twee zakjes en zes blokjes, rechts twee zakjes en vijf blokjes: hoe zwaar een zakje ook is, links weegt altijd 1~kg meer. Deze vergelijking heeft geen oplossing.
+
+Het kan ook omgekeerd. Werk $3(x - 2) + x = 4x - 6$ uit, dan krijg je $4x - 6 = 4x - 6$: beide leden zijn gelijk, voor elke $x$. Herleid je verder, dan staat er $0x = 0$, en dat klopt voor elk getal.
+
+\begin{theorie}
+Herleid je een vergelijking tot de vorm $ax = b$, dan zijn er drie mogelijkheden.
+
+\vspace{1mm}
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.6}%
+\begin{tabular}{|>{\centering\arraybackslash}m{3.2cm}|>{\centering\arraybackslash}m{2.8cm}|>{\centering\arraybackslash}m{2.2cm}|>{\centering\arraybackslash}m{4.4cm}|}
+\hline
+\textbf{herleid tot} & \textbf{oplossingen} & $\boldsymbol{V}$ & \textbf{naam} \\ \hline
+$ax = b$ met $a \neq 0$ & precies één & $\formule{\Bigl\{\dfrac ba\Bigr\}}$ & eerstegraadsvergelijking \\ \hline
+$0x = b$ met $b \neq 0$ & geen & $\formule{\emptyset}$ & \textbf{\textcolor{accent}{strijdige vergelijking}} \\ \hline
+$0x = 0$ & elk reëel getal & $\formule{\R}$ & \textbf{\textcolor{accent}{identieke vergelijking}} \\ \hline
+\end{tabular}\par}
+\end{theorie}
+
+Het teken $\emptyset$ staat voor de lege verzameling, en $\R$ voor de verzameling van alle reële getallen. Let op het verschil met $5x = 0$: die vergelijking heeft wel een oplossing, namelijk $x = 0$, dus $V = \{0\}$.
+
+\voorbeeld{}{Los op: $4(x - 1) - 2x = 2(x + 3)$.\label{vb:h1-strijdig}}{%
+\uitleg{We werken uit zoals altijd, en kijken wat er overblijft.}
+\begin{stappen}
+4x - 4 - 2x = 2x + 6 & Werk de haakjes uit. \\
+2x - 2x = 6 + 4 & Breng over. \\
+0x = 10 & Er bestaat geen $x$ waarvoor $0 \cdot x = 10$. \\
+V = \emptyset & De vergelijking is strijdig.
+\end{stappen}}
+
+\voorbeeld{}{Los op: $\dfrac x2 - \dfrac{2 - x}{4} = \dfrac{3x - 2}{4}$.\label{vb:h1-identiek}}{%
+\uitleg{Het kgv van de noemers is 4.}
+\begin{stappen}
+2x - (2 - x) = 3x - 2 & Vermenigvuldig elke term met 4, met haakjes rond de teller. \\
+3x - 2 = 3x - 2 & Werk uit: beide leden zijn gelijk. \\
+0x = 0 & Dat klopt voor elk getal. \\
+V = \R & De vergelijking is identiek. Controle met $x = 2$: beide leden zijn 1.
+\end{stappen}}
+
+Bij een identieke vergelijking kun je niet elke oplossing controleren, want het zijn er oneindig veel. Probeer er een paar: vind je één getal dat niet werkt, dan heb je een rekenfout gemaakt.
+
+\nujij{Los op: $3(x + 1) = 3x + 1$.}{$3x + 3 = 3x + 1$ geeft $0x = -2$: $V = \emptyset$.}
+
+\begin{oefeningen}
+\oef{h1-aantal}
+\end{oefeningen}
+
+\begin{alleenvoor}{4,5}
+\subsection{Vergelijkingen met een parameter}
+
+Soms staat er naast $x$ nog een letter in een vergelijking, zoals in $mx + 3 = 2x + m + 1$. De letter $m$ is geen onbekende: ze staat voor een vast getal dat we nog niet kennen. Voor $m = 5$ krijg je bijvoorbeeld $5x + 3 = 2x + 6$, met oplossing $x = 1$. Maar is er een waarde van $m$ waarvoor het misloopt? Dat zie je pas als je de vergelijking oplost voor een willekeurige $m$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{parameter}} is een letter in een vergelijking die voor een vast, maar willekeurig getal staat. Een vergelijking met een parameter \textbf{\textcolor{accent}{bespreken}} is zeggen wat de oplossingen zijn voor elke waarde van de parameter.
+\end{theorie}
+
+\voorbeeld{}{Los op naar $x$ en bespreek: $mx + 3 = 2x + m + 1$.\label{vb:h1-parameter}}{%
+\uitleg{We brengen de termen met $x$ samen en zetten $x$ buiten haakjes. Dan staat er een coëfficiënt met $m$ erin, en die kan 0 zijn.}
+\begin{stappen}
+mx - 2x = m + 1 - 3 & Termen met $x$ naar links, de rest naar rechts. \\
+(m - 2)\,x = m - 2 & Zet $x$ buiten haakjes: de vorm $ax = b$ met $a = m - 2$. \\
+m \neq 2: \ x = \dfrac{m - 2}{m - 2} = 1 & Delen mag, want $m - 2 \neq 0$. Dan is $V = \{1\}$. \\[2ex]
+m = 2: \ 0x = 0 & Delen door 0 mag niet: vul $m = 2$ in. De vergelijking is identiek, $V = \R$.
+\end{stappen}
+Controle voor $m = 2$: de vergelijking is dan $2x + 3 = 2x + 3$, en dat klopt voor elke $x$.}
+
+\voorbeeld{}{Los op naar $x$ en bespreek: $3x - m = mx + 1$.\label{vb:h1-parameter2}}{%
+\uitleg{Dezelfde aanpak. Nu levert de uitzonderlijke waarde een strijdige vergelijking op.}
+\begin{stappen}
+(3 - m)\,x = m + 1 & Breng $mx$ naar links en $-m$ naar rechts, en zet $x$ buiten haakjes. \\
+m \neq 3: \ x = \dfrac{m + 1}{3 - m} & Deel door $3 - m \neq 0$. \\[2ex]
+m = 3: \ 0x = 4 & De vergelijking is strijdig, $V = \emptyset$.
+\end{stappen}}
+
+\begin{werkwijze}
+Breng de termen met $x$ naar één lid en zet $x$ buiten haakjes: $(\ldots)\,x = \ldots$. Zoek de waarde van de parameter waarvoor de coëfficiënt van $x$ nul is. Voor alle andere waarden deel je door die coëfficiënt. Voor die ene waarde vul je ze in, en kijk je of je $0x = 0$ of $0x = b$ met $b \neq 0$ krijgt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-parameter}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{Vraagstukken}
+
+Nu kunnen we het probleem van de bus aanpakken. Het moeilijkste is niet de vergelijking oplossen: dat kun je al. Het moeilijkste is ze opstellen, dus de tekst omzetten in wiskundetaal.
+
+\subsection{Van tekst naar wiskundetaal}
+
+Een vraagstuk beschrijft een getal dat je niet kent. Noem het $x$, en zet elke zin om in een uitdrukking met $x$. Een paar vaste omzettingen:
+
+\begin{center}\arrayrulecolor{lijngrijs}\renewcommand{\arraystretch}{1.5}%
+\begin{tabular}{|>{\centering\arraybackslash}m{7.2cm}|>{\centering\arraybackslash}m{4cm}|}
+\hline
+\textbf{in woorden} & \textbf{in wiskundetaal} \\ \hline
+het dubbel van een getal, vermeerderd met 5 & $2x + 5$ \\ \hline
+het dubbel van de som van een getal en 5 & $2(x + 5)$ \\ \hline
+een getal is 3 minder dan het viervoud ervan & $x = 4x - 3$ \\ \hline
+de helft van een getal & $\dfrac x2$ \\ \hline
+twee opeenvolgende gehele getallen & $x$ en $x + 1$ \\ \hline
+de prijs $x$ na 20\,\% korting & $x - 0{,}2x = 0{,}8x$ \\ \hline
+\end{tabular}\end{center}
+
+Kijk naar de eerste twee rijen: in de tweede tel je eerst op en verdubbel je daarna, dus komen er haakjes. Bij twijfel helpt een getal. Is het getal 10, dan is het dubbel, vermeerderd met 5, gelijk aan 25, en het dubbel van de som van 10 en 5 is 30.
+
+\voorbeeld{}{Het drievoud van een getal, verminderd met 7, is gelijk aan het dubbel van dat getal, vermeerderd met 5. Welk getal is dat?\label{vb:h1-vertaal}}{%
+\uitleg{Noem het getal $x$, en zet elk lid van de zin apart om.}
+\begin{stappen}
+3x - 7 = 2x + 5 & Het drievoud verminderd met 7 is $3x - 7$, het dubbel vermeerderd met 5 is $2x + 5$. \\
+x = 12 & Breng over: $3x - 2x = 5 + 7$.
+\end{stappen}
+Controle in de tekst: $3 \cdot 12 - 7 = 29$ en $2 \cdot 12 + 5 = 29$. Het getal is 12.}
+
+\begin{oefeningen}
+\oef{h1-vertaal}
+\end{oefeningen}
+
+\subsection{Een vraagstuk oplossen}
+
+Bij het probleem van de bus is het onbekende getal de prijs van de bus. De school betaalt een vierde van die prijs, en samen met de rest is dat precies de prijs. Dat geeft een vergelijking.
+
+\voorbeeld{}{Terug naar het probleem. De school betaalt een vierde van de prijs van de bus, de oudervereniging 120 euro, en 50 leerlingen elk 9 euro. Samen is dat precies de prijs. Hoeveel kost de bus?\label{vb:h1-terug}}{%
+\uitleg{We kiezen de onbekende, drukken elk deel uit in $x$, en zoeken twee uitdrukkingen voor hetzelfde bedrag: de som van de delen, en de prijs zelf.}
+\begin{stappen}
+x = \text{de prijs van de bus (in euro)} & Kies de onbekende, met de eenheid. \\
+\dfrac x4 \ \text{en} \ 50 \cdot 9 = 450 & Het deel van de school en dat van de leerlingen. \\[2ex]
+\dfrac x4 + 120 + 450 = x & Alle delen samen zijn de prijs. \\[2ex]
+x + 2280 = 4x & Vermenigvuldig elke term met 4. \\
+2280 = 3x \ \Rightarrow \ x = 760 & Breng over en deel door 3.
+\end{stappen}
+Controle in de tekst: de school betaalt $\tfrac{760}{4} = 190$ euro, en $190 + 120 + 450 = 760$. \textit{De bus kost 760 euro.}}
+
+Merk op hoe de vergelijking ontstaat: hetzelfde bedrag op twee manieren geschreven. Dat is bij bijna elk vraagstuk de kern.
+
+\begin{werkwijze}
+Lees de tekst en zeg wat je zoekt. Kies de onbekende $x$ en schrijf erbij wat ze betekent, met de eenheid. Druk de andere grootheden uit in $x$. Zoek twee uitdrukkingen voor dezelfde grootheid en stel ze gelijk. Los de vergelijking op. Controleer in de tekst, niet in je vergelijking, en antwoord met een zin.
+\end{werkwijze}
+
+Controleer in de tekst: had je de vergelijking verkeerd opgesteld, dan klopt de oplossing wel in je vergelijking, maar niet in het vraagstuk. Kijk ook of het antwoord kan: een negatief aantal leerlingen of $7{,}4$ bussen is geen antwoord.
+
+\voorbeeld{}{Een rechthoekige moestuin is 4~m langer dan het dubbel van de breedte. De omtrek is 50~m. Hoe lang en hoe breed is de tuin?\label{vb:h1-rechthoek}}{%
+\uitleg{De lengte wordt uitgedrukt in de breedte, dus nemen we de breedte als onbekende. Een schets helpt.}
+\naast{\begin{stappenvrij}{5cm}{4.6cm}
+x = \text{de breedte (in m)} & De onbekende. \\
+2x + 4 = \text{de lengte} & Het dubbel, vermeerderd met 4. \\
+2\bigl(x + (2x + 4)\bigr) = 50 & De omtrek is twee keer lengte plus breedte. \\
+6x + 8 = 50 & Werk uit. \\
+x = 7 & $6x = 42$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.17,font=\scriptsize]
+  \draw[accent,thick,fill=accent!10] (0,0) rectangle (18,7);
+  \node[left] at (0,3.5) {$x$};
+  \node[below] at (9,0) {$2x + 4$};
+\end{tikzpicture}}
+De tuin is 7~m breed en $2 \cdot 7 + 4 = 18$~m lang. Controle: $2 \cdot (7 + 18) = 50$.}
+
+Bij procenten loopt het vaak mis, omdat een percentage altijd van iets berekend wordt. Van wat, dat zegt de tekst.
+
+\voorbeeld{}{Na een korting van 20\,\% kost een jas 68 euro. Wat was de prijs voor de korting?\label{vb:h1-korting}}{%
+\uitleg{De korting is 20\,\% van de oude prijs, en die kennen we niet. Daarom is de oude prijs de onbekende.}
+\begin{stappen}
+x = \text{de oude prijs (in euro)} & De onbekende. \\
+x - 0{,}2x = 68 & De oude prijs min 20\,\% ervan is de nieuwe prijs. \\
+0{,}8x = 68 \ \Rightarrow \ x = 85 & Deel door $0{,}8$.
+\end{stappen}
+Controle: 20\,\% van 85 is 17, en $85 - 17 = 68$. \textit{De jas kostte 85 euro.} Wie bij 68 euro 20\,\% bijtelt, vindt 81,60 euro. Dat is fout: die 20\,\% is berekend op de nieuwe prijs, niet op de oude.}
+
+Soms gaat het over leeftijden. Schrijf dan eerst op wat nu geldt, en daarna wat er later geldt.
+
+\voorbeeld{}{Mira is 13 jaar, haar moeder 41. Binnen hoeveel jaar is haar moeder dubbel zo oud als Mira?\label{vb:h1-leeftijd}}{%
+\uitleg{Na $x$ jaar is iedereen $x$ jaar ouder. Dan moet de leeftijd van de moeder het dubbel zijn van die van Mira.}
+\begin{stappen}
+x = \text{het aantal jaren} & De onbekende. \\
+13 + x \ \text{en} \ 41 + x & De leeftijden van Mira en haar moeder binnen $x$ jaar. \\
+41 + x = 2(13 + x) & De moeder is dan dubbel zo oud. \\
+41 + x = 26 + 2x \ \Rightarrow \ x = 15 & Werk uit en breng over.
+\end{stappen}
+Controle: binnen 15 jaar is Mira 28 en haar moeder 56, en $56 = 2 \cdot 28$. \textit{Binnen 15 jaar.}}
+
+\nujij{Een getal vermeerderd met een derde ervan is 48. Welk getal?}{$x + \tfrac x3 = 48$ geeft $4x = 144$, dus 36.}
+
+\begin{oefeningen}
+\oef{h1-vraagstuk}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+
+\oef{h1-o25}
+
+\oef{h1-o26}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{14\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-herleid}{oef:h1-herleid}%
+  \fv{oef:h1-t2}{vb:h1-haakjes2}{oef:h1-haakjes}%
+  \fv{oef:h1-t3}{vb:h1-breuken2}{oef:h1-breuken}%
+  \fv{oef:h1-t4}{vb:h1-strijdig}{oef:h1-aantal}%
+  \fv{oef:h1-t5}{vb:h1-vertaal}{oef:h1-vertaal}%
+  \fv{oef:h1-t6}{vb:h1-korting}{oef:h1-o14}%
+  \fv{oef:h1-t7}{vb:h1-rechthoek}{oef:h1-o16}%
+  \alleenvoor{4,5}{\fv{oef:h1-t8}{vb:h1-parameter}{oef:h1-parameter}}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een vergelijking en een oplossing zijn, de twee rekenregels met de balans erbij en waarom je niet met 0 mag vermenigvuldigen, hoe je haakjes en noemers wegwerkt, de drie gevallen na het herleiden tot $ax = b$\alleenvoor{4,5}{, hoe je een vergelijking met een parameter bespreekt}, en de stappen van een vraagstuk. Vergelijk daarna met de kaders.
+\fi

@@ -446,8 +446,8 @@ Voor continue functies $f$ en $g$:
 {\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{2.6}%
 \begin{tabular}{|>{\centering\arraybackslash}m{2.8cm}|>{\centering\arraybackslash$}m{10.2cm}<{$}|}
 \hline
-Gelijke grenzen & \formule{\int_a^a f(x)\dx = 0} \\ \hline
 Grenzen wisselen & \formule{\int_b^a f(x)\dx = -\int_a^b f(x)\dx} \\ \hline
+Gelijke grenzen & \formule{\int_a^a f(x)\dx = 0} \\ \hline
 Optelbaarheid & \formule{\int_a^b f(x)\dx + \int_b^c f(x)\dx = \int_a^c f(x)\dx} \\ \hline
 Lineariteit & \formule{\int_a^b \bigl(r f(x) + s g(x)\bigr)\dx = r\int_a^b f(x)\dx + s\int_a^b g(x)\dx} \\ \hline
 Vergelijken, als $a \leqslant b$ en $f(x) \leqslant g(x)$ op $[a, b]$ & \formule{\int_a^b f(x)\dx \leqslant \int_a^b g(x)\dx} \\ \hline
@@ -455,7 +455,9 @@ Vergelijken, als $a \leqslant b$ en $f(x) \leqslant g(x)$ op $[a, b]$ & \formule
 \end{stelling}
 
 \begin{bewijs}
-De eerste twee regels zijn afspraken; optelbaarheid en vergelijken lees je af op de figuren hierboven. Voor de lineariteit nemen we een Riemannsom van $rf + sg$. Omdat $r$ en $s$ niet van $k$ afhangen, is
+Grenzen wisselen is een afspraak. Gelijke grenzen volgt daaruit: neem $b = a$ in die regel, dan is
+\bewijsregel{\int_a^a f(x)\dx = -\int_a^a f(x)\dx, \quad\text{dus}\quad 2\int_a^a f(x)\dx = 0 .}
+Optelbaarheid en vergelijken lees je af op de figuren hierboven. Voor de lineariteit nemen we een Riemannsom van $rf + sg$. Omdat $r$ en $s$ niet van $k$ afhangen, is
 \bewijsregel{\sum_{k=1}^{n} \bigl(r f(c_k) + s g(c_k)\bigr)\Delta x = r \sum_{k=1}^{n} f(c_k)\,\Delta x + s \sum_{k=1}^{n} g(c_k)\,\Delta x .}
 Voor $n \to +\infty$ volgt hieruit de regel.
 \end{bewijs}
@@ -468,17 +470,13 @@ Voor $n \to +\infty$ volgt hieruit de regel.
 \ig_0^5 \bigl(2f(x) - 3g(x)\bigr)\dx = 2 \cdot 2 - 3 \cdot 4 = -8 & De lineariteit: de som mag je splitsen, en constanten komen voor de integraal.
 \end{stappen}}
 
-\voorbeeld{}{Gegeven: $\ig_1^4 f(x)\dx = 6$. Bereken $\ig_4^1 f(x)\dx$ en $\ig_2^2 f(x)\dx$. Toon ook aan dat $\ig_0^1 x^3\dx \leqslant \ig_0^1 x^2\dx$, zonder de integralen uit te rekenen.\label{vb:h1-regelskort}}{%
-\uitleg{Dit zijn de drie regels die nog niet aan bod kwamen: omgewisselde grenzen, gelijke grenzen en vergelijken. Telkens zie je op de figuur wat er gebeurt.}
-\begin{stappen}
-\ig_4^1 f(x)\dx = -\ig_1^4 f(x)\dx = -6 & Dezelfde oppervlakte, maar van 4 naar 1 doorlopen. Grenzen wisselen geeft een minteken (figuur links). \\[2.5ex]
-\ig_2^2 f(x)\dx = 0 & Van 2 tot 2 is er geen breedte, dus het gebied krimpt tot een lijnstuk zonder oppervlakte (figuur midden). \\[2.5ex]
-x^3 \leqslant x^2 \text{ op } [0, 1] & Op $[0, 1]$ is $x \leqslant 1$. Vermenigvuldig beide leden met $x^2 \geqslant 0$. De grafiek van $x^3$ ligt dus onder die van $x^2$ (figuur rechts). \\[1.5ex]
-\ig_0^1 x^3\dx \leqslant \ig_0^1 x^2\dx & De regel om te vergelijken: het kleine gebied past in het grote.
-\end{stappen}
+Dan de drie regels die nog niet aan bod kwamen: grenzen wisselen, gelijke grenzen en vergelijken. Telkens zie je op een figuur wat er gebeurt.
 
-\vspace{1mm}
-\figuren{\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
+\voorbeeld{}{Gegeven: $\ig_1^4 f(x)\dx = 6$. Bereken $\ig_4^1 f(x)\dx$.\label{vb:h1-regelskort}}{%
+\uitleg{De grenzen staan in de omgekeerde volgorde. Het gebied blijft hetzelfde, maar we doorlopen het van 4 naar 1.}
+\naast[]{\begin{stappenvrij}{5.6cm}{4.6cm}
+\ig_4^1 f(x)\dx = -\ig_1^4 f(x)\dx = -6 & Grenzen wisselen geeft een minteken.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
   \gebied{1}{4}{1.1+.5*sin(\x*70)}
   \assen{-.1}{4.7}{-.1}{2.3}
   \kromme{.5}{4.4}{1.1+.5*sin(\x*70)}
@@ -486,15 +484,26 @@ x^3 \leqslant x^2 \text{ op } [0, 1] & Op $[0, 1]$ is $x \leqslant 1$. Vermenigv
   \node[below] at (4,0) {4};
   \draw[->,accent,thick] (3.8,.45) -- (1.2,.45);
   \node[above,text=accent] at (2.5,.45) {$-6$};
-\end{tikzpicture}\qquad
-\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
+\end{tikzpicture}}}
+
+\voorbeeld{}{Bereken $\ig_2^2 (x^5 - 3x + 7)\dx$.\label{vb:h1-gelijk}}{%
+\uitleg{De ondergrens en de bovengrens zijn gelijk. Het voorschrift hoeven we dus niet te bekijken.}
+\naast[]{\begin{stappenvrij}{5.6cm}{4.6cm}
+\ig_2^2 (x^5 - 3x + 7)\dx = 0 & Van 2 tot 2 is er geen breedte: het gebied krimpt tot een lijnstuk zonder oppervlakte.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.75cm,y=.75cm,font=\scriptsize]
   \assen{-.1}{4.7}{-.1}{2.3}
   \kromme{.5}{4.4}{1.1+.5*sin(\x*70)}
   \draw[accent,very thick] (2,0) -- (2,{1.1+.5*sin(140)});
   \node[below] at (2,0) {2};
   \node[right,text=accent] at (2.05,.5) {$0$};
-\end{tikzpicture}\qquad
-\begin{tikzpicture}[x=2.1cm,y=1.6cm,font=\scriptsize]
+\end{tikzpicture}}}
+
+\voorbeeld{}{Toon aan dat $\ig_0^1 x^3\dx \leqslant \ig_0^1 x^2\dx$, zonder de integralen uit te rekenen.\label{vb:h1-vergelijk}}{%
+\uitleg{We vergelijken eerst de functies op het interval, en daarna de gebieden.}
+\naast[]{\begin{stappenvrij}{6.4cm}{4cm}
+x^3 \leqslant x^2 \text{ op } [0, 1] & Op $[0, 1]$ is $x \leqslant 1$. Vermenigvuldig beide leden met $x^2 \geqslant 0$. \\[1.5ex]
+\ig_0^1 x^3\dx \leqslant \ig_0^1 x^2\dx & De regel om te vergelijken: het kleine gebied past in het grote.
+\end{stappenvrij}}{\begin{tikzpicture}[x=2.1cm,y=1.6cm,font=\scriptsize]
   \gebied[accent!15]{0}{1}{(\x)^2}
   \gebied[accent!40]{0}{1}{(\x)^3}
   \rooster{0}{1}{1}{0}{1}{1}
@@ -570,9 +579,15 @@ Let op: de regel voor oneven functies geldt alleen op een interval dat symmetris
 
 \subsection{Gemiddelde waarde}
 
-Wat is de gemiddelde temperatuur op een dag, als die voortdurend verandert? Meet je $n$ keer, dan is het gemiddelde
-\[ \frac{f(c_1) + f(c_2) + \cdots + f(c_n)}{n} = \frac{1}{b - a} \sum_{k=1}^{n} f(c_k)\,\Delta x , \]
-want $\tfrac1n = \tfrac{\Delta x}{b - a}$. Meet je steeds vaker, dan wordt die som een integraal. Meetkundig betekent dit: maak het gebied onder de grafiek plat tot een rechthoek op hetzelfde interval, met dezelfde oppervlakte. De hoogte van die rechthoek is de gemiddelde waarde. Omdat de grafiek ergens door die hoogte moet gaan, is de gemiddelde waarde ook echt een functiewaarde: dat is de middelwaardestelling.
+Een boot vaart van 9 uur tot 11 uur over een meer. Zijn snelheid $v(t)$ verandert voortdurend, en in die twee uur legt hij 30 km af. Zijn gemiddelde snelheid is dan $\tfrac{30}{2} = 15$ km/h. De afgelegde weg is de oppervlakte onder de snelheidsgrafiek, zoals bij het robotkarretje, dus
+\[ \text{gemiddelde snelheid} = \frac{\text{afgelegde weg}}{\text{tijd}} = \frac{1}{11 - 9} \int_9^{11} v(t)\dt . \]
+Dat sluit aan bij een gewoon gemiddelde. Meet je de snelheid $n$ keer, op gelijke afstanden in de tijd, dan is het gemiddelde
+\[ \frac{v(c_1) + v(c_2) + \cdots + v(c_n)}{n} = \frac{1}{b - a} \sum_{k=1}^{n} v(c_k)\,\Delta t , \]
+want $\tfrac1n = \tfrac{\Delta t}{b - a}$. Meet je steeds vaker, dan wordt die Riemannsom een integraal.
+
+Heeft de boot ergens precies 15 km/h gevaren? Voer hij altijd trager, dan kwam hij minder ver dan 30 km. Voer hij altijd sneller, dan kwam hij verder. Hij voer dus soms trager en soms sneller, of altijd precies 15 km/h. Een boot kan niet plots van 10 naar 20 km/h springen: zijn snelheid verandert continu, en moet dus ergens door 15 km/h gaan. De gemiddelde snelheid wordt ergens echt gevaren.
+
+Meetkundig betekent dit: maak het gebied onder de grafiek plat tot een rechthoek op hetzelfde interval, met dezelfde oppervlakte. De hoogte van die rechthoek is de gemiddelde waarde. Een continue grafiek moet ergens door die hoogte gaan, dus de gemiddelde waarde is ook echt een functiewaarde: dat is de middelwaardestelling.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{gemiddelde waarde}} van $f$ op $[a, b]$ is \quad $\formule{\dfrac{1}{b-a}\int_a^b f(x)\dx}$
@@ -648,6 +663,20 @@ De tussenwaardestelling geeft dan een $c \in [a, b]$ met
   \node[below=7pt,text=accent] at (1.857,0) {$c$};
 \end{tikzpicture}}}
 
+Waarom staat \textit{continu} in de middelwaardestelling? Een functie mag wel springen, een boot niet. Neem de functie die $1$ is op $[0, 1[$ en $3$ op $[1, 2]$. De integraal op $[0, 2]$ is $1 + 3 = 4$, dus de gemiddelde waarde is $2$. Toch is $f(x)$ nergens gelijk aan $2$: de grafiek springt over de hoogte $2$ heen. Zonder continuïteit hoeft de gemiddelde waarde dus geen functiewaarde te zijn.
+
+\figuren{\begin{tikzpicture}[x=1.1cm,y=.6cm,font=\scriptsize]
+  \fill[accent!18] (0,0) rectangle (1,1);
+  \fill[accent!18] (1,0) rectangle (2,3);
+  \rooster{0}{1}{2}{0}{1}{3}
+  \draw[accent,thick] (0,1) -- (1,1);
+  \draw[accent,thick] (1,3) -- (2,3);
+  \filldraw[draw=accent,thick,fill=white] (1,1) circle (2pt);
+  \fill[accent] (1,3) circle (2pt);
+  \draw[accent,dashed] (0,2) -- (2,2);
+  \node[right,text=accent] at (2,2) {gemiddelde $2$};
+\end{tikzpicture}}
+
 \nujij{Bereken de gemiddelde waarde van $f(x) = 2x$ op $[1, 5]$.}{De integraal is een trapezium: $\tfrac{2 + 10}{2} \cdot 4 = 24$, en $\tfrac{24}{4} = 6$.}
 
 \begin{oefeningen}
@@ -682,6 +711,8 @@ De tussenwaardestelling geeft dan een $c \in [a, b]$ met
 
 \oef{h1-o10}
 
+\oef{h1-ograf1}
+
 \oef{h1-o11}
 
 \oef{h1-o12}
@@ -701,6 +732,12 @@ De tussenwaardestelling geeft dan een $c \in [a, b]$ met
 \oef{h1-o20}
 
 \oef{h1-o21}
+
+\oef{h1-ograf2}
+
+\oef{h1-ocontinu}
+
+\oef{h1-ograf3}
 
 \oef{h1-o22}
 

@@ -1,0 +1,88 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS EERSTEGRAADSVERGELIJKINGEN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% Vertrokken van notatie.tex van Integralen; wat hier niet nodig is, is weggelaten.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\newcommand{\R}{\mathbb{R}}
+
+% Intervallen in de Vlaamse notatie, met de haken naar buiten bij een open grens:
+% \ivgg{a}{b} = [a, b], \ivoo{a}{b} = ]a, b[, \ivgo{a}{b} = [a, b[, \ivog{a}{b} = ]a, b].
+% Oneindig: \pinf en \minf (met accolades, zodat het teken niet als aftrekking telt).
+\newcommand{\ivgg}[2]{\mathopen{[}{#1}{,}\;{#2}\mathclose{]}}
+\newcommand{\ivoo}[2]{\mathopen{]}{#1}{,}\;{#2}\mathclose{[}}
+\newcommand{\ivgo}[2]{\mathopen{[}{#1}{,}\;{#2}\mathclose{[}}
+\newcommand{\ivog}[2]{\mathopen{]}{#1}{,}\;{#2}\mathclose{]}}
+\newcommand{\pinf}{{+\infty}}
+\newcommand{\minf}{{-\infty}}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+% (oefeningenbank.py gebruikt dit voor het veld figuur)
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+%----------------------------------------------------------------------------------------
+% De balans (binnen een tikzpicture). \balans{zakjes links}{blokjes links}{zakjes rechts}{blokjes rechts}
+% Een zakje (getint, met x) heeft het onbekende gewicht x, een blokje (grijs) weegt 1.
+% De blokjes staan in kolommen van drie hoog. Een schaal is 3,9 breed: hoogstens 3 zakjes en 9 blokjes.
+% De hele balans is 9,8 eenheden breed.
+%----------------------------------------------------------------------------------------
+\newcommand{\balansschaal}[3]{%
+  \draw[grijs,line width=1pt] (#1,0) -- (#1,.6);
+  \draw[grijs,line width=1.4pt] ({#1-1.95},.6) -- ({#1+1.95},.6);
+  \pgfmathtruncatemacro{\bkol}{ceil((#3)/3)}%
+  \pgfmathsetmacro{\bstart}{#1-((#2)*.78+\bkol*.46-.08)/2}%
+  \ifnum#2>0
+    \foreach \i in {1,...,#2}{%
+      \pgfmathsetmacro{\bx}{\bstart+(\i-1)*.78}%
+      \draw[accent,fill=accent!22,rounded corners=1pt] (\bx,.67) rectangle ++(.7,.7);
+      \node[font=\scriptsize,text=accent,inner sep=0pt] at ({\bx+.35},1.02) {$x$};}%
+  \fi
+  \ifnum#3>0
+    \foreach \i in {1,...,#3}{%
+      \pgfmathtruncatemacro{\bk}{floor((\i-1)/3)}%
+      \pgfmathtruncatemacro{\br}{mod(\i-1,3)}%
+      \pgfmathsetmacro{\bx}{\bstart+(#2)*.78+\bk*.46}%
+      \pgfmathsetmacro{\by}{.67+\br*.46}%
+      \draw[grijs,fill=black!12] (\bx,\by) rectangle ++(.38,.38);}%
+  \fi}
+\newcommand{\balans}[4]{%
+  \fill[grijs] (-.7,-1.3) -- (.7,-1.3) -- (0,-.8) -- cycle;
+  \draw[grijs,line width=1.3pt] (0,-1) -- (0,0);
+  \draw[grijs,line width=1.8pt] (-2.95,0) -- (2.95,0);
+  \fill[grijs] (0,0) circle (2.2pt);
+  \balansschaal{-2.95}{#1}{#2}
+  \balansschaal{2.95}{#3}{#4}}
+
+%----------------------------------------------------------------------------------------
+% De getallenas (binnen een tikzpicture). \getallenas{min}{max}{getallen}: een as met een streepje bij elk getal.
+% Een getal met een eigen label: 2.5/{2{,}5}. Een interval erop: \ivdeel{a}{b} en de haken \haakl{a} ([) en \haakr{b} (]).
+% Een gesloten grens krijgt een haak naar het interval toe, een open grens een haak ervan weg, zoals in de notatie.
+%----------------------------------------------------------------------------------------
+\newcommand{\getallenas}[3]{%
+  \draw[->,grijs] ({#1-.4},0) -- ({#2+.5},0);
+  \foreach \t/\l in {#3}{\draw[grijs] (\t,.1) -- (\t,-.1) node[below=1pt,text=black,font=\scriptsize] {$\l$};}}
+\newcommand{\ivdeel}[2]{\draw[accent,line width=2.4pt] (#1,0) -- (#2,0);}
+\newcommand{\haakl}[1]{\draw[accent,line width=1.3pt] ({#1+.16},.26) -- (#1,.26) -- (#1,-.26) -- ({#1+.16},-.26);}
+\newcommand{\haakr}[1]{\draw[accent,line width=1.3pt] ({#1-.16},.26) -- (#1,.26) -- (#1,-.26) -- ({#1-.16},-.26);}

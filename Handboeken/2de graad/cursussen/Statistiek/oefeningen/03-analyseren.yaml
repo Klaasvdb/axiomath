@@ -1,0 +1,1151 @@
+# Oefeningen van hoofdstuk 3. Zie Opmaak/oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen.
+# pakketten: h3-uitschieter, h3-o7, h3-o21 en h3-t3 hebben een variant op het zicht (1-3) en met de regel van 1,5 IKA (4-5).
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Reken uit.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $25~\%$ van 80
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $\tfrac14 \cdot 80 = 20$.
+    - opgave: |-
+        $30$ van $120$ in procent
+      antwoord: |-
+        $25~\%$
+      uitwerking: |-
+        $\tfrac{30}{120} = \tfrac14$.
+    - opgave: |-
+        de stijging van 40 naar 50 in procent
+      antwoord: |-
+        $25~\%$
+      uitwerking: |-
+        $\tfrac{50 - 40}{40} = \tfrac{10}{40} = 25~\%$.
+    - opgave: |-
+        het gemiddelde en de mediaan van 2, 3, 3, 4, 18
+      antwoord: |-
+        $6$ en $3$
+      uitwerking: |-
+        $\tfrac{30}{5} = 6$; het middelste getal is 3.
+    - opgave: |-
+        de interkwartielafstand bij de vijfgetallensamenvatting 5, 8, 11, 15, 20
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        $Q_3 - Q_1 = 15 - 8$.
+    - opgave: |-
+        welk deel van de gegevens in de box van een boxplot ligt
+      antwoord: |-
+        $50~\%$
+      uitwerking: |-
+        Van $Q_1$ tot $Q_3$: twee kwarten.
+
+- id: h3-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.62cm,y=.3cm,font=\scriptsize]
+        \foreach \t in {2,4,6,8,10}{\draw[black!12] (-.6,\t) -- (4.6,\t); \pgfmathtruncatemacro{\l}{50+\t}\node[left] at (-.6,\t) {\l};}
+        \node[left] at (-.6,0) {50};
+        \draw[grijs] (-.6,0) -- (-.6,11) (-.6,0) -- (4.6,0);
+        \foreach \d/\v [count=\i from 0] in {ma/52,di/55,wo/54,do/58,vr/60}{\staaf{\i}{\v-50}{.55} \node[below] at (\i,0) {\d};}
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad De schoolwinkel verkocht deze week elke dag smoothies: maandag 52, dinsdag 55, woensdag 54, donderdag 58, vrijdag 60. De leerlingenraad maakt de grafiek hiernaast.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel keer zo hoog is de staaf van vrijdag als die van maandag?
+      antwoord: |-
+        5 keer
+      uitwerking: |-
+        De staven zijn 10 en 2 eenheden hoog: $\tfrac{10}{2} = 5$.
+    - opgave: |-
+        Hoeveel keer zoveel smoothies werden er vrijdag echt verkocht?
+      antwoord: |-
+        $\approx 1,15$ keer
+      uitwerking: |-
+        $\tfrac{60}{52} \approx 1,15$: ongeveer $15~\%$ meer.
+    - opgave: |-
+        Waar komt het verschil vandaan?
+      antwoord: |-
+        de as begint bij 50
+      uitwerking: |-
+        De verticale as begint niet bij 0, dus de lengtes van de staven zijn niet evenredig met de aantallen.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h3-vorm
+  soort: kort
+  opgave: |-
+    Bekijk de drie histogrammen.
+    \figuren{\begin{tikzpicture}[x=.27cm,y=.13cm,font=\scriptsize]
+      \foreach \a/\f in {0/1,2/2,4/3,6/6,8/10,10/7}{\balk{\a}{\a+2}{\f}} \draw[grijs] (0,0) -- (12,0); \node at (6,-2.2) {A};
+      \begin{scope}[xshift=4.6cm]\foreach \a/\f in {0/2,2/6,4/10,6/10,8/6,10/2}{\balk{\a}{\a+2}{\f}} \draw[grijs] (0,0) -- (12,0); \node at (6,-2.2) {B};\end{scope}
+      \begin{scope}[xshift=9.2cm]\foreach \a/\f in {0/10,2/7,4/4,6/2,8/1,10/1}{\balk{\a}{\a+2}{\f}} \draw[grijs] (0,0) -- (12,0); \node at (6,-2.2) {C};\end{scope}
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is elke verdeling symmetrisch, rechtsscheef of linksscheef?
+      antwoord: |-
+        A linksscheef, B symmetrisch, C rechtsscheef
+      uitwerking: |-
+        A heeft een staart naar links, C een staart naar rechts, B is een spiegelbeeld rond het midden.
+    - opgave: |-
+        Welk histogram past het best bij de punten op een heel gemakkelijke toets? En bij het aantal berichten dat leerlingen per dag sturen?
+      antwoord: |-
+        A; C
+      uitwerking: |-
+        Op een gemakkelijke toets halen de meesten hoge punten, enkelen veel lager: linksscheef. De meeste leerlingen sturen een gewoon aantal berichten, enkelen heel veel: rechtsscheef.
+
+- id: h3-gemmed
+  soort: kort
+  opgave: |-
+    Wat verwacht je over de vorm van de verdeling?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de prijzen van tweedehandsauto's op een website: $\xbar = 9200$ euro, $\Me = 7500$ euro
+      antwoord: |-
+        rechtsscheef
+      uitwerking: |-
+        $\xbar > \Me$: een staart naar rechts, enkele dure auto's.
+    - opgave: |-
+        de leeftijd waarop de inwoners van een gemeente overleden: $\xbar = 79$ jaar, $\Me = 83$ jaar
+      antwoord: |-
+        linksscheef
+      uitwerking: |-
+        $\xbar < \Me$: de meesten worden oud, enkelen sterven jong.
+    - opgave: |-
+        de lengte van volwassen mannen: $\xbar = 180,1$ cm, $\Me = 180,0$ cm
+      antwoord: |-
+        ongeveer symmetrisch
+      uitwerking: |-
+        $\xbar \approx \Me$.
+
+- id: h3-uitschieter
+  soort: kort
+  pakketten: [1, 2, 3]
+  opgave: |-
+    Tien klanten wachten aan de kassa van een supermarkt (in minuten): 12, 15, 14, 18, 13, 16, 15, 14, 17, 35.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welk gegeven is een uitschieter?
+      antwoord: |-
+        35
+      uitwerking: |-
+        Alle wachttijden liggen tussen 12 en 18 minuten, behalve 35.
+    - opgave: |-
+        Bereken het gemiddelde en de mediaan met en zonder dat gegeven.
+      antwoord: |-
+        met: $16,9$ en 15; zonder: $\approx 14,9$ en 15
+      uitwerking: |-
+        Met: $\tfrac{169}{10} = 16,9$, $\Me = \tfrac{15 + 15}{2} = 15$. Zonder: $\tfrac{134}{9} \approx 14,9$, $\Me = 15$ (het 5de van 9). De mediaan verandert niet.
+
+- id: h3-uitschieter
+  soort: kort
+  pakketten: [4, 5]
+  opgave: |-
+    Tien klanten wachten aan de kassa van een supermarkt (in minuten): 12, 15, 14, 18, 13, 16, 15, 14, 17, 35.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ga met de regel van $1,5 \cdot \IKA$ na welke gegevens uitschieters zijn.
+      antwoord: |-
+        alleen 35
+      uitwerking: |-
+        $12, 13, 14, 14, 15 \mid 15, 16, 17, 18, 35$: $Q_1 = 14$, $Q_3 = 17$, $\IKA = 3$. Grenzen $14 - 4,5 = 9,5$ en $17 + 4,5 = 21,5$. Alleen $35 > 21,5$.
+    - opgave: |-
+        Teken de aangepaste boxplot.
+      antwoord: |-
+        snorharen tot 12 en 18, bolletje bij 35
+      uitwerking: |-
+        $\Me = 15$. De rechtersnorhaar loopt tot 18, het grootste gegeven dat geen uitschieter is.
+        \figuren{\begin{tikzpicture}[x=.3cm,font=\scriptsize]
+          \boxplot{.6}{12}{14}{15}{17}{18}
+          \uitschieter{35}{.6}
+          \getalas[min]{10}{5}{35}
+        \end{tikzpicture}}
+    - opgave: |-
+        Bereken het gemiddelde en de mediaan met en zonder de uitschieter.
+      antwoord: |-
+        met: $16,9$ en 15; zonder: $\approx 14,9$ en 15
+      uitwerking: |-
+        Met: $\tfrac{169}{10} = 16,9$. Zonder: $\tfrac{134}{9} \approx 14,9$. De mediaan blijft 15.
+
+- id: h3-boxplots
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.13cm,font=\scriptsize]
+        \boxplot[.5]{1.3}{45}{52}{59}{66}{74} \node[left] at (41,1.3) {3A};
+        \boxplot[.5]{.55}{58}{65}{71}{79}{90} \node[left] at (41,.55) {3B};
+        \getalas[punten]{40}{10}{90}
+      \end{tikzpicture}
+  opgave: |-
+    Twee klassen maken dezelfde toets op 100. De boxplots tonen de resultaten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vergelijk het centrum en de spreiding van de twee klassen.
+      antwoord: |-
+        3B hoger, ongeveer even veel spreiding
+      uitwerking: |-
+        Mediaan 59 in 3A en 71 in 3B. De interkwartielafstand is in beide klassen 14; de variatiebreedte is 29 in 3A en 32 in 3B.
+    - opgave: |-
+        Waar of niet waar: \textit{Meer dan drie kwart van 3B scoort hoger dan de helft van 3A.}
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Het eerste kwartiel van 3B (65) ligt boven de mediaan van 3A (59). Dus meer dan $75~\%$ van 3B scoort meer dan 59.
+
+- id: h3-relatief
+  soort: kort
+  opgave: |-
+    Jeugdclub A heeft 150 leden, waarvan 45 jonger dan 14 jaar. Jeugdclub B heeft 90 leden, waarvan 36 jonger dan 14 jaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke club heeft relatief de meeste jonge leden?
+      antwoord: |-
+        club B
+      uitwerking: |-
+        A: $\tfrac{45}{150} = 30~\%$. B: $\tfrac{36}{90} = 40~\%$.
+    - opgave: |-
+        Is het verschil 10 procent of 10 procentpunt?
+      antwoord: |-
+        10 procentpunt
+      uitwerking: |-
+        $40~\% - 30~\% = 10$ procentpunt. In procent is het aandeel bij B $\tfrac{10}{30} \approx 33~\%$ groter.
+
+- id: h3-maat
+  soort: kort
+  opgave: |-
+    Welke centrummaat en welke spreidingsmaat geef je? Leg uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de lengte van de leerlingen van het 3de jaar, met een symmetrisch histogram
+      antwoord: |-
+        gemiddelde en standaardafwijking
+      uitwerking: |-
+        Symmetrisch en zonder uitschieters: maten die alle gegevens gebruiken.
+    - opgave: |-
+        de prijs van de huizen in een gemeente, met enkele villa's
+      antwoord: |-
+        mediaan en interkwartielafstand
+      uitwerking: |-
+        Rechtsscheef met uitschieters.
+    - opgave: |-
+        de wachttijden aan een loket, waarbij één klant drie uur wachtte omdat de computer uitviel
+      antwoord: |-
+        mediaan en interkwartielafstand
+      uitwerking: |-
+        Eén grote uitschieter zou het gemiddelde en de standaardafwijking sterk vergroten.
+
+- id: h3-as
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.75cm,y=.35cm,font=\scriptsize]
+        \foreach \t in {2,4,6,8}{\draw[black!12] (-.6,\t) -- (2.6,\t); \pgfmathtruncatemacro{\l}{90+\t}\node[left] at (-.6,\t) {\l~\%};}
+        \node[left] at (-.6,0) {90~\%};
+        \draw[grijs] (-.6,0) -- (-.6,9) (-.6,0) -- (2.6,0);
+        \foreach \n/\v [count=\i from 0] in {A/92,B/95,C/98}{\staaf{\i}{\v-90}{.55} \node[below] at (\i,0) {\n};}
+      \end{tikzpicture}
+  opgave: |-
+    Drie internetproviders tonen in een reclame hoeveel procent van hun klanten tevreden is: A $92~\%$, B $95~\%$, C $98~\%$. Provider C maakte de grafiek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel keer zo hoog is de staaf van C als die van A?
+      antwoord: |-
+        4 keer
+      uitwerking: |-
+        De staven zijn 8 en 2 eenheden hoog.
+    - opgave: |-
+        Hoeveel keer zo groot is het percentage tevreden klanten van C als dat van A?
+      antwoord: |-
+        $\approx 1,07$ keer
+      uitwerking: |-
+        $\tfrac{98}{92} \approx 1,07$. Het verschil is 6 procentpunt: alle drie de providers hebben veel tevreden klanten.
+
+- id: h3-pictogram
+  soort: kort
+  opgave: |-
+    Een krant toont het aantal elektrische auto's in een stad als een cirkel. In 2024 waren er drie keer zoveel als in 2020, en daarom is de straal van de cirkel van 2024 drie keer zo groot.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel keer zo groot lijkt het aantal in 2024?
+      antwoord: |-
+        9 keer
+      uitwerking: |-
+        De oppervlakte van een cirkel is $\pi r^2$: met een drie keer zo grote straal wordt ze $3^2 = 9$ keer zo groot.
+    - opgave: |-
+        Hoeveel keer zo groot moet de straal zijn om een eerlijk beeld te geven?
+      antwoord: |-
+        $\sqrt3 \approx 1,73$ keer
+      uitwerking: |-
+        De oppervlakte moet 3 keer zo groot zijn: $r^2$ wordt 3 keer zo groot als $r$ met $\sqrt3$ vermenigvuldigd wordt.
+
+- id: h3-schaal
+  soort: kort
+  opgave: |-
+    Het aantal bezoekers van een museum per jaar:
+    \gegevens{|c|c|c|c|c|c|c|}{\hline jaar & 2014 & 2016 & 2018 & 2020 & 2022 & 2024 \\ \hline bezoekers & 52\,000 & 53\,000 & 56\,000 & 21\,000 & 41\,000 & 50\,000 \\ \hline}
+    Het museum schrijft: \textit{Ons bezoekersaantal is sinds 2020 meer dan verdubbeld!}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Klopt het getal?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\tfrac{50\,000}{21\,000} \approx 2,38$: een stijging met $138~\%$.
+    - opgave: |-
+        Waarom is de uitspraak toch misleidend?
+      antwoord: |-
+        2020 is een uitzonderlijk laag jaar
+      uitwerking: |-
+        Het museum kiest als vertrekpunt het jaar met de minste bezoekers (in 2020 waren musea een tijd gesloten). Vergeleken met 2014 of 2018 heeft het museum in 2024 minder bezoekers: $\tfrac{50\,000}{56\,000} \approx 0,89$, een daling met $11~\%$ tegenover 2018.
+
+- id: h3-kritisch
+  soort: kort
+  opgave: |-
+    Wat is er mis met de uitspraak? Formuleer een eerlijke versie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een cirkeldiagram toont de favoriete vakken van een klas: wiskunde $40~\%$, sport $35~\%$, talen $30~\%$, muziek $15~\%$ (leerlingen mochten twee vakken kiezen).
+      antwoord: |-
+        samen $120~\%$: geen cirkeldiagram
+      uitwerking: |-
+        De delen zijn samen $120~\%$, omdat leerlingen twee vakken mochten kiezen. Een cirkeldiagram past alleen als de delen samen het geheel vormen. Beter: een staafdiagram met het percentage per vak.
+    - opgave: |-
+        \textit{Het aantal ongevallen op dit kruispunt is met $50~\%$ gestegen!} Er waren er vorig jaar 2, dit jaar 3.
+      antwoord: |-
+        kleine aantallen
+      uitwerking: |-
+        Bij zulke kleine aantallen speelt het toeval een grote rol: één ongeval meer is al $50~\%$. Eerlijker: \textit{Er was dit jaar één ongeval meer dan vorig jaar.}
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vorm uit een boxplot
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.5cm,font=\scriptsize]
+        \boxplot[.45]{1.9}{0}{1}{2}{4}{10} \node[left] at (-.3,1.9) {A};
+        \boxplot[.45]{1.2}{0}{3.5}{5}{6.5}{10} \node[left] at (-.3,1.2) {B};
+        \boxplot[.45]{.5}{0}{6}{8}{9}{10} \node[left] at (-.3,.5) {C};
+        \getalas{0}{2}{10}
+      \end{tikzpicture}
+  opgave: |-
+    Is de verdeling bij elke boxplot symmetrisch, rechtsscheef of linksscheef? Is het gemiddelde dan groter of kleiner dan de mediaan?
+  antwoord: |-
+    A rechtsscheef ($\xbar > \Me$), B symmetrisch ($\xbar \approx \Me$), C linksscheef ($\xbar < \Me$)
+  uitwerking: |-
+    A: korte linkersnorhaar, lange rechtersnorhaar, mediaan links in de box. C: het omgekeerde. B: mediaan in het midden, even lange snorharen.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een as die niet bij 0 begint
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.9cm,y=4.5cm,font=\scriptsize]
+        \foreach \t/\l in {.1/4{,}6,.2/4{,}7,.3/4{,}8,.4/4{,}9,.5/5{,}0,.6/5{,}1}{\draw[black!12] (-.6,\t) -- (1.6,\t); \node[left] at (-.6,\t) {\l};}
+        \node[left] at (-.6,0) {4,5};
+        \draw[grijs] (-.6,0) -- (-.6,.68) (-.6,0) -- (1.6,0);
+        \staaf{0}{.3}{.5} \staaf{1}{.6}{.5}
+        \node[below] at (0,0) {merk X}; \node[below] at (1,0) {merk Y};
+        \node[above] at (-.6,.68) {miljoen};
+      \end{tikzpicture}
+  opgave: |-
+    Een fabrikant toont hoeveel smartphones hij verkocht (merk Y) tegenover een concurrent (merk X).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de verkoopcijfers af.
+      antwoord: |-
+        X: $4,8$ miljoen, Y: $5,1$ miljoen
+      uitwerking: |-
+        De staven eindigen bij $4,8$ en $5,1$.
+    - opgave: |-
+        Hoeveel keer zo lang is de staaf van Y als die van X? Hoeveel procent meer verkocht Y echt?
+      antwoord: |-
+        2 keer; $6,25~\%$
+      uitwerking: |-
+        De staven zijn $5,1 - 4,5 = 0,6$ en $4,8 - 4,5 = 0,3$ lang: 2 keer. Echt: $\tfrac{5,1}{4,8} = 1,0625$, dus $6,25~\%$ meer.
+    - opgave: |-
+        Teken een eerlijk staafdiagram.
+      antwoord: |-
+        verticale as vanaf 0
+      uitwerking: |-
+        Met een as van 0 tot 6 miljoen zijn de staven bijna even hoog.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    aantallen of percentages
+  opgave: |-
+    In klas 3A (20 leerlingen) zitten 12 leerlingen bij een sportclub. In klas 3B (30 leerlingen) zijn dat er 15.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In welke klas zitten de meeste leerlingen bij een sportclub?
+      antwoord: |-
+        3B
+      uitwerking: |-
+        15 tegenover 12.
+    - opgave: |-
+        In welke klas is het aandeel sporters het grootst?
+      antwoord: |-
+        3A
+      uitwerking: |-
+        3A: $\tfrac{12}{20} = 60~\%$, 3B: $\tfrac{15}{30} = 50~\%$.
+    - opgave: |-
+        Welk percentage van alle 50 leerlingen zit bij een sportclub? Is dat het gemiddelde van $60~\%$ en $50~\%$?
+      antwoord: |-
+        $54~\%$; nee
+      uitwerking: |-
+        $\tfrac{27}{50} = 54~\%$, niet $55~\%$: 3B telt meer leerlingen en weegt zwaarder door.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een gepaste maat kiezen
+  opgave: |-
+    Welke maten geef je: het gemiddelde en de standaardafwijking, of de mediaan en de interkwartielafstand? Leg uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de inkomens van de inwoners van een land
+      antwoord: |-
+        mediaan en IKA
+      uitwerking: |-
+        Inkomens zijn rechtsscheef, met enkele zeer hoge inkomens.
+    - opgave: |-
+        de massa van zakken suiker van 1 kg uit een fabriek
+      antwoord: |-
+        gemiddelde en standaardafwijking
+      uitwerking: |-
+        Een machine vult rond 1 kg, ongeveer symmetrisch, zonder uitschieters.
+    - opgave: |-
+        het aantal volgers van de leerlingen van een klas op sociale media, met één leerling met 20\,000 volgers
+      antwoord: |-
+        mediaan en IKA
+      uitwerking: |-
+        Een grote uitschieter.
+    - opgave: |-
+        de temperatuur van het water in een zwembad, elke dag om 10 uur gemeten
+      antwoord: |-
+        gemiddelde en standaardafwijking
+      uitwerking: |-
+        Symmetrische, kleine schommelingen.
+    - opgave: |-
+        de reistijd naar school, waarbij een paar leerlingen meer dan een uur onderweg zijn
+      antwoord: |-
+        mediaan en IKA
+      uitwerking: |-
+        Rechtsscheef.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vorm en ligging van gemiddelde en mediaan
+  opgave: |-
+    Van drie verdelingen ken je het gemiddelde en de mediaan. Wat verwacht je over de vorm? Teken een mogelijk histogram.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        het aantal uren dat leerlingen per week gamen: $\xbar = 6,8$, $\Me = 4$
+      antwoord: |-
+        rechtsscheef
+      uitwerking: |-
+        $\xbar > \Me$: veel leerlingen gamen weinig, enkelen heel veel. Het histogram is hoog aan de linkerkant met een staart naar rechts.
+    - opgave: |-
+        de tijd die een geoefende loper over 10 km doet, gemeten bij 30 trainingen: $\xbar = 41,2$ min, $\Me = 41,3$ min
+      antwoord: |-
+        ongeveer symmetrisch
+      uitwerking: |-
+        $\xbar \approx \Me$: een berg rond 41 minuten.
+    - opgave: |-
+        het percentage van de lessen waarin leerlingen aanwezig waren: $\xbar = 91~\%$, $\Me = 97~\%$
+      antwoord: |-
+        linksscheef
+      uitwerking: |-
+        $\xbar < \Me$: de meesten zijn bijna altijd aanwezig, enkelen waren lang ziek. Staart naar links.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    twee groepen vergelijken met boxplots
+  opgave: |-
+    Een klas onderzoekt of muziek helpt bij het oplossen van een puzzel. Elf leerlingen lossen hem op in stilte, elf andere met muziek. De tijden in seconden:
+    \gegevens{|c|*{11}{c|}}{\hline zonder muziek & 38 & 42 & 45 & 47 & 50 & 52 & 53 & 55 & 58 & 61 & 70 \\ \hline met muziek & 41 & 48 & 52 & 55 & 57 & 60 & 62 & 66 & 69 & 75 & 88 \\ \hline}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal voor elke groep de vijfgetallensamenvatting.
+      antwoord: |-
+        zonder: $38$; $45$; $52$; $58$; $70$. met: $41$; $52$; $60$; $69$; $88$
+      uitwerking: |-
+        Elf gegevens, al gerangschikt: $\Me$ is het 6de, $Q_1$ het 3de en $Q_3$ het 9de gegeven.
+    - opgave: |-
+        Teken de twee boxplots boven dezelfde getallenas.
+      antwoord: |-
+        zie uitwerking
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.17cm,font=\scriptsize]
+          \boxplot[.5]{1.3}{38}{45}{52}{58}{70} \node[left] at (33,1.3) {zonder};
+          \boxplot[.5]{.55}{41}{52}{60}{69}{88} \node[left] at (33,.55) {met};
+          \getalas[s]{35}{5}{90}
+        \end{tikzpicture}}
+    - opgave: |-
+        Schrijf een besluit van drie zinnen: over het centrum, over de spreiding, en of muziek helpt.
+      antwoord: |-
+        zonder muziek sneller en gelijkmatiger
+      uitwerking: |-
+        Zonder muziek is de mediaan 52 s, met muziek 60 s: de groep zonder muziek was sneller. Met muziek liggen de tijden ook verder uit elkaar ($\IKA = 17$ tegenover 13, variatiebreedte 47 tegenover 32). In deze kleine proef hielp muziek dus niet; met zo weinig leerlingen kan het verschil wel toeval zijn.
+
+- id: h3-o7
+  soort: opdracht
+  pakketten: [1, 2, 3]
+  niveau: 2
+  thema: |-
+    een tikfout als uitschieter
+  opgave: |-
+    Tien leerlingen noteren hun massa in kg: 64, 58, 71, 66, 62, 69, 73, 60, 67, 650.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welk gegeven is wellicht een tikfout? Wat was waarschijnlijk bedoeld?
+      antwoord: |-
+        650, wellicht 65
+      uitwerking: |-
+        Niemand van deze leeftijd weegt 650 kg: de leerling typte wellicht een 0 te veel.
+    - opgave: |-
+        Bereken het gemiddelde, de mediaan en de standaardafwijking met de tikfout, en met 65 in plaats van 650.
+      antwoord: |-
+        met fout: 124; $66,5$; $175,4$. verbeterd: $65,5$; $65,5$; $4,5$
+      uitwerking: |-
+        Met het rekentoestel. Met 650: $\xbar = 124$, $\Me = \tfrac{66 + 67}{2} = 66,5$, $s \approx 175,4$. Met 65: $\xbar = 65,5$, $\Me = \tfrac{65 + 66}{2} = 65,5$, $s = 4,5$.
+    - opgave: |-
+        Welke maat merkt het minst van de fout?
+      antwoord: |-
+        de mediaan
+      uitwerking: |-
+        De mediaan verschuift maar 1 kg. Het gemiddelde en vooral de standaardafwijking worden onbruikbaar.
+
+- id: h3-o7
+  soort: opdracht
+  pakketten: [4, 5]
+  niveau: 2
+  thema: |-
+    een tikfout als uitschieter
+  opgave: |-
+    Tien leerlingen noteren hun massa in kg: 64, 58, 71, 66, 62, 69, 73, 60, 67, 650.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met de regel van $1,5 \cdot \IKA$ aan dat 650 een uitschieter is. Wat was waarschijnlijk bedoeld?
+      antwoord: |-
+        grenzen $48,5$ en $84,5$; wellicht 65
+      uitwerking: |-
+        $58, 60, 62, 64, 66 \mid 67, 69, 71, 73, 650$: $Q_1 = 62$, $Q_3 = 71$, $\IKA = 9$. Grenzen $62 - 13,5 = 48,5$ en $71 + 13,5 = 84,5$. $650 > 84,5$. Wellicht een 0 te veel: 65 kg.
+    - opgave: |-
+        Bereken het gemiddelde, de mediaan en de standaardafwijking met de tikfout, en met 65 in plaats van 650.
+      antwoord: |-
+        met fout: 124; $66,5$; $175,4$. verbeterd: $65,5$; $65,5$; $4,5$
+      uitwerking: |-
+        Met het rekentoestel. Met 650: $\xbar = 124$, $\Me = 66,5$, $s \approx 175,4$. Met 65: $\xbar = 65,5$, $\Me = 65,5$, $s = 4,5$.
+    - opgave: |-
+        Welke maat merkt het minst van de fout?
+      antwoord: |-
+        de mediaan
+      uitwerking: |-
+        De mediaan verschuift maar 1 kg. Het gemiddelde en vooral de standaardafwijking worden onbruikbaar.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    misleidend cirkeldiagram
+  opgave: |-
+    Een enquête vraagt aan 200 jongeren welke apps ze dagelijks gebruiken. Een website toont een cirkeldiagram: berichten $85~\%$, video $70~\%$, muziek $45~\%$, spelletjes $30~\%$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tel de percentages op. Wat besluit je?
+      antwoord: |-
+        $230~\%$: een cirkeldiagram past niet
+      uitwerking: |-
+        De jongeren konden meerdere apps aanduiden. De delen vormen geen geheel, dus een cirkeldiagram geeft een vals beeld: de sector van berichten zou maar $\tfrac{85}{230} \approx 37~\%$ van de cirkel zijn.
+    - opgave: |-
+        Hoeveel jongeren gebruiken dagelijks een app voor video?
+      antwoord: |-
+        140
+      uitwerking: |-
+        $0,70 \cdot 200 = 140$.
+    - opgave: |-
+        Teken een gepast diagram.
+      antwoord: |-
+        een staafdiagram met percentages
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=1cm,y=.025cm,font=\scriptsize]
+          \frequentieas[\%]{20}{100}{-.6}{3.6}
+          \foreach \n/\v [count=\i from 0] in {berichten/85,video/70,muziek/45,spelletjes/30}{\staaf{\i}{\v}{.55} \node[below] at (\i,0) {\n};}
+        \end{tikzpicture}}
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    pictogrammen in drie dimensies
+  opgave: |-
+    Een poster toont de jaarlijkse olieproductie van een land als een olievat. Omdat de productie verdubbelde, is het nieuwe vat twee keer zo hoog, twee keer zo breed en twee keer zo diep getekend.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel keer zo groot lijkt de productie?
+      antwoord: |-
+        8 keer
+      uitwerking: |-
+        Het volume wordt $2 \cdot 2 \cdot 2 = 8$ keer zo groot. Zelfs als je alleen naar de oppervlakte van de tekening kijkt, is het 4 keer.
+    - opgave: |-
+        Hoe teken je de verdubbeling eerlijk met pictogrammen?
+      antwoord: |-
+        twee vaten naast elkaar
+      uitwerking: |-
+        Gebruik even grote vaten, en teken voor het nieuwe jaar twee vaten in plaats van één. Of gebruik gewoon een staafdiagram.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ongelijke tijdas
+  opgave: |-
+    Een dorp telde 800 inwoners in 1950, 950 in 1980, 1100 in 2000, 1400 in 2010, 1900 in 2020 en 2100 in 2024. Een brochure zet de jaartallen op gelijke afstand op de as.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elke periode de gemiddelde groei per jaar.
+      antwoord: |-
+        5; $7,5$; 30; 50; 50
+      uitwerking: |-
+        $\tfrac{150}{30} = 5$, $\tfrac{150}{20} = 7,5$, $\tfrac{300}{10} = 30$, $\tfrac{500}{10} = 50$, $\tfrac{200}{4} = 50$ inwoners per jaar.
+    - opgave: |-
+        Teken een lijndiagram met een eerlijke tijdas.
+      antwoord: |-
+        zie uitwerking
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.1cm,y=.0014cm,font=\scriptsize]
+          \frequentieas[inwoners]{500}{2000}{1945}{2028}
+          \foreach \j/\v in {1950/800,1980/950,2000/1100,2010/1400,2020/1900,2024/2100}{\fill[accent] (\j,\v) circle (2pt);}
+          \draw[accent,thick] (1950,800) -- (1980,950) -- (2000,1100) -- (2010,1400) -- (2020,1900) -- (2024,2100);
+          \foreach \j in {1950,1970,1990,2010}{\node[below] at (\j,0) {\j};}
+        \end{tikzpicture}}
+    - opgave: |-
+        Wat ziet een lezer verkeerd op het diagram met gelijke afstanden?
+      antwoord: |-
+        de eerste perioden lijken te snel
+      uitwerking: |-
+        De lange perioden 1950-1980 en 1980-2000 worden even breed getekend als de korte: de trage groei in het begin lijkt sneller dan ze was, en de versnelling na 2000 valt minder op.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    cumulatieve grafiek
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.62cm,y=.0055cm,font=\scriptsize]
+        \frequentieas[totaal]{100}{600}{.4}{6.4}
+        \foreach \m/\v [count=\i] in {jan/120,feb/230,maa/330,apr/420,mei/500,jun/570}{\coordinate (p\i) at (\i,\v); \node[below,text height=1.5ex,text depth=.3ex] at (\i,0) {\m};}
+        \draw[accent,thick] (p1) \foreach \i in {2,...,6}{-- (p\i)};
+        \foreach \i in {1,...,6}{\fill[accent] (p\i) circle (2pt);}
+      \end{tikzpicture}
+  opgave: |-
+    Een start-up toont het totaal aantal verkochte abonnementen sinds 1 januari: 120, 230, 330, 420, 500, 570 aan het einde van de maanden januari tot juni. De oprichter zegt: \textit{De lijn gaat steil omhoog, het gaat steeds beter.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken hoeveel abonnementen er elke maand verkocht werden.
+      antwoord: |-
+        120, 110, 100, 90, 80, 70
+      uitwerking: |-
+        Het verschil tussen twee opeenvolgende totalen: $230 - 120 = 110$, enzovoort.
+    - opgave: |-
+        Klopt de uitspraak van de oprichter?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een cumulatief totaal kan niet dalen, dus de lijn stijgt altijd. Maar de verkoop per maand daalt elke maand met 10: het gaat steeds slechter. Je ziet het ook aan de lijn, die steeds minder steil wordt.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rug-aan-rugdiagram
+  figuur:
+    code: |-
+      \renewcommand{\arraystretch}{1.15}\begin{tabular}{r|c|l}
+      \multicolumn{1}{r}{\scriptsize jongens} & & \scriptsize meisjes \\
+      8 & 4 & \\ 7\ 5 & 5 & 9 \\ 8\ 6\ 3\ 2 & 6 & 4\ 6\ 9 \\ 9\ 5\ 2\ 1 & 7 & 0\ 2\ 4\ 5\ 7\ 8 \\ 8\ 4 & 8 & 1\ 3\ 6 \\ & 9 & 1 \\[1mm]
+      \multicolumn{3}{l}{\scriptsize $8 \mid 4 \mid\ = 48$, \ $\mid 5 \mid 9 = 59$}
+      \end{tabular}
+  opgave: |-
+    Een rug-aan-rugdiagram toont de punten op 100 van de jongens (links) en de meisjes (rechts) van een klas. Links lees je de bladen van rechts naar links: $7\ 5 \mid 5$ is 55 en 57.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel jongens en hoeveel meisjes zijn er?
+      antwoord: |-
+        13 jongens, 14 meisjes
+      uitwerking: |-
+        Tel de bladen.
+    - opgave: |-
+        Bepaal voor beide groepen de mediaan en de interkwartielafstand.
+      antwoord: |-
+        jongens 68 en $17,5$; meisjes $74,5$ en 12
+      uitwerking: |-
+        Jongens: $48, 55, 57, 62, 63, 66, \fbox{68}, 71, 72, 75, 79, 84, 88$: $Q_1 = \tfrac{57 + 62}{2} = 59,5$, $Q_3 = \tfrac{75 + 79}{2} = 77$. Meisjes: $59, 64, 66, 69, 70, 72, 74 \mid 75, 77, 78, 81, 83, 86, 91$: $\Me = 74,5$, $Q_1 = 69$, $Q_3 = 81$.
+    - opgave: |-
+        Vergelijk de twee groepen in twee zinnen.
+      antwoord: |-
+        meisjes hoger en minder gespreid
+      uitwerking: |-
+        De meisjes scoorden hoger: hun mediaan ligt $6,5$ punten boven die van de jongens. De punten van de jongens liggen verder uit elkaar ($\IKA$ $17,5$ tegenover 12).
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    histogrammen vergelijken
+  opgave: |-
+    Honderd leerlingen noteren hoeveel uur ze sliepen in de nacht voor een schooldag en in de nacht voor een vrije dag.
+    \figuren{\begin{tikzpicture}[x=.55cm,y=.06cm,font=\scriptsize]
+      \frequentieas{10}{50}{5}{12.2}
+      \foreach \a/\f in {5/3,6/14,7/38,8/34,9/9,10/2}{\balk{\a}{\a+1}{\f}}
+      \foreach \a in {5,...,12}{\node[below] at (\a,0) {\a};}
+      \node at (8.5,-9) {schooldag};
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}[x=.55cm,y=.06cm,font=\scriptsize]
+      \frequentieas{10}{50}{5}{12.2}
+      \foreach \a/\f in {5/2,6/5,7/12,8/24,9/28,10/19,11/10}{\balk{\a}{\a+1}{\f}}
+      \foreach \a in {5,...,12}{\node[below] at (\a,0) {\a};}
+      \node at (8.5,-9) {vrije dag};
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In welke klasse ligt de mediaan bij elke nacht?
+      antwoord: |-
+        $[7, 8[$ en $[9, 10[$
+      uitwerking: |-
+        Schooldag: cumulatief 3, 17, 55: het 50ste en 51ste gegeven liggen in $[7, 8[$. Vrije dag: 2, 7, 19, 43, 71: in $[9, 10[$.
+    - opgave: |-
+        Welke verdeling heeft de grootste spreiding? Hoe zie je dat?
+      antwoord: |-
+        de vrije dag
+      uitwerking: |-
+        Het histogram van de vrije dag is breder en lager: de gegevens zijn over meer klassen verspreid.
+    - opgave: |-
+        Schat het gemiddelde voor elke nacht met de klassenmiddens.
+      antwoord: |-
+        $7,88$ uur en $9,18$ uur
+      uitwerking: |-
+        Schooldag: $\tfrac{5,5 \cdot 3 + 6,5 \cdot 14 + 7,5 \cdot 38 + 8,5 \cdot 34 + 9,5 \cdot 9 + 10,5 \cdot 2}{100} = \tfrac{788}{100} = 7,88$. Vrije dag: $\tfrac{5,5 \cdot 2 + 6,5 \cdot 5 + 7,5 \cdot 12 + 8,5 \cdot 24 + 9,5 \cdot 28 + 10,5 \cdot 19 + 11,5 \cdot 10}{100} = \tfrac{918}{100} = 9,18$.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kleine aantallen en percentages
+  opgave: |-
+    Een lokale krant schrijft: \textit{In het dorp Hoeveleer stijgt het aantal fietsdiefstallen met $100~\%$, in de stad Grootveld maar met $5~\%$.} In Hoeveleer werden vorig jaar 3 fietsen gestolen, in Grootveld 1200.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel fietsen werden er dit jaar gestolen in elke gemeente?
+      antwoord: |-
+        6 en 1260
+      uitwerking: |-
+        $3 \cdot 2 = 6$ en $1200 \cdot 1,05 = 1260$.
+    - opgave: |-
+        Waar stijgt het aantal diefstallen het meest in aantal?
+      antwoord: |-
+        in Grootveld: 60 tegenover 3
+      uitwerking: |-
+        In Grootveld 60 diefstallen meer, in Hoeveleer 3.
+    - opgave: |-
+        Waarom is de titel misleidend?
+      antwoord: |-
+        bij kleine aantallen zegt een percentage weinig
+      uitwerking: |-
+        Bij 3 diefstallen is 3 meer al een verdubbeling: dat kan toeval zijn. Een percentage zonder het aantal waarop het berekend is, kan een kleine verandering groot laten lijken.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gemiddelde en mediaan in het nieuws
+  opgave: |-
+    In een straat wonen vijf gezinnen. Hun maandinkomen (in euro) was vorig jaar 2000, 2200, 2400, 2600 en 3000, en dit jaar 1900, 2100, 2300, 2600 en 5000.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor beide jaren het gemiddelde en de mediaan.
+      antwoord: |-
+        vorig jaar 2440 en 2400; dit jaar 2780 en 2300
+      uitwerking: |-
+        $\tfrac{12\,200}{5} = 2440$ en $\tfrac{13\,900}{5} = 2780$. De mediaan is telkens het 3de inkomen.
+    - opgave: |-
+        Een krant schrijft: \textit{Het gemiddelde inkomen steeg met bijna $14~\%$.} Een andere krant schrijft: \textit{De meeste gezinnen gingen erop achteruit.} Wie heeft gelijk?
+      antwoord: |-
+        allebei
+      uitwerking: |-
+        $\tfrac{2780}{2440} \approx 1,139$: het gemiddelde steeg met bijna $14~\%$. Maar drie van de vijf gezinnen verdienen minder, en de mediaan daalde. Alleen het gezin met het hoogste inkomen ging er sterk op vooruit, en dat trekt het gemiddelde omhoog.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    procent en procentpunt
+  opgave: |-
+    Bij een leerlingenraadsverkiezing haalde een lijst vorig jaar $20~\%$ van de stemmen en dit jaar $25~\%$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Met hoeveel procentpunt steeg haar aandeel?
+      antwoord: |-
+        5 procentpunt
+      uitwerking: |-
+        $25 - 20 = 5$.
+    - opgave: |-
+        Met hoeveel procent steeg haar aandeel?
+      antwoord: |-
+        $25~\%$
+      uitwerking: |-
+        $\tfrac{5}{20} = 0,25$.
+    - opgave: |-
+        De lijst zelf schrijft: \textit{Wij groeiden met $25~\%$!} Een andere lijst schrijft: \textit{Zij wonnen amper 5 procent.} Welke uitspraak is fout?
+      antwoord: |-
+        de tweede
+      uitwerking: |-
+        Het aandeel steeg met 5 procentpunt, niet met 5 procent. Beide getallen zijn juist als je ze correct benoemt, maar ze geven een heel ander gevoel.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een eerlijke grafiek
+  opgave: |-
+    Een school meldt het percentage leerlingen dat slaagt voor een taaltest: 2021: $81~\%$, 2022: $83~\%$, 2023: $82~\%$, 2024: $86~\%$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De directie wil een staafdiagram dat de stijging zo groot mogelijk laat lijken. Hoe zou ze dat doen?
+      antwoord: |-
+        de as laten beginnen bij 80
+      uitwerking: |-
+        Met een verticale as van 80 tot 87 lijkt de staaf van 2024 zes keer zo lang als die van 2021, terwijl het percentage maar met 5 procentpunt steeg.
+    - opgave: |-
+        Teken een eerlijk staafdiagram en schrijf een eerlijk besluit.
+      antwoord: |-
+        as vanaf 0; licht gestegen
+      uitwerking: |-
+        Met een as van $0~\%$ tot $100~\%$ zijn alle staven bijna even hoog. Eerlijk: \textit{Het slaagpercentage schommelt rond $83~\%$ en steeg in 2024 tot $86~\%$, 5 procentpunt meer dan in 2021.}
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gemiddelde buiten de box
+  opgave: |-
+    Kan het gemiddelde groter zijn dan het derde kwartiel? Geef een voorbeeld of leg uit waarom niet.
+  antwoord: |-
+    ja, bijvoorbeeld $1, 1, 1, 1, 1, 1, 1, 100$
+  uitwerking: |-
+    Bij $1, 1, 1, 1, 1, 1, 1, 100$ is $Q_3 = 1$ en $\xbar = \tfrac{107}{8} \approx 13,4$. Eén heel grote uitschieter kan het gemiddelde ver buiten de box trekken. Daarom zegt het gemiddelde bij zo'n verdeling weinig over een typisch gegeven.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de paradox van Simpson
+  opgave: |-
+    Twee scholen vergelijken hoeveel leerlingen slagen voor een wiskundetest.
+    \gegevens{|c|c|c|}{\hline & school A & school B \\ \hline 3de jaar & 45 van 50 & 135 van 160 \\ \hline 4de jaar & 90 van 150 & 22 van 40 \\ \hline}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken per jaar het slaagpercentage van elke school. Welke school doet het beter?
+      antwoord: |-
+        A in beide jaren
+      uitwerking: |-
+        3de jaar: A $90~\%$, B $84,4~\%$. 4de jaar: A $60~\%$, B $55~\%$. School A doet het in beide jaren beter.
+    - opgave: |-
+        Bereken het slaagpercentage van elke school voor beide jaren samen. Wat valt op?
+      antwoord: |-
+        A $67,5~\%$, B $78,5~\%$
+      uitwerking: |-
+        A: $\tfrac{135}{200} = 67,5~\%$. B: $\tfrac{157}{200} = 78,5~\%$. Samen doet B het beter, hoewel A in elk jaar beter is.
+    - opgave: |-
+        Hoe is dat mogelijk?
+      antwoord: |-
+        de groepen zijn anders samengesteld
+      uitwerking: |-
+        De test is in het 4de jaar moeilijker. School A heeft veel leerlingen in het 4de jaar (150 van 200), school B vooral in het 3de jaar (160 van 200). Het totaal van A wordt dus naar het lage percentage van het 4de jaar getrokken. Wie groepen samenvoegt, moet opletten dat ze vergelijkbaar zijn samengesteld.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    zelf een misleidende grafiek maken
+  opgave: |-
+    Het aantal leerlingen dat met de fiets naar school komt, was 312 in 2022, 305 in 2023 en 298 in 2024.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken een grafiek die de daling zo dramatisch mogelijk laat lijken.
+      antwoord: |-
+        bijvoorbeeld een as van 295 tot 315
+      uitwerking: |-
+        Een staafdiagram met een verticale as van 295 tot 315: de staaf van 2024 is dan maar $\tfrac{3}{17}$ van die van 2022.
+    - opgave: |-
+        Teken een grafiek die de daling zo klein mogelijk laat lijken.
+      antwoord: |-
+        bijvoorbeeld een as van 0 tot 1000
+      uitwerking: |-
+        Een staafdiagram met een as tot 1000, zodat de staven klein en bijna gelijk zijn.
+    - opgave: |-
+        Wat is een eerlijk besluit, met een percentage?
+      antwoord: |-
+        een daling met ongeveer $4,5~\%$ in twee jaar
+      uitwerking: |-
+        $\tfrac{298}{312} \approx 0,955$: een daling met $4,5~\%$, of 14 fietsers minder in twee jaar. Elk jaar ongeveer 7 minder.
+
+- id: h3-o21
+  soort: opdracht
+  pakketten: [4, 5]
+  niveau: 3
+  thema: |-
+    grens voor een uitschieter
+  opgave: |-
+    Gegeven: $20, 22, 23, 25, 26, 28, 30, 31$ en een negende getal $x$ dat groter is dan 31.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de mediaan en de kwartielen. Hangen ze af van $x$?
+      antwoord: |-
+        $\Me = 26$, $Q_1 = 22,5$, $Q_3 = 30,5$; nee
+      uitwerking: |-
+        Gerangschikt: $20, 22, 23, 25, \fbox{26}, 28, 30, 31, x$. Onderste helft $20, 22, 23, 25$, bovenste helft $28, 30, 31, x$. $Q_3 = \tfrac{30 + 31}{2}$ hangt niet af van $x$, zolang $x \geqslant 31$.
+    - opgave: |-
+        Vanaf welke waarde is $x$ een uitschieter?
+      antwoord: |-
+        als $x > 42,5$
+      uitwerking: |-
+        $\IKA = 8$, dus de bovengrens is $30,5 + 1,5 \cdot 8 = 42,5$.
+    - opgave: |-
+        Bereken het gemiddelde voor $x = 42$ en voor $x = 100$. Wat zegt dat over het gemiddelde en de regel?
+      antwoord: |-
+        $\approx 27,4$ en $\approx 33,9$
+      uitwerking: |-
+        $\tfrac{205 + 42}{9} \approx 27,4$ en $\tfrac{205 + 100}{9} \approx 33,9$. De kwartielen en de grens blijven gelijk, maar het gemiddelde stijgt sterk met de uitschieter.
+
+- id: h3-o21
+  soort: opdracht
+  pakketten: [1, 2, 3]
+  niveau: 3
+  thema: |-
+    is een uitschieter een fout?
+  opgave: |-
+    Een uitschieter is niet altijd een fout. Bekijk telkens het gegeven dat opvalt. Is het waarschijnlijk een fout, of een echte waarde? Wat doe je ermee?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de lengte van leerlingen van het 3de jaar (in cm): 158, 163, 171, 166, 17, 160, 169
+      antwoord: |-
+        fout: weglaten of verbeteren
+      uitwerking: |-
+        17 cm kan niet: wellicht een vergissing voor 170 of 171. Vraag het na of laat het weg, en zeg dat in je verslag.
+    - opgave: |-
+        het aantal volgers op sociale media van zeven klasgenoten: 210, 145, 380, 95, 260, 18\,500, 175
+      antwoord: |-
+        echt: houden, mediaan gebruiken
+      uitwerking: |-
+        Een klasgenoot met veel volgers is mogelijk. Het gegeven blijft, maar je beschrijft de groep beter met de mediaan (210) dan met het gemiddelde ($\approx 2824$).
+    - opgave: |-
+        de temperatuur in een klaslokaal elk uur (in $^\circ$C): 20, 21, 21, 22, 85, 22, 21
+      antwoord: |-
+        fout van de meter
+      uitwerking: |-
+        $85\,^\circ$C in een klaslokaal kan niet: een meetfout. Laat het weg, en zoek uit wat er met de thermometer gebeurde.
+
+- id: h3-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    boxplots samenvoegen
+  opgave: |-
+    Je kent de boxplot van de punten van klas 3A en die van klas 3B. Beide klassen hebben 20 leerlingen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kun je daaruit de boxplot van de 40 leerlingen samen tekenen? Leg uit.
+      antwoord: |-
+        nee, niet in het algemeen
+      uitwerking: |-
+        Het minimum en het maximum van de 40 leerlingen ken je wel: het kleinste minimum en het grootste maximum. Maar voor de mediaan en de kwartielen moet je weten hoe de punten binnen elk kwart liggen.
+    - opgave: |-
+        Waar ligt de mediaan van de 40 leerlingen zeker?
+      antwoord: |-
+        tussen de twee medianen
+      uitwerking: |-
+        Neem $\Me_A \leqslant \Me_B$. Ongeveer de helft van 3A en meer dan de helft van 3B ligt boven $\Me_A$, dus samen minstens de helft: de mediaan van alle 40 is minstens $\Me_A$. Op dezelfde manier is ze hoogstens $\Me_B$.
+    - opgave: |-
+        Kun je het gemiddelde van de 40 leerlingen wel berekenen als je de twee gemiddelden kent?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De klassen zijn even groot, dus het gemiddelde van alle 40 is het gemiddelde van de twee gemiddelden. Bij ongelijke klassen moet je wegen met het aantal leerlingen.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    vorm van een verdeling
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.022cm,y=.13cm,font=\scriptsize]
+        \frequentieas{5}{25}{0}{205}
+        \foreach \a/\f in {0/24,25/18,50/10,75/6,100/4,125/2,150/1,175/1}{\balk{\a}{\a+25}{\f}}
+        \foreach \a in {0,50,...,200}{\node[below] at (\a,0) {\a};}
+        \node[below=8pt] at (100,0) {min};
+      \end{tikzpicture}
+  opgave: |-
+    Het histogram toont hoe lang 66 telefoongesprekken van een klantendienst duurden. Beschrijf de vorm. Wat verwacht je over het gemiddelde en de mediaan?
+  antwoord: |-
+    rechtsscheef, $\xbar > \Me$
+  uitwerking: |-
+    De meeste gesprekken zijn kort, enkele duren heel lang: een lange staart naar rechts. Bij een rechtsscheve verdeling ligt het gemiddelde meestal rechts van de mediaan.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    gemiddelde of mediaan
+  opgave: |-
+    Een vakantiepark schrijft: \textit{Onze huisjes kosten gemiddeld 95 euro per nacht.} De mediaan van de prijzen is 70 euro. Wat zegt dat over de prijzen? Welk getal is voor een gewone gast het nuttigst?
+  antwoord: |-
+    rechtsscheef; de mediaan
+  uitwerking: |-
+    $\xbar > \Me$: enkele dure huisjes trekken het gemiddelde omhoog, de verdeling is rechtsscheef. De helft van de huisjes kost 70 euro of minder: dat zegt meer over wat een gewoon huisje kost.
+
+- id: h3-t3
+  soort: test
+  pakketten: [1, 2, 3]
+  niveau: 2
+  thema: |-
+    uitschieter
+  opgave: |-
+    Tien leerlingen tellen hoeveel minuten ze gisteren lazen: 15, 18, 16, 21, 17, 19, 20, 16, 18, 42. Welk gegeven is een uitschieter? Bereken het gemiddelde en de mediaan met en zonder dat gegeven.
+  antwoord: |-
+    42; met: $20,2$ en 18; zonder: $\approx 17,8$ en 18
+  uitwerking: |-
+    42 ligt ver van de andere tijden (15 tot 21). Met: $\xbar = \tfrac{202}{10} = 20,2$, $\Me = \tfrac{18 + 18}{2} = 18$. Zonder: $\xbar = \tfrac{160}{9} \approx 17,8$, $\Me = 18$ (het 5de van $15, 16, 16, 17, 18, 18, 19, 20, 21$).
+
+- id: h3-t3
+  soort: test
+  pakketten: [4, 5]
+  niveau: 2
+  thema: |-
+    uitschieter met de regel
+  opgave: |-
+    Tien leerlingen tellen hoeveel minuten ze gisteren lazen: 15, 18, 16, 21, 17, 19, 20, 16, 18, 42. Ga met de regel van $1,5 \cdot \IKA$ na welke gegevens uitschieters zijn, en teken de aangepaste boxplot.
+  antwoord: |-
+    alleen 42 (grenzen 10 en 26)
+  uitwerking: |-
+    $15, 16, 16, 17, 18 \mid 18, 19, 20, 21, 42$: $\Me = 18$, $Q_1 = 16$, $Q_3 = 20$, $\IKA = 4$. Grenzen $16 - 6 = 10$ en $20 + 6 = 26$: alleen 42 valt erbuiten. De snorharen lopen tot 15 en 21.
+    \figuren{\begin{tikzpicture}[x=.3cm,font=\scriptsize]
+      \boxplot{.6}{15}{16}{18}{20}{21}
+      \uitschieter{42}{.6}
+      \getalas[min]{10}{5}{45}
+    \end{tikzpicture}}
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  thema: |-
+    groepen vergelijken
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.28cm,font=\scriptsize]
+        \boxplot[.5]{1.3}{4}{9}{11}{13}{15} \node[left] at (1.5,1.3) {voor};
+        \boxplot[.5]{.55}{7}{11}{14}{16}{19} \node[left] at (1.5,.55) {na};
+        \getalas[punten]{2}{2}{20}
+      \end{tikzpicture}
+  opgave: |-
+    Een klas maakt een toets op 20 vóór en na een herhalingsles. Vergelijk de twee boxplots in drie zinnen.
+  antwoord: |-
+    na hoger, ongeveer even gespreid
+  uitwerking: |-
+    Na de les ligt de mediaan hoger: 14 tegenover 11. De interkwartielafstand is ongeveer gelijk (4 voor, 5 na), de variatiebreedte 11 voor en 12 na. Na de les haalt meer dan $75~\%$ minstens 11, terwijl voor de les maar de helft 11 haalde.
+
+- id: h3-t5
+  soort: test
+  niveau: 1
+  thema: |-
+    aantallen of percentages
+  opgave: |-
+    In de bibliotheek van stad P leenden 1500 van de 6000 leden dit jaar een stripverhaal, in stad Q 900 van de 3000 leden. Waar lenen relatief de meeste leden strips? Hoeveel procentpunt scheelt het?
+  antwoord: |-
+    in Q; 5 procentpunt
+  uitwerking: |-
+    P: $\tfrac{1500}{6000} = 25~\%$. Q: $\tfrac{900}{3000} = 30~\%$. Het verschil is 5 procentpunt.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    een as die niet bij 0 begint
+  opgave: |-
+    Een staafdiagram toont de gemiddelde prijs van een broodje: $3,20$ euro in 2023 en $3,40$ euro in 2024. De verticale as begint bij 3 euro. Hoeveel keer zo lang is de staaf van 2024? Met hoeveel procent steeg de prijs echt?
+  antwoord: |-
+    2 keer; $6,25~\%$
+  uitwerking: |-
+    De staven zijn $0,40$ en $0,20$ lang: 2 keer zo lang. Echt: $\tfrac{3,40}{3,20} = 1,0625$, dus $6,25~\%$.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    pictogrammen
+  opgave: |-
+    Een folder toont het aantal leden van een jeugdbeweging als een vierkant. Het aantal steeg van 40 naar 60, en daarom is de zijde van het vierkant $1,5$ keer zo groot. Hoeveel keer zo groot lijkt het aantal leden? Hoe teken je het eerlijk?
+  antwoord: |-
+    $2,25$ keer; even breed, $1,5$ keer zo hoog
+  uitwerking: |-
+    De oppervlakte wordt $1,5^2 = 2,25$ keer zo groot, terwijl het aantal $1,5$ keer zo groot werd. Eerlijk: rechthoeken van dezelfde breedte, de ene $1,5$ keer zo hoog als de andere (een staafdiagram).

@@ -1,0 +1,468 @@
+%----------------------------------------------------------------------------------------
+% STELSELS ALGEBRAÏSCH OPLOSSEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf
+% (2de graad: geen Koppel). Labels van dit hoofdstuk beginnen met h2-.
+% Pakket 5: de regel van Cramer als uitbreiding (\begin{alleenvoor}{5}).
+% In de oefeningenbank: een parameter en drie onbekenden (4-5), Cramer en 1/x (5),
+% een zwaardere opdracht met breuken (2-5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Algebraïsch oplossen}
+
+\begin{probleem}
+\naast{Twee kaarsen worden tegelijk aangestoken. Kaars A is 30~cm lang en wordt elk uur 2,5~cm korter. Kaars B is 24~cm lang en wordt elk uur 1,6~cm korter. Kaars A is eerst de langste, maar ze brandt sneller op. Na hoeveel tijd zijn beide kaarsen even lang, tot op de minuut? En hoe lang zijn ze dan?}{\begin{tikzpicture}[x=.1cm,y=.06cm,font=\scriptsize]
+  \draw[grijs] (-4,0) -- (26,0);
+  \draw[accent,fill=accent!15] (0,0) rectangle (6,30);
+  \draw[inkt,fill=black!8] (14,0) rectangle (20,24);
+  \draw[accent,thick] (3,30) -- (3,33);
+  \draw[inkt,thick] (17,24) -- (17,27);
+  \fill[fel] (3,36) ellipse (1.2 and 3);
+  \fill[fel] (17,30) ellipse (1.2 and 3);
+  \node[below] at (3,0) {A};
+  \node[below] at (17,0) {B};
+  \node[left] at (0,15) {30 cm};
+  \node[right] at (20,12) {24 cm};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{1,2,3}{22-23}\alleenvoor{4,5}{26-27} (dit hoofdstuk: stelsels van twee eerstegraadsvergelijkingen met twee onbekenden algebraïsch oplossen met substitutie en combinatie, ook strijdige en onbepaalde stelsels\alleenvoor{5}{, en als uitbreiding de regel van Cramer}). Welke nummers precies bij dit hoofdstuk horen, is na te kijken in het leerplan. Voorkennis: hoofdstuk 1 (een stelsel grafisch oplossen) en eerstegraadsvergelijkingen oplossen, ook met haakjes en breuken. Laat de leerlingen het probleem eerst grafisch proberen: ze vinden ``ongeveer na 6,7 uur'', maar niet hoeveel minuten. Dat is de reden voor dit hoofdstuk. \alleenvoor{5}{De regel van Cramer (sectie 4) is een uitbreiding: ze gaat verder dan het leerplan vraagt en kan wegvallen zonder dat de rest van het boek erop steunt.}}
+
+In hoofdstuk 1 loste je een stelsel op door twee rechten te tekenen en hun snijpunt af te lezen. Dat is aanschouwelijk, maar niet nauwkeurig: ligt het snijpunt niet op een kruispunt van het rooster, dan vind je alleen een benadering. In dit hoofdstuk leer je een stelsel uitrekenen, zonder grafiek en tot op de laatste decimaal. Er zijn twee methodes, substitutie en combinatie. Het idee is telkens hetzelfde: je maakt van twee vergelijkingen met twee onbekenden één vergelijking met één onbekende. Die kun je al oplossen.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Substitutie}
+
+\subsection{Twee keer \texorpdfstring{$y = \ldots$}{y = ...}}
+
+Neem de kaarsen uit het probleem. Na $t$ uur is kaars A nog $30 - 2{,}5t$ centimeter lang, en kaars B nog $24 - 1{,}6t$ centimeter. Noem de lengte $h$. Dan zoek je een tijd $t$ en een lengte $h$ die tegelijk voldoen aan
+\[ \stelsel{h &{}= 30 - 2{,}5t}{h &{}= 24 - 1{,}6t} \]
+Grafisch zijn dat twee dalende rechten. Ze snijden elkaar ergens na 6,5 uur, misschien na 6,7 uur, bij een lengte van ongeveer 13~cm. Preciezer lukt het niet.
+
+\figuren{\begin{tikzpicture}[x=.55cm,y=.1cm]
+  \roosterleeg[$t$ (h)][$h$ (cm)]{0}{1}{12}{0}{5}{30}
+  \xgetallen{2,4,6,8,10,12}\ygetallen{5,10,15,20,25,30}\oorsprong
+  \rechte{0}{12}{-2.5}{30}
+  \rechte[tweede]{0}{12}{-1.6}{24}
+  \node[accent,font=\scriptsize,above right] at (1,27.5) {A};
+  \node[inkt,font=\scriptsize,above right] at (10,8) {B};
+  \draw[grijs,thick] (6.667,13.333) circle (.5 and 3.2);
+  \node[font=\scriptsize,text=grijs,right] at (7.2,18) {ongeveer hier};
+\end{tikzpicture}}
+
+Kijk nu naar wat het snijpunt betekent: daar is $h$ voor beide kaarsen hetzelfde getal. De twee uitdrukkingen voor $h$ zijn dus gelijk aan elkaar:
+\[ 30 - 2{,}5t = 24 - 1{,}6t . \]
+Daarin staat nog maar één onbekende, en zo'n vergelijking los je exact op. We hebben de uitdrukking $24 - 1{,}6t$ in de plaats van $h$ gezet in de eerste vergelijking. Een uitdrukking in de plaats van een onbekende zetten heet \textit{substitueren}. Mag dat zomaar? Het mag, als het stelsel daardoor dezelfde oplossingen houdt.
+
+\begin{theorie}
+Twee stelsels zijn \textbf{\textcolor{accent}{gelijkwaardig}} als ze dezelfde oplossingen hebben.
+
+\begin{stelling}{Substitutie}
+Is in een stelsel een onbekende uitgedrukt in de andere, zoals $y = ax + b$, dan mag je die uitdrukking in de andere vergelijking in de plaats van die onbekende zetten. Je krijgt een gelijkwaardig stelsel.
+
+\vspace{1mm}
+\qquad $\formule{\stelsel{y &{}= ax + b}{cx + dy &{}= e} \iff \stelsel{y &{}= ax + b}{cx + d(ax + b) &{}= e}}$
+\end{stelling}
+\end{theorie}
+
+Waarom klopt dat? Een koppel $(x, y)$ dat aan beide vergelijkingen voldoet, heeft een $y$ die gelijk is aan $ax + b$. Dan maakt het niet uit of je in de tweede vergelijking $y$ schrijft of $ax + b$: het is hetzelfde getal. De tweede vergelijking bevat daarna alleen nog $x$.
+
+\voorbeeld{}{Los op: $\stelsel{y &{}= 3x - 4}{y &{}= -2x + 6}$\label{vb:h2-gelijkstellen}}{%
+\uitleg{Beide vergelijkingen geven $y$. In het snijpunt zijn die twee uitdrukkingen gelijk: we stellen ze aan elkaar gelijk.}
+\begin{stappen}
+3x - 4 = -2x + 6 & Substitueer $-2x + 6$ voor $y$ in de eerste vergelijking. \\
+5x = 10 \ \Rightarrow \ x = 2 & Een eerstegraadsvergelijking in $x$. \\
+y = 3 \cdot 2 - 4 = 2 & Vul $x = 2$ in een van beide vergelijkingen in. \\
+V = \{(2, 2)\} & Controle in de andere vergelijking: $-2 \cdot 2 + 6 = 2$.
+\end{stappen}}
+
+Vergeet $y$ niet: de oplossing van een stelsel is een koppel. Pas als je $x$ én $y$ hebt, ben je klaar. Nu kunnen we het probleem exact oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Na hoeveel tijd zijn de kaarsen even lang, en hoe lang zijn ze dan?\label{vb:h2-terug}}{%
+\uitleg{De lengtes van beide kaarsen stellen we aan elkaar gelijk. Een kommagetal voor $t$ werken we weg door met 10 te vermenigvuldigen.}
+\begin{stappen}
+30 - 2{,}5t = 24 - 1{,}6t & Substitueer $24 - 1{,}6t$ voor $h$. \\
+300 - 25t = 240 - 16t & Vermenigvuldig beide leden met 10. \\
+60 = 9t \ \Rightarrow \ t = \dfrac{60}{9} = \dfrac{20}{3} & Breng over en deel door 9. \\[2ex]
+h = 30 - 2{,}5 \cdot \dfrac{20}{3} = 30 - \dfrac{50}{3} = \dfrac{40}{3} & Vul $t$ in de eerste vergelijking in. \\[2ex]
+24 - 1{,}6 \cdot \dfrac{20}{3} = 24 - \dfrac{32}{3} = \dfrac{40}{3} & Controle met kaars B.
+\end{stappen}
+Nu is $\tfrac{20}{3}$ uur gelijk aan $6\tfrac23$ uur, en $\tfrac23$ van 60 minuten is 40 minuten. \textit{Na 6 uur en 40 minuten zijn beide kaarsen $\tfrac{40}{3} \approx 13{,}3$~cm lang.} Dat klopt met de grafiek, maar nu weten we het tot op de minuut.}
+
+\nujij{Los op: $\stelsel{y &{}= x + 2}{y &{}= -3x + 14}$}{$x + 2 = -3x + 14$ geeft $4x = 12$, dus $x = 3$ en $y = 5$: $V = \{(3, 5)\}$.}
+
+\begin{oefeningen}
+\oef{h2-gelijkstellen}
+\end{oefeningen}
+
+\subsection{Een onbekende vrijmaken}
+
+Meestal staat geen van beide vergelijkingen al in de vorm $y = \ldots$. Neem het stelsel
+\[ \stelsel{3x + y &{}= 10}{5x - 2y &{}= 2} \]
+Je kunt de eerste vergelijking wel omvormen: breng $3x$ naar het rechterlid, en je krijgt $y = 10 - 3x$. Dat heet $y$ \textit{vrijmaken}. Daarna substitueer je zoals daarnet. Welke onbekende maak je vrij? Kies er een met coëfficiënt 1 of $-1$: dan hoef je niet te delen, en krijg je geen breuken.
+
+\begin{oefeningen}
+\oef{h2-vrijmaken}
+\end{oefeningen}
+
+\voorbeeld{}{Los op: $\stelsel{3x + y &{}= 10}{5x - 2y &{}= 2}$\label{vb:h2-substitutie}}{%
+\uitleg{In de eerste vergelijking heeft $y$ coëfficiënt 1. We maken $y$ vrij en substitueren in de tweede vergelijking. Zet de uitdrukking tussen haakjes, want ze wordt met $-2$ vermenigvuldigd.}
+\begin{stappen}
+y = 10 - 3x & Maak $y$ vrij in de eerste vergelijking. \\
+5x - 2(10 - 3x) = 2 & Substitueer in de tweede vergelijking, met haakjes. \\
+5x - 20 + 6x = 2 & Werk de haakjes uit: $-2 \cdot (-3x) = +6x$. \\
+11x = 22 \ \Rightarrow \ x = 2 & Breng over en deel door 11. \\
+y = 10 - 3 \cdot 2 = 4 & Vul $x = 2$ in de vrijgemaakte vergelijking in. \\
+V = \{(2, 4)\} & Controle in de tweede vergelijking: $10 - 8 = 2$.
+\end{stappen}}
+
+Zonder haakjes had je $5x - 20 - 3x$ geschreven, en dat is fout: het minteken en de 2 horen bij de hele uitdrukking $10 - 3x$. Soms is het handiger om $x$ vrij te maken.
+
+\voorbeeld{}{Los op: $\stelsel{x - 4y &{}= 3}{2x + 3y &{}= 17}$\label{vb:h2-substitutie2}}{%
+\uitleg{Nu heeft $x$ coëfficiënt 1 in de eerste vergelijking. We maken $x$ vrij.}
+\begin{stappen}
+x = 3 + 4y & Breng $-4y$ naar het rechterlid. \\
+2(3 + 4y) + 3y = 17 & Substitueer in de tweede vergelijking. \\
+6 + 11y = 17 \ \Rightarrow \ y = 1 & Werk uit, breng over en deel door 11. \\
+x = 3 + 4 \cdot 1 = 7 & Bereken $x$. \\
+V = \{(7, 1)\} & Controle: $14 + 3 = 17$.
+\end{stappen}}
+
+\begin{werkwijze}
+Maak in een van de vergelijkingen een onbekende vrij, liefst een met coëfficiënt 1 of $-1$. Substitueer die uitdrukking, tussen haakjes, in de andere vergelijking. Los die vergelijking met één onbekende op. Vul de gevonden waarde in de vrijgemaakte vergelijking in om de andere onbekende te vinden. Controleer het koppel in de vergelijking die je niet gebruikte, en noteer $V$.
+\end{werkwijze}
+
+\nujij{Los op: $\stelsel{2x + y &{}= 7}{3x - 4y &{}= 5}$}{$y = 7 - 2x$, dus $3x - 28 + 8x = 5$, $11x = 33$, $x = 3$ en $y = 1$.}
+
+\begin{oefeningen}
+\oef{h2-substitutie}
+\end{oefeningen}
+
+%========================================================================================
+\section{Combinatie}
+
+\subsection{Vergelijkingen optellen}
+
+Kijk naar het stelsel
+\[ \stelsel{3x + 2y &{}= 16}{5x - 2y &{}= 0} \]
+Geen enkele coëfficiënt is 1 of $-1$. Substitueren kan, maar je krijgt breuken. Toch valt iets op: in de ene vergelijking staat $+2y$, in de andere $-2y$. Kun je die tegen elkaar laten wegvallen?
+
+Denk opnieuw aan balansen, zoals in hoofdstuk 1. Twee balansen zijn in evenwicht. Neem je van de eerste balans aan elke kant weg wat op de tweede balans aan die kant ligt, dan neem je links en rechts evenveel weg. De eerste balans blijft in evenwicht. Hieronder liggen links 2 zakjes en een bol tegen 8 blokjes, en een zakje en een bol tegen 5 blokjes. Neem je de tweede inhoud weg van de eerste, dan blijft er een zakje tegen 3 blokjes over.
+
+\figuren{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \balansxy{2}{1}{0}{0}{0}{8}
+  \node[font=\large] at (6.5,0) {$-$};
+  \begin{scope}[xshift=13cm]\balansxy{1}{1}{0}{0}{0}{5}\end{scope}
+  \node[font=\large] at (19.5,0) {$=$};
+  \begin{scope}[xshift=26cm]\balansxy{1}{0}{0}{0}{0}{3}\end{scope}
+  \node at (0,-2.4) {$2x + y = 8$};
+  \node at (13,-2.4) {$x + y = 5$};
+  \node at (26,-2.4) {$x = 3$};
+\end{tikzpicture}}
+
+Een zakje weegt dus 3, en een bol $5 - 3 = 2$. Hetzelfde geldt voor optellen: zijn twee gelijkheden waar, dan zijn ook hun sommen gelijk.
+
+\begin{theorie}
+\begin{stelling}{Vergelijkingen optellen}
+Vervang je in een stelsel een vergelijking door de som van beide vergelijkingen, dan krijg je een gelijkwaardig stelsel.
+
+\vspace{1mm}
+\qquad $\formule{\stelsel{A &{}= B}{C &{}= D} \iff \stelsel{A &{}= B}{A + C &{}= B + D}}$
+\end{stelling}
+\end{theorie}
+
+Je telt de linkerleden op en de rechterleden op. Hetzelfde geldt voor aftrekken, want aftrekken is optellen met het tegengestelde. Het nut is dat een onbekende kan wegvallen: dat gebeurt als haar coëfficiënten in beide vergelijkingen tegengesteld zijn.
+
+\voorbeeld{}{Los op: $\stelsel{3x + 2y &{}= 16}{5x - 2y &{}= 0}$\label{vb:h2-optellen}}{%
+\uitleg{De coëfficiënten van $y$ zijn $+2$ en $-2$: tegengesteld. Tellen we de vergelijkingen op, dan valt $y$ weg.}
+\begin{stappen}
+8x = 16 & Tel op: $3x + 5x = 8x$, $2y - 2y = 0$ en $16 + 0 = 16$. \\
+x = 2 & Deel door 8. \\
+3 \cdot 2 + 2y = 16 \ \Rightarrow \ y = 5 & Vul $x = 2$ in de eerste vergelijking in: $2y = 10$. \\
+V = \{(2, 5)\} & Controle in de tweede vergelijking: $10 - 10 = 0$.
+\end{stappen}}
+
+Een onbekende die wegvalt door optellen of aftrekken, heet \textit{geëlimineerd}. Je kunt ook aftrekken als de coëfficiënten gelijk zijn, zoals bij de balansen. Maar bij aftrekken vergeet je makkelijk een minteken. Daarom maken we de coëfficiënten liever tegengesteld en tellen we op.
+
+\begin{oefeningen}
+\oef{h2-optellen}
+\end{oefeningen}
+
+\subsection{Eerst vermenigvuldigen}
+
+En als de coëfficiënten niet tegengesteld zijn? Dan maak je ze tegengesteld. Uit het boek Eerstegraadsvergelijkingen weet je dat je beide leden van een vergelijking met hetzelfde getal verschillend van 0 mag vermenigvuldigen: de vergelijking blijft gelijkwaardig. Kies dat getal zo dat een onbekende in beide vergelijkingen een tegengestelde coëfficiënt krijgt.
+
+\voorbeeld{}{Los op: $\stelsel{2x + 3y &{}= 12}{x - 2y &{}= -1}$\label{vb:h2-combinatie}}{%
+\uitleg{De coëfficiënten van $x$ zijn 2 en 1. Vermenigvuldigen we de tweede vergelijking met $-2$, dan staat er $-2x$: tegengesteld aan $2x$.}
+\begin{stappen}
+-2x + 4y = 2 & De tweede vergelijking maal $-2$: elke term, ook het rechterlid. \\
+7y = 14 \ \Rightarrow \ y = 2 & Tel op bij de eerste vergelijking: $x$ valt weg. \\
+x - 4 = -1 \ \Rightarrow \ x = 3 & Vul $y = 2$ in de tweede vergelijking in. \\
+V = \{(3, 2)\} & Controle in de eerste vergelijking: $6 + 6 = 12$.
+\end{stappen}}
+
+Soms moet je beide vergelijkingen vermenigvuldigen. Zoek dan een getal dat een veelvoud is van beide coëfficiënten, zoals bij gelijknamige breuken.
+
+\voorbeeld{}{Los op: $\stelsel{3x + 4y &{}= 5}{2x - 3y &{}= 9}$\label{vb:h2-combinatie2}}{%
+\uitleg{We elimineren $y$. De coëfficiënten zijn 4 en $-3$, en 12 is een veelvoud van beide. Daarom vermenigvuldigen we de eerste vergelijking met 3 en de tweede met 4.}
+\begin{stappen}
+9x + 12y = 15 & De eerste vergelijking maal 3. \\
+8x - 12y = 36 & De tweede vergelijking maal 4. \\
+17x = 51 \ \Rightarrow \ x = 3 & Tel op: $y$ valt weg. \\
+9 + 4y = 5 \ \Rightarrow \ y = -1 & Vul $x = 3$ in de eerste vergelijking van de opgave in. \\
+V = \{(3, -1)\} & Controle in de tweede vergelijking: $6 + 3 = 9$.
+\end{stappen}}
+
+Je had ook $x$ kunnen elimineren, door de eerste vergelijking met 2 en de tweede met $-3$ te vermenigvuldigen. Dat geeft dezelfde oplossing. Kies de onbekende waarvoor de getallen het kleinst blijven.
+
+\begin{werkwijze}
+Kies de onbekende die je elimineert. Vermenigvuldig een of beide vergelijkingen met een getal, zodat die onbekende tegengestelde coëfficiënten krijgt. Tel de vergelijkingen op en los de vergelijking met één onbekende op. Vul de gevonden waarde in een vergelijking van de opgave in om de andere onbekende te vinden. Controleer in de andere vergelijking en noteer $V$.
+\end{werkwijze}
+
+\nujij{Los op: $\stelsel{3x + 2y &{}= 7}{2x - y &{}= 7}$}{De tweede maal 2: $4x - 2y = 14$. Optellen: $7x = 21$, dus $x = 3$ en $y = -1$.}
+
+\begin{oefeningen}
+\oef{h2-combinatie}
+\end{oefeningen}
+
+%========================================================================================
+\section{Welke methode, en hoeveel oplossingen?}
+
+\subsection{Substitutie of combinatie?}
+
+Elk stelsel kun je met beide methodes oplossen. De uitkomst is dezelfde, alleen het rekenwerk verschilt. Welke kies je dan?
+
+\voorbeeld{}{Los op met substitutie en met combinatie, en vergelijk: $\stelsel{4x - y &{}= 5}{3x + 2y &{}= 12}$\label{vb:h2-vergelijk}}{%
+\uitleg{In de eerste vergelijking heeft $y$ coëfficiënt $-1$: substitutie kan zonder breuken. Voor combinatie vermenigvuldigen we de eerste vergelijking met 2, zodat $-2y$ en $+2y$ tegengesteld zijn.}
+\begin{stappen}
+\text{substitutie: } y = 4x - 5 & Maak $y$ vrij in de eerste vergelijking. \\
+3x + 2(4x - 5) = 12 \ \Rightarrow \ 11x = 22 & Substitueer en werk uit: $x = 2$. \\
+\text{combinatie: } 8x - 2y = 10 & De eerste vergelijking maal 2. \\
+11x = 22 & Tel op bij de tweede vergelijking: $x = 2$. \\
+y = 4 \cdot 2 - 5 = 3 & In beide gevallen vind je zo $y$. \\
+V = \{(2, 3)\} & Controle: $6 + 6 = 12$.
+\end{stappen}
+Beide methodes komen bij dezelfde vergelijking $11x = 22$ uit. Hier is het verschil klein.}
+
+Een vuistregel. Staat er al een vergelijking in de vorm $y = \ldots$ of $x = \ldots$, of heeft een onbekende coëfficiënt 1 of $-1$, dan is substitutie meestal het snelst. Zijn alle coëfficiënten groter, of staan er al tegengestelde coëfficiënten, kies dan combinatie: je vermijdt breuken.
+
+\begin{oefeningen}
+\oef{h2-methode}
+\end{oefeningen}
+
+\subsection{Als beide onbekenden verdwijnen}
+
+In hoofdstuk 1 zag je dat twee rechten ook evenwijdig kunnen zijn, of samenvallen. Wat gebeurt er dan als je rekent? Neem het stelsel
+\[ \stelsel{2x - 3y &{}= 4}{-4x + 6y &{}= 1} \]
+De eerste vergelijking maal 2 geeft $4x - 6y = 8$. Tel je die op bij de tweede, dan vallen $x$ en $y$ samen weg, en er blijft $0 = 9$ over. Dat is nooit waar, voor geen enkel koppel. Het stelsel heeft geen oplossing. Inderdaad: vorm je beide vergelijkingen om naar $y$, dan krijg je $y = \tfrac23 x - \tfrac43$ en $y = \tfrac23 x + \tfrac16$. Dezelfde rico, een ander snijpunt met de $y$-as: twee evenwijdige rechten.
+
+\voorbeeld{}{Los op: $\stelsel{2x - 3y &{}= 4}{-4x + 6y &{}= 1}$\label{vb:h2-strijdig}}{%
+\uitleg{De coëfficiënten van $x$ zijn 2 en $-4$. De eerste vergelijking maal 2 maakt ze tegengesteld.}
+\begin{stappen}
+4x - 6y = 8 & De eerste vergelijking maal 2. \\
+0 = 9 & Tel op bij de tweede: beide onbekenden vallen weg. \\
+V = \emptyset & De uitspraak $0 = 9$ is vals: het stelsel is strijdig.
+\end{stappen}}
+
+Het kan ook anders uitdraaien. Krijg je na het optellen $0 = 0$, dan is die uitspraak altijd waar. De tweede vergelijking zei dan niets nieuws: ze was een veelvoud van de eerste, en beide rechten vallen samen.
+
+\voorbeeld{}{Los op: $\stelsel{x - 2y &{}= 3}{-3x + 6y &{}= -9}$\label{vb:h2-onbepaald}}{%
+\uitleg{De eerste vergelijking maal 3 maakt de coëfficiënten van $x$ tegengesteld.}
+\begin{stappen}
+3x - 6y = 9 & De eerste vergelijking maal 3. \\
+0 = 0 & Tel op bij de tweede: dat klopt voor elk koppel. \\
+V = \{(x, y) \mid x - 2y = 3\} & Het stelsel is onbepaald: elk punt van de rechte $x - 2y = 3$ is een oplossing.
+\end{stappen}
+Bijvoorbeeld $(3, 0)$, $(5, 1)$ en $(1, -1)$ zijn oplossingen. Controleer: $5 - 2 = 3$ en $-15 + 6 = -9$.}
+
+Pas op: $0 = 0$ betekent niet dat $(0, 0)$ de oplossing is. En ook met substitutie kun je zo'n uitkomst krijgen. Met $y = 3x + 1$ in $6x - 2y = 4$ vind je $6x - 6x - 2 = 4$, of $0 = 6$: strijdig.
+
+\begin{werkwijze}
+Verdwijnen beide onbekenden tijdens het rekenen, kijk dan naar wat overblijft. Is dat een valse uitspraak zoals $0 = 9$, dan is het stelsel strijdig: $V = \emptyset$ (evenwijdige rechten). Is het een ware uitspraak zoals $0 = 0$, dan is het stelsel onbepaald: de oplossingen zijn alle punten van een van beide rechten (samenvallende rechten).
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-aantal}
+\end{oefeningen}
+
+\subsection{Eerst herleiden}
+
+Staan er haakjes of breuken in de vergelijkingen? Werk die eerst weg, zoals je bij eerstegraadsvergelijkingen deed. Breng elke vergelijking in de vorm $ax + by = c$, met de onbekenden links en het getal rechts. Daarna kies je een methode.
+
+\voorbeeld{}{Los op: $\stelsel{2(x + 1) - y &{}= 7}{3x - (y - 4) &{}= 12}$\label{vb:h2-haakjes}}{%
+\uitleg{We werken de haakjes uit en brengen elke vergelijking in de vorm $ax + by = c$. Daarna staan er $-y$ en $-y$: aftrekken, of de ene vergelijking met $-1$ vermenigvuldigen.}
+\begin{stappen}
+2x + 2 - y = 7 \ \Rightarrow \ 2x - y = 5 & Werk de eerste vergelijking uit en breng 2 over. \\
+3x - y + 4 = 12 \ \Rightarrow \ 3x - y = 8 & Het minteken keert beide tekens om. \\
+-2x + y = -5 & De eerste herleide vergelijking maal $-1$. \\
+x = 3 & Tel op bij de tweede herleide vergelijking. \\
+y = 2 \cdot 3 - 5 = 1 & Uit $2x - y = 5$ volgt $y = 2x - 5$. \\
+V = \{(3, 1)\} & Controle in de opgave: $2 \cdot 4 - 1 = 7$ en $9 - (1 - 4) = 12$.
+\end{stappen}}
+
+Breuken werk je weg door elke vergelijking apart te vermenigvuldigen met het kgv van haar noemers. Elke vergelijking krijgt zo haar eigen getal.
+
+\voorbeeld{}{Los op: $\stelsel{\dfrac x2 + \dfrac y3 &{}= 4}{\rule{0pt}{3.6ex}\dfrac x4 - \dfrac y6 &{}= 0}$\label{vb:h2-breuken}}{%
+\uitleg{De noemers van de eerste vergelijking hebben kgv 6, die van de tweede kgv 12.}
+\begin{stappen}
+3x + 2y = 24 & De eerste vergelijking maal 6. \\
+3x - 2y = 0 & De tweede vergelijking maal 12. \\
+6x = 24 \ \Rightarrow \ x = 4 & Tel op: $y$ valt weg. \\
+12 + 2y = 24 \ \Rightarrow \ y = 6 & Vul $x = 4$ in $3x + 2y = 24$ in. \\
+V = \{(4, 6)\} & Controle in de opgave: $2 + 2 = 4$ en $1 - 1 = 0$.
+\end{stappen}}
+
+\nujij{Los op: $\stelsel{3(x - 2) + y &{}= 4}{x + 2(y - 1) &{}= 3}$}{Herleid: $3x + y = 10$ en $x + 2y = 5$. Dan $y = 10 - 3x$, $x + 20 - 6x = 5$, $x = 3$ en $y = 1$.}
+
+\begin{oefeningen}
+\oef{h2-herleiden}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+%========================================================================================
+\section{Uitbreiding: de regel van Cramer}
+
+Kan het ook met een formule, zoals bij een eerstegraadsvergelijking $ax = b$ met $a \neq 0$, waar altijd $x = \tfrac ba$ is? Neem een willekeurig stelsel
+\[ \stelsel{ax + by &{}= e}{cx + dy &{}= f} \]
+en elimineer $y$ met combinatie: de eerste vergelijking maal $d$, de tweede maal $-b$. Dan krijg je
+\[ adx + bdy = ed \qquad \text{en} \qquad -bcx - bdy = -bf , \]
+en na optellen
+\[ (ad - bc)\,x = ed - bf . \]
+Op dezelfde manier vind je $(ad - bc)\,y = af - ce$. Het getal $ad - bc$ komt twee keer terug, en het beslist alles: is het niet 0, dan mag je erdoor delen. Voor zo'n getal bestaat een handige notatie.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{determinant}} van vier getallen in een vierkant schema is
+\[ \formule{\detm{a}{b}{c}{d} = ad - bc} . \]
+
+\begin{stelling}{Regel van Cramer}
+Het stelsel $\stelsel{ax + by &{}= e}{cx + dy &{}= f}$ heeft precies één oplossing als $D = \detm{a}{b}{c}{d} \neq 0$, namelijk
+
+\vspace{1mm}
+\qquad $\formule{x = \frac{1}{D}\detm{e}{b}{f}{d}} \qquad \formule{y = \frac{1}{D}\detm{a}{e}{c}{f}}$
+\end{stelling}
+\begin{bewijs}
+Elimineer $y$: de eerste vergelijking maal $d$ plus de tweede maal $-b$ geeft
+\bewijsregel{(ad - bc)\,x = ed - bf .}
+Elimineer $x$: de eerste vergelijking maal $-c$ plus de tweede maal $a$ geeft
+\bewijsregel{(ad - bc)\,y = af - ce .}
+Is $D = ad - bc \neq 0$, deel dan door $D$. Dat geeft de formules, want $ed - bf$ en $af - ce$ zijn precies de twee determinanten in de teller.
+\end{bewijs}
+\end{theorie}
+
+In $D$ staan de coëfficiënten van $x$ en $y$, zoals in het stelsel. Voor $x$ vervang je de kolom van $x$ door de rechterleden $e$ en $f$, voor $y$ de kolom van $y$. Is $D = 0$, dan geeft de regel geen antwoord: het stelsel is dan strijdig of onbepaald, en je zoekt met combinatie uit welk van de twee.
+
+\voorbeeld{}{Los op met de regel van Cramer: $\stelsel{3x + 2y &{}= 7}{5x - 4y &{}= 19}$\label{vb:h2-cramer}}{%
+\uitleg{We berekenen eerst $D$. Is die niet 0, dan volgen $x$ en $y$ uit twee andere determinanten.}
+\begin{stappen}
+D = \detm{3}{2}{5}{-4} = -12 - 10 = -22 & De coëfficiënten van $x$ en $y$. Niet 0: precies één oplossing. \\[3ex]
+x = \frac{1}{-22}\detm{7}{2}{19}{-4} = \frac{-28 - 38}{-22} = 3 & De kolom van $x$ vervangen door 7 en 19. \\[3ex]
+y = \frac{1}{-22}\detm{3}{7}{5}{19} = \frac{57 - 35}{-22} = -1 & De kolom van $y$ vervangen door 7 en 19. \\[3ex]
+V = \{(3, -1)\} & Controle: $9 - 2 = 7$ en $15 + 4 = 19$.
+\end{stappen}}
+
+De regel van Cramer is handig voor een rekenmachine of een computer, en bij lastige getallen. Met kleine gehele coëfficiënten is combinatie meestal even snel. In de 3de graad komt de determinant terug bij matrices.
+
+\begin{oefeningen}
+\oef{h2-cramer}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+
+\oef{h2-o25}
+
+\oef{h2-o26}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{14\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-substitutie}{oef:h2-substitutie}%
+  \fv{oef:h2-t2}{vb:h2-combinatie}{oef:h2-combinatie}%
+  \fv{oef:h2-t3}{vb:h2-gelijkstellen}{oef:h2-gelijkstellen}%
+  \fv{oef:h2-t4}{vb:h2-strijdig}{oef:h2-aantal}%
+  \fv{oef:h2-t5}{vb:h2-breuken}{oef:h2-herleiden}%
+  \fv{oef:h2-t6}{vb:h2-haakjes}{oef:h2-o10}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-o16}%
+  \alleenvoor{5}{\fv{oef:h2-t8}{vb:h2-cramer}{oef:h2-cramer}}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat gelijkwaardige stelsels zijn, de stappen van substitutie en waarom je haakjes zet, de stappen van combinatie en hoe je de coëfficiënten tegengesteld maakt, wanneer je welke methode kiest, wat $0 = 9$ en $0 = 0$ betekenen en wat je dan als $V$ noteert, en hoe je haakjes en breuken eerst wegwerkt\alleenvoor{5}{, en de regel van Cramer met de determinant}. Vergelijk daarna met de kaders.
+\fi
