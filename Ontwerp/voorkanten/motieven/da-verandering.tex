@@ -1,0 +1,18 @@
+% 3de graad dubbele finaliteit, Functies en verandering (grafisch functieonderzoek, differentiequotiënt, afgeleide).
+% Monet: de vijver met waterlelies verandert met het licht van de dag.
+% Motief: de rand stijgt steeds sneller; de koorde tussen twee punten geeft de gemiddelde verandering dy/dx.
+\def\omslagbestand{omslag-waterlelies.jpg}
+\def\omslagbron{Claude Monet, \textit{Waterlelies}, 1906 (publiek domein)}
+\def\omslagrand{10.4 + 0.014*(\x+1)^2}
+\def\omslagmotief{%
+  \randlijn
+  \randwaarde{12.6}{\ya}%
+  \randwaarde{18.2}{\yb}%
+  \draw[omslaglijn=1pt] (11,{\ya-1.6*(\yb-\ya)/5.6}) -- (20.2,{\yb+2*(\yb-\ya)/5.6});
+  \draw[white,line width=.9pt,dashed] (12.6,\ya) -- (18.2,\ya) -- (18.2,\yb);
+  \fill[omslagstip] (12.6,\ya) circle (1.8mm);
+  \fill[omslagstip] (18.2,\yb) circle (1.8mm);
+  \node[text=white,inner sep=1pt,anchor=north] at (15.4,{\ya-.1}) {$\Delta x$};
+  \node[text=white,inner sep=1pt,anchor=west] at (18.35,{(\ya+\yb)/2}) {$\Delta y$};
+  \node[fill=fel,text=inkt,rounded corners=1.5pt,inner sep=3pt,anchor=north] at (15.4,{\ya-.85}) {$\dfrac{\Delta y}{\Delta x}$};
+}

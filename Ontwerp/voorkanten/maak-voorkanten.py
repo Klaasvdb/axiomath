@@ -22,8 +22,8 @@ HANDBOEKEN = MAP.parent.parent / "Handboeken"
 MAP_3, MAP_2 = "3de graad", "2de graad"  # de mappen per graad onder Handboeken/
 TEXLIVE = Path(r"C:\texlive\2024\bin\windows")
 
-GRAAD = "3de graad doorstroomfinaliteit"
-GRAAD_2 = "2de graad doorstroomfinaliteit"
+# De finaliteit van een pakket ("finaliteit" in PAKKETTEN...; zonder: doorstroom). Op de voorkant: "3de graad <naam>".
+FINALITEITEN = {"D": "doorstroomfinaliteit", "DA": "dubbele finaliteit", "A": "arbeidsmarktfinaliteit"}
 
 # Kleur van de voorkant per graad (accent: de band, fel: het label en de rubriek), zie de ontwerpregels.
 # De 3de graad gebruikt de standaardkleuren uit Opmaak/opmaak.tex (0B6470 en 3FD6F0).
@@ -152,6 +152,91 @@ MODULES_2 = [
 ]
 HANDBOEKEN_2 = [(pakket, m, n, None) for pakket in PAKKETTEN_2 for m, n, in_ in MODULES_2 if pakket.split()[0] in in_]
 
+# --- dubbele finaliteit (D/A) en arbeidsmarktfinaliteit (A) ----------------------------------------------------
+# De pakketten nummeren verder in hun graad (3de graad: 5-8, 2de graad: 6-8). Zo werken \alleenvoor{…}, maak-pdf.py
+# en de sleutels ongewijzigd, en kan een D/A-pakket dezelfde bron in cursussen/ gebruiken als de doorstroom.
+# Leerplannen: Katholiek Onderwijs Vlaanderen, versie januari en oktober 2024 (zie Handboeken/<graad>/README.md).
+# De pakketnaam tussen haakjes is \pakketnaam (Opmaak/pakketten.py zet D-A om in D/A: een map kan geen / bevatten).
+PAKKETTEN_DA3 = {
+    "5 Handel, Zorg, Horeca, Agro e.a. (D-A Basis)": {
+        "finaliteit": "DA", "leerplan": "III-Wis-da",
+        "richtingen": "Bedrijfsorganisatie, Gezondheidszorg, Horeca, Opvoeding en begeleiding, Toerisme en andere",
+        "alle_richtingen": ["Agrotechnieken dier", "Agrotechnieken plant", "Architectuur en interieur", "Bakkerijtechnieken",
+                            "Bedrijfsorganisatie", "Beeldende kunst", "Commerciële organisatie", "Defensie en veiligheid",
+                            "Dierenverzorgingstechnieken", "Fotografie", "Gezondheidszorg", "Horeca",
+                            "Internationale handel en logistiek", "Mode", "Natuur- en groentechnieken",
+                            "Opvoeding en begeleiding", "Slagerij-Traiteurtechnieken", "Sportbegeleiding",
+                            "Taal en communicatie", "Toerisme", "Topsport (dubbele finaliteit)", "Tuinaanleg en -beheer",
+                            "Wellness en schoonheid"],
+        "uren": "2 uur per week",
+    },
+    "6 Bouw, Elektro, Auto, ICT e.a. (D-A B+S)": {
+        "finaliteit": "DA", "leerplan": "III-WisS-da",
+        "richtingen": "Autotechnieken, Bouwtechnieken, Elektromechanische technieken, Elektrotechnieken, Industriële ICT en andere",
+        "alle_richtingen": ["Applicatie- en databeheer", "Autotechnieken", "Bouwtechnieken", "Elektromechanische technieken",
+                            "Elektrotechnieken", "Houttechnieken", "Industriële ICT", "Koel- en warmtetechnieken",
+                            "Mechanische vormgevingstechnieken", "Podiumtechnieken", "Vliegtuigtechnieken"],
+        "uren": "3 en 2 uur per week (5 graaduren)",
+    },
+    "7 Crossmedia, Dentaal, Grafimedia, Optiek e.a. (D-A B+S')": {
+        "finaliteit": "DA", "leerplan": "III-WisS'-da",
+        "richtingen": "Crossmedia, Dentaaltechnieken, Grafimedia, Optiektechnieken, Orthopedietechnieken",
+        "uren": "2 uur per week",
+    },
+    "8 Biotechnologische en chemische technieken (D-A B+S'')": {
+        "finaliteit": "DA", "leerplan": "III-WisS''-da",
+        "richtingen": "Biotechnologische en chemische technieken",
+        "uren": "3 en 2 uur per week (5 graaduren)",
+    },
+}
+# 3de graad D/A: (map, motief, pakketten, voorgesteld leerjaar). De motieven van verwante handboeken worden hergebruikt.
+MODULES_DA3 = [
+    ("Analyse/Functies en verandering", "da-verandering", "5678", "5de jaar"),
+    ("Analyse/Exponentiële en logaritmische functies", "exponentieel-logaritmisch", "5678", "5de jaar"),
+    ("Analyse/Tweedegraadsfuncties", "g2-tweedegraads", "68", "5de jaar"),
+    ("Meetkunde/Vectoren", "g2-vectoren", "678", "5de jaar"),
+    ("Analyse/Goniometrische functies", "goniometrische-functies", "5678", "6de jaar"),
+    ("Data en onzekerheid/Kansrekenen", "kansrekenen", "5678", "6de jaar"),
+    ("Data en onzekerheid/Statistiek", "statistiek", "5678", "6de jaar"),
+]
+HANDBOEKEN_DA3 = [(p, m, n, None) for p in PAKKETTEN_DA3 for m, n, in_, _ in MODULES_DA3 if p.split()[0] in in_]
+
+PAKKETTEN_DA2 = {
+    "6 Bedrijf, Horeca, Maatschappij, Sport e.a. (D-A Basis)": {
+        "finaliteit": "DA", "leerplan": "II-Wis-da",
+        "richtingen": "Bedrijf en organisatie, Horeca, Maatschappij en welzijn, Sport, Toerisme en andere",
+        "alle_richtingen": ["Architecturale en beeldende kunsten", "Bakkerijtechnieken", "Bedrijf en organisatie",
+                            "Beeldende en audiovisuele kunsten", "Creatie en mode", "Fotografie", "Horeca",
+                            "Maatschappij en welzijn", "Plant-, dier- en milieutechnieken", "Slagerijtechnieken", "Sport",
+                            "Taal en communicatie", "Toerisme", "Topsport (dubbele finaliteit)", "Wellness en lifestyle"],
+        "uren": "3 uur per week",
+    },
+    "7 Bouw, Elektro, Hout, Mechanica e.a. (D-A B+S)": {
+        "finaliteit": "DA", "leerplan": "II-WisS-da",
+        "richtingen": "Bouwtechnieken, Elektrotechnieken, Houttechnieken, Mechanische technieken en andere",
+        "alle_richtingen": ["Biotechnieken", "Bouwtechnieken", "Elektromechanische technieken", "Elektrotechnieken",
+                            "Grafische technieken", "Houttechnieken", "Mechanische technieken", "Voertuigtechnieken"],
+        "uren": "3 uur per week",
+    },
+}
+# 2de graad D/A: dezelfde handboeken als de doorstroom (MODULES_2), met een eigen voorstel van leerjaar (JAAR_VOORSTEL).
+MODULES_DA2 = {"6": ["Algebra/Reële getallen", "Algebra/Eerstegraadsvergelijkingen", "Analyse/Functies", "Algebra/Stelsels",
+                     "Meetkunde/Gelijkvormigheid", "Meetkunde/Driehoeksmeting", "Data en onzekerheid/Statistiek",
+                     "Meetkunde/Ruimtemeetkunde", "Discrete wiskunde/Telproblemen"]}
+MODULES_DA2["7"] = MODULES_DA2["6"][:8] + ["Meetkunde/Vectoren"] + MODULES_DA2["6"][8:]
+MOTIEF_2 = {m: n for m, n, _ in MODULES_2}
+HANDBOEKEN_DA2 = [(p, m, MOTIEF_2[m], None) for p in PAKKETTEN_DA2 for m in MODULES_DA2[p.split()[0]]]
+
+# Arbeidsmarktfinaliteit: alleen de 2de graad, één handboek, gemaakt op aanvraag (de site vraagt wie interesse heeft).
+PAKKETTEN_A2 = {
+    "8 Arbeidsmarktfinaliteit (A)": {
+        "finaliteit": "A", "leerplan": "II-Wis-a", "op_aanvraag": True,
+        "richtingen": "alle richtingen van de arbeidsmarktfinaliteit",
+        "uren": "2 uur per week",
+    },
+}
+HANDBOEKEN_A2 = [(p, "Wiskunde in de praktijk", "a-praktijk", None) for p in PAKKETTEN_A2]
+
 # Titels die niet op één regel van 64 pt passen: (titel met regeleinde, grootte in pt).
 TITELS = {
     "Algemene functies": (r"Algemene\\functies", 46),
@@ -170,6 +255,8 @@ TITELS = {
     "Driehoeksmeting": ("Driehoeksmeting", 46),
     "Gelijkvormigheid": ("Gelijkvormigheid", 46),
     "Analytische meetkunde": (r"Analytische\\meetkunde", 46),
+    "Functies en verandering": (r"Functies en\\verandering", 46),
+    "Wiskunde in de praktijk": (r"Wiskunde in\\de praktijk", 46),
 }
 
 
@@ -179,15 +266,15 @@ def gegevens(pakket, map_, jaar, richtingen=None, uren=None):
     titel = delen[-1]
     rubriek = delen[0] if len(delen) > 1 else ""
     omslagtitel, grootte = TITELS.get(titel, (titel, 64))
-    tweede = pakket in PAKKETTEN_2
-    graad = GRAAD_2 if tweede else GRAAD
-    graad = f"{graad}, {jaar}" if jaar else graad
-    p = (PAKKETTEN_2 if tweede else PAKKETTEN)[pakket]
+    p = ALLE_PAKKETTEN[pakket]
+    tweede = graad(pakket) == 2
+    tekst = f"{graad(pakket)}de graad {FINALITEITEN[finaliteit(pakket)]}"
+    tekst = f"{tekst}, {jaar}" if jaar else tekst
     kleur = [f"\\def\\omslagaccent{{{KLEUR_2[0]}}}", f"\\def\\omslagfel{{{KLEUR_2[1]}}}"] if tweede else []
     return "\n".join(kleur + [
         f"\\def\\cursusrubriek{{{rubriek}}}",
         f"\\def\\cursusrichtingen{{{p['richtingen'] if richtingen is None else richtingen}}}",
-        f"\\def\\cursusgraad{{{graad}}}",
+        f"\\def\\cursusgraad{{{tekst}}}",
         f"\\def\\cursusuren{{{p['uren'] if uren is None else uren}}}",
         f"\\def\\omslagtitel{{{omslagtitel}}}",
         f"\\def\\omslagtitelgrootte{{{grootte}}}",
@@ -196,18 +283,30 @@ def gegevens(pakket, map_, jaar, richtingen=None, uren=None):
 
 def cursusmap(pakket, map_):
     """De map van een cursus: Handboeken/<graad>/<pakket>/<rubriek>/<cursus>."""
-    return HANDBOEKEN / (MAP_2 if pakket in PAKKETTEN_2 else MAP_3) / pakket / Path(map_)
+    return HANDBOEKEN / (MAP_2 if graad(pakket) == 2 else MAP_3) / pakket / Path(map_)
 
 
 # Eén plaats voor de graad, het kenmerk en de sleutel van een handboek: maak-voortgang.py en de leerkrachtensite
 # (Website/leerkrachten/maak.py) gebruiken ze. De 3de graad houdt de sleutels van voor de 2de graad er was
 # ("4/Analyse/Integralen"), zodat de feedback op de site bij het juiste boek blijft; de 2de graad krijgt "2g5/...".
-ALLE_PAKKETTEN = {**PAKKETTEN, **PAKKETTEN_2}
-ALLE_HANDBOEKEN = HANDBOEKEN_LIJST + HANDBOEKEN_2
+PAKKETTEN_3_ALLE = {**PAKKETTEN, **PAKKETTEN_DA3}
+PAKKETTEN_2_ALLE = {**PAKKETTEN_2, **PAKKETTEN_DA2, **PAKKETTEN_A2}
+ALLE_PAKKETTEN = {**PAKKETTEN_3_ALLE, **PAKKETTEN_2_ALLE}
+ALLE_HANDBOEKEN = HANDBOEKEN_LIJST + HANDBOEKEN_DA3 + HANDBOEKEN_2 + HANDBOEKEN_DA2 + HANDBOEKEN_A2
 
 
 def graad(pakket):
-    return 2 if pakket in PAKKETTEN_2 else 3
+    return 2 if pakket in PAKKETTEN_2_ALLE else 3
+
+
+def finaliteit(pakket):
+    """"D" (doorstroom), "DA" (dubbele finaliteit) of "A" (arbeidsmarkt)."""
+    return ALLE_PAKKETTEN[pakket].get("finaliteit", "D")
+
+
+def pakket_naam(pakket):
+    """De naam van het leerplan tussen haakjes, zoals \\pakketnaam: Basis, B+S, D/A Basis, A."""
+    return pakket.rsplit("(", 1)[1].rstrip(")").replace("D-A", "D/A")
 
 
 def pakket_id(pakket):
@@ -231,10 +330,20 @@ JAAR_VOORSTEL = {
         "Data en onzekerheid/Kansrekenen": "6de jaar", "Data en onzekerheid/Statistiek": "6de jaar"},
     2: {m: ("3de jaar" if i < 9 else "4de jaar") for i, (m, _, _) in enumerate(MODULES_2)},
 }
+# Per finaliteit een eigen voorstel waar het verschilt. 2de graad D/A heeft geen tweedegraadsfuncties in het 4de jaar:
+# Stelsels en Driehoeksmeting schuiven daarom naar het 4de jaar.
+JAAR_VOORSTEL_FIN = {
+    (3, "DA"): {m: j for m, _, _, j in MODULES_DA3},
+    (2, "DA"): {**{m: "3de jaar" for m in MODULES_DA2["7"]},
+                **{m: "4de jaar" for m in ["Algebra/Stelsels", "Meetkunde/Driehoeksmeting", "Meetkunde/Ruimtemeetkunde",
+                                           "Meetkunde/Vectoren", "Discrete wiskunde/Telproblemen"]}},
+    (2, "A"): {},
+}
 
 
 def jaar_voorstel(pakket, map_):
-    return JAAR_VOORSTEL[graad(pakket)].get(map_)
+    fin = (graad(pakket), finaliteit(pakket))
+    return (JAAR_VOORSTEL_FIN[fin] if fin in JAAR_VOORSTEL_FIN else JAAR_VOORSTEL[graad(pakket)]).get(map_)
 
 
 # --- koepels ---------------------------------------------------------------------------------------------------
@@ -280,7 +389,8 @@ def koepeltabel():
         for prof_naam, prof in gdata["profielen"].items():
             for k in ("KOV", "GO", "POV"):
                 e = prof.get(k) or {}
-                rec = {"profiel": prof_naam, "label": prof.get("label"), "decreet": prof.get("decreet", []),
+                rec = {"profiel": prof_naam, "finaliteit": prof.get("finaliteit", "D"), "label": prof.get("label"),
+                       "decreet": prof.get("decreet", []),
                        "leerplan": e.get("leerplan"), "pakket": e.get("pakket"), "verplicht": [], "keuze": [],
                        "uitbreiding": [], "nieuw": [],
                        "opmerking": " ".join(x for x in (e.get("opmerking"), prof.get("opmerking")) if x) or None}
@@ -288,6 +398,8 @@ def koepeltabel():
                     rec["uren"] = uren_kov.get(str(e["pakket"]))
                 elif e.get("graaduren"):
                     rec["uren"] = f"{_uren_tekst(e['graaduren'])} ({e['graaduren']} graaduren, indicatieve lessentabel)"
+                elif e.get("uren"):
+                    rec["uren"] = e["uren"]
                 niet = {item(r).get("sleutel") for r in e.get("niet", [])}
                 noten = {}
                 extra = []
@@ -345,20 +457,26 @@ def koepel_voorkant(koepel):
     cfg = yaml.safe_load(KOEPELS_YAML.read_text(encoding="utf-8"))
     tabel = koepeltabel()
     uit = {}
-    for g, gdata in cfg["graden"].items():
-        profielen = gdata["profielen"]
+    # per graad en finaliteit: "alle richtingen" op een voorkant betekent alle richtingen van die finaliteit
+    groepen = [(g, fin, {p: v for p, v in gdata["profielen"].items() if v.get("finaliteit", "D") == fin})
+               for g, gdata in cfg["graden"].items()
+               for fin in dict.fromkeys(v.get("finaliteit", "D") for v in gdata["profielen"].values())]
+    for g, fin, profielen in groepen:
         alle = {p: v["richtingen"] for p, v in profielen.items()}
         labels = {p: v.get("label") for p, v in profielen.items()}
         per_boek = {}
         for r, rec in tabel[int(g)].get(koepel, {}).items():
+            if rec["profiel"] not in profielen:
+                continue
             for i in rec["verplicht"]:
                 if "sleutel" in i:
                     per_boek.setdefault(i["sleutel"], {}).setdefault(rec["profiel"], []).append(r)
         for s, pp in per_boek.items():
             ordered = {p: pp[p] for p in profielen if p in pp}
             uren = sorted({(profielen[p].get(koepel) or {}).get("graaduren") for p in ordered} - {None})
+            tekst_uren = {(profielen[p].get(koepel) or {}).get("uren") for p in ordered} - {None}
             if not uren:
-                u = ""
+                u = next(iter(tekst_uren), "")
             elif len(uren) == 1:
                 u = _uren_tekst(uren[0])
             else:
@@ -370,16 +488,16 @@ def koepel_voorkant(koepel):
 
 def met_motief():
     """Alle handboeken van beide graden waarvan het motief al bestaat; meldt de andere."""
-    zonder = sorted({n for _, _, n, _ in HANDBOEKEN_2 if not (MAP / "motieven" / f"{n}.tex").exists()})
+    zonder = sorted({n for _, _, n, _ in ALLE_HANDBOEKEN if not (MAP / "motieven" / f"{n}.tex").exists()})
     if zonder:
-        print(f"2de graad: nog geen motief (en dus geen voorkant) voor {', '.join(zonder)}")
-    return HANDBOEKEN_LIJST + [h for h in HANDBOEKEN_2 if (MAP / "motieven" / f"{h[2]}.tex").exists()]
+        print(f"nog geen motief (en dus geen voorkant) voor {', '.join(zonder)}")
+    return [h for h in ALLE_HANDBOEKEN if (MAP / "motieven" / f"{h[2]}.tex").exists()]
 
 
 def bladwijzer(pakket, map_):
     """De titel van de bladwijzer in alle-voorkanten.pdf (de leerkrachtensite zoekt de voorkant op deze titel)."""
-    graad = "2de graad, " if pakket in PAKKETTEN_2 else ""
-    return f"{graad}Pakket {pakket.split()[0]} - {map_.split('/')[-1]}"
+    vooraf = "2de graad, " if graad(pakket) == 2 else ""
+    return f"{vooraf}Pakket {pakket.split()[0]} - {map_.split('/')[-1]}"
 
 
 # De ondertitel van elke editie (zoals in Opmaak/boek.tex), voor de voorkanten per koepel op de website.
@@ -456,7 +574,7 @@ def bouw_alles(koepel="KOV", lijst=None, naam=None, zonder_kunst=False):
 
 def zet_in_cursussen():
     """Bestanden naar de cursussen die al een handboek.tex hebben."""
-    for pakket, map_, motief, jaar in HANDBOEKEN_LIJST + HANDBOEKEN_2:
+    for pakket, map_, motief, jaar in ALLE_HANDBOEKEN:
         cursus = cursusmap(pakket, map_)
         if (cursus / "Handboek").is_dir():
             cursus = cursus / "Handboek"

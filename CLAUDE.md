@@ -1,6 +1,6 @@
 # Axiomath
 
-Vrije, niet-commerciële handboeken wiskunde voor de 3de graad doorstroomfinaliteit (Vlaanderen), met een oefeningenbank als bron voor PDF's, website en later testen. Taal: Nederlands. Zie `README.md` en `CONTRIBUTING.md`.
+Vrije, niet-commerciële handboeken wiskunde voor de 2de en 3de graad secundair (Vlaanderen): doorstroom, dubbele finaliteit (D/A) en, alleen in de 2de graad en op aanvraag, de arbeidsmarktfinaliteit (A), met een oefeningenbank als bron voor PDF's, website en later testen. Taal: Nederlands. Zie `README.md` en `CONTRIBUTING.md`.
 
 ## Regels
 
@@ -12,8 +12,8 @@ Vrije, niet-commerciële handboeken wiskunde voor de 3de graad doorstroomfinalit
 
 ## Indeling
 
-- `Handboeken/3de graad/<pakket>/<rubriek>/<cursus>/`: vier pakketten naar leerplan (Basis, B+S, B+S', B+S''). Zie `Handboeken/README.md`.
-- `Handboeken/2de graad/<pakket>/<rubriek>/<cursus>/`: de 2de graad, vijf pakketten (Basis, B+, B+S', B+S, B+S''), bordeaux voorkant. De indeling per handboek staat in `Handboeken/2de graad/README.md`.
+- `Handboeken/3de graad/<pakket>/<rubriek>/<cursus>/`: doorstroom 1-4 (Basis, B+S, B+S', B+S''), dubbele finaliteit 5-8 (D/A Basis tot D/A B+S''). Zie `Handboeken/README.md`.
+- `Handboeken/2de graad/<pakket>/<rubriek>/<cursus>/`: de 2de graad, doorstroom 1-5 (Basis, B+, B+S', B+S, B+S''), D/A 6-7 (Basis, B+S) en A 8 (één handboek op aanvraag), bordeaux voorkant. De indeling per handboek staat in `Handboeken/2de graad/README.md`.
 - `Opmaak/`: de opmaak (`opmaak.tex`), het documentskelet (`boek.tex`), `maak-pdf.py` en `oefeningenbank.py`, gedeeld door alle cursussen. **Pas ze alleen daar aan en kopieer ze nooit naar een cursus.**
 - **Eén bron per cursus:** `Handboeken/<graad>/cursussen/<cursus>/` bevat de hoofdstukken (`hoofdstukken/`), de oefeningen (`oefeningen/*.yaml`), de eigen macro's (`notatie.tex`) en de afbeeldingen, voor alle pakketten. Wat per pakket verschilt, staat erin met `\alleenvoor{…}` en `pakketten:` (zie `Opmaak/pakketten.py`). **Maak nooit een kopie per pakket.** De map per pakket (`<pakket>/<rubriek>/<cursus>/`) heeft alleen `handboek.tex` (titel en keuze van de hoofdstukken), de voorkant, de README, Feedback en de PDF's. Het voorbeeld is Integralen: `cursussen/Integralen/` en `4 .../Analyse/Integralen/`.
 - `Ontwerp/`: ontwerpregels, `logo/`, `voorkanten/` (gedeeld door alle handboeken) en `omslagen/` (schilderijen).

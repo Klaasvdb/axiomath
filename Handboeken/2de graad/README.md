@@ -1,4 +1,6 @@
-# Handboeken wiskunde 2de graad doorstroomfinaliteit
+# Handboeken wiskunde 2de graad: doorstroom, dubbele finaliteit en arbeidsmarkt
+
+Pakket 1-5 zijn de doorstroomfinaliteit (hieronder), pakket 6-7 de [dubbele finaliteit](#dubbele-finaliteit-da) en pakket 8 de [arbeidsmarktfinaliteit](#arbeidsmarktfinaliteit-a).
 
 De 2de graad volgt dezelfde aanpak als de 3de graad: één map per **leerplanpakket**, daarin een map per rubriek en per cursus, opgebouwd zoals [Integralen](<../3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>). De verschillen staan in [de ontwerpregels](../../Ontwerp/ontwerpregels.md#2de-graad): kleinere handboeken, eerst een voorbeeld en dan de definitie, minder bewijzen, geen Koppel, en een bordeaux voorkant.
 
@@ -127,6 +129,43 @@ Bordeaux (`8C1D40`) met goud (`FFC857`) in plaats van petrol, met frissere en li
 Alle werken staan op Wikimedia Commons als publiek domein (nagekeken met `maak-omslagen.py`). Taeuber-Arp (1931) is publiek domein in de EU; in de VS pas vanaf 2027.
 
 De kleur zit in `Ontwerp/voorkanten/maak-voorkanten.py` (`KLEUR_2`), de handboeken in `MODULES_2`.
+
+## Dubbele finaliteit (D/A)
+
+Stand op 16 november 2026: de indeling en de voorkanten zijn klaar, er is nog geen cursus geschreven. KOV heeft sinds 2024 twee leerplannen wiskunde 2de graad D/A, allebei voor 6 graaduren. Daarvoor waren er vier (B, B+S, B+S', B+S''): die van januari 2022 gelden niet meer.
+
+| Pakket | Leerplan | Richtingen | Graaduren |
+|---|---|---|---|
+| 6 D/A Basis | II-Wis-da | de niet-STEM-richtingen: Architecturale en beeldende kunsten, Bakkerijtechnieken, Bedrijf en organisatie, Beeldende en audiovisuele kunsten, Creatie en mode, Fotografie, Horeca, Maatschappij en welzijn, Plant-, dier- en milieutechnieken, Slagerijtechnieken, Sport, Taal en communicatie, Toerisme, Topsport, Wellness en lifestyle | 6 |
+| 7 D/A B+S | II-WisS-da | de STEM-richtingen: Biotechnieken, Bouwtechnieken, Elektromechanische technieken, Elektrotechnieken, Grafische technieken, Houttechnieken, Mechanische technieken, Voertuigtechnieken | 6 |
+
+De leerstof is die van de doorstroom Basis zonder logica, tweedegraadsfuncties en spreidingsdiagrammen. B+S voegt vectoren en de functie *c/x* toe. Het leerplan vraagt veel werken met contexten uit de richting. **Dezelfde handboeken als de doorstroom, uit dezelfde bron:** een D/A-pakket kiest met `\cursushoofdstukken` en `\alleenvoor{6,7}` wat erin komt en hoe. De voorkanten zijn die van de doorstroom, met "2de graad dubbele finaliteit".
+
+| Jaar | Handboek | 6 D/A Basis | 7 D/A B+S |
+|---|---|---|---|
+| 3 | Algebra/Reële getallen | 5-7 | 5-7 |
+| 3 | Algebra/Eerstegraadsvergelijkingen | 12-13 | 13-14 |
+| 3 | Analyse/Functies | 14-18 | 15-19, 22 (c/x) |
+| 3 | Meetkunde/Gelijkvormigheid | 8 | 8 |
+| 3 | Data en onzekerheid/Statistiek | 22-24 | 24-26 |
+| 4 | Algebra/Stelsels | 19-20 | 20-21 |
+| 4 | Meetkunde/Driehoeksmeting | 9-10 | 9-10 |
+| 4 | Meetkunde/Ruimtemeetkunde | 11 | 11 |
+| 4 | Meetkunde/Vectoren | – | 12 |
+| 4 | Discrete wiskunde/Telproblemen | 21 | 23 |
+| | **Aantal handboeken** | 9 | 10 |
+
+Het voorgestelde jaar verschilt van de doorstroom: zonder tweedegraadsfuncties in het 4de jaar schuiven Stelsels en Driehoeksmeting naar het 4de jaar (`JAAR_VOORSTEL_FIN` in `maak-voorkanten.py`).
+
+## Arbeidsmarktfinaliteit (A)
+
+Alleen de 2de graad, één handboek, **op aanvraag**: we maken het zodra er leerkrachten zijn die het willen gebruiken of mee willen maken. De site toont het handboek met de vraag om interesse te melden. Leerplan: II-Wis-a van KOV (4 graaduren, voor alle richtingen van de A-finaliteit). Het bouwt verder op de eerste graad B-stroom en werkt altijd vanuit betekenisvolle contexten.
+
+| Handboek | Leerplandoelen | Inhoud (voorstel) |
+|---|---|---|
+| Wiskunde in de praktijk | LPD 1-6, K1 | rekenen met getallen, procenten en verhoudingen (met het rekentoestel), afronden en schatten; van 3D naar 2D (aanzichten, plattegronden, een schets maken); grafieken, tabellen en formules lezen; gemiddelde en mediaan |
+
+Voorkant: Claude Monet, *Impressie, zonsopgang* (1872), een werkhaven; motief: een staafdiagram met het gemiddelde.
 
 ## Website en voortgang
 

@@ -71,13 +71,18 @@ def laad_lijst(graden=None):
         sleutel = m.sleutel(pakket, map_)
         delen = map_.split("/")
         boeken.append({
-            "sleutel": sleutel, "graad": m.graad(pakket), "pakketid": m.pakket_id(pakket), "pakket": pakket,
+            "sleutel": sleutel, "graad": m.graad(pakket), "finaliteit": m.finaliteit(pakket),
+            "pakketid": m.pakket_id(pakket), "pakket": pakket,
             "pakketnr": int(pakket.split()[0]), "map": map_, "pad": m.cursusmap(pakket, map_).relative_to(REPO).as_posix(),
             "titel": delen[-1], "rubriek": delen[0] if len(delen) > 1 else "",
             "jaar": jaar, "jaar_voorstel": m.jaar_voorstel(pakket, map_), "motief": motief,
             "status": status_van.get(sleutel, "gepland"),
         })
-    pakketten = [{"id": m.pakket_id(p), "graad": m.graad(p), "nr": int(p.split()[0]), "naam": p.split(" ", 1)[1], "map": p,
+    # Per graad eerst de doorstroom, dan de dubbele finaliteit en de arbeidsmarktfinaliteit (de volgorde in ALLE_PAKKETTEN).
+    # naam: zonder het nummer, met D/A in plaats van D-A (een map kan geen / bevatten); kort: de naam van het leerplan.
+    pakketten = [{"id": m.pakket_id(p), "graad": m.graad(p), "finaliteit": m.finaliteit(p), "nr": int(p.split()[0]),
+                  "naam": p.split(" ", 1)[1].replace("D-A", "D/A"), "kort": m.pakket_naam(p), "map": p,
+                  "leerplan": v.get("leerplan"), "op_aanvraag": bool(v.get("op_aanvraag")),
                   "richtingen": v["richtingen"], "uren": v["uren"].replace("\\&", "&"),
                   "richtingenlijst": v.get("alle_richtingen") or v["richtingen"].split(", ")}
                  for g in sorted(graden, reverse=True) for p, v in m.ALLE_PAKKETTEN.items() if m.graad(p) == g]

@@ -1,6 +1,6 @@
 # Voorkanten van de handboeken
 
-Alle voorkanten komen hier vandaan: 47 handboeken van de 3de graad (16 onderwerpen) en 72 van de 2de graad (18 onderwerpen). De regels en de lijst met kunstwerken staan in [de ontwerpregels](../ontwerpregels.md).
+Alle voorkanten komen hier vandaan: 165 handboeken. 3de graad: 47 doorstroom en 26 dubbele finaliteit; 2de graad: 72 doorstroom, 19 dubbele finaliteit en 1 arbeidsmarktfinaliteit. De finaliteit staat op de voorkant ("3de graad dubbele finaliteit"), de kleur is die van de graad. De pakketten D/A en A staan in `PAKKETTEN_DA3`, `PAKKETTEN_DA2` en `PAKKETTEN_A2`. De regels en de lijst met kunstwerken staan in [de ontwerpregels](../ontwerpregels.md).
 
 | Bestand | Inhoud |
 |---|---|

@@ -1,6 +1,6 @@
 # Axiomath
 
-Vrije, niet-commerciële handboeken wiskunde voor de **3de graad doorstroomfinaliteit** van het Vlaamse secundair onderwijs, met de oefeningen als gegevens: de basis voor PDF's, een online oefenplatform, testen en gedifferentieerde oefenreeksen.
+Vrije, niet-commerciële handboeken wiskunde voor de **2de en 3de graad** van het Vlaamse secundair onderwijs (doorstroom, dubbele finaliteit en, op aanvraag, de arbeidsmarktfinaliteit in de 2de graad), met de oefeningen als gegevens: de basis voor PDF's, een online oefenplatform, testen en gedifferentieerde oefenreeksen.
 
 Het project is gemaakt door leerkrachten voor leerkrachten. Je mag alles gebruiken, aanpassen en delen zolang het niet commercieel is en je de bron vermeldt. Zie [LICENSE.md](LICENSE.md).
 
@@ -22,7 +22,7 @@ Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze 
 <!-- voortgang:begin -->
 Een percentage hoort bij een status: ⚪ **gepland** (0 %): nog niet begonnen, 🔴 **eerste versie** (25 %): tekst en oefeningen voor het eerst volledig geschreven, 🟠 **tweede versie** (40 %): herwerkt na een eerste controle (ontwerpregels, figuren, oefeningen nagerekend), 🟡 **derde versie** (55 %): opnieuw herwerkt, klaar om door andere leerkrachten te laten nalezen, 🔵 **nagelezen** (75 %): nagelezen door leerkrachten, feedback verwerkt, 🟢 **klaar** (100 %): in de klas gebruikt en bijgewerkt, versie 1.0.
 
-### 3de graad
+### 3de graad doorstroomfinaliteit
 
 **Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 48 handboeken
 
@@ -125,7 +125,115 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Statistiek](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Onderzoekscompetentie](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Onderzoekscompetentie/README.md>) | – | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 
-### 2de graad
+### 3de graad dubbele finaliteit
+
+**Totaal** &nbsp; `░░░░░░░░░░░░░░░░░░░░` &nbsp; **0 %** van 25 handboeken
+
+⚪ 25 gepland
+
+#### Per richting
+
+Elke richting volgt één pakket, en de voortgang van de richting is het gemiddelde van de handboeken in dat pakket.
+
+| Richting | Pakket | Voortgang | |
+|---|---|---|---:|
+| Agrotechnieken dier | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Agrotechnieken plant | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Architectuur en interieur | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bakkerijtechnieken | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bedrijfsorganisatie | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Beeldende kunst | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Commerciële organisatie | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Defensie en veiligheid | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Dierenverzorgingstechnieken | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Fotografie | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Gezondheidszorg | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Horeca | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Internationale handel en logistiek | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Mode | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Natuur- en groentechnieken | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Opvoeding en begeleiding | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Slagerij-Traiteurtechnieken | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Sportbegeleiding | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Taal en communicatie | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Toerisme | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Topsport (dubbele finaliteit) | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Tuinaanleg en -beheer | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Wellness en schoonheid | 5 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Applicatie- en databeheer | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Autotechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bouwtechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Elektromechanische technieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Elektrotechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Houttechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Industriële ICT | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Koel- en warmtetechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Mechanische vormgevingstechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Podiumtechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Vliegtuigtechnieken | 6 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Crossmedia | 7 (D/A B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Dentaaltechnieken | 7 (D/A B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Grafimedia | 7 (D/A B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Optiektechnieken | 7 (D/A B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Orthopedietechnieken | 7 (D/A B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Biotechnologische en chemische technieken | 8 (D/A B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+#### Per handboek
+
+##### Pakket 5 · D/A Basis &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>Bedrijfsorganisatie, Gezondheidszorg, Horeca, Opvoeding en begeleiding, Toerisme en andere</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Functies en verandering | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Exponentiële en logaritmische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Goniometrische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Kansrekenen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+##### Pakket 6 · D/A B+S &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>Autotechnieken, Bouwtechnieken, Elektromechanische technieken, Elektrotechnieken, Industriële ICT en andere</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Functies en verandering | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Exponentiële en logaritmische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Goniometrische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Kansrekenen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+##### Pakket 7 · D/A B+S' &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>Crossmedia, Dentaaltechnieken, Grafimedia, Optiektechnieken, Orthopedietechnieken</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Functies en verandering | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Exponentiële en logaritmische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Goniometrische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Kansrekenen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+##### Pakket 8 · D/A B+S'' &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>Biotechnologische en chemische technieken</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Functies en verandering | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Exponentiële en logaritmische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Goniometrische functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Kansrekenen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+### 2de graad doorstroomfinaliteit
 
 **Totaal** &nbsp; `░░░░░░░░░░░░░░░░░░░░` &nbsp; **0 %** van 72 handboeken
 
@@ -145,12 +253,18 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | Humane wetenschappen | 2 (B+) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Bedrijfswetenschappen | 3 (B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Topsport-Economie | 3 (B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Architecturale en beeldende vorming | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Biotechnologische STEM-wetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Biotechnologische wetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bouwwetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Economische wetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Freinetpedagogie | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Grieks-Latijn | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Latijn | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Moderne talen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Sportwetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Technologische wetenschappen en andere | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Technologische wetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Topsport-Natuurwetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Economische wetenschappen | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Grieks-Latijn | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Latijn | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
@@ -265,6 +379,101 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | De cirkel | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 | Grafen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+### 2de graad dubbele finaliteit
+
+**Totaal** &nbsp; `░░░░░░░░░░░░░░░░░░░░` &nbsp; **0 %** van 19 handboeken
+
+⚪ 19 gepland
+
+#### Per richting
+
+Elke richting volgt één pakket, en de voortgang van de richting is het gemiddelde van de handboeken in dat pakket.
+
+| Richting | Pakket | Voortgang | |
+|---|---|---|---:|
+| Architecturale en beeldende kunsten | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bakkerijtechnieken | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bedrijf en organisatie | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Beeldende en audiovisuele kunsten | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Creatie en mode | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Fotografie | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Horeca | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Maatschappij en welzijn | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Plant-, dier- en milieutechnieken | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Slagerijtechnieken | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Sport | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Taal en communicatie | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Toerisme | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Topsport (dubbele finaliteit) | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Wellness en lifestyle | 6 (D/A Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Biotechnieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Bouwtechnieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Elektromechanische technieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Elektrotechnieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Grafische technieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Houttechnieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Mechanische technieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Voertuigtechnieken | 7 (D/A B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+#### Per handboek
+
+##### Pakket 6 · D/A Basis &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>Bedrijf en organisatie, Horeca, Maatschappij en welzijn, Sport, Toerisme en andere</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+##### Pakket 7 · D/A B+S &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>Bouwtechnieken, Elektrotechnieken, Houttechnieken, Mechanische technieken en andere</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+### 2de graad arbeidsmarktfinaliteit
+
+**Totaal** &nbsp; `░░░░░░░░░░░░░░░░░░░░` &nbsp; **0 %** van 1 handboeken
+
+⚪ 1 gepland
+
+#### Per richting
+
+Elke richting volgt één pakket, en de voortgang van de richting is het gemiddelde van de handboeken in dat pakket.
+
+| Richting | Pakket | Voortgang | |
+|---|---|---|---:|
+| alle richtingen van de arbeidsmarktfinaliteit | 8 (A) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+
+#### Per handboek
+
+##### Pakket 8 · A &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+
+<sub>alle richtingen van de arbeidsmarktfinaliteit</sub>
+
+| Handboek | Rubriek | Status | Voortgang | |
+|---|---|---|---|---:|
+| Wiskunde in de praktijk | – | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
 <!-- voortgang:end -->
 
 ## Indeling van de repo

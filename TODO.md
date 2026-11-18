@@ -31,6 +31,19 @@ Nog geen enkele cursus geschreven. Indeling, leerplandoelen per pakket en voorka
 
 - **Voor GO!:** homothetie en constructies met passer en liniaal. Kijk of ze in Gelijkvormigheid en Driehoeksmeting passen, of maak er een eigen hoofdstuk van. **[Ingmar]**
 
+### Dubbele finaliteit (D/A): 45 handboeken (14 onderwerpen) **[Ingmar]**
+
+Indeling, leerplandoelen en voorkanten klaar sinds 16 nov 2026: zie de README's van [de 3de graad](<Handboeken/3de graad/README.md#dubbele-finaliteit-da>) en [de 2de graad](<Handboeken/2de graad/README.md#dubbele-finaliteit-da>). Nog geen cursus geschreven.
+
+- **3de graad (pakket 5-8, 26 handboeken):** Functies en verandering, Exponentiële en logaritmische functies, Tweedegraadsfuncties, Vectoren, Goniometrische functies, Kansrekenen, Statistiek. Waar de leerstof overeenkomt met de doorstroom: dezelfde bron in `cursussen/`, met `\alleenvoor{5,6,7,8}`. **[Ingmar]**
+- **2de graad (pakket 6-7, 19 handboeken):** dezelfde onderwerpen als de doorstroom; schrijf ze mee in de bron van de 2de graad, met `\alleenvoor{6,7}` voor de lichtere opbouw en de contexten. **[Ingmar]**
+- Een ontwerpregel voor D/A: meer contexten uit de richting, minder formele opbouw. Eerst samen bespreken.
+- GO! D/A per richting nagaan (eigen doelen, uren); nu alleen Bouwtechnieken nagekeken.
+
+### Arbeidsmarktfinaliteit (A): één handboek, op aanvraag
+
+`2g8/Wiskunde in de praktijk` (II-Wis-a), alleen 2de graad. Pas maken als er interesse is: de site vraagt het bij het handboek. Inhoud en voorkant: [Handboeken/2de graad/README.md](<Handboeken/2de graad/README.md#arbeidsmarktfinaliteit-a>).
+
 ### 3de graad: wat nog ontbreekt
 
 - **Kegelsneden**: eerste versie klaar sinds 16 nov 2026 (`4/Meetkunde/Kegelsneden`, vijf hoofdstukken). Nog na te lezen, en eventueel prenten bij de opdrachten. **[Ingmar]**
@@ -59,7 +72,7 @@ Zie [Ontwerp/koepels.md](Ontwerp/koepels.md) en [Handboeken/koepels.yaml](Handbo
   - Is er een nieuwere versie van de KOV-leerplannen? De gebruikte dragen "versie oktober 2024" (Complementair: september 2025).
   - Waar realiseert KOV de cluster 06.11 (Toegepaste ruimtemeetkunde)?
   - De POV-doelenpakketten voor Grieks-Latijn, Grieks-Wiskunde, Latijn-Wetenschappen, Moderne talen en Freinetpedagogie (2de graad).
-  - Dubbele finaliteit (D/A) valt nog buiten het overzicht.
+  - GO! D/A per richting (zie hierboven).
 - **Leerplanverwijzing per pakket:** sinds de omzetting naar één bron per cursus (16 nov 2026) staan de nummers in `\lkr` als `Leerplan \pakketnaam: LPD \alleenvoor{4}{31}\alleenvoor{3}{23}…`. De macro `\doelen{…}` hierboven kan die vervangen.
 
 ## Studiewijzers
@@ -82,7 +95,3 @@ De plannen staan op [axiomath.be/#/plannen](https://axiomath.be/#/plannen), elk 
 - toetsen en oefenreeksen op maat;
 - het handboek als webpagina;
 - een open oefeningenbank.
-
-## Opruimen
-
-- `Ontwerp/omslagen/omslag-impressie.jpg` en `omslag-waterlelies.jpg`: niet in git en door geen voorkant gebruikt. Ze staan wel in `SCHILDERIJEN` van `maak-omslagen.py`. Gebruiken of schrappen.

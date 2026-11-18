@@ -68,6 +68,24 @@ def doorloop(url, startcode, uit: Path):
         except ImportError:
             check("browser: PDF met de voorkant van GO!", dl.value.suggested_filename.endswith("(GO!).pdf"), dl.value.suggested_filename)
         g.screenshot(path=uit / "00-gast-go-boek.png")
+        # dubbele finaliteit en arbeidsmarkt: een D/A-richting (KOV) en het handboek op aanvraag
+        g.goto(url + "/#/")
+        g.wait_for_selector(".koepel-rij")
+        g.click(".koepel-rij button:has-text('Katholiek')")
+        g.select_option(".richting-keuze", "3|Bouwtechnieken")
+        g.wait_for_selector("h2:has-text('Verplichte handboeken')")
+        check("browser: D/A Bouwtechnieken met de 7 handboeken van pakket 6",
+              g.locator(".kast a.boek[href*='6%2F']").count() == 7 and "dubbele finaliteit" in g.locator(".pakket-sub").first.inner_text())
+        g.screenshot(path=uit / "00-gast-da-richting.png", full_page=True)
+        g.click("button:has-text('Toon weer alles')")
+        g.click(".chips button:has-text('2de graad')")
+        g.click(".fin-rij button:has-text('Arbeidsmarktfinaliteit')")
+        g.wait_for_selector(".interesse")
+        check("browser: arbeidsmarkt op aanvraag, met de vraag om interesse",
+              g.locator(".pakket").count() == 1 and g.locator(".interesse").count() == 1)
+        g.screenshot(path=uit / "00-gast-a-interesse.png", full_page=True)
+        g.click(".fin-rij button:has-text('Alle finaliteiten')")
+        g.click(".chips button:has-text('Alle graden')")
         cg.close()
 
         # beheerder met de startcode

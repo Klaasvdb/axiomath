@@ -196,7 +196,7 @@ function plaatsTekst(f) {
 }
 function boekTitel(sleutel) {
   const b = S.boeken && S.boeken.boeken.find((x) => x.sleutel === sleutel);
-  return b ? `${b.titel} · ${meerGraden() ? `${b.graad}de graad, ` : ""}pakket ${b.pakketnr}` : sleutel;
+  return b ? `${b.titel} · ${meerGraden() ? `${b.graad}de graad${finKort(b)}, ` : ""}pakket ${b.pakketnr}` : sleutel;
 }
 // Graden en pakketten. Een pakket heeft een id ("4" in de 3de graad, "2g5" in de 2de); een boek verwijst ernaar met pakketid.
 // Met één graad op de site volstaat het pakketnummer, met twee komt de graad erbij.
@@ -205,6 +205,18 @@ const meerGraden = () => graden().length > 1;
 const graadTekst = () => graden().slice().sort().map((g, i, a) => i === a.length - 1 ? `${g}de graad` : `${g}de`).join(" en ");
 const pakketKort = (x) => { const nr = x.nr ?? x.pakketnr; return meerGraden() ? `${x.graad}de gr. ${nr}` : `${nr}`; };
 const pakketVan = (d, b) => d.pakketten.find((p) => p.id === b.pakketid);
+// Finaliteiten: D (doorstroom), DA (dubbele finaliteit), A (arbeidsmarkt). Een pakket en een boek hebben er één.
+// De D/A-pakketten nummeren verder in hun graad (3de graad 5-8, 2de graad 6-7, A 8): zie maak-voorkanten.py.
+const FINALITEITEN = { D: "doorstroom", DA: "dubbele finaliteit", A: "arbeidsmarktfinaliteit" };
+const FINALITEIT_VOLUIT = { D: "doorstroomfinaliteit", DA: "dubbele finaliteit", A: "arbeidsmarktfinaliteit" };
+const finaliteit = (x) => x?.finaliteit || "D";
+const finKort = (x) => finaliteit(x) === "D" ? "" : ` ${FINALITEITEN[finaliteit(x)]}`;
+const graadFin = (x) => `${x.graad}de graad ${FINALITEITEN[finaliteit(x)]}`;
+const finaliteitenVan = (g) => [...new Set((S.boeken?.pakketten || []).filter((p) => g === "alle" || String(p.graad) === String(g)).map(finaliteit))];
+/* Een pakket dat we maken als er vraag naar is (de arbeidsmarktfinaliteit): wie interesse heeft, laat het weten. */
+const interesse = () => h("p", { class: "interesse" }, h("b", {}, "Op aanvraag. "),
+  "Dit handboek maken we zodra er interesse is. Geef je les in de arbeidsmarktfinaliteit en wil je het gebruiken of mee maken? Laat het ons weten via ",
+  S.ik ? h("a", { href: "#/algemeen" }, "algemene feedback") : [h("a", { href: "#/aanmelden" }, "een account"), " of ", h("a", { href: GITHUB + "/issues", target: "_blank", rel: "noopener" }, "GitHub")], ".");
 
 /* opties: { paneel, beheer, toonBoek, opKlik, bijWijziging(f|null) } */
 function fbKaart(f, opties = {}) {
@@ -340,7 +352,7 @@ function toonWelkom() {
     h("div", { class: "welkom-paneel" },
       h("img", { class: "logo", src: "/logo.svg", alt: "Axiomath" }),
       h("h1", {}, "Voor leerkrachten"),
-      h("p", { class: "intro" }, "Vrije handboeken wiskunde voor de 3de graad doorstroom. Lees mee, markeer wat beter kan en zeg het ons: op de pagina, over een heel handboek of over het hele idee. ",
+      h("p", { class: "intro" }, "Vrije handboeken wiskunde voor de 2de en 3de graad secundair. Lees mee, markeer wat beter kan en zeg het ons: op de pagina, over een heel handboek of over het hele idee. ",
         h("a", { href: "#/over" }, "Waar we naartoe willen")),
       tabs, plek,
       h("p", { class: "zacht klein", style: { marginTop: "22px" } }, "Geen account? De handboeken kan iedereen lezen. ",
@@ -482,14 +494,16 @@ async function toonKast() {
     return r;
   };
   let richtingen = richtingenVan();
-  let keuze = { graad: "alle", pakket: "alle", richting: "" };
+  let keuze = { graad: "alle", fin: "alle", pakket: "alle", richting: "" };
   try { keuze = { ...keuze, ...JSON.parse(opslag.lees("kast") || "{}") }; } catch { /* oude of lege keuze */ }
   if (!meerGraden()) keuze.graad = "alle";
   if (keuze.richting && !richtingen.has(keuze.richting)) keuze.richting = "";
   if (keuze.pakket !== "alle" && !d.pakketten.some((p) => p.id === keuze.pakket)) keuze.pakket = "alle";
+  if (keuze.fin !== "alle" && !finaliteitenVan(keuze.graad).includes(keuze.fin)) keuze.fin = "alle";
   let zoek = "";
   const kies = (nieuw) => { keuze = { ...keuze, ...nieuw }; opslag.zet("kast", JSON.stringify(keuze)); tekenKeuzes(); teken(); };
-  const zichtbaar = (p) => (keuze.graad === "alle" || String(p.graad) === keuze.graad) && (keuze.pakket === "alle" || p.id === keuze.pakket);
+  const zichtbaar = (p) => (keuze.graad === "alle" || String(p.graad) === keuze.graad) && (keuze.fin === "alle" || finaliteit(p) === keuze.fin)
+    && (keuze.pakket === "alle" || p.id === keuze.pakket);
   const past = (b) => !zoek || `${b.titel} ${b.rubriek}`.toLowerCase().includes(zoek.toLowerCase());
   // de richtingen van een pakket volgens de gekozen koepel (KOV: zoals op de voorkant)
   const pakketRichtingen = (p) => koepel() === "KOV" || !metKoepels ? `${p.richtingen} · ${p.uren}`
@@ -498,17 +512,19 @@ async function toonKast() {
   const kasten = h("div");
   const teken = () => {
     if (keuze.richting) return tekenRichting();
-    let vorigeGraad = null;
+    let vorige = null;  // een kop per graad en finaliteit
     kasten.replaceChildren(...d.pakketten.filter(zichtbaar).flatMap((p) => {
       const lijst = d.boeken.filter((b) => b.pakketid === p.id && past(b));
       if (!lijst.length) return [];
       const alle = d.boeken.filter((b) => b.pakketid === p.id);
-      const kop = meerGraden() && p.graad !== vorigeGraad ? h("h2", { class: "graad-kop" }, `${p.graad}de graad`) : null;
-      vorigeGraad = p.graad;
+      const groep = graadFin(p);
+      const kop = groep !== vorige ? h("h2", { class: "graad-kop" }, groep[0].toUpperCase() + groep.slice(1)) : null;
+      vorige = groep;
       const pct = alle.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / alle.length;
       return [kop, h("section", { class: "pakket" },
         h("div", { class: "pakket-kop" }, h("h2", {}, h("span", { class: "nr" }, p.nr), " ", p.naam)),
         h("p", { class: "pakket-sub" }, pakketRichtingen(p)),
+        p.op_aanvraag ? interesse() : null,
         h("a", { class: "voortgang", href: "#/voortgang", title: `${Math.round(pct)} % klaar: bekijk de voortgang` }, h("i", { style: { width: pct + "%" } })),
         h("div", { class: "kast" }, lijst.map((b) => boekKaart(b))))].filter(Boolean);
     }));
@@ -532,11 +548,14 @@ async function toonKast() {
         kaarten.length ? h("div", { class: "kast" }, kaarten) : null, los.length ? h("ul", { class: "los" }, los) : null);
     };
     const eerst = (x.verplicht || []).map((i) => i.sleutel ? boek(i.sleutel) : null).find(Boolean);
+    const pakket = d.pakketten.find((p) => p.id === x.pakket);
     kasten.replaceChildren(
       h("section", { class: "pakket" },
         h("div", { class: "pakket-kop" }, h("h2", {}, "Verplichte handboeken")),
-        h("p", { class: "pakket-sub" }, `${naam}, ${g}de graad · ${koepelNaam()}`, x.leerplan ? ` · leerplan: ${x.leerplan}` : "", x.uren ? ` · ${x.uren}` : ""),
+        h("p", { class: "pakket-sub" }, `${naam}, ${graadFin({ graad: g, finaliteit: x.finaliteit || finaliteit(pakket) })} · ${koepelNaam()}`,
+          x.leerplan ? ` · leerplan: ${x.leerplan}` : "", x.uren ? ` · ${x.uren}` : ""),
         x.opmerking ? h("p", { class: "zacht klein" }, x.opmerking) : null,
+        pakket?.op_aanvraag ? interesse() : null,
         jaren.length ? jaren.map((j) => {
           const kaarten = verplicht.filter((i) => (boek(i.sleutel).jaar_voorstel || "") === j).map(kaart).filter(Boolean);
           return kaarten.length ? [h("h3", { class: "jaar-kop" }, j ? `Voorstel: ${j}` : "Zonder voorstel van leerjaar"), h("div", { class: "kast" }, kaarten)] : null;
@@ -549,10 +568,11 @@ async function toonKast() {
     if (!eerst && !x.opmerking) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
 
-  // rij 1: koepel; rij 2: graad, studierichting en zoeken; rij 3: de pakketten van de gekozen graad
+  // rij 1: koepel; rij 2: graad, studierichting en zoeken; rij 3: de finaliteit en de pakketten van de gekozen graad
   const chip = (label, actief, opKlik) => h("button", { type: "button", class: "chip zonder-stip", "aria-pressed": String(actief), onclick: opKlik }, label);
   const koepelKeuze = h("div", { class: "chips koepel-rij" });
   const graadKeuze = h("div", { class: "chips" });
+  const finKeuze = h("div", { class: "chips fin-rij" });
   const richtingKeuze = h("select", { class: "richting-keuze", "aria-label": "Kies je studierichting", onchange: (e) => kies(e.target.value
     ? { richting: e.target.value, graad: e.target.value.split("|")[0], pakket: "alle" } : { richting: "" }) });
   const pakketRij = h("div", { class: "chips pakket-rij" });
@@ -566,14 +586,21 @@ async function toonKast() {
       ? [chip("Alle graden", keuze.graad === "alle" && !keuze.richting, () => kies({ graad: "alle", pakket: "alle", richting: "" })),
          ...graden().map((g) => chip(`${g}de graad`, keuze.graad === String(g) && !keuze.richting, () => kies({ graad: String(g), pakket: "alle", richting: "" })))]
       : []));
+    const fins = finaliteitenVan(keuze.graad);
+    if (keuze.fin !== "alle" && !fins.includes(keuze.fin)) keuze.fin = "alle";
+    finKeuze.hidden = keuze.richting !== "" || fins.length < 2;
+    finKeuze.replaceChildren(chip("Alle finaliteiten", keuze.fin === "alle", () => kies({ fin: "alle", pakket: "alle", richting: "" })),
+      ...fins.map((f) => chip(FINALITEITEN[f][0].toUpperCase() + FINALITEITEN[f].slice(1), keuze.fin === f, () => kies({ fin: f, pakket: "alle", richting: "" }))));
+    // de richtingen per graad en finaliteit (een richting hoort bij één finaliteit: die van haar gegevens of haar pakket)
+    const finVan = (k) => { const x = richtingen.get(k); return x?.finaliteit || finaliteit(d.pakketten.find((p) => p.id === x?.pakket)); };
     richtingKeuze.replaceChildren(h("option", { value: "" }, "Kies je studierichting"),
-      ...graden().map((g) => h("optgroup", { label: `${g}de graad` },
-        [...richtingen.keys()].filter((k) => k.startsWith(`${g}|`)).sort((a, b) => a.localeCompare(b, "nl"))
-          .map((k) => h("option", { value: k, selected: k === keuze.richting }, k.split("|")[1])))));
-    const pakketten = d.pakketten.filter((p) => !meerGraden() || String(p.graad) === keuze.graad);
+      ...graden().flatMap((g) => finaliteitenVan(g).map((f) => h("optgroup", { label: graadFin({ graad: g, finaliteit: f }) },
+        [...richtingen.keys()].filter((k) => k.startsWith(`${g}|`) && finVan(k) === f).sort((a, b) => a.localeCompare(b, "nl"))
+          .map((k) => h("option", { value: k, selected: k === keuze.richting }, k.split("|")[1]))))));
+    const pakketten = d.pakketten.filter((p) => (!meerGraden() || String(p.graad) === keuze.graad) && (keuze.fin === "alle" || finaliteit(p) === keuze.fin));
     pakketRij.hidden = keuze.richting !== "" || !pakketten.length || (meerGraden() && keuze.graad === "alle");
     pakketRij.replaceChildren(chip("Alle pakketten", keuze.pakket === "alle", () => kies({ pakket: "alle", richting: "" })),
-      ...pakketten.map((p) => chip(`${p.nr} · ${kortNaam(p)}`, keuze.pakket === p.id && !keuze.richting, () => kies({ pakket: p.id, richting: "" }))));
+      ...pakketten.map((p) => chip(`${p.nr} · ${p.kort || kortNaam(p)}`, keuze.pakket === p.id && !keuze.richting, () => kies({ pakket: p.id, richting: "" }))));
     uitleg.hidden = !keuze.richting;
     uitleg.replaceChildren(...(keuze.richting ? [`Dit zijn de handboeken voor ${keuze.richting.split("|")[1]} volgens de leerplannen van ${koepelNaam()}${/[.!?]$/.test(koepelNaam()) ? "" : "."} `,
       h("button", { type: "button", class: "knop-tekst", onclick: () => kies({ richting: "" }) }, "Toon weer alles")] : []));
@@ -585,7 +612,7 @@ async function toonKast() {
       ? h("div", {}, h("h1", {}, `Dag ${S.ik.naam.split(" ")[0]}`),
         h("p", {}, `${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Open er een, markeer een stuk van een pagina en zeg wat beter kan. Je collega's zien je opmerking ook: steun ze als je het eens bent.`))
       : h("div", {}, h("h1", {}, "Handboeken"),
-        h("p", {}, `Vrije handboeken wiskunde voor de ${graadTekst()} doorstroom, opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Kies de koepel en de richting: dan zie je welke handboeken je nodig hebt. Ben je leerkracht? `,
+        h("p", {}, `Vrije handboeken wiskunde voor de ${graadTekst()}: doorstroom en dubbele finaliteit, en op aanvraag de arbeidsmarktfinaliteit. Opgesteld vanuit de leerplandoelen. ${metPdf} van de ${d.boeken.length} handboeken staan klaar om te lezen. Kies de koepel en de richting: dan zie je welke handboeken je nodig hebt. Ben je leerkracht? `,
           h("a", { href: "#/aanmelden" }, "Meld je aan"), " voor de leerkrachtenversie, de oplossingen en om feedback te geven. ",
           h("a", { href: "#/over" }, "Waar we naartoe willen"), "."))),
     appTip(),
@@ -593,7 +620,7 @@ async function toonKast() {
       koepelKeuze,
       h("div", { class: "balk" }, graadKeuze, richtingKeuze,
         h("input", { type: "search", placeholder: "Zoek een handboek", "aria-label": "Zoek een handboek", oninput: (e) => { zoek = e.target.value; teken(); } })),
-      pakketRij, uitleg),
+      finKeuze, pakketRij, uitleg),
     kasten);
   tekenKeuzes();
   teken();
@@ -652,9 +679,11 @@ async function toonVoortgang() {
         h("dd", {}, d.voortgang[s].uitleg)]))),
     d.pakketten.map((p, i) => {
       const lijst = d.boeken.filter((b) => b.pakketid === p.id);
-      const nieuweGraad = meerGraden() && (i === 0 || d.pakketten[i - 1].graad !== p.graad);
-      const vanGraad = d.boeken.filter((b) => b.graad === p.graad);
-      return [nieuweGraad && h("div", { class: "graad-kop" }, h("h2", {}, `${p.graad}de graad`), voortgangBalk(pct(vanGraad))), h("section", { class: "pakket" },
+      // een kop per graad en finaliteit, met de voortgang van die groep
+      const nieuweGroep = i === 0 || graadFin(d.pakketten[i - 1]) !== graadFin(p);
+      const vanGroep = d.boeken.filter((b) => b.graad === p.graad && finaliteit(b) === finaliteit(p));
+      const groep = graadFin(p);
+      return [nieuweGroep && h("div", { class: "graad-kop" }, h("h2", {}, groep[0].toUpperCase() + groep.slice(1)), voortgangBalk(pct(vanGroep))), h("section", { class: "pakket" },
         h("div", { class: "pakket-kop" }, h("h2", {}, h("span", { class: "nr" }, p.nr), " ", p.naam)),
         h("p", { class: "pakket-sub" }, p.richtingen),
         voortgangBalk(pct(lijst)),
@@ -702,7 +731,7 @@ async function toonBoek(sleutel) {
         b.rubriek && h("div", { class: "boek" }, h("span", { class: `rubriek` }, b.rubriek)),
         h("h1", {}, b.titel),
         h("dl", { class: "gegevens" },
-          h("dt", {}, "Graad"), h("dd", {}, `${p.graad}de graad doorstroomfinaliteit`),
+          h("dt", {}, "Graad"), h("dd", {}, `${p.graad}de graad ${FINALITEIT_VOLUIT[finaliteit(p)]}`),
           h("dt", {}, "Pakket"), h("dd", {}, `${p.nr} · ${p.naam}`),
           ...(() => {
             if (!S.boeken.koepels) return [h("dt", {}, "Richtingen"), h("dd", {}, p.richtingen), h("dt", {}, "Uren"), h("dd", {}, p.uren.replaceAll("\\&", "&"))];
@@ -716,6 +745,7 @@ async function toonBoek(sleutel) {
           })(),
           (b.jaar_voorstel || b.jaar) && [h("dt", {}, "Leerjaar"), h("dd", {}, `voorstel: ${b.jaar_voorstel || b.jaar}`, h("span", { class: "zacht" }, " · je school kiest"))],
           h("dt", {}, "Status"), h("dd", {}, h("a", { href: "#/voortgang" }, statusNaam(b.status)), d.voortgang[b.status] ? h("span", { class: "zacht" }, ` · ${d.voortgang[b.status].uitleg}`) : "")),
+        p.op_aanvraag ? interesse() : null,
         b.edities.length ? h("div", { class: "edities" }, b.edities.map((e) => h("div", { class: "editie" },
           h("b", {}, e.label), h("span", { class: "zacht" }, `${e.paginas} p. · ${datum(e.gebouwd)}`),
           pdfKnop(b, e, { class: "knop licht klein", "aria-label": `${e.label} als PDF` }, icoon("download"), "PDF"),
@@ -1074,7 +1104,7 @@ function toonOver() {
     h("article", { class: "over" },
       h("p", { class: "bovenkop" }, "Over Axiomath"),
       h("h1", {}, "Vrije handboeken wiskunde, door leerkrachten voor leerkrachten"),
-      h("p", { class: "lead" }, "Axiomath maakt handboeken wiskunde voor de 3de graad doorstroomfinaliteit van het Vlaamse secundair onderwijs. Ze zijn vrij en niet-commercieel, en de oefeningen zitten in een oefeningenbank: de bron voor de PDF's, een online oefenplatform, testen en gedifferentieerde oefenreeksen."),
+      h("p", { class: "lead" }, "Axiomath maakt handboeken wiskunde voor de 2de en 3de graad van het Vlaamse secundair onderwijs: de doorstroomfinaliteit en de dubbele finaliteit, en op aanvraag de arbeidsmarktfinaliteit. Ze zijn vrij en niet-commercieel, en de oefeningen zitten in een oefeningenbank: de bron voor de PDF's, een online oefenplatform, testen en gedifferentieerde oefenreeksen."),
       h("p", { class: "naam" }, "De naam: ", h("i", {}, "axioma"), " + ", h("i", {}, "math"), ". Een axioma is wat je aanvaardt om te kunnen redeneren."),
       h("h2", {}, "Waar we naartoe willen"),
       h("p", {}, "Een geïntegreerd ecosysteem, volledig open:"),
@@ -1085,7 +1115,7 @@ function toonOver() {
         stap("Testen en gedifferentieerde oefenreeksen", "uit dezelfde bank.")),
       h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/plannen" }, "Bekijk de plannen, met een voorproefje")),
       h("h2", {}, "Vanuit de leerplandoelen"),
-      h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 2de en 3de graad doorstroom. Er is een reeks handboeken per leerplanpakket, van Basis tot B+S''. Zo vindt elke richting de leerstof van haar eigen pakket. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
+      h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 2de en 3de graad. Er is een reeks handboeken per leerplanpakket: in de doorstroom van Basis tot B+S'', in de dubbele finaliteit van D/A Basis tot D/A B+S''. Zo vindt elke richting de leerstof van haar eigen pakket. Voor de arbeidsmarktfinaliteit (2de graad) maken we één handboek zodra er vraag naar is. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
         extern(`${GITHUB}/blob/main/Handboeken/README.md`, "op GitHub"), "."),
       h("p", {}, "De koepels bouwen allemaal op dezelfde doelen van de overheid, maar delen de richtingen soms anders in. Daarom kies je op de site ook je koepel: de leerplannen van het katholiek onderwijs (KOV) of van het GO!. Dan zie je per richting welke handboeken verplicht zijn, en apart wat keuze of uitbreiding is. Een PDF krijgt de voorkant van je koepel; de inhoud is dezelfde. Hoe de koepels verschillen, staat ",
         extern(`${GITHUB}/blob/main/Ontwerp/koepels.md`, "op GitHub"), ". ",

@@ -1,11 +1,13 @@
-# Handboeken wiskunde doorstroomfinaliteit
+# Handboeken wiskunde 2de en 3de graad
 
-De handboeken staan per graad in een eigen map, en daarin per **leerplanpakket**. Elke richting volgt precies één pakket, dus elk handboek staat maar één keer in de repo, ook als meerdere richtingen het gebruiken. De inhoud van een cursus staat bovendien maar één keer, voor alle pakketten samen, in `<graad>/cursussen/<cursus>/`: zie "Eén bron per cursus" in [Opmaak/README.md](../Opmaak/README.md).
+De handboeken staan per graad in een eigen map, en daarin per **leerplanpakket**. De doorstroomfinaliteit heeft de eerste nummers, daarna volgen de dubbele finaliteit (D/A) en, in de 2de graad, de arbeidsmarktfinaliteit (A). Elke richting volgt precies één pakket, dus elk handboek staat maar één keer in de repo, ook als meerdere richtingen het gebruiken. De inhoud van een cursus staat bovendien maar één keer, voor alle pakketten samen, in `<graad>/cursussen/<cursus>/`: zie "Eén bron per cursus" in [Opmaak/README.md](../Opmaak/README.md).
 
 | Graad | Map | Pakketten | Voorkant | Stand |
 |---|---|---|---|---|
-| 2de graad | [2de graad/](<2de graad/README.md>) | 5: Basis, B+, B+S', B+S, B+S'' | bordeaux met goud | indeling klaar, nog geen cursus |
-| 3de graad | [3de graad/](<3de graad/README.md>) | 4: Basis, B+S, B+S', B+S'' | petrol met cyaan | eerste versies van alle handboeken |
+| 2de graad | [2de graad/](<2de graad/README.md>) | D: 1 Basis, 2 B+, 3 B+S', 4 B+S, 5 B+S''; D/A: 6 Basis, 7 B+S; A: 8 (op aanvraag) | bordeaux met goud | indeling klaar, nog geen cursus |
+| 3de graad | [3de graad/](<3de graad/README.md>) | D: 1 Basis, 2 B+S, 3 B+S', 4 B+S''; D/A: 5 Basis, 6 B+S, 7 B+S', 8 B+S'' | petrol met cyaan | D: eerste versies van alle handboeken; D/A: indeling klaar |
+
+De finaliteit staat op de voorkant ("3de graad dubbele finaliteit"); de kleur is die van de graad. Een D/A-pakket gebruikt dezelfde bron per cursus als de doorstroom waar de leerstof overeenkomt. De map van een D/A-pakket eindigt op `(D-A Basis)` en zo verder: een map kan geen `/` bevatten, `\pakketnaam` maakt er D/A van.
 
 ```
 Handboeken/

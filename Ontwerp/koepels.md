@@ -1,6 +1,6 @@
 # Koepels en leerplannen
 
-Welke richting in welke koepel welke wiskunde krijgt, in de 2de en de 3de graad doorstroom, en wat dat betekent voor de handboeken. Stand van 15 november 2026. De gegevens voor de website staan in [Handboeken/koepels.yaml](../Handboeken/koepels.yaml); dit document legt ze uit.
+Welke richting in welke koepel welke wiskunde krijgt, in de 2de en de 3de graad doorstroom, en wat dat betekent voor de handboeken. De dubbele finaliteit en de arbeidsmarkt staan [onderaan](#dubbele-finaliteit-en-arbeidsmarkt). Stand van 15 november 2026. De gegevens voor de website staan in [Handboeken/koepels.yaml](../Handboeken/koepels.yaml); dit document legt ze uit.
 
 Er staat hier geen leerplantekst: alleen nummers, de namen van clusters en een eigen korte omschrijving van de inhoud. Lees de leerplannen zelf bij de koepel (bronnen onderaan).
 
@@ -185,4 +185,13 @@ Werkwijze (stap 1 en 2 klaar sinds 16 nov 2026, zie "Eén bron per cursus" in `O
 - De KOV-leerplannen die hier gebruikt zijn, dragen "versie oktober 2024" (Complementair: september 2025). Kijk na of er een nieuwere versie is.
 - Waar KOV de cluster 06.11 (Toegepaste ruimtemeetkunde) realiseert.
 - De POV-doelenpakketten voor Grieks-Latijn, Grieks-Wiskunde, Latijn-Wetenschappen, Moderne talen en Freinetpedagogie (2de graad).
-- Het dubbele-finaliteitsonderwijs (D/A) valt buiten dit overzicht.
+- GO! D/A per richting: alleen Bouwtechnieken (3de graad) is nagekeken. Ga de andere richtingen na, en de uren in de lessentabellen van GO! D/A.
+
+## Dubbele finaliteit en arbeidsmarkt
+
+Sinds 16 november 2026 in de indeling (zie de README's van [de 3de graad](<../Handboeken/3de graad/README.md#dubbele-finaliteit-da>) en [de 2de graad](<../Handboeken/2de graad/README.md#dubbele-finaliteit-da>)).
+
+- **KOV** heeft in de 3de graad D/A vier leerplannen (III-Wis-da, III-WisS-da, III-WisS'-da, III-WisS''-da) en in de 2de graad twee (II-Wis-da, II-WisS-da; de vier van 2022 zijn vervangen). Voor de 2de graad A is er II-Wis-a.
+- **De clusters van het decreet in de 3de graad D/A:** 06.09 *Goniometrie en vectoren* (de sinusfunctie, vectoren in het vlak) en 06.10 *Uitgebreide analyse en algebra* (tweedegraadsfuncties, de logaritmische schaal, de afgeleide als begrip). Bouwtechnieken heeft ook 06.11 *Toegepaste ruimtemeetkunde*. KOV B+S = 06.09 + 06.10, B+S' = 06.09, B+S'' = 06.09 + 06.10 + het spreidingsdiagram.
+- **GO!** schrijft de clusters in het leerplan van elke richting (WD3_06.09, WD3_06.10) en voegt eigen doelen toe. Voor Bouwtechnieken: sinusvergelijkingen *sin(ax + b) = c*, tweedegraadsvergelijkingen met de discriminant, exponentiële vergelijkingen *aˣ = c*. Op de site krijgen de GO!-richtingen het pakket dat bij hun clusters hoort, met die opmerking. De uren staan als "volgens de lessentabel van de richting" tot ze nagekeken zijn.
+- **Arbeidsmarktfinaliteit:** alleen de 2de graad, één handboek op aanvraag. De minimumdoelen van de basisvorming gelden voor elke koepel, dus GO! krijgt hetzelfde handboek.

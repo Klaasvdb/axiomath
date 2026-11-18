@@ -71,15 +71,17 @@ def bouw():
         "Een percentage hoort bij een status: " + ", ".join(
             f"{statussen[s]['teken']} **{s.replace('-', ' ')}** ({statussen[s]['percentage']} %): {statussen[s]['uitleg']}"
             for s in statussen) + ".\n"]
-    for g in (3, 2):
-        pakketten = [p for p in vk.ALLE_PAKKETTEN if vk.graad(p) == g]
-        lijst = [(p, m) for p, m, _, _ in vk.ALLE_HANDBOEKEN if vk.graad(p) == g]
+    for g, fin in [(3, "D"), (3, "DA"), (2, "D"), (2, "DA"), (2, "A")]:
+        pakketten = [p for p in vk.ALLE_PAKKETTEN if vk.graad(p) == g and vk.finaliteit(p) == fin]
+        lijst = [(p, m) for p, m, _, _ in vk.ALLE_HANDBOEKEN if p in pakketten]
+        if not lijst:
+            continue
         per_pakket = {p: [waarde(q, m) for q, m in lijst if q == p] for p in pakketten}
         gemiddeld = {p: sum(v) / len(v) for p, v in per_pakket.items()}
         totaal = sum(waarde(p, m) for p, m in lijst) / len(lijst)
         aantal = {s: sum(1 for p, m in lijst if status(p, m) == s) for s in statussen}
 
-        uit.append(f"### {g}de graad\n")
+        uit.append(f"### {g}de graad {vk.FINALITEITEN[fin]}\n")
         uit.append(f"**Totaal** &nbsp; {balk(totaal)} &nbsp; **{afronden(totaal)} %** van {len(lijst)} handboeken\n")
         uit.append(" · ".join(f"{statussen[s]['teken']} {aantal[s]} {s.replace('-', ' ')}" for s in statussen if aantal[s]) + "\n")
 
@@ -88,14 +90,15 @@ def bouw():
         uit.append("| Richting | Pakket | Voortgang | |")
         uit.append("|---|---|---|---:|")
         for p in pakketten:
-            naam = re.search(r"\((.+)\)$", p).group(1)
-            for richting in vk.ALLE_PAKKETTEN[p]["richtingen"].split(", "):
+            naam = vk.pakket_naam(p)
+            v = vk.ALLE_PAKKETTEN[p]
+            for richting in v.get("alle_richtingen") or v["richtingen"].split(", "):
                 uit.append(f"| {richting} | {p.split()[0]} ({naam}) | {balk(gemiddeld[p])} | {pct(gemiddeld[p])} |")
         uit.append("")
 
         uit.append("#### Per handboek\n")
         for p in pakketten:
-            naam = re.search(r"\((.+)\)$", p).group(1)
+            naam = vk.pakket_naam(p)
             uit.append(f"##### Pakket {p.split()[0]} · {naam} &nbsp; {balk(gemiddeld[p])} {afronden(gemiddeld[p])} %\n")
             uit.append(f"<sub>{vk.ALLE_PAKKETTEN[p]['richtingen']}</sub>\n")
             uit.append("| Handboek | Rubriek | Status | Voortgang | |")

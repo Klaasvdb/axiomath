@@ -10,7 +10,8 @@ geldt, krijgt een voorwaarde met de nummers van die pakketten:
     \\alleenvoor{4}{tekst}          binnen een regel; de accolades moeten in evenwicht zijn
 
     \\pakketnaam                    de naam van het pakket, tussen haakjes in de naam van zijn map
-                                   (3de graad: Basis, B+S, B+S', B+S''), bv. \\lkr{Leerplan \\pakketnaam: LPD ...}
+                                   (3de graad: Basis, B+S, B+S', B+S''; dubbele finaliteit: D/A Basis, ...,
+                                   in de map "(D-A Basis)"), bv. \\lkr{Leerplan \\pakketnaam: LPD ...}
 
 maak-pdf.py past dit toe vóór de oefeningen en de figuren, en schrijft het resultaat in gen/. LaTeX
 ziet \\alleenvoor dus nooit. Een oefening die maar in sommige pakketten staat, krijgt in de YAML een
@@ -78,7 +79,7 @@ def _inline(tekst, pakket):
 def naam_van(pakketmap):
     """'4 Economie-, ... (B+S'')' wordt "B+S''"; None zonder haakjes."""
     m = re.search(r"\(([^()]*)\)\s*$", pakketmap)
-    return m.group(1) if m else None
+    return m.group(1).replace("D-A", "D/A") if m else None  # een map kan geen / bevatten: "(D-A Basis)" is D/A Basis
 
 
 def kies(tekst, pakket, naam=None):
