@@ -30,7 +30,7 @@ Dit is de eerste cursus volgens de regel *Vertrekken vanuit een probleem* (16 no
 
 ## Oefeningen
 
-De 172 oefeningen staan in `oefeningen/*.yaml`, per hoofdstuk (34, 34, 36, 35 en 33), met Start, korte oefeningen, Opdrachten op drie niveaus, Koppel en Test jezelf. Drie opdrachten hebben een kleine prent (beker, auto, hangbrug), gekopieerd uit Groepen en Integralen; de bron staat in `afbeeldingen/prenten/README.md` van de bron. Zie de README van Integralen en `Opmaak/oefeningenbank.py` voor de werkwijze.
+De 190 oefeningen staan in `oefeningen/*.yaml`, per hoofdstuk (38, 38, 39, 38 en 37; telkens 7 korte oefeningen en 6 testvragen), met Start, korte oefeningen, Opdrachten op drie niveaus, Koppel en Test jezelf. Drie opdrachten hebben een kleine prent (beker, auto, hangbrug), gekopieerd uit Groepen en Integralen; de bron staat in `afbeeldingen/prenten/README.md` van de bron. Zie de README van Integralen en `Opmaak/oefeningenbank.py` voor de werkwijze.
 
 ## Eigen macro's
 
@@ -45,4 +45,4 @@ py -3.13 -P Opmaak/maak-pdf.py 4/Meetkunde/Kegelsneden --hoofdstuk 3
 
 ## Controle
 
-Op 18 nov 2026 nagelezen: alle voorbeelden, figuren en oefeningen nagerekend, de antwoorden van de oefeningen ook met een SymPy-script (154 controles, waaronder de afgeronde getallen van planeetbanen, komeet van Halley, tunnel, koeltoren, onweer, satelliet en Ramanujan). Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas. De leerkracht moet de opgaven nog nalezen.
+Op 18 nov 2026 nagelezen: alle voorbeelden, figuren en oefeningen nagerekend, de antwoorden van de oefeningen ook met een SymPy-script (177 controles, waaronder de afgeronde getallen van planeetbanen, komeet van Halley, tunnel, koeltoren, onweer, satelliet en Ramanujan). Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas. De leerkracht moet de opgaven nog nalezen.

@@ -33,7 +33,7 @@ Nog geen enkele cursus geschreven. Indeling, leerplandoelen per pakket en voorka
 
 ### 3de graad: wat nog ontbreekt
 
-- **Kegelsneden**: eerste versie klaar sinds 16 nov 2026 (`4/Meetkunde/Kegelsneden`, vijf hoofdstukken). Nog na te lezen, en eventueel prenten bij de opdrachten. **[Ingmar]**
+- **Kegelsneden**: nagelezen en aangevuld op 18 nov 2026 (PR #49): fouten verbeterd, 7 korte oefeningen en 6 testvragen per hoofdstuk, prenten die al in de repo stonden. Nog: prenten van Commons bij de andere contextopdrachten (komeet, koeltoren, biljart, tunnel, onweer), en nalezen door een leerkracht.
 - **Vertrekken vanuit een probleem** (ontwerpregel van 16 nov 2026): de andere handboeken herwerken met een blok Probleem per hoofdstuk en een voorbeeld "Terug naar het probleem". Kegelsneden is het voorbeeld. **[Ingmar]**
 - **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken.
 - **Telproblemen voor pakket 2 en 3**: GO! vraagt telproblemen met het binomium van Newton ook in de economische en wetenschapsrichtingen. Nu verwijst de site naar de cursus van pakket 4, die voor 6 uur wiskunde geschreven is. Maak een lichtere versie: een map per pakket met een eigen `handboek.tex`, en de verschillen met `\alleenvoor` in `cursussen/Telproblemen/`. **[Ingmar]**
