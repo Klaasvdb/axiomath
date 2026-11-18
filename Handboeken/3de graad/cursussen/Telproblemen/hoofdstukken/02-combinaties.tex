@@ -8,9 +8,19 @@
 
 \mychapter{2}{Combinaties}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Een ijssalon heeft 12 smaken en hangt een bord op: \textit{Meer dan 1000 verschillende bekers met drie bollen!} In een beker maakt de volgorde van de bollen niet uit, en je mag een smaak meer dan eens nemen. Klopt de reclame? En hoeveel smaken heeft de ijssalon minstens nodig om ze waar te maken?}{\begin{tikzpicture}[font=\small]
+  \draw[accent,fill=accent!30] (-.4,1.2) circle (.38);
+  \draw[accent,fill=accent!60] (.4,1.2) circle (.38);
+  \draw[accent,fill=accent!12] (0,1.8) circle (.38);
+  \draw[grijs,fill=black!6] (-.85,1) -- (.85,1) -- (.55,-.35) -- (-.55,-.35) -- cycle;
+  \node[text=accent,font=\bfseries,anchor=west] at (1.0,1.5) {$> 1000$?};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan B+S'': LPD 47, het deel waarin de volgorde niet van belang is: combinaties, met en zonder herhaling, en permutaties met herhaling. De driehoek van Pascal staat in de leerplantabel bij LPD 47; het binomium volgt in hoofdstuk 3. In de Opdrachten staan bewust ook opgaven uit hoofdstuk 1: leerlingen moeten zelf herkennen of de volgorde telt.}
 
-In hoofdstuk 1 telde je rijtjes: een pincode, een podium, een rij in de bioscoop. Daar telt de volgorde. Maar bij een comité van drie leerlingen, een hand kaarten of een lottoformulier maakt de volgorde niet uit: het gaat om wie of wat er in de groep zit. Zo'n groep heet een combinatie. Je telt ze door eerst rijtjes te tellen en dan te corrigeren voor de volgorde. Op het einde van het hoofdstuk heb je een schema voor elk telprobleem: telt de volgorde, en mag er herhaling zijn?
+In hoofdstuk 1 telde je rijtjes: een fietsslot, een podium, een rij in de bioscoop. Daar telt de volgorde. Maar bij een beker ijs, een comité van drie leerlingen of een lottoformulier maakt de volgorde niet uit: het gaat om wie of wat er in de groep zit. Zo'n groep heet een combinatie. Tel je zulke groepen als rijtjes, dan tel je ze te vaak. Je telt ze daarom door eerst rijtjes te tellen en dan te corrigeren voor de volgorde. Op het einde van het hoofdstuk heb je een schema voor elk telprobleem: telt de volgorde, en mag er herhaling zijn?
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -24,6 +34,8 @@ In hoofdstuk 1 telde je rijtjes: een pincode, een podium, een rij in de bioscoop
 \section{Combinaties}
 
 \subsection{Groepjes zonder volgorde}
+
+Probeer het probleem van de ijssalon met hoofdstuk 1. Kies een smaak voor de eerste, de tweede en de derde bol: dat zijn $12^3 = 1728$ rijtjes, en de reclame lijkt te kloppen. Maar de beker aardbei, vanille, chocolade is dezelfde als chocolade, aardbei, vanille. In die 1728 rijtjes zit elke beker dus meer dan eens. Hoe vaak? Begin met het eenvoudigste geval: drie verschillende smaken. Dat lijkt op de Verken.
 
 In de Verken vond je 60 manieren om uit vijf personen een voorzitter, een secretaris en een penningmeester te kiezen, maar maar 10 comités van drie. Elk comité komt in die 60 rijtjes precies $3! = 6$ keer voor, één keer voor elke verdeling van de functies. Dus deel je door $3!$.
 
@@ -53,6 +65,8 @@ Voor 2 elementen uit $\{A, B, C, D\}$ zie je het bewijs gebeuren: de $\Var{4}{2}
 \end{tikzpicture}}
 
 Je leest $\binom{n}{p}$ als \textit{$n$ boven $p$}. Die notatie wordt internationaal gebruikt, ook op je rekentoestel (\texttt{nCr}). Let op de volgorde: in $\Comb{n}{p}$ staat het grote getal onderaan, in $\binom{n}{p}$ bovenaan.
+
+Bekers met drie verschillende smaken zijn er dus $\Comb{12}{3} = \frac{12 \cdot 11 \cdot 10}{3!} = 220$, ver onder de 1000. Met twee of drie bollen van dezelfde smaak komen er nog bekers bij. Die tellen we in de sectie Met herhaling.
 
 \voorbeeld{}{Een klas van 25 leerlingen kiest een comité van 3 leerlingen. Op hoeveel manieren kan dat? En op hoeveel manieren als de drie verschillende functies krijgen?\label{vb:h2-comb}}{%
 \uitleg{Een comité is een groepje: de volgorde telt niet, en niemand komt twee keer voor. Met functies telt de volgorde wel.}
@@ -247,6 +261,8 @@ Hetzelfde idee telt wegen in een rooster. Een kortste weg is een rijtje stappen,
 
 \subsection{Combinaties met herhaling}
 
+Nu het hele probleem van de ijssalon: een smaak mag meer dan eens in de beker. Kun je opnieuw de $12^3 = 1728$ rijtjes door $3! = 6$ delen? Dat geeft 288, maar het klopt niet. Een beker met drie bollen vanille komt in de rijtjes maar één keer voor, en een beker met twee bollen vanille en één aardbei drie keer: VVA, VAV en AVV. Niet elke beker telt even vaak mee, dus delen helpt niet. We hebben een ander idee nodig: een manier om zo'n keuze op te schrijven die je wel kunt tellen.
+
 In een fruitwinkel kies je 6 stuks fruit uit 4 soorten: appels, peren, bananen en kiwi's. Van elke soort is er genoeg, dus je mag een soort meer dan eens nemen, en de volgorde telt niet: een tas met 2 appels en 4 peren is dezelfde keuze, in welke volgorde je ze ook in de tas legt. Een keuze ligt dus vast als je weet hoeveel stuks je van elke soort neemt.
 
 Zo'n keuze kun je kort opschrijven met sterretjes en streepjes. Elk stuk fruit is een sterretje, en de streepjes scheiden de soorten. Eerst komen de sterretjes van de appels, dan een streepje, dan de sterretjes van de peren, dan een streepje, dan de bananen, dan een streepje en ten slotte de kiwi's. Voor 4 soorten heb je dus 3 streepjes nodig.
@@ -283,6 +299,17 @@ Je hebt $n - 1$ streepjes nodig, niet $n$: tussen $n$ soorten liggen $n - 1$ gre
 \begin{stappen}
 \HComb{4}{6} = \binom{4 + 6 - 1}{6} = \binom{9}{6} = 84 & Kies de plaatsen van de 6 sterretjes tussen de 9 tekens.
 \end{stappen}}
+
+Met dezelfde formule lossen we het probleem van de ijssalon op.
+
+\voorbeeld{}{Terug naar het probleem. Een ijssalon met 12 smaken belooft meer dan 1000 verschillende bekers met drie bollen. Klopt dat? Hoeveel smaken zijn er minstens nodig?\label{vb:h2-terug}}{%
+\uitleg{In een beker telt de volgorde niet, en een smaak mag terugkomen: een combinatie met herhaling van 3 bollen uit 12 smaken, of 3 sterretjes en 11 streepjes. Daarna zoeken we het kleinste aantal smaken $n$ met $\binom{n + 2}{3} > 1000$.}
+\begin{stappen}
+\HComb{12}{3} = \binom{14}{3} = \frac{14 \cdot 13 \cdot 12}{3!} = 364 & Veel minder dan 1000: de reclame klopt niet. \\[3ex]
+\binom{12}{3} + 12 \cdot 11 + 12 = 364 & Controle met de somregel: drie verschillende smaken (220), twee gelijke (132: kies de dubbele smaak en dan een andere) of drie gelijke (12). \\[3ex]
+\binom{19}{3} = 969, \quad \binom{20}{3} = 1140 & 17 smaken is nog net te weinig, 18 is genoeg.
+\end{stappen}
+De ijssalon heeft dus minstens 18 smaken nodig. Wellicht telde ze de 1728 rijtjes: dan telt een beker met drie verschillende smaken zes keer mee.}
 
 \nujij{Op hoeveel manieren kies je 6 stuks fruit uit 4 soorten, met minstens één van elke soort?}{Neem eerst van elke soort één stuk. De andere 2 kies je vrij: $\HComb{4}{2} = \binom{5}{2} = 10$.}
 

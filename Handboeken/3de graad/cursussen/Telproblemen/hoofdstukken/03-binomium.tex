@@ -8,9 +8,20 @@
 
 \mychapter{3}{Het binomium van Newton}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Op je rekentoestel vind je $11^2 = 121$, $11^3 = 1331$ en $11^4 = 14\,641$: de rijen van de driehoek van Pascal. Maar $11^5 = 161\,051$, terwijl rij 5 van de driehoek $1, 5, 10, 10, 5, 1$ is. Breekt het patroon daar? En waarom staat diezelfde rij wel netjes in $1{,}01^5 = 1{,}0510100501$?}{\begin{tikzpicture}[y=.46cm,font=\small]
+  \foreach \n/\w in {0/1,1/11,2/121,3/1331,4/14641}{
+    \node[grijs,anchor=east,font=\scriptsize] at (-1.25,-\n) {$11^{\n}$};
+    \node at (0,-\n) {\w};}
+  \node[grijs,anchor=east,font=\scriptsize] at (-1.25,-5) {$11^{5}$};
+  \node[text=accent,font=\bfseries] at (0,-5) {161051};
+  \node[text=accent,anchor=west] at (.75,-5) {?};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan B+S'': het binomium van Newton en de driehoek van Pascal, bij LPD 47, met de wenk om het sommatieteken te gebruiken. Het bewijs is combinatorisch: het steunt op de betekenis van $\binom{n}{k}$ uit hoofdstuk 2, niet op inductie. Het binomium komt terug in Kansrekenen, bij de binomiale verdeling.}
 
-Het merkwaardig product $(a + b)^2 = a^2 + 2ab + b^2$ ken je al lang, en $(a + b)^3$ kun je nog uitwerken. Maar $(a + b)^{10}$? Haakjes uitwerken is dan veel werk. Toch zie je de coëfficiënten meteen, als je ze herkent: het zijn de getallen uit de driehoek van Pascal. Dat volgt uit wat je in hoofdstuk 2 over combinaties leerde. Het resultaat heet het \textbf{binomium van Newton}, naar Isaac Newton, die het uitbreidde naar exponenten die geen natuurlijke getallen zijn.
+Het merkwaardig product $(a + b)^2 = a^2 + 2ab + b^2$ ken je al lang, en $(a + b)^3$ kun je nog uitwerken. Maar $(a + b)^{10}$? Haakjes uitwerken is dan veel werk. Ook de machten van 11 uit het probleem zijn zulke machten, want $11 = 10 + 1$. Toch zie je de coëfficiënten meteen, als je ze herkent: het zijn de getallen uit de driehoek van Pascal. Dat volgt uit wat je in hoofdstuk 2 over combinaties leerde. Het resultaat heet het \textbf{binomium van Newton}, naar Isaac Newton, die het uitbreidde naar exponenten die geen natuurlijke getallen zijn.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -45,7 +56,7 @@ De letter $k$ is een teller: je vult achtereenvolgens elke gehele waarde in, en 
 
 \subsection{De formule}
 
-In de Verken werkte je $(a + b)^4$ uit als een product van vier factoren $(a + b)$. Elke term ontstaat door uit elke factor $a$ of $b$ te kiezen. Kies je uit $k$ factoren $b$, en uit de andere $n - k$ factoren $a$, dan krijg je $a^{n - k}b^k$. Hoe vaak? Even vaak als je $k$ factoren kunt kiezen uit $n$.
+Waarom duiken de getallen van de driehoek van Pascal op in $(a + b)^n$, en zo ook in de machten van $11 = 10 + 1$? In de Verken werkte je $(a + b)^4$ uit als een product van vier factoren $(a + b)$. Elke term ontstaat door uit elke factor $a$ of $b$ te kiezen. Kies je uit $k$ factoren $b$, en uit de andere $n - k$ factoren $a$, dan krijg je $a^{n - k}b^k$. Hoe vaak? Even vaak als je $k$ factoren kunt kiezen uit $n$.
 
 \begin{theorie}
 \begin{stelling}{Binomium van Newton}
@@ -231,6 +242,20 @@ Wie alleen de eerste twee termen gebruikt, vindt $1{,}2$: dat is de groei zonder
 \begin{oefeningen}
 \oef{h3-benader}
 \end{oefeningen}
+
+Nu kunnen we ook het probleem van de machten van 11 oplossen. Het lijkt op benaderen: in $1{,}01 = 1 + 0{,}01$ is $b$ klein, en dus ook de termen met de hogere machten van $b$.
+
+\voorbeeld{}{Terug naar het probleem. Verklaar waarom $11^5 = 161\,051$ en $1{,}01^5 = 1{,}0510100501$, en wat ze met rij 5 van de driehoek van Pascal te maken hebben.\label{vb:h3-terug}}{%
+\uitleg{Schrijf $11 = 10 + 1$ en $1{,}01 = 1 + 0{,}01$. Het binomium met de coëfficiënten $1, 5, 10, 10, 5, 1$ van rij 5 geeft $11^5 = \sum_{k=0}^{5} \binom5k 10^{5 - k}$ en $1{,}01^5 = \sum_{k=0}^{5} \binom5k 0{,}01^{k}$, want elke macht van 1 is 1. Zet de zes termen onder elkaar en tel op.}
+\figuren{\begin{tabular}[b]{r@{\qquad}r}
+$1 \cdot 10^5$ & 100\,000 \\ $5 \cdot 10^4$ & 50\,000 \\ $10 \cdot 10^3$ & \textcolor{accent}{10\,000} \\ $10 \cdot 10^2$ & \textcolor{accent}{1\,000} \\ $5 \cdot 10$ & 50 \\ $1$ & 1 \\ \hline
+ & \textbf{161\,051}
+\end{tabular}\qquad\qquad\qquad
+\begin{tabular}[b]{r@{\qquad}r@{,}l}
+$1$ & \multicolumn{1}{r@{\phantom{,}}}{1} & \\ $5 \cdot 0{,}01$ & 0 & 05 \\ $10 \cdot 0{,}01^2$ & 0 & 00\textcolor{accent}{10} \\ $10 \cdot 0{,}01^3$ & 0 & 0000\textcolor{accent}{10} \\ $5 \cdot 0{,}01^4$ & 0 & 00000005 \\ $0{,}01^5$ & 0 & 0000000001 \\ \hline
+ & \textbf{1} & \textbf{0510100501}
+\end{tabular}}
+\uitleg{Bij $11^5$ is de coëfficiënt 10 te groot voor één cijfer: hij loopt over naar het cijfer links ervan. Het patroon breekt dus niet, het is verborgen. Bij $1{,}01^5$ krijgt elke coëfficiënt twee decimalen, en loopt niets over. Dat gaat goed tot rij 9, waar $\binom94 = 126$ drie cijfers heeft.}}
 
 
 %========================================================================================
