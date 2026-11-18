@@ -61,16 +61,16 @@ GEMEEN = [
     ("Analyse/Goniometrische functies", "goniometrische-functies"),
 ]
 for pakket, extra in (
-    (P1, [("Analyse/Afgeleiden", "afgeleiden"), ("Algebra/Matrices", "matrices"), ("Discrete wiskunde/Rijen", "rijen"),
+    (P1, [("Analyse/Afgeleiden", "afgeleiden"), ("Algebra/Matrices", "matrices"), ("Discrete wiskunde/Rijen", "rijen-trappen"),
           ("Data en onzekerheid/Kansrekenen", "kansrekenen"), ("Data en onzekerheid/Statistiek", "statistiek")]),
     (P2, [("Analyse/Rationale functies", "rationale-functies"), ("Analyse/Afgeleiden", "afgeleiden"),
-          ("Analyse/Integralen", "integralen"), ("Algebra/Matrices", "matrices"), ("Discrete wiskunde/Rijen", "rijen"),
+          ("Analyse/Integralen", "integralen"), ("Algebra/Matrices", "matrices"), ("Discrete wiskunde/Rijen", "rijen-trappen"),
           ("Discrete wiskunde/Telproblemen", "telproblemen"),  # alleen voor GO! (koepels.yaml)
           ("Data en onzekerheid/Kansrekenen", "kansrekenen"), ("Data en onzekerheid/Statistiek", "statistiek"),
           ("Onderzoekscompetentie", "onderzoekscompetentie")]),
     (P3, [("Analyse/Rationale functies", "rationale-functies"), ("Analyse/Afgeleiden", "afgeleiden"),
           ("Analyse/Integralen", "integralen"), ("Algebra/Matrices", "matrices"), ("Algebra/Complexe getallen", "complexe-getallen"),
-          ("Discrete wiskunde/Rijen", "rijen"), ("Discrete wiskunde/Telproblemen", "telproblemen"),  # alleen voor GO!
+          ("Discrete wiskunde/Rijen", "rijen-trappen"), ("Discrete wiskunde/Telproblemen", "telproblemen"),  # alleen voor GO!
           ("Data en onzekerheid/Kansrekenen", "kansrekenen"),
           ("Data en onzekerheid/Statistiek", "statistiek"), ("Onderzoekscompetentie", "onderzoekscompetentie")]),
 ):
