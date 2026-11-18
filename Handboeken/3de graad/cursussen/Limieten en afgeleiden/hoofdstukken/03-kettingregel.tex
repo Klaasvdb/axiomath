@@ -1,16 +1,32 @@
 %----------------------------------------------------------------------------------------
 % KETTINGREGEL EN STANDAARDFUNCTIES. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{3}{De kettingregel}
 
-\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over de kettingregel en de afgeleiden van goniometrische, exponentiële en logaritmische functies. Het bewijs van de kettingregel wordt hier alleen aannemelijk gemaakt. De limiet $\lim_{h \to 0} \frac{\sin h}{h} = 1$ is in Goniometrische functies numeriek verkend; hier wordt ze meetkundig verklaard.}
+\begin{probleem}
+\vspace{-1mm}\naast{Een parachutist springt uit een vliegtuig. Eerst valt hij steeds sneller, maar de luchtweerstand groeit mee, en zijn snelheid nadert ongeveer $50$ m/s (zo'n $180$ km/h). Een eenvoudig model voor zijn snelheid $t$ seconden na de sprong, zolang zijn parachute dicht is, is
+\[v(t) = 50\,\bigl(1 - \e^{-0{,}2t}\bigr) \quad \text{(in m/s)}.\]
+Hoe snel neemt zijn snelheid toe op het moment van de sprong, in m/s per seconde? En na $10$ seconden? Klopt het model met de valversnelling: zonder luchtweerstand neemt de snelheid elke seconde met ongeveer $9{,}8$ m/s toe.}{\begin{tikzpicture}[x=.27cm,y=.045cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1.35cm,ystep=.45cm] (0,0) grid (20,60);
+  \draw[->,grijs] (0,0) -- (21.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,65) node[above,text=black] {$v$};
+  \foreach \t in {5,10,15,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30,40,50,60}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,50) -- (20,50);
+  \kromme{0}{20}{50*(1-exp(-0.2*\x))}
+  \vol{(0,0)}
+  \node[accent,above left] at (1.8,4) {?};
+\end{tikzpicture}}
+\end{probleem}
 
-Met de rekenregels uit hoofdstuk 2 kun je veeltermen en quotiënten afleiden. Maar hoe leid je $(2x + 1)^{10}$ af zonder alles uit te werken? En wat is de afgeleide van $\sin x$, $\e^x$ of $\ln x$? Daarvoor dient dit hoofdstuk. Op het einde heb je een tabel waarmee je elke functie uit deze cursussen kunt afleiden.
+\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over de kettingregel en de afgeleiden van goniometrische, exponentiële en logaritmische functies. Het bewijs van de kettingregel wordt hier alleen aannemelijk gemaakt. De limiet $\lim_{h \to 0} \frac{\sin h}{h} = 1$ is in Goniometrische functies numeriek verkend; hier wordt ze meetkundig verklaard. Het model in het probleem hoort bij een luchtweerstand die evenredig is met de snelheid. In werkelijkheid groeit de luchtweerstand ongeveer met het kwadraat van de snelheid, maar de vorm van de grafiek is dezelfde, en de eindsnelheid van ongeveer 50 m/s is realistisch voor een parachutist in buiklig. De oplossing staat in voorbeeld \ref{vb:h3-terug}.}
+
+De toename van de snelheid is de afgeleide $v'(t)$. Je kunt ze benaderen met een differentiequotiënt: in de eerste tiende van een seconde stijgt de snelheid van $0$ tot $v(0{,}1) \approx 0{,}99$ m/s, dus met ongeveer $9{,}9$ m/s per seconde. Maar voor een exacte waarde, en een formule voor elk tijdstip, moet je $v(t)$ afleiden. Met de rekenregels uit hoofdstuk 2 lukt dat niet: je kent de afgeleide van $\e^x$ nog niet, en in de exponent staat niet $t$ maar $-0{,}2t$. Ook $(2x + 1)^{10}$ kun je niet afleiden zonder alles uit te werken. In zulke functies zit een functie in een functie: daarvoor dient de kettingregel. Daarna zoeken we de afgeleide van $\sin x$, $\e^x$ en $\ln x$. Op het einde heb je een tabel waarmee je elke functie uit deze cursussen kunt afleiden.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -23,7 +39,7 @@ Met de rekenregels uit hoofdstuk 2 kun je veeltermen en quotiënten afleiden. Ma
 
 \subsection{Samengestelde functies afleiden}
 
-De functie $h(x) = (2x + 1)^{10}$ is samengesteld: eerst bereken je $u = 2x + 1$, de \textit{binnenste} functie, en daarvan neem je de tiende macht, de \textit{buitenste} functie $u^{10}$. In de Verken zag je dat de afgeleide niet zomaar $10(2x + 1)^9$ is: er komt nog een factor bij, de afgeleide van de binnenste functie.
+Hoe leid je een functie af die uit twee functies na elkaar bestaat? De snelheid van de parachutist is zo'n functie: eerst bereken je $u = -0{,}2t$, daarna $\e^u$. We bekijken eerst een eenvoudiger geval, met machten. De functie $h(x) = (2x + 1)^{10}$ is ook samengesteld: eerst bereken je $u = 2x + 1$, de \textit{binnenste} functie, en daarvan neem je de tiende macht, de \textit{buitenste} functie $u^{10}$. In de Verken zag je dat de afgeleide niet zomaar $10(2x + 1)^9$ is: er komt nog een factor bij, de afgeleide van de binnenste functie.
 
 \begin{theorie}
 \begin{stelling}{Kettingregel}
@@ -329,6 +345,31 @@ Omdat $\e^{-x^2} > 0$, heeft $f'(x)$ het teken van $-2x$: de functie stijgt voor
 \begin{oefeningen}
 \oef{h3-exp}
 \end{oefeningen}
+
+Nu ken je alles om de snelheid van de parachutist af te leiden: de kettingregel en de afgeleide van $\e^x$.
+
+\voorbeeld{}{Terug naar het probleem. De snelheid van een parachutist is $v(t) = 50\,\bigl(1 - \e^{-0{,}2t}\bigr)$ (in m/s, $t$ in s). Hoe snel neemt zijn snelheid toe bij de sprong, en na $10$ seconden? Klopt het model met de valversnelling van ongeveer $9{,}8$ m/s per seconde?\label{vb:h3-terug}}{%
+\uitleg{Leid $v(t)$ af. De term $\e^{-0{,}2t}$ is samengesteld: de buitenste functie is $\e^u$, de binnenste $u = -0{,}2t$, met afgeleide $-0{,}2$.}
+\begin{stappenvrij}{6.2cm}{7.8cm}
+v(t) = 50 - 50\,\e^{-0{,}2t} & Werk de haakjes uit: een constante min een veelvoud. \\[1ex]
+v'(t) = 0 - 50\,\e^{-0{,}2t} \cdot (-0{,}2) = 10\,\e^{-0{,}2t} & De constante wordt $0$. Kettingregel: $\e^u$ blijft staan, maal $u' = -0{,}2$. \\[1ex]
+v'(0) = 10\,\e^0 = 10 & Bij de sprong: $10$ m/s per seconde. \\[1ex]
+v'(10) = 10\,\e^{-2} \approx 1{,}35 & Na $10$ seconden neemt de snelheid nog maar $1{,}35$ m/s per seconde toe.
+\end{stappenvrij}
+\naast{Bij de sprong is er nog geen luchtweerstand, en neemt de snelheid toe met $10$ m/s per seconde. Dat is ongeveer de valversnelling: het model klopt, op $2\,\%$ na. In de figuur zijn $10$ en $1{,}35$ de richtingscoëfficiënten van de raaklijnen in $t = 0$ en $t = 10$. De snelheid neemt steeds trager toe, en nadert de $50$ m/s.
+
+Wie de factor $-0{,}2$ van de kettingregel vergeet, vindt $v'(0) = 50$: vijf keer de valversnelling. Zo snel kan niemand vallen.}{\begin{tikzpicture}[x=.27cm,y=.045cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1.35cm,ystep=.45cm] (0,0) grid (20,60);
+  \draw[->,grijs] (0,0) -- (21.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,65) node[above,text=black] {$v$};
+  \foreach \t in {5,10,15,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30,40,50,60}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,50) -- (20,50);
+  \kromme{0}{20}{50*(1-exp(-0.2*\x))}
+  \draw[grijs,thick] (0,0) -- (5.5,55);
+  \draw[grijs,thick] (4,35.12) -- (16,51.36);
+  \vol{(0,0)} \vol{(10,43.23)}
+\end{tikzpicture}}}
 
 \subsection{Afgeleide van \texorpdfstring{$a^x$}{a tot de x}}
 

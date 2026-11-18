@@ -1,16 +1,36 @@
 %----------------------------------------------------------------------------------------
 % DE AFGELEIDE. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{De afgeleide}
 
-\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over het differentiequotiënt, de afgeleide als limiet, de raaklijn, de afgeleide functie en de rekenregels. Het beeld van de voorkant (koorden door $P$ die naar de raaklijn draaien) is de figuur in sectie 1. Laat leerlingen de definitie een paar keer zelf uitwerken voor ze de rekenregels gebruiken.}
+\begin{probleem}
+Aan de voet van een kasseihelling staat een bord: \textit{600 m, gemiddeld 12\,\%}. De weg stijgt dus $72$ m over $600$ m, horizontaal gemeten. Maar de helling is niet overal even steil: onderaan is ze bijna vlak, bovenaan zwaar. Een model voor het profiel is $f(x) = \frac{x^2}{6000} + \frac{x}{50}$, met $x$ de horizontale afstand tot de voet en $f(x)$ de hoogte boven de voet, allebei in meter (een vereenvoudigd model, geen meting).
 
-Een snelheidsmeter toont hoe snel je \textit{nu} rijdt, niet gemiddeld over de rit. Maar snelheid is afstand gedeeld door tijd, en op één ogenblik leg je geen afstand af. Hoe kan dat dan? Het antwoord is een limiet: neem de gemiddelde snelheid over een steeds kortere tijd. Zo ontstaat de afgeleide, misschien het belangrijkste begrip van de analyse.
+Hoe steil is de weg op $450$ m van de voet, in procent? En wat bedoel je eigenlijk met \textit{de helling in één punt} van een kromme weg?
+
+\figuren{\begin{tikzpicture}[x=.0105cm,y=.035cm,font=\scriptsize]
+  \fill[black!8] (0,0) -- plot[domain=0:600,samples=40] (\x,{(\x/100)^2*5/3+\x/50}) -- (600,0) -- cycle;
+  \draw[->,grijs] (0,0) -- (650,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,82) node[above,text=black] {$f(x)$};
+  \foreach \t in {150,300,450,600}{\draw[grijs] (\t,0) -- (\t,-2) node[below,text=black,inner sep=1.5pt] {$\t$};}
+  \foreach \t in {24,48,72}{\draw[grijs] (0,\t) -- (-6,\t) node[left,text=black,inner sep=1.5pt] {$\t$};}
+  \draw[grijs,dashed] (0,0) -- (600,72);
+  \node[grijs,rotate=21] at (215,36) {gemiddeld 12\,\%};
+  \kromme{0}{600}{(\x/100)^2*5/3+\x/50}
+  \vol{(450,42.75)}
+  \node[accent,below right] at (450,42.75) {?};
+\end{tikzpicture}}
+\begin{center}\small Het profiel van de helling. De hoogte is drie keer overdreven getekend.\end{center}
+\end{probleem}
+
+\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over het differentiequotiënt, de afgeleide als limiet, de raaklijn, de afgeleide functie en de rekenregels. Het beeld van de voorkant (koorden door $P$ die naar de raaklijn draaien) is de figuur in sectie 1. Laat leerlingen de definitie een paar keer zelf uitwerken voor ze de rekenregels gebruiken. Het profiel in het probleem is een verzonnen model, maar de getallen lijken op die van de Koppenberg: ongeveer 600 m lang, gemiddeld bijna 12\,\%, plaatselijk meer dan 20\,\%. Daar ligt het steilste stuk wel niet bovenaan. Laat leerlingen het probleem eerst zelf proberen met een gemiddelde helling over een kort stuk; de oplossing staat in voorbeeld \ref{vb:h2-terug}.}
+
+Het bord geeft een gemiddelde: het hoogteverschil gedeeld door de horizontale afstand. De renner voelt iets anders, namelijk hoe steil de weg is op de plek waar hij nu rijdt. Zo toont ook een snelheidsmeter hoe snel je \textit{nu} rijdt, niet gemiddeld over de rit. Maar een helling meet je tussen twee punten, en een snelheid over een tijdsduur: in één punt of op één ogenblik valt er niets te delen. Hoe kan dat dan? Het antwoord is een limiet: neem het gemiddelde over een steeds korter stuk. Zo ontstaat de afgeleide, misschien het belangrijkste begrip van de analyse.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -22,6 +42,10 @@ Een snelheidsmeter toont hoe snel je \textit{nu} rijdt, niet gemiddeld over de r
 \section{De afgeleide in een punt}
 
 \subsection{Het differentiequotiënt}
+
+Hoe steil is de weg uit het probleem op $450$ m van de voet? Probeer het met wat je kent: de gemiddelde helling over een kort stuk vanaf $450$ m. Tussen $450$ en $500$ m is ze
+\[\frac{f(500) - f(450)}{500 - 450} \approx \frac{51{,}67 - 42{,}75}{50} \approx 0{,}178 ,\]
+dus $17{,}8\,\%$. Tussen $450$ en $460$ m vind je zo $17{,}2\,\%$, en tussen $450$ en $451$ m $17{,}0\,\%$. Hoe korter het stuk, hoe beter het getal zegt hoe steil de weg in $450$ m zelf is. Maar een stuk met lengte $0$ kan niet: dan deel je $0$ door $0$. Bekijk dat nu voor een willekeurige functie.
 
 \naast{%
 Neem twee punten $P(a, f(a))$ en $Q(a + h, f(a + h))$ op de grafiek van $f$. De rechte erdoor is een \textbf{koorde}. Haar richtingscoëfficiënt is de verandering van $f$ gedeeld door de verandering van $x$: hoeveel $f$ gemiddeld verandert per eenheid, tussen $a$ en $a + h$.
@@ -63,7 +87,7 @@ Hoe kleiner $h$, hoe dichter het differentiequotiënt bij $2$ komt. De koorden n
 
 \subsection{De afgeleide in een punt}
 
-Wat de koorden naderen, is een limiet van differentiequotiënten. Die limiet krijgt een eigen naam.
+Wat de koorden naderen, en wat de hellingen $17{,}8\,\%$, $17{,}2\,\%$ en $17{,}0\,\%$ benaderen, is een limiet van differentiequotiënten. Die limiet krijgt een eigen naam.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{afgeleide}} van $f$ in $a$ is
@@ -129,15 +153,40 @@ Bereken $f(a)$ en $f'(a)$. Vul ze in $y = f(a) + f'(a)(x - a)$ in en werk uit to
 \oef{h2-defpunt}
 \end{oefeningen}
 
+Nu weten we wat de helling van een kromme weg in één punt is: de richtingscoëfficiënt van de raaklijn, de rechte die de weg daar volgt. Dat is de afgeleide.
+
+\voorbeeld{}{Terug naar het probleem. Het profiel van de helling is $f(x) = \dfrac{x^2}{6000} + \dfrac{x}{50}$ (in m). Hoe steil is de weg op $450$ m van de voet, in procent?\label{vb:h2-terug}}{%
+\uitleg{De helling in een punt is de afgeleide: de limiet van de gemiddelde helling over een stuk met lengte $h$ dat steeds korter wordt. Werk het differentiequotiënt uit tot $h$ in de noemer wegvalt.}
+\begin{stappenbreed}
+f(450 + h) - f(450) = \frac{(450 + h)^2 - 450^2}{6000} + \frac{h}{50} & Vul in en trek af, term per term. Bij de tweede term blijft $\frac{h}{50}$ over. \\[1ex]
+= \frac{900h + h^2}{6000} + \frac{h}{50} & Werk het kwadraat uit: $450^2$ valt weg. \\[1ex]
+\frac{f(450 + h) - f(450)}{h} = \frac{900 + h}{6000} + \frac{1}{50} & Deel door $h$; dat mag, want $h \neq 0$. \\[1ex]
+f'(450) = \frac{900}{6000} + \frac{1}{50} = 0{,}17 & De limiet voor $h \to 0$: invullen.
+\end{stappenbreed}
+\naast{Op $450$ m is de weg dus $17\,\%$ steil, veel steiler dan de $12\,\%$ op het bord. In de figuur is $0{,}17$ de richtingscoëfficiënt van de raaklijn. De gestreepte koorde van voet tot top heeft richtingscoëfficiënt $0{,}12$, het getal op het bord.}{\begin{tikzpicture}[x=.0085cm,y=.03cm,font=\scriptsize]
+  \fill[black!8] (0,0) -- plot[domain=0:600,samples=40] (\x,{(\x/100)^2*5/3+\x/50}) -- (600,0) -- cycle;
+  \draw[->,grijs] (0,0) -- (640,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,80);
+  \foreach \t in {150,300,450,600}{\draw[grijs] (\t,0) -- (\t,-2) node[below,text=black,inner sep=1.5pt] {$\t$};}
+  \foreach \t in {24,48,72}{\draw[grijs] (0,\t) -- (-6,\t) node[left,text=black,inner sep=1.5pt] {$\t$};}
+  \draw[grijs,dashed] (0,0) -- (600,72);
+  \kromme{0}{600}{(\x/100)^2*5/3+\x/50}
+  \draw[grijs,thick] (280,13.85) -- (620,71.65);
+  \vol{(450,42.75)}
+  \node[accent,below right] at (450,42.75) {$17\,\%$};
+\end{tikzpicture}}}
+
+Doe je dezelfde berekening met $x$ in plaats van $450$, dan vind je in elk punt de helling $\frac{x}{3000} + \frac{1}{50}$. De weg wordt dus steeds steiler: van $2\,\%$ aan de voet tot $22\,\%$ bovenaan. Zo'n afgeleide in elk punt bekijken we in sectie 2.
+
 \subsection{Ogenblikkelijke snelheid}
 
-Het differentiequotiënt heeft een betekenis in elke context. Is $s(t)$ de afgelegde weg op tijdstip $t$, dan is $s(t + h) - s(t)$ de weg die je aflegt tussen $t$ en $t + h$. Gedeeld door de tijd $h$ is dat de gemiddelde snelheid.
+Wat de helling is voor een weg, is de snelheid voor een beweging. Het differentiequotiënt heeft een betekenis in elke context. Is $s(t)$ de afgelegde weg op tijdstip $t$, dan is $s(t + h) - s(t)$ de weg die je aflegt tussen $t$ en $t + h$. Gedeeld door de tijd $h$ is dat de gemiddelde snelheid.
 
 \begin{theorie}
 Is $s(t)$ de afgelegde weg op tijdstip $t$, dan is de \textbf{\textcolor{accent}{gemiddelde snelheid}} tussen $t$ en $t + h$ gelijk aan $\formule{\frac{s(t + h) - s(t)}{h}}$, en de \textbf{\textcolor{accent}{ogenblikkelijke snelheid}} op tijdstip $t$ gelijk aan $\formule{v(t) = s'(t)}$.
 \end{theorie}
 
-Zo lost de afgeleide de vraag uit de inleiding op: de snelheid op één ogenblik is de limiet van de gemiddelde snelheid over steeds kortere tijd.
+Zo lost de afgeleide ook de vraag van de snelheidsmeter uit de inleiding op: de snelheid op één ogenblik is de limiet van de gemiddelde snelheid over steeds kortere tijd.
 
 \voorbeeld{}{Een steen valt; na $t$ seconden heeft hij $s(t) = 5t^2$ meter afgelegd. Hoe snel valt hij na 2 seconden?\label{vb:h2-snelheid}}{%
 \naast{%

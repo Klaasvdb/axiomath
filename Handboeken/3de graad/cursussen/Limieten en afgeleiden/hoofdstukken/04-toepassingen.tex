@@ -1,16 +1,36 @@
 %----------------------------------------------------------------------------------------
 % TOEPASSINGEN VAN AFGELEIDEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h4-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{4}{Toepassingen van afgeleiden}
 
-\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over het verloop van functies (stijgen, dalen, extrema, holheid, buigpunten) en optimaliseringsproblemen. Over \textit{hol} en \textit{bol} bestaan verschillende afspraken; dit boek koppelt ze telkens aan de vorm van een dal- of bergparabool, zodat er geen misverstand kan zijn. De stelling dat $f' > 0$ stijgen geeft, wordt hier niet bewezen (ze volgt uit de middelwaardestelling).}
+\begin{probleem}
+\vspace{-1mm}\naast{Een groot schilderij hangt hoog aan de muur van een kerk: de onderrand hangt $1$ m boven je ogen, de bovenrand $3$ m. Sta je vlak onder het schilderij, dan kijk je er schuin tegenaan, en lijkt het samengedrukt. Sta je ver weg, dan lijkt het klein. Ergens daartussen zie je het onder de grootste hoek $\theta$. Op welke afstand van de muur is dat, en hoe groot is die hoek?
 
-In Algemene functies las je toppen en dalen af op een grafiek. Nu kun je ze berekenen: in een top of een dal is de raaklijn horizontaal, dus de afgeleide nul. Daarmee los je ook praktische vragen op: hoe maak je een blik met zo weinig mogelijk metaal, of een weide zo groot mogelijk?
+De Duitse sterrenkundige Regiomontanus stelde in 1471 dezelfde vraag, over een stok die verticaal aan een muur hangt.}{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \fill[black!8] (3,-.5) rectangle (3.2,3.5);
+  \draw[grijs] (3,-.5) -- (3,3.5);
+  \fill[accent!30] (2.88,1) rectangle (3,3);
+  \draw[accent,very thick] (3,1) -- (3,3);
+  \draw[grijs,dashed] (0,0) -- (3,0);
+  \draw[grijs] (0,0) -- (3,1) (0,0) -- (3,3);
+  \draw[accent] ({atan(1/3)}:.9) arc ({atan(1/3)}:45:.9);
+  \node[accent] at ({(atan(1/3)+45)/2}:1.2) {$\theta$};
+  \fill (0,0) circle (1.6pt) node[left] {oog};
+  \draw[grijs,<->] (0,-.35) -- (3,-.35) node[midway,below,text=black] {$x$};
+  \draw[grijs,densely dotted] (3.2,0) -- (4.4,0) (3.2,1) -- (3.55,1) (3.2,3) -- (4.4,3);
+  \draw[grijs,<->] (3.55,0) -- (3.55,1) node[midway,right,text=black] {$1$ m};
+  \draw[grijs,<->] (4.4,0) -- (4.4,3) node[midway,right,text=black] {$3$ m};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over het verloop van functies (stijgen, dalen, extrema, holheid, buigpunten) en optimaliseringsproblemen. Over \textit{hol} en \textit{bol} bestaan verschillende afspraken; dit boek koppelt ze telkens aan de vorm van een dal- of bergparabool, zodat er geen misverstand kan zijn. De stelling dat $f' > 0$ stijgen geeft, wordt hier niet bewezen (ze volgt uit de middelwaardestelling). Het probleem is het extremumprobleem van Regiomontanus (brief aan Christian Roder, 1471). De oplossing in voorbeeld \ref{vb:h4-terug} gebruikt de verschilformule voor de tangens uit Goniometrische functies; zo is geen afgeleide van $\tan^{-1}$ nodig. Laat leerlingen het probleem eerst met het rekentoestel verkennen, zoals in de tabel aan het begin van sectie 1.}
+
+Hoe verder je van de muur staat, hoe kleiner de hoek? Niet helemaal: vlak bij de muur is de hoek ook klein. Als je achteruit stapt, wordt de hoek eerst groter en daarna weer kleiner. De vraag is dus waar de kijkhoek, als functie van de afstand, een top heeft. In Algemene functies las je toppen en dalen af op een grafiek. Nu kun je ze berekenen: in een top of een dal is de raaklijn horizontaal, dus de afgeleide nul. Daarmee los je ook andere praktische vragen op: hoe maak je een blik met zo weinig mogelijk metaal, of een weide zo groot mogelijk?
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -22,6 +42,14 @@ In Algemene functies las je toppen en dalen af op een grafiek. Nu kun je ze bere
 \section{Stijgen, dalen en extrema}
 
 \subsection{Stijgen en dalen}
+
+Hoe verandert de kijkhoek uit het probleem als je achteruit stapt? Op afstand $x$ zie je de onderrand onder een hoek $\tan^{-1}\bigl(\frac1x\bigr)$ boven de horizontale, en de bovenrand onder $\tan^{-1}\bigl(\frac3x\bigr)$. Het verschil is de kijkhoek $\theta$. Een rekentoestel geeft:
+\begin{center}{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{c|ccccccc}
+$x$ (m) & $0{,}5$ & $1$ & $1{,}5$ & $2$ & $3$ & $4$ & $5$ \\ \hline
+$\theta$ & $17{,}1^\circ$ & $26{,}6^\circ$ & $29{,}7^\circ$ & $29{,}7^\circ$ & $26{,}6^\circ$ & $22{,}8^\circ$ & $19{,}7^\circ$
+\end{tabular}}\end{center}
+De hoek stijgt eerst en daalt dan. De grootste waarde ligt ergens tussen $1{,}5$ en $2$ m, maar waar precies? Met een tabel kom je er nooit helemaal. Kijk daarom naar wat stijgen en dalen betekent, en hoe je het aan de afgeleide ziet.
 
 Een functie $f$ is stijgend op een interval $I$ als een grotere $x$ altijd een grotere functiewaarde geeft: uit $x_1 < x_2$ volgt $f(x_1) < f(x_2)$. Ze is dalend als uit $x_1 < x_2$ volgt dat $f(x_1) > f(x_2)$.
 
@@ -403,6 +431,30 @@ Het zuinigste blik is even hoog als breed: $h = 2r$. Want uit $r^3 = \frac{500}{
 \begin{oefeningen}
 \oef{h4-optimaal}
 \end{oefeningen}
+
+Ook het probleem van het schilderij is een optimaliseringsprobleem. De kijkhoek is een verschil van twee hoeken, en dat schrijf je met de verschilformule voor de tangens.
+
+\voorbeeld{}{Terug naar het probleem. De onderrand van een schilderij hangt $1$ m boven je ogen, de bovenrand $3$ m. Op welke afstand van de muur zie je het onder de grootste hoek? Hoe groot is die hoek?\label{vb:h4-terug}}{%
+\uitleg{Noem de afstand tot de muur $x$ (in m), met $x > 0$. De onderrand zie je onder een hoek $\alpha$ boven de horizontale, de bovenrand onder $\beta$, met $\tan\alpha = \frac1x$ en $\tan\beta = \frac3x$. De kijkhoek is $\theta = \beta - \alpha$. Hij ligt tussen $0^\circ$ en $90^\circ$, en daar stijgt de tangens: $\theta$ is dus het grootst waar $\tan\theta$ het grootst is.}
+\begin{stappenbreed}
+\tan\theta = \frac{\frac3x - \frac1x}{1 + \frac3x \cdot \frac1x} = \frac{2x}{x^2 + 3} & Verschilformule voor de tangens. Vermenigvuldig teller en noemer met $x^2$. \\[1.5ex]
+T(x) = \frac{2x}{x^2 + 3},\quad T'(x) = \frac{2(x^2 + 3) - 2x \cdot 2x}{(x^2 + 3)^2} = \frac{6 - 2x^2}{(x^2 + 3)^2} & Quotiëntregel. De noemer is altijd positief. \\[1.5ex]
+T'(x) = 0 \iff x^2 = 3 \iff x = \sqrt3 \approx 1{,}73 & Alleen de positieve oplossing ligt in het domein. \\[1ex]
+T' > 0 \text{ voor } x < \sqrt3, \quad T' < 0 \text{ voor } x > \sqrt3 & Het teken van de teller $6 - 2x^2$. $T'$ wisselt van $+$ naar $-$: een maximum. \\[1ex]
+\tan\theta = \frac{2\sqrt3}{3 + 3} = \frac{\sqrt3}{3},\quad \theta = 30^\circ & De grootste kijkhoek.
+\end{stappenbreed}
+\naast{Op ongeveer $1{,}73$ m van de muur zie je het schilderij dus het grootst, onder een hoek van precies $30^\circ$. De grafiek toont de kijkhoek in graden als functie van de afstand, met de waarden uit de tabel van sectie 1.
+
+Merk op: $\sqrt3 = \sqrt{1 \cdot 3}$. Hangt de onderrand $a$ boven je ogen en de bovenrand $b$, dan vind je op dezelfde manier de beste afstand $\sqrt{ab}$.}{\begin{tikzpicture}[x=.9cm,y=.07cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.9cm,ystep=.7cm] (0,0) grid (5,35);
+  \draw[->,grijs] (0,0) -- (5.4,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,39) node[above,text=black] {$\theta$};
+  \foreach \t in {1,2,3,4,5}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30}{\node[left,inner sep=1.5pt] at (0,\t) {$\t^\circ$};}
+  \kromme{.05}{5}{atan(3/\x)-atan(1/\x)}
+  \draw[grijs,dashed] (1.732,0) -- (1.732,30) (0,30) -- (1.732,30);
+  \vol{(1.732,30)}
+\end{tikzpicture}}}
 
 %========================================================================================
 \opdrachtenkop
