@@ -34,7 +34,7 @@ Nog geen enkele cursus geschreven. Indeling, leerplandoelen per pakket en voorka
 ### 3de graad: wat nog ontbreekt
 
 - **Kegelsneden**: eerste versie klaar sinds 16 nov 2026 (`4/Meetkunde/Kegelsneden`, vijf hoofdstukken). Nog na te lezen, en eventueel prenten bij de opdrachten. **[Ingmar]**
-- **Vertrekken vanuit een probleem** (ontwerpregel van 16 nov 2026): de andere handboeken herwerken met een blok Probleem per hoofdstuk en een voorbeeld "Terug naar het probleem". Kegelsneden is het voorbeeld. **[Ingmar]**
+- **Vertrekken vanuit een probleem:** sinds 18 nov 2026 begint elk hoofdstuk van de 3de graad met een blok Probleem en komt erop terug (PR #47). Na te lezen: de keuze van de problemen en de schattingen (zie de PR).
 - **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken.
 - **Telproblemen voor pakket 2 en 3** (voor GO!): lichtere versie sinds 18 nov 2026, uit dezelfde bron met `\alleenvoor`. Na te kijken: de afbakening tegenover de GO!-doelen (zie de README van `cursussen/Telproblemen/`).
 - **Modules voor KOV Complementair** (uitbreiding voor wiskunderichtingen met meer dan 6 uur; een menu, niet alles is nodig): predicatenlogica, krommen en meetkundige plaatsen, oppervlakken in de ruimte, euclidische, affiene en projectieve meetkunde, extra integratiemethodes, differentiaalvergelijkingen, reeksen, numerieke methodes, vectorruimten, getaltheorie, lineair programmeren, financiële algebra, iteraties en fractalen, kansverdelingen, lineaire regressie, multivariate statistiek. **[Ingmar]**
