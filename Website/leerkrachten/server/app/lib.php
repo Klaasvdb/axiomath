@@ -19,7 +19,11 @@ const SOORTEN = [
 ];
 const SOORTEN_ALGEMEEN = ['premisse' => 'De premisse van Axiomath', 'website' => 'Deze website'] + SOORTEN;
 const ERNST = ['klein' => 'Klein', 'belangrijk' => 'Belangrijk', 'dringend' => 'Dringend'];
-const STATUSSEN = ['nieuw' => 'Nieuw', 'behandeling' => 'In behandeling', 'verwerkt' => 'Verwerkt', 'afgewezen' => 'Niet weerhouden'];
+/* De stappen van een opmerking: nieuw -> het team keurt goed ('behandeling') of af ('afgewezen') -> verwerkt in de bron.
+   Alleen goedgekeurde opmerkingen worden verwerkt, zodat niemand het werk van een collega ongedaan maakt. De sleutels
+   blijven die van de eerste versie; alleen de namen veranderden. */
+const STATUSSEN = ['nieuw' => 'Nieuw', 'behandeling' => 'Goedgekeurd', 'verwerkt' => 'Verwerkt', 'afgewezen' => 'Afgekeurd'];
+const ACTIES = ['ingediend' => 'Ingediend', 'bewerkt' => 'Bewerkt', 'status' => 'Status', 'reactie' => 'Antwoord', 'notitie' => 'Notitie', 'verwijderd' => 'Verwijderd'];
 const EDITIES = ['handboek' => 'Handboek', 'leerkracht' => 'Leerkrachtenversie', 'zelfstudie' => 'Zelfstudie',
                  'oplossingen' => 'Oplossingen', 'uitwerkingen' => 'Uitgewerkte oplossingen'];
 date_default_timezone_set('Europe/Brussels');
@@ -69,6 +73,11 @@ function db() {
     CREATE TABLE IF NOT EXISTS bezoeken(dag TEXT NOT NULL, id TEXT NOT NULL, PRIMARY KEY (dag, id));
     CREATE TABLE IF NOT EXISTS boekdagen(dag TEXT NOT NULL, sleutel TEXT NOT NULL, editie TEXT NOT NULL,
       lezers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (dag, sleutel, editie));
+    CREATE TABLE IF NOT EXISTS logboek(
+      id INTEGER PRIMARY KEY, tijd INTEGER NOT NULL, feedback INTEGER NOT NULL, sleutel TEXT, actie TEXT NOT NULL,
+      wie INTEGER NOT NULL DEFAULT 0, team INTEGER NOT NULL DEFAULT 0, wie_naam TEXT, van TEXT, naar TEXT, tekst TEXT, samenvatting TEXT);
+    CREATE INDEX IF NOT EXISTS logboek_feedback ON logboek(feedback);
+    CREATE INDEX IF NOT EXISTS logboek_tijd ON logboek(tijd);
     CREATE TABLE IF NOT EXISTS bezoekdagen(dag TEXT PRIMARY KEY, bezoekers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0);
   ");
   // Kolommen die later kwamen. reacties.team: een antwoord van het team, ook met een sleutel. reacties.naam: wie
@@ -219,6 +228,27 @@ function nette_citaat($t) {
 /* Het team: de beheerders, en wie met een sleutel werkt (zie met_sleutel). */
 function is_team($ik) { return ($ik['rol'] ?? '') === 'beheerder' || !empty($ik['sleutel_id']); }
 
+/* Het logboek: elke stap van elke opmerking, nooit gewist (ook niet als de opmerking verwijderd wordt). Zo zie je wie
+   wanneer wat besliste, en waarom. De samenvatting (plaats en begin van de tekst) blijft staan als de opmerking weg is. */
+function log_stap($ik, $r, $actie, $van = null, $naar = null, $tekst = null) {
+  $plaats = ($r['pagina'] ?? null) ? 'p. ' . $r['pagina'] . (($r['sectie'] ?? '') ? ', ' . $r['sectie'] : '') : (($r['niveau'] ?? '') === 'handboek' ? 'hele handboek' : 'algemeen');
+  $kort = preg_replace('/\s+/u', ' ', trim((string)($r['tekst'] ?? '')));
+  $kort = function_exists('mb_substr') ? mb_substr($kort, 0, 160) : substr($kort, 0, 160);
+  q('INSERT INTO logboek(tijd, feedback, sleutel, actie, wie, team, wie_naam, van, naar, tekst, samenvatting) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+    [time(), $r['id'], $r['sleutel'] ?? null, $actie, (int)$ik['id'], is_team($ik) ? 1 : 0, $ik['naam'] ?? null, $van, $naar, $tekst, "$plaats · $kort"]);
+}
+
+/* Andere opmerkingen op dezelfde plek (zelfde hoofdstuk en sectie, of dezelfde pagina van dezelfde versie).
+   Het team ziet ze bij de opmerking, zodat een tweede leerkracht niet ongemerkt ongedaan maakt wat een eerste vroeg. */
+function botsingen($r) {
+  if (($r['niveau'] ?? '') !== 'plek' || empty($r['sleutel'])) return [];
+  $a = q("SELECT id, status, soort, tekst, pagina FROM feedback WHERE id != ? AND niveau = 'plek' AND sleutel = ?
+            AND ((? != '' AND hoofdstuk = ? AND sectie = ?) OR (versie = ? AND pagina = ?)) ORDER BY id",
+         [$r['id'], $r['sleutel'], (string)($r['sectie'] ?? ''), $r['hoofdstuk'], $r['sectie'], $r['versie'], $r['pagina']])->fetchAll();
+  return array_map(fn($x) => ['id' => (int)$x['id'], 'status' => $x['status'], 'soort' => $x['soort'], 'pagina' => (int)$x['pagina'],
+    'tekst' => function_exists('mb_substr') ? mb_substr($x['tekst'], 0, 140) : substr($x['tekst'], 0, 140)], $a);
+}
+
 function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
   if (!empty($ik['sleutel_id'])) $met_namen = false;  // een sleutel ziet nooit namen
   $rijen = q("SELECT f.*, g.naam AS auteur,
@@ -245,7 +275,7 @@ function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
       'auteur' => $met_namen ? $r['auteur'] : null, 'aangemaakt' => iso($r['aangemaakt']), 'bijgewerkt' => iso($r['bijgewerkt']),
       'reacties' => $reacties[$r['id']] ?? [],
     ];
-    if (is_team($ik)) $d['notitie'] = $r['notitie'];
+    if (is_team($ik)) { $d['notitie'] = $r['notitie']; $d['botsingen'] = botsingen($r); }
     $uit[] = $d;
   }
   return $uit;
@@ -323,6 +353,34 @@ function als_csv($rijen) {
   }
   rewind($f);
   return "\u{FEFF}" . stream_get_contents($f);  // BOM: Excel opent het dan als UTF-8
+}
+
+function logboek_rijen($f, $met_namen) {
+  $waar = ['1=1']; $p = [];
+  if (!empty($f['sleutel'])) { $waar[] = 'l.sleutel = ?'; $p[] = $f['sleutel']; }
+  if (!empty($f['pakket'])) { $waar[] = 'l.sleutel LIKE ?'; $p[] = $f['pakket'] . '/%'; }
+  if (!empty($f['feedback'])) { $waar[] = 'l.feedback = ?'; $p[] = (int)$f['feedback']; }
+  if (!empty($f['actie'])) { $waar[] = 'l.actie = ?'; $p[] = $f['actie']; }
+  if (!empty($f['zoek'])) { $waar[] = '(l.tekst LIKE ? OR l.samenvatting LIKE ?)'; $p[] = "%{$f['zoek']}%"; $p[] = "%{$f['zoek']}%"; }
+  $max = min(max((int)($f['max'] ?? 500), 1), 5000);
+  $uit = [];
+  foreach (q("SELECT l.* FROM logboek l WHERE " . implode(' AND ', $waar) . " ORDER BY l.id DESC LIMIT $max", $p) as $r) {
+    $uit[] = ['id' => (int)$r['id'], 'tijd' => iso($r['tijd']), 'feedback' => (int)$r['feedback'], 'sleutel' => $r['sleutel'], 'actie' => $r['actie'],
+      'wie' => $r['team'] ? ($met_namen ? ($r['wie_naam'] ?: 'Team') : 'Team') : ($met_namen ? ($r['wie_naam'] ?: 'Leerkracht') : 'Leerkracht'),
+      'team' => (bool)$r['team'], 'van' => $r['van'], 'naar' => $r['naar'], 'tekst' => $r['tekst'], 'samenvatting' => $r['samenvatting']];
+  }
+  return $uit;
+}
+
+function logboek_markdown($rijen) {
+  $l = ['# Logboek feedback Axiomath (' . date('d-m-Y') . ')', '', 'Nieuwste eerst. Elke stap van elke opmerking, ook van verwijderde.', ''];
+  foreach ($rijen as $r) {
+    $wat = $r['actie'] === 'status' ? 'status ' . (STATUSSEN[$r['van']] ?? $r['van']) . ' → ' . (STATUSSEN[$r['naar']] ?? $r['naar']) : (ACTIES[$r['actie']] ?? $r['actie']);
+    $l[] = '- ' . date('d-m-Y H:i', strtotime($r['tijd'])) . " · **#{$r['feedback']}** · $wat · {$r['wie']}" . ($r['sleutel'] ? ' · ' . titel_van($r['sleutel']) : '');
+    $l[] = "  {$r['samenvatting']}";
+    if ($r['tekst']) $l[] = '  > ' . preg_replace('/\s+/u', ' ', $r['tekst']);
+  }
+  return implode("\n", $l) . "\n";
 }
 
 // --- routes --------------------------------------------------------------------------------------
@@ -416,6 +474,11 @@ function met_sleutel($sl, $m, $pad, $delen) {
                    'map' => $b['pad'] ?? null, 'oudere_versie' => (bool)oudere_versie($r),
                    'link' => $r['versie'] ? "$site/#/lees/{$r['versie']}?p={$r['pagina']}&f={$r['id']}" : null];
     }, $rijen));
+  }
+  if ("$m $pad" === 'GET logboek') {
+    $rijen = logboek_rijen($_GET, false);
+    if (($_GET['formaat'] ?? '') === 'md') antwoord(logboek_markdown($rijen), 200, 'text/markdown; charset=utf-8');
+    antwoord($rijen);
   }
   $id = ($delen[0] === 'feedback' && ctype_digit($delen[1] ?? '')) ? (int)$delen[1] : 0;
   if ($id && $m === 'PATCH' && count($delen) === 2) feedback_een($ik, $m, $id, null);
@@ -564,7 +627,9 @@ function feedback_nieuw($ik) {
   $kol = array_keys($rij);
   q('INSERT INTO feedback(gebruiker, ' . implode(', ', $kol) . ', aangemaakt, bijgewerkt) VALUES (?, '
     . implode(', ', array_fill(0, count($kol), '?')) . ', ?, ?)', array_merge([$ik['id']], array_values($rij), [time(), time()]));
-  antwoord(een_feedback($ik, (int)db()->lastInsertId()));
+  $nieuw_id = (int)db()->lastInsertId();
+  log_stap($ik, ['id' => $nieuw_id] + $rij, 'ingediend', null, 'nieuw');
+  antwoord(een_feedback($ik, $nieuw_id));
 }
 
 function feedback_een($ik, $m, $id, $actie) {
@@ -573,9 +638,10 @@ function feedback_een($ik, $m, $id, $actie) {
   $eigen = (int)$r['gebruiker'] === (int)$ik['id'];
   if ($actie === 'reactie' && $m === 'POST') {
     if (!$eigen && !$beheerder) fout('Je kan alleen reageren op je eigen feedback.', 403);
+    $rtekst = tekstveld(body(), 'tekst', 3000);
     q('INSERT INTO reacties(feedback, gebruiker, tekst, aangemaakt, team, naam) VALUES (?,?,?,?,?,?)',
-      [$id, $ik['id'], tekstveld(body(), 'tekst', 3000), time(), $beheerder ? 1 : 0, empty($ik['sleutel_id']) ? null : $ik['naam']]);
-    if ($beheerder && $r['status'] === 'nieuw') q("UPDATE feedback SET status = 'behandeling' WHERE id = ?", [$id]);
+      [$id, $ik['id'], $rtekst, time(), $beheerder ? 1 : 0, empty($ik['sleutel_id']) ? null : $ik['naam']]);
+    log_stap($ik, $r, 'reactie', null, null, $rtekst);
     q('UPDATE feedback SET bijgewerkt = ? WHERE id = ?', [time(), $id]);
   } elseif ($actie === 'steun' && $m === 'POST') {
     if (rij('SELECT 1 FROM steun WHERE feedback = ? AND gebruiker = ?', [$id, $ik['id']])) q('DELETE FROM steun WHERE feedback = ? AND gebruiker = ?', [$id, $ik['id']]);
@@ -589,14 +655,31 @@ function feedback_een($ik, $m, $id, $actie) {
       if (isset(ERNST[$d['ernst'] ?? ''])) $velden['ernst'] = $d['ernst'];
     }
     if ($beheerder) {
-      if (isset(STATUSSEN[$d['status'] ?? ''])) $velden['status'] = $d['status'];
+      if (isset(STATUSSEN[$d['status'] ?? '']) && $d['status'] !== $r['status']) {
+        // Goed- of afkeuren doet alleen een beheerder. Een sleutel (Claude) zet een goedgekeurde opmerking op verwerkt, niets anders.
+        if (!empty($ik['sleutel_id']) && !($r['status'] === 'behandeling' && $d['status'] === 'verwerkt'))
+          fout('Met een sleutel kan je alleen een goedgekeurde opmerking op verwerkt zetten. Goed- en afkeuren doet het team op de site.', 403);
+        $velden['status'] = $d['status'];
+      }
       if (array_key_exists('notitie', $d)) $velden['notitie'] = tekstveld($d, 'notitie', 3000, false);
     }
     if (!$velden) fout('Deze feedback kan je niet meer aanpassen.', 403);
     $set = implode(', ', array_map(fn($k) => "$k = ?", array_keys($velden)));
     q("UPDATE feedback SET $set, bijgewerkt = ? WHERE id = ?", array_merge(array_values($velden), [time(), $id]));
+    if (isset($velden['status'])) {
+      // Met `reden` krijgt de leerkracht meteen een antwoord van het team (bij afkeuren de uitleg).
+      $reden = trim((string)($d['reden'] ?? ''));
+      if ($reden !== '') {
+        q('INSERT INTO reacties(feedback, gebruiker, tekst, aangemaakt, team, naam) VALUES (?,?,?,?,?,?)',
+          [$id, $ik['id'], tekstveld($d, 'reden', 3000), time(), 1, empty($ik['sleutel_id']) ? null : $ik['naam']]);
+      }
+      log_stap($ik, $r, 'status', $r['status'], $velden['status'], $reden !== '' ? $reden : null);
+    }
+    if (isset($velden['tekst']) && $velden['tekst'] !== $r['tekst']) log_stap($ik, $r, 'bewerkt', null, null, "Was: {$r['tekst']}");
+    if (isset($velden['notitie']) && $velden['notitie'] !== (string)$r['notitie']) log_stap($ik, $r, 'notitie', null, null, $velden['notitie']);
   } elseif ($actie === null && $m === 'DELETE') {
     if (!(($eigen && $r['status'] === 'nieuw') || $beheerder)) fout('Deze feedback is al in behandeling en kan je niet meer verwijderen.', 403);
+    log_stap($ik, $r, 'verwijderd', $r['status'], null, $r['tekst']);
     q('DELETE FROM reacties WHERE feedback = ?', [$id]);
     q('DELETE FROM steun WHERE feedback = ?', [$id]);
     q('DELETE FROM feedback WHERE id = ?', [$id]);
@@ -661,6 +744,11 @@ function beheer($ik, $m, $delen) {
   if ("$m $pad" === 'GET feedback') {
     [$waar, $p] = filter_sql($_GET);
     antwoord(feedback_rijen($ik, $waar, $p));
+  }
+  if ("$m $pad" === 'GET logboek') {
+    $rijen = logboek_rijen($_GET, empty($ik['sleutel_id']));
+    if (($_GET['formaat'] ?? '') === 'md') antwoord(logboek_markdown($rijen), 200, 'text/markdown; charset=utf-8', ['Content-Disposition' => 'attachment; filename="logboek-' . date('Y-m-d') . '.md"']);
+    antwoord($rijen);
   }
   if ("$m $pad" === 'GET overzicht') {
     antwoord(['telling' => array_map(fn($r) => $r + ['n' => (int)$r['n']],

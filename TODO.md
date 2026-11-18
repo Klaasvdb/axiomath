@@ -96,3 +96,10 @@ De plannen staan op [axiomath.be/#/plannen](https://axiomath.be/#/plannen), elk 
 - toetsen en oefenreeksen op maat;
 - het handboek als webpagina;
 - een open oefeningenbank.
+
+## Visueel kenmerkend element per richting op de voorkaft.
+- Iets was handig is om snel het onderscheid te maken tussen verschillende richtingen op de voorkaft zodat leerkrachten snel kunnen zien welke richting het handboek betreft. Dit kan bijvoorbeeld een icoon zijn dat de richting symboliseert met een éénduidige kleur. Mag hetzelfde zijn over koepels, aangezien een school steeds onder één koepel valt. 
+
+## Bekijken op Marimo.io interessant is.
+https://docs.marimo.io/
+

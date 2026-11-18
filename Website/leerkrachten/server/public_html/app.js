@@ -272,14 +272,52 @@ function fbKaart(f, opties = {}) {
     reacties].filter(Boolean));
 
   if (opties.beheer) {
-    const status = h("select", { "aria-label": "Status", onchange: poging(async () => { vervang(await api("PATCH", `feedback/${f.id}`, { status: status.value })); melding("Status bijgewerkt."); }) },
-      Object.entries(S.menu.statussen).map(([k, l]) => h("option", { value: k, selected: k === f.status }, l)));
+    // Botsingen: andere opmerkingen op dezelfde plek. Zo maakt de tweede leerkracht niet ongemerkt ongedaan wat de eerste vroeg.
+    const bots = f.botsingen || [];
+    if (bots.length) {
+      kaart.append(h("div", { class: "botsing", onclick: (e) => e.stopPropagation() },
+        h("b", {}, `Let op: ${bots.length === 1 ? "nog één opmerking" : `nog ${bots.length} opmerkingen`} op dezelfde plek`),
+        bots.map((x) => h("div", { class: "botsing-rij" }, h("span", { class: `pil stip st-${x.status}` }, S.menu.statussen[x.status]),
+          ` #${x.id} (p. ${x.pagina}): `, x.tekst))));
+    }
+    const zet = (status, reden) => poging(async () => { vervang(await api("PATCH", `feedback/${f.id}`, { status, ...(reden ? { reden } : {}) })); melding(`Gezet op ${S.menu.statussen[status].toLowerCase()}.`); });
+    const knop = (klas, tekst, onclick, titel) => h("button", { class: `knop klein beslis ${klas}`, type: "button", title: titel || "", onclick: (e) => { e.stopPropagation(); onclick(); } }, tekst);
+    const goedkeuren = () => {
+      const anderen = bots.filter((x) => ["behandeling", "verwerkt"].includes(x.status));
+      if (anderen.length && !confirm(`Op dezelfde plek is al ${anderen.map((x) => "#" + x.id + " (" + S.menu.statussen[x.status].toLowerCase() + ")").join(", ")} goedgekeurd of verwerkt.
+Controleer dat deze opmerking niet tegenspreekt wat daar gevraagd werd. Toch goedkeuren?`)) return;
+      zet("behandeling")();
+    };
+    const afkeuren = () => {
+      const veld = h("textarea", { placeholder: "Waarom niet? De leerkracht ziet dit als antwoord van het team (mag leeg).", maxlength: 3000, rows: 4 });
+      const d = dialoog(`Opmerking #${f.id} afkeuren`, h("div", {}, h("p", { class: "citaat" }, f.tekst), veld), [
+        h("button", { class: "knop afkeur", type: "button", onclick: () => { d.close(); zet("afgewezen", veld.value.trim())(); } }, "Afkeuren"),
+        h("button", { class: "knop licht", value: "annuleer" }, "Annuleer")]);
+    };
+    const knoppen = {
+      nieuw: [knop("goed", "✓ Goedkeuren", goedkeuren, "Deze opmerking wordt verwerkt in het handboek"), knop("af", "✗ Afkeuren", afkeuren, "Niet verwerken; met uitleg aan de leerkracht")],
+      behandeling: [knop("goed", "✓ Zet op verwerkt", zet("verwerkt"), "Het staat in de bron"), knop("af", "✗ Toch afkeuren", afkeuren), knop("terug", "↩ Terug naar nieuw", zet("nieuw"))],
+      verwerkt: [knop("terug", "↩ Heropen", zet("behandeling"), "Terug naar goedgekeurd")],
+      afgewezen: [knop("goed", "✓ Alsnog goedkeuren", goedkeuren), knop("terug", "↩ Terug naar nieuw", zet("nieuw"))],
+    }[f.status] || [];
     const notitie = h("input", { type: "text", placeholder: "Interne notitie (alleen voor het team)", value: f.notitie || "",
       onchange: poging(async () => { await api("PATCH", `feedback/${f.id}`, { notitie: notitie.value }); melding("Notitie bewaard."); }) });
-    kaart.append(h("div", { class: "beheer-rij" }, status, notitie));
+    const log = h("details", { class: "logje", ontoggle: poging(async (e) => {
+      if (!log.open || log.dataset.geladen) return; log.dataset.geladen = "1";
+      const r = await api("GET", `beheer/logboek?feedback=${f.id}`);
+      log.append(h("div", {}, r.length ? r.map(logRegel) : h("span", { class: "zacht" }, "Nog niets.")));
+    }) }, h("summary", {}, "Logboek van deze opmerking"));
+    kaart.append(h("div", { class: "beslis-rij" }, knoppen), h("div", { class: "beheer-rij" }, notitie), log);
   }
   if (opties.opKlik) kaart.addEventListener("click", () => opties.opKlik(f, kaart));
   return kaart;
+}
+
+function logRegel(r) {
+  const wat = r.actie === "status" ? `${S.menu.statussen[r.van] || r.van} → ${S.menu.statussen[r.naar] || r.naar}`
+    : ({ ingediend: "ingediend", bewerkt: "bewerkt", reactie: "antwoord", notitie: "notitie", verwijderd: "verwijderd" }[r.actie] || r.actie);
+  return h("div", { class: "logregel" }, h("span", { class: "zacht" }, wanneer(r.tijd)), " · ", h("b", {}, wat), " · ", r.wie,
+    r.tekst && h("div", { class: "logtekst" }, r.tekst));
 }
 
 function bewerk(f, vervang) {
@@ -1165,13 +1203,13 @@ async function toonBeheer(tab) {
   const d = await boeken(true);
   tab = tab || "feedback";
   const tabs = h("div", { class: "tabs", role: "tablist", style: { maxWidth: "none" } },
-    [["feedback", "Feedback"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
+    [["feedback", "Feedback"], ["logboek", "Logboek"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
       h("button", { type: "button", role: "tab", "aria-selected": String(k === tab), onclick: () => { location.hash = `#/beheer/${k}`; } }, l)));
   const plek = h("div", {}, h("p", { class: "laden" }, "Laden …"));
   scherm("beheer", h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, "Beheer"),
     h("p", {}, "Alle feedback op één plek. Exporteer naar Markdown om ze per handboek, hoofdstuk en pagina te verwerken in de bron."))), tabs, plek);
   tabs.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });  // op een gsm schuift de rij
-  const inhoud = await ({ feedback: beheerFeedback, overzicht: beheerOverzicht, mensen: beheerMensen, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
+  const inhoud = await ({ feedback: beheerFeedback, logboek: beheerLogboek, overzicht: beheerOverzicht, mensen: beheerMensen, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
   plek.replaceChildren(...[inhoud].flat());
 }
 
@@ -1183,7 +1221,7 @@ async function beheerFeedback(d) {
     opties.map(([k, l]) => h("option", { value: k, selected: filters[naam] === k }, l)));
   const boekSel = sel("sleutel", [["", "Alle handboeken"], ...d.boeken.map((b) => [b.sleutel, `${pakketKort(b)} · ${b.titel}`])]);
   const balk = h("div", { class: "balk" },
-    sel("status", [["open", "Open (nieuw + in behandeling)"], ["", "Alle statussen"], ...Object.entries(S.menu.statussen)]),
+    sel("status", [["open", "Open (nieuw + goedgekeurd)"], ["", "Alle statussen"], ...Object.entries(S.menu.statussen)]),
     sel("pakket", [["", "Alle pakketten"], ...d.pakketten.map((p) => [p.id, `Pakket ${pakketKort(p)}`])]),
     boekSel,
     sel("niveau", [["", "Elk niveau"], ["plek", "Op een pagina"], ["handboek", "Hele handboek"], ["algemeen", "Algemeen"]]),
@@ -1210,7 +1248,7 @@ async function beheerFeedback(d) {
     tellers.replaceChildren(
       h("div", { class: "teller" }, h("b", {}, rijen.length), h("span", {}, "in deze selectie")),
       h("div", { class: "teller" }, h("b", {}, tel((f) => f.status === "nieuw")), h("span", {}, "nieuw")),
-      h("div", { class: "teller" }, h("b", {}, tel((f) => f.status === "behandeling")), h("span", {}, "in behandeling")),
+      h("div", { class: "teller" }, h("b", {}, tel((f) => f.status === "behandeling")), h("span", {}, "goedgekeurd, nog te verwerken")),
       h("div", { class: "teller" }, h("b", { style: { color: "var(--fout)" } }, tel((f) => f.ernst === "dringend" && ["nieuw", "behandeling"].includes(f.status))), h("span", {}, "dringend en open")));
     let vorige = null;
     const delen = [];
@@ -1226,6 +1264,26 @@ async function beheerFeedback(d) {
   });
   await laad();
   return [balk, tellers, h("div", { class: "balk", style: { justifyContent: "flex-end" } }, h("span", { class: "zacht klein" }, "Exporteer deze selectie:"), exportLink("md"), exportLink("csv")), lijst];
+}
+
+async function beheerLogboek(d) {
+  const filters = { sleutel: "", actie: "", zoek: "", max: "300" };
+  const lijst = h("div", { class: "lijst" });
+  const tel = h("p", { class: "zacht klein" });
+  const sel = (naam, opties) => h("select", { "aria-label": naam, onchange: (e) => { filters[naam] = e.target.value; laad(); } }, opties.map(([k, l]) => h("option", { value: k }, l)));
+  const laad = poging(async () => {
+    const r = await api("GET", `beheer/logboek?${new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([, w]) => w)))}`);
+    tel.textContent = `${r.length} regels, nieuwste eerst.`;
+    lijst.replaceChildren(...(r.length ? r.map((x) => h("div", { class: "kaart logkaart" },
+      h("div", { class: "fb-kop" }, h("span", { class: "waar" }, `#${x.feedback}`), x.sleutel && h("span", { class: "zacht klein" }, boekTitel(x.sleutel)), h("span", { class: "ruimte" }), h("span", { class: "zacht klein" }, wanneer(x.tijd))),
+      logRegel(x), h("div", { class: "zacht klein" }, x.samenvatting))) : [h("p", { class: "leeg" }, "Nog niets in het logboek.")]));
+  });
+  await laad();
+  const exp = h("a", { class: "knop licht klein", href: "#", onclick: (e) => { e.preventDefault(); location.href = apiUrl(`beheer/logboek?formaat=md&max=5000`); } }, icoon("download"), "Hele logboek als Markdown");
+  return [h("p", {}, "Elke stap van elke opmerking, nooit gewist: ingediend, goed- of afgekeurd, verwerkt, antwoorden en verwijderingen, met wie en wanneer. Zo zie je wat er beslist werd voor je iets aanpast."),
+    h("div", { class: "balk" }, sel("sleutel", [["", "Alle handboeken"], ...d.boeken.map((b) => [b.sleutel, `${pakketKort(b)} · ${b.titel}`])]),
+      sel("actie", [["", "Elke stap"], ["ingediend", "Ingediend"], ["status", "Goed-/afgekeurd/verwerkt"], ["reactie", "Antwoorden"], ["bewerkt", "Bewerkt"], ["notitie", "Notities"], ["verwijderd", "Verwijderd"]]),
+      h("input", { type: "search", placeholder: "Zoek", onchange: (e) => { filters.zoek = e.target.value; laad(); } }), exp), tel, lijst];
 }
 
 async function beheerOverzicht(d) {

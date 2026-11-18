@@ -13,6 +13,7 @@ Wat er gebeurt:
 
     py -3.13 -P uitrol.py --zonder-test   zonder de testreeks vooraf (alleen in nood)
     py -3.13 -P uitrol.py --config        app/config.php opnieuw uploaden
+    py -3.13 -P uitrol.py --opruimen      wis online de oudere versies zonder feedback (eerst met --droog: alleen tonen)
 
 De databank (app/axiomath.sqlite: accounts en feedback) maakt de server zelf aan en wordt nooit overschreven.
 De inloggegevens van DirectAdmin komen uit ~/.netrc_vimmex (dezelfde als voor Puntmuts).
@@ -28,6 +29,7 @@ import netrc
 import secrets
 import ssl
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -57,7 +59,16 @@ def roep(pad, velden=None, bestand=None):
     elif velden is not None:
         data = urllib.parse.urlencode(velden).encode()
     try:
-        r = urllib.request.urlopen(urllib.request.Request(url, data=data, headers=kop), timeout=300)
+        for poging in range(5):  # een verbroken verbinding (de host sluit er soms een) is geen reden om te stoppen
+            try:
+                r = urllib.request.urlopen(urllib.request.Request(url, data=data, headers=kop), timeout=300)
+                break
+            except (ConnectionError, TimeoutError, urllib.error.HTTPError) as e:
+                if isinstance(e, urllib.error.HTTPError) and e.code < 500:
+                    raise
+                if poging == 4:
+                    raise
+                time.sleep(5 * (poging + 1))
     except urllib.error.URLError as e:
         if POORT[0] != 443 or not isinstance(e.reason, ssl.SSLCertVerificationError):
             raise
@@ -82,6 +93,55 @@ def map_maken(ouder, naam):
         print(f"  map {ouder}/{naam}:", "gemaakt" if "error=0" in uit else uit[:120])
 
 
+def groottes(map_):
+    """{bestandsnaam: bytes} van een map online."""
+    import re
+    uit = {}
+    for deel in re.split(r"&(?=/domains/)", lijst(map_)):
+        m, s = re.match(r"(/domains/\S+?)=", deel), re.search(r"&size=(\d+)", deel)
+        if m and s:
+            uit[m.group(1).rsplit("/", 1)[1]] = int(s.group(1))
+    return uit
+
+
+def opruimen(droog):
+    """Online staat elke PDF als vaste versie. Wat niet de jongste versie van een editie is en geen feedback heeft,
+    opent geen lezer meer: dat wissen we, zodat de hosting niet volloopt. Een versie met feedback blijft staan, want
+    daar hangt het kader van de leerkracht aan. Zonder sleutel voor Claude (feedback.py) wissen we niets."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("feedbackscript", HIER / "feedback.py")
+    fb = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fb)
+    rijen = fb.api("GET", "feedback", {"status": ""})
+    met_feedback = {r["versie"] for r in rijen if r.get("versie")}
+    laatste = json.loads((SERVER / "app" / "laatste.json").read_text(encoding="utf-8"))
+    houd = {e["hash"] for ed in laatste.values() for e in ed.values()} | met_feedback
+    online = groottes(f"{DOMEIN}/app/versies")
+    weg = sorted(n for n in online if n.split(".")[0] not in houd and n.rsplit(".", 1)[-1] in ("pdf", "json"))
+    mb = sum(online[n] for n in weg) / 1e6
+    print(f"opruimen: {len(online)} bestanden online, {len(met_feedback)} versies met feedback blijven, {len(weg)} bestanden ({mb:.0f} MB) mogen weg")
+    if droog:
+        print("  (droog: niets gewist)")
+        return
+    for i in range(0, len(weg), 40):
+        velden = [("action", "multiple"), ("button", "delete"), ("path", f"{DOMEIN}/app/versies")]
+        velden += [(f"select{j}", f"{DOMEIN}/app/versies/{n}") for j, n in enumerate(weg[i:i + 40])]
+        uit = roep("CMD_API_FILE_MANAGER", velden)
+        if "error=0" not in uit:
+            sys.exit(f"Wissen mislukt: {uit[:200]}")
+        voortgang(f"Opruimen: {min(i + 40, len(weg))}/{len(weg)} bestanden gewist")
+    print(f"  {len(weg)} bestanden gewist")
+    voortgang("")
+
+
+def voortgang(tekst):
+    """Eén regel voor voortgang.bat en de statusregel van Claude Code (~/.claude/voortgang.txt)."""
+    try:
+        (Path.home() / ".claude" / "voortgang.txt").write_text(tekst, encoding="utf-8")
+    except OSError:
+        pass
+
+
 def upload(lokaal, doelmap):
     uit = roep("CMD_API_FILE_MANAGER?action=upload&overwrite=yes&path=" + urllib.parse.quote(f"{DOMEIN}/{doelmap}"), bestand=lokaal)
     ok = "error=0" in uit
@@ -103,6 +163,10 @@ def config_maken():
 
 
 def main():
+    if "--opruimen" in sys.argv:
+        opruimen("--droog" in sys.argv)
+        if "--droog" in sys.argv or "--alleen" in sys.argv:
+            return
     for nodig in ["boeken.json", "laatste.json"]:
         if not (SERVER / "app" / nodig).exists():
             sys.exit(f"server/app/{nodig} ontbreekt: draai eerst maak.py")
@@ -138,15 +202,19 @@ def main():
     nodig = sorted({e["hash"] for ed in laatste.values() for e in ed.values()})
     nieuw = [h for h in nodig if f"{DOMEIN}/app/versies/{h}.json" not in online]
     print(f"  {len(nodig) - len(nieuw)} staan er al, {len(nieuw)} nieuw")
-    for h in nieuw:
+    for i, h in enumerate(nieuw):
+        voortgang(f"Uitrol: versies {i}/{len(nieuw)} online")
         upload(SERVER / "app" / "versies" / f"{h}.pdf", "app/versies")
         upload(SERVER / "app" / "versies" / f"{h}.json", "app/versies")  # de .json als laatste: dan is de versie compleet
 
     print("voorkanten (alleen nieuwe)")
     online = lijst(f"{DOMEIN}/public_html/omslagen")
-    for f in sorted(p for p in (SERVER / "public_html" / "omslagen").iterdir() if p.suffix in (".webp", ".pdf")):  # .pdf: voorkant per koepel
-        if f"{DOMEIN}/public_html/omslagen/{f.name}" not in online:
-            upload(f, "public_html/omslagen")
+    alle = sorted(p for p in (SERVER / "public_html" / "omslagen").iterdir() if p.suffix in (".webp", ".pdf"))  # .pdf: voorkant per koepel
+    nieuwe = [f for f in alle if f"{DOMEIN}/public_html/omslagen/{f.name}" not in online]
+    for i, f in enumerate(nieuwe):
+        voortgang(f"Uitrol: voorkanten {i}/{len(nieuwe)} online")
+        upload(f, "public_html/omslagen")
+    voortgang("Uitrol: site-bestanden en controle")
 
     print("site")
     upload(SERVER / "app" / "boeken.json", "app")
@@ -179,3 +247,4 @@ def main():
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     main()
+    voortgang("")

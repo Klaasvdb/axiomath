@@ -20,21 +20,24 @@ Iedereen ziet de boekenkast en kan van elk handboek de editie **Handboek** lezen
 
 ## Wat het team kan (rol beheerder)
 
-- **Feedback**: filter op pakket, handboek, niveau, soort, ernst, status en tekst. Standaard staan ze in de volgorde om te verwerken: per handboek, per editie, op paginavolgorde. Geef elke opmerking een status (nieuw, in behandeling, verwerkt, niet weerhouden), een interne notitie, en antwoord de leerkracht.
+- **Feedback**: filter op pakket, handboek, niveau, soort, ernst, status en tekst. Standaard staan ze in de volgorde om te verwerken: per handboek, per editie, op paginavolgorde. Elke opmerking heeft duidelijke knoppen: **✓ Goedkeuren** (komt in het handboek) en **✗ Afkeuren** (met een uitleg die de leerkracht als antwoord van het team ziet). Een goedgekeurde opmerking krijgt **Zet op verwerkt** als ze in de bron staat, en kan altijd terug naar nieuw. Statussen: nieuw → goedgekeurd of afgekeurd → verwerkt. Een antwoord geven verandert de status niet. Bij elke opmerking staat een interne notitie.
+- **Botsingen**: staan er andere opmerkingen op dezelfde plek (zelfde hoofdstuk en sectie, of dezelfde pagina), dan toont de kaart ze in een oranje kader, en goedkeuren vraagt bevestiging als daar al iets goedgekeurd of verwerkt is. Zo maakt een tweede leerkracht niet ongemerkt ongedaan wat een eerste vroeg.
+- **Logboek** (*Beheer → Logboek*): één lijst met elke stap van elke opmerking, nooit gewist (ook niet als de opmerking verwijderd wordt): ingediend, bewerkt, goed- of afgekeurd, verwerkt, antwoorden, notities, met wie, wanneer en waarom. Filter op handboek, soort stap en tekst; exporteer als Markdown. Per opmerking staat een inklapbaar *Logboek van deze opmerking*. Een leerkracht ziet het niet.
 - **Export**: de selectie als **Markdown zonder namen** (per handboek, hoofdstuk en pagina, met citaat en afvinkvakjes, klaar om naast de cursus te leggen of aan Claude te geven) of als **CSV** voor Excel (met namen).
 - **Per handboek**: een tabel met de open feedback per handboek en per soort.
 - **Leerkrachten**: uitnodigingscodes maken (met een uitnodigingstekst om door te sturen), accounts blokkeren, rollen wijzigen, een herstelcode maken als iemand het wachtwoord vergat. En een **sleutel voor Claude** geven (zie hieronder).
 
 ## Feedback verwerken met Claude Code
 
-Wie feedback verwerkt, heeft geen account nodig. Een beheerder maakt bij *Beheer → Leerkrachten* een geheime **sleutel voor Claude**, met een naam (voor wie), en deelt die langs een veilige weg. Daarmee kan je de feedback ophalen (zonder namen), een status of interne notitie zetten en de leerkracht antwoorden als team. Accounts beheren, namen zien of feedback verwijderen kan er niet mee. Je ziet de sleutel één keer: bewaar hem in `~/.axiomath-sleutel`. Op de server staat alleen zijn hash. Antwoorden komen bij de leerkracht als antwoord van het team, met de naam van de sleutel. Intrekken kan in dezelfde tab.
+Wie feedback verwerkt, heeft geen account nodig. Een beheerder maakt bij *Beheer → Leerkrachten* een geheime **sleutel voor Claude**, met een naam (voor wie), en deelt die langs een veilige weg. Daarmee kan je de feedback en het logboek ophalen (zonder namen), een goedgekeurde opmerking op *verwerkt* zetten, een interne notitie zetten en de leerkracht antwoorden als team. **Goed- of afkeuren kan niet met een sleutel**: dat doet het team op de site. Accounts beheren, namen zien of feedback verwijderen kan er niet mee. Je ziet de sleutel één keer: bewaar hem in `~/.axiomath-sleutel`. Op de server staat alleen zijn hash. Antwoorden komen bij de leerkracht als antwoord van het team, met de naam van de sleutel. Intrekken kan in dezelfde tab.
 
 ```
-py -3.13 -P feedback.py haal Integralen        # naar feedback/open.md en open.json (in .gitignore)
+py -3.13 -P feedback.py haal Integralen        # de goedgekeurde opmerkingen, naar feedback/open.md en open.json (in .gitignore)
+py -3.13 -P feedback.py logboek Integralen     # wat er al beslist en verwerkt is, naar feedback/logboek.md
 py -3.13 -P feedback.py zet 12 verwerkt --antwoord "Aangepast, dank je!" --notitie "PR #57"
 ```
 
-In Claude Code doet de skill `feedback-verwerken` (`.claude/skills/`) dat voor je: `/feedback-verwerken Integralen`. Ze haalt de feedback op, zoekt elke opmerking in de bron, legt voor wat ze wil aanpassen en antwoorden, en zet pas daarna de status op de site.
+In Claude Code doet de skill `feedback-verwerken` (`.claude/skills/`) dat voor je: `/feedback-verwerken Integralen`. Ze haalt de goedgekeurde feedback en het logboek op, zoekt elke opmerking in de bron, legt voor wat ze wil aanpassen en antwoorden, en zet pas daarna de status op de site (alleen *verwerkt*).
 
 ## Werkwijze
 
@@ -53,7 +56,7 @@ Zelf kijken zonder uit te rollen: `py -3.13 -P test/test.py --open` start de ech
 
 ## Versies van de PDF's
 
-`maak.py` bewaart elke PDF als een vaste **versie** (`server/app/versies/<h>.pdf`, met `<h>.json` ernaast: pagina's, paginamaten, inhoudstafel). Een opmerking hoort bij de versie waarop ze gemaakt is, dus het kader staat altijd op de juiste plek, ook nadat het boek opnieuw gebouwd is. Leerkrachten lezen altijd de jongste versie (`laatste.json`). Online wordt een versie nooit overschreven of gewist.
+`maak.py` bewaart elke PDF als een vaste **versie** (`server/app/versies/<h>.pdf`, met `<h>.json` ernaast: pagina's, paginamaten, inhoudstafel). Een opmerking hoort bij de versie waarop ze gemaakt is, dus het kader staat altijd op de juiste plek, ook nadat het boek opnieuw gebouwd is. Leerkrachten lezen altijd de jongste versie (`laatste.json`). Online wordt een versie nooit overschreven. De hosting heeft maar 2000 MB en een nieuwe bouw van alle handboeken is zo'n 1 GB: wis daarom af en toe de oudere versies met `py -3.13 -P uitrol.py --opruimen --alleen` (eerst `--opruimen --droog` om te zien wat weg zou gaan). Dat wist online elke versie die niet de jongste van een editie is en geen feedback heeft; een versie met feedback blijft staan, want daar hangt het kader van de leerkracht aan. Het controleert dat met de sleutel voor Claude (`~/.axiomath-sleutel`) en wist niets zonder. Doe dit vóór een grote uitrol.
 
 ## Eerste keer online
 
