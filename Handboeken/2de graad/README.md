@@ -74,7 +74,7 @@ Een voorstel van hoofdstukken. Tussen haakjes de pakketten waarin een hoofdstuk 
 
 **Algebra/Stelsels.** 1 Grafisch oplossen: twee rechten. 2 Algebraïsch oplossen: substitutie en combinatie. 3 Vraagstukken.
 
-**Meetkunde/Gelijkvormigheid.** 1 Schaal: het effect op lengte, oppervlakte en volume. 2 Gelijkvormige driehoeken: de kenmerken en meetkundige problemen.
+**Meetkunde/Gelijkvormigheid.** 1 Schaal: het effect op lengte, oppervlakte en volume. 2 Gelijkvormige driehoeken: de kenmerken en meetkundige problemen. 3 Constructies (pakket 4 en 5, voor GO!): met passer en liniaal een lijnstuk verdelen, de vierde evenredige en de middelevenredige construeren, en construeren met een homothetie.
 
 **Meetkunde/Driehoeksmeting.** 1 De stelling van Pythagoras in het vlak en in de ruimte. 2 Sinus, cosinus en tangens in een rechthoekige driehoek, de grondformule, hoogtes en afstanden.
 

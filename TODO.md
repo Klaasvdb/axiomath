@@ -29,9 +29,9 @@ Alle 18 onderwerpen hebben een eerste versie sinds 17 nov 2026 (72 handboeken, P
 | 4 | Discrete wiskunde/Telproblemen | 1-5 | eerste versie **[Ingmar]** |
 | 4 | Discrete wiskunde/Grafen (keuze) | 4-5 (ook GO!-optiepakket) | eerste versie **[Ingmar]** |
 
-- **Voor GO!:** de homothetie staat sinds 17 nov 2026 in Gelijkvormigheid (hoofdstuk 1). Constructies met passer en liniaal ontbreken nog; `Handboeken/koepels.yaml` vermeldt voor GO! nog een aparte module "Homothetie en constructies". **[Ingmar]**
+- **Voor GO!:** de homothetie staat in Gelijkvormigheid (hoofdstuk 1, alle pakketten), de constructies met passer en liniaal sinds 18 nov 2026 in hoofdstuk 3 (pakket 4 en 5). Na te kijken: welke constructies GO! precies vraagt, en of KOV ze in pakket 4 of 5 vraagt.
 - **Afspraken tussen de handboeken van de 2de graad, na te kijken:** W/O (Logica, 2de graad) tegenover W/V (Logica en bewijzen, 3de graad); het bewijs dat √2 irrationaal is staat in pakket 5 zowel in Reële getallen als in Logica; kwartielen en standaardafwijking (Statistiek: mediaan van elke helft, delen door n); de rico heet m en een rechte ax + by = c (Functies, Stelsels, Analytische meetkunde).
-- **3de graad, Goniometrische functies:** de leerkrachtentip zegt dat leerlingen uit de 2de graad alleen de rechthoekige driehoek kennen. Wie pakket 4 of 5 volgde, kent nu de goniometrische cirkel in graden (Goniometrie, 2de graad). **[Ingmar]**
+- **3de graad, Goniometrische functies:** de leerkrachtentip over de voorkennis uit de 2de graad (goniometrische cirkel in graden voor pakket 4 en 5) is aangepast in PR #47.
 
 ### 3de graad: wat nog ontbreekt
 
