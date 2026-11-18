@@ -1,12 +1,24 @@
 %----------------------------------------------------------------------------------------
 % SOMFORMULES. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (kern, uitgewerkt voorbeeld, korte oefening), en daarna op een
+% Opbouw: Probleem, Start, leerstof (kern, uitgewerkt voorbeeld, korte oefening), en daarna op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{3}{Somformules}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een stad bouwt een openluchttheater, met rijen in een halve cirkel rond het podium. De eerste rij telt 20 plaatsen. Elke volgende rij ligt hoger en verder van het podium, en telt daardoor 5 plaatsen meer dan de rij ervoor. Het theater moet minstens 1000 plaatsen hebben. Hoeveel rijen zijn daarvoor nodig? {\small(Met plaatsen van 50 cm breed en rijen van 80 cm diep is 5 plaatsen meer per rij realistisch.)}}{\begin{tikzpicture}[font=\scriptsize]
+  \fill[accent!25] (0:.75) arc (0:180:.75) -- cycle;
+  \node at (0,.3) {podium};
+  \foreach \k in {0,...,5}{
+    \pgfmathsetmacro{\aantal}{20+5*\k}
+    \pgfmathsetmacro{\straal}{\aantal*.155/pi}
+    \foreach \j in {1,...,\aantal}{\fill[accent] ({180-(\j-.5)*180/\aantal}:\straal) circle (.6pt);}}
+  \node[grijs] at (0,2.75) {$\vdots$};
+\end{tikzpicture}}
+\end{probleem}
 
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 44, formule voor de som van de eerste $n$ termen, met samengestelde intrest als context. Twee bewijzen die leerlingen moeten kunnen volgen en navertellen: de som tweemaal schrijven, en $q \cdot s_n - s_n$. De rode draad in de opdrachten: eerst herkennen welke soort rij het is, dan het aantal termen bepalen, dan pas de formule gebruiken. Oneindige sommen komen niet in dit hoofdstuk: die vragen de limiet uit hoofdstuk 4.}
@@ -21,7 +33,7 @@
 \lkr{Leerplan Basis: LPD 16, formule voor de som van de eerste $n$ termen, met samengestelde intrest als context. Twee bewijzen die leerlingen moeten kunnen volgen en navertellen: de som tweemaal schrijven, en $q \cdot s_n - s_n$. De rode draad in de opdrachten: eerst herkennen welke soort rij het is, dan het aantal termen bepalen, dan pas de formule gebruiken. Oneindige sommen horen niet bij dit leerplan.}
 \end{alleenvoor}
 
-Hoeveel heb je gespaard als je elke week wat meer opzijlegt? Hoeveel stoelen staan er in een zaal waar elke rij twee stoelen meer telt dan de vorige? Telkens tel je de termen van een rij op. Met tien termen kan dat nog met de hand, maar met honderd of duizend termen niet meer. Voor rekenkundige en meetkundige rijen bestaat er gelukkig een formule voor die som. In dit hoofdstuk leer je die formules, en vooral waarom ze kloppen: elk berust op een slimme truc die je zelf kunt navertellen.
+Hoeveel heb je gespaard als je elke week wat meer opzijlegt? Hoeveel plaatsen telt een theater waar elke rij vijf plaatsen meer telt dan de vorige? Telkens tel je de termen van een rij op. Met tien termen kan dat nog met de hand, maar met honderd of duizend termen niet meer. Voor rekenkundige en meetkundige rijen bestaat er gelukkig een formule voor die som. In dit hoofdstuk leer je die formules, en vooral waarom ze kloppen: elk berust op een slimme truc die je zelf kunt navertellen. Met de eerste formule bereken je ook hoeveel rijen het theater uit het probleem nodig heeft.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -36,7 +48,7 @@ Hoeveel heb je gespaard als je elke week wat meer opzijlegt? Hoeveel stoelen sta
 
 \subsection{De somformule}
 
-In de verkenning schreef je de bedragen twee keer onder elkaar, de tweede keer in omgekeerde volgorde. Elke kolom gaf dan hetzelfde getal, en het gespaarde bedrag was de helft van alle kolommen samen. Die truc werkt bij elke rekenkundige rij. Eerst geven we de som een naam.
+Voor het theater uit het probleem kun je rij na rij optellen, $20 + 25 + 30 + \cdots$, tot je boven 1000 komt. Dat lukt, maar het is veel werk, en bij een groter theater wordt het nog erger. Er is een snellere weg. In de verkenning schreef je de bedragen twee keer onder elkaar, de tweede keer in omgekeerde volgorde. Elke kolom gaf dan hetzelfde getal, en het gespaarde bedrag was de helft van alle kolommen samen. Die truc werkt bij elke rekenkundige rij. Eerst geven we de som een naam.
 
 \begin{theorie}
 De \emph{som van de eerste $n$ termen} van een rij is
@@ -148,6 +160,28 @@ Is de som gegeven, schrijf dan $s_n$ met $n$ als onbekende. Dat geeft een vierka
 \begin{oefeningen}
 \oef{h3-k3}
 \end{oefeningen}
+
+\needspace{12.8cm}
+Ook in het probleem van het theater is de som gegeven, en zoeken we het aantal termen.
+
+\voorbeeld{}{Terug naar het probleem. De eerste rij van een theater telt 20 plaatsen, en elke volgende rij 5 meer. Hoeveel rijen zijn nodig voor minstens 1000 plaatsen?\label{vb:h3-terug}}{%
+\uitleg{De plaatsen per rij vormen een rekenkundige rij met $u_1 = 20$ en $v = 5$, en $n$ rijen tellen samen $s_n$ plaatsen. We lossen $s_n = 1000$ op. Is $n$ geen natuurlijk getal, dan nemen we het eerste aantal rijen dat volstaat.}
+\begin{stappen}
+u_n = 20 + (n-1) \cdot 5 = 5n + 15 & Het aantal plaatsen op rij $n$. \\[1ex]
+s_n = n \cdot \dfrac{20 + 5n + 15}{2} = \dfrac{n\,(5n + 35)}{2} & De somformule. \\[2ex]
+n^2 + 7n - 400 = 0 & We stellen $s_n = 1000$, vermenigvuldigen met 2 en delen door 5. \\
+n = \dfrac{-7 + \sqrt{1649}}{2} \approx 16{,}8 & De negatieve oplossing valt weg. Er is geen aantal rijen met precies 1000 plaatsen. \\[2ex]
+s_{16} = 920, \quad s_{17} = 1020 & Met 16 rijen is het te weinig, met 17 rijen volstaat het.
+\end{stappen}
+\naast{Het theater heeft dus 17 rijen nodig, met $5 \cdot 17 + 15 = 100$ plaatsen op de laatste rij. De figuur toont de sommen $s_n$: de lijn 1000 ligt tussen de punten van $n = 16$ en $n = 17$.}{\begin{tikzpicture}[x=.25cm,y=.0022cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=2,ystep=200] (0,0) grid (18.4,1200);
+  \draw[->,grijs] (0,0) -- (19.2,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,1280) node[above,text=black] {$s_n$};
+  \foreach \t in {4,8,12,16}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {200,600,1000}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,1000) -- (18.4,1000);
+  \foreach \x in {1,...,18}{\fill[accent] (\x,{\x*(5*\x+35)/2}) circle (1.4pt);}
+\end{tikzpicture}}}
 
 %========================================================================================
 \section{Som van een meetkundige rij}

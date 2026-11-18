@@ -1,18 +1,37 @@
 %----------------------------------------------------------------------------------------
 % VEELTERMFUNCTIES. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h1-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{1}{Veeltermfuncties}
 
+\begin{probleem}
+\naast{Een ontwerper beschrijft een stuk van een achtbaan, $100$ m lang, met de functie
+\[h(x) = 0{,}1\,(x^4 - 19x^3 + 118x^2 - 276x + 216) .\]
+Daarin is $x$ de horizontale afstand in tientallen meter, van $0$ tot $10$, en $h(x)$ de hoogte van de baan in meter. Het wagentje vertrekt op $21{,}6$ m hoogte en komt aan op $25{,}6$ m. Waar komt de baan tussendoor op grondhoogte? Scheert ze daar even over de grond, of duikt ze een tunnel in? En hoe ziet het hele profiel eruit?}{\begin{tikzpicture}[x=.48cm,y=.075cm,font=\scriptsize]
+  \fill[black!8] (-.4,-4) rectangle (10.4,0);
+  \draw[grijs,thick] (-.4,0) -- (10.4,0);
+  \draw[grijs] (0,0) -- (0,21.6) (10,0) -- (10,25.6);
+  \draw[accent,very thick] plot[domain=0:.3,samples=20,smooth] (\x,{0.1*(\x-2)^2*(\x-6)*(\x-9)});
+  \draw[accent,very thick] plot[domain=9.55:10,samples=20,smooth] (\x,{0.1*(\x-2)^2*(\x-6)*(\x-9)});
+  \vol{(0,21.6)} \vol{(10,25.6)}
+  \node[left] at (0,21.6) {$21{,}6$ m};
+  \node[right] at (10,25.6) {$25{,}6$ m};
+  \node[font=\Huge,text=accent] at (5,12) {?};
+  \node[below] at (0,-4) {$0$};
+  \node[below] at (10,-4) {$100$ m};
+  \node[below] at (5,-4) {grond};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{24-25}\alleenvoor{3}{18}\alleenvoor{2}{17}\alleenvoor{2,3}{ en K1} (rationale functies), met de veeltermfuncties als voorbereiding: delen, de reststelling, de factorstelling en het schema van Horner, ontbinden en de grafiek schetsen vanuit nulwaarden, multipliciteit en de hoogstegraadsterm. Eerste- en tweedegraadsfuncties kennen leerlingen uit de 2de graad.}
 
-Eerste- en tweedegraadsfuncties ken je al: rechten en parabolen. Een veeltermfunctie van hogere graad kan meer bochten maken. Om haar grafiek te schetsen heb je vooral haar nulwaarden nodig, en daarvoor moet je de veelterm ontbinden. Dat doe je door te delen.
+Eerste- en tweedegraadsfuncties ken je al: rechten en parabolen. De baan uit het probleem is een veeltermfunctie van graad 4, en die kan meer bochten maken. Waar de baan op grondhoogte komt, is $h(x) = 0$: je zoekt de nulwaarden. Bij graad 2 heb je daarvoor de discriminant, maar voor graad 4 ken je geen formule. Proberen lukt soms: $h(2) = 0{,}1 \cdot (16 - 152 + 472 - 552 + 216) = 0$, dus na $20$ m is de baan op grondhoogte. Maar zijn er nog zulke plaatsen? En wat doet de baan daar?
 
-Het hoofdstuk volgt die weg. Eerst leer je veeltermen delen, met een staartdeling en met het snelle schema van Horner. Daarna zie je waarom een nulwaarde en een factor hetzelfde zijn, en hoe je nulwaarden vindt. Op het einde schets je de grafiek met de nulwaarden, hun multipliciteit en de hoogstegraadsterm. In hoofdstuk 2 heb je dat allemaal nodig voor rationale functies.
+Het hoofdstuk volgt de weg naar het antwoord. Eerst leer je veeltermen delen, met een staartdeling en met het snelle schema van Horner. Daarna zie je waarom een nulwaarde en een factor hetzelfde zijn, en hoe je nulwaarden vindt. Op het einde schets je de grafiek met de nulwaarden, hun multipliciteit en de hoogstegraadsterm, en teken je het profiel van de achtbaan. In hoofdstuk 2 heb je dat allemaal nodig voor rationale functies.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -23,9 +42,13 @@ Het hoofdstuk volgt die weg. Eerst leer je veeltermen delen, met een staartdelin
 %========================================================================================
 \section{Veeltermen delen}
 
+Wat heb je aan de nulwaarde $2$ uit het probleem? Bij getallen ken je zo'n stap: wie $216$ in priemfactoren ontbindt, deelt eerst door $2$, schrijft $216 = 2 \cdot 108$ en zoekt verder in het kleinere getal $108$. Misschien werkt het bij veeltermen net zo. Als je
+\[x^4 - 19x^3 + 118x^2 - 276x + 216 = (x - 2) \cdot Q(x)\]
+kunt schrijven, met $Q(x)$ van graad 3, dan zoek je de andere nulwaarden bij $Q(x)$: een product is nul als een factor nul is. Maar hoe vind je $Q(x)$? Je moet de veelterm delen door $x - 2$. Daarvoor geef je eerst de onderdelen van een veelterm een naam.
+
 \subsection{Veeltermen en hun graad}
 
-Een veelterm is een som van termen $a x^k$, met een getal $a$ en een natuurlijke exponent $k$. Je hebt er al veel uitgewerkt en ontbonden. In dit hoofdstuk krijgen de onderdelen een vaste naam, want de stellingen spreken erover.
+Een veelterm is een som van termen $a x^k$, met een getal $a$ en een natuurlijke exponent $k$. Je hebt er al veel uitgewerkt en ontbonden. In dit hoofdstuk krijgen de onderdelen een vaste naam, want de stellingen spreken erover. Zo is $0{,}1x^4$ de hoogstegraadsterm van $h(x)$ uit het probleem.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{veeltermfunctie}} van \textbf{\textcolor{accent}{graad}} $n$ is
@@ -195,7 +218,7 @@ Bij een deler van graad 2 of meer werkt dit niet: de rest is dan geen getal maar
 %========================================================================================
 \section{Ontbinden en nulwaarden}
 
-Om de nulwaarden van een veelterm van graad 3 of meer te vinden, ontbind je hem in factoren: een product is nul als een factor nul is. Maar hoe vind je een factor? Het verband tussen factoren en nulwaarden is de sleutel.
+Om de nulwaarden van een veelterm van graad 3 of meer te vinden, ontbind je hem in factoren: een product is nul als een factor nul is. Maar hoe vind je een factor? En geeft een nulwaarde, zoals $2$ in het probleem, altijd een factor $x - 2$, of was dat geluk? Het verband tussen factoren en nulwaarden is de sleutel.
 
 \subsection{De factorstelling}
 
@@ -345,7 +368,7 @@ f(x) = -2(x + 1)^2(x - 2) &
 %========================================================================================
 \section{De grafiek van een veeltermfunctie}
 
-Met de nulwaarden weet je waar de grafiek de $x$-as ontmoet. Om haar te schetsen moet je nog weten wat ze daar doet (snijden of raken) en waar ze naartoe gaat aan de uiteinden.
+Met de nulwaarden weet je waar de grafiek de $x$-as ontmoet. Maar wat doet ze daar? Gaat ze door de as, zoals een baan die een tunnel in duikt, of raakt ze de as alleen even? En waar gaat de grafiek naartoe aan de uiteinden? Op die twee vragen antwoordt deze sectie.
 
 \subsection{Het gedrag aan de uiteinden}
 
@@ -515,6 +538,26 @@ Twee dubbele nulwaarden: de grafiek raakt de $x$-as twee keer en komt nooit onde
 \needspace{6\baselineskip}
 \oef{h1-schets2}
 \end{oefeningen}
+
+\needspace{30\baselineskip}
+Nu kun je het probleem van de achtbaan helemaal oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Een stuk achtbaan heeft het profiel $h(x) = 0{,}1\,(x^4 - 19x^3 + 118x^2 - 276x + 216)$, met $x \in [0, 10]$ in tientallen meter en $h(x)$ in meter. Waar komt de baan op grondhoogte? Scheert ze daar over de grond of duikt ze een tunnel in? Schets het profiel.\label{vb:h1-terug}}{%
+\uitleg{De factor $0{,}1$ verandert de nulwaarden en het teken niet. Ontbind dus $P(x) = x^4 - 19x^3 + 118x^2 - 276x + 216$. De kandidaten zijn de delers van $216$, en $P(2) = 0$ weet je al. Probeer $2$ opnieuw op het quotiënt.}
+\begin{stappenbreed}
+P(x) = (x - 2)(x^3 - 17x^2 + 84x - 108) & Horner met $a = 2$: rest $0$. \\
+= (x - 2)^2(x^2 - 15x + 54) & Nog eens Horner met $a = 2$: rest $0$. \\
+= (x - 2)^2(x - 6)(x - 9) & Som $15$, product $54$. \\
+2 \text{ dubbel};\quad 6 \text{ en } 9 \text{ enkel} & Raken in $2$, snijden in $6$ en $9$. \\
+\text{hoogstegraadsterm } 0{,}1x^4 & Rechts van $9$ is $h$ positief.
+\end{stappenbreed}
+\figuren{\raisebox{14mm}{\tekentabel{cccccccc}{x & & 2 & & 6 & & 9 & }{h(x) & + & 0 & + & 0 & - & 0 & +}}\qquad\quad
+\begin{tikzpicture}[x=.55cm,y=.1cm,font=\scriptsize]
+  \rooster{0}{1}{10}{-8}{4}{28}
+  \kromme{0}{10}{0.1*(\x-2)^2*(\x-6)*(\x-9)}
+  \vol{(2,0)} \vol{(6,0)} \vol{(9,0)}
+\end{tikzpicture}}
+Na $20$ m scheert de baan over de grond, ze klimt over een heuveltje en duikt van $60$ m tot $90$ m een tunnel in. Daarna klimt ze naar $h(10) = 25{,}6$ m. Hoe hoog de heuvel is en hoe diep de tunnel, lees je hier alleen af uit de grafiek: ongeveer $4$ m en $7$ m. Precies bereken je dat later met afgeleiden.}
 
 %========================================================================================
 \opdrachtenkop

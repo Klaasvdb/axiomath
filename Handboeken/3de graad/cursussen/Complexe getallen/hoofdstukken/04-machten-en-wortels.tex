@@ -8,14 +8,33 @@
 
 \mychapter{4}{Machten en wortels}
 
+\begin{probleem}
+\naast{Een tekenrobot rijdt over een groot vel papier en laat een spoor na. Hij herhaalt vijf keer dezelfde twee opdrachten: rijd 10 cm rechtdoor, en draai dan ter plaatse over een hoek $\alpha$ naar links. Met $\alpha = 72^\circ$ tekent hij een regelmatige vijfhoek, en komt hij terug op zijn startpunt. Met $\alpha = 100^\circ$ komt hij daar niet op terug.
+
+Voor welke hoeken $\alpha$ tussen $0^\circ$ en $360^\circ$ komt de robot na vijf keer terug op zijn startpunt? En welke figuren tekent hij dan?}{\begin{tikzpicture}[x=.15cm,y=.15cm,font=\scriptsize]
+  \draw[accent,thick] (0,0) -- ++(0:10) -- ++(72:10) -- ++(144:10) -- ++(216:10) -- ++(288:10);
+  \draw[hulplijn] (10,0) -- (15,0);
+  \draw[fel!80!black,thick] (13,0) arc[start angle=0,end angle=72,radius=3];
+  \node at (14,2.9) {$\alpha$};
+  \fill (0,0) circle (1.6pt) node[below,inner sep=2pt] {start};
+  \node at (5,-6.5) {$\alpha = 72^\circ$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=.15cm,y=.15cm,font=\scriptsize]
+  \draw[accent,thick,-{Stealth[length=1.6mm]}] (0,0) -- ++(0:10) -- ++(100:10) -- ++(200:10) -- ++(300:10) -- ++(400:10);
+  \fill (0,0) circle (1.6pt) node[below,inner sep=2pt] {start};
+  \node at (5,-6.5) {$\alpha = 100^\circ$};
+\end{tikzpicture}}
+\end{probleem}
+
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': het tweede deel van LPD 42 (machtsverheffing en $n$-de machtsworteltrekking in goniometrische vorm), met de formule van De Moivre en de wenk over de meetkundige betekenis: de $n$-de machtswortels vormen een regelmatige $n$-hoek, opeenvolgende machten liggen op een spiraal. Het bewijs van De Moivre is een herhaling van de productregel; een bewijs met volledige inductie kan in de cursus Logica en bewijzen.}
 \end{alleenvoor}
 \begin{alleenvoor}{3}
 \lkr{Leerplan B+S': het tweede deel van LPD 33 (machtsverheffing en $n$-de machtsworteltrekking in goniometrische vorm), met de formule van De Moivre en de wenk over de meetkundige betekenis: de $n$-de machtswortels vormen een regelmatige $n$-hoek, opeenvolgende machten liggen op een spiraal. Het bewijs van De Moivre is een herhaling van de productregel.}
 \end{alleenvoor}
+\lkr{Met een programmeeromgeving waarin een figuurtje tekent terwijl het rijdt en draait, kunnen leerlingen het probleem echt uitproberen. De oplossing staat in voorbeeld \ref{vb:h4-terug}.}
 
-Een hoge macht als $(1 + i\sqrt3)^6$ uitrekenen met het binomium is veel werk. In goniometrische vorm is het bijna niets: een macht is een product van gelijke factoren, dus je vermenigvuldigt de modulus een paar keer met zichzelf en telt het argument een paar keer op. Omgekeerd kun je zo ook wortels trekken. Dan blijkt dat elk complex getal $z \neq 0$ precies drie derdemachtswortels heeft, vier vierdemachtswortels, en zo verder, en dat ze altijd mooi regelmatig in het vlak liggen.
+Elke keer dat de robot draait, verandert zijn richting op dezelfde manier. In hoofdstuk 3 zag je dat een draaiing over $\alpha$ een vermenigvuldiging is met $\cos\alpha + i\sin\alpha$. Vijf draaiingen na elkaar zijn dus een vijfde macht. Zo'n macht uitrekenen in cartesische vorm, met het binomium, is veel werk. In goniometrische vorm is het bijna niets: een macht is een product van gelijke factoren, dus je vermenigvuldigt de modulus een paar keer met zichzelf en telt het argument een paar keer op. Omgekeerd kun je zo ook wortels trekken. Dan blijkt dat elk complex getal $z \neq 0$ precies drie derdemachtswortels heeft, vier vierdemachtswortels, en zo verder, en dat ze altijd mooi regelmatig in het vlak liggen. Dat verklaart op het einde de figuren van de robot.
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -29,6 +48,8 @@ Een hoge macht als $(1 + i\sqrt3)^6$ uitrekenen met het binomium is veel werk. I
 \section{De formule van De Moivre}
 
 \subsection{Machten in goniometrische vorm}
+
+Zet de robot in het vlak van Gauss, met als eenheid 1 cm. Hij start in 0, en zijn eerste stap is de pijl naar 10, langs de positieve reële as. De tweede stap is dezelfde pijl, gedraaid over $\alpha$: het getal $10w$, met $w = \cos\alpha + i\sin\alpha$. De derde stap is nog eens over $\alpha$ gedraaid, dus $10w^2$, en zo verder. Hoe ziet een macht als $w^k$ eruit?
 
 Neem je in de productregel twee keer hetzelfde getal $z = r(\cos\theta + i\sin\theta)$, dan vind je $z^2 = r^2(\cos 2\theta + i\sin 2\theta)$. Vermenigvuldig je nog eens met $z$, dan komt er weer een factor $r$ bij de modulus en een $\theta$ bij het argument. Zo gaat het voor elke exponent.
 
@@ -240,7 +261,7 @@ Voor $n = 2$ is er geen veelhoek: de twee vierkantswortels liggen tegenover elka
 
 \subsection{Eenheidswortels}
 
-De $n$-de machtswortels van 1 krijgen een eigen naam. Ze zijn bijzonder eenvoudig, want $1 = \cos 0 + i\sin 0$ heeft modulus 1 en argument 0.
+Na vijf draaiingen wijst de robot in de richting $w^5$. Staat hij dan weer in zijn beginrichting, dan is $w^5 = 1$. Welke getallen hebben vijfde macht 1? De $n$-de machtswortels van 1 krijgen een eigen naam. Ze zijn bijzonder eenvoudig, want $1 = \cos 0 + i\sin 0$ heeft modulus 1 en argument 0.
 
 \begin{theorie}
 De $n$-de machtswortels van 1 heten de \textbf{\textcolor{accent}{$n$-de eenheidswortels}}:
@@ -287,6 +308,28 @@ De acht punten vormen een regelmatige achthoek op de cirkel met straal 1.
 \begin{oefeningen}
 \oef{h4-eenheid}
 \end{oefeningen}
+
+Nu kun je het probleem van de robot oplossen. Er is één stap die geen macht is: de robot moet terug op zijn startpunt komen, en daarvoor tel je zijn vijf stappen op.
+
+\voorbeeld{}{Terug naar het probleem. Voor welke hoeken $\alpha$ in $[0^\circ, 360^\circ[$ komt de tekenrobot na vijf keer terug op zijn startpunt? Welke figuren tekent hij dan?\label{vb:h4-terug}}{%
+\uitleg{De eerste stap is de pijl van 0 naar 10, en elke volgende stap is de vorige, gedraaid over $\alpha$: maal $w = \cos\alpha + i\sin\alpha$. Het eindpunt $P$ is de som van de vijf stappen.}
+\begin{stappenvrij}{6.2cm}{8.6cm}
+P = 10 + 10w + 10w^2 + 10w^3 + 10w^4 & De stap na $k$ draaiingen is $10w^k = 10(\cos k\alpha + i\sin k\alpha)$. \\[1ex]
+(w - 1)(1 + w + w^2 + w^3 + w^4) = w^5 - 1 & Werk uit: alle tussenliggende termen vallen weg. \\[1ex]
+\alpha = 0^\circ\colon \quad w = 1, \quad P = 50 & De robot rijdt rechtdoor en komt niet terug. \\[1ex]
+w \neq 1\colon \quad P = \frac{10(w^5 - 1)}{w - 1} & Deel door $w - 1 \neq 0$. \\[3ex]
+P = 0 \iff w^5 = 1 & Een breuk is 0 als de teller 0 is. \\[1ex]
+\alpha = 72^\circ, \ 144^\circ, \ 216^\circ \ \text{of} \ 288^\circ & De vijfde eenheidswortels behalve 1: $k \cdot \frac{2\pi}{5}$ met $k = 1, 2, 3, 4$.
+\end{stappenvrij}
+\naast{\begin{minipage}{11.4cm}
+Bij $72^\circ$ tekent de robot de regelmatige vijfhoek. Bij $144^\circ$ wijst hij nog altijd in de richtingen van de vijf eenheidswortels, maar hij slaat er telkens één over: hij tekent een vijfpuntige ster. Bij $216^\circ = 360^\circ - 144^\circ$ en $288^\circ = 360^\circ - 72^\circ$ draait hij in feite naar rechts. Hij tekent dan dezelfde ster en dezelfde vijfhoek, gespiegeld ten opzichte van de reële as.
+\end{minipage}}{\begin{tikzpicture}[x=.2cm,y=.2cm,font=\scriptsize]
+  \draw[accent,thick] (0,0) -- ++(0:10) -- ++(144:10) -- ++(288:10) -- ++(432:10) -- ++(576:10);
+  \fill (0,0) circle (1.6pt) node[left,inner sep=2pt] {start};
+  \node at (5,-5.3) {$\alpha = 144^\circ$};
+\end{tikzpicture}}}
+
+In alle vier de gevallen staat de robot op het einde ook weer in zijn beginrichting, want $w^5 = 1$.
 
 %========================================================================================
 \opdrachtenkop

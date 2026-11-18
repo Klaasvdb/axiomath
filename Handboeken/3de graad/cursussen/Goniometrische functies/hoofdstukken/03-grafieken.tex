@@ -8,9 +8,28 @@
 
 \mychapter{3}{Goniometrische functies}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{18-23}\alleenvoor{3}{13-17}\alleenvoor{2}{13-16}\alleenvoor{1}{11-13 en K2} (goniometrische functies), het deel over de grafieken van $\sin$, $\cos$ en $\tan$, de algemene sinusfunctie en periodieke modellen. De transformaties komen uit Algemene functies; hier krijgen ze namen (amplitude, periode, evenwichtslijn, faseverschuiving). Zonder grafisch rekentoestel: laat leerlingen schetsen vanuit vijf punten per periode.}
+\begin{probleem}
+\naast{In Brussel duurt de langste dag van het jaar, 21 juni, ongeveer $16{,}5$~uur: zo lang staat de zon boven de horizon. De kortste dag, 21 december, duurt ongeveer $7{,}9$~uur.
 
-Eb en vloed, de lengte van de dag, de stand van een slinger, de spanning op het stopcontact: ze komen telkens terug, met een vast ritme. Zulke periodieke verschijnselen beschrijf je met de functies sinus en cosinus. In dit hoofdstuk teken je hun grafieken en pas je ze aan aan een situatie.
+Hoe lang duurt de dag op 1 mei? Kun je dat voorspellen met alleen deze twee getallen, en de wetenschap dat alles na een jaar opnieuw begint?}{\begin{tikzpicture}[x=.015cm,y=.2cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,6) grid[xstep=30.4167,ystep=2] (365,18);
+  \draw[->,grijs] (0,6) -- (385,6) node[right,text=black] {dag};
+  \draw[->,grijs] (0,6) -- (0,19.5) node[above,text=black] {uur};
+  \foreach \t in {100,200,300}{\node[below,inner sep=1.5pt] at (\t,6) {$\t$};}
+  \foreach \t in {8,12,16}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \fill[accent] (172,16.5) circle (2.2pt) node[above] {21 juni};
+  \fill[accent] (355,7.9) circle (2.2pt) node[above=2pt] {21 dec.};
+  \draw[accent,dashed] (121,6) -- (121,14.5);
+  \node[accent,font=\small] at (121,15.6) {?};
+  \node[left,inner sep=2pt,accent] at (121,9) {1 mei};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{18-23}\alleenvoor{3}{13-17}\alleenvoor{2}{13-16}\alleenvoor{1}{11-13 en K2} (goniometrische functies), het deel over de grafieken van $\sin$, $\cos$ en $\tan$, de algemene sinusfunctie en periodieke modellen. De transformaties komen uit Algemene functies; hier krijgen ze namen (amplitude, periode, evenwichtslijn, faseverschuiving). Zonder grafisch rekentoestel: laat leerlingen schetsen vanuit vijf punten per periode. De daglengtes in het probleem zijn afgerond (Brussel, tijd tussen zonsopgang en zonsondergang); laat leerlingen eerst een schatting maken, bijvoorbeeld met een rechte.}
+
+Een eerste idee is een rechte. Tussen 21 december (dag $-10$, als je terugtelt vanaf 1 januari) en 21 juni (dag $172$) wordt de dag $8{,}6$ uur langer, en 1 mei is dag $121$. Neemt de dag gelijkmatig toe, dan duurt hij op 1 mei $7{,}9 + 8{,}6 \cdot \frac{131}{182} \approx 14{,}1$ uur. Maar de dag groeit niet gelijkmatig: rond 21 juni verandert de daglengte haast niet, rond 21 maart bijna vier minuten per dag. Zo gedraagt ook de hoogte van een punt dat over een cirkel draait zich: bovenaan verandert ze traag, ter hoogte van het middelpunt snel.
+
+Eb en vloed, de lengte van de dag, de stand van een slinger, de spanning op het stopcontact: ze komen telkens terug, met een vast ritme. Zulke periodieke verschijnselen beschrijf je met de functies sinus en cosinus. In dit hoofdstuk teken je hun grafieken en pas je ze aan aan een situatie. Op het einde stellen we zo een model op voor de daglengte, en beantwoorden we de vraag van het probleem.
 
 We vertrekken van de eenheidscirkel uit hoofdstuk 1: elke eigenschap van de grafieken volgt uit het punt dat over die cirkel draait.
 
@@ -23,7 +42,7 @@ We vertrekken van de eenheidscirkel uit hoofdstuk 1: elke eigenschap van de graf
 %========================================================================================
 \section{Sinus, cosinus en tangens als functie}
 
-Laat de hoek $x$ (in radialen) doorlopen, en zet $\sin x$ uit als functiewaarde. Terwijl het punt over de eenheidscirkel draait, gaat zijn hoogte op en neer tussen $-1$ en $1$. Na elke volledige omwenteling begint alles opnieuw.
+Hoe verandert de hoogte van een punt dat over de eenheidscirkel draait, als functie van de hoek? Laat de hoek $x$ (in radialen) doorlopen, en zet $\sin x$ uit als functiewaarde. Terwijl het punt over de eenheidscirkel draait, gaat zijn hoogte op en neer tussen $-1$ en $1$. Na elke volledige omwenteling begint alles opnieuw.
 
 \figuren{%
 \begin{tikzpicture}[x=.62cm,y=.8cm,font=\scriptsize]
@@ -218,7 +237,7 @@ Waar de cosinus $0$ wordt, staat de rechte $OP$ verticaal. Nadert $x$ van links 
 %========================================================================================
 \section{De algemene sinusfunctie}
 
-Een getij, een daglengte of een trillende veer schommelt zelden tussen $-1$ en $1$, en heeft zelden periode $2\pi$. We passen de sinus daarom aan met vier getallen $a$, $b$, $c$ en $d$, in de \textbf{algemene sinusfunctie}
+De daglengte uit het probleem schommelt tussen $7{,}9$ en $16{,}5$ uur, met een periode van $365$ dagen, en heeft haar top op dag $172$. De sinus schommelt tussen $-1$ en $1$, met periode $2\pi$, en heeft haar top bij $\frac{\pi}{2}$. Hoe maak je van de sinus een functie die past bij de daglengte, of bij een getij of een trillende veer? We passen de sinus aan met vier getallen $a$, $b$, $c$ en $d$, in de \textbf{algemene sinusfunctie}
 \[f(x) = a\sin\bigl(b(x - c)\bigr) + d \qquad \text{met } a > 0 \text{ en } b > 0 .\]
 Elk getal heeft een eigen effect op de grafiek. Dat zijn de transformaties die je al kent: verticaal en horizontaal uitrekken, en verschuiven. We bekijken ze één voor één, en geven ze een naam.
 
@@ -498,28 +517,30 @@ Lees de grootste waarde $M$ en de kleinste waarde $m$ af. Dan is $d = \frac{M + 
 %========================================================================================
 \section{Periodieke verschijnselen}
 
-In een context ken je meestal de grootste en de kleinste waarde, en wanneer ze voorkomen. Daarmee stel je een sinusmodel op, net zoals een voorschrift uit een grafiek. Daarna bereken je met het model een waarde die je niet gemeten hebt.
+Hoe vind je een voorschrift voor een verschijnsel waarvan je maar een paar waarden kent, zoals de daglengte uit het probleem? In een context ken je meestal de grootste en de kleinste waarde, en wanneer ze voorkomen. Daarmee stel je een sinusmodel op, net zoals een voorschrift uit een grafiek. Daarna bereken je met het model een waarde die je niet gemeten hebt.
 
-\voorbeeld{}{In Brussel is de langste dag (21 juni, dag 172 van het jaar) ongeveer $16{,}4$ uur lang, de kortste (21 december, dag 355) ongeveer $8{,}1$ uur. Stel een model op voor de daglengte $L$ op dag $t$, en bereken de daglengte op 1 mei (dag 121).\label{vb:h3-model}}{%
+\voorbeeld{}{Terug naar het probleem. In Brussel is de langste dag (21 juni, dag 172 van het jaar) ongeveer $16{,}5$ uur lang, de kortste (21 december, dag 355) ongeveer $7{,}9$ uur. Stel een model op voor de daglengte $L$ op dag $t$, en bereken de daglengte op 1 mei (dag 121).\label{vb:h3-terug}}{%
 \uitleg{De periode is een jaar. We kennen de dag van de top, dus we nemen een cosinus met de top op dag 172.}
 \begin{stappenbreed}
-d = \tfrac{16{,}4 + 8{,}1}{2} = 12{,}25,\quad a = \tfrac{16{,}4 - 8{,}1}{2} = 4{,}15 & Evenwicht en amplitude, in uur. \\[1ex]
+d = \tfrac{16{,}5 + 7{,}9}{2} = 12{,}2,\quad a = \tfrac{16{,}5 - 7{,}9}{2} = 4{,}3 & Evenwicht en amplitude, in uur. \\[1ex]
 b = \tfrac{2\pi}{365} & Periode 365 dagen. \\[1ex]
-L(t) = 4{,}15\cos\bigl(\tfrac{2\pi}{365}(t - 172)\bigr) + 12{,}25 & Top op dag 172. \\[1ex]
-L(121) = 4{,}15\cos\bigl(\tfrac{2\pi}{365} \cdot (-51)\bigr) + 12{,}25 \approx 14{,}9 & Ongeveer 14 uur 54 minuten.
+L(t) = 4{,}3\cos\bigl(\tfrac{2\pi}{365}(t - 172)\bigr) + 12{,}2 & Top op dag 172. \\[1ex]
+L(121) = 4{,}3\cos\bigl(\tfrac{2\pi}{365} \cdot (-51)\bigr) + 12{,}2 \approx 14{,}9 & Ongeveer 14 uur 57 minuten.
 \end{stappenbreed}
-\figuren{\begin{tikzpicture}[x=.03cm,y=.22cm,font=\scriptsize]
-  \draw[black!14,very thin] (0,8) grid[xstep=30.4167,ystep=2] (365,16);
-  \draw[->,grijs] (0,8) -- (380,8) node[right,text=black] {$t$};
-  \draw[->,grijs] (0,8) -- (0,17.5) node[above,text=black] {$L$};
-  \foreach \t in {100,200,300}{\node[below,inner sep=1.5pt] at (\t,8) {$\t$};}
+\figuren{\begin{tikzpicture}[x=.03cm,y=.2cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,6) grid[xstep=30.4167,ystep=2] (365,18);
+  \draw[->,grijs] (0,6) -- (380,6) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,6) -- (0,19.5) node[above,text=black] {$L$};
+  \foreach \t in {100,200,300}{\node[below,inner sep=1.5pt] at (\t,6) {$\t$};}
   \foreach \t in {8,12,16}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
-  \draw[grijs,dashed] (0,12.25) -- (365,12.25);
-  \draw[accent,thick] plot[domain=0:365,samples=100,smooth] (\x,{4.15*cos(2*pi/365*(\x-172) r)+12.25});
-  \fill[accent] (172,16.4) circle (2.2pt); \fill[accent] (355,8.1) circle (2.2pt);
-  \fill[accent] (121,14.9) circle (2.2pt) node[above left] {$(121;\ 14{,}9)$};
+  \draw[grijs,dashed] (0,12.2) -- (365,12.2);
+  \draw[lijngrijs,dashed] (0,8.37) -- (172,16.5) -- (355,7.9);
+  \draw[accent,thick] plot[domain=0:365,samples=100,smooth] (\x,{4.3*cos(2*pi/365*(\x-172) r)+12.2});
+  \fill[accent] (172,16.5) circle (2.2pt); \fill[accent] (355,7.9) circle (2.2pt);
+  \fill[accent] (121,14.95) circle (2.2pt) node[above left] {$(121;\ 14{,}9)$};
+  \fill[lijngrijs] (121,14.09) circle (2pt);
 \end{tikzpicture}}
-Het model is een benadering: de echte daglengte volgt niet precies een sinus, en wijkt enkele minuten af. Het dal valt in het model op dag $172 + 182{,}5 = 354{,}5$, een halve dag vóór 21 december.}
+De grijze stippellijn is de rechte uit het begin van het hoofdstuk: ze geeft $14{,}1$ uur. In werkelijkheid duurt de dag op 1 mei ongeveer 14 uur 43 minuten. Het sinusmodel zit er een kwartier naast, de rechte bijna 40 minuten. Het model is dus een benadering: de echte daglengte volgt niet precies een sinus. Het dal valt in het model op dag $172 + 182{,}5 = 354{,}5$, een halve dag vóór 21 december.}
 
 \begin{werkwijze}
 Bepaal uit de context de grootste en de kleinste waarde, en de periode. Bereken $d$, $a$ en $b$. Kies een cosinus met $c$ op het tijdstip van de top, of een sinus met $c$ op een stijgend evenwichtspunt. Zeg in de context wat de eenheden zijn, en controleer het model met een gegeven waarde.
@@ -657,7 +678,7 @@ Bepaal uit de context de grootste en de kleinste waarde, en de periode. Bereken 
   \fv{oef:h3-t7}{vb:h3-schets}{oef:h3-schets}%
   \fv{oef:h3-t3}{vb:h3-voorschrift}{oef:h3-sinusfunctie}%
   \fv{oef:h3-t6}{vb:h3-voorschrift}{oef:h3-voorschrift-grafiek}%
-  \fv{oef:h3-t4}{vb:h3-model}{oef:h3-model-2}}
+  \fv{oef:h3-t4}{vb:h3-terug}{oef:h3-model-2}}
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}

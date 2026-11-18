@@ -8,11 +8,28 @@
 
 \mychapter{4}{Goniometrische vergelijkingen}
 
+\begin{probleem}
+\naast{In een haven is het hoogwater om 2 uur 's nachts, met $4{,}8$~m water. Het volgende laagwater is om 8.15 uur, met $0{,}4$~m. Een vrachtschip heeft minstens $3$~m water nodig.
+
+Tussen welke uren kan het schip vandaag, tussen middernacht en 18 uur, de haven binnenvaren? Op de grafiek zie je ongeveer wanneer. Maar hoe vind je de juiste tijdstippen?}{\begin{tikzpicture}[x=.3cm,y=.42cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=2,ystep=1] (18,5);
+  \draw[->,grijs] (0,0) -- (18.8,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,5.7) node[above,text=black] {$h$};
+  \foreach \t in {2,6,10,14,18}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {1,3,5}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,thick] (0,3) -- (18,3);
+  \draw[accent,thick] plot[domain=0:18,samples=120,smooth] (\x,{2.2*cos(2*pi/12.5*(\x-2) r)+2.6});
+  \foreach \p in {4.76,11.74,17.26}{\node[accent] at (\p,3.6) {?};}
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{18-23}\alleenvoor{3}{13-17}\alleenvoor{2}{13-16}\alleenvoor{1}{11-13 en K2} (goniometrische functies), het deel over de cyclometrische functies en goniometrische vergelijkingen. De algemene oplossing met $k \in \Z$ is voor veel leerlingen abstract: laat ze telkens ook de oplossingen in een interval opschrijven, en controleren op de eenheidscirkel. Het rekentoestel geeft maar één oplossing; de tweede vinden ze met de verwante hoeken.}
 
-Wanneer is het water in de haven diep genoeg? Wanneer is de gondel hoger dan 100 m? Zulke vragen leiden tot een vergelijking waarin de onbekende in een sinus of cosinus staat. Omdat de functies periodiek zijn, hebben zulke vergelijkingen meestal oneindig veel oplossingen.
+Met hoofdstuk 3 stel je een model op voor de waterhoogte: $h(t) = 2{,}2\cos\bigl(\frac{2\pi}{12{,}5}(t - 2)\bigr) + 2{,}6$, in meter, met $t$ in uur na middernacht. De grafiek toont dat het water telkens rond het hoogwater boven $3$~m staat. Maar wanneer precies? Daarvoor moet je $h(t) = 3$ oplossen: een vergelijking waarin de onbekende in een cosinus staat. Proberen met een paar waarden van $t$ geeft alleen benaderingen, en omdat het getij steeds terugkomt, zijn er veel oplossingen.
 
-We gaan in drie stappen te werk. Eerst zoeken we bij een gegeven sinus, cosinus of tangens één hoek: dat doen de cyclometrische functies. Dan vinden we met de eenheidscirkel alle oplossingen. Ten slotte herleiden we moeilijkere vergelijkingen tot zulke eenvoudige.
+Zulke vragen komen vaak voor. Wanneer is de gondel hoger dan 100~m? Op welke dagen duurt de dag langer dan 14 uur? Ze leiden tot een vergelijking waarin de onbekende in een sinus of cosinus staat. Omdat de functies periodiek zijn, hebben zulke vergelijkingen meestal oneindig veel oplossingen.
+
+We gaan in drie stappen te werk. Eerst zoeken we bij een gegeven sinus, cosinus of tangens één hoek: dat doen de cyclometrische functies. Dan vinden we met de eenheidscirkel alle oplossingen. Ten slotte herleiden we moeilijkere vergelijkingen tot zulke eenvoudige. Op het einde rekenen we uit wanneer het schip kan binnenvaren.
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -23,7 +40,7 @@ We gaan in drie stappen te werk. Eerst zoeken we bij een gegeven sinus, cosinus 
 %========================================================================================
 \section{Cyclometrische functies}
 
-De sinus is niet injectief: $\sin\frac{\pi}{6} = \sin\frac{5\pi}{6}$, en ook $\sin\frac{13\pi}{6}$ is $\frac12$. Een functie die niet injectief is, heeft geen inverse. Beperk je het domein tot een stuk waarop de functie elke waarde maar één keer aanneemt, dan heeft ze daar wel een inverse. Haar grafiek is het spiegelbeeld om de rechte $y = x$. Zo krijgen we drie nieuwe functies: de cyclometrische functies.
+Om $h(t) = 3$ op te lossen, zoek je een hoek waarvan de cosinus $\frac{0{,}4}{2{,}2} \approx 0{,}18$ is. Welke hoek is dat? Er zijn er oneindig veel, want de cosinus is niet injectief. Voor de sinus geldt hetzelfde: $\sin\frac{\pi}{6} = \sin\frac{5\pi}{6}$, en ook $\sin\frac{13\pi}{6}$ is $\frac12$. Een functie die niet injectief is, heeft geen inverse. Beperk je het domein tot een stuk waarop de functie elke waarde maar één keer aanneemt, dan heeft ze daar wel een inverse. Haar grafiek is het spiegelbeeld om de rechte $y = x$. Zo krijgen we drie nieuwe functies: de cyclometrische functies.
 
 \subsection{Boogsinus}
 
@@ -146,7 +163,7 @@ Bij het spiegelen om $y = x$ worden de verticale asymptoten van de tangens horiz
 %========================================================================================
 \section{Elementaire vergelijkingen}
 
-Een \textbf{elementaire vergelijking} is van de vorm $\sin x = a$, $\cos x = a$ of $\tan x = a$, met $a \in \R$ een constante. Een cyclometrische functie geeft één oplossing. De eenheidscirkel toont waar de andere liggen.
+Het rekentoestel geeft bij een cosinus één hoek. Maar het water gaat twee keer per getij door $3$~m, en elke dag opnieuw. Hoe vind je de andere oplossingen? Een \textbf{elementaire vergelijking} is van de vorm $\sin x = a$, $\cos x = a$ of $\tan x = a$, met $a \in \R$ een constante. Een cyclometrische functie geeft één oplossing. De eenheidscirkel toont waar de andere liggen.
 
 \subsection{De vergelijking $\sin x = a$}
 
@@ -397,10 +414,10 @@ Kijk eerst welke functies er staan. Eén functie, eventueel in het kwadraat: sub
 %========================================================================================
 \section{Vergelijkingen in een context}
 
-In een context vraag je vaak niet wanneer een grootheid een waarde \textit{is}, maar wanneer ze boven of onder die waarde ligt. Dan los je eerst de vergelijking op, en lees je daarna op de grafiek af waar de functie boven of onder de rechte ligt.
+Nu kunnen we het probleem oplossen. Voor het schip telt niet wanneer het water $3$~m \textit{is}, maar wanneer het minstens $3$~m is. Zo vraag je in een context vaak niet wanneer een grootheid een waarde is, maar wanneer ze boven of onder die waarde ligt. Dan los je eerst de vergelijking op, en lees je daarna op de grafiek af waar de functie boven of onder de rechte ligt.
 
-\voorbeeld{}{In de haven uit hoofdstuk 3 is de waterhoogte $h(t) = 2{,}2\cos\bigl(\frac{2\pi}{12{,}5}(t - 2)\bigr) + 2{,}6$ (in m, $t$ in uur na middernacht). Een schip heeft minstens $3$ m water nodig. Wanneer kan het tussen middernacht en 18 uur binnenvaren?\label{vb:h4-context}}{%
-\uitleg{Los eerst de vergelijking $h(t) = 3$ op. Rond de top (om 2 uur) is het water hoger dan $3$ m; de grenzen liggen symmetrisch rond die top.}
+\voorbeeld{}{Terug naar het probleem. In de haven is het hoogwater om 2 uur ($4{,}8$~m) en het volgende laagwater om 8.15 uur ($0{,}4$~m). Een schip heeft minstens $3$~m water nodig. Wanneer kan het tussen middernacht en 18 uur binnenvaren?\label{vb:h4-terug}}{%
+\uitleg{Zoals in hoofdstuk 3 is de waterhoogte $h(t) = 2{,}2\cos\bigl(\frac{2\pi}{12{,}5}(t - 2)\bigr) + 2{,}6$, in m, met $t$ in uur na middernacht. Los eerst de vergelijking $h(t) = 3$ op. Rond de top (om 2 uur) is het water hoger dan $3$ m; de grenzen liggen symmetrisch rond die top.}
 \begin{stappenbreed}
 \cos\bigl(\tfrac{2\pi}{12{,}5}(t - 2)\bigr) = \tfrac{0{,}4}{2{,}2} \approx 0{,}1818 & Min $2{,}6$, en delen door $2{,}2$. \\[1ex]
 \tfrac{2\pi}{12{,}5}(t - 2) = \pm 1{,}388 & $\bgcos 0{,}1818 \approx 1{,}388$, met $k = 0$. \\[1ex]
@@ -567,7 +584,7 @@ Vervang het ongelijkheidsteken door een gelijkheidsteken en los die vergelijking
   \fv{oef:h4-t4}{vb:h4-ontbinden}{oef:h4-ontbind}%
   \fv{oef:h4-t6}{vb:h4-grondformule}{oef:h4-kwadr}%
   \fv{oef:h4-t7}{vb:h4-samenvoegen}{oef:h4-samen}%
-  \fv{oef:h4-t5}{vb:h4-context}{oef:h4-context}}
+  \fv{oef:h4-t5}{vb:h4-terug}{oef:h4-context}}
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}

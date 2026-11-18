@@ -1,16 +1,20 @@
 %----------------------------------------------------------------------------------------
 % LIMIET VAN EEN RIJ. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (kern, uitgewerkt voorbeeld, korte oefening), en daarna op een
+% Opbouw: Probleem, Start, leerstof (kern, uitgewerkt voorbeeld, korte oefening), en daarna op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h4-. \minigrafiek staat in hoofdstuk 1.
 %----------------------------------------------------------------------------------------
 
 ﻿\mychapter{4}{Limiet van een rij}
 
+\begin{probleem}
+In een zwembad verdwijnt elke nacht 20\,\% van het chloor, en elke ochtend voegt de beheerder 50 g toe. Vandaag zit er na het toevoegen 400 g in het water. De dagen daarna geeft dat 370 g, 346 g, 326,8 g, \ldots\ Zakt de hoeveelheid zo tot 0, of komt ze ergens tot rust? De beheerder wil dat er op de lange duur 300 g in het water zit. Hoeveel moet hij dan elke ochtend toevoegen? En na hoeveel dagen scheelt het minder dan 5 g met die 300 g?
+\end{probleem}
+
 \lkr{Leerplan B+S'': LPD 45 (formele definitie, met kwantoren, toegepast op een concreet voorbeeld) en LPD 46 (limieten bepalen, convergentie, rekenregels, insluitstelling). De meetkundige reeks is een suggestie bij LPD 44 en staat hier omdat ze de limiet nodig heeft. Voorkennis: limieten van functies op oneindig. Rode draad: je kunt de limiet op drie manieren vinden, uit de grafiek, met rekenregels en uit een vergelijking, maar elke manier heeft haar voorwaarden.}
 
-Een rij gaat altijd verder: na elke term komt er nog een. De vraag is dus niet wat de laatste term is, maar wat er op de lange duur gebeurt. Komen de termen steeds dichter bij een bepaald getal? Groeien ze onbegrensd? Of blijven ze schommelen? Je kent die vraag al van functies, waar je de limiet voor $x \to +\infty$ bepaalde. In dit hoofdstuk stel je ze voor rijen, en maak je eindelijk precies wat \textit{naderen} betekent. Daarmee kun je ook iets dat op het eerste gezicht onmogelijk lijkt: oneindig veel getallen optellen.
+Een rij gaat altijd verder: na elke term komt er nog een. De vraag is dus niet wat de laatste term is, maar wat er op de lange duur gebeurt, zoals met het chloor in het zwembad uit het probleem. Komen de termen steeds dichter bij een bepaald getal? Groeien ze onbegrensd? Of blijven ze schommelen? Je kent die vraag al van functies, waar je de limiet voor $x \to +\infty$ bepaalde. In dit hoofdstuk stel je ze voor rijen, en maak je eindelijk precies wat \textit{naderen} betekent. In de sectie over dynamische processen los je daarmee het probleem van het zwembad op. Daarmee kun je ook iets dat op het eerste gezicht onmogelijk lijkt: oneindig veel getallen optellen.
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -25,7 +29,7 @@ Een rij gaat altijd verder: na elke term komt er nog een. De vraag is dus niet w
 
 \subsection{De begrippen}
 
-In de verkenning kwamen de termen steeds dichter bij een getal, en bleven ze er ook dicht bij. Zo'n getal heet de limiet van de rij. Niet elke rij heeft er een.
+In de verkenning kwamen de termen steeds dichter bij een getal, en bleven ze er ook dicht bij. Bij het zwembad uit het probleem lijkt het net zo: de hoeveelheid chloor daalt, maar steeds minder snel. Zo'n getal heet de limiet van de rij. Niet elke rij heeft er een.
 
 \begin{theorie}
 Een rij is \emph{convergent} als de termen willekeurig dicht bij een reëel getal $L$ komen en daar blijven. $L$ is de \emph{limiet} van de rij: \ $\formule{\displaystyle\lim_{n\to+\infty} u_n = L}$. Een rij die niet convergeert, is \emph{divergent}.
@@ -95,7 +99,7 @@ Een rekenkundige rij is $u_n = v\,n + (u_1 - v)$: de limiet van een eerstegraads
 %========================================================================================
 \section{De formele definitie}
 
-`Willekeurig dicht' klinkt duidelijk, maar wat betekent het precies? Hoe dicht is dicht genoeg? Wiskundigen hebben daar in de 19de eeuw een nauwkeurige definitie voor gevonden. Kies een band rond $L$, zo smal als je wilt, met breedte $\varepsilon$ (de Griekse letter epsilon) boven en onder $L$. Dan moeten vanaf een bepaald volgnummer $N$ alle termen in die band liggen. Kies je de band smaller, dan mag die $N$ groter worden, maar er moet er altijd een zijn.
+`Willekeurig dicht' klinkt duidelijk, maar wat betekent het precies? Hoe dicht is dicht genoeg? Wiskundigen hebben daar in de 19de eeuw een nauwkeurige definitie voor gevonden. Kies een band rond $L$, zo smal als je wilt, met breedte $\varepsilon$ (de Griekse letter epsilon) boven en onder $L$. Dan moeten vanaf een bepaald volgnummer $N$ alle termen in die band liggen. Kies je de band smaller, dan mag die $N$ groter worden, maar er moet er altijd een zijn. In het probleem van het zwembad is $\varepsilon$ gelijk aan 5 g.
 
 \begin{theorie}
 \begin{minipage}[t]{.57\linewidth}
@@ -332,6 +336,29 @@ De vergelijking $L = aL + b$ veronderstelt dat de limiet bestaat. Is $|a| \geqsl
 \begin{oefeningen}
 \oef{h4-k7}
 \end{oefeningen}
+
+\needspace{24\baselineskip}
+Nu kunnen we het probleem van het zwembad oplossen. Met 50 g per ochtend daalt de hoeveelheid niet tot 0, maar nadert ze 250 g (voorbeeld \ref{vb:h4-dyn}). De beheerder moet dus meer toevoegen.
+
+\voorbeeld{}{Terug naar het probleem. Elke nacht verdwijnt 20\,\% van het chloor, en elke ochtend komt er $b$ gram bij. Na het toevoegen zit er vandaag 400 g in het water. Bepaal $b$ zodat de hoeveelheid op de lange duur 300 g nadert. Na hoeveel dagen scheelt het minder dan 5 g met 300 g?\label{vb:h4-terug}}{%
+\uitleg{De hoeveelheid na $n$ dagen is $u_n = 0{,}8\,u_{n-1} + b$ met $u_0 = 400$. Omdat $|0{,}8| < 1$, heeft de rij een limiet, en die moet 300 zijn. Daarna zoeken we met de hulprij een expliciet voorschrift, en lossen we $|u_n - 300| < 5$ op.}
+\begin{stappen}
+300 = 0{,}8 \cdot 300 + b \ \Rightarrow \ b = 60 & De limiet voldoet aan $L = aL + b$. De beheerder moet elke ochtend 60 g toevoegen. \\
+u_n = 300 + 100 \cdot 0{,}8^{\,n} & De hulprij $v_n = u_n - 300$ is meetkundig met $q = 0{,}8$ en $v_0 = 100$. \\
+100 \cdot 0{,}8^{\,n} < 5 & Omdat $0{,}8^{\,n} > 0$, is $|u_n - 300| = 100 \cdot 0{,}8^{\,n}$. \\
+n > \log_{0{,}8} 0{,}05 \approx 13{,}4 & We delen door 100. Het teken keert om, want het grondtal is kleiner dan 1.
+\end{stappen}
+\naast{Vanaf dag 14 zit de hoeveelheid dus in de band van 295 g tot 305 g: $u_{13} \approx 305{,}5$ en $u_{14} \approx 304{,}4$. In de taal van de definitie is $N = 13$ bij $\varepsilon = 5$. Precies 300 g wordt het nooit, want $100 \cdot 0{,}8^{\,n}$ is nooit 0. Wel komt de hoeveelheid er willekeurig dicht bij: dat zegt de limiet.}{\begin{tikzpicture}[x=.3cm,y=.026cm,font=\scriptsize]
+  \fill[accent!18] (0,295) rectangle (16.4,305);
+  \draw[black!14,very thin,xstep=2,ystep=20] (0,280) grid (16.4,400);
+  \draw[->,grijs] (0,280) -- (17.2,280) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,280) -- (0,412) node[above,text=black] {$u_n$};
+  \foreach \t in {4,8,12,16}{\node[below,inner sep=1.5pt] at (\t,280) {$\t$};}
+  \foreach \t in {300,340,380}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,300) -- (16.4,300);
+  \draw[grijs,dashed] (13,280) -- (13,350) node[above,text=black,inner sep=1pt] {$N = 13$};
+  \foreach \x in {0,...,16}{\fill[accent] (\x,{300+100*0.8^\x}) circle (1.5pt);}
+\end{tikzpicture}}}
 
 %========================================================================================
 \section{De meetkundige reeks}

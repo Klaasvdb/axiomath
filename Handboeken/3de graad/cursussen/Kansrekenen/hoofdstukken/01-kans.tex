@@ -1,12 +1,22 @@
 %----------------------------------------------------------------------------------------
 % KANS. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h1-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{1}{Kans}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Rond 1650 speelde de Franse edelman Antoine Gombaud, beter bekend als de chevalier de Méré, graag dobbelspelletjes om geld. Hij wedde, telkens om evenveel geld als zijn tegenspeler, dat hij in 4 worpen met één dobbelsteen minstens één zes zou gooien. Daarna bedacht hij een tweede weddenschap: minstens één dubbele zes in 24 worpen met twee dobbelstenen. Hij redeneerde zo: een zes heeft 1 kans op 6, dus in 4 worpen $4 \cdot \frac16 = \frac23$; een dubbele zes heeft 1 kans op 36, dus in 24 worpen $24 \cdot \frac{1}{36} = \frac23$. Beide weddenschappen zijn dus even gunstig. Klopt dat? Hoe groot is de kans dat hij de tweede weddenschap wint?}{\begin{tikzpicture}[font=\scriptsize,scale=1.15]
+  \foreach \x/\y in {0/0,1.25/0,1.25+.9/0}{
+    \draw[thick,rounded corners=2pt,fill=white] (\x,\y) rectangle ++(.8,.8);
+    \foreach \a in {.22,.58}{\foreach \b in {.18,.4,.62}{\fill (\x+\a,\y+\b) circle (1.5pt);}}}
+  \node[below] at (.4,-.05) {4 worpen};
+  \node[below] at (2.1,-.05) {24 worpen};
+\end{tikzpicture}}
+\end{probleem}
 
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 48 (kansen met kruistabellen, boomdiagrammen en de wet van Laplace), met het verband tussen relatieve frequentie en kans en de terminologie uitkomst, gebeurtenis en uitkomstenverzameling. Dit hoofdstuk legt de basis: Laplace, de wet van de grote aantallen en de rekenregels. Kruistabellen en boomdiagrammen volgen in hoofdstuk 2. Telproblemen (zelfde jaar) helpt bij het tellen van gunstige uitkomsten; waar die cursus nodig is, staat dat erbij.}
@@ -21,7 +31,7 @@
 \lkr{Leerplan Basis: LPD 17 (kansen met kruistabellen, boomdiagrammen en de wet van Laplace), met het verband tussen relatieve frequentie en kans en de terminologie uitkomst, gebeurtenis en uitkomstenverzameling. Dit hoofdstuk legt de basis: Laplace, de wet van de grote aantallen en de rekenregels. Kruistabellen en boomdiagrammen volgen in hoofdstuk 2. Dit pakket heeft geen aparte cursus Telproblemen: waar combinaties ($\binom{n}{k}$) nodig zijn, gebruiken leerlingen het rekentoestel. Kijk na of het leerplan van dit pakket meer telwerk vraagt.}
 \end{alleenvoor}
 
-Gooi je met een dobbelsteen, dan weet je niet welk getal er komt. Toch is er orde in het toeval: gooi je heel vaak, dan komt elk getal ongeveer even vaak. Kansrekenen maakt die orde precies. Je gebruikt het om een spel te ontwerpen, een risico te schatten of een medische test te beoordelen. In dit hoofdstuk leer je wat een kans is, hoe je ze berekent als alle uitkomsten even waarschijnlijk zijn, en welke rekenregels altijd gelden.
+De vraag van de Méré is beroemd: hij legde ze in 1654 voor aan Blaise Pascal, die erover schreef met Pierre de Fermat. Uit die briefwisseling groeide de kansrekening. Gooi je met een dobbelsteen, dan weet je niet welk getal er komt. Toch is er orde in het toeval: gooi je heel vaak, dan komt elk getal ongeveer even vaak. Kansrekenen maakt die orde precies. Je gebruikt het om een spel te beoordelen, een risico te schatten of een medische test te begrijpen. In dit hoofdstuk leer je wat een kans is, hoe je ze berekent als alle uitkomsten even waarschijnlijk zijn, en welke rekenregels altijd gelden. Met die regels zie je ook wat er mis is met de redenering van de Méré.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -36,7 +46,9 @@ Gooi je met een dobbelsteen, dan weet je niet welk getal er komt. Toch is er ord
 
 \subsection{Uitkomstenverzameling en gebeurtenis}
 
-Een \textbf{kansexperiment} is een experiment waarvan je de uitkomst niet op voorhand kent, zoals een worp met een dobbelsteen of een trekking uit een vaas. Om erover te rekenen, schrijf je eerst op wat er allemaal kan gebeuren. Daarna beschrijf je wat je wilt weten, zoals \textit{een even getal gooien}, als een deel daarvan.
+Wat kan er allemaal gebeuren bij de eerste weddenschap van de Méré? Elke worp geeft een getal van 1 tot 6, dus een uitkomst is een rijtje van vier getallen, zoals $(3, 6, 1, 1)$. De Méré wint als het rijtje minstens één zes bevat. Om een kans te berekenen, heb je dus twee dingen nodig: alle mogelijke rijtjes, en het deel ervan waarbij hij wint.
+
+Zo werk je bij elk \textbf{kansexperiment}: een experiment waarvan je de uitkomst niet op voorhand kent, zoals een worp met een dobbelsteen of een trekking uit een vaas. Je schrijft eerst op wat er allemaal kan gebeuren. Daarna beschrijf je wat je wilt weten, zoals \textit{een even getal gooien} of \textit{minstens één zes}, als een deel daarvan.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{uitkomstenverzameling}} $\formule{\Omega}$ van een kansexperiment is de verzameling van alle mogelijke uitkomsten. Een \textbf{\textcolor{accent}{gebeurtenis}} is een deelverzameling $\formule{A \subseteq \Omega}$.
@@ -307,6 +319,8 @@ P(\text{minstens één kop}) = \frac78 & Alleen $MMM$ bevat geen kop.
 \end{stappenbreed}
 Sara telt een rijtje als $KKM$ meerdere keren: één keer bij \textit{kop bij worp 1} en één keer bij \textit{kop bij worp 2}. Die gebeurtenissen zijn niet onverenigbaar, en dan mag je hun kansen niet zomaar optellen.}
 
+De Méré redeneerde in het probleem net als Sara: $4 \cdot \frac16$ en $24 \cdot \frac{1}{36}$ tellen rijtjes met meer dan één zes meerdere keren. Dat beide uitkomsten onder 1 blijven, maakt ze nog niet juist. De juiste kansen volgen met de complementregel.
+
 \begin{oefeningen}
 \oef{h1-grenzen}
 \end{oefeningen}
@@ -367,7 +381,7 @@ P(\text{geen zes}) = \frac{5^4}{6^4} = \frac{625}{1296} & Laplace, met $6^4$ eve
 P(\text{minstens één zes}) = 1 - \frac{625}{1296} \approx 0{,}518 & Het complement: iets meer dan een half.
 \end{stappen}}
 
-Wie hier $4 \cdot \frac16 = \frac23$ rekent, maakt de fout van Sara: \textit{een zes bij worp 1} en \textit{een zes bij worp 2} zijn niet onverenigbaar. Bij zeven worpen zou die redenering zelfs $\frac76$ geven. Let ook op het tegendeel: dat van \textit{minstens één} is \textit{geen enkele}, niet \textit{precies één}.
+Wie hier $4 \cdot \frac16 = \frac23$ rekent, maakt de fout van Sara en de Méré: \textit{een zes bij worp 1} en \textit{een zes bij worp 2} zijn niet onverenigbaar. Bij zeven worpen zou die redenering zelfs $\frac76$ geven. Let ook op het tegendeel: dat van \textit{minstens één} is \textit{geen enkele}, niet \textit{precies één}.
 
 \begin{werkwijze}
 Bij \textit{minstens één}: bereken de kans op het tegendeel, \textit{geen enkele}, en trek die af van 1.
@@ -376,6 +390,36 @@ Bij \textit{minstens één}: bereken de kans op het tegendeel, \textit{geen enke
 \begin{oefeningen}
 \oef{h1-minstens}
 \end{oefeningen}
+
+\needspace{12\baselineskip}
+\subsection{Terug naar het probleem}
+
+De eerste weddenschap van de Méré is voorbeeld \ref{vb:h1-complement}: hij wint met kans $0{,}518$, iets meer dan een half. Omdat beide spelers evenveel inzetten, levert ze hem op lange termijn dus geld op. Nu de tweede.
+
+\voorbeeld{}{Terug naar het probleem. Wat is de kans op minstens één dubbele zes in 24 worpen met twee dobbelstenen? Is de tweede weddenschap even gunstig als de eerste?\label{vb:h1-terug}}{%
+\uitleg{Een worp met twee dobbelstenen heeft 36 even waarschijnlijke koppels, en daarvan is er maar één de dubbele zes. \textit{Minstens één} omvat veel gevallen, dus rekenen we met het tegendeel: \textit{geen enkele dubbele zes}.}
+\begin{stappenbreed}
+\#\Omega = 36^{24} & Rijtjes van 24 koppels, allemaal even waarschijnlijk. \\[1ex]
+P(\text{geen dubbele zes}) = \frac{35^{24}}{36^{24}} = \Bigl(\frac{35}{36}\Bigr)^{24} \approx 0{,}509 & Bij elke worp een van de 35 andere koppels. \\[2.5ex]
+P(\text{minstens één dubbele zes}) \approx 1 - 0{,}509 = 0{,}491 & De complementregel: iets minder dan een half.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=.27cm,y=3.2cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=5,ystep=.25] (40,1);
+  \draw[->,grijs] (0,0) -- (41.5,0) node[right,text=black] {aantal worpen};
+  \draw[->,grijs] (0,0) -- (0,1.1) node[above,text=black] {kans om te winnen};
+  \foreach \t in {0,5,...,40}{\node[below] at (\t,0) {\t};}
+  \foreach \t/\l in {.25/{0,25},.5/{0,5},.75/{0,75},1/1}{\node[left] at (0,\t) {\l};}
+  \draw[grijs,dashed] (0,.5) -- (40,.5);
+  \foreach \n in {1,...,12}{\fill[accent] (\n,{1-(5/6)^\n}) circle (1.3pt);}
+  \foreach \n in {1,...,40}{\fill[fel!80!black] (\n,{1-(35/36)^\n}) circle (1.3pt);}
+  \draw[accent,thick] (4,{1-(5/6)^4}) circle (3pt) node[above left,inner sep=2pt] {$0{,}518$};
+  \draw[fel!80!black,thick] (24,{1-(35/36)^24}) circle (3pt) node[below right,inner sep=2pt] {$0{,}491$};
+  \node[accent,anchor=west] at (13,.93) {één dobbelsteen, minstens één zes};
+  \node[fel!80!black,anchor=west] at (13,.2) {twee dobbelstenen, minstens één dubbele zes};
+\end{tikzpicture}}
+De tweede weddenschap is dus ongunstig: op lange termijn verliest de Méré er geld mee. Met 25 worpen was ze wel gunstig geweest: $1 - \bigl(\frac{35}{36}\bigr)^{25} \approx 0{,}506$.}
+
+Waarom klopte de regel van de Méré niet? Het product $24 \cdot \frac{1}{36}$ telt rijtjes met twee of meer dubbele zessen meerdere keren, en dat telt bij 24 worpen zwaarder door dan $4 \cdot \frac16$ bij 4 worpen. Het verschil tussen $0{,}491$ en $0{,}5$ is klein. Volgens de wet van de grote aantallen merk je het pas na duizenden spelletjes. Of de Méré het echt aan zijn geld zag of alleen vermoedde, weten we niet: het verhaal is via de brieven van Pascal tot ons gekomen.
 
 \needspace{16\baselineskip}
 \subsection{De algemene somregel}

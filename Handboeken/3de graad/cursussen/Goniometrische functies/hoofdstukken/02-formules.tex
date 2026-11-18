@@ -8,6 +8,26 @@
 
 \mychapter{2}{Goniometrische formules}
 
+\begin{probleem}
+\naast{In een computerspel draait een ruimteschip rond de oorsprong. De punt van het schip staat in $P(4, 3)$. Het spel draait het schip over $\frac{\pi}{6}$ ($30^\circ$) in tegenwijzerzin. Wat zijn de exacte coördinaten van de punt na de draaiing?
+
+Een spel moet zo duizenden punten per seconde draaien, telkens over dezelfde hoek. Kan het dat met alleen de coördinaten van een punt en de draaihoek, zonder eerst de hoek van elk punt op te zoeken?}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[black!14,very thin] (-1,-1) grid (5,5);
+  \draw[->,grijs] (-1,0) -- (5.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1) -- (0,5.5) node[above,text=black] {$y$};
+  \foreach \t in {1,2,3,4}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$}; \node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \fill[accent!25,draw=accent!60] (4,3) -- (2.74,2.68) -- (3.34,1.88) -- cycle;
+  \begin{scope}[rotate=30]
+    \fill[accent!60,draw=accent] (4,3) -- (2.74,2.68) -- (3.34,1.88) -- cycle;
+  \end{scope}
+  \draw[lijngrijs,dashed] (0,0) -- (4,3) (0,0) -- (66.87:5);
+  \draw[->,accent] (36.87:1.6) arc (36.87:66.87:1.6);
+  \node[accent] at (52:2.05) {$\frac{\pi}{6}$};
+  \fill[accent] (4,3) circle (2.2pt) node[right] {$P(4, 3)$};
+  \fill[accent] (66.87:5) circle (2.2pt) node[right] {$P'$\,?};
+\end{tikzpicture}}
+\end{probleem}
+
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 18-23 (goniometrische functies), het deel over de som- en verschilformules en de verdubbelingsformules. Het bewijs van de verschilformule voor de cosinus is een mooi voorbeeld van een bewijs met een afstand: laat het lezen met de vragen uit Logica en bewijzen. Sectie 3 (sinus en cosinus samenvoegen) bereidt de algemene sinusfunctie in hoofdstuk 3 voor.}
 \end{alleenvoor}
@@ -21,9 +41,13 @@
 \lkr{Leerplan Basis: LPD 11-13 en K2 (goniometrische functies), het deel over de som- en verschilformules en de verdubbelingsformules. Het bewijs van de verschilformule voor de cosinus is een mooi voorbeeld van een bewijs met een afstand: laat leerlingen bij elke regel zeggen waarom ze klopt. Sectie 3 (sinus en cosinus samenvoegen) bereidt de algemene sinusfunctie in hoofdstuk 3 voor.}
 \end{alleenvoor}
 
-Is $\sin(\alpha + \beta)$ gelijk aan $\sin\alpha + \sin\beta$? Probeer $\alpha = \beta = \frac{\pi}{2}$: links staat $\sin\pi = 0$, rechts $1 + 1 = 2$. Nee dus. In dit hoofdstuk zoeken we wat $\sin(\alpha + \beta)$ en $\cos(\alpha + \beta)$ wel zijn. Daarmee bereken je exacte waarden voor nieuwe hoeken, en vereenvoudig je uitdrukkingen.
+Een draaiing rond $O$ verandert de afstand tot $O$ niet, maar wel de hoek. Het punt $P(4, 3)$ ligt op afstand $|OP| = \sqrt{16 + 9} = 5$ van $O$. Is $\alpha$ zijn hoek, dan is $P(5\cos\alpha, 5\sin\alpha)$, met $\cos\alpha = \frac45$ en $\sin\alpha = \frac35$. Na de draaiing staat de punt bij de hoek $\alpha + \frac{\pi}{6}$:
+\[P'\Bigl(5\cos\bigl(\alpha + \tfrac{\pi}{6}\bigr),\ 5\sin\bigl(\alpha + \tfrac{\pi}{6}\bigr)\Bigr).\]
+Het rekentoestel geeft $\alpha \approx 0{,}6435$ (in de rechthoekige driehoek met rechthoekszijden $4$ en $3$ is $\tan\alpha = \frac34$), en daarmee een benadering van $P'$. Maar dat is geen exacte waarde, en het spel moet zo voor elk punt opnieuw een hoek zoeken. We kennen $\cos\alpha$ en $\sin\alpha$ exact, en ook $\cos\frac{\pi}{6}$ en $\sin\frac{\pi}{6}$. Kunnen we daaruit $\cos\bigl(\alpha + \frac{\pi}{6}\bigr)$ berekenen?
 
-Alles volgt uit één formule: de cosinus van een verschil. Die bewijzen we met een afstand op de eenheidscirkel. Daarna leiden we de andere formules er één voor één uit af, telkens in een paar regels.
+Is $\cos(\alpha + \beta)$ misschien gewoon $\cos\alpha + \cos\beta$? Probeer $\alpha = \beta = \frac{\pi}{2}$: links staat $\cos\pi = -1$, rechts $0 + 0 = 0$. Nee dus, en ook $\sin(\alpha + \beta)$ is niet $\sin\alpha + \sin\beta$. In dit hoofdstuk zoeken we wat $\cos(\alpha + \beta)$ en $\sin(\alpha + \beta)$ wel zijn. Daarmee draai je punten, bereken je exacte waarden voor nieuwe hoeken, en vereenvoudig je uitdrukkingen.
+
+Alles volgt uit één formule: de cosinus van een verschil. Die bewijzen we met een afstand op de eenheidscirkel, en net als in het probleem met een draaiing. Daarna leiden we de andere formules er één voor één uit af, telkens in een paar regels.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -155,6 +179,32 @@ Bij de sinus wisselen sinus en cosinus elkaar af in de twee termen, en het teken
 \oef{h2-sinsom-k}
 \end{oefeningen}
 
+Met de somformules voor de cosinus en de sinus kunnen we nu het ruimteschip uit het probleem draaien.
+
+\voorbeeld{}{Terug naar het probleem. De punt van een ruimteschip staat in $P(4, 3)$. Waar komt ze terecht na een draaiing over $\frac{\pi}{6}$ rond de oorsprong, in tegenwijzerzin? Kan dat zonder de hoek van $P$ te kennen?\label{vb:h2-terug}}{%
+\uitleg{Schrijf $P$ als $(5\cos\alpha, 5\sin\alpha)$: dan is $5\cos\alpha = 4$ en $5\sin\alpha = 3$. Na de draaiing staat de punt bij de hoek $\alpha + \frac{\pi}{6}$. De somformules splitsen die hoek in $\alpha$ en $\frac{\pi}{6}$, zodat alleen de coördinaten $4$ en $3$ overblijven.}
+\begin{stappenbreed}
+x' = 5\cos\bigl(\alpha + \tfrac{\pi}{6}\bigr) = 5\cos\alpha \cdot \cos\tfrac{\pi}{6} - 5\sin\alpha \cdot \sin\tfrac{\pi}{6} & Somformule voor de cosinus, maal $5$. \\[1ex]
+= 4 \cdot \tfrac{\sqrt3}{2} - 3 \cdot \tfrac12 = 2\sqrt3 - \tfrac32 \approx 1{,}96 & $5\cos\alpha = 4$ en $5\sin\alpha = 3$. \\[1ex]
+y' = 5\sin\bigl(\alpha + \tfrac{\pi}{6}\bigr) = 5\sin\alpha \cdot \cos\tfrac{\pi}{6} + 5\cos\alpha \cdot \sin\tfrac{\pi}{6} & Somformule voor de sinus, maal $5$. \\[1ex]
+= 3 \cdot \tfrac{\sqrt3}{2} + 4 \cdot \tfrac12 = \tfrac{3\sqrt3}{2} + 2 \approx 4{,}60 & Opnieuw $5\sin\alpha = 3$ en $5\cos\alpha = 4$.
+\end{stappenbreed}
+\naast{De punt komt dus in $P'\bigl(2\sqrt3 - \frac32,\ \frac{3\sqrt3}{2} + 2\bigr)$. Controle: \mbox{$|OP'|^2 = 14{,}25 - 6\sqrt3 + 10{,}75 + 6\sqrt3 = 25$}, dus $|OP'| = 5 = |OP|$, zoals bij een draaiing.
+
+De hoek $\alpha$ zelf hebben we nergens nodig gehad. Doe hetzelfde met een punt $P(x, y)$ en een draaihoek $\beta$, dan komt het beeld in
+\[P'(x\cos\beta - y\sin\beta,\ \ x\sin\beta + y\cos\beta).\]
+Een spel berekent $\cos\beta$ en $\sin\beta$ dus één keer, en draait daarna elk punt met vier vermenigvuldigingen.}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[black!14,very thin] (-1,-1) grid (5,5);
+  \draw[->,grijs] (-1,0) -- (5.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1) -- (0,5.5) node[above,text=black] {$y$};
+  \foreach \t in {2,4}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$}; \node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs] (10:5) arc (10:85:5);
+  \draw[lijngrijs,dashed] (0,0) -- (4,3) (0,0) -- (1.964,4.598);
+  \draw[->,accent] (36.87:1.5) arc (36.87:66.87:1.5);
+  \fill[accent] (4,3) circle (2.4pt) node[right] {$P$};
+  \fill[accent] (1.964,4.598) circle (2.4pt) node[above right] {$P'(1{,}96;\ 4{,}60)$};
+\end{tikzpicture}}}
+
 \needspace{14\baselineskip}
 \subsection{De sinus van een verschil}
 
@@ -240,7 +290,7 @@ Bij een opgave moet je zelf kiezen welke formule past. Kijk naar wat gevraagd wo
 %========================================================================================
 \section{Verdubbelingsformules}
 
-Neem $\beta = \alpha$ in de somformules. Dan krijg je formules voor de dubbele hoek $2\alpha$. Ook hier geldt: de sinus van het dubbele is niet het dubbele van de sinus. Voor $\alpha = \frac{\pi}{2}$ is $\sin 2\alpha = \sin\pi = 0$, terwijl $2\sin\frac{\pi}{2} = 2$.
+Draai je het ruimteschip twee keer na elkaar over dezelfde hoek $\alpha$, dan heb je het over $2\alpha$ gedraaid. Is $\sin 2\alpha$ dan het dubbele van $\sin\alpha$? Nee: voor $\alpha = \frac{\pi}{2}$ is $\sin 2\alpha = \sin\pi = 0$, terwijl $2\sin\frac{\pi}{2} = 2$. Wat het wel is, volgt uit de somformules: neem $\beta = \alpha$. Zo krijg je formules voor de dubbele hoek $2\alpha$.
 
 \subsection{De sinus van de dubbele hoek}
 
@@ -388,7 +438,7 @@ Bij een identiteit: vertrek van één lid (meestal het ingewikkeldste) en werk h
 %========================================================================================
 \section{Sinus en cosinus samenvoegen}
 
-Tel je een sinus en een cosinus op, dan krijg je opnieuw een golf met dezelfde periode, alleen hoger en verschoven. In de figuur is de som van $\sin x$ en $\sqrt3\cos x$ (streepjes) de volle kromme: een sinusgrafiek met hoogte $2$, over $\frac{\pi}{3}$ naar links geschoven.
+Wat krijg je als je een sinus en een cosinus van dezelfde hoek optelt? Opnieuw een golf met dezelfde periode, alleen hoger en verschoven. In de figuur is de som van $\sin x$ en $\sqrt3\cos x$ (streepjes) de volle kromme: een sinusgrafiek met hoogte $2$, over $\frac{\pi}{3}$ naar links geschoven.
 
 \figuren{%
 \begin{tikzpicture}[x=.8cm,y=.7cm,font=\scriptsize]

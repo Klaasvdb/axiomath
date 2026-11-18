@@ -1,16 +1,20 @@
 %----------------------------------------------------------------------------------------
 % VOORWAARDELIJKE KANS. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Voorwaardelijke kans}
 
+\begin{probleem}
+Tijdens een epidemie laat je school alle leerlingen een sneltest voor het virus doen, ook wie zich gezond voelt. Jouw test is positief. In de bijsluiter staat: \textit{de test is positief bij 95~\% van de besmette personen, en bij 4~\% van de niet-besmette personen.} Op dit moment is ongeveer 2~\% van de inwoners besmet. Hoe groot is de kans dat je echt besmet bent? Is dat 95~\%, of iets anders?
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{48,}\alleenvoor{3}{35,}\alleenvoor{2}{29,}\alleenvoor{1}{17,} met de wenken over voorwaardelijke en marginale kansen in kruistabellen en boomdiagrammen, de wet van de totale kans en de wet van Bayes. De wet van Bayes wordt eerst met aantallen (een kruistabel van 10\,000 personen) uitgelegd en pas daarna met de formule: onderzoek toont dat dat de klassieke denkfout bij medische tests sterk vermindert.}
 
-Is de kans dat het morgen regent dezelfde als de kans dat het morgen regent \textit{als het vandaag regent}? Meestal niet. Extra informatie verandert een kans. In dit hoofdstuk leer je met zulke voorwaardelijke kansen rekenen, met kruistabellen en boomdiagrammen. Op het einde begrijp je waarom een positieve medische test lang niet altijd betekent dat je ziek bent.
+De 95~\% uit de bijsluiter is een kans van een bijzondere soort: de kans op een positieve test \textit{als je weet dat iemand besmet is}. Jij wilt het omgekeerde weten: de kans dat iemand besmet is \textit{als je weet dat de test positief is}. Zulke kansen, waarbij je al iets weet, heten voorwaardelijke kansen. Extra informatie verandert een kans: de kans dat het morgen regent, is meestal niet dezelfde als de kans dat het morgen regent \textit{als het vandaag regent}. In dit hoofdstuk leer je met voorwaardelijke kansen rekenen, met kruistabellen en boomdiagrammen. Op het einde keer je een voorwaardelijke kans om, en zie je waarom een positieve test lang niet altijd betekent dat je besmet bent.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -25,7 +29,7 @@ Is de kans dat het morgen regent dezelfde als de kans dat het morgen regent \tex
 
 \subsection{Voorwaardelijke kans}
 
-Een \textbf{kruistabel} telt een groep volgens twee kenmerken tegelijk, zoals de tabel uit de Verken. De totalen staan in de marge: daarom heten de kansen daaruit \textbf{marginale kansen}. Weet je al dat een persoon een kenmerk heeft, bijvoorbeeld dat hij met de fiets komt, dan kijk je alleen nog naar die rij of kolom.
+Hoe bereken je een kans als je al iets weet? Met aantallen is dat het eenvoudigst. Een \textbf{kruistabel} telt een groep volgens twee kenmerken tegelijk, zoals de tabel uit de Verken. De totalen staan in de marge: daarom heten de kansen daaruit \textbf{marginale kansen}. Weet je al dat een persoon een kenmerk heeft, bijvoorbeeld dat hij met de fiets komt, dan kijk je alleen nog naar die rij of kolom.
 
 \naast[3.4cm]{Zo werkt het ook algemeen. Weet je dat $B$ is opgetreden, dan liggen de mogelijke uitkomsten in $B$: de uitkomstenverzameling krimpt van $\Omega$ tot $B$. Van $A$ blijft alleen het deel in $B$ over, dus $A \cap B$. Zijn alle uitkomsten even waarschijnlijk, dan is de nieuwe kans op $A$ dus $\frac{\#(A \cap B)}{\#B}$. Deel teller en noemer door $\#\Omega$, dan staan er gewone kansen:
 \[\frac{\#(A \cap B)}{\#B} = \frac{\#(A \cap B) / \#\Omega}{\#B / \#\Omega} = \frac{P(A \cap B)}{P(B)} .\]}{\begin{tikzpicture}[font=\small,scale=.85]
@@ -61,7 +65,7 @@ P(S \gegeven J) = \frac{96}{200} = 0{,}48 & Alleen de rij jongere telt mee. \\[3
 P(J \gegeven S) = \frac{96}{150} = 0{,}64 & Alleen de kolom strip telt mee.
 \end{stappen}}
 
-Let op: $P(S \gegeven J)$ en $P(J \gegeven S)$ zijn verschillende kansen. De teller is dezelfde, de noemer niet. Die twee door elkaar halen is een van de bekendste denkfouten in de kansrekening: de kans dat een strip door een jongere ontleend is (64~\%), is niet de kans dat een jongere een strip ontleent (48~\%).
+Let op: $P(S \gegeven J)$ en $P(J \gegeven S)$ zijn verschillende kansen. De teller is dezelfde, de noemer niet. Die twee door elkaar halen is een van de bekendste denkfouten in de kansrekening: de kans dat een strip door een jongere ontleend is (64~\%), is niet de kans dat een jongere een strip ontleent (48~\%). Het is ook de denkfout in het probleem: 95~\% is de kans op een positieve test bij een besmette persoon, niet de kans dat een positief geteste persoon besmet is.
 
 \begin{oefeningen}
 \needspace{12\baselineskip}
@@ -240,9 +244,9 @@ P(A) \cdot P(C) = \frac12 \cdot \frac26 = \frac16 & Wel onafhankelijk: van $\{1,
 
 \subsection{Een medische test}
 
-Een sneltest voor een virus is positief bij 95~\% van de besmette personen. Bij niet-besmette personen geeft hij in 4~\% van de gevallen toch een positief resultaat: een \textit{vals positief}. In een stad is 2~\% van de inwoners besmet. Iemand test positief. Hoe groot is de kans dat die persoon besmet is? Veel mensen gokken 95~\%. Een tabel met aantallen toont dat het veel minder is.
+Nu kunnen we het probleem van het begin oplossen. De sneltest is positief bij 95~\% van de besmette personen. Bij niet-besmette personen geeft hij in 4~\% van de gevallen toch een positief resultaat: een \textit{vals positief}. Van de inwoners is 2~\% besmet. Omdat iedereen getest wordt, ook wie geen klachten heeft, rekenen we met die 2~\% voor elke geteste persoon. Veel mensen gokken dat een positief geteste persoon met kans 95~\% besmet is. Een kruistabel met aantallen toont dat het veel minder is.
 
-\voorbeeld{}{Bereken de kans dat iemand die positief test, besmet is. Denk aan 10\,000 inwoners.\label{vb:h2-bayes}}{%
+\voorbeeld{}{Terug naar het probleem. Bereken de kans dat iemand die positief test, besmet is. Denk aan 10\,000 inwoners.\label{vb:h2-bayes}\label{vb:h2-terug}}{%
 \uitleg{We zetten de percentages om in aantallen voor 10\,000 inwoners, eerst per rij (besmet of niet), dan per kolom (positief of negatief). Dan lezen we af hoeveel van de positieven echt besmet zijn.}
 \figuren{\renewcommand{\arraystretch}{1.25}\begin{tabular}{l|cc|c}
  & positief & negatief & totaal \\ \hline
@@ -256,7 +260,23 @@ totaal & 582 & 9418 & 10\,000
 P(\text{besmet} \gegeven \text{positief}) = \frac{190}{582} \approx 0{,}33 & Maar een derde van de positieven is besmet.
 \end{stappenbreed}}
 
-Er zijn veel meer valse positieven dan echte, omdat er zoveel meer niet-besmette mensen zijn. Daarom laat een arts een positieve sneltest bevestigen met een betere test. Dezelfde berekening kun je met kansen doen in plaats van aantallen. Dat levert twee formules op: één voor het totaal van een kolom, en één voor de gevraagde voorwaardelijke kans.
+\naast{\begin{minipage}{7.4cm}
+Er zijn veel meer valse positieven dan echte, omdat er zoveel meer niet-besmette mensen zijn. De figuur toont het, met één stip voor 10 inwoners. Van de 200 besmette inwoners testen er 190 positief: 19 stippen. Maar 4~\% van de 9800 anderen is 392 inwoners, ongeveer 39 stippen: twee keer zoveel. Een positieve test zegt dus vooral dat je bij de positieven hoort, en daarvan is maar een derde besmet. Daarom laat een arts een positieve sneltest bevestigen met een betere test.
+\end{minipage}}{\begin{tikzpicture}[x=.17cm,y=.17cm,font=\scriptsize]
+  \foreach \i in {0,...,999}{%
+    \pgfmathtruncatemacro{\r}{\i/40}\pgfmathtruncatemacro{\c}{\i-40*\r}%
+    \ifnum\i<19 \fill[accent] (\c,-\r) circle (.36);%
+    \else\ifnum\i<20 \draw[accent,thick] (\c,-\r) circle (.3);%
+    \else\ifnum\i<59 \fill[fel!85!black] (\c,-\r) circle (.36);%
+    \else \fill[black!18] (\c,-\r) circle (.3);\fi\fi\fi}
+  \fill[accent] (0,-26.5) circle (.42); \node[anchor=west] at (.6,-26.5) {besmet en positief};
+  \draw[accent,thick] (0,-28.5) circle (.36); \node[anchor=west] at (.6,-28.5) {besmet en negatief};
+  \fill[fel!85!black] (20,-26.5) circle (.42); \node[anchor=west] at (20.6,-26.5) {niet besmet en positief};
+  \fill[black!18] (20,-28.5) circle (.36); \node[anchor=west] at (20.6,-28.5) {niet besmet en negatief};
+\end{tikzpicture}}
+
+\medskip
+Dezelfde berekening kun je met kansen doen in plaats van aantallen. Dat levert twee formules op: één voor het totaal van een kolom, en één voor de gevraagde voorwaardelijke kans.
 
 \needspace{16\baselineskip}
 \subsection{De wet van de totale kans}

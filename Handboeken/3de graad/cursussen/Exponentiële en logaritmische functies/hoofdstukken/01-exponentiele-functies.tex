@@ -1,16 +1,32 @@
 %----------------------------------------------------------------------------------------
 % EXPONENTIËLE FUNCTIES. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h1-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{1}{Exponentiële functies}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Op een piano klinkt elke toets een \textit{halve toon} hoger dan de vorige. Na twaalf halve tonen ben je een octaaf hoger, en dan is de frequentie verdubbeld: de la van de stemvork trilt 440 keer per seconde (440 Hz), de la een octaaf hoger 880 keer. Een piano wordt zo gestemd dat elke halve toon de frequentie met dezelfde factor vermenigvuldigt. Welke factor is dat? En welke frequentie heeft de do, drie halve tonen boven de la van 440 Hz?}{\begin{tikzpicture}[x=.55cm,y=.56cm,font=\scriptsize]
+  \foreach \i/\n in {0/0,1/2,2/3,3/5,4/7,5/8,6/10,7/12}{%
+    \draw[grijs,fill=white] (\i,0) rectangle (\i+1,4);
+    \node[above,inner sep=1.5pt] at (\i+.5,0) {$\n$};}
+  \fill[accent!14] (2,0) rectangle (3,4); \draw[grijs] (2,0) rectangle (3,4);
+  \node[above,inner sep=1.5pt] at (2.5,0) {$3$};
+  \foreach \x/\n in {1/1,3/4,4/6,6/9,7/11}{%
+    \fill[black!80] (\x-.3,1.6) rectangle (\x+.3,4);
+    \node[text=white,above,inner sep=1.5pt] at (\x,1.6) {$\n$};}
+  \node[below,align=center] at (.5,0) {la\\440 Hz};
+  \node[below,align=center,text=accent] at (2.5,0) {do\\?};
+  \node[below,align=center] at (7.5,0) {la\\880 Hz};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{12-17}\alleenvoor{2,3}{7-12}\alleenvoor{1}{7-10 en K1} (exponentiële en logaritmische functies), het deel over machten met rationale exponenten, de exponentiële functie en exponentiële groei. Vergelijkingen waarbij een logaritme nodig is, komen in hoofdstuk 2: hier lossen leerlingen alleen vergelijkingen op waarin beide leden een macht van hetzelfde grondtal zijn. De transformaties van grafieken komen uit de cursus Algemene functies.}
 
-Een blad papier is ongeveer $0{,}1$ mm dik. Vouw je het dubbel, dan verdubbelt de dikte, en bij elke volgende vouw opnieuw. Na tien vouwen is het pakje al meer dan tien centimeter dik. Zo'n groei, waarbij elke stap met dezelfde \textit{factor} vermenigvuldigt, heet exponentieel. Je vindt ze bij intrest, bevolkingen, bacteriën en radioactief verval.
+Op de piano vermenigvuldigt elke stap de frequentie met dezelfde \textit{factor}. Zo'n verandering heet exponentieel, en je vindt ze ook bij intrest, bevolkingen, bacteriën en radioactief verval. In de Verken hieronder gaat het eenvoudig: elke vouw in een blad papier verdubbelt de dikte. Bij de piano is de verdubbeling verdeeld over twaalf gelijke stappen, en dan heb je machten met een gebroken exponent nodig. Daarmee begint dit hoofdstuk.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -21,11 +37,13 @@ Een blad papier is ongeveer $0{,}1$ mm dik. Vouw je het dubbel, dan verdubbelt d
 %========================================================================================
 \section{Machten met rationale exponenten}
 
-Uit de 2de graad ken je machten met gehele exponenten, zoals $2^3 = 8$, $2^0 = 1$ en $2^{-3} = \frac18$, en de rekenregels om ermee te rekenen. Voor exponentiële groei hebben we meer nodig. Verdubbelt iets elk jaar, hoeveel keer zo groot is het dan na een half jaar? Dat is $2^{\frac12}$, en zo'n exponent heeft voorlopig geen betekenis. In deze sectie geven we ze een betekenis, en tonen we aan dat de vertrouwde rekenregels blijven gelden.
+Uit de 2de graad ken je machten met gehele exponenten, zoals $2^3 = 8$, $2^0 = 1$ en $2^{-3} = \frac18$, en de rekenregels om ermee te rekenen. Probeer daarmee het probleem. Noem de factor van een halve toon $a$. Twaalf halve tonen na elkaar vermenigvuldigen de frequentie met $a^{12}$, en dat moet een verdubbeling zijn: $a^{12} = 2$. Proberen geeft $1{,}05^{12} \approx 1{,}80$ en $1{,}06^{12} \approx 2{,}01$, dus $a$ ligt net onder $1{,}06$. Precies is $a$ de twaalfdemachtswortel van 2.
+
+Een halve toon is een twaalfde van een octaaf. Je zou de factor dus graag $2^{\frac{1}{12}}$ noemen, en die van drie halve tonen $2^{\frac{3}{12}}$. Maar een exponent $\frac{1}{12}$ heeft voorlopig geen betekenis: je kunt 2 niet een twaalfde keer met zichzelf vermenigvuldigen. In deze sectie geven we zulke exponenten een betekenis, en tonen we aan dat de vertrouwde rekenregels blijven gelden.
 
 \subsection{Gebroken exponenten}
 
-Hoe moet $8^{\frac13}$ heten? Als de rekenregel $\bigl(a^r\bigr)^s = a^{rs}$ ook voor breuken moet gelden, dan is
+Neem een eenvoudiger geval dan $2^{\frac{1}{12}}$: hoe moet $8^{\frac13}$ heten? Als de rekenregel $\bigl(a^r\bigr)^s = a^{rs}$ ook voor breuken moet gelden, dan is
 \[\bigl(8^{\frac13}\bigr)^3 = 8^{\frac13 \cdot 3} = 8^1 = 8 .\]
 Dus is $8^{\frac13}$ een getal waarvan de derde macht $8$ is: de derdemachtswortel $\sqrt[3]{8} = 2$. Zo komen we tot de definitie.
 
@@ -208,10 +226,32 @@ Pas op: er is geen regel voor een som. Zo is $2^{\frac12} + 2^{\frac12} = 2 \cdo
 \oef{h1-machten}
 \end{oefeningen}
 
+Nu kunnen we het probleem van de piano oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Na twaalf halve tonen is de frequentie verdubbeld, en elke halve toon vermenigvuldigt ze met dezelfde factor. Welke factor is dat? Welke frequentie heeft de do, drie halve tonen boven de la van 440 Hz?\label{vb:h1-terug}}{%
+\uitleg{Noem de factor $a$. Twaalf halve tonen geven $a^{12} = 2$, dus $a$ is de twaalfdemachtswortel van 2, en die schrijf je nu als macht. Drie halve tonen geven de factor $a^3$.}
+\naast{\begin{stappenvrij}{5.3cm}{3.3cm}
+a = \sqrt[12]{2} = 2^{\frac{1}{12}} \approx 1{,}059\,5 & De factor per halve toon. \\
+a^3 = \bigl(2^{\frac{1}{12}}\bigr)^3 = 2^{\frac{3}{12}} = 2^{\frac14} & Macht van een macht. \\
+440 \cdot 2^{\frac14} = 440 \cdot \sqrt[4]{2} \approx 523{,}3 & De do, in Hz.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.5cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.72cm,ystep=.5cm] (0,0) grid (12,5);
+  \draw[->,grijs] (0,0) -- (12.8,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,5.6) node[above,text=black] {Hz};
+  \foreach \n in {2,4,...,12}{\node[below,inner sep=1.5pt] at (\n,0) {$\n$};}
+  \foreach \f in {500,600,700,800,900}{\node[left,inner sep=1.5pt] at (0,{\f/100-4}) {$\f$};}
+  \draw[grijs,dashed] (0,.4) -- (12,4.8);
+  \foreach \n in {0,...,12}{\fill[accent] (\n,{4.4*2^(\n/12)-4}) circle (1.8pt);}
+  \draw[accent,densely dotted] (3,0) -- (3,1.2325) -- (0,1.2325);
+\end{tikzpicture}}
+Controle: $\bigl(2^{\frac{1}{12}}\bigr)^{12} = 2^1 = 2$. De figuur toont de frequentie na $n$ halve tonen. De stappen worden groter naarmate de toon stijgt; met twaalf gelijke stappen van $\frac{440}{12}$ Hz (de gestippelde rechte) kwam je bij de do op $550$ Hz uit, te hoog.}
+
+Elke halve toon is dus ongeveer $5{,}95$\,\% hoger dan de vorige, en $n$ halve tonen boven de la is de frequentie $440 \cdot 2^{\frac{n}{12}}$ Hz. Een kwint, zeven halve tonen, geeft de factor $2^{\frac{7}{12}} \approx 1{,}498$. Een zuivere kwint, waarbij twee snaren zonder zweving samenklinken, heeft de verhouding $\frac32$: op een piano is de kwint dus een fractie te klein. Dat neemt men erbij, want met twaalf gelijke stappen kun je in elke toonaard spelen. De Brugse wiskundige Simon Stevin rekende rond 1600 al met deze verdeling.
+
 %========================================================================================
 \section{De exponentiële functie}
 
-We kennen nu $a^x$ voor elke rationale $x$. Om er een functie op heel $\R$ van te maken, ontbreken nog de irrationale exponenten.
+We kennen nu $a^x$ voor elke rationale $x$, zoals de frequentie $440 \cdot 2^{\frac{n}{12}}$ voor elk aantal halve tonen $n$. Kan $x$ ook elk reëel getal zijn, zodat $a^x$ een functie op heel $\R$ wordt? Dan ontbreken nog de irrationale exponenten.
 
 \subsection{Machten met een reële exponent}
 
@@ -364,7 +404,7 @@ Schrijf beide leden als een macht van hetzelfde grondtal (gebruik de rekenregels
 %========================================================================================
 \section{Exponentiële groei en verval}
 
-Een stad telt $1000$ inwoners, en dat aantal neemt elk jaar met $10$\,\% toe. Na een jaar komen er $100$ bij, het jaar daarna al $110$, want de nieuwe inwoners tellen mee:
+Een stad telt $1000$ inwoners, en dat aantal neemt elk jaar met $10$\,\% toe. Hoeveel inwoners zijn er na $t$ jaar? Na een jaar komen er $100$ bij, het jaar daarna al $110$, want de nieuwe inwoners tellen mee:
 
 \figuren{\renewcommand{\arraystretch}{1.2}%
 \begin{tabular}{c|ccccc}

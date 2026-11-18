@@ -8,11 +8,20 @@
 
 \mychapter{1}{Bewerkingen}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Typ je in Excel de formule \texttt{=2\textasciicircum3\textasciicircum2}, dan krijg je 64. Typ je in Python \texttt{2**3**2}, waarin \texttt{**} een macht is, dan krijg je 512. Welk programma rekent fout? Een programma dat een formule zonder haakjes uitrekent, moet kiezen welke bewerking het eerst uitvoert. Bij welke bewerkingen maakt die keuze niets uit? En wanneer mag een programma de getallen ook van plaats wisselen, bijvoorbeeld om sneller te rekenen?}{\begin{tikzpicture}[font=\small]
+  \node[draw=lijngrijs,thick,rounded corners=2pt,text width=2.7cm,inner sep=1.6mm] (x) {\texttt{=2\textasciicircum3\textasciicircum2}\hfill\textbf{64}};
+  \node[anchor=south west,font=\scriptsize,text=grijs,inner sep=1pt] at (x.north west) {Excel};
+  \node[draw=lijngrijs,thick,rounded corners=2pt,text width=2.7cm,inner sep=1.6mm] (p) at (0,-1.1) {\texttt{2**3**2}\hfill\textbf{512}};
+  \node[anchor=south west,font=\scriptsize,text=grijs,inner sep=1pt] at (p.north west) {Python};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan B+S'': LPD 43 (verzamelingen met een bewerking analyseren aan de hand van een algebraïsche structuur). Het leerplan laat de keuze van de structuur vrij; deze cursus kiest de groep. Dit hoofdstuk legt de bouwstenen: wat een bewerking is, en de eigenschappen associatief, commutatief, neutraal element en invers element. Het leerplan stelt voor de structuur te definiëren ``vanuit de eigenschappen van bewerkingen bij concrete voorbeelden'': daarom staan die eigenschappen eerst los, met veel voorbeelden, en komt de groep pas in hoofdstuk 2. LPD 4 (beargumenteren en bewijzen) komt hier telkens terug: een eigenschap bewijs je met letters, en je weerlegt ze met één tegenvoorbeeld.}
 
 Je rekent al jaren met optellen en vermenigvuldigen, en je weet waar je op moet letten. Bij optellen mag je de termen van plaats wisselen, bij aftrekken niet. Optellen met 0 verandert niets, vermenigvuldigen met 1 ook niet. Door 0 kun je niet delen. Bij matrices merkte je dat $AB$ en $BA$ kunnen verschillen, en bij functies dat $f \circ g$ en $g \circ f$ meestal niet hetzelfde zijn.
 
-In dit hoofdstuk kijken we naar die regels zelf, los van de getallen waarop je ze toepast. Wat is een bewerking eigenlijk? Wanneer mag je haakjes weglaten of factoren van plaats wisselen? Wanneer kun je een bewerking ``ongedaan maken''? Dezelfde vragen kun je stellen bij getallen, matrices, functies en zelfs bij het draaien van een figuur. In hoofdstuk 2 bundel je de antwoorden in één begrip: de groep.
+In dit hoofdstuk kijken we naar die regels zelf, los van de getallen waarop je ze toepast. Wat is een bewerking eigenlijk? Wanneer mag je haakjes weglaten of factoren van plaats wisselen? Een computerprogramma moet dat weten voor het een formule zoals $2^{3^2}$ kan uitrekenen. Wanneer kun je een bewerking ``ongedaan maken''? Dezelfde vragen kun je stellen bij getallen, matrices, functies en zelfs bij het draaien van een figuur. In hoofdstuk 2 bundel je de antwoorden in één begrip: de groep.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -136,7 +145,7 @@ i & i & -i & -1 & 1 \\ \hline
 
 \subsection{Associativiteit}
 
-In de Opwarmer vond je $12 - (7 - 3) = 8$ en $(12 - 7) - 3 = 2$: bij aftrekken mag je de haakjes niet verplaatsen. Bij optellen mag dat wel: $(12 + 7) + 3 = 12 + (7 + 3)$. Daarom schrijf je bij een som zonder bezwaar $12 + 7 + 3$, zonder haakjes.
+Wanneer moet een programma zoals Excel afspreken waar het de haakjes zet? In de Opwarmer vond je $12 - (7 - 3) = 8$ en $(12 - 7) - 3 = 2$: bij aftrekken mag je de haakjes niet verplaatsen. Bij optellen mag dat wel: $(12 + 7) + 3 = 12 + (7 + 3)$. Daarom schrijf je bij een som zonder bezwaar $12 + 7 + 3$, zonder haakjes.
 
 \begin{theorie}
 Een bewerking $\ast$ op $V$ is \textbf{\textcolor{accent}{associatief}} als
@@ -198,6 +207,21 @@ Alleen als $a = b$ is $a \ast b = b \ast a$. Dat de gelijkheid voor sommige kopp
 \begin{oefeningen}
 \oef{h1-comm}
 \end{oefeningen}
+
+Met associatief en commutatief kun je het probleem van Excel en Python oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Waarom geven Excel en Python een ander antwoord voor $2^{3^2}$? Bij welke bewerkingen maakt het niet uit welke bewerking een programma eerst uitvoert, en wanneer mag het de getallen van plaats wisselen?\label{vb:h1-terug}}{%
+\uitleg{We kijken eerst waar elk programma de haakjes zet. Daarna gaan we na wat associativiteit en commutativiteit toelaten, met letters, zodat het voor alle getallen geldt.}
+\begin{stappenbreed}
+\text{Excel: } (2^3)^2 = 8^2 = 64 & Excel rekent van links naar rechts. \\[1ex]
+\text{Python: } 2^{(3^2)} = 2^9 = 512 & Python begint bij machten rechts, net als de afspraak in de wiskunde: $a^{b^c} = a^{(b^c)}$. \\[1ex]
+(2^3)^2 \neq 2^{(3^2)} & Machtsverheffen op $\N_0$ is niet associatief. Geen van beide rekent fout: ze volgen een andere afspraak, en zonder afspraak is $2^{3^2}$ niet eenduidig. \\[1ex]
+(a \ast b) \ast c = a \ast (b \ast c) & Is $\ast$ associatief, dan geven beide keuzes dezelfde uitkomst: de afspraak maakt niets uit. Zo is het bij optellen en vermenigvuldigen. \\[1ex]
+(c \ast b) \ast a = a \ast (c \ast b) = a \ast (b \ast c) = (a \ast b) \ast c & Is $\ast$ ook commutatief, dan mag je de volgorde veranderen: twee keer wisselen, en dan de haakjes verplaatsen.
+\end{stappenbreed}
+Een programma mag de haakjes dus vrij kiezen bij een associatieve bewerking, en ook de getallen van plaats wisselen als de bewerking bovendien commutatief is. Bij aftrekken, delen en machtsverheffen moet het een afspraak volgen. Met meer dan drie getallen gaat het net zo, stap voor stap.}
+
+Een programma rekent wel met afgeronde kommagetallen, en dan is zelfs de optelling niet helemaal associatief: in Python geeft \mbox{\texttt{(0.1+0.2)+0.3}} het getal $0{,}600\,000\,000\,000\,000\,1$, en \mbox{\texttt{0.1+(0.2+0.3)}} geeft $0{,}6$. Wie zeker wil zijn van de laatste decimalen, moet dan toch letten op de volgorde.
 
 %========================================================================================
 \section{Neutraal en invers element}

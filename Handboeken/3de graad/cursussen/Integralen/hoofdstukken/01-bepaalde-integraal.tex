@@ -1,16 +1,29 @@
 %----------------------------------------------------------------------------------------
 % DE BEPAALDE INTEGRAAL. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h1-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{1}{De bepaalde integraal}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Een auto vertrekt aan een verkeerslicht. De bestuurder duwt het gaspedaal geleidelijk in, zodat de snelheid na $t$ seconden ongeveer $v(t) = t^2$ meter per seconde is. Na 3 seconden rijdt de auto dus 9 m/s, of 32 km/h. Hoe ver is hij dan gereden? Een vriend redeneert: de snelheid gaat van 0 naar 9 m/s, dus gemiddeld 4,5~m/s, en in 3 seconden is dat 13,5~m. Klopt dat?}{\begin{tikzpicture}[x=.8cm,y=.27cm,font=\scriptsize]
+  \gebied{0}{3}{(\x)^2}
+  \draw[black!14,very thin,xstep=1,ystep=3] (0,0) grid (3,9);
+  \draw[->,grijs] (0,0) -- (3.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,10.5) node[above,text=black] {$v$};
+  \kromme{0}{3.05}{(\x)^2}
+  \foreach \t in {1,2,3} \node[below] at (\t,0) {\t};
+  \foreach \t in {3,6,9} \node[left] at (0,\t) {\t};
+  \node[font=\small] at (2.3,1.8) {?};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{31,}\alleenvoor{3}{23,}\alleenvoor{2}{22,} de bepaalde integraal als limiet van een som en als georiënteerde oppervlakte. In dit hoofdstuk bestaan nog geen primitieven: leerlingen rekenen met rechthoeken, met de formules voor driehoek, trapezium en cirkel, en met de limiet van een som. Dat is bewust: zo blijft de betekenis staan voor de rekenregel uit hoofdstuk 2 alle aandacht opeist. De somformule voor kwadraten is hier gereedschap, ze wordt niet bewezen (zie Rijen, hoofdstuk 3, Koppel). Volgens de README van het pakket komt Rijen na Analyse 3: kijk na wat er al gezien is.}
 
-Uit een constante snelheid haal je meteen een afstand: snelheid maal tijd. Maar een auto rijdt zelden constant. Hoe ver rijdt hij dan? Op een grafiek van de snelheid wordt dat dezelfde vraag als: hoe groot is de oppervlakte onder de grafiek? En voor een gebied onder een kromme ken je geen formule.
+Uit een constante snelheid haal je meteen een afstand: snelheid maal tijd. Maar de auto uit het probleem rijdt niet constant. Hoe ver rijdt hij dan? Op een grafiek van de snelheid wordt dat dezelfde vraag als: hoe groot is de oppervlakte onder de grafiek? En voor een gebied onder een kromme ken je geen formule.
 
 In dit hoofdstuk pakken we dat aan met iets wat je al kunt: rechthoeken optellen. We snijden het gebied in smalle stroken, tellen ze op en kijken wat er gebeurt als de stroken steeds smaller worden. Zo komen we bij de bepaalde integraal. Het rekenwerk is hier nog omslachtig; in hoofdstuk 2 komt een veel snellere manier. Eerst moet je goed zien wat een integraal is.
 
@@ -159,7 +172,7 @@ en dat gaat naar 0 voor $n \to +\infty$. Uit $O_n \leqslant A \leqslant B_n$ vol
 \[ 0 \leqslant A - O_n \leqslant B_n - O_n \qquad\text{en}\qquad 0 \leqslant B_n - A \leqslant B_n - O_n . \]
 Volgens de insluitstelling gaan $A - O_n$ en $B_n - A$ dus allebei naar 0. Ondersom en bovensom hebben dezelfde limiet, en die limiet is precies de oppervlakte $A$.
 
-Welk getal is dat? Om dat te weten, moeten we de som opschrijven met $n$ als letter en de limiet nemen voor $n \to +\infty$. We doen dat één keer helemaal, voor een iets groter interval.
+Welk getal is dat? Om dat te weten, moeten we de som opschrijven met $n$ als letter en de limiet nemen voor $n \to +\infty$. We doen dat één keer helemaal, voor het interval $[0, 3]$ van de auto uit het probleem.
 
 \voorbeeld{}{Bereken de limiet van de bovensom van $f(x) = x^2$ op $[0, 3]$.\label{vb:h1-limiet}}{%
 \uitleg{Nu houden we het aantal rechthoeken open: we schrijven $n$ en rekenen alsof het een gewoon getal is. De figuur toont de bovensom met $n = 6$. Elke rechthoek is $\Delta x$ breed, en de $k$-de is $f(x_k)$ hoog. Pas op het einde laten we $n$ groeien.}
@@ -682,6 +695,29 @@ Waarom staat \textit{continu} in de middelwaardestelling? Een functie mag wel sp
 \begin{oefeningen}
 \oef{h1-gemiddelde}
 \end{oefeningen}
+
+\needspace{20\baselineskip}
+Nu kunnen we het probleem van het begin helemaal oplossen: de afstand, de gemiddelde snelheid en de fout in de redenering van de vriend.
+
+\voorbeeld{}{Terug naar het probleem. Een auto heeft na $t$ seconden een snelheid $v(t) = t^2$ (in m/s). Hoe ver rijdt hij in de eerste 3 seconden? Klopt de redenering met een gemiddelde snelheid van 4,5 m/s? Wanneer rijdt de auto precies aan zijn echte gemiddelde snelheid?\label{vb:h1-terug}}{%
+\uitleg{De afstand is de oppervlakte onder de snelheidsgrafiek, en die hebben we al berekend. Daaruit volgt de gemiddelde snelheid, en de middelwaardestelling zegt dat de auto die snelheid ergens echt rijdt.}
+\naast{\begin{stappenvrij}{5.2cm}{4.3cm}
+\ig_0^3 t^2\dt = 9 \text{ m} & De oppervlakte onder $x^2$ op $[0, 3]$, uit voorbeeld~\ref{vb:h1-limiet2}. \\[2.5ex]
+\dfrac{1}{3 - 0} \ig_0^3 t^2\dt = 3 \text{ m/s} & De gemiddelde snelheid: de integraal gedeeld door de lengte van het interval. \\[2.5ex]
+t^2 = 3 \ \Rightarrow \ t = \sqrt{3} \approx 1{,}73 \text{ s} & Op dat ogenblik rijdt de auto precies 3 m/s. De negatieve oplossing valt weg.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.8cm,y=.27cm,font=\scriptsize]
+  \gebied{0}{3}{(\x)^2}
+  \draw[black!14,very thin,xstep=1,ystep=3] (0,0) grid (3,9);
+  \draw[->,grijs] (0,0) -- (3.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,10.5) node[above,text=black] {$v$};
+  \draw[grijs,dashed] (0,0) -- (3,9);
+  \draw[accent,dashed] (0,3) -- (3,3);
+  \draw[accent,dashed] (1.732,0) -- (1.732,3);
+  \kromme{0}{3.05}{(\x)^2}
+  \foreach \t in {1,2,3} \node[below] at (\t,0) {\t};
+  \foreach \t in {3,6,9} \node[left] at (0,\t) {\t};
+\end{tikzpicture}}
+De vriend vergist zich. Het gemiddelde van de begin- en de eindsnelheid is alleen de gemiddelde snelheid als de snelheid gelijkmatig stijgt, zoals bij de fietser uit de Verken: dat is de grijze rechte, met een driehoek van 13,5~m eronder. Deze auto rijdt in het begin traag en versnelt pas later. Hij legt dus maar 9 m af, en rijdt gemiddeld 3 m/s.}
 
 %========================================================================================
 \opdrachtenkop

@@ -49,9 +49,9 @@ Indeling, leerplandoelen en voorkanten klaar sinds 16 nov 2026: zie de README's 
 ### 3de graad: wat nog ontbreekt
 
 - **Kegelsneden**: nagelezen en aangevuld op 18 nov 2026 (PR #49): fouten verbeterd, 7 korte oefeningen en 6 testvragen per hoofdstuk, prenten die al in de repo stonden. Nog: prenten van Commons bij de andere contextopdrachten (komeet, koeltoren, biljart, tunnel, onweer), en nalezen door een leerkracht.
-- **Vertrekken vanuit een probleem** (ontwerpregel van 16 nov 2026): de andere handboeken herwerken met een blok Probleem per hoofdstuk en een voorbeeld "Terug naar het probleem". Kegelsneden is het voorbeeld. **[Ingmar]**
+- **Vertrekken vanuit een probleem:** sinds 18 nov 2026 begint elk hoofdstuk van de 3de graad met een blok Probleem en komt erop terug (PR #47). Na te lezen: de keuze van de problemen en de schattingen (zie de PR).
 - **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken.
-- **Telproblemen voor pakket 2 en 3**: GO! vraagt telproblemen met het binomium van Newton ook in de economische en wetenschapsrichtingen. Nu verwijst de site naar de cursus van pakket 4, die voor 6 uur wiskunde geschreven is. Maak een lichtere versie: een map per pakket met een eigen `handboek.tex`, en de verschillen met `\alleenvoor` in `cursussen/Telproblemen/`. **[Ingmar]**
+- **Telproblemen voor pakket 2 en 3** (voor GO!): lichtere versie sinds 18 nov 2026, uit dezelfde bron met `\alleenvoor`. Na te kijken: de afbakening tegenover de GO!-doelen (zie de README van `cursussen/Telproblemen/`).
 - **Modules voor KOV Complementair** (uitbreiding voor wiskunderichtingen met meer dan 6 uur; een menu, niet alles is nodig): predicatenlogica, krommen en meetkundige plaatsen, oppervlakken in de ruimte, euclidische, affiene en projectieve meetkunde, extra integratiemethodes, differentiaalvergelijkingen, reeksen, numerieke methodes, vectorruimten, getaltheorie, lineair programmeren, financiële algebra, iteraties en fractalen, kansverdelingen, lineaire regressie, multivariate statistiek. **[Ingmar]**
 
 ## Handboeken afwerken (3de graad)
@@ -59,7 +59,6 @@ Indeling, leerplandoelen en voorkanten klaar sinds 16 nov 2026: zie de README's 
 - **Alle 47 handboeken** staan op "eerste versie" (Integralen in pakket 4 op "tweede versie"). Ze moeten door de stadia van `voortgang.yaml`: tweede en derde versie, dan nalezen door leerkrachten. **[Ingmar]**
 - **Pakket 1 afstemmen op Basis:** de leerstof is nu die van pakket 4: elke cursus staat één keer in `Handboeken/3de graad/cursussen/`, en buiten de leerplanverwijzingen verschilt pakket 1 er bijna nergens. Schrap of herschrijf wat buiten het leerplan Basis valt, met `\alleenvoor{1}` of `\begin{alleenvoor}{2,3,4}` in de bron (zie `Opmaak/pakketten.py`), nooit met een kopie. Hoofdstuk 4 van Statistiek (betrouwbaarheidsintervallen) is daar een keuzedoel. Hetzelfde geldt voor pakket 2 en 3 tegenover pakket 4. **[Ingmar]**
 - **Rijen in pakket 1, 2 en 3:** inkorten of selecteren voor het aantal lestijden van het pakket (zie de README van die cursussen). Het motief op de voorkant toont limieten, die in die pakketten niet aan bod komen. **[Ingmar]**
-- **Telproblemen (pakket 4):** de leerkrachtenversie kan LeWitt vermelden bij de kubussen op de voorkant.
 
 ## Koepels
 

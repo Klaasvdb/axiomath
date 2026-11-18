@@ -1,16 +1,29 @@
 %----------------------------------------------------------------------------------------
 % SCALAIR PRODUCT, HOEKEN EN AFSTANDEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h4-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{4}{Hoeken en afstanden}
 
-\lkr{Leerplan B+S'': LPD 5-8 (ruimtemeetkunde), het deel over het scalair product, loodrechte stand, hoeken en afstanden. Het scalair product in het vlak kennen sommige leerlingen uit de 2de graad; hier wordt het in de ruimte ingevoerd en meteen gebruikt voor de normaalvector van een vlak. Dat is de sleutel tot de rest van het hoofdstuk.}
+\begin{probleem}
+\vspace{-1mm}\naast{Een molecule methaan (CH$_4$) heeft een koolstofatoom met vier waterstofatomen eromheen. De vier bindingen stoten elkaar af en staan zo ver mogelijk uit elkaar: de waterstofatomen zitten op de hoekpunten van een regelmatig viervlak, met het koolstofatoom in het midden. Dat stelde de Nederlandse scheikundige Jacobus van~'t~Hoff al in 1874 voor. In het vlak zouden vier bindingen een kruis vormen, met hoeken van $90^\circ$. Welke hoek maken twee bindingen in de ruimte? En leg je de molecule op drie waterstofatomen, hoe hoog boven het vlak van die drie ligt dan het koolstofatoom? Een binding is ongeveer $109$~pm lang (1 pm is $10^{-12}$~m).}{\begin{tikzpicture}[ruimte,scale=.95,font=\scriptsize]
+  \draw[grijs!60] (2,0,0) -- (2,2,0) -- (0,2,0) (2,0,0) -- (2,0,2) -- (0,0,2) -- (0,2,2) -- (2,2,2) -- (2,0,2) (2,2,0) -- (2,2,2) (0,2,0) -- (0,2,2);
+  \draw[grijs!60,dashed] (0,0,0) -- (2,0,0) (0,0,0) -- (0,2,0) (0,0,0) -- (0,0,2);
+  \draw[accent!50] (0,0,0) -- (2,2,0) -- (2,0,2) -- cycle (0,0,0) -- (0,2,2) -- (2,2,0) (0,2,2) -- (2,0,2);
+  \foreach \p in {{0,0,0},{2,2,0},{2,0,2},{0,2,2}}{\draw[accent,very thick] (1,1,1) -- (\p);}
+  \foreach \p in {{0,0,0},{2,2,0},{2,0,2},{0,2,2}}{\fill[white] (\p) circle (2.6pt); \draw[accent] (\p) circle (2.6pt);}
+  \fill[accent] (1,1,1) circle (3.2pt);
+  \node[right=2pt] at (1,1,1) {C};
+  \node[below left] at (0,0,0) {H}; \node[below right] at (2,2,0) {H}; \node[left] at (2,0,2) {H}; \node[above] at (0,2,2) {H};
+\end{tikzpicture}}
+\end{probleem}
 
-Hoe bereken je de hoek tussen twee ribben van een piramide, of de afstand van een punt tot een vlak? Met coördinaten gaat dat zonder figuur, dankzij één bewerking: het scalair product van twee vectoren. Het zegt meteen of twee vectoren loodrecht op elkaar staan.
+\lkr{Leerplan B+S'': LPD 5-8 (ruimtemeetkunde), het deel over het scalair product, loodrechte stand, hoeken en afstanden. Het scalair product in het vlak kennen sommige leerlingen uit de 2de graad; hier wordt het in de ruimte ingevoerd en meteen gebruikt voor de normaalvector van een vlak. Dat is de sleutel tot de rest van het hoofdstuk. De hoek in het probleem, ongeveer $109{,}5^\circ$, kennen leerlingen met chemie misschien als de tetraëderhoek. De C-H-binding is $108{,}7$~pm lang; het probleem rondt af op $109$~pm.}
+
+Een hoek in de ruimte meet je niet zomaar met een geodriehoek: de bindingen liggen niet in het vlak van je blad. Met coördinaten lukt het wel, zonder figuur, dankzij één bewerking: het scalair product van twee vectoren. Het geeft de hoek tussen twee vectoren, en zegt meteen of ze loodrecht op elkaar staan. Daarmee vinden we in dit hoofdstuk ook de stand van een vlak, de hoek tussen twee vlakken en de afstand van een punt tot een vlak of een rechte. Op het einde beantwoorden we beide vragen van het probleem.
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -23,7 +36,9 @@ Hoe bereken je de hoek tussen twee ribben van een piramide, of de afstand van ee
 
 \subsection{Definitie}
 
-In de Verken gaf de som $v_1w_1 + v_2w_2 + v_3w_3$ nul bij twee loodrechte vectoren, en het kwadraat van de lengte bij een vector met zichzelf. Die som krijgt een eigen naam.
+Leg de molecule in een kubus met ribbe $2$, zoals in de figuur van het probleem: het koolstofatoom in het middelpunt $K(1, 1, 1)$, en twee waterstofatomen in $H_1(0, 0, 0)$ en $H_2(2, 2, 0)$. Met wat je al kent, lukt het: de driehoek $KH_1H_2$ heeft zijden $|KH_1| = |KH_2| = \sqrt3$ en $|H_1H_2| = 2\sqrt2$, en de cosinusregel geeft
+\[\cos\theta = \frac{3 + 3 - 8}{2 \cdot \sqrt3 \cdot \sqrt3} = -\frac13 .\]
+Daarvoor had je een driehoek nodig, en de lengte van de derde zijde. Kan het rechtstreeks met de vectoren $\overrightarrow{KH_1} = \vcr{-1}{-1}{-1}$ en $\overrightarrow{KH_2} = \vcr{1}{1}{-1}$? Vermenigvuldig hun coördinaten twee aan twee en tel op: $(-1) \cdot 1 + (-1) \cdot 1 + (-1) \cdot (-1) = -1$. Dat is precies $\sqrt3 \cdot \sqrt3 \cdot \cos\theta = 3 \cdot \bigl(-\frac13\bigr)$: de lengtes van de twee vectoren maal de cosinus van de hoek. Toeval? In de Verken gaf dezelfde som $v_1w_1 + v_2w_2 + v_3w_3$ nul bij twee loodrechte vectoren, en het kwadraat van de lengte bij een vector met zichzelf. Die som krijgt een eigen naam, en in deze sectie bewijzen we dat het geen toeval is.
 
 \begin{theorie}
 Het \textbf{\textcolor{accent}{scalair product}} van $\vec v = \vcr{v_1}{v_2}{v_3}$ en $\vec w = \vcr{w_1}{w_2}{w_3}$ is het getal \quad $\formule{\vec v \cdot \vec w = v_1w_1 + v_2w_2 + v_3w_3}$
@@ -67,7 +82,7 @@ Even eenvoudig zie je per coördinaat dat $\vec v \cdot \vec w = \vec w \cdot \v
 
 \subsection{Scalair product en hoek}
 
-De \textit{hoek} $\theta$ tussen twee vectoren $\vec v$ en $\vec w$, beide niet $\vec 0$, is de hoek tussen hun pijlen vanuit eenzelfde punt, met $0^\circ \leqslant \theta \leqslant 180^\circ$. Het scalair product geeft die hoek, zonder figuur.
+De \textit{hoek} $\theta$ tussen twee vectoren $\vec v$ en $\vec w$, beide niet $\vec 0$, is de hoek tussen hun pijlen vanuit eenzelfde punt, met $0^\circ \leqslant \theta \leqslant 180^\circ$. Wat we bij methaan opmerkten, geldt voor alle vectoren: het scalair product geeft die hoek, zonder figuur.
 
 \begin{theorie}
 \begin{stelling}{Scalair product en hoek}
@@ -166,7 +181,7 @@ Om te weten of een hoek recht is, volstaat dus het scalair product.
 
 \subsection{De normaalvector van een vlak}
 
-Een vlak heeft veel richtingsvectoren, maar maar één richting die er loodrecht op staat. Die richting lees je meteen af uit de cartesiaanse vergelijking.
+Hoe leg je met één vector vast hoe een vlak staat? Een vlak heeft veel richtingsvectoren, maar maar één richting die er loodrecht op staat. Die richting lees je meteen af uit de cartesiaanse vergelijking.
 
 \begin{theorie}
 \naast{Een \textbf{\textcolor{accent}{normaalvector}} van een vlak is een vector $\vec n \neq \vec 0$ die loodrecht staat op elke vector $\overrightarrow{P_1P_2}$ met $P_1$ en $P_2$ in het vlak.}{%
@@ -296,7 +311,7 @@ Twee vlakken staan \textbf{\textcolor{accent}{loodrecht}} op elkaar als $\formul
 
 \subsection{Afstand en loodlijn}
 
-De afstand van een punt tot een vlak is de kortste afstand van dat punt tot een punt van het vlak. Je vindt ze langs de loodlijn, zoals een steen die recht naar beneden valt.
+Hoe hoog ligt het koolstofatoom boven het vlak van drie waterstofatomen? Naar elk punt van dat vlak is de afstand anders: welke bedoelen we? De afstand van een punt tot een vlak is de kortste afstand van dat punt tot een punt van het vlak. Je vindt ze langs de loodlijn, zoals een steen die recht naar beneden valt.
 
 \naast{%
 \begin{theorie}
@@ -398,6 +413,19 @@ De afstand van $P$ tot een rechte $l$: stel het vlak op door $P$ met de richting
 \begin{oefeningen}
 \oef{h4-afstandrechte}
 \end{oefeningen}
+
+Met het scalair product en de afstandsformule beantwoorden we nu beide vragen over methaan.
+
+\voorbeeld{}{Terug naar het probleem. In een molecule methaan liggen de waterstofatomen in $H_1(0, 0, 0)$, $H_2(2, 2, 0)$, $H_3(2, 0, 2)$ en $H_4(0, 2, 2)$, en het koolstofatoom in $K(1, 1, 1)$. Welke hoek maken twee bindingen? Hoe hoog ligt $K$ boven het vlak $H_2H_3H_4$, als een binding $109$~pm lang is?\label{vb:h4-terug}}{%
+\uitleg{De hoek tussen twee bindingen is de hoek tussen twee vectoren vanuit $K$. Voor de hoogte gebruik je de afstandsformule, en vergelijk je de afstand met de lengte van een binding: verhoudingen veranderen niet als je de figuur vergroot.}
+\begin{stappenbreed}
+\overrightarrow{KH_1} \cdot \overrightarrow{KH_2} = \vcr{-1}{-1}{-1} \cdot \vcr{1}{1}{-1} = -1 & Negatief: een stompe hoek. \\
+\cos\theta = \dfrac{-1}{\sqrt3 \cdot \sqrt3} = -\dfrac13 \iff \theta \approx 109{,}5^\circ & Elke binding heeft norm $\sqrt3$. \\
+x + y + z = 4 & Klopt voor $H_2$, $H_3$ en $H_4$. \\
+d(K, H_2H_3H_4) = \dfrac{|1 + 1 + 1 - 4|}{\sqrt{1 + 1 + 1}} = \dfrac{1}{\sqrt3} & De afstandsformule. \\
+\dfrac{1/\sqrt3}{\sqrt3} = \dfrac13,\qquad \dfrac{109}{3} \approx 36 & Een derde van een binding, in picometer.
+\end{stappenbreed}
+Twee bindingen maken een hoek van ongeveer $109{,}5^\circ$; elk ander paar geeft hetzelfde, zoals $\overrightarrow{KH_1} \cdot \overrightarrow{KH_3} = -1$. Ligt de molecule op drie waterstofatomen, dan zit het koolstofatoom maar ongeveer $36$~pm boven hun vlak, en het vierde waterstofatoom $36 + 109 = 145$~pm.}
 
 %========================================================================================
 \opdrachtenkop

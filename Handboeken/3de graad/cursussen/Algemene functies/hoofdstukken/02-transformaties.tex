@@ -1,16 +1,27 @@
 %----------------------------------------------------------------------------------------
 % TRANSFORMATIES VAN GRAFIEKEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Transformaties van grafieken}
 
+\begin{probleem}
+\vspace{-1mm}\naast{De grafiek toont de temperatuur in Brussel op een winterdag, in graden Celsius, $t$ uur na middernacht. Je vriendin in New York wil dezelfde metingen zien zoals ze dat gewend is: met de temperatuur in graden Fahrenheit, en met de klok van New York, waar het 6 uur vroeger is dan in Brussel. Een temperatuur van $T$\,$^\circ$C is $1{,}8\,T + 32$\,$^\circ$F. Hoe ziet haar grafiek eruit? Om hoe laat was het volgens haar klok het warmst, en hoeveel graden Fahrenheit was het toen? Waar zie je op haar grafiek dat het vroor?}{\begin{tikzpicture}[x=.24cm,y=.36cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.72cm,ystep=.36cm] (0,-3) grid (24,7);
+  \draw[->,grijs] (0,0) -- (25.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-3) -- (0,7.6) node[above,text=black] {$^\circ$C};
+  \foreach \t in {6,12,18,24}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-2,2,4,6}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \kromme{0}{24}{-4*cos(15*(\x-3))+2}
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{9-11}\alleenvoor{1,2,3}{5-6} (algemene functies), het deel over transformaties van grafieken. In de cursussen over exponentiële, goniometrische en rationale functies komen dezelfde transformaties terug: daar volstaat dan een verwijzing naar dit hoofdstuk. Laat leerlingen telkens één bijzonder punt volgen (een top, een beginpunt): dat maakt de transformatie zichtbaar en controleerbaar.}
 
-Veel functies zijn een bekende functie in een andere vorm: verschoven, uitgerekt of gespiegeld. Wie de grafieken van een handvol basisfuncties kent, kan zo heel wat grafieken schetsen zonder tabel. Het idee is telkens hetzelfde: een grafiek is een verzameling punten (hoofdstuk 1), en een kleine verandering in het voorschrift verplaatst elk punt op dezelfde manier. We zoeken dus uit waar elk punt $(x, y)$ terechtkomt.
+Je vriendin kan elk punt van de grafiek opnieuw uitrekenen, maar dat hoeft niet. Elke temperatuur verandert op dezelfde manier (maal $1{,}8$, plus $32$), en elk tijdstip ook (6 uur vroeger). De grafiek van New York is dus de grafiek van Brussel in een andere vorm: verschoven en uitgerekt. Zo zijn veel functies een bekende functie in een andere vorm: verschoven, uitgerekt of gespiegeld. Wie de grafieken van een handvol basisfuncties kent, kan zo heel wat grafieken schetsen zonder tabel. Het idee is telkens hetzelfde: een grafiek is een verzameling punten (hoofdstuk 1), en een kleine verandering in het voorschrift verplaatst elk punt op dezelfde manier. We zoeken dus uit waar elk punt $(x, y)$ terechtkomt. Eén ding verrast daarbij: wat je \textit{binnen} de functie verandert, werkt omgekeerd.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -78,11 +89,11 @@ Je hoeft de tabel niet blind te leren: elke kolom volgt uit het voorschrift, met
 %========================================================================================
 \section{Verschuiven}
 
-In de Verken was $g(x) = (x - 1)^2$ de parabool $y = x^2$, één eenheid naar rechts geschoven. We bekijken eerst een verschuiving in de hoogte, dan een opzij, en ten slotte beide samen.
+Begin met de klok van het probleem. Noem $f(t)$ de temperatuur in Brussel om $t$ uur, Brusselse tijd. Als het in New York $t$ uur is, is het in Brussel $t + 6$ uur. De temperatuur om $t$ uur in New York is dus $f(t + 6)$: om 9 uur in New York is het $f(15) = 6$\,$^\circ$C, het warmste moment. Er staat $+6$ in het voorschrift, maar het warmste moment komt \textit{vroeger}: de grafiek schuift naar links. Ook in de Verken was het zo: $g(x) = (x - 1)^2$ is de parabool $y = x^2$, één eenheid naar \textit{rechts} geschoven. Een verandering binnen de functie lijkt dus omgekeerd te werken. In deze sectie leggen we uit waarom. We bekijken eerst een verschuiving in de hoogte, dan een opzij, en ten slotte beide samen.
 
 \subsection{Verticaal verschuiven}
 
-Tel je bij elke functiewaarde hetzelfde getal $d$ op, dan komt elk punt van de grafiek $d$ hoger te liggen.
+Wat doet de $+32$ van de omrekening naar Fahrenheit met een grafiek? Tel je bij elke functiewaarde hetzelfde getal $d$ op, dan komt elk punt van de grafiek $d$ hoger te liggen.
 
 \begin{theorie}
 \begin{stelling}{Verticale verschuiving}
@@ -133,7 +144,7 @@ dus als en slechts als $(x - c, y)$ op de grafiek van $f$ ligt. Noem $u = x - c$
 \end{bewijs}
 \end{theorie}
 
-Let op het teken: in $f(x - 3)$ schuift de grafiek naar \textit{rechts}, in $f(x + 3) = f\bigl(x - (-3)\bigr)$ naar links. Nu verandert het domein mee, en blijft het bereik hetzelfde.
+Let op het teken: in $f(x - 3)$ schuift de grafiek naar \textit{rechts}, in $f(x + 3) = f\bigl(x - (-3)\bigr)$ naar links. Zo is de klok van New York $f(t + 6)$: $c = -6$, en de grafiek schuift 6 uur naar links. Nu verandert het domein mee, en blijft het bereik hetzelfde.
 
 \voorbeeld{}{Schets de grafiek van $g(x) = \dfrac{1}{x - 1}$, en geef het domein.\label{vb:h2-horverschuiven}}{%
 \naast{%
@@ -187,7 +198,7 @@ c = -3,\ d = -1 & 3 naar links, 1 naar onder. \\
 %========================================================================================
 \section{Uitrekken en spiegelen}
 
-Een verschuiving telt iets op. Vermenigvuldig je met een getal, dan wordt de grafiek uitgerekt of samengedrukt. Ook hier hangt het ervan af of je dat buiten $f$ doet of binnen.
+Een verschuiving telt iets op. Maar de omrekening naar Fahrenheit doet ook iets anders: ze vermenigvuldigt elke temperatuur met $1{,}8$. Wat gebeurt er dan met de grafiek? Vermenigvuldig je met een getal, dan wordt de grafiek uitgerekt of samengedrukt. Ook hier hangt het ervan af of je dat buiten $f$ doet of binnen.
 
 \subsection{Verticaal uitrekken}
 
@@ -443,6 +454,31 @@ y = -\tfrac12(x + 1)^2 + 2 &
 \begin{oefeningen}
 \oef{h2-voorschrift-kort}
 \end{oefeningen}
+
+Met de stelling \textit{Een punt volgen} kunnen we nu de grafiek voor New York tekenen, zonder ook maar één temperatuur opnieuw te meten of uit te rekenen.
+
+\voorbeeld{}{Terug naar het probleem. $f(t)$ is de temperatuur in Brussel in $^\circ$C, $t$ uur na middernacht (Brusselse tijd), met domein $[0, 24]$. De top van de grafiek is $(15, 6)$, het dal $(3, -2)$, en de nulwaarden zijn $7$ en $23$. Teken de grafiek van de temperatuur in $^\circ$F volgens de klok van New York, 6 uur vroeger. Wanneer was het daar het warmst, en hoe warm? Waar zie je dat het vroor?\label{vb:h2-terug}}{%
+\uitleg{Om $t$ uur in New York is het $t + 6$ uur in Brussel, en de temperatuur $f(t + 6)$ in $^\circ$C. Reken die om naar $^\circ$F. Schrijf het voorschrift in de vorm van de stelling, en volg de bijzondere punten.}
+\begin{stappenbreed}
+g(t) = 1{,}8 \cdot f\bigl(t - (-6)\bigr) + 32 & $a = 1{,}8$, $b = 1$, $c = -6$, $d = 32$. \\
+(u, v) \mapsto (u - 6;\ 1{,}8v + 32) & Elk punt: 6 uur naar links, de hoogte maal $1{,}8$ en dan $32$ hoger. \\
+(15, 6) \mapsto (9;\ 42{,}8) & Het warmst: om 9 uur, $42{,}8$\,$^\circ$F. \\
+(3, -2) \mapsto (-3;\ 28{,}4) & Het koudst: om $-3$ uur, dat is 21 uur de avond ervoor. \\
+(7, 0) \mapsto (1, 32),\ \ (23, 0) \mapsto (17, 32) & De nulwaarden komen op de rechte $T = 32$. \\
+\dom g = [-6, 18] & Het domein schuift mee: van 18 uur de dag ervoor tot 18 uur.
+\end{stappenbreed}
+\naast{%
+Het vriespunt $0$\,$^\circ$C is $32$\,$^\circ$F: de $t$-as van Brussel wordt de rechte $T = 32$ (gestippeld). Het vroor dus waar de grafiek onder die rechte ligt: volgens de klok van New York tot 1 uur 's nachts en vanaf 17 uur. Controle: om 9 uur in New York is het 15 uur in Brussel, en $1{,}8 \cdot 6 + 32 = 42{,}8$. De grafiek heeft dezelfde vorm als die van Brussel: alleen de assen kregen andere getallen.}{%
+\begin{tikzpicture}[x=.22cm,y=.13cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.66cm,ystep=.52cm] (-6,24) grid (18,44);
+  \draw[->,grijs] (-6,24) -- (19.5,24) node[right,text=black] {$t$};
+  \draw[->,grijs] (-6,24) -- (-6,46.5) node[above,text=black] {$^\circ$F};
+  \foreach \t in {-6,0,6,12,18}{\node[below,inner sep=1.5pt] at (\t,24) {$\t$};}
+  \foreach \t in {28,32,36,40,44}{\node[left,inner sep=1.5pt] at (-6,\t) {$\t$};}
+  \draw[grijs,dashed] (-6,32) -- (18,32);
+  \kromme{-6}{18}{-7.2*cos(15*(\x+3))+35.6}
+  \vol{(9,42.8)} \vol{(-3,28.4)} \vol{(1,32)} \vol{(17,32)}
+\end{tikzpicture}}}
 
 %========================================================================================
 \opdrachtenkop

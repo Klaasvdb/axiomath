@@ -8,11 +8,32 @@
 
 \mychapter{3}{Symmetrieën en permutaties}
 
+\begin{probleem}
+Een strook behang met vogels loopt naar links en naar rechts oneindig ver door. Spiegel je de strook om de verticale as $s$, dan valt ze precies op zichzelf. Spiegel je ze om de as $t$, ook. Wat gebeurt er met de strook als je eerst om $s$ en daarna om $t$ spiegelt? Is dat hetzelfde als eerst om $t$ en dan om $s$? En welke bewegingen leggen de strook allemaal op zichzelf?
+
+\figuren{\begin{tikzpicture}[x=1.15cm,font=\small,vogel/.pic={
+    \draw[accent,thick,fill=accent!22,line join=round] (-.18,.03) -- (-.4,.18) -- (-.35,-.03) -- cycle;
+    \draw[accent,thick,fill=accent!22] (0,0) ellipse (.25 and .15);
+    \draw[accent,thick,fill=accent!22] (.23,.14) circle (.1);
+    \fill[accent] (.32,.17) -- (.43,.13) -- (.32,.1) -- cycle;
+    \fill[accent] (.25,.16) circle (.8pt);
+    \draw[accent,thick] (-.03,-.14) -- (-.05,-.26) (.06,-.14) -- (.06,-.26);}]
+  \draw[lijngrijs] (-3.15,-.42) -- (3.15,-.42) (-3.15,.42) -- (3.15,.42);
+  \node at (-3.5,0) {$\cdots$};\node at (3.5,0) {$\cdots$};
+  \foreach \k in {-3,...,2}{%
+    \pgfmathtruncatemacro{\even}{mod(\k+4,2)==0}
+    \ifnum\even=1 \pic[xscale=-1] at (\k+.5,.03) {vogel};\else \pic at (\k+.5,.03) {vogel};\fi}
+  \draw[fel!85!black,thick,dashed] (0,-.6) -- (0,.62) node[above] {$s$};
+  \draw[fel!85!black,thick,dashed] (1,-.6) -- (1,.62) node[above] {$t$};
+  \draw[{Stealth[length=1.6mm]}-{Stealth[length=1.6mm]},grijs] (0,-.68) -- node[below,inner sep=1pt] {$d$} (1,-.68);
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan B+S'': LPD 43, met de twee eindige voorbeelden die het leerplan noemt: symmetriegroepen van figuren met de samenstelling (de gelijkzijdige driehoek) en permutaties met de samenstelling. Sectie 3 vergelijkt groepen met de orde van hun elementen. Het woord \textit{isomorf} staat alleen in de uitleg: morfismen horen bij het complementair gedeelte. Hou kartonnen driehoeken en vierkanten met genummerde hoekpunten klaar: leerlingen die de figuur echt draaien en omklappen, maken veel minder fouten bij het samenstellen.}
 
 Op de voorkant van dit boek staat een behangpatroon van William Morris. Schuif je het patroon een stuk op, of spiegel je het om een verticale lijn, dan valt het precies op zichzelf. Zulke bewegingen heten symmetrieën. Een sneeuwvlok heeft er twaalf, een vierkant acht, en een kristal in een mineraal heel wat meer.
 
-In dit hoofdstuk zie je dat de symmetrieën van een figuur een groep vormen, met als bewerking: de ene beweging na de andere uitvoeren. Het zijn je eerste groepen die niet commutatief zijn. Daarna bekijk je permutaties, het door elkaar schudden van een rij voorwerpen. Galois ontdekte de groepen precies zo: door de oplossingen van een vergelijking van plaats te wisselen. Op het einde vergelijk je groepen met elkaar, en zie je wanneer twee groepen eigenlijk dezelfde zijn.
+In dit hoofdstuk zie je dat de symmetrieën van een figuur een groep vormen, met als bewerking: de ene beweging na de andere uitvoeren. Daarmee vind je ook alle symmetrieën van de strook met vogels uit het probleem. Het zijn je eerste groepen die niet commutatief zijn. Daarna bekijk je permutaties, het door elkaar schudden van een rij voorwerpen. Galois ontdekte de groepen precies zo: door de oplossingen van een vergelijking van plaats te wisselen. Op het einde vergelijk je groepen met elkaar, en zie je wanneer twee groepen eigenlijk dezelfde zijn.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -27,7 +48,7 @@ In dit hoofdstuk zie je dat de symmetrieën van een figuur een groep vormen, met
 
 \subsection{De symmetriegroep}
 
-Een spiegeling, een draaiing en een verschuiving veranderen de plaats van een figuur, maar niet haar vorm of grootte: alle afstanden blijven gelijk. Brengt zo'n beweging een figuur precies op zichzelf, dan is ze een symmetrie van die figuur.
+In het probleem zijn de spiegelingen om $s$ en om $t$ symmetrieën van de strook. Is de ene na de andere er ook een? Een spiegeling, een draaiing en een verschuiving veranderen de plaats van een figuur, maar niet haar vorm of grootte: alle afstanden blijven gelijk. Brengt zo'n beweging een figuur precies op zichzelf, dan is ze een symmetrie van die figuur.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{isometrie}} is een transformatie van het vlak die alle afstanden bewaart, zoals een spiegeling, een draaiing of een verschuiving.
@@ -169,6 +190,40 @@ Een regelmatige veelhoek met $n$ zijden heeft $2n$ symmetrieën: $n$ draaiingen 
 \begin{oefeningen}
 \oef{h3-figuren}
 \end{oefeningen}
+
+Ook de strook met vogels uit het probleem heeft oneindig veel symmetrieën. Omdat ze een groep vormen, kun je ze allemaal vinden uit de twee spiegelingen $s$ en $t$.
+
+\voorbeeld{}{Terug naar het probleem. Wat is $t \circ s$, eerst $s$ en dan $t$? Wat is $s \circ t$? Welke bewegingen leggen de strook op zichzelf?\label{vb:h3-terug}}{%
+\uitleg{Leg een $x$-as langs de strook, met de as $s$ door 0 en de as $t$ door $d$. Een spiegeling om een verticale as verandert alleen de $x$-coördinaat van een punt: we schrijven $s(x)$ voor het beeld van een punt met $x$-coördinaat $x$.}
+\figuren{\begin{tikzpicture}[x=1.15cm,font=\small,vogel/.pic={
+    \draw[accent,thick,fill=accent!22,line join=round] (-.18,.03) -- (-.4,.18) -- (-.35,-.03) -- cycle;
+    \draw[accent,thick,fill=accent!22] (0,0) ellipse (.25 and .15);
+    \draw[accent,thick,fill=accent!22] (.23,.14) circle (.1);
+    \fill[accent] (.32,.17) -- (.43,.13) -- (.32,.1) -- cycle;
+    \fill[accent] (.25,.16) circle (.8pt);
+    \draw[accent,thick] (-.03,-.14) -- (-.05,-.26) (.06,-.14) -- (.06,-.26);}]
+  \draw[lijngrijs] (-3.15,-.42) -- (3.15,-.42) (-3.15,.42) -- (3.15,.42);
+  \node at (-3.5,0) {$\cdots$};\node at (3.5,0) {$\cdots$};
+  \foreach \k in {-3,...,2}{%
+    \pgfmathtruncatemacro{\even}{mod(\k+4,2)==0}
+    \ifnum\even=1 \pic[xscale=-1] at (\k+.5,.03) {vogel};\else \pic at (\k+.5,.03) {vogel};\fi}
+  \begin{scope}\colorlet{accent}{fel!85!black}
+  \pic at (-.5,.03) {vogel};\pic[xscale=-1] at (.5,.03) {vogel};\pic at (1.5,.03) {vogel};
+  \end{scope}
+  \draw[grijs,dashed] (0,-.55) node[below] {$s$} -- (0,.55);
+  \draw[grijs,dashed] (1,-.55) node[below] {$t$} -- (1,.55);
+  \draw[-{Stealth[length=2mm]},fel!85!black,thick] (-.5,.5) to[bend left=35] node[above,inner sep=1pt] {$s$} (.45,.5);
+  \draw[-{Stealth[length=2mm]},fel!85!black,thick] (.55,.5) to[bend left=35] node[above,inner sep=1pt] {$t$} (1.5,.5);
+  \draw[-{Stealth[length=2mm]},fel!85!black,thick] (-.5,-1.05) -- node[below,inner sep=1pt] {$t \circ s$: verschuiving over $2d$} (1.5,-1.05);
+\end{tikzpicture}}
+\begin{stappenvrij}{5.4cm}{9.2cm}
+s(x) = -x, \quad t(x) = 2d - x & De punten $x$ en $2d - x$ liggen even ver van de as door $d$, aan weerskanten. \\[1ex]
+(t \circ s)(x) = t(-x) = 2d + x & Eerst $s$, dan $t$: een verschuiving over $2d$ naar rechts, de breedte van een paar vogels. \\[1ex]
+(s \circ t)(x) = s(2d - x) = x - 2d & In de andere volgorde: een verschuiving over $2d$ naar links. Dus $s \circ t \neq t \circ s$. \\[1ex]
+v = t \circ s, \quad v^k(x) = x + 2kd & De symmetrieën vormen een groep, dus ook $v^2$, $v^{-1} = s \circ t$, \ldots{} zijn symmetrieën: de verschuivingen over een veelvoud van $2d$. \\[1ex]
+(v^k \circ s)(x) = 2kd - x & Ook $v^k \circ s$ is een symmetrie: de spiegeling om de verticale as door $kd$.
+\end{stappenvrij}
+Zijn dat ze allemaal? Een symmetrie mag de vogels niet op hun kop zetten. Dan blijven alleen verschuivingen langs de strook over, en spiegelingen om een verticale as. Een verschuiving moet een vogel die naar rechts kijkt, op een vogel leggen die ook naar rechts kijkt: over een veelvoud van $2d$. Is $m$ de spiegeling om de verticale as door $c$, met $m(x) = 2c - x$, dan is $m \circ s$ de verschuiving over $2c$. Is $m$ een symmetrie, dan ook $m \circ s$, dus is $2c$ een veelvoud van $2d$. De strook heeft dus oneindig veel symmetrieën: de verschuivingen over een veelvoud van $2d$, en de spiegelingen om de assen door een veelvoud van $d$, tussen elke twee naburige vogels.}
 
 %========================================================================================
 \section{Permutaties}

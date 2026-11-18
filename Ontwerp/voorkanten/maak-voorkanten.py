@@ -65,11 +65,13 @@ for pakket, extra in (
           ("Data en onzekerheid/Kansrekenen", "kansrekenen"), ("Data en onzekerheid/Statistiek", "statistiek")]),
     (P2, [("Analyse/Rationale functies", "rationale-functies"), ("Analyse/Afgeleiden", "afgeleiden"),
           ("Analyse/Integralen", "integralen"), ("Algebra/Matrices", "matrices"), ("Discrete wiskunde/Rijen", "rijen"),
+          ("Discrete wiskunde/Telproblemen", "telproblemen"),  # alleen voor GO! (koepels.yaml)
           ("Data en onzekerheid/Kansrekenen", "kansrekenen"), ("Data en onzekerheid/Statistiek", "statistiek"),
           ("Onderzoekscompetentie", "onderzoekscompetentie")]),
     (P3, [("Analyse/Rationale functies", "rationale-functies"), ("Analyse/Afgeleiden", "afgeleiden"),
           ("Analyse/Integralen", "integralen"), ("Algebra/Matrices", "matrices"), ("Algebra/Complexe getallen", "complexe-getallen"),
-          ("Discrete wiskunde/Rijen", "rijen"), ("Data en onzekerheid/Kansrekenen", "kansrekenen"),
+          ("Discrete wiskunde/Rijen", "rijen"), ("Discrete wiskunde/Telproblemen", "telproblemen"),  # alleen voor GO!
+          ("Data en onzekerheid/Kansrekenen", "kansrekenen"),
           ("Data en onzekerheid/Statistiek", "statistiek"), ("Onderzoekscompetentie", "onderzoekscompetentie")]),
 ):
     HANDBOEKEN_LIJST += [(pakket, m, n, None) for m, n in GEMEEN + extra]

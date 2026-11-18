@@ -8,9 +8,23 @@
 
 \mychapter{3}{Hypothesetoetsen}
 
+\begin{probleem}
+\naast{Tijdens het WK voetbal van 2010 \textit{voorspelde} de octopus Paul, in een aquarium in het Duitse Oberhausen, de uitslag van acht matchen. Voor elke match kreeg hij twee bakjes met een mossel erin, elk met de vlag van een ploeg. Het bakje waaruit hij eerst at, was zijn voorspelling. Paul had alle acht voorspellingen juist, ook die van de finale. Kan dat toeval zijn? Of kan een octopus voetbaluitslagen voorspellen?}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \foreach \x/\n in {0/Duitsland,3.4/Spanje}{%
+    \draw[accent,thick,fill=accent!8] (\x,0) rectangle (\x+2.2,1.6);
+    \draw[grijs] (\x+1.1,1.6) -- (\x+1.1,2.6);
+    \node[below] at (\x+1.1,0) {\n};}
+  \fill[black] (1.1,2.6) rectangle (2.3,2.83); \fill[red!75!black] (1.1,2.37) rectangle (2.3,2.6); \fill[yellow!85!orange] (1.1,2.14) rectangle (2.3,2.37);
+  \fill[red!75!black] (4.5,2.14) rectangle (5.7,2.83); \fill[yellow!85!orange] (4.5,2.31) rectangle (5.7,2.66);
+  \draw[grijs] (1.1,2.14) rectangle (2.3,2.83) (4.5,2.14) rectangle (5.7,2.83);
+  \draw[fel!80!black,very thick,->] (2.8,-1.2) to[bend right=25] (4.5,.8);
+  \node[align=center] at (2.8,-1.7) {halve finale: Paul koos Spanje};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: \alleenvoor{2,3,4}{LPD}\alleenvoor{1}{keuzedoel} \alleenvoor{4}{54}\alleenvoor{3}{40}\alleenvoor{2}{34}\alleenvoor{1}{K5 (na te kijken)} (hypothesen toetsen met nulhypothese, alternatieve hypothese, p-waarde en significantieniveau), met de wenken over de steekproevenverdeling, eenzijdige en tweezijdige toetsen, toetsen voor proporties en gemiddelden, de twee soorten fouten en de centrale limietstelling. Toetsen voor een proportie doen we exact met de binomiale verdeling; toetsen voor een gemiddelde met een bekende $\sigma$ en de normale verdeling. De t-toets valt buiten het leerplan. De p-waarde mag met ICT.}
 
-Een producent beweert dat hoogstens 2~\% van zijn producten defect is. Je test er 200 en vindt er 9 defect. Liegt hij, of had je pech? Met een hypothesetoets beslis je dat op een vaste manier. Je gaat ervan uit dat de bewering klopt, en berekent hoe waarschijnlijk je resultaat dan is. Is dat heel onwaarschijnlijk, dan verwerp je de bewering. In dit hoofdstuk leer je die redenering, die in alle wetenschappen gebruikt wordt, en de valkuilen ervan.
+Stel dat Paul gewoon gokt. Dan is de kans dat hij acht keer gelijk heeft $\bigl(\tfrac12\bigr)^8 = \tfrac{1}{256}$, minder dan 0,4~\%. Is dat klein genoeg om te besluiten dat hij niet gokt? En hoe klein is klein genoeg? Met een hypothesetoets beslis je zoiets op een vaste manier. Je gaat ervan uit dat er niets bijzonders aan de hand is, en berekent hoe waarschijnlijk je resultaat dan is. Is dat heel onwaarschijnlijk, dan verwerp je die veronderstelling. In dit hoofdstuk leer je die redenering, die in alle wetenschappen gebruikt wordt, en de valkuilen ervan. Op het einde blijkt dat juist zo'n valkuil het verhaal van Paul verklaart.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -23,7 +37,7 @@ Een producent beweert dat hoogstens 2~\% van zijn producten defect is. Je test e
 %========================================================================================
 \section{De steekproevenverdeling}
 
-In hoofdstuk 1 zag je dat een steekproefgrootheid schommelt van steekproef tot steekproef. Om te beoordelen of een resultaat verrassend is, moet je weten hoe sterk. Daarvoor bekijk je de steekproefgrootheid als toevalsvariabele, met een eigen kansverdeling.
+Is acht op acht verrassend? Dat kun je pas zeggen als je weet welke resultaten een gokkende octopus allemaal kan halen, en met welke kans. Het aantal juiste voorspellingen is dan binomiaal verdeeld: $B(8;\, 0{,}5)$. Zo'n kansverdeling heb je bij elke toets nodig. In hoofdstuk 1 zag je dat een steekproefgrootheid schommelt van steekproef tot steekproef. Om te beoordelen of een resultaat verrassend is, moet je weten hoe sterk. Daarvoor bekijk je de steekproefgrootheid als toevalsvariabele, met een eigen kansverdeling.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{steekproevenverdeling}} van een steekproefgrootheid is haar kansverdeling over alle mogelijke aselecte steekproeven van grootte $n$.
@@ -233,7 +247,7 @@ H_0\colon p = \tfrac16 \qquad H_1\colon p > \tfrac16 & De speler vermoedt te vee
 
 \subsection{Een toets voor een gemiddelde}
 
-Bij een gemiddelde gebruik je de steekproevenverdeling van $\overline{X}$. In dit hoofdstuk kennen we de standaardafwijking $\sigma$ van de populatie, bijvoorbeeld uit vroegere metingen.
+Werkt dezelfde redenering ook voor een gemiddelde? Ja: je gebruikt dan de steekproevenverdeling van $\overline{X}$. In dit hoofdstuk kennen we de standaardafwijking $\sigma$ van de populatie, bijvoorbeeld uit vroegere metingen.
 
 \voorbeeld{}{Een machine vult flessen met gemiddeld 500~ml, met $\sigma = 2$~ml. Een consumentenorganisatie meet 25 flessen en vindt een gemiddelde van 499,1~ml. Vult de machine gemiddeld te weinig? Toets bij $\alpha = 0{,}05$.\label{vb:h3-gemiddelde}}{%
 \uitleg{Als de machine goed werkt, is $\overline{X}$ normaal verdeeld met gemiddelde 500 en standaardafwijking $\frac{2}{\sqrt{25}} = 0{,}4$. We berekenen de kans op een gemiddelde van 499,1 of minder.}
@@ -288,7 +302,7 @@ Merk op: had je vooraf vermoed dat de munt te vaak kop geeft, dan was de p-waard
 
 \subsection{Fouten van de eerste en de tweede soort}
 
-Een toets beslist op basis van een steekproef, en kan zich dus vergissen. Er zijn twee manieren.
+Kan een toets zich vergissen? Ja: hij beslist op basis van een steekproef, en die kan door toeval een vertekend beeld geven. Er zijn twee manieren om je te vergissen.
 
 \begin{theorie}
 {\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.6}%
@@ -350,6 +364,29 @@ In beide gevallen is de kans op een vals alarm hoogstens 5~\%, maar de kans om d
 
 \oef{h3-fouten-n}
 \end{oefeningen}
+
+\needspace{20\baselineskip}
+Nu kunnen we het verhaal van Paul volledig beoordelen: met een toets, en met wat we weten over de fouten die een toets kan maken.
+
+\voorbeeld{}{Terug naar het probleem. Paul voorspelde 8 van de 8 matchen juist. Toets bij $\alpha = 0{,}05$ of hij beter doet dan gokken. Bewijst dat resultaat dat een octopus kan voorspellen?\label{vb:h3-terug}}{%
+\uitleg{Gokt Paul, dan kiest hij bij elke match juist met kans $\frac12$, onafhankelijk van de andere matchen. We toetsen eenzijdig: alleen \textit{beter} dan gokken is interessant.}
+\naast{\begin{stappenvrij}{4.4cm}{4.3cm}
+H_0\colon p = 0{,}5 \quad H_1\colon p > 0{,}5 & $p$ is de kans op een juiste voorspelling. \\[1ex]
+\text{onder } H_0\colon \ X \sim B(8;\, 0{,}5) & $X$ is het aantal juiste voorspellingen. \\[1ex]
+\text{p-waarde} = P(X \geqslant 8) & Meer dan 8 juist kan niet. \\[1ex]
+= 0{,}5^8 \approx 0{,}0039 & $0{,}0039 \leqslant 0{,}05$: $H_0$ verwerpen, het resultaat is significant.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.48cm,y=9cm,font=\scriptsize]
+  \foreach \k/\h in {0/.0039,1/.03125,2/.109375,3/.21875,4/.2734375,5/.21875,6/.109375,7/.03125}{\staaf{\k}{\h}{.7}}
+  \fill[fel!80!black] (7.65,0) rectangle (8.35,.0039);
+  \draw[->,grijs] (-.6,0) -- (8.9,0) node[right,text=black] {$k$};
+  \draw[->,grijs] (-.6,0) -- (-.6,.31) node[above,text=black] {$P(X = k)$};
+  \foreach \k in {0,...,8}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.2/{0,2}}{\draw[grijs] (-.6,\t) -- (-.75,\t) node[left,text=black] {\l};}
+  \draw[grijs] (8,.008) -- (8,.09) node[above,text=black] {0,0039};
+\end{tikzpicture}}
+Toch bewijst dit niets over helderziendheid. De p-waarde is niet de kans dat Paul gokt: ze zegt alleen dat een gokkende octopus zelden 8 op 8 haalt. En Paul was niet het enige dier dat in 2010 uitslagen \textit{voorspelde}: we kennen hem net omdat hij gelijk had. Stel dat 50 gokkende dieren elk 8 matchen voorspellen (een schatting). De kans dat minstens één van hen alles juist heeft, is
+\[1 - \Bigl(\frac{255}{256}\Bigr)^{50} \approx 0{,}18 .\]
+Dat er ergens een \textit{helderziend} dier opduikt, is dus helemaal niet verrassend. De meest aannemelijke verklaring is een fout van de eerste soort: een vals alarm, dat bij veel toetsen vroeg of laat optreedt. Op het EK van 2008 had Paul trouwens maar 4 van de 6 matchen juist.}
 
 %========================================================================================
 \opdrachtenkop

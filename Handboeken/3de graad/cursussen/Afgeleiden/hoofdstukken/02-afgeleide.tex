@@ -8,9 +8,26 @@
 
 \mychapter{2}{De afgeleide}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{3}{19-22}\alleenvoor{2}{18-21}\alleenvoor{1}{14-15} (afgeleiden), het deel over het differentiequotiënt, de afgeleide als limiet, de raaklijn, de afgeleide functie en de rekenregels. Het beeld van de voorkant (koorden door $P$ die naar de raaklijn draaien) is de figuur in sectie 1. Laat leerlingen de definitie een paar keer zelf uitwerken voor ze de rekenregels gebruiken.}
+\begin{probleem}
+\naast{Je schenkt een cocktailglas vol, gelijkmatig $10$ ml per seconde. Het glas is een kegel met de punt onderaan: onderaan is het smal, dus daar stijgt het vocht snel, en hogerop steeds trager. Uit de vorm van het glas volgt dat het vocht na $t$ seconden
+\[h(t) = 3\sqrt[3]{t} \quad \text{cm}\]
+hoog staat, tot het glas na ongeveer $19$ seconden vol is. Na $1$ s staat het vocht $3$ cm hoog, na $8$ s $6$ cm: in de eerste seconde stijgt het $3$ cm, in de zeven seconden daarna samen ook $3$ cm.
 
-Een snelheidsmeter toont hoe snel je \textit{nu} rijdt, niet gemiddeld over de rit. Maar snelheid is afstand gedeeld door tijd, en op één ogenblik leg je geen afstand af. Hoe kan dat dan? Het antwoord is een limiet: neem de gemiddelde snelheid over een steeds kortere tijd. Zo ontstaat de afgeleide, misschien het belangrijkste begrip van de analyse.
+Hoe snel stijgt het vocht op het ogenblik $t = 8$, in cm per seconde? En wat betekent \textit{hoe snel} eigenlijk, op één ogenblik?}{%
+\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \fill[accent!25] (0,0) -- (-3.57,6) -- (3.57,6) -- cycle;
+  \draw[accent!70!black] (-3.57,6) -- (3.57,6);
+  \draw[grijs,thick] (-4.76,8) -- (0,0) -- (4.76,8);
+  \draw[grijs,thick] (0,0) -- (0,-3.2);
+  \draw[grijs,thick] (-2.4,-3.2) -- (2.4,-3.2);
+  \draw[grijs,<->] (5.6,0) -- (5.6,6) node[midway,right,text=black] {$h$};
+  \draw[grijs,densely dotted] (0,0) -- (5.9,0) (3.57,6) -- (5.9,6);
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{3}{19-22}\alleenvoor{2}{18-21}\alleenvoor{1}{14-15} (afgeleiden), het deel over het differentiequotiënt, de afgeleide als limiet, de raaklijn, de afgeleide functie en de rekenregels. Het beeld van de voorkant (koorden door $P$ die naar de raaklijn draaien) is de figuur in sectie 1. Laat leerlingen de definitie een paar keer zelf uitwerken voor ze de rekenregels gebruiken. Het glas in het probleem bevat $\frac{10}{27}h^3$ ml als het vocht $h$ cm hoog staat (een kegel met straal $0{,}59\,h$ op hoogte $h$); bij een diepte van $8$ cm is het bovenaan $9{,}5$ cm breed en bevat het $190$ ml. Uit $10t = \frac{10}{27}h^3$ volgt $h = 3\sqrt[3]{t}$. De oplossing staat in voorbeeld \ref{vb:h2-terug}, op het einde van de leerstof.}
+
+Een snelheid is een verandering gedeeld door een tijd. Over een tijdsduur kun je ze uitrekenen, maar op één ogenblik verloopt er geen tijd, en stijgt het vocht in het glas ook niet. Toch toont een snelheidsmeter hoe snel je \textit{nu} rijdt, niet gemiddeld over de rit. Hoe kan dat? Het antwoord is een limiet: neem de gemiddelde snelheid over een steeds kortere tijd. Zo ontstaat de afgeleide, misschien het belangrijkste begrip van de analyse. Met de rekenregels op het einde van het hoofdstuk lossen we het probleem van het glas op.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -22,6 +39,16 @@ Een snelheidsmeter toont hoe snel je \textit{nu} rijdt, niet gemiddeld over de r
 \section{De afgeleide in een punt}
 
 \subsection{Het differentiequotiënt}
+
+Begin bij het glas uit het probleem. Tussen $t = 1$ en $t = 8$ stijgt het vocht van $3$ naar $6$ cm, gemiddeld $\frac{6 - 3}{8 - 1} = \frac37 \approx 0{,}43$ cm per seconde. Dat is een gemiddelde over zeven seconden, en in die tijd vertraagt het vocht sterk. Neem daarom een steeds korter interval vanaf $t = 8$. Tussen $8$ en $9$ s is de gemiddelde snelheid $\frac{h(9) - h(8)}{9 - 8} \approx 0{,}240$ cm/s. Met kortere intervallen vind je:
+
+\figuren{{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{c|ccc}
+van $t = 8$ tot & $9$ & $8{,}1$ & $8{,}01$ \\ \hline
+gemiddelde snelheid (cm/s) & $0{,}240$ & $0{,}249$ & $0{,}2499$
+\end{tabular}}}
+
+De gemiddelde snelheden lijken naar $0{,}25$ cm/s te gaan. Een interval met lengte $0$ kan niet: dan deel je $0$ door $0$. Maar zo'n probleem ken je uit hoofdstuk 1: de snelheid op één ogenblik wordt een limiet. Op de grafiek van $h$ is elke gemiddelde snelheid de richtingscoëfficiënt van een rechte door twee punten. Bekijk dat nu voor een willekeurige functie.
 
 \naast{%
 Neem twee punten $P(a, f(a))$ en $Q(a + h, f(a + h))$ op de grafiek van $f$. De rechte erdoor is een \textbf{koorde}. Haar richtingscoëfficiënt is de verandering van $f$ gedeeld door de verandering van $x$: hoeveel $f$ gemiddeld verandert per eenheid, tussen $a$ en $a + h$.
@@ -137,7 +164,7 @@ Het differentiequotiënt heeft een betekenis in elke context. Is $s(t)$ de afgel
 Is $s(t)$ de afgelegde weg op tijdstip $t$, dan is de \textbf{\textcolor{accent}{gemiddelde snelheid}} tussen $t$ en $t + h$ gelijk aan $\formule{\frac{s(t + h) - s(t)}{h}}$, en de \textbf{\textcolor{accent}{ogenblikkelijke snelheid}} op tijdstip $t$ gelijk aan $\formule{v(t) = s'(t)}$.
 \end{theorie}
 
-Zo lost de afgeleide de vraag uit de inleiding op: de snelheid op één ogenblik is de limiet van de gemiddelde snelheid over steeds kortere tijd.
+Zo lost de afgeleide de vraag uit de inleiding op: de snelheid op één ogenblik is de limiet van de gemiddelde snelheid over steeds kortere tijd. Voor het glas is de stijgsnelheid op het ogenblik $t$ dus $h'(t)$. Met de definitie is die moeilijk te berekenen, want $h$ bevat een derdemachtswortel. Daarom zoeken we in de volgende secties regels.
 
 \voorbeeld{}{Een steen valt; na $t$ seconden heeft hij $s(t) = 5t^2$ meter afgelegd. Hoe snel valt hij na 2 seconden?\label{vb:h2-snelheid}}{%
 \naast{%
@@ -484,6 +511,31 @@ Schrijf eerst wat kan als een macht van $x$: dan volstaan de veelvoud- en de som
 
 \oef{h2-rekenregels}
 \end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Met de regel voor machten en de veelvoudregel kunnen we nu de stijgsnelheid in het glas berekenen, zonder de definitie.
+
+\voorbeeld{}{Terug naar het probleem. Je schenkt een kegelvormig cocktailglas vol, $10$ ml per seconde. Na $t$ seconden staat het vocht $h(t) = 3\sqrt[3]{t}$ cm hoog. Hoe snel stijgt het vocht na $8$ seconden? En na $1$ seconde?\label{vb:h2-terug}}{%
+\naast{%
+\uitleg{De stijgsnelheid op een ogenblik is de afgeleide $h'(t)$. Schrijf de wortel als een macht van $t$: dan volstaan de veelvoudregel en de regel voor machten.}
+\begin{stappenvrij}{4.1cm}{4.3cm}
+h(t) = 3\,t^{\frac13} & Een getal maal een macht. \\
+h'(t) = 3 \cdot \tfrac13\,t^{-\frac23} = \frac{1}{\sqrt[3]{t^2}} & Veelvoudregel en de regel voor machten. \\
+h'(8) = \frac{1}{\sqrt[3]{64}} = \frac14 & Na $8$ s stijgt het vocht $0{,}25$ cm per seconde. \\
+h'(1) = 1 & Na $1$ s nog $1$ cm per seconde: vier keer zo snel.
+\end{stappenvrij}}{%
+\begin{tikzpicture}[x=.25cm,y=.45cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1cm,ystep=.9cm] (0,0) grid (20,8);
+  \draw[->,grijs] (0,0) -- (21,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,8.8) node[above,text=black] {$h$};
+  \foreach \t in {4,8,12,16}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {2,4,6,8}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] plot[domain=0:8,samples=60,smooth] ({(\x/3)^3},\x);
+  \draw[grijs,thick] (0,4) -- (16,8);
+  \vol{(8,6)}
+\end{tikzpicture}}
+In de figuur is $\frac14$ de richtingscoëfficiënt van de raaklijn in $(8, 6)$. Dat klopt met de tabel in sectie 1, en ook met de vorm van het glas. Op $6$ cm hoogte is het vochtoppervlak $40$ cm$^2$, en $10$ cm$^3$ per seconde verdeeld over $40$ cm$^2$ geeft een laagje van $0{,}25$ cm per seconde. In $t = 0$ is $h$ niet afleidbaar: de grafiek vertrekt verticaal, omdat het glas onderaan een punt heeft.}
 
 %========================================================================================
 \opdrachtenkop

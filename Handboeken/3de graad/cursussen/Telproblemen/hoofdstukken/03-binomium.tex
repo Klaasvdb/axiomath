@@ -8,9 +8,20 @@
 
 \mychapter{3}{Het binomium van Newton}
 
-\lkr{Leerplan B+S'': het binomium van Newton en de driehoek van Pascal, bij LPD 47, met de wenk om het sommatieteken te gebruiken. Het bewijs is combinatorisch: het steunt op de betekenis van $\binom{n}{k}$ uit hoofdstuk 2, niet op inductie. Het binomium komt terug in Kansrekenen, bij de binomiale verdeling.}
+\begin{probleem}
+\vspace{-1mm}\naast{Op je rekentoestel vind je $11^2 = 121$, $11^3 = 1331$ en $11^4 = 14\,641$: de rijen van de driehoek van Pascal. Maar $11^5 = 161\,051$, terwijl rij 5 van de driehoek $1, 5, 10, 10, 5, 1$ is. Breekt het patroon daar? En waarom staat diezelfde rij wel netjes in $1{,}01^5 = 1{,}0510100501$?}{\begin{tikzpicture}[y=.46cm,font=\small]
+  \foreach \n/\w in {0/1,1/11,2/121,3/1331,4/14641}{
+    \node[grijs,anchor=east,font=\scriptsize] at (-1.25,-\n) {$11^{\n}$};
+    \node at (0,-\n) {\w};}
+  \node[grijs,anchor=east,font=\scriptsize] at (-1.25,-5) {$11^{5}$};
+  \node[text=accent,font=\bfseries] at (0,-5) {161051};
+  \node[text=accent,anchor=west] at (.75,-5) {?};
+\end{tikzpicture}}
+\end{probleem}
 
-Het merkwaardig product $(a + b)^2 = a^2 + 2ab + b^2$ ken je al lang, en $(a + b)^3$ kun je nog uitwerken. Maar $(a + b)^{10}$? Haakjes uitwerken is dan veel werk. Toch zie je de coëfficiënten meteen, als je ze herkent: het zijn de getallen uit de driehoek van Pascal. Dat volgt uit wat je in hoofdstuk 2 over combinaties leerde. Het resultaat heet het \textbf{binomium van Newton}, naar Isaac Newton, die het uitbreidde naar exponenten die geen natuurlijke getallen zijn.
+\lkr{\alleenvoor{4}{Leerplan B+S'': het binomium van Newton en de driehoek van Pascal, bij LPD 47, met de wenk om het sommatieteken te gebruiken.}\alleenvoor{2,3}{GO!: telproblemen met het binomium van Newton. Het sommatieteken staat erbij omdat het de formule kort maakt. Termen met negatieve exponenten (de term zonder $x$) en de som met afwisselende tekens staan alleen in het boek van pakket 4.} Het bewijs is combinatorisch: het steunt op de betekenis van $\binom{n}{k}$ uit hoofdstuk 2, niet op inductie. Het binomium komt terug in Kansrekenen, bij de binomiale verdeling.}
+
+Het merkwaardig product $(a + b)^2 = a^2 + 2ab + b^2$ ken je al lang, en $(a + b)^3$ kun je nog uitwerken. Maar $(a + b)^{10}$? Haakjes uitwerken is dan veel werk. Ook de machten van 11 uit het probleem zijn zulke machten, want $11 = 10 + 1$. Toch zie je de coëfficiënten meteen, als je ze herkent: het zijn de getallen uit de driehoek van Pascal. Dat volgt uit wat je in hoofdstuk 2 over combinaties leerde. Het resultaat heet het \textbf{binomium van Newton}, naar Isaac Newton, die het uitbreidde naar exponenten die geen natuurlijke getallen zijn.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -45,7 +56,7 @@ De letter $k$ is een teller: je vult achtereenvolgens elke gehele waarde in, en 
 
 \subsection{De formule}
 
-In de Verken werkte je $(a + b)^4$ uit als een product van vier factoren $(a + b)$. Elke term ontstaat door uit elke factor $a$ of $b$ te kiezen. Kies je uit $k$ factoren $b$, en uit de andere $n - k$ factoren $a$, dan krijg je $a^{n - k}b^k$. Hoe vaak? Even vaak als je $k$ factoren kunt kiezen uit $n$.
+Waarom duiken de getallen van de driehoek van Pascal op in $(a + b)^n$, en zo ook in de machten van $11 = 10 + 1$? In de Verken werkte je $(a + b)^4$ uit als een product van vier factoren $(a + b)$. Elke term ontstaat door uit elke factor $a$ of $b$ te kiezen. Kies je uit $k$ factoren $b$, en uit de andere $n - k$ factoren $a$, dan krijg je $a^{n - k}b^k$. Hoe vaak? Even vaak als je $k$ factoren kunt kiezen uit $n$.
 
 \begin{theorie}
 \begin{stelling}{Binomium van Newton}
@@ -123,6 +134,7 @@ De \textbf{\textcolor{accent}{algemene term}} van $(a + b)^n$ is \quad $\formule
 \oef{h3-coef}
 \end{oefeningen}
 
+\begin{alleenvoor}{4}
 \voorbeeld{}{Bepaal de term zonder $x$ in $\Bigl(x^2 + \dfrac1x\Bigr)^6$.\label{vb:h3-term2}}{%
 \uitleg{Hier komt $x$ in $a$ en in $b$ voor. We schrijven de macht van $x$ in de algemene term als één exponent, en zoeken de $k$ waarvoor die 0 is.}
 \begin{stappenbreed}
@@ -139,16 +151,31 @@ Niet elke macht komt voor. In $\bigl(x^2 + \frac1x\bigr)^6$ is de exponent $12 -
 12 - 3k = 5 \ \Rightarrow \ k = \tfrac73 & Geen natuurlijk getal: geen enkele term heeft exponent 5. \\[1ex]
 \text{nee} & $x^5$ komt niet voor: de coëfficiënt van $x^5$ is 0.
 \end{stappen}}
+\end{alleenvoor}
+\begin{alleenvoor}{2,3}
+Staat $x$ in een macht, zoals in $x^2$, dan zoek je de exponent van $x$ in de algemene term, en niet alleen $k$.
+
+\voorbeeld{}{Bepaal de coëfficiënt van $x^4$ in $(x^2 - 3)^5$. Komt $x^5$ voor?\label{vb:h3-term3}}{%
+\uitleg{De algemene term met $a = x^2$ en $b = -3$ bevat $(x^2)^{5 - k} = x^{10 - 2k}$. We zoeken de $k$ waarvoor die exponent 4 is, en daarna 5.}
+\begin{stappen}
+\binom{5}{k} (x^2)^{5 - k} (-3)^k = \binom{5}{k} (-3)^k x^{10 - 2k} & De algemene term. \\[3ex]
+10 - 2k = 4 \ \Rightarrow \ k = 3 & De exponent van $x$ moet 4 zijn. \\[1ex]
+\binom{5}{3} (-3)^3 = 10 \cdot (-27) = -270 & De coëfficiënt van $x^4$. \\[3ex]
+10 - 2k = 5 \ \Rightarrow \ k = \tfrac52 & Geen natuurlijk getal: $x^5$ komt niet voor.
+\end{stappen}}
+\end{alleenvoor}
 
 \begin{werkwijze}
 Schrijf de algemene term en breng alle machten van $x$ samen tot één macht $x^{\ldots}$ met $k$ in de exponent. Stel die exponent gelijk aan de gevraagde, los op naar $k$, en vul in. Is er geen natuurlijke $k$ tussen 0 en $n$, dan komt die macht niet voor.
 \end{werkwijze}
 
+\begin{alleenvoor}{4}
 \begin{oefeningen}
 \oef{h3-term}
 
 \oef{h3-geenterm}
 \end{oefeningen}
+\end{alleenvoor}
 
 %========================================================================================
 \section{Gevolgen}
@@ -183,6 +210,7 @@ Het kan ook door te tellen. Een verzameling met $n$ elementen heeft $2^n$ deelve
 \oef{h3-somtwee}
 \end{oefeningen}
 
+\begin{alleenvoor}{4}
 \subsection{De som met afwisselende tekens}
 
 Zet je afwisselend een plus- en een minteken tussen de getallen van een rij, dan vind je telkens 0: $1 - 3 + 3 - 1 = 0$ en $1 - 4 + 6 - 4 + 1 = 0$.
@@ -214,6 +242,7 @@ Wat betekent de stelling? De termen met even $k$ krijgen een plusteken, die met 
 
 \oef{h3-som}
 \end{oefeningen}
+\end{alleenvoor}
 
 \subsection{Benaderen}
 
@@ -231,6 +260,20 @@ Wie alleen de eerste twee termen gebruikt, vindt $1{,}2$: dat is de groei zonder
 \begin{oefeningen}
 \oef{h3-benader}
 \end{oefeningen}
+
+Nu kunnen we ook het probleem van de machten van 11 oplossen. Het lijkt op benaderen: in $1{,}01 = 1 + 0{,}01$ is $b$ klein, en dus ook de termen met de hogere machten van $b$.
+
+\voorbeeld{}{Terug naar het probleem. Verklaar waarom $11^5 = 161\,051$ en $1{,}01^5 = 1{,}0510100501$, en wat ze met rij 5 van de driehoek van Pascal te maken hebben.\label{vb:h3-terug}}{%
+\uitleg{Schrijf $11 = 10 + 1$ en $1{,}01 = 1 + 0{,}01$. Het binomium met de coëfficiënten $1, 5, 10, 10, 5, 1$ van rij 5 geeft $11^5 = \sum_{k=0}^{5} \binom5k 10^{5 - k}$ en $1{,}01^5 = \sum_{k=0}^{5} \binom5k 0{,}01^{k}$, want elke macht van 1 is 1. Zet de zes termen onder elkaar en tel op.}
+\figuren{\begin{tabular}[b]{r@{\qquad}r}
+$1 \cdot 10^5$ & 100\,000 \\ $5 \cdot 10^4$ & 50\,000 \\ $10 \cdot 10^3$ & \textcolor{accent}{10\,000} \\ $10 \cdot 10^2$ & \textcolor{accent}{1\,000} \\ $5 \cdot 10$ & 50 \\ $1$ & 1 \\ \hline
+ & \textbf{161\,051}
+\end{tabular}\qquad\qquad\qquad
+\begin{tabular}[b]{r@{\qquad}r@{,}l}
+$1$ & \multicolumn{1}{r@{\phantom{,}}}{1} & \\ $5 \cdot 0{,}01$ & 0 & 05 \\ $10 \cdot 0{,}01^2$ & 0 & 00\textcolor{accent}{10} \\ $10 \cdot 0{,}01^3$ & 0 & 0000\textcolor{accent}{10} \\ $5 \cdot 0{,}01^4$ & 0 & 00000005 \\ $0{,}01^5$ & 0 & 0000000001 \\ \hline
+ & \textbf{1} & \textbf{0510100501}
+\end{tabular}}
+\uitleg{Bij $11^5$ is de coëfficiënt 10 te groot voor één cijfer: hij loopt over naar het cijfer links ervan. Het patroon breekt dus niet, het is verborgen. Bij $1{,}01^5$ krijgt elke coëfficiënt twee decimalen, en loopt niets over. Dat gaat goed tot rij 9, waar $\binom94 = 126$ drie cijfers heeft.}}
 
 
 %========================================================================================
@@ -300,7 +343,7 @@ Wie alleen de eerste twee termen gebruikt, vindt $1{,}2$: dat is de groei zonder
 \needspace{20\baselineskip}
 \opdrachtsectie{Koppel}
 
-\lkr{Complexe getallen is een cursus van het 5de jaar. De tweede oefening is een voorsmaak van de binomiale verdeling in Kansrekenen.}
+\lkr{\alleenvoor{3,4}{Complexe getallen is een cursus van het 5de jaar. }De tweede oefening is een voorsmaak van de binomiale verdeling in Kansrekenen.}
 
 \begin{oefeningen}
 \oef{h3-koppel-1}
@@ -331,7 +374,7 @@ Wie alleen de eerste twee termen gebruikt, vindt $1{,}2$: dat is de groei zonder
   \fv{oef:h3-t6}{vb:h3-sigma}{oef:h3-sigma}%
   \fv{oef:h3-t1}{vb:h3-binomium2}{oef:h3-binomium}%
   \fv{oef:h3-t2}{vb:h3-term}{oef:h3-coef}%
-  \fv{oef:h3-t3}{vb:h3-term2}{oef:h3-term}%
+  \alleenvoor{4}{\fv{oef:h3-t3}{vb:h3-term2}{oef:h3-term}}%
   \fv{oef:h3-t7}{vb:h3-term}{oef:h3-o17}%
   \fv{oef:h3-t4}{vb:h3-benadering}{oef:h3-benader}%
   \fv{oef:h3-t5}{vb:h3-somrij}{oef:h3-somtwee}}

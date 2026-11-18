@@ -8,9 +8,22 @@
 
 \mychapter{1}{Tellen}
 
-\lkr{Leerplan B+S'': LPD 47 (telproblemen met en zonder herhaling, waarbij de volgorde al dan niet van belang is). Dit hoofdstuk behandelt de gevallen waarin de volgorde telt: herhalingsvariaties, variaties en permutaties, met de som- en productregel en het venndiagram uit de 2de graad als basis. Combinaties volgen in hoofdstuk 2. Het leerplan laat de formules toe; laat leerlingen toch eerst met de productregel redeneren, zodat de formules een samenvatting zijn en geen recept.}
+\begin{probleem}
+\vspace{-1mm}\naast{Je bent de code van je fietsslot vergeten. Het slot heeft vier ringen met elk de cijfers 0 tot 9, en elke code proberen kost je ongeveer 2 seconden (een schatting). Hoe lang ben je in het slechtste geval bezig? Gelukkig herinner je je twee dingen: er zat minstens één 7 in de code, en de vier cijfers waren verschillend. Hoeveel tijd win je met elk van die aanwijzingen, en met beide samen?}{\begin{tikzpicture}[font=\small]
+  \draw[lijngrijs,line width=3pt] (.35,.7) .. controls (.35,2.1) and (2.6,2.1) .. (2.6,.7);
+  \draw[grijs,fill=black!6,rounded corners=3pt] (-.1,-.85) rectangle (3.05,.85);
+  \foreach \x/\t/\b in {.35/3/5,1.1/8/0,1.85/1/3,2.6/6/8}{
+    \draw[accent,fill=accent!8,rounded corners=2pt] (\x-.28,-.7) rectangle (\x+.28,.7);
+    \node[lijngrijs,font=\scriptsize] at (\x,.45) {\t};
+    \node[text=accent,font=\bfseries] at (\x,0) {?};
+    \node[lijngrijs,font=\scriptsize] at (\x,-.45) {\b};}
+  \draw[accent,thick] (-.02,-.22) rectangle (2.97,.22);
+\end{tikzpicture}}
+\end{probleem}
 
-Hoeveel pincodes zijn er? Op hoeveel manieren kan een klas een voorzitter en een secretaris kiezen? Hoeveel wachtwoorden moet een computer proberen om er één te kraken? Zulke vragen beantwoord je zonder alle mogelijkheden op te schrijven, door slim te tellen. Je hebt daarvoor maar twee regels nodig, de somregel en de productregel. In dit hoofdstuk tel je rijtjes waarin de volgorde belangrijk is; in hoofdstuk 2 groepjes waarin ze dat niet is.
+\lkr{\alleenvoor{4}{Leerplan B+S'': LPD 47 (telproblemen met en zonder herhaling, waarbij de volgorde al dan niet van belang is).}\alleenvoor{2}{GO!: telproblemen, uit de cluster Statistiek (WD 06.01) die GO! aan de economische richtingen toevoegt. KOV heeft in pakket \pakketnaam{} geen telproblemen: dit boek volgt de GO!-doelen, en is lichter dan dat van pakket 4.}\alleenvoor{3}{GO!: telproblemen met het binomium van Newton, een GO!-doel bij Uitgebreide wiskunde in functie van wetenschappen (WD 06.04). KOV heeft in pakket \pakketnaam{} geen telproblemen: dit boek volgt de GO!-doelen, en is lichter dan dat van pakket 4.} Dit hoofdstuk behandelt de gevallen waarin de volgorde telt: herhalingsvariaties, variaties en permutaties, met de som- en productregel en het venndiagram uit de 2de graad als basis. Combinaties volgen in hoofdstuk 2. \alleenvoor{4}{Het leerplan laat de formules toe; laat leerlingen toch eerst}\alleenvoor{2,3}{Laat leerlingen eerst} met de productregel redeneren, zodat de formules een samenvatting zijn en geen recept. De voorkant toont één van de 122 onvolledige open kubussen: verbonden stukken van het ribbenskelet van een kubus, die in de drie richtingen uitgestrekt zijn, geteld op een draaiing na. Het idee komt van Sol LeWitt (\emph{Incomplete Open Cubes}, 1974); de telling en de tekening zijn eigen werk. Zo'n telling op een draaiing na valt buiten dit boek, maar is een mooie uitdaging voor sterke leerlingen.}
+
+Hoeveel codes heeft het slot, en hoeveel blijven er over als je iets van de code weet? Zulke vragen beantwoord je zonder alle mogelijkheden op te schrijven, door slim te tellen. Je hebt daarvoor maar twee regels nodig, de somregel en de productregel. Met dezelfde regels tel je ook pincodes, podiums en wachtwoorden. In dit hoofdstuk tel je rijtjes waarin de volgorde belangrijk is; in hoofdstuk 2 groepjes waarin ze dat niet is.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -26,7 +39,7 @@ Hoeveel pincodes zijn er? Op hoeveel manieren kan een klas een voorzitter en een
 
 \subsection{De productregel}
 
-Een outfit bestaat uit een broek, een trui en een paar schoenen. Voor elke broek kun je elke trui kiezen, en voor elk van die combinaties elk paar schoenen. Een \textbf{boomdiagram} toont dat: elke tak splitst in evenveel takken, dus vermenigvuldig je.
+Hoeveel codes heeft het fietsslot uit het probleem? Ze allemaal opschrijven, van 0000 tot 9999, is geen optie. Een \textbf{boomdiagram} dan? Voor de eerste ring teken je 10 takken, en elk daarvan splitst in 10 takken voor de tweede ring: dat zijn er al 100, en na vier ringen $10\,000$. Zo'n boom teken je niet, maar dat hoeft ook niet: elke tak splitst in evenveel takken, dus vermenigvuldig je. Het slot heeft $10 \cdot 10 \cdot 10 \cdot 10 = 10\,000$ codes. Dat werkt ook als de stappen een verschillend aantal mogelijkheden hebben. Kies je een outfit, dan kun je voor elke broek elke trui kiezen, en voor elk van die combinaties elk paar schoenen.
 
 \begin{theorie}
 \begin{stelling}{Productregel}
@@ -38,6 +51,8 @@ Bestaat een keuze uit $k$ stappen na elkaar, met $n_1$ mogelijkheden voor de eer
 \end{theorie}
 
 Het woord \textit{ongeacht} is belangrijk: het aantal mogelijkheden in een stap mag niet afhangen van wat je eerder koos. De keuzes zelf mogen wel verschillen. Je kent deze regel uit de 2de graad; hij draagt alle telformules van dit boek. Verderop zie je wat je doet als dat aantal toch afhangt van een vorige keuze.
+
+Voor het slot zonder aanwijzingen weten we nu genoeg: $10\,000$ codes van 2 seconden is $20\,000$ seconden, ruim vijf en een half uur. Voor de aanwijzingen hebben we meer nodig.
 
 \voorbeeld{}{Een restaurant heeft 4 voorgerechten, 5 hoofdgerechten en 3 desserts. Hoeveel menu's met één gerecht van elk zijn er?\label{vb:h1-product}}{%
 \uitleg{Een menu kies je in drie stappen. Elk voorgerecht kan met elk hoofdgerecht, en elk van die combinaties met elk dessert.}
@@ -115,6 +130,7 @@ Overlappen de delen wel, dan klopt de somregel niet meer. Hoeveel getallen van 1
 Voor eindige verzamelingen $A$ en $B$ is \quad $\formule{\#(A \cup B) = \#A + \#B - \#(A \cap B)}$
 \end{stelling}
 
+\begin{alleenvoor}{4}
 \begin{bewijs}
 \naast{\begin{minipage}{9.4cm}
 De drie stukken van het venndiagram, $A \setminus B$, $A \cap B$ en $B \setminus A$, hebben twee aan twee geen gemeenschappelijke elementen. Met de somregel is dus
@@ -129,6 +145,7 @@ De drie stukken van het venndiagram, $A \setminus B$, $A \cap B$ en $B \setminus
 Tel je de eerste twee gelijkheden op, dan staat $\#(A \cap B)$ er één keer te veel:
 \bewijsregel{\#A + \#B - \#(A \cap B) = \#(A \setminus B) + \#(A \cap B) + \#(B \setminus A) = \#(A \cup B) .}
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 In $\#A + \#B$ zijn de elementen van $A \cap B$ dus twee keer geteld, en alle andere één keer. Daarom trek je het stuk in het midden één keer af. Sluiten $A$ en $B$ elkaar uit, dan is $\#(A \cap B) = 0$ en vind je de gewone somregel terug.
@@ -154,7 +171,9 @@ In $\#A + \#B$ zijn de elementen van $A \cap B$ dus twee keer geteld, en alle an
 
 \subsection{Het tegendeel tellen}
 
-Vaak is het gemakkelijker om te tellen wat je \textit{niet} wilt, en dat af te trekken van het totaal. Dat is opnieuw de somregel.
+Hoeveel codes van het fietsslot bevatten minstens één 7? Een eerste poging: zet een 7 op de eerste ring, dan zijn er voor de andere drie ringen $10^3 = 1000$ codes. Zo ook met de 7 op de tweede, de derde of de vierde ring: samen $4000$. Maar de code 7727 heb je zo drie keer geteld, en 7777 zelfs vier keer. De gevallen overlappen op veel manieren, en de somregel met overlap wordt een lange rekening.
+
+Het gaat veel sneller als je telt wat je \textit{niet} wilt: de codes zonder 7. Dat is één geval, met 9 mogelijkheden per ring. Trek je die af van alle codes, dan blijven de codes met minstens één 7 over. Dat is opnieuw de somregel.
 
 \begin{theorie}
 \begin{stelling}{Tegendeel}
@@ -231,7 +250,7 @@ Een klassieke fout is $n$ en $p$ verwisselen. Vraag je daarom altijd af wat de p
 
 \subsection{Variaties}
 
-Kiest een klas een voorzitter, een secretaris en een penningmeester, dan telt de volgorde: wie voorzitter is, maakt uit. Maar niemand kan twee functies krijgen. Bij elke stap is er dus één mogelijkheid minder.
+Nu de tweede aanwijzing van het fietsslot: de vier cijfers waren verschillend. Een cijfer mag dus niet terugkomen. De eerste ring heeft 10 mogelijkheden, maar de tweede nog 9, want het eerste cijfer is gebruikt, en zo verder. Hetzelfde gebeurt als een klas een voorzitter, een secretaris en een penningmeester kiest. De volgorde telt, want wie voorzitter is, maakt uit, maar niemand kan twee functies krijgen. Bij elke stap is er dus één mogelijkheid minder.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{variatie}} van $p$ elementen uit $n$ (met $p \leqslant n$) is een rijtje van $p$ verschillende elementen gekozen uit $n$, waarbij de volgorde belangrijk is.
@@ -259,6 +278,18 @@ Welke elementen nog vrij zijn, hangt af van de vorige keuzes; hoeveel het er zij
 \begin{oefeningen}
 \oef{h1-variatie}
 \end{oefeningen}
+
+Met variaties en het tegendeel kunnen we het probleem van het fietsslot nu helemaal oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Een fietsslot heeft vier ringen met de cijfers 0 tot 9, en elke poging kost 2 seconden. Hoe lang ben je in het slechtste geval bezig: zonder aanwijzing, als je weet dat er minstens één 7 in de code zit, als je weet dat de vier cijfers verschillend zijn, en als je beide weet?\label{vb:h1-terug}}{%
+\uitleg{Een code is een rijtje van 4 cijfers: de volgorde telt. Zonder aanwijzing mag een cijfer terugkomen. Bij \textit{minstens één 7} tellen we het tegendeel. Met verschillende cijfers is het een variatie, en voor beide aanwijzingen samen tellen we het tegendeel binnen de variaties.}
+\begin{stappen}
+\HVar{10}{4} = 10^4 = 10\,000 & Alle codes: $20\,000$ seconden, ruim 5,5 uur. \\[1ex]
+10^4 - 9^4 = 10\,000 - 6561 = 3439 & Minstens één 7: alle codes min de codes zonder 7. Dat is $6878$ seconden, bijna 2 uur. \\[1ex]
+\Var{10}{4} = 10 \cdot 9 \cdot 8 \cdot 7 = 5040 & Vier verschillende cijfers: $10\,080$ seconden, 2 uur en 48 minuten. \\[1ex]
+\Var{10}{4} - \Var{9}{4} = 5040 - 3024 = 2016 & Beide: codes met verschillende cijfers, min die zonder 7 ($9 \cdot 8 \cdot 7 \cdot 6$). Dat is $4032$ seconden, ruim een uur.
+\end{stappen}
+Met beide aanwijzingen ben je dus bijna vijf keer zo snel klaar. Gemiddeld heb je de code trouwens al na ongeveer de helft van de pogingen.}
 
 \subsection{Permutaties en faculteiten}
 
@@ -304,15 +335,18 @@ Het product $n(n - 1) \cdots (n - p + 1)$ is het begin van $n!$: alleen de facto
 Voor $1 \leqslant p \leqslant n$ is \quad $\formule{\Var{n}{p} = \dfrac{n!}{(n - p)!}}$
 \end{stelling}
 
+\begin{alleenvoor}{4}
 \begin{bewijs}
 Is $p < n$, dan splits je $n!$ na de factor $n - p + 1$:
 \bewijsregel{n! = n(n - 1) \cdots (n - p + 1) \cdot (n - p)(n - p - 1) \cdots 1 = \Var{n}{p} \cdot (n - p)! .}
 Deel door $(n - p)!$. Is $p = n$, dan is $\frac{n!}{0!} = n! = \Var{n}{n}$, dankzij de afspraak $0! = 1$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
-Zo zie je waarom de afspraak $0! = 1$ handig is: zonder die afspraak zou de formule niet gelden voor $p = n$.
+\alleenvoor{4}{Zo zie je waarom}\alleenvoor{2,3}{Daarom is} de afspraak $0! = 1$ \alleenvoor{4}{handig is}\alleenvoor{2,3}{handig}: zonder die afspraak zou de formule niet gelden voor $p = n$.
 
+\begin{alleenvoor}{4}
 \voorbeeld{}{Bepaal $n$ zodat $\Var{n}{3} = 6 \cdot \Var{n}{2}$.\label{vb:h1-facvar}}{%
 \uitleg{We schrijven beide variaties met faculteiten. Dan valt $n!$ weg, en blijft een quotiënt van twee opeenvolgende faculteiten over.}
 \begin{stappen}
@@ -322,6 +356,7 @@ n - 2 = 6, \text{ dus } n = 8 & Want $(n - 2)! = (n - 2) \cdot (n - 3)!$. Contro
 \end{stappen}}
 
 Dat klopt ook met de betekenis: na twee keuzes zijn er nog $n - 2$ elementen over voor de derde plaats.
+\end{alleenvoor}
 
 \nujij{Bereken $\Var{7}{2}$ en $\dfrac{9!}{7!}$.}{$\Var{7}{2} = 7 \cdot 6 = 42$ en $\frac{9!}{7!} = 9 \cdot 8 = 72$.}
 
@@ -456,7 +491,7 @@ Vraag je af: telt de volgorde, en mag een element terugkomen? Volgorde en herhal
   \fv{oef:h1-t2}{vb:h1-venn}{oef:h1-overlap}%
   \fv{oef:h1-t3}{vb:h1-hervar}{oef:h1-hervar}%
   \fv{oef:h1-t4}{vb:h1-var}{oef:h1-variatie}%
-  \fv{oef:h1-t8}{vb:h1-facvar}{oef:h1-faculteit}%
+  \alleenvoor{4}{\fv{oef:h1-t8}{vb:h1-facvar}{oef:h1-faculteit}}\alleenvoor{2,3}{\fzv{oef:h1-t8}{oef:h1-faculteit}}%
   \fv{oef:h1-t5}{vb:h1-blok}{oef:h1-blok}%
   \fv{oef:h1-t6}{vb:h1-complement}{oef:h1-tegendeel}%
   \fv{oef:h1-t7}{vb:h1-gevallen}{oef:h1-o3}}

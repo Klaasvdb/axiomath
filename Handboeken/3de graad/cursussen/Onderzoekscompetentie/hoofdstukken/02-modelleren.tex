@@ -8,9 +8,29 @@
 
 \mychapter{2}{Modelleren met data}
 
+\begin{probleem}
+\naast{Johannes Kepler kende rond 1610 de afstand $a$ van de zes toen bekende planeten tot de zon, en de tijd $T$ die ze over één rondje doen. Hij zocht jarenlang naar een verband. Hier zijn de huidige waarden, afgerond, met $a$ in astronomische eenheden (AE, de afstand van de aarde tot de zon) en $T$ in jaar. De dwergplaneet Ceres, ontdekt in 1801, staat op $2{,}77$ AE van de zon. Hoe lang duurt een jaar op Ceres?}{%
+\begin{tikzpicture}[x=.36cm,y=.1cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=2,ystep=10] (0,0) grid (10,30);
+  \draw[->,grijs] (0,0) -- (10.8,0) node[right,text=black] {$a$};
+  \draw[->,grijs] (0,0) -- (0,33) node[above,text=black] {$T$};
+  \foreach \t in {2,4,...,10}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \foreach \x/\y in {.387/.241,.723/.615,1/1,1.524/1.881,5.203/11.862,9.537/29.457}{\fill[accent] (\x,\y) circle (2pt);}
+  \draw[grijs,dashed] (2.77,0) -- (2.77,8) node[above,text=black] {?};
+\end{tikzpicture}}
+\figuren{{\renewcommand{\arraystretch}{1.15}%
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+& Mercurius & Venus & Aarde & Mars & Jupiter & Saturnus \\ \hline
+$a$ (AE) & $0{,}387$ & $0{,}723$ & $1{,}000$ & $1{,}524$ & $5{,}203$ & $9{,}537$ \\ \hline
+$T$ (jaar) & $0{,}241$ & $0{,}615$ & $1{,}000$ & $1{,}881$ & $11{,}86$ & $29{,}46$ \\ \hline
+\end{tabular}}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{55}\alleenvoor{3}{41}\alleenvoor{2}{35} (onderzoekscompetentie), met het modelleren van meetgegevens. De kleinste-kwadratenrechte wordt hier ingevoerd zoals ze in een onderzoek gebruikt wordt; de formules worden in sectie 2 bewezen met de top van een dalparabool; een afleiding met afgeleiden staat als opdracht. Met een rekentoestel of rekenblad thuis gaat het rekenwerk sneller; in de klas volstaan kleine datasets. Alle getallen in dit hoofdstuk zijn voorbeeldgegevens, geen echte metingen.}
 
-Bij veel onderzoeksvragen meet je iets: hoe lang een slinger is en hoe snel hij slingert, hoe snel thee afkoelt. De punten liggen nooit precies op een mooie grafiek: er zijn meetfouten, en het model is een vereenvoudiging. Toch wil je weten welk verband het best past. Dat is modelleren. Dit hoofdstuk volgt de stappen: variabelen kiezen en meten, een model kiezen, de best passende rechte berekenen, een verband rechttrekken, en het model kritisch bekijken.
+Bij veel onderzoeksvragen heb je metingen, en zoek je de formule erachter: hoe de omlooptijd van een planeet afhangt van haar afstand, hoe lang een slinger is en hoe snel hij slingert, hoe snel thee afkoelt. De punten liggen nooit precies op een mooie grafiek: er zijn meetfouten, en het model is een vereenvoudiging. Bij de planeten zie je wel een stijgende kromme, maar welke? Een rechte past niet, en tussen Mars en Jupiter staat geen enkel punt. Toch wil je weten welk verband het best past, zodat je ook tussen de metingen kunt voorspellen. Dat is modelleren. Dit hoofdstuk volgt de stappen: variabelen kiezen en meten, een model kiezen, de best passende rechte berekenen, een verband rechttrekken, en het model kritisch bekijken. Op het einde vind je zo de wet die Kepler in 1618 ontdekte, en het jaar van Ceres.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -23,7 +43,7 @@ Bij veel onderzoeksvragen meet je iets: hoe lang een slinger is en hoe snel hij 
 
 \subsection{Variabelen}\label{sec:h2-variabelen}
 
-Bij een experiment verander je één grootheid bewust, en kijk je hoe een andere grootheid reageert. Alles wat verder invloed kan hebben, houd je zo goed mogelijk gelijk. Verander je twee dingen tegelijk, dan weet je achteraf niet waardoor een verschil komt.
+Wat hangt waarvan af? Bij de planeten lijkt dat duidelijk: hoe verder een planeet van de zon staat, hoe langer haar rondje duurt. De afstand komt dus op de $x$-as, de omlooptijd op de $y$-as. Kepler kon de planeten wel niet verplaatsen: hij moest het doen met de zes die er zijn. Bij een experiment kan dat wel: daar verander je één grootheid bewust, en kijk je hoe een andere grootheid reageert. Alles wat verder invloed kan hebben, houd je zo goed mogelijk gelijk. Verander je twee dingen tegelijk, dan weet je achteraf niet waardoor een verschil komt.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{onafhankelijke variabele}} is de grootheid die je zelf kiest of instelt. Ze komt op de $x$-as.
@@ -72,7 +92,7 @@ Tel je telkens één slingering te weinig, dan maak je een systematische fout: e
 
 \subsection{Een model kiezen}
 
-Na het meten zet je de punten in een figuur, en stel je een hypothese op: welk soort functie beschrijft het verband? Die hypothese komt uit de theorie (de natuurkunde voorspelt hoe een slinger zich gedraagt), of uit de vorm van de punten.
+Na het meten zet je de punten in een figuur, en stel je een hypothese op: welk soort functie beschrijft het verband? Bij de planeten is dat niet meteen duidelijk. De punten stijgen steeds sneller, maar is dat een exponentiële functie, een kwadraat, of nog iets anders? Die hypothese komt uit de theorie (de natuurkunde voorspelt hoe een slinger zich gedraagt), of uit de vorm van de punten.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{spreidingsdiagram}} toont de metingen als punten $(x_i, y_i)$.
@@ -98,6 +118,8 @@ Dat past ook bij de biologie: elke cel deelt zich, dus hoe meer cellen, hoe meer
 \begin{oefeningen}
 \oef{h2-model}
 \end{oefeningen}
+
+Bij de planeten werkt deze tabelmethode niet: de afstanden liggen niet op gelijke stappen. Om toch een model te kiezen, heb je twee dingen nodig: een maat voor hoe goed een rechte bij punten past (sectie 2), en een manier om een kromme recht te trekken (sectie 3).
 
 %========================================================================================
 \section{De best passende rechte}
@@ -563,6 +585,36 @@ De voorbeelden van dit hoofdstuk volgen telkens dezelfde weg. Samen vormen ze de
 \begin{werkwijze}
 \textbf{1.} Beschrijf de situatie, de variabelen en je aannames. \textbf{2.} Meet zorgvuldig, herhaal waar het kan, en let op systematische fouten. \textbf{3.} Kies een model (lineair, macht, exponentieel) op basis van de theorie of van het spreidingsdiagram. \textbf{4.} Transformeer zo nodig tot een rechte, en bepaal de parameters met de kleinste-kwadratenrechte. \textbf{5.} Controleer het model: liggen de residuen willekeurig rond nul, of zie je een patroon? \textbf{6.} Rapporteer het model met zijn grenzen: het gebied van de metingen, en wat het niet zegt over oorzaken.
 \end{werkwijze}
+
+\needspace{14\baselineskip}
+Met die stappen kun je nu doen wat Kepler jaren kostte.
+
+\voorbeeld{}{Terug naar het probleem. Zoek een formule voor de omlooptijd $T$ (in jaar) van een planeet op afstand $a$ (in AE) van de zon, met de gegevens uit het probleem. Hoe lang duurt een jaar op Ceres, op $2{,}77$ AE?\label{vb:h2-terug}}{%
+\uitleg{We proberen eerst een rechte, want die ligt het meest voor de hand, en bekijken haar residuen. Daarna kiezen we een beter model, trekken het recht met de logaritme, en controleren het.}
+\begin{stappenvrij}{5.4cm}{9.3cm}
+T \approx 3{,}18\,a - 2{,}23,\quad r \approx 0{,}992 & De kleinste-kwadratenrechte van $T$ tegen $a$. Een hoge $r$, maar dat zegt niet genoeg. \\
+\text{residuen: } {+},\ {+},\ {+},\ {-},\ {-},\ {+} & Een patroon: de rechte mist een kromming. Voor Ceres zou ze $6{,}6$ jaar geven. \\
+\text{model: } T = c \cdot a^k & Een planeet vlak bij de zon heeft een heel kort rondje: de kromme gaat door de oorsprong. Een macht doet dat, een exponentiële functie niet. De exponent kennen we niet. \\
+\ln T \approx 1{,}500 \ln a + 0{,}000 & De kleinste-kwadratenrechte van $\ln T$ tegen $\ln a$ (zie de tabel en de figuur), met $r \approx 1{,}000$. \\
+k \approx 1{,}5,\quad c = \e^{0} = 1 & Terugrekenen: $T = a^{1{,}5}$, of $T^2 = a^3$. \\
+T = 2{,}77^{1{,}5} \approx 4{,}61 & Ceres: interpoleren, want $2{,}77$ ligt tussen Mars en Jupiter.
+\end{stappenvrij}
+\figuren{{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$\ln a$ & $-0{,}949$ & $-0{,}324$ & $0$ & $0{,}421$ & $1{,}649$ & $2{,}255$ \\ \hline
+$\ln T$ & $-1{,}423$ & $-0{,}486$ & $0$ & $0{,}632$ & $2{,}473$ & $3{,}383$ \\ \hline
+\end{tabular}}\hspace{1cm}%
+\raisebox{-.5\height}{\begin{tikzpicture}[x=.85cm,y=.42cm,font=\scriptsize]
+  \draw[black!14,very thin] (-1,-2) grid (2.5,4);
+  \draw[->,grijs] (-1,0) -- (2.8,0) node[right,text=black] {$\ln a$};
+  \draw[->,grijs] (0,-2) -- (0,4.4) node[above,text=black] {$\ln T$};
+  \foreach \t in {-1,1,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-2,2,4}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] (-1.1,-1.65) -- (2.5,3.75);
+  \foreach \x/\y in {-.949/-1.423,-.324/-.486,0/0,.421/.632,1.649/2.473,2.255/3.383}{\fill[accent] (\x,\y) circle (2pt);}
+\end{tikzpicture}}}
+Een jaar op Ceres duurt dus ongeveer $4{,}6$ aardse jaren. De gemeten waarde is $4{,}60$ jaar: het model voorspelt goed. Kepler vond dit verband in 1618: het kwadraat van de omlooptijd is evenredig met de derde macht van de afstand. Bijna zeventig jaar later leidde Newton het af uit zijn gravitatiewet. Het model komt dus niet alleen uit de punten, maar ook uit de theorie. Daarom durf je ermee te extrapoleren, en het klopt: voor Neptunus, op $30{,}07$ AE, geeft het $165$ jaar, en dat is ook de gemeten omlooptijd.}
 
 \opdrachtenkop
 

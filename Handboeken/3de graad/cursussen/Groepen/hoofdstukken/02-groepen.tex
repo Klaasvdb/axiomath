@@ -8,11 +8,27 @@
 
 \mychapter{2}{Groepen}
 
+\begin{probleem}
+Tot 2007 kreeg een boek een ISBN van tien cijfers. Het laatste cijfer is een controlecijfer, zo gekozen dat
+\[10 \cdot \text{(eerste cijfer)} + 9 \cdot \text{(tweede)} + 8 \cdot \text{(derde)} + \cdots + 2 \cdot \text{(negende)} + 1 \cdot \text{(tiende)}\]
+een veelvoud is van 11. Moet het controlecijfer 10 zijn, dan schrijft men X. Op een oud boek maakt een vlek het vierde cijfer onleesbaar. Kun je het terugvinden? Lukt dat altijd, voor elk cijfer op elke plaats? Merkt een computer zo ook elke tikfout in één cijfer op? En waarom 11, en niet 10, zodat er nooit een X nodig is?
+
+\figuren{\begin{tikzpicture}[font=\small]
+  \node[anchor=east,font=\small\bfseries] at (-.05,0) {ISBN};
+  \foreach \c [count=\k] in {9,0,5,?,1,2,3,4,7,5}{%
+    \pgfmathtruncatemacro{\g}{11-\k}
+    \draw[lijngrijs] (.62*\k-.3,-.3) rectangle (.62*\k+.3,.3);
+    \node at (.62*\k,0) {$\c$};
+    \node[font=\scriptsize,text=grijs] at (.62*\k,-.55) {$\times\g$};}
+  \fill[grijs!45,rounded corners=3pt] (.62*4-.24,-.2) rectangle (.62*4+.22,.24);
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan B+S'': LPD 43, met de groep als algebraïsche structuur. Het leerplan noemt als voorbeelden getallenverzamelingen met optelling of vermenigvuldiging, vectoren en matrices met optelling, en de gehele getallen modulo $n$ met optelling, met de link naar klokrekenen: die staan allemaal in dit hoofdstuk. Symmetriegroepen en permutaties volgen in hoofdstuk 3. Vermenigvuldigen modulo $n$ is een kleine uitbreiding: het toont een groep die niet uit een optelling komt, en het verband met priemgetallen. Deelgroepen en de stelling van Lagrange staan in het leerplan pas bij het complementair gedeelte: ze komen hier alleen in een opdracht van niveau 3 aan bod.}
 
 In hoofdstuk 1 bekeek je de eigenschappen van een bewerking één voor één. Sommige bewerkingen hebben er veel tegelijk: de optelling van gehele getallen is associatief, heeft een neutraal element 0, en elk getal heeft een tegengestelde. Dezelfde drie eigenschappen vind je bij de vermenigvuldiging van rationale getallen verschillend van 0, bij het optellen van vectoren en matrices, en bij het draaien van een wijzer op een klok.
 
-Zo'n verzameling met een bewerking heet een \textit{groep}. Het begrip komt van de Franse wiskundige Évariste Galois (1811-1832). Hij gebruikte groepen om te bewijzen dat er geen formule bestaat voor de oplossingen van een vijfdegraadsvergelijking, zoals de formule met de discriminant voor de tweede graad. Vandaag gebruiken scheikundigen groepen om kristallen te beschrijven, natuurkundigen om elementaire deeltjes te ordenen, en informatici om berichten te versleutelen. Het voordeel is groot: wat je één keer bewijst voor een groep, geldt meteen voor al die voorbeelden.
+Zo'n verzameling met een bewerking heet een \textit{groep}. Het begrip komt van de Franse wiskundige Évariste Galois (1811-1832). Hij gebruikte groepen om te bewijzen dat er geen formule bestaat voor de oplossingen van een vijfdegraadsvergelijking, zoals de formule met de discriminant voor de tweede graad. Vandaag gebruiken scheikundigen groepen om kristallen te beschrijven, natuurkundigen om elementaire deeltjes te ordenen, en informatici om berichten te versleutelen. Het voordeel is groot: wat je één keer bewijst voor een groep, geldt meteen voor al die voorbeelden. Ook het controlecijfer van het ISBN werkt omdat er een groep achter zit: op het einde van dit hoofdstuk zie je welke.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -116,7 +132,7 @@ Ga de voorwaarden na in deze volgorde: is $\ast$ een bewerking op $G$, is ze ass
 
 \subsection{Vergelijkingen oplossen}
 
-Hoe los je $5 + x = 2$ op in $\Z$? Je telt bij beide leden $-5$ op, de inverse van 5. En $5x = 2$ in $\Q_0$? Je vermenigvuldigt met $\frac15$. Het is telkens hetzelfde idee: je ``ontdoet'' je van 5 met zijn inverse. In elke groep kan dat.
+Hoe los je $5 + x = 2$ op in $\Z$? Je telt bij beide leden $-5$ op, de inverse van 5. En $5x = 2$ in $\Q_0$? Je vermenigvuldigt met $\frac15$. Het is telkens hetzelfde idee: je ``ontdoet'' je van 5 met zijn inverse. In elke groep kan dat. Ook het onleesbare cijfer van het ISBN is de oplossing van zo'n vergelijking, met een bewerking die je in sectie 3 leert.
 
 Bij een willekeurige groep schrijven we de bewerking als $\ast$ en de inverse als $a'$. Is de bewerking een vermenigvuldiging of een samenstelling, dan schrijft men de inverse meestal $a^{-1}$; bij een optelling is het $-a$.
 
@@ -291,7 +307,7 @@ Reken met gewone gehele getallen en neem op het einde de rest bij deling door $n
 
 \subsection{Vermenigvuldigen modulo \texorpdfstring{$n$}{n}}
 
-Je kunt ook vermenigvuldigen en daarna de rest nemen. Op $\Zn{n}$ geeft dat nooit een groep: $0 \maaln a = 0$ voor elke $a$, dus 0 heeft geen inverse. Daarom laten we 0 weg.
+Je kunt ook vermenigvuldigen en daarna de rest nemen, zoals bij het ISBN uit het probleem. Op $\Zn{n}$ geeft dat nooit een groep: $0 \maaln a = 0$ voor elke $a$, dus 0 heeft geen inverse. Daarom laten we 0 weg.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{vermenigvuldiging modulo $n$}} op $\Zn{n}$ is \quad $\formule{a \maaln b = \text{de rest van } a \cdot b \text{ bij deling door } n}$
@@ -332,6 +348,25 @@ Het verschil tussen 5 en 6 is geen toeval. Je kunt bewijzen dat $\bigl(\Zn{n} \s
 
 \oef{h2-tabelmaal}
 \end{oefeningen}
+
+Nu kun je het probleem van het ISBN oplossen. Een getal is een veelvoud van 11 als zijn rest bij deling door 11 nul is. De voorwaarde van het controlecijfer is dus een vergelijking in $\Zn{11}$.
+
+\voorbeeld{}{Terug naar het probleem. Van het ISBN 90-5?12-347-5 is het vierde cijfer onleesbaar. Zoek het terug. Lukt dat altijd, en valt elke tikfout in één cijfer op? Waarom rekent men modulo 11 en niet modulo 10?\label{vb:h2-terug}}{%
+\uitleg{Het vierde cijfer $x$ telt mee met gewicht 7. We tellen de andere producten op, nemen de rest bij deling door 11, en lossen dan een vergelijking op in de groep $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$: 11 is een priemgetal.}
+\begin{stappenbreed}
+90 + 0 + 40 + 7x + 6 + 10 + 12 + 12 + 14 + 5 = 189 + 7x & Elk cijfer maal zijn gewicht, van $10 \cdot 9$ tot $1 \cdot 5$. \\[1ex]
+189 = 17 \cdot 11 + 2 \ \Rightarrow \ 7 \maaln x \plusn 2 = 0 & De som moet rest 0 hebben bij deling door 11. \\[1ex]
+7 \maaln x = 9 & Tel bij beide leden 9 op, de inverse van 2 voor $\plusn$. \\[1ex]
+7' = 8, \ \text{want } 7 \cdot 8 = 56 = 5 \cdot 11 + 1 & De inverse van 7 voor $\maaln$. \\[1ex]
+x = 8 \maaln 9 = 6 & $72 = 6 \cdot 11 + 6$. Controle: \mbox{$189 + 42 = 231 = 21 \cdot 11$}.
+\end{stappenbreed}
+Het ISBN is 90-5612-347-5. Dat lukt altijd. Op elke plaats is het gewicht $g$ een getal van 1 tot 10, en het onbekende cijfer voldoet aan een vergelijking $g \maaln x = b$. Is $b \neq 0$, dan heeft ze in de groep precies één oplossing $x = g' \maaln b$. Is $b = 0$, dan is $x = 0$, want het product van twee elementen van $\Zn{11} \setminus \{0\}$ is nooit 0.
+
+Daarom valt ook elke tikfout in één cijfer op. Zou de som met het verkeerde cijfer ook een veelvoud van 11 zijn, dan voldoen het juiste en het verkeerde cijfer aan dezelfde vergelijking, en die heeft maar één oplossing.
+
+Modulo 10 lukt dat niet, omdat $\bigl(\Zn{10} \setminus \{0\}, \maaln\bigr)$ geen groep is. Het eerste cijfer, met gewicht 10, telt dan nooit mee. En het zesde cijfer heeft gewicht 5, met $5 \maaln 2 = 0$ in $\Zn{10}$: is dat cijfer 2 te groot getypt, dan blijft de som een veelvoud van 10, net als $2 \maaln 3 = 0$ in $\Zn{6}$.}
+
+Sinds 2007 heeft een ISBN dertien cijfers, en dan rekent men wel modulo 10, maar met de gewichten 1 en 3. Die hebben allebei een inverse voor $\maaln$ in $\Zn{10}$, want $3 \maaln 7 = 1$: zo valt ook daar elke tikfout in één cijfer op.
 
 %========================================================================================
 \opdrachtenkop

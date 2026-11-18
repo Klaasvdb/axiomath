@@ -8,9 +8,19 @@
 
 \mychapter{2}{De normale verdeling}
 
+\begin{probleem}
+\naast{Op een pak bloem staat \textit{1 kg}, met een kleine \textsf{e} ernaast. Met dat teken belooft de fabrikant zich aan de Europese regels te houden. Twee ervan: een pak weegt gemiddeld minstens 1000~g, en hoogstens 2,5~\% van de pakken mag meer dan 15~g te licht zijn, dus minder dan 985~g wegen. De vulmachine van een kleine maalderij vult niet elk pak even zwaar: de massa's schommelen rond het ingestelde gemiddelde, met een standaardafwijking van 8~g. Mag de maalderij de machine op 1000~g instellen? En zo niet, op welk gemiddelde dan wel?}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \fill[accent!12] (0,0) -- (2.2,0) -- (2.2,2.6) -- (2.0,3) -- (.2,3) -- (0,2.6) -- cycle;
+  \draw[accent,thick] (0,0) -- (2.2,0) -- (2.2,2.6) -- (2.0,3) -- (.2,3) -- (0,2.6) -- cycle;
+  \draw[accent] (0,2.6) -- (2.2,2.6);
+  \node[font=\small\bfseries,text=accent] at (1.1,1.85) {BLOEM};
+  \node[font=\small] at (1.1,.6) {1 kg \,\textsf{e}};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{52}\alleenvoor{3}{38}\alleenvoor{2}{32}\alleenvoor{1}{20} (de normale verdeling als continu model bij gegeven data, met grafische beoordeling, schatting van de parameters en de grafische betekenis van $\mu$ en $\sigma$) en LPD \alleenvoor{4}{53}\alleenvoor{3}{39}\alleenvoor{2}{33}\alleenvoor{1}{21} (kansen berekenen bij een normaal verdeelde kansvariabele). De wenken noemen de overgang van histogram naar dichtheid, z-scores, de 68-95-99,7-regel en ICT. Op de TI-84: \texttt{normalcdf(a,b,$\mu$,$\sigma$)} en \texttt{invNorm(opp,$\mu$,$\sigma$)} in het menu DISTR. Het voorschrift van de Gausskromme hoeft niet gekend te zijn.}
 
-Meet je de lengte van veel volwassenen, de massa van appels uit een boomgaard of de reactietijd van veel proefpersonen, dan krijg je telkens een histogram in de vorm van een klok: veel waarden in het midden, minder naar de randen toe, ongeveer symmetrisch. Die vorm is zo gewoon dat ze een eigen naam heeft: de normale verdeling. In dit hoofdstuk leer je ze herkennen, de betekenis van haar gemiddelde en standaardafwijking aflezen, en er kansen mee berekenen.
+Weeg je veel pakken uit dezelfde vulmachine, meet je de lengte van veel volwassenen of de massa van appels uit een boomgaard, dan krijg je telkens een histogram in de vorm van een klok: veel waarden in het midden, minder naar de randen toe, ongeveer symmetrisch. Die vorm is zo gewoon dat ze een eigen naam heeft: de normale verdeling. In dit hoofdstuk leer je ze herkennen, de betekenis van haar gemiddelde en standaardafwijking aflezen, en er kansen mee berekenen. Op het einde van het deel \textit{Kansen berekenen} weet je hoe de maalderij haar machine moet instellen.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -24,6 +34,8 @@ Meet je de lengte van veel volwassenen, de massa van appels uit een boomgaard of
 \section{Van histogram naar dichtheid}
 
 \subsection{De dichtheidsfunctie}
+
+Hoeveel pakken uit het probleem wegen minder dan 985~g? Je zou er 200 kunnen wegen en tellen. Maar dan ken je het aandeel bij die 200 pakken, niet bij alle pakken die de machine ooit zal vullen. En in een histogram met klassen van 10~g, zoals van 980 tot 990~g, valt de grens van 985~g midden in een klasse. We zoeken daarom een vloeiende kromme die beschrijft hoe de machine vult, en lezen een aandeel af als een oppervlakte onder die kromme. Het idee zie je het best bij de lengtes uit de Verken.
 
 In een histogram met klassen van gelijke breedte stelt de hoogte van een staaf het aantal waarden voor. Deel je elke relatieve frequentie door de klassebreedte, dan wordt de \textit{oppervlakte} van elke staaf gelijk aan de relatieve frequentie, en is de totale oppervlakte 1. Teken je door de staven een vloeiende kromme, dan krijg je een dichtheidsfunctie. Het aandeel lengtes tussen 170 en 185 cm uit de Verken is dan ongeveer de oppervlakte onder de kromme tussen 170 en 185.
 
@@ -245,7 +257,7 @@ P(X > 204) \approx \frac{1 - 0{,}95}{2} = 0{,}025 & De overige 5~\% ligt in twee
 
 \subsection{Met het rekentoestel}
 
-Voor grenzen die geen geheel aantal standaardafwijkingen van $\mu$ liggen, gebruik je je rekentoestel. Het berekent de oppervlakte onder de Gausskromme tussen twee grenzen: \texttt{normalcdf(a,b,$\mu$,$\sigma$)}.
+Hoeveel pakken uit het probleem wegen minder dan 985~g als de machine op 1000~g staat? De grens ligt $\frac{15}{8} = 1{,}875$ standaardafwijkingen onder het gemiddelde: geen geheel aantal, dus de vuistregels zeggen alleen dat het aandeel tussen 2,5~\% en 16~\% ligt. Voor zulke grenzen gebruik je je rekentoestel. Het berekent de oppervlakte onder de Gausskromme tussen twee grenzen: \texttt{normalcdf(a,b,$\mu$,$\sigma$)}.
 
 \voorbeeld{}{Welk percentage van de appels weegt tussen 170 en 190~g?\label{vb:h2-normalcdf}}{%
 \uitleg{We tekenen een schets met het gevraagde gebied, en laten het rekentoestel de oppervlakte berekenen.}
@@ -369,6 +381,27 @@ Grens bij een gegeven kans: zet de kans om naar de oppervlakte \textit{links} va
 
 \oef{h2-mu}
 \end{oefeningen}
+
+\needspace{20\baselineskip}
+Met \texttt{normalcdf} en \texttt{invNorm} kunnen we nu de vraag van de maalderij beantwoorden.
+
+\voorbeeld{}{Terug naar het probleem. Mag de vulmachine van de maalderij, met $\sigma = 8$~g, op 1000~g staan? Op welk gemiddelde moet ze minstens staan?\label{vb:h2-terug}}{%
+\uitleg{We nemen aan dat de massa's normaal verdeeld zijn, wat bij een vulmachine meestal klopt. De regels eisen gemiddeld minstens 1000~g en hoogstens 2,5~\% onder 985~g. Eerst berekenen we het aandeel te lichte pakken bij $\mu = 1000$, daarna zoeken we $\mu$ zoals in voorbeeld \ref{vb:h2-mu}.}
+\naast{\begin{stappenvrij}{3.5cm}{5.2cm}
+P(X < 985) \approx 0{,}030 & \texttt{normalcdf(-1E99,985,1000,8)}: meer dan 2,5~\%. \\[1ex]
+z \approx -1{,}96 & \texttt{invNorm(0.025,0,1)}: links van 985~g mag hoogstens 2,5~\% liggen. \\[1ex]
+985 = \mu - 1{,}96 \cdot 8 & Uit $x = \mu + z\sigma$. \\[1ex]
+\mu \approx 1000{,}7 & Het kleinste toegelaten gemiddelde.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.08cm,y=34cm,font=\scriptsize]
+  \fill[accent!45] plot[domain=972:985,samples=30] (\x,{gauss(\x,1000,8)}) -- (985,0) -- (972,0) -- cycle;
+  \draw[->,grijs] (970,0) -- (1031,0) node[right,text=black] {g};
+  \draw[accent,thick] plot[domain=972:1028,samples=80,smooth] (\x,{gauss(\x,1000,8)});
+  \draw[grijs,dashed] (1000,0) -- (1000,{gauss(1000,1000,8)});
+  \foreach \t in {985,1000,1015}{\draw[grijs] (\t,0) -- (\t,-.002) node[below,text=black] {\t};}
+  \draw[grijs] (981,.004) -- (976,.022) node[above,text=black] {3,0~\%};
+  \node[text=accent] at (1020,.045) {$N(1000, 8)$};
+\end{tikzpicture}}
+Op 1000~g is het gemiddelde in orde, maar weegt 3,0~\% van de pakken minder dan 985~g: dat mag niet. Op minstens 1000,7~g wel. Een nauwkeuriger machine, met een kleinere $\sigma$, mag dichter bij 1000~g staan.}
 
 %========================================================================================
 \section{Is het model goed?}

@@ -1,16 +1,30 @@
 %----------------------------------------------------------------------------------------
 % LIMIETEN EN CONTINUÏTEIT. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h1-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{1}{Limieten en continuïteit}
 
-\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over het limietbegrip, rekenregels, onbepaalde vormen, asymptoten als limieten en continuïteit. De $\varepsilon$-$\delta$-definitie staat erin, met een uitgewerkt bewijs voor een eerstegraadsfunctie. Ook de rekenregels worden met de definitie bewezen; die bewijzen zijn zwaar en mogen in de les alleen gelezen worden. In Rationale functies werden asymptoten informeel ingevoerd: hier krijgen ze een definitie.}
+\begin{probleem}
+\vspace{-1mm}\naast{Een fabriek maakt kubusvormige dozen die precies 1 liter moeten bevatten: met een binnenribbe van 10 cm is de inhoud $1000$ cm$^3$. Geen machine werkt perfect. Een klant aanvaardt een fout van hoogstens $10$ cm$^3$ op de inhoud. Hoe nauwkeurig moet de ribbe dan zijn? Een tweede klant eist $1$ cm$^3$, een laboratorium $0{,}01$ cm$^3$.
 
-Wat gebeurt er met $\frac{x^2 - 1}{x - 1}$ als $x$ naar $1$ gaat? Invullen kan niet: dat geeft $\frac00$. Toch komen de functiewaarden steeds dichter bij $2$. Een limiet beschrijft precies dat: waar de functiewaarden naartoe gaan, ook als de functie er zelf niet bestaat. Limieten zijn de basis van de afgeleide, die in hoofdstuk 2 volgt.
+Kan de fabriek aan elke eis voldoen, hoe streng ook, als ze maar nauwkeurig genoeg werkt? En kan ze één regel opstellen die bij elke eis meteen zegt hoe nauwkeurig de ribbe moet zijn?}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \fill[accent!10] (0,0) rectangle (5,5);
+  \fill[accent!22] (5,0) -- (7,1.6) -- (7,6.6) -- (5,5) -- cycle;
+  \fill[accent!5] (0,5) -- (2,6.6) -- (7,6.6) -- (5,5) -- cycle;
+  \draw[lijngrijs,dashed] (0,0) -- (2,1.6) -- (7,1.6) (2,1.6) -- (2,6.6);
+  \draw[accent,thick] (0,0) rectangle (5,5) (5,0) -- (7,1.6) -- (7,6.6) -- (5,5) (0,5) -- (2,6.6) -- (7,6.6);
+  \node[below] at (2.5,0) {ribbe $x \approx 10$ cm};
+  \node[align=center] at (2.5,2.5) {$x^3 \approx 1000$\\cm$^3$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan B+S'': LPD 26-30 (limieten en afgeleiden), het deel over het limietbegrip, rekenregels, onbepaalde vormen, asymptoten als limieten en continuïteit. De $\varepsilon$-$\delta$-definitie staat erin, met een uitgewerkt bewijs voor een eerstegraadsfunctie en, in het probleem, voor $x^3$. Ook de rekenregels worden met de definitie bewezen; die bewijzen zijn zwaar en mogen in de les alleen gelezen worden. In Rationale functies werden asymptoten informeel ingevoerd: hier krijgen ze een definitie. Het probleem is de $\varepsilon$-$\delta$-definitie in een context: de klant kiest $\varepsilon$, de fabriek zoekt $\delta$. Laat leerlingen de eerste eis zelf oplossen met de derdemachtswortel; de oplossing voor elke eis staat in voorbeeld \ref{vb:h1-terug}.}
+
+Hoe dichter de ribbe bij 10 cm ligt, hoe dichter de inhoud bij $1000$ cm$^3$: dat voel je aan. Maar de fabriek wil het precies weten: \textit{hoe} dicht moet de ribbe liggen bij een gegeven eis, en lukt dat bij elke eis? Dat is de vraag achter een \textit{limiet}. Een limiet beschrijft waar de functiewaarden naartoe gaan als $x$ een getal nadert, ook als de functie daar zelf niet bestaat. In dit hoofdstuk maken we dat begrip nauwkeurig, en leren we limieten berekenen zonder telkens zo'n eis na te rekenen. Limieten zijn de basis van de afgeleide, die in hoofdstuk 2 volgt.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -23,8 +37,10 @@ Wat gebeurt er met $\frac{x^2 - 1}{x - 1}$ als $x$ naar $1$ gaat? Invullen kan n
 
 \subsection{Waar gaan de functiewaarden naartoe?}
 
+Bij de doos uit het probleem kun je gewoon invullen: een ribbe van precies 10 cm geeft precies $1000$ cm$^3$. Maar wat als invullen niet lukt? Wat gebeurt er met $f(x) = \frac{x^2 - 1}{x - 1}$ als $x$ naar $1$ gaat? Invullen geeft $\frac00$, en dat is geen getal.
+
 \naast{%
-Bekijk $f(x) = \frac{x^2 - 1}{x - 1}$ voor $x$ dicht bij $1$:
+Bekijk daarom de functiewaarden voor $x$ dicht bij $1$:
 
 \vspace{1mm}
 {\renewcommand{\arraystretch}{1.2}%
@@ -70,8 +86,10 @@ De limiet en de functiewaarde verschillen hier. Dat is geen tegenspraak: de limi
 
 \subsection{De definitie met \texorpdfstring{$\varepsilon$}{epsilon} en \texorpdfstring{$\delta$}{delta}}
 
+Wat betekent \textit{willekeurig dicht} precies? Dat is de vraag van de fabriek uit het probleem. Probeer ze eerst met wat je kent. De eerste klant eist $990 < x^3 < 1010$. Neem de derdemachtswortel: $9{,}9666 < x < 10{,}0332$ (afgerond naar binnen). Een ribbe die minder dan $0{,}033$ cm van 10 cm afwijkt, een derde millimeter, is dus goed. Voor de eis van $1$ cm$^3$ reken je opnieuw, en vind je $0{,}0033$ cm. Zo begin je bij elke eis opnieuw, en er zijn oneindig veel eisen. Om te tonen dat het \textit{altijd} lukt, heb je een regel nodig die bij elke eis een geschikte nauwkeurigheid geeft.
+
 \naast{%
-Wat betekent \textit{willekeurig dicht} precies? Bekijk het als een uitdaging. Iemand kiest een nauwkeurigheid $\varepsilon > 0$: de functiewaarden moeten in de strook tussen $L - \varepsilon$ en $L + \varepsilon$ liggen. Jij moet dan een afstand $\delta > 0$ vinden zodat dat lukt voor alle $x \neq a$ tussen $a - \delta$ en $a + \delta$.
+Bekijk het daarom als een uitdaging. Iemand kiest een nauwkeurigheid $\varepsilon > 0$, zoals de klant: de functiewaarden moeten in de strook tussen $L - \varepsilon$ en $L + \varepsilon$ liggen. Jij moet dan een afstand $\delta > 0$ vinden, zoals de fabriek, zodat dat lukt voor alle $x \neq a$ tussen $a - \delta$ en $a + \delta$.
 
 Lukt dat voor elke $\varepsilon$, hoe klein ook, dan is $L$ de limiet. Een kleinere $\varepsilon$ vraagt meestal een kleinere $\delta$.}{%
 \begin{tikzpicture}[x=1.05cm,y=1.05cm,font=\scriptsize]
@@ -117,6 +135,19 @@ Neem een willekeurige $\varepsilon > 0$. Werk $|f(x) - L|$ uit tot er een veelvo
 \begin{oefeningen}
 \oef{h1-begrip}
 \end{oefeningen}
+
+Bij de doos uit het probleem is de functie $x^3$ geen eerstegraadsfunctie. Werk je $|x^3 - 1000|$ uit, dan verschijnt geen vast getal maal $|x - 10|$, maar een factor die zelf van $x$ afhangt. Die factor schat je af door $x$ eerst dicht bij $10$ te houden.
+
+\voorbeeld{}{Terug naar het probleem. Een kubusvormige doos met ribbe $x$ (in cm) heeft inhoud $x^3$. Toon aan dat de fabriek aan elke eis kan voldoen: bij elke $\varepsilon > 0$ is er een $\delta > 0$ zodat $|x^3 - 1000| < \varepsilon$ als $|x - 10| < \delta$. Welke $\delta$ geeft die regel bij de eis van $10$ cm$^3$?\label{vb:h1-terug}}{%
+\uitleg{Dit is het bewijs dat $\lim_{x \to 10} x^3 = 1000$, met de definitie. Neem een willekeurige $\varepsilon > 0$ en werk $|x^3 - 1000|$ uit tot de afstand $|x - 10|$ verschijnt.}
+\begin{stappenbreed}
+|x^3 - 1000| = |x - 10| \cdot (x^2 + 10x + 100) & Ontbind zoals $x^3 - 8$ in de opwarmer. De tweede factor is altijd positief. \\[1ex]
+|x - 10| < 1 \Rightarrow x^2 + 10x + 100 < 121 + 110 + 100 = 331 & Neem $\delta$ niet groter dan $1$. Dan is $9 < x < 11$, en de factor is kleiner dan zijn waarde in $11$. \\[1ex]
+|x^3 - 1000| < 331\,|x - 10| & Nu staat er een vast getal maal $|x - 10|$, zoals in de werkwijze. \\[1ex]
+\delta = \text{de kleinste van } 1 \text{ en } \tfrac{\varepsilon}{331} & Is $|x - 10| < \delta$, dan geldt allebei, en is $|x^3 - 1000| < 331\,\delta \leqslant \varepsilon$. \\[1ex]
+\varepsilon = 10\colon\ \delta = \tfrac{10}{331} \approx 0{,}030 & Een ribbe tussen $9{,}97$ en $10{,}03$ cm is goed.
+\end{stappenbreed}
+De fabriek kan dus aan elke eis voldoen, en haar regel is eenvoudig: maak de ribbe $331$ keer nauwkeuriger dan de gevraagde inhoud (bij eisen tot $331$ cm$^3$). Die $\delta$ is iets strenger dan nodig, want met de derdemachtswortel vonden we $0{,}033$ cm. Dat mag: de definitie vraagt een $\delta$ die werkt, niet de grootste. Heel dicht bij 10 cm volstaat ongeveer $300$ keer nauwkeuriger. Waar dat getal $300$ vandaan komt, zie je in hoofdstuk 2: het is de afgeleide van $x^3$ in $10$.}
 
 \subsection{Linker- en rechterlimiet}
 
@@ -561,6 +592,8 @@ In de eerste figuur bestaat $f(a)$ niet. In de tweede bestaat de limiet niet. In
 \begin{theorie}
 Een functie $f$ is \textbf{\textcolor{accent}{continu}} in $a$ als $\formule{\lim_{x \to a} f(x) = f(a)}$: de limiet bestaat, $f(a)$ bestaat, en ze zijn gelijk. Ze is continu op een interval als ze continu is in elk punt ervan.
 \end{theorie}
+
+Continu in $a$ betekent dus: een kleine fout op $x$ geeft een kleine fout op $f(x)$. Dat is wat de fabriek uit het probleem nodig had, en wat we in voorbeeld \ref{vb:h1-terug} voor $x^3$ in $10$ bewezen.
 
 \voorbeeld{}{Neem $f(x) = \dfrac{x^2 - 1}{x - 1}$ voor $x \neq 1$ en $f(1) = 2$. Is $f$ continu in $1$?\label{vb:h1-continupunt}}{%
 \uitleg{Controleer de drie voorwaarden één voor één.}

@@ -1,16 +1,27 @@
 %----------------------------------------------------------------------------------------
 % TOEVALSVARIABELEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{3}{Toevalsvariabelen}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Je klas houdt een standje op het schoolfeest om de klasreis mee te betalen. Een spel kost 1 euro, en de speler gooit met twee dobbelstenen. Er liggen twee voorstellen op tafel. Bij stand A krijgt de speler 4 euro als hij een dubbel gooit (twee keer hetzelfde getal). Bij stand B krijgt hij alleen iets bij een dubbele zes, maar dan 24 euro. Welke stand levert de klas het meest op? En welke is het meest riskant?}{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \x/\t/\u in {0/A/{dubbel?\\4 euro},2.5/B/{dubbele zes?\\24 euro}}{
+    \draw[accent,thick,fill=accent!8,rounded corners=2pt] (\x,0) rectangle ++(2.2,1.7);
+    \node[font=\small\bfseries,text=accent] at (\x+1.1,1.4) {stand \t};
+    \node[align=center] at (\x+1.1,.95) {1 euro per spel};
+    \node[align=center] at (\x+1.1,.4) {\u};
+    \draw[grijs,thick] (\x+.4,0) -- (\x+.4,-.5) (\x+1.8,0) -- (\x+1.8,-.5);}
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: de wenken bij LPD \alleenvoor{4}{49}\alleenvoor{3}{35}\alleenvoor{2}{29}\alleenvoor{1}{17} (kansverdeling van een toevalsvariabele, verwachtingswaarde en standaardafwijking, discreet tegenover continu, cumulatieve verdelingsfunctie). Ze bereiden de binomiale verdeling in hoofdstuk 4 voor. Leerlingen kennen het gemiddelde en de standaardafwijking van een frequentietabel uit de 2de graad: de verwachtingswaarde is hetzelfde, met kansen in de plaats van relatieve frequenties.}
 
-Bij een spel wil je niet alleen weten hoe groot de kans op winst is, maar ook hoeveel je wint. Gooi je twee dobbelstenen, dan interesseert je soms alleen de som, of het aantal zessen. Zo'n getal dat van het toeval afhangt, heet een toevalsvariabele. In dit hoofdstuk leer je hoe je de kansen voor alle waarden samen beschrijft, wat je op lange termijn gemiddeld verwacht, en hoe sterk de uitkomsten rond dat gemiddelde schommelen.
+Om de twee standen te vergelijken, volstaat de kans op een prijs niet: stand B betaalt veel minder vaak uit, maar dan wel veel meer. Wat telt, is een getal dat van het toeval afhangt: wat de klas na een spel overhoudt. Zo'n getal heet een toevalsvariabele. Ook bij andere spelen interesseert je vaak niet de uitkomst zelf, maar een getal: de som van twee dobbelstenen, of het aantal zessen. In dit hoofdstuk leer je hoe je de kansen voor alle waarden samen beschrijft, wat je op lange termijn gemiddeld verwacht, en hoe sterk de uitkomsten rond dat gemiddelde schommelen. Met die drie kies je daarna een stand.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -25,7 +36,7 @@ Bij een spel wil je niet alleen weten hoe groot de kans op winst is, maar ook ho
 
 \subsection{Toevalsvariabelen}
 
-Gooi je twee dobbelstenen, dan is de uitkomst een koppel zoals $(2, 5)$. Vaak interesseert je alleen een getal dat bij die uitkomst hoort: de som 7, het grootste getal 5, of het aantal zessen 0. Zo'n getal krijgt een eigen naam.
+Gooi je twee dobbelstenen, dan is de uitkomst een koppel zoals $(2, 5)$. Vaak interesseert je alleen een getal dat bij die uitkomst hoort: de som 7, het grootste getal 5, het aantal zessen 0, of bij stand A uit het probleem wat de klas overhoudt: 1 euro, want $(2, 5)$ is geen dubbel. Zo'n getal krijgt een eigen naam.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{toevalsvariabele}} $X$ koppelt aan elke uitkomst van een kansexperiment een getal. Kan $X$ maar een eindig aantal waarden $x_1, x_2, \ldots, x_k$ aannemen (of een rij waarden die je kunt opsommen), dan is $X$ \textbf{\textcolor{accent}{discreet}}.
@@ -85,6 +96,10 @@ Controle: $\frac{25 + 10 + 1}{36} = 1$.
 \section{De verwachtingswaarde}
 
 \subsection{Gemiddelde op lange termijn}
+
+Hoeveel houdt de klas bij stand A gemiddeld over per spel? Stel dat er 360 keer gespeeld wordt. Ongeveer een zesde daarvan is een dubbel: 60 keer betaalt de klas 4 euro uit, en houdt ze dus $1 - 4 = -3$ euro over. De andere 300 keer houdt ze 1 euro over. Samen is dat ongeveer
+\[300 \cdot 1 + 60 \cdot (-3) = 120 \text{ euro, of gemiddeld } \frac{120}{360} = \frac13 \text{ euro per spel.}\]
+Dat is het gemiddelde van een frequentietabel, met verwachte aantallen.
 
 Uit de 2de graad ken je het gemiddelde van een frequentietabel: komt de waarde $x_i$ $n_i$ keer voor in $n$ waarnemingen, dan is het gemiddelde
 \[\bar{x} = \frac{\sum_i x_i \, n_i}{n} = \sum_i x_i \cdot \frac{n_i}{n} .\]
@@ -160,7 +175,7 @@ Stel de kansverdeling op van de uitbetaling of van de winst, en controleer dat d
 
 \subsection{Spreiding rond de verwachtingswaarde}
 
-Twee spelen kunnen dezelfde verwachtingswaarde hebben, maar toch heel anders aanvoelen. Bij spel A win of verlies je 1 euro, elk met kans $\frac12$. Bij spel B win je 9 euro met kans $\frac{1}{10}$ en verlies je anders 1 euro. Bij beide is $\mu = 0$, maar bij B liggen de uitkomsten veel verder van $\mu$.
+Welke stand is het meest riskant? Bij stand B betaalt de klas zelden uit, maar dan meteen 24 euro. Twee spelen kunnen dezelfde verwachtingswaarde hebben, maar toch heel anders aanvoelen. Dat zie je het best bij twee eenvoudige spelen. Bij spel A win of verlies je 1 euro, elk met kans $\frac12$. Bij spel B win je 9 euro met kans $\frac{1}{10}$ en verlies je anders 1 euro. Bij beide is $\mu = 0$, maar bij B liggen de uitkomsten veel verder van $\mu$.
 
 \figuren{\begin{tikzpicture}[x=.38cm,y=2.4cm,font=\scriptsize]
   \staaf{-1}{.5}{.6} \staaf{1}{.5}{.6}
@@ -236,6 +251,37 @@ Stel de kansverdeling op en controleer dat de kansen samen 1 zijn. Bereken $\mu 
 
 \oef{h3-sigma-2}
 \end{oefeningen}
+
+\needspace{12\baselineskip}
+\subsection{Terug naar het probleem}
+
+Nu hebben we alles om de twee standen te vergelijken: de verwachtingswaarde zegt wat de klas gemiddeld overhoudt, de standaardafwijking hoe sterk de opbrengst schommelt.
+
+\voorbeeld{}{Terug naar het probleem. $X$ is wat de klas overhoudt aan één spel. Bereken bij elke stand $\E(X)$ en $\sigma$. Welke stand kies je?\label{vb:h3-terug}}{%
+\uitleg{De klas ontvangt altijd 1 euro, en betaalt soms uit. Bij stand A is $X = 1 - 4 = -3$ bij een dubbel (6 van de 36 koppels), en anders 1. Bij stand B is $X = 1 - 24 = -23$ bij een dubbele zes (1 koppel), en anders 1. De verwachtingswaarden zijn breuken, dus gebruiken we de rekenformule.}
+\begin{stappenbreed}
+\text{A: } \mu = 1 \cdot \frac56 + (-3) \cdot \frac16 = \frac26 = \frac13 & Gemiddeld een derde euro per spel. \\[3ex]
+\E(X^2) = 1 \cdot \frac56 + 9 \cdot \frac16 = \frac73 & De kwadraten 1 en $(-3)^2 = 9$. \\[3ex]
+\sigma = \sqrt{\tfrac73 - \tfrac19} = \sqrt{\tfrac{20}{9}} \approx 1{,}49 & De rekenformule, met $\mu^2 = \frac19$. \\[2ex]
+\text{B: } \mu = 1 \cdot \frac{35}{36} + (-23) \cdot \frac{1}{36} = \frac{12}{36} = \frac13 & Ook een derde euro per spel. \\[3ex]
+\E(X^2) = 1 \cdot \frac{35}{36} + 529 \cdot \frac{1}{36} = \frac{564}{36} = \frac{47}{3} & Nu is $(-23)^2 = 529$. \\[3ex]
+\sigma = \sqrt{\tfrac{47}{3} - \tfrac19} = \sqrt{\tfrac{140}{9}} \approx 3{,}94 & Meer dan twee keer zoveel spreiding.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=.2cm,y=1.5cm,font=\scriptsize]
+  \staaf{-3}{.1667}{.9} \staaf{1}{.8333}{.9}
+  \draw[->,grijs] (-25,0) -- (3,0); \foreach \x in {-23,-3,1}{\node[below] at (\x,0) {$\x$};}
+  \draw[fel!80!black,thick] (.333,0) -- (.333,1.05) node[above,text=black] {$\mu$};
+  \node[anchor=west] at (-24,.8) {stand A, $\sigma \approx 1{,}49$};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[x=.2cm,y=1.5cm,font=\scriptsize]
+  \staaf{-23}{.0278}{.9} \staaf{1}{.9722}{.9}
+  \draw[->,grijs] (-25,0) -- (3,0); \foreach \x in {-23,-3,1}{\node[below] at (\x,0) {$\x$};}
+  \draw[fel!80!black,thick] (.333,0) -- (.333,1.05) node[above,text=black] {$\mu$};
+  \node[anchor=west] at (-24,.8) {stand B, $\sigma \approx 3{,}94$};
+\end{tikzpicture}}
+Beide standen leveren de klas gemiddeld evenveel op: met 200 spelers ongeveer $200 \cdot \frac13 \approx 67$ euro. Stand B is wel veel riskanter.}
+
+Wil de klas zeker zijn van haar geld, dan kiest ze stand A. In hoofdstuk 4 kun je ook uitrekenen hoe groot het risico is: met 200 spelers verliest de klas bij stand B geld in ongeveer 11~\% van de schoolfeesten (bij 9 of meer dubbele zessen), bij stand A in ongeveer 0,1~\%.
 
 %========================================================================================
 \section{De cumulatieve verdelingsfunctie}

@@ -8,9 +8,18 @@
 
 \mychapter{4}{Betrouwbaarheidsintervallen}
 
+\begin{probleem}
+\naast{Een peilingbureau ondervraagt 1000 aselect gekozen kiezers. Partij A haalt 24~\%, partij B 21~\%. De volgende dag kopt een krant: \textit{A is de grootste partij van het land}. Mag de krant dat besluiten? En als het niet mag: hoeveel kiezers had het bureau dan moeten ondervragen, als de aandelen ongeveer gelijk blijven?}{\begin{tikzpicture}[x=.6cm,y=.085cm,font=\scriptsize]
+  \staaf{1}{24}{1.1} \staaf{2.6}{21}{1.1}
+  \foreach \x/\v in {1/24,2.6/21}{\node[above] at (\x,\v) {\v~\%};}
+  \foreach \x/\n in {1/A,2.6/B}{\node[below] at (\x,0) {partij \n};}
+  \draw[grijs] (0,0) -- (3.4,0);
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: keuzedoel K1\alleenvoor{1,2,3}{ van pakket 4} (de betekenis van betrouwbaarheidsniveau, betrouwbaarheidsinterval en foutenmarge uitleggen in betekenisvolle \alleenvoor{4}{situaties),}\alleenvoor{1,2,3}{situaties; of dit in pakket }\alleenvoor{3}{3}\alleenvoor{2}{2}\alleenvoor{1}{1}\alleenvoor{1,2,3}{ aan bod komt, is na te kijken),} met de wenken: het effect van niveau, steekproefgrootte en standaardafwijking op de foutenmarge, intervallen voor proporties en gemiddelden, en ICT. Dit hoofdstuk is facultatief. Op de TI-84: \texttt{1-PropZInt} en \texttt{ZInterval} in het menu STAT, TESTS.}
 
-Een krant meldt: \textit{23~\% van de Belgen overweegt een elektrische auto, met een foutenmarge van 2,6~procentpunt}. Wat betekent die foutenmarge? Een steekproef geeft nooit precies de parameter, maar je kunt wel zeggen in welk interval die waarschijnlijk ligt. In dit hoofdstuk leer je zo'n interval berekenen, en vooral: het juist interpreteren.
+Onder een peiling staat vaak een foutenmarge, zoals \textit{2,6 procentpunt}. Wat betekent die? Een steekproef geeft nooit precies de parameter, maar je kunt wel zeggen in welk interval die waarschijnlijk ligt. In dit hoofdstuk leer je zo'n interval berekenen, en vooral: het juist interpreteren. Daarmee kun je op het einde de kop van de krant beoordelen, en berekenen hoe groot een peiling moet zijn.
 
 \begin{oefeningen}[Start]
 \oef{h4-start-1}
@@ -23,7 +32,9 @@ Een krant meldt: \textit{23~\% van de Belgen overweegt een elektrische auto, met
 
 \subsection{Het 95~\%-betrouwbaarheidsinterval}
 
-Bij een aselecte steekproef van grootte $n$ is $\hat{p}$ bij benadering normaal verdeeld met gemiddelde $p$ en standaardafwijking $\sigma(\hat{p}) = \sqrt{\frac{p(1 - p)}{n}}$. Omdat $P(-1{,}96 \leqslant Z \leqslant 1{,}96) \approx 0{,}95$, ligt $\hat{p}$ in 95~\% van de steekproeven binnen $1{,}96\,\sigma(\hat{p})$ van $p$. Omgekeerd ligt $p$ dan binnen die afstand van $\hat{p}$. Omdat je $p$ niet kent, vervang je het in de formule voor $\sigma(\hat{p})$ door $\hat{p}$.
+Hoe ver kan het aandeel van 24~\% uit de peiling naast het echte aandeel $p$ van partij A liggen? Uit hoofdstuk 3 weet je hoe $\hat{p}$ schommelt: bij een aselecte steekproef van grootte $n$ is $\hat{p}$ bij benadering normaal verdeeld met gemiddelde $p$ en standaardafwijking $\sigma(\hat{p}) = \sqrt{\frac{p(1 - p)}{n}}$. Omdat $P(-1{,}96 \leqslant Z \leqslant 1{,}96) \approx 0{,}95$, ligt $\hat{p}$ in 95~\% van de steekproeven binnen $1{,}96\,\sigma(\hat{p})$ van $p$. Omgekeerd ligt $p$ dan binnen die afstand van $\hat{p}$.
+
+Maar daar zit een moeilijkheid: om $\sigma(\hat{p})$ te berekenen, heb je $p$ nodig, en dat is net wat je zoekt. Het idee: bij een grote steekproef ligt $\hat{p}$ dicht bij $p$, dus je verandert weinig als je in de formule $p$ vervangt door $\hat{p}$. Voor partij A geeft dat $1{,}96\sqrt{\frac{0{,}24 \cdot 0{,}76}{1000}} \approx 0{,}026$: het echte aandeel ligt waarschijnlijk binnen 2,6 procentpunt van 24~\%.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{95~\%-betrouwbaarheidsinterval}} voor een populatieproportie $p$, op basis van een aselecte steekproef met aandeel $\hat{p}$, is
@@ -127,7 +138,7 @@ Het 99~\%-interval is breder: meer zekerheid kost nauwkeurigheid.}
 %========================================================================================
 \section{Een interval voor een gemiddelde}
 
-Voor een gemiddelde gebruik je de steekproevenverdeling van $\overline{X}$, met standaardafwijking $\frac{\sigma}{\sqrt n}$. Ook hier kennen we in deze cursus $\sigma$.
+Werkt hetzelfde idee voor een gemiddelde? Ja, en zelfs eenvoudiger. Je gebruikt de steekproevenverdeling van $\overline{X}$, met standaardafwijking $\frac{\sigma}{\sqrt n}$, en in deze cursus kennen we $\sigma$: er valt niets te vervangen.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{95~\%-betrouwbaarheidsinterval}} voor een populatiegemiddelde $\mu$, met $\sigma$ gekend, op basis van een aselecte steekproef met gemiddelde $\xbar$, is
@@ -152,7 +163,7 @@ De gemiddelde levensduur van alle batterijen ligt met 95~\% betrouwbaarheid tuss
 
 Een interval ligt symmetrisch rond de schatting. Krijg je alleen het interval, dan kun je dus terugrekenen.
 
-\voorbeeld{}{Een onderzoeker meldt het 95~\%-betrouwbaarheidsinterval $[82{,}06;\ 87{,}94]$ voor een gemiddelde, met $\sigma = 12$. Wat was het steekproefgemiddelde, de foutenmarge en de steekproefgrootte?\label{vb:h4-terug}}{%
+\voorbeeld{}{Een onderzoeker meldt het 95~\%-betrouwbaarheidsinterval $[82{,}06;\ 87{,}94]$ voor een gemiddelde, met $\sigma = 12$. Wat was het steekproefgemiddelde, de foutenmarge en de steekproefgrootte?\label{vb:h4-uitinterval}}{%
 \uitleg{Het midden van het interval is $\xbar$, de halve breedte is $E$. Uit $E$ halen we daarna $n$.}
 \begin{stappen}
 \xbar = (82{,}06 + 87{,}94) : 2 = 85 & Het midden. \\[.6ex]
@@ -233,6 +244,30 @@ Schrijf de foutenmarge als functie van $n$ en eis dat ze hoogstens de gewenste m
 \begin{oefeningen}
 \oef{h4-n}
 \end{oefeningen}
+
+\needspace{20\baselineskip}
+Nu kunnen we de kop van de krant beoordelen, en berekenen hoe groot de peiling had moeten zijn.
+
+\voorbeeld{}{Terug naar het probleem. In een peiling bij 1000 kiezers haalt partij A 24~\% en partij B 21~\%. Mag een krant besluiten dat A de grootste partij is? Hoeveel kiezers moet een peiling minstens ondervragen opdat de 95~\%-\hspace{0pt}intervallen van A en B elkaar niet meer overlappen, als de aandelen 24~\% en 21~\% blijven?\label{vb:h4-terug}}{%
+\uitleg{We berekenen voor elke partij een 95~\%-interval. Daarna zoeken we $n$ zodat elke foutenmarge kleiner is dan de helft van het verschil van 3 procentpunt: dan kunnen de intervallen elkaar niet raken.}
+\begin{stappenbreed}
+E_A = 1{,}96\sqrt{\tfrac{0{,}24 \cdot 0{,}76}{1000}} \approx 0{,}026 & A: $[0{,}214;\ 0{,}266]$. \\[1.5ex]
+E_B = 1{,}96\sqrt{\tfrac{0{,}21 \cdot 0{,}79}{1000}} \approx 0{,}025 & B: $[0{,}185;\ 0{,}235]$. \\[1.5ex]
+\text{overlap van } 0{,}214 \text{ tot } 0{,}235 & Zo passen $p_A = 0{,}22$ en $p_B = 0{,}23$ allebei bij de peiling. \\[1ex]
+1{,}96\sqrt{\tfrac{0{,}24 \cdot 0{,}76}{n}} < 0{,}015 & A heeft de grootste marge, want 0,24 ligt dichter bij 0,5 dan 0,21. \\[1.5ex]
+\sqrt{n} > \frac{1{,}96 \cdot \sqrt{0{,}24 \cdot 0{,}76}}{0{,}015} \approx 55{,}81 & Herschik en deel door 0,015. \\[2.5ex]
+n > 3114{,}3 \ \Rightarrow\ n = 3115 & Naar boven afronden.
+\end{stappenbreed}
+\naast{Met 1000 kiezers mag de krant het niet besluiten: de peiling sluit niet uit dat B in werkelijkheid groter is. Met 3115 kiezers en dezelfde aandelen worden de intervallen $[0{,}225;\ 0{,}255]$ en $[0{,}196;\ 0{,}224]$: alle waarden die bij A passen, liggen dan boven alle waarden die bij B passen. Rekent het bureau vooraf met het ongunstigste geval $\hat{p} = 0{,}5$, dan heeft het zelfs 4269 kiezers nodig.}{\begin{tikzpicture}[x=32cm,y=.5cm,font=\scriptsize]
+  \draw[grijs] (.17,0) -- (.29,0);
+  \foreach \t/\l in {.18/{0,18},.22/{0,22},.26/{0,26}}{\draw[grijs] (\t,0) -- (\t,-.2) node[below,text=black] {\l};}
+  \node[anchor=east] at (.17,3.6) {$n = 1000$};
+  \draw[accent,thick] (.2135,4) -- (.2665,4); \fill[accent] (.24,4) circle (1.3pt); \node[right,text=accent] at (.2665,4) {A};
+  \draw[grijs,thick] (.1848,3.2) -- (.2352,3.2); \fill[grijs] (.21,3.2) circle (1.3pt); \node[right] at (.2352,3.2) {B};
+  \node[anchor=east] at (.17,1.4) {$n = 3115$};
+  \draw[accent,thick] (.225,1.8) -- (.255,1.8); \fill[accent] (.24,1.8) circle (1.3pt); \node[right,text=accent] at (.255,1.8) {A};
+  \draw[grijs,thick] (.1957,1) -- (.2243,1); \fill[grijs] (.21,1) circle (1.3pt); \node[right] at (.2243,1) {B};
+\end{tikzpicture}}}
 
 %========================================================================================
 \opdrachtenkop
@@ -349,7 +384,7 @@ Schrijf de foutenmarge als functie van $n$ en eis dat ze hoogstens de gewenste m
   \fv{oef:h4-t3}{vb:h4-steekproefgrootte}{oef:h4-n}%
   \fv{oef:h4-t4}{vb:h4-interpretatie}{oef:h4-interpretatie}%
   \fv{oef:h4-t5}{vb:h4-niveau}{oef:h4-niveau}%
-  \fv{oef:h4-t6}{vb:h4-terug}{oef:h4-terug}%
+  \fv{oef:h4-t6}{vb:h4-uitinterval}{oef:h4-terug}%
   \fv{oef:h4-t7}{vb:h4-wortel}{oef:h4-marge}}
 
 \ifzelfstudie

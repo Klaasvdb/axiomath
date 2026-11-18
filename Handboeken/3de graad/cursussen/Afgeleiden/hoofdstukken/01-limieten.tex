@@ -8,6 +8,20 @@
 
 \mychapter{1}{Limieten en continuïteit}
 
+\begin{probleem}
+\naast{Je stort drie jaar lang aan het einde van elk jaar \eur 1000 op een spaarrekening met $p\,\%$ samengestelde intrest. Na de laatste storting staat er
+\[E(q) = 1000 \cdot \frac{q^3 - 1}{q - 1} \quad \text{euro, met } q = 1 + \tfrac{p}{100} .\]
+Een rekenprogramma dat deze formule gebruikt, loopt vast bij een intrest van $0\,\%$: dan is $q = 1$, en de formule geeft $\frac00$. Toch weet je zonder formule wat er dan op de rekening staat. Sluit de formule daarop aan als $p$ heel klein wordt? En welk bedrag moet het programma bij $p = 0$ geven, zodat het bedrag niet verspringt?}{%
+{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{c|c}
+$p$ & $E(q)$ \\ \hline
+$2$ & $3060{,}40$ \\
+$1$ & $3030{,}10$ \\
+$0{,}1$ & $3003{,}00$ \\
+$0$ & ?
+\end{tabular}}}
+\end{probleem}
+
 \begin{alleenvoor}{3}
 \lkr{Leerplan B+S': LPD 19-22 (afgeleiden), het deel over het limietbegrip, rekenregels, onbepaalde vormen, asymptoten als limieten en continuïteit. De $\varepsilon$-$\delta$-definitie staat erin, met één uitgewerkt bewijs voor een eerstegraadsfunctie; in dit pakket kan ze wellicht weg (na te kijken met de leerplantekst), en dan ook de bewijzen van de rekenregels, die erop steunen. In Rationale functies werden asymptoten informeel ingevoerd: hier krijgen ze een definitie.}
 \end{alleenvoor}
@@ -18,7 +32,7 @@
 \lkr{Leerplan Basis: LPD 14-15 (afgeleiden), het deel over het limietbegrip, rekenregels, onbepaalde vormen, asymptoten als limieten en continuïteit. De $\varepsilon$-$\delta$-definitie staat erin, met één uitgewerkt bewijs voor een eerstegraadsfunctie; in dit pakket kan ze wellicht weg (na te kijken met de leerplantekst), en dan ook de bewijzen van de rekenregels, die erop steunen. Asymptoten krijgen hier een definitie als limiet.}
 \end{alleenvoor}
 
-Wat gebeurt er met $\frac{x^2 - 1}{x - 1}$ als $x$ naar $1$ gaat? Invullen kan niet: dat geeft $\frac00$. Toch komen de functiewaarden steeds dichter bij $2$. Een limiet beschrijft precies dat: waar de functiewaarden naartoe gaan, ook als de functie er zelf niet bestaat. Limieten zijn de basis van de afgeleide, die in hoofdstuk 2 volgt.
+Bij $p = 0$ geeft de formule van de bank $\frac00$. Toch komen de bedragen in de tabel steeds dichter bij \eur 3000, wat je zonder intrest verwacht. Een \textit{limiet} beschrijft precies dat: waar de functiewaarden naartoe gaan, ook als de functie er zelf niet bestaat. In dit hoofdstuk leer je limieten berekenen, ook als invullen $\frac00$ geeft, en zie je wanneer een functie geen sprongen maakt: dan heet ze \textit{continu}. In de laatste sectie lossen we zo het probleem op. Limieten zijn ook de basis van de afgeleide, die in hoofdstuk 2 volgt.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -30,6 +44,8 @@ Wat gebeurt er met $\frac{x^2 - 1}{x - 1}$ als $x$ naar $1$ gaat? Invullen kan n
 \section{Het begrip limiet}
 
 \subsection{Waar gaan de functiewaarden naartoe?}
+
+Probeer het probleem eerst met wat je kent. Invullen van $q = 1$ lukt niet, maar dicht bij $1$ kun je wel rekenen. De tabel toont dat $E(q)$ naar $3000$ gaat als $p$ kleiner wordt, en ook langs de andere kant: bij een negatieve intrest van $-1\,\%$, zoals een bank die kosten aanrekent, is $E(q) = 2970{,}10$. Maar een tabel bewijst niets: misschien gebeurt er vlak bij $q = 1$ nog iets vreemds. We hebben een taal nodig om te zeggen \textit{waar de functiewaarden naartoe gaan}, en een manier om het zeker te weten. Bekijk het eerst bij een eenvoudiger functie met dezelfde moeilijkheid.
 
 \naast{%
 Bekijk $f(x) = \frac{x^2 - 1}{x - 1}$ voor $x$ dicht bij $1$:
@@ -128,7 +144,7 @@ Neem een willekeurige $\varepsilon > 0$. Werk $|f(x) - L|$ uit tot er een veelvo
 
 \subsection{Linker- en rechterlimiet}
 
-Soms komt $f(x)$ langs links bij een ander getal uit dan langs rechts. Dan bekijk je de twee kanten apart.
+Wat als $f(x)$ langs links bij een ander getal uitkomt dan langs rechts? Dan bekijk je de twee kanten apart.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{linkerlimiet}} $\formule{\liml{x}{a} f(x)}$ gebruikt alleen $x < a$, de \textbf{\textcolor{accent}{rechterlimiet}} $\formule{\limr{x}{a} f(x)}$ alleen $x > a$. In de definitie met $\varepsilon$ en $\delta$ vervang je $0 < |x - a| < \delta$ door $\formule{a - \delta < x < a}$ voor de linkerlimiet, en door $\formule{a < x < a + \delta}$ voor de rechterlimiet.
@@ -312,7 +328,7 @@ Het laatste bewijzen we niet: dat vraagt meer kennis van die functies dan we hie
 
 \subsection{De onbepaalde vorm \texorpdfstring{$\frac00$}{0/0}}
 
-Bij $\lim_{x \to 1} \frac{x^2 - 1}{x - 1}$ uit het begin van dit hoofdstuk lukt invullen niet: $1$ ligt niet in het domein, en de noemer gaat naar $0$. Ook de teller gaat naar $0$. Wat zegt dat over de limiet? Vergelijk drie functies waarbij teller en noemer allebei naar $0$ gaan:
+Bij $\lim_{x \to 1} \frac{x^2 - 1}{x - 1}$ uit het begin van dit hoofdstuk lukt invullen niet, net als bij de formule van de bank in $q = 1$: $1$ ligt niet in het domein, en de noemer gaat naar $0$. Ook de teller gaat naar $0$. Wat zegt dat over de limiet? Vergelijk drie functies waarbij teller en noemer allebei naar $0$ gaan:
 \[\lim_{x \to 0} \frac{x}{x} = 1 , \qquad \lim_{x \to 0} \frac{x^2}{x} = \lim_{x \to 0} x = 0 , \qquad \lim_{x \to 0} \frac{x}{x^2} = \lim_{x \to 0} \frac1x \text{ bestaat niet.}\]
 Uit \textit{teller en noemer gaan naar $0$} kun je dus niets besluiten.
 
@@ -539,7 +555,7 @@ De rechte $y = L$ is een \textbf{\textcolor{accent}{horizontale asymptoot}} van 
 
 \subsection{Continu in een punt}
 
-Een grafiek die je kunt tekenen zonder je pen op te heffen, maakt geen sprongen en heeft geen gaten. Waar dat misloopt, zie je in de figuren: er is een gat, een sprong, of een punt dat niet op zijn plaats ligt.
+Wanneer kun je een grafiek tekenen zonder je pen op te heffen? Dan maakt ze geen sprongen en heeft ze geen gaten. Dat vraagt het probleem ook: het bedrag mag niet verspringen bij $p = 0$. Waar het misloopt, zie je in de figuren: er is een gat, een sprong, of een punt dat niet op zijn plaats ligt.
 
 \figuren{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
   \roosterleeg{-1}{1}{3}{-1}{1}{3}
@@ -582,6 +598,29 @@ Dit is de functie uit het begin van het hoofdstuk, met het gat opgevuld. Kies je
 \begin{oefeningen}
 \oef{h1-continupunt}
 \end{oefeningen}
+
+Nu kunnen we het probleem oplossen: de formule van de bank is net zo'n functie met een gat, en het programma moet het gat opvullen.
+
+\voorbeeld{}{Terug naar het probleem. Je stort drie jaar lang aan het einde van elk jaar \eur 1000 aan $p\,\%$ intrest. Na de laatste storting staat er $E(q) = 1000 \cdot \dfrac{q^3 - 1}{q - 1}$ euro, met $q = 1 + \frac{p}{100}$. Bereken $\lim_{q \to 1} E(q)$. Welke waarde moet een programma voor $q = 1$ gebruiken, zodat $E$ continu is in $1$?\label{vb:h1-terug}}{%
+\naast{%
+\uitleg{Invullen geeft $\frac00$: een onbepaalde vorm. De teller is nul in $1$, dus hij bevat de factor $q - 1$, zoals $x^3 - 8$ de factor $x - 2$.}
+\begin{stappenvrij}{4.6cm}{4.6cm}
+q^3 - 1 = (q - 1)(q^2 + q + 1) & Ontbind de teller, met Horner of door te controleren. \\
+E(q) = 1000\,(q^2 + q + 1) & Schrap $q - 1$; dat mag voor $q \neq 1$, en de limiet kijkt niet naar $q = 1$. \\
+\lim_{q \to 1} E(q) = 1000 \cdot 3 = 3000 & Nu mag je invullen. \\
+E(1) = 3000 & Kies die waarde: dan is $\lim_{q \to 1} E(q) = E(1)$, en is $E$ continu in $1$.
+\end{stappenvrij}}{%
+\begin{tikzpicture}[x=.17cm,y=.005cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.85cm,ystep=.5cm] (-10,2700) grid (10,3300);
+  \draw[->,grijs] (-10,2700) -- (11.5,2700) node[right,text=black] {$p$};
+  \draw[->,grijs] (-10,2700) -- (-10,3380) node[above,text=black] {$E$};
+  \foreach \t in {-10,-5,0,5,10}{\node[below,inner sep=1.5pt] at (\t,2700) {$\t$};}
+  \foreach \t in {2800,3000,3200}{\node[left,inner sep=1.5pt] at (-10,\t) {$\t$};}
+  \draw[grijs,dashed] (0,2700) -- (0,3000) -- (-10,3000);
+  \kromme{-10}{10}{1000*((1+\x/100)^2+(1+\x/100)+1)}
+  \vol{(0,3000)}
+\end{tikzpicture}}
+Dat is wat je zonder formule verwacht: zonder intrest staat er drie keer \eur 1000. De vereenvoudigde vorm zegt zelfs meer. In $1000q^2 + 1000q + 1000$ zie je de drie stortingen: de eerste is twee jaar aangegroeid, de tweede één jaar, de laatste niet. Die vorm werkt voor elke intrest, ook voor $0\,\%$: een programma rekent beter daarmee.}
 
 \subsection{Continue functies}
 
