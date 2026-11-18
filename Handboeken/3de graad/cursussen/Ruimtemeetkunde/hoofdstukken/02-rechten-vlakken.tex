@@ -1,16 +1,32 @@
 %----------------------------------------------------------------------------------------
 % RECHTEN EN VLAKKEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Rechten en vlakken}
 
-\lkr{Leerplan B+S'': LPD 5-8 (ruimtemeetkunde), het deel over vectoriële, parameter- en cartesiaanse vergelijkingen van rechten en vlakken. In het vlak had een rechte één cartesiaanse vergelijking; in de ruimte is dat een vlak. Een rechte in de ruimte heeft er twee nodig. Dat is het belangrijkste inzicht van dit hoofdstuk.}
+\begin{probleem}
+\vspace{-1mm}\naast{Boven een terras hangt een driehoekig schaduwdoek, strak gespannen en dus vlak. Neem de grond als het vlak \mbox{$z = 0$} en de gevel als het vlak \mbox{$x = 0$}, in meter. Twee hoeken van het doek hangen aan de gevel, in $A(0, 0, 3)$ en $B(0, 6, 2)$. De derde hangt aan een paal, in $C(4, 3, 2)$. Recht boven het midden van de tafel, in $(2, 2, 0)$, willen de bewoners een lamp aan het doek hangen, op $2$~m boven de grond. Hoe lang moet het snoer zijn?}{\begin{tikzpicture}[x={(.5cm,-.55cm)},y={(1cm,.3cm)},z={(0cm,1cm)},scale=.5,font=\scriptsize]
+  \fill[grijs!12] (0,-.6,0) -- (0,6.6,0) -- (0,6.6,3.6) -- (0,-.6,3.6) -- cycle;
+  \draw[lijngrijs] (0,-.6,3.6) -- (0,-.6,0) -- (0,6.6,0) -- (0,6.6,3.6) (0,-.6,0) -- (5,-.6,0);
+  \draw[grijs] (1.5,1.5,0) -- (2.5,1.5,0) -- (2.5,2.5,0) -- (1.5,2.5,0) -- cycle;
+  \draw[grijs,line width=1.2pt] (4,3,0) -- (4,3,2);
+  \fill[accent!25,opacity=.85] (0,0,3) -- (0,6,2) -- (4,3,2) -- cycle;
+  \draw[accent,thick] (0,0,3) -- (0,6,2) -- (4,3,2) -- cycle;
+  \draw[grijs,dashed] (2,2,0) -- (2,2,2.417);
+  \fill (2,2,0) circle (.06);
+  \fill (2,2,2) circle (.09);
+  \node[left] at (0,0,3) {$A$}; \node[above] at (0,6,2) {$B$}; \node[right] at (4,3,2) {$C$};
+  \node[left] at (2,2,1.2) {?};
+\end{tikzpicture}}
+\end{probleem}
 
-In het vlak beschrijft $y = 2x + 1$ een rechte. Wat beschrijft $z = 2x + 1$ in de ruimte? Er staat geen voorwaarde op $y$: voor elk punt van de rechte in het $xz$-vlak mag $y$ alles zijn. Het is dus een vlak. Om rechten en vlakken in de ruimte te beschrijven, gebruiken we vectoren.
+\lkr{Leerplan B+S'': LPD 5-8 (ruimtemeetkunde), het deel over vectoriële, parameter- en cartesiaanse vergelijkingen van rechten en vlakken. In het vlak had een rechte één cartesiaanse vergelijking; in de ruimte is dat een vlak. Een rechte in de ruimte heeft er twee nodig. Dat is het belangrijkste inzicht van dit hoofdstuk. Een driehoekig doek is vlak als het strak gespannen is; in werkelijkheid hangt het een beetje door.}
+
+Het doek ligt in een vlak, en zijn randen liggen op rechten. In het vlak van je blad hoort bij de vergelijking \mbox{$y = 2x + 1$} een rechte: bij elke $x$ geeft ze meteen $y$. Voor het doek willen we zoiets: een vergelijking die bij elke $x$ en $y$ de hoogte $z$ geeft. Maar let op: wat beschrijft $z = 2x + 1$ in de ruimte? Er staat geen voorwaarde op $y$: voor elk punt van de rechte in het $xz$-vlak mag $y$ alles zijn. Het is dus geen rechte, maar een vlak. In dit hoofdstuk beschrijven we rechten en vlakken eerst met vectoren. Daarna vinden we voor elk vlak één vergelijking in $x$, $y$ en $z$, en die lost het probleem op.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -23,7 +39,7 @@ In het vlak beschrijft $y = 2x + 1$ een rechte. Wat beschrijft $z = 2x + 1$ in d
 
 \subsection{Vectorvergelijking en parametervergelijkingen}
 
-\naast{Een rechte ligt vast door één punt en een richting. Vertrek je in een punt $A$ van de rechte en verplaats je in de richting van de rechte, dan bereik je al haar punten: een klein stuk of een groot stuk, vooruit of achteruit. Zo liep de mier in de Verken langs een rechte. Met de stelling over drie punten op één rechte uit hoofdstuk 1 wordt dat een vergelijking.}{%
+\naast{Hoe beschrijf je de punten van een rand van het doek, zoals $[AC]$? Vertrek in $A$ en verplaats over een deel van $\overrightarrow{AC}$: de helft van de vector brengt je halfweg, de hele vector tot in $C$. Ga je verder, of achteruit, dan bereik je de rest van de rechte $AC$. Een rechte ligt dus vast door één punt en een richting: vanuit $A$ bereik je al haar punten met een klein of een groot stuk in die richting, vooruit of achteruit. Zo liep ook de mier in de Verken langs een rechte. Met de stelling over drie punten op één rechte uit hoofdstuk 1 wordt dat een vergelijking.}{%
 \begin{tikzpicture}[ruimte,scale=.7,font=\scriptsize]
   \assendrie{4}
   \draw[accent,thick] (2,-.5,0.5) -- (-.5,4.5,3.5);
@@ -107,7 +123,7 @@ Dezelfde rechte? Controleer dat de richtingsvectoren collineair zijn, en dat een
 
 \subsection{Vectorvergelijking en parametervergelijkingen}
 
-\naast{Een vlak heeft twee richtingen. Vanuit een punt $A$ van het vlak bereik je elk ander punt met een stuk in de ene richting en een stuk in de andere. Dat is het kenmerk van coplanaire vectoren uit hoofdstuk 1.}{%
+\naast{En het doek zelf? Vanuit $A$ bereik je elk punt ervan met een stuk in de richting van $\overrightarrow{AB}$ en een stuk in de richting van $\overrightarrow{AC}$. Een vlak heeft dus twee richtingen. Vanuit een punt $A$ van het vlak bereik je elk ander punt met een stuk in de ene richting en een stuk in de andere. Dat is het kenmerk van coplanaire vectoren uit hoofdstuk 1.}{%
 \begin{tikzpicture}[ruimte,scale=.75,font=\scriptsize]
   \fill[accent!12] (3,-.5,0) -- (3,4,0) -- (-1,4,0) -- (-1,-.5,0) -- cycle;
   \draw[accent!60] (3,-.5,0) -- (3,4,0) -- (-1,4,0) -- (-1,-.5,0) -- cycle;
@@ -152,7 +168,7 @@ Drie punten op één rechte bepalen geen vlak. Bij $A(1, 0, 1)$, $B(2, 1, 3)$ en
 
 \subsection{De cartesiaanse vergelijking van een vlak}
 
-Of een punt in een vlak ligt, zie je niet meteen aan parametervergelijkingen: je moet eerst $r$ en $s$ zoeken. Met één vergelijking in $x$, $y$ en $z$, zonder parameters, gaat het veel sneller: vul het punt in. Zo'n vergelijking bestaat voor elk vlak.
+Hoe hoog hangt het doek boven de tafel? Met punt $A$ en richtingsvectoren $\overrightarrow{AB}$ en $\overrightarrow{AC}$ heeft het vlak van het doek de parametervergelijkingen $x = 4s$, $y = 6r + 3s$ en $z = 3 - r - s$. Boven $(2, 2, 0)$ is $x = 2$ en $y = 2$: je moet dus eerst $r$ en $s$ zoeken uit twee vergelijkingen, en pas dan vind je $z$. Voor elk ander punt van de tafel begint dat opnieuw. Zo zie je ook niet meteen of een gegeven punt in een vlak ligt. In het vlak van je blad was het eenvoudiger: in $y = 2x + 1$ vul je $x$ in, en je hebt $y$. Met één vergelijking in $x$, $y$ en $z$, zonder parameters, gaat het in de ruimte even snel. Zo'n vergelijking bestaat voor elk vlak.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{cartesiaanse vergelijking}} is een vergelijking \quad $\formule{ax + by + cz = d}$ \quad met $a$, $b$, $c$ niet alle nul.
@@ -197,6 +213,20 @@ x + 2y + 3z = 7 & Controle: $A$, $B$ en $C$ geven $1 + 0 + 6$, $2 + 2 + 3$ en $0
 \begin{werkwijze}
 Van parametervergelijkingen naar een cartesiaanse vergelijking: haal $r$ en $s$ uit twee vergelijkingen, of combineer ze zo dat een parameter wegvalt. Vul in de derde in, schrijf de vergelijking als $ax + by + cz = d$, en controleer met een punt van het vlak.
 \end{werkwijze}
+
+Met een cartesiaanse vergelijking is de hoogte van het doek boven elk punt één invulling.
+
+\voorbeeld{}{Terug naar het probleem. Een schaduwdoek is gespannen tussen $A(0, 0, 3)$, $B(0, 6, 2)$ en $C(4, 3, 2)$, in meter. Hoe hoog hangt het doek boven het punt $(2, 2, 0)$? Hoe lang moet het snoer zijn van een lamp die daar op $2$~m hoogte hangt?\label{vb:h2-terug}}{%
+\uitleg{Zoek eerst een cartesiaanse vergelijking van het vlak van het doek. In de eerste parametervergelijking staat alleen $s$: haal $s$ daaruit, dan $r$ uit de tweede, en vul in de derde in. Vul daarna $x = 2$ en $y = 2$ in: dan blijft er een vergelijking in $z$ over.}
+\begin{stappenbreed}
+\overrightarrow{AB} = \vcr{0}{6}{-1},\quad \overrightarrow{AC} = \vcr{4}{3}{-1} & Niet collineair, door de nul in $\overrightarrow{AB}$. \\
+x = 4s,\quad y = 6r + 3s,\quad z = 3 - r - s & Parametervergelijkingen. \\
+s = \tfrac{x}{4},\quad r = \tfrac{y - 3s}{6} = \tfrac{4y - 3x}{24} & Uit de eerste twee. \\
+24z = 72 - (4y - 3x) - 6x & De derde, maal $24$. \\
+3x + 4y + 24z = 72 & Controle: $B$ en $C$ geven $24 + 48$ en $12 + 12 + 48$, telkens $72$. \\
+6 + 8 + 24z = 72 \iff z = \tfrac{58}{24} = \tfrac{29}{12} \approx 2{,}42 & Boven $(2, 2, 0)$.
+\end{stappenbreed}
+Het doek hangt boven het midden van de tafel ongeveer $2{,}42$~m hoog. Het snoer moet dus $\frac{5}{12}$~m lang zijn, ongeveer $42$~cm. Voor elk ander punt van het terras vul je gewoon $x$ en $y$ in: boven $(1, 4, 0)$ bijvoorbeeld is $24z = 72 - 3 - 16$, en hangt het doek ongeveer $2{,}21$~m hoog.}
 
 \begin{oefeningen}
 \oef{h2-vlak-punt}
@@ -282,7 +312,7 @@ Controle: $B$ geeft $3 \cdot 2 = 6$.}}{%
 
 \subsection{Van twee vergelijkingen naar parametervergelijkingen}
 
-Eén cartesiaanse vergelijking beschrijft een vlak. Twee vlakken die niet evenwijdig zijn, snijden elkaar volgens een rechte: een rechte heeft dus \textit{twee} cartesiaanse vergelijkingen nodig. De punten van de snijlijn zijn de oplossingen van dat stelsel met drie onbekenden: er blijft één onbekende vrij, en die wordt de parameter.
+Heeft ook een rechte een vergelijking zonder parameters, zoals een vlak? Eén vergelijking volstaat niet: één cartesiaanse vergelijking beschrijft een vlak. Maar twee vlakken die niet evenwijdig zijn, snijden elkaar volgens een rechte: een rechte heeft dus \textit{twee} cartesiaanse vergelijkingen nodig. De punten van de snijlijn zijn de oplossingen van dat stelsel met drie onbekenden: er blijft één onbekende vrij, en die wordt de parameter.
 
 \voorbeeld{}{Geef parametervergelijkingen van de snijlijn van de vlakken \mbox{$x + y + z = 3$} en \mbox{$x - y = 1$}.\label{vb:h2-snijlijn}}{%
 \uitleg{Twee vergelijkingen met drie onbekenden: neem $y = r$, en druk $x$ en $z$ uit in $r$.}

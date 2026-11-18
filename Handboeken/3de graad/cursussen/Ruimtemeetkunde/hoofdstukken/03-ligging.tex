@@ -1,16 +1,36 @@
 %----------------------------------------------------------------------------------------
 % ONDERLINGE LIGGING. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{3}{Onderlinge ligging}
 
-\lkr{Leerplan B+S'': LPD 5-8 (ruimtemeetkunde), het deel over de onderlinge ligging van rechten en vlakken en het snijden ervan. Kruisende rechten zijn nieuw ten opzichte van het vlak: laat leerlingen ze eerst aanwijzen in het klaslokaal (een rand van het plafond en een rand van de vloer). De stelsels sluiten aan bij Matrices.}
+\begin{probleem}
+\vspace{-1mm}\naast{In een avonturenpark lopen twee tokkelbanen over een vallei, en op het plan van het park kruisen de twee kabels elkaar. In meter loopt de eerste kabel van $A(0, 0, 25)$ naar $B(120, 90, 7)$, en de tweede van $C(90, 0, 18)$ naar $D(0, 135, 3)$. Raken de kabels elkaar? Wie aan een kabel hangt, komt met zijn voeten tot ongeveer $2$~m onder de kabel. Kan iemand aan de bovenste kabel de onderste raken?}{\begin{tikzpicture}[x=.026cm,y=.026cm,font=\scriptsize]
+  \fill[accent!8] (-10,-10) rectangle (130,145);
+  \draw[lijngrijs,->] (-10,0) -- (138,0) node[right,text=black] {$x$};
+  \draw[lijngrijs,->] (0,-10) -- (0,152) node[above,text=black] {$y$};
+  \draw[accent,thick] (0,0) -- (120,90);
+  \draw[accent,thick] (90,0) -- (0,135);
+  \foreach \p in {(0,0),(120,90),(90,0),(0,135)}{\fill[accent] \p circle (1.5pt);}
+  \node[below left] at (0,0) {$A$};
+  \node[above right,align=left] at (120,90) {$B$};
+  \node[below] at (90,0) {$C$};
+  \node[left] at (0,135) {$D$};
+  \node[above left] at (0,0) {$25$ m};
+  \node[below] at (118,86) {$7$ m};
+  \node[above right] at (88,2) {$18$ m};
+  \node[right] at (4,135) {$3$ m};
+  \node[below,align=center] at (60,-12) {plan};
+\end{tikzpicture}}
+\end{probleem}
 
-In het vlak snijden twee rechten elkaar, of ze zijn evenwijdig. In de ruimte is er een derde mogelijkheid: kijk naar een rand van het plafond en een rand van de vloer die er dwars op staat. Ze snijden elkaar niet, en toch zijn ze niet evenwijdig. Zulke rechten heten kruisend.
+\lkr{Leerplan B+S'': LPD 5-8 (ruimtemeetkunde), het deel over de onderlinge ligging van rechten en vlakken en het snijden ervan. Kruisende rechten zijn nieuw ten opzichte van het vlak: laat leerlingen ze eerst aanwijzen in het klaslokaal (een rand van het plafond en een rand van de vloer). De stelsels sluiten aan bij Matrices. In het probleem zijn de kabels rechte lijnstukken; echte kabels hangen een beetje door.}
+
+Een plan toont alleen $x$ en $y$: daarop zijn de kabels twee rechten in een vlak, en die snijden elkaar of ze zijn evenwijdig. Maar de hoogte ontbreekt op het plan. In de ruimte is er een derde mogelijkheid: kijk naar een rand van het plafond en een rand van de vloer die er dwars op staat. Ze snijden elkaar niet, en toch zijn ze niet evenwijdig. Zulke rechten heten kruisend. In dit hoofdstuk leer je met vergelijkingen beslissen hoe twee rechten liggen, en daarna ook een rechte en een vlak, twee vlakken en drie vlakken.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -83,7 +103,7 @@ Of twee rechten evenwijdig zijn, zie je meteen aan hun richtingsvectoren. Daarna
 
 \subsection{Snijdende rechten}
 
-Zijn de richtingsvectoren niet collineair, dan snijden de rechten elkaar of ze kruisen. Een snijpunt ligt op beide rechten, dus het heeft een waarde van $r$ op $l$ en een waarde van $s$ op $m$.
+Zijn de richtingsvectoren niet collineair, dan snijden de rechten elkaar of ze kruisen. Hoe beslis je welk van de twee? Bij de tokkelbanen zou je het plan kunnen gebruiken: daar snijden de kabels, en dat punt vind je met $x$ en $y$ alleen. Maar dan weet je nog niet of de kabels daar even hoog hangen. Neem dus alle drie de coördinaten mee. Een snijpunt ligt op beide rechten, dus het heeft een waarde van $r$ op $l$ en een waarde van $s$ op $m$.
 
 \voorbeeld{}{Onderzoek de ligging van $l\colon (1, 0, 2) + r\vcr{1}{1}{0}$ en $m\colon (0, 3, 0) + s\vcr{1}{-1}{1}$.\label{vb:h3-snijdend}}{%
 \uitleg{De richtingsvectoren zijn niet collineair. Zoek een gemeenschappelijk punt: stel de coördinaten gelijk.}
@@ -122,6 +142,19 @@ r = 0,\quad 0 = s,\quad 0 = 2 & De derde vergelijking kan niet: $m$ ligt op hoog
 Vergelijk de richtingsvectoren. Collineair: evenwijdig, en samenvallend als een punt van de ene op de andere ligt. Niet collineair: stel de parametervergelijkingen gelijk, met twee parameters. Een oplossing geeft het snijpunt, geen oplossing betekent kruisend.
 \end{werkwijze}
 
+Bij twee kabels gaat het om lijnstukken, niet om hele rechten. De parameters zeggen of een punt op het lijnstuk ligt: met $P = A + r\,\overrightarrow{AB}$ ligt $P$ op $[AB]$ als $0 \leqslant r \leqslant 1$.
+
+\voorbeeld{}{Terug naar het probleem. Een kabel loopt van $A(0, 0, 25)$ naar $B(120, 90, 7)$, een andere van $C(90, 0, 18)$ naar $D(0, 135, 3)$, in meter. Raken de kabels elkaar? Hoeveel hoger hangt de ene kabel boven de andere, op de plaats waar ze op het plan kruisen?\label{vb:h3-terug}}{%
+\uitleg{Neem $\overrightarrow{AB}$ en $\overrightarrow{CD}$ als richtingsvectoren, met twee verschillende parameters. Ze zijn niet collineair: de rechten snijden of kruisen. Stel de coördinaten gelijk. De eerste twee vergelijkingen gaan over het plan, de derde over de hoogte.}
+\begin{stappenbreed}
+l\colon (0, 0, 25) + r\vcr{120}{90}{-18} & Op de kabel is $0 \leqslant r \leqslant 1$. \\
+m\colon (90, 0, 18) + s\vcr{-90}{135}{-15} & Op de kabel is $0 \leqslant s \leqslant 1$. \\
+120r = 90 - 90s,\quad 90r = 135s & De $x$- en de $y$-coördinaat. \\
+r = \tfrac32 s,\quad 180s = 90 - 90s \iff s = \tfrac13,\quad r = \tfrac12 & Beide tussen $0$ en $1$: op het plan kruisen de kabels echt, in $(60, 45)$. \\
+25 - 18 \cdot \tfrac12 = 16,\quad 18 - 15 \cdot \tfrac13 = 13 & De $z$-coördinaat: $16 \neq 13$.
+\end{stappenbreed}
+Het stelsel heeft geen oplossing: de rechten zijn kruisend, en de kabels raken elkaar niet. Boven het punt $(60, 45)$ van het plan hangt de eerste kabel op $16$~m en de tweede op $13$~m, dus $3$~m lager. Wie aan de bovenste kabel hangt, komt daar met zijn voeten tot op ongeveer $14$~m: nog $1$~m boven de onderste kabel.}
+
 \begin{oefeningen}
 \oef{h3-kruisend}
 
@@ -131,7 +164,7 @@ Vergelijk de richtingsvectoren. Collineair: evenwijdig, en samenvallend als een 
 %========================================================================================
 \section{Een rechte en een vlak}
 
-Een rechte en een vlak kunnen elkaar in één punt snijden, geen punt gemeen hebben, of de rechte ligt in het vlak. Welke van de drie het is, beslist één vergelijking.
+Waar treft een zonnestraal een schuin dak, of een laserstraal een muur? Dat is het snijpunt van een rechte en een vlak. Maar niet elke rechte snijdt een gegeven vlak: een rechte en een vlak kunnen elkaar in één punt snijden, geen punt gemeen hebben, of de rechte ligt in het vlak. Welke van de drie het is, beslist één vergelijking.
 
 \figuren{\begin{tikzpicture}[ruimte,scale=.55,font=\scriptsize]
   \fill[accent!12] (3,0,0) -- (3,4,0) -- (0,4,0) -- (0,0,0) -- cycle;
@@ -206,7 +239,7 @@ Vul de parametervergelijkingen van de rechte in de vergelijking van het vlak in,
 
 \subsection{Twee vlakken}
 
-Twee vlakken snijden elkaar volgens een rechte, zoals een muur en de vloer, of ze zijn evenwijdig, zoals de vloer en het plafond. Aan hun vergelijkingen zie je meteen welk geval het is.
+Twee vlakken snijden elkaar volgens een rechte, zoals een muur en de vloer, of ze zijn evenwijdig, zoals de vloer en het plafond. Hoe zie je aan de vergelijkingen welk geval het is? Vergelijk de coëfficiënten.
 
 \begin{theorie}
 Twee vlakken zijn \textbf{\textcolor{accent}{snijdend}} als ze een rechte gemeen hebben, \textbf{\textcolor{accent}{strikt evenwijdig}} als ze geen punt gemeen hebben, en \textbf{\textcolor{accent}{samenvallend}} als ze gelijk zijn.
