@@ -1,6 +1,7 @@
 # Oefeningen van hoofdstuk 2. Zie oefeningenbank.py voor de velden.
 
 - id: h2-start-1
+  pakketten: [2, 3, 4]
   soort: start
   opgave: |-
     \blokkop{Opwarmer}
@@ -43,6 +44,51 @@
         waar de kromming verandert; $f''(x) = 0$ met tekenwissel
       uitwerking: |-
         Waar de grafiek overgaat van hol naar bol of omgekeerd: een nulpunt van $f''$ waar $f''$ van teken wisselt.
+
+- id: h2-start-1
+  pakketten: [1]
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        Hoeveel standaardafwijkingen ligt 86 boven 70 als $\sigma = 8$?
+      antwoord: |-
+        2
+      uitwerking: |-
+        $\frac{86 - 70}{8} = 2$.
+    - opgave: |-
+        Wat is de oppervlakte van een rechthoek met breedte 5 en hoogte 0,04?
+      antwoord: |-
+        $0{,}2$
+      uitwerking: |-
+        $5 \cdot 0{,}04 = 0{,}2$.
+    - opgave: |-
+        Van 200 metingen liggen er 48 in een klasse van 5 cm breed. Wat is de relatieve frequentie? En per cm?
+      antwoord: |-
+        $0{,}24$; \ $0{,}048$
+      uitwerking: |-
+        $\frac{48}{200} = 0{,}24$, en per cm $\frac{0{,}24}{5} = 0{,}048$.
+    - opgave: |-
+        Een kromme is symmetrisch om $x = 10$. De oppervlakte rechts van 10 is 0,5. Wat is de oppervlakte links van 10?
+      antwoord: |-
+        $0{,}5$
+      uitwerking: |-
+        Door de symmetrie ook 0,5.
+    - opgave: |-
+        Is 0,04 meer of minder dan 5~\%? En 0,048?
+      antwoord: |-
+        minder; minder
+      uitwerking: |-
+        $0{,}04 = 4$~\% en $0{,}048 = 4{,}8$~\%: allebei minder dan 5~\%.
+    - opgave: |-
+        Wat is de oppervlakte van een driehoek met basis 4 en hoogte 0,5?
+      antwoord: |-
+        1
+      uitwerking: |-
+        $\frac{4 \cdot 0{,}5}{2} = 1$.
 
 - id: h2-verken
   soort: start
@@ -1170,6 +1216,7 @@
         Nee. De dichtheid van het geheel is de helft van de som van de twee Gausskrommen: een brede, afgeplatte bult (bij een groter verschil tussen de groepen zelfs met twee toppen). Het samengevoegde histogram is daardoor vlakker dan een Gausskromme met dezelfde $\mu$ en $\sigma$, en dat zie je in b: het model met één klok geeft een andere kans.
 
 - id: h2-o22
+  pakketten: [2, 3, 4]
   soort: opdracht
   niveau: 3
   thema: |-
@@ -1244,6 +1291,7 @@
 #----------------------------------------------------------------------------------------
 
 - id: h2-koppel-1
+  pakketten: [2, 3, 4]
   soort: koppel
   niveau: 3
   koppel:
@@ -1259,6 +1307,7 @@
     $f'(x) = \frac{1}{\sqrt{2\pi}}(-x)\mathrm{e}^{-x^2/2}$: nul bij $x = 0$, positief links en negatief rechts: een maximum. $f''(x) = \frac{1}{\sqrt{2\pi}}(x^2 - 1)\mathrm{e}^{-x^2/2}$: nul bij $x = \pm 1$ met tekenwissel: buigpunten op afstand $\sigma = 1$ van de top.
 
 - id: h2-koppel-2
+  pakketten: [2, 3, 4]
   soort: koppel
   niveau: 2
   koppel:
@@ -1272,6 +1321,38 @@
     beide $\approx 0{,}729$
   uitwerking: |-
     Binomiaal: $P(X \leqslant 55) - P(X \leqslant 44) \approx 0{,}729$. Normaal: \texttt{normalcdf} tussen 44,5 en 55,5 met $\mu = 50$ en $\sigma = 5$ geeft $\approx 0{,}729$. De normale verdeling benadert de binomiale goed; de grenzen 44,5 en 55,5 vangen de staven van 45 tot 55 helemaal.
+
+- id: h2-koppel-3
+  pakketten: [1]
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Kansrekenen
+  thema: |-
+    normale kansen in een boomdiagram
+  opgave: |-
+    Een maalderij vult pakken bloem met twee machines. Machine A vult 60~\% van de pakken, met een massa $N(1003, 4)$; machine B vult de andere 40~\%, met een massa $N(1006, 8)$, in gram. Een pak is te licht als het minder dan 995~g weegt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elke machine de kans dat een pak te licht is.
+      antwoord: |-
+        A: $\approx 0{,}023$; B: $\approx 0{,}085$
+      uitwerking: |-
+        A: \texttt{normalcdf(-1E99,995,1003,4)} $\approx 0{,}0228$ (995 ligt precies $2\sigma$ onder het gemiddelde). B: \texttt{normalcdf(-1E99,995,1006,8)} $\approx 0{,}0846$.
+    - opgave: |-
+        Teken een boomdiagram, en bereken de kans dat een willekeurig pak uit de maalderij te licht is.
+      antwoord: |-
+        $\approx 0{,}047$
+      uitwerking: |-
+        Eerste tak: machine A (0,6) of B (0,4). Tweede tak: te licht of niet. $0{,}6 \cdot 0{,}0228 + 0{,}4 \cdot 0{,}0846 \approx 0{,}0137 + 0{,}0338 \approx 0{,}047$.
+    - opgave: |-
+        Een klant vindt een te licht pak. Wat is de kans dat het van machine B komt? Welke machine zou jij eerst laten bijstellen?
+      antwoord: |-
+        $\approx 0{,}71$; machine B
+      uitwerking: |-
+        Van de te lichte pakken komt een deel $\frac{0{,}0338}{0{,}0475} \approx 0{,}71$ van machine B. In een kruistabel met 10\,000 pakken: ongeveer 137 te lichte pakken van A en 338 van B. Machine B vult minder pakken, maar door haar grote spreiding maakt ze de meeste te lichte pakken: haar $\sigma$ verkleinen helpt het meest.
 
 #----------------------------------------------------------------------------------------
 # TEST JEZELF
