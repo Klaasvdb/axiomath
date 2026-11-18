@@ -6,7 +6,7 @@
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
-\mychapter{3}{Goniometrische functies}
+\alleenvoor{2,3,4}{\mychapter{3}{Goniometrische functies}}\alleenvoor{1}{\mychapter{2}{Goniometrische functies}}
 
 \begin{probleem}
 \naast{In Brussel duurt de langste dag van het jaar, 21 juni, ongeveer $16{,}5$~uur: zo lang staat de zon boven de horizon. De kortste dag, 21 december, duurt ongeveer $7{,}9$~uur.
@@ -25,7 +25,12 @@ Hoe lang duurt de dag op 1 mei? Kun je dat voorspellen met alleen deze twee geta
 \end{tikzpicture}}
 \end{probleem}
 
+\begin{alleenvoor}{2,3,4}
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{18-23}\alleenvoor{3}{13-17}\alleenvoor{2}{13-16}\alleenvoor{1}{11-13 en K2} (goniometrische functies), het deel over de grafieken van $\sin$, $\cos$ en $\tan$, de algemene sinusfunctie en periodieke modellen. De transformaties komen uit Algemene functies; hier krijgen ze namen (amplitude, periode, evenwichtslijn, faseverschuiving). Zonder grafisch rekentoestel: laat leerlingen schetsen vanuit vijf punten per periode. De daglengtes in het probleem zijn afgerond (Brussel, tijd tussen zonsopgang en zonsondergang); laat leerlingen eerst een schatting maken, bijvoorbeeld met een rechte.}
+\end{alleenvoor}
+\begin{alleenvoor}{1}
+\lkr{Leerplan \pakketnaam: LPD 11-13 (goniometrische functies): de grafiek van de sinus vanuit de goniometrische cirkel (LPD 11), de algemene sinusfunctie opgebouwd met transformaties (LPD 12) en haar kenmerken aan de hand van de grafiek, met contexten (LPD 13). De transformaties komen uit Algemene functies; hier krijgen ze namen (amplitude, periode, evenwichtslijn, faseverschuiving). Volgens de wenken volstaan positieve $a$ en $b$, en laat je de invloed van de parameters met ICT ontdekken (schuifbalken in GeoGebra), met aandacht voor de volgorde van de transformaties. De cosinus en een voorschrift opstellen uit een grafiek zijn extra's bij LPD 11 en 12; ze blijven omdat de contexten ze nodig hebben. De tangens en de bewijzen vallen weg. De daglengtes in het probleem zijn afgerond (Brussel, tijd tussen zonsopgang en zonsondergang); laat leerlingen eerst een schatting maken, bijvoorbeeld met een rechte.}
+\end{alleenvoor}
 
 Een eerste idee is een rechte. Tussen 21 december (dag $-10$, als je terugtelt vanaf 1 januari) en 21 juni (dag $172$) wordt de dag $8{,}6$ uur langer, en 1 mei is dag $121$. Neemt de dag gelijkmatig toe, dan duurt hij op 1 mei $7{,}9 + 8{,}6 \cdot \frac{131}{182} \approx 14{,}1$ uur. Maar de dag groeit niet gelijkmatig: rond 21 juni verandert de daglengte haast niet, rond 21 maart bijna vier minuten per dag. Zo gedraagt ook de hoogte van een punt dat over een cirkel draait zich: bovenaan verandert ze traag, ter hoogte van het middelpunt snel.
 
@@ -40,7 +45,7 @@ We vertrekken van de eenheidscirkel uit hoofdstuk 1: elke eigenschap van de graf
 \end{oefeningen}
 
 %========================================================================================
-\section{Sinus, cosinus en tangens als functie}
+\section{Sinus\alleenvoor{2,3,4}{, cosinus en tangens}\alleenvoor{1}{ en cosinus} als functie}
 
 Hoe verandert de hoogte van een punt dat over de eenheidscirkel draait, als functie van de hoek? Laat de hoek $x$ (in radialen) doorlopen, en zet $\sin x$ uit als functiewaarde. Terwijl het punt over de eenheidscirkel draait, gaat zijn hoogte op en neer tussen $-1$ en $1$. Na elke volledige omwenteling begint alles opnieuw.
 
@@ -57,6 +62,42 @@ Hoe verandert de hoogte van een punt dat over de eenheidscirkel draait, als func
   \node[accent,above] at (6.2832,1) {$\cos x$};
 \end{tikzpicture}}
 
+\begin{alleenvoor}{1}
+\needspace{14\baselineskip}
+\subsection{Van de cirkel naar de grafiek}
+
+Hoe teken je de grafiek van de sinus zelf, zonder rekentoestel? De sinus van een hoek is de hoogte van het punt op de eenheidscirkel. Zet de hoeken uit op de $x$-as, en breng bij elke hoek de hoogte van het punt over.
+
+\figuren{%
+\begin{tikzpicture}[scale=1.15,font=\scriptsize]
+  \draw[grijs,semithick] (-1.8,0) circle (1);
+  \draw[->,grijs] (-3,0) -- (4.3,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1.35) -- (0,1.45) node[above,text=black] {$y$};
+  \foreach \k in {0,...,12}{
+    \draw[lijngrijs,densely dotted] ({-1.8+cos(30*\k)},{sin(30*\k)}) -- ({\k*pi/10},{sin(30*\k)});
+    \fill[accent] ({-1.8+cos(30*\k)},{sin(30*\k)}) circle (.03);
+    \fill[accent] ({\k*pi/10},{sin(30*\k)}) circle (.035);}
+  \draw[accent,thick] plot[domain=0:6.2832,samples=80,smooth] ({.6*\x},{sin(\x r)});
+  \node[below,inner sep=1.5pt] at (.942,0) {$\frac{\pi}{2}$};
+  \node[below left,inner sep=1.5pt] at (1.885,0) {$\pi$};
+  \node[below,inner sep=1.5pt] at (2.827,0) {$\frac{3\pi}{2}$};
+  \node[below right,inner sep=1.5pt] at (3.770,0) {$2\pi$};
+  \node[above left,inner sep=1pt] at (0,1) {$1$};
+  \node[below left,inner sep=1pt] at (0,-1) {$-1$};
+\end{tikzpicture}}
+
+Zolang het punt naar boven draait, stijgt de grafiek. Bovenaan de cirkel, bij $\frac{\pi}{2}$, heeft ze een top, en onderaan, bij $\frac{3\pi}{2}$, een dal. Na een volle toer, bij $2\pi$, begint alles opnieuw. Heb je de grafiek een paar keer zo getekend, dan lukt het ook zonder cirkel: onthoud de vijf punten $(0, 0)$, $\bigl(\frac{\pi}{2}, 1\bigr)$, $(\pi, 0)$, $\bigl(\frac{3\pi}{2}, -1\bigr)$ en $(2\pi, 0)$, en verbind ze met een vloeiende golf.
+
+\begin{werkwijze}
+Teken links een eenheidscirkel en rechts een assenstelsel met dezelfde eenheid op de $y$-as. Duid op de cirkel de punten bij $0, \frac{\pi}{6}, \frac{\pi}{3}, \ldots, 2\pi$ aan, en op de $x$-as dezelfde hoeken, op gelijke afstanden. Trek vanuit elk punt van de cirkel een horizontale lijn tot boven de juiste hoek. Verbind de punten met een vloeiende lijn.
+\end{werkwijze}
+
+Met ICT gaat het sneller. Typ in GeoGebra \texttt{f(x) = sin(x)}; op een grafisch rekentoestel zet je eerst de hoekeenheid op radialen. Kies een venster van $-2\pi$ tot $4\pi$: dan zie je dat de golf zich blijft herhalen.
+
+\begin{oefeningen}
+\oef{h3-cirkel}
+\end{oefeningen}
+\end{alleenvoor}
 \subsection{Periodieke functies}
 
 Een grafiek die zich telkens na eenzelfde stuk herhaalt, noemen we periodiek. Het kleinste stuk waarna ze zich herhaalt, is de periode.
@@ -93,6 +134,7 @@ periode & $\formule{2\pi}$ \\
 nulwaarden & $\formule{x = k\pi}$ \quad ($k \in \Z$)
 \end{tabular}
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Elk reëel getal is een hoek, dus het domein is $\R$. De $y$-coördinaat van een punt op de eenheidscirkel ligt tussen $-1$ en $1$, en elke waarde $a \in [-1, 1]$ komt voor: de rechte $y = a$ snijdt de cirkel.
 
@@ -102,9 +144,14 @@ Het enige punt van de cirkel met $y = 1$ is $(0, 1)$, dus $\frac{\pi}{2} + p = \
 
 Ten slotte is $\sin x = 0$ als $P$ op de $x$-as ligt: in $(1, 0)$ of $(-1, 0)$, dus bij $x = k\pi$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 Op één periode, van $0$ tot $2\pi$, stijgt de sinus van $0$ naar de top $1$ bij $\frac{\pi}{2}$, daalt naar het dal $-1$ bij $\frac{3\pi}{2}$, en stijgt terug naar $0$. Daarna herhaalt alles zich. Een horizontale rechte $y = a$ met $-1 < a < 1$ snijdt de grafiek dus twee keer per periode.
+\begin{alleenvoor}{1}
+
+Ook het teken lees je af. Op $]0, \pi[$ ligt het punt boven de $x$-as, en is de sinus positief; op $]\pi, 2\pi[$ is ze negatief. De grafiek heeft ook symmetrieën. Ze is \textbf{puntsymmetrisch} om de oorsprong, want $\sin(-x) = -\sin x$ (tegengestelde hoeken): spiegel je een punt van de grafiek om $O$, dan kom je weer op de grafiek uit. Ze is ook symmetrisch om de verticale rechte door elke top en elk dal, zoals $x = \frac{\pi}{2}$, want links en rechts van $\frac{\pi}{2}$ liggen supplementaire hoeken: $\sin\bigl(\frac{\pi}{2} - u\bigr) = \sin\bigl(\frac{\pi}{2} + u\bigr)$.
+\end{alleenvoor}
 
 \voorbeeld{}{Hoeveel oplossingen heeft $\sin x = 0{,}4$ in $[0, 4\pi]$?\label{vb:h3-aflezen}}{%
 \naast{%
@@ -146,12 +193,18 @@ periode & $\formule{2\pi}$ \\
 nulwaarden & $\formule{x = \tfrac{\pi}{2} + k\pi}$ \quad ($k \in \Z$)
 \end{tabular}
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Met supplementaire en daarna complementaire hoeken is
 \bewijsregel{\sin\bigl(x + \tfrac{\pi}{2}\bigr) = \sin\bigl(\pi - (x + \tfrac{\pi}{2})\bigr) = \sin\bigl(\tfrac{\pi}{2} - x\bigr) = \cos x .}
 De grafiek van de cosinus is dus die van de sinus, over $\frac{\pi}{2}$ naar links verschoven. Een verschuiving verandert het domein, het bereik en de periode niet. De nulwaarden schuiven mee: $x + \frac{\pi}{2} = k\pi$ geeft $x = -\frac{\pi}{2} + k\pi$, en dat zijn dezelfde getallen als $\frac{\pi}{2} + k\pi$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
+\begin{alleenvoor}{1}
+
+Waarom is dat zo? Draai je het punt $P$ bij de hoek $x$ een kwart toer verder, dan kom je in het punt $Q$ bij $x + \frac{\pi}{2}$. De rechthoekige driehoek onder $OP$ draait mee: de liggende zijde bij $P$ (de cosinus van $x$) staat bij $Q$ rechtop (de sinus van $x + \frac{\pi}{2}$). Daarom is de grafiek van de cosinus die van de sinus, over $\frac{\pi}{2}$ naar links geschoven, met hetzelfde domein, bereik en dezelfde periode. De nulwaarden schuiven mee: ze liggen in $\frac{\pi}{2} + k\pi$.
+\end{alleenvoor}
 
 De cosinus begint in een top: $\cos 0 = 1$. Ze daalt tot het dal $-1$ bij $\pi$, en stijgt terug tot $1$ bij $2\pi$.
 
@@ -176,6 +229,7 @@ De cosinus begint in een top: $\cos 0 = 1$. Ze daalt tot het dal $-1$ bij $\pi$,
 \oef{h3-cos-k}
 \end{oefeningen}
 
+\begin{alleenvoor}{2,3,4}
 \needspace{14\baselineskip}
 \subsection{De tangensfunctie}
 
@@ -191,6 +245,7 @@ periode & $\formule{\pi}$ \\
 nulwaarden & $\formule{x = k\pi}$ \quad ($k \in \Z$)
 \end{tabular}
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 De tangens bestaat als $\cos x \neq 0$, dus behalve in de nulwaarden $\frac{\pi}{2} + k\pi$ van de cosinus. Ze is $0$ als $\sin x = 0$, dus in $x = k\pi$.
 
@@ -198,6 +253,7 @@ Elke waarde $a \in \R$ komt voor: de rechte $y = ax$ door $O$ snijdt de eenheids
 
 Uit hoofdstuk 1 weten we $\tan(x + \pi) = \tan x$. Is $p > 0$ zo dat $\tan(x + p) = \tan x$ voor alle $x$, neem dan $x = 0$: $\tan p = 0$, dus $p = k\pi$ met $k \geqslant 1$. De periode is dus $\pi$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 \naast{%
@@ -233,6 +289,7 @@ Waar de cosinus $0$ wordt, staat de rechte $OP$ verticaal. Nadert $x$ van links 
 \begin{oefeningen}
 \oef{h3-aantal}
 \end{oefeningen}
+\end{alleenvoor}
 
 %========================================================================================
 \section{De algemene sinusfunctie}
@@ -268,9 +325,11 @@ Vermenigvuldig je de sinus met $a > 0$, dan wordt elke functiewaarde $a$ keer zo
 \begin{stelling}{Amplitude}
 De functie $\formule{a\sin x}$ (met $a > 0$) heeft bereik $\formule{[-a, a]}$, evenwichtslijn $y = 0$ en \textbf{\textcolor{accent}{amplitude}} $\formule{a}$.
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Uit $-1 \leqslant \sin x \leqslant 1$ volgt, omdat $a > 0$, dat $-a \leqslant a\sin x \leqslant a$. De waarden $a$ en $-a$ worden bereikt in $\frac{\pi}{2}$ en $\frac{3\pi}{2}$. Dus $M = a$ en $m = -a$, zodat de evenwichtslijn $y = 0$ is en de amplitude $\frac{a - (-a)}{2} = a$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 Is $a$ negatief, dan wordt de grafiek ook gespiegeld om de $x$-as: de golf begint dan dalend. De amplitude is dan $|a|$. We schrijven een sinusfunctie daarom liefst met $a > 0$.
@@ -315,14 +374,16 @@ In $\sin 2x$ loopt de hoek $2x$ twee keer zo snel als $x$. Een volle golf is dus
 \begin{stelling}{Periode}
 De functie $\formule{\sin bx}$ (met $b > 0$) heeft periode $\formule{\frac{2\pi}{b}}$.
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Eerst herhaalt de functie zich na $\frac{2\pi}{b}$:
 \bewijsregel{\sin\Bigl(b\bigl(x + \tfrac{2\pi}{b}\bigr)\Bigr) = \sin(bx + 2\pi) = \sin bx .}
 Is $p > 0$ zo dat $\sin\bigl(b(x + p)\bigr) = \sin bx$ voor alle $x$, stel dan $u = bx$. Omdat $x$ alle reële getallen doorloopt, doet $u$ dat ook, en $\sin(u + bp) = \sin u$ voor alle $u$. Het getal $bp$ is dus een veelvoud $k \cdot 2\pi$ met $k \geqslant 1$, zoals in het bewijs bij de sinusfunctie, en $p \geqslant \frac{2\pi}{b}$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
-Het getal $b$ zegt hoeveel volle golven er in een stuk van lengte $2\pi$ passen. Hoe groter $b$, hoe korter de periode. Is $b < 1$, dan wordt de golf langer.
+Het getal $b$ zegt hoeveel volle golven er in een stuk van lengte $2\pi$ passen. Hoe groter $b$, hoe korter de periode. Is $b < 1$, dan wordt de golf langer.\alleenvoor{1}{ In de natuurkunde gebruik je ook de \textbf{frequentie}: het aantal golven per seconde, dus $\frac{1}{\text{periode}}$ als de tijd in seconden staat. Een stemvork van $440$ hertz trilt $440$ keer per seconde, met een periode van $\frac{1}{440}$ s.}
 
 \voorbeeld{}{Geef de periode van $f(x) = \sin\frac{\pi x}{4}$ en schets één periode.\label{vb:h3-periode}}{%
 \naast{%
@@ -355,9 +416,11 @@ Vervang je $x$ door $x - c$, dan schuift de grafiek over $c$ naar rechts. Bij ee
 \begin{stelling}{Faseverschuiving}
 De grafiek van $\formule{\sin\bigl(b(x - c)\bigr)}$ is die van $\sin bx$, over $\formule{c}$ naar rechts verschoven. Het stijgende nulpunt $(0, 0)$ gaat naar $\formule{(c, 0)}$.
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Stel $g(x) = \sin bx$ en $f(x) = \sin\bigl(b(x - c)\bigr) = g(x - c)$. Ligt $(x_0, y_0)$ op de grafiek van $g$, dan is $f(x_0 + c) = g(x_0) = y_0$, dus $(x_0 + c, y_0)$ ligt op de grafiek van $f$. Omgekeerd komt elk punt van de grafiek van $f$ zo uit een punt van de grafiek van $g$.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 Let op: de verschuiving lees je pas af als $b$ buiten de haakjes staat. In $\sin\bigl(2x - \frac{\pi}{2}\bigr)$ is de verschuiving niet $\frac{\pi}{2}$.
@@ -395,12 +458,14 @@ Tel je $d$ op bij een functie, dan schuift haar grafiek over $d$ naar boven (naa
 \begin{stelling}{Evenwichtslijn}
 De functie $\formule{a\sin\bigl(b(x - c)\bigr) + d}$ (met $a, b > 0$) heeft grootste waarde $\formule{d + a}$, kleinste waarde $\formule{d - a}$, \textbf{\textcolor{accent}{evenwichtslijn}} $\formule{y = d}$ en amplitude $\formule{a}$.
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 De sinus van een getal ligt tussen $-1$ en $1$ en bereikt die waarden. Zoals bij de amplitude is dan $-a \leqslant a\sin\bigl(b(x - c)\bigr) \leqslant a$, en tel je $d$ op:
 \bewijsregel{d - a \leqslant f(x) \leqslant d + a ,}
 met beide grenzen bereikt. Dus is $M = d + a$ en $m = d - a$, zodat
 \bewijsregel{\frac{M + m}{2} = d \qquad \text{en} \qquad \frac{M - m}{2} = a .}
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 Omgekeerd vind je $a$ en $d$ uit de grootste en de kleinste waarde, zonder het voorschrift te kennen.
@@ -438,9 +503,11 @@ De grafiek van $\formule{f(x) = a\sin\bigl(b(x - c)\bigr) + d}$ (met $a, b > 0$)
 \[\formule{\text{amplitude } a} \qquad \formule{\text{periode } \frac{2\pi}{b}} \qquad \formule{\text{evenwichtslijn } y = d} \qquad \formule{\text{beginpunt } (c, d)}.\]
 In het \textbf{\textcolor{accent}{beginpunt}} snijdt de grafiek de evenwichtslijn stijgend.
 \end{stelling}
+\begin{alleenvoor}{2,3,4}
 \begin{bewijs}
 Amplitude en evenwichtslijn staan in de vorige stelling. De periode is die van $\sin bx$, want verschuiven verandert de periode niet. Het beginpunt: $f(c) = a\sin 0 + d = d$, en net na $c$ is $b(x - c)$ een klein positief getal, waar de sinus stijgt.
 \end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
 \voorbeeld{}{Schets $f(x) = 3\sin\bigl(2(x - \frac{\pi}{4})\bigr) + 1$ over één periode.\label{vb:h3-schets}}{%
@@ -473,6 +540,60 @@ Om een sinusgrafiek te schetsen: zet zo nodig $b$ buiten de haakjes. Teken de ev
 
 \oef{h3-schets}
 \end{oefeningen}
+\begin{alleenvoor}{1}
+
+\needspace{14\baselineskip}
+\subsection{Ontdekken met ICT}
+
+Wat doet elk getal in $a\sin\bigl(b(x - c)\bigr) + d$? Met ICT zie je het meteen.
+
+\begin{werkwijze}
+Typ in GeoGebra \texttt{f(x) = a sin(b (x - c)) + d}. GeoGebra maakt zelf een schuifbalk voor $a$, $b$, $c$ en $d$. Zet er \texttt{g(x) = sin(x)} bij, in een andere kleur. Versleep telkens één schuifbalk en kijk wat er gebeurt met de toppen, de dalen en de nulwaarden.
+\end{werkwijze}
+
+Bouw je een grafiek stap voor stap op vanuit $\sin x$, dan telt de volgorde. Bij $f(x) = 3\sin\bigl(2(x - \frac{\pi}{4})\bigr) + 1$ werkt het zo: druk de golf horizontaal samen met factor $\frac12$ (dat geeft $\sin 2x$), schuif ze $\frac{\pi}{4}$ naar rechts, rek ze verticaal uit met factor $3$, en schuif ze $1$ omhoog. Schuif je eerst en druk je daarna samen, dan krijg je $\sin\bigl(2x - \frac{\pi}{4}\bigr)$: ook de verschuiving wordt gehalveerd. En tel je eerst $1$ op en rek je daarna uit, dan krijg je $3\sin\bigl(2(x - \frac{\pi}{4})\bigr) + 3$.
+
+\begin{oefeningen}
+\oef{h3-ict}
+\end{oefeningen}
+
+\needspace{24\baselineskip}
+\subsection{Kenmerken van een sinusfunctie}
+
+Uit de grafiek lees je alle kenmerken van een sinusfunctie af: domein, bereik, nulwaarden, tekenverloop, stijgen en dalen, extrema, symmetrie, periode en amplitude. Een schets met de vijf punten volstaat; met ICT kun je controleren.
+
+\voorbeeld{}{Bespreek de kenmerken van $f(x) = 2\sin\bigl(x - \frac{\pi}{4}\bigr)$ op $[0, 2\pi]$.\label{vb:h3-analyse}}{%
+\naast{%
+\uitleg{Schets eerst de grafiek met de vijf punten, vanaf het beginpunt $\bigl(\frac{\pi}{4}, 0\bigr)$. Lees daarna alles af.}
+\begin{stappenvrij}{3.4cm}{4.2cm}
+\dom f = \R & Elk getal mag. \\[1ex]
+\ber f = [-2, 2] & Amplitude $2$. \\[1ex]
+\text{periode } 2\pi & Want $b = 1$. \\[1ex]
+x = \tfrac{\pi}{4} \text{ of } x = \tfrac{5\pi}{4} & Nulwaarden in $[0, 2\pi]$. \\[1ex]
+\max = 2 \text{ in } \tfrac{3\pi}{4} & De top. \\[1ex]
+\min = -2 \text{ in } \tfrac{7\pi}{4} & Het dal.
+\end{stappenvrij}}{%
+\begin{tikzpicture}[x=.55cm,y=.62cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,-2) grid[xstep=.7854,ystep=1] (6.2832,2);
+  \draw[->,grijs] (-.3,0) -- (6.8,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-2.4) -- (0,2.5) node[above,text=black] {$y$};
+  \foreach \t in {-2,2}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \node[below,inner sep=1.5pt] at (3.1416,0) {$\pi$}; \node[below,inner sep=1.5pt] at (6.2832,0) {$2\pi$};
+  \draw[accent,thick] plot[domain=0:6.2832,samples=80,smooth] (\x,{2*sin((\x-.7854) r)});
+  \foreach \p in {(.7854,0),(2.3562,2),(3.927,0),(5.4978,-2)}{\fill[accent] \p circle (2pt);}
+\end{tikzpicture}}
+Het tekenverloop en het stijgen en dalen op $[0, 2\pi]$ zet je in een tabel:
+\figuren{{\renewcommand{\arraystretch}{1.25}$\begin{array}{c|ccccccccccc}
+x & 0 & & \frac{\pi}{4} & & \frac{3\pi}{4} & & \frac{5\pi}{4} & & \frac{7\pi}{4} & & 2\pi \\ \hline
+f(x) & - & - & 0 & + & 2 & + & 0 & - & -2 & - & - \\
+f & & \nearrow & & \nearrow & \max & \searrow & & \searrow & \min & \nearrow &
+\end{array}$}}
+De functie is negatief op $\bigl[0, \frac{\pi}{4}\bigr[$ en op $\bigl]\frac{5\pi}{4}, 2\pi\bigr]$, en positief op $\bigl]\frac{\pi}{4}, \frac{5\pi}{4}\bigr[$. Ze stijgt op $\bigl[0, \frac{3\pi}{4}\bigr]$ en op $\bigl[\frac{7\pi}{4}, 2\pi\bigr]$, en daalt op $\bigl[\frac{3\pi}{4}, \frac{7\pi}{4}\bigr]$. De grafiek is symmetrisch om de verticale rechten door de top en het dal, $x = \frac{3\pi}{4}$ en $x = \frac{7\pi}{4}$, en puntsymmetrisch om elk nulpunt, zoals $\bigl(\frac{\pi}{4}, 0\bigr)$.}
+
+\begin{oefeningen}
+\oef{h3-analyse-k}
+\end{oefeningen}
+\end{alleenvoor}
 
 \needspace{14\baselineskip}
 \subsection{Een voorschrift uit de grafiek}
@@ -600,6 +721,10 @@ Bepaal uit de context de grootste en de kleinste waarde, en de periode. Bereken 
 
 \oef{h3-o19}
 
+\begin{alleenvoor}{1}
+\oef{h3-o31}
+
+\end{alleenvoor}
 \oef{h3-o6}
 
 \needspace{9\baselineskip}
@@ -669,18 +794,24 @@ Bepaal uit de context de grootste en de kleinste waarde, en de periode. Bereken 
 \oef{h3-t6}
 
 \oef{h3-t4}
+\begin{alleenvoor}{1}
+
+\oef{h3-t8}
+\end{alleenvoor}
 \end{oefeningen}
 
 \herhaalschema{%
-  \fv{oef:h3-t1}{vb:h3-aflezen}{oef:h3-aantal}%
-  \fv{oef:h3-t5}{vb:h3-tan}{oef:h3-periode}%
+  \alleenvoor{2,3,4}{\fv{oef:h3-t1}{vb:h3-aflezen}{oef:h3-aantal}%
+  \fv{oef:h3-t5}{vb:h3-tan}{oef:h3-periode}}\alleenvoor{1}{\fv{oef:h3-t1}{vb:h3-aflezen}{oef:h3-sin-k}%
+  \fv{oef:h3-t5}{vb:h3-periode}{oef:h3-periode}}%
   \fv{oef:h3-t2}{vb:h3-schets}{oef:h3-kenmerken}%
   \fv{oef:h3-t7}{vb:h3-schets}{oef:h3-schets}%
   \fv{oef:h3-t3}{vb:h3-voorschrift}{oef:h3-sinusfunctie}%
   \fv{oef:h3-t6}{vb:h3-voorschrift}{oef:h3-voorschrift-grafiek}%
-  \fv{oef:h3-t4}{vb:h3-terug}{oef:h3-model-2}}
+  \fv{oef:h3-t4}{vb:h3-terug}{oef:h3-model-2}\alleenvoor{1}{%
+  \fv{oef:h3-t8}{vb:h3-analyse}{oef:h3-analyse-k}}}
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: de grafieken van $\sin$, $\cos$ en $\tan$ met domein, bereik, periode en nulwaarden, de betekenis van $a$, $b$, $c$ en $d$ in $a\sin\bigl(b(x - c)\bigr) + d$, hoe je zo'n grafiek schetst met vijf punten, en hoe je uit een top en een dal een voorschrift opstelt. Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: de grafieken van $\sin$\alleenvoor{2,3,4}{, $\cos$ en $\tan$}\alleenvoor{1}{ en $\cos$} met domein, bereik, periode en nulwaarden,\alleenvoor{1}{ hoe je de grafiek van de sinus tekent vanuit de eenheidscirkel, de kenmerken van een sinusfunctie (tekenverloop, stijgen en dalen, extrema en symmetrie),} de betekenis van $a$, $b$, $c$ en $d$ in $a\sin\bigl(b(x - c)\bigr) + d$, hoe je zo'n grafiek schetst met vijf punten, en hoe je uit een top en een dal een voorschrift opstelt. Vergelijk daarna met de kaders.
 \fi
