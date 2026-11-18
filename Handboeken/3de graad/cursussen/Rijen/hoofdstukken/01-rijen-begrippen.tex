@@ -1,16 +1,23 @@
 %----------------------------------------------------------------------------------------
 % RIJEN: BEGRIPPEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (kern, uitgewerkt voorbeeld, korte oefening), en daarna op een
+% Opbouw: Probleem, Start, leerstof (kern, uitgewerkt voorbeeld, korte oefening), en daarna op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h1-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{1}{Rijen: begrippen}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Met blokjes bouw je trappen. Trap 1 is één blokje, en elke volgende trap is een treetje hoger: trap 2 telt 3 blokjes, trap 3 telt 6 blokjes, en trap 5, hiernaast, telt er 15. Je hebt een doos met 500 blokjes. Wat is de grootste trap die je ermee kunt bouwen, en hoeveel blokjes blijven er over? En is er een trap die precies 300 blokjes telt?}{\begin{tikzpicture}[x=3.1mm,y=3.1mm]
+  \foreach \k in {1,...,5}{\foreach \h in {1,...,\k}{\draw[accent,fill=accent!15] (\k-1,\h-1) rectangle ++(1,1);}}
+  \node[below,font=\scriptsize\sffamily] at (2.5,0) {trap 5};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{44}\alleenvoor{3}{34}\alleenvoor{2}{28}\alleenvoor{1}{16} (recursief en expliciet voorschrift, rij als discrete functie). Dit hoofdstuk legt de begrippen vast voor hoofdstuk 2; rekenkundige en meetkundige rijen krijgen hier nog geen naam. Drie rode draden: het verschil tussen volgnummer en term, het verschil tussen expliciet en recursief, en de grafiek met losse punten.}
 
-Het aantal inwoners van een stad elk jaar op 1 januari, het saldo van een spaarrekening elke maand, de blokjes in een trap die telkens een treetje hoger wordt: telkens krijg je getallen die na elkaar komen, in een vaste volgorde. Zo'n opeenvolging heet een rij. In dit hoofdstuk leer je hoe je een rij beschrijft: met een formule die elke term rechtstreeks geeft, of met een regel die zegt hoe je van de ene term naar de volgende gaat. Je kent al functies, en een rij blijkt er een bijzonder soort van te zijn. Die begrippen heb je nodig voor de rest van de cursus.
+De blokjes in een trap die telkens een treetje hoger wordt, het aantal inwoners van een stad elk jaar op 1 januari, het saldo van een spaarrekening elke maand: telkens krijg je getallen die na elkaar komen, in een vaste volgorde. Zo'n opeenvolging heet een rij. In dit hoofdstuk leer je hoe je een rij beschrijft: met een formule die elke term rechtstreeks geeft, of met een regel die zegt hoe je van de ene term naar de volgende gaat. Je kent al functies, en een rij blijkt er een bijzonder soort van te zijn. Die begrippen heb je nodig voor de rest van de cursus. Op het einde van het hoofdstuk weet je, zonder trap na trap te tellen, welke trap je met de doos van 500 blokjes kunt bouwen.
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -59,7 +66,7 @@ n = 4,\ 6,\ 9 \text{ of } 11 & Het getal 30 staat op vier plaatsen: april, juni,
 %========================================================================================
 \section{Expliciet voorschrift}
 
-Een rij met twaalf termen kun je gewoon opschrijven. Maar een rij die blijft doorgaan, kun je nooit helemaal uitschrijven. Dan heb je een voorschrift nodig: een regel waarmee je elke term kunt vinden. De eenvoudigste soort regel werkt net zoals een functievoorschrift: je vult het volgnummer in en krijgt de term.
+Een rij met twaalf termen kun je gewoon opschrijven. Maar een rij die blijft doorgaan, kun je nooit helemaal uitschrijven. Voor de doos met 500 blokjes uit het probleem kun je trap na trap uitrekenen tot je over 500 gaat, maar dat is veel rekenwerk. Dan heb je een voorschrift nodig: een regel waarmee je elke term kunt vinden. De eenvoudigste soort regel werkt net zoals een functievoorschrift: je vult het volgnummer in en krijgt de term.
 
 \subsection{Termen berekenen}
 
@@ -120,7 +127,7 @@ Zoek het verband tussen volgnummer en term.
 
 \subsection{Term of geen term}
 
-Met een expliciet voorschrift kun je ook omgekeerd werken. Je kent een getal, en je vraagt je af of het in de rij voorkomt, en op welke plaats. Dan is de term gegeven, en zoek je het volgnummer: je lost een vergelijking op.
+Met een expliciet voorschrift kun je ook omgekeerd werken. Je kent een getal, en je vraagt je af of het in de rij voorkomt, en op welke plaats. Dan is de term gegeven, en zoek je het volgnummer: je lost een vergelijking op. Zo vraagt het probleem of 300 een term is van de rij van de trappen.
 
 \voorbeeld{}{Gegeven: $u_n = n^2 + 2n$. Is 48 een term van de rij? En 50?\label{vb:h1-isterm}}{%
 \naast{\uitleg{We stellen $u_n$ gelijk aan het getal en lossen op naar $n$. Een volgnummer moet een natuurlijk getal zijn, verschillend van 0: alleen zo'n oplossing telt.}
@@ -342,6 +349,30 @@ Door de factor $(-1)^n$ wisselt het teken: de punten liggen om en om onder en bo
 \begin{oefeningen}
 \oef{h1-k10}
 \end{oefeningen}
+
+\needspace{24\baselineskip}
+Nu kunnen we het probleem van de trappen helemaal oplossen: met een voorschrift, een vergelijking en de grafiek.
+
+\voorbeeld{}{Terug naar het probleem. Trap $n$ telt $u_n$ blokjes: $u_1 = 1$, $u_2 = 3$, $u_3 = 6$, \ldots\ Geef een recursief en een expliciet voorschrift. Is er een trap met precies 300 blokjes? Wat is de grootste trap die je met 500 blokjes kunt bouwen, en hoeveel blokjes blijven er over?\label{vb:h1-terug}}{%
+\uitleg{Het recursief voorschrift lezen we af uit hoe een trap groeit, het expliciet voorschrift uit de verkenning: twee gelijke trappen, één ervan omgekeerd, vormen een rechthoek. Met het expliciet voorschrift lossen we daarna $u_n = 300$ en $u_n = 500$ op.}
+\naast{\begin{stappenvrij}{4.3cm}{4.3cm}
+u_n = u_{n-1} + n,\ u_1 = 1 & Trap $n$ is trap $n - 1$ met een kolom van $n$ blokjes erbij. \\[1ex]
+u_n = \dfrac{n(n+1)}{2} & Twee keer trap $n$ is een rechthoek van $n$ op $n + 1$. \\[2ex]
+n^2 + n - 600 = 0 & We stellen $u_n = 300$ en vermenigvuldigen met 2. \\
+(n - 24)(n + 25) = 0 & Alleen $n = 24$ is een volgnummer: trap 24 telt precies 300 blokjes. \\
+n^2 + n - 1000 = 0 & Nu met $u_n = 500$. \\
+n = \dfrac{-1 + \sqrt{4001}}{2} \approx 31{,}1 & Geen volgnummer: 500 is geen term. Het ligt tussen $u_{31} = 496$ en $u_{32} = 528$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.13cm,y=.0068cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=4,ystep=100] (0,0) grid (34,560);
+  \draw[->,grijs] (0,0) -- (35.5,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,590) node[above,text=black] {$u_n$};
+  \foreach \t in {8,16,24,32}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {100,300,500}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,300) -- (34,300);
+  \draw[grijs,dashed] (0,500) -- (34,500);
+  \foreach \x in {1,...,33}{\fill[accent] (\x,{\x*(\x+1)/2}) circle (1.2pt);}
+\end{tikzpicture}}
+Met 500 blokjes bouw je dus hoogstens trap 31, en dan blijven er $500 - 496 = 4$ blokjes over. De grafiek toont het: het punt van $n = 24$ ligt precies op de lijn 300, en de lijn 500 loopt tussen de punten van $n = 31$ en $n = 32$ door.}
 
 %----------------------------------------------------------------------------------------
 % OPDRACHTEN: door elkaar. Niveau 1, dan 2, dan 3.

@@ -1,16 +1,20 @@
 %----------------------------------------------------------------------------------------
 % REKENKUNDIGE EN MEETKUNDIGE RIJEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
 % De oefeningen staan in oefeningen/02-rekenkundige-en-meetkundige-rijen.yaml.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Rekenkundige en meetkundige rijen}
 
+\begin{probleem}
+Je wilt \eur 2000 op een spaarrekening zetten, en twee banken doen je een aanbod. Bank A belooft: elk jaar komt er \eur 80 bij, dat is 4\,\% van je inleg. Bank B belooft: elk jaar komt er 3\,\% bij van wat er op dat moment op de rekening staat. Bank A lijkt de beste keuze, want 4\,\% is meer dan 3\,\%. Klopt dat als je het geld 10 jaar laat staan? En als je het 25 jaar laat staan? Vanaf hoeveel jaar is bank B beter? {\small(De percentages zijn een voorbeeld.)}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{44,}\alleenvoor{3}{34,}\alleenvoor{2}{28,}\alleenvoor{1}{16,} zonder de somformules (die staan in hoofdstuk 3). Twee rode draden: de sprongenfiguur ($n-1$ sprongen, zowel bij $+v$ als bij $\cdot\, q$) en het onderscheid tussen rekenkundig en meetkundig, dat in de gemengde Opdrachten steeds terugkomt. De formule voor exponentiële groei wordt afgeleid uit een getallenvoorbeeld: laat leerlingen die afleiding zelf reconstrueren.}
 
-In hoofdstuk 1 zag je dat een rij allerlei vormen kan aannemen. Twee soorten komen zo vaak voor dat ze een eigen naam krijgen. Bij een \textit{rekenkundige} rij komt er telkens hetzelfde getal bij, zoals bij een stapel stoelen die per stoel even veel hoger wordt. Bij een \textit{meetkundige} rij vermenigvuldig je telkens met hetzelfde getal, zoals bij een bedrag dat elk jaar met hetzelfde percentage groeit. Voor beide soorten vind je in dit hoofdstuk een expliciet voorschrift, en je ontdekt dat ze de discrete versie zijn van twee functies die je al kent: de eerstegraadsfunctie en de exponentiële functie.
+In hoofdstuk 1 zag je dat een rij allerlei vormen kan aannemen. Twee soorten komen zo vaak voor dat ze een eigen naam krijgen. Bij een \textit{rekenkundige} rij komt er telkens hetzelfde getal bij, zoals bij een stapel stoelen die per stoel even veel hoger wordt, of bij het spaargeld van bank A uit het probleem. Bij een \textit{meetkundige} rij vermenigvuldig je telkens met hetzelfde getal, zoals bij het spaargeld van bank B, dat elk jaar met hetzelfde percentage groeit. Voor beide soorten vind je in dit hoofdstuk een expliciet voorschrift, en je ontdekt dat ze de discrete versie zijn van twee functies die je al kent: de eerstegraadsfunctie en de exponentiële functie. Met die voorschriften hoef je de twee banken niet jaar per jaar te volgen, en op het einde van het hoofdstuk weet je welke bank je kiest.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -25,7 +29,7 @@ In hoofdstuk 1 zag je dat een rij allerlei vormen kan aannemen. Twee soorten kom
 
 \subsection{Definitie en voorschriften}
 
-In de verkenning werd de stapel bij elke stoel 5 cm hoger. De hoogtes $80,\ 85,\ 90,\ \ldots$ vormen een rij waarin er telkens hetzelfde getal bijkomt. Zo'n rij heeft een eenvoudig recursief voorschrift, en daaruit volgt meteen een expliciet voorschrift.
+In de verkenning werd de stapel bij elke stoel 5 cm hoger. De hoogtes $80,\ 85,\ 90,\ \ldots$ vormen een rij waarin er telkens hetzelfde getal bijkomt. Ook bij bank A uit het probleem komt er telkens hetzelfde bij: $2000,\ 2080,\ 2160,\ \ldots$ Je kunt zo jaar per jaar verder tellen, maar voor 25 jaar wil je een snellere weg. Zo'n rij heeft een eenvoudig recursief voorschrift, en daaruit volgt meteen een expliciet voorschrift.
 
 \needspace{20\baselineskip}
 \begin{theorie}
@@ -353,7 +357,7 @@ Het voorschrift $u_n = u_1 \cdot q^{\,n-1}$ lijkt op dat van een exponentiële f
 
 \subsection{Exponentiële groei}
 
-Meetkundige rijen beschrijven alles wat per tijdseenheid met hetzelfde \textit{percentage} groeit of krimpt: een bevolking, een spaarbedrag, een radioactieve stof. Waarom is dat een meetkundige rij? Kijk naar een eenvoudig geval: een bedrag van \eur 100 dat elk jaar met 10\,\% groeit.
+Meetkundige rijen beschrijven alles wat per tijdseenheid met hetzelfde \textit{percentage} groeit of krimpt: een bevolking, een spaarbedrag zoals bij bank B uit het probleem, een radioactieve stof. Waarom is dat een meetkundige rij? Kijk naar een eenvoudig geval: een bedrag van \eur 100 dat elk jaar met 10\,\% groeit.
 
 \naast{Na een jaar komt er 10\,\% van 100 bij:
 \[ 100 + 0{,}10 \cdot 100 = 100 \cdot (1 + 0{,}10) = 100 \cdot 1{,}1 = 110 . \]
@@ -447,6 +451,31 @@ K_{10} = 2000 \cdot 1{,}03^{10} \approx 2687{,}83 & Samengesteld: \eur 87,83 mee
 \begin{oefeningen}
 \oef{h2-k11}
 \end{oefeningen}
+
+\needspace{24\baselineskip}
+Nu kunnen we de twee banken uit het probleem vergelijken: bank A geeft enkelvoudige intrest aan 4\,\%, bank B samengestelde intrest aan 3\,\%.
+
+\voorbeeld{}{Terug naar het probleem. Je zet \eur 2000 op een rekening. Bij bank A komt er elk jaar \eur 80 bij, bij bank B elk jaar 3\,\% van wat er op de rekening staat. Welke bank geeft het meest na 10 jaar, en na 25 jaar? Vanaf hoeveel jaar is bank B beter?\label{vb:h2-terug}}{%
+\uitleg{Bank A geeft lineaire groei met $v = 80$, bank B exponentiële groei met $q = 1{,}03$. Beide starten bij $u_0 = 2000$. Voor 10 en 25 jaar vullen we in. Voor de laatste vraag staat $n$ in de ene formule in de exponent en in de andere niet: zo'n vergelijking los je niet op met een logaritme. We zoeken daarom met een tabel.}
+\begin{stappen}
+A_n = 2000 + 80\,n, \quad B_n = 2000 \cdot 1{,}03^{\,n} & Het bedrag na $n$ jaar bij elke bank. \\
+A_{10} = 2800, \quad B_{10} \approx 2687{,}83 & Na 10 jaar wint bank A, met \eur 112,17 meer. \\
+A_{25} = 4000, \quad B_{25} \approx 4187{,}56 & Na 25 jaar wint bank B, met \eur 187,56 meer. \\
+A_{19} = 3520, \quad B_{19} \approx 3507{,}01 & Na 19 jaar heeft bank A nog \eur 12,99 voorsprong. \\
+A_{20} = 3600, \quad B_{20} \approx 3612{,}22 & Na 20 jaar heeft bank B \eur 12,22 meer.
+\end{stappen}
+\naast{Blijft bank B daarna voor? Ja: bij bank A komt er altijd \eur 80 bij, bij bank B 3\,\% van het bedrag. Vanaf $B_{10} \approx 2687{,}83$ is dat al meer dan \eur 80, want $0{,}03 \cdot 2687{,}83 \approx 80{,}63$. Vanaf dan wint bank B elk jaar terrein. Wie het geld minstens 20 jaar laat staan, kiest dus bank B. De figuur toont de bedragen elk jaar: open bolletjes bij bank A, volle bij bank B. De verticale as begint bij \eur 1800.}{\begin{tikzpicture}[x=.2cm,y=.0018cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=500] (0,1800) grid (25.4,4300);
+  \draw[->,grijs] (0,1800) -- (26.5,1800) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,1800) -- (0,4450) node[above,text=black] {bedrag};
+  \foreach \t in {5,10,...,25}{\node[below,inner sep=1.5pt] at (\t,1800) {$\t$};}
+  \foreach \t in {2000,3000,4000}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (20,1800) -- (20,4300);
+  \foreach \x in {0,...,25}{\draw[grijs,thick] (\x,{2000+80*\x}) circle (1.5pt);
+    \fill[accent] (\x,{2000*1.03^\x}) circle (1.5pt);}
+  \node[right,text=grijs] at (25.3,3950) {A};
+  \node[right,text=accent] at (25.3,4250) {B};
+\end{tikzpicture}}}
 
 %----------------------------------------------------------------------------------------
 % OPDRACHTEN: het grootste deel van de oefeningen, op een nieuwe pagina
