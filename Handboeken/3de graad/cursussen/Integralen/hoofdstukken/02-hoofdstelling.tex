@@ -1,15 +1,34 @@
 %----------------------------------------------------------------------------------------
 % HOOFDSTELLING EN PRIMITIEVE FUNCTIES. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Hoofdstelling en primitieve functies}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Hoe groot is de oppervlakte onder één boog van de sinus, van $x = 0$ tot $x = \pi$? Met de methode van hoofdstuk 1 lukt het niet: voor een som van sinussen ken je geen somformule. Een computer kan wel Riemannsommen uitrekenen, met als $c_k$ telkens het midden van een deel. De tabel toont dat ze naar 2 lijken te gaan. Is de oppervlakte precies 2? En hoe kan een gebied dat tot $\pi$ loopt, een geheel getal als oppervlakte hebben?}{\begin{tabular}[t]{@{}c@{}}
+\begin{tikzpicture}[x=.85cm,y=1cm,font=\scriptsize]
+  \riemann{4}{0}{3.1416}{sin(\x r)}{.5}
+  \roosterleeg{0}{1}{3}{0}{1}{1}
+  \kromme{0}{3.1416}{sin(\x r)}
+  \node[below] at (3.1416,0) {$\pi$};
+  \node[left] at (0,1) {1};
+\end{tikzpicture}\\[1mm]
+\small\begin{tabular}{@{}lccc@{}}
+\toprule
+$n$ & 4 & 10 & 100 \\
+\midrule
+som & 2,0523 & 2,0082 & 2,0001 \\
+\bottomrule
+\end{tabular}
+\end{tabular}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{32,}\alleenvoor{3}{24,}\alleenvoor{2}{23,} de hoofdstelling van de integraalrekening. Het leerplan noemt ze uitdrukkelijk als voorbeeld van een bewijs waarbij beargumenteren belangrijker is dan reproduceren: laat de leerlingen de stappen verantwoorden, of het bewijs herhalen met andere letters. De rekentechnieken beperken zich hier tot de basisprimitieven en de lineariteit; substitutie en partiële integratie volgen in hoofdstuk 3. De oppervlakte tussen krommen staat hier, omdat ze meteen oefent op wat de integraal betekent. Oneigenlijke integralen staan in hoofdstuk 4.}
 
-In hoofdstuk 1 kostte de oppervlakte onder $x^2$ een halve pagina rekenwerk, en voor $\sqrt{x}$ of $\sin x$ lukt die aanpak zelfs niet meer. Dit hoofdstuk lost dat op met een van de mooiste stellingen uit de wiskunde.
+In hoofdstuk 1 kostte de oppervlakte onder $x^2$ een halve pagina rekenwerk, en voor $\sqrt{x}$ of de sinus uit het probleem lukt die aanpak zelfs niet meer. Dit hoofdstuk lost dat op met een van de mooiste stellingen uit de wiskunde.
 
 Oppervlakte berekenen en raaklijnen zoeken lijken niets met elkaar te maken. Toch ontdekten Newton en Leibniz in de 17de eeuw dat integreren en afleiden elkaars omgekeerde zijn. Daardoor wordt een integraal berekenen plots iets anders: je zoekt een functie waarvan de afgeleide gegeven is. Met die techniek berekenen we op het einde van het hoofdstuk oppervlaktes die met de meetkunde onbereikbaar waren.
 
@@ -25,6 +44,8 @@ Oppervlakte berekenen en raaklijnen zoeken lijken niets met elkaar te maken. Toc
 \section{De hoofdstelling}
 
 \subsection{De integraalfunctie}
+
+Hoe vind je de oppervlakte onder de sinusboog zonder sommen? Het idee is om niet naar één oppervlakte te kijken, maar naar hoe ze groeit terwijl de rechtergrens opschuift.
 
 Vervang de bovengrens door een veranderlijke $x$: dan hangt de waarde van de integraal af van $x$, en heb je een nieuwe functie. In de integrand staat dan een andere letter, $t$, omdat de $x$ al bezet is.
 
@@ -278,6 +299,27 @@ De figuren maken de uitkomsten aannemelijk. Het eerste gebied is een bijna-trape
 \begin{oefeningen}
 \oef{h2-basis}
 \end{oefeningen}
+
+\needspace{14\baselineskip}
+Opgave a van oefening~\ref{oef:h2-basis} is precies het probleem van het begin. Zo ziet de oplossing eruit.
+
+\voorbeeld{}{Terug naar het probleem. Bereken de oppervlakte onder één boog van de sinus, van $x = 0$ tot $x = \pi$.\label{vb:h2-terug}}{%
+\uitleg{De sinus is positief op $[0, \pi]$, dus de oppervlakte is gewoon de integraal. Een primitieve staat in de tabel: $-\cos x$.}
+\naast{\begin{stappenvrij}{5.4cm}{4.1cm}
+\ig_0^{\pi} \sin x\dx = \Bigl[-\cos x\Bigr]_0^{\pi} & De hoofdstelling, met de primitieve uit de tabel. \\[2.5ex]
+= -\cos \pi - (-\cos 0) = 1 + 1 = 2 & $\cos \pi = -1$ en $\cos 0 = 1$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.85cm,y=.75cm,font=\scriptsize]
+  \gebied{0}{3.1416}{sin(\x r)}
+  \roosterleeg{0}{1}{3}{0}{1}{2}
+  \kromme{0}{3.1416}{sin(\x r)}
+  \kromme[dashed]{0}{3.1416}{1-cos(\x r)}
+  \node[below] at (3.1416,0) {$\pi$};
+  \node[left] at (0,1) {1};
+  \node[left] at (0,2) {2};
+  \node[text=accent] at (1.57,.4) {$2$};
+  \node[right,text=accent] at (3.1416,2) {$A(x)$};
+\end{tikzpicture}}
+De oppervlakte is dus precies 2, zoals de Riemannsommen deden vermoeden. Het getal $\pi$ verdwijnt omdat we het in de cosinus invullen, en $\cos \pi = -1$. De gestreepte kromme is de integraalfunctie $A(x) = \int_0^x \sin t\dt = 1 - \cos x$. Ze stijgt van 0 tot 2, en het snelst in $\tfrac{\pi}{2}$, waar de sinus het hoogst is: de sinus is overal de helling van $A$.}
 
 \subsection{Meerdere termen}
 

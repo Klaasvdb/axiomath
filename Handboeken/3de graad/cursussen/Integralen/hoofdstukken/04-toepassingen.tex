@@ -1,15 +1,27 @@
 %----------------------------------------------------------------------------------------
 % TOEPASSINGEN VAN INTEGRALEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h4-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{4}{Toepassingen van integralen}
 
+\begin{probleem}
+\vspace{-1mm}\naast{De kelk van een wijnglas is 8 cm diep en bovenaan 8 cm breed. Snijd je het glas door het midden, dan is de binnenkant een parabool. Hoeveel wijn past erin? Voor een cilinder of een kegel ken je een formule, maar dit glas is geen van beide. En vul je het glas tot de helft van de hoogte, is het dan half vol? Zo niet, tot welke hoogte moet je schenken voor de helft van de inhoud?}{\begin{tikzpicture}[scale=.22,font=\scriptsize]
+  \fill[accent!12] plot[domain=-4:4,samples=50] (\x,{(\x)^2/2}) -- cycle;
+  \draw[accent,thick] plot[domain=-4:4,samples=50,smooth] (\x,{(\x)^2/2});
+  \draw[accent] (0,8) ellipse (4 and .6);
+  \draw[accent,thick] (-.25,-.1) -- (-.25,-6) (.25,-.1) -- (.25,-6);
+  \draw[accent,thick] (0,-6.3) ellipse (3 and .5);
+  \draw[lijngrijs,|-|] (-4,10) -- (4,10) node[midway,above] {8 cm};
+  \draw[lijngrijs,|-|] (5.2,0) -- (5.2,8) node[midway,right] {8 cm};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: de wenken bij LPD \alleenvoor{4}{31}\alleenvoor{3}{23}\alleenvoor{2}{22} en \alleenvoor{4}{33.}\alleenvoor{3}{25.}\alleenvoor{2}{24.} Volume van een omwentelingslichaam en booglengte moet je kunnen \emph{aangeven} (berekeningen eventueel via ICT): hier rekenen we exact waar dat lukt, en verder numeriek met het rekentoestel. De contexten zijn die uit het leerplan: afstand, snelheid, arbeid en energie. Oneigenlijke integralen zijn een mogelijkheid volgens het leerplan (\emph{je kan}): sla ze over als er geen tijd is, want niets anders in de cursus steunt erop, behalve enkele Koppel-oefeningen. Manteloppervlakte staat niet in het leerplan, differentiaalvergelijkingen alleen bij het complementair gedeelte: die ontbreken hier dus.}
 
-Een integraal is meer dan een oppervlakte. Elke grootheid die je kunt opdelen in heel veel kleine stukjes en weer optellen, kun je als integraal schrijven: het volume van een vaas, de lengte van een kabel, de arbeid om een veer uit te rekken, de energie uit zonnepanelen. Dat is de rode draad van dit hoofdstuk. Bij elke toepassing stel je dezelfde vraag: wat is hier één klein stukje, en hoeveel draagt het bij? De som is een Riemannsom, en de limiet is een integraal.
+Een integraal is meer dan een oppervlakte. Elke grootheid die je kunt opdelen in heel veel kleine stukjes en weer optellen, kun je als integraal schrijven: het volume van een wijnglas, de lengte van een kabel, de arbeid om een veer uit te rekken, de energie uit zonnepanelen. Dat is de rode draad van dit hoofdstuk. Bij elke toepassing stel je dezelfde vraag: wat is hier één klein stukje, en hoeveel draagt het bij? De som is een Riemannsom, en de limiet is een integraal.
 
 Op het einde gaan we nog een stap verder: wat als het gebied oneindig ver doorloopt? Kan dat een eindige oppervlakte hebben?
 
@@ -25,6 +37,8 @@ Op het einde gaan we nog een stap verder: wat als het gebied oneindig ver doorlo
 \section{Volume}
 
 \subsection{Volume uit doorsneden}
+
+Hoe vind je de inhoud van het wijnglas uit het probleem? Bij een oppervlakte sneden we het gebied in smalle stroken. Bij een volume doen we hetzelfde, met plakjes.
 
 Snij een lichaam in dunne plakjes loodrecht op de $x$-as. Een plakje op de plaats $x$ heeft een volume van ongeveer $A(x)\,\Delta x$, met $A(x)$ de oppervlakte van de doorsnede. Optellen en de limiet nemen geeft een integraal.
 
@@ -234,6 +248,27 @@ Schrijf $x$ als een functie van $y$. De grenzen zijn nu waarden van $y$.
 \end{werkwijze}
 
 \nujij{De rechte $y = 3x$ met $0 \leqslant y \leqslant 6$ wentelt om de $y$-as. Bereken het volume, en controleer met een kegel.}{$x = \tfrac{y}{3}$, dus $V = \pi \int_0^6 \tfrac{y^2}{9}\,\mathrm{d}y = 8\pi$. Kegel: $r = 2$, $h = 6$, en $\tfrac13 \pi \cdot 4 \cdot 6 = 8\pi$.}
+
+Het wijnglas uit het probleem is zo'n kom: een parabool die om de verticale as wentelt.
+
+\voorbeeld{}{Terug naar het probleem. De kelk van een wijnglas is 8 cm diep en bovenaan 8 cm breed, met een parabool als doorsnede. Bereken de inhoud, en de hoogte tot waar je moet schenken voor de helft daarvan.\label{vb:h4-terug}}{%
+\uitleg{Leg de $y$-as door het midden van het glas, met de oorsprong onderaan in de kelk. Dan is de parabool $y = kx^2$, en ligt de rand in het punt $(4, 8)$. Het glas staat rechtop: we wentelen om de $y$-as, en schrijven $x$ als functie van $y$. Voor wijn tot op hoogte $h$ wordt $h$ de bovengrens.}
+\naast{\begin{stappenvrij}{5.9cm}{4.2cm}
+8 = k \cdot 4^2 \ \Rightarrow \ y = \tfrac12 x^2, \ \ x^2 = 2y & De rand ligt op de parabool. \\[1ex]
+V = \pi \ig_0^8 2y\,\mathrm{d}y = \pi \grens{y^2}{0}{8} = 64\pi & Dat is ongeveer 201 cm$^3$, dus 2 dl. \\[2.5ex]
+V(h) = \pi \ig_0^h 2y\,\mathrm{d}y = \pi h^2 & Wijn tot op hoogte $h$. \\[2ex]
+\pi h^2 = 32\pi \ \Rightarrow \ h = \sqrt{32} \approx 5{,}66 & De helft van $64\pi$. Schenk tot 5,7 cm hoog.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.22,font=\scriptsize]
+  \fill[accent!40] plot[domain=-3.364:3.364,samples=50] (\x,{(\x)^2/2}) -- cycle;
+  \draw[accent,thick] plot[domain=-4:4,samples=50,smooth] (\x,{(\x)^2/2});
+  \draw[accent] (0,8) ellipse (4 and .6);
+  \draw[accent,thick] (-.25,-.1) -- (-.25,-6) (.25,-.1) -- (.25,-6);
+  \draw[accent,thick] (0,-6.3) ellipse (3 and .5);
+  \draw[accent!70!black] (0,5.66) ellipse (3.364 and .4);
+  \draw[grijs,dashed] (-2.83,4) -- (5,4) node[right,text=black] {4};
+  \node[right] at (4.4,6.1) {5,66};
+\end{tikzpicture}}
+Vul je het glas tot de halve hoogte, dan zit er $\pi \cdot 4^2 = 16\pi$ in: maar een kwart van de inhoud, want onderaan is de kelk smal. Voor de helft moet je tot ongeveer 71\,\% van de hoogte schenken. En de inhoud $64\pi$ is precies de helft van een cilinder met dezelfde breedte en diepte, $\pi \cdot 4^2 \cdot 8 = 128\pi$. Dat wist Archimedes al, zonder integralen.}
 
 \begin{oefeningen}
 \oef{h4-vert}

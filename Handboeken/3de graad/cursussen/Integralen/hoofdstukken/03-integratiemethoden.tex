@@ -1,15 +1,27 @@
 %----------------------------------------------------------------------------------------
 % INTEGRATIEMETHODEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{3}{Integratiemethoden}
 
+\begin{probleem}
+\vspace{-1mm}\naast{Na het innemen van een pil stijgt de concentratie van het geneesmiddel in het bloed, en daarna daalt ze weer. Een eenvoudig model is $c(t) = 12\,t\,\e^{-t/2}$, met $c$ in milligram per liter en $t$ in uur. Artsen gebruiken de oppervlakte onder deze grafiek als maat voor hoeveel geneesmiddel het lichaam in totaal te verwerken krijgt. Hoe groot is die oppervlakte voor de eerste 6~uur? Met de hoofdstelling heb je een primitieve nodig, maar $c(t)$ is een product, en in de tabel van hoofdstuk 2 staat geen regel voor een product.}{\begin{tikzpicture}[x=.6cm,y=.3cm,font=\scriptsize]
+  \gebied{0}{6}{12*\x*exp(-\x/2)}
+  \draw[black!14,very thin,xstep=1,ystep=2] (0,0) grid (6,10);
+  \draw[->,grijs] (0,0) -- (6.6,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,11.5) node[above,text=black] {$c$};
+  \kromme{0}{6.3}{12*\x*exp(-\x/2)}
+  \foreach \t in {2,4,6} \node[below] at (\t,0) {\t};
+  \foreach \t in {5,10} \node[left] at (0,\t) {\t};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{33,}\alleenvoor{3}{25,}\alleenvoor{2}{24,} met onmiddellijke integratie, splitsing, eenvoudige substitutie en partiële integratie. Splitsen in partieelbreuken en andere substituties staan bij de suggesties voor het complementair gedeelte, en dus niet in dit hoofdstuk. De grootste moeilijkheid is niet de techniek zelf maar de keuze: daarom sluit de leerstof af met een stuk over welke methode je kiest, en staan de opdrachten door elkaar. Laat leerlingen hun antwoord telkens controleren met de afgeleide. Vermeld ook dat veel integralen geen primitieve in gekende functies hebben (leerplan), en dat ICT dan een waarde kan geven.}
 
-Dankzij de hoofdstelling is een integraal berekenen hetzelfde als een primitieve zoeken. Maar afleiden en integreren zijn niet even gemakkelijk. Voor afleiden heb je regels voor elk product en elke samengestelde functie. Omgekeerd bestaan die niet: de integraal van een product is niet het product van de integralen.
+Dankzij de hoofdstelling is een integraal berekenen hetzelfde als een primitieve zoeken. Maar afleiden en integreren zijn niet even gemakkelijk. Voor afleiden heb je regels voor elk product en elke samengestelde functie. Omgekeerd bestaan die niet: de integraal van een product is niet het product van de integralen. Daarom kom je bij de concentratie uit het probleem met de tabel van hoofdstuk 2 niet verder.
 
 Toch geeft elke regel om af te leiden, achterstevoren gelezen, een methode om te integreren. De kettingregel wordt substitutie, de productregel wordt partiële integratie. Die twee methodes en het splitsen van een integrand vormen de kern van dit hoofdstuk. De moeilijkheid zit minder in het rekenen dan in het kiezen: daarom sluiten we af met de vraag welke methode je wanneer gebruikt.
 
@@ -327,7 +339,7 @@ In één keer $v = \sin(\ln x)$ stellen kan ook, maar dat zie je meestal pas ach
 %========================================================================================
 \section{Partiële integratie}
 
-Substitutie helpt niet bij $x\,\e^x$: er is geen binnenste functie waarvan de afgeleide ernaast staat. Zo'n product van twee verschillende soorten functies vraagt een andere aanpak, en die komt van de productregel. Het idee is een ruil. Je leidt één factor af en integreert de andere, en krijgt een nieuwe integraal. Als die eenvoudiger is, heb je gewonnen.
+Substitutie helpt niet bij $x\,\e^x$, en ook niet bij $t\,\e^{-t/2}$ uit het probleem: er is geen binnenste functie waarvan de afgeleide ernaast staat. Zo'n product van twee verschillende soorten functies vraagt een andere aanpak, en die komt van de productregel. Het idee is een ruil. Je leidt één factor af en integreert de andere, en krijgt een nieuwe integraal. Als die eenvoudiger is, heb je gewonnen.
 
 \begin{theorie}
 \begin{stelling}{Partiële integratie}
@@ -437,6 +449,30 @@ f = \ln x, \quad g' = x, \quad g = \dfrac{x^2}{2} & De logaritme is $f$, dus $f'
 Numeriek is dat ongeveer 2,10. De figuur toont dat dit klopt: een gebied met basis 1,7 en een hoogte die oploopt tot 2,7.
 
 \nujij{Bereken $\int_0^{\pi} x\cos x\dx$.}{$\bigl[x\sin x + \cos x\bigr]_0^{\pi} = -1 - 1 = -2$.}
+
+\needspace{14\baselineskip}
+Daarmee hebben we alles om het probleem van het begin op te lossen.
+
+\voorbeeld{}{Terug naar het probleem. De concentratie van een geneesmiddel in het bloed is $c(t) = 12\,t\,\e^{-t/2}$ (in mg/l, met $t$ in uur). Bereken de oppervlakte onder de grafiek op $[0, 6]$, en de gemiddelde concentratie in die 6 uur.\label{vb:h3-terug}}{%
+\uitleg{Een product van een veelterm en een exponentiële functie: dus partiële integratie, met de veelterm als $f$. De factor 12 brengen we voor de integraal. Voor $g$ hebben we een primitieve van $\e^{-t/2}$ nodig: een vorm met een lineaire binnenste functie, met $a = -\tfrac12$.}
+\begin{stappenbreed}
+f = t, \quad f' = 1, \quad g' = \e^{-t/2}, \quad g = -2\,\e^{-t/2} & Afleiden maakt $t$ eenvoudiger, en $\tfrac{1}{a} = -2$. \\[1ex]
+\ig_0^6 t\,\e^{-t/2}\dt = \grens{-2t\,\e^{-t/2}}{0}{6} + 2\ig_0^6 \e^{-t/2}\dt & Het minteken uit de formule en dat van $g$ geven samen een plus. \\[3ex]
+\phantom{\ig_0^6 t\,\e^{-t/2}\dt} = -12\,\e^{-3} + 2\grens{-2\,\e^{-t/2}}{0}{6} = 4 - 16\,\e^{-3} & Voor de tweede integraal dient $g$ opnieuw: $-12\,\e^{-3} + 4 - 4\,\e^{-3}$. \\[3ex]
+\ig_0^6 c(t)\dt = 12\,(4 - 16\,\e^{-3}) = 48 - 192\,\e^{-3} \approx 38{,}4 & Vermenigvuldig met 12. De eenheid is mg/l maal uur. \\[2ex]
+\dfrac{1}{6} \ig_0^6 c(t)\dt \approx 6{,}4 \text{ mg/l} & De gemiddelde waarde uit hoofdstuk 1.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=.75cm,y=.3cm,font=\scriptsize]
+  \gebied{0}{6}{12*\x*exp(-\x/2)}
+  \draw[black!14,very thin,xstep=1,ystep=2] (0,0) grid (6,10);
+  \draw[->,grijs] (0,0) -- (6.6,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,11.5) node[above,text=black] {$c$};
+  \draw[accent,dashed] (0,6.41) -- (6,6.41) node[right] {gemiddelde 6,4};
+  \kromme{0}{6.3}{12*\x*exp(-\x/2)}
+  \foreach \t in {2,4,6} \node[below] at (\t,0) {\t};
+  \foreach \t in {5,10} \node[left] at (0,\t) {\t};
+\end{tikzpicture}}
+De oppervlakte is ongeveer 38,4 mg$\cdot$h/l. Een rechthoek van 6 uur breed en 6,4 mg/l hoog heeft dezelfde oppervlakte: dat is de gemiddelde concentratie.}
 
 \begin{oefeningen}
 \oef{h3-pgrens}
