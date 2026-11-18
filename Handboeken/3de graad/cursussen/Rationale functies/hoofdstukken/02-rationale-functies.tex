@@ -1,16 +1,29 @@
 %----------------------------------------------------------------------------------------
 % RATIONALE FUNCTIES EN ASYMPTOTEN. Alle opgaven zijn eigen werk.
 %
-% Opbouw: Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
 % nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
 % Labels van dit hoofdstuk beginnen met h2-.
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Rationale functies}
 
+\begin{probleem}
+\naast{Een sirene zendt een toon van $700$ Hz uit en komt met een snelheid van $v$ m/s op je af. Voor de sirene uit liggen de geluidsgolven dichter op elkaar, en je hoort een hogere toon:
+\[F(v) = \frac{700 \cdot 343}{343 - v} \ \text{Hz} ,\]
+met $343$ m/s de snelheid van het geluid in lucht. Rijdt de sirene van je weg, dan is $v$ negatief en hoor je een lagere toon. Een ambulance aan $30$ m/s klinkt zo eerst als $767$ Hz en daarna als $644$ Hz. Wat hoor je als de sirene steeds sneller op je afkomt, tot bijna de snelheid van het geluid? En als ze steeds sneller van je weg gaat?}{\begin{tikzpicture}[x=.45cm,y=.45cm,font=\scriptsize]
+  \foreach \k in {0,1,2,3}{\draw[accent!70] ({.55*\k},0) circle ({4-\k});}
+  \fill[accent] (2.2,0) circle (3.5pt);
+  \draw[->,thick,accent] (2.2,0) -- (3.4,0) node[above,text=accent] {$v$};
+  \fill (6.3,0) circle (2.5pt) node[below,align=center] {jij};
+  \node[below,align=center] at (-2.4,-4.1) {lager};
+  \node[below,align=center] at (5.2,-4.1) {hoger};
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{24-25}\alleenvoor{3}{18}\alleenvoor{2}{17}\alleenvoor{2,3}{ en K1} (rationale functies), het deel over domein, nulwaarden, perforaties, asymptoten en het schetsen van de grafiek. Limieten komen in de cursus \alleenvoor{4}{Limieten en afgeleiden;}\alleenvoor{2,3}{Afgeleiden;} hier worden asymptoten informeel ingevoerd (\textit{de functiewaarden worden onbeperkt groot}, \textit{het verschil met de rechte wordt willekeurig klein}) en bepaald met de euclidische deling uit hoofdstuk 1.}
 
-Hoe duur is één stuk als je er $q$ maakt, met $500$ euro vaste kosten en $2$ euro per stuk? Dat is $\frac{500 + 2q}{q}$: een quotiënt van twee veeltermen. Zulke functies heten rationaal. Hun grafieken hebben vaak lijnen waar ze steeds dichter bij komen zonder ze te bereiken: asymptoten.
+De toon $F(v)$ uit het probleem is een quotiënt van twee veeltermen in $v$. Zulke functies heten rationaal. Invullen lukt: $F(300) \approx 5584$ Hz, en $F(340) \approx 80\,033$ Hz, ver boven wat je oor nog hoort (tot ongeveer $20\,000$ Hz). Maar bij $v = 343$ is de noemer nul, en zegt de formule niets meer. Wat doet de grafiek in de buurt van $343$? En wat gebeurt er als $v$ zeer groot en negatief wordt? Daarvoor heb je asymptoten nodig: rechten waar de grafiek steeds dichter bij komt, zonder ze te bereiken.
 
 Alles uit hoofdstuk 1 komt hier terug. Met ontbinden vind je het domein, de nulwaarden en de gaten in de grafiek. Met de euclidische deling vind je hoe de grafiek zich gedraagt voor grote $|x|$. En de tekentabel zegt aan welke kant van de asymptoten de grafiek ligt.
 
@@ -25,7 +38,7 @@ Alles uit hoofdstuk 1 komt hier terug. Met ontbinden vind je het domein, de nulw
 
 \subsection{Domein en nulwaarden}
 
-Een breuk bestaat alleen als de noemer niet nul is. Het domein van een rationale functie vind je dus door de nulwaarden van de noemer te zoeken, en dat doe je door te ontbinden.
+Voor welke snelheden kun je de formule uit het probleem niet gebruiken? Alleen voor $v = 343$: daar is de noemer nul. Een breuk bestaat alleen als de noemer niet nul is. Het domein van een rationale functie vind je dus door de nulwaarden van de noemer te zoeken, en dat doe je door te ontbinden.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{rationale functie}} is een quotiënt van twee veeltermfuncties: \quad $\formule{f(x) = \frac{A(x)}{B(x)}}$
@@ -96,6 +109,10 @@ In een perforatie is $f$ niet gedefinieerd, maar de grafiek loopt er vlak langs:
 \section{Asymptoten}
 
 \subsection{Verticale asymptoten}
+
+Wat hoor je in het probleem als $v$ dicht bij $343$ komt? Reken maar uit:
+\[F(340) \approx 80\,033, \qquad F(342{,}9) = 2\,401\,000, \qquad F(342{,}99) = 24\,010\,000 .\]
+Hoe dichter $v$ bij $343$, hoe groter $F(v)$, zonder grens. Hetzelfde zie je bij de eenvoudigste rationale functie.
 
 \naast{%
 Bij $f(x) = \frac{1}{x}$ worden de functiewaarden onbeperkt groot als $x$ dicht bij $0$ komt: $f(0{,}001) = 1000$ en $f(-0{,}001) = -1000$. De grafiek schiet langs de $y$-as omhoog en omlaag, zonder die ooit te raken. Zo'n rechte heet een verticale asymptoot.
@@ -173,7 +190,9 @@ Bij $x = 0$: links naar boven, rechts naar onder. Bij $x = 2$: aan beide kanten 
 
 \subsection{Horizontale asymptoot: teller van lagere graad}
 
-Voor grote $|x|$ kijk je naar de graden van teller en noemer. In de Verken kwam $G(q) = \frac{500 + 2q}{q}$ steeds dichter bij $2$: de grafiek nadert de rechte $y = 2$. We beginnen met het geval waarin de noemer de hoogste graad heeft.
+En als de sirene steeds sneller van je weg gaat? Dan is $v$ negatief, en
+\[F(-1000) \approx 179, \qquad F(-10\,000) \approx 23, \qquad F(-100\,000) \approx 2{,}4 .\]
+De toon zakt naar $0$ Hz, maar bereikt die nooit, want de teller is nooit nul. Voor grote $|x|$ kijk je dus naar de graden van teller en noemer. In de Verken kwam $G(q) = \frac{500 + 2q}{q}$ steeds dichter bij $2$: de grafiek nadert de rechte $y = 2$. We beginnen met het geval waarin de noemer de hoogste graad heeft.
 
 \begin{theorie}
 De rechte $y = c$ is een \textbf{\textcolor{accent}{horizontale asymptoot}} van $f$ als $f(x)$ willekeurig dicht bij $c$ komt voor grote $|x|$.
@@ -210,6 +229,29 @@ Voor $x < -2$ ligt de grafiek onder de asymptoot, en ze komt er van onderen naar
 \needspace{6\baselineskip}
 \oef{h2-ha0}
 \end{oefeningen}
+
+\needspace{26\baselineskip}
+Nu kun je het probleem van de sirene oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Een sirene van $700$ Hz komt met snelheid $v$ (in m/s) op je af. Je hoort dan de toon $F(v) = \dfrac{240\,100}{343 - v}$ Hz. Bepaal de asymptoten van de grafiek van $F$. Wat betekenen ze?\label{vb:h2-terug}}{%
+\uitleg{Hier is $240\,100 = 700 \cdot 343$. De teller is een getal, de noemer heeft graad 1: er is geen gemeenschappelijke factor. Het teken van $F$ hangt alleen van de noemer af.}
+\naast{\begin{stappenvrij}{4.1cm}{4.3cm}
+\dom F = \R \setminus \{343\} & De noemer is nul in $343$. \\[1ex]
+v = 343 & Verticale asymptoot: de teller is nooit nul. \\[1ex]
+F(v) > 0 \text{ als } v < 343 & Links van de asymptoot gaat de grafiek naar boven. \\[1ex]
+F = 0 & Horizontale asymptoot: graad $0 <$ graad $1$. Voor grote negatieve $v$ ligt de grafiek erboven.
+\end{stappenvrij}}{%
+\begin{tikzpicture}[x=.36cm,y=.62cm,font=\scriptsize]
+  \draw[black!14,very thin] (-6,0) grid (4,4);
+  \draw[->,grijs] (-6,0) -- (4.4,0) node[right,text=black] {$v$};
+  \draw[->,grijs] (0,0) -- (0,4.4) node[above,text=black] {$F$};
+  \foreach \t in {-6,-4,-2,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\the\numexpr\t*100\relax$};}
+  \foreach \t in {1,2,3,4}{\node[left,inner sep=1.5pt] at (0,\t) {$\t\,000$};}
+  \draw[grijs,dashed] (3.43,0) -- (3.43,4.4) node[above,text=black] {$v = 343$};
+  \kromme{-6}{2.83}{2.401/(3.43-\x)}
+  \vol{(0,.7)}
+\end{tikzpicture}}
+Hoe dichter de sirene bij de snelheid van het geluid komt, hoe hoger de toon, zonder grens. In werkelijkheid stapelen de golven zich dan voor de bron op tot een schokgolf: de geluidsmuur. Hoe sneller de sirene van je weg gaat, hoe lager de toon, maar $0$ Hz wordt het nooit. Voor ${v > 343}$ is $F(v)$ negatief: de formule heeft daar geen betekenis, want de bron is sneller dan haar eigen geluid, en je hoort haar pas als ze al voorbij is.}
 
 \subsection{Horizontale asymptoot: teller en noemer van dezelfde graad}
 
