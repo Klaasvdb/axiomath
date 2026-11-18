@@ -8,9 +8,28 @@
 
 \mychapter{1}{Van vraag tot onderzoek}
 
+\begin{probleem}
+\naast{Snij je een pizza met drie rechte sneden door het midden, dan krijg je 6 stukken. Leg je de sneden anders, dan kunnen het er meer worden: rechts zijn het er 7. De stukken hoeven niet even groot te zijn. Hoeveel stukken kun je hoogstens maken met 10 rechte sneden? En hoe weet je zeker dat het niet beter kan, zonder alle manieren van snijden te proberen?}{%
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \fill[accent!15] (0,0) circle (1);
+  \foreach \a in {0,60,120}{\draw[accent,thick,rotate=\a] (0,-1) -- (0,1);}
+  \draw[grijs] (0,0) circle (1);
+  \node at (0,-1.35) {6 stukken};
+  \begin{scope}[xshift=2.5cm]
+    \fill[accent!15] (0,0) circle (1);
+    \begin{scope}
+      \clip (0,0) circle (1);
+      \foreach \a in {90,210,330}{\draw[accent,thick,rotate=\a] (.3,-1.2) -- (.3,1.2);}
+    \end{scope}
+    \draw[grijs] (0,0) circle (1);
+    \node at (0,-1.35) {7 stukken};
+  \end{scope}
+\end{tikzpicture}}
+\end{probleem}
+
 \lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{55}\alleenvoor{3}{41}\alleenvoor{2}{35} (onderzoekscompetentie). Deze cursus is geen leerstof die je in één blok geeft: de hoofdstukken ondersteunen een onderzoeksopdracht die over meerdere weken loopt, en kunnen bij elke andere cursus gebruikt worden. Hoofdstuk 1 gaat over de vraag en over wiskundig onderzoek in de enge zin (vermoeden en bewijs), hoofdstuk 2 over modelleren met data, hoofdstuk 3 over rapporteren. De precieze verwachtingen (product, proces, evaluatie) legt de school vast; kijk die na.}
 
-Een onderzoek begint niet met een antwoord, maar met een goede vraag. \textit{Hoe moeilijk is schaken?} is een interessante vraag, maar je kunt ze niet beantwoorden: wat betekent \textit{moeilijk}? Dit hoofdstuk toont hoe je van een onderwerp tot een vraag komt die je met wiskunde kunt beantwoorden, en hoe een wiskundig onderzoek verloopt: experimenteren, een vermoeden opstellen, en het bewijzen of weerleggen. Wat je hier leert, gebruik je in elk onderzoek, ook als het over metingen gaat (hoofdstuk 2).
+De pizzavraag is geen opgave uit een boek: niemand zegt je welke formule je moet gebruiken, en je weet niet eens of er een formule is. Zo begint elk onderzoek. Eerst moet de vraag scherp zijn: \textit{hoeveel stukken met 10 sneden?} heeft geen antwoord, want dat hangt af van hoe je snijdt. Daarna probeer je eenvoudige gevallen, zoek je een patroon, en bewijs je het. Dit hoofdstuk toont hoe je van een onderwerp tot een vraag komt die je met wiskunde kunt beantwoorden, en hoe een wiskundig onderzoek verloopt: experimenteren, een vermoeden opstellen, en het bewijzen of weerleggen. Op het einde los je zo de pizzavraag op. Wat je hier leert, gebruik je in elk onderzoek, ook als het over metingen gaat (hoofdstuk 2).
 
 \begin{oefeningen}[Start]
 \oef{h1-start-1}
@@ -23,7 +42,7 @@ Een onderzoek begint niet met een antwoord, maar met een goede vraag. \textit{Ho
 
 \subsection{De onderzoekscyclus}
 
-Onderzoek doen is iets anders dan een opgave oplossen. Bij een opgave ligt de vraag vast, en weet je dat er een antwoord bestaat. Bij een onderzoek kies je zelf de vraag en de aanpak, en weet je vooraf niet hoe ver je komt. Toch verloopt bijna elk onderzoek in dezelfde fasen, of het nu over getallen, metingen of figuren gaat.
+Hoe pak je een vraag als die van de pizza aan? Onderzoek doen is iets anders dan een opgave oplossen. Bij een opgave ligt de vraag vast, en weet je dat er een antwoord bestaat. Bij een onderzoek kies je zelf de vraag en de aanpak, en weet je vooraf niet hoe ver je komt. Toch verloopt bijna elk onderzoek in dezelfde fasen, of het nu over getallen, metingen of figuren gaat.
 
 \begin{theorie}
 \naast{%
@@ -63,7 +82,7 @@ Het is een cyclus, omdat een besluit vaak een nieuwe vraag oproept: dan begint a
 
 \subsection{Een goede onderzoeksvraag}
 
-De vraag stuurt het hele onderzoek: ze bepaalt wat je telt, meet of bewijst, en wanneer je klaar bent. Een vage vraag geeft een vaag besluit. Daarom loont het om er tijd in te steken voor je begint.
+Neem de pizzavraag in haar eerste vorm: \textit{hoeveel stukken krijg je met 10 sneden?} Wie begint te tekenen, ziet meteen het probleem. Drie sneden door het midden geven 6 stukken, drie andere sneden 7, en drie evenwijdige sneden maar 4. De vraag heeft dus geen antwoord, tot je zegt welke snijwijze je bedoelt: met \textit{hoogstens} wordt ze precies. De vraag stuurt het hele onderzoek: ze bepaalt wat je telt, meet of bewijst, en wanneer je klaar bent. Een vage vraag geeft een vaag besluit. Daarom loont het om er tijd in te steken voor je begint.
 
 \begin{theorie}
 Een goede \textbf{\textcolor{accent}{onderzoeksvraag}} is
@@ -326,6 +345,29 @@ Het vermoeden is vals. Tien kloppende gevallen waren dus geen bewijs, en één g
 \begin{oefeningen}
 \oef{h1-tegenvoorbeeld}
 \end{oefeningen}
+
+\voorbeeld{}{Terug naar het probleem. Hoeveel stukken kun je hoogstens maken met $n$ rechte sneden door een pizza? Hoeveel zijn dat er met $10$ sneden?\label{vb:h1-terug}}{%
+\uitleg{Nu hebben we alles om de pizzavraag op te lossen. We volgen de stappen van een wiskundig onderzoek: kleine gevallen tellen, een vermoeden opstellen en testen, en het bewijzen. Noem $S_n$ het grootste aantal stukken met $n$ sneden.}
+\naast{%
+\begin{stappenvrij}{4.3cm}{6.4cm}
+n\colon\ 0,\ 1,\ 2,\ 3,\ 4 & Tekenen, met elke nieuwe snede zo dat ze alle vorige binnen de pizza snijdt. \\
+S_n\colon\ 1,\ 2,\ 4,\ 7,\ 11 & Verdubbelen ($1, 2, 4, 8$) ligt voor de hand, maar $n = 3$ is een tegenvoorbeeld. \\
+\text{verschillen: } 1,\ 2,\ 3,\ 4 & De tweede verschillen zijn $1$: vermoeden $S_n = \tfrac12 n^2 + pn + q$. \\
+q = 1,\quad p = \tfrac12 & Invullen van $n = 0$ en $n = 1$. \\
+S_n = \frac{n^2 + n}{2} + 1 & Test met $n = 4$: $10 + 1 = 11$. Klopt.
+\end{stappenvrij}}{%
+\begin{tikzpicture}[scale=1.25,font=\scriptsize]
+  \fill[accent!15] (0,0) circle (1);
+  \begin{scope}
+    \clip (0,0) circle (1);
+    \foreach \a/\d in {25/-.05,70/.25,115/.1}{\draw[accent!70,thick,rotate=\a] (\d,-1.2) -- (\d,1.2);}
+    \draw[accent,line width=1.6pt,rotate=155] (-.38,-1.2) -- (-.38,1.2);
+  \end{scope}
+  \draw[grijs] (0,0) circle (1);
+  \foreach \p in {(.182,-.509),(.465,.097),(.602,.391)}{\fill \p circle (1.3pt);}
+  \node[align=center] at (0,-1.35) {4 sneden: 11 stukken};
+\end{tikzpicture}}
+Nu het bewijs. De $n$-de snede snijdt elk van de $n - 1$ vorige sneden hoogstens één keer, want twee rechten snijden elkaar hoogstens één keer. Die snijpunten verdelen de nieuwe snede in hoogstens $n$ stukken (in de figuur: de dikke snede, met $3$ snijpunten en $4$ stukken). Elk stuk verdeelt één pizzastuk in twee, dus er komen hoogstens $n$ stukken bij. Precies $n$ worden het als de nieuwe snede alle vorige binnen de pizza snijdt, en niet door een snijpunt gaat dat er al is. Dat kan altijd: laat elke snede vlak langs het midden lopen, telkens in een andere richting. Dus is $S_n - S_{n-1} = n$ voor elke $n$, en zijn alle tweede verschillen $1$, niet alleen die in de tabel. Volgens de eigenschap \textit{Constante tweede verschillen} is het vermoeden dus een stelling. Met $10$ sneden krijg je hoogstens $\frac{100 + 10}{2} + 1 = 56$ stukken, en geen $1024$.}
 
 \opdrachtenkop
 
