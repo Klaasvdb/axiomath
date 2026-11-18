@@ -1,0 +1,596 @@
+%----------------------------------------------------------------------------------------
+% VERGELIJKINGEN VAN EEN RECHTE EN HUN ONDERLINGE LIGGING. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Pakketten: dit handboek staat alleen in pakket 5 (LPD B2-B5); geen \alleenvoor nodig.
+% Voorkennis: Vectoren (componenten, evenwijdige vectoren, collineaire punten), Functies (rico, y = mx + q),
+% Stelsels (ax + by = c is een rechte, snijpunt, evenwijdig en samenvallend). Die worden kort herhaald.
+% Notatie zoals in Vectoren: \vect, \vc, \norm. De parameter heet r (zoals in Ruimtemeetkunde van de
+% 3de graad); bij een tweede rechte s, bij een derde t. Een cartesiaanse vergelijking schrijven we als
+% ax + by = c, zoals in Stelsels.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Vergelijkingen van een rechte}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Om 10.00 uur vertrekt een veerboot uit de haven $H$ in het punt $\vc{0}{1}$ van een kaart met als eenheid 1~km. Hij vaart in een rechte lijn: elke 10 minuten 2~km naar het oosten en 1~km naar het noorden. Op hetzelfde moment vertrekt een zeilboot in het punt $Z\vc{8}{0}$. Die vaart elke 10 minuten 1~km naar het westen en 2~km naar het noorden. Kruisen hun koersen elkaar? Zo ja, in welk punt? En moet de kapitein van de veerboot uitkijken voor een botsing?}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{0}{1}{9}{0}{1}{6}
+  \xgetallen{2,4,6,8} \ygetallen{2,4,6}
+  \draw[vector] (0,1) -- (2,2);
+  \draw[vectorb] (8,0) -- (7,2);
+  \punt[left]{0}{1}{H} \punt[above right]{8}{0}{Z}
+  \node[accent,above] at (1.2,2) {10 min};
+  \node[inkt,right] at (7.6,1.4) {10 min};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD B2-B3 (vergelijkingen van een rechte in het vlak: vectorvergelijking, parametervoorstelling en cartesiaanse vergelijking, het verband met de richtingscoëfficiënt, de onderlinge ligging van twee rechten en het snijpunt). Welke nummers precies bij dit hoofdstuk horen, is na te kijken in het leerplan. Voorkennis: componenten, evenwijdige vectoren en collineaire punten (handboek Vectoren, hoofdstuk 2), de rico en $y = mx + q$ (handboek Functies), en de vergelijking $ax + by = c$ van een rechte met het snijpunt van twee rechten (handboek Stelsels). Die voorkennis wordt kort herhaald waar ze nodig is. Het probleem is bewust zo gekozen dat het snijpunt van de koersen niet volstaat: de boten komen er op een ander moment voorbij. Dat toont waarom twee rechten elk een eigen parameter krijgen. De 3de graad (Ruimtemeetkunde) bouwt dit verder uit in de ruimte, met dezelfde namen.}
+
+Een rechte ken je al op twee manieren. In het handboek Functies was ze de grafiek van \mbox{$y = mx + q$}, met de rico $m$ als steilheid. In het handboek Stelsels was ze de verzameling van de oplossingen van een vergelijking $ax + by = c$. In dit hoofdstuk komt er een derde manier bij, met vectoren: je vertrekt in een punt en je beweegt in een vaste richting. Zo beschrijf je ook een beweging, zoals de koers van een boot. Daarna leer je van de ene vorm naar de andere gaan, en onderzoek je hoe twee rechten ten opzichte van elkaar liggen. Op het einde weet je of de veerboot moet uitwijken.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een rechte met een punt en een richting}
+
+\subsection{De richtingsvector}
+
+Door twee punten gaat precies één rechte. Maar een rechte ligt ook vast als je één punt kent en de richting. Denk aan de robot uit de Verken: hij vertrok in $A\vc{1}{1}$ en zette telkens dezelfde stap $\vc{2}{1}$. Alle plaatsen waar hij kwam, liggen op één rechte. De vector $\vc{2}{1}$ zegt in welke richting die rechte loopt.
+
+\naast{Ook de vector $\vc{4}{2}$ geeft die richting, net als $\vc{-2}{-1}$: hun pijlen zijn evenwijdig met de rechte. Ze zijn veelvouden van $\vc{2}{1}$. De nulvector geeft geen richting, want hij heeft geen pijl.}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \rooster{-1}{1}{8}{-1}{1}{5}
+  \begin{scope}\knip{-1}{-1}{8}{5}\rechtepv{1}{1}{2}{1}{-2}{4}\end{scope}
+  \draw[vector] (1,1) -- (3,2) node[midway,above left,inner sep=1pt] {$\vc{2}{1}$};
+  \draw[vectorb] (3,.5) -- (7,2.5) node[pos=.65,below right,inner sep=1pt] {$\vc{4}{2}$};
+  \draw[vectorb] (5,4.5) -- (3,3.5) node[midway,above left,inner sep=1pt] {$\vc{-2}{-1}$};
+  \punt[below right]{1}{1}{A}
+\end{tikzpicture}}
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{richtingsvector}} van een rechte $l$ is een vector $\vect{u} \neq \nulvec$ waarvan de pijlen evenwijdig zijn met $l$.
+\end{theorie}
+
+Een rechte heeft dus oneindig veel richtingsvectoren: is $\vect{u}$ er een, dan is ook elk veelvoud $k\,\vect{u}$ met $k \neq 0$ er een. Ken je twee punten $A$ en $B$ van de rechte, dan is $\vect{AB}$ een richtingsvector. Hebben de componenten een gemeenschappelijke deler, dan mag je delen: zo rekent het makkelijker.
+
+\voorbeeld{}{Geef drie richtingsvectoren van de rechte $AB$, met $A\vc{-1}{3}$ en $B\vc{3}{1}$.\label{vb:h1-richting}}{%
+\uitleg{De vector van $A$ naar $B$ ligt op de rechte. Elk veelvoud ervan, behalve de nulvector, is ook een richtingsvector.}
+\naast{\begin{stappenvrij}{5.4cm}{3.6cm}
+\vect{AB} = (3 - ({-1}),\ 1 - 3) = \vc{4}{-2} & Eindpunt min beginpunt. \\[1ex]
+\tfrac12\,\vect{AB} = \vc{2}{-1} & Gedeeld door 2. \\[1ex]
+-\tfrac12\,\vect{AB} = \vc{-2}{1} & De andere zin mag ook.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \rooster{-2}{1}{5}{-1}{1}{4}
+  \begin{scope}\knip{-2}{-1}{5}{4}\rechtepv{-1}{3}{4}{-2}{-.5}{1.5}\end{scope}
+  \draw[vector] (-1,3) -- (3,1);
+  \punt[above]{-1}{3}{A} \punt[above right]{3}{1}{B}
+\end{tikzpicture}}
+Drie richtingsvectoren zijn $\vc{4}{-2}$, $\vc{2}{-1}$ en $\vc{-2}{1}$. Elk ander veelvoud, zoals $\vc{6}{-3}$, is ook goed.}
+
+\begin{oefeningen}
+\oef{h1-richting}
+\end{oefeningen}
+
+\subsection{De vectorvergelijking}
+
+Hoe beschrijf je alle punten van een rechte met één formule? Neem de rechte $l$ door $A$ met richtingsvector $\vect{u}$. Een punt $P$ ligt op $l$ precies dan als de vector $\vect{AP}$ evenwijdig is met $\vect{u}$, of als $P = A$. In het handboek Vectoren zag je dat dit betekent: $\vect{AP}$ is een veelvoud van $\vect{u}$. Noem dat getal $r$. Omdat $\vect{OP} = \vect{OA} + \vect{AP}$, wordt dat een formule voor de plaatsvector van $P$.
+
+\begin{theorie}
+\begin{stelling}{Vectorvergelijking van een rechte}
+Het punt $P$ ligt op de rechte door $A$ met richtingsvector $\vect{u}$ als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\vect{OP} = \vect{OA} + r\,\vect{u}}$ \quad voor een getal $r \in \R$.
+
+\vspace{1mm}
+Dit heet een \textbf{\textcolor{accent}{vectorvergelijking}} van de rechte. Het getal $r$ is de \textbf{\textcolor{accent}{parameter}}.
+\end{stelling}
+\begin{bewijs}
+$P$ ligt op de rechte als en slechts als $\vect{AP}$ evenwijdig is met $\vect{u}$ of $P = A$, dus als en slechts als
+\bewijsregel{\vect{AP} = r\,\vect{u} \quad\iff\quad \vect{OP} - \vect{OA} = r\,\vect{u} \quad\iff\quad \vect{OP} = \vect{OA} + r\,\vect{u}}
+voor een getal $r$. Bij $P = A$ hoort $r = 0$.
+\end{bewijs}
+\end{theorie}
+
+\naast{Elke waarde van $r$ geeft één punt van de rechte, en elk punt van de rechte hoort bij één waarde van $r$. Met $r = 0$ ben je in $A$, met $r = 1$ heb je één keer $\vect{u}$ afgelegd, met $r = 2$ twee keer. Een negatieve $r$ brengt je aan de andere kant van $A$, en met $r = \tfrac12$ kom je halfweg de eerste stap. Het punt $P$ in de figuur hoort bij $r = 2{,}75$. In de Verken was $r$ de tijd in seconden.
+
+\vspace{1mm}
+In de 3de graad schrijf je de vectorvergelijking ook korter als $P = A + r\,\vect{u}$: je vertrekt in $A$ en verschuift over $r\,\vect{u}$.}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \draw[accent,thick] (-2.2,-.6) -- (5.4,3.2) node[right] {$l$};
+  \foreach \r in {-1,0,1,2} \fill ({1.6*\r},{.8*\r}) circle (1.6pt);
+  \draw[vector] (0,0) -- (1.6,.8) node[midway,above left,inner sep=1pt] {$\vect{u}$};
+  \foreach \r in {-1,1,2} \node[below right,inner sep=1.5pt] at ({1.6*\r},{.8*\r}) {$r = \r$};
+  \node[below right,inner sep=1.5pt] at (0,0) {$A$\,($r = 0$)};
+  \fill (4.4,2.2) circle (1.6pt) node[above left,inner sep=1.5pt] {$P$};
+  \fill[black!60] (6,-.2) circle (1.5pt) node[below] {$O$};
+  \draw[hulpvector] (6,-.2) -- (4.5,2.05);
+  \node[grijs,right] at (5.3,1.1) {$\vect{OP}$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Geef een vectorvergelijking van de rechte door $A\vc{1}{-2}$ en $B\vc{4}{0}$. Bereken het punt van de rechte met parameter $r = 2$ en met $r = -\tfrac12$.\label{vb:h1-vectorverg}}{%
+\uitleg{We nemen $A$ als vast punt en $\vect{AB}$ als richtingsvector. Voor een punt vullen we $r$ in en rekenen component per component.}
+\naast{\begin{stappenvrij}{6.3cm}{3.6cm}
+\vect{u} = \vect{AB} = \vc{3}{2} & Eindpunt min beginpunt. \\[1ex]
+\vect{OP} = \vc{1}{-2} + r\,\vc{3}{2} & Vectorvergelijking. \\[1ex]
+r = 2\colon\ \vc{1}{-2} + \vc{6}{4} = \vc{7}{2} & Twee stappen voorbij $A$. \\[1ex]
+r = -\tfrac12\colon\ \vc{1}{-2} + \vc{-\tfrac32}{-1} = \vc{-\tfrac12}{-3} & Een halve stap terug.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.38cm,y=.38cm,font=\scriptsize]
+  \roosterleeg{-2}{1}{8}{-4}{1}{3}
+  \xgetallen{-2,2,6,8} \ygetallen{-2,2}
+  \begin{scope}\knip{-2}{-4}{8}{3}\rechtepv{1}{-2}{3}{2}{-1}{2.4}\end{scope}
+  \draw[vector] (1,-2) -- (4,0);
+  \punt[below right]{1}{-2}{A} \punt[above left]{4}{0}{B}
+  \punt[above left]{7}{2}{r = 2} \punt[below right]{-.5}{-3}{r = -\frac12}
+\end{tikzpicture}}
+De punten met $r = 2$ en $r = -\tfrac12$ zijn $\vc{7}{2}$ en $\vc{-\tfrac12}{-3}$.}
+
+Een rechte heeft veel vectorvergelijkingen: je mag elk punt van de rechte als vertrekpunt kiezen, en elke richtingsvector. Met $B$ als vertrekpunt en $\vc{6}{4}$ als richtingsvector krijg je dezelfde rechte, maar hoort bij elk punt een andere waarde van de parameter.
+
+\begin{oefeningen}
+\oef{h1-vectorverg}
+\end{oefeningen}
+
+%========================================================================================
+\section{De parametervoorstelling}
+
+\subsection{Twee vergelijkingen met een parameter}
+
+In een vectorvergelijking reken je altijd component per component. Schrijf je dat apart op, dan krijg je twee gewone vergelijkingen: één die zegt hoe je de $x$ van een punt berekent, en één voor de $y$. Voor de rechte uit het vorige voorbeeld is $\vc{x}{y} = \vc{1}{-2} + r\,\vc{3}{2}$, dus $x = 1 + 3r$ en $y = -2 + 2r$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{parametervoorstelling}} van de rechte door $A(x_A, y_A)$ met richtingsvector $\vect{u} = (u_x, u_y)$ is
+
+\vspace{1mm}
+\qquad $\formule{\stelsel{x &= x_A + r\,u_x}{y &= y_A + r\,u_y}}$ \qquad met $r \in \R$.
+\end{theorie}
+
+Zo'n parametervoorstelling werkt als een machine die punten maakt: kies $r$, en je krijgt de coördinaten van een punt van de rechte. De getallen voor $r$ zijn het vertrekpunt, de getallen bij $r$ de richtingsvector. Je leest ze er dus meteen af.
+
+\voorbeeld{}{Geef een parametervoorstelling van de rechte $l$ door $A\vc{2}{5}$ met richtingsvector $\vect{u} = \vc{-3}{1}$. Bereken drie punten van $l$.\label{vb:h1-param}}{%
+\uitleg{De coördinaten van $A$ komen voor de parameter, de componenten van $\vect{u}$ erbij. Daarna kiezen we drie waarden voor $r$.}
+\naast{\begin{stappenvrij}{4.4cm}{4.4cm}
+l\colon \pv{2 - 3r}{5 + r} & Vertrekpunt $\vc{2}{5}$, richting $\vc{-3}{1}$. \\[3ex]
+r = 1\colon\ \vc{-1}{6} & $x = 2 - 3$, $y = 5 + 1$. \\[1ex]
+r = -1\colon\ \vc{5}{4} & $x = 2 + 3$, $y = 5 - 1$. \\[1ex]
+r = 2\colon\ \vc{-4}{7} & $x = 2 - 6$, $y = 5 + 2$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.38cm,y=.38cm,font=\scriptsize]
+  \roosterleeg{-5}{1}{6}{-1}{1}{8}
+  \xgetallen{-4,-2,2,4,6} \ygetallen{2,4,6,8}
+  \begin{scope}\knip{-5}{-1}{6}{8}\rechtepv{2}{5}{-3}{1}{-1.3}{2.3}\end{scope}
+  \draw[vector] (2,5) -- (-1,6) node[midway,above,inner sep=2pt] {$\vect{u}$};
+  \punt[below]{2}{5}{A} \punt[above]{-1}{6}{} \punt[below]{5}{4}{} \punt[above]{-4}{7}{}
+\end{tikzpicture}}
+De punten $\vc{-1}{6}$, $\vc{5}{4}$ en $\vc{-4}{7}$ liggen op $l$. Ze liggen telkens één stap $\vc{-3}{1}$ uit elkaar, of een veelvoud ervan.}
+
+Omgekeerd kun je nagaan of een gegeven punt op de rechte ligt. Dan zoek je de parameter van dat punt: één waarde van $r$ die beide vergelijkingen tegelijk klopt.
+
+\voorbeeld{}{Gegeven is de rechte $l\colon x = -1 + 2r,\ y = 3 - r$. Ligt het punt $P\vc{5}{0}$ op $l$? En het punt $Q\vc{3}{2}$?\label{vb:h1-ligtop}}{%
+\uitleg{We berekenen $r$ uit de eerste vergelijking, en vullen die $r$ in de tweede in. Komt de juiste $y$ uit, dan ligt het punt op de rechte.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+P\colon\ 5 = -1 + 2r \iff r = 3 & Uit de $x$-coördinaat. \\[1ex]
+y = 3 - 3 = 0 & Klopt: $P$ ligt op $l$. \\[1ex]
+Q\colon\ 3 = -1 + 2r \iff r = 2 & Uit de $x$-coördinaat. \\[1ex]
+y = 3 - 2 = 1 \neq 2 & Klopt niet: $Q$ ligt niet op $l$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \rooster{-2}{1}{6}{-1}{1}{4}
+  \begin{scope}\knip{-2}{-1}{6}{4}\rechtepv{-1}{3}{2}{-1}{-.6}{3.6}\end{scope}
+  \punt[above]{5}{0}{P} \punt[above]{3}{2}{Q}
+  \fill[accent] (3,1) circle (1.5pt);
+\end{tikzpicture}}
+Het punt van $l$ met $x = 3$ is $\vc{3}{1}$: $Q$ ligt er één eenheid boven.}
+
+\begin{werkwijze}
+Ligt een punt op een rechte met een parametervoorstelling? Bereken $r$ uit een van de twee vergelijkingen. Vul die $r$ in de andere vergelijking in. Klopt ze, dan ligt het punt op de rechte. Is een component van de richtingsvector $0$, gebruik dan de andere vergelijking om $r$ te vinden.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-param}
+\end{oefeningen}
+
+\subsection{Eén rechte, veel parametervoorstellingen}
+
+Twee leerlingen schrijven een parametervoorstelling van dezelfde rechte, en ze krijgen niet hetzelfde. Is er een van beiden fout? Niet noodzakelijk: ze kunnen een ander vertrekpunt of een andere richtingsvector gekozen hebben. Je controleert het met de richtingsvectoren en met één punt.
+
+\voorbeeld{}{Stellen $l\colon x = 1 + 2r,\ y = 2 + r$ en $m\colon x = 5 - 4s,\ y = 4 - 2s$ dezelfde rechte voor?\label{vb:h1-zelfde}}{%
+\uitleg{Dezelfde rechte betekent: dezelfde richting, en een punt gemeen. We vergelijken de richtingsvectoren, en gaan na of het vertrekpunt van $m$ op $l$ ligt. Voor $m$ gebruiken we een andere letter voor de parameter, want het is een andere parametervoorstelling.}
+\begin{stappen}
+\vc{-4}{-2} = -2\,\vc{2}{1} & De richtingsvectoren zijn evenwijdig. \\[1ex]
+5 = 1 + 2r \iff r = 2, \quad y = 2 + 2 = 4 & Het punt $\vc{5}{4}$ van $m$ ligt op $l$.
+\end{stappen}
+Ja: $l$ en $m$ zijn dezelfde rechte. Het punt $\vc{5}{4}$ heeft bij $l$ parameter $r = 2$ en bij $m$ parameter $s = 0$.}
+
+\subsection{Een lijnstuk}
+
+Laat je de parameter niet alle reële getallen doorlopen, dan krijg je een stuk van de rechte. Neem de rechte $AB$ met vertrekpunt $A$ en richtingsvector $\vect{AB}$. Met $r = 0$ ben je in $A$, met $r = 1$ in $B$. De waarden van $r$ tussen $0$ en $1$ geven dus precies de punten van het lijnstuk $[AB]$, en $r = \tfrac12$ geeft het midden. Met $r \geqslant 0$ krijg je de halfrechte vanuit $A$ door $B$: zo vaart een boot die vertrekt in $A$.
+
+\voorbeeld{}{Gegeven zijn $A\vc{-2}{1}$ en $B\vc{4}{4}$. Bereken het punt van $[AB]$ dat op een derde van de afstand van $A$ naar $B$ ligt. Ligt $C\vc{8}{6}$ op het lijnstuk $[AB]$?\label{vb:h1-lijnstuk}}{%
+\uitleg{Met $A$ als vertrekpunt en $\vect{AB}$ als richtingsvector loopt $r$ van $0$ in $A$ tot $1$ in $B$. Een derde van de weg is $r = \tfrac13$. Voor $C$ zoeken we de parameter.}
+\naast{\begin{stappenvrij}{5cm}{3.6cm}
+\vect{AB} = \vc{6}{3}, \quad \pv{-2 + 6r}{1 + 3r} & Parametervoorstelling. \\[3ex]
+r = \tfrac13\colon\ \vc{-2 + 2}{1 + 1} = \vc{0}{2} & Een derde van $\vect{AB}$. \\[1ex]
+C\colon\ 8 = -2 + 6r \iff r = \tfrac53 & \\[1ex]
+y = 1 + 5 = 6 & $C$ ligt op de rechte.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.38cm,y=.38cm,font=\scriptsize]
+  \roosterleeg{-3}{1}{9}{-1}{1}{7}
+  \xgetallen{-2,2,4,6,8} \ygetallen{2,4,6}
+  \begin{scope}\knip{-3}{-1}{9}{7}\rechtepv[thin,lijngrijs]{-2}{1}{6}{3}{-.3}{1.9}\end{scope}
+  \draw[accent,line width=1.6pt] (-2,1) -- (4,4);
+  \punt[above left]{-2}{1}{A} \punt[above left]{4}{4}{B} \punt[below right]{0}{2}{} \punt[above left]{8}{6}{C}
+\end{tikzpicture}}
+Het gevraagde punt is $\vc{0}{2}$. Het punt $C$ ligt wel op de rechte $AB$, maar zijn parameter $\tfrac53$ is groter dan $1$: het ligt voorbij $B$, en dus niet op het lijnstuk.}
+
+\begin{oefeningen}
+\oef{h1-lijnstuk}
+\end{oefeningen}
+
+%========================================================================================
+\section{De cartesiaanse vergelijking}
+
+\subsection{Een vergelijking zonder parameter}
+
+Een parametervoorstelling is handig om punten te maken. Om na te gaan of een punt op de rechte ligt, moest je wel telkens eerst $r$ zoeken. Met een vergelijking zonder parameter gaat dat sneller. Zo'n vergelijking ken je al uit het handboek Stelsels: elke vergelijking $ax + by = c$, met $a$ en $b$ niet allebei $0$, stelt een rechte voor. Een punt ligt op die rechte als zijn coördinaten de vergelijking kloppen. Is $b \neq 0$, dan kun je $y$ vrijmaken, en krijg je $y = mx + q$ uit het handboek Functies, met rico $m$. Is $b = 0$, dan is het een verticale rechte $x = k$, die geen rico heeft.
+
+\begin{theorie}
+Een vergelijking van de vorm
+
+\vspace{1mm}
+\qquad $\formule{ax + by = c}$ \qquad met $a$ en $b$ niet allebei $0$
+
+\vspace{1mm}
+die een rechte voorstelt, heet een \textbf{\textcolor{accent}{cartesiaanse vergelijking}} van die rechte.
+\end{theorie}
+
+De naam komt van de Franse filosoof en wiskundige René Descartes (in het Latijn Cartesius), die in 1637 voor het eerst meetkunde met coördinaten beschreef. Ook $y = mx + q$ en $x = k$ zijn cartesiaanse vergelijkingen.
+
+\subsection{Van parametervoorstelling naar cartesiaanse vergelijking}
+
+Hoe kom je van een parametervoorstelling tot een vergelijking zonder $r$? Je moet de parameter laten verdwijnen. Dat lukt zoals bij een stelsel: haal $r$ uit de ene vergelijking en vul in in de andere, of combineer de twee vergelijkingen zodat $r$ wegvalt.
+
+\voorbeeld{}{Geef een cartesiaanse vergelijking van de rechte $l\colon x = 1 + 2r,\ y = -1 + 3r$.\label{vb:h1-elimineer}}{%
+\uitleg{We maken $r$ vrij uit de eerste vergelijking en vullen dat in de tweede in. Zo blijft een vergelijking in $x$ en $y$ over.}
+\begin{stappen}
+r = \frac{x - 1}{2} & Uit $x = 1 + 2r$. \\[1ex]
+y = -1 + 3 \cdot \frac{x - 1}{2} & Ingevuld in de tweede vergelijking. \\[1ex]
+2y = -2 + 3x - 3 & Beide leden maal 2. \\[1ex]
+3x - 2y = 5 & Termen met $x$ en $y$ naar links.
+\end{stappen}
+Controle met het punt $\vc{1}{-1}$ van $l$ (bij $r = 0$): $3 - 2 \cdot ({-1}) = 5$. Het kan ook met de combinatiemethode: $3x - 2y = 3 + 6r + 2 - 6r = 5$, want $3 \cdot 2r$ en $2 \cdot 3r$ heffen elkaar op.}
+
+\begin{werkwijze}
+Van parametervoorstelling naar cartesiaanse vergelijking: maak $r$ vrij uit één vergelijking en vul in in de andere, of tel veelvouden van de twee vergelijkingen op zodat $r$ wegvalt. Schrijf het resultaat als $ax + by = c$, en controleer met het vertrekpunt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-elimineer}
+\end{oefeningen}
+
+\subsection{Richtingsvector en rico}
+
+Een richtingsvector en een rico zeggen allebei hoe een rechte loopt. Hoe hangen ze samen? Ga je langs de rechte één keer de richtingsvector $\vect{u} = (u_x, u_y)$ ver, dan verandert $x$ met $u_x$ en $y$ met $u_y$. Dat is precies een trapje uit het handboek Functies, en de rico is \textit{verandering van $y$ gedeeld door verandering van $x$}.
+
+\naast{\begin{theorie}
+\begin{stelling}{Richtingsvector en rico}
+Een rechte met richtingsvector $\vect{u} = (u_x, u_y)$ en $u_x \neq 0$ heeft als rico
+
+\vspace{1mm}
+\qquad $\formule{m = \frac{u_y}{u_x}}$
+
+\vspace{1mm}
+Omgekeerd heeft een rechte met rico $m$ de richtingsvector $\formule{\vc{1}{m}}$.
+\end{stelling}
+\end{theorie}}{\begin{tikzpicture}[x=.55cm,y=.55cm,font=\scriptsize]
+  \draw[accent,thick] (-.6,-.4) -- (4.6,3.5);
+  \draw[vector] (0,0) -- (4,3) node[pos=.6,above left,inner sep=1pt] {$\vect{u}$};
+  \trapje{0}{0}{4}{3}{$u_x$}{$u_y$}
+\end{tikzpicture}}
+
+Is $u_x = 0$, dan wijst de richtingsvector recht omhoog of omlaag: de rechte is verticaal en heeft geen rico. Een richtingsvector bestaat wel voor elke rechte, ook een verticale. Dat is een voordeel van vectoren.
+
+\voorbeeld{}{Een rechte gaat door $A\vc{2}{1}$ en heeft richtingsvector $\vc{4}{-6}$. Bereken de rico, en geef een vergelijking van de vorm $y = mx + q$.\label{vb:h1-rico}}{%
+\uitleg{De rico is de tweede component gedeeld door de eerste. Daarna vinden we $q$ zoals in Functies: vul het punt $A$ in.}
+\begin{stappen}
+m = \frac{-6}{4} = -\frac32 & Rico uit de richtingsvector. \\[1ex]
+1 = -\tfrac32 \cdot 2 + q \iff q = 4 & $A\vc{2}{1}$ ligt op de rechte. \\[1ex]
+y = -\tfrac32 x + 4 & Controle: $\vc{6}{-5} = A + \vect{u}$ geeft $-9 + 4 = -5$.
+\end{stappen}}
+
+\voorbeeld{}{Geef een parametervoorstelling van de rechte $y = 2x - 3$.\label{vb:h1-ricoparam}}{%
+\uitleg{De rico is $2$, dus $\vc{1}{2}$ is een richtingsvector. Een punt vinden we door een waarde voor $x$ te kiezen, bijvoorbeeld $x = 0$.}
+\begin{stappen}
+\vect{u} = \vc{1}{2}, \quad A\vc{0}{-3} & Rico 2; voor $x = 0$ is $y = -3$. \\[1ex]
+\pv{r}{-3 + 2r} & Parametervoorstelling.
+\end{stappen}
+Hier is de parameter $r$ gewoon gelijk aan $x$: dat gebeurt altijd met de richtingsvector $\vc{1}{m}$ en een punt op de $y$-as.}
+
+\begin{oefeningen}
+\oef{h1-rico}
+\end{oefeningen}
+
+\subsection{Van cartesiaanse vergelijking naar parametervoorstelling}
+
+Ken je een cartesiaanse vergelijking $ax + by = c$, dan vind je een punt door een waarde voor $x$ of $y$ te kiezen. En een richtingsvector? Voor $b \neq 0$ is de rico $-\tfrac{a}{b}$, dus $\vc{1}{-\tfrac{a}{b}}$ is een richtingsvector, en $b$ keer die vector ook: $\vc{b}{-a}$. Die laatste werkt ook als $b = 0$.
+
+\begin{theorie}
+\begin{stelling}{Richtingsvector uit een cartesiaanse vergelijking}
+De rechte $ax + by = c$ heeft als richtingsvector
+
+\vspace{1mm}
+\qquad $\formule{\vect{u} = \vc{b}{-a}}$
+\end{stelling}
+\begin{bewijs}
+$\vc{b}{-a} \neq \nulvec$, want $a$ en $b$ zijn niet allebei $0$. Neem een punt $\vc{x_0}{y_0}$ van de rechte, dus $ax_0 + by_0 = c$. Voor elk getal $r$ ligt dan ook het punt $\vc{x_0 + rb}{y_0 - ra}$ op de rechte, want
+\bewijsregel{a(x_0 + rb) + b(y_0 - ra) = ax_0 + arb + by_0 - bra = ax_0 + by_0 = c.}
+Alle punten die je vanuit $\vc{x_0}{y_0}$ bereikt met veelvouden van $\vc{b}{-a}$, liggen dus op de rechte.
+\end{bewijs}
+\end{theorie}
+
+Kort gezegd: \textit{wissel $a$ en $b$ van plaats, en verander één teken}. Ook $\vc{-b}{a}$ is een richtingsvector: het tegengestelde.
+
+\voorbeeld{}{Geef een parametervoorstelling van de rechte $l\colon 2x + 3y = 6$.\label{vb:h1-cartparam}}{%
+\uitleg{Met $a = 2$ en $b = 3$ is $\vc{3}{-2}$ een richtingsvector. Een punt vinden we met $x = 0$: dan is $3y = 6$, dus $y = 2$.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+\vect{u} = \vc{3}{-2}, \quad A\vc{0}{2} & Richtingsvector $\vc{b}{-a}$ en een punt. \\[1ex]
+l\colon \pv{3r}{2 - 2r} & Parametervoorstelling.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \rooster{-2}{1}{5}{-1}{1}{4}
+  \begin{scope}\knip{-2}{-1}{5}{4}\rechteabc{-2}{5}{2}{3}{6}\end{scope}
+  \draw[vector] (0,2) -- (3,0);
+  \punt[above right]{0}{2}{A}
+\end{tikzpicture}}
+Controle: $2 \cdot 3r + 3(2 - 2r) = 6r + 6 - 6r = 6$. Elk punt van de parametervoorstelling klopt dus de vergelijking.}
+
+Voor een verticale rechte, zoals $x = 4$, is $a = 1$ en $b = 0$. Dan is $\vc{0}{-1}$ een richtingsvector, of $\vc{0}{1}$, en een parametervoorstelling is $x = 4$, $y = r$.
+
+\begin{werkwijze}
+Van cartesiaanse vergelijking $ax + by = c$ naar parametervoorstelling: neem $\vc{b}{-a}$ als richtingsvector (deel door een gemeenschappelijke factor als dat kan). Zoek een punt door $x = 0$ of $y = 0$ te kiezen, of een andere handige waarde. Controleer door de parametervoorstelling in de vergelijking in te vullen.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-cartparam}
+\end{oefeningen}
+
+\subsection{Overzicht}
+
+Dezelfde rechte kun je dus op vier manieren beschrijven. De tabel toont ze voor de rechte door $A\vc{1}{2}$ met richtingsvector $\vc{2}{1}$.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{vorm} & \textbf{voorbeeld} & \textbf{handig om} \\ \hline
+vectorvergelijking & $\vect{OP} = \vc{1}{2} + r\,\vc{2}{1}$ & de meetkunde te zien \\ \hline
+parametervoorstelling & $x = 1 + 2r,\ \ y = 2 + r$ & punten te maken, een beweging \\ \hline
+cartesiaanse vergelijking & $x - 2y = -3$ & na te gaan of een punt erop ligt \\ \hline
+$y = mx + q$ & $y = \tfrac12 x + \tfrac32$ & de rico en de grafiek te zien \\ \hline
+\end{tabular}
+\end{center}
+
+Bij de cartesiaanse vergelijking hoort de richtingsvector $\vc{b}{-a} = \vc{-2}{-1}$: het tegengestelde van $\vc{2}{1}$, dus ook goed. Een verticale rechte heeft geen vergelijking $y = mx + q$; de drie andere vormen bestaan voor elke rechte.
+
+%========================================================================================
+\section{Twee rechten}
+
+\subsection{Snijdend, evenwijdig of samenvallend}
+
+In het handboek Stelsels zag je drie mogelijkheden voor twee rechten in het vlak: ze snijden elkaar in één punt, ze zijn evenwijdig en hebben geen punt gemeen, of ze vallen samen. Je herkende ze aan de rico's: een verschillende rico betekent snijdend. Maar een verticale rechte heeft geen rico. Met richtingsvectoren werkt het altijd: de rico bepaalt de richting, en de richtingsvector ook.
+
+\begin{theorie}
+\begin{stelling}{Onderlinge ligging van twee rechten}
+Neem een rechte $l$ met richtingsvector $\vect{u}$ en een rechte $m$ met richtingsvector $\vect{v}$.
+\begin{itemize}[nosep,leftmargin=5mm]
+\item Zijn $\vect{u}$ en $\vect{v}$ niet evenwijdig, dan zijn $l$ en $m$ \textbf{\textcolor{accent}{snijdend}}: ze hebben precies één punt gemeen.
+\item Zijn $\vect{u}$ en $\vect{v}$ evenwijdig en hebben $l$ en $m$ een punt gemeen, dan zijn ze \textbf{\textcolor{accent}{samenvallend}}.
+\item Zijn $\vect{u}$ en $\vect{v}$ evenwijdig en hebben $l$ en $m$ geen punt gemeen, dan zijn ze \textbf{\textcolor{accent}{strikt evenwijdig}}.
+\end{itemize}
+\end{stelling}
+\end{theorie}
+
+Evenwijdige vectoren herken je zoals in het handboek Vectoren: de ene is een veelvoud van de andere. Samenvallende rechten noem je soms ook evenwijdig, want ze hebben dezelfde richting. Wil je zeggen dat ze geen punt gemeen hebben, dan zeg je \textit{strikt} evenwijdig.
+
+\voorbeeld{}{Gegeven zijn de rechten $l\colon x = 1 + 2r,\ y = 3 - r$, $m\colon x = 5 - 4s,\ y = 1 + 2s$ en $k\colon x = 2t,\ y = 2 - t$. Onderzoek de ligging van $l$ en $m$, en van $l$ en $k$.\label{vb:h1-ligging}}{%
+\uitleg{De drie richtingsvectoren zijn evenwijdig, dus de vraag is telkens of er een punt gemeen is. We gaan na of het vertrekpunt $A\vc{1}{3}$ van $l$ op $m$ en op $k$ ligt.}
+\naast{\begin{stappenvrij}{6.4cm}{3.6cm}
+\vc{-4}{2} = -2\,\vc{2}{-1} & $m$ is evenwijdig met $l$. \\[1ex]
+1 = 5 - 4s \iff s = 1,\ \ y = 1 + 2 = 3 & $A$ ligt op $m$. \\[1ex]
+\vc{2}{-1} = \vc{2}{-1} & $k$ is evenwijdig met $l$. \\[1ex]
+1 = 2t \iff t = \tfrac12,\ \ y = 2 - \tfrac12 \neq 3 & $A$ ligt niet op $k$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{-1}{1}{7}{-1}{1}{4}
+  \xgetallen{2,4,6} \ygetallen{1,2,3}
+  \begin{scope}\knip{-1}{-1}{7}{4}
+    \rechtepv{1}{3}{2}{-1}{-1}{3}
+    \rechtepv[tweede]{0}{2}{2}{-1}{-1}{3.5}
+  \end{scope}
+  \punt[above right]{1}{3}{A}
+  \node[accent,above] at (6.2,.4) {$l = m$};
+  \node[inkt,below] at (5.4,-.6) {$k$};
+\end{tikzpicture}}
+$l$ en $m$ zijn samenvallend: het is twee keer dezelfde rechte. $l$ en $k$ zijn strikt evenwijdig.}
+
+\voorbeeld{}{Onderzoek de ligging van $l\colon x = 3 - r,\ y = 1 + 2r$ en de verticale rechte $m\colon x = 3$.\label{vb:h1-ligging2}}{%
+\uitleg{De rechte $m$ heeft geen rico, maar wel een richtingsvector: $\vc{0}{1}$. We vergelijken die met de richtingsvector van $l$.}
+\begin{stappen}
+\vc{-1}{2} \text{ en } \vc{0}{1} & Geen veelvoud van elkaar: $-1 \neq k \cdot 0$. \\[1ex]
+3 - r = 3 \iff r = 0, \quad \vc{3}{1} & Het snijpunt: het punt van $l$ met $x = 3$.
+\end{stappen}
+$l$ en $m$ zijn snijdend, in het punt $\vc{3}{1}$.}
+
+\begin{werkwijze}
+De onderlinge ligging van twee rechten: zoek van elke rechte een richtingsvector. Zijn ze niet evenwijdig, dan snijden de rechten elkaar. Zijn ze evenwijdig, ga dan na of een punt van de ene rechte op de andere ligt: zo ja, dan vallen ze samen; zo nee, dan zijn ze strikt evenwijdig.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-ligging}
+\end{oefeningen}
+
+\subsection{Het snijpunt berekenen}
+
+Snijden twee rechten elkaar, waar dan? Het snijpunt ligt op beide rechten, dus zijn coördinaten voldoen aan beide beschrijvingen. Hoe je rekent, hangt af van de vorm waarin de rechten gegeven zijn. Zijn het twee cartesiaanse vergelijkingen, dan los je het stelsel op, zoals in het handboek Stelsels. Is één rechte gegeven met een parametervoorstelling, dan is er een kortere weg.
+
+\voorbeeld{}{Bereken het snijpunt van $l\colon x = 1 + 2r,\ y = -2 + r$ en $m\colon x + 3y = 5$.\label{vb:h1-snij1}}{%
+\uitleg{Elk punt van $l$ heeft de vorm $\vc{1 + 2r}{-2 + r}$. We zoeken de $r$ waarvoor dat punt ook de vergelijking van $m$ klopt: vul $x$ en $y$ in.}
+\naast{\begin{stappenvrij}{5.6cm}{4cm}
+(1 + 2r) + 3(-2 + r) = 5 & Invullen in $m$. \\[1ex]
+5r - 5 = 5 \iff r = 2 & Eén onbekende: $r$. \\[1ex]
+S\vc{1 + 4}{-2 + 2} = \vc{5}{0} & $r = 2$ in $l$ invullen.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{-1}{1}{7}{-3}{1}{2}
+  \xgetallen{2,4,6} \ygetallen{-2,1,2}
+  \begin{scope}\knip{-1}{-3}{7}{2}
+    \rechtepv{1}{-2}{2}{1}{-1}{3}
+    \rechteabc[tweede]{-1}{7}{1}{3}{5}
+  \end{scope}
+  \punt[below right]{5}{0}{S}
+  \node[accent,right] at (6.4,1.6) {$l$}; \node[inkt,below] at (6.8,-.6) {$m$};
+\end{tikzpicture}}
+Controle: $5 + 3 \cdot 0 = 5$, dus $S\vc{5}{0}$ ligt ook op $m$.}
+
+Zijn beide rechten gegeven met een parametervoorstelling, dan zoek je een punt dat bij een waarde van de parameter van $l$ en bij een waarde van de parameter van $m$ hoort. Die twee waarden zijn meestal niet gelijk. Gebruik dus twee verschillende letters, bijvoorbeeld $r$ en $s$: dan krijg je een stelsel met twee onbekenden.
+
+\voorbeeld{}{Bereken het snijpunt van $l\colon x = -1 + 2r,\ y = 1 + r$ en $m\colon x = 4 - s,\ y = 1 + 2s$.\label{vb:h1-snij2}}{%
+\uitleg{In het snijpunt zijn de $x$-coördinaten gelijk en de $y$-coördinaten ook. Dat geeft twee vergelijkingen in $r$ en $s$. Uit de tweede vinden we meteen $r = 2s$, dus substitutie ligt voor de hand.}
+\naast{\begin{stappenvrij}{5.6cm}{4cm}
+\stelsel{-1 + 2r &= 4 - s}{1 + r &= 1 + 2s} & Gelijke $x$, gelijke $y$. \\[3ex]
+r = 2s, \quad -1 + 4s = 4 - s & Substitutie. \\[1ex]
+s = 1, \quad r = 2 & \\[1ex]
+S\vc{-1 + 4}{1 + 2} = \vc{3}{3} & $r = 2$ in $l$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+  \roosterleeg{-2}{1}{5}{-1}{1}{5}
+  \xgetallen{-2,2,4} \ygetallen{2,4}
+  \begin{scope}\knip{-2}{-1}{5}{5}
+    \rechtepv{-1}{1}{2}{1}{-.6}{3}
+    \rechtepv[tweede]{4}{1}{-1}{2}{-1}{2.2}
+  \end{scope}
+  \punt[left]{3}{3}{S}
+  \node[accent,above] at (4.6,3.8) {$l$}; \node[inkt,left] at (2.4,4.6) {$m$};
+\end{tikzpicture}}
+Controle met $m$: $s = 1$ geeft $\vc{4 - 1}{1 + 2} = \vc{3}{3}$. Had je voor beide rechten de letter $r$ gebruikt, dan kreeg je $-1 + 2r = 4 - r$, dus $r = \tfrac53$, en $1 + r = 1 + 2r$, dus $r = 0$. Dat lukt niet tegelijk, en je zou ten onrechte besluiten dat er geen snijpunt is.}
+
+\begin{werkwijze}
+Het snijpunt van twee rechten. Twee cartesiaanse vergelijkingen: los het stelsel op. Een parametervoorstelling en een cartesiaanse vergelijking: vul $x$ en $y$ van de parametervoorstelling in de vergelijking in, los op naar $r$, en vul $r$ in de parametervoorstelling in. Twee parametervoorstellingen: geef de parameters verschillende letters, stel de $x$'en gelijk en de $y$'s gelijk, en los het stelsel in $r$ en $s$ op. Controleer het snijpunt met de andere rechte.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-snijpunt}
+\end{oefeningen}
+
+Nu kunnen we de veerboot en de zeilboot volgen. Bij een beweging met een vaste snelheid is de parameter de tijd: na $t$ keer 10 minuten is de veerboot $t$ keer de stap $\vc{2}{1}$ verder.
+
+\voorbeeld{}{Terug naar het probleem. De veerboot vertrekt om 10.00 uur in $H\vc{0}{1}$ en vaart elke 10 minuten $\vc{2}{1}$ verder. De zeilboot vertrekt op hetzelfde moment in $Z\vc{8}{0}$ en vaart elke 10 minuten $\vc{-1}{2}$ verder. Kruisen hun koersen? Waar? Botsen ze?\label{vb:h1-terug}}{%
+\uitleg{De koersen zijn twee rechten met de tijd als parameter: $t$ voor de veerboot en $s$ voor de zeilboot, telkens in stappen van 10 minuten. Het snijpunt is waar de koersen kruisen. Een botsing is er alleen als beide boten daar op hetzelfde moment zijn, dus als $t = s$.}
+\naast{\begin{stappenvrij}{5.6cm}{3.2cm}
+\text{veerboot}\colon \pv{2t}{1 + t} & Vertrek in $H$, stap $\vc{2}{1}$. \\[3ex]
+\text{zeilboot}\colon \pv{8 - s}{2s} & Vertrek in $Z$, stap $\vc{-1}{2}$. \\[3ex]
+\stelsel{2t &= 8 - s}{1 + t &= 2s} & Gelijke plaats. \\[3ex]
+s = 8 - 2t, \quad 1 + t = 16 - 4t & Substitutie. \\[1ex]
+t = 3, \quad s = 2 & \\[1ex]
+S\vc{6}{4} & $t = 3$ in de koers van de veerboot.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.4cm,y=.4cm,font=\scriptsize]
+  \roosterleeg{0}{1}{9}{0}{1}{6}
+  \xgetallen{2,4,6,8} \ygetallen{2,4,6}
+  \begin{scope}\knip{0}{0}{9}{6}
+    \rechtepv{0}{1}{2}{1}{0}{4.5}
+    \rechtepv[tweede]{8}{0}{-1}{2}{0}{3}
+  \end{scope}
+  \foreach \t in {1,2} \fill[accent] ({2*\t},{1+\t}) circle (1.5pt);
+  \fill[inkt] (7,2) circle (1.5pt);
+  \punt[left]{0}{1}{H} \punt[above right]{8}{0}{Z} \punt[left]{6}{4}{S}
+  \node[accent,above] at (4,3) {10.20};
+  \node[inkt,right] at (6,4) {10.20};
+\end{tikzpicture}}
+De koersen kruisen in $S\vc{6}{4}$. De zeilboot is daar na $s = 2$ stappen, om 10.20 uur. De veerboot komt er pas na $t = 3$ stappen, om 10.30 uur. Ze botsen dus niet: als de zeilboot door $S$ vaart, is de veerboot in $\vc{4}{3}$, op $\sqrt{2^2 + 1^2} = \sqrt5 \approx 2{,}24$~km van het kruispunt. Toch kijkt de kapitein best uit: het scheelt maar 10 minuten.}
+
+Dit voorbeeld toont waarom twee rechten elk een eigen parameter krijgen. Het snijpunt van twee rechten is een punt dat op beide ligt, ongeacht de waarde van de parameter. Twee bewegende voorwerpen botsen alleen als ze er op hetzelfde moment zijn: dan moet ook de parameter gelijk zijn.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-param}{oef:h1-param}%
+  \fv{oef:h1-t2}{vb:h1-ligtop}{oef:h1-param}%
+  \fv{oef:h1-t3}{vb:h1-elimineer}{oef:h1-elimineer}%
+  \fv{oef:h1-t4}{vb:h1-cartparam}{oef:h1-cartparam}%
+  \fv{oef:h1-t5}{vb:h1-rico}{oef:h1-rico}%
+  \fv{oef:h1-t6}{vb:h1-ligging}{oef:h1-ligging}%
+  \fv{oef:h1-t7}{vb:h1-snij1}{oef:h1-snijpunt}%
+  \fv{oef:h1-t8}{vb:h1-terug}{oef:h1-snijpunt}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een richtingsvector is, de vectorvergelijking en de parametervoorstelling van een rechte (met een figuur waarop je $r = 0$, $r = 1$ en $r = -1$ aanduidt), hoe je nagaat of een punt op een rechte ligt, welke waarden van $r$ een lijnstuk geven, hoe je van een parametervoorstelling naar een cartesiaanse vergelijking gaat en terug, het verband tussen een richtingsvector en de rico, de drie mogelijke liggingen van twee rechten, en hoe je een snijpunt berekent in elk geval. Vergelijk daarna met de kaders.
+\fi

@@ -1,0 +1,419 @@
+%----------------------------------------------------------------------------------------
+% DE RESTSTELLING EN ONTBINDEN IN FACTOREN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: dit handboek staat alleen in pakket 5 (B+S'', LPD B6). Er zijn dus geen \alleenvoor nodig.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{De reststelling en ontbinden}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Uit een rechthoekig stuk karton van $16$~cm op $10$~cm knip je in elke hoek een vierkantje weg. Daarna plooi je de randen omhoog tot een open doosje. Het doosje moet precies $120$~cm$^3$ inhouden. Hoe groot moeten de vierkantjes zijn? Met vierkantjes van $3$~cm wordt de bodem $10$~cm op $4$~cm, en de inhoud $10 \cdot 4 \cdot 3 = 120$~cm$^3$: dat lukt. Maar is $3$~cm de enige mogelijkheid? De vergelijking die je opstelt, is van de derde graad, en daarvoor ken je nog geen methode.}{\begin{tikzpicture}[x=.28cm,y=.28cm,font=\scriptsize]
+  \fill[accent!15] (0,0) rectangle (16,10);
+  \fill[white] (0,0) rectangle (3,3) (13,0) rectangle (16,3) (0,7) rectangle (3,10) (13,7) rectangle (16,10);
+  \draw[accent,thick] (3,0) -- (13,0) -- (13,3) -- (16,3) -- (16,7) -- (13,7) -- (13,10) -- (3,10) -- (3,7) -- (0,7) -- (0,3) -- (3,3) -- cycle;
+  \draw[accent,dashed] (3,3) rectangle (13,7);
+  \draw[grijs,dashed] (0,0) rectangle (3,3) (13,0) rectangle (16,3) (0,7) rectangle (3,10) (13,7) rectangle (16,10);
+  \node[below] at (8,0) {$16$ cm};
+  \node[left] at (0,5) {$10$ cm};
+  \node at (1.5,1.5) {$x$};
+  \draw[inkt,<->] (13,8.5) -- (16,8.5) node[midway,above] {$x$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD B6 (dit hoofdstuk: de reststelling met bewijs, deelbaarheid door $x - a$ en de factorstelling, de gehele delers van de constante term als kandidaat-nulwaarden, veeltermen van graad $3$ en $4$ ontbinden in factoren, en vergelijkingen van hogere graad oplossen). Voorkennis: hoofdstuk 1 (het schema van Horner), en uit Tweedegraadsfuncties de product-nulregel, de discriminant en het ontbinden met de oplossingen $a(x - x_1)(x - x_2)$. Het bewijs van de reststelling is kort en mag als voorbeeld van een rechtstreeks bewijs dienen (B1). Het probleem komt terug in voorbeeld~\ref{vb:h2-terug}.}
+
+In hoofdstuk 1 leerde je delen door $x - a$. Je zag ook dat de rest van $(2x^3 - 3x^2 + 5) : (x - 2)$ gelijk is aan $9$. In dit hoofdstuk ontdek je dat je die rest kunt vinden zonder te delen. Dat leidt tot een manier om een factor $x - a$ te vinden, en zo ontbind je veeltermen van graad $3$ en $4$ in factoren. Met de product-nulregel los je daarna vergelijkingen van hogere graad op, zoals die van het doosje.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De reststelling}
+
+\subsection{De rest zonder te delen}
+
+In voorbeeld~\ref{vb:h1-staart} van hoofdstuk 1 deelden we $A(x) = 2x^3 - 3x^2 + 5$ door $x - 2$. De rest was $9$. Bereken nu de getalwaarde: $A(2) = 16 - 12 + 5 = 9$. Toeval? In de Verken-opgave vond je hetzelfde bij drie andere delingen: de rest van de deling door $x - a$ is telkens $A(a)$.
+
+Waarom is dat zo? Schrijf de deling als deeltal $=$ deler $\cdot$ quotiënt $+$ rest:
+\[2x^3 - 3x^2 + 5 = (x - 2)(2x^2 + x + 2) + 9.\]
+Dat geldt voor elke $x$, dus ook voor $x = 2$. Dan is de factor $x - 2$ nul, en het hele product valt weg: $A(2) = 0 \cdot (\ldots) + 9 = 9$. Die redenering werkt voor elke veelterm en elk getal $a$.
+
+\begin{theorie}
+\begin{stelling}{Reststelling}
+De rest van de deling van een veelterm $A(x)$ door $x - a$ is de getalwaarde
+
+\qquad $\formule{R = A(a)}$.
+\end{stelling}
+\begin{bewijs}
+De deler $x - a$ heeft graad $1$, dus de rest is een getal $R$. Volgens de Euclidische deling is voor elke $x$
+\bewijsregel{A(x) = (x - a) \cdot Q(x) + R.}
+Vul $x = a$ in: $A(a) = (a - a) \cdot Q(a) + R = 0 \cdot Q(a) + R = R$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: de rest bij delen door $x - a$ is wat je krijgt als je $a$ invult. Let op het teken: bij de deler $x + 3$ vul je $-3$ in, want $x + 3 = x - (-3)$.
+
+\voorbeeld{}{Bereken de rest van $(x^{10} - 2x^5 + 3) : (x + 1)$.\label{vb:h2-rest}}{%
+\uitleg{Met het schema van Horner heb je elf coëfficiënten nodig, waarvan acht nullen. Met de reststelling gaat het sneller: de deler is $x - (-1)$, dus we vullen $-1$ in.}
+\begin{stappen}
+R = (-1)^{10} - 2 \cdot (-1)^5 + 3 & De reststelling met $a = -1$. \\
+= 1 - 2 \cdot (-1) + 3 = 6 & Een even macht van $-1$ is $1$, een oneven macht $-1$.
+\end{stappen}}
+
+De reststelling geeft alleen de rest. Heb je ook het quotiënt nodig, dan deel je met het schema van Horner.
+
+\begin{oefeningen}
+\oef{h2-rest}
+\end{oefeningen}
+
+Met de reststelling kun je ook een onbekend getal in een veelterm bepalen, als je de rest kent. De rest geeft dan een vergelijking.
+
+\voorbeeld{}{Bepaal $k$ zo dat de deling van $x^3 + kx^2 - 5x + 2$ door $x - 3$ de rest $5$ heeft.\label{vb:h2-restpar}}{%
+\uitleg{Volgens de reststelling is de rest de getalwaarde voor $x = 3$. Die moet $5$ zijn.}
+\begin{stappen}
+3^3 + k \cdot 3^2 - 5 \cdot 3 + 2 = 5 & De rest is $A(3)$. \\
+9k + 14 = 5, \text{ dus } k = -1 & Een eerstegraadsvergelijking in $k$.
+\end{stappen}
+Controle: voor $A(x) = x^3 - x^2 - 5x + 2$ is $A(3) = 27 - 9 - 15 + 2 = 5$.}
+
+\begin{oefeningen}
+\oef{h2-restpar}
+\end{oefeningen}
+
+%========================================================================================
+\section{Deelbaarheid door \texorpdfstring{$x - a$}{x - a}}
+
+Wanneer is een veelterm deelbaar door $x - a$? Als de rest $0$ is. En volgens de reststelling is die rest $A(a)$. Je hoeft dus niet te delen om te weten of de deling opgaat: je vult $a$ in en kijkt of je $0$ krijgt. Een getal waarvoor een veelterm nul wordt, heeft een naam, zoals bij functies.
+
+\begin{theorie}
+Het getal $a$ is een \textbf{\textcolor{accent}{nulwaarde}} van de veelterm $A(x)$ als $\formule{A(a) = 0}$.
+
+\begin{stelling}{Factorstelling}
+Een veelterm $A(x)$ is deelbaar door $x - a$ als en slechts als $a$ een nulwaarde is van $A(x)$:
+
+\qquad $\formule{A(x) = (x - a) \cdot Q(x) \iff A(a) = 0}$.
+\end{stelling}
+\begin{bewijs}
+Volgens de reststelling is de rest van $A(x) : (x - a)$ gelijk aan $A(a)$. De deling gaat op als en slechts als die rest $0$ is, dus als en slechts als $A(a) = 0$.
+\end{bewijs}
+\end{theorie}
+
+Ken je een nulwaarde $a$, dan kun je de factor $x - a$ afzonderen: het quotiënt $Q(x)$ vind je met het schema van Horner. Dat ken je al van tweedegraadsveeltermen. De nulwaarden van $x^2 - x - 12$ zijn $4$ en $-3$, en de ontbinding is $(x - 4)(x + 3)$: bij elke nulwaarde hoort een factor.
+
+\voorbeeld{}{Is $A(x) = x^3 + 2x^2 - 5x - 6$ deelbaar door $x - 1$? En door $x + 1$? Schrijf $A(x)$ als een product als het kan.\label{vb:h2-factor}}{%
+\naast{\uitleg{We berekenen de getalwaarden in $1$ en in $-1$. Is ze $0$, dan delen we met het schema van Horner.}
+\begin{stappenvrij}{4.5cm}{3.7cm}
+A(1) = 1 + 2 - 5 - 6 = -8 & Niet deelbaar door $x - 1$. \\
+A(-1) = -1 + 2 + 5 - 6 = 0 & Wel deelbaar door $x + 1$.
+\end{stappenvrij}}{\horner{3}{-1}{1 & 2 & -5 & -6}{ & -1 & -1 & 6}{1 & 1 & -6}{0}}
+Het schema geeft het quotiënt $x^2 + x - 6$. Dus $x^3 + 2x^2 - 5x - 6 = (x + 1)(x^2 + x - 6)$.}
+
+\voorbeeld{}{Bepaal $m$ zo dat $x^3 - mx + 4$ deelbaar is door $x - 2$.\label{vb:h2-factorpar}}{%
+\uitleg{Volgens de factorstelling moet $2$ een nulwaarde zijn.}
+\begin{stappen}
+2^3 - m \cdot 2 + 4 = 12 - 2m = 0, \text{ dus } m = 6 & $A(2) = 0$.
+\end{stappen}
+Controle met het schema van Horner: $x^3 - 6x + 4 = (x - 2)(x^2 + 2x - 2)$, met rest $0$.}
+
+\begin{oefeningen}
+\oef{h2-deelbaar}
+\end{oefeningen}
+
+%========================================================================================
+\section{Ontbinden in factoren}
+
+\subsection{Welke getallen probeer je?}
+
+Om $x^3 - 7x + 6$ te ontbinden, heb je een nulwaarde nodig. Maar welke getallen probeer je? Er zijn er oneindig veel. Stel dat een geheel getal $a$ een nulwaarde is. Dan is $a^3 - 7a + 6 = 0$, dus
+\[6 = -a^3 + 7a = a \cdot (-a^2 + 7).\]
+Het getal tussen haakjes is geheel, dus $6$ is een veelvoud van $a$: $a$ is een deler van $6$. Je hoeft alleen $\pm 1$, $\pm 2$, $\pm 3$ en $\pm 6$ te proberen.
+
+\begin{theorie}
+\begin{stelling}{Gehele nulwaarden}
+Heeft een veelterm gehele coëfficiënten, dan is elke gehele nulwaarde een deler van de constante term.
+\end{stelling}
+\begin{bewijs}
+Neem $A(x) = a_nx^n + \cdots + a_1x + a_0$ met gehele coëfficiënten, en $a$ een gehele nulwaarde. Dan is
+\bewijsregel{a_na^n + \cdots + a_1a + a_0 = 0 \qquad\text{zodat}\qquad a_0 = -a \cdot \bigl(a_na^{n-1} + \cdots + a_1\bigr).}
+Het getal tussen haakjes is geheel, dus $a_0$ is een veelvoud van $a$.
+\end{bewijs}
+\end{theorie}
+
+De stelling geeft \textit{kandidaten}: niet elke deler is een nulwaarde, je moet ze nagaan. Ze zegt ook niets over nulwaarden die geen geheel getal zijn. En er zijn veeltermen zonder gehele nulwaarde, zoals $x^3 + x + 1$: de kandidaten $1$ en $-1$ geven $3$ en $-1$. Dan werkt deze methode niet.
+
+\voorbeeld{}{Ontbind $A(x) = x^3 - 7x + 6$ in factoren.\label{vb:h2-ontbind3}}{%
+\naast{\uitleg{De kandidaten zijn de delers van $6$: $\pm 1$, $\pm 2$, $\pm 3$, $\pm 6$. We beginnen met de kleinste.}
+\begin{stappenvrij}{5.2cm}{4.4cm}
+A(1) = 1 - 7 + 6 = 0 & $1$ is een nulwaarde. \\
+A(x) = (x - 1)(x^2 + x - 6) & Het quotiënt uit het schema. \\
+= (x - 1)(x - 2)(x + 3) & Som $1$ en product $-6$: $-2$ en $3$.
+\end{stappenvrij}}{\horner{3}{1}{1 & 0 & -7 & 6}{ & 1 & 1 & -6}{1 & 1 & -6}{0}}
+De nulwaarden zijn $1$, $2$ en $-3$: alle drie delers van $6$. Controle: $(x - 1)(x - 2) = x^2 - 3x + 2$, en $(x^2 - 3x + 2)(x + 3) = x^3 - 7x + 6$.}
+
+\begin{werkwijze}
+Breng eerst gemeenschappelijke factoren buiten haakjes, zoals $x$. Herken een merkwaardig product als dat kan. Heeft wat overblijft graad $2$, ontbind dan met de som-productmethode of met de discriminant. Heeft het graad $3$ of meer, zoek dan een nulwaarde $a$ bij de delers van de constante term, deel door $x - a$ met het schema van Horner, en ontbind het quotiënt op dezelfde manier.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-kandidaten}
+\end{oefeningen}
+
+\subsection{Het quotiënt verder ontbinden}
+
+Na één deling heb je bij een veelterm van graad $3$ een quotiënt van graad $2$ over. Dat ontbind je zoals in het handboek Tweedegraadsfuncties: heeft het de oplossingen $x_1$ en $x_2$, dan is $ax^2 + bx + c = a(x - x_1)(x - x_2)$. Is de discriminant negatief, dan ontbindt het quotiënt niet verder.
+
+\voorbeeld{}{Ontbind $A(x) = x^3 - 3x^2 - 2x + 4$ in factoren.\label{vb:h2-ontbindD}}{%
+\naast{\uitleg{De kandidaten zijn $\pm 1$, $\pm 2$, $\pm 4$. Al meteen is $A(1) = 1 - 3 - 2 + 4 = 0$.}
+\begin{stappenvrij}{4.6cm}{3.6cm}
+A(x) = (x - 1)(x^2 - 2x - 4) & Uit het schema. \\
+D = 4 + 16 = 20 & Geen som en product met gehele getallen. \\[1ex]
+x = \dfrac{2 \pm \sqrt{20}}{2} = 1 \pm \sqrt5 & $\sqrt{20} = 2\sqrt5$.
+\end{stappenvrij}}{\horner{3}{1}{1 & -3 & -2 & 4}{ & 1 & -2 & -4}{1 & -2 & -4}{0}}
+Dus $x^3 - 3x^2 - 2x + 4 = (x - 1)\bigl(x - 1 - \sqrt5\bigr)\bigl(x - 1 + \sqrt5\bigr)$. De nulwaarden $1 \pm \sqrt5$ zijn geen gehele getallen: de kandidaten hadden ze nooit gevonden, maar de discriminant wel.}
+
+\nujij{Ontbind $x^3 - 1$ in factoren.}{$(x - 1)(x^2 + x + 1)$; het quotiënt heeft $D = 1 - 4 < 0$ en ontbindt niet verder.}
+
+\subsection{Veeltermen van graad 4}
+
+Bij graad $4$ heb je na één deling nog een quotiënt van graad $3$. Daarvan zoek je opnieuw een nulwaarde. Die is een deler van de constante term van het quotiënt, en ook van de oorspronkelijke veelterm.
+
+\voorbeeld{}{Ontbind $A(x) = x^4 - 2x^3 - 7x^2 + 8x + 12$ in factoren.\label{vb:h2-ontbind4}}{%
+\uitleg{De kandidaten zijn de delers van $12$. We proberen: $A(1) = 1 - 2 - 7 + 8 + 12 = 12$, maar $A(-1) = 1 + 2 - 7 - 8 + 12 = 0$. We delen door $x + 1$.}
+\figuren{\horner{4}{-1}{1 & -2 & -7 & 8 & 12}{ & -1 & 3 & 4 & -12}{1 & -3 & -4 & 12}{0}\qquad\qquad
+\horner{3}{2}{1 & -3 & -4 & 12}{ & 2 & -2 & -12}{1 & -1 & -6}{0}}
+\textit{Het quotiënt is $Q(x) = x^3 - 3x^2 - 4x + 12$. Daarvan is $Q(1) = 6$, maar $Q(2) = 8 - 12 - 8 + 12 = 0$. Het tweede schema deelt $Q(x)$ door $x - 2$.}
+\begin{stappen}
+A(x) = (x + 1)(x - 2)(x^2 - x - 6) & Twee factoren afgezonderd. \\
+= (x + 1)(x - 2)(x - 3)(x + 2) & Som $-1$ en product $-6$: $-3$ en $2$.
+\end{stappen}}
+
+\subsection{Als de hoogstegraadscoëfficiënt geen 1 is}
+
+De stelling over gehele nulwaarden geldt ook als de hoogstegraadscoëfficiënt geen $1$ is. Dan kunnen er wel nulwaarden zijn die een breuk zijn, zoals $\tfrac12$. Vind je één gehele nulwaarde, dan vind je de andere met de discriminant.
+
+\voorbeeld{}{Ontbind $A(x) = 2x^3 - x^2 - 8x + 4$ in factoren.\label{vb:h2-hgc}}{%
+\naast{\uitleg{De kandidaten zijn de delers van $4$: $\pm 1$, $\pm 2$, $\pm 4$. We vinden $A(1) = -3$, $A(-1) = 9$ en $A(2) = 16 - 4 - 16 + 4 = 0$.}
+\begin{stappenvrij}{5.6cm}{3.4cm}
+A(x) = (x - 2)(2x^2 + 3x - 2) & Uit het schema. \\
+D = 9 + 16 = 25 & \\
+x_1 = \tfrac{-3 + 5}{4} = \tfrac12,\ x_2 = -2 & \\
+2x^2 + 3x - 2 = 2\bigl(x - \tfrac12\bigr)(x + 2) & $a(x - x_1)(x - x_2)$.
+\end{stappenvrij}}{\horner{3}{2}{2 & -1 & -8 & 4}{ & 4 & 6 & -4}{2 & 3 & -2}{0}}
+Breng de factor $2$ in de haakjes bij $x - \tfrac12$: $2x^3 - x^2 - 8x + 4 = (x - 2)(x + 2)(2x - 1)$. De nulwaarde $\tfrac12$ is geen deler van $4$, en dat is geen tegenspraak: de stelling gaat alleen over gehele nulwaarden.}
+
+\begin{oefeningen}
+\oef{h2-ontbind3}
+
+\oef{h2-ontbind4}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vergelijkingen van hogere graad}
+
+\subsection{Oplossen door te ontbinden}
+
+Een vergelijking zoals $x^3 + 2x^2 = 5x + 6$ heet een \textit{derdegraadsvergelijking}. Er bestaat een formule voor, maar die is zo ingewikkeld dat bijna niemand ze gebruikt. Met wat je nu kunt, gaat het vaak veel eenvoudiger. Herleid op nul en ontbind het linkerlid. De product-nulregel uit het handboek Tweedegraadsfuncties werkt ook met drie of vier factoren: een product is nul als minstens één factor nul is.
+
+\voorbeeld{}{Los op: $x^3 + 2x^2 = 5x + 6$.\label{vb:h2-vgl}}{%
+\naast{\uitleg{We brengen alles naar het linkerlid. In voorbeeld~\ref{vb:h2-factor} ontbonden we dat linkerlid al gedeeltelijk.}
+\begin{stappenvrij}{4.4cm}{3.6cm}
+x^3 + 2x^2 - 5x - 6 = 0 & Herleid op nul. \\
+(x + 1)(x^2 + x - 6) = 0 & $-1$ is een nulwaarde. \\
+(x + 1)(x - 2)(x + 3) = 0 & \\
+x = -1,\ x = 2 \text{ of } x = -3 & De product-nulregel.
+\end{stappenvrij}
+\textit{$V = \{-3, -1, 2\}$. Op de grafiek van $y = x^3 + 2x^2 - 5x - 6$ zijn het de drie snijpunten met de $x$-as.}}{\begin{tikzpicture}[x=.55cm,y=.2cm]
+  \roosterleeg{-4}{1}{3}{-10}{2}{6}
+  \xgetallen{-4,-3,-2,-1,1,2,3}\ygetallen{-8,-4,4}
+  \kromme{-3.6}{2.3}{(\x)^3+2*(\x)^2-5*\x-6}
+  \punt{-3}{0}\punt{-1}{0}\punt{2}{0}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Herleid de vergelijking op nul. Ontbind het linkerlid in factoren. Stel elke factor gelijk aan nul en los op. Controleer de oplossingen in de opgave.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-vgl}
+\end{oefeningen}
+
+\subsection{Hoeveel oplossingen?}
+
+Een tweedegraadsvergelijking heeft hoogstens twee oplossingen. Hoeveel kan een derdegraadsvergelijking er hebben? Elke nulwaarde $a$ geeft een factor $x - a$. Zou een veelterm van graad $3$ vier verschillende nulwaarden hebben, dan zou hij vier factoren van graad $1$ bevatten, en dus minstens graad $4$ hebben. Dat kan niet.
+
+\begin{theorie}
+\begin{stelling}{Aantal nulwaarden}
+Een veelterm van graad $n$ heeft hoogstens $\formule{n}$ nulwaarden.
+\end{stelling}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[x=.38cm,y=.3cm]
+  \roosterleeg{-3}{1}{3}{-3}{1}{3}
+  \kromme{-2.25}{2.25}{(\x)^3/2-1.5*\x}
+  \punt{-1.732}{0}\punt{0}{0}\punt{1.732}{0}
+  \node[font=\scriptsize] at (0,-4.4) {drie nulwaarden};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.38cm,y=.3cm]
+  \roosterleeg{-3}{1}{3}{-3}{1}{3}
+  \kromme{-2.3}{2.2}{((\x)^3-3*\x+2)/2}
+  \punt{-2}{0}\punt{1}{0}
+  \node[font=\scriptsize] at (0,-4.4) {twee nulwaarden};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.38cm,y=.3cm]
+  \roosterleeg{-3}{1}{3}{-3}{1}{3}
+  \kromme{-1.6}{1.45}{((\x)^3+\x+1)/2}
+  \punt{-.682}{0}
+  \node[font=\scriptsize] at (0,-4.4) {één nulwaarde};
+\end{tikzpicture}}
+
+Een veelterm van graad $3$ heeft er dus één, twee of drie, zoals de grafieken tonen. In de middelste figuur raakt de grafiek de $x$-as in $1$: daar is $(x - 1)^2$ een factor, want $x^3 - 3x + 2 = (x - 1)^2(x + 2)$. Een veelterm van graad $3$ heeft altijd minstens één nulwaarde: de grafiek komt van heel laag en gaat naar heel hoog, of omgekeerd, en moet dus de $x$-as snijden. Die nulwaarde is wel niet altijd een geheel getal, zoals bij $x^3 + x + 1$ in de rechterfiguur.
+
+\begin{oefeningen}
+\oef{h2-aantal}
+\end{oefeningen}
+
+\voorbeeld{}{Terug naar het probleem. Het karton is $16$~cm op $10$~cm en het doosje moet $120$~cm$^3$ inhouden. Hoe groot zijn de vierkantjes?\label{vb:h2-terug}}{%
+\uitleg{Noem de zijde van een vierkantje $x$ (in cm). De bodem is dan $16 - 2x$ op $10 - 2x$, en de hoogte is $x$. De zijde $10 - 2x$ moet positief zijn, dus $0 < x < 5$.}
+\begin{stappenbreed}
+x(16 - 2x)(10 - 2x) = 120 & De inhoud. \\
+4x^3 - 52x^2 + 160x - 120 = 0 & Haakjes uitwerken, herleiden op nul. \\
+x^3 - 13x^2 + 40x - 30 = 0 & Deel door $4$. \\
+(x - 3)(x^2 - 10x + 10) = 0 & We weten al dat $3$ een oplossing is; Horner geeft het quotiënt. \\
+D = 100 - 40 = 60, \quad x = \dfrac{10 \pm \sqrt{60}}{2} = 5 \pm \sqrt{15} & De oplossingen van het quotiënt.
+\end{stappenbreed}
+\naast{De oplossingen zijn $3$, $5 - \sqrt{15} \approx 1,13$ en $5 + \sqrt{15} \approx 8,87$. De laatste kan niet: met vierkantjes van $8,87$~cm blijft er van de breedte van $10$~cm niets over. Er zijn dus twee doosjes: met vierkantjes van $3$~cm, en met vierkantjes van ongeveer $1,13$~cm. Dat tweede doosje is lager, maar heeft een grotere bodem: ongeveer $13,75$~cm op $7,75$~cm.
+
+De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de rechte $y = 120$ twee keer tussen $0$ en $5$.}{\begin{tikzpicture}[x=.75cm,y=.019cm]
+  \roosterleeg[$x$][$V$]{0}{1}{5}{0}{20}{160}
+  \xgetallen{1,2,3,4,5}\ygetallen{40,80,120,160}
+  \draw[hulplijn] (0,120) -- (5.2,120);
+  \kromme{0}{5}{\x*(16-2*\x)*(10-2*\x)}
+  \punt{3}{120}\punt{1.127}{120}
+\end{tikzpicture}}}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h2-o1}
+
+\needspace{6\baselineskip}
+\oef{h2-o2}
+
+\needspace{6\baselineskip}
+\oef{h2-o3}
+
+\needspace{6\baselineskip}
+\oef{h2-o4}
+
+\needspace{6\baselineskip}
+\oef{h2-o5}
+
+\needspace{6\baselineskip}
+\oef{h2-o6}
+
+\needspace{6\baselineskip}
+\oef{h2-o7}
+
+\needspace{6\baselineskip}
+\oef{h2-o8}
+
+\needspace{6\baselineskip}
+\oef{h2-o9}
+
+\needspace{6\baselineskip}
+\oef{h2-o10}
+
+\needspace{6\baselineskip}
+\oef{h2-o11}
+
+\needspace{6\baselineskip}
+\oef{h2-o12}
+
+\needspace{6\baselineskip}
+\oef{h2-o13}
+
+\needspace{6\baselineskip}
+\oef{h2-o14}
+
+\needspace{6\baselineskip}
+\oef{h2-o15}
+
+\needspace{6\baselineskip}
+\oef{h2-o16}
+
+\needspace{6\baselineskip}
+\oef{h2-o17}
+
+\needspace{6\baselineskip}
+\oef{h2-o18}
+
+\needspace{6\baselineskip}
+\oef{h2-o19}
+
+\needspace{6\baselineskip}
+\oef{h2-o20}
+
+\needspace{6\baselineskip}
+\oef{h2-o21}
+
+\needspace{6\baselineskip}
+\oef{h2-o22}
+
+\needspace{6\baselineskip}
+\oef{h2-o23}
+
+\needspace{6\baselineskip}
+\oef{h2-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{14\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h2-t1}
+
+\needspace{6\baselineskip}
+\oef{h2-t2}
+
+\needspace{6\baselineskip}
+\oef{h2-t3}
+
+\needspace{6\baselineskip}
+\oef{h2-t4}
+
+\needspace{6\baselineskip}
+\oef{h2-t5}
+
+\needspace{6\baselineskip}
+\oef{h2-t6}
+
+\needspace{6\baselineskip}
+\oef{h2-t7}
+
+\needspace{6\baselineskip}
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-rest}{oef:h2-rest}%
+  \fv{oef:h2-t2}{vb:h2-factor}{oef:h2-deelbaar}%
+  \fv{oef:h2-t3}{vb:h2-factorpar}{oef:h2-deelbaar}%
+  \fv{oef:h2-t4}{vb:h2-ontbind3}{oef:h2-ontbind3}%
+  \fv{oef:h2-t5}{vb:h2-ontbindD}{oef:h2-o9}%
+  \fv{oef:h2-t6}{vb:h2-ontbind4}{oef:h2-ontbind4}%
+  \fv{oef:h2-t7}{vb:h2-vgl}{oef:h2-vgl}%
+  \fv{oef:h2-t8}{vb:h2-terug}{oef:h2-o18}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de reststelling met haar bewijs, wat een nulwaarde is, de factorstelling, waarom een gehele nulwaarde een deler is van de constante term, hoe je een veelterm van graad $3$ of $4$ ontbindt in factoren (met de volgorde van de stappen), wanneer de methode met de delers niet werkt, hoe je een vergelijking van hogere graad oplost, en hoeveel nulwaarden een veelterm van graad $n$ hoogstens heeft. Vergelijk daarna met de kaders.
+\fi

@@ -1,0 +1,725 @@
+%----------------------------------------------------------------------------------------
+% SINUS, COSINUS EN TANGENS. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: complementaire hoeken en de exacte waarden voor 30, 45 en 60 graden staan alleen in pakket 4 en 5
+% (voorbereiding op Goniometrie). Pakket 5 krijgt een opdracht met identiteiten om te bewijzen.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Sinus, cosinus en tangens}
+
+\begin{probleem}
+\vspace{-1mm}\naast{De Franse schilder Paul Cézanne schilderde de Mont Sainte-Victoire tientallen keren, vanuit de vlakte rond de berg. Stel dat een schilder in de vlakte zit en de top van een berg ziet onder een hoek van $9^\circ$ boven de horizontale. Op de kaart ligt de top horizontaal 5,6~km verder. Hoeveel meter ligt de top hoger dan de schilder? Met de stelling van Pythagoras lukt het niet: je kent maar één zijde van de driehoek.}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \fill[accent!18] (2.4,0) -- (3.6,.5) -- (4.6,1.1) -- (5.4,1.5) -- (6,1.7) -- (6.6,1.45) -- (7.4,.9) -- (8.4,.3) -- (9,0) -- cycle;
+  \draw[accent!60] (2.4,0) -- (3.6,.5) -- (4.6,1.1) -- (5.4,1.5) -- (6,1.7) -- (6.6,1.45) -- (7.4,.9) -- (8.4,.3) -- (9,0);
+  \coordinate (O) at (0,0); \coordinate (V) at (6,0); \coordinate (T) at (6,1.7);
+  \draw[accent,thick] (O) -- (T);
+  \draw[grijs,dashed] (O) -- (V) -- (T);
+  \rechtehoek{O}{V}{T}
+  \hoeklabel{V}{O}{T}{9mm}{9^\circ}
+  \fill (O) circle (1.6pt) node[below] {schilder};
+  \fill (T) circle (1.6pt) node[above] {top};
+  \node[below] at (3,0) {5,6 km};
+  \node[right] at (6,.85) {$h$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 11 (sinus, cosinus en tangens van een scherpe hoek in een rechthoekige driehoek, de grondformule, hoogtes en afstanden). De verdeling van LPD 10-11 over de twee hoofdstukken is na te kijken in het leerplan.\alleenvoor{4,5}{ Complementaire hoeken en de exacte waarden voor $30^\circ$, $45^\circ$ en $60^\circ$ staan alleen in pakket 4 en 5, als voorbereiding op het handboek Goniometrie.}\alleenvoor{5}{ In de opdrachten bewijzen leerlingen ook enkele identiteiten met de grondformule.} Hoeken staan in decimale graden, afgerond op $0{,}01^\circ$. Voorkennis: de stelling van Pythagoras (hoofdstuk 1), gelijkvormige driehoeken en het kenmerk HH (handboek Gelijkvormigheid; de tekst herhaalt het kort), vergelijkingen van de vorm $\tfrac{x}{a} = b$ en $\tfrac{a}{x} = b$. Laat leerlingen hun rekenmachine in graden zetten (DEG).}
+
+In hoofdstuk 1 berekende je een zijde van een rechthoekige driehoek uit twee andere zijden. Maar vaak ken je maar één zijde en een hoek: je meet een afstand op de grond en de hoek waaronder je de top van een toren ziet. In dit hoofdstuk leer je drie verhoudingen kennen die een hoek koppelen aan de zijden: de sinus, de cosinus en de tangens. Daarmee meet je hoogtes en afstanden die je nooit met een lintmeter zou halen. Die tak van de wiskunde heet de \emph{driehoeksmeting}.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Verhoudingen in een rechthoekige driehoek}
+
+\subsection{Een verhouding die alleen van de hoek afhangt}
+
+In de Verken tekende je drie rechthoekige driehoeken met een hoek van $35^\circ$, groot en klein. Telkens vond je dat de zijde tegenover die hoek ongeveer 0,70 keer zo lang is als de andere rechthoekszijde. Is dat toeval?
+
+\naast{Nee. Twee rechthoekige driehoeken met dezelfde scherpe hoek $\alpha$ hebben ook dezelfde derde hoek: $90^\circ - \alpha$. Volgens het kenmerk HH (twee gelijke hoeken) zijn ze dus gelijkvormig: de ene is een vergroting van de andere met een factor $k$. Elke zijde wordt $k$ keer zo lang, en dus blijft de verhouding van twee zijden gelijk:
+\[\frac{k \cdot 2{,}45}{k \cdot 3{,}5} = \frac{2{,}45}{3{,}5} = 0{,}70\]
+Zo'n verhouding hangt dus alleen af van de hoek, en niet van de grootte van de driehoek.}{\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \coordinate (A) at (0,0);
+  \fill[accent!10] (A) -- (5,0) -- (5,3.5) -- cycle;
+  \fill[accent!22] (A) -- (3.5,0) -- (3.5,2.45) -- cycle;
+  \fill[accent!38] (A) -- (2,0) -- (2,1.4) -- cycle;
+  \draw[accent,thick] (A) -- (5,0) -- (5,3.5) -- cycle;
+  \draw[accent] (2,0) -- (2,1.4) (3.5,0) -- (3.5,2.45);
+  \coordinate (P) at (5,0); \coordinate (Q) at (5,3.5);
+  \rechtehoek{A}{P}{Q}
+  \hoeklabel{P}{A}{Q}{7mm}{35^\circ}
+  \node[below] at (2,0) {2}; \node[below] at (3.5,0) {3,5}; \node[below] at (5,0) {5};
+  \node[right] at (2,.7) {1,4}; \node[right] at (3.5,1.2) {2,45}; \node[right] at (5,1.75) {3,5};
+\end{tikzpicture}}
+
+Omdat zulke verhoudingen alleen van de hoek afhangen, kun je ze één keer berekenen, en daarna in elke rechthoekige driehoek met die hoek gebruiken. Om over de zijden te spreken, geven we ze eerst een naam die afhangt van de hoek waarnaar je kijkt.
+
+\begin{theorie}
+\begin{minipage}[t]{.5\linewidth}
+\vspace{0pt}
+Neem een scherpe hoek $\alpha$ in een rechthoekige driehoek.
+
+\begin{itemize}[leftmargin=4mm,itemsep=1pt]
+\item De \textbf{\textcolor{accent}{overstaande rechthoekszijde}} van $\alpha$ ligt tegenover $\alpha$.
+\item De \textbf{\textcolor{accent}{aanliggende rechthoekszijde}} van $\alpha$ is de rechthoekszijde die een been van $\alpha$ is.
+\item De \textbf{\textcolor{accent}{schuine zijde}} ligt tegenover de rechte hoek.
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{.46\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[scale=.9,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (4,0); \coordinate (B) at (4,2.4);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \path (A) -- (B) node[midway,above,sloped] {schuine zijde};
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{7mm}{\alpha}
+  \node[below,align=center] at (2,0) {aanliggende\\rechthoekszijde};
+  \node[right,align=left] at (4,1.2) {overstaande\\rechthoekszijde};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+De schuine zijde is voor beide scherpe hoeken dezelfde. Maar de overstaande rechthoekszijde van de ene scherpe hoek is de aanliggende van de andere.
+
+\voorbeeld{}{Driehoek $ABC$ is rechthoekig in $C$. Benoem de zijden ten opzichte van $\hoek{A}$ en ten opzichte van $\hoek{B}$.\label{vb:h2-namen}}{%
+\uitleg{De schuine zijde ligt tegenover de rechte hoek in $C$. Voor de andere zijden kijken we welke tegenover de hoek ligt en welke een been ervan is.}
+\naast{\begin{stappenvrij}{6.9cm}{3.6cm}
+[AB] \text{ is de schuine zijde} & Tegenover de rechte hoek in $C$. \\[1ex]
+\hoek{A}\text{: overstaand } [BC], \text{ aanliggend } [AC] & $[AC]$ is een been van $\hoek{A}$. \\[1ex]
+\hoek{B}\text{: overstaand } [AC], \text{ aanliggend } [BC] & $[BC]$ is een been van $\hoek{B}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.65,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (4,0); \coordinate (B) at (4,2.4);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoekboog{C}{A}{B}{6mm} \hoekboog{A}{B}{C}{4mm}
+  \node[below left] at (A) {$A$}; \node[below right] at (C) {$C$}; \node[above right] at (B) {$B$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-namen}
+\end{oefeningen}
+
+\subsection{De tangens}
+
+Hoe steil is een helling? Je vergelijkt hoeveel je stijgt met hoeveel je horizontaal opschuift. In een rechthoekige driehoek is dat de overstaande rechthoekszijde gedeeld door de aanliggende. Die verhouding vond je ook in de Verken, en ze hangt alleen af van de hoek. Ze krijgt daarom een eigen naam.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{tangens}} van een scherpe hoek $\alpha$ in een rechthoekige driehoek is
+
+\vspace{1mm}
+\qquad $\formule{\tan\alpha = \frac{\text{overstaande rechthoekszijde}}{\text{aanliggende rechthoekszijde}}}$
+\end{theorie}
+
+\voorbeeld{}{Een rechthoekige driehoek heeft rechthoekszijden van 3 en 4 en een schuine zijde van 5. Bereken de tangens van de scherpe hoek $\alpha$ tegenover de zijde van 3, en van de andere scherpe hoek $\beta$.\label{vb:h2-tan}}{%
+\uitleg{Voor $\alpha$ is de zijde van 3 de overstaande en de zijde van 4 de aanliggende. Voor $\beta$ is het omgekeerd. De schuine zijde gebruik je voor de tangens niet.}
+\naast{\begin{stappenvrij}{5cm}{4.6cm}
+\tan\alpha = \dfrac34 = 0{,}75 & Overstaand 3, aanliggend 4. \\[2ex]
+\tan\beta = \dfrac43 \approx 1{,}33 & Overstaand 4, aanliggend 3.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (4,0); \coordinate (B) at (4,3);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{7mm}{\alpha} \hoeklabel{A}{B}{C}{5mm}{\beta}
+  \node[below] at (2,0) {4}; \node[right] at (4,1.5) {3}; \node[above left] at (2,1.5) {5};
+\end{tikzpicture}}
+Een tangens kan dus ook groter zijn dan 1: dan is de overstaande zijde langer dan de aanliggende.}
+
+De tangens van een hoek geeft je rekenmachine met de toets \textsf{tan}. Zet de rekenmachine eerst in graden (\textsf{DEG}), anders rekent hij met een andere eenheid en krijg je vreemde uitkomsten. Zo is $\tan 35^\circ \approx 0{,}7002$: precies wat je in de Verken mat.
+
+\voorbeeld{}{Bereken met de rekenmachine, afgerond op vier decimalen: $\tan 10^\circ$, $\tan 30^\circ$, $\tan 45^\circ$, $\tan 60^\circ$ en $\tan 80^\circ$. Wat valt je op?\label{vb:h2-tanrm}}{%
+\uitleg{Rekenmachine in graden. (Niet uitgewerkt.)}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$\alpha$ & $10^\circ$ & $30^\circ$ & $45^\circ$ & $60^\circ$ & $80^\circ$ \\ \hline
+$\tan\alpha$ & $0{,}1763$ & $0{,}5774$ & $1$ & $1{,}7321$ & $5{,}6713$ \\ \hline
+\end{tabular}
+\end{center}
+Hoe groter de hoek, hoe groter de tangens. Bij $45^\circ$ is de tangens precies 1: de driehoek is dan gelijkbenig, en de twee rechthoekszijden zijn even lang. Bij een hoek dicht bij $90^\circ$ wordt de tangens heel groot.}
+
+\begin{oefeningen}
+\oef{h2-tan}
+\end{oefeningen}
+
+\subsection{De sinus}
+
+Bij een ladder ken je de lengte van de ladder: de schuine zijde. Hoe hoog hij komt, hangt af van de hoek met de grond. Dan vergelijk je de overstaande rechthoekszijde met de schuine zijde. Ook die verhouding hangt alleen van de hoek af, om dezelfde reden: alle rechthoekige driehoeken met die hoek zijn gelijkvormig.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{sinus}} van een scherpe hoek $\alpha$ in een rechthoekige driehoek is
+
+\vspace{1mm}
+\qquad $\formule{\sin\alpha = \frac{\text{overstaande rechthoekszijde}}{\text{schuine zijde}}}$
+\end{theorie}
+
+\voorbeeld{}{Bereken in de driehoek met zijden 3, 4 en 5 de sinus van de hoek $\alpha$ tegenover de zijde van 3.\label{vb:h2-sin}}{%
+\uitleg{De overstaande rechthoekszijde van $\alpha$ is 3, de schuine zijde is 5.}
+\begin{stappen}
+\sin\alpha = \dfrac35 = 0{,}6 & Overstaand gedeeld door schuin.
+\end{stappen}}
+
+Met de rekenmachine (toets \textsf{sin}) vind je bijvoorbeeld $\sin 35^\circ \approx 0{,}5736$. In elke rechthoekige driehoek met een hoek van $35^\circ$ is de overstaande zijde dus ongeveer 0,57 keer de schuine zijde.
+
+\subsection{De cosinus}
+
+De derde verhouding vergelijkt de aanliggende rechthoekszijde met de schuine zijde. Bij de ladder is dat de afstand van de voet tot de muur, vergeleken met de lengte van de ladder.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{cosinus}} van een scherpe hoek $\alpha$ in een rechthoekige driehoek is
+
+\vspace{1mm}
+\qquad $\formule{\cos\alpha = \frac{\text{aanliggende rechthoekszijde}}{\text{schuine zijde}}}$
+\end{theorie}
+
+\voorbeeld{}{Bereken in de driehoek met zijden 3, 4 en 5 de cosinus van de hoek $\alpha$ tegenover de zijde van 3.\label{vb:h2-cos}}{%
+\uitleg{De aanliggende rechthoekszijde van $\alpha$ is 4, de schuine zijde is 5.}
+\begin{stappen}
+\cos\alpha = \dfrac45 = 0{,}8 & Aanliggend gedeeld door schuin.
+\end{stappen}}
+
+De schuine zijde is de langste zijde. Een sinus en een cosinus zijn dus altijd kleiner dan 1, terwijl een tangens elk positief getal kan zijn. Om de drie verhoudingen te onthouden, gebruiken veel leerlingen het ezelsbruggetje \textit{SOS-CAS-TOA}: Sinus is Overstaand gedeeld door Schuin, Cosinus is Aanliggend gedeeld door Schuin, Tangens is Overstaand gedeeld door Aanliggend. Sinus, cosinus en tangens samen heten de \emph{goniometrische getallen} van een hoek.
+
+\voorbeeld{}{Een rechthoekige driehoek heeft zijden 8, 15 en 17. Bereken de sinus, de cosinus en de tangens van beide scherpe hoeken: $\alpha$ tegenover de zijde van 8, en $\beta$ tegenover de zijde van 15.\label{vb:h2-alle}}{%
+\uitleg{De langste zijde, 17, is de schuine zijde. Voor $\alpha$ is 8 overstaand en 15 aanliggend; voor $\beta$ is het omgekeerd.}
+\naast{\begin{stappenvrij}{6.2cm}{4cm}
+\sin\alpha = \tfrac{8}{17}, \quad \cos\alpha = \tfrac{15}{17}, \quad \tan\alpha = \tfrac{8}{15} & SOS-CAS-TOA voor $\alpha$. \\[1.5ex]
+\sin\beta = \tfrac{15}{17}, \quad \cos\beta = \tfrac{8}{17}, \quad \tan\beta = \tfrac{15}{8} & En voor $\beta$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.25,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (15,0); \coordinate (B) at (15,8);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{7mm}{\alpha} \hoeklabel{A}{B}{C}{4.5mm}{\beta}
+  \node[below] at (7.5,0) {15}; \node[right] at (15,4) {8}; \node[above left] at (7.5,4) {17};
+\end{tikzpicture}}
+Merk op: $\sin\alpha = \cos\beta$ en $\cos\alpha = \sin\beta$. Dat is geen toeval: de overstaande zijde van $\alpha$ is de aanliggende van $\beta$.}
+
+\begin{werkwijze}
+Zoek de schuine zijde: ze ligt tegenover de rechte hoek. Zoek daarna de zijde tegenover de hoek (overstaand) en de rechthoekszijde die een been van de hoek is (aanliggend). Kies met SOS-CAS-TOA de verhouding die je nodig hebt. Ontbreekt er een zijde, bereken ze dan eerst met de stelling van Pythagoras.
+\end{werkwijze}
+
+\nujij{Een rechthoekige driehoek heeft rechthoekszijden 5 en 12. Bereken $\sin\alpha$, $\cos\alpha$ en $\tan\alpha$ voor de hoek $\alpha$ tegenover de zijde van 5.}{De schuine zijde is 13: $\sin\alpha = \tfrac{5}{13}$, $\cos\alpha = \tfrac{12}{13}$ en $\tan\alpha = \tfrac{5}{12}$.}
+
+\begin{oefeningen}
+\oef{h2-sincos}
+\end{oefeningen}
+
+%========================================================================================
+\section{Zijden en hoeken berekenen}
+
+\subsection{Een zijde berekenen}
+
+Nu kun je met één zijde en één scherpe hoek de andere zijden berekenen. De rekenmachine kent de verhouding, en de verhouding koppelt de zijde die je kent aan de zijde die je zoekt. Kies dus de verhouding waarin juist die twee zijden voorkomen.
+
+\voorbeeld{}{In een rechthoekige driehoek is de schuine zijde 8~cm, en een scherpe hoek is $40^\circ$. Bereken de overstaande rechthoekszijde $x$ van die hoek, afgerond op een millimeter.\label{vb:h2-zijde}}{%
+\uitleg{We kennen de schuine zijde en zoeken de overstaande: dat is de sinus (SOS).}
+\naast{\begin{stappenvrij}{5.4cm}{4.8cm}
+\sin 40^\circ = \dfrac{x}{8} & Overstaand gedeeld door schuin. \\[2ex]
+x = 8 \cdot \sin 40^\circ & Vermenigvuldig beide leden met 8. \\[1ex]
+x \approx 5{,}14 & Met de rekenmachine.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (4.6,0); \coordinate (B) at (4.6,3.86);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{8mm}{40^\circ}
+  \node[right] at (4.6,1.93) {$x$}; \node[above left] at (2.3,1.93) {8};
+\end{tikzpicture}}
+De zijde is ongeveer 5,1~cm.}
+
+Soms staat de onbekende zijde in de noemer. Dat gebeurt als je de schuine zijde zoekt.
+
+\voorbeeld{}{In een rechthoekige driehoek is een scherpe hoek $25^\circ$, en de aanliggende rechthoekszijde van die hoek is 5. Bereken de schuine zijde $x$, afgerond op twee decimalen.\label{vb:h2-zijde2}}{%
+\uitleg{We kennen de aanliggende zijde en zoeken de schuine: dat is de cosinus (CAS). De onbekende komt in de noemer.}
+\naast{\begin{stappenvrij}{5.4cm}{4.8cm}
+\cos 25^\circ = \dfrac{5}{x} & Aanliggend gedeeld door schuin. \\[2ex]
+x \cdot \cos 25^\circ = 5 & Vermenigvuldig beide leden met $x$. \\[1ex]
+x = \dfrac{5}{\cos 25^\circ} \approx 5{,}52 & Deel beide leden door $\cos 25^\circ$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (5,0); \coordinate (B) at (5,2.33);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{9mm}{25^\circ}
+  \node[below] at (2.5,0) {5}; \node[above left] at (2.5,1.17) {$x$};
+\end{tikzpicture}}
+Controle: de schuine zijde is langer dan de rechthoekszijde van 5, zoals het hoort.}
+
+\begin{werkwijze}
+Benoem de zijden ten opzichte van de hoek die je kent. Kies de verhouding met de zijde die je kent en de zijde die je zoekt (SOS-CAS-TOA). Schrijf ze als vergelijking en los op. Staat de onbekende in de teller, vermenigvuldig dan; staat ze in de noemer, vermenigvuldig dan eerst met de onbekende en deel daarna.
+\end{werkwijze}
+
+\nujij{In een rechthoekige driehoek is een scherpe hoek $60^\circ$ en de aanliggende rechthoekszijde 7. Bereken de overstaande rechthoekszijde, afgerond op twee decimalen.}{$\tan 60^\circ = \tfrac{x}{7}$, dus $x = 7 \tan 60^\circ \approx 12{,}12$.}
+
+\begin{oefeningen}
+\oef{h2-zijde}
+\end{oefeningen}
+
+\subsection{Een hoek berekenen}
+
+Het kan ook omgekeerd. Ken je twee zijden, dan ken je hun verhouding. Welke hoek hoort daarbij? Daarvoor heeft de rekenmachine de toetsen $\sin^{-1}$, $\cos^{-1}$ en $\tan^{-1}$ (meestal met \textsf{SHIFT} of \textsf{2nd}). $\tan^{-1} 0{,}75$ betekent: \textit{de hoek waarvan de tangens 0,75 is}. Het betekent niet $\tfrac{1}{\tan 0{,}75}$.
+
+\voorbeeld{}{Bereken de scherpe hoeken van de rechthoekige driehoek met zijden 3, 4 en 5, afgerond op $0{,}01^\circ$.\label{vb:h2-hoek}}{%
+\uitleg{Voor de hoek $\alpha$ tegenover de zijde van 3 kennen we de overstaande en de aanliggende zijde: de tangens. De andere hoek volgt uit de hoekensom.}
+\naast{\begin{stappenvrij}{5.2cm}{4.6cm}
+\tan\alpha = \dfrac34 = 0{,}75 & Overstaand gedeeld door aanliggend. \\[2ex]
+\alpha = \tan^{-1} 0{,}75 \approx 36{,}87^\circ & Met de rekenmachine. \\[1ex]
+\beta = 90^\circ - \alpha \approx 53{,}13^\circ & De twee scherpe hoeken zijn samen $90^\circ$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (4,0); \coordinate (B) at (4,3);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{7mm}{\alpha} \hoeklabel{A}{B}{C}{5mm}{\beta}
+  \node[below] at (2,0) {4}; \node[right] at (4,1.5) {3}; \node[above left] at (2,1.5) {5};
+\end{tikzpicture}}
+Dit is de driehoek van de voorkant van dit boek: $\tan\alpha = \tfrac34$, met $\alpha \approx 36{,}87^\circ$.}
+
+\voorbeeld{}{Een ladder van 6~m reikt tot 5,5~m hoog tegen een verticale muur. Welke hoek maakt de ladder met de grond?\label{vb:h2-hoek2}}{%
+\uitleg{De ladder is de schuine zijde, de hoogte is de overstaande zijde van de hoek met de grond: de sinus.}
+\naast{\begin{stappenvrij}{5.4cm}{4.6cm}
+\sin\alpha = \dfrac{5{,}5}{6} & Overstaand gedeeld door schuin. \\[2ex]
+\alpha = \sin^{-1}\dfrac{5{,}5}{6} \approx 66{,}44^\circ & Met de rekenmachine.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \fill[black!8] (-.5,0) rectangle (0,6);
+  \draw[grijs,thick] (0,0) -- (0,6);
+  \draw[lijngrijs] (-.5,0) -- (3.2,0);
+  \coordinate (V) at (2.4,0); \coordinate (M) at (0,0); \coordinate (T) at (0,5.5);
+  \draw[accent,line width=1.6pt] (V) -- (T);
+  \rechtehoek{V}{M}{T}
+  \hoeklabel{T}{V}{M}{5mm}{\alpha}
+  \node[right] at (1.25,3) {6}; \node[left] at (-.5,2.75) {5,5};
+\end{tikzpicture}}
+De ladder maakt een hoek van ongeveer $66{,}44^\circ$ met de grond.}
+
+\begin{oefeningen}
+\oef{h2-hoek}
+\end{oefeningen}
+
+\subsection{Een rechthoekige driehoek oplossen}
+
+Een driehoek \emph{oplossen} betekent: alle zijden en alle hoeken berekenen. Van een rechthoekige driehoek ken je altijd al één hoek, de rechte. Ken je nog twee gegevens, waarvan minstens één zijde, dan vind je de rest met de goniometrische getallen, de stelling van Pythagoras en de hoekensom.
+
+\voorbeeld{}{Driehoek $ABC$ is rechthoekig in $A$, met $\lengte{AB} = 7$ en $\hoek{B} = 52^\circ$. Los de driehoek op. Rond af op twee decimalen.\label{vb:h2-oplossen}}{%
+\uitleg{De derde hoek volgt meteen. Ten opzichte van $\hoek{B}$ is $[AB]$ de aanliggende zijde, $[AC]$ de overstaande en $[BC]$ de schuine zijde.}
+\naast{\begin{stappenvrij}{5.8cm}{4.6cm}
+\hoek{C} = 90^\circ - 52^\circ = 38^\circ & De hoekensom. \\[1ex]
+\tan 52^\circ = \dfrac{\lengte{AC}}{7} & TOA. \\[2ex]
+\lengte{AC} = 7 \tan 52^\circ \approx 8{,}96 & \\[1ex]
+\cos 52^\circ = \dfrac{7}{\lengte{BC}} & CAS. \\[2ex]
+\lengte{BC} = \dfrac{7}{\cos 52^\circ} \approx 11{,}37 & Onbekende in de noemer.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (7,0); \coordinate (C) at (0,8.96);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \rechtehoek{B}{A}{C}
+  \hoeklabel{C}{B}{A}{6mm}{52^\circ}
+  \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[above] at (C) {$C$};
+  \node[below] at (3.5,0) {7};
+\end{tikzpicture}}
+Controle met Pythagoras: $7^2 + 8{,}96^2 \approx 129{,}3 \approx 11{,}37^2$.}
+
+\voorbeeld{}{Een rechthoekige driehoek heeft rechthoekszijden 9 en 12. Los de driehoek op.\label{vb:h2-oplossen2}}{%
+\uitleg{Nu kennen we twee zijden. De derde zijde volgt uit de stelling van Pythagoras, een hoek uit de tangens.}
+\begin{stappen}
+c = \sqrt{9^2 + 12^2} = \sqrt{225} = 15 & Stelling van Pythagoras. \\[1ex]
+\alpha = \tan^{-1}\dfrac{9}{12} \approx 36{,}87^\circ & De hoek tegenover de zijde van 9. \\[2ex]
+\beta = 90^\circ - \alpha \approx 53{,}13^\circ & De hoek tegenover de zijde van 12.
+\end{stappen}
+Dezelfde hoeken als bij de driehoek 3, 4, 5: deze driehoek is er een vergroting van met factor 3.}
+
+\begin{werkwijze}
+Bereken eerst wat rechtstreeks volgt: de derde hoek uit de hoekensom, of de derde zijde met Pythagoras. Bereken de rest met SOS-CAS-TOA. Reken verder met de gegeven waarden, en niet met afgeronde uitkomsten. Controleer op het einde met Pythagoras of de hoekensom.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-oplossen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Verbanden tussen sinus, cosinus en tangens}
+
+\subsection{De grondformule}
+
+Neem $\sin 35^\circ \approx 0{,}5736$ en $\cos 35^\circ \approx 0{,}8192$. Kwadrateer ze en tel op: $0{,}3290 + 0{,}6710 = 1$. Probeer het met $70^\circ$: $0{,}8830 + 0{,}1170 = 1$. Opnieuw 1. Is dat toeval? Nee: het is de stelling van Pythagoras in een andere vorm.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Grondformule}
+Voor elke scherpe hoek $\alpha$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\sin^2\alpha + \cos^2\alpha = 1}$
+\end{stelling}
+
+\begin{bewijs}
+Neem een rechthoekige driehoek met de hoek $\alpha$, overstaande rechthoekszijde $a$, aanliggende rechthoekszijde $b$ en schuine zijde $c$. Dan is $\sin\alpha = \tfrac{a}{c}$ en $\cos\alpha = \tfrac{b}{c}$, en volgens Pythagoras is $a^2 + b^2 = c^2$. Dus
+\bewijsregel{\sin^2\alpha + \cos^2\alpha = \frac{a^2}{c^2} + \frac{b^2}{c^2} = \frac{a^2 + b^2}{c^2} = \frac{c^2}{c^2} = 1}
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{4mm}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (3.4,0); \coordinate (B) at (3.4,2.2);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{7mm}{\alpha}
+  \node[below] at (1.7,0) {$b$}; \node[right] at (3.4,1.1) {$a$}; \node[above left] at (1.7,1.1) {$c$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Let op de schrijfwijze: $\sin^2\alpha$ betekent $(\sin\alpha)^2$, het kwadraat van de sinus. De grondformule is handig als je de sinus van een hoek kent en de cosinus zoekt, of omgekeerd, zonder de hoek zelf te berekenen.
+
+\voorbeeld{}{Van een scherpe hoek $\alpha$ is $\sin\alpha = 0{,}28$. Bereken $\cos\alpha$ zonder de hoek te berekenen.\label{vb:h2-grond}}{%
+\uitleg{We vullen de sinus in de grondformule in, en lossen op naar de cosinus. Een cosinus van een scherpe hoek is positief.}
+\begin{stappen}
+0{,}28^2 + \cos^2\alpha = 1 & Grondformule. \\[1ex]
+\cos^2\alpha = 1 - 0{,}0784 = 0{,}9216 & \\[1ex]
+\cos\alpha = \sqrt{0{,}9216} = 0{,}96 & De positieve wortel.
+\end{stappen}
+In een driehoek getekend: overstaand 7 en schuin 25 geeft $\sin\alpha = \tfrac{7}{25} = 0{,}28$, en de aanliggende zijde is dan $\sqrt{625 - 49} = 24$, zodat $\cos\alpha = \tfrac{24}{25} = 0{,}96$.}
+
+\begin{oefeningen}
+\oef{h2-grond}
+\end{oefeningen}
+
+\subsection{De tangens uit de sinus en de cosinus}
+
+In het voorbeeld met de driehoek 7, 24, 25 is $\tan\alpha = \tfrac{7}{24}$. Dat is ook $\tfrac{0{,}28}{0{,}96}$: de sinus gedeeld door de cosinus. Ook dat is geen toeval.
+
+\begin{theorie}
+\begin{stelling}{Tangens als quotiënt}
+Voor elke scherpe hoek $\alpha$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\tan\alpha = \frac{\sin\alpha}{\cos\alpha}}$
+\end{stelling}
+
+\begin{bewijs}
+Met dezelfde letters als bij de grondformule:
+\bewijsregel{\frac{\sin\alpha}{\cos\alpha} = \frac{a/c}{b/c} = \frac{a}{c} \cdot \frac{c}{b} = \frac{a}{b} = \tan\alpha}
+\end{bewijs}
+\end{theorie}
+
+Ken je de sinus en de cosinus, dan ken je dus ook de tangens. Met de grondformule erbij volstaat één van de drie om de twee andere te berekenen.
+
+\voorbeeld{}{Van een scherpe hoek $\alpha$ is $\cos\alpha = 0{,}6$. Bereken $\sin\alpha$ en $\tan\alpha$ zonder de hoek te berekenen.\label{vb:h2-quot}}{%
+\uitleg{Eerst de sinus met de grondformule, dan de tangens als quotiënt.}
+\begin{stappen}
+\sin^2\alpha = 1 - 0{,}36 = 0{,}64, \quad \sin\alpha = 0{,}8 & Grondformule, positieve wortel. \\[1ex]
+\tan\alpha = \dfrac{0{,}8}{0{,}6} = \dfrac43 \approx 1{,}33 & Sinus gedeeld door cosinus.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-quot}
+\end{oefeningen}
+
+\begin{alleenvoor}{4,5}
+\subsection{Complementaire hoeken}
+
+In het voorbeeld met de driehoek 8, 15, 17 zag je dat $\sin\alpha = \cos\beta$. De twee scherpe hoeken van een rechthoekige driehoek zijn samen $90^\circ$: ze zijn \emph{complementair}, en $\beta = 90^\circ - \alpha$. Wat voor $\alpha$ de overstaande zijde is, is voor $\beta$ de aanliggende.
+
+\begin{theorie}
+\begin{stelling}{Complementaire hoeken}
+Voor elke scherpe hoek $\alpha$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\sin(90^\circ - \alpha) = \cos\alpha} \qquad \text{en} \qquad \formule{\cos(90^\circ - \alpha) = \sin\alpha}$
+\end{stelling}
+
+\begin{bewijs}
+In een rechthoekige driehoek met scherpe hoeken $\alpha$ en $\beta = 90^\circ - \alpha$ is de overstaande zijde $a$ van $\alpha$ de aanliggende van $\beta$, en de aanliggende zijde $b$ van $\alpha$ de overstaande van $\beta$. Dus
+\bewijsregel{\sin(90^\circ - \alpha) = \sin\beta = \frac{b}{c} = \cos\alpha \qquad \text{en} \qquad \cos(90^\circ - \alpha) = \cos\beta = \frac{a}{c} = \sin\alpha}
+\end{bewijs}
+\end{theorie}
+
+Daar komt ook de naam vandaan: de \textit{co}sinus is de sinus van de \textit{co}mplementaire hoek.
+
+\voorbeeld{}{Gegeven: $\sin 50^\circ \approx 0{,}7660$. Wat is $\cos 40^\circ$? En wat is $\tfrac{\sin 50^\circ}{\cos 40^\circ}$?\label{vb:h2-compl}}{%
+\uitleg{$40^\circ$ en $50^\circ$ zijn complementair: $40^\circ = 90^\circ - 50^\circ$.}
+\begin{stappen}
+\cos 40^\circ = \sin(90^\circ - 40^\circ) = \sin 50^\circ \approx 0{,}7660 & Complementaire hoeken. \\[1ex]
+\dfrac{\sin 50^\circ}{\cos 40^\circ} = 1 & Teller en noemer zijn gelijk.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-compl}
+\end{oefeningen}
+
+\subsection{Bijzondere hoeken}
+
+Voor de meeste hoeken geeft de rekenmachine alleen een benadering. Voor $30^\circ$, $45^\circ$ en $60^\circ$ kun je de exacte waarden vinden met de stelling van Pythagoras, in twee eenvoudige driehoeken.
+
+\naast{Een vierkant met zijde 1 heeft een diagonaal van $\sqrt2$. De diagonaal deelt het in twee rechthoekige driehoeken met twee hoeken van $45^\circ$. Daarin is $\sin 45^\circ = \tfrac{1}{\sqrt2} = \tfrac{\sqrt2}{2}$.
+
+Een gelijkzijdige driehoek met zijde 2 heeft hoeken van $60^\circ$. De hoogte deelt hem in twee rechthoekige driehoeken met zijden 1 en 2, hoeken van $30^\circ$ en $60^\circ$, en een hoogte van $\sqrt{4 - 1} = \sqrt3$. Daarin is bijvoorbeeld $\sin 30^\circ = \tfrac12$ en $\tan 60^\circ = \tfrac{\sqrt3}{1} = \sqrt3$.}{\begin{tikzpicture}[scale=1.15,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (1.4,0); \coordinate (C) at (1.4,1.4);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \rechtehoek{A}{B}{C}
+  \hoeklabel{B}{A}{C}{5mm}{45^\circ}
+  \node[below] at (.7,0) {1}; \node[right] at (1.4,.7) {1}; \node[above left] at (.7,.7) {$\sqrt2$};
+  \begin{scope}[xshift=2.2cm]
+  \coordinate (P) at (0,0); \coordinate (M) at (1,0); \coordinate (Q) at (2,0); \coordinate (T) at (1,1.732);
+  \draw[accent,dashed] (M) -- (Q) -- (T);
+  \filldraw[fill=accent!15,draw=accent,thick] (P) -- (M) -- (T) -- cycle;
+  \rechtehoek{P}{M}{T}
+  \hoeklabel{M}{P}{T}{4mm}{60^\circ}
+  \hoeklabel[angle eccentricity=1.9]{P}{T}{M}{4mm}{30^\circ}
+  \node[below] at (.5,0) {1}; \node[left] at (.45,.9) {2}; \node[right] at (1,.75) {$\sqrt3$};
+  \end{scope}
+\end{tikzpicture}}
+
+\begin{theorie}
+De exacte waarden van de goniometrische getallen van $30^\circ$, $45^\circ$ en $60^\circ$:
+
+\vspace{1mm}
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & $30^\circ$ & $45^\circ$ & $60^\circ$ \\ \hline
+$\sin$ & $\formule{\tfrac12}$ & $\formule{\tfrac{\sqrt2}{2}}$ & $\formule{\tfrac{\sqrt3}{2}}$ \\ \hline
+$\cos$ & $\formule{\tfrac{\sqrt3}{2}}$ & $\formule{\tfrac{\sqrt2}{2}}$ & $\formule{\tfrac12}$ \\ \hline
+$\tan$ & $\formule{\tfrac{\sqrt3}{3}}$ & $\formule{1}$ & $\formule{\sqrt3}$ \\ \hline
+\end{tabular}
+\end{center}
+\end{theorie}
+
+Je hoeft de tabel niet uit het hoofd te leren: met de twee driehoeken vind je elke waarde terug. Zie ook dat de kolommen van $30^\circ$ en $60^\circ$ de sinus en de cosinus omwisselen: het zijn complementaire hoeken.
+
+\voorbeeld{}{Een rechthoekige driehoek heeft een schuine zijde van 10 en een hoek van $30^\circ$. Bereken de rechthoekszijden exact.\label{vb:h2-bijz}}{%
+\uitleg{De overstaande zijde vinden we met de sinus, de aanliggende met de cosinus, met de exacte waarden uit de tabel.}
+\begin{stappen}
+\text{overstaand} = 10 \cdot \sin 30^\circ = 10 \cdot \tfrac12 = 5 & SOS. \\[1ex]
+\text{aanliggend} = 10 \cdot \cos 30^\circ = 10 \cdot \tfrac{\sqrt3}{2} = 5\sqrt3 & CAS.
+\end{stappen}
+Controle met Pythagoras: $5^2 + (5\sqrt3)^2 = 25 + 75 = 100 = 10^2$.}
+
+\begin{oefeningen}
+\oef{h2-bijz}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\section{Hoogtes en afstanden}
+
+\subsection{Hoogtehoek en dieptehoek}
+
+Hoe meet je de hoogte van een boom, of hoe ver een boot van de kust ligt? Je meet een afstand en een hoek, en de rest volgt uit een rechthoekige driehoek. Landmeters doen dat met een theodoliet, en ook een gsm met een app kan een hoek meten. Bij zulke metingen vertrek je altijd van de horizontale.
+
+\begin{theorie}
+\begin{minipage}[t]{.56\linewidth}
+\vspace{0pt}
+Kijk je naar een punt dat hoger ligt, dan is de \textbf{\textcolor{accent}{hoogtehoek}} de hoek tussen de horizontale en je kijklijn.
+
+\vspace{1mm}
+Kijk je naar een punt dat lager ligt, dan is de \textbf{\textcolor{accent}{dieptehoek}} de hoek tussen de horizontale en je kijklijn.
+\end{minipage}\hfill
+\begin{minipage}[t]{.4\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \coordinate (O) at (0,0); \coordinate (H) at (3.6,0); \coordinate (P) at (3.4,1.5); \coordinate (Q) at (3.4,-1.2);
+  \draw[grijs,dashed] (O) -- (H) node[right] {horizontaal};
+  \draw[accent,thick] (O) -- (P); \draw[accent,thick] (O) -- (Q);
+  \fill (O) circle (1.5pt); \fill (P) circle (1.5pt); \fill (Q) circle (1.5pt);
+  \hoekboog{H}{O}{P}{11mm} \hoekboog{Q}{O}{H}{11mm}
+  \node[right] at (1.25,.27) {hoogtehoek}; \node[right] at (1.25,-.27) {dieptehoek};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Let op de ooghoogte: de horizontale loopt door je ogen, niet over de grond. Een hoogte die je berekent vanaf je ogen, moet je dus nog verhogen met de hoogte van je ogen.
+
+\voorbeeld{}{Arne staat 20~m van een boom. Hij ziet de top onder een hoogtehoek van $32^\circ$. Zijn ogen zijn 1,6~m boven de grond. Hoe hoog is de boom, afgerond op een centimeter?\label{vb:h2-boom}}{%
+\uitleg{De horizontale door de ogen van Arne, de boom en de kijklijn vormen een rechthoekige driehoek. Daarin kennen we de aanliggende zijde (20~m) en zoeken we de overstaande: de tangens. Daarna tellen we de ooghoogte erbij.}
+\naast{\begin{stappenvrij}{4.6cm}{3.4cm}
+\tan 32^\circ = \dfrac{x}{20} & TOA, vanaf de ogen. \\[2ex]
+x = 20 \tan 32^\circ \approx 12{,}50 & Boven de ogen. \\[1ex]
+h \approx 12{,}50 + 1{,}6 = 14{,}10 & Plus de ooghoogte.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.22,font=\scriptsize]
+  \draw[lijngrijs] (-1.5,0) -- (22,0);
+  \draw[grijs,thick] (0,0) -- (0,1.6);
+  \coordinate (O) at (0,1.6); \coordinate (V) at (20,1.6); \coordinate (T) at (20,14.1);
+  \draw[accent!60!black,line width=2pt] (20,0) -- (20,10);
+  \fill[accent!25] (20,11.6) circle (2.6);
+  \draw[grijs,dashed] (O) -- (V);
+  \draw[accent,thick] (O) -- (T);
+  \rechtehoek{O}{V}{T}
+  \hoeklabel{V}{O}{T}{8mm}{32^\circ}
+  \fill (O) circle (4pt); \fill (T) circle (4pt);
+  \node[below] at (10,0) {20 m}; \node[left] at (0,.8) {1,6}; \node[right] at (21,7.8) {$x$};
+\end{tikzpicture}}
+De boom is ongeveer 14,10~m hoog.}
+
+\voorbeeld{}{Vanaf de top van een vuurtoren, 45~m boven de zee, ziet een wachter een boot onder een dieptehoek van $7^\circ$. Hoe ver ligt de boot van de vuurtoren, afgerond op een meter?\label{vb:h2-diepte}}{%
+\uitleg{De horizontale door de top is evenwijdig met het zeeoppervlak. De dieptehoek is daarom gelijk aan de hoek die de kijklijn met het water maakt in de boot (Z-hoeken). In de rechthoekige driehoek bij de boot is 45~m de overstaande zijde en de afstand $d$ de aanliggende.}
+\naast{\begin{stappenvrij}{4.6cm}{3.8cm}
+\tan 7^\circ = \dfrac{45}{d} & TOA, in de boot. \\[2ex]
+d = \dfrac{45}{\tan 7^\circ} \approx 366{,}5 & Onbekende in de noemer.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \fill[accent!10] (-.5,-.3) rectangle (8.3,0);
+  \draw[lijngrijs] (-.5,0) -- (8.3,0);
+  \fill[grijs] (-.25,0) rectangle (.25,2.4);
+  \coordinate (T) at (0,2.4); \coordinate (V) at (0,0); \coordinate (B) at (7.6,0); \coordinate (H) at (7.6,2.4);
+  \draw[grijs,dashed] (T) -- (H);
+  \draw[accent,thick] (T) -- (B);
+  \hoeklabel{B}{T}{H}{12mm}{7^\circ}
+  \hoeklabel{T}{B}{V}{12mm}{7^\circ}
+  \fill (B) circle (2pt);
+  \node[left] at (-.25,1.2) {45 m}; \node[below] at (3.8,-.3) {$d$};
+\end{tikzpicture}}
+De boot ligt ongeveer 367~m van de vuurtoren.}
+
+\begin{oefeningen}
+\oef{h2-hoogte}
+\end{oefeningen}
+
+\subsection{Hellingen}
+
+Op een verkeersbord staat \textit{12~\%}. Wat betekent dat? Per 100~m die je horizontaal aflegt, stijg je 12~m. Het percentage vergelijkt dus het hoogteverschil met de horizontale afstand: het is de tangens van de hellingshoek, uitgedrukt in procent.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{hellingspercentage}} van een weg die een hoek $\alpha$ maakt met de horizontale, is
+
+\vspace{1mm}
+\qquad $\formule{\text{helling} = \frac{\text{hoogteverschil}}{\text{horizontale afstand}} \cdot 100\,\% = \tan\alpha \cdot 100\,\%}$
+\end{theorie}
+
+\voorbeeld{}{Een weg heeft een helling van 12~\%. Welke hoek maakt hij met de horizontale?\label{vb:h2-helling}}{%
+\uitleg{12~\% betekent $\tan\alpha = \tfrac{12}{100} = 0{,}12$.}
+\naast{\begin{stappenvrij}{4.8cm}{3.6cm}
+\tan\alpha = 0{,}12 & 12 m stijgen per 100 m. \\[1ex]
+\alpha = \tan^{-1} 0{,}12 \approx 6{,}84^\circ & Met de rekenmachine.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (C) at (8,0); \coordinate (B) at (8,.96);
+  \filldraw[fill=accent!15,draw=accent,thick] (A) -- (C) -- (B) -- cycle;
+  \rechtehoek{A}{C}{B}
+  \hoeklabel{C}{A}{B}{14mm}{\alpha}
+  \node[below] at (4,0) {100 m}; \node[right] at (8,.48) {12 m};
+\end{tikzpicture}}
+Een helling van 12~\% is dus een hoek van nog geen $7^\circ$. Een helling van 100~\% is niet verticaal, maar een hoek van $45^\circ$.}
+
+Let op het verschil: de afstand die je \textit{langs} de weg aflegt, is de schuine zijde. Ken je die, dan gebruik je de sinus.
+
+\voorbeeld{}{Een fietser rijdt 2~km langs een weg die een hoek van $5^\circ$ maakt met de horizontale. Hoeveel meter stijgt hij, afgerond op een meter?\label{vb:h2-helling2}}{%
+\uitleg{De 2000~m langs de weg is de schuine zijde, het hoogteverschil is de overstaande zijde: de sinus.}
+\begin{stappen}
+\sin 5^\circ = \dfrac{h}{2000} & SOS. \\[2ex]
+h = 2000 \sin 5^\circ \approx 174 & Het hoogteverschil in meter.
+\end{stappen}
+Wie met de tangens rekent, vindt $2000 \tan 5^\circ \approx 175$~m: bij zo'n kleine hoek bijna hetzelfde, maar bij een steile helling is het verschil groot.}
+
+\begin{oefeningen}
+\oef{h2-helling}
+\end{oefeningen}
+
+Nu kunnen we het probleem van de schilder oplossen. Het is een hoogtehoek, met een gekende horizontale afstand.
+
+\voorbeeld{}{Terug naar het probleem. Een schilder ziet de top van een berg onder een hoogtehoek van $9^\circ$. Horizontaal ligt de top 5,6~km verder. Hoeveel meter ligt de top hoger dan de schilder?\label{vb:h2-terug}}{%
+\uitleg{De horizontale, de verticale door de top en de kijklijn vormen een rechthoekige driehoek. De horizontale afstand is de aanliggende zijde van de hoogtehoek, het hoogteverschil $h$ de overstaande: de tangens. Alles in meter.}
+\begin{stappen}
+\tan 9^\circ = \dfrac{h}{5600} & TOA. \\[2ex]
+h = 5600 \tan 9^\circ \approx 887 & Het hoogteverschil in meter.
+\end{stappen}
+De top ligt ongeveer 887~m hoger dan de schilder. Met de stelling van Pythagoras lukte het niet, want daarvoor moet je twee zijden kennen. De tangens koppelt de hoek aan de verhouding van de zijden, en zo volstaat één zijde. Op zo'n afstand mag je de kromming van de aarde nog verwaarlozen.}
+
+\begin{werkwijze}
+Maak een schets met de horizontale, de verticale en de kijklijn, en zoek de rechthoekige driehoek. Zet de gegeven hoek en de gegeven afstand erin. Kies met SOS-CAS-TOA de verhouding met de zijde die je kent en de zijde die je zoekt. Tel op het einde de ooghoogte erbij als dat nodig is, en kijk of je antwoord kan kloppen.
+\end{werkwijze}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+
+\oef{h2-o25}
+
+\oef{h2-o26}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-alle}{oef:h2-sincos}%
+  \fv{oef:h2-t2}{vb:h2-zijde}{oef:h2-zijde}%
+  \fv{oef:h2-t3}{vb:h2-hoek}{oef:h2-hoek}%
+  \fv{oef:h2-t4}{vb:h2-quot}{oef:h2-grond}%
+  \fv{oef:h2-t5}{vb:h2-boom}{oef:h2-hoogte}%
+  \fv{oef:h2-t6}{vb:h2-helling}{oef:h2-helling}%
+  \fv{oef:h2-t7}{vb:h2-oplossen2}{oef:h2-oplossen}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom een verhouding van twee zijden alleen van de hoek afhangt, de namen overstaande en aanliggende rechthoekszijde, de definities van sinus, cosinus en tangens (SOS-CAS-TOA), hoe je een zijde en een hoek berekent, de grondformule en de tangens als quotiënt met hun bewijs,\alleenvoor{4,5}{ complementaire hoeken, de exacte waarden voor $30^\circ$, $45^\circ$ en $60^\circ$,} hoogtehoek en dieptehoek, en wat een hellingspercentage is. Vergelijk daarna met de kaders.
+\fi

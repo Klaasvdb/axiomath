@@ -148,7 +148,7 @@ Beslist op 15 november 2026:
 
 **2de graad.** Er is nog geen cursus geschreven, dus dit kan meteen mee in de planning:
 
-- **GO!** gebruikt voor elke richting met specifieke wiskunde de handboeken van pakket 4 (B+S). Daarbij komen homothetie en constructies met passer en liniaal; na te gaan of die in de geplande handboeken Gelijkvormigheid en Driehoeksmeting passen.
+- **GO!** gebruikt voor elke richting met specifieke wiskunde de handboeken van pakket 4 (B+S). Daarbij komen homothetie en constructies met passer en liniaal: die staan in Gelijkvormigheid (homothetie in hoofdstuk 1, constructies in hoofdstuk 3, pakket 4 en 5).
 - **Het optiepakket van GO!** en de uitbreiding van POV vallen samen met de extra handboeken van pakket 5: Logica (bewijzen), Analytische meetkunde, Veeltermen en Grafen.
 - **POV** Bedrijfswetenschappen en Humane wetenschappen passen in pakket 3 en 2.
 

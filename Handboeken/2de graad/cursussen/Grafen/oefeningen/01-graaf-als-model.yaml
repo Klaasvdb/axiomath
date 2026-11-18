@@ -1,0 +1,1237 @@
+# Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
+# pakketten: de bewijsopdrachten h1-o22 en h1-o23 alleen in 5.
+# Graden, aantallen bogen, lengtes van routes en volgordes in schema's zijn nagerekend met Python.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Uit het hoofd.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is $3 + 5 + 7 + 1$ even of oneven?
+      antwoord: |-
+        even ($16$)
+      uitwerking: |-
+        $3 + 5 + 7 + 1 = 16$: vier oneven getallen geven samen een even getal.
+    - opgave: |-
+        Je telt vijf oneven getallen op. Is de som even of oneven?
+      antwoord: |-
+        oneven
+      uitwerking: |-
+        Twee oneven getallen geven samen een even getal. Vier oneven getallen geven dus een even getal, en het vijfde maakt de som oneven.
+    - opgave: |-
+        Vier vrienden geven elkaar allemaal één keer de hand. Hoeveel handdrukken zijn dat?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        Noem ze $A$, $B$, $C$, $D$: $AB$, $AC$, $AD$, $BC$, $BD$, $CD$.
+    - opgave: |-
+        Bereken $\tfrac{7 \cdot 6}{2}$.
+      antwoord: |-
+        $21$
+      uitwerking: |-
+        $\tfrac{42}{2} = 21$.
+    - opgave: |-
+        Een getal is het dubbel van een geheel getal. Kan het oneven zijn?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $2k$ is altijd even.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad De kaart toont vijf dorpen en de wegen ertussen.
+    \figuren{\begin{tikzpicture}[font=\footnotesize]
+      \coordinate (A) at (0,.6); \coordinate (B) at (1.8,1.6); \coordinate (C) at (1.9,0); \coordinate (D) at (3.6,1); \coordinate (E) at (3.8,-.6);
+      \begin{scope}[black!28,line width=2.2pt]
+        \draw (A) to[out=40,in=200] (B); \draw (A) to[out=-30,in=170] (C); \draw (B) to[out=-60,in=110] (C);
+        \draw (B) to[out=10,in=150] (D); \draw (C) to[out=30,in=240] (D); \draw (D) to[out=-60,in=80] (E);
+        \draw (C) to[out=-40,in=190] (E);
+      \end{scope}
+      \foreach \p in {A,B,C,D,E}{\fill[accent] ($(\p)+(-.11,-.11)$) rectangle ($(\p)+(.11,.11)$);}
+      \node[above left] at (A) {$A$}; \node[above] at (B) {$B$}; \node[below left] at (C) {$C$}; \node[above right] at (D) {$D$}; \node[below right] at (E) {$E$};
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel wegen vertrekken er in elk dorp?
+      antwoord: |-
+        $A$: 2, $B$: 3, $C$: 4, $D$: 3, $E$: 2
+      uitwerking: |-
+        Tel per dorp de wegen die er aankomen: in $C$ komen de wegen van $A$, $B$, $D$ en $E$ samen.
+    - opgave: |-
+        Tel die vijf getallen op.
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $2 + 3 + 4 + 3 + 2 = 14$.
+    - opgave: |-
+        Hoeveel wegen staan er op de kaart?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        $AB$, $AC$, $BC$, $BD$, $CD$, $CE$, $DE$.
+    - opgave: |-
+        Vergelijk je antwoorden op b en c. Kun je verklaren wat je ziet?
+      antwoord: |-
+        $14 = 2 \cdot 7$
+      uitwerking: |-
+        De som is het dubbele van het aantal wegen. Elke weg heeft twee uiteinden, in twee dorpen, en wordt dus bij twee dorpen geteld.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h1-model
+  soort: kort
+  opgave: |-
+    Op een volleybaltoernooi spelen de ploegen $P$, $Q$, $R$, $S$ en $T$. Deze wedstrijden zijn al gespeeld: $P$ tegen $Q$, $P$ tegen $R$, $Q$ tegen $S$, $R$ tegen $S$, $R$ tegen $T$ en $S$ tegen $T$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de gespeelde wedstrijden voor met een graaf.
+      antwoord: |-
+        zie de figuur
+      uitwerking: |-
+        De ploegen zijn de knopen, elke gespeelde wedstrijd is een boog.
+        \figuren{\begin{tikzpicture}
+          \knopen{P/0/1, Q/0/-.4, R/1.6/1.4, S/1.6/-.6, T/3/.5}
+          \bogen{P/Q, P/R, Q/S, R/S, R/T, S/T}
+        \end{tikzpicture}}
+    - opgave: |-
+        Welke ploegen speelden al de meeste wedstrijden?
+      antwoord: |-
+        $R$ en $S$ (elk 3)
+      uitwerking: |-
+        $R$ en $S$ hebben elk drie buren; $P$, $Q$ en $T$ hebben er twee.
+    - opgave: |-
+        Elke ploeg speelt één keer tegen elke andere. Welke wedstrijden moeten nog gespeeld worden?
+      antwoord: |-
+        $PS$, $PT$, $QR$, $QT$
+      uitwerking: |-
+        Overloop alle paren: $PQ$, $PR$, $PS$, $PT$, $QR$, $QS$, $QT$, $RS$, $RT$, $ST$. De paren zonder boog zijn $PS$, $PT$, $QR$ en $QT$.
+
+- id: h1-zelfde
+  soort: kort
+  opgave: |-
+    Welke twee tekeningen stellen dezelfde graaf voor?
+    \figuren{\begin{tikzpicture}[scale=.85]
+      \knopen{A/0/1.5, B/1.4/2.3, C/2.5/1.3, D/1.9/0, E/.5/0}
+      \bogen{A/B, B/C, C/D, D/E, E/A}
+      \node[grijs,font=\footnotesize] at (1.25,-.7) {tekening 1};
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}[scale=.85]
+      \knopen{A/0/1.5, B/1.4/2.3, C/2.5/1.3, D/1.9/0, E/.5/0}
+      \bogen{A/B, B/C, C/A, C/D, D/E}
+      \node[grijs,font=\footnotesize] at (1.25,-.7) {tekening 2};
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}[scale=.85]
+      \knopen{A/0/1.3, B/1.8/0, C/0/0, D/1.8/1.3, E/.9/2.3}
+      \bogen{A/B, B/C, C/D, D/E, E/A}
+      \node[grijs,font=\footnotesize] at (.9,-.7) {tekening 3};
+    \end{tikzpicture}}
+  antwoord: |-
+    tekening 1 en tekening 3
+  uitwerking: |-
+    Tekening 1: $AB$, $BC$, $CD$, $DE$, $EA$. Tekening 2: $AB$, $BC$, $CA$, $CD$, $DE$. Tekening 3: $AB$, $BC$, $CD$, $DE$, $EA$. De lijsten van tekening 1 en 3 zijn gelijk. In tekening 3 snijden $AB$ en $CD$ elkaar, maar dat snijpunt is geen knoop. Tekening 2 is een andere graaf: daar heeft $C$ graad 3.
+
+- id: h1-graad
+  soort: kort
+  opgave: |-
+    Bekijk de graaf.
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \knopen{K/0/0, L/1.4/1.3, M/2.2/0, N/3.6/0}
+        \bogen{K/L, L/M, M/N}
+        \draw[boog] (K) to[bend left=22] (M);
+        \draw[boog] (K) to[bend right=22] (M);
+        \draw[boog] (L) to[out=60,in=120,looseness=10] (L);
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de graad van elke knoop.
+      antwoord: |-
+        $\gr{K} = 3$, $\gr{L} = 4$, $\gr{M} = 4$, $\gr{N} = 1$
+      uitwerking: |-
+        $K$: naar $L$ en twee keer naar $M$. $L$: naar $K$ en $M$, en de lus telt voor 2. $M$: twee keer naar $K$, naar $L$ en naar $N$. $N$: alleen naar $M$.
+    - opgave: |-
+        Hoeveel bogen heeft de graaf?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        $KL$, twee keer $KM$, $LM$, $MN$ en de lus in $L$.
+    - opgave: |-
+        Welke knopen zijn buren van $M$?
+      antwoord: |-
+        $K$, $L$ en $N$
+      uitwerking: |-
+        $M$ is met $K$ verbonden (twee keer), met $L$ en met $N$.
+
+- id: h1-hand
+  soort: kort
+  opgave: |-
+    Gebruik de handdrukstelling.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een graaf heeft 6 knopen, elk met graad 4. Hoeveel bogen heeft hij?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        De som van de graden is $6 \cdot 4 = 24 = 2b$, dus $b = 12$.
+    - opgave: |-
+        Een graaf heeft 9 bogen en zes knopen. Vijf knopen hebben de graden $4, 3, 3, 2$ en $2$. Wat is de graad van de zesde knoop?
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        De som van de graden is $2 \cdot 9 = 18$. De vijf gegeven graden geven samen $14$, dus de zesde knoop heeft graad $18 - 14 = 4$.
+    - opgave: |-
+        Kan een graaf met 7 bogen de graden $1, 2, 3, 4$ en $5$ hebben?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De som van de graden is $15$, maar met 7 bogen moet ze $14$ zijn.
+
+- id: h1-oneven
+  soort: kort
+  opgave: |-
+    Bestaat er een graaf met deze graden? Teken er een als het kan.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $2, 2, 2, 1$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Eén knoop met een oneven graad: dat kan niet.
+    - opgave: |-
+        $3, 3, 2, 2, 2$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Twee oneven graden. Bijvoorbeeld: $A$ en $B$ met graad 3, beide verbonden met $C$, $D$ en $E$.
+        \figuren{\begin{tikzpicture}
+          \knopen{A/0/.7, B/2.4/.7, C/1.2/1.5, D/1.2/.7, E/1.2/-.1}
+          \bogen{A/C, A/D, A/E, B/C, B/D, B/E}
+        \end{tikzpicture}}
+    - opgave: |-
+        $5, 3, 3, 1$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Vier oneven graden, dat is even. Het kan met meervoudige bogen: twee bogen $AB$, twee bogen $AC$, één boog $AD$ en één boog $BC$.
+        \figuren{\begin{tikzpicture}
+          \knopen{A/0/0, B/1.5/1.1, C/1.5/-1.1, D/-1.5/0}
+          \draw[boog] (A) to[bend left=18] (B); \draw[boog] (A) to[bend right=18] (B);
+          \draw[boog] (A) to[bend left=18] (C); \draw[boog] (A) to[bend right=18] (C);
+          \bogen{A/D, B/C}
+        \end{tikzpicture}}
+    - opgave: |-
+        $3, 3, 3, 3, 3$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Vijf knopen met een oneven graad: dat kan niet. De som zou $15$ zijn.
+
+- id: h1-volledig
+  soort: kort
+  opgave: |-
+    Beantwoord met een volledige graaf.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op een vergadering geven 10 mensen elkaar allemaal één keer de hand. Hoeveel handdrukken zijn dat?
+      antwoord: |-
+        $45$
+      uitwerking: |-
+        $\tfrac{10 \cdot 9}{2} = 45$.
+    - opgave: |-
+        In een competitie met 8 ploegen speelt elke ploeg twee keer tegen elke andere: één keer thuis en één keer uit. Hoeveel wedstrijden zijn er?
+      antwoord: |-
+        $56$
+      uitwerking: |-
+        Eén keer tegen elke andere geeft $\tfrac{8 \cdot 7}{2} = 28$ wedstrijden. Twee keer: $56$.
+    - opgave: |-
+        In een competitie speelt elke ploeg één keer tegen elke andere. Er zijn 28 wedstrijden. Hoeveel ploegen zijn er?
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        Zoek $n$ met $\tfrac{n(n-1)}{2} = 28$, dus $n(n-1) = 56$. Proberen: $7 \cdot 6 = 42$, $8 \cdot 7 = 56$. Er zijn 8 ploegen.
+
+- id: h1-gericht
+  soort: kort
+  opgave: |-
+    De gerichte graaf toont de eenrichtingsstraten tussen vier kruispunten.
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \knopen{K/0/0, L/2/0, M/1/1.5, N/2.8/1.5}
+        \pijlen{K/L, L/M, M/K, M/N, N/L}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de ingraad en de uitgraad van elk kruispunt.
+      antwoord: |-
+        in: $K$ 1, $L$ 2, $M$ 1, $N$ 1; uit: $K$ 1, $L$ 1, $M$ 2, $N$ 1
+      uitwerking: |-
+        Bij $L$ komen pijlen aan van $K$ en $N$, en er vertrekt er een naar $M$. Bij $M$ vertrekken pijlen naar $K$ en $N$.
+    - opgave: |-
+        Controleer dat de som van de ingraden gelijk is aan de som van de uitgraden en aan het aantal pijlen.
+      antwoord: |-
+        $5 = 5 = 5$
+      uitwerking: |-
+        Ingraden: $1 + 2 + 1 + 1 = 5$. Uitgraden: $1 + 1 + 2 + 1 = 5$. Er zijn 5 pijlen.
+    - opgave: |-
+        Kun je van $N$ naar $K$ rijden? Geef de route.
+      antwoord: |-
+        ja: $N, L, M, K$
+      uitwerking: |-
+        Van $N$ kun je alleen naar $L$, dan naar $M$, en dan naar $K$.
+
+- id: h1-schema
+  soort: kort
+  opgave: |-
+    Voor een spreekbeurt kies je een onderwerp ($O$), zoek je informatie ($I$), schrijf je de tekst ($T$), maak je dia's ($D$), oefen je ($R$) en geef je de spreekbeurt ($G$). Een pijl betekent: moet eerst.
+    \figuren{\begin{tikzpicture}
+      \knopen{O/0/0, I/1.5/0, T/3/.6, D/3/-.6, R/4.5/0, G/6/0}
+      \pijlen{O/I, I/T, I/D, T/R, D/R, R/G}
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een volgorde waarin je de taken kunt doen.
+      antwoord: |-
+        bijvoorbeeld $O, I, T, D, R, G$
+      uitwerking: |-
+        Alleen $O$ heeft geen aankomende pijl. Daarna $I$. Dan kunnen $T$ en $D$ in eender welke volgorde, en daarna $R$ en $G$.
+    - opgave: |-
+        Hoeveel goede volgordes zijn er?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        Alleen $T$ en $D$ mogen van plaats wisselen: $O, I, T, D, R, G$ en $O, I, D, T, R, G$.
+
+- id: h1-gewogen
+  soort: kort
+  opgave: |-
+    De graaf toont de reistijden in minuten tussen vijf haltes.
+    \figuren{\begin{tikzpicture}
+      \knopen{K/0/0, L/1.6/1.4, M/1.8/-.6, N/3.6/1.2, O/4.2/-.5}
+      \gbogen{K/L/10, K/M/4, L/M/5, L/N/3, M/N/9, M/O/12, N/O/6}
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de lengte van de routes $K, M, O$ en $K, L, N, O$ en $K, M, L, N, O$.
+      antwoord: |-
+        $16$, $19$, $18$ minuten
+      uitwerking: |-
+        $4 + 12 = 16$; $10 + 3 + 6 = 19$; $4 + 5 + 3 + 6 = 18$.
+    - opgave: |-
+        Welke van de drie routes is de snelste?
+      antwoord: |-
+        $K, M, O$
+      uitwerking: |-
+        $16 < 18 < 19$. Hier is de route met de minste bogen wel de snelste.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    graad, handdrukstelling
+  opgave: |-
+    Bekijk de graaf.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.9]
+        \knopen{A/0/0, B/1.5/.9, C/3/0, D/1.5/-.9, E/4.4/.9, F/4.4/-.9}
+        \bogen{A/B, A/D, B/C, B/D, C/D, C/E, E/F}
+        \draw[boog] (C) to[bend left=18] (F);
+        \draw[boog] (C) to[bend right=18] (F);
+        \draw[boog] (E) to[out=30,in=90,looseness=10] (E);
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de graad van elke knoop.
+      antwoord: |-
+        $A$ 2, $B$ 3, $C$ 5, $D$ 3, $E$ 4, $F$ 3
+      uitwerking: |-
+        $C$ is verbonden met $B$, $D$, $E$ en twee keer met $F$. Bij $E$ telt de lus voor 2.
+    - opgave: |-
+        Hoeveel bogen heeft de graaf?
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        $AB$, $AD$, $BC$, $BD$, $CD$, $CE$, twee keer $CF$, $EF$ en de lus.
+    - opgave: |-
+        Controleer de handdrukstelling.
+      antwoord: |-
+        $20 = 2 \cdot 10$
+      uitwerking: |-
+        $2 + 3 + 5 + 3 + 4 + 3 = 20 = 2 \cdot 10$.
+    - opgave: |-
+        Welke knopen hebben een oneven graad? Is hun aantal even?
+      antwoord: |-
+        $B$, $C$, $D$, $F$; ja, vier
+      uitwerking: |-
+        Vier knopen met een oneven graad, zoals het moet.
+    - opgave: |-
+        Welke knopen zijn buren van $C$?
+      antwoord: |-
+        $B$, $D$, $E$, $F$
+      uitwerking: |-
+        $C$ is niet verbonden met $A$.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een situatie als graaf: busnet
+  opgave: |-
+    In een stad rijden drie buslijnen. Lijn 1 rijdt Station, Markt, Kerk, Park. Lijn 2 rijdt Station, Zwembad, Park. Lijn 3 rijdt Markt, Zwembad, College. Een bus stopt aan elke halte die genoemd wordt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken een graaf met de haltes als knopen. Teken een boog als een bus van de ene halte rechtstreeks naar de andere rijdt, zonder tussenhalte.
+      antwoord: |-
+        zie de figuur
+      uitwerking: |-
+        Met de beginletters: $SM$, $MK$, $KP$ (lijn 1), $SZ$, $ZP$ (lijn 2), $MZ$, $ZC$ (lijn 3).
+        \figuren{\begin{tikzpicture}
+          \knopen{S/0/0, M/1.5/1, K/3/1, P/4.2/0, Z/2.2/-.6, C/2.2/-1.8}
+          \bogen{S/M, M/K, K/P, S/Z, Z/P, M/Z, Z/C}
+        \end{tikzpicture}}
+    - opgave: |-
+        Welke halte heeft de meeste buren?
+      antwoord: |-
+        het Zwembad (4)
+      uitwerking: |-
+        $\gr{Z} = 4$: Station, Park, Markt en College.
+    - opgave: |-
+        Hoeveel bogen heeft de graaf? Controleer met de handdrukstelling.
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        De graden zijn $S$ 2, $M$ 3, $K$ 2, $P$ 2, $Z$ 4, $C$ 1: samen $14 = 2 \cdot 7$.
+    - opgave: |-
+        Langs hoeveel tussenhaltes kom je minstens van het College naar de Kerk?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        Bijvoorbeeld College, Zwembad, Markt, Kerk. Met één tussenhalte kan het niet: de enige buur van het College is het Zwembad, en dat is geen buur van de Kerk.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    gerichte graaf: berichtjes
+  opgave: |-
+    Vandaag stuurde Anouk een berichtje naar Bram en naar Celine, Bram naar Celine, Celine naar Anouk, Dirk naar Anouk en naar Bram, en Eva naar Dirk en naar Celine.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken een gerichte graaf, met een pijl van wie stuurt naar wie ontvangt.
+      antwoord: |-
+        zie de figuur
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}
+          \knopen{A/0/1.4, B/2/1.4, C/1/0, D/-.6/-.6, E/2.6/-.6}
+          \pijlen{A/B, B/C, D/A, D/B, E/D, E/C}
+          \draw[pijl] (A) to[bend left=12] (C);
+          \draw[pijl] (C) to[bend left=12] (A);
+        \end{tikzpicture}}
+    - opgave: |-
+        Bepaal van elke persoon de ingraad en de uitgraad.
+      antwoord: |-
+        in: $A$ 2, $B$ 2, $C$ 3, $D$ 1, $E$ 0; uit: $A$ 2, $B$ 1, $C$ 1, $D$ 2, $E$ 2
+      uitwerking: |-
+        Bij Celine komen berichtjes aan van Anouk, Bram en Eva. Eva kreeg niets.
+    - opgave: |-
+        Wie kreeg de meeste berichtjes? Wie kreeg er geen enkel?
+      antwoord: |-
+        Celine; Eva
+      uitwerking: |-
+        De grootste ingraad is die van Celine (3), Eva heeft ingraad 0.
+    - opgave: |-
+        Hoeveel berichtjes werden er in totaal verstuurd? Controleer met de som van de ingraden.
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $2 + 2 + 3 + 1 + 0 = 8$, en ook de uitgraden geven $2 + 1 + 1 + 2 + 2 = 8$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    aantal bogen van een volledige graaf
+  opgave: |-
+    Hoeveel bogen heeft een volledige graaf met zoveel knopen?
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $5$
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        $\tfrac{5 \cdot 4}{2} = 10$.
+    - opgave: |-
+        $7$
+      antwoord: |-
+        $21$
+      uitwerking: |-
+        $\tfrac{7 \cdot 6}{2} = 21$.
+    - opgave: |-
+        $12$
+      antwoord: |-
+        $66$
+      uitwerking: |-
+        $\tfrac{12 \cdot 11}{2} = 66$.
+    - opgave: |-
+        $20$
+      antwoord: |-
+        $190$
+      uitwerking: |-
+        $\tfrac{20 \cdot 19}{2} = 190$.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    bestaat een graaf met deze graden?
+  opgave: |-
+    Bestaat er een graaf met deze graden? Leg uit.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $1, 1, 1, 1$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Vier oneven graden. Twee losse bogen $AB$ en $CD$.
+    - opgave: |-
+        $2, 3, 4, 5$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Twee oneven graden (3 en 5), de som is $14$: 7 bogen. Bijvoorbeeld met de graden in de volgorde $A, B, C, D$: twee bogen $DC$, twee bogen $DB$, en $DA$, $BC$, $CA$.
+    - opgave: |-
+        $1, 2, 3, 4, 5$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Drie oneven graden (1, 3, 5): dat kan niet.
+    - opgave: |-
+        $3, 3, 3$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Drie oneven graden: de som $9$ is oneven.
+    - opgave: |-
+        $6, 4, 2, 2$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Geen oneven graden. Bijvoorbeeld: twee bogen $AB$, en $AC$, $AD$, $CD$, een lus in $A$ en een lus in $B$.
+    - opgave: |-
+        $1, 3, 5, 7, 9, 11$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Zes oneven graden, dat is even; de som is $36$, dus 18 bogen. Bijvoorbeeld: drie losse bogen tussen de knopen twee aan twee, en dan lussen tot elke knoop zijn graad heeft (een lus telt voor 2).
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    lengte van een route in een gewogen graaf
+  opgave: |-
+    De graaf toont wandelpaden met hun lengte in hm (honderd meter). Bereken de lengte van elke route van $A$ naar $F$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.85]
+        \knopen{A/0/0, B/1.8/1.2, C/1.8/-1.2, D/3.4/0, E/5/1.2, F/5/-1}
+        \gbogen{A/B/5, A/C/3, B/C/1, B/D/4, C/D/6, B/E/7, D/E/2, D/F/5, E/F/3}
+      \end{tikzpicture}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $A, B, E, F$
+      antwoord: |-
+        $15$ hm
+      uitwerking: |-
+        $5 + 7 + 3 = 15$.
+    - opgave: |-
+        $A, C, D, F$
+      antwoord: |-
+        $14$ hm
+      uitwerking: |-
+        $3 + 6 + 5 = 14$.
+    - opgave: |-
+        $A, B, D, F$
+      antwoord: |-
+        $14$ hm
+      uitwerking: |-
+        $5 + 4 + 5 = 14$.
+    - opgave: |-
+        $A, C, B, D, E, F$
+      antwoord: |-
+        $13$ hm; even kort: $A, C, B, D, F$
+      uitwerking: |-
+        $3 + 1 + 4 + 2 + 3 = 13$. De route met de meeste bogen is de kortste van de vier. Even kort is $A, C, B, D, F$: $3 + 1 + 4 + 5 = 13$. Korter dan $13$ hm kan niet (zie hoofdstuk 2).
+  slot: |-
+    Zoek nog een route van $A$ naar $F$ die even kort is als de kortste van de vier.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    dezelfde graaf, andere tekening
+  opgave: |-
+    Bekijk de twee tekeningen.
+    \figuren{\begin{tikzpicture}
+      \knopen{P/0/0, Q/2/0, R/2/1.6, S/0/1.6, T/1/2.6}
+      \bogen{P/Q, P/R, Q/S, R/S, S/T, R/T}
+      \node[grijs,font=\footnotesize] at (1,-.7) {tekening 1};
+    \end{tikzpicture}\qquad\qquad
+    \begin{tikzpicture}
+      \knopen{P/0/0, Q/2.4/0, S/2.4/1.4, R/0/1.4, T/1.2/2.4}
+      \bogen{P/Q, P/R, Q/S, R/S, S/T, R/T}
+      \node[grijs,font=\footnotesize] at (1.2,-.7) {tekening 2};
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stellen ze dezelfde graaf voor?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Beide lijsten zijn $PQ$, $PR$, $QS$, $RS$, $ST$, $RT$. In tekening 2 zijn $R$ en $S$ van plaats gewisseld, zodat geen bogen meer snijden.
+    - opgave: |-
+        In tekening 1 snijden twee bogen elkaar. Is dat snijpunt een knoop?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een knoop staat er alleen als hij getekend is. Je kunt op het snijpunt niet van $PR$ overstappen naar $QS$.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    volgorde bij een schema
+  opgave: |-
+    Voor een klasfeest maak je uitnodigingen ($U$) en verstuur je ze ($V$), doe je boodschappen ($B$), bak je een taart ($K$), versier je de zaal ($Z$), en dan is er het feest ($F$). Een pijl betekent: moet eerst. Welke volgordes zijn goed?
+    \figuren{\begin{tikzpicture}
+      \knopen{U/0/1.2, V/1.6/1.2, B/0/-.3, K/1.6/0, Z/1.6/-1, F/3.2/0}
+      \pijlen{U/V, V/F, B/K, K/F, Z/F, B/Z}
+    \end{tikzpicture}}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $U, V, B, K, Z, F$
+      antwoord: |-
+        goed
+      uitwerking: |-
+        Elke pijl wijst naar een latere taak.
+    - opgave: |-
+        $B, Z, U, K, V, F$
+      antwoord: |-
+        goed
+      uitwerking: |-
+        $U$ voor $V$, $B$ voor $K$ en $Z$, en alles voor $F$.
+    - opgave: |-
+        $U, B, V, Z, F, K$
+      antwoord: |-
+        fout
+      uitwerking: |-
+        De taart komt na het feest, maar $K$ moet voor $F$.
+    - opgave: |-
+        $Z, B, U, V, K, F$
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Je versiert voor je de boodschappen deed, maar $B$ moet voor $Z$.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    handdrukstelling op een feest
+  opgave: |-
+    Op een feest geven sommige gasten elkaar de hand, maar niet iedereen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Elk van de 12 gasten gaf precies 5 handen. Hoeveel handdrukken waren er?
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        De som van de graden is $12 \cdot 5 = 60 = 2b$, dus 30 handdrukken.
+    - opgave: |-
+        Kan het dat elk van de 9 gasten precies 3 handen gaf?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De som zou $27$ zijn, en dat is oneven.
+    - opgave: |-
+        Op een ander feest gaven 4 gasten elk 3 handen en 6 gasten elk 2 handen. Hoeveel handdrukken waren er?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        $4 \cdot 3 + 6 \cdot 2 = 24 = 2b$, dus $b = 12$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    molecules als graaf
+  opgave: |-
+    In een alkaan, zoals ethaan in de figuur, heeft elk koolstofatoom ($C$) vier bindingen en elk waterstofatoom ($H$) één. De atomen zijn de knopen, de bindingen de bogen.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.75]
+        \node[knoop] (c1) at (0,0) {$C$}; \node[knoop] (c2) at (1.3,0) {$C$};
+        \foreach \n/\x/\y in {h1/-1.1/0, h2/0/1.1, h3/0/-1.1, h4/2.4/0, h5/1.3/1.1, h6/1.3/-1.1}{\node[knoop] (\n) at (\x,\y) {$H$};}
+        \bogen{c1/c2, c1/h1, c1/h2, c1/h3, c2/h4, c2/h5, c2/h6}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Controleer de handdrukstelling voor ethaan, met 2 koolstof- en 6 waterstofatomen.
+      antwoord: |-
+        $14 = 2 \cdot 7$
+      uitwerking: |-
+        $2 \cdot 4 + 6 \cdot 1 = 14$, en er zijn 7 bindingen.
+    - opgave: |-
+        Propaan heeft 3 koolstof- en 8 waterstofatomen. Hoeveel bindingen heeft het?
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        $3 \cdot 4 + 8 \cdot 1 = 20 = 2b$, dus 10 bindingen.
+    - opgave: |-
+        Butaan heeft 4 koolstof- en 10 waterstofatomen. Hoeveel bindingen heeft het?
+      antwoord: |-
+        $13$
+      uitwerking: |-
+        $4 \cdot 4 + 10 = 26 = 2b$, dus 13 bindingen.
+    - opgave: |-
+        Een alkaan met $n$ koolstofatomen heeft $2n + 2$ waterstofatomen. Toon aan dat het $3n + 1$ bindingen heeft.
+      antwoord: |-
+        $\tfrac{4n + 2n + 2}{2} = 3n + 1$
+      uitwerking: |-
+        De som van de graden is $4n + (2n + 2) \cdot 1 = 6n + 2 = 2b$, dus $b = 3n + 1$. Controle: $n = 4$ geeft 13.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ribben van veelvlakken
+  opgave: |-
+    De hoekpunten en ribben van een veelvlak vormen een graaf. Hoeveel ribben heeft het veelvlak?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een viervlak: 4 hoekpunten, elk op 3 ribben.
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        $\tfrac{4 \cdot 3}{2} = 6$.
+    - opgave: |-
+        Een achtvlak: 6 hoekpunten, elk op 4 ribben.
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        $\tfrac{6 \cdot 4}{2} = 12$.
+    - opgave: |-
+        Een twaalfvlak: 20 hoekpunten, elk op 3 ribben.
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        $\tfrac{20 \cdot 3}{2} = 30$.
+    - opgave: |-
+        Een twintigvlak: 12 hoekpunten, elk op 5 ribben.
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        $\tfrac{12 \cdot 5}{2} = 30$. Het twaalfvlak en het twintigvlak hebben evenveel ribben.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    volledige graaf: toernooi in groepen
+  opgave: |-
+    Aan een toernooi doen 16 ploegen mee.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De ploegen worden verdeeld in 4 groepen van 4. In elke groep speelt elke ploeg één keer tegen elke andere. Hoeveel wedstrijden zijn dat in totaal?
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        Per groep $\tfrac{4 \cdot 3}{2} = 6$ wedstrijden, samen $4 \cdot 6 = 24$.
+    - opgave: |-
+        Hoeveel wedstrijden zouden er zijn als alle 16 ploegen één keer tegen elkaar spelen?
+      antwoord: |-
+        $120$
+      uitwerking: |-
+        $\tfrac{16 \cdot 15}{2} = 120$: vijf keer zoveel.
+    - opgave: |-
+        Een ploeg speelt hoogstens één wedstrijd per dag. Hoeveel dagen duurt de groepsfase minstens?
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        Elke ploeg speelt 3 wedstrijden in haar groep. Het kan in 3 dagen: in een groep $ABCD$ op dag 1 $AB$ en $CD$, op dag 2 $AC$ en $BD$, op dag 3 $AD$ en $BC$.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gerichte graaf: eenrichtingsstraten
+  opgave: |-
+    De gerichte graaf toont de straten van een wijk. Alle straten zijn eenrichtingsstraten.
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \knopen{A/0/.8, B/1.3/1.6, C/1.3/0, D/2.8/0, E/4.1/.8, F/4.1/-.8}
+        \pijlen{A/B, B/C, C/A, C/D, D/E, E/F, F/D}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kun je van $A$ naar $F$ rijden? Geef de route.
+      antwoord: |-
+        ja: $A, B, C, D, E, F$
+      uitwerking: |-
+        Volg de pijlen.
+    - opgave: |-
+        Kun je van $F$ naar $A$ rijden?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Vanuit $D$, $E$ en $F$ wijzen alle pijlen weer naar $D$, $E$ of $F$. Geen pijl gaat terug naar $A$, $B$ of $C$.
+    - opgave: |-
+        De gemeente maakt één straat berijdbaar in beide richtingen, zodat je van elk kruispunt naar elk ander kunt. Welke straat?
+      antwoord: |-
+        de straat tussen $C$ en $D$
+      uitwerking: |-
+        Het is de enige straat tussen de groep $A$, $B$, $C$ en de groep $D$, $E$, $F$. Met een pijl van $D$ naar $C$ kun je overal komen: binnen elke groep rij je rond, en tussen de groepen over $CD$.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een situatie als gewogen graaf
+  opgave: |-
+    Een fietsverhuur heeft vijf stations $A$, $B$, $C$, $D$ en $E$. De tabel toont de fietstijden in minuten tussen de stations die rechtstreeks verbonden zijn.
+    \begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    $AB$ & $AC$ & $BC$ & $BD$ & $CD$ & $CE$ & $DE$ \\ \hline
+    12 & 20 & 6 & 15 & 7 & 18 & 9 \\ \hline
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken de gewogen graaf.
+      antwoord: |-
+        zie de figuur
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}
+          \knopen{A/0/0, B/1.8/1.2, C/1.8/-1, D/3.8/1, E/4.2/-.8}
+          \gbogen{A/B/12, A/C/20, B/C/6, B/D/15, C/D/7, C/E/18, D/E/9}
+        \end{tikzpicture}}
+    - opgave: |-
+        Bereken de lengte van de routes $A, C, E$ en $A, B, D, E$.
+      antwoord: |-
+        $38$ en $36$ minuten
+      uitwerking: |-
+        $20 + 18 = 38$ en $12 + 15 + 9 = 36$.
+    - opgave: |-
+        Zoek door te proberen de snelste route van $A$ naar $E$.
+      antwoord: |-
+        $A, B, C, D, E$: $34$ minuten
+      uitwerking: |-
+        De routes zonder knoop twee keer: $A, C, E$ 38; $A, B, D, E$ 36; $A, B, C, E$ 36; $A, C, D, E$ 36; $A, B, C, D, E$ 34; $A, C, B, D, E$ 50; $A, B, D, C, E$ 52. De snelste is $A, B, C, D, E$.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een graaf tekenen met gegeven graden
+  opgave: |-
+    Teken een graaf die aan de voorwaarden voldoet.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        4 knopen, die allemaal graad 2 hebben, en enkelvoudig.
+      antwoord: |-
+        een vierhoek
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[scale=.8]
+          \knopen{A/0/0, B/1.5/0, C/1.5/1.5, D/0/1.5}
+          \bogen{A/B, B/C, C/D, D/A}
+        \end{tikzpicture}}
+    - opgave: |-
+        5 knopen met de graden $1, 1, 2, 2, 2$, en enkelvoudig.
+      antwoord: |-
+        een ketting van 5 knopen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[scale=.8]
+          \knopen{A/0/0, B/1.3/0, C/2.6/0, D/3.9/0, E/5.2/0}
+          \bogen{A/B, B/C, C/D, D/E}
+        \end{tikzpicture}}
+    - opgave: |-
+        4 knopen met de graden $3, 3, 2, 2$, en enkelvoudig.
+      antwoord: |-
+        een vierhoek met één diagonaal
+      uitwerking: |-
+        De twee knopen met graad 3 zijn met alle andere verbonden.
+        \figuren{\begin{tikzpicture}[scale=.8]
+          \knopen{A/0/0, B/1.5/0, C/1.5/1.5, D/0/1.5}
+          \bogen{A/B, B/C, C/D, D/A, A/C}
+        \end{tikzpicture}}
+    - opgave: |-
+        6 knopen, die allemaal graad 3 hebben, en enkelvoudig.
+      antwoord: |-
+        bijvoorbeeld een prisma
+      uitwerking: |-
+        Twee driehoeken, met elke knoop verbonden met de overeenkomstige knoop van de andere driehoek. Er zijn $\tfrac{6 \cdot 3}{2} = 9$ bogen.
+        \figuren{\begin{tikzpicture}[scale=.8]
+          \knopen{A/0/0, B/2.4/0, C/1.2/2, D/.7/.5, E/1.7/.5, F/1.2/1.3}
+          \bogen{A/B, B/C, C/A, D/E, E/F, F/D, A/D, B/E, C/F}
+        \end{tikzpicture}}
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aantal volgordes bij een schema
+  opgave: |-
+    Je schildert een kamer. Je zet de meubels weg ($M$), schuurt de muren ($S$), plakt de randen af ($A$), verft ($V$) en ruimt op ($O$). De meubels moeten weg voor je schuurt, en voor je verft moet je geschuurd en afgeplakt hebben. Opruimen doe je als laatste.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken het schema als gerichte graaf.
+      antwoord: |-
+        zie de figuur
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}
+          \knopen{M/0/.6, S/1.5/.6, A/1.5/-.6, V/3/0, O/4.5/0}
+          \pijlen{M/S, S/V, A/V, V/O}
+        \end{tikzpicture}}
+    - opgave: |-
+        Hoeveel goede volgordes zijn er? Schrijf ze allemaal op.
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $V$ en $O$ komen altijd als laatste. Daarvoor staan $M$, $S$ en $A$, met $M$ voor $S$: $A, M, S$ of $M, A, S$ of $M, S, A$. Dus $A, M, S, V, O$ en $M, A, S, V, O$ en $M, S, A, V, O$.
+    - opgave: |-
+        Je moet ook afplakken voor je schuurt. Hoeveel goede volgordes blijven er over?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        Nu moeten $M$ en $A$ allebei voor $S$: $M, A, S, V, O$ en $A, M, S, V, O$.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    enkelvoudige en volledige grafen
+  opgave: |-
+    Denk aan een volledige graaf.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel bogen kan een enkelvoudige graaf met 7 knopen hoogstens hebben?
+      antwoord: |-
+        $21$
+      uitwerking: |-
+        Het meeste bogen heeft de volledige graaf: $\tfrac{7 \cdot 6}{2} = 21$.
+    - opgave: |-
+        Een enkelvoudige graaf met 6 knopen heeft 15 bogen. Wat weet je over die graaf?
+      antwoord: |-
+        hij is volledig
+      uitwerking: |-
+        Een volledige graaf met 6 knopen heeft $\tfrac{6 \cdot 5}{2} = 15$ bogen: er ontbreekt geen enkele boog.
+    - opgave: |-
+        Hoeveel diagonalen heeft een tienhoek?
+      antwoord: |-
+        $35$
+      uitwerking: |-
+        Tussen 10 hoekpunten liggen $\tfrac{10 \cdot 9}{2} = 45$ verbindingslijnen. Daarvan zijn er 10 zijden, dus $45 - 10 = 35$ diagonalen.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    enkelvoudige graaf met gegeven graden
+  opgave: |-
+    Een even aantal oneven graden is niet altijd genoeg.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat er geen enkelvoudige graaf bestaat met de graden $3, 3, 1, 1$.
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        In een enkelvoudige graaf met 4 knopen is een knoop met graad 3 met alle drie de andere knopen verbonden. Twee knopen met graad 3 zijn dus allebei met elk van de andere knopen verbonden. Dan heeft elk van de andere twee knopen minstens graad 2, en niet 1.
+    - opgave: |-
+        Bestaat er een enkelvoudige graaf met de graden $4, 4, 4, 1, 1$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Met 5 knopen is een knoop met graad 4 met alle andere verbonden. Dan heeft elke andere knoop minstens graad 3, want hij is verbonden met de drie knopen met graad 4. Een knoop met graad 1 kan dus niet.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    vrienden in een klas
+  opgave: |-
+    In een klas van 23 leerlingen is vriendschap op een netwerk wederzijds.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kan elke leerling met precies 3 klasgenoten bevriend zijn?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De som van de graden zou $23 \cdot 3 = 69$ zijn, en dat is oneven.
+    - opgave: |-
+        Toon aan dat het wel kan met precies 4 klasgenoten. Hoeveel vriendschappen zijn er dan?
+      antwoord: |-
+        ja; $46$
+      uitwerking: |-
+        Zet de leerlingen in een kring. Laat elke leerling bevriend zijn met zijn twee buren links en zijn twee buren rechts. Dan heeft iedereen precies 4 vrienden. Er zijn $\tfrac{23 \cdot 4}{2} = 46$ vriendschappen.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gerichte graaf: winnaars in een toernooi
+  opgave: |-
+    In een toernooi speelt elke ploeg één keer tegen elke andere, en elke wedstrijd heeft een winnaar. Teken een pijl van de winnaar naar de verliezer.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de som van de uitgraden gelijk is aan het aantal wedstrijden.
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        De uitgraad van een ploeg is het aantal wedstrijden dat ze won. Elke wedstrijd heeft precies één winnaar, dus elke wedstrijd is één pijl, en de som van de uitgraden is het aantal pijlen.
+    - opgave: |-
+        Kan het dat bij 4 ploegen elke ploeg evenveel wedstrijden won?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Er zijn $\tfrac{4 \cdot 3}{2} = 6$ wedstrijden. Evenveel overwinningen zou $\tfrac64 = 1,5$ per ploeg betekenen, en dat is geen geheel getal.
+    - opgave: |-
+        Kan het bij 5 ploegen? Teken een voorbeeld als het kan.
+      antwoord: |-
+        ja, elk 2 overwinningen
+      uitwerking: |-
+        Er zijn 10 wedstrijden, dus elk 2 overwinningen. Zet de ploegen in een kring en laat elke ploeg winnen van de twee volgende in wijzerzin.
+        \figuren{\begin{tikzpicture}
+          \foreach \n/\i in {A/0, B/1, C/2, D/3, E/4}{\node[knoop] (\n) at ({90-72*\i}:1.2) {$\n$};}
+          \pijlen{A/B, B/C, C/D, D/E, E/A, A/C, B/D, C/E, D/A, E/B}
+        \end{tikzpicture}}
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    schema met tijden
+  opgave: |-
+    Neem het schema van de pannenkoeken uit voorbeeld~\ref{vb:h1-schema}. Beslag maken duurt 10 minuten, rusten 30 minuten, de pan opwarmen 5 minuten, bakken 20 minuten en de tafel dekken 5 minuten. Terwijl het beslag rust, kun je iets anders doen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Na hoeveel minuten kun je ten vroegste beginnen smullen? Maak een planning.
+      antwoord: |-
+        $60$ minuten
+      uitwerking: |-
+        Beslag van 0 tot 10, rusten van 10 tot 40. Tijdens het rusten de pan opwarmen (10 tot 15) en de tafel dekken (15 tot 20). Bakken van 40 tot 60. Sneller kan niet: beslag, rusten en bakken moeten na elkaar, en dat is al $10 + 30 + 20 = 60$ minuten.
+    - opgave: |-
+        Het beslag hoeft maar 15 minuten te rusten. Na hoeveel minuten kun je nu smullen?
+      antwoord: |-
+        $45$ minuten
+      uitwerking: |-
+        Beslag van 0 tot 10, rusten van 10 tot 25, en ondertussen de pan (10 tot 15) en de tafel (15 tot 20). Bakken van 25 tot 45.
+
+- id: h1-o22
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: twee knopen met dezelfde graad
+  opgave: |-
+    Bewijs: in elke enkelvoudige graaf met minstens twee knopen zijn er twee knopen met dezelfde graad. Tip: welke graden zijn mogelijk bij $n$ knopen? Kunnen graad $0$ en graad $n - 1$ samen voorkomen?
+  antwoord: |-
+    zie de uitwerking
+  uitwerking: |-
+    Neem een enkelvoudige graaf met $n$ knopen. Een knoop heeft hoogstens $n - 1$ buren, dus elke graad is een van de $n$ getallen $0, 1, \ldots, n - 1$. Graad $0$ en graad $n - 1$ kunnen niet samen voorkomen: een knoop met graad $n - 1$ is verbonden met alle andere, dus geen enkele knoop is geïsoleerd. Er zijn dus hoogstens $n - 1$ verschillende graden voor $n$ knopen. Dan moeten twee knopen dezelfde graad hebben. (In een klas zijn er dus altijd twee leerlingen met evenveel vrienden in de klas.)
+
+- id: h1-o23
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: met lussen volstaat de voorwaarde
+  opgave: |-
+    Bewijs: als meervoudige bogen en lussen mogen, dan bestaat er een graaf met gegeven graden zodra het aantal oneven graden even is.
+  antwoord: |-
+    zie de uitwerking
+  uitwerking: |-
+    Neem de knopen met een oneven graad. Hun aantal is even, dus je kunt ze in paren verdelen. Verbind de twee knopen van elk paar met een boog. Nu heeft elke knoop met een oneven graad al 1 boog, en moet hij nog een even aantal uiteinden krijgen. Ook de knopen met een even graad missen een even aantal. Geef elke knoop zoveel lussen als nodig: elke lus telt voor 2. Zo heeft elke knoop precies zijn graad.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal de graad van elke knoop en het aantal bogen.
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \knopen{A/0/0, B/1.6/0, C/2.8/1, D/3.2/-.4, E/4.6/-.4}
+        \draw[boog] (A) to[bend left=25] (B);
+        \draw[boog] (A) to[bend right=25] (B);
+        \bogen{B/C, C/D, B/D, D/E}
+        \draw[boog] (C) to[out=30,in=90,looseness=10] (C);
+      \end{tikzpicture}
+  antwoord: |-
+    $A$ 2, $B$ 4, $C$ 4, $D$ 3, $E$ 1; 7 bogen
+  uitwerking: |-
+    $B$: twee keer naar $A$, naar $C$ en naar $D$. $C$: naar $B$ en $D$, en de lus telt voor 2. Controle: $2 + 4 + 4 + 3 + 1 = 14 = 2 \cdot 7$.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    België grenst aan Nederland, Luxemburg, Duitsland en Frankrijk. Nederland grenst aan België en Duitsland. Luxemburg grenst aan België, Duitsland en Frankrijk. Duitsland en Frankrijk grenzen ook aan elkaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de buurlanden voor met een graaf.
+      antwoord: |-
+        zie de figuur
+      uitwerking: |-
+        Met de beginletters: $BN$, $BL$, $BD$, $BF$, $ND$, $LD$, $LF$, $DF$.
+        \figuren{\begin{tikzpicture}
+          \knopen{N/0/1.6, B/0/.3, L/1.2/-.4, D/2.2/1, F/.6/-1.5}
+          \bogen{B/N, B/L, B/D, B/F, N/D, L/D, L/F, D/F}
+        \end{tikzpicture}}
+    - opgave: |-
+        Welke landen hebben de meeste buren in deze graaf?
+      antwoord: |-
+        België en Duitsland (4)
+      uitwerking: |-
+        $\gr{B} = \gr{D} = 4$, $\gr{L} = \gr{F} = 3$, $\gr{N} = 2$. (Duitsland en Frankrijk hebben in werkelijkheid nog meer buren; die staan niet in de graaf.)
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Gebruik de handdrukstelling.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een graaf heeft 10 knopen, elk met graad 3. Hoeveel bogen heeft hij?
+      antwoord: |-
+        $15$
+      uitwerking: |-
+        $10 \cdot 3 = 30 = 2b$, dus $b = 15$.
+    - opgave: |-
+        Een graaf heeft 8 bogen. Drie knopen hebben graad 4, de andere knopen hebben graad 1. Hoeveel knopen heeft de graaf?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        De som van de graden is $16$. De drie knopen met graad 4 geven samen 12, dus er zijn nog $16 - 12 = 4$ knopen met graad 1. Samen 7 knopen.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bestaat er een graaf met deze graden? Leg uit.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $3, 2, 2, 2, 1$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Twee oneven graden. Bijvoorbeeld de bogen $AB$, $AC$, $AD$, $BE$ en $CD$: dan is $\gr{A} = 3$, $\gr{B} = \gr{C} = \gr{D} = 2$ en $\gr{E} = 1$.
+    - opgave: |-
+        $4, 3, 3, 3, 1, 1$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Vijf oneven graden: dat kan niet.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    In een competitie met 9 ploegen speelt elke ploeg twee keer tegen elke andere, thuis en uit. Hoeveel wedstrijden zijn er?
+  antwoord: |-
+    $72$
+  uitwerking: |-
+    Eén keer tegen elke andere: $\tfrac{9 \cdot 8}{2} = 36$. Twee keer: $72$.
+
+- id: h1-t6
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal van elke knoop de ingraad en de uitgraad. Controleer met het aantal pijlen.
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \knopen{P/0/0, Q/2/0, R/2/1.6, S/0/1.6}
+        \pijlen{P/Q, Q/R, R/P, P/S, S/R, Q/S}
+      \end{tikzpicture}
+  antwoord: |-
+    in: $P$ 1, $Q$ 1, $R$ 2, $S$ 2; uit: $P$ 2, $Q$ 2, $R$ 1, $S$ 1
+  uitwerking: |-
+    Bij $R$ komen pijlen aan van $Q$ en $S$, bij $S$ van $P$ en $Q$. Ingraden samen $6$, uitgraden samen $6$, en er zijn 6 pijlen.
+
+- id: h1-t7
+  soort: test
+  niveau: 1
+  opgave: |-
+    's Ochtends sta je op ($W$), douche je ($D$), kleed je je aan ($A$), ontbijt je ($O$), poets je je tanden ($T$) en vertrek je ($V$). Een pijl betekent: moet eerst. Geef een goede volgorde.
+    \figuren{\begin{tikzpicture}
+      \knopen{W/0/0, D/1.5/.6, A/3/.6, O/1.5/-.6, T/3/-.6, V/4.5/0}
+      \pijlen{W/D, D/A, W/O, O/T, A/V, T/V}
+    \end{tikzpicture}}
+  antwoord: |-
+    bijvoorbeeld $W, D, A, O, T, V$
+  uitwerking: |-
+    Begin met $W$, de enige taak zonder aankomende pijl. Daarna kunnen $D$ en $O$. Bijvoorbeeld $W, D, A, O, T, V$ of $W, O, T, D, A, V$. Een volgorde is goed als elke pijl naar een latere taak wijst.
+
+- id: h1-t8
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de lengte van de routes $A, B, C$ en $A, D, C$ en $A, C$. Welke is de kortste?
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \knopen{A/0/0, B/1.6/1.2, C/3.2/0, D/1.6/-1.2}
+        \gbogen{A/B/3, B/C/4, A/D/6, D/C/2, A/C/9}
+      \end{tikzpicture}
+  antwoord: |-
+    $7$, $8$, $9$; $A, B, C$
+  uitwerking: |-
+    $3 + 4 = 7$; $6 + 2 = 8$; de rechtstreekse boog is 9. De kortste is $A, B, C$.

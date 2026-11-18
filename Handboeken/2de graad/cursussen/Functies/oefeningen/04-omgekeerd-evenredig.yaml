@@ -1,0 +1,1421 @@
+# Oefeningen van hoofdstuk 4 (de functie c/x). Zie Opmaak/oefeningenbank.py voor de velden.
+# Dit hoofdstuk staat in pakket 2-5. pakketten: symmetrie in 4-5 (h4-symmetrie, h4-o23), verschoven hyperbool in 5 (h4-o24).
+
+- id: h4-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken zonder rekenmachine.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $720 : 24$
+      antwoord: |-
+        $30$
+      uitwerking: |-
+        $24 \cdot 30 = 720$.
+    - opgave: |-
+        $720 : 36$
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $36 \cdot 20 = 720$.
+    - opgave: |-
+        $720 : 48$
+      antwoord: |-
+        $15$
+      uitwerking: |-
+        $48 \cdot 15 = 720$.
+    - opgave: |-
+        $5 \cdot 2,4$
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        $5 \cdot 2 + 5 \cdot 0,4 = 10 + 2$.
+    - opgave: |-
+        $6 : 0,5$
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        Delen door $\tfrac12$ is vermenigvuldigen met $2$.
+    - opgave: |-
+        $1 : 0,25$
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        Delen door $\tfrac14$ is vermenigvuldigen met $4$.
+
+- id: h4-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een rechthoek heeft een oppervlakte van $12$ cm$^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zoek vijf mogelijke paren lengte en breedte.
+      antwoord: |-
+        bv. $12$ en $1$, $6$ en $2$, $4$ en $3$, $3$ en $4$, $8$ en $1,5$
+      uitwerking: |-
+        Het product van lengte en breedte moet $12$ zijn: bijvoorbeeld $12 \cdot 1$, $6 \cdot 2$, $4 \cdot 3$, $3 \cdot 4$ en $8 \cdot 1,5$.
+    - opgave: |-
+        Wat gebeurt er met de breedte als je de lengte verdubbelt?
+      antwoord: |-
+        ze halveert
+      uitwerking: |-
+        Van lengte $3$ naar $6$ gaat de breedte van $4$ naar $2$: het product moet $12$ blijven.
+    - opgave: |-
+        Zet de punten (lengte, breedte) in een assenstelsel. Liggen ze op een rechte?
+      antwoord: |-
+        nee, op een dalende kromme
+      uitwerking: |-
+        Nee: de punten liggen op een kromme die eerst snel en dan steeds trager daalt.
+        \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm]
+          \rooster[$l$][$b$]{0}{1}{12}{0}{1}{12}
+          \kromme{1}{12}{12/\x}
+          \foreach \a in {1,1.5,2,3,4,6,8,12}{\punt{\a}{12/\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        Kan de lengte $0$ cm zijn?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: dan is de oppervlakte $0 \cdot b = 0$ en geen $12$, welke breedte je ook kiest.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h4-herkennen
+  soort: kort
+  opgave: |-
+    Zijn $x$ en $y$ recht evenredig, omgekeerd evenredig of geen van beide? Geef het voorschrift als het kan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{1 & 2 & 4 & 5}{20 & 10 & 5 & 4}
+      antwoord: |-
+        omgekeerd evenredig, $y = \tfrac{20}{x}$
+      uitwerking: |-
+        De producten zijn $1 \cdot 20 = 2 \cdot 10 = 4 \cdot 5 = 5 \cdot 4 = 20$: omgekeerd evenredig, $y = \tfrac{20}{x}$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{3 & 6 & 9 & 12}{2 & 4 & 6 & 8}
+      antwoord: |-
+        recht evenredig, $y = \tfrac23 x$
+      uitwerking: |-
+        De quotiënten $\tfrac yx$ zijn overal $\tfrac23$: recht evenredig, $y = \tfrac23 x$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{1 & 2 & 4 & 8}{8 & 6 & 4 & 2}
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        De producten $8$, $12$, $16$ en $16$ zijn niet gelijk, de quotiënten ook niet. Dat $y$ daalt, volstaat niet.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{0,5 & 1 & 2 & 2,5}{4 & 2 & 1 & 0,8}
+      antwoord: |-
+        omgekeerd evenredig, $y = \tfrac2x$
+      uitwerking: |-
+        $0,5 \cdot 4 = 1 \cdot 2 = 2 \cdot 1 = 2,5 \cdot 0,8 = 2$: omgekeerd evenredig, $y = \tfrac2x$.
+
+- id: h4-ontbrekend
+  soort: kort
+  opgave: |-
+    Los op. Ga telkens uit van omgekeerd evenredige grootheden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Met $5$ even sterke kranen loopt een zwembad vol in $12$ uur. Hoelang duurt het met $3$ kranen?
+      antwoord: |-
+        $20$ uur
+      uitwerking: |-
+        $c = 5 \cdot 12 = 60$, dus met $3$ kranen $\tfrac{60}{3} = 20$ uur.
+    - opgave: |-
+        Een doos koekjes wordt verdeeld: $8$ kinderen krijgen elk $6$ koekjes. Hoeveel krijgt elk kind als er $12$ kinderen zijn?
+      antwoord: |-
+        $4$ koekjes
+      uitwerking: |-
+        Er zijn $8 \cdot 6 = 48$ koekjes, dus elk kind krijgt $\tfrac{48}{12} = 4$ koekjes.
+    - opgave: |-
+        Vul de tabel aan. \quad \waardetabel[$x$][$y$]{4}{2 & 5 & \vak & 0,5}{10 & \vak & 8 & \vak}
+      antwoord: |-
+        $c = 20$: $4$, $2,5$ en $40$
+      uitwerking: |-
+        $c = 2 \cdot 10 = 20$. Dan is $y = \tfrac{20}{5} = 4$, $x = \tfrac{20}{8} = 2,5$ en $y = \tfrac{20}{0,5} = 40$.
+
+- id: h4-tekenen
+  soort: kort
+  opgave: |-
+    Maak een tabel en teken de grafiek.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = \dfrac{8}{x}$
+      antwoord: |-
+        takken in het 1ste en 3de kwadrant, door $(2, 4)$ en $(-2, -4)$
+      uitwerking: |-
+        Met de delers van $8$: $(1, 8)$, $(2, 4)$, $(4, 2)$, $(8, 1)$ en de punten met tegengestelde coördinaten. Takken in het 1ste en het 3de kwadrant.
+        \figuren{\begin{tikzpicture}[x=.24cm,y=.24cm]
+          \roosterleeg{-8}{1}{8}{-8}{1}{8}\xgetallen{-8,-4,4,8}\ygetallen{-8,-4,4,8}
+          \kromme{1}{8.4}{8/\x}\kromme{-8.4}{-1}{8/\x}
+          \foreach \a in {1,2,4,8}{\punt{\a}{8/\a}\punt{-\a}{-8/\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $g(x) = -\dfrac{2}{x}$
+      antwoord: |-
+        takken in het 2de en 4de kwadrant, door $(1, -2)$ en $(-1, 2)$
+      uitwerking: |-
+        $(1, -2)$, $(2, -1)$, $(4; -0,5)$ en de punten met tegengestelde coördinaten. Takken in het 2de en het 4de kwadrant.
+        \figuren{\begin{tikzpicture}[x=.36cm,y=.36cm]
+          \roosterleeg{-5}{1}{5}{-5}{1}{5}\xgetallen{-4,-2,2,4}\ygetallen{-4,-2,2,4}
+          \kromme{.4}{5.2}{-2/\x}\kromme{-5.2}{-.4}{-2/\x}
+          \foreach \a in {1,2,4}{\punt{\a}{-2/\a}\punt{-\a}{2/\a}}
+        \end{tikzpicture}}
+
+- id: h4-symmetrie
+  soort: kort
+  pakketten: [4, 5]
+  opgave: |-
+    Het punt ligt op de grafiek van $y = \tfrac{10}{x}$. Geef het punt dat er symmetrisch mee ligt ten opzichte van de oorsprong, en controleer dat het ook op de grafiek ligt.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $(2, 5)$
+      antwoord: |-
+        $(-2, -5)$
+      uitwerking: |-
+        $\tfrac{10}{-2} = -5$.
+    - opgave: |-
+        $(-4\,;\,-2,5)$
+      antwoord: |-
+        $(4\,;\,2,5)$
+      uitwerking: |-
+        $\tfrac{10}{4} = 2,5$.
+    - opgave: |-
+        $(0,5\,;\,20)$
+      antwoord: |-
+        $(-0,5\,;\,-20)$
+      uitwerking: |-
+        $\tfrac{10}{-0,5} = -20$.
+
+- id: h4-voorschrift
+  soort: kort
+  opgave: |-
+    Een hyperbool met voorschrift $y = \tfrac cx$ gaat door het gegeven punt. Geef het voorschrift.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $(2, 7)$
+      antwoord: |-
+        $y = \tfrac{14}{x}$
+      uitwerking: |-
+        $c = 2 \cdot 7 = 14$.
+    - opgave: |-
+        $(-5, 3)$
+      antwoord: |-
+        $y = -\tfrac{15}{x}$
+      uitwerking: |-
+        $c = (-5) \cdot 3 = -15$.
+    - opgave: |-
+        $(-4\,;\,-0,5)$
+      antwoord: |-
+        $y = \tfrac{2}{x}$
+      uitwerking: |-
+        $c = (-4) \cdot (-0,5) = 2$.
+    - opgave: |-
+        $(0,5\,;\,6)$
+      antwoord: |-
+        $y = \tfrac{3}{x}$
+      uitwerking: |-
+        $c = 0,5 \cdot 6 = 3$.
+
+- id: h4-kenmerken
+  soort: kort
+  opgave: |-
+    Geef het domein, het bereik, de nulwaarden, het tekenschema, en waar de functie stijgt of daalt.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = \dfrac{3}{x}$
+      antwoord: |-
+        $\R_0$, $\R_0$, geen; $-$ voor $0$, $+$ na $0$; dalend op $\ivoo{\minf}{0}$ en op $\ivoo{0}{\pinf}$
+      uitwerking: |-
+        $c = 3 > 0$. $\dom f = \ber f = \R_0$, geen nulwaarden, dalend op $\ivoo{\minf}{0}$ en dalend op $\ivoo{0}{\pinf}$.
+        \figuren{\tekenschema{3}{ & 0 & }{- & | & +}}
+    - opgave: |-
+        $g(x) = -\dfrac{10}{x}$
+      antwoord: |-
+        $\R_0$, $\R_0$, geen; $+$ voor $0$, $-$ na $0$; stijgend op $\ivoo{\minf}{0}$ en op $\ivoo{0}{\pinf}$
+      uitwerking: |-
+        $c = -10 < 0$. $\dom g = \ber g = \R_0$, geen nulwaarden, stijgend op $\ivoo{\minf}{0}$ en stijgend op $\ivoo{0}{\pinf}$.
+        \figuren{\tekenschema[g(x)]{3}{ & 0 & }{+ & | & -}}
+
+- id: h4-vergelijking
+  soort: kort
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\dfrac{15}{x} = 5$
+      antwoord: |-
+        $x = 3$
+      uitwerking: |-
+        $15 = 5x$, dus $x = 3$.
+    - opgave: |-
+        $\dfrac{8}{x} = -2$
+      antwoord: |-
+        $x = -4$
+      uitwerking: |-
+        $8 = -2x$, dus $x = -4$.
+    - opgave: |-
+        $-\dfrac{20}{x} = 4$
+      antwoord: |-
+        $x = -5$
+      uitwerking: |-
+        $-20 = 4x$, dus $x = -5$.
+    - opgave: |-
+        $\dfrac{9}{x} = 6$
+      antwoord: |-
+        $x = 1,5$
+      uitwerking: |-
+        $9 = 6x$, dus $x = \tfrac96 = 1,5$.
+    - opgave: |-
+        $\dfrac{2}{x} = 0,5$
+      antwoord: |-
+        $x = 4$
+      uitwerking: |-
+        $2 = 0,5x$, dus $x = 4$.
+    - opgave: |-
+        $\dfrac{6}{x} = 0$
+      antwoord: |-
+        geen oplossing
+      uitwerking: |-
+        Dan zou $6 = 0 \cdot x = 0$: onmogelijk. De functiewaarde $0$ komt niet voor.
+
+- id: h4-ongelijkheid
+  soort: kort
+  opgave: |-
+    De figuur toont de grafiek van $f(x) = \tfrac4x$ en de rechten $y = 1$ en $y = -2$. Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.27cm,y=.27cm]
+        \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-4,-2,2,4}\ygetallen{-4,-2,2,4}
+        \kromme{.7}{6.3}{4/\x}\kromme{-6.3}{-.7}{4/\x}
+        \draw[hulplijn] (-6,1) -- (6,1);\draw[hulplijn] (-6,-2) -- (6,-2);
+        \punt{4}{1}\punt{-2}{-2}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\dfrac4x > 1$
+      antwoord: |-
+        $\ivoo{0}{4}$
+      uitwerking: |-
+        Snijpunt $(4, 1)$. Alleen de rechtertak ligt boven de rechte, tussen $0$ en $4$: $V = \ivoo{0}{4}$.
+    - opgave: |-
+        $\dfrac4x \leqslant -2$
+      antwoord: |-
+        $\ivgo{-2}{0}$
+      uitwerking: |-
+        Snijpunt $(-2, -2)$. De linkertak ligt op of onder de rechte vanaf $-2$ tot aan $0$: $V = \ivgo{-2}{0}$.
+    - opgave: |-
+        $\dfrac4x < 1$
+      antwoord: |-
+        $\ivoo{\minf}{0} \cup \ivoo{4}{\pinf}$
+      uitwerking: |-
+        De hele linkertak ligt onder de rechte, en de rechtertak rechts van $4$: $V = \ivoo{\minf}{0} \cup \ivoo{4}{\pinf}$.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h4-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    recht of omgekeerd evenredig in een tabel
+  opgave: |-
+    Zijn $x$ en $y$ recht evenredig, omgekeerd evenredig of geen van beide? Geef het voorschrift als het kan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{1 & 3 & 4 & 12}{24 & 8 & 6 & 2}
+      antwoord: |-
+        omgekeerd evenredig, $y = \tfrac{24}{x}$
+      uitwerking: |-
+        Alle producten zijn $24$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{2 & 4 & 5 & 10}{5 & 10 & 12,5 & 25}
+      antwoord: |-
+        recht evenredig, $y = 2,5x$
+      uitwerking: |-
+        Alle quotiënten $\tfrac yx$ zijn $2,5$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{1 & 2 & 3 & 4}{60 & 30 & 20 & 12}
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        De eerste drie producten zijn $60$, maar $4 \cdot 12 = 48$. Kijk altijd alle kolommen na.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{-2 & -1 & 1 & 4}{3 & 6 & -6 & -1,5}
+      antwoord: |-
+        omgekeerd evenredig, $y = -\tfrac{6}{x}$
+      uitwerking: |-
+        Alle producten zijn $-6$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{1 & 2 & 3 & 4}{10 & 7 & 4 & 1}
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        De producten $10$, $14$, $12$, $4$ verschillen. Het is een eerstegraadsfunctie: $y = -3x + 13$.
+
+- id: h4-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    functiewaarden van c/x
+  opgave: |-
+    Gegeven is $f(x) = \dfrac{24}{x}$. Bereken.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $f(3)$
+      antwoord: |-
+        $8$
+    - opgave: |-
+        $f(-6)$
+      antwoord: |-
+        $-4$
+    - opgave: |-
+        $f(0,5)$
+      antwoord: |-
+        $48$
+    - opgave: |-
+        $f(48)$
+      antwoord: |-
+        $0,5$
+    - opgave: |-
+        $f(-0,2)$
+      antwoord: |-
+        $-120$
+    - opgave: |-
+        $f(100)$
+      antwoord: |-
+        $0,24$
+    - opgave: |-
+        $f(-24)$
+      antwoord: |-
+        $-1$
+    - opgave: |-
+        $f(0)$
+      antwoord: |-
+        bestaat niet
+      uitwerking: |-
+        Delen door $0$ kan niet: $0 \notin \dom f$.
+
+- id: h4-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tabel aanvullen bij omgekeerd evenredige grootheden
+  opgave: |-
+    De grootheden $x$ en $y$ zijn omgekeerd evenredig. Vul de tabel aan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        \waardetabel[$x$][$y$]{5}{1 & 2 & 3 & \vak & 12}{18 & \vak & \vak & 3 & \vak}
+      antwoord: |-
+        $9$, $6$, $6$, $1,5$
+      uitwerking: |-
+        $c = 1 \cdot 18 = 18$: $y = \tfrac{18}{2} = 9$, $y = \tfrac{18}{3} = 6$, $x = \tfrac{18}{3} = 6$, $y = \tfrac{18}{12} = 1,5$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{-4 & -1 & \vak & 8}{2 & \vak & -2 & \vak}
+      antwoord: |-
+        $8$, $4$, $-1$
+      uitwerking: |-
+        $c = (-4) \cdot 2 = -8$: $y = \tfrac{-8}{-1} = 8$, $x = \tfrac{-8}{-2} = 4$, $y = \tfrac{-8}{8} = -1$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{0,2 & 0,5 & \vak & 4}{15 & \vak & 1,5 & \vak}
+      antwoord: |-
+        $6$, $2$, $0,75$
+      uitwerking: |-
+        $c = 0,2 \cdot 15 = 3$: $y = \tfrac{3}{0,5} = 6$, $x = \tfrac{3}{1,5} = 2$, $y = \tfrac34 = 0,75$.
+
+- id: h4-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de grafiek van c/x tekenen
+  opgave: |-
+    Maak een tabel en teken de grafiek.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $f(x) = \dfrac{3}{x}$
+      antwoord: |-
+        takken in het 1ste en 3de kwadrant, door $(1, 3)$ en $(3, 1)$
+      uitwerking: |-
+        Punten $(\pm1, \pm3)$, $(\pm3, \pm1)$ en $(\pm1,5\,;\,\pm2)$, telkens met hetzelfde teken.
+        \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm]
+          \roosterleeg{-5}{1}{5}{-5}{1}{5}\xgetallen{-3,3}\ygetallen{-3,3}
+          \kromme{.6}{5.2}{3/\x}\kromme{-5.2}{-.6}{3/\x}
+          \foreach \a in {1,1.5,3}{\punt{\a}{3/\a}\punt{-\a}{-3/\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $g(x) = -\dfrac{6}{x}$
+      antwoord: |-
+        takken in het 2de en 4de kwadrant, door $(2, -3)$ en $(-2, 3)$
+      uitwerking: |-
+        Punten $(1, -6)$, $(2, -3)$, $(3, -2)$, $(6, -1)$ en de punten met tegengestelde coördinaten.
+        \figuren{\begin{tikzpicture}[x=.25cm,y=.25cm]
+          \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-6,-3,3,6}\ygetallen{-6,-3,3,6}
+          \kromme{1}{6.3}{-6/\x}\kromme{-6.3}{-1}{-6/\x}
+          \foreach \a in {1,2,3,6}{\punt{\a}{-6/\a}\punt{-\a}{6/\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        $h(x) = -\dfrac{1}{x}$
+      antwoord: |-
+        takken in het 2de en 4de kwadrant, door $(1, -1)$ en $(-1, 1)$
+      uitwerking: |-
+        Punten $(1, -1)$, $(2; -0,5)$, $(0,5; -2)$ en de punten met tegengestelde coördinaten.
+        \figuren{\begin{tikzpicture}[x=.5cm,y=.5cm]
+          \roosterleeg{-3}{1}{3}{-3}{1}{3}\xgetallen{-2,-1,1,2}\ygetallen{-2,-1,1,2}
+          \kromme{.33}{3.2}{-1/\x}\kromme{-3.2}{-.33}{-1/\x}
+          \foreach \a in {.5,1,2}{\punt{\a}{-1/\a}\punt{-\a}{1/\a}}
+        \end{tikzpicture}}
+
+- id: h4-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    omgekeerd evenredig in een verwoording
+  opgave: |-
+    Zijn de twee grootheden omgekeerd evenredig? Leg uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De snelheid en de reistijd voor een rit van $30$ km.
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Ja: snelheid maal tijd is altijd de afstand, $30$ km.
+    - opgave: |-
+        Het aantal kilogram appelen en de prijs die je betaalt, aan $2,40$ euro per kilogram.
+      antwoord: |-
+        nee, recht evenredig
+      uitwerking: |-
+        Nee: twee keer zoveel kilogram kost twee keer zoveel. Het quotiënt is constant: recht evenredig.
+    - opgave: |-
+        Het aantal gelijke stukken waarin je een taart snijdt en de grootte van één stuk.
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Ja: aantal stukken maal grootte van een stuk is altijd de hele taart.
+    - opgave: |-
+        De zijde van een vierkant en de oppervlakte ervan.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: de oppervlakte is $z^2$ en stijgt als de zijde stijgt. Ook niet recht evenredig: bij een dubbele zijde wordt de oppervlakte vier keer zo groot.
+    - opgave: |-
+        Het aantal liter water dat per minuut uit een kraan stroomt en de tijd om een emmer van $10$ liter te vullen.
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Ja: liter per minuut maal het aantal minuten is altijd $10$ liter.
+    - opgave: |-
+        Je leeftijd en het aantal jaren tot je $18$ wordt.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: niet het product maar de som is constant ($18$). Bij leeftijd $9$ is het product $81$, bij leeftijd $12$ is het $72$.
+
+- id: h4-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    het voorschrift aflezen op een grafiek
+  opgave: |-
+    De figuur toont de grafieken van twee functies met een voorschrift van de vorm $y = \tfrac cx$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.3cm,y=.3cm]
+        \roosterleeg{-6}{1}{6}{-6}{1}{6}\xgetallen{-4,-2,2,4}\ygetallen{-4,-2,2,4}
+        \kromme{1}{6.3}{6/\x}\kromme{-6.3}{-1}{6/\x}
+        \kromme[tweede]{.34}{6.3}{-2/\x}\kromme[tweede]{-6.3}{-.34}{-2/\x}
+        \node[accent,font=\scriptsize] at (5.2,2.2) {$f$};
+        \node[font=\scriptsize] at (5.2,-1.4) {$g$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het voorschrift van $f$.
+      antwoord: |-
+        $f(x) = \tfrac6x$
+      uitwerking: |-
+        $f$ gaat door $(2, 3)$, dus $c = 2 \cdot 3 = 6$. Controle: $(3, 2)$ en $(-1, -6)$ liggen er ook op.
+    - opgave: |-
+        Geef het voorschrift van $g$.
+      antwoord: |-
+        $g(x) = -\tfrac2x$
+      uitwerking: |-
+        $g$ gaat door $(1, -2)$ en $(2, -1)$, dus $c = -2$.
+    - opgave: |-
+        Voor welke $x$ is $f(x) = 1,5$?
+      antwoord: |-
+        $x = 4$
+      uitwerking: |-
+        $\tfrac6x = 1,5$ geeft $x = \tfrac{6}{1,5} = 4$. Op de grafiek: het punt $(4\,;\,1,5)$.
+
+- id: h4-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de vergelijking c/x = k
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\dfrac{18}{x} = 6$
+      antwoord: |-
+        $3$
+    - opgave: |-
+        $-\dfrac{24}{x} = 8$
+      antwoord: |-
+        $-3$
+    - opgave: |-
+        $\dfrac{10}{x} = -4$
+      antwoord: |-
+        $-2,5$
+    - opgave: |-
+        $\dfrac{7}{x} = 14$
+      antwoord: |-
+        $0,5$
+    - opgave: |-
+        $\dfrac{1}{x} = -0,2$
+      antwoord: |-
+        $-5$
+    - opgave: |-
+        $\dfrac{3}{x} = 0$
+      antwoord: |-
+        geen oplossing
+    - opgave: |-
+        $-\dfrac{5}{x} = -2$
+      antwoord: |-
+        $2,5$
+    - opgave: |-
+        $\dfrac{0,6}{x} = 3$
+      antwoord: |-
+        $0,2$
+  uitwerking: |-
+    Vermenigvuldig beide leden met $x$ en deel door het rechterlid: $x = \tfrac ck$. \textbf{a.} $x = \tfrac{18}{6} = 3$ \quad \textbf{b.} $x = \tfrac{-24}{8} = -3$ \quad \textbf{c.} $x = \tfrac{10}{-4} = -2,5$ \quad \textbf{d.} $x = \tfrac{7}{14} = 0,5$ \quad \textbf{e.} $x = \tfrac{1}{-0,2} = -5$ \quad \textbf{f.} $3 = 0$ is onmogelijk: geen oplossing \quad \textbf{g.} $x = \tfrac{-5}{-2} = 2,5$ \quad \textbf{h.} $x = \tfrac{0,6}{3} = 0,2$.
+
+- id: h4-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kenmerken van c/x, ook op een kleiner domein
+  opgave: |-
+    Geef het domein, het bereik, de nulwaarden, het tekenschema, en waar de functie stijgt of daalt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = \dfrac{5}{x}$
+      antwoord: |-
+        $\R_0$; $\R_0$; geen; $-$ voor $0$, $+$ na $0$; dalend op $\ivoo{\minf}{0}$ en op $\ivoo{0}{\pinf}$
+      uitwerking: |-
+        $c = 5 > 0$: takken in het 1ste en 3de kwadrant. $\dom f = \ber f = \R_0$, geen nulwaarden, dalend op $\ivoo{\minf}{0}$ en dalend op $\ivoo{0}{\pinf}$.
+        \figuren{\tekenschema{3}{ & 0 & }{- & | & +}}
+    - opgave: |-
+        $g(x) = -\dfrac{1}{x}$
+      antwoord: |-
+        $\R_0$; $\R_0$; geen; $+$ voor $0$, $-$ na $0$; stijgend op $\ivoo{\minf}{0}$ en op $\ivoo{0}{\pinf}$
+      uitwerking: |-
+        $c = -1 < 0$: takken in het 2de en 4de kwadrant. $\dom g = \ber g = \R_0$, geen nulwaarden, stijgend op $\ivoo{\minf}{0}$ en stijgend op $\ivoo{0}{\pinf}$.
+        \figuren{\tekenschema[g(x)]{3}{ & 0 & }{+ & | & -}}
+    - opgave: |-
+        $h(x) = \dfrac{12}{x}$ met als domein $\ivgg{1}{6}$. Maak eerst een schets.
+      antwoord: |-
+        $\dom h = \ivgg{1}{6}$, $\ber h = \ivgg{2}{12}$, geen nulwaarden, overal positief, dalend op $\ivgg{1}{6}$
+      uitwerking: |-
+        Van de grafiek blijft alleen het stuk van $(1, 12)$ tot $(6, 2)$ over. $\ber h = \ivgg{2}{12}$, geen nulwaarden, $h(x) > 0$ op het hele domein, en $h$ daalt op $\ivgg{1}{6}$: hier mag het, want het domein is één interval. Het maximum is $12$ (in $x = 1$), het minimum $2$ (in $x = 6$).
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.2cm]
+          \rooster[$x$][$y$]{0}{1}{7}{0}{2}{12}
+          \kromme{1}{6}{12/\x}\punt{1}{12}\punt{6}{2}
+        \end{tikzpicture}}
+
+- id: h4-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snelheid en reistijd
+  opgave: |-
+    Een trein rijdt van Brussel naar een stad op $180$ km. De reistijd $t$ (in uur) hangt af van de gemiddelde snelheid $v$ (in km/h).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul de tabel aan. \quad \waardetabel[$v$][$t$]{5}{60 & 90 & 120 & \vak & 180}{\vak & \vak & \vak & 1,2 & \vak}
+      antwoord: |-
+        $3$, $2$, $1,5$, $150$, $1$
+      uitwerking: |-
+        $v \cdot t = 180$: $t = \tfrac{180}{60} = 3$, $\tfrac{180}{90} = 2$, $\tfrac{180}{120} = 1,5$, $v = \tfrac{180}{1,2} = 150$ en $t = \tfrac{180}{180} = 1$.
+    - opgave: |-
+        Geef $t$ als functie van $v$.
+      antwoord: |-
+        $t = \tfrac{180}{v}$
+      uitwerking: |-
+        Snelheid maal tijd is de afstand: $v \cdot t = 180$, dus $t = \tfrac{180}{v}$.
+    - opgave: |-
+        Teken de grafiek voor snelheden van $45$ tot $180$ km/h.
+      antwoord: |-
+        een dalende tak van $(45, 4)$ tot $(180, 1)$
+      uitwerking: |-
+        Een stuk van een hyperbooltak, van $(45, 4)$ tot $(180, 1)$.
+        \figuren{\begin{tikzpicture}[x=.03cm,y=.6cm]
+          \roosterleeg[$v$][$t$]{0}{20}{180}{0}{.5}{4}
+          \xgetallen{40,80,120,160}\ygetallen{1,2,3,4}
+          \kromme{45}{180}{180/\x}
+          \foreach \a in {60,90,120,150,180}{\punt{\a}{180/\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        Hoe snel moet de trein gemiddeld rijden om er hoogstens $1$ uur en $15$ minuten over te doen?
+      antwoord: |-
+        minstens $144$ km/h
+      uitwerking: |-
+        $1$ uur $15$ minuten is $1,25$ uur. $\tfrac{180}{v} = 1,25$ geeft $v = \tfrac{180}{1,25} = 144$. Sneller rijden geeft een kortere reistijd: $v \geqslant 144$ km/h.
+
+- id: h4-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de wet van Boyle
+  opgave: |-
+    In een afgesloten spuit zit lucht. Bij een vaste temperatuur zijn het volume $V$ (in ml) en de druk $p$ (in bar) omgekeerd evenredig. Bij een druk van $1$ bar is het volume $60$ ml.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef $V$ als functie van $p$.
+      antwoord: |-
+        $V = \tfrac{60}{p}$
+      uitwerking: |-
+        $p \cdot V = 1 \cdot 60 = 60$, dus $V = \tfrac{60}{p}$.
+    - opgave: |-
+        Wat is het volume bij een druk van $4$ bar?
+      antwoord: |-
+        $15$ ml
+      uitwerking: |-
+        $V = \tfrac{60}{4} = 15$ ml.
+    - opgave: |-
+        Bij welke druk is het volume $40$ ml?
+      antwoord: |-
+        $1,5$ bar
+      uitwerking: |-
+        $\tfrac{60}{p} = 40$ geeft $p = \tfrac{60}{40} = 1,5$ bar.
+    - opgave: |-
+        Je duwt de zuiger in tot het volume een derde is van wat het was. Wat gebeurt er met de druk?
+      antwoord: |-
+        die wordt drie keer zo groot
+      uitwerking: |-
+        Het product blijft $60$: wordt $V$ drie keer zo klein, dan wordt $p$ drie keer zo groot.
+
+- id: h4-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de wip in evenwicht
+  opgave: |-
+    Een wip is in evenwicht als aan beide kanten de massa maal de afstand tot het steunpunt even groot is. Noor ($32$ kg) zit op $1,5$ m van het steunpunt. Aan de andere kant zit iemand met massa $m$ (in kg) op een afstand $d$ (in m).
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.6]
+        \fill[grijs] (0,0) -- (-.35,-.7) -- (.35,-.7) -- cycle;
+        \draw[accent,line width=2.5pt] (-3,.05) -- (3,.05);
+        \fill[accent!40] (-2.25,.2) rectangle (-1.75,.75);\node[font=\scriptsize] at (-2,1.05) {$32$ kg};
+        \fill[accent!40] (1.05,.2) rectangle (1.75,.95);\node[font=\scriptsize] at (1.4,1.25) {$m$};
+        \draw[<->,grijs] (-2,-.25) -- (0,-.25) node[midway,below,font=\scriptsize] {$1,5$ m};
+        \draw[<->,grijs] (0,-.25) -- (1.4,-.25) node[midway,below,font=\scriptsize] {$d$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op welke afstand moet haar vader van $80$ kg zitten?
+      antwoord: |-
+        $0,6$ m
+      uitwerking: |-
+        $32 \cdot 1,5 = 48$, dus $d = \tfrac{48}{80} = 0,6$ m.
+    - opgave: |-
+        Geef $d$ als functie van $m$.
+      antwoord: |-
+        $d = \tfrac{48}{m}$
+      uitwerking: |-
+        $m \cdot d = 48$, dus $d = \tfrac{48}{m}$: de afstand en de massa zijn omgekeerd evenredig.
+    - opgave: |-
+        De plank is aan elke kant $2$ m lang. Hoe zwaar moet iemand minstens zijn om Noor in evenwicht te houden?
+      antwoord: |-
+        $24$ kg
+      uitwerking: |-
+        $d \leqslant 2$: $\tfrac{48}{m} = 2$ geeft $m = 24$. Hoe zwaarder, hoe kleiner $d$. Dus $m \geqslant 24$ kg.
+    - opgave: |-
+        Kan haar broertje van $20$ kg haar in evenwicht houden?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Hij zou op $\tfrac{48}{20} = 2,4$ m moeten zitten, en de plank is maar $2$ m lang.
+
+- id: h4-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rechthoek met vaste oppervlakte
+  opgave: |-
+    Een moestuin is een rechthoek met een oppervlakte van $36$ m$^2$. De lengte is $l$ en de breedte $b$ (in m).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef $b$ als functie van $l$.
+      antwoord: |-
+        $b = \tfrac{36}{l}$
+      uitwerking: |-
+        $l \cdot b = 36$, dus $b = \tfrac{36}{l}$.
+    - opgave: |-
+        Teken de grafiek voor lengtes van $2$ tot $18$ m.
+      antwoord: |-
+        een dalende tak van $(2, 18)$ tot $(18, 2)$
+      uitwerking: |-
+        Punten zoals $(2, 18)$, $(3, 12)$, $(4, 9)$, $(6, 6)$, $(9, 4)$, $(12, 3)$ en $(18, 2)$.
+        \figuren{\begin{tikzpicture}[x=.25cm,y=.25cm]
+          \roosterleeg[$l$][$b$]{0}{1}{18}{0}{1}{18}
+          \xgetallen{3,6,9,12,15,18}\ygetallen{3,6,9,12,15,18}
+          \kromme{2}{18}{36/\x}
+          \foreach \a in {2,3,4,6,9,12,18}{\punt{\a}{36/\a}}
+        \end{tikzpicture}}
+    - opgave: |-
+        Bij welke lengte is de moestuin een vierkant?
+      antwoord: |-
+        $6$ m
+      uitwerking: |-
+        $l = b$ geeft $l \cdot l = 36$, dus $l = 6$ m. Op de grafiek: het punt $(6, 6)$.
+    - opgave: |-
+        Bereken de omtrek voor $l = 4$, $l = 6$ en $l = 12$. Welke tuin heeft de kortste omheining nodig?
+      antwoord: |-
+        $26$ m, $24$ m, $30$ m; het vierkant
+      uitwerking: |-
+        $l = 4$: $b = 9$, omtrek $2(4 + 9) = 26$ m. $l = 6$: omtrek $24$ m. $l = 12$: $b = 3$, omtrek $30$ m. Het vierkant heeft van deze drie de kortste omheining.
+
+- id: h4-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vergelijkingen en ongelijkheden met c/x grafisch oplossen
+  opgave: |-
+    De figuur toont de grafiek van $f(x) = -\tfrac6x$ en de rechten $y = 3$ en $y = -1$. Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.25cm,y=.25cm]
+        \roosterleeg{-7}{1}{7}{-7}{1}{7}\xgetallen{-6,-2,2,6}\ygetallen{-6,-3,3,6}
+        \kromme{.86}{7.3}{-6/\x}\kromme{-7.3}{-.86}{-6/\x}
+        \draw[hulplijn] (-7,3) -- (7,3);\draw[hulplijn] (-7,-1) -- (7,-1);
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $-\dfrac6x = 3$
+      antwoord: |-
+        $x = -2$
+      uitwerking: |-
+        Het snijpunt met $y = 3$ is $(-2, 3)$. Controle: $-\tfrac{6}{-2} = 3$.
+    - opgave: |-
+        $-\dfrac6x > 3$
+      antwoord: |-
+        $\ivoo{-2}{0}$
+      uitwerking: |-
+        De linkertak ligt boven de rechte $y = 3$ tussen $-2$ en $0$. De rechtertak ligt onder de $x$-as. $V = \ivoo{-2}{0}$.
+    - opgave: |-
+        $-\dfrac6x \geqslant -1$
+      antwoord: |-
+        $\ivoo{\minf}{0} \cup \ivgo{6}{\pinf}$
+      uitwerking: |-
+        Het snijpunt met $y = -1$ is $(6, -1)$. De hele linkertak ligt boven de rechte, de rechtertak vanaf $x = 6$. $V = \ivoo{\minf}{0} \cup \ivgo{6}{\pinf}$.
+    - opgave: |-
+        $-\dfrac6x < 0$
+      antwoord: |-
+        $\ivoo{0}{\pinf}$
+      uitwerking: |-
+        De grafiek ligt onder de $x$-as voor positieve $x$: $V = \ivoo{0}{\pinf}$.
+
+- id: h4-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten bij c/x
+  opgave: |-
+    Juist of fout? Verbeter wat fout is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De functie $f(x) = \tfrac6x$ is dalend op $\R_0$.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $-1 < 1$ en ook $f(-1) = -6 < f(1) = 6$. De functie daalt op $\ivoo{\minf}{0}$ en op $\ivoo{0}{\pinf}$, elk apart.
+    - opgave: |-
+        De grafiek van $f(x) = \tfrac6x$ snijdt de $x$-as in de oorsprong.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $0$ hoort niet bij het domein, en $\tfrac6x$ is nooit $0$. De grafiek snijdt geen enkele as.
+    - opgave: |-
+        Als $x$ drie keer zo groot wordt, wordt $y = \tfrac{15}{x}$ drie keer zo klein.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: $\tfrac{15}{3x} = \tfrac13 \cdot \tfrac{15}{x}$.
+    - opgave: |-
+        Bij $y = 10 - x$ zijn $x$ en $y$ omgekeerd evenredig, want $y$ daalt als $x$ stijgt.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $1 \cdot 9 = 9$ maar $2 \cdot 8 = 16$. Het product is niet constant (wel de som).
+    - opgave: |-
+        De punten $(3, -4)$ en $(-3, 4)$ liggen op dezelfde hyperbool $y = \tfrac cx$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: beide producten zijn $-12$. Het is de hyperbool $y = -\tfrac{12}{x}$.
+    - opgave: |-
+        De grafiek van $y = -\tfrac5x$ ligt in het 1ste en het 3de kwadrant.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $c = -5 < 0$, dus in het 2de en het 4de kwadrant.
+
+- id: h4-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een fout in een grafiek van c/x
+  opgave: |-
+    Jonas maakt een tabel voor $f(x) = \tfrac4x$ met $x = -2$, $-1$, $0$, $1$ en $2$. Bij $x = 0$ schrijft hij $0$. Dan verbindt hij de punten zoals in de figuur.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.36cm,y=.36cm]
+        \roosterleeg{-4}{1}{4}{-4}{1}{4}\xgetallen{-2,2}\ygetallen{-2,2}
+        \gebroken{(-2,-2) (-1,-4) (0,0) (1,4) (2,2)}
+        \foreach \p in {(-2,-2),(-1,-4),(0,0),(1,4),(2,2)}{\fill[accent] \p circle (2.2pt);}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat heeft Jonas fout gedaan?
+      antwoord: |-
+        $f(0)$ bestaat niet
+      uitwerking: |-
+        $\tfrac40$ bestaat niet, het is zeker geen $0$. Er ligt dus geen punt van de grafiek op de $y$-as, en de twee takken mag je niet verbinden.
+    - opgave: |-
+        Teken de juiste grafiek.
+      antwoord: |-
+        twee takken, door $(1, 4)$, $(2, 2)$, $(4, 1)$ en de tegengestelde punten
+      uitwerking: |-
+        Twee takken in het 1ste en het 3de kwadrant, die de assen niet raken.
+        \figuren{\begin{tikzpicture}[x=.36cm,y=.36cm]
+          \roosterleeg{-4}{1}{4}{-4}{1}{4}\xgetallen{-2,2}\ygetallen{-2,2}
+          \kromme{1}{4.3}{4/\x}\kromme{-4.3}{-1}{4/\x}
+          \foreach \a in {1,2,4}{\punt{\a}{4/\a}\punt{-\a}{-4/\a}}
+        \end{tikzpicture}}
+
+- id: h4-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tegels voor een terras
+  opgave: |-
+    Voor een terras van $18$ m$^2$ koop je vierkante tegels. Hoe groter een tegel, hoe minder tegels je nodig hebt. (We verwaarlozen de voegen en het zaagwerk.)
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel tegels van $50$ cm op $50$ cm heb je nodig?
+      antwoord: |-
+        $72$
+      uitwerking: |-
+        Eén tegel is $0,5 \cdot 0,5 = 0,25$ m$^2$, dus $\tfrac{18}{0,25} = 72$ tegels.
+    - opgave: |-
+        Geef het aantal tegels $N$ als functie van de oppervlakte $a$ (in m$^2$) van één tegel.
+      antwoord: |-
+        $N = \tfrac{18}{a}$
+      uitwerking: |-
+        $N \cdot a = 18$, dus $N = \tfrac{18}{a}$.
+    - opgave: |-
+        Hoeveel tegels van $60$ cm op $60$ cm heb je nodig?
+      antwoord: |-
+        $50$
+      uitwerking: |-
+        $a = 0,6 \cdot 0,6 = 0,36$ m$^2$, dus $N = \tfrac{18}{0,36} = 50$.
+    - opgave: |-
+        Je wilt hoogstens $40$ tegels leggen. Hoe groot moet één tegel minstens zijn?
+      antwoord: |-
+        $0,45$ m$^2$
+      uitwerking: |-
+        $\tfrac{18}{a} = 40$ geeft $a = \tfrac{18}{40} = 0,45$ m$^2$. Grotere tegels geven minder tegels: $a \geqslant 0,45$ m$^2$.
+
+- id: h4-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    werk verdelen, en de grenzen van het model
+  opgave: |-
+    Vijf vrijwilligers vouwen samen de folders voor een actie in $12$ uur. Iedereen werkt even snel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoelang duurt het met $8$ vrijwilligers?
+      antwoord: |-
+        $7,5$ uur
+      uitwerking: |-
+        Het werk is $5 \cdot 12 = 60$ uur, dus $\tfrac{60}{8} = 7,5$ uur.
+    - opgave: |-
+        Hoeveel vrijwilligers zijn er nodig om alles in $4$ uur te vouwen?
+      antwoord: |-
+        $15$
+      uitwerking: |-
+        $\tfrac{60}{n} = 4$ geeft $n = 15$.
+    - opgave: |-
+        Volgens het model kunnen $60$ vrijwilligers het in $1$ uur. Is dat realistisch?
+      antwoord: |-
+        volgens het model wel, in werkelijkheid waarschijnlijk niet
+      uitwerking: |-
+        Volgens het model wel: $\tfrac{60}{60} = 1$. Maar met zoveel mensen loop je elkaar in de weg en is er niet genoeg plaats of materiaal. Het model werkt alleen als iedereen echt even snel blijft werken.
+
+- id: h4-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snijpunten van een rechte en een hyperbool
+  opgave: |-
+    Teken de grafieken van $f(x) = 2x$ en $g(x) = \tfrac8x$ op één rooster.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de snijpunten af.
+      antwoord: |-
+        $(2, 4)$ en $(-2, -4)$
+      uitwerking: |-
+        De rechte door de oorsprong snijdt elke tak één keer: in $(2, 4)$ en $(-2, -4)$.
+        \figuren{\begin{tikzpicture}[x=.26cm,y=.26cm]
+          \roosterleeg{-8}{1}{8}{-8}{1}{8}\xgetallen{-4,-2,2,4}\ygetallen{-4,4}
+          \kromme{1}{8.3}{8/\x}\kromme{-8.3}{-1}{8/\x}
+          \rechte[tweede]{-4}{4}{2}{0}
+          \punt{2}{4}\punt{-2}{-4}
+          \node[accent,font=\scriptsize] at (6.5,2.4) {$g$};\node[font=\scriptsize] at (4.6,7.5) {$f$};
+        \end{tikzpicture}}
+    - opgave: |-
+        Controleer algebraïsch door $2x = \tfrac8x$ op te lossen.
+      antwoord: |-
+        $x = 2$ of $x = -2$
+      uitwerking: |-
+        Beide leden maal $x$: $2x^2 = 8$, dus $x^2 = 4$, en $x = 2$ of $x = -2$. Dan is $y = 4$ of $y = -4$.
+    - opgave: |-
+        Voor welke positieve $x$ ligt de grafiek van $g$ boven die van $f$?
+      antwoord: |-
+        $\ivoo{0}{2}$
+      uitwerking: |-
+        Links van het snijpunt $(2, 4)$ ligt de rechtertak boven de rechte: voor $x \in \ivoo{0}{2}$.
+
+- id: h4-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een hyperbool door een punt
+  opgave: |-
+    Een hyperbool met voorschrift $y = \tfrac cx$ gaat door het punt $(4, -2)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $c$.
+      antwoord: |-
+        $c = -8$
+      uitwerking: |-
+        $c = 4 \cdot (-2) = -8$.
+    - opgave: |-
+        Ligt het punt $(-1, 8)$ op de hyperbool?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $(-1) \cdot 8 = -8$: ja.
+    - opgave: |-
+        Ligt het punt $(-8, -1)$ op de hyperbool?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $(-8) \cdot (-1) = 8 \neq -8$: nee.
+    - opgave: |-
+        Het punt $(a, 16)$ ligt op de hyperbool. Bereken $a$.
+      antwoord: |-
+        $a = -0,5$
+      uitwerking: |-
+        $a \cdot 16 = -8$, dus $a = -\tfrac{8}{16} = -0,5$.
+
+- id: h4-o20
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een prijs die niet omgekeerd evenredig is
+  opgave: |-
+    Een jeugdbeweging huurt een zaal voor een feest. De zaal kost $450$ euro. Daarnaast kost het eten $12$ euro per persoon. Alles wordt gelijk verdeeld over de $n$ personen die komen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de prijs per persoon voor $30$, $50$ en $90$ personen.
+      antwoord: |-
+        $27$, $21$ en $17$ euro
+      uitwerking: |-
+        $\tfrac{450}{30} + 12 = 27$, \ $\tfrac{450}{50} + 12 = 21$, \ $\tfrac{450}{90} + 12 = 17$ euro.
+    - opgave: |-
+        Zijn het aantal personen en de prijs per persoon omgekeerd evenredig?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: $30 \cdot 27 = 810$, $50 \cdot 21 = 1050$ en $90 \cdot 17 = 1530$ zijn verschillend. Wat iedereen samen betaalt, hangt af van het aantal personen.
+    - opgave: |-
+        Welk deel van de prijs per persoon is wel omgekeerd evenredig met $n$?
+      antwoord: |-
+        het deel voor de zaal, $\tfrac{450}{n}$
+      uitwerking: |-
+        Het deel voor de zaal: $\tfrac{450}{n}$. Samen betalen ze daarvoor altijd $450$ euro.
+    - opgave: |-
+        Hoeveel personen moeten er minstens komen, opdat het feest hoogstens $20$ euro per persoon kost?
+      antwoord: |-
+        $57$
+      uitwerking: |-
+        Het deel voor de zaal mag hoogstens $20 - 12 = 8$ euro zijn. $\tfrac{450}{n} = 8$ geeft $n = 56,25$. Dat is geen geheel aantal, en met $56$ personen kost de zaal $\tfrac{450}{56} \approx 8,04$ euro per persoon: te veel. Er moeten dus minstens $57$ personen komen.
+
+- id: h4-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    procentuele verandering bij omgekeerd evenredige grootheden
+  opgave: |-
+    De grootheden $x$ en $y$ zijn omgekeerd evenredig, met positieve waarden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x$ wordt $50\,\%$ groter. Met hoeveel procent verandert $y$?
+      antwoord: |-
+        $y$ daalt met $33,3\,\%$
+      uitwerking: |-
+        $x$ wordt $1,5x$, dus $y$ wordt $\tfrac{y}{1,5} = \tfrac23 y$. Dat is een daling met $\tfrac13 \approx 33,3\,\%$, en niet met $50\,\%$.
+    - opgave: |-
+        $x$ wordt $25\,\%$ groter. Met hoeveel procent verandert $y$?
+      antwoord: |-
+        $y$ daalt met $20\,\%$
+      uitwerking: |-
+        $y$ wordt $\tfrac{y}{1,25} = 0,8y$: een daling met $20\,\%$.
+    - opgave: |-
+        Met hoeveel procent moet $x$ groter worden opdat $y$ halveert?
+      antwoord: |-
+        $100\,\%$
+      uitwerking: |-
+        $y$ halveert als $x$ verdubbelt: $x$ wordt $100\,\%$ groter.
+    - opgave: |-
+        Leg uit waarom $y$ nooit met $100\,\%$ kan dalen, hoe groot je $x$ ook maakt.
+      antwoord: |-
+        $y$ wordt nooit $0$
+      uitwerking: |-
+        Dalen met $100\,\%$ betekent dat $y$ gelijk wordt aan $0$. Maar $x \cdot 0 = 0 \neq c$: de functiewaarde $0$ komt niet voor. Hoe groter $x$, hoe dichter $y$ bij $0$ komt, maar $0$ wordt het nooit.
+
+- id: h4-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    rechthoek onder de hyperbool, product constant
+  opgave: |-
+    Een punt $P$ ligt op de grafiek van $y = \tfrac6x$, met $x > 0$. De rechthoek met hoekpunten $O$, $(x, 0)$, $P$ en $(0, y)$ heeft twee zijden op de assen.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.38cm,y=.38cm]
+        \rooster{0}{1}{6}{0}{1}{6}
+        \fill[accent!20] (0,0) rectangle (2,3);\draw[accent] (0,0) rectangle (2,3);
+        \kromme{1}{6.3}{6/\x}
+        \punt{2}{3}\node[above right,font=\scriptsize,inner sep=1pt] at (2,3) {$P$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de oppervlakte van de rechthoek voor $P(1, 6)$, $P(2, 3)$ en $P(4\,;\,1,5)$.
+      antwoord: |-
+        telkens $6$
+      uitwerking: |-
+        $1 \cdot 6 = 2 \cdot 3 = 4 \cdot 1,5 = 6$.
+    - opgave: |-
+        Toon aan dat de oppervlakte altijd $6$ is, waar $P$ ook ligt.
+      antwoord: |-
+        $x \cdot \tfrac6x = 6$
+      uitwerking: |-
+        De rechthoek heeft breedte $x$ en hoogte $y = \tfrac6x$. De oppervlakte is $x \cdot \tfrac6x = 6$.
+    - opgave: |-
+        Hoe zie je hierin de eigenschap van omgekeerd evenredige grootheden?
+      antwoord: |-
+        het product $x \cdot y$ is constant
+      uitwerking: |-
+        De oppervlakte is het product $x \cdot y$, en dat is bij omgekeerd evenredige grootheden altijd hetzelfde getal $c$. Een smallere rechthoek is dus hoger.
+
+- id: h4-o25
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    punten met gehele coördinaten op een hyperbool
+  opgave: |-
+    Hoeveel punten met gehele coördinaten liggen op de grafiek van $y = \tfrac cx$?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor $c = 36$, met alleen positieve coördinaten.
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $x$ moet een deler van $36$ zijn: $1$, $2$, $3$, $4$, $6$, $9$, $12$, $18$, $36$. Dat geeft $9$ punten, van $(1, 36)$ tot $(36, 1)$.
+    - opgave: |-
+        Voor $c = 36$, nu ook met negatieve coördinaten.
+      antwoord: |-
+        $18$
+      uitwerking: |-
+        Bij elk punt $(a, b)$ hoort ook $(-a, -b)$: $2 \cdot 9 = 18$ punten.
+    - opgave: |-
+        Voor welke natuurlijke getallen $c$ van $1$ tot en met $20$ liggen er de meeste punten met positieve gehele coördinaten op de grafiek?
+      antwoord: |-
+        $c = 12$, $18$ en $20$, met elk $6$ punten
+      uitwerking: |-
+        Het aantal punten is het aantal delers van $c$. Van $1$ tot en met $20$ hebben $12$ (delers $1, 2, 3, 4, 6, 12$), $18$ (delers $1, 2, 3, 6, 9, 18$) en $20$ (delers $1, 2, 4, 5, 10, 20$) de meeste delers: $6$.
+
+- id: h4-o23
+  soort: opdracht
+  niveau: 3
+  pakketten: [4, 5]
+  thema: |-
+    symmetrie van de hyperbool bewijzen
+  opgave: |-
+    Het punt $(a, b)$ ligt op de grafiek van $y = \tfrac cx$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat ook het punt $(b, a)$ op de grafiek ligt.
+      antwoord: |-
+        $b \cdot a = a \cdot b = c$
+      uitwerking: |-
+        Uit $b = \tfrac ca$ volgt $a \cdot b = c$. Dan is ook $b \cdot a = c$, dus $a = \tfrac cb$: het punt $(b, a)$ ligt op de grafiek. ($b \neq 0$, want $c \neq 0$.)
+    - opgave: |-
+        De punten $(a, b)$ en $(b, a)$ liggen symmetrisch ten opzichte van een rechte. Welke? Wat betekent dat voor de hyperbool?
+      antwoord: |-
+        de rechte $y = x$; de hyperbool is symmetrisch ten opzichte van die rechte
+      uitwerking: |-
+        Spiegelen om de rechte $y = x$ wisselt de coördinaten om, zoals $(1, 6)$ en $(6, 1)$. De hyperbool valt dus op zichzelf bij een spiegeling om $y = x$.
+    - opgave: |-
+        Toon aan dat ook $(-b, -a)$ op de grafiek ligt. Welke tweede symmetrieas vind je zo?
+      antwoord: |-
+        de rechte $y = -x$
+      uitwerking: |-
+        $(-b) \cdot (-a) = ab = c$. De punten $(a, b)$ en $(-b, -a)$ liggen symmetrisch ten opzichte van de rechte $y = -x$.
+
+- id: h4-o24
+  soort: opdracht
+  niveau: 3
+  pakketten: [5]
+  thema: |-
+    een verschoven hyperbool
+  opgave: |-
+    Gegeven is de functie $g(x) = \dfrac6x + 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul de tabel aan. \quad \waardetabel[$x$][$g(x)$]{8}{-6 & -3 & -2 & -1 & 1 & 2 & 3 & 6}{\vak & \vak & \vak & \vak & \vak & \vak & \vak & \vak}
+      antwoord: |-
+        $1$, $0$, $-1$, $-4$, $8$, $5$, $4$, $3$
+      uitwerking: |-
+        Telkens $2$ meer dan bij $\tfrac6x$: $-1 + 2 = 1$, $-2 + 2 = 0$, $-3 + 2 = -1$, $-6 + 2 = -4$, $6 + 2 = 8$, $3 + 2 = 5$, $2 + 2 = 4$, $1 + 2 = 3$.
+    - opgave: |-
+        Teken de grafiek. Hoe ontstaat ze uit de grafiek van $y = \tfrac6x$?
+      antwoord: |-
+        verschuiving over $2$ naar boven
+      uitwerking: |-
+        Elke functiewaarde is $2$ groter: de hyperbool $y = \tfrac6x$ schuift $2$ eenheden naar boven.
+        \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm]
+          \roosterleeg{-6}{1}{6}{-5}{1}{9}\xgetallen{-6,-3,3,6}\ygetallen{-4,2,4,8}
+          \draw[hulplijn] (-6,2) -- (6,2);
+          \kromme[tweede,thin]{.86}{6.3}{6/\x}\kromme[tweede,thin]{-6.3}{-1.2}{6/\x}
+          \kromme{.86}{6.3}{6/\x+2}\kromme{-6.3}{-.86}{6/\x+2}
+          \foreach \a in {1,2,3,6}{\punt{\a}{6/\a+2}\punt{-\a}{-6/\a+2}}
+        \end{tikzpicture}}
+    - opgave: |-
+        Geef de asymptoten.
+      antwoord: |-
+        de $y$-as en de rechte $y = 2$
+      uitwerking: |-
+        De $y$-as blijft een asymptoot. De $x$-as schuift mee naar boven: de rechte $y = 2$ is nu de horizontale asymptoot.
+    - opgave: |-
+        Geef het domein en het bereik.
+      antwoord: |-
+        $\dom g = \R_0$, $\ber g = \R \setminus \{2\}$
+      uitwerking: |-
+        $0$ zit nog altijd niet in het domein. De functiewaarde $2$ komt niet voor, want $\tfrac6x$ is nooit $0$: $\ber g = \R \setminus \{2\}$.
+    - opgave: |-
+        Bereken de nulwaarde.
+      antwoord: |-
+        $x = -3$
+      uitwerking: |-
+        $\tfrac6x + 2 = 0$ geeft $\tfrac6x = -2$, dus $x = -3$. Ook in de tabel: $g(-3) = 0$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h4-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Zijn $x$ en $y$ recht evenredig, omgekeerd evenredig of geen van beide? Geef het voorschrift als het kan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{1 & 2 & 5 & 10}{40 & 20 & 8 & 4}
+      antwoord: |-
+        omgekeerd evenredig, $y = \tfrac{40}{x}$
+      uitwerking: |-
+        Alle producten zijn $40$.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{2 & 4 & 6 & 8}{9 & 7 & 5 & 3}
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        De producten $18$, $28$, $30$, $24$ verschillen, en de quotiënten ook.
+    - opgave: |-
+        \waardetabel[$x$][$y$]{4}{-3 & -1 & 2 & 6}{4 & 12 & -6 & -2}
+      antwoord: |-
+        omgekeerd evenredig, $y = -\tfrac{12}{x}$
+      uitwerking: |-
+        Alle producten zijn $-12$.
+
+- id: h4-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een pot snoepjes wordt eerlijk verdeeld. Met $12$ kinderen krijgt elk kind $15$ snoepjes.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel snoepjes krijgt elk kind als er $20$ kinderen zijn?
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        Er zijn $12 \cdot 15 = 180$ snoepjes, dus $\tfrac{180}{20} = 9$ per kind.
+    - opgave: |-
+        Met hoeveel kinderen krijgt elk kind $10$ snoepjes?
+      antwoord: |-
+        $18$
+      uitwerking: |-
+        $\tfrac{180}{n} = 10$ geeft $n = 18$.
+
+- id: h4-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Maak een tabel en teken de grafiek van $f(x) = -\dfrac{3}{x}$.
+  antwoord: |-
+    takken in het 2de en 4de kwadrant, door $(1, -3)$ en $(-1, 3)$
+  uitwerking: |-
+    Punten $(1, -3)$, $(1,5\,;\,-2)$, $(3, -1)$ en de punten met tegengestelde coördinaten. Twee takken in het 2de en het 4de kwadrant, die de assen niet raken.
+    \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm]
+      \roosterleeg{-5}{1}{5}{-5}{1}{5}\xgetallen{-3,3}\ygetallen{-3,3}
+      \kromme{.6}{5.2}{-3/\x}\kromme{-5.2}{-.6}{-3/\x}
+      \foreach \a in {1,1.5,3}{\punt{\a}{-3/\a}\punt{-\a}{3/\a}}
+    \end{tikzpicture}}
+
+- id: h4-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een hyperbool met voorschrift $y = \tfrac cx$ gaat door het punt $(-2, -7)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het voorschrift.
+      antwoord: |-
+        $y = \tfrac{14}{x}$
+      uitwerking: |-
+        $c = (-2) \cdot (-7) = 14$.
+    - opgave: |-
+        Ligt het punt $(7, 2)$ op de hyperbool?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $7 \cdot 2 = 14$: ja.
+
+- id: h4-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Geef voor $f(x) = \tfrac{9}{x}$ het domein, het bereik, de nulwaarden, het tekenschema, en waar de functie stijgt of daalt.
+  antwoord: |-
+    $\R_0$; $\R_0$; geen; $-$ voor $0$, $+$ na $0$; dalend op $\ivoo{\minf}{0}$ en op $\ivoo{0}{\pinf}$
+  uitwerking: |-
+    $c = 9 > 0$: takken in het 1ste en het 3de kwadrant. $\dom f = \ber f = \R_0$, geen nulwaarden, dalend op $\ivoo{\minf}{0}$ en dalend op $\ivoo{0}{\pinf}$ (niet op heel $\R_0$).
+    \figuren{\tekenschema{3}{ & 0 & }{- & | & +}}
+
+- id: h4-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Los op.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\dfrac{20}{x} = -4$
+      antwoord: |-
+        $x = -5$
+      uitwerking: |-
+        $20 = -4x$, dus $x = -5$.
+    - opgave: |-
+        $\dfrac{3}{x} = 12$
+      antwoord: |-
+        $x = 0,25$
+      uitwerking: |-
+        $3 = 12x$, dus $x = \tfrac{3}{12} = 0,25$.
+    - opgave: |-
+        $-\dfrac{8}{x} = 0$
+      antwoord: |-
+        geen oplossing
+      uitwerking: |-
+        $-8 = 0$ is onmogelijk.
+
+- id: h4-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een wandeling is $12$ km lang. De duur $t$ (in uur) hangt af van je gemiddelde snelheid $v$ (in km/h).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef $t$ als functie van $v$.
+      antwoord: |-
+        $t = \tfrac{12}{v}$
+      uitwerking: |-
+        $v \cdot t = 12$, dus $t = \tfrac{12}{v}$.
+    - opgave: |-
+        Hoe snel moet je minstens wandelen om binnen $2,5$ uur aan te komen? Gebruik een grafiek.
+      antwoord: |-
+        minstens $4,8$ km/h
+      uitwerking: |-
+        $\tfrac{12}{v} = 2,5$ geeft $v = 4,8$. Rechts van $4,8$ ligt de grafiek onder de rechte $t = 2,5$: $v \geqslant 4,8$ km/h.
+        \figuren{\begin{tikzpicture}[x=.5cm,y=.6cm]
+          \roosterleeg[$v$][$t$]{0}{1}{8}{0}{.5}{4}
+          \xgetallen{2,4,6,8}\ygetallen{1,2,3,4}
+          \asdeel{4.8}{8}
+          \kromme{3}{8}{12/\x}
+          \draw[hulplijn] (0,2.5) -- (8,2.5);
+          \aflezen{4.8}{2.5}\punt{4.8}{2.5}
+        \end{tikzpicture}}

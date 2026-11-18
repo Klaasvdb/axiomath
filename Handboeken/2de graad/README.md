@@ -2,7 +2,7 @@
 
 De 2de graad volgt dezelfde aanpak als de 3de graad: één map per **leerplanpakket**, daarin een map per rubriek en per cursus, opgebouwd zoals [Integralen](<../3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>). De verschillen staan in [de ontwerpregels](../../Ontwerp/ontwerpregels.md#2de-graad): kleinere handboeken, eerst een voorbeeld en dan de definitie, minder bewijzen, geen Koppel, en een bordeaux voorkant.
 
-Stand op 13 november 2026: de indeling ligt klaar en de voorkanten zijn goedgekeurd. Er is nog geen enkele cursus geschreven. De leerkrachtensite en het voortgangsoverzicht kennen de 2de graad al (zie Website hieronder).
+Stand op 17 november 2026: alle 18 onderwerpen hebben een eerste versie (72 handboeken), elk uit één bron in `cursussen/<cursus>/`. Nog na te lezen: elke bron heeft in haar README een lijst "Na te kijken", vooral over de afbakening per pakket, want de leerplantekst was bij het schrijven niet beschikbaar. De leerkrachtensite en het voortgangsoverzicht kennen de 2de graad al (zie Website hieronder).
 
 ## Pakketten en richtingen
 
@@ -74,7 +74,7 @@ Een voorstel van hoofdstukken. Tussen haakjes de pakketten waarin een hoofdstuk 
 
 **Algebra/Stelsels.** 1 Grafisch oplossen: twee rechten. 2 Algebraïsch oplossen: substitutie en combinatie. 3 Vraagstukken.
 
-**Meetkunde/Gelijkvormigheid.** 1 Schaal: het effect op lengte, oppervlakte en volume. 2 Gelijkvormige driehoeken: de kenmerken en meetkundige problemen.
+**Meetkunde/Gelijkvormigheid.** 1 Schaal: het effect op lengte, oppervlakte en volume. 2 Gelijkvormige driehoeken: de kenmerken en meetkundige problemen. 3 Constructies (pakket 4 en 5, voor GO!): met passer en liniaal een lijnstuk verdelen, de vierde evenredige en de middelevenredige construeren, en construeren met een homothetie.
 
 **Meetkunde/Driehoeksmeting.** 1 De stelling van Pythagoras in het vlak en in de ruimte. 2 Sinus, cosinus en tangens in een rechthoekige driehoek, de grondformule, hoogtes en afstanden.
 

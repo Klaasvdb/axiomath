@@ -1,0 +1,1216 @@
+# Oefeningen van hoofdstuk 2 (alleen pakket 5). Zie Opmaak/oefeningenbank.py voor de velden.
+# Alle uitkomsten nagerekend met SymPy, de afgeronde hoeken en afstanden ook numeriek.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de norm van $\vc{-3}{4}$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $\sqrt{9 + 16} = 5$.
+    - opgave: |-
+        $\cos 120^\circ$, exact
+      antwoord: |-
+        $-\tfrac12$
+      uitwerking: |-
+        $120^\circ = 180^\circ - 60^\circ$, dus $\cos 120^\circ = -\cos 60^\circ = -\tfrac12$.
+    - opgave: |-
+        de zijde $a$ van een driehoek met $b = 5$, $c = 8$ en $\alpha = 60^\circ$
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        Cosinusregel: $a^2 = 25 + 64 - 2 \cdot 5 \cdot 8 \cdot \tfrac12 = 49$.
+    - opgave: |-
+        een richtingsvector en de rico van de rechte $2x - 5y = 10$
+      antwoord: |-
+        $\vc{5}{2}$; $\tfrac25$
+      uitwerking: |-
+        $\vc{b}{-a} = \vc{-5}{-2}$, of $\vc{5}{2}$, en $m = \tfrac25$.
+    - opgave: |-
+        het snijpunt van $x = 1 + 2r,\ y = r$ en $x + y = 7$
+      antwoord: |-
+        $\vc{5}{2}$
+      uitwerking: |-
+        $1 + 2r + r = 7$, dus $r = 2$.
+
+- id: h2-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.4cm,y=.4cm,font=\scriptsize]
+        \ruitjes{-2}{-1}{11}{4}
+        \draw[vector] (0,0) -- (3,1) node[right] {$\vect{a}$};
+        \draw[vectorb] (0,0) -- (-1,3) node[above] {$\vect{b}$};
+        \draw[vector] (8,0) -- (10,4) node[right] {$\vect{c}$};
+        \draw[vectorb] (8,0) -- (6,1) node[above] {$\vect{d}$};
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad In de figuur is $\vect{a} = \vc{3}{1}$, $\vect{b} = \vc{-1}{3}$, $\vect{c} = \vc{2}{4}$ en $\vect{d} = \vc{-2}{1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke vectoren lijken loodrecht op elkaar te staan? Controleer met een geodriehoek.
+      antwoord: |-
+        $\vect{a}$ en $\vect{b}$; $\vect{c}$ en $\vect{d}$
+      uitwerking: |-
+        Beide paren maken een rechte hoek.
+    - opgave: |-
+        Bereken voor $\vect{a}$ en $\vect{b}$ de som $a_x b_x + a_y b_y$. Doe hetzelfde voor $\vect{c}$ en $\vect{d}$, voor $\vect{a}$ en $\vect{c}$, en voor $\vect{b}$ en $\vect{d}$.
+      antwoord: |-
+        $0$; $0$; $10$; $5$
+      uitwerking: |-
+        $-3 + 3 = 0$, $-4 + 4 = 0$, $6 + 4 = 10$, $2 + 3 = 5$.
+    - opgave: |-
+        Wat merk je?
+      antwoord: |-
+        bij loodrechte vectoren is de som $0$
+      uitwerking: |-
+        Alleen bij de loodrechte paren komt er $0$ uit.
+    - opgave: |-
+        Draai $\vc{5}{2}$ een kwartslag in tegenwijzerzin. Welke vector krijg je? Bereken ook voor dit paar de som.
+      antwoord: |-
+        $\vc{-2}{5}$; $0$
+      uitwerking: |-
+        5 naar rechts wordt 5 omhoog, 2 omhoog wordt 2 naar links. $5 \cdot ({-2}) + 2 \cdot 5 = 0$.
+
+- id: h2-inproduct
+  soort: kort
+  opgave: |-
+    Gegeven zijn $\vect{u} = \vc{3}{-2}$, $\vect{v} = \vc{5}{4}$ en $\vect{w} = \vc{-1}{6}$. Bereken.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vect{u} \cdot \vect{v}$
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        $15 - 8$.
+    - opgave: |-
+        $\vect{u} \cdot \vect{w}$
+      antwoord: |-
+        $-15$
+      uitwerking: |-
+        $-3 - 12$.
+    - opgave: |-
+        $\vect{v} \cdot \vect{w}$
+      antwoord: |-
+        $19$
+      uitwerking: |-
+        $-5 + 24$.
+    - opgave: |-
+        $\vect{u} \cdot \vect{u}$
+      antwoord: |-
+        $13$
+      uitwerking: |-
+        $9 + 4 = \norm{\vect{u}}^2$.
+    - opgave: |-
+        $\vect{v} \cdot (\vect{u} + \vect{w})$
+      antwoord: |-
+        $26$
+      uitwerking: |-
+        $\vect{u} + \vect{w} = \vc{2}{4}$, en $10 + 16 = 26$. Ook $7 + 19$.
+    - opgave: |-
+        $(2\vect{u}) \cdot \vect{w}$
+      antwoord: |-
+        $-30$
+      uitwerking: |-
+        $\vc{6}{-4} \cdot \vc{-1}{6} = -6 - 24$. Ook $2 \cdot ({-15})$.
+
+- id: h2-loodrechtvec
+  soort: kort
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Staan $\vc{5}{-3}$ en $\vc{3}{5}$ loodrecht op elkaar? En $\vc{4}{1}$ en $\vc{1}{-3}$?
+      antwoord: |-
+        ja; nee
+      uitwerking: |-
+        $15 - 15 = 0$; $4 - 3 = 1 \neq 0$.
+    - opgave: |-
+        Bepaal $k$ zodat $\vc{k}{-5}$ loodrecht staat op $\vc{10}{4}$.
+      antwoord: |-
+        $k = 2$
+      uitwerking: |-
+        $10k - 20 = 0$.
+    - opgave: |-
+        Geef twee vectoren die loodrecht staan op $\vc{3}{-8}$.
+      antwoord: |-
+        bv. $\vc{8}{3}$ en $\vc{-8}{-3}$
+      uitwerking: |-
+        Wissel de componenten en verander één teken: $24 - 24 = 0$.
+    - opgave: |-
+        Gegeven zijn $A\vc{1}{2}$, $B\vc{4}{6}$ en $C\vc{-3}{5}$. Is de hoek in $A$ van driehoek $ABC$ recht?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\vect{AB} = \vc{3}{4}$ en $\vect{AC} = \vc{-4}{3}$: $-12 + 12 = 0$.
+
+- id: h2-hoek
+  soort: kort
+  opgave: |-
+    Bereken de hoek tussen de vectoren, afgerond op $0{,}01^\circ$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\vc{3}{4}$ en $\vc{4}{3}$
+      antwoord: |-
+        $16{,}26^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{24}{5 \cdot 5} = 0{,}96$.
+    - opgave: |-
+        $\vc{1}{2}$ en $\vc{-3}{1}$
+      antwoord: |-
+        $98{,}13^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{-1}{\sqrt5\,\sqrt{10}} \approx -0{,}1414$: een stompe hoek.
+    - opgave: |-
+        $\vc{2}{-1}$ en $\vc{-4}{2}$
+      antwoord: |-
+        $180^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{-10}{\sqrt5\,\sqrt{20}} = -1$. Inderdaad: $\vc{-4}{2} = -2\,\vc{2}{-1}$, de tegengestelde zin.
+    - opgave: |-
+        de hoek in $A$ van driehoek $ABC$, met $A\vc{1}{1}$, $B\vc{5}{2}$ en $C\vc{2}{4}$
+      antwoord: |-
+        $57{,}53^\circ$
+      uitwerking: |-
+        De hoek tussen $\vect{AB} = \vc{4}{1}$ en $\vect{AC} = \vc{1}{3}$: $\cos\theta = \tfrac{7}{\sqrt{17}\,\sqrt{10}} \approx 0{,}5369$.
+
+- id: h2-loodrecht
+  soort: kort
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Staan $l\colon x = 2 + 3r,\ y = 1 - r$ en $m\colon x = s,\ y = 4 + 3s$ loodrecht op elkaar?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\vc{3}{-1} \cdot \vc{1}{3} = 3 - 3 = 0$.
+    - opgave: |-
+        Staan $y = 4x - 1$ en $y = -\tfrac14 x + 2$ loodrecht op elkaar? En $y = \tfrac23 x$ en $y = \tfrac32 x + 1$?
+      antwoord: |-
+        ja; nee
+      uitwerking: |-
+        $4 \cdot ({-\tfrac14}) = -1$; $\tfrac23 \cdot \tfrac32 = 1 \neq -1$.
+    - opgave: |-
+        Geef een vergelijking van de rechte door $P\vc{-3}{1}$ die loodrecht staat op $y = -3x + 5$.
+      antwoord: |-
+        $y = \tfrac13 x + 2$
+      uitwerking: |-
+        $m = \tfrac13$ en $1 = -1 + q$.
+    - opgave: |-
+        Geef een vergelijking van de rechte door de oorsprong die loodrecht staat op $y = 2$.
+      antwoord: |-
+        $x = 0$
+      uitwerking: |-
+        Loodrecht op een horizontale rechte staat een verticale: hier de $y$-as. Met de rico lukt dat niet.
+
+- id: h2-normaal
+  soort: kort
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een normaalvector en een richtingsvector van $4x - 7y = 2$.
+      antwoord: |-
+        $\vc{4}{-7}$ en $\vc{7}{4}$
+      uitwerking: |-
+        $\vc{a}{b}$ en $\vc{b}{-a} = \vc{-7}{-4}$, of het tegengestelde.
+    - opgave: |-
+        Geef een vergelijking van de rechte door $P\vc{2}{-3}$ met normaalvector $\vc{5}{1}$.
+      antwoord: |-
+        $5x + y = 7$
+      uitwerking: |-
+        $5(x - 2) + (y + 3) = 0$.
+    - opgave: |-
+        Geef een vergelijking van de rechte door $P\vc{-1}{4}$ die loodrecht staat op $AB$, met $A\vc{0}{0}$ en $B\vc{2}{-6}$.
+      antwoord: |-
+        $x - 3y = -13$
+      uitwerking: |-
+        $\vect{AB} = 2\,\vc{1}{-3}$ is een normaalvector: $(x + 1) - 3(y - 4) = 0$.
+    - opgave: |-
+        Geef een vergelijking van de middelloodlijn van $[AB]$, met $A\vc{2}{5}$ en $B\vc{6}{-1}$.
+      antwoord: |-
+        $2x - 3y = 2$
+      uitwerking: |-
+        $M\vc{4}{2}$ en $\vect{AB} = \vc{4}{-6} = 2\,\vc{2}{-3}$: $2(x - 4) - 3(y - 2) = 0$.
+
+- id: h2-voetpunt
+  soort: kort
+  opgave: |-
+    Bereken het voetpunt $V$ van de loodlijn uit $P$ op $l$, en $\lengte{PV}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $P\vc{7}{1}$ en $l\colon 2x - y = 3$
+      antwoord: |-
+        $V\vc{3}{3}$; $2\sqrt5 \approx 4{,}47$
+      uitwerking: |-
+        Loodlijn $x = 7 + 2r$, $y = 1 - r$. Invullen: $14 + 4r - 1 + r = 3$, dus $r = -2$. $\lengte{PV} = 2\,\norm{\vc{2}{-1}} = 2\sqrt5$.
+    - opgave: |-
+        $P\vc{0}{5}$ en $l\colon x + y = 1$
+      antwoord: |-
+        $V\vc{-2}{3}$; $2\sqrt2 \approx 2{,}83$
+      uitwerking: |-
+        Loodlijn $x = r$, $y = 5 + r$. Invullen: $2r + 5 = 1$, dus $r = -2$.
+    - opgave: |-
+        $P\vc{4}{-1}$ en $l\colon y = 2$
+      antwoord: |-
+        $V\vc{4}{2}$; $3$
+      uitwerking: |-
+        De loodlijn op een horizontale rechte is verticaal: $x = 4$.
+
+- id: h2-afstand
+  soort: kort
+  opgave: |-
+    Bereken de afstand, exact en zo nodig afgerond op $0{,}01$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        van $P\vc{3}{1}$ tot $4x + 3y = 5$
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $\tfrac{\abs{12 + 3 - 5}}{5} = \tfrac{10}{5}$.
+    - opgave: |-
+        van $P\vc{-2}{-1}$ tot $x - 2y = 5$
+      antwoord: |-
+        $\sqrt5 \approx 2{,}24$
+      uitwerking: |-
+        $\tfrac{\abs{-2 + 2 - 5}}{\sqrt5} = \tfrac{5}{\sqrt5} = \sqrt5$.
+    - opgave: |-
+        van $P\vc{2}{7}$ tot $l\colon x = 1 + 3r,\ y = 2 + 4r$
+      antwoord: |-
+        $\tfrac{11}{5} = 2{,}2$
+      uitwerking: |-
+        $l\colon 4x - 3y = -2$ (want $4 + 12r - 6 - 12r = -2$). Dan $\tfrac{\abs{8 - 21 + 2}}{5} = \tfrac{11}{5}$.
+    - opgave: |-
+        tussen de rechten $5x + 12y = 4$ en $5x + 12y = 30$
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $\vc{-4}{2}$ ligt op de eerste: $-20 + 24 = 4$. Afstand tot de tweede: $\tfrac{\abs{-20 + 24 - 30}}{13} = 2$.
+
+- id: h2-hoekrechten
+  soort: kort
+  opgave: |-
+    Bereken de hoek tussen de rechten, afgerond op $0{,}01^\circ$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $y = 2x + 1$ en $y = -x + 3$
+      antwoord: |-
+        $71{,}57^\circ$
+      uitwerking: |-
+        $\vc{1}{2}$ en $\vc{1}{-1}$: $\cos\varphi = \tfrac{\abs{1 - 2}}{\sqrt5\,\sqrt2} \approx 0{,}3162$.
+    - opgave: |-
+        $x + y = 3$ en $x - y = 1$
+      antwoord: |-
+        $90^\circ$
+      uitwerking: |-
+        Normaalvectoren $\vc{1}{1}$ en $\vc{1}{-1}$: inproduct $0$.
+    - opgave: |-
+        $3x - y = 2$ en $m\colon x = 5 + r,\ y = 2r$
+      antwoord: |-
+        $8{,}13^\circ$
+      uitwerking: |-
+        Richtingsvectoren $\vc{1}{3}$ en $\vc{1}{2}$: $\cos\varphi = \tfrac{7}{\sqrt{10}\,\sqrt5} \approx 0{,}9899$.
+    - opgave: |-
+        $y = 3$ en $y = x$
+      antwoord: |-
+        $45^\circ$
+      uitwerking: |-
+        $\vc{1}{0}$ en $\vc{1}{1}$: $\cos\varphi = \tfrac{1}{\sqrt2}$.
+
+#----------------------------------------------------------------------------------------
+# OPDRACHTEN: niveau 1 (o1-o8), niveau 2 (o9-o21), niveau 3 (o22-o25)
+#----------------------------------------------------------------------------------------
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    inproduct berekenen
+  opgave: |-
+    Bereken het inproduct.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vc{2}{3} \cdot \vc{4}{-1}$
+      antwoord: |-
+        $5$
+    - opgave: |-
+        $\vc{-1}{5} \cdot \vc{3}{2}$
+      antwoord: |-
+        $7$
+    - opgave: |-
+        $\vc{0}{4} \cdot \vc{7}{-2}$
+      antwoord: |-
+        $-8$
+    - opgave: |-
+        $\vc{\tfrac12}{2} \cdot \vc{4}{-3}$
+      antwoord: |-
+        $-4$
+    - opgave: |-
+        $\vc{3}{-6} \cdot \vc{2}{1}$
+      antwoord: |-
+        $0$
+    - opgave: |-
+        $\vc{-2}{-3} \cdot \vc{-4}{5}$
+      antwoord: |-
+        $-7$
+    - opgave: |-
+        $\vc{\sqrt2}{1} \cdot \vc{\sqrt2}{-3}$
+      antwoord: |-
+        $-1$
+    - opgave: |-
+        $\vect{u} \cdot \vect{u}$ voor $\vect{u} = \vc{5}{-12}$
+      antwoord: |-
+        $169$
+  uitwerking: |-
+    Eerste componenten maal elkaar plus tweede componenten maal elkaar: $8 - 3$; $-3 + 10$; $0 - 8$; $2 - 6$; $6 - 6$; $8 - 15$; $2 - 3$; $25 + 144 = 13^2$.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    loodrechte vectoren
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke paren staan loodrecht: $\vc{3}{-2}$ en $\vc{4}{6}$; $\vc{5}{1}$ en $\vc{-1}{4}$; $\vc{-6}{9}$ en $\vc{3}{2}$?
+      antwoord: |-
+        het eerste en het derde paar
+      uitwerking: |-
+        $12 - 12 = 0$; $-5 + 4 = -1$; $-18 + 18 = 0$.
+    - opgave: |-
+        Bepaal $k$ zodat $\vc{k}{4}$ loodrecht staat op $\vc{6}{-3}$.
+      antwoord: |-
+        $k = 2$
+      uitwerking: |-
+        $6k - 12 = 0$.
+    - opgave: |-
+        Bepaal $k$ zodat $\vc{2}{k}$ loodrecht staat op $\vc{k}{-8}$.
+      antwoord: |-
+        $k = 0$
+      uitwerking: |-
+        $2k - 8k = -6k = 0$.
+    - opgave: |-
+        Geef een vector die loodrecht staat op $\vc{7}{-2}$ en een vector die loodrecht staat op $\vc{0}{5}$.
+      antwoord: |-
+        bv. $\vc{2}{7}$; bv. $\vc{1}{0}$
+      uitwerking: |-
+        $14 - 14 = 0$. Loodrecht op een verticale vector staat een horizontale.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de hoek tussen twee vectoren
+  opgave: |-
+    Bereken de hoek tussen de vectoren, exact als dat kan en anders afgerond op $0{,}01^\circ$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vc{1}{3}$ en $\vc{3}{1}$
+      antwoord: |-
+        $53{,}13^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{6}{10} = 0{,}6$.
+    - opgave: |-
+        $\vc{2}{0}$ en $\vc{-1}{\sqrt3}$
+      antwoord: |-
+        $120^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{-2}{2 \cdot 2} = -\tfrac12$.
+    - opgave: |-
+        $\vc{4}{-3}$ en $\vc{-8}{6}$
+      antwoord: |-
+        $180^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{-50}{5 \cdot 10} = -1$: tegengesteld gericht.
+    - opgave: |-
+        $\vc{1}{2}$ en $\vc{4}{-1}$
+      antwoord: |-
+        $77{,}47^\circ$
+      uitwerking: |-
+        $\cos\theta = \tfrac{2}{\sqrt5\,\sqrt{17}} \approx 0{,}2169$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    normaalvector, richtingsvector en rico aflezen
+  opgave: |-
+    Geef een normaalvector, een richtingsvector en de rico (als die bestaat) van de rechte.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $3x + 2y = 6$
+      antwoord: |-
+        $\vc{3}{2}$, $\vc{2}{-3}$, $-\tfrac32$
+    - opgave: |-
+        $x - 4y = 1$
+      antwoord: |-
+        $\vc{1}{-4}$, $\vc{4}{1}$, $\tfrac14$
+    - opgave: |-
+        $y = 5x - 2$
+      antwoord: |-
+        $\vc{5}{-1}$, $\vc{1}{5}$, $5$
+    - opgave: |-
+        $x = -1$
+      antwoord: |-
+        $\vc{1}{0}$, $\vc{0}{1}$, geen
+    - opgave: |-
+        $2y = 7$
+      antwoord: |-
+        $\vc{0}{1}$, $\vc{1}{0}$, $0$
+  uitwerking: |-
+    De normaalvector is $\vc{a}{b}$, de richtingsvector $\vc{b}{-a}$ (of een veelvoud). Schrijf $y = 5x - 2$ eerst als $5x - y = 2$. De rico is $-\tfrac{a}{b}$ als $b \neq 0$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een rechte door een punt, loodrecht op een richting
+  opgave: |-
+    Geef een vergelijking van de rechte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        door $P\vc{1}{2}$ met normaalvector $\vc{3}{-1}$
+      antwoord: |-
+        $3x - y = 1$
+      uitwerking: |-
+        $3(x - 1) - (y - 2) = 0$.
+    - opgave: |-
+        door $P\vc{-2}{5}$, loodrecht op $y = \tfrac12 x + 4$
+      antwoord: |-
+        $y = -2x + 1$
+      uitwerking: |-
+        $m = -2$, en $5 = 4 + q$.
+    - opgave: |-
+        door $P\vc{0}{-3}$, loodrecht op $2x + 5y = 1$
+      antwoord: |-
+        $5x - 2y = 6$
+      uitwerking: |-
+        De richtingsvector $\vc{5}{-2}$ van de gegeven rechte is een normaalvector van de gezochte: $5x - 2(y + 3) = 0$.
+    - opgave: |-
+        door $P\vc{4}{1}$, loodrecht op $l\colon x = 2 + 3r,\ y = -r$
+      antwoord: |-
+        $3x - y = 11$
+      uitwerking: |-
+        De richtingsvector $\vc{3}{-1}$ van $l$ is een normaalvector: $3(x - 4) - (y - 1) = 0$.
+    - opgave: |-
+        door $P\vc{3}{-2}$, loodrecht op de $y$-as
+      antwoord: |-
+        $y = -2$
+      uitwerking: |-
+        Normaalvector $\vc{0}{1}$: een horizontale rechte.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    afstand van een punt tot een rechte
+  opgave: |-
+    Bereken de afstand van het punt tot de rechte, exact en zo nodig afgerond op $0{,}01$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $P\vc{2}{3}$ en $3x + 4y = 3$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $\tfrac{\abs{6 + 12 - 3}}{5} = 3$.
+    - opgave: |-
+        $P\vc{-1}{4}$ en $12x - 5y = 7$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $\tfrac{\abs{-12 - 20 - 7}}{13} = \tfrac{39}{13} = 3$.
+    - opgave: |-
+        $O\vc{0}{0}$ en $x + y = 4$
+      antwoord: |-
+        $2\sqrt2 \approx 2{,}83$
+      uitwerking: |-
+        $\tfrac{\abs{-4}}{\sqrt2} = \tfrac{4}{\sqrt2} = 2\sqrt2$.
+    - opgave: |-
+        $P\vc{5}{-2}$ en $y = 2x + 1$
+      antwoord: |-
+        $\tfrac{13}{\sqrt5} \approx 5{,}81$
+      uitwerking: |-
+        $2x - y = -1$, dus $\tfrac{\abs{10 + 2 + 1}}{\sqrt5}$.
+    - opgave: |-
+        $P\vc{1}{1}$ en $x = 4$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $\tfrac{\abs{1 - 4}}{1} = 3$; dat zie je ook meteen op een figuur.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de hoek tussen twee rechten
+  opgave: |-
+    Bereken de hoek tussen de rechten, exact als dat kan en anders afgerond op $0{,}01^\circ$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $y = 3x - 1$ en $y = -2x + 4$
+      antwoord: |-
+        $45^\circ$
+      uitwerking: |-
+        $\vc{1}{3}$ en $\vc{1}{-2}$: $\cos\varphi = \tfrac{\abs{1 - 6}}{\sqrt{10}\,\sqrt5} = \tfrac{5}{\sqrt{50}} = \tfrac{\sqrt2}{2}$.
+    - opgave: |-
+        $2x + y = 1$ en $x - 3y = 4$
+      antwoord: |-
+        $81{,}87^\circ$
+      uitwerking: |-
+        Normaalvectoren $\vc{2}{1}$ en $\vc{1}{-3}$: $\cos\varphi = \tfrac{\abs{2 - 3}}{\sqrt5\,\sqrt{10}} \approx 0{,}1414$.
+    - opgave: |-
+        $l\colon x = 2 + 3r,\ y = -1 + 4r$ en $m\colon x + 7y = 0$
+      antwoord: |-
+        $61{,}26^\circ$
+      uitwerking: |-
+        $\vc{3}{4}$ en $\vc{7}{-1}$: $\cos\varphi = \tfrac{\abs{21 - 4}}{5\sqrt{50}} \approx 0{,}4808$.
+    - opgave: |-
+        $x = 4$ en $y = \sqrt3\,x$
+      antwoord: |-
+        $30^\circ$
+      uitwerking: |-
+        $\vc{0}{1}$ en $\vc{1}{\sqrt3}$: $\cos\varphi = \tfrac{\sqrt3}{1 \cdot 2}$.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    het teken van het inproduct aflezen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm,font=\scriptsize]
+        \ruitjes{-3}{-4}{5}{3}
+        \draw[vector] (0,0) -- (4,1) node[right] {$\vect{a}$};
+        \draw[vectorb] (0,0) -- (1,3) node[above] {$\vect{b}$};
+        \draw[vectorb] (0,0) -- (-2,2) node[above left] {$\vect{c}$};
+        \draw[vectorb] (0,0) -- (1,-4) node[right] {$\vect{d}$};
+      \end{tikzpicture}
+  opgave: |-
+    Lees de componenten van de vectoren in de figuur af. Zeg voor elk paar eerst op het zicht of de hoek scherp, recht of stomp is. Controleer daarna met het inproduct.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\vect{a}$ en $\vect{b}$
+      antwoord: |-
+        scherp, $7$
+    - opgave: |-
+        $\vect{a}$ en $\vect{c}$
+      antwoord: |-
+        stomp, $-6$
+    - opgave: |-
+        $\vect{a}$ en $\vect{d}$
+      antwoord: |-
+        recht, $0$
+    - opgave: |-
+        $\vect{c}$ en $\vect{d}$
+      antwoord: |-
+        stomp, $-10$
+  uitwerking: |-
+    $\vect{a} = \vc{4}{1}$, $\vect{b} = \vc{1}{3}$, $\vect{c} = \vc{-2}{2}$, $\vect{d} = \vc{1}{-4}$. De inproducten: $4 + 3$; $-8 + 2$; $4 - 4$; $-2 - 8$. Positief is scherp, $0$ recht, negatief stomp.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de hoeken van een driehoek
+  opgave: |-
+    Gegeven is de driehoek met $A\vc{-1}{0}$, $B\vc{5}{2}$ en $C\vc{1}{4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de hoek in $A$ en de hoek in $B$.
+      antwoord: |-
+        $45^\circ$ en $45^\circ$
+      uitwerking: |-
+        $\vect{AB} = \vc{6}{2}$, $\vect{AC} = \vc{2}{4}$: $\cos\hoek{A} = \tfrac{20}{\sqrt{40}\,\sqrt{20}} = \tfrac{20}{20\sqrt2}$. $\vect{BA} = \vc{-6}{-2}$, $\vect{BC} = \vc{-4}{2}$: $\cos\hoek{B} = \tfrac{24 - 4}{\sqrt{40}\,\sqrt{20}}$, ook $\tfrac{\sqrt2}{2}$.
+    - opgave: |-
+        Hoe groot is de hoek in $C$? Controleer met het inproduct.
+      antwoord: |-
+        $90^\circ$
+      uitwerking: |-
+        $180^\circ - 45^\circ - 45^\circ = 90^\circ$. Controle: $\vect{CA} \cdot \vect{CB} = \vc{-2}{-4} \cdot \vc{4}{-2} = -8 + 8 = 0$.
+    - opgave: |-
+        Wat voor driehoek is $ABC$?
+      antwoord: |-
+        rechthoekig en gelijkbenig
+      uitwerking: |-
+        Een rechte hoek in $C$, en $\lengte{CA} = \lengte{CB} = \sqrt{20}$.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    is een driehoek rechthoekig?
+  opgave: |-
+    Onderzoek of de driehoek rechthoekig is, en zo ja, in welk hoekpunt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $A\vc{2}{1}$, $B\vc{6}{3}$, $C\vc{0}{5}$
+      antwoord: |-
+        rechthoekig in $A$
+      uitwerking: |-
+        $\vect{AB} \cdot \vect{AC} = \vc{4}{2} \cdot \vc{-2}{4} = -8 + 8 = 0$.
+    - opgave: |-
+        $D\vc{1}{1}$, $E\vc{5}{2}$, $F\vc{3}{6}$
+      antwoord: |-
+        niet rechthoekig, alle hoeken scherp
+      uitwerking: |-
+        In $D$: $\vc{4}{1} \cdot \vc{2}{5} = 13$; in $E$: $\vc{-4}{-1} \cdot \vc{-2}{4} = 4$; in $F$: $\vc{-2}{-5} \cdot \vc{2}{-4} = 16$. Geen nul, alle positief.
+    - opgave: |-
+        Waarom volstaat het om in een driehoek met de inproducten alleen naar het teken te kijken om te weten of hij scherphoekig, rechthoekig of stomphoekig is?
+      antwoord: |-
+        het teken van het inproduct is het teken van de cosinus
+      uitwerking: |-
+        Het inproduct is $\norm{\vect{u}}\,\norm{\vect{v}}\cos\theta$ met positieve normen: positief bij een scherpe hoek, $0$ bij een rechte, negatief bij een stompe.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hoogte en oppervlakte van een driehoek
+  opgave: |-
+    Gegeven is de driehoek met $A\vc{0}{0}$, $B\vc{8}{2}$ en $C\vc{3}{6}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een cartesiaanse vergelijking van de rechte $AB$.
+      antwoord: |-
+        $x - 4y = 0$
+      uitwerking: |-
+        Richtingsvector $\vc{4}{1}$, dus normaalvector $\vc{1}{-4}$, door $O$.
+    - opgave: |-
+        Bereken de hoogte uit $C$: de afstand van $C$ tot $AB$.
+      antwoord: |-
+        $\tfrac{21}{\sqrt{17}} \approx 5{,}09$
+      uitwerking: |-
+        $\tfrac{\abs{3 - 24}}{\sqrt{17}}$.
+    - opgave: |-
+        Bereken de oppervlakte van de driehoek.
+      antwoord: |-
+        $21$
+      uitwerking: |-
+        $\lengte{AB} = \sqrt{68} = 2\sqrt{17}$, dus de oppervlakte is $\tfrac12 \cdot 2\sqrt{17} \cdot \tfrac{21}{\sqrt{17}} = 21$.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de middelloodlijnen van een driehoek
+  opgave: |-
+    Gegeven is de driehoek met $A\vc{1}{1}$, $B\vc{7}{1}$ en $C\vc{3}{5}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een vergelijking van de middelloodlijn van $[AB]$ en van $[AC]$.
+      antwoord: |-
+        $x = 4$; $x + 2y = 8$
+      uitwerking: |-
+        $[AB]$ is horizontaal met midden $\vc{4}{1}$. Voor $[AC]$: midden $\vc{2}{3}$ en normaalvector $\tfrac12\vect{AC} = \vc{1}{2}$: $(x - 2) + 2(y - 3) = 0$.
+    - opgave: |-
+        Bereken hun snijpunt $M$.
+      antwoord: |-
+        $M\vc{4}{2}$
+      uitwerking: |-
+        $4 + 2y = 8$.
+    - opgave: |-
+        Toon aan dat $M$ even ver ligt van $A$, $B$ en $C$, en dat $M$ ook op de middelloodlijn van $[BC]$ ligt.
+      antwoord: |-
+        alle drie $\sqrt{10}$
+      uitwerking: |-
+        $\lengte{MA} = \sqrt{9 + 1}$, $\lengte{MB} = \sqrt{9 + 1}$, $\lengte{MC} = \sqrt{1 + 9}$. De middelloodlijn van $[BC]$ gaat door $\vc{5}{3}$ met normaalvector $\tfrac14\vect{BC} = \vc{-1}{1}$: $-x + y = -2$, en $-4 + 2 = -2$. De cirkel met middelpunt $M$ en straal $\sqrt{10}$ gaat door de drie hoekpunten.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de afstand tussen evenwijdige rechten
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de afstand tussen $2x + y = 1$ en $2x + y = 6$.
+      antwoord: |-
+        $\sqrt5 \approx 2{,}24$
+      uitwerking: |-
+        $\vc{0}{1}$ ligt op de eerste. Afstand tot de tweede: $\tfrac{\abs{1 - 6}}{\sqrt5} = \sqrt5$.
+    - opgave: |-
+        Bert schrijft de rechten uit a als $y = -2x + 1$ en $y = -2x + 6$, en zegt: \textit{de afstand is $6 - 1 = 5$}. Wat meet Bert eigenlijk?
+      antwoord: |-
+        de verticale afstand, niet de kortste
+      uitwerking: |-
+        $5$ is de afstand langs de $y$-as, tussen $\vc{0}{1}$ en $\vc{0}{6}$. Die lijn staat niet loodrecht op de rechten, dus ze is langer dan de afstand $\sqrt5$.
+    - opgave: |-
+        Toon aan dat $l\colon x = 1 + 3r,\ y = 2 - 4r$ en $m\colon 4x + 3y = 25$ evenwijdig zijn, en bereken hun afstand.
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $\vc{3}{-4} \cdot \vc{4}{3} = 0$: de richtingsvector van $l$ staat loodrecht op de normaalvector van $m$. Afstand van $\vc{1}{2}$ tot $m$: $\tfrac{\abs{4 + 6 - 25}}{5} = 3$.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een parameter: loodrecht, evenwijdig of een gegeven hoek
+  opgave: |-
+    Gegeven zijn $l\colon kx + 2y = 3$, met $k$ een getal, en $m\colon x - 3y = 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke $k$ staan $l$ en $m$ loodrecht op elkaar?
+      antwoord: |-
+        $k = 6$
+      uitwerking: |-
+        Normaalvectoren $\vc{k}{2}$ en $\vc{1}{-3}$: $k - 6 = 0$.
+    - opgave: |-
+        Voor welke $k$ zijn $l$ en $m$ evenwijdig?
+      antwoord: |-
+        $k = -\tfrac23$
+      uitwerking: |-
+        $\vc{k}{2} = c\,\vc{1}{-3}$ geeft $c = -\tfrac23$ en $k = -\tfrac23$.
+    - opgave: |-
+        Bereken de hoek tussen $l$ en $m$ voor $k = 1$.
+      antwoord: |-
+        $45^\circ$
+      uitwerking: |-
+        $\cos\varphi = \tfrac{\abs{1 - 6}}{\sqrt5\,\sqrt{10}} = \tfrac{5}{\sqrt{50}} = \tfrac{\sqrt2}{2}$.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    punten en rechten op een gegeven afstand
+  opgave: |-
+    Gegeven is de rechte $l\colon 3x + 4y = 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke punten van de $y$-as liggen op afstand $2$ van $l$?
+      antwoord: |-
+        $\vc{0}{3}$ en $\vc{0}{-2}$
+      uitwerking: |-
+        Voor $P\vc{0}{y}$: $\tfrac{\abs{4y - 2}}{5} = 2$, dus $4y - 2 = 10$ of $4y - 2 = -10$.
+    - opgave: |-
+        Geef de vergelijkingen van de rechten die evenwijdig zijn met $l$, op afstand $2$.
+      antwoord: |-
+        $3x + 4y = 12$ en $3x + 4y = -8$
+      uitwerking: |-
+        Zo'n rechte is $3x + 4y = c$, en ze moet door een punt uit a gaan: $c = 12$ of $c = -8$.
+    - opgave: |-
+        Teken $l$ en de twee rechten uit b.
+      antwoord: |-
+        drie evenwijdige rechten
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]\roosterleeg{-4}{1}{6}{-4}{1}{5}\xgetallen{-4,-2,2,4,6}\ygetallen{-4,-2,2,4}\begin{scope}\knip{-4}{-4}{6}{5}\rechteabc{-4}{6}{3}{4}{2}\rechteabc[tweede]{-4}{6}{3}{4}{12}\rechteabc[tweede]{-4}{6}{3}{4}{-8}\end{scope}\end{tikzpicture}}
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de hellingshoek van een rechte en de rico
+  opgave: |-
+    De hellingshoek van een niet-verticale rechte is de hoek $\alpha$ die ze maakt met de $x$-as. Voor een stijgende rechte met rico $m$ is $\tan\alpha = m$: dat is TOA in het trapje van de rico.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de hellingshoek van $y = \tfrac34 x + 1$.
+      antwoord: |-
+        $36{,}87^\circ$
+      uitwerking: |-
+        $\alpha = \tan^{-1} 0{,}75$.
+    - opgave: |-
+        Een weg stijgt met $8\,\%$: per 100~m horizontaal 8~m omhoog. Bereken de hellingshoek.
+      antwoord: |-
+        $4{,}57^\circ$
+      uitwerking: |-
+        $m = 0{,}08$ en $\alpha = \tan^{-1} 0{,}08$.
+    - opgave: |-
+        Bereken de hoek tussen $y = 2x$ en $y = \tfrac12 x$ op twee manieren: met het inproduct, en als verschil van de twee hellingshoeken.
+      antwoord: |-
+        $36{,}87^\circ$
+      uitwerking: |-
+        $\vc{1}{2} \cdot \vc{2}{1} = 4$ en $\cos\varphi = \tfrac{4}{\sqrt5\,\sqrt5} = 0{,}8$. De hellingshoeken zijn $\tan^{-1} 2 \approx 63{,}43^\circ$ en $\tan^{-1} 0{,}5 \approx 26{,}57^\circ$, met verschil $36{,}87^\circ$.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de kortste leiding naar een kanaal
+  opgave: |-
+    Een kanaal loopt langs de rechte $x - 2y = -4$ (eenheid 1~km). Het dorp $D\vc{7}{1}$ wil een zo kort mogelijke rechte waterleiding naar het kanaal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waar komt de leiding aan het kanaal?
+      antwoord: |-
+        in $\vc{5{,}2}{4{,}6}$
+      uitwerking: |-
+        Loodlijn $x = 7 + r$, $y = 1 - 2r$. Invullen: $7 + r - 2 + 4r = -4$, dus $r = -\tfrac95$ en het voetpunt is $\vc{\tfrac{26}{5}}{\tfrac{23}{5}}$.
+    - opgave: |-
+        Hoe lang wordt de leiding, afgerond op 10~m?
+      antwoord: |-
+        ongeveer $4{,}02$~km
+      uitwerking: |-
+        $\tfrac95 \cdot \sqrt5 = \tfrac{9}{\sqrt5} \approx 4{,}025$~km, dus ongeveer $4\,020$~m.
+    - opgave: |-
+        Controleer de lengte met de afstandsformule.
+      antwoord: |-
+        $\tfrac{9}{\sqrt5}$
+      uitwerking: |-
+        $\tfrac{\abs{7 - 2 + 4}}{\sqrt5} = \tfrac{9}{\sqrt5}$.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    het spiegelbeeld van een punt om een rechte
+  opgave: |-
+    Het spiegelbeeld $P'$ van een punt $P$ om een rechte $l$ ligt op de loodlijn uit $P$, aan de andere kant van $l$, even ver. Gegeven zijn $P\vc{1}{6}$ en $l\colon 2x - y = 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het voetpunt $V$ van de loodlijn uit $P$ op $l$.
+      antwoord: |-
+        $V\vc{3}{5}$
+      uitwerking: |-
+        $x = 1 + 2r$, $y = 6 - r$. Invullen: $2 + 4r - 6 + r = 1$, dus $r = 1$.
+    - opgave: |-
+        Bereken het spiegelbeeld $P'$.
+      antwoord: |-
+        $P'\vc{5}{4}$
+      uitwerking: |-
+        $V$ is het midden van $[PP']$: neem $r = 2$, of $P' = P + 2\,\vect{PV} = \vc{1 + 4}{6 - 2}$.
+    - opgave: |-
+        Controleer dat $P$ en $P'$ even ver van $l$ liggen.
+      antwoord: |-
+        beide $\sqrt5$
+      uitwerking: |-
+        $\tfrac{\abs{2 - 6 - 1}}{\sqrt5} = \tfrac{5}{\sqrt5}$ en $\tfrac{\abs{10 - 4 - 1}}{\sqrt5} = \tfrac{5}{\sqrt5}$.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    foutenanalyse: de hoek tussen rechten is niet stomp
+  opgave: |-
+    Jonas berekent de hoek tussen $y = 2x$ en $y = -3x + 1$ met de richtingsvectoren $\vc{1}{2}$ en $\vc{1}{-3}$. Hij vindt $\cos\theta = \tfrac{-5}{\sqrt5\,\sqrt{10}}$, dus $\theta = 135^\circ$, en schrijft: \textit{de hoek tussen de rechten is $135^\circ$}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is zijn berekening van de hoek tussen de twee vectoren juist?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\cos\theta = -\tfrac{5}{\sqrt{50}} = -\tfrac{\sqrt2}{2}$, dus $\theta = 135^\circ$.
+    - opgave: |-
+        Wat is de hoek tussen de rechten? Leg uit wat Jonas vergeet.
+      antwoord: |-
+        $45^\circ$
+      uitwerking: |-
+        De hoek tussen twee rechten is de scherpe hoek: $180^\circ - 135^\circ = 45^\circ$. Met de absolute waarde in de formule krijg je die meteen.
+    - opgave: |-
+        Kies een andere richtingsvector voor de tweede rechte, zodat de hoek tussen de vectoren meteen $45^\circ$ is.
+      antwoord: |-
+        bv. $\vc{-1}{3}$
+      uitwerking: |-
+        $\vc{1}{2} \cdot \vc{-1}{3} = 5 > 0$: een scherpe hoek, $\cos\theta = \tfrac{5}{\sqrt{50}}$.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een vierkant construeren met een kwartslag
+  opgave: |-
+    Gegeven zijn $A\vc{1}{1}$ en $B\vc{5}{2}$. Je zoekt $C$ en $D$ zodat $ABCD$ een vierkant is, met de hoekpunten in tegenwijzerzin.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de vector die je krijgt door $\vect{AB}$ een kwartslag in tegenwijzerzin te draaien. Controleer met het inproduct dat hij loodrecht staat op $\vect{AB}$.
+      antwoord: |-
+        $\vc{-1}{4}$
+      uitwerking: |-
+        $\vect{AB} = \vc{4}{1}$, gedraaid: $\vc{-1}{4}$. $\vc{4}{1} \cdot \vc{-1}{4} = -4 + 4 = 0$, en beide hebben norm $\sqrt{17}$.
+    - opgave: |-
+        Bereken $C$ en $D$.
+      antwoord: |-
+        $C\vc{4}{6}$, $D\vc{0}{5}$
+      uitwerking: |-
+        $\vect{BC} = \vect{AD} = \vc{-1}{4}$.
+    - opgave: |-
+        Controleer met het inproduct dat de hoek in $C$ recht is, en dat de diagonalen loodrecht op elkaar staan.
+      antwoord: |-
+        beide inproducten zijn $0$
+      uitwerking: |-
+        $\vect{CB} \cdot \vect{CD} = \vc{1}{-4} \cdot \vc{-4}{-1} = -4 + 4 = 0$. $\vect{AC} \cdot \vect{BD} = \vc{3}{5} \cdot \vc{-5}{3} = -15 + 15 = 0$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een schip en het bereik van een vuurtoren
+  opgave: |-
+    Een schip vaart langs $x = -4 + 3t,\ y = 2 + t$, met $t$ in uur (eenheid 1~km). Het licht van een vuurtoren in $V\vc{4}{9}$ is te zien tot op 5~km.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe dicht komt het schip bij de vuurtoren? Ziet de bemanning het licht?
+      antwoord: |-
+        ongeveer $4{,}11$~km; ja
+      uitwerking: |-
+        De koers is $x - 3y = -10$. De afstand van $V$ tot de koers is $\tfrac{\abs{4 - 27 + 10}}{\sqrt{10}} = \tfrac{13}{\sqrt{10}} \approx 4{,}11 < 5$.
+    - opgave: |-
+        Waar is het schip het dichtst bij de vuurtoren, en na hoeveel tijd?
+      antwoord: |-
+        in $\vc{5{,}3}{5{,}1}$, na $3{,}1$ uur
+      uitwerking: |-
+        Loodlijn uit $V$: $x = 4 + r$, $y = 9 - 3r$. Invullen in de koers: $4 + r - 27 + 9r = -10$, dus $r = 1{,}3$ en het voetpunt is $\vc{5{,}3}{5{,}1}$. Met $-4 + 3t = 5{,}3$ is $t = 3{,}1$, en $y = 2 + 3{,}1 = 5{,}1$ klopt.
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: de diagonalen van een ruit
+  opgave: |-
+    Neem een parallellogram $ABCD$ met $\vect{AB} = \vect{u} = (u_x, u_y)$ en $\vect{AD} = \vect{v} = (v_x, v_y)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Druk de diagonaalvectoren $\vect{AC}$ en $\vect{DB}$ uit in $\vect{u}$ en $\vect{v}$.
+      antwoord: |-
+        $\vect{AC} = \vect{u} + \vect{v}$, $\vect{DB} = \vect{u} - \vect{v}$
+      uitwerking: |-
+        Parallellogramregel: $\vect{AC} = \vect{AB} + \vect{BC} = \vect{u} + \vect{v}$. En $\vect{DB} = \vect{DA} + \vect{AB} = -\vect{v} + \vect{u}$.
+    - opgave: |-
+        Bereken $(\vect{u} + \vect{v}) \cdot (\vect{u} - \vect{v})$ met componenten.
+      antwoord: |-
+        $\norm{\vect{u}}^2 - \norm{\vect{v}}^2$
+      uitwerking: |-
+        $(u_x + v_x)(u_x - v_x) + (u_y + v_y)(u_y - v_y) = u_x^2 - v_x^2 + u_y^2 - v_y^2$, een merkwaardig product.
+    - opgave: |-
+        Besluit: de diagonalen van een parallellogram staan loodrecht op elkaar als en slechts als het parallellogram een ruit is.
+      antwoord: |-
+        loodrecht $\iff \norm{\vect{u}} = \norm{\vect{v}}$
+      uitwerking: |-
+        De diagonalen staan loodrecht als en slechts als het inproduct $0$ is, dus als $\norm{\vect{u}}^2 = \norm{\vect{v}}^2$, of $\lengte{AB} = \lengte{AD}$. Een parallellogram met twee gelijke aanliggende zijden heeft vier gelijke zijden: een ruit.
+
+- id: h2-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: de stelling van Thales met het inproduct
+  opgave: |-
+    Een cirkel met middelpunt $O\vc{0}{0}$ en straal $a$ bestaat uit de punten $P(x, y)$ met $\lengte{OP} = a$, dus met $x^2 + y^2 = a^2$. Neem $A\vc{-a}{0}$ en $B\vc{a}{0}$, de eindpunten van een middellijn, en een punt $P(x, y)$ van de cirkel, verschillend van $A$ en $B$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\vect{PA} \cdot \vect{PB}$.
+      antwoord: |-
+        $x^2 + y^2 - a^2$
+      uitwerking: |-
+        $\vect{PA} = \vc{-a - x}{-y}$ en $\vect{PB} = \vc{a - x}{-y}$. Het inproduct is $(-a - x)(a - x) + y^2 = x^2 - a^2 + y^2$.
+    - opgave: |-
+        Wat volgt daaruit voor de hoek $\hoek{APB}$?
+      antwoord: |-
+        hij is recht
+      uitwerking: |-
+        $P$ ligt op de cirkel, dus $x^2 + y^2 = a^2$ en het inproduct is $0$. Elke omtrekshoek op een middellijn is recht: de stelling van Thales.
+    - opgave: |-
+        Controleer voor $a = 5$ en $P\vc{3}{4}$.
+      antwoord: |-
+        $\vc{-8}{-4} \cdot \vc{2}{-4} = 0$
+      uitwerking: |-
+        $9 + 16 = 25$, dus $P$ ligt op de cirkel, en $-16 + 16 = 0$.
+
+- id: h2-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de bissectrices van twee rechten
+  opgave: |-
+    Gegeven zijn $l\colon 3x + 4y = 7$ en $m\colon 4x - 3y = 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het snijpunt $S$ van $l$ en $m$. Staan ze loodrecht op elkaar?
+      antwoord: |-
+        $S\vc{1}{1}$; ja
+      uitwerking: |-
+        $3 + 4 = 7$ en $4 - 3 = 1$. De normaalvectoren: $\vc{3}{4} \cdot \vc{4}{-3} = 0$.
+    - opgave: |-
+        De punten die even ver van $l$ en $m$ liggen, vormen twee rechten: de bissectrices. Geef hun vergelijkingen.
+      antwoord: |-
+        $x - 7y = -6$ en $7x + y = 8$
+      uitwerking: |-
+        $\tfrac{\abs{3x + 4y - 7}}{5} = \tfrac{\abs{4x - 3y - 1}}{5}$, dus $3x + 4y - 7 = 4x - 3y - 1$ of $3x + 4y - 7 = -(4x - 3y - 1)$. Dat geeft $-x + 7y = 6$ en $7x + y = 8$.
+    - opgave: |-
+        Controleer dat beide bissectrices door $S$ gaan, loodrecht op elkaar staan, en een hoek van $45^\circ$ maken met $l$.
+      antwoord: |-
+        klopt
+      uitwerking: |-
+        $1 - 7 = -6$ en $7 + 1 = 8$. $\vc{1}{-7} \cdot \vc{7}{1} = 0$. Met $l$: $\cos\varphi = \tfrac{\abs{3 - 28}}{5\sqrt{50}} = \tfrac{25}{25\sqrt2}$, dus $45^\circ$, en net zo $\tfrac{\abs{21 + 4}}{5\sqrt{50}}$ voor de andere.
+
+- id: h2-o25
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    biljart: een bal via de band
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.36cm,y=.36cm,font=\scriptsize]
+        \roosterleeg{0}{1}{10}{0}{1}{8}
+        \xgetallen{2,4,6,8,10} \ygetallen{2,4,6,8}
+        \begin{scope}\knip{0}{0}{10}{8}\rechteabc[inkt,line width=1.6pt]{2}{10}{1}{1}{10}\end{scope}
+        \punt[below left]{2}{3}{A} \punt[below left]{4}{1}{B}
+        \node[inkt,right] at (8.6,1.4) {band};
+      \end{tikzpicture}
+  opgave: |-
+    Op een biljarttafel ligt een bal in $A\vc{2}{3}$. Hij moet via de band langs de rechte $l\colon x + y = 10$ de bal in $B\vc{4}{1}$ raken. Een bal kaatst terug zoals een lichtstraal op een spiegel: de hoek met de normaal van de band is voor en na de botsing even groot.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het spiegelbeeld $B'$ van $B$ om $l$.
+      antwoord: |-
+        $B'\vc{9}{6}$
+      uitwerking: |-
+        Loodlijn $x = 4 + r$, $y = 1 + r$. Invullen: $5 + 2r = 10$, dus $r = \tfrac52$ en het voetpunt is $\vc{6{,}5}{3{,}5}$. Voor $B'$ neem je $r = 5$.
+    - opgave: |-
+        Waar moet de bal de band raken? Gebruik dat de weg van $A$ naar de band en naar $B$ even lang is als de rechte weg van $A$ naar $B'$.
+      antwoord: |-
+        in $T\vc{5{,}5}{4{,}5}$
+      uitwerking: |-
+        $AB'\colon x = 2 + 7s$, $y = 3 + 3s$. Invullen in $l$: $5 + 10s = 10$, dus $s = \tfrac12$.
+    - opgave: |-
+        Controleer met het inproduct dat $\vect{TA}$ en $\vect{TB}$ even grote hoeken maken met de normaalvector $\vc{-1}{-1}$ van de band.
+      antwoord: |-
+        beide $\cos\theta = \tfrac{5}{\sqrt{29}}$
+      uitwerking: |-
+        $\vect{TA} = \vc{-3{,}5}{-1{,}5}$ en $\vect{TB} = \vc{-1{,}5}{-3{,}5}$ hebben dezelfde norm $\sqrt{14{,}5}$, en beide inproducten met $\vc{-1}{-1}$ zijn $5$. Dus $\cos\theta = \tfrac{5}{\sqrt{14{,}5}\,\sqrt2} = \tfrac{5}{\sqrt{29}}$ voor beide, $\theta \approx 21{,}80^\circ$.
+
+#----------------------------------------------------------------------------------------
+# TEST JEZELF
+#----------------------------------------------------------------------------------------
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    loodrechte vectoren
+  opgave: |-
+    Bepaal $k$ zodat $\vc{3}{k}$ loodrecht staat op $\vc{-2}{6}$.
+  antwoord: |-
+    $k = 1$
+  uitwerking: |-
+    $-6 + 6k = 0$.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    de hoek tussen twee vectoren
+  opgave: |-
+    Bereken de hoek tussen $\vc{2}{1}$ en $\vc{-3}{1}$.
+  antwoord: |-
+    $135^\circ$
+  uitwerking: |-
+    $\cos\theta = \tfrac{-6 + 1}{\sqrt5\,\sqrt{10}} = -\tfrac{5}{\sqrt{50}} = -\tfrac{\sqrt2}{2}$.
+
+- id: h2-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    een loodrechte rechte met de rico
+  opgave: |-
+    Geef een vergelijking van de rechte door $P\vc{4}{-1}$ die loodrecht staat op $y = 2x - 3$.
+  antwoord: |-
+    $y = -\tfrac12 x + 1$
+  uitwerking: |-
+    $m = -\tfrac12$ en $-1 = -2 + q$.
+
+- id: h2-t4
+  soort: test
+  niveau: 2
+  thema: |-
+    de middelloodlijn
+  opgave: |-
+    Geef een vergelijking van de middelloodlijn van $[AB]$, met $A\vc{-3}{2}$ en $B\vc{1}{6}$.
+  antwoord: |-
+    $x + y = 3$
+  uitwerking: |-
+    $M\vc{-1}{4}$ en $\vect{AB} = \vc{4}{4} = 4\,\vc{1}{1}$: $(x + 1) + (y - 4) = 0$.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    het voetpunt van de loodlijn
+  opgave: |-
+    Bereken het voetpunt van de loodlijn uit $P\vc{6}{5}$ op $l\colon 2x + y = 7$.
+  antwoord: |-
+    $\vc{2}{3}$
+  uitwerking: |-
+    $x = 6 + 2r$, $y = 5 + r$. Invullen: $17 + 5r = 7$, dus $r = -2$. Controle: $4 + 3 = 7$.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    de afstand van een punt tot een rechte
+  opgave: |-
+    Bereken de afstand van $P\vc{-2}{3}$ tot $4x - 3y = 3$.
+  antwoord: |-
+    $4$
+  uitwerking: |-
+    $\tfrac{\abs{-8 - 9 - 3}}{5} = \tfrac{20}{5}$.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    de hoek tussen twee rechten
+  opgave: |-
+    Bereken de hoek tussen $l\colon x = 2 + r,\ y = 3r$ en $m\colon x - y = 5$, afgerond op $0{,}01^\circ$.
+  antwoord: |-
+    $26{,}57^\circ$
+  uitwerking: |-
+    $\vc{1}{3}$ en $\vc{1}{1}$: $\cos\varphi = \tfrac{4}{\sqrt{10}\,\sqrt2} \approx 0{,}8944$.
+
+- id: h2-t8
+  soort: test
+  niveau: 2
+  thema: |-
+    een rechthoekige driehoek herkennen
+  opgave: |-
+    Toon aan dat de driehoek met $A\vc{1}{2}$, $B\vc{4}{3}$ en $C\vc{3}{6}$ rechthoekig is. In welk hoekpunt ligt de rechte hoek? Bereken de oppervlakte.
+  antwoord: |-
+    rechthoekig in $B$; oppervlakte $5$
+  uitwerking: |-
+    $\vect{BA} \cdot \vect{BC} = \vc{-3}{-1} \cdot \vc{-1}{3} = 3 - 3 = 0$. De rechthoekszijden hebben lengte $\sqrt{10}$, dus de oppervlakte is $\tfrac12 \cdot \sqrt{10} \cdot \sqrt{10} = 5$.

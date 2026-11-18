@@ -1,0 +1,1515 @@
+# Oefeningen van hoofdstuk 3. Zie Opmaak/oefeningenbank.py voor de velden.
+# pakketten: relatief en absoluut extremum (4, 5), een opdracht met een parameter (4, 5) en een bewijs (5).
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf als interval: $-1 \leqslant x < 4$.
+      antwoord: |-
+        $\ivgo{-1}{4}$
+      uitwerking: |-
+        $-1$ hoort erbij (haak naar het interval toe), $4$ niet (haak die wegkijkt): $\ivgo{-1}{4}$.
+    - opgave: |-
+        Schrijf als interval: $x > 2$.
+      antwoord: |-
+        $\ivoo{2}{\pinf}$
+      uitwerking: |-
+        Alle getallen groter dan 2, zonder 2 zelf: $\ivoo{2}{\pinf}$.
+    - opgave: |-
+        Schrijf als ongelijkheid: $\ivog{\minf}{0}$.
+      antwoord: |-
+        $x \leqslant 0$
+      uitwerking: |-
+        Alle getallen tot en met 0: $x \leqslant 0$.
+    - opgave: |-
+        Los op: $3x + 6 = 0$.
+      antwoord: |-
+        $x = -2$
+      uitwerking: |-
+        $3x = -6$, dus $x = -2$.
+    - opgave: |-
+        Gegeven $f(x) = 5 - 2x$. Bereken $f(4)$ en $f(-1)$.
+      antwoord: |-
+        $f(4) = -3$, $f(-1) = 7$
+      uitwerking: |-
+        $f(4) = 5 - 8 = -3$ en $f(-1) = 5 + 2 = 7$.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een wandelaar maakt een bergtocht. De grafiek toont zijn hoogte $h$ (in m) in functie van de tijd $t$ (in uur).
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.75cm,y=.0045cm]
+        \roosterleeg[$t$ (h)][$h$ (m)]{0}{1}{6}{0}{100}{900}
+        \xgetallen{1,2,...,6}\ygetallen{200,400,600,800}\oorsprong
+        \gebroken{(0,200) (2,600) (3,600) (4,800) (6,400)}
+        \punt{0}{200}\punt{6}{400}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tussen welke tijdstippen ging hij bergop?
+      antwoord: |-
+        van 0 tot 2 uur en van 3 tot 4 uur
+      uitwerking: |-
+        Daar gaat de grafiek omhoog: van $t = 0$ tot $t = 2$ en van $t = 3$ tot $t = 4$.
+    - opgave: |-
+        Wat deed hij tussen 2 en 3 uur?
+      antwoord: |-
+        rusten (op 600 m)
+      uitwerking: |-
+        De hoogte blijft 600 m: hij rust, of wandelt op gelijke hoogte.
+    - opgave: |-
+        Wat was zijn grootste hoogte, en wanneer?
+      antwoord: |-
+        800 m, na 4 uur
+      uitwerking: |-
+        Het hoogste punt van de grafiek is $(4, 800)$.
+    - opgave: |-
+        Wanneer was hij op 400 m hoogte?
+      antwoord: |-
+        na 1 uur en na 6 uur
+      uitwerking: |-
+        De grafiek ligt op hoogte 400 in $t = 1$ en in $t = 6$.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h3-domein
+  soort: kort
+  opgave: |-
+    Geef het domein en het bereik van de functie met deze grafiek.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.35cm,y=.35cm]\rooster{-4}{1}{4}{-2}{1}{3}\gebroken{(-3,-1) (-1,2) (2,2) (3,0)}\punt{-3}{-1}\punt{3}{0}\end{tikzpicture}}
+      antwoord: |-
+        $\dom f = \ivgg{-3}{3}$, $\ber f = \ivgg{-1}{2}$
+      uitwerking: |-
+        Van $x = -3$ tot $x = 3$, beide eindpunten erbij: $\dom f = \ivgg{-3}{3}$. De functiewaarden lopen van $-1$ tot $2$: $\ber f = \ivgg{-1}{2}$.
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.35cm,y=.35cm]\rooster{-3}{1}{4}{-3}{1}{4}\gebroken{(-2,3) (1,-2) (3,1)}\openpunt{-2}{3}\punt{3}{1}\end{tikzpicture}}
+      antwoord: |-
+        $\dom f = \ivog{-2}{3}$, $\ber f = \ivgo{-2}{3}$
+      uitwerking: |-
+        $-2$ hoort niet bij het domein (open bolletje), $3$ wel. De hoogste waarde $3$ wordt niet bereikt, want het punt $(-2, 3)$ hoort er niet bij: $\ber f = \ivgo{-2}{3}$.
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.35cm,y=.35cm]\rooster{-2}{1}{4}{-2}{1}{4}\kromme[<->,>=stealth]{-.9}{2.9}{3-(\x-1)^2}\end{tikzpicture}}
+      antwoord: |-
+        $\dom f = \R$, $\ber f = \ivog{\minf}{3}$
+      uitwerking: |-
+        De grafiek loopt links en rechts verder: $\dom f = \R$. Het hoogste punt is $(1, 3)$, en naar onder loopt ze eindeloos verder: $\ber f = \ivog{\minf}{3}$.
+
+- id: h3-nulgrafiek
+  soort: kort
+  opgave: |-
+    Gegeven de grafiek van de functie $f$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-4}{1}{5}{-3}{1}{3}
+        \kromme[<->,>=stealth]{-3.6}{4.75}{(\x+3)*(\x-1)*(\x-4)/8}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de nulwaarden af.
+      antwoord: |-
+        $-3$, $1$ en $4$
+      uitwerking: |-
+        De grafiek snijdt de $x$-as in $(-3, 0)$, $(1, 0)$ en $(4, 0)$.
+    - opgave: |-
+        Maak het tekenschema.
+      antwoord: |-
+        $-$\;0\;$+$\;0\;$-$\;0\;$+$
+      uitwerking: |-
+        Links van $-3$ ligt de grafiek onder de $x$-as, tussen $-3$ en $1$ erboven, tussen $1$ en $4$ eronder, rechts van $4$ erboven:\par
+        \tekenschema{7}{ & -3 & & 1 & & 4 & }{- & 0 & + & 0 & - & 0 & +}
+    - opgave: |-
+        Voor welke $x$ is $f(x) < 0$?
+      antwoord: |-
+        $\ivoo{\minf}{-3} \cup \ivoo{1}{4}$
+      uitwerking: |-
+        Waar het tekenschema een $-$ toont: $x < -3$ of $1 < x < 4$, dus $\ivoo{\minf}{-3} \cup \ivoo{1}{4}$.
+
+- id: h3-nuleerste
+  soort: kort
+  opgave: |-
+    Bereken de nulwaarde en maak het tekenschema.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $f(x) = 4x - 10$
+      antwoord: |-
+        $\tfrac52$; \ $-$ \,0\, $+$
+      uitwerking: |-
+        $4x = 10$, dus $x = \tfrac52$. $m = 4 > 0$:\par \tekenschema{3}{ & \frac52 & }{- & 0 & +}
+    - opgave: |-
+        $g(x) = -3x + 9$
+      antwoord: |-
+        $3$; \ $+$ \,0\, $-$
+      uitwerking: |-
+        $-3x = -9$, dus $x = 3$. $m = -3 < 0$:\par \tekenschema[g(x)]{3}{ & 3 & }{+ & 0 & -}
+    - opgave: |-
+        $h(x) = \tfrac12 x + 2$
+      antwoord: |-
+        $-4$; \ $-$ \,0\, $+$
+      uitwerking: |-
+        $\tfrac12 x = -2$, dus $x = -4$. $m = \tfrac12 > 0$:\par \tekenschema[h(x)]{3}{ & -4 & }{- & 0 & +}
+
+- id: h3-verloop
+  soort: kort
+  opgave: |-
+    Gegeven de grafiek van de functie $f$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-4}{1}{4}{-3}{1}{4}
+        \doorpunten{(-4,0) (-3,2) (-2,3) (-1,2) (0,0) (1,-1) (2,-2) (3,-1) (4,1)}
+        \punt{-4}{0}\punt{4}{1}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op welke intervallen stijgt $f$?
+      antwoord: |-
+        $\ivgg{-4}{-2}$ en $\ivgg{2}{4}$
+      uitwerking: |-
+        Van links naar rechts gaat de grafiek omhoog van $x = -4$ tot $x = -2$, en van $x = 2$ tot $x = 4$.
+    - opgave: |-
+        Op welk interval daalt $f$?
+      antwoord: |-
+        $\ivgg{-2}{2}$
+      uitwerking: |-
+        Tussen de top in $x = -2$ en het dal in $x = 2$ gaat de grafiek omlaag.
+    - opgave: |-
+        Geef de extrema.
+      antwoord: |-
+        maximum $3$ in $x = -2$, minimum $-2$ in $x = 2$
+      uitwerking: |-
+        In $x = -2$ gaat stijgen over in dalen: maximum $f(-2) = 3$. In $x = 2$ gaat dalen over in stijgen: minimum $f(2) = -2$.
+
+- id: h3-verlooptabel
+  soort: kort
+  opgave: |-
+    Een functie $f$ heeft deze verlooptabel.\par\nobreak\smallskip
+    \tekenschema[f]{7}{-3 & & 0 & & 2 & & 4}{-1 & \stijgt & 3 & \daalt & -2 & \stijgt & 1}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schets een mogelijke grafiek van $f$.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        Bijvoorbeeld een gebroken lijn door $(-3, -1)$, $(0, 3)$, $(2, -2)$ en $(4, 1)$; een vloeiende kromme mag ook.\par
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-4}{1}{5}{-3}{1}{4}\gebroken{(-3,-1) (0,3) (2,-2) (4,1)}\punt{-3}{-1}\punt{4}{1}\end{tikzpicture}}
+    - opgave: |-
+        Hoeveel nulwaarden heeft $f$ zeker?
+      antwoord: |-
+        drie
+      uitwerking: |-
+        De grafiek gaat van $-1$ naar $3$ (door 0), dan van $3$ naar $-2$ (door 0), dan van $-2$ naar $1$ (door 0): drie nulwaarden, één op elk stuk.
+    - opgave: |-
+        Geef het maximum en het minimum.
+      antwoord: |-
+        maximum $3$ in $x = 0$, minimum $-2$ in $x = 2$
+      uitwerking: |-
+        Waar de pijlen omkeren: maximum $f(0) = 3$, minimum $f(2) = -2$.
+
+- id: h3-absoluut
+  pakketten: [4, 5]
+  soort: kort
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-3}{4}$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-3}{1}{4}{-3}{1}{4}
+        \doorpunten{(-3,4) (-2,1) (-1,0) (0,1) (1,2) (2,1) (3,-1) (4,-3)}
+        \punt{-3}{4}\punt{4}{-3}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de relatieve extrema.
+      antwoord: |-
+        relatief minimum $0$ in $x = -1$, relatief maximum $2$ in $x = 1$
+      uitwerking: |-
+        In $x = -1$ gaat dalen over in stijgen, in $x = 1$ stijgen in dalen.
+    - opgave: |-
+        Geef het absoluut maximum en het absoluut minimum.
+      antwoord: |-
+        absoluut maximum $4$ in $x = -3$, absoluut minimum $-3$ in $x = 4$
+      uitwerking: |-
+        Vergelijk met de eindpunten: $f(-3) = 4$ is groter dan $2$, en $f(4) = -3$ is kleiner dan $0$.
+    - opgave: |-
+        Geef het bereik.
+      antwoord: |-
+        $\ivgg{-3}{4}$
+      uitwerking: |-
+        Van het absoluut minimum tot het absoluut maximum: $\ivgg{-3}{4}$.
+
+- id: h3-gelijkc
+  soort: kort
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-4}{4}$. Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-4}{1}{4}{-2}{1}{3}
+        \gebroken{(-4,-1) (-1,2) (2,-1) (4,1)}
+        \punt{-4}{-1}\punt{4}{1}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = 1$
+      antwoord: |-
+        $V = \{-2, 0, 4\}$
+      uitwerking: |-
+        De rechte $y = 1$ snijdt de grafiek in $(-2, 1)$, $(0, 1)$ en $(4, 1)$.
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-4}{1}{4}{-2}{1}{3}\draw[hulplijn] (-4,1) -- (4.5,1);\gebroken{(-4,-1) (-1,2) (2,-1) (4,1)}\punt{-2}{1}\punt{0}{1}\punt{4}{1}\asdeel{-2}{0}\end{tikzpicture}}
+    - opgave: |-
+        $f(x) > 1$
+      antwoord: |-
+        $V = \ivoo{-2}{0}$
+      uitwerking: |-
+        Alleen tussen $-2$ en $0$ ligt de grafiek boven de rechte $y = 1$ (gekleurd op de $x$-as). In $x = 4$ is $f(x) = 1$, niet groter.
+    - opgave: |-
+        $f(x) \leqslant 0$
+      antwoord: |-
+        $V = \ivgg{-4}{-3} \cup \ivgg{1}{3}$
+      uitwerking: |-
+        De nulwaarden zijn $-3$, $1$ en $3$. Op of onder de $x$-as: van $-4$ tot $-3$ en van $1$ tot $3$, met de grenzen erbij.
+    - opgave: |-
+        $f(x) = 3$
+      antwoord: |-
+        $V = \emptyset$
+      uitwerking: |-
+        De hoogste functiewaarde is $2$: de rechte $y = 3$ snijdt de grafiek niet.
+
+- id: h3-fgisg
+  soort: kort
+  opgave: |-
+    Gegeven de grafieken van $f(x) = -x + 1$ (rechte) en $g(x) = x^2 - 2x - 1$ (parabool). Los grafisch op en controleer de snijpunten met een berekening.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-2}{1}{4}{-3}{1}{5}
+        \kromme{-1.6}{3.6}{(\x)^2-2*\x-1}
+        \rechte[tweede]{-2}{4}{-1}{1}
+        \node[accent,font=\scriptsize] at (3.9,4.3) {$g$};
+        \node[inkt,font=\scriptsize] at (-1.6,1.9) {$f$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = g(x)$
+      antwoord: |-
+        $V = \{-1, 2\}$
+      uitwerking: |-
+        Snijpunten $(-1, 2)$ en $(2, -1)$. Controle: $f(-1) = 2$ en $g(-1) = 1 + 2 - 1 = 2$; $f(2) = -1$ en $g(2) = 4 - 4 - 1 = -1$.
+    - opgave: |-
+        $f(x) > g(x)$
+      antwoord: |-
+        $V = \ivoo{-1}{2}$
+      uitwerking: |-
+        Tussen de snijpunten ligt de rechte boven de parabool.
+    - opgave: |-
+        $f(x) \leqslant g(x)$
+      antwoord: |-
+        $V = \ivog{\minf}{-1} \cup \ivgo{2}{\pinf}$
+      uitwerking: |-
+        Buiten de snijpunten ligt de rechte onder de parabool, en in de snijpunten zijn ze gelijk.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    domein en bereik
+  opgave: |-
+    Geef het domein en het bereik van de functie met deze grafiek.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.26cm,y=.26cm]\roosterleeg{-4}{1}{3}{-2}{1}{3}\xgetallen{-2,2}\ygetallen{-2,2}\gebroken{(-4,2) (-1,-1) (2,3)}\punt{-4}{2}\punt{2}{3}\end{tikzpicture}}
+      antwoord: |-
+        $\ivgg{-4}{2}$; $\ivgg{-1}{3}$
+      uitwerking: |-
+        $\dom f = \ivgg{-4}{2}$ en $\ber f = \ivgg{-1}{3}$: alle eindpunten horen erbij.
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.26cm,y=.26cm]\roosterleeg{-3}{1}{4}{-3}{1}{4}\xgetallen{-2,2}\ygetallen{-2,2}\rechte{-2}{3}{1}{0}\openpunt{-2}{-2}\punt{3}{3}\end{tikzpicture}}
+      antwoord: |-
+        $\ivog{-2}{3}$; $\ivog{-2}{3}$
+      uitwerking: |-
+        Het punt $(-2, -2)$ hoort er niet bij: $\dom f = \ivog{-2}{3}$ en $\ber f = \ivog{-2}{3}$.
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.26cm,y=.26cm]\roosterleeg{-3}{1}{3}{-2}{1}{3}\xgetallen{-2,2}\ygetallen{-2,2}\draw[accent,thick,<->,>=stealth] (-3,2) -- (3,2);\end{tikzpicture}}
+      antwoord: |-
+        $\R$; $\{2\}$
+      uitwerking: |-
+        Een horizontale rechte die links en rechts verder loopt: $\dom f = \R$. De enige functiewaarde is 2: $\ber f = \{2\}$.
+    - opgave: |-
+        \raisebox{-\height}{\begin{tikzpicture}[x=.26cm,y=.26cm]\roosterleeg{-3}{1}{3}{-2}{1}{3}\xgetallen{-2,2}\ygetallen{-2,2}\kromme{-2}{2}{(\x)^2/2-1}\openpunt{-2}{1}\punt{2}{1}\end{tikzpicture}}
+      antwoord: |-
+        $\ivog{-2}{2}$; $\ivgg{-1}{1}$
+      uitwerking: |-
+        $\dom f = \ivog{-2}{2}$. De waarde 1 wordt wel bereikt, in $x = 2$: $\ber f = \ivgg{-1}{1}$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    nulwaarde van een eerstegraadsfunctie
+  opgave: |-
+    Bereken de nulwaarde.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $f(x) = 2x - 8$
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        $2x = 8$, $x = 4$.
+    - opgave: |-
+        $f(x) = -5x + 15$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $-5x = -15$, $x = 3$.
+    - opgave: |-
+        $f(x) = 3x + 7$
+      antwoord: |-
+        $-\tfrac73$
+      uitwerking: |-
+        $3x = -7$, $x = -\tfrac73$.
+    - opgave: |-
+        $f(x) = \tfrac13 x - 2$
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        $\tfrac13 x = 2$, $x = 6$.
+    - opgave: |-
+        $f(x) = -\tfrac34 x + 6$
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $-\tfrac34 x = -6$, $x = 6 \cdot \tfrac43 = 8$.
+    - opgave: |-
+        $f(x) = 0,5x + 1,5$
+      antwoord: |-
+        $-3$
+      uitwerking: |-
+        $0,5x = -1,5$, $x = -3$.
+    - opgave: |-
+        $f(x) = 6 - 4x$
+      antwoord: |-
+        $\tfrac32$
+      uitwerking: |-
+        $-4x = -6$, $x = \tfrac32$.
+    - opgave: |-
+        $f(x) = -x$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        $-x = 0$, $x = 0$: de rechte gaat door de oorsprong.
+    - opgave: |-
+        $f(x) = 7$
+      antwoord: |-
+        geen
+      uitwerking: |-
+        Een constante functie die nooit 0 is: geen nulwaarde.
+    - opgave: |-
+        $f(x) = \dfrac{2x - 5}{3}$
+      antwoord: |-
+        $\tfrac52$
+      uitwerking: |-
+        Een breuk is 0 als de teller 0 is: $2x - 5 = 0$, $x = \tfrac52$.
+    - opgave: |-
+        $f(x) = 1,2x - 6$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $1,2x = 6$, $x = 5$.
+    - opgave: |-
+        $f(x) = -\tfrac25 x - 4$
+      antwoord: |-
+        $-10$
+      uitwerking: |-
+        $-\tfrac25 x = 4$, $x = 4 \cdot \bigl(-\tfrac52\bigr) = -10$.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    nulwaarden en tekenschema op een grafiek
+  opgave: |-
+    Gegeven de grafiek van de functie $f$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-3}{1}{3}{-4}{1}{4}
+        \kromme[<->,>=stealth]{-2.55}{2.25}{(\x+2)*(\x-1)^2/2}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de nulwaarden af.
+      antwoord: |-
+        $-2$ en $1$
+      uitwerking: |-
+        De grafiek snijdt de $x$-as in $(-2, 0)$ en raakt ze in $(1, 0)$.
+    - opgave: |-
+        Maak het tekenschema.
+      antwoord: |-
+        $-$\;0\;$+$\;0\;$+$
+      uitwerking: |-
+        Links van $-2$ onder de $x$-as, daarna erboven. In $1$ raakt de grafiek de as en blijft ze erboven:\par
+        \tekenschema{5}{ & -2 & & 1 & }{- & 0 & + & 0 & +}
+    - opgave: |-
+        Verandert het teken van $f(x)$ in elke nulwaarde?
+      antwoord: |-
+        nee, niet in 1
+      uitwerking: |-
+        Nee: in $1$ raakt de grafiek de $x$-as zonder erdoor te gaan, dus aan beide kanten staat $+$.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    stijgen, dalen en extrema op een grafiek
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-4}{4}$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-4}{1}{4}{-2}{1}{4}
+        \gebroken{(-4,1) (-2,3) (0,3) (2,-1) (4,0)}
+        \punt{-4}{1}\punt{4}{0}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op welke intervallen stijgt $f$?
+      antwoord: |-
+        $\ivgg{-4}{-2}$ en $\ivgg{2}{4}$
+      uitwerking: |-
+        De grafiek gaat omhoog van $x = -4$ tot $x = -2$ en van $x = 2$ tot $x = 4$.
+    - opgave: |-
+        Op welk interval is $f$ constant?
+      antwoord: |-
+        $\ivgg{-2}{0}$
+      uitwerking: |-
+        Tussen $x = -2$ en $x = 0$ is de grafiek horizontaal: alle functiewaarden zijn 3.
+    - opgave: |-
+        Op welk interval daalt $f$?
+      antwoord: |-
+        $\ivgg{0}{2}$
+      uitwerking: |-
+        Van $x = 0$ tot $x = 2$ gaat de grafiek van 3 naar $-1$.
+    - opgave: |-
+        Geef het minimum.
+      antwoord: |-
+        $-1$ in $x = 2$
+      uitwerking: |-
+        In $x = 2$ gaat dalen over in stijgen: minimum $f(2) = -1$.
+    - opgave: |-
+        Geef het bereik.
+      antwoord: |-
+        $\ivgg{-1}{3}$
+      uitwerking: |-
+        De functiewaarden lopen van $-1$ tot $3$.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vergelijkingen en ongelijkheden met een grafiek
+  opgave: |-
+    Gegeven de grafiek van $f(x) = \tfrac12 x^2 - x - \tfrac32$. Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-3}{1}{5}{-3}{1}{4}
+        \kromme[<->,>=stealth]{-2.3}{4.3}{(\x)^2/2-\x-1.5}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = 0$
+      antwoord: |-
+        $V = \{-1, 3\}$
+      uitwerking: |-
+        De grafiek snijdt de $x$-as in $(-1, 0)$ en $(3, 0)$.
+    - opgave: |-
+        $f(x) \leqslant 0$
+      antwoord: |-
+        $V = \ivgg{-1}{3}$
+      uitwerking: |-
+        Tussen de nulwaarden ligt de grafiek onder de $x$-as; de grenzen horen erbij.
+    - opgave: |-
+        $f(x) = 2,5$
+      antwoord: |-
+        $V = \{-2, 4\}$
+      uitwerking: |-
+        De rechte $y = 2,5$ snijdt de grafiek in $(-2;\ 2,5)$ en $(4;\ 2,5)$. Controle: $f(4) = 8 - 4 - 1,5 = 2,5$.
+    - opgave: |-
+        $f(x) > 2,5$
+      antwoord: |-
+        $V = \ivoo{\minf}{-2} \cup \ivoo{4}{\pinf}$
+      uitwerking: |-
+        Links van $-2$ en rechts van $4$ ligt de grafiek boven de rechte $y = 2,5$.
+    - opgave: |-
+        $f(x) = -2$
+      antwoord: |-
+        $V = \{1\}$
+      uitwerking: |-
+        De rechte $y = -2$ raakt de grafiek in het laagste punt $(1, -2)$.
+    - opgave: |-
+        $f(x) < -2$
+      antwoord: |-
+        $V = \emptyset$
+      uitwerking: |-
+        De grafiek komt nooit onder $-2$.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kenmerken: juist of fout
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-3}{4}$. Zijn deze uitspraken juist of fout? Verbeter de foute.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-3}{1}{4}{-3}{1}{3}
+        \gebroken{(-3,-2) (-1,2) (1,-2) (3,2) (4,1)}
+        \punt{-3}{-2}\punt{4}{1}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\ber f = \ivgg{-2}{2}$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: de laagste waarde is $-2$ (in $-3$ en $1$), de hoogste $2$ (in $-1$ en $3$).
+    - opgave: |-
+        $f$ heeft drie nulwaarden.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: $-2$, $0$ en $2$.
+    - opgave: |-
+        $f(x) > 0$ voor $x \in \ivoo{0}{2}$.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: tussen $0$ en $2$ ligt de grafiek onder de $x$-as, dus $f(x) < 0$. Wel is $f(x) > 0$ op $\ivoo{-2}{0}$ en op $\ivog{2}{4}$.
+    - opgave: |-
+        $f$ bereikt een minimum $-2$ in $x = 1$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: in $x = 1$ gaat dalen over in stijgen.
+    - opgave: |-
+        $f$ daalt op $\ivgg{2}{4}$.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout: $f$ stijgt op $\ivgg{1}{3}$ en daalt op $\ivgg{3}{4}$.
+    - opgave: |-
+        $f(-1) = f(3)$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: beide zijn 2.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tekenschema van een eerstegraadsfunctie
+  opgave: |-
+    Bereken de nulwaarde en maak het tekenschema.
+  lijst: reeks
+  kolommen: 3
+  antwoord_voor: |-
+    (nulwaarde; teken links en rechts ervan)
+  delen:
+    - opgave: |-
+        $f(x) = x - 3$
+      antwoord: |-
+        $3$; $-$, $+$
+      uitwerking: |-
+        $x = 3$; $m = 1 > 0$:\par \tekenschema{3}{ & 3 & }{- & 0 & +}
+    - opgave: |-
+        $f(x) = -2x + 8$
+      antwoord: |-
+        $4$; $+$, $-$
+      uitwerking: |-
+        $-2x = -8$, $x = 4$; $m < 0$:\par \tekenschema{3}{ & 4 & }{+ & 0 & -}
+    - opgave: |-
+        $f(x) = 5x + 2$
+      antwoord: |-
+        $-\tfrac25$; $-$, $+$
+      uitwerking: |-
+        $5x = -2$, $x = -\tfrac25$; $m > 0$:\par \tekenschema{3}{ & -\frac25 & }{- & 0 & +}
+    - opgave: |-
+        $f(x) = -\tfrac12 x - 3$
+      antwoord: |-
+        $-6$; $+$, $-$
+      uitwerking: |-
+        $-\tfrac12 x = 3$, $x = -6$; $m < 0$:\par \tekenschema{3}{ & -6 & }{+ & 0 & -}
+    - opgave: |-
+        $f(x) = \tfrac23 x$
+      antwoord: |-
+        $0$; $-$, $+$
+      uitwerking: |-
+        $x = 0$; $m > 0$:\par \tekenschema{3}{ & 0 & }{- & 0 & +}
+    - opgave: |-
+        $f(x) = -3$
+      antwoord: |-
+        geen; overal $-$
+      uitwerking: |-
+        Een constante functie: geen nulwaarde, en $f(x) = -3 < 0$ voor alle $x$.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    intervallen en unie
+  opgave: |-
+    Schrijf als interval of als unie van intervallen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x < -1$ of $x > 2$
+      antwoord: |-
+        $\ivoo{\minf}{-1} \cup \ivoo{2}{\pinf}$
+      uitwerking: |-
+        Twee stukken, de grenzen horen er niet bij.
+    - opgave: |-
+        $-3 \leqslant x \leqslant 0$ of $1 < x \leqslant 4$
+      antwoord: |-
+        $\ivgg{-3}{0} \cup \ivog{1}{4}$
+      uitwerking: |-
+        Twee stukken; alleen $1$ hoort er niet bij.
+    - opgave: |-
+        $x \leqslant 5$
+      antwoord: |-
+        $\ivog{\minf}{5}$
+      uitwerking: |-
+        Eén stuk, 5 hoort erbij.
+    - opgave: |-
+        $x \neq 0$
+      antwoord: |-
+        $\ivoo{\minf}{0} \cup \ivoo{0}{\pinf}$
+      uitwerking: |-
+        Alle getallen behalve 0: links en rechts van 0.
+    - opgave: |-
+        $x > 3$ of $x > 1$
+      antwoord: |-
+        $\ivoo{1}{\pinf}$
+      uitwerking: |-
+        Elk getal groter dan 3 is ook groter dan 1: de unie is $\ivoo{1}{\pinf}$.
+    - opgave: |-
+        $x < 2$ of $x > 1$
+      antwoord: |-
+        $\R$
+      uitwerking: |-
+        Elk getal is kleiner dan 2 of groter dan 1 (of allebei): de unie is $\R$.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kenmerken in een context: getij
+  opgave: |-
+    In een haven stijgt en daalt het water met het getij. De grafiek toont de waterhoogte $h$ (in m) in functie van de tijd $t$ (in uur) na middernacht.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.5cm]
+        \rooster[$t$ (h)][$h$ (m)]{0}{1}{12}{0}{1}{5}
+        \oorsprong
+        \kromme{0}{12}{3-2*cos(30*(\x-3))}
+        \punt{0}{3}\punt{12}{3}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het domein en het bereik.
+      antwoord: |-
+        $\ivgg{0}{12}$ en $\ivgg{1}{5}$
+      uitwerking: |-
+        Van middernacht tot 12 uur. Het water staat het laagst op 1 m en het hoogst op 5 m.
+    - opgave: |-
+        Wanneer stijgt het water?
+      antwoord: |-
+        op $\ivgg{3}{9}$
+      uitwerking: |-
+        Van eb om 3 uur tot vloed om 9 uur.
+    - opgave: |-
+        Geef het minimum en het maximum, met hun betekenis.
+      antwoord: |-
+        minimum 1 in $t = 3$, maximum 5 in $t = 9$
+      uitwerking: |-
+        Om 3 uur is het eb, met 1 m water; om 9 uur vloed, met 5 m water.
+    - opgave: |-
+        Een zeilboot kan de haven alleen binnenvaren als er minstens 4 m water staat. Wanneer kan dat?
+      antwoord: |-
+        van 7 tot 11 uur
+      uitwerking: |-
+        Los $h(t) \geqslant 4$ op: de rechte $h = 4$ snijdt de grafiek in $t = 7$ en $t = 11$. Daartussen ligt de grafiek erboven: $V = \ivgg{7}{11}$.
+        \figuren{\begin{tikzpicture}[x=.38cm,y=.45cm]\rooster[$t$][$h$]{0}{1}{12}{0}{1}{5}\draw[hulplijn] (0,4) -- (12,4);\kromme{0}{12}{3-2*cos(30*(\x-3))}\aflezen{7}{4}\aflezen{11}{4}\asdeel{7}{11}\end{tikzpicture}}
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    twee tarieven vergelijken
+  opgave: |-
+    Drukkerij A rekent $50$ euro vast plus $0,10$ euro per flyer. Drukkerij B rekent $0,20$ euro per flyer. Voor $x$ flyers betaal je $A(x) = 0,1x + 50$ en $B(x) = 0,2x$ euro.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.0065cm,y=.022cm]
+        \roosterleeg[$x$][prijs]{0}{100}{1000}{0}{20}{200}
+        \xgetallen{200,400,600,800,1000}\ygetallen{40,80,120,160,200}\oorsprong
+        \rechte{0}{1000}{.1}{50}
+        \rechte[tweede]{0}{1000}{.2}{0}
+        \node[accent,font=\scriptsize,right] at (1000,150) {A};
+        \node[inkt,font=\scriptsize,above left] at (1000,200) {B};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees af: voor hoeveel flyers betaal je bij beide evenveel?
+      antwoord: |-
+        500
+      uitwerking: |-
+        De rechten snijden elkaar in $(500, 100)$: voor 500 flyers betaal je bij beide 100 euro.
+    - opgave: |-
+        Controleer dat met een berekening.
+      antwoord: |-
+        $x = 500$
+      uitwerking: |-
+        $0,1x + 50 = 0,2x \iff 50 = 0,1x \iff x = 500$.
+    - opgave: |-
+        Wanneer is drukkerij A goedkoper? Los op met een berekening en controleer op de grafiek.
+      antwoord: |-
+        vanaf meer dan 500 flyers
+      uitwerking: |-
+        $0,1x + 50 < 0,2x \iff 50 < 0,1x \iff x > 500$. Rechts van 500 ligt de rechte van A onder die van B.
+    - opgave: |-
+        Hoeveel betaal je voor 300 flyers bij de goedkoopste drukkerij?
+      antwoord: |-
+        60 euro (B)
+      uitwerking: |-
+        $300 < 500$, dus B is goedkoper: $B(300) = 60$ euro (bij A: $80$ euro).
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    f(x) = g(x) voor twee eerstegraadsfuncties
+  opgave: |-
+    Gegeven $f(x) = 2x - 1$ en $g(x) = -x + 5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken beide grafieken in één assenstelsel.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.42cm,y=.42cm]\rooster{-2}{1}{5}{-3}{1}{6}\rechte{-1}{3.5}{2}{-1}\rechte[tweede]{-1}{5}{-1}{5}\node[accent,font=\scriptsize] at (3.9,5.6) {$f$};\node[inkt,font=\scriptsize] at (5.3,.6) {$g$};\punt{2}{3}\asdeel{2}{5}\end{tikzpicture}}
+    - opgave: |-
+        Lees de oplossing van $f(x) = g(x)$ af en controleer met een berekening.
+      antwoord: |-
+        $x = 2$
+      uitwerking: |-
+        Snijpunt $(2, 3)$. Controle: $2x - 1 = -x + 5 \iff 3x = 6 \iff x = 2$.
+    - opgave: |-
+        Los op: $f(x) > g(x)$.
+      antwoord: |-
+        $V = \ivoo{2}{\pinf}$
+      uitwerking: |-
+        Rechts van $x = 2$ ligt de grafiek van $f$ boven die van $g$ (gekleurd op de $x$-as). Algebraïsch: $3x > 6 \iff x > 2$.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een grafiek bij een tekenschema
+  opgave: |-
+    Schets een grafiek van een functie $f$ met domein $\R$ en dit tekenschema.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        \tekenschema{5}{ & -2 & & 3 & }{+ & 0 & - & 0 & +}
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        Bijvoorbeeld een dalparabool door $(-2, 0)$ en $(3, 0)$:
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-3}{1}{4}{-4}{1}{3}\kromme[<->,>=stealth]{-2.6}{3.6}{(\x+2)*(\x-3)/2}\punt{-2}{0}\punt{3}{0}\end{tikzpicture}}
+    - opgave: |-
+        \tekenschema{5}{ & -1 & & 2 & }{- & 0 & - & 0 & +}
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        In $-1$ raakt de grafiek de $x$-as van onderen, in $2$ gaat ze erdoor naar boven:
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-3}{1}{3}{-4}{1}{4}\kromme[<->,>=stealth]{-2.3}{2.6}{(\x+1)^2*(\x-2)/2}\punt{-1}{0}\punt{2}{0}\end{tikzpicture}}
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een grafiek bij een verlooptabel
+  opgave: |-
+    Een functie $f$ heeft deze verlooptabel.\par\nobreak\smallskip
+    \tekenschema[f]{7}{-4 & & -1 & & 2 & & 5}{2 & \daalt & -3 & \stijgt & 1 & \daalt & -2}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schets een mogelijke grafiek van $f$.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        Bijvoorbeeld:
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-4}{1}{5}{-3}{1}{3}\doorpunten{(-4,2) (-2.5,-1) (-1,-3) (.5,-1) (2,1) (3.5,-1) (5,-2)}\punt{-4}{2}\punt{5}{-2}\end{tikzpicture}}
+    - opgave: |-
+        Geef het domein en het bereik.
+      antwoord: |-
+        $\ivgg{-4}{5}$ en $\ivgg{-3}{2}$
+      uitwerking: |-
+        Van $x = -4$ tot $x = 5$. De kleinste waarde is $-3$, de grootste $2$ (in $x = -4$).
+    - opgave: |-
+        Hoeveel nulwaarden heeft $f$?
+      antwoord: |-
+        drie
+      uitwerking: |-
+        Op elk van de drie stukken gaat de grafiek door de $x$-as: van $2$ naar $-3$, van $-3$ naar $1$ en van $1$ naar $-2$.
+    - opgave: |-
+        Is het maximum van $f$ de grootste functiewaarde?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: het maximum is $1$ (in $x = 2$), maar in $x = -4$ is de functiewaarde $2$.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kenmerken in een context: drone
+  opgave: |-
+    Een drone stijgt op, hangt even stil en landt weer. De grafiek toont zijn hoogte $h$ (in m) in functie van de tijd $t$ (in s).
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.1cm,y=.08cm]
+        \roosterleeg[$t$ (s)][$h$ (m)]{0}{10}{60}{0}{10}{50}
+        \xgetallen{10,20,...,60}\ygetallen{10,20,30,40,50}\oorsprong
+        \gebroken{(0,0) (10,40) (30,40) (40,20) (50,20) (60,0)}
+        \punt{0}{0}\punt{60}{0}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het domein en het bereik.
+      antwoord: |-
+        $\ivgg{0}{60}$ en $\ivgg{0}{40}$
+      uitwerking: |-
+        De vlucht duurt 60 s; de hoogte gaat van 0 tot 40 m.
+    - opgave: |-
+        Geef de nulwaarden. Wat betekenen ze?
+      antwoord: |-
+        0 en 60: opstijgen en landen
+      uitwerking: |-
+        $h(0) = 0$ en $h(60) = 0$: de drone staat op de grond bij het vertrek en bij de landing.
+    - opgave: |-
+        Wanneer hangt de drone stil?
+      antwoord: |-
+        op $\ivgg{10}{30}$ en $\ivgg{40}{50}$
+      uitwerking: |-
+        Daar is de functie constant: op 40 m en op 20 m.
+    - opgave: |-
+        Wanneer vliegt de drone hoger dan 20 m?
+      antwoord: |-
+        $\ivoo{5}{40}$
+      uitwerking: |-
+        De rechte $h = 20$ snijdt het eerste stuk in $t = 5$ (halverwege 0 en 40 m). Vanaf $t = 40$ is de hoogte 20 m of minder. Dus $h(t) > 20$ voor $t \in \ivoo{5}{40}$.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tekenschema en grafiek koppelen
+  opgave: |-
+    Welke grafiek hoort bij welk tekenschema?\par
+    \figuren{\begin{tikzpicture}[x=.3cm,y=.3cm]\rooster{-2}{1}{4}{-3}{1}{3}\rechte{-1}{4}{1}{-2}\node[font=\scriptsize\bfseries] at (3.4,-2.3) {A};\end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.3cm,y=.3cm]\rooster{-2}{1}{4}{-3}{1}{3}\rechte{-2}{4}{-.5}{1}\node[font=\scriptsize\bfseries] at (3.4,-2.3) {B};\end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.3cm,y=.3cm]\rooster{-2}{1}{4}{-3}{1}{3}\kromme{-1.9}{2.9}{(\x+1)*(\x-2)/2}\node[font=\scriptsize\bfseries] at (3.4,-2.3) {C};\end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.3cm,y=.3cm]\rooster{-2}{1}{4}{-3}{1}{3}\kromme{-1.9}{2.9}{-(\x+1)*(\x-2)/2}\node[font=\scriptsize\bfseries] at (3.4,-2.3) {D};\end{tikzpicture}}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        \tekenschema{3}{ & 2 & }{+ & 0 & -}
+      antwoord: |-
+        B
+      uitwerking: |-
+        Eén nulwaarde 2, eerst boven en dan onder de $x$-as: de dalende rechte B.
+    - opgave: |-
+        \tekenschema{5}{ & -1 & & 2 & }{- & 0 & + & 0 & -}
+      antwoord: |-
+        D
+      uitwerking: |-
+        Twee nulwaarden, tussen $-1$ en $2$ boven de $x$-as: de bergparabool D.
+    - opgave: |-
+        \tekenschema{3}{ & 2 & }{- & 0 & +}
+      antwoord: |-
+        A
+      uitwerking: |-
+        Eén nulwaarde 2, eerst onder en dan boven: de stijgende rechte A.
+    - opgave: |-
+        \tekenschema{5}{ & -1 & & 2 & }{+ & 0 & - & 0 & +}
+      antwoord: |-
+        C
+      uitwerking: |-
+        Tussen $-1$ en $2$ onder de $x$-as: de dalparabool C.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    nulwaarde in een context
+  opgave: |-
+    Een volle gsm-batterij loopt tijdens het gamen leeg. Na $t$ uur is ze nog voor $b(t) = 100 - 10t$ procent vol.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de nulwaarde van $b$. Wat betekent ze?
+      antwoord: |-
+        $10$: na 10 uur is de batterij leeg
+      uitwerking: |-
+        $100 - 10t = 0 \iff t = 10$: na 10 uur is de batterij leeg.
+    - opgave: |-
+        Geef een zinvol domein en het bereik.
+      antwoord: |-
+        $\ivgg{0}{10}$ en $\ivgg{0}{100}$
+      uitwerking: |-
+        Van een volle tot een lege batterij: $\dom b = \ivgg{0}{10}$, $\ber b = \ivgg{0}{100}$.
+    - opgave: |-
+        De gsm waarschuwt als de batterij minder dan 20 procent vol is. Wanneer is dat? Los op met een berekening en teken de grafiek.
+      antwoord: |-
+        $t \in \ivog{8}{10}$
+      uitwerking: |-
+        $100 - 10t < 20 \iff -10t < -80 \iff t > 8$: delen door $-10$ keert het teken om. Binnen het domein: $\ivog{8}{10}$.
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.03cm]\roosterleeg[$t$ (h)][$b$ (\%)]{0}{1}{11}{0}{10}{100}\xgetallen{2,4,...,10}\ygetallen{20,40,...,100}\oorsprong\draw[hulplijn] (0,20) -- (11,20);\rechte{0}{10}{-10}{100}\punt{0}{100}\punt{10}{0}\asdeel{8}{10}\end{tikzpicture}}
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    ongelijkheden met meerdere stukken
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-4}{4}$. Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-4}{1}{4}{-2}{1}{4}
+        \gebroken{(-4,3) (-2,-1) (0,3) (2,-1) (4,3)}
+        \punt{-4}{3}\punt{4}{3}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = 1$
+      antwoord: |-
+        $V = \{-3, -1, 1, 3\}$
+      uitwerking: |-
+        De rechte $y = 1$ snijdt elk van de vier lijnstukken één keer, telkens halverwege.
+    - opgave: |-
+        $f(x) \geqslant 1$
+      antwoord: |-
+        $V = \ivgg{-4}{-3} \cup \ivgg{-1}{1} \cup \ivgg{3}{4}$
+      uitwerking: |-
+        Op of boven de rechte $y = 1$: drie stukken, met de grenzen erbij.
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-4}{1}{4}{-2}{1}{4}\draw[hulplijn] (-4,1) -- (4.4,1);\gebroken{(-4,3) (-2,-1) (0,3) (2,-1) (4,3)}\asdeel{-4}{-3}\asdeel{-1}{1}\asdeel{3}{4}\end{tikzpicture}}
+    - opgave: |-
+        $f(x) = 3$
+      antwoord: |-
+        $V = \{-4, 0, 4\}$
+      uitwerking: |-
+        De drie toppen van de grafiek liggen op hoogte 3.
+    - opgave: |-
+        $f(x) \leqslant -1$
+      antwoord: |-
+        $V = \{-2, 2\}$
+      uitwerking: |-
+        De grafiek komt nooit onder $-1$, en ligt alleen in $-2$ en $2$ op die hoogte.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    fouten opsporen bij stijgen en extrema
+  opgave: |-
+    Lien en Mehdi bekijken de grafiek van de functie $f$ met domein $\ivgg{-2}{4}$.\par
+    Lien: ``$f$ stijgt op $\ivgg{-1}{3}$.''\par
+    Mehdi: ``$f$ bereikt een maximum in $x = 3$.''
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.45cm,y=.45cm]
+        \rooster{-2}{1}{4}{-2}{1}{4}
+        \gebroken{(-2,1) (0,-1) (2,3) (4,0)}
+        \punt{-2}{1}\punt{4}{0}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat heeft Lien verkeerd gedaan?
+      antwoord: |-
+        ze gaf de functiewaarden in plaats van de $x$-waarden
+      uitwerking: |-
+        De grafiek stijgt van $(0, -1)$ tot $(2, 3)$. Lien schreef de functiewaarden $-1$ en $3$ op, maar het interval gaat over $x$: $f$ stijgt op $\ivgg{0}{2}$.
+    - opgave: |-
+        Wat heeft Mehdi verkeerd gedaan?
+      antwoord: |-
+        hij verwarde de functiewaarde met de plaats
+      uitwerking: |-
+        Het maximum is de functiewaarde 3, en het wordt bereikt in $x = 2$. Mehdi gaf de functiewaarde als plaats.
+    - opgave: |-
+        Maak een correcte verlooptabel.
+      antwoord: |-
+        daalt op $\ivgg{-2}{0}$, stijgt op $\ivgg{0}{2}$, daalt op $\ivgg{2}{4}$
+      uitwerking: |-
+        \tekenschema[f]{7}{-2 & & 0 & & 2 & & 4}{1 & \daalt & -1 & \stijgt & 3 & \daalt & 0}\par
+        Minimum $-1$ in $x = 0$, maximum $3$ in $x = 2$.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een grafiek bij gegeven kenmerken
+  opgave: |-
+    Een functie $f$ heeft domein $\ivgg{-4}{4}$ en bereik $\ivgg{-2}{3}$. Haar nulwaarden zijn $-3$, $0$ en $2$. Ze stijgt op $\ivgg{-4}{-1}$, daalt op $\ivgg{-1}{1}$ en stijgt op $\ivgg{1}{4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schets een mogelijke grafiek.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        Bijvoorbeeld:
+        \figuren{\begin{tikzpicture}[x=.4cm,y=.4cm]\rooster{-4}{1}{4}{-3}{1}{4}\gebroken{(-4,-1) (-3,0) (-1,3) (0,0) (1,-2) (2,0) (4,2)}\punt{-4}{-1}\punt{4}{2}\end{tikzpicture}}
+    - opgave: |-
+        Is er maar één zo'n grafiek?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: de hoogte van de top en het dal ligt niet helemaal vast, en de grafiek mag gebogen zijn. Alleen de nulwaarden, het verloop en het bereik liggen vast.
+    - opgave: |-
+        Waar kan de grootste functiewaarde $3$ liggen? En de kleinste, $-2$?
+      antwoord: |-
+        3 in $x = -1$ of $x = 4$; $-2$ in $x = 1$ of $x = -4$
+      uitwerking: |-
+        De grootste waarde ligt in een top of in een eindpunt waar de grafiek stijgend aankomt: in $x = -1$ of in $x = 4$. De kleinste ligt in het dal $x = 1$ of in het begin $x = -4$.
+    - opgave: |-
+        Kan $f(-4)$ positief zijn?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: $f$ stijgt op $\ivgg{-4}{-1}$ en is $0$ in $-3$. Links van $-3$ zijn de functiewaarden dus kleiner dan $0$.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    redeneren over kenmerken
+  opgave: |-
+    Juist of fout? Leg uit, met een voorbeeld of een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een eerstegraadsfunctie heeft geen maximum en geen minimum.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: met $m > 0$ stijgt ze op heel $\R$, met $m < 0$ daalt ze op heel $\R$. Ze keert nergens om.
+    - opgave: |-
+        Als $f(2) > 0$ en $f(5) < 0$, dan heeft $f$ een nulwaarde tussen 2 en 5.
+      antwoord: |-
+        fout (wel juist als de grafiek geen sprong maakt)
+      uitwerking: |-
+        Fout in het algemeen: een grafiek met een sprong, zoals een tarief dat ineens verandert, kan van positief naar negatief springen zonder de $x$-as te snijden. Maakt de grafiek geen sprong, dan is het wel juist.
+    - opgave: |-
+        Als $f$ stijgt op $\ivgg{0}{2}$ en op $\ivgg{2}{4}$, dan stijgt $f$ op $\ivgg{0}{4}$.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist: van 0 tot 2 gaat het omhoog, en vanaf 2 tot 4 verder omhoog. De twee intervallen hebben het getal 2 gemeen.
+    - opgave: |-
+        Tussen een maximum en het volgende maximum ligt altijd een minimum.
+      antwoord: |-
+        juist
+      uitwerking: |-
+        Juist (voor een grafiek zonder sprongen en zonder constante stukken): na een maximum daalt de functie. Om weer een maximum te bereiken, moet ze eerst weer stijgen, en waar dalen overgaat in stijgen ligt een minimum.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    drie tarieven vergelijken
+  opgave: |-
+    Een deelstep huur je met formule A: $1$ euro om te starten plus $0,25$ euro per minuut, formule B: $0,30$ euro per minuut, of formule C: een dagpas van $8$ euro.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de drie voorschriften op voor de prijs bij een rit van $x$ minuten.
+      antwoord: |-
+        $A(x) = 0,25x + 1$, $B(x) = 0,3x$, $C(x) = 8$
+      uitwerking: |-
+        Vast bedrag plus prijs per minuut maal $x$: $A(x) = 0,25x + 1$, $B(x) = 0,3x$ en de constante functie $C(x) = 8$.
+    - opgave: |-
+        Teken de drie grafieken in één assenstelsel, voor $x$ van 0 tot 40.
+      antwoord: |-
+        zie de uitgewerkte oplossingen
+      uitwerking: |-
+        \figuren{\begin{tikzpicture}[x=.22cm,y=.35cm]\roosterleeg[$x$ (min)][prijs]{0}{5}{40}{0}{1}{12}\xgetallen{10,20,30,40}\ygetallen{2,4,...,12}\oorsprong\rechte{0}{40}{.25}{1}\rechte[tweede]{0}{40}{.3}{0}\draw[grijs,thick] (0,8) -- (40,8);\node[accent,font=\scriptsize,right] at (40,11) {A};\node[inkt,font=\scriptsize,right] at (40,12.2) {B};\node[grijs,font=\scriptsize,right] at (40,8) {C};\punt{20}{6}\punt{28}{8}\end{tikzpicture}}
+    - opgave: |-
+        Bij welke ritduur is elke formule het goedkoopst? Bereken de grenzen.
+      antwoord: |-
+        B tot 20 min, A van 20 tot 28 min, C vanaf 28 min
+      uitwerking: |-
+        A en B: $0,25x + 1 = 0,3x \iff 1 = 0,05x \iff x = 20$. A en C: $0,25x + 1 = 8 \iff x = 28$. Op de grafiek ligt B het laagst voor $x < 20$, A voor $20 < x < 28$ en C voor $x > 28$. (B en C snijden elkaar pas in $x \approx 26{,}7$, maar daar is A al goedkoper.)
+
+- id: h3-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het aantal oplossingen van f(x) = c
+  opgave: |-
+    Gegeven de grafiek van $f(x) = \tfrac18(x^3 - 12x)$ met domein $\R$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.4cm,y=.4cm]
+        \rooster{-5}{1}{5}{-3}{1}{3}
+        \kromme[<->,>=stealth]{-4.2}{4.2}{((\x)^3-12*\x)/8}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel oplossingen heeft $f(x) = 1$?
+      antwoord: |-
+        drie
+      uitwerking: |-
+        De rechte $y = 1$ snijdt de grafiek drie keer: links van de top, tussen de top en het dal, en rechts van het dal.
+    - opgave: |-
+        Hoeveel oplossingen heeft $f(x) = 2$? Geef ze.
+      antwoord: |-
+        twee: $-2$ en $4$
+      uitwerking: |-
+        De rechte $y = 2$ raakt de grafiek in de top $(-2, 2)$ en snijdt ze in $(4, 2)$. Controle: $f(4) = \tfrac18(64 - 48) = 2$.
+    - opgave: |-
+        Hoeveel oplossingen heeft $f(x) = 5$?
+      antwoord: |-
+        één
+      uitwerking: |-
+        Boven de top snijdt de rechte alleen de rechtertak, die eindeloos stijgt.
+    - opgave: |-
+        Voor welke getallen $c$ heeft $f(x) = c$ precies drie oplossingen?
+      antwoord: |-
+        $c \in \ivoo{-2}{2}$
+      uitwerking: |-
+        Het maximum is $2$ (in $x = -2$), het minimum $-2$ (in $x = 2$). Alleen een rechte strikt tussen die hoogtes snijdt de grafiek drie keer: $c \in \ivoo{-2}{2}$.
+
+- id: h3-o23
+  pakketten: [4, 5]
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    relatieve en absolute extrema
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-2}{6}$.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-2}{1}{6}{-3}{1}{4}
+        \doorpunten{(-2,-3) (-1,0) (0,1) (1,0) (2,-1) (3,0) (4,2) (5,3.5) (6,4)}
+        \punt{-2}{-3}\punt{6}{4}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de relatieve extrema.
+      antwoord: |-
+        relatief maximum 1 in $x = 0$, relatief minimum $-1$ in $x = 2$
+      uitwerking: |-
+        In $x = 0$ gaat stijgen over in dalen, in $x = 2$ dalen in stijgen.
+    - opgave: |-
+        Geef het absoluut maximum en het absoluut minimum.
+      antwoord: |-
+        absoluut maximum 4 in $x = 6$, absoluut minimum $-3$ in $x = -2$
+      uitwerking: |-
+        Beide liggen in een eindpunt: $f(6) = 4 > 1$ en $f(-2) = -3 < -1$.
+    - opgave: |-
+        Geef het bereik.
+      antwoord: |-
+        $\ivgg{-3}{4}$
+      uitwerking: |-
+        Van het absoluut minimum tot het absoluut maximum.
+
+- id: h3-o24
+  pakketten: [4, 5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    nulwaarde met een parameter
+  opgave: |-
+    Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke $q$ heeft $f(x) = 2x + q$ de nulwaarde $3$?
+      antwoord: |-
+        $q = -6$
+      uitwerking: |-
+        $f(3) = 0$: $6 + q = 0$, dus $q = -6$.
+    - opgave: |-
+        Voor welke $m$ heeft $f(x) = mx + 4$ de nulwaarde $-2$?
+      antwoord: |-
+        $m = 2$
+      uitwerking: |-
+        $f(-2) = 0$: $-2m + 4 = 0$, dus $m = 2$.
+    - opgave: |-
+        Voor welke $m > 0$ ligt de nulwaarde van $f(x) = mx - 6$ tussen 1 en 3?
+      antwoord: |-
+        $2 < m < 6$
+      uitwerking: |-
+        De nulwaarde is $\tfrac6m$. Voor $m > 0$ geldt: $1 < \tfrac6m < 3 \iff m < 6$ en $m > 2$ (vermenigvuldig met $m > 0$ en deel). Controle: $m = 3$ geeft nulwaarde $2$.
+
+- id: h3-o25
+  pakketten: [5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: evenwijdige rechten
+  opgave: |-
+    Gegeven $f(x) = mx + q$ en $g(x) = mx + r$ met $q < r$: twee eerstegraadsfuncties met dezelfde richtingscoëfficiënt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat de vergelijking $f(x) = g(x)$ geen oplossing heeft.
+      antwoord: |-
+        $V = \emptyset$
+      uitwerking: |-
+        Stel dat $x$ een oplossing is. Dan is $mx + q = mx + r$, dus $q = r$. Dat is in strijd met $q < r$. Er is dus geen oplossing: de grafieken zijn evenwijdige rechten.
+    - opgave: |-
+        Bewijs dat $f(x) < g(x)$ voor alle $x$. Wat betekent dat voor de grafieken?
+      antwoord: |-
+        $V = \R$; de grafiek van $f$ ligt overal onder die van $g$
+      uitwerking: |-
+        $g(x) - f(x) = (mx + r) - (mx + q) = r - q > 0$ voor elke $x$. Dus $f(x) < g(x)$ voor alle $x$: de rechte van $f$ ligt overal $r - q$ lager dan die van $g$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    domein en bereik
+  opgave: |-
+    Geef het domein en het bereik van de functie met deze grafiek.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-3}{1}{4}{-3}{1}{3}
+        \gebroken{(-3,2) (-1,-2) (1,1) (3,1)}
+        \openpunt{-3}{2}\punt{3}{1}
+      \end{tikzpicture}
+  antwoord: |-
+    $\dom f = \ivog{-3}{3}$, $\ber f = \ivgo{-2}{2}$
+  uitwerking: |-
+    $-3$ hoort niet bij het domein (open bolletje), $3$ wel: $\dom f = \ivog{-3}{3}$. De laagste waarde $-2$ wordt bereikt; de waarde 2 niet, want het punt $(-3, 2)$ hoort er niet bij en verder komt de grafiek niet hoger dan 1: $\ber f = \ivgo{-2}{2}$.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    nulwaarde en tekenschema van een eerstegraadsfunctie
+  opgave: |-
+    Bereken de nulwaarde en maak het tekenschema van $f(x) = -4x + 10$.
+  antwoord: |-
+    $\tfrac52$; \ $+$\;0\;$-$
+  uitwerking: |-
+    $-4x + 10 = 0 \iff -4x = -10 \iff x = \tfrac52$. $m = -4 < 0$, dus eerst $+$ en dan $-$:\par
+    \tekenschema{3}{ & \frac52 & }{+ & 0 & -}
+
+- id: h3-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    nulwaarden en tekenschema op een grafiek
+  opgave: |-
+    Lees de nulwaarden af en maak het tekenschema.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-3}{1}{3}{-3}{1}{3}
+        \kromme[<->,>=stealth]{-2.65}{2.65}{-(\x+2)*\x*(\x-2)/4}
+      \end{tikzpicture}
+  antwoord: |-
+    $-2$, $0$, $2$; \ $+$\;0\;$-$\;0\;$+$\;0\;$-$
+  uitwerking: |-
+    De grafiek snijdt de $x$-as in $(-2, 0)$, $(0, 0)$ en $(2, 0)$:\par
+    \tekenschema{7}{ & -2 & & 0 & & 2 & }{+ & 0 & - & 0 & + & 0 & -}
+
+- id: h3-t4
+  pakketten: [1, 2, 3]
+  soort: test
+  niveau: 2
+  thema: |-
+    stijgen, dalen en extrema
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-3}{5}$. Waar stijgt en daalt $f$? Geef de extrema.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-3}{1}{5}{-3}{1}{4}
+        \doorpunten{(-3,-1) (-2,1) (-1,2) (0,1) (1,0) (2,-1) (3,0) (4,2) (5,4)}
+        \punt{-3}{-1}\punt{5}{4}
+      \end{tikzpicture}
+  antwoord: |-
+    stijgt op $\ivgg{-3}{-1}$ en $\ivgg{2}{5}$, daalt op $\ivgg{-1}{2}$; maximum $2$ in $x = -1$, minimum $-1$ in $x = 2$
+  uitwerking: |-
+    Van links naar rechts: omhoog tot $x = -1$, omlaag tot $x = 2$, dan omhoog tot het einde. In $x = -1$ ligt een top: maximum $f(-1) = 2$. In $x = 2$ een dal: minimum $f(2) = -1$.
+
+- id: h3-t4
+  pakketten: [4, 5]
+  soort: test
+  niveau: 2
+  thema: |-
+    stijgen, dalen en extrema
+  opgave: |-
+    Gegeven de grafiek van de functie $f$ met domein $\ivgg{-3}{5}$. Waar stijgt en daalt $f$? Geef de relatieve en de absolute extrema.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-3}{1}{5}{-3}{1}{4}
+        \doorpunten{(-3,-1) (-2,1) (-1,2) (0,1) (1,0) (2,-1) (3,0) (4,2) (5,4)}
+        \punt{-3}{-1}\punt{5}{4}
+      \end{tikzpicture}
+  antwoord: |-
+    stijgt op $\ivgg{-3}{-1}$ en $\ivgg{2}{5}$, daalt op $\ivgg{-1}{2}$; relatief maximum $2$ in $x = -1$, relatief minimum $-1$ in $x = 2$; absoluut maximum $4$ in $x = 5$, absoluut minimum $-1$ in $x = -3$ en in $x = 2$
+  uitwerking: |-
+    Van links naar rechts: omhoog tot $x = -1$, omlaag tot $x = 2$, dan omhoog tot het einde. Relatief maximum $f(-1) = 2$, relatief minimum $f(2) = -1$. Vergelijk met de eindpunten: $f(5) = 4$ is de grootste waarde; de kleinste waarde $-1$ wordt bereikt in $x = -3$ en in $x = 2$.
+
+- id: h3-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    vergelijking en ongelijkheid grafisch oplossen
+  opgave: |-
+    Gegeven de grafiek van $f(x) = (x - 1)^2 - 3$. Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-2}{1}{4}{-3}{1}{4}
+        \kromme[<->,>=stealth]{-1.6}{3.6}{(\x-1)^2-3}
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = 1$
+      antwoord: |-
+        $V = \{-1, 3\}$
+      uitwerking: |-
+        De rechte $y = 1$ snijdt de grafiek in $(-1, 1)$ en $(3, 1)$. Controle: $f(3) = 4 - 3 = 1$.
+    - opgave: |-
+        $f(x) > 1$
+      antwoord: |-
+        $V = \ivoo{\minf}{-1} \cup \ivoo{3}{\pinf}$
+      uitwerking: |-
+        Links van $-1$ en rechts van $3$ ligt de grafiek boven de rechte $y = 1$.
+    - opgave: |-
+        $f(x) \leqslant -2$
+      antwoord: |-
+        $V = \ivgg{0}{2}$
+      uitwerking: |-
+        De rechte $y = -2$ snijdt de grafiek in $(0, -2)$ en $(2, -2)$; daartussen ligt de grafiek eronder.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    twee tarieven vergelijken
+  opgave: |-
+    Een fitnesscentrum biedt twee formules. Formule A kost $20$ euro per maand plus $3$ euro per bezoek, formule B $5$ euro per bezoek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de voorschriften $A(x)$ en $B(x)$ op voor $x$ bezoeken per maand, en teken beide grafieken voor $x$ van 0 tot 15.
+      antwoord: |-
+        $A(x) = 3x + 20$, $B(x) = 5x$
+      uitwerking: |-
+        $A(x) = 3x + 20$ en $B(x) = 5x$. Eigenlijk zijn alleen de punten met een natuurlijke $x$ zinvol; de rechten tonen het verloop.
+        \figuren{\begin{tikzpicture}[x=.38cm,y=.05cm]\roosterleeg[$x$][prijs]{0}{1}{15}{0}{10}{80}\xgetallen{5,10,15}\ygetallen{20,40,60,80}\oorsprong\rechte{0}{15}{3}{20}\rechte[tweede]{0}{15}{5}{0}\node[accent,font=\scriptsize,right] at (15,65) {A};\node[inkt,font=\scriptsize,right] at (15,76) {B};\punt{10}{50}\asdeel{10}{15}\end{tikzpicture}}
+    - opgave: |-
+        Bij hoeveel bezoeken betaal je evenveel?
+      antwoord: |-
+        10
+      uitwerking: |-
+        $3x + 20 = 5x \iff 20 = 2x \iff x = 10$: bij 10 bezoeken betaal je bij beide 50 euro.
+    - opgave: |-
+        Wanneer is formule A voordeliger?
+      antwoord: |-
+        bij meer dan 10 bezoeken
+      uitwerking: |-
+        $3x + 20 < 5x \iff 20 < 2x \iff x > 10$. Op de grafiek ligt A rechts van 10 onder B.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    f(x) en g(x) grafisch vergelijken
+  opgave: |-
+    Gegeven de grafieken van $f$ (parabool) en $g$ (rechte). Los grafisch op.
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.42cm]
+        \rooster{-2}{1}{5}{-3}{1}{5}
+        \kromme{-1.15}{4.15}{-(\x)^2+3*\x+2}
+        \rechte[tweede]{-2}{5}{1}{-1}
+        \node[accent,font=\scriptsize] at (1.5,4.9) {$f$};
+        \node[inkt,font=\scriptsize] at (5.3,3.4) {$g$};
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = g(x)$
+      antwoord: |-
+        $V = \{-1, 3\}$
+      uitwerking: |-
+        De grafieken snijden elkaar in $(-1, -2)$ en $(3, 2)$.
+    - opgave: |-
+        $f(x) \geqslant g(x)$
+      antwoord: |-
+        $V = \ivgg{-1}{3}$
+      uitwerking: |-
+        Tussen de snijpunten ligt de parabool boven de rechte; in de snijpunten zijn ze gelijk.
+    - opgave: |-
+        $f(x) < g(x)$
+      antwoord: |-
+        $V = \ivoo{\minf}{-1} \cup \ivoo{3}{\pinf}$
+      uitwerking: |-
+        Buiten de snijpunten ligt de parabool onder de rechte.

@@ -7,16 +7,16 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 
 | Cursus | Jaar (voorstel) | Leerplandoelen | Status |
 | --- | --- | --- | --- |
-| Algebra/Reële getallen | 3de | LPD 5-7 | gepland |
-| Algebra/Eerstegraadsvergelijkingen | 3de | LPD 14-16 | gepland |
-| Analyse/Functies | 3de | LPD 17-21, K1 | gepland |
-| Algebra/Stelsels | 3de | LPD 22-23 | gepland |
-| Meetkunde/Gelijkvormigheid | 3de | LPD 8-9 | gepland |
-| Meetkunde/Driehoeksmeting | 3de | LPD 10-11 | gepland |
-| Discrete wiskunde/Logica | 3de | LPD 30 | gepland |
-| Data en onzekerheid/Statistiek | 3de | LPD 31-33 | gepland |
-| Data en onzekerheid/Spreidingsdiagrammen | 3de | LPD 34 | gepland |
-| Analyse/Tweedegraadsfuncties | 4de | LPD 24-28, K2 | gepland |
-| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | gepland |
-| Meetkunde/Vectoren | 4de | LPD 13 | gepland |
-| Discrete wiskunde/Telproblemen | 4de | LPD 29 | gepland |
+| Algebra/Reële getallen | 3de | LPD 5-7 | eerste versie |
+| Algebra/Eerstegraadsvergelijkingen | 3de | LPD 14-16 | eerste versie |
+| Analyse/Functies | 3de | LPD 17-21, K1 | eerste versie |
+| Algebra/Stelsels | 3de | LPD 22-23 | eerste versie |
+| Meetkunde/Gelijkvormigheid | 3de | LPD 8-9 | eerste versie |
+| Meetkunde/Driehoeksmeting | 3de | LPD 10-11 | eerste versie |
+| Discrete wiskunde/Logica | 3de | LPD 30 | eerste versie |
+| Data en onzekerheid/Statistiek | 3de | LPD 31-33 | eerste versie |
+| Data en onzekerheid/Spreidingsdiagrammen | 3de | LPD 34 | eerste versie |
+| Analyse/Tweedegraadsfuncties | 4de | LPD 24-28, K2 | eerste versie |
+| Meetkunde/Ruimtemeetkunde | 4de | LPD 12 | eerste versie |
+| Meetkunde/Vectoren | 4de | LPD 13 | eerste versie |
+| Discrete wiskunde/Telproblemen | 4de | LPD 29 | eerste versie |

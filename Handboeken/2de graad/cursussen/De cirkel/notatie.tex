@@ -1,0 +1,78 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS DE CIRKEL (2de graad)
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% Vertrekpunt: notatie.tex van Driehoeksmeting, zonder de ruimtelijke figuren, met macro's voor cirkels.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+\usetikzlibrary{angles,quotes}
+
+% Lengte van een lijnstuk: \lengte{AB} geeft |AB|; \abs{-2} de absolute waarde (\Abs met grotere strepen).
+% Met \lvert en \rvert, zodat een minteken na de streep geen aftrekking wordt.
+\newcommand{\lengte}[1]{\lvert #1\rvert}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\Abs}[1]{\bigl\lvert #1\bigr\rvert}
+% Driehoek en hoek: \drieh{ABC} geeft de driehoek ABC, \hoek{A} een hoek met een dakje
+\newcommand{\drieh}[1]{\triangle #1}
+\newcommand{\hoek}[1]{\widehat{#1}}
+% Gelijkvormig: \gv geeft het teken ~
+\newcommand{\gv}{\sim}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een figuur rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster zonder assen, voor schaaltekeningen: \ruitjes{xmin}{ymin}{xmax}{ymax}
+\newcommand{\ruitjes}[4]{\draw[black!14,very thin] (#1,#2) grid (#3,#4);}
+% Een punt als stip: \stip{x}{y}, of met label: \punt[positie]{x}{y}{label}
+\newcommand{\stip}[2]{\fill (#1,#2) circle (1.5pt);}
+\newcommand{\punt}[4][above]{\fill (#2,#3) circle (1.5pt) node[#1,inner sep=2pt] {$#4$};}
+% Een hoekboogje bij hoekpunt B tussen de stralen naar A en C (tegenwijzerzin van A naar C):
+% \hoekboog[opties]{A}{B}{C}{straal}; werkt met benoemde coördinaten
+\newcommand{\hoekboog}[5][]{\pic[draw,accent,angle radius=#5,#1] {angle=#2--#3--#4};}
+% Een rechte hoek bij B tussen A en C: \rechtehoek{A}{B}{C}
+\newcommand{\rechtehoek}[3]{\pic[draw,grijs,angle radius=2.2mm] {right angle=#1--#2--#3};}
+% Hetzelfde met coördinaten: \rechtehoekxy{(0,3)}{(0,0)}{(4,0)}
+\newcommand{\rechtehoekxy}[3]{\coordinate (rh@a) at #1; \coordinate (rh@b) at #2; \coordinate (rh@c) at #3;
+  \pic[draw,grijs,angle radius=2.2mm] {right angle=rh@a--rh@b--rh@c};}
+
+% Hoeklabel: \hoeklabel[opties]{A}{B}{C}{straal}{tekst}: boogje bij B en de tekst in de hoek
+\newcommand{\hoeklabel}[6][]{\pic[draw,accent,angle radius=#5,"$#6$",angle eccentricity=1.55,font=\scriptsize,#1] {angle=#2--#3--#4};}
+
+% Boog: \boog{AB} geeft de boog AB met een boogje erboven
+\newcommand{\boog}[1]{\overset{\frown}{#1}}
+
+% Cirkelfiguren: middelpunt in de oorsprong, straal \straal (standaard 1.6; wijzig met \def\straal{2} in de figuur).
+% \cirkel[opties] tekent de cirkel. \cpunt{naam}{hoek}{label}: een punt op de cirkel, op die hoek (in graden,
+% tegen de wijzers in vanaf rechts), met het label naar buiten. \boogdeel[opties]{van}{tot}: de boog van hoek
+% van naar hoek tot (tegen de wijzers in), dik in de felle kleur.
+\def\straal{1.6}
+\newcommand{\cirkel}[1][]{\draw[accent,thick,#1] (0,0) circle (\straal);}
+\newcommand{\cpunt}[3]{\coordinate (#1) at (#2:\straal); \fill (#1) circle (1.4pt);
+  \node[inner sep=0pt,label={[inner sep=2pt]#2:{$#3$}}] at (#1) {};}
+\newcommand{\boogdeel}[3][]{\draw[fel,line width=1.8pt,#1] (#2:\straal) arc[start angle=#2,end angle=#3,radius=\straal];}

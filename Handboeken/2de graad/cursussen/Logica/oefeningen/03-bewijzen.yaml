@@ -1,0 +1,836 @@
+# Oefeningen van hoofdstuk 3 (alleen pakket 5, het hoofdstuk staat alleen in handboek.tex van pakket 5).
+# Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Werk uit, of beantwoord de vraag.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(2k + 1)^2$
+      antwoord: |-
+        $4k^2 + 4k + 1$
+      uitwerking: |-
+        $(a + b)^2 = a^2 + 2ab + b^2$ met $a = 2k$ en $b = 1$.
+    - opgave: |-
+        $2(k + 3) - 2k$
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        $2k + 6 - 2k$.
+    - opgave: |-
+        Haal 2 buiten de haakjes: $6k + 4$.
+      antwoord: |-
+        $2(3k + 2)$
+      uitwerking: |-
+        $6k = 2 \cdot 3k$ en $4 = 2 \cdot 2$.
+    - opgave: |-
+        Is $2 \cdot 17 + 1$ even of oneven?
+      antwoord: |-
+        oneven
+      uitwerking: |-
+        $35$: één meer dan een even getal.
+    - opgave: |-
+        Een driehoek heeft hoeken van $50^\circ$ en $65^\circ$. Hoe groot is de derde hoek?
+      antwoord: |-
+        $65^\circ$
+      uitwerking: |-
+        $180^\circ - 50^\circ - 65^\circ$.
+    - opgave: |-
+        Geef de contrapositie van: als het regent, is het gras nat.
+      antwoord: |-
+        Als het gras niet nat is, regent het niet.
+      uitwerking: |-
+        Wissel en ontken beide delen.
+
+- id: h3-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.42]
+        \foreach \c/\n in {0/1,2.6/2,5.2/3,7.8/4}{%
+          \draw[grijs] (\c,0) circle (1);
+          \foreach \i in {1,...,\n}{\coordinate (P\i) at ({\c+cos(90+360*(\i-1)/\n)},{sin(90+360*(\i-1)/\n)});}
+          \foreach \i in {1,...,\n}{\foreach \j in {1,...,\n}{\draw[accent] (P\i) -- (P\j);}}
+          \foreach \i in {1,...,\n}{\fill[accent] (P\i) circle (2.5pt);}
+        }
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad Zet punten op een cirkel en verbind elk punt met elk ander punt. De lijnen verdelen de cirkel in stukken. Met 1, 2, 3 en 4 punten krijg je 1, 2, 4 en 8 stukken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welk patroon zie je? Hoeveel stukken verwacht je met 5 punten? Teken en tel.
+      antwoord: |-
+        het aantal verdubbelt; 16
+      uitwerking: |-
+        Met 5 punten tel je inderdaad 16 stukken.
+    - opgave: |-
+        Hoeveel stukken voorspel je met 6 punten?
+      antwoord: |-
+        32
+      uitwerking: |-
+        Het patroon zegt $2 \cdot 16 = 32$.
+    - opgave: |-
+        Met 6 punten (en geen drie lijnen door één punt) zijn er 31 stukken. Wat leer je daaruit?
+      antwoord: |-
+        een patroon kan breken: voorbeelden bewijzen niets
+      uitwerking: |-
+        Vijf gevallen die kloppen, garanderen niet dat het zesde klopt.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h3-tegen
+  soort: kort
+  opgave: |-
+    Weerleg de uitspraak met een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor elk reëel getal $x$ is $\tfrac{1}{x} < x$.
+      antwoord: |-
+        bijvoorbeeld $x = \tfrac12$
+      uitwerking: |-
+        $\tfrac{1}{1/2} = 2 > \tfrac12$. Ook $x = 1$ of $x = -2$ werkt.
+    - opgave: |-
+        Het product van twee getallen is altijd groter dan elk van die twee getallen.
+      antwoord: |-
+        bijvoorbeeld $2 \cdot 1 = 2$
+      uitwerking: |-
+        $2$ is niet groter dan $2$. Ook $3 \cdot 0,5 = 1,5 < 3$.
+    - opgave: |-
+        Twee driehoeken met dezelfde drie hoeken zijn even groot.
+      antwoord: |-
+        twee gelijkzijdige driehoeken met zijde 1 en 2
+      uitwerking: |-
+        Beide hebben drie hoeken van $60^\circ$, maar ze zijn niet even groot.
+
+- id: h3-even
+  soort: kort
+  opgave: |-
+    Neem een geheel getal $k$. Is het getal even of oneven? Toon het aan met de definitie.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $4k + 6$
+      antwoord: |-
+        even: $2(2k + 3)$
+      uitwerking: |-
+        $2k + 3$ is geheel.
+    - opgave: |-
+        $10k + 7$
+      antwoord: |-
+        oneven: $2(5k + 3) + 1$
+      uitwerking: |-
+        $7 = 6 + 1$.
+    - opgave: |-
+        $2k - 3$
+      antwoord: |-
+        oneven: $2(k - 2) + 1$
+      uitwerking: |-
+        $-3 = -4 + 1$.
+
+- id: h3-direct
+  soort: kort
+  opgave: |-
+    Bewijs rechtstreeks.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het product van twee oneven getallen is oneven.
+      antwoord: |-
+        $(2k + 1)(2l + 1) = 2(2kl + k + l) + 1$
+      uitwerking: |-
+        Neem $a = 2k + 1$ en $b = 2l + 1$ met $k$ en $l$ geheel. Dan is $ab = 4kl + 2k + 2l + 1 = 2(2kl + k + l) + 1$. Omdat $2kl + k + l$ geheel is, is $ab$ oneven.
+    - opgave: |-
+        De som van een even en een oneven getal is oneven.
+      antwoord: |-
+        $2k + 2l + 1 = 2(k + l) + 1$
+      uitwerking: |-
+        Neem $a = 2k$ en $b = 2l + 1$. Dan is $a + b = 2(k + l) + 1$, en $k + l$ is geheel: $a + b$ is oneven.
+
+- id: h3-fout
+  soort: kort
+  opgave: |-
+    Wat is er fout aan dit \textit{bewijs}? \textit{Bewering: de som van twee even getallen is deelbaar door 4. Bewijs: neem twee even getallen $a = 2k$ en $b = 2k$. Dan is $a + b = 4k$, en dat is deelbaar door 4.} Geef ook een tegenvoorbeeld.
+  antwoord: |-
+    dezelfde letter $k$ voor $a$ en $b$; tegenvoorbeeld $2 + 4 = 6$
+  uitwerking: |-
+    Met $a = 2k$ en $b = 2k$ zijn $a$ en $b$ gelijk. Met verschillende letters is $a + b = 2(k + l)$, en dat is niet altijd deelbaar door 4: $2 + 4 = 6$.
+
+- id: h3-meetk
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.6,font=\scriptsize]
+        \coordinate (A) at (0,0); \coordinate (B) at (3.6,0); \coordinate (C) at (3,2.2); \coordinate (D) at (.6,1.8);
+        \fill[accent!10] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[accent,thick] (A) -- (B) -- (C) -- (D) -- cycle;
+        \draw[grijs,dashed] (A) -- (C);
+        \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$};
+        \node[above right] at (C) {$C$}; \node[above left] at (D) {$D$};
+      \end{tikzpicture}
+  opgave: |-
+    Bewijs: de som van de hoeken van een vierhoek is $360^\circ$. Tip: de diagonaal $AC$ verdeelt de vierhoek in twee driehoeken.
+  antwoord: |-
+    twee driehoeken: $2 \cdot 180^\circ = 360^\circ$
+  uitwerking: |-
+    De diagonaal $AC$ verdeelt de hoek in $A$ en de hoek in $C$ elk in twee delen. In driehoek $ABC$ en in driehoek $ACD$ is de hoekensom telkens $180^\circ$. Samen zijn dat precies de vier hoeken van de vierhoek, dus hun som is $180^\circ + 180^\circ = 360^\circ$. (Het bewijs werkt zo voor een vierhoek waarvan de diagonaal $AC$ binnen de vierhoek ligt.)
+
+- id: h3-contra
+  soort: kort
+  opgave: |-
+    Bewijs met de contrapositie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Als $n^2$ oneven is, dan is $n$ oneven.
+      antwoord: |-
+        contrapositie: als $n$ even is, dan is $n^2$ even
+      uitwerking: |-
+        Neem $n = 2k$. Dan is $n^2 = 4k^2 = 2(2k^2)$: even. De contrapositie is waar, dus ook de implicatie.
+    - opgave: |-
+        Als $3n + 1$ even is, dan is $n$ oneven.
+      antwoord: |-
+        contrapositie: als $n$ even is, dan is $3n + 1$ oneven
+      uitwerking: |-
+        Neem $n = 2k$. Dan is $3n + 1 = 6k + 1 = 2(3k) + 1$: oneven.
+
+- id: h3-ongerijmd
+  soort: kort
+  opgave: |-
+    Bewijs uit het ongerijmde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een groep van 13 leerlingen zijn er minstens twee in dezelfde maand jarig.
+      antwoord: |-
+        stel dat ze allemaal in een andere maand jarig zijn: dan zijn er minstens 13 maanden
+      uitwerking: |-
+        Stel dat geen twee leerlingen in dezelfde maand jarig zijn. Dan hoort bij elke leerling een andere maand, en zijn er minstens 13 maanden. Maar er zijn er maar 12: een tegenspraak.
+    - opgave: |-
+        Een driehoek heeft hoogstens één stompe hoek.
+      antwoord: |-
+        stel dat er twee stompe hoeken zijn: dan is de hoekensom meer dan $180^\circ$
+      uitwerking: |-
+        Stel dat een driehoek twee stompe hoeken heeft. Die zijn elk groter dan $90^\circ$, dus samen groter dan $180^\circ$. Met de derde hoek erbij is de hoekensom groter dan $180^\circ$. Maar de hoekensom is $180^\circ$: een tegenspraak.
+
+# --- Opdrachten: niveau 1 --------------------------------------------------------------
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    weerleggen met een tegenvoorbeeld
+  opgave: |-
+    Weerleg de uitspraak met een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor elk reëel getal $x$ is $x + x > x$.
+      antwoord: |-
+        $x = 0$ (of elk negatief getal)
+      uitwerking: |-
+        $0 + 0 = 0$, en $0 > 0$ is onwaar.
+    - opgave: |-
+        De som van twee priemgetallen is nooit een priemgetal.
+      antwoord: |-
+        $2 + 3 = 5$
+      uitwerking: |-
+        Ook $2 + 5 = 7$.
+    - opgave: |-
+        Voor elk natuurlijk getal $n \geqslant 1$ is $2^n > n^2$.
+      antwoord: |-
+        bijvoorbeeld $n = 3$
+      uitwerking: |-
+        $2^3 = 8 < 9 = 3^2$. Ook $n = 2$ en $n = 4$ werken ($4 = 4$, $16 = 16$).
+    - opgave: |-
+        Elke vierhoek met twee rechte hoeken is een rechthoek.
+      antwoord: |-
+        een rechthoekig trapezium
+      uitwerking: |-
+        Een trapezium met twee rechte hoeken aan dezelfde opstaande zijde.
+    - opgave: |-
+        Als $ab$ deelbaar is door 4, dan is $a$ of $b$ deelbaar door 4.
+      antwoord: |-
+        $a = b = 2$
+      uitwerking: |-
+        $2 \cdot 2 = 4$, maar 2 is niet deelbaar door 4.
+    - opgave: |-
+        Voor elk reëel getal $a$ is $\sqrt{a^2} = a$.
+      antwoord: |-
+        $a = -3$
+      uitwerking: |-
+        $\sqrt{(-3)^2} = \sqrt9 = 3 \neq -3$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    even en oneven met letters
+  opgave: |-
+    Neem een geheel getal $k$. Is het getal even of oneven? Toon het aan met de definitie.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2k + 4$
+      antwoord: |-
+        even
+      uitwerking: |-
+        $2(k + 2)$.
+    - opgave: |-
+        $6k + 3$
+      antwoord: |-
+        oneven
+      uitwerking: |-
+        $2(3k + 1) + 1$.
+    - opgave: |-
+        $4k^2 + 2$
+      antwoord: |-
+        even
+      uitwerking: |-
+        $2(2k^2 + 1)$.
+    - opgave: |-
+        $2k - 1$
+      antwoord: |-
+        oneven
+      uitwerking: |-
+        $2(k - 1) + 1$.
+    - opgave: |-
+        $(2k + 1) + 2$
+      antwoord: |-
+        oneven
+      uitwerking: |-
+        $2(k + 1) + 1$: het volgende oneven getal.
+    - opgave: |-
+        $(2k + 1) + (2k + 1)$
+      antwoord: |-
+        even
+      uitwerking: |-
+        $4k + 2 = 2(2k + 1)$.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rechtstreeks bewijs met even en oneven
+  opgave: |-
+    Bewijs rechtstreeks.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het verschil van twee oneven getallen is even.
+      antwoord: |-
+        $(2k + 1) - (2l + 1) = 2(k - l)$
+      uitwerking: |-
+        Neem $a = 2k + 1$ en $b = 2l + 1$. Dan is $a - b = 2k - 2l = 2(k - l)$, en $k - l$ is geheel.
+    - opgave: |-
+        Het product van een even getal met een geheel getal is even.
+      antwoord: |-
+        $2k \cdot m = 2(km)$
+      uitwerking: |-
+        Neem $a = 2k$ en een geheel getal $m$. Dan is $am = 2(km)$, en $km$ is geheel.
+    - opgave: |-
+        Het kwadraat van een even getal is deelbaar door 4.
+      antwoord: |-
+        $(2k)^2 = 4k^2$
+      uitwerking: |-
+        Neem $n = 2k$. Dan is $n^2 = 4k^2$, en $k^2$ is geheel.
+    - opgave: |-
+        Het product van twee even getallen is deelbaar door 4.
+      antwoord: |-
+        $2k \cdot 2l = 4kl$
+      uitwerking: |-
+        Neem $a = 2k$ en $b = 2l$. Dan is $ab = 4kl$, en $kl$ is geheel.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de contrapositie opschrijven
+  opgave: |-
+    Je wilt de uitspraak bewijzen met de contrapositie. Schrijf de contrapositie op (je hoeft ze niet te bewijzen).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Als $n^2$ deelbaar is door 3, dan is $n$ deelbaar door 3.
+      antwoord: |-
+        Als $n$ niet deelbaar is door 3, dan is $n^2$ niet deelbaar door 3.
+      uitwerking: |-
+        Wissel en ontken beide delen.
+    - opgave: |-
+        Als $ab$ oneven is, dan zijn $a$ en $b$ allebei oneven.
+      antwoord: |-
+        Als $a$ even is of $b$ even is, dan is $ab$ even.
+      uitwerking: |-
+        Met De Morgan: de ontkenning van \textit{$a$ en $b$ oneven} is \textit{$a$ even of $b$ even}.
+    - opgave: |-
+        Als $a + b$ oneven is, dan is $a \neq b$.
+      antwoord: |-
+        Als $a = b$, dan is $a + b$ even.
+      uitwerking: |-
+        De ontkenning van $a \neq b$ is $a = b$.
+    - opgave: |-
+        Als een driehoek geen twee gelijke hoeken heeft, dan is hij niet gelijkbenig.
+      antwoord: |-
+        Als een driehoek gelijkbenig is, dan heeft hij twee gelijke hoeken.
+      uitwerking: |-
+        Twee keer een dubbele ontkenning.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een bewijs uit het ongerijmde beginnen
+  opgave: |-
+    Je wilt de uitspraak bewijzen uit het ongerijmde. Met welke zin begin je het bewijs? (Je hoeft het bewijs niet af te maken.)
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\sqrt5$ is irrationaal.
+      antwoord: |-
+        Stel dat $\sqrt5$ rationaal is.
+      uitwerking: |-
+        Dus $\sqrt5 = \tfrac ab$, een onvereenvoudigbare breuk.
+    - opgave: |-
+        Er bestaan oneindig veel priemgetallen.
+      antwoord: |-
+        Stel dat er maar eindig veel priemgetallen zijn.
+      uitwerking: |-
+        De ontkenning van \textit{oneindig veel} is \textit{eindig veel}.
+    - opgave: |-
+        Er bestaat geen grootste natuurlijk getal.
+      antwoord: |-
+        Stel dat er een grootste natuurlijk getal is.
+      uitwerking: |-
+        De ontkenning van \textit{er bestaat geen} is \textit{er bestaat een}.
+    - opgave: |-
+        Een driehoek heeft hoogstens één rechte hoek.
+      antwoord: |-
+        Stel dat een driehoek minstens twee rechte hoeken heeft.
+      uitwerking: |-
+        De ontkenning van \textit{hoogstens één} is \textit{minstens twee}.
+
+# --- Opdrachten: niveau 2 --------------------------------------------------------------
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    opeenvolgende getallen
+  opgave: |-
+    Bewijs. Noem het kleinste getal $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De som van drie opeenvolgende gehele getallen is deelbaar door 3.
+      antwoord: |-
+        $n + (n + 1) + (n + 2) = 3(n + 1)$
+      uitwerking: |-
+        $3n + 3 = 3(n + 1)$, en $n + 1$ is geheel. De som is zelfs drie keer het middelste getal.
+    - opgave: |-
+        De som van vijf opeenvolgende gehele getallen is deelbaar door 5.
+      antwoord: |-
+        $5n + 10 = 5(n + 2)$
+      uitwerking: |-
+        $n + (n + 1) + (n + 2) + (n + 3) + (n + 4) = 5n + 10$.
+    - opgave: |-
+        De som van vier opeenvolgende gehele getallen is nooit deelbaar door 4.
+      antwoord: |-
+        $4n + 6 = 4(n + 1) + 2$: rest 2
+      uitwerking: |-
+        De som is $4n + 6 = 4(n + 1) + 2$. Bij deling door 4 is de rest altijd 2, dus nooit 0.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    bewijs in de meetkunde: buitenhoeken
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.65,font=\scriptsize]
+        \coordinate (A) at (0,0); \coordinate (B) at (3,0); \coordinate (C) at (1.2,2);
+        \fill[accent!10] (A) -- (B) -- (C) -- cycle;
+        \draw[accent,thick] (A) -- (B) -- (C) -- cycle;
+        \draw[grijs,dashed] (B) -- (4.1,0) (C) -- ($(C)!-.55!(A)$) (A) -- ($(A)!-.45!(B)$);
+        \node at (3.55,.25) {$\delta_2$};
+        \node at (1.95,2.25) {$\delta_3$};
+        \node at (-.45,-.3) {$\delta_1$};
+        \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[left] at (C) {$C$};
+      \end{tikzpicture}
+  opgave: |-
+    Bewijs: als je in elk hoekpunt van een driehoek één buitenhoek neemt, is de som van die drie buitenhoeken $360^\circ$. Gebruik de eigenschap uit het voorbeeld over de buitenhoek.
+  antwoord: |-
+    $(\beta + \gamma) + (\alpha + \gamma) + (\alpha + \beta) = 2 \cdot 180^\circ$
+  uitwerking: |-
+    Noem de binnenhoeken $\alpha$, $\beta$ en $\gamma$. Elke buitenhoek is de som van de twee binnenhoeken die er niet aan grenzen: $\delta_1 = \beta + \gamma$, $\delta_2 = \alpha + \gamma$, $\delta_3 = \alpha + \beta$. Samen: $\delta_1 + \delta_2 + \delta_3 = 2(\alpha + \beta + \gamma) = 2 \cdot 180^\circ = 360^\circ$.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    fout in een bewijs: het omgekeerde bewezen
+  opgave: |-
+    \textit{Bewering: als $n^2$ deelbaar is door 4, dan is $n$ deelbaar door 4. Bewijs: neem $n = 4k$. Dan is $n^2 = 16k^2 = 4 \cdot 4k^2$, en dat is deelbaar door 4.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is er fout aan het bewijs?
+      antwoord: |-
+        het bewijst het omgekeerde
+      uitwerking: |-
+        Het bewijs vertrekt van \textit{$n$ is deelbaar door 4}, en dat is het besluit. Het bewijst dus: als $n$ deelbaar is door 4, dan is $n^2$ deelbaar door 4. Dat is het omgekeerde van de bewering.
+    - opgave: |-
+        Is de bewering waar? Bewijs of weerleg.
+      antwoord: |-
+        onwaar: $n = 2$
+      uitwerking: |-
+        $2^2 = 4$ is deelbaar door 4, maar 2 niet.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs met twee gevallen
+  opgave: |-
+    Een geheel getal is even of oneven. Soms bewijs je iets door die twee gevallen apart te behandelen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs: voor elk geheel getal $n$ is $n^2 + n$ even. Behandel het geval $n = 2k$ en het geval $n = 2k + 1$.
+      antwoord: |-
+        $n = 2k$: $2(2k^2 + k)$; \ $n = 2k + 1$: $2(2k^2 + 3k + 1)$
+      uitwerking: |-
+        Als $n = 2k$, dan is $n^2 + n = 4k^2 + 2k = 2(2k^2 + k)$. Als $n = 2k + 1$, dan is $n^2 + n = 4k^2 + 4k + 1 + 2k + 1 = 4k^2 + 6k + 2 = 2(2k^2 + 3k + 1)$. In beide gevallen even.
+    - opgave: |-
+        Bewijs het opnieuw, nu zonder gevallen, met $n^2 + n = n(n + 1)$.
+      antwoord: |-
+        van twee opeenvolgende getallen is er één even
+      uitwerking: |-
+        $n$ en $n + 1$ zijn opeenvolgend: één van de twee is even. Het product van een even getal met een geheel getal is even.
+    - opgave: |-
+        Leid af: $n^2 + n + 1$ is nooit deelbaar door 2.
+      antwoord: |-
+        een even getal plus 1 is oneven
+      uitwerking: |-
+        $n^2 + n = 2m$, dus $n^2 + n + 1 = 2m + 1$: oneven.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    bewijs met de contrapositie
+  opgave: |-
+    Bewijs met de contrapositie: als $5n + 3$ oneven is, dan is $n$ even.
+  antwoord: |-
+    contrapositie: als $n$ oneven is, dan is $5n + 3$ even
+  uitwerking: |-
+    Neem $n = 2k + 1$. Dan is $5n + 3 = 10k + 5 + 3 = 10k + 8 = 2(5k + 4)$: even. De contrapositie is waar, dus ook de implicatie.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    bewijs met de contrapositie en De Morgan
+  opgave: |-
+    Bewijs met de contrapositie: als $ab$ oneven is, dan zijn $a$ en $b$ allebei oneven. Schrijf eerst de contrapositie, met de wet van De Morgan.
+  antwoord: |-
+    als $a$ of $b$ even is, dan is $ab$ even
+  uitwerking: |-
+    De contrapositie is: als $a$ even is of $b$ even is, dan is $ab$ even. Is $a = 2k$, dan is $ab = 2(kb)$: even. Is $b = 2l$, dan is $ab = 2(al)$: even. In beide gevallen is $ab$ even.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    bewijzen uit het ongerijmde
+  opgave: |-
+    Bewijs uit het ongerijmde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Er bestaat geen grootste natuurlijk getal.
+      antwoord: |-
+        stel $n$ is het grootste; dan is $n + 1$ groter
+      uitwerking: |-
+        Stel dat $n$ het grootste natuurlijke getal is. Dan is ook $n + 1$ een natuurlijk getal, en $n + 1 > n$: een tegenspraak.
+    - opgave: |-
+        Er bestaat geen kleinste positieve breuk.
+      antwoord: |-
+        stel $\tfrac ab$ is de kleinste; dan is $\tfrac{a}{2b}$ kleiner
+      uitwerking: |-
+        Stel dat $\tfrac ab$ (met $a, b > 0$) de kleinste positieve breuk is. Dan is $\tfrac{a}{2b}$ ook een positieve breuk, en ze is de helft van $\tfrac ab$, dus kleiner: een tegenspraak.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de vierkantswortel van 3 is irrationaal
+  opgave: |-
+    Je mag gebruiken: als $a^2$ deelbaar is door 3, dan is $a$ deelbaar door 3. Bewijs dat $\sqrt3$ irrationaal is, in deze stappen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel dat $\sqrt3 = \tfrac ab$ met $\tfrac ab$ onvereenvoudigbaar. Toon aan dat $a^2 = 3b^2$.
+      antwoord: |-
+        kwadrateren: $3 = \tfrac{a^2}{b^2}$
+      uitwerking: |-
+        $3 = \tfrac{a^2}{b^2}$, dus $a^2 = 3b^2$.
+    - opgave: |-
+        Toon aan dat $a$ deelbaar is door 3, en daarna dat ook $b$ deelbaar is door 3.
+      antwoord: |-
+        $a = 3k$, dan $b^2 = 3k^2$
+      uitwerking: |-
+        $a^2 = 3b^2$ is deelbaar door 3, dus $a$ ook: $a = 3k$. Dan is $9k^2 = 3b^2$, dus $b^2 = 3k^2$, deelbaar door 3, en dus ook $b$.
+    - opgave: |-
+        Waar zit de tegenspraak?
+      antwoord: |-
+        $\tfrac ab$ is dan niet onvereenvoudigbaar
+      uitwerking: |-
+        $a$ en $b$ hebben de gemeenschappelijke deler 3, maar de breuk was onvereenvoudigbaar. Dus is $\sqrt3$ irrationaal.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    bewijzen of weerleggen
+  opgave: |-
+    Is de uitspraak waar? Bewijs ze, of weerleg ze met een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het product van twee opeenvolgende gehele getallen is even.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Van $n$ en $n + 1$ is er één even, zeg $2k$. Het product is dan $2k$ maal een geheel getal, en dus even.
+    - opgave: |-
+        De som van twee priemgetallen is even.
+      antwoord: |-
+        onwaar: $2 + 3 = 5$
+      uitwerking: |-
+        Voor twee oneven priemgetallen klopt het wel (Lottes bewijs), maar 2 is een even priemgetal.
+    - opgave: |-
+        Als $n$ deelbaar is door 6, dan is $n^2$ deelbaar door 36.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Neem $n = 6k$. Dan is $n^2 = 36k^2$.
+    - opgave: |-
+        Voor elk natuurlijk getal $n$ is $n^2 - n + 11$ een priemgetal.
+      antwoord: |-
+        onwaar: $n = 11$
+      uitwerking: |-
+        $11^2 - 11 + 11 = 121 = 11 \cdot 11$. Voor $n = 0, 1, \ldots, 10$ krijg je wel telkens een priemgetal.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een bewijsmethode kiezen
+  opgave: |-
+    Welke methode ligt het meest voor de hand: een tegenvoorbeeld, een rechtstreeks bewijs, een bewijs met de contrapositie of een bewijs uit het ongerijmde? Leg kort uit waarom. Je hoeft het bewijs niet te maken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\sqrt7$ is irrationaal.
+      antwoord: |-
+        uit het ongerijmde
+      uitwerking: |-
+        De uitspraak zegt dat $\sqrt7$ geen breuk kan zijn: neem aan dat het wel een breuk is.
+    - opgave: |-
+        Elk veelvoud van 10 is even.
+      antwoord: |-
+        rechtstreeks
+      uitwerking: |-
+        $10k = 2 \cdot 5k$: het gegeven past meteen in een formule.
+    - opgave: |-
+        Als $n^2 + 4n$ oneven is, dan is $n$ oneven.
+      antwoord: |-
+        met de contrapositie
+      uitwerking: |-
+        \textit{$n$ is even} ($n = 2k$) is een handig gegeven: dan is $n^2 + 4n = 4k^2 + 8k$ even.
+    - opgave: |-
+        Elk getal dat deelbaar is door 3 is deelbaar door 9.
+      antwoord: |-
+        tegenvoorbeeld
+      uitwerking: |-
+        De uitspraak is onwaar: 6.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    kwadraat van een oneven getal min 1
+  opgave: |-
+    Bewijs: als $n$ oneven is, dan is $n^2 - 1$ deelbaar door 8. Probeer eerst $n = 3, 5, 7$. Tip: gebruik dat het product van twee opeenvolgende getallen even is.
+  antwoord: |-
+    $n^2 - 1 = 4k(k + 1)$ en $k(k + 1)$ is even
+  uitwerking: |-
+    $3^2 - 1 = 8$, $5^2 - 1 = 24$, $7^2 - 1 = 48$. Neem $n = 2k + 1$. Dan is $n^2 - 1 = 4k^2 + 4k = 4k(k + 1)$. Het product $k(k + 1)$ van twee opeenvolgende getallen is even, zeg $2m$. Dus is $n^2 - 1 = 4 \cdot 2m = 8m$.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    bewijs uit het ongerijmde in de meetkunde
+  opgave: |-
+    Je weet: door twee verschillende punten gaat precies één rechte. Bewijs uit het ongerijmde: twee verschillende rechten hebben hoogstens één snijpunt.
+  antwoord: |-
+    stel twee snijpunten $A \neq B$: dan gaan beide rechten door $A$ en $B$
+  uitwerking: |-
+    Stel dat twee verschillende rechten $a$ en $b$ twee verschillende snijpunten $A$ en $B$ hebben. Dan gaan $a$ en $b$ allebei door $A$ en $B$. Door twee verschillende punten gaat maar één rechte, dus $a = b$. Maar de rechten waren verschillend: een tegenspraak.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    er zijn oneindig veel priemgetallen (Euclides)
+  opgave: |-
+    Al meer dan 2000 jaar geleden bewees Euclides dat er oneindig veel priemgetallen zijn. Volg zijn idee. Stel dat er maar eindig veel priemgetallen zijn: $p_1, p_2, \ldots, p_k$. Bekijk het getal $N = p_1 \cdot p_2 \cdot \ldots \cdot p_k + 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is $N$ als de enige priemgetallen 2, 3 en 5 zouden zijn?
+      antwoord: |-
+        $31$
+      uitwerking: |-
+        $2 \cdot 3 \cdot 5 + 1 = 31$, en dat is zelf een priemgetal dat niet in de lijst staat.
+    - opgave: |-
+        Wat is de rest als je $N$ deelt door $p_1$? En door een ander priemgetal uit de lijst?
+      antwoord: |-
+        telkens 1
+      uitwerking: |-
+        $N$ is één meer dan een veelvoud van elk $p_i$.
+    - opgave: |-
+        Elk natuurlijk getal groter dan 1 heeft een priemdeler. Waar zit de tegenspraak?
+      antwoord: |-
+        de priemdeler van $N$ staat niet in de lijst
+      uitwerking: |-
+        $N > 1$ heeft een priemdeler. Die moet in de lijst staan, want dat zijn alle priemgetallen. Maar geen enkel getal uit de lijst is een deler van $N$ (de rest is 1). Tegenspraak: er zijn oneindig veel priemgetallen.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    laatste cijfer van een kwadraat
+  opgave: |-
+    Het laatste cijfer van $n^2$ hangt alleen af van het laatste cijfer van $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Maak een tabel: laatste cijfer van $n$ (0 tot 9) en laatste cijfer van $n^2$.
+      antwoord: |-
+        0, 1, 4, 9, 6, 5, 6, 9, 4, 1
+      uitwerking: |-
+        $0^2 = 0$, $1^2 = 1$, $2^2 = 4$, $3^2 = 9$, $4^2 = 16$, $5^2 = 25$, $6^2 = 36$, $7^2 = 49$, $8^2 = 64$, $9^2 = 81$.
+    - opgave: |-
+        Bewijs: een kwadraat van een natuurlijk getal eindigt nooit op 2, 3, 7 of 8.
+      antwoord: |-
+        die cijfers komen niet voor in de tabel
+      uitwerking: |-
+        De tabel bevat alle tien gevallen, en in geen enkel geval is het laatste cijfer 2, 3, 7 of 8. Een bewijs door alle gevallen na te gaan.
+    - opgave: |-
+        Is $1\,234\,567$ het kwadraat van een natuurlijk getal?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Het eindigt op 7.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    fout in een bewijs: delen door nul
+  opgave: |-
+    \textit{Bewering: $2 = 1$. Bewijs: neem $a = b$, met $b \neq 0$. Dan is $a^2 = ab$, dus $a^2 - b^2 = ab - b^2$, dus $(a + b)(a - b) = b(a - b)$. Deel beide leden door $a - b$: $a + b = b$. Omdat $a = b$, is $2b = b$, en dus $2 = 1$.} Welke stap is fout, en waarom?
+  antwoord: |-
+    delen door $a - b = 0$
+  uitwerking: |-
+    Omdat $a = b$, is $a - b = 0$, en delen door 0 mag niet. Alle andere stappen kloppen: $(a + b) \cdot 0 = b \cdot 0$ is waar, maar daaruit volgt niet dat $a + b = b$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Weerleg de uitspraak met een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor elk natuurlijk getal $n$ is $n^2 + 1$ een priemgetal.
+      antwoord: |-
+        bijvoorbeeld $n = 3$
+      uitwerking: |-
+        $3^2 + 1 = 10 = 2 \cdot 5$.
+    - opgave: |-
+        Elke driehoek met een hoek van $60^\circ$ is gelijkzijdig.
+      antwoord: |-
+        een driehoek met hoeken $30^\circ$, $60^\circ$, $90^\circ$
+      uitwerking: |-
+        Die heeft drie verschillende hoeken, dus drie verschillende zijden.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bewijs rechtstreeks: de som van twee opeenvolgende gehele getallen is oneven.
+  antwoord: |-
+    $n + (n + 1) = 2n + 1$
+  uitwerking: |-
+    Noem de getallen $n$ en $n + 1$. Hun som is $2n + 1$, en $n$ is geheel: de som is oneven.
+
+- id: h3-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bewijs: in een rechthoekige driehoek zijn de twee scherpe hoeken samen $90^\circ$.
+  antwoord: |-
+    $\alpha + \beta + 90^\circ = 180^\circ$
+  uitwerking: |-
+    Noem de scherpe hoeken $\alpha$ en $\beta$. De hoekensom geeft $\alpha + \beta + 90^\circ = 180^\circ$, dus $\alpha + \beta = 90^\circ$.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bewijs met de contrapositie: als $3n$ even is, dan is $n$ even.
+  antwoord: |-
+    contrapositie: als $n$ oneven is, dan is $3n$ oneven
+  uitwerking: |-
+    Neem $n = 2k + 1$. Dan is $3n = 6k + 3 = 2(3k + 1) + 1$: oneven. De contrapositie is waar, dus ook de implicatie.
+
+- id: h3-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bewijs uit het ongerijmde: er bestaat geen grootste veelvoud van 3.
+  antwoord: |-
+    stel $n = 3k$ is het grootste; dan is $n + 3 = 3(k + 1)$ groter
+  uitwerking: |-
+    Stel dat $n$ het grootste veelvoud van 3 is, $n = 3k$. Dan is $n + 3 = 3(k + 1)$ ook een veelvoud van 3, en groter dan $n$: een tegenspraak.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Is de uitspraak waar? Bewijs ze, of weerleg ze met een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het product van drie opeenvolgende gehele getallen is even.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Van $n$ en $n + 1$ is er één even, dus $n(n + 1)$ is even, en dan ook $n(n + 1)(n + 2)$.
+    - opgave: |-
+        Elk getal dat deelbaar is door 4 en door 6, is deelbaar door 24.
+      antwoord: |-
+        onwaar: 12
+      uitwerking: |-
+        $12 = 4 \cdot 3 = 6 \cdot 2$, maar $12 : 24 = 0,5$.

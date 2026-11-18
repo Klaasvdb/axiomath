@@ -1,0 +1,506 @@
+%----------------------------------------------------------------------------------------
+% VENNDIAGRAMMEN, DE SOMREGEL EN DE COMPLEMENTREGEL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Verschillen per pakket: drie verzamelingen in een venndiagram (onderdeel, korte oefening, opdrachten, testvraag: 5)
+% en een opdracht van niveau 3 (2-5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Venndiagrammen, som- en complementregel}
+
+\begin{probleem}
+\naast{Op een jeugdkamp zijn 48 kinderen. Voor de namiddag schrijven 30 kinderen zich in voor kajakken en 22 voor klimmen. Op de lijst ziet de leiding dat 9 kinderen zich voor allebei hebben ingeschreven. Wie zich nergens inschrijft, helpt in de keuken. Een leider rekent: $48 - 30 - 22 = -4$. Dat kan niet: een negatief aantal kinderen bestaat niet. Wat loopt er mis? En hoeveel kinderen helpen in de keuken?}{\begin{tikzpicture}[x=11mm,y=5mm,font=\scriptsize]
+  \def\vink#1#2{\draw[accent,thick] (#1-.12,#2) -- (#1-.04,#2-.22) -- (#1+.13,#2+.25);}
+  \fill[accent!12] (-.1,.5) rectangle (2.6,-5.5);
+  \node[anchor=west,font=\scriptsize\bfseries] at (-.05,0) {naam};
+  \node[font=\scriptsize\bfseries] at (1.35,0) {kajak};
+  \node[font=\scriptsize\bfseries] at (2.15,0) {klim};
+  \draw[grijs] (-.1,-.5) -- (2.6,-.5);
+  \foreach \n/\a/\b [count=\i] in {Lotte/1/1,Milan/1/0,Sara/0/0,Yusuf/0/1}{%
+    \node[anchor=west] at (-.05,-\i) {\n};
+    \ifnum\a=1 \vink{1.35}{-\i}\fi
+    \ifnum\b=1 \vink{2.15}{-\i}\fi}
+  \node[grijs] at (1.25,-5) {$\vdots$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{1}{25}\alleenvoor{2}{29}\alleenvoor{3}{31}\alleenvoor{4,5}{35} (dit hoofdstuk: het venndiagram, de somregel, de somregel met overlap bij twee verzamelingen en de complementregel\alleenvoor{5}{, en als verdieping drie verzamelingen in een venndiagram}). Voorkennis: hoofdstuk 1 (de productregel), en verzamelingen uit de 1ste graad. De notatie $\#A$ voor het aantal elementen sluit aan bij de 3de graad. Laat het probleem eerst proberen: de fout van de leider (de 9 kinderen die zich voor allebei inschreven, worden twee keer afgetrokken) is de kern van het hoofdstuk.}
+
+In hoofdstuk 1 vermenigvuldigde je: een keuze in stappen gaf een product. Maar vaak moet je optellen of aftrekken. Je telt twee groepen samen, of je telt wat \textit{niet} bij een groep hoort. Daarbij loert een gevaar: wie in twee groepen tegelijk zit, tel je makkelijk twee keer. In dit hoofdstuk teken je groepen in een venndiagram, en leer je drie regels om ermee te tellen: de somregel, de somregel met overlap en de complementregel. Daarna vind je hoeveel kinderen er in de keuken helpen.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. Bij vraag c tellen veel leerlingen $7 + 5 = 12$: de getallen 6 en 12 staan in beide cirkels. Dat is het idee van de somregel met overlap.}
+
+%========================================================================================
+\section{Venndiagrammen}
+
+\subsection{Verzamelingen tellen}
+
+Een groep van dingen noemen we in de wiskunde een \textit{verzameling}, en de dingen erin de \textit{elementen}. Je schrijft een verzameling met accolades: de even getallen van 1 tot 10 vormen de verzameling $\{2, 4, 6, 8, 10\}$. Bij het tellen vragen we: hoeveel elementen heeft een verzameling? Daarvoor is er een kort teken.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{aantal elementen}} van een eindige verzameling $A$ noteren we $\formule{\#A}$.
+\end{theorie}
+
+Je leest $\#A$ als \textit{het aantal elementen van $A$}. Voor $A = \{2, 4, 6, 8, 10\}$ is $\#A = 5$. Een verzameling zonder elementen heet de \textit{lege verzameling}, met teken $\emptyset$. Dan is $\#\emptyset = 0$.
+
+\subsection{Het venndiagram}
+
+Hoe toon je twee verzamelingen tegelijk, als sommige elementen in allebei zitten? In de Verken zat 6 zowel bij de even getallen als bij de veelvouden van 3. In een \textbf{venndiagram} teken je elke verzameling als een gesloten lijn, bijvoorbeeld een cirkel, met de elementen erin. De cirkels overlappen, en in het stuk dat ze gemeen hebben, staan de elementen van allebei. Rond alles staat een rechthoek: de \textit{omgevingsverzameling} $U$, met alle elementen waarover het gaat.
+
+\voorbeeld{}{$U$ is de verzameling van de getallen van 1 tot en met 20. $A$ zijn de even getallen, $B$ de veelvouden van 5. Teken een venndiagram en tel de elementen in elk stuk.\label{vb:h2-venn}}{%
+\uitleg{We zetten elk getal op zijn plaats. De getallen die even zijn én een veelvoud van 5, komen in het midden. Dat zijn de veelvouden van 10. Getallen die in geen van beide horen, komen buiten de cirkels.}
+\naast{\begin{minipage}{7.4cm}
+\begin{stappenvrij}{2.4cm}{4.6cm}
+10, 20 & In het midden: 2 getallen. \\
+2, 4, 6, \ldots, 18 & Alleen in $A$: de 8 andere even getallen. \\
+5, 15 & Alleen in $B$: 2 getallen. \\
+1, 3, 7, \ldots & Buiten de cirkels: de 8 overige.
+\end{stappenvrij}
+
+\vspace{1mm}
+Controle: $2 + 8 + 2 + 8 = 20$, alle getallen staan erin.
+\end{minipage}}{\begin{tikzpicture}[scale=1.25]
+  \venntwee{$A$}{$B$}
+  \node[font=\scriptsize,align=center] at (vA) {2\ \ 4\\6\ \ 8\\12 14\\16 18};
+  \node[font=\scriptsize,align=center] at (vAB) {10\\20};
+  \node[font=\scriptsize,align=center] at (vB) {5\\15};
+  \node[font=\scriptsize,align=center] at (2.62,-.5) {1\ \ 3\\7\ \ 9\\11 13\\17 19};
+\end{tikzpicture}}}
+
+Een venndiagram met twee cirkels heeft dus altijd vier stukken: alleen in $A$, in allebei, alleen in $B$, en in geen van beide. Vaak schrijf je niet de elementen zelf in het diagram, maar alleen hoeveel het er zijn.
+
+\subsection{Een venndiagram invullen}
+
+Bij een enquête ken je meestal niet elk element, maar wel een paar aantallen. Kun je daarmee alle vier de stukken vinden? Ja, als je in het midden begint.
+
+\voorbeeld{}{In een klas van 25 leerlingen spelen 12 leerlingen voetbal en 9 basketbal. Vier leerlingen doen allebei. Vul een venndiagram in. Hoeveel leerlingen doen geen van beide sporten?\label{vb:h2-invullen}}{%
+\uitleg{De 12 voetballers zijn niet allemaal \textit{alleen} voetballers: 4 ervan doen ook basketbal. Daarom vullen we eerst het midden in, en trekken we dat af.}
+\naast{\begin{minipage}{8.8cm}
+\begin{stappenvrij}{3.5cm}{5cm}
+4 & In het midden: wie allebei doet. \\
+12 - 4 = 8 & Alleen voetbal. \\
+9 - 4 = 5 & Alleen basketbal. \\
+25 - 8 - 4 - 5 = 8 & Buiten de cirkels: geen van beide.
+\end{stappenvrij}
+
+\vspace{1mm}
+Acht leerlingen doen geen van beide sporten.
+\end{minipage}}{\begin{tikzpicture}[scale=1.15]
+  \venntwee{voetbal}{basket}
+  \vennaantal{8}{4}{5}{8}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Begin in het midden, met het aantal dat in beide verzamelingen zit. Trek dat af van het aantal van elke verzameling: zo vind je wat \textit{alleen} in die verzameling zit. Wat dan nog ontbreekt tot het totaal, staat buiten de cirkels. Controleer of de vier aantallen samen het totaal geven.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-venn}
+\end{oefeningen}
+
+\subsection{Doorsnede en unie}
+
+In het voorbeeld zat het antwoord in verschillende stukken van het diagram. Twee combinaties van stukken komen zo vaak voor, dat ze een naam hebben. Het stuk in het midden bevat wat in $A$ \textit{en} in $B$ zit.
+
+\begin{theorie}
+\naast{De \textbf{\textcolor{accent}{doorsnede}} $\formule{A \cap B}$ is de verzameling van de elementen die in $A$ \textit{en} in $B$ zitten.}{\begin{tikzpicture}[scale=.55]
+  \begin{scope}\clip \cirkelA; \fill[accent!45] \cirkelB;\end{scope}
+  \draw[grijs] \vennU; \draw[accent,thick] \cirkelA; \draw[accent,thick] \cirkelB;
+  \node[font=\scriptsize,text=accent] at (-.75,.95) {$A$}; \node[font=\scriptsize,text=accent] at (1.85,.95) {$B$};
+\end{tikzpicture}}
+\end{theorie}
+
+Je leest $A \cap B$ als \textit{$A$ doorsnede $B$}. Ook de stukken samen, alles wat in minstens één van de twee cirkels zit, krijgen een naam.
+
+\begin{theorie}
+\naast{De \textbf{\textcolor{accent}{unie}} $\formule{A \cup B}$ is de verzameling van de elementen die in $A$ \textit{of} in $B$ zitten, of in allebei.}{\begin{tikzpicture}[scale=.55]
+  \fill[accent!45] \cirkelA; \fill[accent!45] \cirkelB;
+  \draw[grijs] \vennU; \draw[accent,thick] \cirkelA; \draw[accent,thick] \cirkelB;
+  \node[font=\scriptsize,text=accent] at (-.75,.95) {$A$}; \node[font=\scriptsize,text=accent] at (1.85,.95) {$B$};
+\end{tikzpicture}}
+\end{theorie}
+
+Je leest $A \cup B$ als \textit{$A$ unie $B$}. Let op het woord \textit{of}. In de omgangstaal betekent \textit{koffie of thee} vaak: één van de twee, niet allebei. In de wiskunde hoort \textit{allebei} er altijd bij. Een leerling die voetbal en basketbal speelt, hoort bij \textit{voetbal of basketbal}.
+
+\voorbeeld{}{$A$ is de verzameling van de letters van het woord WISKUNDE, $B$ die van het woord KUNST. Bepaal $A \cap B$ en $A \cup B$, en tel hun elementen.\label{vb:h2-doorsnede}}{%
+\uitleg{Een verzameling bevat elk element maar één keer. We schrijven eerst de letters van elk woord op, en vergelijken dan.}
+\naast{\begin{minipage}{10cm}
+\begin{stappenvrij}{5.6cm}{4.1cm}
+A = \{\text{W, I, S, K, U, N, D, E}\} & 8 letters, $\#A = 8$. \\
+B = \{\text{K, U, N, S, T}\} & $\#B = 5$. \\
+A \cap B = \{\text{S, K, U, N}\} & De letters in beide woorden: 4. \\
+A \cup B = \{\text{W, I, S, K, U, N, D, E, T}\} & De letters in minstens één woord: 9.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[scale=.85]
+  \venntwee{$A$}{$B$}
+  \node[font=\scriptsize,align=center] at (vA) {W\ \ I\\D\ \ E};
+  \node[font=\scriptsize,align=center] at (vAB) {S\ \ K\\U\ \ N};
+  \node[font=\scriptsize] at (vB) {T};
+\end{tikzpicture}}
+Merk op dat $\#(A \cup B) = 9$, en niet $8 + 5 = 13$. Dat zoeken we in de volgende sectie uit.}
+
+\begin{oefeningen}
+\oef{h2-doorsnede}
+\end{oefeningen}
+
+%========================================================================================
+\section{De somregel}
+
+\subsection{Twee verzamelingen zonder gemeenschappelijke elementen}
+
+Wanneer mag je twee aantallen gewoon optellen? In een klas met 13 meisjes en 12 jongens zitten $13 + 12 = 25$ leerlingen, want niemand is tegelijk meisje en jongen. In een venndiagram overlappen de twee cirkels dan niet: de doorsnede is leeg. Zulke verzamelingen heten \textit{disjunct}.
+
+\begin{theorie}
+\begin{stelling}{Somregel}
+Hebben $A$ en $B$ geen gemeenschappelijke elementen, dus $A \cap B = \emptyset$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\#(A \cup B) = \#A + \#B}$
+\end{stelling}
+\end{theorie}
+
+De regel geldt ook voor meer dan twee verzamelingen, zolang geen twee ervan een element gemeen hebben. In een telprobleem herken je de somregel aan het woord \textit{of}, als de gevallen elkaar uitsluiten: een code van 3 \textit{of} van 4 cijfers. Elk geval tel je dan apart, vaak met de productregel.
+
+\voorbeeld{}{Een ander cijferslot laat je zelf kiezen of je code 3 of 4 cijfers lang is. Hoeveel codes zijn er?\label{vb:h2-som}}{%
+\uitleg{Een code heeft 3 cijfers of 4 cijfers, nooit allebei. Dat zijn twee gevallen zonder gemeenschappelijke elementen. Elk geval tellen we met de productregel, en dan tellen we op.}
+\naast{\begin{minipage}{9.8cm}
+\begin{stappenvrij}{4.4cm}{5cm}
+10^3 = 1000 & Codes van 3 cijfers. \\
+10^4 = 10\,000 & Codes van 4 cijfers. \\
+1000 + 10\,000 = 11\,000 & Somregel: er zijn $11\,000$ codes.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[scale=.8]
+  \draw[grijs] (-1.3,-1) rectangle (2.9,1);
+  \draw[verz] (0,0) circle (.8); \draw[verz] (1.65,0) circle (.8);
+  \node[font=\scriptsize,align=center] at (0,0) {3 cijfers\\1000};
+  \node[font=\scriptsize,align=center] at (1.65,0) {4 cijfers\\$10\,000$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-som}
+\end{oefeningen}
+
+\subsection{Gevallen onderscheiden}
+
+In hoofdstuk 1 telde je de oneven getallen van drie verschillende cijfers met de productregel. Hoeveel \textit{even} getallen van drie verschillende cijfers zijn er? Begin je weer bij het laatste cijfer, dan heb je 5 mogelijkheden: 0, 2, 4, 6 of 8. Maar dan loopt het mis bij het eerste cijfer. Is het laatste cijfer 0, dan mag het eerste cijfer 1 tot 9 zijn: 9 mogelijkheden. Is het laatste cijfer 4, dan vallen 0 en 4 af: 8 mogelijkheden. Het aantal ligt niet vast, dus de productregel werkt niet in één keer. De oplossing: splits in gevallen waarin het aantal wel vastligt, en tel ze op met de somregel.
+
+\voorbeeld{}{Hoeveel even getallen van drie verschillende cijfers zijn er?\label{vb:h2-gevallen}}{%
+\uitleg{We splitsen volgens het laatste cijfer: 0, of een van de cijfers 2, 4, 6, 8. In elk geval ligt het aantal mogelijkheden per stap vast. De gevallen sluiten elkaar uit, dus mogen we optellen.}
+\begin{stappenbreed}
+\text{laatste cijfer } 0: \quad 9 \cdot 8 = 72 & Eerste cijfer 1 tot 9, middelste niet de twee gebruikte. \\
+\text{laatste cijfer } 2, 4, 6, 8: \quad 4 \cdot 8 \cdot 8 = 256 & 4 keuzes voor het laatste, eerste niet 0 en niet het laatste, middelste niet de twee gebruikte. \\
+72 + 256 = 328 & Somregel: er zijn 328 zulke getallen.
+\end{stappenbreed}}
+
+Wie toch in één keer vermenigvuldigt met 8 mogelijkheden voor het eerste cijfer, vindt $5 \cdot 8 \cdot 8 = 320$: te weinig, want bij een 0 achteraan zijn er 9 mogelijkheden vooraan.
+
+Ook bij routes splits je in gevallen, als er verschillende wegen zijn die niet langs dezelfde plaatsen lopen.
+
+\voorbeeld{}{Hoeveel routes zijn er van A naar D in het wegendiagram?\label{vb:h2-routes}}{%
+\uitleg{Een route loopt langs B of langs C, nooit langs allebei: twee gevallen. Elk geval tellen we met de productregel.}
+\naast{\begin{minipage}{8.6cm}
+\begin{stappenvrij}{2.8cm}{5.5cm}
+3 \cdot 2 = 6 & Langs B: 3 wegen naar B, 2 van B naar D. \\
+2 \cdot 4 = 8 & Langs C: 2 wegen naar C, 4 van C naar D. \\
+6 + 8 = 14 & Somregel: 14 routes.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize]
+  \node[stad,label=left:A] (A) at (0,0) {};
+  \node[stad,label=above:B] (B) at (2,1) {};
+  \node[stad,label=below:C] (C) at (2,-1) {};
+  \node[stad,label=right:D] (D) at (4,0) {};
+  \draw[tak] (A) to[bend left=25] (B); \draw[tak] (A) -- (B); \draw[tak] (A) to[bend right=25] (B);
+  \draw[tak] (B) to[bend left=15] (D); \draw[tak] (B) to[bend right=15] (D);
+  \draw[tak] (A) to[bend left=15] (C); \draw[tak] (A) to[bend right=15] (C);
+  \draw[tak] (C) to[bend left=30] (D); \draw[tak] (C) to[bend left=10] (D);
+  \draw[tak] (C) to[bend right=10] (D); \draw[tak] (C) to[bend right=30] (D);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Hangt het aantal mogelijkheden in een stap af van een vorige keuze, splits dan in gevallen waarin het aantal wel vastligt. Tel elk geval met de productregel. Zorg dat elke mogelijkheid in precies één geval zit, en tel de gevallen op.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-gevallen}
+\end{oefeningen}
+
+%========================================================================================
+\section{De somregel met overlap}
+
+Wat als twee verzamelingen wel gemeenschappelijke elementen hebben? In de Verken waren er 7 even getallen en 5 veelvouden van 3, maar samen geen 12: in de cirkels stonden er maar 10. De getallen 6 en 12 zitten in beide verzamelingen. In $7 + 5$ heb je ze dus twee keer geteld: één keer bij de even getallen en één keer bij de veelvouden van 3.
+
+\figuren{\begin{tikzpicture}[scale=1.1]
+  \venntwee{$A$}{$B$}
+  \node[font=\scriptsize,align=center] at (vA) {2\ \ 4\\8\ \ 10\\14};
+  \node[font=\scriptsize,align=center] at (vAB) {6\\12};
+  \node[font=\scriptsize,align=center] at (vB) {3\ \ 9\\15};
+  \node[font=\scriptsize,align=center] at (2.6,-.75) {1\ \ 5\\7\ \ 11\\13};
+\end{tikzpicture}\qquad
+\raisebox{12mm}{\begin{minipage}{6.2cm}\small
+$A$: de even getallen, $B$: de veelvouden van 3.\\
+$\#A = 7$: de cirkel links, met 6 en 12.\\
+$\#B = 5$: de cirkel rechts, ook met 6 en 12.\\
+$\#A + \#B = 12$: 6 en 12 tellen twee keer.\\
+$\#(A \cup B) = 12 - 2 = 10$.
+\end{minipage}}}
+
+Wil je elk element één keer tellen, dan trek je het midden één keer af. Dat geldt voor elke twee verzamelingen.
+
+\begin{theorie}
+\begin{stelling}{Somregel met overlap}
+Voor eindige verzamelingen $A$ en $B$ is
+
+\vspace{1mm}
+\qquad $\formule{\#(A \cup B) = \#A + \#B - \#(A \cap B)}$
+\end{stelling}
+\end{theorie}
+
+In $\#A + \#B$ is elk element van de doorsnede twee keer geteld, en elk ander element één keer. Daarom trek je $\#(A \cap B)$ één keer af. Hebben $A$ en $B$ geen gemeenschappelijke elementen, dan is $\#(A \cap B) = 0$, en vind je de gewone somregel terug. Deze regel heet ook de \textit{regel van inclusie en exclusie}: eerst neem je alles mee (inclusie), dan haal je wat dubbel is eruit (exclusie).
+
+\voorbeeld{}{Hoeveel getallen van 1 tot en met 60 zijn deelbaar door 3 of door 4?\label{vb:h2-overlap}}{%
+\uitleg{Noem $A$ de veelvouden van 3 en $B$ de veelvouden van 4. Sommige getallen, zoals 12, zitten in beide. Een getal dat deelbaar is door 3 en door 4, is deelbaar door 12.}
+\naast{\begin{minipage}{9cm}
+\begin{stappenvrij}{3.6cm}{5.1cm}
+\#A = 20, \quad \#B = 15 & $60 : 3 = 20$ en $60 : 4 = 15$. \\
+\#(A \cap B) = 5 & De veelvouden van 12: $60 : 12 = 5$. \\
+20 + 15 - 5 = 30 & Somregel met overlap.
+\end{stappenvrij}
+
+\vspace{1mm}
+Er zijn 30 zulke getallen. Het diagram toont ook de stukken: $20 - 5 = 15$ alleen deelbaar door 3, en $15 - 5 = 10$ alleen door 4.
+\end{minipage}}{\begin{tikzpicture}
+  \venntwee{door 3}{door 4}
+  \vennaantal{15}{5}{10}{30}
+\end{tikzpicture}}}
+
+Je kunt de regel ook omgekeerd gebruiken: ken je het aantal in de unie, dan vind je het aantal in de doorsnede.
+
+\voorbeeld{}{In een groep van 40 jongeren spreekt iedereen Frans of Engels. 28 jongeren spreken Frans, en 21 spreken Engels. Hoeveel jongeren spreken allebei?\label{vb:h2-omgekeerd}}{%
+\uitleg{Iedereen spreekt minstens een van de twee talen, dus $\#(F \cup E) = 40$. In de regel is alleen de doorsnede onbekend.}
+\begin{stappen}
+40 = 28 + 21 - \#(F \cap E) & Somregel met overlap. \\
+\#(F \cap E) = 49 - 40 = 9 & De 9 jongeren die allebei spreken, zijn twee keer geteld in $28 + 21 = 49$.
+\end{stappen}
+Negen jongeren spreken Frans en Engels.}
+
+\begin{werkwijze}
+Benoem de twee verzamelingen. Zoek het aantal elementen van elk, en van de doorsnede: wat zit in beide? Tel de eerste twee op en trek de doorsnede af. Kijk eerst of de verzamelingen wel overlappen: zo niet, dan is het gewoon de somregel.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-overlap}
+\end{oefeningen}
+
+%========================================================================================
+\section{De complementregel}
+
+\subsection{Het complement}
+
+Soms is het makkelijker om te tellen wat je \textit{niet} wilt. Hoeveel getallen van 1 tot 100 zijn geen kwadraat? Je kunt ze niet snel opsommen, maar de kwadraten wel: $1, 4, 9, \ldots, 100$. Dat zijn er 10. Dan blijven er $100 - 10 = 90$ over. Wat buiten een verzameling ligt, krijgt een eigen naam.
+
+\begin{theorie}
+\naast{Is $A$ een deel van de omgevingsverzameling $U$, dan is het \textbf{\textcolor{accent}{complement}} $\formule{\overline{A}}$ de verzameling van de elementen van $U$ die niet in $A$ zitten.}{\begin{tikzpicture}[scale=.55]
+  \fill[accent!45,even odd rule] (-1.45,-1.25) rectangle (1.45,1.3) \cirkelA;
+  \draw[grijs] (-1.45,-1.25) rectangle (1.45,1.3); \draw[accent,thick] \cirkelA;
+  \node[font=\scriptsize,text=accent] at (0,0) {$A$};
+  \node[font=\scriptsize] at (1.05,-.95) {$\overline{A}$};
+\end{tikzpicture}}
+\end{theorie}
+
+Je leest $\overline{A}$ als \textit{niet $A$} of \textit{het complement van $A$}. Je schrijft het ook als $U \setminus A$: $U$ zonder $A$. Wat het complement is, hangt af van $U$. Het complement van de even getallen is in $U = \{1, 2, \ldots, 10\}$ de verzameling $\{1, 3, 5, 7, 9\}$.
+
+Een element zit in $A$ of in $\overline{A}$, nooit in allebei. Met de somregel is dus $\#A + \#\overline{A} = \#U$. Daaruit volgt meteen een regel om te tellen.
+
+\begin{theorie}
+\begin{stelling}{Complementregel}
+Is $A$ een deel van een eindige omgevingsverzameling $U$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\#\overline{A} = \#U - \#A}$
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Hoeveel getallen van drie cijfers hebben minstens twee gelijke cijfers?\label{vb:h2-complement}}{%
+\uitleg{\textit{Minstens twee gelijke cijfers} zijn veel gevallen: 112, 121, 211, 555, \ldots{} Het complement is één geval: drie verschillende cijfers. Dat aantal vonden we in hoofdstuk 1 (voorbeeld~\ref{vb:h1-voorwaarde}).}
+\begin{stappen}
+\#U = 900 & Alle getallen van drie cijfers: $9 \cdot 10 \cdot 10$. \\
+\#\overline{A} = 9 \cdot 9 \cdot 8 = 648 & Drie verschillende cijfers. \\
+\#A = 900 - 648 = 252 & Complementregel.
+\end{stappen}
+Er zijn 252 getallen van drie cijfers met minstens twee gelijke cijfers.}
+
+\begin{oefeningen}
+\oef{h2-complement}
+\end{oefeningen}
+
+\subsection{Minstens één}
+
+Hoeveel codes van vier cijfers bevatten minstens één 7? Rechtstreeks moet je veel gevallen tellen: precies één 7, precies twee, drie of vier. Het complement van \textit{minstens één 7} is \textit{geen enkele 7}, en dat is één geval dat je met de productregel telt.
+
+\voorbeeld{}{Hoeveel codes van vier cijfers bevatten minstens één 7?\label{vb:h2-minstens}}{%
+\uitleg{We tellen alle codes, en trekken er de codes zonder 7 af. Een code zonder 7 heeft op elke plaats 9 mogelijkheden.}
+\begin{stappen}
+10^4 = 10\,000 & Alle codes. \\
+9^4 = 6561 & Codes zonder 7. \\
+10\,000 - 6561 = 3439 & Complementregel: codes met minstens één 7.
+\end{stappen}}
+
+\begin{werkwijze}
+Zie je \textit{minstens één}, \textit{minstens twee gelijke} of \textit{niet allemaal}, tel dan het complement. Bepaal wat $U$ is en tel $\#U$. Formuleer het complement (bij \textit{minstens één}: \textit{geen enkele}), tel het, en trek af.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-minstens}
+\end{oefeningen}
+
+\subsection{Geen van beide}
+
+Nu hebben we alles om het probleem op te lossen. De kinderen in de keuken schreven zich niet in voor kajakken en ook niet voor klimmen. Ze liggen buiten beide cirkels: in het complement van de unie. Eerst tellen we de unie met de somregel met overlap, dan nemen we het complement.
+
+\voorbeeld{}{Terug naar het probleem. Van de 48 kinderen kiezen 30 kajakken, 22 klimmen en 9 allebei. Hoeveel kinderen helpen in de keuken? Wat loopt er mis bij de berekening $48 - 30 - 22$?\label{vb:h2-terug}}{%
+\uitleg{Noem $K$ de kajakkers en $L$ de klimmers. De kinderen in de keuken zitten in $\overline{K \cup L}$. We tellen eerst $K \cup L$.}
+\naast{\begin{minipage}{9cm}
+\begin{stappenvrij}{4.4cm}{4.3cm}
+\#(K \cup L) = 30 + 22 - 9 = 43 & Somregel met overlap. \\
+\#\overline{K \cup L} = 48 - 43 = 5 & Complementregel.
+\end{stappenvrij}
+
+\vspace{1mm}
+Vijf kinderen helpen in de keuken. De leider trok de 9 kinderen die allebei kozen twee keer af: één keer bij de 30 en één keer bij de 22. Daarom kwam hij $9$ te laag uit: $-4 + 9 = 5$.
+\end{minipage}}{\begin{tikzpicture}
+  \fill[accent!35,even odd rule] \vennU \cirkelA \cirkelB;
+  \fill[white] \cirkelA; \fill[white] \cirkelB;
+  \venntwee{kajak}{klimmen}
+  \vennaantal{21}{9}{13}{5}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-geenvan}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+%----------------------------------------------------------------------------------------
+\subsection{Drie verzamelingen}
+
+Wat als er drie groepen zijn? Een venndiagram met drie cirkels heeft acht stukken: het midden waar alle drie overlappen, drie stukken waar precies twee overlappen, drie stukken met maar één verzameling, en het stuk erbuiten. Ook hier vul je het diagram in door in het midden te beginnen.
+
+\voorbeeld{}{Van 50 leerlingen spelen er 20 piano, 18 gitaar en 15 drums. Er zijn 7 leerlingen die piano en gitaar spelen, 5 die piano en drums spelen, en 4 die gitaar en drums spelen. Twee leerlingen spelen alle drie. Vul een venndiagram in. Hoeveel leerlingen spelen geen van de drie instrumenten?\label{vb:h2-drie}}{%
+\uitleg{De 7 leerlingen met piano en gitaar zijn niet allemaal \textit{alleen} met die twee: de 2 die alle drie spelen, zitten erbij. We beginnen dus in het midden, dan de stukken met twee instrumenten, dan die met één.}
+\naast{\begin{minipage}{8.3cm}
+\begin{stappenvrij}{3.1cm}{4.9cm}
+2 & Alle drie: het midden. \\
+7 - 2 = 5 & Alleen piano en gitaar. \\
+5 - 2 = 3, \ \ 4 - 2 = 2 & Alleen piano en drums, alleen gitaar en drums. \\
+20 - 5 - 2 - 3 = 10 & Alleen piano. \\
+18 - 5 - 2 - 2 = 9 & Alleen gitaar. \\
+15 - 3 - 2 - 2 = 8 & Alleen drums. \\
+50 - 39 = 11 & Samen staan er $10 + 9 + 8 + 5 + 3 + 2 + 2 = 39$ in de cirkels.
+\end{stappenvrij}
+
+\vspace{1mm}
+Elf leerlingen spelen geen van de drie instrumenten.
+\end{minipage}}{\begin{tikzpicture}[scale=1.1]
+  \venndrie{piano}{gitaar}{drums}
+  \vennaantaldrie{10}{9}{8}{5}{3}{2}{2}{11}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-drie}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o3}
+
+\oef{h2-o2}
+
+\oef{h2-o4}
+
+\oef{h2-o6}
+
+\oef{h2-o5}
+
+\oef{h2-o8}
+
+\oef{h2-o7}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o14}
+
+\oef{h2-o13}
+
+\oef{h2-o15}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o16}
+
+\oef{h2-o22}
+
+\oef{h2-o21}
+
+\oef{h2-o25}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-invullen}{oef:h2-venn}%
+  \fv{oef:h2-t2}{vb:h2-doorsnede}{oef:h2-doorsnede}%
+  \fv{oef:h2-t3}{vb:h2-som}{oef:h2-som}%
+  \fv{oef:h2-t4}{vb:h2-gevallen}{oef:h2-gevallen}%
+  \fv{oef:h2-t5}{vb:h2-overlap}{oef:h2-overlap}%
+  \fv{oef:h2-t6}{vb:h2-minstens}{oef:h2-minstens}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-geenvan}%
+  \alleenvoor{5}{\fv{oef:h2-t8}{vb:h2-drie}{oef:h2-drie}}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat $\#A$ betekent, hoe je een venndiagram invult, wat de doorsnede, de unie en het complement zijn (met een tekening), de somregel, de somregel met overlap en de complementregel, wanneer je gevallen onderscheidt, en wat je doet bij \textit{minstens één}. Vergelijk daarna met de kaders.
+\fi

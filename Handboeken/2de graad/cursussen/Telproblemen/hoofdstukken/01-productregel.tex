@@ -1,0 +1,429 @@
+%----------------------------------------------------------------------------------------
+% BOOMDIAGRAMMEN EN DE PRODUCTREGEL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Verschillen per pakket: de faculteit als notatie (uitleg, 4-5) en twee opdrachten van niveau 3 (2-5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Boomdiagrammen en de productregel}
+
+\begin{probleem}
+\naast{Het cijferslot van Noor heeft vier schijfjes, elk met de cijfers 0 tot en met 9. Ze is haar code vergeten. Ze weet nog dat de code met een 7 begint, en dat er geen twee gelijke cijfers in staan. Ze probeert de codes één voor één, en elke poging duurt ongeveer 5 seconden. Is ze in het slechtste geval binnen het uur klaar? En hoelang zou het duren als ze niets meer van haar code wist?}{\begin{tikzpicture}[font=\small]
+  \draw[grijs,line width=2.2pt,rounded corners=6pt] (.35,.9) -- (.35,1.7) arc (180:0:.85) -- (2.05,.9);
+  \fill[accent!15,rounded corners=3pt] (0,-.55) rectangle (2.4,.95);
+  \draw[accent,thick,rounded corners=3pt] (0,-.55) rectangle (2.4,.95);
+  \foreach \c/\t in {0/7,1/?,2/?,3/?}{%
+    \draw[accent,fill=white] (.2+\c*.52,-.25) rectangle (.66+\c*.52,.65);
+    \node at (.43+\c*.52,.2) {\t};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{1}{25}\alleenvoor{2}{29}\alleenvoor{3}{31}\alleenvoor{4,5}{35} (dit hoofdstuk: systematisch tellen met een boomdiagram, een wegendiagram en een tabel, en de productregel). Hoofdstuk 2 behandelt de somregel, de complementregel en het venndiagram. Voorkennis: geen, behalve rekenen met machten. Variaties, permutaties en combinaties met formules horen bij de 3de graad: hier redeneren leerlingen alleen met de productregel, ook bij \textit{alle volgordes}. Laat het probleem eerst proberen: de meeste leerlingen beginnen codes op te schrijven en zien snel dat dat niet lukt.}
+
+Hoeveel codes heeft een cijferslot? Op hoeveel manieren kun je een outfit kiezen, of een klas in een rij zetten? Soms kun je alle mogelijkheden opschrijven, maar vaak zijn het er veel te veel. In dit hoofdstuk leer je eerst systematisch tellen met een tekening: een boomdiagram, een wegendiagram of een tabel. Daaruit volgt een regel waarmee je zonder tekening telt: de productregel. Op het einde weet je hoelang Noor met haar slot bezig is.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. Leerlingen vergeten vaak een uitkomst of schrijven er een twee keer op: dat is de reden voor het boomdiagram. Vraag c moet het idee geven dat elke uitkomst van drie worpen zich in twee splitst.}
+
+%========================================================================================
+\section{Boomdiagrammen}
+
+\subsection{Systematisch tellen}
+
+Hoe weet je zeker dat je in de Verken geen enkele uitkomst vergeten bent, en geen enkele twee keer hebt opgeschreven? Door ordelijk te werk te gaan. Bij de eerste worp zijn er twee mogelijkheden: kop of munt. Bij elk van die twee zijn er voor de tweede worp opnieuw twee, en zo verder. Teken je dat, dan krijg je een figuur die vertakt zoals een boom.
+
+\figuren{\begin{tikzpicture}[boom=17mm,level 1/.style={sibling distance=24mm},level 2/.style={sibling distance=12mm},level 3/.style={sibling distance=6mm}]
+  \node[wortel] {}
+    child{node{K}
+      child{node{K} child{node[uitkomst=KKK]{K}} child{node[uitkomst=KKM]{M}}}
+      child{node{M} child{node[uitkomst=KMK]{K}} child{node[uitkomst=KMM]{M}}}}
+    child{node{M}
+      child{node{K} child{node[uitkomst=MKK]{K}} child{node[uitkomst=MKM]{M}}}
+      child{node{M} child{node[uitkomst=MMK]{K}} child{node[uitkomst=MMM]{M}}}};
+  \foreach \i/\t in {1/1ste worp,2/2de worp,3/3de worp}{\node[font=\scriptsize,text=grijs] at (\i*17mm,2.75) {\t};}
+  \node[font=\scriptsize,text=grijs] at (66mm,2.75) {uitkomst};
+\end{tikzpicture}}
+
+Elke kolom is één worp. Volg je de takken van links naar rechts, dan kom je bij één uitkomst: de bovenste weg is KKK, de onderste MMM. Elke uitkomst hoort bij precies één weg, dus tel je de uitkomsten door de bladeren aan het einde te tellen. Er zijn er 8. Zo vergeet je niets, en schrijf je niets dubbel.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{boomdiagram}} toont alle mogelijkheden van een keuze in stappen. Elke stap is een kolom, elke mogelijkheid in die stap is een tak, en elke weg van links naar rechts is één uitkomst.
+\end{theorie}
+
+De volgorde van de stappen kies je zelf, als het voor de uitkomsten niet uitmaakt. Een boomdiagram begint links met één punt: het vertrek, nog vóór de eerste keuze.
+
+\voorbeeld{}{Aan de ijskar kies je een hoorntje (h) of een potje (p), en één bol ijs: vanille (v), chocolade (c) of aardbei (a). Teken een boomdiagram en schrijf alle mogelijkheden op.\label{vb:h1-boom}}{%
+\uitleg{De keuze bestaat uit twee stappen: eerst de verpakking, dan de smaak. We tekenen eerst twee takken, en aan het einde van elk daarvan drie takken.}
+\naast{\begin{minipage}{9.4cm}
+\begin{stappenvrij}{3.4cm}{5.6cm}
+\text{1ste stap: } 2 \text{ takken} & Hoorntje of potje. \\
+\text{2de stap: } 3 \text{ takken} & Aan het einde van elke tak drie smaken. \\
+6 \text{ bladeren} & Er zijn 6 mogelijkheden.
+\end{stappenvrij}
+
+\vspace{1mm}
+De mogelijkheden staan naast de bladeren: hv, hc, ha, pv, pc en pa.
+\end{minipage}}{\begin{tikzpicture}[boom=15mm,level 1/.style={sibling distance=18mm},level 2/.style={sibling distance=6mm}]
+  \node[wortel] {}
+    child{node{h} child{node[uitkomst=hv]{v}} child{node[uitkomst=hc]{c}} child{node[uitkomst=ha]{a}}}
+    child{node{p} child{node[uitkomst=pv]{v}} child{node[uitkomst=pc]{c}} child{node[uitkomst=pa]{a}}};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bepaal de stappen van de keuze en zet ze in een volgorde. Teken links een vertrekpunt, en vanuit elk punt een tak voor elke mogelijkheid van de volgende stap. Schrijf bij elk blad de uitkomst, en tel de bladeren.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-boom}
+\end{oefeningen}
+
+\subsection{Een boom die niet overal even breed is}
+
+Bij de ijskar splitst elke tak in evenveel takken. Dat hoeft niet. Soms stopt een weg vroeger, of hangt het aantal takken af van wat je eerder koos. Ook dan werkt een boomdiagram, zolang je alle wegen tekent.
+
+\voorbeeld{}{Arne en Bo spelen een tennismatch. Wie als eerste twee sets wint, wint de match. Op hoeveel manieren kan de match verlopen?\label{vb:h1-tennis}}{%
+\uitleg{Elke set is een stap, met twee mogelijkheden: Arne (A) of Bo (B) wint die set. Maar na twee sets kan de match al gedaan zijn: dan stopt die weg.}
+\naast{\begin{minipage}{9.4cm}
+\begin{stappenvrij}{3.4cm}{5.6cm}
+\text{AA en BB} & Na twee sets is het gedaan: die wegen stoppen. \\
+\text{ABA, ABB, BAA, BAB} & Bij 1-1 beslist de derde set. \\
+2 + 4 = 6 & Er zijn 6 verlopen.
+\end{stappenvrij}
+
+\vspace{1mm}
+Hier kun je niet gewoon vermenigvuldigen: twee takken stoppen na de tweede set, de andere twee niet.
+\end{minipage}}{\begin{tikzpicture}[boom=13mm,level 1/.style={sibling distance=20mm},level 2/.style={sibling distance=10mm},level 3/.style={sibling distance=5mm}]
+  \node[wortel] {}
+    child{node{A} child{node[uitkomst=AA]{A}} child{node{B} child{node[uitkomst=ABA]{A}} child{node[uitkomst=ABB]{B}}}}
+    child{node{B} child{node{A} child{node[uitkomst=BAA]{A}} child{node[uitkomst=BAB]{B}}} child{node[uitkomst=BB]{B}}};
+  \foreach \i in {1,2,3}{\node[font=\scriptsize,text=grijs] at (\i*13mm,2.1) {set \i};}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-onregelmatig}
+\end{oefeningen}
+
+%========================================================================================
+\section{De productregel}
+
+\subsection{Vermenigvuldigen in plaats van tekenen}
+
+Weet Noor niets meer van haar code, dan heeft het boomdiagram vier kolommen met telkens 10 takken. Zo'n boom teken je niet. Kijk daarom nog eens naar de bomen die overal even breed zijn. Bij de muntstukken splitst elke tak in 2, dus is het aantal bladeren $2 \cdot 2 \cdot 2 = 8$. Bij de ijskar zijn er $2$ takken die elk in $3$ splitsen: $2 \cdot 3 = 6$ bladeren. Je hoeft de boom dus niet te tekenen: het volstaat om te weten hoeveel takken er per stap zijn.
+
+\begin{theorie}
+\begin{stelling}{Productregel}
+Bestaat een keuze uit stappen na elkaar, met $n_1$ mogelijkheden voor de eerste stap, $n_2$ voor de tweede, \ldots, $n_k$ voor de laatste, en hangt het aantal mogelijkheden in een stap niet af van wat je eerder koos, dan is het aantal mogelijkheden
+
+\vspace{1mm}
+\qquad $\formule{n_1 \cdot n_2 \cdot \ldots \cdot n_k}$
+\end{stelling}
+\end{theorie}
+
+Het woord \textit{aantal} is belangrijk. Welke mogelijkheden je hebt, mag wel afhangen van een vorige keuze, maar hoeveel het er zijn, niet. In het boomdiagram betekent dat: in elke kolom splitst elke tak in evenveel takken. Bij de tennismatch is dat niet zo, en daar werkt de regel niet.
+
+\voorbeeld{}{Hoeveel codes heeft het cijferslot van Noor, als je niets over de code weet?\label{vb:h1-slot}}{%
+\uitleg{Een code kies je in vier stappen: het cijfer op elk schijfje. Elk schijfje heeft 10 mogelijkheden, wat er ook op de andere staat.}
+\begin{stappen}
+10 \cdot 10 \cdot 10 \cdot 10 = 10^4 & Productregel met vier stappen. \\
+= 10\,000 & Er zijn $10\,000$ codes: van 0000 tot 9999.
+\end{stappen}}
+
+\voorbeeld{}{Een wachtwoord voor een schoolplatform bestaat uit twee letters (uit de 26 van het alfabet), gevolgd door drie cijfers. Hoeveel wachtwoorden zijn er?\label{vb:h1-wachtwoord}}{%
+\uitleg{Er zijn vijf plaatsen. Op elke letterplaats zijn er 26 mogelijkheden, op elke cijferplaats 10. Letters en cijfers mogen herhaald worden.}
+\begin{stappen}
+26 \cdot 26 \cdot 10 \cdot 10 \cdot 10 & Productregel met vijf stappen. \\
+= 676 \cdot 1000 = 676\,000 & Er zijn $676\,000$ wachtwoorden.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-product}
+\end{oefeningen}
+
+\subsection{Mag een keuze herhaald worden?}
+
+In het probleem staan geen twee gelijke cijfers in de code. Is een cijfer gekozen, dan kan het niet opnieuw. Wat betekent dat voor het tellen? Er zijn bij elke stap minder mogelijkheden, maar het aantal ligt nog altijd vast. De productregel werkt dus nog.
+
+\voorbeeld{}{De jeugdraad van een gemeente heeft 20 leden. Ze kiezen een voorzitter, een secretaris en een penningmeester. Niemand krijgt twee functies. Op hoeveel manieren kan dat?\label{vb:h1-zonder}}{%
+\uitleg{We kiezen de functies na elkaar. Wie voorzitter is, kan geen secretaris meer worden: bij elke stap is er een kandidaat minder.}
+\naast{\begin{minipage}{10.2cm}
+\begin{stappenvrij}{3.6cm}{6.2cm}
+20 & Voorzitter: elk van de 20 leden. \\
+19 & Secretaris: iedereen behalve de voorzitter. \\
+18 & Penningmeester: de twee gekozenen vallen af. \\
+20 \cdot 19 \cdot 18 = 6840 & Productregel: er zijn $6840$ manieren.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize,x=13mm,y=6mm]
+  \node[wortel] (s) at (0,0) {};
+  \node[blad] (v1) at (1,2) {lid 1}; \node[blad] (v2) at (1,0) {lid 2}; \node[blad] (v3) at (1,-2) {lid 20};
+  \foreach \v in {1,2,3}{\draw[tak] (s.east) -- (v\v.west);}
+  \node[grijs] at (1,-.9) {$\vdots$};
+  \node[blad] (wa) at (2.3,3.1) {lid 2}; \node[blad] (wb) at (2.3,2.35) {lid 3}; \node[blad] (wc) at (2.3,1) {lid 20};
+  \foreach \w in {a,b,c}{\draw[tak,thin] (v1.east) -- (w\w.west);}
+  \node[grijs] at (2.3,1.8) {$\vdots$};
+  \node[text=grijs] at (1,-3) {20 takken};
+  \node[text=grijs] at (2.3,-3) {19 per tak};
+\end{tikzpicture}}}
+
+Kijk naar het verschil met en zonder herhaling. Bij codes van drie letters waarin een letter vaker mag voorkomen, zijn er $26 \cdot 26 \cdot 26 = 17\,576$. Moeten de drie letters verschillen, dan zijn er $26 \cdot 25 \cdot 24 = 15\,600$. Lees de opgave dus altijd goed: mag iets twee keer, of niet?
+
+\begin{oefeningen}
+\oef{h1-herhaling}
+\end{oefeningen}
+
+\subsection{Alle volgordes}
+
+Een bijzonder geval krijg je als je alle elementen in een rij zet. Op hoeveel manieren kunnen vier vrienden naast elkaar op een foto staan? Voor de eerste plaats zijn er 4 kandidaten, voor de tweede nog 3, voor de derde nog 2, en wie overblijft, komt op de laatste plaats.
+
+\voorbeeld{}{Anna, Bram, Chloé en Daan gaan naast elkaar op een foto staan. Op hoeveel manieren kan dat?\label{vb:h1-volgorde}}{%
+\uitleg{We vullen de plaatsen van links naar rechts. Bij elke plaats is er één persoon minder over. Het boomdiagram toont alleen de wegen die met Anna beginnen: dat zijn er 6.}
+\naast{\begin{minipage}{8.4cm}
+\begin{stappenvrij}{3cm}{5.1cm}
+4 \cdot 3 \cdot 2 \cdot 1 = 24 & Productregel met vier stappen.
+\end{stappenvrij}
+
+\vspace{1mm}
+Er zijn 24 volgordes. Begint de rij met Bram, Chloé of Daan, dan zijn er telkens opnieuw 6: $4 \cdot 6 = 24$.
+\end{minipage}}{\begin{tikzpicture}[x=11mm,y=5mm]
+  \node[wortel] (s) at (0,0) {};
+  \node[blad] (A) at (1,2.5) {A}; \draw[tak] (s.east) -- (A.west);
+  \foreach \n/\y in {B/-1.2,C/-2.2,D/-3.2}{\node[blad] (\n1) at (1,\y) {\n}; \draw[tak] (s.east) -- (\n1.west); \node[text=grijs] at (1.7,\y) {\ldots};}
+  \foreach \n/\y [count=\i] in {B/4.5,C/2.5,D/.5}{\node[blad] (L\i) at (2,\y) {\n}; \draw[tak] (A.east) -- (L\i.west);}
+  \foreach \p/\a/\b/\y/\w in {1/C/D/5/ABCD,1/D/C/4/ABDC,2/B/D/3/ACBD,2/D/B/2/ACDB,3/B/C/1/ADBC,3/C/B/0/ADCB}{%
+    \node[blad] (m) at (3,\y) {\a}; \draw[tak] (L\p.east) -- (m.west);
+    \node[blad] (e) at (4,\y) {\b}; \draw[tak] (m.east) -- (e.west);
+    \node[font=\scriptsize,text=grijs,anchor=west] at (4.15,\y) {\w};}
+\end{tikzpicture}}}
+
+Het aantal volgordes groeit snel. Voor 5 personen zijn er $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$, voor 10 personen al $3\,628\,800$.
+\begin{alleenvoor}{4,5}
+Omdat zo'n product vaak voorkomt, schrijven wiskundigen het korter met een uitroepteken: $4! = 4 \cdot 3 \cdot 2 \cdot 1 = 24$, uitgesproken als \textit{4 faculteit}. Je rekenmachine heeft er een toets voor. In de 3de graad werk je daar verder mee; hier volstaat het product.
+\end{alleenvoor}
+
+\begin{oefeningen}
+\oef{h1-volgorde}
+\end{oefeningen}
+
+\subsection{Begin bij de strengste voorwaarde}
+
+Hoeveel getallen van drie cijfers hebben drie verschillende cijfers? Dat lijkt op het slot, maar er is een extra voorwaarde: een getal begint niet met 0. Het getal 052 is geen getal van drie cijfers, maar gewoon 52. Begin je bij de plaats waar de voorwaarde geldt, dan blijft de productregel werken.
+
+\voorbeeld{}{Hoeveel getallen van drie cijfers hebben drie verschillende cijfers?\label{vb:h1-voorwaarde}}{%
+\uitleg{Het eerste cijfer heeft een voorwaarde: het is niet 0. Daar beginnen we. Daarna mag de 0 wel, maar het cijfer dat al gebruikt is niet meer.}
+\begin{stappen}
+9 & Eerste cijfer: 1 tot en met 9. \\
+9 & Tweede cijfer: de 10 cijfers, behalve het eerste. De 0 mag hier wel. \\
+8 & Derde cijfer: niet de twee cijfers die al gebruikt zijn. \\
+9 \cdot 9 \cdot 8 = 648 & Productregel: er zijn 648 zulke getallen.
+\end{stappen}}
+
+Soms geldt de voorwaarde op meer dan één plaats. Kies dan de volgorde van de stappen zo, dat het aantal mogelijkheden in elke stap vastligt.
+
+\voorbeeld{}{Hoeveel oneven getallen van drie verschillende cijfers zijn er?\label{vb:h1-oneven}}{%
+\uitleg{Er zijn twee voorwaarden. Het laatste cijfer is oneven, en het eerste is niet 0. Beginnen we met het eerste cijfer, dan hangt het aantal mogelijkheden voor het laatste af van het eerste: was dat oneven of niet? Daarom beginnen we met het laatste cijfer.}
+\begin{stappen}
+5 & Laatste cijfer: 1, 3, 5, 7 of 9. \\
+8 & Eerste cijfer: niet 0 en niet het laatste cijfer. Dat laatste is nooit 0, dus vallen er altijd 2 af. \\
+8 & Middelste cijfer: niet de twee cijfers die al gebruikt zijn. \\
+5 \cdot 8 \cdot 8 = 320 & Productregel: er zijn 320 zulke getallen.
+\end{stappen}}
+
+\begin{werkwijze}
+Splits de keuze in stappen. Begin bij de stap met de strengste voorwaarde. Ga na dat het aantal mogelijkheden in elke stap vastligt, wat er ook eerder gekozen is, en vermenigvuldig dan de aantallen.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-voorwaarde}
+\end{oefeningen}
+
+%========================================================================================
+\section{Wegendiagrammen en tabellen}
+
+\subsection{Het wegendiagram}
+
+Een boomdiagram is niet de enige tekening die helpt bij het tellen. Gaat het over routes, dan teken je de plaatsen als punten en de wegen ertussen als lijnen. Zo'n tekening heet een \textbf{wegendiagram}. Elke route is een keuze in stappen: een weg voor het eerste stuk, een weg voor het tweede stuk, enzovoort.
+
+\voorbeeld{}{In een park lopen 3 paden van de ingang (I) naar de vijver (V), en 4 paden van de vijver naar de toren (T). Hoeveel routes zijn er van de ingang naar de toren langs de vijver?\label{vb:h1-wegen}}{%
+\uitleg{Een route kies je in twee stappen: een pad naar de vijver, en dan een pad naar de toren. Welk pad je eerst nam, verandert niets aan het aantal paden daarna.}
+\naast{\begin{minipage}{7.8cm}
+\begin{stappenvrij}{2.4cm}{5.1cm}
+3 \cdot 4 = 12 & Productregel: er zijn 12 routes.
+\end{stappenvrij}
+
+\vspace{1mm}
+In de figuur heeft elk pad een naam. Een route is dan bijvoorbeeld b3: eerst pad b, dan pad 3. Zo zie je de 12 routes: a1, a2, a3, a4, b1, \ldots, c4.
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize]
+  \node[stad,label=below:I] (I) at (0,0) {};
+  \node[stad,label=below:V] (V) at (2.6,0) {};
+  \node[stad,label=below:T] (T) at (5.2,0) {};
+  \draw[tak] (I) to[bend left=40] node[above]{a} (V);
+  \draw[tak] (I) -- node[above]{b} (V);
+  \draw[tak] (I) to[bend right=40] node[below]{c} (V);
+  \draw[tak] (V) to[bend left=55] node[above]{1} (T);
+  \draw[tak] (V) to[bend left=18] node[above,pos=.55]{2} (T);
+  \draw[tak] (V) to[bend right=18] node[below,pos=.55]{3} (T);
+  \draw[tak] (V) to[bend right=55] node[below]{4} (T);
+\end{tikzpicture}}}
+
+Een route heen en terug is een keuze in vier stappen. Komt er een voorwaarde bij, zoals \textit{niet langs hetzelfde pad terug}, dan worden de aantallen in de laatste stappen kleiner.
+
+\voorbeeld{}{In het park van voorbeeld~\ref{vb:h1-wegen} wandel je van de ingang naar de toren langs de vijver, en weer terug. Op de terugweg neem je nergens hetzelfde pad als op de heenweg. Hoeveel wandelingen zijn er?\label{vb:h1-heenterug}}{%
+\uitleg{Er zijn vier stappen: twee op de heenweg en twee op de terugweg. Op de terugweg valt telkens het pad van de heenweg weg: van de toren naar de vijver blijven er 3 over, van de vijver naar de ingang 2.}
+\begin{stappen}
+3 \cdot 4 = 12 & Heenweg, zoals in het vorige voorbeeld. \\
+3 \cdot 2 = 6 & Terugweg: telkens één pad minder. \\
+12 \cdot 6 = 72 & Productregel met vier stappen: 72 wandelingen.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-wegen}
+\end{oefeningen}
+
+\subsection{Een tabel}
+
+Gooi je met twee dobbelstenen, dan ken je met de productregel het aantal uitkomsten: $6 \cdot 6 = 36$. Maar op hoeveel manieren gooi je samen 7? Dan wil je de uitkomsten ook zien. Bij een keuze in twee stappen zet je ze overzichtelijk in een \textbf{tabel}: de mogelijkheden van de eerste stap in de rijen, die van de tweede in de kolommen. Elk vakje is één uitkomst.
+
+\voorbeeld{}{Je gooit met een rode en een blauwe dobbelsteen. Op hoeveel manieren is de som van de ogen 7?\label{vb:h1-tabel}}{%
+\uitleg{We maken een tabel met de rode dobbelsteen in de rijen en de blauwe in de kolommen, en schrijven in elk vakje de som. Dan tellen we de vakjes met een 7.}
+\naast{\begin{minipage}{8.6cm}
+\begin{stappenvrij}{2.6cm}{5.7cm}
+6 \cdot 6 = 36 & De tabel heeft 36 vakjes: alle uitkomsten. \\
+6 & De vakjes met som 7 liggen op een schuine lijn.
+\end{stappenvrij}
+
+\vspace{1mm}
+Op 6 manieren gooi je samen 7: van rood 1 en blauw 6 tot rood 6 en blauw 1. Let op: rood 3 en blauw 4 is een andere uitkomst dan rood 4 en blauw 3. Daarom gebruiken we twee kleuren.
+\end{minipage}}{\begin{tikzpicture}[x=6mm,y=6mm,font=\scriptsize]
+  \foreach \r in {1,...,6}{\foreach \b in {1,...,6}{%
+    \pgfmathtruncatemacro{\s}{\r+\b}%
+    \ifnum\s=7 \fill[accent!30] (\b-.5,-\r+.5) rectangle (\b+.5,-\r-.5);\fi
+    \node at (\b,-\r) {\s};}}
+  \foreach \i in {1,...,5}{\draw[lijngrijs] (\i+.5,.5) -- (\i+.5,-6.5); \draw[lijngrijs] (.5,-\i+.5) -- (6.5,-\i+.5);}
+  \draw[grijs,thick] (.5,.5) rectangle (6.5,-6.5);
+  \foreach \i in {1,...,6}{\node[text=accent] at (\i,1) {\i}; \node[text=accent] at (0,-\i) {\i};}
+  \node[text=grijs,anchor=south] at (3.5,1.4) {blauw};
+  \node[text=grijs,rotate=90,anchor=south] at (-.5,-3.5) {rood};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-tabel}
+\end{oefeningen}
+
+\subsection{Welke tekening kies je?}
+
+Elke tekening heeft haar sterke kant. Een \textit{boomdiagram} werkt altijd, ook als de wegen niet even lang zijn, maar wordt snel groot. Een \textit{wegendiagram} past bij routes. Een \textit{tabel} past bij twee stappen, als je wilt zien welke uitkomsten een eigenschap hebben, zoals een som. En is het aantal mogelijkheden per stap vast, dan heb je geen tekening nodig: de productregel geeft het aantal meteen.
+
+{\centering\renewcommand{\arraystretch}{1.4}\small\begin{tabular}{|c|c|c|}
+\hline
+\textbf{tekening of regel} & \textbf{geschikt voor} & \textbf{voorbeeld} \\ \hline
+boomdiagram & weinig uitkomsten, ook als wegen vroeger stoppen & de tennismatch \\ \hline
+wegendiagram & routes langs plaatsen & het park \\ \hline
+tabel & twee stappen, uitkomsten met een eigenschap & som van twee dobbelstenen \\ \hline
+productregel & een vast aantal mogelijkheden per stap & het cijferslot \\ \hline
+\end{tabular}\par}
+
+\medskip
+Nu kunnen we de vraag van Noor beantwoorden. Haar code heeft een voorwaarde op de eerste plaats, en geen twee gelijke cijfers.
+
+\voorbeeld{}{Terug naar het probleem. De code van Noor begint met een 7 en heeft vier verschillende cijfers. Elke poging duurt 5 seconden. Is ze in het slechtste geval binnen het uur klaar? En als ze niets meer van haar code weet?\label{vb:h1-terug}}{%
+\uitleg{We tellen de codes die nog kunnen met de productregel. Het eerste cijfer ligt vast, en daarna valt bij elke plaats een cijfer meer af. Daarna rekenen we om naar tijd.}
+\begin{stappenbreed}
+1 \cdot 9 \cdot 8 \cdot 7 = 504 & Eerste cijfer: alleen 7. Dan 9, 8 en 7 mogelijkheden. \\
+504 \cdot 5 = 2520 \text{ s} = 42 \text{ min} & 504 pogingen van 5 seconden; $2520 : 60 = 42$. \\
+10^4 \cdot 5 = 50\,000 \text{ s} \approx 13{,}9 \text{ h} & Zonder informatie: $10\,000$ codes (voorbeeld~\ref{vb:h1-slot}); $50\,000 : 3600 \approx 13{,}9$.
+\end{stappenbreed}
+Noor is dus zeker binnen 42 minuten klaar. Wist ze niets meer, dan kon het bijna 14 uur duren: haar twee herinneringen maken het werk twintig keer kleiner, want $10\,000 : 504 \approx 19{,}8$.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o5}
+
+\oef{h1-o3}
+
+\oef{h1-o6}
+
+\oef{h1-o4}
+
+\oef{h1-o8}
+
+\oef{h1-o7}
+
+\oef{h1-o9}
+
+\oef{h1-o14}
+
+\oef{h1-o16}
+
+\oef{h1-o10}
+
+\oef{h1-o13}
+
+\oef{h1-o17}
+
+\oef{h1-o11}
+
+\oef{h1-o19}
+
+\oef{h1-o23}
+
+\oef{h1-o18}
+
+\oef{h1-o20}
+
+\oef{h1-o12}
+
+\oef{h1-o15}
+
+\oef{h1-o22}
+
+\oef{h1-o21}
+
+\oef{h1-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-boom}{oef:h1-boom}%
+  \fv{oef:h1-t2}{vb:h1-tennis}{oef:h1-onregelmatig}%
+  \fv{oef:h1-t3}{vb:h1-wachtwoord}{oef:h1-product}%
+  \fv{oef:h1-t4}{vb:h1-zonder}{oef:h1-herhaling}%
+  \fv{oef:h1-t5}{vb:h1-volgorde}{oef:h1-volgorde}%
+  \fv{oef:h1-t6}{vb:h1-oneven}{oef:h1-voorwaarde}%
+  \fv{oef:h1-t7}{vb:h1-heenterug}{oef:h1-wegen}%
+  \fv{oef:h1-t8}{vb:h1-tabel}{oef:h1-tabel}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een boomdiagram is en hoe je het tekent, de productregel en wanneer je hem mag gebruiken, het verschil tussen kiezen met en zonder herhaling, hoe je alle volgordes telt, waar je begint bij een voorwaarde, en wanneer je een wegendiagram of een tabel gebruikt. Vergelijk daarna met de kaders.
+\fi

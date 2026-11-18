@@ -1,0 +1,564 @@
+%----------------------------------------------------------------------------------------
+% ONDERLINGE LIGGING VAN TWEE RECHTEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h1-.
+% Pakketten: alle pakketten hebben dezelfde leerstof. Pakket 5 krijgt de bewijzen van de manieren om een vlak te
+% bepalen en van het kenmerk van kruisende rechten (uit het ongerijmde), en bewijsopdrachten.
+% Afspraak in alle figuren: kubus ABCD.EFGH met grondvlak ABCD (A vooraan links, B vooraan rechts,
+% C achteraan rechts, D achteraan links) en E boven A, F boven B, G boven C, H boven D. Zie notatie.tex.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Onderlinge ligging van twee rechten}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Op een speelplein staat een klimrek: een kubus van metalen buizen. Noor wil er een zeil aan vastmaken, strak gespannen tussen twee buizen, als dak tegen de zon. Het zeil moet mooi vlak hangen. Ze probeert drie paren buizen: $AB$ en $HG$, $BF$ en $FG$, en $AB$ en $CG$. Bij welke paren lukt het? En waarom lukt het bij de andere niet, hoe ze het zeil ook draait?}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \draw[grijs,line width=1.6pt,line join=round] (A) -- (B) -- (F) -- (E) -- cycle (B) -- (C) -- (G) -- (F) (E) -- (H) -- (G);
+  \draw[lijngrijs,line width=1.6pt,dashed] (D) -- (A) (D) -- (C) (D) -- (H);
+  \balknamen
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 12 (ruimtemeetkunde), het deel over de onderlinge ligging van twee rechten. Laat leerlingen de liggingen eerst aanwijzen in het klaslokaal: twee randen van het plafond, een rand van het plafond en een rand van de vloer. Een kubus van stokjes of rietjes helpt veel. Vectoren en coördinaten in de ruimte komen pas in de 3de graad: hier redeneren we met de figuur.\alleenvoor{5}{ In dit pakket staan de korte bewijzen van de manieren om een vlak te bepalen en het bewijs uit het ongerijmde van het kenmerk van kruisende rechten (doel B1).}}
+
+Tot nu toe deed je meetkunde vooral in het vlak: op een blad papier, met driehoeken, vierhoeken en cirkels. Maar we leven in de ruimte. Een kamer, een doos of een gebouw heeft drie afmetingen: lengte, breedte en hoogte. In dit hoofdstuk leer je hoe twee rechten in de ruimte ten opzichte van elkaar kunnen liggen. Er komt een geval bij dat je in het vlak niet kent. Je leert ook ruimtefiguren tekenen op een plat blad, en wat je nodig hebt om een vlak vast te leggen.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Punten, rechten en vlakken}
+
+\subsection{Ruimtefiguren tekenen}
+
+Hoe teken je een kubus op een plat blad? Je kunt hem niet tekenen zoals hij is, want het blad heeft maar twee afmetingen. Een veelgebruikte afspraak is het \emph{cavalièreperspectief}. Je kijkt recht naar het voorvlak, en een beetje van rechts en van boven. Het voorvlak teken je zoals het is. De ribben die naar achter lopen, teken je schuin.
+
+\voorbeeld{}{Teken een kubus $ABCD.EFGH$ met ribben van 4~cm in cavalièreperspectief.\label{vb:h1-tekenen}}{%
+\uitleg{Het voorvlak $ABFE$ staat recht voor ons: dat is een vierkant in ware grootte. De ribben naar achter tekenen we schuin en korter, zodat de kubus diepte krijgt.}
+\naast{\begin{redenering}{5.4cm}{4.6cm}
+Teken het vierkant $ABFE$ met zijde 4~cm. & Het voorvlak, in ware grootte. \\[1ex]
+Teken uit $B$, $F$ en $E$ lijnstukken van 2~cm onder $45^\circ$, naar rechts boven. & De ribben naar achter: half zo lang. \\[1ex]
+Verbind de eindpunten $C$, $G$ en $H$. & Het achtervlak, even groot als het voorvlak. \\[1ex]
+Teken $D$ en de ribben $[AD]$, $[DC]$ en $[DH]$ in stippellijn. & Die ribben zie je niet: ze zitten achter de kubus.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{4}
+  \balknamen
+  \draw[grijs,<->] (0,-.35,0) -- node[below] {4 cm} (4,-.35,0);
+  \draw[accent,thin] (4.9,0) arc (0:45:.9);
+  \draw[lijngrijs,thin] (4,0,0) -- (5.2,0,0);
+  \node[accent] at (5.45,.38) {$45^\circ$};
+  \node[grijs,below right,inner sep=1pt] at (4,4,2) {2 cm};
+\end{tikzpicture}}
+Het grondvlak is $ABCD$, met $A$ vooraan links, en $E$, $F$, $G$ en $H$ liggen recht boven $A$, $B$, $C$ en $D$. Die afspraak gebruiken we in het hele boek.}
+
+\begin{werkwijze}
+Een kubus of balk tekenen in cavalièreperspectief: teken het voorvlak in ware grootte. Teken de ribben naar achter onder een hoek van $45^\circ$ met de horizontale, en half zo lang als in werkelijkheid. Teken de ribben die je niet ziet in stippellijn.
+\end{werkwijze}
+
+Een tekening in cavalièreperspectief is eerlijk over sommige dingen, maar niet over alles. Ribben die in werkelijkheid evenwijdig zijn, zijn ook in de tekening evenwijdig, en het midden van een ribbe is ook in de tekening het midden. Maar een rechte hoek ziet er niet altijd recht uit: de hoek tussen $AB$ en $BC$ is in de kubus $90^\circ$, en in de tekening $135^\circ$. Ook lengtes kloppen niet altijd: $[BC]$ is in werkelijkheid even lang als $[AB]$, maar in de tekening half zo lang. Lees dus nooit een hoek of een lengte af in een ruimtelijke tekening.
+
+\nujij{Teken een kubus $ABCD.EFGH$ met ribben van 3~cm. Hoe lang teken je de ribbe $[FG]$?}{1,5~cm, want $[FG]$ loopt naar achter: half zo lang als 3~cm.}
+
+\begin{oefeningen}
+\oef{h1-tekenen}
+\end{oefeningen}
+
+\subsection{Rechten en vlakken}
+
+De bouwstenen van de ruimtemeetkunde zijn punten, rechten en vlakken. Een \emph{vlak} is plat en loopt in alle richtingen onbeperkt door, zoals een tafelblad of een muur die je in gedachten oneindig groot maakt. Je tekent een vlak als een parallellogram: zo ziet een rechthoekig blad eruit dat schuin voor je ligt. Maar het vlak stopt niet aan de rand van de tekening.
+
+\naast{Rechten noem je met een kleine letter, zoals $a$ en $b$, of met twee punten, zoals de rechte $AB$. Het lijnstuk tussen $A$ en $B$ is $[AB]$. Een vlak noem je met een Griekse letter, zoals $\alpha$ (alfa), $\beta$ (bèta) en $\gamma$ (gamma), of met punten die erin liggen, zoals het vlak $ABFE$ van het voorvlak van de kubus. Schrijf $P \in a$ als het punt $P$ op de rechte $a$ ligt, en $a \subset \alpha$ als de rechte $a$ in het vlak $\alpha$ ligt.}{\begin{tikzpicture}[scale=.85,font=\scriptsize]
+  \vlakje{0}{0}{3.6}{1.6}{\alpha}
+  \draw[accent,thick] (.3,.35) -- (3.6,1.15) node[right] {$a$};
+  \pnt[above left]{1.2,.568}{$P$}
+  \pnt[above]{2.3,2.0}{$Q$}
+\end{tikzpicture}}
+
+Punten die op één rechte liggen, of in één vlak, krijgen een eigen naam.
+
+\begin{theorie}
+Punten zijn \textbf{\textcolor{accent}{collineair}} als ze op één rechte liggen.
+
+Punten zijn \textbf{\textcolor{accent}{coplanair}} als ze in één vlak liggen. Ook rechten zijn coplanair als ze in één vlak liggen.
+\end{theorie}
+
+In de kubus zijn $A$, $B$, $C$ en $D$ coplanair: ze liggen in het grondvlak. De punten $A$, $B$, $C$ en $G$ zijn dat niet: $G$ ligt boven het grondvlak. Hoe weet je of een rechte in een vlak ligt? Leg een potlood op een tafel: als twee punten van het potlood op het tafelblad rusten, ligt het hele potlood erop. Dat aanvaarden we als grondeigenschap, zonder bewijs.
+
+\begin{theorie}
+\begin{stelling}{Rechte in een vlak}
+Liggen twee verschillende punten van een rechte in een vlak, dan ligt de hele rechte in dat vlak.
+\end{stelling}
+\end{theorie}
+
+Een rechte die niet in een vlak ligt, heeft er dus hoogstens één punt mee gemeen. Om te weten of een rechte in een vlak ligt, zoek je twee punten van de rechte in dat vlak.
+
+\voorbeeld{}{Ligt de rechte $AC$ in het vlak $ABCD$? En de rechte $BH$?\label{vb:h1-in-vlak}}{%
+\uitleg{We zoeken telkens twee punten van de rechte in het vlak.}
+\naast{\begin{redenering}{5.6cm}{4.6cm}
+$A$ en $C$ liggen in het grondvlak $ABCD$, dus $AC \subset ABCD$. & Grondeigenschap: twee punten liggen erin. \\[1ex]
+$B$ ligt in het grondvlak, maar $H$ niet: $H$ ligt erboven. & Een tweede punt in het vlak is er niet. \\[1ex]
+De rechte $BH$ heeft alleen $B$ gemeen met $ABCD$. & Ze prikt door het grondvlak, in $B$.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[accent,thick,dashed] (A) -- (C);
+  \draw[nadruk] (B) -- (H);
+  \balknamen
+\end{tikzpicture}}
+De rechte $AC$ ligt in het vlak $ABCD$, de rechte $BH$ niet.}
+
+\begin{oefeningen}
+\oef{h1-in-vlak}
+\end{oefeningen}
+
+%========================================================================================
+\section{Twee rechten}
+
+In het vlak hebben twee verschillende rechten één punt gemeen, of geen enkel: ze snijden elkaar, of ze zijn evenwijdig. In de Verken vond je ribben van de kubus die geen van beide doen: $AB$ en $CG$ snijden elkaar niet, ook niet als je ze verlengt, en toch lopen ze niet in dezelfde richting. Hoe zit dat? We bekijken de mogelijkheden een voor een.
+
+\subsection{Snijdende rechten}
+
+De ribben $AB$ en $BF$ van de kubus komen samen in het hoekpunt $B$. Ze hebben precies één punt gemeen. Dat noem je, net als in het vlak, snijdende rechten.
+
+\begin{theorie}
+Twee rechten zijn \textbf{\textcolor{accent}{snijdend}} als ze precies één punt gemeen hebben, het \textbf{\textcolor{accent}{snijpunt}}. Is $S$ het snijpunt van $a$ en $b$, dan schrijf je $\formule{a \cap b = \{S\}}$.
+\end{theorie}
+
+Twee snijdende rechten hoeven geen ribben te zijn: ook diagonalen kunnen elkaar snijden, zelfs midden in de kubus.
+
+\voorbeeld{}{Snijden de rechten $BH$ en $DF$ elkaar?\label{vb:h1-snijdend}}{%
+\uitleg{Beide rechten lopen schuin door de kubus. We zoeken een vlak waarin ze allebei liggen: daarin zijn het gewone rechten in een vlak.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$[BF]$ en $[DH]$ zijn verticale ribben, even lang en evenwijdig. & Ze staan allebei recht op het grondvlak. \\[1ex]
+Dus is $BDHF$ een rechthoek, en $B$, $D$, $H$, $F$ zijn coplanair. & Een schuine plank door de kubus. \\[1ex]
+$[BH]$ en $[DF]$ zijn de diagonalen van die rechthoek. & De diagonalen van een rechthoek snijden elkaar in het midden.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (B) -- (D) -- (H) -- (F) -- cycle;
+  \draw[accent!60] (H) -- (F) -- (B);
+  \draw[accent!60,dashed] (B) -- (D) -- (H);
+  \draw[nadruk] (B) -- (H) (D) -- (F);
+  \fill (1.5,1.5,1.5) circle (1.8pt) node[below right,inner sep=1pt] {$S$};
+  \balknamen
+\end{tikzpicture}}
+De rechten $BH$ en $DF$ snijden elkaar in het midden $S$ van de kubus: $BH \cap DF = \{S\}$.}
+
+\begin{oefeningen}
+\oef{h1-snijdend}
+\end{oefeningen}
+
+\subsection{Evenwijdige rechten}
+
+De ribben $AB$ en $HG$ hebben geen punt gemeen. Toch zou je ze evenwijdig noemen: ze lopen in dezelfde richting, van links naar rechts. Wat ze onderscheidt van $AB$ en $CG$, is dat er een vlak door $AB$ en $HG$ gaat: het schuine vlak $ABGH$, als een plank die van de onderkant vooraan naar de bovenkant achteraan loopt. Daarom zit in de definitie dat evenwijdige rechten in één vlak liggen.
+
+\begin{theorie}
+Twee rechten zijn \textbf{\textcolor{accent}{evenwijdig}} als ze in één vlak liggen en geen punt gemeen hebben, of als ze samenvallen. Je schrijft $\formule{a \parallel b}$.
+
+Hebben evenwijdige rechten geen punt gemeen, dan zijn ze \textbf{\textcolor{accent}{strikt evenwijdig}}. Anders zijn ze \textbf{\textcolor{accent}{samenvallend}}.
+\end{theorie}
+
+In het vlak liggen twee rechten altijd in één vlak, dus daar volstaat het dat ze geen punt gemeen hebben. In de ruimte moet je ook nagaan of ze in één vlak liggen. De twaalf ribben van een kubus of een balk lopen in drie richtingen: van links naar rechts, van voor naar achter, en van onder naar boven. De vier ribben die in dezelfde richting lopen, zijn evenwijdig: twee aan twee liggen ze in een zijvlak of in een schuin vlak door de kubus, zoals $AB$ en $HG$.
+
+\figuren{\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadkubus{3}
+  \draw[nadruk] (A) -- (B) (E) -- (F) (H) -- (G);
+  \draw[nadruk,dashed] (D) -- (C);
+  \balknamen
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadkubus{3}
+  \draw[nadruk] (B) -- (C) (F) -- (G) (E) -- (H);
+  \draw[nadruk,dashed] (A) -- (D);
+  \balknamen
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadkubus{3}
+  \draw[nadruk] (A) -- (E) (B) -- (F) (C) -- (G);
+  \draw[nadruk,dashed] (D) -- (H);
+  \balknamen
+\end{tikzpicture}}
+
+Uit het vlak ken je ook deze eigenschap: door een punt buiten een rechte gaat precies één evenwijdige met die rechte. Dat geldt ook in de ruimte: neem het vlak door de rechte en het punt, en teken daarin de evenwijdige. We aanvaarden het als grondeigenschap.
+
+\begin{theorie}
+\begin{stelling}{Evenwijdige door een punt}
+Door een punt $P$ buiten een rechte $a$ gaat precies één rechte die evenwijdig is met $a$.
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Teken door het midden $M$ van de ribbe $[BF]$ de rechte $m$ die evenwijdig is met $AB$. Waar snijdt $m$ de ribbe $[DH]$, als je ze verlengt?\label{vb:h1-evenwijdige}}{%
+\uitleg{De rechte $m$ is evenwijdig met $AB$, dus ze loopt van links naar rechts, op dezelfde hoogte als $M$. We gaan na in welk vlak ze ligt.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$m$ ligt in het voorvlak $ABFE$, halverwege tussen $AB$ en $EF$. & $M$ en $AB$ liggen in het voorvlak. \\[1ex]
+$m$ snijdt $[AE]$ in het midden $N$ van $[AE]$. & De evenwijdige door het midden van een zijde van een rechthoek. \\[1ex]
+$DH$ ligt in het achtervlak, en $m$ blijft in het voorvlak. & Ze komen elkaar nooit tegen.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \draw[nadruk,shorten <=-5mm,shorten >=-5mm] (0,1.5,0) -- (3,1.5,0);
+  \pnt[above right]{3,1.5,0}{$M$}
+  \pnt[above left]{0,1.5,0}{$N$}
+  \node[accent,below] at (-.4,1.5,0) {$m$};
+  \balknamen
+\end{tikzpicture}}
+De rechte $m$ is de rechte $MN$, met $N$ het midden van $[AE]$. Ze snijdt $DH$ niet: $m$ en $DH$ hebben geen punt gemeen.}
+
+Zijn $m$ en $DH$ dan evenwijdig? Nee: $m$ loopt van links naar rechts, $DH$ van onder naar boven. Dat is het geval waar we nu naartoe gaan. Maar eerst nog een eigenschap van evenwijdige rechten.
+
+\begin{oefeningen}
+\oef{h1-evenwijdig}
+\end{oefeningen}
+
+\subsection{Evenwijdig met een derde rechte}
+
+In het vlak weet je: zijn twee rechten evenwijdig met een derde rechte, dan zijn ze ook onderling evenwijdig. In de ruimte is dat minder vanzelfsprekend. Neem in de kubus de ribben $AE$ en $CG$. Allebei zijn ze evenwijdig met $BF$: $AE$ in het voorvlak en $CG$ in het rechterzijvlak. Maar $AE$ en $CG$ liggen niet samen in een zijvlak. Toch zijn ze evenwijdig, want ze liggen in het schuine vlak $ACGE$. Dat is altijd zo.
+
+\begin{theorie}
+\begin{stelling}{Evenwijdig met een derde rechte}
+Als $a \parallel b$ en $b \parallel c$, dan is $\formule{a \parallel c}$.
+\end{stelling}
+\end{theorie}
+
+Het bewijs in de ruimte is langer dan in het vlak, omdat de drie rechten niet in één vlak hoeven te liggen. We laten het weg. Met deze eigenschap toon je aan dat twee rechten evenwijdig zijn, ook als ze niet in hetzelfde zijvlak liggen.
+
+\voorbeeld{}{Toon aan dat de rechten $AH$ en $BG$ evenwijdig zijn.\label{vb:h1-transitief}}{%
+\uitleg{$AH$ en $BG$ zijn diagonalen van het linkerzijvlak en van het rechterzijvlak. We tonen aan dat $ABGH$ een parallellogram is: dan zijn de overstaande zijden $[AH]$ en $[BG]$ evenwijdig.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$AB \parallel DC$ en $DC \parallel HG$, dus $AB \parallel HG$. & Evenwijdig met een derde rechte. \\[1ex]
+$AB$ en $HG$ liggen dus in één vlak, en $\lengte{AB} = \lengte{HG}$. & Definitie van evenwijdig; twee ribben. \\[1ex]
+$ABGH$ is een parallellogram, dus $AH \parallel BG$. & Een vierhoek met twee overstaande zijden even lang en evenwijdig.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (A) -- (B) -- (G) -- (H) -- cycle;
+  \draw[accent!60] (A) -- (B) (H) -- (G);
+  \draw[nadruk] (B) -- (G);
+  \draw[nadruk,dashed] (A) -- (H);
+  \balknamen
+\end{tikzpicture}}
+De rechten $AH$ en $BG$ zijn evenwijdig. In de tekening zie je het ook: in cavalièreperspectief blijven evenwijdige rechten evenwijdig.}
+
+\begin{oefeningen}
+\oef{h1-transitief}
+\end{oefeningen}
+
+\subsection{Kruisende rechten}
+
+Nu het nieuwe geval: de ribben $AB$ en $CG$. Ze hebben geen punt gemeen. De rechte $CG$ ligt in het rechterzijvlak $BCGF$, en $AB$ heeft met dat vlak alleen het punt $B$ gemeen, dat niet op $CG$ ligt. Ze zijn ook niet evenwijdig, want ze lopen in een andere richting. Kun je een vlak vinden waarin ze allebei liggen? Probeer het met een blad papier: als het blad tegen $AB$ ligt, kun je het draaien om $AB$, maar het raakt $CG$ hoogstens in één punt. Er gaat geen vlak door $AB$ en $CG$.
+
+\begin{theorie}
+Twee rechten zijn \textbf{\textcolor{accent}{kruisend}} als ze niet in één vlak liggen.
+\end{theorie}
+
+Kruisende rechten hebben geen punt gemeen: twee snijdende rechten liggen wel in één vlak, zoals je in paragraaf~3 ziet. Ze zijn ook niet evenwijdig, want evenwijdige rechten liggen in één vlak. Kruisende rechten bestaan alleen in de ruimte, en je ziet ze overal: een spoorweg en een rechte autosnelweg op een brug erover, of een rand van het plafond en een rand van de vloer die er dwars op staat.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{ligging} & \textbf{in één vlak?} & \textbf{gemeenschappelijke punten} & \textbf{voorbeeld in de kubus} \\ \hline
+snijdend & ja & precies één & $AB$ en $BF$ \\ \hline
+strikt evenwijdig & ja & geen & $AB$ en $HG$ \\ \hline
+samenvallend & ja & alle & $AB$ en $BA$ \\ \hline
+kruisend & nee & geen & $AB$ en $CG$ \\ \hline
+\end{tabular}
+\end{center}
+
+Twee rechten liggen altijd op precies één van deze vier manieren. Want liggen ze in één vlak, dan zijn ze snijdend, strikt evenwijdig of samenvallend, zoals je al uit het vlak kent. Liggen ze niet in één vlak, dan zijn ze kruisend.
+
+\begin{oefeningen}
+\oef{h1-kruisend}
+\end{oefeningen}
+
+\subsection{De ligging onderzoeken}
+
+Hoe beslis je hoe twee rechten liggen? Kijken naar de tekening volstaat niet. In de tekening van een kubus lijken de ribben $BF$ en $CD$ elkaar te snijden, maar dat is bedrog: $BF$ zit vooraan en $CD$ achteraan.
+
+\voorbeeld{}{Onderzoek de ligging van de rechten $BF$ en $CD$.\label{vb:h1-ligging}}{%
+\uitleg{In de tekening kruisen de lijnstukken elkaar, maar dat zegt niets. We gaan na of de rechten een punt gemeen hebben, en of ze evenwijdig zijn.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$CD$ ligt in het grondvlak $ABCD$. $BF$ heeft met het grondvlak alleen $B$ gemeen, en $B$ ligt niet op $CD$. & $BF$ prikt door het grondvlak in $B$. \\[1ex]
+$BF$ en $CD$ hebben dus geen punt gemeen. & Niet snijdend. \\[1ex]
+$BF$ loopt van onder naar boven, $CD$ van achter rechts naar achter links. & Niet evenwijdig.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (A) -- (B) -- (C) -- (D) -- cycle;
+  \draw[nadruk] (B) -- (F);
+  \draw[nadruk,dashed] (C) -- (D);
+  \fill (B) circle (1.8pt);
+  \balknamen
+\end{tikzpicture}}
+Geen gemeenschappelijk punt en niet evenwijdig: $BF$ en $CD$ zijn kruisend, ook al lijken ze elkaar in de tekening te snijden.}
+
+Soms moet je eerst een hulprechte zoeken om te weten of twee rechten evenwijdig zijn. Dat gebeurt in het volgende voorbeeld.
+
+\voorbeeld{}{Onderzoek de ligging van de diagonalen $EG$ van het bovenvlak en $BD$ van het grondvlak.\label{vb:h1-ligging2}}{%
+\uitleg{De ene diagonaal ligt in het bovenvlak, de andere in het grondvlak. Om te zien of ze evenwijdig zijn, vergelijken we $EG$ met de diagonaal $AC$ eronder.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$EG$ ligt in het bovenvlak, $BD$ in het grondvlak. Die vlakken hebben geen punt gemeen. & Dus ook de rechten niet. \\[1ex]
+$AE \parallel CG$ en $\lengte{AE} = \lengte{CG}$: $ACGE$ is een rechthoek, dus $EG \parallel AC$. & Zoals $BDHF$ in voorbeeld~\ref{vb:h1-snijdend}. \\[1ex]
+Als $EG \parallel BD$, dan ook $AC \parallel BD$. Maar $AC$ en $BD$ snijden elkaar. & Evenwijdig met een derde rechte.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \draw[nadruk] (E) -- (G);
+  \draw[nadruk,dashed] (B) -- (D);
+  \draw[accent,dashed] (A) -- (C);
+  \balknamen
+\end{tikzpicture}}
+$EG$ en $BD$ hebben geen punt gemeen en zijn niet evenwijdig: ze zijn kruisend.}
+
+\begin{werkwijze}
+De ligging van twee rechten onderzoeken: zoek eerst of ze een punt gemeen hebben. Ligt de ene rechte in een vlak waar de andere maar in één punt door prikt, en ligt dat punt niet op de eerste rechte, dan hebben ze geen punt gemeen. Ga daarna na of ze evenwijdig zijn: lopen ze in dezelfde richting, liggen ze in één vlak, of zijn ze allebei evenwijdig met een derde rechte? Hebben ze geen punt gemeen en zijn ze niet evenwijdig, dan zijn ze kruisend.
+\end{werkwijze}
+
+\nujij{Onderzoek de ligging van de rechten $AE$ en $FG$.}{Kruisend: $FG$ ligt in het bovenvlak, $AE$ prikt erdoor in $E$, en $E$ ligt niet op $FG$. Ze zijn niet evenwijdig: $AE$ is verticaal, $FG$ horizontaal.}
+
+\begin{oefeningen}
+\oef{h1-ligging}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een vlak bepalen}
+
+Noor wil haar zeil vlak spannen tussen twee buizen. Dat lukt alleen als er een vlak door de twee buizen gaat. Wanneer is dat zo? En hoeveel punten of rechten heb je nodig om een vlak vast te leggen?
+
+\subsection{Drie punten}
+
+Een tafel met vier poten wiebelt soms, een krukje met drie poten nooit. Een fotograaf zet zijn camera daarom op een statief met drie poten. Door twee punten gaan veel vlakken: denk aan een deur die draait om haar twee scharnieren. Een derde punt dat niet op dezelfde rechte ligt, legt het vlak vast. Dat aanvaarden we als grondeigenschap.
+
+\begin{theorie}
+\begin{stelling}{Vlak door drie punten}
+Door drie punten die niet collineair zijn, gaat precies één vlak.
+\end{stelling}
+\end{theorie}
+
+Daarom mag je een vlak noemen naar drie van zijn punten, zoals het vlak $ABF$. Dat is hetzelfde vlak als $ABFE$: het voorvlak.
+
+\voorbeeld{}{Welke hoekpunten van de kubus liggen in het vlak $BDH$, behalve $B$, $D$ en $H$?\label{vb:h1-vlak-drie}}{%
+\uitleg{De drie punten liggen niet op één rechte, dus ze bepalen één vlak. We zoeken een vierde hoekpunt dat erin ligt.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$[BF]$ en $[DH]$ zijn verticale ribben, even lang en evenwijdig. & Allebei van onder naar boven. \\[1ex]
+Dus is $BDHF$ een rechthoek, met $F$ in het vlak $BDH$. & Zoals in voorbeeld~\ref{vb:h1-snijdend}. \\[1ex]
+De andere vier hoekpunten liggen aan weerskanten van die rechthoek. & $A$ en $E$ vooraan links, $C$ en $G$ achteraan rechts.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (B) -- (D) -- (H) -- (F) -- cycle;
+  \draw[accent,thick] (H) -- (F) -- (B);
+  \draw[accent,dashed] (B) -- (D) -- (H);
+  \balknamen
+\end{tikzpicture}}
+Alleen $F$ ligt nog in het vlak $BDH$: het vlak is de rechthoek $BDHF$, schuin door de kubus.}
+
+\begin{oefeningen}
+\oef{h1-vlak-drie}
+\end{oefeningen}
+
+\subsection{Een rechte en een punt}
+
+Een deur draait om de rechte door haar scharnieren. Pas als ze tegen het slot valt, ligt ze vast. De rechte en een punt erbuiten leggen samen het vlak van de deur vast.
+
+\begin{theorie}
+\begin{stelling}{Vlak door een rechte en een punt}
+Door een rechte en een punt dat niet op die rechte ligt, gaat precies één vlak.
+\end{stelling}
+\begin{alleenvoor}{5}
+\begin{bewijs}
+Neem twee verschillende punten $A$ en $B$ op de rechte $a$, en het punt $P$ buiten $a$. Dan zijn $A$, $B$ en $P$ niet collineair: er gaat precies één vlak $\alpha$ door. De rechte $a$ heeft twee punten in $\alpha$, dus $a \subset \alpha$. Elk ander vlak door $a$ en $P$ gaat ook door $A$, $B$ en $P$, en is dus $\alpha$.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+\alleenvoor{1,2,3,4}{Waarom klopt dat? Neem twee punten op de rechte, en het punt erbuiten: dat zijn drie punten die niet collineair zijn, en daar gaat precies één vlak door. De rechte heeft twee punten in dat vlak, dus ze ligt erin.}
+
+\voorbeeld{}{Welk vlak bepalen de rechte $AB$ en het punt $G$? Noem het met vier hoekpunten van de kubus.\label{vb:h1-rechte-punt}}{%
+\uitleg{$G$ ligt niet op $AB$, dus er gaat precies één vlak door. We zoeken een rechte door $G$ in dat vlak.}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+De ribbe $HG$ is evenwijdig met $AB$. & Ribben van links naar rechts. \\[1ex]
+Het vlak door $AB$ en $HG$ gaat door $AB$ en door $G$. & Er is maar één zo'n vlak. \\[1ex]
+Dat is de rechthoek $ABGH$. & Zoals in voorbeeld~\ref{vb:h1-transitief}.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.55,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (A) -- (B) -- (G) -- (H) -- cycle;
+  \draw[accent!60] (B) -- (G) (H) -- (A);
+  \draw[nadruk] (A) -- (B);
+  \fill[accent] (G) circle (2pt);
+  \balknamen
+\end{tikzpicture}}
+De rechte $AB$ en het punt $G$ bepalen het vlak $ABGH$.}
+
+\subsection{Twee rechten}
+
+Twee rechten leggen ook een vlak vast, als ze niet kruisend zijn. Bij snijdende rechten is dat het vlak door het snijpunt en een punt op elke rechte.
+
+\begin{theorie}
+\begin{stelling}{Vlak door twee snijdende rechten}
+Door twee snijdende rechten gaat precies één vlak.
+\end{stelling}
+\begin{alleenvoor}{5}
+\begin{bewijs}
+Noem $S$ het snijpunt van $a$ en $b$, en neem $A \neq S$ op $a$ en $B \neq S$ op $b$. Dan zijn $S$, $A$ en $B$ niet collineair, anders zouden $a$ en $b$ samenvallen. Het vlak $SAB$ bevat twee punten van $a$ en twee punten van $b$, dus beide rechten. Elk vlak door $a$ en $b$ gaat door $S$, $A$ en $B$, en is dus het vlak $SAB$.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+Zo bepalen de snijdende rechten $AC$ en $BD$ het grondvlak, en de snijdende rechten $BH$ en $DF$ de rechthoek $BDHF$ (voorbeeld~\ref{vb:h1-snijdend}).
+
+Bij strikt evenwijdige rechten zegt de definitie al dat er een vlak door gaat. Er is er ook maar één.
+
+\begin{theorie}
+\begin{stelling}{Vlak door twee evenwijdige rechten}
+Door twee strikt evenwijdige rechten gaat precies één vlak.
+\end{stelling}
+\begin{alleenvoor}{5}
+\begin{bewijs}
+Volgens de definitie van evenwijdig gaat er een vlak door $a$ en $b$. Neem een punt $P$ op $b$. Elk vlak door $a$ en $b$ gaat door $a$ en $P$, en daar gaat maar één vlak door, want $P$ ligt niet op $a$.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+\alleenvoor{1,2,3,4}{Waarom maar één? Elk vlak door de twee rechten gaat door de eerste rechte en door een punt van de tweede, en door een rechte en een punt erbuiten gaat maar één vlak.
+
+}Kruisende rechten bepalen geen vlak, want er gaat geen vlak door. Samengevat: twee verschillende rechten liggen in één vlak precies als ze niet kruisend zijn, en dan is dat vlak uniek.
+
+\voorbeeld{}{Bepalen de rechten $EB$ en $HC$ een vlak? Welk?\label{vb:h1-vlak-twee}}{%
+\uitleg{Eerst de ligging: hebben ze een punt gemeen, of zijn ze evenwijdig?}
+\naast{\begin{redenering}{5.8cm}{4.4cm}
+$EH \parallel BC$ en $\lengte{EH} = \lengte{BC}$. & Ribben in dezelfde richting. \\[1ex]
+Dus is $BCHE$ een parallellogram, en $EB \parallel HC$. & Zoals in voorbeeld~\ref{vb:h1-transitief}. \\[1ex]
+Ze zijn strikt evenwijdig, dus ze bepalen precies één vlak. & Vlak door twee evenwijdige rechten.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (B) -- (C) -- (H) -- (E) -- cycle;
+  \draw[accent!60] (C) -- (B) (H) -- (E);
+  \draw[nadruk] (E) -- (B);
+  \draw[nadruk,dashed] (H) -- (C);
+  \balknamen
+\end{tikzpicture}}
+De rechten bepalen het vlak $BCHE$: een rechthoek die schuin door de kubus loopt, van de ribbe $[BC]$ onderaan naar de ribbe $[EH]$ bovenaan.}
+
+\begin{oefeningen}
+\oef{h1-vlak-twee}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+\subsection{Een kenmerk van kruisende rechten}
+
+In de werkwijze van paragraaf~2 gebruikten we een vlak waar een rechte door prikt. Nu kunnen we bewijzen waarom dat werkt. Het bewijs is uit het ongerijmde: we nemen aan dat de rechten wel in één vlak liggen, en komen tot een tegenspraak.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van kruisende rechten}
+Ligt de rechte $a$ in het vlak $\alpha$, en heeft de rechte $b$ met $\alpha$ alleen het punt $S$ gemeen, met $S \notin a$, dan zijn $a$ en $b$ kruisend.
+\end{stelling}
+\begin{bewijs}
+Stel dat $a$ en $b$ in één vlak $\beta$ liggen. Dan gaat $\beta$ door $a$ en door $S$, want $S \in b$. Ook $\alpha$ gaat door $a$ en $S$. Door een rechte en een punt erbuiten gaat maar één vlak, dus $\beta = \alpha$. Dan ligt $b$ in $\alpha$, terwijl $b$ maar één punt met $\alpha$ gemeen heeft. Dat is een tegenspraak: $a$ en $b$ liggen niet in één vlak.
+\end{bewijs}
+\end{theorie}
+
+In voorbeeld~\ref{vb:h1-ligging} is $a = CD$, $\alpha$ het grondvlak, $b = BF$ en $S = B$.
+\end{alleenvoor}
+
+Nu kunnen we het probleem van het begin oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Noor wil een vlak zeil spannen tussen twee buizen van het klimrek: $AB$ en $HG$, $BF$ en $FG$, of $AB$ en $CG$. Bij welke paren lukt het?\label{vb:h1-terug}}{%
+\uitleg{Een vlak zeil tussen twee buizen kan alleen als er een vlak door de twee buizen gaat. We onderzoeken dus telkens de ligging.}
+\naast{\begin{redenering}{6cm}{4.2cm}
+$AB \parallel HG$: strikt evenwijdig. & Ze bepalen het vlak $ABGH$. \\[1ex]
+$BF \cap FG = \{F\}$: snijdend. & Ze bepalen het vlak $BCGF$. \\[1ex]
+$AB$ en $CG$ zijn kruisend. & Er gaat geen vlak door.
+\end{redenering}}{\begin{tikzpicture}[schuin,scale=.62,font=\scriptsize]
+  \draadkubus{3}
+  \fill[vlakdeel] (A) -- (B) -- (G) -- (H) -- cycle;
+  \draw[accent!70] (B) -- (G) (H) -- (A);
+  \fill[accent,fill opacity=.35] (B) -- (F) -- (G) -- cycle;
+  \draw[nadruk] (A) -- (B) (H) -- (G) (B) -- (F) -- (G);
+  \balknamen
+\end{tikzpicture}}
+Bij $AB$ en $HG$ wordt het zeil een rechthoek die schuin door de kubus loopt. Bij $BF$ en $FG$ wordt het een driehoek in het rechterzijvlak. Bij $AB$ en $CG$ lukt het nooit: de buizen zijn kruisend, en een zeil dat je ertussen spant, wordt altijd gebogen, zoals een zadel.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-ligging}{oef:h1-ligging}%
+  \fv{oef:h1-t2}{vb:h1-in-vlak}{oef:h1-kruisend}%
+  \fv{oef:h1-t3}{vb:h1-tekenen}{oef:h1-tekenen}%
+  \fv{oef:h1-t4}{vb:h1-ligging2}{oef:h1-o8}%
+  \fv{oef:h1-t5}{vb:h1-vlak-drie}{oef:h1-vlak-drie}%
+  \fv{oef:h1-t6}{vb:h1-transitief}{oef:h1-transitief}%
+  \fv{oef:h1-t7}{vb:h1-vlak-twee}{oef:h1-vlak-twee}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: hoe je een kubus tekent in cavalièreperspectief, wat collineair en coplanair betekenen, wanneer een rechte in een vlak ligt, de vier mogelijke liggingen van twee rechten met een voorbeeld in een kubus, hoe je onderzoekt welke ligging het is, en de manieren om een vlak te bepalen. Vergelijk daarna met de kaders.
+\fi

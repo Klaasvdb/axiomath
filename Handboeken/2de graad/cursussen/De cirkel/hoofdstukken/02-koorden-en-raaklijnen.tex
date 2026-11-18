@@ -1,0 +1,596 @@
+%----------------------------------------------------------------------------------------
+% KOORDEN EN RAAKLIJNEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: de cursus staat alleen in pakket 4 en 5 (keuzedoel K1). Pakket 5 krijgt ook het bewijs uit het
+% ongerijmde dat elke raaklijn loodrecht op de straal staat, de hoek tussen een raaklijn en een koorde, en meer
+% bewijsopdrachten.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Koorden en raaklijnen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Bij een opgraving vinden archeologen een scherf van de rand van een rond bord. Om te weten hoe groot het bord was, leggen ze een lat van 16~cm met beide uiteinden tegen de rand. In het midden staat de rand 4~cm van de lat. Hoe groot was de diameter van het bord?}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \fill[accent!25] (36.87:2.5) arc[start angle=36.87,end angle=143.13,radius=2.5] -- (143.13:2.2) arc[start angle=143.13,end angle=36.87,radius=2.2] -- cycle;
+  \draw[accent,thick] (36.87:2.5) arc[start angle=36.87,end angle=143.13,radius=2.5] -- (143.13:2.2) arc[start angle=143.13,end angle=36.87,radius=2.2] -- cycle;
+  \draw[grijs,line width=2pt] (-2.15,1.5) -- (2.15,1.5);
+  \draw[grijs,<->] (0,1.5) -- (0,2.5);
+  \node[left] at (0,2.05) {4 cm};
+  \node[below] at (0,1.45) {16 cm};
+  \draw[accent!40,dashed] (143.13:2.5) arc[start angle=143.13,end angle=200,radius=2.5];
+  \draw[accent!40,dashed] (36.87:2.5) arc[start angle=36.87,end angle=-20,radius=2.5];
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD K1 (keuzedoel De cirkel: koorden en raaklijnen). De verdeling van K1 over de twee hoofdstukken is na te kijken in het leerplan. De bewijzen van de middelloodlijn van een koorde, gelijke koorden, de raaklijn en de raaklijnstukken staan in beide pakketten: ze zijn kort en steunen op stralen, congruente driehoeken en Pythagoras.\alleenvoor{5}{ In dit pakket ook het bewijs uit het ongerijmde dat elke raaklijn loodrecht op de straal staat, de hoek tussen een raaklijn en een koorde, en meer bewijsopdrachten (doel B1).} Voorkennis: de middelloodlijn van een lijnstuk, de congruentiekenmerken, de stelling van Pythagoras, en de hoek in een halve cirkel uit hoofdstuk 1.}
+
+In hoofdstuk 1 keek je naar hoeken in een cirkel. Nu kijk je naar lijnstukken en rechten: koorden, die twee punten van de cirkel verbinden, en raaklijnen, die de cirkel maar in één punt raken. Je ontdekt waar het middelpunt ligt ten opzichte van een koorde, en waarom een raaklijn altijd loodrecht op de straal staat. Daarmee kun je het middelpunt terugvinden van een cirkel waarvan je maar een stukje hebt, zoals de scherf van het bord.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Koorden}
+
+\subsection{De middelloodlijn van een koorde}
+
+Waar ligt het middelpunt van een cirkel ten opzichte van een koorde? In de Verken tekende je de middelloodlijn van een koorde, en die ging door het middelpunt. Je weet al dat de middelloodlijn van een lijnstuk $[AB]$ bestaat uit alle punten die even ver van $A$ als van $B$ liggen. En het middelpunt ligt even ver van alle punten van de cirkel.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Middelloodlijn van een koorde}
+De middelloodlijn van een koorde gaat door het middelpunt van de cirkel.
+\end{stelling}
+
+\begin{bewijs}
+Neem een koorde $[AB]$ van een cirkel met middelpunt $M$ en straal $r$. Dan is
+\bewijsregel{\lengte{MA} = \lengte{MB} = r}
+Het punt $M$ ligt dus even ver van $A$ als van $B$, en ligt daarom op de middelloodlijn van $[AB]$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{-20}{A} \cpunt{B}{80}{B}
+  \coordinate (N) at ($(A)!.5!(B)$); \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (B);
+  \draw[grijs] (A) -- (M) -- (B);
+  \draw[fel!70!black,thick,dashed] ($(M)!-.7!(N)$) -- ($(M)!1.9!(N)$);
+  \rechtehoek{A}{N}{M}
+  \punt[below left]{0}{0}{M}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Dit geeft een manier om het middelpunt van een getekende cirkel terug te vinden: het ligt op de middelloodlijn van elke koorde. Met twee koorden heb je twee middelloodlijnen, en het middelpunt is hun snijpunt.
+
+\voorbeeld{}{Op een blad staat een cirkel, maar het middelpunt is niet aangeduid. Hoe vind je het met passer en lat?\label{vb:h2-middelpunt}}{%
+\uitleg{Het middelpunt ligt op de middelloodlijn van elke koorde. We tekenen dus twee koorden die niet evenwijdig zijn, en hun middelloodlijnen.}
+\naast{\begin{stappenvrij}{4.6cm}{5cm}
+[AB] \text{ en } [CD] & Teken twee koorden die niet evenwijdig zijn. \\[1ex]
+m_1 \text{ en } m_2 & Construeer de middelloodlijnen met de passer: twee bogen met middelpunt $A$ en $B$, en de rechte door hun snijpunten. \\[1ex]
+M = m_1 \cap m_2 & Het middelpunt ligt op beide.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{200}{A} \cpunt{B}{280}{B} \cpunt{C}{350}{C} \cpunt{D}{60}{D}
+  \draw[accent,thick] (A) -- (B) (C) -- (D);
+  \draw[fel!70!black,dashed] (240:2.1) -- (60:.9) node[above left=-1pt] {$m_1$};
+  \draw[fel!70!black,dashed] (25:2.1) -- (205:.9) node[left] {$m_2$};
+  \punt[below right]{0}{0}{M}
+\end{tikzpicture}}
+Waarom twee koorden? Met één middelloodlijn weet je alleen op welke rechte het middelpunt ligt.}
+
+\begin{oefeningen}
+\oef{h2-ml}
+\end{oefeningen}
+
+\subsection{De cirkel door drie punten}
+
+Drie dorpen willen samen een zendmast, en die moet even ver van de drie dorpen staan. Waar zet je hem? Een punt dat even ver van $A$, $B$ en $C$ ligt, is het middelpunt van een cirkel door die drie punten. Het ligt op de middelloodlijn van $[AB]$ en op die van $[BC]$.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Cirkel door drie punten}
+Door drie punten $A$, $B$ en $C$ die niet op een rechte liggen, gaat juist één cirkel. Het middelpunt is het snijpunt van de middelloodlijnen van $[AB]$, $[BC]$ en $[AC]$.
+\end{stelling}
+
+\begin{bewijs}
+De middelloodlijnen van $[AB]$ en $[BC]$ snijden elkaar, want $AB$ en $BC$ zijn niet evenwijdig. Het snijpunt $M$ ligt even ver van $A$ als van $B$, en even ver van $B$ als van $C$:
+\bewijsregel{\lengte{MA} = \lengte{MB} = \lengte{MC}}
+Dus gaat de cirkel met middelpunt $M$ door $A$, $B$ en $C$. Omdat $\lengte{MA} = \lengte{MC}$, ligt $M$ ook op de middelloodlijn van $[AC]$. Een ander middelpunt kan niet: het moet op elke middelloodlijn liggen.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel[thin]
+  \cpunt{A}{215}{A} \cpunt{B}{320}{B} \cpunt{C}{110}{C}
+  \fill[accent!15] (A) -- (B) -- (C) -- cycle;
+  \draw[accent,thick] (A) -- (B) -- (C) -- cycle;
+  \foreach \p/\q in {A/B,B/C,C/A} {\draw[fel!70!black,dashed] (0,0) -- ($(0,0)!1.35!($(\p)!.5!(\q)$)$);}
+  \punt[below]{0}{0}{M}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Het middelpunt heet ook het middelpunt van de \emph{omgeschreven cirkel} van de driehoek $ABC$. Zo zie je ook dat de drie middelloodlijnen van een driehoek altijd door één punt gaan.
+
+\voorbeeld{}{Waar ligt het middelpunt van de omgeschreven cirkel van een rechthoekige driehoek? En van een stomphoekige?\label{vb:h2-omgeschreven}}{%
+\uitleg{Bij een rechthoekige driehoek gebruiken we de hoek in een halve cirkel uit hoofdstuk 1. Bij een stomphoekige kijken we naar de omtrekshoek op de langste zijde.}
+\begin{stappen}
+\hoek{C} = 90^\circ & De rechte hoek staat op een middelpuntshoek van $180^\circ$. \\[1ex]
+[AB] \text{ is een middellijn} & Het middelpunt is het midden van de schuine zijde. \\[1ex]
+\hoek{C} > 90^\circ & Een stompe omtrekshoek staat op de grote boog $\boog{AB}$. \\[1ex]
+M \text{ buiten } \drieh{ABC} & $C$ en $M$ liggen aan verschillende kanten van $AB$.
+\end{stappen}
+Bij een scherphoekige driehoek ligt het middelpunt binnen de driehoek.}
+
+\begin{oefeningen}
+\oef{h2-drie}
+\end{oefeningen}
+
+\subsection{Afstand van het middelpunt tot een koorde}
+
+Hoe ver ligt een koorde van het middelpunt? De \emph{afstand} van een punt tot een rechte meet je loodrecht: het is de lengte van de loodlijn uit dat punt op de rechte. Waar komt de loodlijn uit $M$ op een koorde terecht?
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Loodlijn uit het middelpunt}
+De loodlijn uit het middelpunt op een koorde snijdt de koorde in haar midden.
+\end{stelling}
+
+\begin{bewijs}
+De middelloodlijn van de koorde gaat door $M$ en staat loodrecht op de koorde. Door $M$ gaat maar één rechte die loodrecht op de koorde staat, dus is de loodlijn uit $M$ de middelloodlijn.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{210}{A} \cpunt{B}{330}{B}
+  \coordinate (H) at (0,-.8); \coordinate (M) at (0,0);
+  \draw[accent,thick] (A) -- (B);
+  \draw[grijs] (M) -- (B);
+  \draw[fel!70!black,thick] (M) -- (H);
+  \rechtehoek{B}{H}{M}
+  \fill (H) circle (1.2pt) node[below] {$H$};
+  \punt[above]{0}{0}{M}
+  \node[left] at (0,-.4) {$d$}; \node[above right=-1pt] at ($(M)!.5!(B)$) {$r$};
+  \node[below] at ($(H)!.5!(B)$) {$\tfrac{k}{2}$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Noem de lengte van de koorde $k$, de straal $r$ en de afstand van $M$ tot de koorde $d$. In de figuur zit dan een rechthoekige driehoek $MHB$ met rechthoekszijden $d$ en $\tfrac{k}{2}$ en schuine zijde $r$. De stelling van Pythagoras geeft
+\[ d^2 + \left(\tfrac{k}{2}\right)^2 = r^2. \]
+Ken je twee van de drie, dan bereken je de derde.
+
+\voorbeeld{}{Een cirkel heeft straal 13~cm. Hoe ver ligt een koorde van 24~cm van het middelpunt?\label{vb:h2-afstand}}{%
+\uitleg{De loodlijn uit $M$ valt in het midden van de koorde. In de rechthoekige driehoek $MHB$ kennen we de schuine zijde en een rechthoekszijde.}
+\begin{stappen}
+\lengte{HB} = 24 : 2 = 12 & De helft van de koorde. \\[1ex]
+d^2 = 13^2 - 12^2 = 25 & Pythagoras in $\drieh{MHB}$. \\[1ex]
+d = 5~\text{cm} & Een afstand is positief.
+\end{stappen}}
+
+\voorbeeld{}{In een cirkel met straal 10~cm ligt een koorde op 6~cm van het middelpunt. Hoe lang is de koorde?\label{vb:h2-koorde}}{%
+\uitleg{Nu kennen we $r$ en $d$. Pythagoras geeft de halve koorde, en die verdubbelen we.}
+\begin{stappen}
+\left(\tfrac{k}{2}\right)^2 = 10^2 - 6^2 = 64 & Pythagoras in $\drieh{MHB}$. \\[1ex]
+\tfrac{k}{2} = 8 \quad \text{dus} \quad k = 16~\text{cm} & Verdubbel de halve koorde.
+\end{stappen}
+Een koorde dichter bij het middelpunt is langer: op afstand 0 is ze een middellijn van 20~cm.}
+
+\begin{werkwijze}
+Teken de loodlijn uit het middelpunt op de koorde en de straal naar een eindpunt van de koorde. In de rechthoekige driehoek die zo ontstaat, is de straal de schuine zijde en zijn de afstand en de halve koorde de rechthoekszijden. Gebruik Pythagoras, en verdubbel de halve koorde als je de hele nodig hebt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-afstand}
+\end{oefeningen}
+
+Nu kunnen we het probleem van de scherf oplossen. De straal is onbekend, maar we weten hoe ver de rand in het midden boven de lat uitsteekt.
+
+\voorbeeld{}{Terug naar het probleem. Een lat van 16~cm ligt met beide uiteinden tegen de rand van een rond bord. In het midden staat de rand 4~cm van de lat. Hoe groot is de diameter van het bord?\label{vb:h2-terug}}{%
+\uitleg{De lat is een koorde $[AB]$. De middelloodlijn van de lat gaat door het middelpunt $M$ en snijdt de rand in $T$, 4~cm boven het midden $H$ van de lat. Noem de straal $r$. Dan is $\lengte{MT} = r$ en $\lengte{MH} = r - 4$.}
+\naast{\begin{stappenvrij}{5.4cm}{3.8cm}
+(r - 4)^2 + 8^2 = r^2 & Pythagoras in $\drieh{MHB}$. \\[1ex]
+r^2 - 8r + 16 + 64 = r^2 & Uitwerken. \\[1ex]
+8r = 80 & De termen $r^2$ vallen weg. \\[1ex]
+r = 10 & De straal is 10~cm.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.23,font=\scriptsize]
+  \draw[accent!40,dashed] (0,0) circle (10);
+  \draw[accent,very thick] (36.87:10) arc[start angle=36.87,end angle=143.13,radius=10];
+  \coordinate (A) at (-8,6); \coordinate (B) at (8,6); \coordinate (H) at (0,6);
+  \coordinate (T) at (0,10); \coordinate (M) at (0,0);
+  \draw[grijs,thick] (A) -- (B);
+  \draw[fel!70!black] (M) -- (T) (M) -- (B);
+  \rechtehoek{B}{H}{M}
+  \fill (A) circle (6pt) node[left] {$A$}; \fill (B) circle (6pt) node[right] {$B$};
+  \fill (H) circle (6pt) node[below right] {$H$}; \fill (T) circle (6pt) node[above] {$T$};
+  \fill (M) circle (6pt) node[below] {$M$};
+  \node[left] at (0,8) {4}; \node[above] at (4,6) {8};
+  \node[left] at (0,3) {$r - 4$}; \node[right] at (4,3) {$r$};
+\end{tikzpicture}}
+Het bord had een diameter van 20~cm. Controle: $6^2 + 8^2 = 36 + 64 = 100 = 10^2$.}
+
+Met de middelloodlijn vind je dus het middelpunt, ook als je maar een stukje van de cirkel hebt. De archeologen hadden ook twee koorden op de scherf kunnen tekenen: het snijpunt van de middelloodlijnen is het middelpunt.
+
+\subsection{Gelijke koorden}
+
+In een regelmatige veelhoek zijn alle zijden even lang, en de middelpuntshoeken op de zijden zijn gelijk. Is dat toeval? Twee even lange koorden vormen met het middelpunt twee driehoeken met drie gelijke zijden.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Gelijke koorden}
+In een cirkel hebben gelijke koorden gelijke middelpuntshoeken, en omgekeerd:
+
+\vspace{1mm}
+\qquad $\formule{\lengte{AB} = \lengte{CD} \ \Leftrightarrow \ \hoek{AMB} = \hoek{CMD}}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $\lengte{AB} = \lengte{CD}$. De driehoeken $AMB$ en $CMD$ hebben drie gelijke zijden, want de andere zijden zijn stralen. Ze zijn congruent (ZZZ), dus $\hoek{AMB} = \hoek{CMD}$.
+
+Omgekeerd: stel $\hoek{AMB} = \hoek{CMD}$. Dan hebben de driehoeken twee gelijke zijden (stralen) met een gelijke hoek ertussen. Ze zijn congruent (ZHZ), dus $\lengte{AB} = \lengte{CD}$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{-30}{A} \cpunt{B}{50}{B} \cpunt{C}{140}{C} \cpunt{D}{220}{D}
+  \coordinate (M) at (0,0);
+  \filldraw[fill=accent!20,draw=accent,thick] (A) -- (M) -- (B) -- cycle;
+  \filldraw[fill=accent!20,draw=accent,thick] (C) -- (M) -- (D) -- cycle;
+  \hoekboog{A}{M}{B}{3mm} \hoekboog{C}{M}{D}{3mm}
+  \node[above=1pt] at (M) {$M$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Gelijke middelpuntshoeken horen bij even lange bogen. In woorden: in een cirkel horen bij gelijke koorden gelijke middelpuntshoeken en gelijke bogen. Met Pythagoras volgt ook dat gelijke koorden even ver van het middelpunt liggen.
+
+\voorbeeld{}{Hoeveel koorden met de lengte van de straal kun je na elkaar in een cirkel leggen, telkens met een gemeenschappelijk eindpunt, tot je rond bent?\label{vb:h2-gelijk}}{%
+\uitleg{Een koorde zo lang als de straal vormt met $M$ een gelijkzijdige driehoek. Alle koorden zijn even lang, dus hun middelpuntshoeken zijn gelijk.}
+\begin{stappen}
+\hoek{AMB} = 60^\circ & $\drieh{AMB}$ heeft drie zijden $r$: gelijkzijdig. \\[1ex]
+360^\circ : 60^\circ = 6 & Alle middelpuntshoeken zijn $60^\circ$.
+\end{stappen}
+Er passen precies zes koorden, en ze vormen een regelmatige zeshoek, zoals in hoofdstuk 1.}
+
+\begin{oefeningen}
+\oef{h2-gelijk}
+\end{oefeningen}
+
+%========================================================================================
+\section{De raaklijn}
+
+\subsection{Rechte en cirkel}
+
+Hoeveel punten kan een rechte gemeen hebben met een cirkel? Schuif een lat over een cirkel, steeds verder van het middelpunt. Eerst snijdt ze de cirkel in twee punten. Dan raakt ze de cirkel in één punt. En daarna heeft ze geen enkel punt meer met de cirkel gemeen. Wat beslist het? De afstand $d$ van het middelpunt tot de rechte, vergeleken met de straal $r$.
+
+\begin{theorie}
+Een rechte en een cirkel met middelpunt $M$ en straal $r$. Noem $d$ de afstand van $M$ tot de rechte.
+
+\vspace{1mm}
+\begin{tabular}{@{}p{4.6cm}p{4.6cm}p{4.6cm}@{}}
+Een \textbf{\textcolor{accent}{snijlijn}} heeft twee punten met de cirkel gemeen: $\formule{d < r}$. &
+Een \textbf{\textcolor{accent}{raaklijn}} heeft één punt met de cirkel gemeen, het \textbf{\textcolor{accent}{raakpunt}}: $\formule{d = r}$. &
+Een \textbf{\textcolor{accent}{rechte buiten de cirkel}} heeft geen punt met de cirkel gemeen: $\formule{d > r}$.
+\end{tabular}
+
+\vspace{1mm}
+\centering
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \foreach \x/\d in {0/.8,10/1.6,20/2.3} {
+    \begin{scope}[xshift=\x cm]
+      \cirkel
+      \draw[fel!70!black,thick] (-2.3,-\d) -- (2.3,-\d);
+      \draw[grijs] (0,0) -- (0,-\d);
+      \fill (0,0) circle (2pt);
+      \node[right] at (0,-\d/2) {$d$};
+    \end{scope}}
+  \fill (10,-1.6) circle (2.5pt);
+\end{tikzpicture}
+\end{theorie}
+
+Dat volgt uit hoe je afstanden meet: alle punten van de rechte liggen minstens op afstand $d$ van $M$. Is $d > r$, dan liggen ze allemaal buiten de cirkel. Is $d < r$, dan ligt de loodlijn uit $M$ binnen de cirkel, en de rechte gaat erdoor.
+
+\voorbeeld{}{Een cirkel heeft straal 5. Hoe liggen rechten op afstand 3, 5 en 7 van het middelpunt? Hoe lang is de koorde op de snijlijn?\label{vb:h2-ligging}}{%
+\uitleg{We vergelijken telkens $d$ met $r = 5$. Voor de koorde gebruiken we Pythagoras, zoals in de vorige sectie.}
+\begin{stappen}
+d = 3 < 5 & Snijlijn, met een koorde van $2\sqrt{25 - 9} = 8$. \\[1ex]
+d = 5 = r & Raaklijn. \\[1ex]
+d = 7 > 5 & Rechte buiten de cirkel.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-ligging}
+\end{oefeningen}
+
+\subsection{De raaklijn staat loodrecht op de straal}
+
+Laat je een steen in een slinger los, dan vliegt hij niet naar buiten, weg van je hand, maar in de richting van de raaklijn. Die richting staat loodrecht op het touw. Geldt dat voor elke raaklijn? Bij een raaklijn is de afstand $d$ gelijk aan $r$. Het raakpunt $R$ ligt op afstand $r$, en alle andere punten van de rechte liggen verder. Het raakpunt is dus het punt van de rechte dat het dichtst bij $M$ ligt, en dat is het voetpunt van de loodlijn uit $M$.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Raaklijn en straal}
+De raaklijn in een punt $R$ van de cirkel staat loodrecht op de straal $[MR]$. Omgekeerd is de rechte door $R$ loodrecht op $MR$ de raaklijn in $R$.
+\end{stelling}
+
+\begin{bewijs}
+Neem eerst de rechte $t$ door $R$ loodrecht op $MR$, en een ander punt $P$ van $t$. In de rechthoekige driehoek $MRP$ is
+\bewijsregel{\lengte{MP}^2 = \lengte{MR}^2 + \lengte{RP}^2 = r^2 + \lengte{RP}^2 > r^2}
+Dus ligt $P$ buiten de cirkel, en heeft $t$ alleen $R$ met de cirkel gemeen: $t$ is een raaklijn.
+\begin{alleenvoor}{4}
+
+Dat omgekeerd elke raaklijn in $R$ loodrecht op $MR$ staat, zag je hierboven: $R$ is het punt van de raaklijn dat het dichtst bij $M$ ligt.
+\end{alleenvoor}
+\begin{alleenvoor}{5}
+
+Omgekeerd, uit het ongerijmde: stel dat een raaklijn $s$ in $R$ niet loodrecht op $MR$ staat. Noem $H$ het voetpunt van de loodlijn uit $M$ op $s$; dan is $H \neq R$, en in de rechthoekige driehoek $MHR$ is de schuine zijde $[MR]$ de langste zijde: $\lengte{MH} < \lengte{MR} = r$. Dus ligt $H$ binnen de cirkel, en is $s$ een snijlijn. Dat is strijdig met het gegeven.
+\end{alleenvoor}
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel
+  \cpunt{R}{60}{R}
+  \coordinate (M) at (0,0);
+  \draw[fel!70!black,thick] ($(R)+(-30:1.6)$) -- ($(R)+(150:1.6)$) node[left] {$t$};
+  \draw[grijs] (M) -- (R);
+  \coordinate (P) at ($(R)+(-30:1.2)$);
+  \fill (P) circle (1.2pt) node[right] {$P$};
+  \draw[grijs,dashed] (M) -- (P);
+  \rechtehoek{M}{R}{P}
+  \punt[below]{0}{0}{M}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+In woorden: een raaklijn en de straal naar het raakpunt staan altijd loodrecht op elkaar. Zo teken je een raaklijn in een punt van de cirkel: trek de straal en teken de loodlijn erop door het raakpunt.
+
+\voorbeeld{}{Een cirkel heeft middelpunt $M$ en straal 5~cm. Het punt $P$ ligt 13~cm van $M$, en de rechte $PR$ raakt de cirkel in $R$. Bereken $\lengte{PR}$.\label{vb:h2-raak}}{%
+\uitleg{De raaklijn staat loodrecht op de straal $[MR]$. De driehoek $MRP$ is dus rechthoekig in $R$, met schuine zijde $[MP]$.}
+\naast{\begin{stappenvrij}{5cm}{4cm}
+\hoek{MRP} = 90^\circ & Raaklijn en straal. \\[1ex]
+\lengte{PR}^2 = 13^2 - 5^2 = 144 & Pythagoras. \\[1ex]
+\lengte{PR} = 12~\text{cm} & Een lengte is positief.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \def\straal{1}
+  \cirkel
+  \coordinate (M) at (0,0); \coordinate (P) at (2.6,0); \coordinate (R) at (67.38:1);
+  \draw[fel!70!black,thick] (P) -- ($(P)!1.25!(R)$);
+  \draw[grijs] (M) -- (R) (M) -- (P);
+  \rechtehoek{M}{R}{P}
+  \fill (R) circle (1.4pt) node[above] {$R$}; \fill (P) circle (1.4pt) node[right] {$P$};
+  \punt[left]{0}{0}{M}
+  \node[left=1pt] at ($(M)!.5!(R)$) {5}; \node[below] at (1.3,0) {13};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-raak}
+\end{oefeningen}
+
+\subsection{Raaklijnen vanuit een punt}
+
+Vanuit een punt $P$ buiten de cirkel kun je twee raaklijnen aan de cirkel tekenen. Maar waar liggen de raakpunten precies? Een raakpunt $R$ ziet het lijnstuk $[MP]$ onder een rechte hoek, want $MR \perp PR$. Uit hoofdstuk 1 weet je waar je zulke punten vindt: op de cirkel met middellijn $[MP]$.
+
+\voorbeeld{}{Construeer de raaklijnen uit een punt $P$ buiten een cirkel met middelpunt $M$.\label{vb:h2-constructie}}{%
+\uitleg{We zoeken de punten $R$ van de cirkel met $\hoek{MRP} = 90^\circ$. Die liggen op de cirkel met middellijn $[MP]$.}
+\naast{\begin{stappenvrij}{4.4cm}{5cm}
+N = \text{midden van } [MP] & Construeer de middelloodlijn van $[MP]$. \\[1ex]
+\text{cirkel met middelpunt } N & Teken de cirkel door $M$ en $P$, met middelpunt $N$. \\[1ex]
+R \text{ en } S & De snijpunten met de gegeven cirkel. \\[1ex]
+PR \text{ en } PS & De raaklijnen: $\hoek{MRP} = \hoek{MSP} = 90^\circ$ (hoek in een halve cirkel).
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.85,font=\scriptsize]
+  \def\straal{1.2}
+  \cirkel
+  \coordinate (M) at (0,0); \coordinate (P) at (3,0); \coordinate (N) at (1.5,0);
+  \coordinate (R) at (.48,1.0998); \coordinate (S) at (.48,-1.0998);
+  \draw[grijs,dashed] (N) circle (1.5);
+  \draw[fel!70!black,thick] (P) -- ($(P)!1.35!(R)$) (P) -- ($(P)!1.35!(S)$);
+  \draw[grijs] (M) -- (P) (M) -- (R) (M) -- (S);
+  \rechtehoek{M}{R}{P} \rechtehoek{P}{S}{M}
+  \fill (R) circle (1.4pt) node[above left=-1pt] {$R$}; \fill (S) circle (1.4pt) node[below left=-1pt] {$S$};
+  \fill (P) circle (1.4pt) node[right] {$P$}; \fill (N) circle (1.2pt) node[below] {$N$};
+  \punt[left]{0}{0}{M}
+\end{tikzpicture}}}
+
+In de figuur lijken $[PR]$ en $[PS]$ even lang. Dat klopt altijd, en het bewijs is kort met Pythagoras.
+
+\begin{theorie}
+De lijnstukken $[PR]$ en $[PS]$ heten de \textbf{\textcolor{accent}{raaklijnstukken}} uit $P$.
+
+\begin{stelling}{Raaklijnstukken}
+De twee raaklijnstukken uit een punt buiten een cirkel zijn even lang:
+
+\vspace{1mm}
+\qquad $\formule{\lengte{PR} = \lengte{PS}}$
+\end{stelling}
+
+\begin{bewijs}
+De driehoeken $MRP$ en $MSP$ zijn rechthoekig in $R$ en $S$, met dezelfde schuine zijde $[MP]$ en $\lengte{MR} = \lengte{MS} = r$. Met Pythagoras is
+\bewijsregel{\lengte{PR}^2 = \lengte{MP}^2 - r^2 = \lengte{PS}^2}
+Dus $\lengte{PR} = \lengte{PS}$.
+\end{bewijs}
+\end{theorie}
+
+De figuur $PRMS$ is dus een vlieger, met $PM$ als symmetrieas. Twee hoeken ervan zijn recht.
+
+\voorbeeld{}{Uit een punt $P$ raken twee raaklijnen een cirkel met middelpunt $M$ in $R$ en $S$, met $\hoek{RPS} = 50^\circ$. Bereken $\hoek{RMS}$ en $\hoek{PRS}$.\label{vb:h2-stukken}}{%
+\uitleg{De vierhoek $PRMS$ heeft twee rechte hoeken, in $R$ en $S$. De driehoek $PRS$ is gelijkbenig, want de raaklijnstukken zijn even lang.}
+\naast{\begin{stappenvrij}{6.8cm}{3.2cm}
+\hoek{RMS} = 360^\circ - 90^\circ - 90^\circ - 50^\circ = 130^\circ & De hoekensom van $PRMS$. \\[1ex]
+\hoek{PRS} = \dfrac{180^\circ - 50^\circ}{2} = 65^\circ & $\drieh{PRS}$ is gelijkbenig.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \def\straal{1}
+  \cirkel
+  \coordinate (M) at (0,0); \coordinate (P) at (2.366,0);
+  \coordinate (R) at (65:1); \coordinate (S) at (-65:1);
+  \draw[fel!70!black,thick] (R) -- (P) -- (S);
+  \draw[grijs] (R) -- (M) -- (S) (R) -- (S);
+  \rechtehoek{M}{R}{P} \rechtehoek{P}{S}{M}
+  \hoeklabel[angle eccentricity=1.7]{R}{P}{S}{4mm}{50^\circ}
+  \fill (R) circle (1.4pt) node[above] {$R$}; \fill (S) circle (1.4pt) node[below] {$S$};
+  \fill (P) circle (1.4pt) node[right] {$P$};
+  \punt[left]{0}{0}{M}
+\end{tikzpicture}}
+Merk op dat $\hoek{RMS}$ en $\hoek{RPS}$ samen $180^\circ$ zijn: $PRMS$ is een koordenvierhoek.}
+
+\begin{oefeningen}
+\oef{h2-stukken}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+\subsection{De hoek tussen een raaklijn en een koorde}
+
+Wat gebeurt er met een omtrekshoek $\hoek{ACB}$ als $C$ steeds dichter bij $A$ komt? Het been $CA$ wordt dan de raaklijn in $A$, en de hoek blijft even groot. Dat suggereert een eigenschap van de hoek tussen een raaklijn en een koorde. Het bewijs gebruikt een gelijkbenige driehoek.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Hoek tussen raaklijn en koorde}
+De hoek tussen de raaklijn in $A$ en de koorde $[AB]$ is de helft van de middelpuntshoek op de boog $\boog{AB}$ binnen die hoek. Hij is dus gelijk aan de omtrekshoek op die boog.
+\end{stelling}
+
+\begin{bewijs}
+Noem $\alpha$ de hoek tussen de raaklijn $t$ en $[AB]$, en $\beta = \hoek{AMB}$. De driehoek $AMB$ is gelijkbenig, dus $\hoek{MAB} = \tfrac12(180^\circ - \beta) = 90^\circ - \tfrac12\beta$. Omdat $t \perp MA$, is
+\bewijsregel{\alpha = 90^\circ - \hoek{MAB} = \tfrac12\,\beta}
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \cirkel
+  \cpunt{A}{270}{A} \cpunt{B}{350}{B} \cpunt{C}{150}{C}
+  \coordinate (M) at (0,0);
+  \draw[fel!70!black,thick] (-1.5,-1.6) -- (2.2,-1.6) node[above] {$t$};
+  \draw[accent,thick] (A) -- (B) (A) -- (C) -- (B);
+  \draw[grijs] (A) -- (M) -- (B);
+  \coordinate (T) at (2.2,-1.6);
+  \hoeklabel[angle eccentricity=1.6]{T}{A}{B}{6mm}{\alpha}
+  \hoeklabel[angle eccentricity=1.8]{A}{M}{B}{3mm}{\beta}
+  \hoekboog{A}{C}{B}{5mm}
+  \node[above left=-1pt] at (M) {$M$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\voorbeeld{}{Op een cirkel met middelpunt $M$ is $\hoek{AMB} = 100^\circ$. Bereken de hoek tussen de raaklijn in $A$ en de koorde $[AB]$, en de omtrekshoek $\hoek{ACB}$ op dezelfde boog.\label{vb:h2-rk}}{%
+\uitleg{Beide zijn de helft van de middelpuntshoek op de boog $\boog{AB}$.}
+\begin{stappen}
+\alpha = \tfrac12 \cdot 100^\circ = 50^\circ & Hoek tussen raaklijn en koorde. \\[1ex]
+\hoek{ACB} = \tfrac12 \cdot 100^\circ = 50^\circ & Omtrekshoekstelling.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-rk}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+
+\oef{h2-o25}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-afstand}{oef:h2-afstand}%
+  \fv{oef:h2-t2}{vb:h2-koorde}{oef:h2-o2}%
+  \fv{oef:h2-t3}{vb:h2-ligging}{oef:h2-ligging}%
+  \fv{oef:h2-t4}{vb:h2-raak}{oef:h2-raak}%
+  \fv{oef:h2-t5}{vb:h2-stukken}{oef:h2-stukken}%
+  \fv{oef:h2-t6}{vb:h2-omgeschreven}{oef:h2-drie}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-o9}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom de middelloodlijn van een koorde door het middelpunt gaat, hoe je het middelpunt van een cirkel en de cirkel door drie punten vindt, het verband tussen straal, koorde en afstand tot het middelpunt, gelijke koorden, de drie liggingen van een rechte en een cirkel, waarom de raaklijn loodrecht op de straal staat, hoe je de raaklijnen uit een punt construeert, en de eigenschap van de raaklijnstukken. Vergelijk daarna met de kaders.
+\fi

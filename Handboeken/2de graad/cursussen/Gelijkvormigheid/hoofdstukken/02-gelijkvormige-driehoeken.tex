@@ -1,0 +1,519 @@
+%----------------------------------------------------------------------------------------
+% GELIJKVORMIGE DRIEHOEKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Pakketten: de bewijzen van ZZZ en ZHZ staan alleen in pakket 5; de hoogtelijn in een rechthoekige
+% driehoek en de link met een negatieve factor alleen in pakket 4 en 5.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Gelijkvormige driehoeken}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Van een schoendoos maak je een eenvoudige camera. Prik vooraan een klein gaatje en span achteraan, 30~cm verder, een vel calqueerpapier. Richt de doos op een kerktoren die 150~m verder staat. Op het papier verschijnt de toren, op zijn kop en 7~cm hoog. Hoe hoog is de toren? Je kunt een verhouding opstellen, maar waarom mag dat eigenlijk?}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \fill[accent!25] (-.35,0) rectangle (.35,2.6);
+  \fill[accent!25] (-.35,2.6) -- (0,3.5) -- (.35,2.6) -- cycle;
+  \draw[accent,thick] (-.35,0) -- (-.35,2.6) -- (0,3.5) -- (.35,2.6) -- (.35,0);
+  \draw[lijngrijs] (-.8,0) -- (6.2,0);
+  \draw[grijs,thick] (5,-1) rectangle (6.2,.7);
+  \draw[accent] (0,3.5) -- (6.2,-.7);
+  \draw[accent,very thick] (6.2,0) -- (6.2,-.7);
+  \fill[white] (5,0) circle (2.2pt); \fill (5,0) circle (1.2pt);
+  \node[below] at (2.5,0) {150 m};
+  \node[below right] at (6.2,-.25) {7 cm};
+  \node[right] at (.35,1.7) {?};
+  \draw[grijs,|-|] (5,-1.3) -- (6.2,-1.3) node[midway,below] {30 cm};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD 9 (gelijkvormige driehoeken: de kenmerken en meetkundige problemen). Het bewijs van het kenmerk HH steunt op de homothetie uit hoofdstuk 1. \alleenvoor{5}{De kenmerken ZZZ en ZHZ krijgen in dit pakket ook een kort bewijs (doel B1). }\alleenvoor{4,5}{De hoogtelijn in een rechthoekige driehoek staat alleen in pakket 4 en 5. }Voorkennis: de hoekensom in een driehoek, overstaande hoeken, hoeken bij evenwijdige rechten en een snijlijn (F- en Z-hoeken), de congruentiekenmerken.}
+
+In hoofdstuk 1 zag je dat gelijkvormige figuren dezelfde hoeken hebben, en zijden die allemaal met dezelfde factor vermenigvuldigd zijn. Bij driehoeken is er iets bijzonders aan de hand: je hoeft niet alles na te gaan. Twee gelijke hoeken volstaan al. Daarmee kun je afstanden berekenen die je niet kunt meten, zoals de hoogte van een toren of de breedte van een rivier. In het handboek Driehoeksmeting bouw je daarop verder: sinus, cosinus en tangens zijn verhoudingen in gelijkvormige driehoeken.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Gelijkvormige driehoeken}
+
+\subsection{Overeenkomstige hoekpunten}
+
+Twee driehoeken zijn gelijkvormig als hun hoeken gelijk zijn en hun zijden dezelfde verhouding hebben. Maar welke zijde hoort bij welke? Bij een rechthoek was dat duidelijk: de korte bij de korte. Bij een driehoek die gedraaid of gespiegeld is, moet je goed kijken. Daarom schrijf je de hoekpunten die bij elkaar horen in dezelfde volgorde.
+
+\begin{theorie}
+Driehoek $ABC$ is \textbf{\textcolor{accent}{gelijkvormig}} met driehoek $DEF$, genoteerd $\formule{\drieh{ABC} \gv \drieh{DEF}}$, als
+
+\vspace{1mm}
+\qquad $\formule{\hoek{A} = \hoek{D}, \quad \hoek{B} = \hoek{E}, \quad \hoek{C} = \hoek{F}} \qquad \text{en} \qquad \formule{\dfrac{\lengte{DE}}{\lengte{AB}} = \dfrac{\lengte{EF}}{\lengte{BC}} = \dfrac{\lengte{DF}}{\lengte{AC}} = k}$
+
+\vspace{1mm}
+De volgorde van de letters zegt welke hoekpunten bij elkaar horen: $A$ bij $D$, $B$ bij $E$ en $C$ bij $F$.
+\end{theorie}
+
+Uit de volgorde lees je ook de overeenkomstige zijden af: $[AB]$ hoort bij $[DE]$, want dat zijn de eerste twee letters. En $[BC]$ hoort bij $[EF]$, de laatste twee.
+
+\voorbeeld{}{Gegeven: $\drieh{ABC} \gv \drieh{PQR}$, met $\lengte{AB} = 4$, $\lengte{BC} = 6$, $\lengte{AC} = 5$ en $\lengte{PQ} = 6$. Bereken $\lengte{QR}$ en $\lengte{PR}$.\label{vb:h2-def}}{%
+\uitleg{Uit de volgorde van de letters volgt dat $[PQ]$ bij $[AB]$ hoort. Van dat paar kennen we beide lengtes, dus daaruit volgt de factor.}
+\naast{\begin{stappenvrij}{5.4cm}{4cm}
+k = \dfrac{\lengte{PQ}}{\lengte{AB}} = \dfrac64 = 1{,}5 & Van $ABC$ naar $PQR$. \\[2ex]
+\lengte{QR} = 1{,}5 \cdot \lengte{BC} = 1{,}5 \cdot 6 = 9 & $[QR]$ hoort bij $[BC]$. \\[1ex]
+\lengte{PR} = 1{,}5 \cdot \lengte{AC} = 1{,}5 \cdot 5 = 7{,}5 & $[PR]$ hoort bij $[AC]$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \filldraw[fill=accent!30,draw=accent,thick] (0,0) coordinate (A) -- (4,0) coordinate (B) -- (.625,4.961) coordinate (C) -- cycle;
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[above] at (C) {$C$};
+  \filldraw[fill=accent!12,draw=accent,thick] (13,0) coordinate (P) -- (7,0) coordinate (Q) -- (12.06,7.44) coordinate (R) -- cycle;
+  \node[below] at (P) {$P$}; \node[below] at (Q) {$Q$}; \node[above] at (R) {$R$};
+\end{tikzpicture}}
+In de figuur is $PQR$ gespiegeld, maar dat maakt niets uit: de volgorde van de letters zegt wat bij elkaar hoort.}
+
+Vaak staat de volgorde er niet bij, en zie je alleen welke hoeken gelijk zijn. Dan zoek je eerst de hoekpunten die bij elkaar horen. Een zijde hoort bij de zijde die tegenover dezelfde hoek ligt.
+
+\voorbeeld{}{In driehoek $ABC$ is $\hoek{A} = 70^\circ$ en $\hoek{B} = 50^\circ$. In driehoek $KLM$ is $\hoek{K} = 50^\circ$ en $\hoek{M} = 70^\circ$. De driehoeken zijn gelijkvormig, met $\lengte{AB} = 8$, $\lengte{BC} = 10$ en $\lengte{MK} = 12$. Schrijf de gelijkvormigheid in de juiste volgorde en bereken $\lengte{KL}$.\label{vb:h2-volgorde}}{%
+\uitleg{Gelijke hoeken horen bij elkaar: $A$ bij $M$ (beide $70^\circ$) en $B$ bij $K$ (beide $50^\circ$). Dan hoort $C$ bij $L$.}
+\begin{stappen}
+\drieh{ABC} \gv \drieh{MKL} & De hoekpunten in dezelfde volgorde. \\[1ex]
+k = \dfrac{\lengte{MK}}{\lengte{AB}} = \dfrac{12}{8} = 1{,}5 & $[MK]$ hoort bij $[AB]$: de eerste twee letters. \\[2ex]
+\lengte{KL} = 1{,}5 \cdot \lengte{BC} = 1{,}5 \cdot 10 = 15 & $[KL]$ hoort bij $[BC]$: de laatste twee letters.
+\end{stappen}}
+
+\begin{werkwijze}
+Zoek welke hoekpunten bij elkaar horen: die met gelijke hoeken. Schrijf de gelijkvormigheid met de hoekpunten in dezelfde volgorde. Bereken de factor uit een paar overeenkomstige zijden waarvan je beide lengtes kent. Vermenigvuldig met $k$ om van de eerste naar de tweede driehoek te gaan, en deel door $k$ om terug te gaan.
+\end{werkwijze}
+
+\nujij{$\drieh{DEF} \gv \drieh{XYZ}$ met $\lengte{DE} = 10$, $\lengte{EF} = 8$ en $\lengte{XY} = 4$. Bereken $\lengte{YZ}$.}{$k = \tfrac{4}{10} = 0{,}4$, dus $\lengte{YZ} = 0{,}4 \cdot 8 = 3{,}2$.}
+
+\begin{oefeningen}
+\oef{h2-def}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kenmerken van gelijkvormige driehoeken}
+
+\subsection{Twee gelijke hoeken}
+
+Moet je altijd drie hoeken en drie verhoudingen nagaan om te weten dat twee driehoeken gelijkvormig zijn? In de Verken tekende je twee driehoeken met dezelfde twee hoeken, en kwamen de verhoudingen van de zijden vanzelf gelijk uit. Is dat altijd zo?
+
+Twee gelijke hoeken geven meteen ook een gelijke derde hoek, want de som van de hoeken is altijd $180^\circ$. De vraag is dus of de zijden dan vanzelf evenredig zijn. Het idee: schuif de ene driehoek op de andere, zodat een gelijke hoek samenvalt. Dan zie je een homothetie uit hoofdstuk 1.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Kenmerk HH}
+Zijn twee hoeken van een driehoek gelijk aan twee hoeken van een andere driehoek, dan zijn de driehoeken gelijkvormig.
+\end{stelling}
+
+\begin{bewijs}
+Neem $\hoek{D} = \hoek{A}$ en $\hoek{E} = \hoek{B}$. Leg $\drieh{DEF}$ op $\drieh{ABC}$, met $D$ op $A$ en $E$ op de halfrechte $[AB$. Omdat $\hoek{D} = \hoek{A}$, valt $F$ dan op $[AC$. Noem de nieuwe punten $E'$ en $F'$.
+
+Omdat $\hoek{E'} = \hoek{B}$ (F-hoeken), is $E'F' \parallel BC$. Neem de homothetie met centrum $A$ en factor $k = \tfrac{\lengte{AE'}}{\lengte{AB}}$. Die beeldt $B$ af op $E'$, en $BC$ op de evenwijdige door $E'$. Dus $C$ gaat naar $F'$, en $\drieh{AE'F'}$ is het beeld van $\drieh{ABC}$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (4,0); \coordinate (C) at (1.2,2.6);
+  \coordinate (E) at (2.4,0); \coordinate (F) at (.72,1.56);
+  \filldraw[fill=accent!10,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \filldraw[fill=accent!30,draw=accent,thick] (A) -- (E) -- (F) -- cycle;
+  \hoekboog{B}{A}{C}{6mm}
+  \hoekboog{C}{B}{A}{5mm}\hoekboog{C}{B}{A}{6mm}
+  \hoekboog{F}{E}{A}{5mm}\hoekboog{F}{E}{A}{6mm}
+  \node[below] at (A) {$A = D$}; \node[below] at (B) {$B$}; \node[above] at (C) {$C$};
+  \node[below] at (E) {$E'$}; \node[left] at (F) {$F'$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Dit kenmerk is het belangrijkste van het hoofdstuk: twee gelijke hoeken, en je weet dat alle zijden in dezelfde verhouding staan. Je noemt het kort \emph{HH}, van hoek-hoek.
+
+\voorbeeld{}{In driehoek $ABC$ is $\hoek{A} = 35^\circ$ en $\hoek{B} = 80^\circ$. In driehoek $DEF$ is $\hoek{D} = 65^\circ$ en $\hoek{E} = 35^\circ$. Zijn de driehoeken gelijkvormig? Schrijf de gelijkvormigheid in de juiste volgorde.\label{vb:h2-hh}}{%
+\uitleg{We berekenen de derde hoek in beide driehoeken, en zoeken dan gelijke hoeken.}
+\naast{\begin{stappenvrij}{4.6cm}{3.4cm}
+\hoek{C} = 180^\circ - 35^\circ - 80^\circ = 65^\circ & De hoekensom in $\drieh{ABC}$. \\[1ex]
+\hoek{F} = 180^\circ - 65^\circ - 35^\circ = 80^\circ & De hoekensom in $\drieh{DEF}$. \\[1ex]
+\hoek{A} = \hoek{E}, \ \hoek{B} = \hoek{F} & Twee paren gelijke hoeken: kenmerk HH. \\[1ex]
+\drieh{ABC} \gv \drieh{EFD} & $A$ bij $E$, $B$ bij $F$, dus $C$ bij $D$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (3,0); \coordinate (C) at (2.67,1.87);
+  \filldraw[fill=accent!30,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \hoekboog{B}{A}{C}{4mm} \hoekboog{C}{B}{A}{2.5mm}\hoekboog{C}{B}{A}{3.1mm}
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[above] at (C) {$C$};
+  \begin{scope}[shift={(4.6,3.4)},rotate=-90]
+  \coordinate (E) at (0,0); \coordinate (F) at (3.6,0); \coordinate (D) at (3.2,2.24);
+  \filldraw[fill=accent!12,draw=accent,thick] (E) -- (F) -- (D) -- cycle;
+  \hoekboog{F}{E}{D}{4mm} \hoekboog{D}{F}{E}{2.5mm}\hoekboog{D}{F}{E}{3.1mm}
+  \end{scope}
+  \node[above] at (E) {$E$}; \node[below] at (F) {$F$}; \node[right] at (D) {$D$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-hh}
+\end{oefeningen}
+
+\subsection{Drie zijden in dezelfde verhouding}
+
+Soms ken je geen hoeken, maar wel de zijden: je hebt ze gemeten, of ze staan op een plan. Zijn de drie verhoudingen gelijk, dan zijn de driehoeken gelijkvormig. Dat klopt omdat de drie zijden een driehoek helemaal vastleggen: dat weet je van het congruentiekenmerk ZZZ.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk ZZZ}
+Hebben de drie zijden van een driehoek dezelfde verhouding tot de drie zijden van een andere driehoek, dan zijn de driehoeken gelijkvormig:
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{\lengte{DE}}{\lengte{AB}} = \dfrac{\lengte{EF}}{\lengte{BC}} = \dfrac{\lengte{DF}}{\lengte{AC}} \ \Rightarrow \ \drieh{ABC} \gv \drieh{DEF}}$
+\end{stelling}
+\begin{alleenvoor}{5}
+
+\begin{bewijs}
+Noem de gemeenschappelijke verhouding $k$, en vergroot $\drieh{ABC}$ met factor $k$. Het beeld heeft zijden $k\,\lengte{AB} = \lengte{DE}$, $k\,\lengte{BC} = \lengte{EF}$ en $k\,\lengte{AC} = \lengte{DF}$. Het beeld en $\drieh{DEF}$ hebben dus dezelfde drie zijden, en zijn congruent (ZZZ). Ze hebben dezelfde hoeken, en $\drieh{ABC}$ heeft die hoeken ook, want een homothetie behoudt hoeken.
+\end{bewijs}
+\end{alleenvoor}
+\end{theorie}
+
+Welke zijde hoort bij welke? Bij gelijkvormige driehoeken hoort de kortste zijde bij de kortste, en de langste bij de langste. Rangschik de zijden dus eerst van klein naar groot.
+
+\voorbeeld{}{Zijn een driehoek met zijden 4, 6 en 7 en een driehoek met zijden 15, 17,5 en 10 gelijkvormig?\label{vb:h2-zzz}}{%
+\uitleg{We rangschikken de zijden van de tweede driehoek: 10, 15 en 17,5. Dan delen we telkens de overeenkomstige zijden.}
+\begin{stappen}
+\dfrac{10}{4} = 2{,}5, \quad \dfrac{15}{6} = 2{,}5, \quad \dfrac{17{,}5}{7} = 2{,}5 & Kortste bij kortste, middelste bij middelste, langste bij langste. \\[2ex]
+\text{gelijkvormig, } k = 2{,}5 & Kenmerk ZZZ.
+\end{stappen}}
+
+Eén verhouding die verschilt, is genoeg om te weten dat de driehoeken niet gelijkvormig zijn.
+
+\voorbeeld{}{Zijn een driehoek met zijden 4, 6 en 7 en een driehoek met zijden 8, 12 en 15 gelijkvormig?\label{vb:h2-zzzniet}}{%
+\uitleg{Beide zijn al gerangschikt. We delen telkens.}
+\begin{stappen}
+\dfrac84 = 2, \quad \dfrac{12}{6} = 2, \quad \dfrac{15}{7} \approx 2{,}14 & De laatste verhouding verschilt. \\[2ex]
+\text{niet gelijkvormig} & De tweede driehoek is in verhouding iets langer.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-zzz}
+\end{oefeningen}
+
+\subsection{Twee zijden en de hoek ertussen}
+
+Er is nog een derde kenmerk, dat lijkt op het congruentiekenmerk ZHZ. Ken je twee zijden en de hoek ertussen, dan ligt een driehoek vast. Zijn twee zijden evenredig en is de hoek ertussen gelijk, dan zijn de driehoeken gelijkvormig.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Kenmerk ZHZ}
+Hebben twee zijden van een driehoek dezelfde verhouding tot twee zijden van een andere driehoek, en is de ingesloten hoek gelijk, dan zijn de driehoeken gelijkvormig:
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{\lengte{DE}}{\lengte{AB}} = \dfrac{\lengte{DF}}{\lengte{AC}} \text{ en } \hoek{D} = \hoek{A} \ \Rightarrow \ \drieh{ABC} \gv \drieh{DEF}}$
+\end{stelling}
+\begin{alleenvoor}{5}
+
+\begin{bewijs}
+Noem de verhouding $k$, en leg $\drieh{DEF}$ op $\drieh{ABC}$ met $D$ op $A$. Omdat $\hoek{D} = \hoek{A}$, valt $E$ op $[AB$ en $F$ op $[AC$. De homothetie met centrum $A$ en factor $k$ beeldt $B$ af op $E$, want $\lengte{AE} = k\,\lengte{AB}$, en zo ook $C$ op $F$. Dus is $\drieh{DEF}$ het beeld van $\drieh{ABC}$.
+\end{bewijs}
+\end{alleenvoor}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (2,0); \coordinate (C) at (.9,1.5);
+  \filldraw[fill=accent!30,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \hoekboog{B}{A}{C}{3.5mm}
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[above] at (C) {$C$};
+  \begin{scope}[xshift=2.5cm]
+  \coordinate (D) at (0,0); \coordinate (E) at (3,0); \coordinate (F) at (1.35,2.25);
+  \filldraw[fill=accent!12,draw=accent,thick] (D) -- (E) -- (F) -- cycle;
+  \hoekboog{E}{D}{F}{3.5mm}
+  \end{scope}
+  \node[below] at (D) {$D$}; \node[below] at (E) {$E$}; \node[above] at (F) {$F$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Let op: de gelijke hoek moet tussen de twee zijden liggen. Ligt hij er niet tussen, dan kun je soms twee verschillende driehoeken tekenen, en zegt het kenmerk niets.
+
+\voorbeeld{}{In driehoek $ABC$ is $\lengte{AB} = 6$, $\lengte{AC} = 9$ en $\hoek{A} = 40^\circ$. In driehoek $PQR$ is $\lengte{PQ} = 4$, $\lengte{PR} = 6$ en $\hoek{P} = 40^\circ$. Zijn de driehoeken gelijkvormig? Welke hoek van $PQR$ is even groot als $\hoek{B}$?\label{vb:h2-zhz}}{%
+\uitleg{De hoek van $40^\circ$ ligt in beide driehoeken tussen de twee gegeven zijden. We vergelijken de verhoudingen, de kortste zijde met de kortste.}
+\begin{stappen}
+\dfrac{\lengte{AB}}{\lengte{PQ}} = \dfrac64 = 1{,}5, \quad \dfrac{\lengte{AC}}{\lengte{PR}} = \dfrac96 = 1{,}5 & Dezelfde verhouding. \\[2ex]
+\hoek{A} = \hoek{P} = 40^\circ & De ingesloten hoeken zijn gelijk. \\[1ex]
+\drieh{ABC} \gv \drieh{PQR} & Kenmerk ZHZ, met $A$ bij $P$, $B$ bij $Q$ en $C$ bij $R$.
+\end{stappen}
+Dus is $\hoek{Q} = \hoek{B}$.}
+
+Welk kenmerk gebruik je? Dat hangt af van wat je weet.
+
+\begin{werkwijze}
+Ken je hoeken, zoek dan twee paren gelijke hoeken (HH). Denk aan de hoekensom, aan overstaande hoeken, aan hoeken bij evenwijdige rechten en aan een hoek die twee driehoeken gemeenschappelijk hebben. Ken je zijden, rangschik ze dan en vergelijk de verhoudingen: van alle drie de zijden (ZZZ), of van twee zijden met de hoek ertussen (ZHZ).
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-zhz}
+\end{oefeningen}
+
+%========================================================================================
+\section{Meetkundige problemen}
+
+\subsection{Een evenwijdige in een driehoek}
+
+Trek in een driehoek een rechte evenwijdig met een zijde. Dan snijdt ze een kleine driehoek af. Waarom heeft die kleine driehoek dezelfde vorm als de grote? De hoek in $A$ hebben ze gemeenschappelijk. En de hoeken in $D$ en $B$ zijn F-hoeken bij de evenwijdige rechten $DE$ en $BC$, dus gelijk. Twee gelijke hoeken: kenmerk HH.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Evenwijdige met een zijde}
+Ligt $D$ op $[AB]$ en $E$ op $[AC]$, met $DE \parallel BC$, dan is $\drieh{ADE} \gv \drieh{ABC}$, en dus
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{\lengte{AD}}{\lengte{AB}} = \dfrac{\lengte{AE}}{\lengte{AC}} = \dfrac{\lengte{DE}}{\lengte{BC}}}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.8,font=\scriptsize]
+  \coordinate (A) at (1.2,2.6); \coordinate (B) at (0,0); \coordinate (C) at (3.6,0);
+  \coordinate (D) at ($(A)!.45!(B)$); \coordinate (E) at ($(A)!.45!(C)$);
+  \filldraw[fill=accent!10,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \filldraw[fill=accent!30,draw=accent,thick] (A) -- (D) -- (E) -- cycle;
+  \node[above] at (A) {$A$}; \node[below] at (B) {$B$}; \node[below] at (C) {$C$};
+  \node[left] at (D) {$D$}; \node[right] at (E) {$E$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Deze eigenschap heet ook de \emph{stelling van Thales}, naar de Griekse wiskundige die er volgens de overlevering de hoogte van een piramide mee bepaalde. Let op de valkuil: de factor is de verhouding van $\lengte{AD}$ tot de hele zijde $\lengte{AB}$, niet tot het stuk $\lengte{DB}$.
+
+\voorbeeld{}{In driehoek $ABC$ is $DE \parallel BC$, met $\lengte{AD} = 3$, $\lengte{DB} = 2$ en $\lengte{DE} = 4{,}5$. Bereken $\lengte{BC}$.\label{vb:h2-ev}}{%
+\uitleg{De kleine driehoek $ADE$ en de grote $ABC$ zijn gelijkvormig. De zijde $[AD]$ hoort bij de hele zijde $[AB]$, en die is $3 + 2 = 5$ lang.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+\lengte{AB} = 3 + 2 = 5 & De hele zijde. \\[1ex]
+k = \dfrac{\lengte{AB}}{\lengte{AD}} = \dfrac53 & Van de kleine naar de grote driehoek. \\[2ex]
+\lengte{BC} = \dfrac53 \cdot 4{,}5 = 7{,}5 & $[BC]$ hoort bij $[DE]$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \coordinate (A) at (1.5,3.5); \coordinate (B) at (0,0); \coordinate (C) at (5,0);
+  \coordinate (D) at ($(A)!.6!(B)$); \coordinate (E) at ($(A)!.6!(C)$);
+  \filldraw[fill=accent!10,draw=accent,thick] (A) -- (B) -- (C) -- cycle;
+  \filldraw[fill=accent!30,draw=accent,thick] (A) -- (D) -- (E) -- cycle;
+  \node[above] at (A) {$A$}; \node[below] at (B) {$B$}; \node[below] at (C) {$C$};
+  \node[left] at (D) {$D$}; \node[right] at (E) {$E$};
+  \node[left=1pt] at ($(A)!.5!(D)$) {3}; \node[left=1pt] at ($(D)!.5!(B)$) {2};
+  \node[above] at ($(D)!.5!(E)$) {4,5}; \node[below] at ($(B)!.5!(C)$) {?};
+\end{tikzpicture}}
+Wie de fout maakt en met $\tfrac32$ rekent, vindt 6,75. Die vergelijkt $[DB]$ met $[AD]$, maar $[DB]$ is geen zijde van een van beide driehoeken.}
+
+\voorbeeld{}{In driehoek $ABC$ is $DE \parallel BC$, met $\lengte{AD} = 4$, $\lengte{AB} = 10$ en $\lengte{AC} = 12$. Bereken $\lengte{AE}$ en $\lengte{EC}$.\label{vb:h2-ev2}}{%
+\uitleg{Nu zoeken we een zijde van de kleine driehoek. We vermenigvuldigen met de factor van groot naar klein.}
+\begin{stappen}
+k = \dfrac{\lengte{AD}}{\lengte{AB}} = \dfrac{4}{10} = 0{,}4 & Van de grote naar de kleine driehoek. \\[2ex]
+\lengte{AE} = 0{,}4 \cdot 12 = 4{,}8 & $[AE]$ hoort bij $[AC]$. \\[1ex]
+\lengte{EC} = 12 - 4{,}8 = 7{,}2 & De rest van de zijde.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-ev}
+\end{oefeningen}
+
+\subsection{De zandloper}
+
+Snijden twee rechten elkaar in een punt $S$, en verbind je ze aan beide kanten met evenwijdige lijnstukken, dan krijg je een figuur die op een zandloper lijkt. Ook daar zitten twee gelijkvormige driehoeken in. De hoeken in $S$ zijn overstaande hoeken, dus gelijk. En de hoeken in $A$ en $C$ zijn Z-hoeken bij de evenwijdige rechten $AB$ en $CD$.\alleenvoor{4,5}{ De ene driehoek is het beeld van de andere bij een homothetie met centrum $S$ en een negatieve factor.}
+
+\voorbeeld{}{De lijnstukken $[AC]$ en $[BD]$ snijden elkaar in $S$, en $AB \parallel CD$. Verder is $\lengte{SA} = 3$, $\lengte{SC} = 5$ en $\lengte{AB} = 4{,}2$. Bereken $\lengte{CD}$.\label{vb:h2-zand}}{%
+\uitleg{Eerst tonen we aan dat de driehoeken gelijkvormig zijn, en we letten op de volgorde: $S$ bij $S$, $A$ bij $C$ en $B$ bij $D$.}
+\naast{\begin{stappenvrij}{5.2cm}{4.6cm}
+\hoek{ASB} = \hoek{CSD} & Overstaande hoeken. \\[1ex]
+\hoek{A} = \hoek{C} & Z-hoeken, want $AB \parallel CD$. \\[1ex]
+\drieh{SAB} \gv \drieh{SCD} & Kenmerk HH. \\[1ex]
+k = \dfrac{\lengte{SC}}{\lengte{SA}} = \dfrac53 & $[SC]$ hoort bij $[SA]$. \\[2ex]
+\lengte{CD} = \dfrac53 \cdot 4{,}2 = 7 & $[CD]$ hoort bij $[AB]$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \coordinate (S) at (0,0);
+  \coordinate (A) at (-1.2,1.8); \coordinate (B) at (1.32,1.8);
+  \coordinate (C) at (2,-3); \coordinate (D) at (-2.2,-3);
+  \filldraw[fill=accent!30,draw=accent,thick] (S) -- (A) -- (B) -- cycle;
+  \filldraw[fill=accent!12,draw=accent,thick] (S) -- (C) -- (D) -- cycle;
+  \hoekboog{S}{A}{B}{3mm}
+  \hoekboog{S}{C}{D}{3mm}
+  \node[above] at (A) {$A$}; \node[above] at (B) {$B$}; \node[below] at (C) {$C$}; \node[below] at (D) {$D$};
+  \node[right=2pt] at (S) {$S$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-zand}
+\end{oefeningen}
+
+\subsection{Hoogtes en afstanden}
+
+Hoe meet je de hoogte van een boom zonder erin te klimmen? Met gelijkvormige driehoeken: je maakt een kleine driehoek die je wel kunt meten, met dezelfde hoeken als een grote driehoek die je niet kunt meten. Een spiegel is daarvoor handig, omdat licht weerkaatst onder dezelfde hoek als waaronder het invalt.
+
+\voorbeeld{}{Jana legt een spiegeltje op de grond, 6~m van een boom. Ze stapt achteruit tot ze de top van de boom in de spiegel ziet. Ze staat dan 1,5~m van de spiegel, en haar ogen zijn 1,6~m boven de grond. Hoe hoog is de boom?\label{vb:h2-spiegel}}{%
+\uitleg{Er zijn twee rechthoekige driehoeken: Jana met de spiegel, en de boom met de spiegel. In de spiegel zijn de invalshoek en de terugkaatsingshoek gelijk.}
+\naast{\begin{stappenvrij}{5.2cm}{4cm}
+\hoek{J} = \hoek{V} = 90^\circ & Jana en de boom staan recht. \\[1ex]
+\hoek{OSJ} = \hoek{TSV} & Weerkaatsing in de spiegel. \\[1ex]
+\drieh{SJO} \gv \drieh{SVT} & Kenmerk HH. \\[1ex]
+\dfrac{\lengte{VT}}{\lengte{JO}} = \dfrac{\lengte{SV}}{\lengte{SJ}} \ \Rightarrow \ \dfrac{h}{1{,}6} = \dfrac{6}{1{,}5} = 4 & De overeenkomstige zijden. \\[2ex]
+h = 4 \cdot 1{,}6 = 6{,}4~\text{m} & De hoogte van de boom.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[lijngrijs] (-2.3,0) -- (6.6,0);
+  \coordinate (J) at (-1.5,0); \coordinate (O) at (-1.5,1.6); \coordinate (S) at (0,0);
+  \coordinate (V) at (6,0); \coordinate (T) at (6,6.4);
+  \draw[accent!60!black,line width=2pt] (6,0) -- (6,4.4);
+  \fill[accent!25] (6,5.2) circle (1.3);
+  \draw[accent,thick] (O) -- (S) -- (T);
+  \draw[grijs,thick] (J) -- (O) (V) -- (T);
+  \fill (O) circle (1.5pt); \fill (T) circle (1.5pt);
+  \fill[grijs] (-.3,-.06) rectangle (.3,.06);
+  \hoekboog{V}{S}{T}{3mm} \hoekboog{O}{S}{J}{3mm}
+  \node[below] at (J) {$J$}; \node[left] at (O) {$O$}; \node[below] at (S) {$S$};
+  \node[below] at (V) {$V$}; \node[right] at (T) {$T$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-afstand}
+\end{oefeningen}
+
+Nu kunnen we het probleem oplossen. Het idee is hetzelfde: twee driehoeken met dezelfde hoeken, een kleine in de doos en een grote buiten.
+
+\voorbeeld{}{Terug naar het probleem. Een kerktoren staat 150~m voor het gaatje van een camera. Het scherm staat 30~cm achter het gaatje, en het beeld van de toren is daar 7~cm hoog. Hoe hoog is de toren?\label{vb:h2-terug}}{%
+\uitleg{We nemen aan dat het gaatje $G$ even hoog staat als de voet $V$ van de toren, en dat het scherm rechtop staat. Het licht van de top $T$ gaat in een rechte lijn door het gaatje naar het beeld $T'$ op het scherm, en $V'$ ligt recht achter het gaatje.}
+\naast{\begin{stappenvrij}{5.2cm}{4.4cm}
+\hoek{V} = \hoek{V'} = 90^\circ & De toren en het scherm staan rechtop. \\[1ex]
+\hoek{VGT} = \hoek{V'GT'} & Overstaande hoeken in het gaatje. \\[1ex]
+\drieh{GVT} \gv \drieh{GV'T'} & Kenmerk HH: een zandloper. \\[1ex]
+\dfrac{\lengte{VT}}{\lengte{V'T'}} = \dfrac{\lengte{GV}}{\lengte{GV'}} = \dfrac{15\,000}{30} = 500 & Alles in centimeter. \\[2ex]
+\lengte{VT} = 500 \cdot 7 = 3500~\text{cm} & De hoogte van de toren.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \coordinate (V) at (0,0); \coordinate (T) at (0,3.5); \coordinate (G) at (5,0);
+  \coordinate (V2) at (6.2,0); \coordinate (T2) at (6.2,-.84);
+  \draw[accent,thick] (V) -- (T) -- (T2) -- (V2) -- cycle;
+  \fill[accent!30] (V) -- (T) -- (G) -- cycle;
+  \fill[accent!30] (G) -- (V2) -- (T2) -- cycle;
+  \rechtehoek{T}{V}{G} \rechtehoek{G}{V2}{T2}
+  \node[below left] at (V) {$V$}; \node[left] at (T) {$T$}; \node[below] at (G) {$G$};
+  \node[above] at (V2) {$V'$}; \node[below] at (T2) {$T'$};
+\end{tikzpicture}}
+De toren is 35~m hoog. De figuur is niet op schaal: in werkelijkheid is de grote driehoek 500 keer zo groot als de kleine.}
+
+Zo is het probleem opgelost. Een verhouding opstellen mocht, omdat de twee driehoeken gelijkvormig zijn, en dat volgt uit twee gelijke hoeken: een rechte hoek en overstaande hoeken. Zonder die redenering is een verhouding maar een gok.
+
+\begin{werkwijze}
+Maak een figuur en zoek twee driehoeken: een met de lengte die je zoekt, een andere met lengtes die je kent. Toon met een kenmerk aan dat ze gelijkvormig zijn, meestal met HH. Schrijf de overeenkomstige hoekpunten in dezelfde volgorde, stel de verhouding op en los op. Kijk of je antwoord kan kloppen.
+\end{werkwijze}
+
+\begin{alleenvoor}{4,5}
+\subsection{De hoogtelijn in een rechthoekige driehoek}
+
+Een rechthoekige driehoek valt door zijn hoogtelijn uiteen in twee kleinere rechthoekige driehoeken. Alle drie hebben ze dezelfde hoeken, en dat levert een handige verhouding op.
+
+\voorbeeld{}{Driehoek $ABC$ is rechthoekig in $A$, en $[AD]$ is de hoogtelijn op $[BC]$. Verder is $\lengte{BD} = 4$ en $\lengte{DC} = 9$. Bereken $\lengte{AD}$.\label{vb:h2-hoogte}}{%
+\uitleg{De driehoeken $DBA$ en $DAC$ zijn allebei rechthoekig in $D$. Daarnaast is $\hoek{B} = 90^\circ - \hoek{C}$, en in driehoek $DAC$ is ook $\hoek{DAC} = 90^\circ - \hoek{C}$.}
+\naast{\begin{stappenvrij}{5.2cm}{4.4cm}
+\hoek{BDA} = \hoek{ADC} = 90^\circ & $[AD]$ is een hoogtelijn. \\[1ex]
+\hoek{B} = \hoek{DAC} & Beide zijn $90^\circ - \hoek{C}$. \\[1ex]
+\drieh{DBA} \gv \drieh{DAC} & Kenmerk HH. \\[1ex]
+\dfrac{\lengte{AD}}{\lengte{BD}} = \dfrac{\lengte{DC}}{\lengte{AD}} & Overeenkomstige zijden. \\[2ex]
+\lengte{AD}^2 = 4 \cdot 9 = 36 & Kruiselings vermenigvuldigen. \\[1ex]
+\lengte{AD} = 6 & Een lengte is positief.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.32,font=\scriptsize]
+  \coordinate (B) at (0,0); \coordinate (C) at (13,0); \coordinate (D) at (4,0); \coordinate (A) at (4,6);
+  \filldraw[fill=accent!30,draw=accent,thick] (B) -- (D) -- (A) -- cycle;
+  \filldraw[fill=accent!12,draw=accent,thick] (D) -- (C) -- (A) -- cycle;
+  \rechtehoek{A}{D}{C} \rechtehoek{B}{A}{C}
+  \node[below] at (B) {$B$}; \node[below] at (C) {$C$}; \node[below] at (D) {$D$}; \node[above] at (A) {$A$};
+  \node[below] at (2,0) {4}; \node[below] at (8.5,0) {9};
+\end{tikzpicture}}}
+\end{alleenvoor}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o25}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o26}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+
+\oef{h2-o23}
+
+\oef{h2-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-def}{oef:h2-def}%
+  \fv{oef:h2-t2}{vb:h2-hh}{oef:h2-hh}%
+  \fv{oef:h2-t3}{vb:h2-zzz}{oef:h2-zzz}%
+  \fv{oef:h2-t4}{vb:h2-zhz}{oef:h2-zhz}%
+  \fv{oef:h2-t5}{vb:h2-ev}{oef:h2-ev}%
+  \fv{oef:h2-t6}{vb:h2-zand}{oef:h2-zand}%
+  \fv{oef:h2-t7}{vb:h2-spiegel}{oef:h2-o7}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wanneer twee driehoeken gelijkvormig zijn en hoe je dat noteert, hoe je overeenkomstige hoekpunten en zijden vindt, de drie kenmerken HH, ZZZ en ZHZ, de eigenschap van een evenwijdige met een zijde, de zandloper, en hoe je met gelijkvormige driehoeken een hoogte of afstand berekent. Vergelijk daarna met de kaders.
+\fi

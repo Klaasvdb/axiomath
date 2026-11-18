@@ -127,9 +127,9 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 
 ### 2de graad
 
-**Totaal** &nbsp; `░░░░░░░░░░░░░░░░░░░░` &nbsp; **0 %** van 72 handboeken
+**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 72 handboeken
 
-⚪ 72 gepland
+🔴 72 eerste versie
 
 #### Per richting
 
@@ -137,134 +137,134 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 
 | Richting | Pakket | Voortgang | |
 |---|---|---|---:|
-| Beeldende en audiovisuele vorming | 1 (Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Dans | 1 (Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Maatschappij- en welzijnswetenschappen | 1 (Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Muziek | 1 (Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Woordkunst-drama | 1 (Basis) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Humane wetenschappen | 2 (B+) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Bedrijfswetenschappen | 3 (B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Topsport-Economie | 3 (B+S') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Economische wetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Grieks-Latijn | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Latijn | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Moderne talen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Sportwetenschappen | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Technologische wetenschappen en andere | 4 (B+S) | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Economische wetenschappen | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Grieks-Latijn | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Latijn | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Natuurwetenschappen | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Technologische wetenschappen | 5 (B+S'') | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| Beeldende en audiovisuele vorming | 1 (Basis) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Dans | 1 (Basis) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Maatschappij- en welzijnswetenschappen | 1 (Basis) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Muziek | 1 (Basis) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Woordkunst-drama | 1 (Basis) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Humane wetenschappen | 2 (B+) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Bedrijfswetenschappen | 3 (B+S') | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Topsport-Economie | 3 (B+S') | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Economische wetenschappen | 4 (B+S) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Grieks-Latijn | 4 (B+S) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Latijn | 4 (B+S) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Moderne talen | 4 (B+S) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Sportwetenschappen | 4 (B+S) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Technologische wetenschappen en andere | 4 (B+S) | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Economische wetenschappen | 5 (B+S'') | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Grieks-Latijn | 5 (B+S'') | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Latijn | 5 (B+S'') | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Natuurwetenschappen | 5 (B+S'') | `█████░░░░░░░░░░░░░░░` |  25 % |
+| Technologische wetenschappen | 5 (B+S'') | `█████░░░░░░░░░░░░░░░` |  25 % |
 
 #### Per handboek
 
-##### Pakket 1 · Basis &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+##### Pakket 1 · Basis &nbsp; `█████░░░░░░░░░░░░░░░` 25 %
 
 <sub>Beeldende en audiovisuele vorming, Dans, Maatschappij- en welzijnswetenschappen, Muziek, Woordkunst-drama</sub>
 
 | Handboek | Rubriek | Status | Voortgang | |
 |---|---|---|---|---:|
-| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Reële getallen](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Algebra/Reële getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Eerstegraadsvergelijkingen](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Algebra/Eerstegraadsvergelijkingen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Functies](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Analyse/Functies/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Stelsels](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Algebra/Stelsels/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Gelijkvormigheid](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Driehoeksmeting](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Logica](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Discrete wiskunde/Logica/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Statistiek](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Tweedegraadsfuncties](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Analyse/Tweedegraadsfuncties/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Ruimtemeetkunde](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Vectoren](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Meetkunde/Vectoren/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/2de graad/1 Kunst, Dans, Muziek, Woordkunst, Maatschappij (Basis)/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 
-##### Pakket 2 · B+ &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+##### Pakket 2 · B+ &nbsp; `█████░░░░░░░░░░░░░░░` 25 %
 
 <sub>Humane wetenschappen</sub>
 
 | Handboek | Rubriek | Status | Voortgang | |
 |---|---|---|---|---:|
-| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Reële getallen](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Algebra/Reële getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Eerstegraadsvergelijkingen](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Algebra/Eerstegraadsvergelijkingen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Functies](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Analyse/Functies/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Stelsels](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Algebra/Stelsels/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Gelijkvormigheid](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Driehoeksmeting](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Logica](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Discrete wiskunde/Logica/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Statistiek](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Spreidingsdiagrammen](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Data en onzekerheid/Spreidingsdiagrammen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Tweedegraadsfuncties](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Analyse/Tweedegraadsfuncties/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Ruimtemeetkunde](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Vectoren](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Meetkunde/Vectoren/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/2de graad/2 Humane wetenschappen (B+)/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 
-##### Pakket 3 · B+S' &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+##### Pakket 3 · B+S' &nbsp; `█████░░░░░░░░░░░░░░░` 25 %
 
 <sub>Bedrijfswetenschappen, Topsport-Economie</sub>
 
 | Handboek | Rubriek | Status | Voortgang | |
 |---|---|---|---|---:|
-| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Reële getallen](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Algebra/Reële getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Eerstegraadsvergelijkingen](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Algebra/Eerstegraadsvergelijkingen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Functies](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Analyse/Functies/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Stelsels](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Algebra/Stelsels/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Gelijkvormigheid](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Driehoeksmeting](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Logica](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Discrete wiskunde/Logica/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Statistiek](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Spreidingsdiagrammen](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Data en onzekerheid/Spreidingsdiagrammen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Tweedegraadsfuncties](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Analyse/Tweedegraadsfuncties/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Ruimtemeetkunde](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Vectoren](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Meetkunde/Vectoren/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/2de graad/3 Bedrijfswetenschappen, Topsport-Economie (B+S')/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 
-##### Pakket 4 · B+S &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+##### Pakket 4 · B+S &nbsp; `█████░░░░░░░░░░░░░░░` 25 %
 
 <sub>Economische wetenschappen, Grieks-Latijn, Latijn, Moderne talen, Sportwetenschappen, Technologische wetenschappen en andere</sub>
 
 | Handboek | Rubriek | Status | Voortgang | |
 |---|---|---|---|---:|
-| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Goniometrie | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| De cirkel | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Grafen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Reële getallen](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Algebra/Reële getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Eerstegraadsvergelijkingen](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Algebra/Eerstegraadsvergelijkingen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Functies](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Analyse/Functies/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Stelsels](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Algebra/Stelsels/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Gelijkvormigheid](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Driehoeksmeting](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Logica](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Discrete wiskunde/Logica/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Statistiek](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Spreidingsdiagrammen](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Data en onzekerheid/Spreidingsdiagrammen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Tweedegraadsfuncties](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Analyse/Tweedegraadsfuncties/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Goniometrie](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Goniometrie/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Ruimtemeetkunde](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Vectoren](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/Vectoren/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [De cirkel](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Meetkunde/De cirkel/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Grafen](<Handboeken/2de graad/4 Economie, Grieks-Latijn, Latijn, Moderne talen, STEM (B+S)/Discrete wiskunde/Grafen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 
-##### Pakket 5 · B+S'' &nbsp; `░░░░░░░░░░░░░░░░░░░░` 0 %
+##### Pakket 5 · B+S'' &nbsp; `█████░░░░░░░░░░░░░░░` 25 %
 
 <sub>Economische wetenschappen, Grieks-Latijn, Latijn, Natuurwetenschappen, Technologische wetenschappen</sub>
 
 | Handboek | Rubriek | Status | Voortgang | |
 |---|---|---|---|---:|
-| Reële getallen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Eerstegraadsvergelijkingen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Functies | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Stelsels | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Gelijkvormigheid | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Driehoeksmeting | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Logica | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Statistiek | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Spreidingsdiagrammen | Data en onzekerheid | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Tweedegraadsfuncties | Analyse | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Veeltermen | Algebra | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Goniometrie | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Ruimtemeetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Vectoren | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Analytische meetkunde | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| De cirkel | Meetkunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Telproblemen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
-| Grafen | Discrete wiskunde | ⚪ gepland | `░░░░░░░░░░░░░░░░░░░░` |   0 % |
+| [Reële getallen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Algebra/Reële getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Eerstegraadsvergelijkingen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Algebra/Eerstegraadsvergelijkingen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Functies](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Analyse/Functies/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Stelsels](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Algebra/Stelsels/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Gelijkvormigheid](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Gelijkvormigheid/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Driehoeksmeting](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Driehoeksmeting/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Logica](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Discrete wiskunde/Logica/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Statistiek](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Spreidingsdiagrammen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Data en onzekerheid/Spreidingsdiagrammen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Tweedegraadsfuncties](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Analyse/Tweedegraadsfuncties/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Veeltermen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Algebra/Veeltermen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Goniometrie](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Goniometrie/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Ruimtemeetkunde](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Vectoren](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Vectoren/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Analytische meetkunde](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/Analytische meetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [De cirkel](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Meetkunde/De cirkel/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Telproblemen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Grafen](<Handboeken/2de graad/5 Economie, Grieks-Latijn, Latijn, Natuur-, Techn. wet. (B+S'')/Discrete wiskunde/Grafen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 <!-- voortgang:end -->
 
 ## Indeling van de repo

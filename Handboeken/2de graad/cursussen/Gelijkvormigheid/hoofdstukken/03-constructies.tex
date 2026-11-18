@@ -1,0 +1,656 @@
+%----------------------------------------------------------------------------------------
+% CONSTRUCTIES. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h3-.
+% Pakketten: dit hoofdstuk staat alleen in pakket 4 en 5 (zie handboek.tex van die pakketten), voor GO!.
+% Het steunt op de homothetie (hoofdstuk 1) en op de evenwijdige met een zijde en de hoogtelijn in een
+% rechthoekige driehoek (hoofdstuk 2, die laatste staat alleen in pakket 4 en 5).
+% Figuren: passerbogen en hulplijnen licht (\boogdoor, stijl hulp), het resultaat in de accentkleur.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Constructies}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een schrijnwerker wil een plank van 23~cm breed in de lengte in zeven even brede latten zagen. Op zijn duimstok staan millimeters, maar ${23 : 7 = 3{,}2857\ldots}$~cm, en dat kan hij niet afmeten. Meet hij zeven keer 3,3~cm af, dan is de laatste lat maar 3,2~cm breed. Hoe tekent hij de zaaglijnen toch precies af, zonder te rekenen?}{\begin{tikzpicture}[scale=.1,font=\scriptsize]
+  \filldraw[fill=accent!12,draw=accent,thick] (0,0) rectangle (48,23);
+  \foreach \k in {1,...,6} \draw[accent,dashed] (0,{23*\k/7}) -- (48,{23*\k/7});
+  \draw[grijs,|-|] (-2.5,0) -- (-2.5,23) node[midway,left] {23 cm};
+  \node[right] at (48,11.5) {7 latten};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Dit hoofdstuk staat alleen in pakket 4 en 5. Het is er voor GO!: dat vraagt in de 2de graad voor de richtingen met specifieke wiskunde (WD 06.04 en WD 06.08) eigen doelen over de homothetie en over constructies met passer en liniaal. De nummers en de juiste afbakening van die GO!-doelen zijn na te kijken in het leerplan van GO!. Voor een school van KOV is het hoofdstuk een uitbreiding: of het leerplan \pakketnaam\ constructies vraagt, is na te kijken. Voorkennis: de basisconstructies uit de 1ste graad, de homothetie uit hoofdstuk 1, en uit hoofdstuk 2 de evenwijdige met een zijde en de hoogtelijn in een rechthoekige driehoek. Leerlingen hebben een passer, een liniaal en een geodriehoek nodig. In de opdrachten mag de geodriehoek voor een loodlijn of een evenwijdige, tenzij er ``alleen met passer en liniaal'' staat. Wie strenger wil zijn, vraagt overal passer en liniaal.}
+
+In de 1ste graad leerde je met passer en liniaal een middelloodlijn, een loodlijn en een bissectrice tekenen. In dit hoofdstuk bouw je daarop verder. Met de evenwijdige met een zijde uit hoofdstuk 2 verdeel je een lijnstuk in gelijke delen of in een gegeven verhouding, en construeer je lengtes zoals $\sqrt7$, die je niet kunt afmeten. Met de homothetie uit hoofdstuk 1 vergroot je een figuur zonder te meten, en los je problemen op die er op het eerste gezicht moeilijk uitzien. Telkens gaat het om twee vragen: hoe doe je het, en waarom klopt het?
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Construeren met passer en liniaal}
+
+\subsection{Tekenen of construeren?}
+
+Wat is het verschil tussen een lijnstuk van 3,29~cm tekenen en het construeren? Als je meet, hangt het resultaat af van de streepjes op je lat en van je oog. Bij een \emph{constructie} gebruik je alleen een passer en een liniaal zonder maatverdeling. Met de liniaal trek je een rechte door twee punten. Met de passer teken je een cirkel of een boog met een gegeven middelpunt en een gegeven straal, en neem je een lengte over. Elke stap volgt uit een eigenschap en niet uit een meting, dus in theorie is een constructie exact. Al sinds de Griekse wiskundige Euclides, rond 300 voor Christus, is dat de manier om een figuur te maken waarvan je zeker weet dat ze klopt.
+
+In de figuren van dit hoofdstuk zijn de passerbogen en de hulplijnen licht, wat gegeven is zwart, en het resultaat in de kleur van het hoofdstuk.
+
+\subsection{Vier basisconstructies}
+
+Deze vier constructies ken je uit de 1ste graad. Ze zijn het gereedschap voor de rest van het hoofdstuk. Bij elke constructie staat waarom ze werkt: dat is wat een constructie onderscheidt van een tekening die er goed uitziet.
+
+\naast{\textbf{De middelloodlijn van $[AB]$.} Teken met dezelfde passeropening, groter dan de helft van $\lengte{AB}$, een boog rond $A$ en een boog rond $B$, boven en onder $[AB]$. De rechte door de snijpunten $P$ en $Q$ is de middelloodlijn. Ze snijdt $[AB]$ in het midden $M$.
+
+\textit{Waarom?} $P$ ligt even ver van $A$ als van $B$, en $Q$ ook. De middelloodlijn is net de verzameling van alle punten die even ver van $A$ als van $B$ liggen.}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (3,0);
+  \coordinate (P) at (1.5,1.3229); \coordinate (Q) at (1.5,-1.3229);
+  \boogdoor[11]{A}{P} \boogdoor[11]{A}{Q} \boogdoor[11]{B}{P} \boogdoor[11]{B}{Q}
+  \draw[resultaat] (1.5,1.75) -- (1.5,-1.75);
+  \draw[gegeven] (A) -- (B);
+  \fill (A) circle (1.5pt) node[left] {$A$}; \fill (B) circle (1.5pt) node[right] {$B$};
+  \node[left] at (P) {$P$}; \node[left] at (Q) {$Q$};
+  \fill[accent] (1.5,0) circle (1.5pt) node[below right] {$M$};
+\end{tikzpicture}}
+
+\medskip
+\naast{\textbf{De loodlijn door $P$ op een rechte $l$.} Teken een boog rond $P$ die $l$ in twee punten $A$ en $B$ snijdt. Teken daarna rond $A$ en rond $B$ een boog met dezelfde opening, aan de andere kant van $l$. Ze snijden elkaar in $Q$, en $PQ$ is de loodlijn.
+
+\textit{Waarom?} $P$ en $Q$ liggen allebei even ver van $A$ als van $B$, dus $PQ$ is de middelloodlijn van $[AB]$, en die staat loodrecht op $l$. Ligt $P$ op $l$, dan werkt het net zo.}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (P) at (1.5,1.4); \coordinate (A) at (0.3686,0); \coordinate (B) at (2.6314,0); \coordinate (Q) at (1.5,-1.1314);
+  \boogdoor[16]{P}{A} \boogdoor[16]{P}{B} \boogdoor[13]{A}{Q} \boogdoor[13]{B}{Q}
+  \draw[resultaat] (1.5,1.75) -- (1.5,-1.5);
+  \draw[gegeven] (-.6,0) -- (3.6,0) node[above left] {$l$};
+  \fill (P) circle (1.5pt) node[left] {$P$};
+  \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[left] at (Q) {$Q$};
+\end{tikzpicture}}
+
+\medskip
+\naast{\textbf{De evenwijdige door $P$ met een rechte $l$.} Kies een punt $A$ op $l$, en teken de boog rond $A$ door $P$. Hij snijdt $l$ in $B$. Teken met dezelfde opening een boog rond $P$ en een boog rond $B$. Ze snijden elkaar in $Q$, en $PQ$ is de evenwijdige.
+
+\textit{Waarom?} $ABQP$ heeft vier gelijke zijden: het is een ruit. De overstaande zijden van een ruit zijn evenwijdig, dus $PQ \parallel AB$.}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (A) at (0.3,0); \coordinate (P) at (1.1,1.4); \coordinate (B) at (1.9125,0); \coordinate (Q) at (2.7125,1.4);
+  \draw[hulp] (A) -- (P) (B) -- (Q);
+  \boogdoor[9]{A}{P} \boogdoor[12]{A}{B} \boogdoor[12]{P}{Q} \boogdoor[12]{B}{Q}
+  \draw[resultaat] (-.6,1.4) -- (3.6,1.4);
+  \draw[gegeven] (-.6,0) -- (3.6,0) node[below left] {$l$};
+  \fill (P) circle (1.5pt) node[above left] {$P$};
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[above right] at (Q) {$Q$};
+\end{tikzpicture}}
+
+\medskip
+\naast{\textbf{De bissectrice van een hoek.} Teken een boog rond het hoekpunt $O$. Hij snijdt de benen in $A$ en $B$. Teken met eenzelfde opening een boog rond $A$ en een boog rond $B$. Ze snijden elkaar in $P$, en $[OP$ is de bissectrice.
+
+\textit{Waarom?} De driehoeken $OAP$ en $OBP$ hebben dezelfde drie zijden: $\lengte{OA} = \lengte{OB}$, $\lengte{AP} = \lengte{BP}$, en $[OP]$ hebben ze samen. Ze zijn dus congruent (ZZZ), en $\hoek{AOP} = \hoek{POB}$.}{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \coordinate (O) at (0,0); \coordinate (A) at (1.4,0); \coordinate (B) at (64:1.4); \coordinate (P) at (32:2.1305);
+  \draw[lijngrijs,thin] (-8:1.4) arc[start angle=-8,end angle=72,radius=1.4];
+  \boogdoor[16]{A}{P} \boogdoor[16]{B}{P}
+  \draw[resultaat] (O) -- (32:3.2);
+  \draw[gegeven] (3.4,0) -- (O) -- (64:3.3);
+  \fill (O) circle (1.5pt) node[left] {$O$};
+  \node[below] at (A) {$A$}; \node[left] at (B) {$B$}; \node[above left] at (P) {$P$};
+\end{tikzpicture}}
+
+\medskip
+Ook een lengte overnemen is een constructie: neem de lengte van een lijnstuk in je passer, en zet die opening ergens anders af. Met deze bouwstenen kun je al heel wat figuren construeren.
+
+\voorbeeld{}{Construeer een vierkant $ABCD$ met $\lengte{AB} = 4$~cm.\label{vb:h3-vierkant}}{%
+\uitleg{Een vierkant heeft vier gelijke zijden en rechte hoeken. De rechte hoek in $A$ geeft een loodlijn, de gelijke zijden neem je over met de passer.}
+\naast{\begin{minipage}{9.4cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Teken $[AB]$ en verleng het voorbij $A$. Teken een boog rond $A$: hij snijdt de rechte in $E$ en $F$.}
+\item \textit{Teken bogen rond $E$ en $F$ met dezelfde, grotere opening. Ze snijden in $G$, en $AG$ is de loodlijn in $A$.}
+\item \textit{Neem $\lengte{AB}$ in je passer en zet die af op de loodlijn: zo vind je $D$.}
+\item \textit{Teken met dezelfde opening een boog rond $B$ en een boog rond $D$. Hun snijpunt is $C$.}
+\end{enumerate}
+\vspace{1mm}
+$ABCD$ heeft vier zijden van 4~cm, dus het is een ruit, en de hoek in $A$ is recht. Een ruit met een rechte hoek is een vierkant.
+\end{minipage}}{\begin{tikzpicture}[scale=.68,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (4,0); \coordinate (C) at (4,4); \coordinate (D) at (0,4);
+  \coordinate (E) at (-1.2,0); \coordinate (F) at (1.2,0); \coordinate (G) at (0,1.6);
+  \draw[hulp] (-2,0) -- (A); \draw[hulp] (0,-.4) -- (0,4.6);
+  \boogdoor[22]{A}{E} \boogdoor[22]{A}{F} \boogdoor[12]{E}{G} \boogdoor[12]{F}{G}
+  \boogdoor[9]{A}{D} \boogdoor[9]{B}{C} \boogdoor[9]{D}{C}
+  \filldraw[fill=accent!12,draw=accent,thick] (A) -- (B) -- (C) -- (D) -- cycle;
+  \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[above right] at (C) {$C$}; \node[above left] at (D) {$D$};
+  \node[below] at (E) {$E$}; \node[below right] at (F) {$F$}; \node[left] at (G) {$G$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Maak eerst een schets van de figuur die je zoekt, en duid aan wat gegeven is. Zoek voor elk ontbrekend punt de eigenschap die het vastlegt: even ver van twee punten (middelloodlijn), een rechte hoek (loodlijn), evenwijdig met een rechte (evenwijdige), een hoek in twee gelijke delen (bissectrice), een gegeven lengte (passer). Construeer de punten een voor een, en laat de bogen staan: zo kan iemand anders je constructie nagaan.
+\end{werkwijze}
+
+\nujij{Construeer met passer en liniaal een rechthoek met zijden van 5~cm en 2~cm. Meet de diagonaal.}{De diagonaal is $\sqrt{29} \approx 5{,}4$~cm.}
+
+\begin{oefeningen}
+\oef{h3-basis}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een lijnstuk verdelen}
+
+\subsection{In gelijke delen}
+
+Terug naar de schrijnwerker uit het probleem. Halveren gaat met de middelloodlijn, en nog eens halveren geeft vierden en achtsten. Maar zevenden krijg je zo nooit. Meten lukt ook niet precies, want $23 : 7$ is geen mooi getal. In de Verken zag je een uitweg: evenwijdige lijnen op gelijke afstanden snijden een schuine lijn in gelijke stukken. Waarom is dat zo? Het is een gevolg van de evenwijdige met een zijde uit hoofdstuk 2.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Evenwijdigen op twee halfrechten}
+Snijden twee evenwijdige rechten de halfrechte $[AX$ in $P$ en $Q$, en de halfrechte $[AY$ in $P'$ en $Q'$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{\lengte{AP}}{\lengte{AQ}} = \dfrac{\lengte{AP'}}{\lengte{AQ'}}}$
+\end{stelling}
+
+\begin{bewijs}
+Stel dat $P$ tussen $A$ en $Q$ ligt (anders wissel je de namen om). In driehoek $AQQ'$ ligt $P$ op $[AQ]$ en $P'$ op $[AQ']$, met $PP' \parallel QQ'$. De eigenschap van de evenwijdige met een zijde uit hoofdstuk 2 geeft dan meteen de gelijkheid.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.95,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (Q) at (4,0); \coordinate (P) at (2,0);
+  \coordinate (Q2) at (32:3.4); \coordinate (P2) at (32:1.7);
+  \draw[gegeven] (A) -- (4.6,0) node[below] {$X$}; \draw[gegeven] (A) -- (32:4.4) node[left] {$Y$};
+  \draw[accent,thick] ($(P)!-.25!(P2)$) -- ($(P)!1.3!(P2)$);
+  \draw[accent,thick] ($(Q)!-.2!(Q2)$) -- ($(Q)!1.25!(Q2)$);
+  \fill (A) circle (1.5pt) node[left] {$A$};
+  \node[below left] at (P) {$P$}; \node[below left] at (Q) {$Q$};
+  \node[above left] at (P2) {$P'$}; \node[above left] at (Q2) {$Q'$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+De stukken op de ene halfrechte staan dus in dezelfde verhouding als de stukken op de andere. Zet je op $[AX$ drie gelijke stukken af, dan is $\lengte{AP_1} : \lengte{AP_2} : \lengte{AP_3} = 1 : 2 : 3$, en evenwijdigen door die punten geven op $[AY$ dezelfde verhouding: weer drie gelijke stukken. Dat geeft een constructie.
+
+\voorbeeld{}{Verdeel een lijnstuk $[AB]$ van 10~cm met passer en liniaal in drie gelijke delen.\label{vb:h3-verdeel}}{%
+\uitleg{$10 : 3 = 3{,}333\ldots$, dus meten gaat niet precies. We zetten drie gelijke stukken af op een hulphalfrechte, waar we de lengte zelf mogen kiezen.}
+\naast{\begin{minipage}{8.2cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Teken vanuit $A$ een hulphalfrechte, schuin op $[AB]$.}
+\item \textit{Zet met een willekeurige passeropening drie keer hetzelfde stuk af: $P_1$, $P_2$ en $P_3$.}
+\item \textit{Verbind $P_3$ met $B$.}
+\item \textit{Trek door $P_2$ en $P_1$ de evenwijdige met $P_3B$. Ze snijden $[AB]$ in $Q_2$ en $Q_1$.}
+\end{enumerate}
+\vspace{1mm}
+Volgens de stelling liggen $Q_1$ en $Q_2$ op een derde en op twee derde van $[AB]$. Controle: elk deel is ongeveer 3,3~cm.
+\end{minipage}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (10,0);
+  \coordinate (P1) at (28:2.6); \coordinate (P2) at (28:5.2); \coordinate (P3) at (28:7.8);
+  \coordinate (Q1) at ($(A)!1/3!(B)$); \coordinate (Q2) at ($(A)!2/3!(B)$);
+  \draw[hulp] (A) -- (28:9.2);
+  \boogdoor[10]{A}{P1} \boogdoor[10]{P1}{P2} \boogdoor[10]{P2}{P3}
+  \draw[hulp] ($(P3)!-.12!(B)$) -- ($(B)!-.12!(P3)$);
+  \draw[hulp] ($(P2)!-.12!(Q2)$) -- ($(Q2)!-.12!(P2)$);
+  \draw[hulp] ($(P1)!-.12!(Q1)$) -- ($(Q1)!-.12!(P1)$);
+  \draw[resultaat] (A) -- (B);
+  \streep{Q1}{B} \streep{Q2}{B}
+  \foreach \p in {P1,P2,P3} \fill (\p) circle (1.5pt);
+  \fill (A) circle (1.5pt) node[below left] {$A$}; \fill (B) circle (1.5pt) node[below right] {$B$};
+  \node[above left] at (P1) {$P_1$}; \node[above left] at (P2) {$P_2$}; \node[above left] at (P3) {$P_3$};
+  \node[below] at (Q1) {$Q_1$}; \node[below] at (Q2) {$Q_2$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Om $[AB]$ in $n$ gelijke delen te verdelen, teken je vanuit $A$ een hulphalfrechte en zet je er met de passer $n$ gelijke stukken op af. Verbind het laatste punt $P_n$ met $B$. Trek door de andere punten de evenwijdige met $P_nB$: hun snijpunten met $[AB]$ zijn de deelpunten. De lengte van de stukken op de hulphalfrechte kies je zelf, en de hoek ook, zolang die niet te klein is.
+\end{werkwijze}
+
+\nujij{Verdeel een lijnstuk van 7~cm in vijf gelijke delen. Hoe lang is elk deel?}{$7 : 5 = 1{,}4$~cm.}
+
+\begin{oefeningen}
+\oef{h3-verdeel}
+\end{oefeningen}
+
+\subsection{In een gegeven verhouding}
+
+Soms moet een lijnstuk niet in gelijke delen, maar in een verhouding: een strook grond die je verdeelt in de verhouding ${2 : 3}$, of een punt $P$ op $[AB]$ met ${\lengte{AP} : \lengte{PB} = 3 : 4}$. Dat is bijna hetzelfde. ${3 : 4}$ betekent 3 delen tegen 4 delen, dus verdeel je $[AB]$ in $3 + 4 = 7$ gelijke delen, en neem je er 3. Je hoeft maar een evenwijdige te trekken.
+
+\voorbeeld{}{Construeer op een lijnstuk $[AB]$ van 8~cm het punt $P$ met $\lengte{AP} : \lengte{PB} = 3 : 4$.\label{vb:h3-verhouding}}{%
+\uitleg{We zetten $3 + 4 = 7$ gelijke stukken af op een hulphalfrechte, maar we trekken alleen de evenwijdige door het derde punt.}
+\naast{\begin{minipage}{8.2cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Zet op een hulphalfrechte uit $A$ zeven gelijke stukken af, tot $P_7$.}
+\item \textit{Verbind $P_7$ met $B$.}
+\item \textit{Trek door $P_3$ de evenwijdige met $P_7B$. Ze snijdt $[AB]$ in $P$.}
+\end{enumerate}
+\vspace{1mm}
+Volgens de stelling is $\lengte{AP}$ drie zevende van $\lengte{AB}$, en $\lengte{PB}$ vier zevende. Controle: $\lengte{AP} = \tfrac37 \cdot 8 \approx 3{,}43$~cm en $\lengte{PB} = \tfrac47 \cdot 8 \approx 4{,}57$~cm.
+\end{minipage}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (8,0);
+  \foreach \k in {1,...,7} \coordinate (P\k) at (30:{1.2*\k});
+  \coordinate (P) at ($(A)!3/7!(B)$);
+  \draw[hulp] (A) -- (30:9.3);
+  \foreach \k [count=\j from 0] in {1,...,7} {\ifnum\j=0 \boogdoor[9]{A}{P1}\else\boogdoor[9]{P\j}{P\k}\fi}
+  \draw[hulp] ($(P7)!-.1!(B)$) -- ($(B)!-.12!(P7)$);
+  \draw[hulp] ($(P3)!-.15!(P)$) -- ($(P)!-.2!(P3)$);
+  \draw[gegeven] (A) -- (B);
+  \draw[resultaat] (A) -- (P);
+  \foreach \k in {1,...,7} \fill (P\k) circle (1.3pt);
+  \fill (A) circle (1.5pt) node[below left] {$A$}; \fill (B) circle (1.5pt) node[below right] {$B$};
+  \node[above left] at (P3) {$P_3$}; \node[above left] at (P7) {$P_7$};
+  \fill[accent] (P) circle (1.7pt) node[below] {$P$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Voor de verhouding ${\lengte{AP} : \lengte{PB} = m : n}$ zet je op een hulphalfrechte uit $A$ in totaal $m + n$ gelijke stukken af. Verbind het laatste punt met $B$, en trek alleen de evenwijdige door het $m$-de punt. Is de verhouding gegeven door twee lijnstukken $p$ en $q$, zet dan met de passer eerst $p$ en daarna $q$ af op de hulphalfrechte.
+\end{werkwijze}
+
+\nujij{Construeer op een lijnstuk van 6~cm het punt $P$ met $\lengte{AP} : \lengte{PB} = 1 : 4$.}{Vijf gelijke stukken, evenwijdige door het eerste punt: $\lengte{AP} = 1{,}2$~cm.}
+
+\begin{oefeningen}
+\oef{h3-verhouding}
+\end{oefeningen}
+
+Nu kan de schrijnwerker aan de slag. Hij heeft zelfs geen passer nodig om gelijke stukken af te zetten: op zijn duimstok staan ze al.
+
+\voorbeeld{}{Terug naar het probleem. Hoe verdeelt de schrijnwerker een plank van 23~cm breed in zeven even brede latten?\label{vb:h3-terug}}{%
+\uitleg{De randen van de plank zijn evenwijdig. De duimstok, schuin over de plank, is de hulphalfrechte. Hij kiest een lengte die makkelijk in zeven gelijke stukken gaat en die langer is dan 23~cm: ${7 \cdot 4 = 28}$~cm.}
+\naast{\begin{minipage}{7.9cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Leg de duimstok schuin over de plank, met de 0 op de ene rand en 28~cm op de andere rand.}
+\item \textit{Zet een streepje bij 4, 8, 12, 16, 20 en 24~cm.}
+\item \textit{Doe hetzelfde een eind verder op de plank, en verbind de overeenkomstige streepjes: dat zijn de zaaglijnen.}
+\end{enumerate}
+\vspace{1mm}
+Waarom klopt dat? Noem $A$ de 0 en $B$ het punt recht tegenover $A$ op de andere rand. De rechten door de streepjes, evenwijdig met de randen, snijden $[AB]$ in zeven gelijke stukken, want op de duimstok liggen de streepjes telkens 4~cm uit elkaar. Elk streepje ligt dus op een afstand $\tfrac{23}{7}$, $2 \cdot \tfrac{23}{7}$, \ldots\ van de rand, en zo ook de streepjes een eind verder. Elke lat is $\tfrac{23}{7} \approx 3{,}29$~cm breed, en niemand moest dat afmeten.
+\end{minipage}}{\begin{tikzpicture}[scale=.105,font=\scriptsize]
+  \filldraw[fill=accent!8,draw=black,semithick] (0,0) rectangle (50,23);
+  \foreach \k in {1,...,6} \draw[accent,thick] (0,{23*\k/7}) -- (50,{23*\k/7});
+  \foreach \x in {5,30} {
+    \draw[grijs,line width=1.6pt] (\x,0) -- ({\x+15.9687},23);
+    \foreach \k in {1,...,6} \fill ({\x+15.9687*\k/7},{23*\k/7}) circle (9pt);
+    \node[above] at ({\x+15.9687},23) {28};}
+  \draw[hulp,dashed] (5,0) -- (5,23);
+  \node[below] at (5,0) {$A$\,(0)}; \node[above] at (5,23) {$B$};
+  \node[below] at (30,0) {0};
+  \draw[grijs,|-|] (52.5,0) -- (52.5,23) node[midway,right] {23 cm};
+\end{tikzpicture}}}
+
+Zo is het probleem opgelost, met een idee uit de vorige hoofdstukken: evenwijdige rechten maken gelijkvormige driehoeken, en in gelijkvormige driehoeken staan de stukken in dezelfde verhouding.
+
+%========================================================================================
+\section{Lengtes construeren}
+
+\subsection{De vierde evenredige}
+
+Kun je met passer en liniaal ook rekenen? Neem drie lijnstukken met lengtes $a$, $b$ en $c$, en zoek een lijnstuk $x$ dat zich tot $c$ verhoudt zoals $b$ tot $a$. Rekenend is dat $x = \tfrac{b\,c}{a}$. Meetkundig: $x$ is wat er van $c$ wordt bij een vergroting met de factor $\tfrac{b}{a}$, de factor die $a$ in $b$ omzet.
+
+\begin{theorie}
+Het lijnstuk $x$ met
+
+\vspace{1mm}
+\qquad $\formule{a : b = c : x}$
+
+\vspace{1mm}
+heet de \textbf{\textcolor{accent}{vierde evenredige}} van $a$, $b$ en $c$.
+\end{theorie}
+
+De stelling over evenwijdigen op twee halfrechten geeft meteen een constructie. Zet $a$ en $b$ af op het ene been van een hoek, en $c$ op het andere. De evenwijdige die je dan trekt, snijdt $x$ af.
+
+\voorbeeld{}{Construeer de vierde evenredige van $a = 4$~cm, $b = 6$~cm en $c = 5$~cm.\label{vb:h3-vierde}}{%
+\uitleg{We zoeken $x$ met $\lengte{OA} : \lengte{OB} = \lengte{OC} : \lengte{OX}$. De stelling geeft die verhouding als $AC \parallel BX$.}
+\naast{\begin{minipage}{7.4cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Teken een hoek met hoekpunt $O$.}
+\item \textit{Zet op het ene been $\lengte{OA} = a$ en $\lengte{OB} = b$ af, allebei vanuit $O$.}
+\item \textit{Zet op het andere been $\lengte{OC} = c$ af.}
+\item \textit{Verbind $A$ met $C$, en trek door $B$ de evenwijdige met $AC$. Ze snijdt het tweede been in $X$.}
+\end{enumerate}
+\vspace{1mm}
+Dan is ${a : b = c : \lengte{OX}}$, dus $x = \lengte{OX}$. Controle: $x = \tfrac{6 \cdot 5}{4} = 7{,}5$~cm.
+\end{minipage}}{\begin{tikzpicture}[scale=.52,font=\scriptsize]
+  \coordinate (O) at (0,0); \coordinate (A) at (4,0); \coordinate (B) at (6,0);
+  \coordinate (C) at (35:5); \coordinate (X) at (35:7.5);
+  \draw[gegeven] (O) -- (8.4,0); \draw[gegeven] (O) -- (35:8.6);
+  \draw[hulp] ($(A)!-.15!(C)$) -- ($(A)!1.15!(C)$);
+  \draw[hulp] ($(B)!-.15!(X)$) -- ($(B)!1.12!(X)$);
+  \draw[resultaat] (O) -- (X);
+  \foreach \p in {A,B,C} \fill (\p) circle (1.5pt);
+  \fill[accent] (X) circle (1.7pt);
+  \fill (O) circle (1.5pt) node[left] {$O$};
+  \node[above right=-1pt] at (A) {$A$}; \node[above right=-1pt] at (B) {$B$}; \node[below right=-1pt] at (C) {$C$}; \node[below right=-1pt] at (X) {$X$};
+  \draw[grijs,|-|] (0,-.6) -- (4,-.6) node[midway,below] {$a$};
+  \draw[grijs,|-|] (0,-1.5) -- (6,-1.5) node[midway,below] {$b$};
+  \draw[grijs,|-|] ($(0,0)+(125:.6)$) -- ($(C)+(125:.6)$) node[midway,above left=-2pt] {$c$};
+  \draw[grijs,|-|] ($(0,0)+(125:1.5)$) -- ($(X)+(125:1.5)$) node[midway,above left=-2pt] {$x$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Teken een hoek. Zet op het ene been, vanuit het hoekpunt, de eerste twee lijnstukken af, en op het andere been het derde. Verbind het eindpunt van het eerste met het eindpunt van het derde, en trek door het eindpunt van het tweede de evenwijdige. Op het andere been staat dan de vierde evenredige. Kijk na of je antwoord kan kloppen: is $b > a$, dan is ook $x > c$.
+\end{werkwijze}
+
+Kies je voor $a$ een lijnstuk van 1~cm, dan is $x = b \cdot c$: zo vermenigvuldig je twee lengtes met passer en liniaal. In de opdrachten zie je hoe je zo ook kunt delen.
+
+\nujij{Construeer de vierde evenredige van 3~cm, 2~cm en 4,5~cm.}{$x = \tfrac{2 \cdot 4{,}5}{3} = 3$~cm.}
+
+\begin{oefeningen}
+\oef{h3-vierde}
+\end{oefeningen}
+
+\subsection{De middelevenredige}
+
+Een rechthoek van 2~cm bij 4,5~cm heeft een oppervlakte van 9~cm$^2$, net als een vierkant met zijde 3~cm. Maar welk vierkant heeft dezelfde oppervlakte als een rechthoek van 3~cm bij 5~cm? Zijn zijde $x$ moet voldoen aan $x^2 = 15$, dus $x = \sqrt{15}$, en dat is geen getal dat je kunt afmeten. Kun je zo'n lijnstuk construeren?
+
+\begin{theorie}
+Het lijnstuk $x$ met
+
+\vspace{1mm}
+\qquad $\formule{a : x = x : b}$, \quad of \quad $\formule{x^2 = a\,b}$, \quad dus \quad $\formule{x = \sqrt{a\,b}}$
+
+\vspace{1mm}
+heet de \textbf{\textcolor{accent}{middelevenredige}} van $a$ en $b$.
+\end{theorie}
+
+Waar zie je in een figuur een lengte die in het kwadraat een product is? In hoofdstuk 2 vond je zo'n figuur: de hoogtelijn in een rechthoekige driehoek (voorbeeld~\ref{vb:h2-hoogte} in hoofdstuk 2). Daar was ${\lengte{AD}^2 = 4 \cdot 9}$. Om die figuur te kunnen construeren, hebben we eerst een rechte hoek nodig op een vaste plaats. Die vind je in een halve cirkel.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Hoek in een halve cirkel}
+Ligt $C$ op de cirkel met middellijn $[AB]$, en is $C$ verschillend van $A$ en $B$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\hoek{ACB} = 90^\circ}$
+\end{stelling}
+
+\begin{bewijs}
+Neem het middelpunt $M$. Dan is $\lengte{MA} = \lengte{MB} = \lengte{MC}$, de straal. Driehoek $MAC$ is dus gelijkbenig, met twee gelijke basishoeken $\alpha$ in $A$ en in $C$. Zo heeft ook driehoek $MBC$ twee gelijke basishoeken $\beta$. De hoekensom in $\drieh{ABC}$ geeft
+
+\vspace{1mm}
+\qquad $\alpha + \beta + (\alpha + \beta) = 180^\circ$, \quad dus \quad $\hoek{ACB} = \alpha + \beta = 90^\circ$
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=1.15,font=\scriptsize]
+  \coordinate (M) at (0,0); \coordinate (A) at (-1.6,0); \coordinate (B) at (1.6,0); \coordinate (C) at (115:1.6);
+  \draw[lijngrijs] (1.6,0) arc[start angle=0,end angle=180,radius=1.6];
+  \draw[gegeven] (A) -- (B);
+  \draw[accent,thick] (A) -- (C) -- (B);
+  \draw[accent,dashed] (M) -- (C);
+  \hoekboog{B}{A}{C}{4mm} \hoekboog{A}{C}{M}{4mm}
+  \hoekboog{M}{C}{B}{3mm}\hoekboog{M}{C}{B}{3.6mm} \hoekboog{C}{B}{A}{3mm}\hoekboog{C}{B}{A}{3.6mm}
+  \node[left] at (A) {$A$}; \node[right] at (B) {$B$}; \node[above] at (C) {$C$}; \node[below] at (M) {$M$};
+  \fill (M) circle (1.2pt);
+  \node at ($(A)+(12:.65)$) {$\alpha$}; \node at ($(B)+(150:.75)$) {$\beta$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+In sommige boeken heet deze eigenschap de stelling van Thales. In dit boek gebruikten we die naam voor de evenwijdige met een zijde. Nu kunnen we de rechthoekige driehoek met haar hoogtelijn construeren, en de eigenschap uit hoofdstuk 2 algemeen formuleren.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Hoogtelijn in een rechthoekige driehoek}
+Is $\drieh{ABC}$ rechthoekig in $C$, en is $[CD]$ de hoogtelijn op $[AB]$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\lengte{CD}^2 = \lengte{AD} \cdot \lengte{DB}}$
+\end{stelling}
+
+\begin{bewijs}
+De driehoeken $DAC$ en $DCB$ zijn rechthoekig in $D$, en $\hoek{A} = 90^\circ - \hoek{B} = \hoek{DCB}$. Met het kenmerk HH is ${\drieh{DAC} \gv \drieh{DCB}}$, en dus
+
+\vspace{1mm}
+\qquad $\dfrac{\lengte{CD}}{\lengte{AD}} = \dfrac{\lengte{DB}}{\lengte{CD}}$
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.95,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (B) at (4.5,0); \coordinate (D) at (1.2,0); \coordinate (C) at (1.2,1.99);
+  \filldraw[fill=accent!25,draw=accent,thick] (A) -- (D) -- (C) -- cycle;
+  \filldraw[fill=accent!10,draw=accent,thick] (D) -- (B) -- (C) -- cycle;
+  \rechtehoek{A}{C}{B} \rechtehoek{C}{D}{B}
+  \node[below] at (A) {$A$}; \node[below] at (B) {$B$}; \node[below] at (D) {$D$}; \node[above] at (C) {$C$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Zo ontstaat de constructie. Zet $a$ en $b$ na elkaar op een rechte: $\lengte{AD} = a$ en $\lengte{DB} = b$. Teken de halve cirkel met middellijn $[AB]$, en de loodlijn in $D$. Het snijpunt $C$ maakt een rechte hoek (de halve cirkel), en $[CD]$ is de hoogtelijn, dus $\lengte{CD}^2 = a\,b$.
+
+\voorbeeld{}{Construeer een vierkant met dezelfde oppervlakte als een rechthoek van 2~cm bij 4,5~cm.\label{vb:h3-middel}}{%
+\uitleg{De zijde $x$ van het vierkant voldoet aan $x^2 = 2 \cdot 4{,}5$: het is de middelevenredige van 2~cm en 4,5~cm.}
+\naast{\begin{minipage}{8.4cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Zet na elkaar 2~cm en 4,5~cm af op een rechte: van $A$ tot $D$, en van $D$ tot $B$.}
+\item \textit{Zoek het midden $M$ van $[AB]$ met de middelloodlijn.}
+\item \textit{Teken de halve cirkel met middelpunt $M$ door $A$ en $B$.}
+\item \textit{Construeer in $D$ de loodlijn op $AB$. Ze snijdt de halve cirkel in $C$.}
+\end{enumerate}
+\vspace{1mm}
+Dan is $x = \lengte{CD}$. Controle: $x^2 = 9$, dus $x = 3$~cm, en dat kun je nameten. Het vierkant met zijde $[CD]$ heeft een oppervlakte van 9~cm$^2$.
+\end{minipage}}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (D) at (2,0); \coordinate (B) at (6.5,0); \coordinate (M) at (3.25,0); \coordinate (C) at (2,3);
+  \draw[hulp] (6.5,0) arc[start angle=0,end angle=180,radius=3.25];
+  \draw[hulp] (2,-.5) -- (2,3.6);
+  \draw[gegeven] (A) -- (B);
+  \draw[resultaat] (D) -- (C);
+  \rechtehoek{B}{D}{C}
+  \foreach \p in {A,D,B} \fill (\p) circle (1.5pt);
+  \fill (M) circle (1.2pt) node[below] {$M$};
+  \node[below left] at (A) {$A$}; \node[below left] at (D) {$D$}; \node[below right] at (B) {$B$};
+  \fill[accent] (C) circle (1.7pt) node[above left] {$C$};
+  \node[left] at (2,1.5) {$x$};
+  \draw[grijs,|-|] (0,-.9) -- (2,-.9) node[midway,below] {2};
+  \draw[grijs,|-|] (2,-.9) -- (6.5,-.9) node[midway,below] {4,5};
+\end{tikzpicture}}}
+
+Met $a = 1$ is de middelevenredige van 1 en $b$ gelijk aan $\sqrt{b}$. Zo construeer je de vierkantswortel van elk natuurlijk getal, als lengte in centimeter.
+
+\voorbeeld{}{Construeer een lijnstuk met lengte $\sqrt5$~cm.\label{vb:h3-wortel}}{%
+\uitleg{$\sqrt5 = \sqrt{1 \cdot 5}$, dus we zoeken de middelevenredige van 1~cm en 5~cm.}
+\naast{\begin{minipage}{8.4cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Zet $\lengte{AD} = 1$~cm en $\lengte{DB} = 5$~cm na elkaar af.}
+\item \textit{Het midden van $[AB]$ is $M$, met $\lengte{AM} = 3$~cm. Teken de halve cirkel met middelpunt $M$ en straal 3~cm.}
+\item \textit{De loodlijn in $D$ snijdt de halve cirkel in $C$.}
+\end{enumerate}
+\vspace{1mm}
+Dan is $\lengte{CD}^2 = 1 \cdot 5$, dus $\lengte{CD} = \sqrt5$~cm. Controle: $\sqrt5 \approx 2{,}24$~cm.
+\end{minipage}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \coordinate (A) at (0,0); \coordinate (D) at (1,0); \coordinate (B) at (6,0); \coordinate (M) at (3,0); \coordinate (C) at (1,2.2361);
+  \draw[hulp] (6,0) arc[start angle=0,end angle=180,radius=3];
+  \draw[hulp] (1,-.5) -- (1,3.4);
+  \draw[gegeven] (A) -- (B);
+  \draw[resultaat] (D) -- (C);
+  \rechtehoek{B}{D}{C}
+  \foreach \p in {A,D,B} \fill (\p) circle (1.5pt);
+  \fill (M) circle (1.2pt) node[below] {$M$};
+  \node[below left] at (A) {$A$}; \node[below right] at (D) {$D$}; \node[below right] at (B) {$B$};
+  \fill[accent] (C) circle (1.7pt) node[above right] {$C$};
+  \node[left] at (1,1.12) {$\sqrt5$};
+  \draw[grijs,|-|] (0,-.9) -- (1,-.9) node[midway,below] {1};
+  \draw[grijs,|-|] (1,-.9) -- (6,-.9) node[midway,below] {5};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Zet $a$ en $b$ na elkaar af op een rechte, van $A$ over $D$ naar $B$. Construeer het midden $M$ van $[AB]$ en teken de halve cirkel met middellijn $[AB]$. Construeer in $D$ de loodlijn: van $D$ tot de halve cirkel is de middelevenredige $\sqrt{ab}$. Voor $\sqrt{n}$ neem je $a = 1$ en $b = n$, of twee andere getallen met product $n$.
+\end{werkwijze}
+
+\nujij{Construeer een lijnstuk met lengte $\sqrt8$~cm. Met welke $a$ en $b$ gaat het?}{Met $1$ en $8$, of met $2$ en $4$: $\sqrt8 \approx 2{,}83$~cm.}
+
+\begin{oefeningen}
+\oef{h3-wortel}
+\end{oefeningen}
+
+%========================================================================================
+\section{Construeren met een homothetie}
+
+\subsection{Een figuur vergroten}
+
+In hoofdstuk 1 vergrootte je een figuur vanuit een punt $O$ door te meten: $\lengte{OA'} = k \cdot \lengte{OA}$. Met factor 2 kan het ook met de passer alleen: zet $\lengte{OA}$ nog eens af voorbij $A$. Maar met factor $\tfrac32$ of $\tfrac53$ moet je weer rekenen en meten. Dat hoeft niet meer. Het beeld $A'$ vind je met de evenwijdigen op twee halfrechten, en voor de andere hoekpunten gebruik je dat een homothetie elke zijde op een evenwijdige zijde afbeeldt.
+
+\voorbeeld{}{Vergroot driehoek $ABC$ vanuit $O$ met factor $\tfrac32$, met passer en liniaal.\label{vb:h3-vergroot}}{%
+\uitleg{We zoeken $A'$ op $[OA$ met $\lengte{OA'} : \lengte{OA} = 3 : 2$. Dat doen we met een hulphalfrechte uit $O$ met drie gelijke stukken. Daarna volgen $B'$ en $C'$ met evenwijdigen.}
+\naast{\begin{minipage}{7.6cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Teken de halfrechten $[OA$, $[OB$ en $[OC$.}
+\item \textit{Zet op een hulphalfrechte uit $O$ drie gelijke stukken af: $P_1$, $P_2$, $P_3$.}
+\item \textit{Verbind $P_2$ met $A$, en trek door $P_3$ de evenwijdige met $P_2A$. Ze snijdt $[OA$ in $A'$.}
+\item \textit{Trek door $A'$ de evenwijdige met $AB$ tot op $[OB$: dat is $B'$. Zo vind je ook $C'$, met de evenwijdige met $AC$.}
+\end{enumerate}
+\vspace{1mm}
+Volgens de stelling is ${\lengte{OA} : \lengte{OA'} = 2 : 3}$, net als op de hulphalfrechte. Controle: $B'C'$ moet evenwijdig zijn met $BC$.
+\end{minipage}}{\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (2,.5); \coordinate (B) at (3.1,1.5); \coordinate (C) at (1.6,1.8);
+  \coordinate (A2) at (3,.75); \coordinate (B2) at (4.65,2.25); \coordinate (C2) at (2.4,2.7);
+  \coordinate (P1) at (-30:.9); \coordinate (P2) at (-30:1.8); \coordinate (P3) at (-30:2.7);
+  \draw[hulp] (O) -- ($(O)!1.12!(A2)$) (O) -- ($(O)!1.07!(B2)$) (O) -- ($(O)!1.09!(C2)$);
+  \draw[hulp] (O) -- (-30:3.2);
+  \boogdoor[10]{O}{P1} \boogdoor[10]{P1}{P2} \boogdoor[10]{P2}{P3}
+  \draw[hulp] (P2) -- (A) (P3) -- (A2);
+  \draw[accent,dashed] ($(A2)!-.08!(B2)$) -- ($(A2)!1.1!(B2)$) ($(A2)!-.08!(C2)$) -- ($(A2)!1.1!(C2)$);
+  \filldraw[fill=accent!12,draw=accent,thick] (A2) -- (B2) -- (C2) -- cycle;
+  \filldraw[fill=accent!35,draw=black,semithick] (A) -- (B) -- (C) -- cycle;
+  \foreach \p in {P1,P2,P3} \fill (\p) circle (1.3pt);
+  \fill (O) circle (1.5pt) node[left] {$O$};
+  \node[below right=-1pt] at (A) {$A$}; \node[right] at (B) {$B$}; \node[above left=-1pt] at (C) {$C$};
+  \node[below right=-1pt] at (A2) {$A'$}; \node[right] at (B2) {$B'$}; \node[above left=-1pt] at (C2) {$C'$};
+  \node[below left=-1pt] at (P2) {$P_2$}; \node[below left=-1pt] at (P3) {$P_3$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Schrijf de factor als een breuk $\tfrac{m}{n}$. Zet op een hulphalfrechte uit het centrum $O$ gelijke stukken af tot $P_m$ en $P_n$. Verbind $P_n$ met $A$, en trek door $P_m$ de evenwijdige: ze snijdt $[OA$ in $A'$. Trek door $A'$ de evenwijdigen met de zijden uit $A$ om de andere beelden te vinden, en controleer met de laatste zijde. Dat werkt ook voor een verkleining ($m < n$) en als het centrum binnen de figuur ligt.
+\end{werkwijze}
+
+\nujij{Teken een driehoek en een punt $O$ binnen de driehoek. Verklein de driehoek vanuit $O$ met factor $\tfrac23$.}{Drie gelijke stukken op een hulphalfrechte uit $O$, verbind $P_3$ met $A$ en trek de evenwijdige door $P_2$. Elke zijde van het beeld is $\tfrac23$ van de overeenkomstige zijde.}
+
+\begin{oefeningen}
+\oef{h3-vergroot}
+\end{oefeningen}
+
+\subsection{Een probleem oplossen met een homothetie}
+
+Teken in een driehoek $ABC$ een vierkant met een zijde op $[BC]$, en met de twee andere hoekpunten op $[AB]$ en op $[AC]$. Hoe groot moet het vierkant zijn? Je kunt proberen: een vierkant tekenen, te groot, te klein, en bijschaven. Dat is moeilijk, omdat het vierkant aan drie voorwaarden tegelijk moet voldoen: een zijde op $[BC]$, een hoekpunt op $[AB]$ en een hoekpunt op $[AC]$.
+
+Het idee: laat een voorwaarde los. Een vierkant met een zijde op $BC$ en een hoekpunt op $[AB]$ is makkelijk: kies een punt $S$ op $[AB]$ en bouw daar een vierkant onder. Al die vierkanten zijn vergrotingen van elkaar vanuit $B$, want een homothetie met centrum $B$ beeldt de rechten $BC$ en $BA$ op zichzelf af. Het vierde hoekpunt schuift dan langs een halfrechte uit $B$. Waar die halfrechte $[AC]$ snijdt, ligt het hoekpunt van het gezochte vierkant.
+
+\voorbeeld{}{In driehoek $ABC$ is $\lengte{BC} = 7$~cm, en $A$ ligt 4~cm boven $BC$, recht boven het punt op 2~cm van $B$. Construeer het vierkant met een zijde op $[BC]$ en de andere hoekpunten op $[AB]$ en $[AC]$.\label{vb:h3-homothetie}}{%
+\uitleg{We tekenen eerst een klein vierkant dat alleen aan twee voorwaarden voldoet, en vergroten het vanuit $B$ tot ook de derde klopt.}
+\naast{\begin{minipage}{8.2cm}
+\begin{enumerate}[leftmargin=5mm,itemsep=2pt]
+\item \textit{Kies een punt $S$ op $[AB]$, dicht bij $B$. Construeer de loodlijn uit $S$ op $BC$, met voetpunt $P$.}
+\item \textit{Bouw op $[PS]$ het vierkant $PQRS$, met $Q$ op $[BC]$.}
+\item \textit{Trek de halfrechte $[BR$. Ze snijdt $[AC]$ in $R'$.}
+\item \textit{Bouw het vierkant vanuit $R'$: de loodlijn op $BC$ geeft $Q'$, en de evenwijdige met $BC$ geeft $S'$ op $[AB]$, en zo $P'$.}
+\end{enumerate}
+\vspace{1mm}
+$P'Q'R'S'$ is het beeld van $PQRS$ bij de homothetie met centrum $B$ die $R$ op $R'$ afbeeldt. Controle met gelijkvormige driehoeken: is $z$ de zijde, dan is $\tfrac{z}{7} = \tfrac{4 - z}{4}$, dus $z = \tfrac{28}{11} \approx 2{,}55$~cm.
+\end{minipage}}{\begin{tikzpicture}[scale=.68,font=\scriptsize]
+  \coordinate (B) at (0,0); \coordinate (C) at (7,0); \coordinate (A) at (2,4);
+  \coordinate (P) at (.6,0); \coordinate (Q) at (1.8,0); \coordinate (R) at (1.8,1.2); \coordinate (S) at (.6,1.2);
+  \coordinate (P2) at (1.2727,0); \coordinate (Q2) at (3.8182,0); \coordinate (R2) at (3.8182,2.5455); \coordinate (S2) at (1.2727,2.5455);
+  \filldraw[fill=accent!12,draw=accent,thick] (P2) -- (Q2) -- (R2) -- (S2) -- cycle;
+  \filldraw[fill=accent!35,draw=black,semithick] (P) -- (Q) -- (R) -- (S) -- cycle;
+  \draw[grijs,dashed] (B) -- ($(B)!1.18!(R2)$);
+  \draw[gegeven] (A) -- (B) -- (C) -- cycle;
+  \node[left] at (A) {$A$}; \node[below left] at (B) {$B$}; \node[below right] at (C) {$C$};
+  \node[left] at (S) {$S$}; \node[below] at (P) {$P$}; \node[below] at (Q) {$Q$}; \node[right] at (R) {$R$};
+  \node[left] at (S2) {$S'$}; \node[below] at (P2) {$P'$}; \node[below] at (Q2) {$Q'$}; \node[above right] at (R2) {$R'$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Zoek de voorwaarde die het moeilijk maakt, en laat die eerst los. Construeer een kleine figuur met de juiste vorm, die aan de andere voorwaarden voldoet. Kies als centrum een punt waarvoor de homothetie die voorwaarden bewaart, meestal het snijpunt van twee rechten waarop de figuur moet liggen. Vergroot of verklein dan vanuit dat centrum tot ook de laatste voorwaarde klopt.
+\end{werkwijze}
+
+\nujij{Construeer een gelijkzijdige driehoek met een hoogte van 4~cm. Begin met een kleine gelijkzijdige driehoek.}{Vergroot vanuit een hoekpunt tot de hoogte 4~cm is. De zijde is $\tfrac{8}{\sqrt3} \approx 4{,}62$~cm.}
+
+\begin{oefeningen}
+\oef{h3-probleem}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+
+\oef{h3-o23}
+
+\oef{h3-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-vierkant}{oef:h3-basis}%
+  \fv{oef:h3-t2}{vb:h3-verdeel}{oef:h3-verdeel}%
+  \fv{oef:h3-t3}{vb:h3-verhouding}{oef:h3-verhouding}%
+  \fv{oef:h3-t4}{vb:h3-vierde}{oef:h3-vierde}%
+  \fv{oef:h3-t5}{vb:h3-wortel}{oef:h3-wortel}%
+  \fv{oef:h3-t6}{vb:h3-vergroot}{oef:h3-vergroot}%
+  \fv{oef:h3-t7}{vb:h3-homothetie}{oef:h3-probleem}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat het verschil is tussen tekenen en construeren, de vier basisconstructies en waarom ze werken, de stelling over evenwijdigen op twee halfrechten, hoe je een lijnstuk in gelijke delen en in een gegeven verhouding verdeelt, wat de vierde evenredige en de middelevenredige zijn en hoe je ze construeert, de hoek in een halve cirkel, de hoogtelijn in een rechthoekige driehoek, hoe je $\sqrt{n}$ construeert, hoe je een figuur vergroot met passer en liniaal, en hoe je een probleem oplost met een homothetie. Vergelijk daarna met de kaders.
+\fi

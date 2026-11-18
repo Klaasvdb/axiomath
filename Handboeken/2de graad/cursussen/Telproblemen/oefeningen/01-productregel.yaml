@@ -1,0 +1,1137 @@
+# Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
+# pakketten: h1-o21 en h1-o24 (niveau 3) staan niet in pakket 1.
+# Alle aantallen zijn nagerekend met een Python-script (brute force waar het kan).
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken zonder rekenmachine.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2 \cdot 2 \cdot 2 \cdot 2 \cdot 2$
+      antwoord: |-
+        $32$
+      uitwerking: |-
+        $2^5 = 32$.
+    - opgave: |-
+        $4 \cdot 3 \cdot 2 \cdot 1$
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        $12 \cdot 2 = 24$.
+    - opgave: |-
+        $10 \cdot 9 \cdot 8$
+      antwoord: |-
+        $720$
+      uitwerking: |-
+        $90 \cdot 8 = 720$.
+    - opgave: |-
+        $10^4$
+      antwoord: |-
+        $10\,000$
+      uitwerking: |-
+        Een 1 met vier nullen.
+    - opgave: |-
+        $26 \cdot 26$
+      antwoord: |-
+        $676$
+      uitwerking: |-
+        $26 \cdot 26 = 520 + 156 = 676$.
+    - opgave: |-
+        $3^4$
+      antwoord: |-
+        $81$
+      uitwerking: |-
+        $3 \cdot 3 \cdot 3 \cdot 3 = 81$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Je gooit drie keer na elkaar met een muntstuk. Elke worp is kop (K) of munt (M).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf alle mogelijke uitkomsten op, zoals KMK. Hoe zorg je ervoor dat je er geen vergeet?
+      antwoord: |-
+        KKK, KKM, KMK, KMM, MKK, MKM, MMK, MMM
+      uitwerking: |-
+        Schrijf eerst alle uitkomsten die met K beginnen, en daarbinnen eerst die met KK: KKK, KKM, KMK, KMM. Daarna hetzelfde met M vooraan: MKK, MKM, MMK, MMM.
+    - opgave: |-
+        Hoeveel uitkomsten zijn er?
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        Er zijn 8 uitkomsten.
+    - opgave: |-
+        Hoeveel uitkomsten zijn er als je vier keer gooit? Probeer het te vinden zonder ze allemaal op te schrijven.
+      antwoord: |-
+        $16$
+      uitwerking: |-
+        Elke uitkomst van drie worpen kan bij de vierde worp met K of met M verdergaan: $8 \cdot 2 = 16$.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h1-boom
+  soort: kort
+  opgave: |-
+    Op een sportkamp kies je 's ochtends voetbal (v), zwemmen (z) of tennis (t), en 's middags dansen (d) of klimmen (k).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken een boomdiagram met eerst de ochtend en dan de middag.
+      antwoord: |-
+        zie uitwerking
+      uitwerking: |-
+        Het boomdiagram:\par
+        \begin{tikzpicture}[boom=13mm,level 1/.style={sibling distance=11mm},level 2/.style={sibling distance=5mm}]
+          \node[wortel] {}
+            child{node{v} child{node[uitkomst=vd]{d}} child{node[uitkomst=vk]{k}}}
+            child{node{z} child{node[uitkomst=zd]{d}} child{node[uitkomst=zk]{k}}}
+            child{node{t} child{node[uitkomst=td]{d}} child{node[uitkomst=tk]{k}}};
+        \end{tikzpicture}
+    - opgave: |-
+        Schrijf alle mogelijke dagprogramma's op. Hoeveel zijn er?
+      antwoord: |-
+        vd, vk, zd, zk, td, tk: 6
+      uitwerking: |-
+        Bij elk blad hoort één programma: vd, vk, zd, zk, td en tk. Dat zijn er 6.
+    - opgave: |-
+        Teken ook een boomdiagram met eerst de middag. Verandert het aantal programma's?
+      antwoord: |-
+        nee, ook 6
+      uitwerking: |-
+        Nu splitst het vertrekpunt in 2 takken (d, k), en elk daarvan in 3 (v, z, t). Er zijn opnieuw 6 bladeren: dezelfde programma's in een andere volgorde.
+
+- id: h1-onregelmatig
+  soort: kort
+  opgave: |-
+    Teken een boomdiagram en tel de mogelijkheden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je gooit met een muntstuk tot je kop (K) gooit, maar hoogstens drie keer.
+      antwoord: |-
+        $4$: K, MK, MMK, MMM
+      uitwerking: |-
+        Na K stopt een weg. \par\begin{tikzpicture}[boom=11mm,level 1/.style={sibling distance=10mm},level 2/.style={sibling distance=5mm},level 3/.style={sibling distance=5mm}]
+          \node[wortel] {}
+            child{node[uitkomst=K]{K}}
+            child{node{M} child{node[uitkomst=MK]{K}} child{node{M} child{node[uitkomst=MMK]{K}} child{node[uitkomst=MMM]{M}}}};
+        \end{tikzpicture}
+    - opgave: |-
+        Jonas gaat elke dag met de fiets (f) of met de bus (b) naar school, maar hij neemt nooit twee dagen na elkaar de bus. Hoeveel mogelijkheden zijn er voor maandag, dinsdag en woensdag?
+      antwoord: |-
+        $5$: fff, ffb, fbf, bff, bfb
+      uitwerking: |-
+        Na een b volgt altijd een f. \par\begin{tikzpicture}[boom=11mm,level 1/.style={sibling distance=14mm},level 2/.style={sibling distance=7mm},level 3/.style={sibling distance=5mm}]
+          \node[wortel] {}
+            child{node{f} child{node{f} child{node[uitkomst=fff]{f}} child{node[uitkomst=ffb]{b}}} child{node{b} child{node[uitkomst=fbf]{f}}}}
+            child{node{b} child{node{f} child{node[uitkomst=bff]{f}} child{node[uitkomst=bfb]{b}}}};
+        \end{tikzpicture}
+
+- id: h1-product
+  soort: kort
+  opgave: |-
+    Bereken met de productregel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je gooit twee keer met een dobbelsteen. Hoeveel uitkomsten zijn er?
+      antwoord: |-
+        $36$
+      uitwerking: |-
+        $6 \cdot 6 = 36$.
+    - opgave: |-
+        Een toets heeft 10 vragen, waarbij je telkens \textit{juist} of \textit{fout} aankruist. Op hoeveel manieren kun je het blad invullen?
+      antwoord: |-
+        $1024$
+      uitwerking: |-
+        Tien stappen met elk 2 mogelijkheden: $2^{10} = 1024$.
+    - opgave: |-
+        Een schooltrui bestaat in 5 kleuren en 6 maten, met of zonder naam op de rug. Hoeveel verschillende truien kun je bestellen?
+      antwoord: |-
+        $60$
+      uitwerking: |-
+        $5 \cdot 6 \cdot 2 = 60$.
+    - opgave: |-
+        Een code bestaat uit drie letters, gevolgd door twee cijfers. Hoeveel codes zijn er?
+      antwoord: |-
+        $1\,757\,600$
+      uitwerking: |-
+        $26 \cdot 26 \cdot 26 \cdot 10 \cdot 10 = 17\,576 \cdot 100 = 1\,757\,600$.
+
+- id: h1-herhaling
+  soort: kort
+  opgave: |-
+    Mag een keuze herhaald worden, of niet? Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een finale lopen 8 atleten. Op hoeveel manieren kunnen de gouden, de zilveren en de bronzen medaille verdeeld worden?
+      antwoord: |-
+        $336$
+      uitwerking: |-
+        Niemand krijgt twee medailles: $8 \cdot 7 \cdot 6 = 336$.
+    - opgave: |-
+        Hoeveel codes van vier cijfers zijn er waarin geen cijfer twee keer voorkomt?
+      antwoord: |-
+        $5040$
+      uitwerking: |-
+        $10 \cdot 9 \cdot 8 \cdot 7 = 5040$. Een code mag met 0 beginnen.
+    - opgave: |-
+        Hoeveel codes van vier cijfers zijn er als een cijfer wel vaker mag voorkomen?
+      antwoord: |-
+        $10\,000$
+      uitwerking: |-
+        $10 \cdot 10 \cdot 10 \cdot 10 = 10\,000$.
+    - opgave: |-
+        Een ijsjesverkoper heeft 6 smaken. Je bestelt een hoorntje met drie bollen boven elkaar, in drie verschillende smaken. De volgorde van onder naar boven telt. Hoeveel hoorntjes zijn er mogelijk?
+      antwoord: |-
+        $120$
+      uitwerking: |-
+        Onderste bol 6, middelste 5, bovenste 4: $6 \cdot 5 \cdot 4 = 120$.
+
+- id: h1-volgorde
+  soort: kort
+  opgave: |-
+    Op hoeveel manieren kan dat?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zes lopers bepalen in welke volgorde ze een aflossing lopen.
+      antwoord: |-
+        $720$
+      uitwerking: |-
+        $6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 720$.
+    - opgave: |-
+        Je maakt een woord (met of zonder betekenis) met alle letters van BROEK, elke letter één keer.
+      antwoord: |-
+        $120$
+      uitwerking: |-
+        De vijf letters zijn verschillend: $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$.
+    - opgave: |-
+        Je speelt de 7 nummers van een afspeellijst af, elk één keer, in een willekeurige volgorde.
+      antwoord: |-
+        $5040$
+      uitwerking: |-
+        $7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 5040$.
+
+- id: h1-voorwaarde
+  soort: kort
+  opgave: |-
+    Hoeveel getallen zijn er? Begin bij de strengste voorwaarde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Getallen van vier cijfers. Een cijfer mag vaker voorkomen.
+      antwoord: |-
+        $9000$
+      uitwerking: |-
+        Eerste cijfer niet 0: $9 \cdot 10 \cdot 10 \cdot 10 = 9000$.
+    - opgave: |-
+        Even getallen van twee cijfers.
+      antwoord: |-
+        $45$
+      uitwerking: |-
+        Eerste cijfer 1 tot 9, laatste cijfer 0, 2, 4, 6 of 8: $9 \cdot 5 = 45$.
+    - opgave: |-
+        Getallen van drie verschillende cijfers die groter zijn dan 500.
+      antwoord: |-
+        $360$
+      uitwerking: |-
+        Het eerste cijfer is 5, 6, 7, 8 of 9 (500 zelf heeft twee nullen). Dan $5 \cdot 9 \cdot 8 = 360$.
+    - opgave: |-
+        Getallen van drie cijfers waarvan alle cijfers oneven zijn.
+      antwoord: |-
+        $125$
+      uitwerking: |-
+        Elk cijfer is 1, 3, 5, 7 of 9, en geen ervan is 0: $5 \cdot 5 \cdot 5 = 125$.
+
+- id: h1-wegen
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \node[stad,label=below:A] (A) at (0,0) {};
+        \node[stad,label=below:B] (B) at (1.6,0) {};
+        \node[stad,label=below:C] (C) at (3.2,0) {};
+        \node[stad,label=below:D] (D) at (4.8,0) {};
+        \draw[tak] (A) to[bend left=30] (B); \draw[tak] (A) to[bend right=30] (B);
+        \draw[tak] (B) to[bend left=40] (C); \draw[tak] (B) -- (C); \draw[tak] (C) to[bend left=40] (B);
+        \draw[tak] (C) to[bend left=30] (D); \draw[tak] (C) to[bend right=30] (D);
+      \end{tikzpicture}
+  opgave: |-
+    Het wegendiagram toont de wegen tussen vier dorpen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel routes zijn er van A naar D?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        $2 \cdot 3 \cdot 2 = 12$.
+    - opgave: |-
+        Hoeveel routes zijn er van A naar D en terug?
+      antwoord: |-
+        $144$
+      uitwerking: |-
+        Heen 12 en terug 12: $12 \cdot 12 = 144$.
+    - opgave: |-
+        Hoeveel routes heen en terug zijn er als je op de terugweg nergens dezelfde weg neemt als op de heenweg?
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        Terug: van D naar C nog 1 weg, van C naar B nog 2, van B naar A nog 1. Dus $12 \cdot (1 \cdot 2 \cdot 1) = 24$.
+
+- id: h1-tabel
+  soort: kort
+  opgave: |-
+    Je gooit met een rode en een blauwe dobbelsteen. Maak een tabel. Op hoeveel manieren
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        is de som van de ogen 9?
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        (3, 6), (4, 5), (5, 4), (6, 3), met eerst rood en dan blauw.
+    - opgave: |-
+        is het product van de ogen even?
+      antwoord: |-
+        $27$
+      uitwerking: |-
+        Het product is oneven als beide oneven zijn: $3 \cdot 3 = 9$ vakjes. De andere $36 - 9 = 27$ vakjes geven een even product.
+    - opgave: |-
+        gooi je twee keer hetzelfde aantal ogen?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        De vakjes op de diagonaal: (1, 1) tot (6, 6).
+    - opgave: |-
+        verschillen de twee aantallen ogen precies 2?
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        (1, 3), (2, 4), (3, 5), (4, 6) en omgekeerd: 8 vakjes, op twee schuine lijnen.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    boomdiagram tekenen
+  opgave: |-
+    Teken een boomdiagram en schrijf alle uitkomsten op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je gooit twee keer met een muntstuk.
+      antwoord: |-
+        KK, KM, MK, MM
+      uitwerking: |-
+        Twee takken die elk in twee splitsen: 4 uitkomsten, KK, KM, MK en MM.
+    - opgave: |-
+        Je kiest een wit (w) of een bruin (b) broodje, met kaas (k), hesp (h) of tomaat (t).
+      antwoord: |-
+        wk, wh, wt, bk, bh, bt
+      uitwerking: |-
+        6 uitkomsten:\par
+        \begin{tikzpicture}[boom=12mm,level 1/.style={sibling distance=15mm},level 2/.style={sibling distance=5mm}]
+          \node[wortel] {}
+            child{node{w} child{node[uitkomst=wk]{k}} child{node[uitkomst=wh]{h}} child{node[uitkomst=wt]{t}}}
+            child{node{b} child{node[uitkomst=bk]{k}} child{node[uitkomst=bh]{h}} child{node[uitkomst=bt]{t}}};
+        \end{tikzpicture}
+    - opgave: |-
+        Een gezin heeft drie kinderen. Je noteert van oud naar jong of het een jongen (j) of een meisje (m) is.
+      antwoord: |-
+        jjj, jjm, jmj, jmm, mjj, mjm, mmj, mmm
+      uitwerking: |-
+        Drie kolommen met telkens twee takken, zoals bij drie muntstukken: 8 uitkomsten.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    productregel
+  opgave: |-
+    Bereken met de productregel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lars heeft 5 broeken en 7 T-shirts. Hoeveel combinaties van een broek en een T-shirt kan hij maken?
+      antwoord: |-
+        $35$
+      uitwerking: |-
+        $5 \cdot 7 = 35$.
+    - opgave: |-
+        Je gooit drie keer met een dobbelsteen. Hoeveel uitkomsten zijn er?
+      antwoord: |-
+        $216$
+      uitwerking: |-
+        $6 \cdot 6 \cdot 6 = 216$.
+    - opgave: |-
+        Bij een pizzeria kies je een van 3 soorten deeg, een van 4 sauzen en een van 8 hoofdingrediënten. Hoeveel pizza's kun je samenstellen?
+      antwoord: |-
+        $96$
+      uitwerking: |-
+        $3 \cdot 4 \cdot 8 = 96$.
+    - opgave: |-
+        Een kluisje op school heeft een code van vijf cijfers. Hoeveel codes zijn er?
+      antwoord: |-
+        $100\,000$
+      uitwerking: |-
+        $10^5 = 100\,000$.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    boomdiagram en productregel
+  opgave: |-
+    Denk aan het boomdiagram, zonder het te tekenen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een boomdiagram heeft drie kolommen. Het vertrekpunt splitst in 2 takken, daarna splitst elke tak in 3, en daarna elke tak in 4. Hoeveel bladeren heeft de boom?
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        $2 \cdot 3 \cdot 4 = 24$.
+    - opgave: |-
+        Een boomdiagram heeft vier kolommen, en elke tak splitst telkens in 3. Hoeveel bladeren heeft de boom?
+      antwoord: |-
+        $81$
+      uitwerking: |-
+        $3^4 = 81$.
+    - opgave: |-
+        Een keuze in drie stappen heeft 60 mogelijkheden. De eerste stap heeft 3 mogelijkheden, de tweede 4. Hoeveel mogelijkheden heeft de derde stap?
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $3 \cdot 4 \cdot n = 60$, dus $n = 60 : 12 = 5$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tabel
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \foreach \i in {1,...,4}{\draw[accent,thick] (0,0) -- ({90-(\i-1)*90}:.6); \node at ({45-(\i-1)*90}:.38) {\i};}
+        \draw[accent,thick] (0,0) circle (.6); \node at (0,-.85) {A};
+        \begin{scope}[xshift=1.7cm]
+          \foreach \i in {1,...,5}{\draw[accent,thick] (0,0) -- ({90-(\i-1)*72}:.6); \node at ({54-(\i-1)*72}:.39) {\i};}
+          \draw[accent,thick] (0,0) circle (.6); \node at (0,-.85) {B};
+        \end{scope}
+      \end{tikzpicture}
+  opgave: |-
+    Je draait aan de twee draaischijven en vermenigvuldigt de twee getallen. Maak een tabel met de producten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel uitkomsten zijn er?
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $4 \cdot 5 = 20$ vakjes.
+    - opgave: |-
+        Bij hoeveel uitkomsten is het product oneven?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        Beide getallen oneven: A is 1 of 3, B is 1, 3 of 5. Dus $2 \cdot 3 = 6$.
+    - opgave: |-
+        Bij hoeveel uitkomsten is het product 12?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $3 \cdot 4$ en $4 \cdot 3$: 2 vakjes.
+    - opgave: |-
+        Bij hoeveel uitkomsten is het product groter dan 10?
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $3 \cdot 4 = 12$, $3 \cdot 5 = 15$, $4 \cdot 3 = 12$, $4 \cdot 4 = 16$, $4 \cdot 5 = 20$. Let op: $2 \cdot 5 = 10$ is niet groter dan 10.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kiezen zonder herhaling
+  opgave: |-
+    Op hoeveel manieren kan dat?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een tekenwedstrijd heeft 10 deelnemers. De jury reikt een eerste, een tweede en een derde prijs uit.
+      antwoord: |-
+        $720$
+      uitwerking: |-
+        $10 \cdot 9 \cdot 8 = 720$.
+    - opgave: |-
+        Je maakt een code van drie verschillende letters met de letters A, B, C, D en E.
+      antwoord: |-
+        $60$
+      uitwerking: |-
+        $5 \cdot 4 \cdot 3 = 60$.
+    - opgave: |-
+        Een voetbalploeg van 11 spelers kiest een kapitein en een vicekapitein.
+      antwoord: |-
+        $110$
+      uitwerking: |-
+        $11 \cdot 10 = 110$.
+    - opgave: |-
+        Zes kinderen gaan op zes stoelen in een rij zitten.
+      antwoord: |-
+        $720$
+      uitwerking: |-
+        $6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 720$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    wegendiagram
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \node[stad,label=below:P] (P) at (0,0) {};
+        \node[stad,label=below:Q] (Q) at (2,0) {};
+        \node[stad,label=below:R] (R) at (3.8,0) {};
+        \draw[tak] (P) to[bend left=50] (Q); \draw[tak] (P) to[bend left=17] (Q);
+        \draw[tak] (P) to[bend right=17] (Q); \draw[tak] (P) to[bend right=50] (Q);
+        \draw[tak] (Q) to[bend left=30] (R); \draw[tak] (Q) to[bend right=30] (R);
+      \end{tikzpicture}
+  opgave: |-
+    Wandelaars gaan van P naar R langs Q.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel routes zijn er van P naar R?
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $4 \cdot 2 = 8$.
+    - opgave: |-
+        Hoeveel routes zijn er van P naar R en terug?
+      antwoord: |-
+        $64$
+      uitwerking: |-
+        $8 \cdot 8 = 64$.
+    - opgave: |-
+        Hoeveel routes heen en terug zijn er als ze op de terugweg nergens hetzelfde pad nemen?
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        Terug van R naar Q nog 1 pad, van Q naar P nog 3: $8 \cdot (1 \cdot 3) = 24$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    boomdiagram lezen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[boom=12mm,level 1/.style={sibling distance=11mm},level 2/.style={sibling distance=5mm}]
+        \node[wortel] {} child{node[knoop]{} child{node[knoop]{}} child{node[knoop]{}}} child{node[knoop]{} child{node[knoop]{}} child{node[knoop]{}}} child{node[knoop]{} child{node[knoop]{}} child{node[knoop]{}}};
+      \end{tikzpicture}
+  opgave: |-
+    Het boomdiagram hoort bij een keuze.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Uit hoeveel stappen bestaat de keuze?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        Er zijn twee kolommen met takken.
+    - opgave: |-
+        Hoeveel mogelijkheden zijn er?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        6 bladeren, of $3 \cdot 2 = 6$.
+    - opgave: |-
+        Bedenk een situatie die bij dit boomdiagram past.
+      antwoord: |-
+        bv. 3 soorten soep, met of zonder brood
+      uitwerking: |-
+        Een eerste keuze uit 3 en een tweede uit 2, bijvoorbeeld een van drie soepen, met of zonder brood.
+    - opgave: |-
+        Hoe ziet het boomdiagram eruit als je de twee stappen van plaats wisselt?
+      antwoord: |-
+        2 takken, die elk in 3 splitsen
+      uitwerking: |-
+        Het vertrekpunt splitst in 2 takken, en elk daarvan in 3. Er blijven 6 bladeren.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    voorwaarde: het eerste cijfer is geen 0
+  opgave: |-
+    Mila zegt: \textit{Een getal van drie cijfers heeft voor elk cijfer 10 mogelijkheden, dus er zijn $10 \cdot 10 \cdot 10 = 1000$ getallen van drie cijfers.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is er fout aan haar redenering?
+      antwoord: |-
+        het eerste cijfer is geen 0
+      uitwerking: |-
+        Zo telt ze ook 000 tot 099 mee, maar dat zijn geen getallen van drie cijfers.
+    - opgave: |-
+        Hoeveel getallen van drie cijfers zijn er?
+      antwoord: |-
+        $900$
+      uitwerking: |-
+        $9 \cdot 10 \cdot 10 = 900$.
+    - opgave: |-
+        Controleer je antwoord op een andere manier.
+      antwoord: |-
+        van 100 tot 999: $900$
+      uitwerking: |-
+        De getallen van drie cijfers gaan van 100 tot 999: dat zijn er $999 - 99 = 900$.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    getallen met een voorwaarde
+  opgave: |-
+    Hoeveel getallen zijn er?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Getallen van vier verschillende cijfers.
+      antwoord: |-
+        $4536$
+      uitwerking: |-
+        $9 \cdot 9 \cdot 8 \cdot 7 = 4536$: het eerste cijfer is geen 0, daarna mag de 0 wel.
+    - opgave: |-
+        Getallen van drie cijfers die eindigen op 5.
+      antwoord: |-
+        $90$
+      uitwerking: |-
+        $9 \cdot 10 \cdot 1 = 90$.
+    - opgave: |-
+        Getallen van drie cijfers waarvan alle cijfers even zijn.
+      antwoord: |-
+        $100$
+      uitwerking: |-
+        Het eerste cijfer is 2, 4, 6 of 8 (geen 0), de andere zijn 0, 2, 4, 6 of 8: $4 \cdot 5 \cdot 5 = 100$.
+    - opgave: |-
+        Getallen van drie verschillende cijfers die kleiner zijn dan 400.
+      antwoord: |-
+        $216$
+      uitwerking: |-
+        Het eerste cijfer is 1, 2 of 3: $3 \cdot 9 \cdot 8 = 216$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    productregel in een context
+  opgave: |-
+    In een land bestaat een nummerplaat uit een cijfer van 1 tot 9, drie letters en drie cijfers, bijvoorbeeld 2-KTM-047.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel nummerplaten zijn er?
+      antwoord: |-
+        $158\,184\,000$
+      uitwerking: |-
+        $9 \cdot 26^3 \cdot 10^3 = 9 \cdot 17\,576 \cdot 1000 = 158\,184\,000$.
+    - opgave: |-
+        In dat land rijden ongeveer 7 miljoen auto's. Zijn er genoeg nummerplaten?
+      antwoord: |-
+        ja, ruim 22 keer zoveel
+      uitwerking: |-
+        $158\,184\,000 : 7\,000\,000 \approx 22{,}6$: ruim genoeg.
+    - opgave: |-
+        Om geen woorden te vormen, laat men de klinkers A, E, I, O, U en Y weg. Hoeveel nummerplaten zijn er dan nog?
+      antwoord: |-
+        $72\,000\,000$
+      uitwerking: |-
+        Er blijven 20 letters over: $9 \cdot 20^3 \cdot 10^3 = 72\,000\,000$.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    productregel: het aantal ligt vast, de keuzes niet
+  opgave: |-
+    Je maakt woorden (met of zonder betekenis) met de letters A, B, C en D. Twee letters die naast elkaar staan, zijn nooit gelijk: ABA mag wel, AAB niet.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel woorden van drie letters zijn er?
+      antwoord: |-
+        $36$
+      uitwerking: |-
+        Eerste letter 4, tweede letter alles behalve de eerste: 3, derde letter alles behalve de tweede: 3. Dus $4 \cdot 3 \cdot 3 = 36$.
+    - opgave: |-
+        Welke letters je voor de tweede plaats kunt kiezen, hangt af van de eerste letter. Waarom mag je toch de productregel gebruiken?
+      antwoord: |-
+        het aantal is altijd 3
+      uitwerking: |-
+        Welke letters het zijn, verschilt, maar het zijn er altijd 3. De productregel vraagt alleen dat het aantal vastligt.
+    - opgave: |-
+        Hoeveel woorden van vijf letters zijn er met dezelfde regel?
+      antwoord: |-
+        $324$
+      uitwerking: |-
+        $4 \cdot 3 \cdot 3 \cdot 3 \cdot 3 = 324$.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    boomdiagram dat niet overal even breed is
+  opgave: |-
+    Bij volleybal wint het team dat als eerste drie sets wint. Team A speelt tegen team B. Een verloop noteer je met de winnaar van elke set, zoals ABAA.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel verlopen zijn er waarbij de match na drie sets gedaan is?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        AAA en BBB.
+    - opgave: |-
+        Hoeveel verlopen zijn er waarbij de match na vier sets gedaan is?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        Wint A in vier sets, dan wint A de vierde set, en ook twee van de eerste drie: BAAA, ABAA, AABA. Hetzelfde voor B: $2 \cdot 3 = 6$.
+    - opgave: |-
+        Hoeveel verlopen zijn er waarbij de match vijf sets duurt?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        Na vier sets staat het 2-2, en de vijfde set beslist. De stand 2-2 bereik je op 6 manieren: AABB, ABAB, ABBA, BAAB, BABA, BBAA. Elke manier kan met A of met B eindigen: $6 \cdot 2 = 12$.
+    - opgave: |-
+        Hoeveel verlopen zijn er in totaal? Waarom kun je dat niet met de productregel alleen vinden?
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $2 + 6 + 12 = 20$. Het boomdiagram is niet overal even breed: sommige wegen stoppen na drie of vier sets.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    alle volgordes, met een voorwaarde
+  opgave: |-
+    Vijf leerlingen, onder wie Emma en Finn, staan in de rij voor de broodjesbar. Op hoeveel manieren kan dat
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        zonder voorwaarden?
+      antwoord: |-
+        $120$
+      uitwerking: |-
+        $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$.
+    - opgave: |-
+        als Emma vooraan staat?
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        Vooraan 1 mogelijkheid, de andere vier in een volgorde: $1 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 24$.
+    - opgave: |-
+        als Emma vooraan en Finn achteraan staat?
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        De drie anderen staan in het midden: $3 \cdot 2 \cdot 1 = 6$.
+    - opgave: |-
+        als Emma niet vooraan staat?
+      antwoord: |-
+        $96$
+      uitwerking: |-
+        Vooraan staat een van de 4 anderen, daarna de vier overige in een volgorde: $4 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 96$. Of: $120 - 24 = 96$.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    productregel met een keuze \textit{geen}
+  opgave: |-
+    Sam heeft 4 broeken, 6 T-shirts en 3 truien. Een outfit bestaat uit een broek, een T-shirt en eventueel een trui.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel outfits kan Sam samenstellen?
+      antwoord: |-
+        $96$
+      uitwerking: |-
+        Voor de trui zijn er 4 mogelijkheden: een van de 3 truien, of geen trui. Dus $4 \cdot 6 \cdot 4 = 96$.
+    - opgave: |-
+        Sam heeft ook 2 petten, en zet er eventueel een op. Hoeveel outfits zijn er nu?
+      antwoord: |-
+        $288$
+      uitwerking: |-
+        Voor de pet zijn er 3 mogelijkheden: $96 \cdot 3 = 288$.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    delers tellen met de productregel
+  opgave: |-
+    Elke deler van $12 = 2^2 \cdot 3$ is een product van een macht van 2 (1, 2 of 4) en een macht van 3 (1 of 3).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zet de delers van 12 in een boomdiagram: eerst de macht van 2, dan de macht van 3. Hoeveel delers zijn er?
+      antwoord: |-
+        $6$: 1, 3, 2, 6, 4, 12
+      uitwerking: |-
+        $3 \cdot 2 = 6$ delers:\par
+        \begin{tikzpicture}[boom=12mm,level 1/.style={sibling distance=10mm},level 2/.style={sibling distance=5mm}]
+          \node[wortel] {}
+            child{node{1} child{node[uitkomst=1]{1}} child{node[uitkomst=3]{3}}}
+            child{node{2} child{node[uitkomst=2]{1}} child{node[uitkomst=6]{3}}}
+            child{node{4} child{node[uitkomst=4]{1}} child{node[uitkomst=12]{3}}};
+        \end{tikzpicture}
+    - opgave: |-
+        Hoeveel delers heeft $200 = 2^3 \cdot 5^2$?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        Macht van 2: 1, 2, 4 of 8 (4 mogelijkheden). Macht van 5: 1, 5 of 25 (3). Dus $4 \cdot 3 = 12$.
+    - opgave: |-
+        Hoeveel delers heeft $360 = 2^3 \cdot 3^2 \cdot 5$?
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        $4 \cdot 3 \cdot 2 = 24$.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    tabel en rooster
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=4mm,y=4mm,font=\scriptsize]
+        \draw[lijngrijs,very thin] (0,0) grid[step=4mm] (5.5,5.5);
+        \draw[->,grijs] (0,0) -- (6,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,0) -- (0,6) node[above,text=black] {$y$};
+        \foreach \i in {1,...,5}{\node[below] at (\i,0) {\i}; \node[left] at (0,\i) {\i};
+          \foreach \j in {1,...,5}{\fill[accent] (\i,\j) circle (1.6pt);}}
+      \end{tikzpicture}
+  opgave: |-
+    Je kiest een punt $(x, y)$ waarbij $x$ en $y$ gehele getallen van 1 tot en met 5 zijn. Het rooster toont alle punten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel punten zijn er?
+      antwoord: |-
+        $25$
+      uitwerking: |-
+        $5 \cdot 5 = 25$.
+    - opgave: |-
+        Bij hoeveel punten is $x = y$?
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        De punten op de diagonaal: $(1, 1)$ tot $(5, 5)$.
+    - opgave: |-
+        Bij hoeveel punten is $x < y$?
+      antwoord: |-
+        $10$
+      uitwerking: |-
+        Van de 25 punten liggen er 5 op de diagonaal. De andere 20 liggen voor de helft boven en voor de helft onder de diagonaal: $20 : 2 = 10$.
+    - opgave: |-
+        Bij hoeveel punten is $x + y = 6$?
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $(1, 5)$, $(2, 4)$, $(3, 3)$, $(4, 2)$, $(5, 1)$: een schuine lijn.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    wegendiagram met meer stappen
+  opgave: |-
+    Een fietstocht gaat van de start S naar de aankomst A, langs de controleposten P, Q en R in die volgorde. Van S naar P zijn er 2 wegen, van P naar Q 3, van Q naar R 2 en van R naar A 4.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Teken een wegendiagram. Hoeveel routes zijn er?
+      antwoord: |-
+        $48$
+      uitwerking: |-
+        $2 \cdot 3 \cdot 2 \cdot 4 = 48$.
+    - opgave: |-
+        Een van de wegen tussen P en Q wordt afgesloten. Hoeveel routes zijn er nu?
+      antwoord: |-
+        $32$
+      uitwerking: |-
+        $2 \cdot 2 \cdot 2 \cdot 4 = 32$.
+    - opgave: |-
+        Alle wegen zijn weer open. Iemand fietst van S naar A en terug, en neemt op de terugweg nergens dezelfde weg. Hoeveel routes zijn er?
+      antwoord: |-
+        $288$
+      uitwerking: |-
+        Terug: $3 \cdot 1 \cdot 2 \cdot 1 = 6$ (van A naar R, van R naar Q, van Q naar P, van P naar S). Dus $48 \cdot 6 = 288$.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kiezen met en zonder herhaling
+  opgave: |-
+    Een wachtwoord bestaat uit twee hoofdletters, gevolgd door vier cijfers waarvan er geen twee gelijk zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel wachtwoorden zijn er?
+      antwoord: |-
+        $3\,407\,040$
+      uitwerking: |-
+        $26 \cdot 26 \cdot 10 \cdot 9 \cdot 8 \cdot 7 = 676 \cdot 5040 = 3\,407\,040$.
+    - opgave: |-
+        Hoeveel wachtwoorden zijn er als ook de twee letters verschillend moeten zijn?
+      antwoord: |-
+        $3\,276\,000$
+      uitwerking: |-
+        $26 \cdot 25 \cdot 5040 = 650 \cdot 5040 = 3\,276\,000$.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    productregel met een voorwaarde
+  figuur:
+    code: |-
+      \begin{tikzpicture}
+        \fill[accent!60] (0,.8) rectangle (1.6,1.2); \fill[accent!15] (0,.4) rectangle (1.6,.8); \fill[accent!60] (0,0) rectangle (1.6,.4);
+        \draw[grijs] (0,0) rectangle (1.6,1.2); \draw[grijs,thick] (0,1.2) -- (0,-.6);
+      \end{tikzpicture}
+  opgave: |-
+    Een vlag heeft drie horizontale banen. Je kleurt elke baan met een van 5 kleuren. Hoeveel vlaggen zijn er
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        zonder voorwaarde?
+      antwoord: |-
+        $125$
+      uitwerking: |-
+        $5 \cdot 5 \cdot 5 = 125$.
+    - opgave: |-
+        als twee banen die tegen elkaar liggen niet dezelfde kleur hebben, zoals in de figuur?
+      antwoord: |-
+        $80$
+      uitwerking: |-
+        Bovenste baan 5, middelste niet de kleur van de bovenste: 4, onderste niet de kleur van de middelste: 4. Dus $5 \cdot 4 \cdot 4 = 80$.
+    - opgave: |-
+        als de drie banen elk een andere kleur hebben?
+      antwoord: |-
+        $60$
+      uitwerking: |-
+        $5 \cdot 4 \cdot 3 = 60$.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    plaatsen kiezen met de productregel
+  opgave: |-
+    We bekijken codes van vier cijfers, zoals op het slot van Noor.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel codes bevatten precies één keer het cijfer 7?
+      antwoord: |-
+        $2916$
+      uitwerking: |-
+        Kies eerst de plaats van de 7: 4 mogelijkheden. De drie andere plaatsen krijgen elk een cijfer dat geen 7 is: 9 mogelijkheden. Dus $4 \cdot 9 \cdot 9 \cdot 9 = 2916$.
+    - opgave: |-
+        Hoeveel codes bevatten precies twee keer het cijfer 7?
+      antwoord: |-
+        $486$
+      uitwerking: |-
+        De twee plaatsen van de 7: 12, 13, 14, 23, 24 of 34, dus 6 mogelijkheden. De twee andere plaatsen: $9 \cdot 9 = 81$. Dus $6 \cdot 81 = 486$.
+
+- id: h1-o21
+  pakketten: [2, 3, 4, 5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    slim tellen: getallen aanvullen met nullen
+  opgave: |-
+    Schrijf elk getal van 0 tot 999 met drie cijfers, door vooraan nullen toe te voegen: 7 wordt 007, 42 wordt 042.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 999 bevatten geen cijfer 3?
+      antwoord: |-
+        $728$
+      uitwerking: |-
+        Met drie cijfers (nullen vooraan mogen nu): $9 \cdot 9 \cdot 9 = 729$ rijtjes zonder 3. Daarbij hoort ook 000, en dat is niet tussen 1 en 999. Dus $729 - 1 = 728$.
+    - opgave: |-
+        Hoeveel getallen van 1 tot en met 9999 bevatten geen cijfer 3?
+      antwoord: |-
+        $6560$
+      uitwerking: |-
+        $9^4 - 1 = 6561 - 1 = 6560$.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    productregel met machten
+  opgave: |-
+    Je gooit een aantal keer met een muntstuk.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel uitkomsten zijn er bij 10 worpen?
+      antwoord: |-
+        $1024$
+      uitwerking: |-
+        $2^{10} = 1024$.
+    - opgave: |-
+        Hoeveel keer moet je minstens gooien opdat er meer dan een miljoen uitkomsten zijn?
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        $2^{19} = 524\,288$ is te weinig, $2^{20} = 1\,048\,576$ is meer dan een miljoen. Dus minstens 20 keer.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    productregel: twee sloten vergelijken
+  opgave: |-
+    Een cijferslot heeft schijfjes met de cijfers 0 tot 9, een letterslot schijfjes met de letters A tot Z.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welk slot heeft de meeste codes: een cijferslot met vier schijfjes of een letterslot met drie?
+      antwoord: |-
+        het letterslot ($17\,576$ tegen $10\,000$)
+      uitwerking: |-
+        Cijferslot: $10^4 = 10\,000$. Letterslot: $26^3 = 17\,576$. Het letterslot heeft er meer.
+    - opgave: |-
+        Hoeveel schijfjes moet een letterslot minstens hebben om meer codes te hebben dan een cijferslot met zes schijfjes?
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        Het cijferslot heeft $10^6 = 1\,000\,000$ codes. $26^4 = 456\,976$ is te weinig, $26^5 = 11\,881\,376$ is genoeg.
+
+- id: h1-o24
+  pakketten: [2, 3, 4, 5]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    volgordes met een voorwaarde
+  opgave: |-
+    Jongens en meisjes gaan in een rij staan, zo dat er nooit twee jongens of twee meisjes naast elkaar staan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op hoeveel manieren kan dat met 4 jongens en 3 meisjes?
+      antwoord: |-
+        $144$
+      uitwerking: |-
+        De rij moet jongen, meisje, jongen, meisje, jongen, meisje, jongen zijn. Op de plaatsen van de jongens: $4 \cdot 3 \cdot 2 \cdot 1$, op die van de meisjes: $3 \cdot 2 \cdot 1$. Samen $24 \cdot 6 = 144$.
+    - opgave: |-
+        Op hoeveel manieren kan dat met 3 jongens en 3 meisjes?
+      antwoord: |-
+        $72$
+      uitwerking: |-
+        Vooraan mag iedereen staan: 6 mogelijkheden. Daarna ligt vast of er een jongen of een meisje komt: $6 \cdot 3 \cdot 2 \cdot 2 \cdot 1 \cdot 1 = 72$.
+
+# --- Test jezelf -----------------------------------------------------------------------
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bij een pizza kies je dun (d) of dik (k) deeg, tomatensaus (t) of roomsaus (r), en met (m) of zonder (z) champignons. Teken een boomdiagram. Hoeveel pizza's zijn er?
+  antwoord: |-
+    $8$
+  uitwerking: |-
+    $2 \cdot 2 \cdot 2 = 8$ pizza's:\par
+    \begin{tikzpicture}[boom=12mm,level 1/.style={sibling distance=20mm},level 2/.style={sibling distance=10mm},level 3/.style={sibling distance=5mm}]
+      \node[wortel] {}
+        child{node{d} child{node{t} child{node[uitkomst=dtm]{m}} child{node[uitkomst=dtz]{z}}} child{node{r} child{node[uitkomst=drm]{m}} child{node[uitkomst=drz]{z}}}}
+        child{node{k} child{node{t} child{node[uitkomst=ktm]{m}} child{node[uitkomst=ktz]{z}}} child{node{r} child{node[uitkomst=krm]{m}} child{node[uitkomst=krz]{z}}}};
+    \end{tikzpicture}
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Je gooit met een dobbelsteen tot je een 6 gooit, maar hoogstens drie keer. Je noteert alleen of je een 6 gooit (z) of niet (n). Teken een boomdiagram. Hoeveel uitkomsten zijn er?
+  antwoord: |-
+    $4$: z, nz, nnz, nnn
+  uitwerking: |-
+    Na een z stopt de weg. De uitkomsten zijn z, nz, nnz en nnn: 4.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    De code van een fietskluis bestaat uit een letter, gevolgd door drie cijfers. Hoeveel codes zijn er?
+  antwoord: |-
+    $26\,000$
+  uitwerking: |-
+    $26 \cdot 10 \cdot 10 \cdot 10 = 26\,000$.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een jury kiest uit 12 foto's een eerste, een tweede en een derde prijs. Op hoeveel manieren kan dat?
+  antwoord: |-
+    $1320$
+  uitwerking: |-
+    Een foto wint maar één prijs: $12 \cdot 11 \cdot 10 = 1320$.
+
+- id: h1-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Op hoeveel manieren zet je 6 verschillende boeken naast elkaar op een plank?
+  antwoord: |-
+    $720$
+  uitwerking: |-
+    $6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 720$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Hoeveel getallen van drie verschillende cijfers beginnen met een oneven cijfer en eindigen op een even cijfer?
+  antwoord: |-
+    $200$
+  uitwerking: |-
+    Eerste cijfer 1, 3, 5, 7 of 9: 5. Laatste cijfer 0, 2, 4, 6 of 8: 5, en dat is nooit gelijk aan het eerste. Middelste cijfer: niet de twee gebruikte, dus 8. Samen $5 \cdot 5 \cdot 8 = 200$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Van A naar B lopen 3 wegen, en van B naar C ook 3. Je gaat van A naar C langs B en weer terug, en neemt op de terugweg nergens dezelfde weg. Hoeveel routes zijn er?
+  antwoord: |-
+    $36$
+  uitwerking: |-
+    Heen $3 \cdot 3 = 9$, terug $2 \cdot 2 = 4$: samen $9 \cdot 4 = 36$.
+
+- id: h1-t8
+  soort: test
+  niveau: 1
+  opgave: |-
+    Je gooit met een rode en een blauwe dobbelsteen. Op hoeveel manieren is de som van de ogen minstens 10?
+  antwoord: |-
+    $6$
+  uitwerking: |-
+    In de tabel: (4, 6), (5, 5), (6, 4), (5, 6), (6, 5) en (6, 6).

@@ -1,0 +1,426 @@
+%----------------------------------------------------------------------------------------
+% CENTRUM- EN SPREIDINGSMATEN. Alle opgaven zijn eigen werk; alle gegevens zijn verzonnen.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h2-.
+% Afspraak: de standaardafwijking deelt door n (op de TI-84: sigma x). Kwartielen zoals in hoofdstuk 1.
+% Verschillen per pakket: de standaardafwijking met de hand (2-5; pakket 1 met het rekentoestel),
+% en het effect van een lineaire verandering op de maten (5).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Centrum- en spreidingsmaten}
+
+\begin{probleem}
+Lotte kan op twee manieren naar school: met de fiets langs de ring (route A) of met de bus (route B). Ze probeert elke route tien schooldagen uit en noteert hoeveel minuten ze onderweg is (verzonnen gegevens).
+
+\gegevens{|c|*{10}{c|}}{\hline
+route A & 22 & 24 & 23 & 25 & 21 & 24 & 23 & 22 & 26 & 20 \\ \hline
+route B & 15 & 31 & 18 & 29 & 16 & 33 & 17 & 19 & 30 & 22 \\ \hline}
+
+\figuren{\begin{tikzpicture}[x=.42cm,font=\scriptsize]
+  \foreach \x/\k in {20/1,21/1,22/1,22/2,23/1,23/2,24/1,24/2,25/1,26/1}{\stip{\x}{\k}}
+  \node[left] at (13.6,.3) {A};
+  \getalas[min]{14}{2}{34}
+  \begin{scope}[yshift=-1.25cm]
+  \foreach \x in {15,16,17,18,19,22,29,30,31,33}{\stip{\x}{1}}
+  \node[left] at (13.6,.3) {B};
+  \getalas[min]{14}{2}{34}
+  \end{scope}
+\end{tikzpicture}}
+
+Lotte heeft 27 minuten tussen het moment dat ze vertrekt en het begin van de les. Welke route kiest ze best? Haar broer rekent uit dat ze met beide routes gemiddeld even lang onderweg is. Is het dan om het even?
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{1}{27-29}\alleenvoor{2}{31-33}\alleenvoor{3}{33-35}\alleenvoor{4,5}{37-39} (dit hoofdstuk: centrummaten gemiddelde, mediaan en modus; spreidingsmaten variatiebreedte, interkwartielafstand en standaardafwijking). Welk doel bij welk hoofdstuk hoort, is na te kijken in het leerplan. De standaardafwijking deelt in dit boek door $n$: de gemiddelde kwadratische afwijking, waaruit de wortel. Op de TI-84 is dat $\sigma x$; $Sx$ deelt door $n - 1$ en hoort bij steekproeven (3de graad). \alleenvoor{1}{In pakket 1 berekenen leerlingen de standaardafwijking alleen met het rekentoestel; de tabel in voorbeeld~\ref{vb:h2-sdtabel} dient om de betekenis te zien.}\alleenvoor{2,3,4,5}{Leerlingen berekenen ze met de hand voor kleine datasets (met een tabel), en met het rekentoestel voor grotere.}\alleenvoor{5}{ Pakket 5 ziet ook het effect van een lineaire verandering van alle gegevens op de maten.}}
+
+In hoofdstuk 1 stelden we gegevens voor in tabellen en diagrammen. Nu vatten we ze samen in getallen. Een \textit{centrummaat} zegt waar de gegevens ongeveer liggen, een \textit{spreidingsmaat} hoe ver ze uit elkaar liggen. Het probleem toont waarom je allebei nodig hebt: twee routes met hetzelfde gemiddelde kunnen toch heel verschillend zijn.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{In de Verken bedenken leerlingen zelf een spreidingsmaat. Verzamel hun voorstellen op het bord (hoogste min laagste, gemiddelde afstand tot het gemiddelde) en kom erop terug in de sectie Spreidingsmaten: daar krijgen ze een naam.}
+
+%========================================================================================
+\section{Centrummaten}
+
+\subsection{Het gemiddelde}
+
+Het bekendste getal om gegevens samen te vatten, ken je al: het gemiddelde. Je telt alle gegevens op en deelt door het aantal. Waarom is dat een goed midden? Stel dat je alle gegevens gelijk zou maken, met behoud van hun som. Dan krijgt elk gegeven het gemiddelde.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{gemiddelde}} van $n$ gegevens $x_1, x_2, \dots, x_n$ is
+
+\vspace{1mm}
+\qquad $\formule{\xbar = \dfrac{x_1 + x_2 + \cdots + x_n}{n}}$
+\end{theorie}
+
+Het symbool $\xbar$ lees je als \textit{x streep}. Het gemiddelde hoeft geen waarde uit de lijst te zijn, en bij een discrete variabele is het vaak geen geheel getal: gemiddeld 1,4 broers en zussen is een gewone uitkomst.
+
+\voorbeeld{}{Bereken de gemiddelde reistijd van Lotte voor route A en voor route B.\label{vb:h2-gemiddelde}}{%
+\uitleg{We tellen de tien tijden van elke route op en delen door 10.}
+\begin{stappenbreed}
+\xbar_A = \dfrac{22 + 24 + 23 + 25 + 21 + 24 + 23 + 22 + 26 + 20}{10} & Route A, in minuten. \\[2ex]
+\phantom{\xbar_A} = \dfrac{230}{10} = 23 & \\[2ex]
+\xbar_B = \dfrac{15 + 31 + 18 + 29 + 16 + 33 + 17 + 19 + 30 + 22}{10} & Route B. \\[2ex]
+\phantom{\xbar_B} = \dfrac{230}{10} = 23 & Hetzelfde gemiddelde.
+\end{stappenbreed}
+Haar broer heeft gelijk: gemiddeld duren beide routes 23 minuten. Toch zie je in de stippendiagrammen een groot verschil. Het gemiddelde alleen zegt dus niet alles.}
+
+\naast{Het gemiddelde is het \textit{evenwichtspunt} van de gegevens. Leg op een lat een blokje bij elke reistijd van route A. De lat blijft in evenwicht als je ze ondersteunt bij 23. De \textit{afwijkingen} $x - \xbar$ van de gegevens rechts ($+1, +2, +1, +1, +3$) en links ($-1, -2, -1, -3$) zijn samen precies 0. Dat geldt altijd, en straks hebben we het nodig.}{\begin{tikzpicture}[x=.5cm,font=\scriptsize]
+  \foreach \x/\k in {20/1,21/1,22/1,22/2,23/1,23/2,24/1,24/2,25/1,26/1}{\fill[accent!40] ({\x-.4},{.05+.38*(\k-1)}) rectangle ({\x+.4},{.4+.38*(\k-1)}); \draw[accent] ({\x-.4},{.05+.38*(\k-1)}) rectangle ({\x+.4},{.4+.38*(\k-1)});}
+  \draw[grijs,line width=1.5pt] (19.3,0) -- (26.7,0);
+  \fill[accent] (23,0) -- (22.6,-.5) -- (23.4,-.5) -- cycle;
+  \foreach \x in {20,22,24,26}{\node[below] at (\x,-.05) {\x};}
+  \node[below] at (23,-.5) {$\xbar = 23$};
+\end{tikzpicture}}
+
+\begin{oefeningen}
+\oef{h2-gemiddelde}
+\end{oefeningen}
+
+\subsection{Het gemiddelde uit een frequentietabel}
+
+In hoofdstuk 1 telden we de broers en zussen van 24 leerlingen: 4 leerlingen hebben er geen, 11 hebben er één, 6 hebben er twee, 2 hebben er drie en 1 heeft er vier. Om het gemiddelde te berekenen, hoef je niet 24 getallen op te tellen. De waarde 1 komt 11 keer voor, en dat is $1 \cdot 11$. Elke waarde telt dus mee met haar frequentie als gewicht.
+
+\begin{theorie}
+Komen de waarden $x_1, x_2, \dots, x_k$ voor met de frequenties $f_1, f_2, \dots, f_k$, dan is het gemiddelde
+
+\vspace{1mm}
+\qquad $\formule{\xbar = \dfrac{x_1 \cdot f_1 + x_2 \cdot f_2 + \cdots + x_k \cdot f_k}{n}}$ \qquad met $n = f_1 + f_2 + \cdots + f_k$.
+\end{theorie}
+
+\voorbeeld{}{Bereken het gemiddelde aantal broers en zussen van de 24 leerlingen.\label{vb:h2-gewogen}}{%
+\uitleg{We voegen een kolom toe aan de frequentietabel: waarde maal frequentie. Die kolom tellen we op, en we delen door het aantal leerlingen, niet door het aantal rijen.}
+\naast{\renewcommand{\arraystretch}{1.2}\begin{tabular}{|c|c|c|}\hline
+$x$ & $f$ & $x \cdot f$ \\ \hline
+0 & 4 & 0 \\ \hline 1 & 11 & 11 \\ \hline 2 & 6 & 12 \\ \hline 3 & 2 & 6 \\ \hline 4 & 1 & 4 \\ \hline
+totaal & 24 & 33 \\ \hline
+\end{tabular}}{\begin{minipage}[t]{7.6cm}
+\vspace{2mm}
+$\xbar = \dfrac{0 \cdot 4 + 1 \cdot 11 + 2 \cdot 6 + 3 \cdot 2 + 4 \cdot 1}{24}$
+
+\vspace{1mm}
+$\phantom{\xbar} = \dfrac{33}{24} \approx 1,38$
+
+\vspace{2mm}
+\itshape Een leerling heeft gemiddeld 1,38 broers en zussen. Wie deelt door 5 (het aantal rijen), vindt het verkeerde $\tfrac{33}{5} = 6,6$: veel meer dan het grootste gegeven.
+\end{minipage}}}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h2-gewogen}
+\end{oefeningen}
+
+\subsection{Het gemiddelde bij klassen}
+
+Bij gegevens in klassen ken je de waarden zelf niet meer. Van de schermtijden in de klasse $[50, 100[$ weet je alleen dat ze tussen 50 en 100 minuten liggen. Je kunt het gemiddelde dan niet exact berekenen, maar wel schatten: je doet alsof elk gegeven in het midden van zijn klasse ligt.
+
+\begin{theorie}
+Bij gegevens in klassen \textbf{\textcolor{accent}{schat}} je het gemiddelde met de formule van de frequentietabel, waarin $x_1, x_2, \dots, x_k$ de klassenmiddens zijn.
+\end{theorie}
+
+\voorbeeld{}{Schat de gemiddelde schermtijd van de 40 leerlingen uit hoofdstuk 1 met de frequentietabel in klassen.\label{vb:h2-klassen}}{%
+\uitleg{We nemen de klassenmiddens 75, 125, \dots, 325 en hun frequenties uit de tabel, en rekenen zoals bij een frequentietabel.}
+\begin{stappenbreed}
+\xbar \approx \dfrac{75 \cdot 7 + 125 \cdot 11 + 175 \cdot 10 + 225 \cdot 7 + 275 \cdot 3 + 325 \cdot 2}{40} & Klassenmidden maal frequentie. \\[2ex]
+= \dfrac{6700}{40} = 167,5 & Een schatting, in minuten.
+\end{stappenbreed}
+Met de 40 echte tijden vind je $\tfrac{6623}{40} \approx 165,6$ minuten. De schatting zit er dus net naast: in een klasse liggen de gegevens niet allemaal in het midden.}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h2-klassen}
+\end{oefeningen}
+
+\subsection{De mediaan en de modus}
+
+De mediaan ken je uit hoofdstuk 1: het middelste gegeven als je ze rangschikt. Ook dat is een centrummaat. Bij een frequentietabel staan de gegevens al gerangschikt, en met de cumulatieve frequentie vind je snel waar het middelste gegeven staat. Een derde centrummaat is nog eenvoudiger: welke waarde komt het vaakst voor?
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{modus}} $\formule{\Mo}$ is de waarde met de grootste frequentie. Bij gegevens in klassen is de \textbf{\textcolor{accent}{modale klasse}} de klasse met de grootste frequentie.
+\end{theorie}
+
+Er kunnen meerdere modi zijn, als twee waarden even vaak het meest voorkomen. De modus is de enige centrummaat die ook bij kwalitatieve gegevens bestaat: de modus van de vervoermiddelen in hoofdstuk 1 is de fiets.
+
+\voorbeeld{}{Bepaal de mediaan en de modus van het aantal broers en zussen van de 24 leerlingen.\label{vb:h2-mediaanmodus}}{%
+\uitleg{Bij 24 gegevens is de mediaan het gemiddelde van het 12de en het 13de gegeven. We zoeken in de cumulatieve frequenties waar die staan.}
+\naast{\renewcommand{\arraystretch}{1.2}\begin{tabular}{|c|c|c|}\hline
+$x$ & $f$ & cum.\ $f$ \\ \hline
+0 & 4 & 4 \\ \hline 1 & 11 & 15 \\ \hline 2 & 6 & 21 \\ \hline 3 & 2 & 23 \\ \hline 4 & 1 & 24 \\ \hline
+\end{tabular}}{\begin{stappenvrij}{3.4cm}{4.6cm}
+\text{gegevens 5 tot 15: } 1 & Na de 4 nullen komen 11 enen. \\
+\Me = \dfrac{1 + 1}{2} = 1 & Het 12de en het 13de gegeven zijn allebei 1. \\[1.5ex]
+\Mo = 1 & De grootste frequentie, 11.
+\end{stappenvrij}}}
+
+\begin{werkwijze}
+Mediaan uit een frequentietabel: bereken de plaats $\tfrac{n + 1}{2}$ en zoek de eerste rij waar de cumulatieve frequentie die plaats bereikt. Modus: de waarde met de grootste frequentie.
+\end{werkwijze}
+
+\begin{oefeningen}
+\needspace{12\baselineskip}
+\oef{h2-mediaanmodus}
+\end{oefeningen}
+
+\subsection{Gemiddelde of mediaan?}
+
+Gemiddelde, mediaan of modus: welke centrummaat kies je? Ze geven niet altijd hetzelfde getal, en het verschil zegt iets over de gegevens. Wat gebeurt er als één gegeven veel groter is dan de rest?
+
+\voorbeeld{}{Negen vrienden zeggen hoeveel zakgeld ze per maand krijgen (in euro): 10, 15, 15, 20, 20, 20, 25, 30, 150. Bereken het gemiddelde en de mediaan. Welk getal beschrijft het zakgeld van de groep het best?\label{vb:h2-uitschieter}}{%
+\uitleg{Eén vriend krijgt veel meer dan de anderen. We berekenen beide maten en kijken hoeveel vrienden er rond elk getal zitten.}
+\begin{stappenbreed}
+\xbar = \dfrac{10 + 15 + 15 + 20 + 20 + 20 + 25 + 30 + 150}{9} & Het gemiddelde. \\[2ex]
+\phantom{\xbar} = \dfrac{305}{9} \approx 33,9 & \\[2ex]
+\Me = 20 & Het 5de van de 9 gerangschikte gegevens.
+\end{stappenbreed}
+Acht van de negen vrienden krijgen minder dan het gemiddelde. De 150 euro trekt het gemiddelde naar boven. Krijgt die vriend 50 in plaats van 150 euro, dan zakt het gemiddelde naar $22,8$, maar de mediaan blijft 20. De mediaan beschrijft hier beter wat een gewone vriend krijgt.}
+
+Een gegeven dat veel groter of kleiner is dan de andere, heet een \textbf{uitschieter}. Het gemiddelde is gevoelig voor uitschieters, de mediaan niet: die hangt alleen af van de volgorde. Daarom geven kranten bij lonen en huizenprijzen vaak de mediaan. Het gemiddelde heeft dan weer het voordeel dat elk gegeven meetelt: wil je weten hoeveel zakgeld de groep samen krijgt, dan heb je het gemiddelde nodig, want $9 \cdot 33,9 \approx 305$.
+
+\begin{oefeningen}
+\oef{h2-gemofmed}
+\end{oefeningen}
+
+%========================================================================================
+\section{Spreidingsmaten}
+
+Terug naar Lotte. Route A en route B hebben hetzelfde gemiddelde, maar de tijden van route B liggen veel verder uit elkaar. Hoe druk je dat uit in een getal? We bekijken drie manieren, van eenvoudig naar beter.
+
+\subsection{De variatiebreedte}
+
+Het eenvoudigste idee: kijk hoe ver het kleinste en het grootste gegeven uit elkaar liggen.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{variatiebreedte}} is het verschil tussen het grootste en het kleinste gegeven:
+
+\vspace{1mm}
+\qquad $\formule{\VB = \text{maximum} - \text{minimum}}$
+\end{theorie}
+
+\voorbeeld{}{Bereken de variatiebreedte van de reistijden van route A en route B.\label{vb:h2-vb}}{%
+\uitleg{We zoeken telkens de grootste en de kleinste tijd.}
+\begin{stappen}
+\VB_A = 26 - 20 = 6 & Route A: alle tijden binnen 6 minuten. \\
+\VB_B = 33 - 15 = 18 & Route B: drie keer zoveel spreiding.
+\end{stappen}}
+
+De variatiebreedte is snel berekend, maar ze hangt maar van twee gegevens af. Eén uitschieter maakt ze veel groter: bij het zakgeld uit voorbeeld~\ref{vb:h2-uitschieter} is ze $150 - 10 = 140$ euro, hoewel acht vrienden tussen 10 en 30 euro krijgen.
+
+\subsection{De interkwartielafstand}
+
+Hoe vermijd je dat één uitschieter de spreiding bepaalt? Kijk alleen naar de middelste helft van de gegevens: die ligt tussen $Q_1$ en $Q_3$. Dat is de breedte van de box in een boxplot.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{interkwartielafstand}} is het verschil tussen het derde en het eerste kwartiel:
+
+\vspace{1mm}
+\qquad $\formule{\IKA = Q_3 - Q_1}$
+\end{theorie}
+
+De interkwartielafstand is de breedte van het interval waarin de middelste $50~\%$ van de gegevens liggen. Net als de mediaan is ze ongevoelig voor uitschieters.
+
+\voorbeeld{}{Bereken de interkwartielafstand van de reistijden van route A en route B.\label{vb:h2-ika}}{%
+\uitleg{We rangschikken de tien tijden van elke route en nemen de mediaan van de onderste en de bovenste vijf.}
+\begin{stappenbreed}
+20,\ 21,\ \fbox{22},\ 22,\ 23 \mid 23,\ 24,\ \fbox{24},\ 25,\ 26 & Route A: $Q_1 = 22$, $Q_3 = 24$. \\
+\IKA_A = 24 - 22 = 2 & De middelste helft ligt binnen 2 minuten. \\
+15,\ 16,\ \fbox{17},\ 18,\ 19 \mid 22,\ 29,\ \fbox{30},\ 31,\ 33 & Route B: $Q_1 = 17$, $Q_3 = 30$. \\
+\IKA_B = 30 - 17 = 13 & Een veel bredere box.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=.42cm,font=\scriptsize]
+  \boxplot[.5]{1.25}{20}{22}{23}{24}{26} \node[left] at (13.6,1.25) {A};
+  \boxplot[.5]{.5}{15}{17}{20.5}{30}{33} \node[left] at (13.6,.5) {B};
+  \getalas[min]{14}{2}{34}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-vbika}
+\end{oefeningen}
+
+\subsection{De standaardafwijking}
+
+De variatiebreedte en de interkwartielafstand gebruiken maar twee getallen. Een spreidingsmaat die alle gegevens gebruikt, zou moeten zeggen hoe ver de gegevens gemiddeld van het gemiddelde liggen. Een eerste poging: neem het gemiddelde van de afwijkingen $x - \xbar$. Dat lukt niet: we zagen bij het evenwichtspunt dat de afwijkingen samen altijd 0 zijn. De negatieve en de positieve heffen elkaar op.
+
+Je kunt de mintekens weglaten en het gemiddelde van de afstanden nemen. Bij route A is dat $\tfrac{14}{10} = 1,4$ minuten. Wiskundigen kozen een andere oplossing, waarmee het verder rekenen gemakkelijker is: ze kwadrateren de afwijkingen. Een kwadraat is nooit negatief. Daarna nemen ze het gemiddelde, en tot slot de vierkantswortel, zodat de eenheid weer klopt: minuten in plaats van minuten in het kwadraat.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{standaardafwijking}} van $n$ gegevens $x_1, x_2, \dots, x_n$ met gemiddelde $\xbar$ is
+
+\vspace{1mm}
+\qquad $\formule{s = \sqrt{\dfrac{(x_1 - \xbar)^2 + (x_2 - \xbar)^2 + \cdots + (x_n - \xbar)^2}{n}}}$
+\end{theorie}
+
+De standaardafwijking is een soort gemiddelde afstand tot het gemiddelde. Ze heeft dezelfde eenheid als de gegevens, en ze is 0 als alle gegevens gelijk zijn. Hoe groter $s$, hoe meer de gegevens gespreid liggen. Het getal onder de wortel, het gemiddelde van de kwadraten, heet de \textit{variantie}.
+
+\voorbeeld{}{Bereken de standaardafwijking van de reistijden van route A, met een tabel.\label{vb:h2-sdtabel}}{%
+\uitleg{Het gemiddelde is 23. We berekenen voor elke tijd de afwijking en haar kwadraat, tellen de kwadraten op, delen door 10, en nemen de wortel.}
+\naast{\renewcommand{\arraystretch}{1.1}\small\begin{tabular}{|c|c|c|}\hline
+$x$ & $x - \xbar$ & $(x - \xbar)^2$ \\ \hline
+22 & $-1$ & 1 \\ 24 & $1$ & 1 \\ 23 & $0$ & 0 \\ 25 & $2$ & 4 \\ 21 & $-2$ & 4 \\
+24 & $1$ & 1 \\ 23 & $0$ & 0 \\ 22 & $-1$ & 1 \\ 26 & $3$ & 9 \\ 20 & $-3$ & 9 \\ \hline
+totaal & 0 & 30 \\ \hline
+\end{tabular}}{\begin{minipage}[t]{7.8cm}
+\vspace{2mm}
+$s = \sqrt{\dfrac{30}{10}} = \sqrt{3} \approx 1,73$ minuten
+
+\vspace{2mm}
+\itshape De som van de afwijkingen is 0, zoals verwacht: een goede controle. De kwadraten zijn samen 30, de variantie is 3. De tijden van route A liggen gemiddeld ongeveer 1,7 minuten van het gemiddelde.
+\end{minipage}}}
+
+\begin{werkwijze}
+Bereken het gemiddelde $\xbar$. Maak een tabel met de kolommen $x$, \mbox{$x - \xbar$} en \mbox{$(x - \xbar)^2$}. Controleer dat de afwijkingen samen 0 zijn. Tel de kwadraten op, deel door $n$, en neem de vierkantswortel.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-sd}
+\end{oefeningen}
+
+\subsection{Met het rekentoestel}
+
+Bij veel gegevens is een tabel met de hand te veel werk. Je rekentoestel berekent alle maten van dit hoofdstuk in één keer. Op de TI-84 gaat dat zo:
+\begin{itemize}
+  \item Zet de gegevens in een lijst: \texttt{STAT}, \texttt{EDIT}, lijst \texttt{L1}.
+  \item Kies \texttt{STAT}, \texttt{CALC}, \texttt{1-Var Stats}, met \texttt{List: L1}. Bij een frequentietabel zet je de waarden in \texttt{L1}, de frequenties in \texttt{L2}, en kies je \texttt{FreqList: L2}.
+  \item Je leest af: $\xbar$, $\sigma x$ (de standaardafwijking $s$ van dit boek), $n$, \texttt{minX}, $Q_1$, \texttt{Med}, $Q_3$ en \texttt{maxX}.
+\end{itemize}
+\lkr{Werkt de klas met een ander toestel of met een rekenblad, toon dan de overeenkomstige stappen. Laat leerlingen de uitkomst van voorbeeld~\ref{vb:h2-sdtabel} met hun toestel nakijken: zo zien ze welke van de twee standaardafwijkingen die van het boek is.}
+
+Het toestel toont ook $Sx$, een iets grotere standaardafwijking waarbij gedeeld wordt door $n - 1$ in plaats van door $n$. Die gebruik je later, als je met een steekproef iets wilt zeggen over een grotere groep. In een rekenblad heten de twee \texttt{STDEV.P} (deling door $n$) en \texttt{STDEV.S} (deling door $n - 1$).
+
+\voorbeeld{}{Terug naar het probleem. Bereken met het rekentoestel de standaardafwijking van route B. Welke route kiest Lotte best?\label{vb:h2-terug}}{%
+\uitleg{We zetten de tien tijden van route B in \texttt{L1} en kiezen \texttt{1-Var Stats}. Daarna vergelijken we de twee routes met al hun maten.}
+\begin{stappenbreed}
+\xbar_B = 23 \qquad s_B = \sigma x \approx 6,63 & Af te lezen op het scherm. \\[1ex]
+\text{route A: } \xbar = 23,\ \VB = 6,\ \IKA = 2,\ s \approx 1,73 & Weinig spreiding. \\
+\text{route B: } \xbar = 23,\ \VB = 18,\ \IKA = 13,\ s \approx 6,63 & Veel spreiding.
+\end{stappenbreed}
+Met beide routes is Lotte gemiddeld 23 minuten onderweg, maar de standaardafwijking van route B is bijna vier keer zo groot. Met route A was ze nooit langer dan 26 minuten onderweg: ze komt altijd op tijd. Met route B was ze vier van de tien dagen langer dan 27 minuten onderweg. Lotte kiest dus best route A. Een centrummaat zegt waar de gegevens liggen, maar pas met een spreidingsmaat weet je hoe betrouwbaar dat getal is.}
+
+\begin{oefeningen}
+\oef{h2-rekentoestel}
+\end{oefeningen}
+
+\begin{alleenvoor}{5}
+\subsection{Alle gegevens veranderen}
+
+Wat gebeurt er met de maten als je bij alle gegevens hetzelfde getal optelt, of alle gegevens met hetzelfde getal vermenigvuldigt? Neem de gegevens 2, 4, 9. Hun gemiddelde is 5 en hun variatiebreedte 7. Tel je overal 10 bij, dan krijg je 12, 14, 19: het gemiddelde wordt 15, maar de variatiebreedte blijft 7. Alles schuift op, maar de onderlinge afstanden blijven. Verdubbel je de gegevens, dan krijg je 4, 8, 18: het gemiddelde wordt 10 en de variatiebreedte 14. Nu worden ook de afstanden twee keer zo groot.
+
+\begin{theorie}
+\begin{stelling}{Gegevens verschuiven en vermenigvuldigen}
+Vervang je elk gegeven $x$ door $a \cdot x + b$ met $a > 0$, dan
+\begin{itemize}
+  \item worden het gemiddelde, de mediaan en de kwartielen $\formule{a \cdot \xbar + b}$, $\formule{a \cdot \Me + b}$, \dots;
+  \item worden de variatiebreedte, de interkwartielafstand en de standaardafwijking $a$ keer zo groot: $\formule{a \cdot s}$.
+\end{itemize}
+\end{stelling}
+\begin{bewijs}
+Het nieuwe gemiddelde is
+\bewijsregel{\dfrac{(a x_1 + b) + \cdots + (a x_n + b)}{n} = \dfrac{a(x_1 + \cdots + x_n) + n b}{n} = a \xbar + b .}
+Elke afwijking wordt dus
+\bewijsregel{(a x_i + b) - (a \xbar + b) = a(x_i - \xbar) ,}
+zodat de $b$ wegvalt en elk kwadraat $a^2$ keer zo groot wordt. Onder de wortel komt een factor $a^2$, en $\sqrt{a^2} = a$. Omdat $a > 0$ blijft de volgorde van de gegevens behouden, dus de mediaan en de kwartielen gaan gewoon mee.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Een toets op 20 heeft gemiddelde $12,4$ en standaardafwijking $2,5$. De leerkracht zet de punten om naar punten op 100, en geeft iedereen daarna 3 punten bonus. Wat worden het gemiddelde en de standaardafwijking?\label{vb:h2-transformatie}}{%
+\uitleg{Op 100 zetten is vermenigvuldigen met 5, de bonus is 3 optellen. Elk gegeven $x$ wordt dus $5x + 3$.}
+\begin{stappen}
+\xbar_{\text{nieuw}} = 5 \cdot 12,4 + 3 = 65 & Het gemiddelde gaat mee met beide veranderingen. \\
+s_{\text{nieuw}} = 5 \cdot 2,5 = 12,5 & De bonus verandert de spreiding niet.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-transformatie}
+\end{oefeningen}
+\end{alleenvoor}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\needspace{12\baselineskip}
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\needspace{12\baselineskip}
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\needspace{12\baselineskip}
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\needspace{12\baselineskip}
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o23}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-mediaanmodus}{oef:h2-gemiddelde}%
+  \fv{oef:h2-t2}{vb:h2-gewogen}{oef:h2-gewogen}%
+  \fv{oef:h2-t3}{vb:h2-klassen}{oef:h2-klassen}%
+  \fv{oef:h2-t4}{vb:h2-ika}{oef:h2-vbika}%
+  \alleenvoor{2,3,4,5}{\fv{oef:h2-t5}{vb:h2-sdtabel}{oef:h2-sd}}\alleenvoor{1}{\fv{oef:h2-t5}{vb:h2-terug}{oef:h2-rekentoestel}}%
+  \fv{oef:h2-t6}{vb:h2-uitschieter}{oef:h2-gemofmed}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-rekentoestel}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de formule voor het gemiddelde, ook bij een frequentietabel en bij klassen, wat de mediaan en de modus zijn, wanneer je de mediaan verkiest boven het gemiddelde, de definities van variatiebreedte, interkwartielafstand en standaardafwijking, en hoe je ze met je rekentoestel vindt. Vergelijk daarna met de kaders.
+\fi
