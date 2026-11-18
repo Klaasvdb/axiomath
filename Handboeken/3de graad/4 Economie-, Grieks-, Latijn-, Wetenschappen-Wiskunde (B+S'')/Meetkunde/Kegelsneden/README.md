@@ -8,11 +8,11 @@ Dit is de eerste cursus volgens de regel *Vertrekken vanuit een probleem* (16 no
 
 | Hoofdstuk | Bestand | Probleem | Leerplan | Status |
 |---|---|---|---|---|
-| 1. Doorsneden van een kegel | `hoofdstukken/01-doorsneden-van-een-kegel.tex` | de lichtvlek van een zaklamp: welke vormen, en ellips of ei? | GO! WD3\_06.08.11 subdoel 1 en 2 | eerste versie, nog na te lezen |
-| 2. De parabool | `hoofdstukken/02-parabool.tex` | waar staat de ontvanger van een schotelantenne? | subdoel 2 en 3 | eerste versie, nog na te lezen |
-| 3. De ellips | `hoofdstukken/03-ellips.tex` | hoe plat is de aardbaan, en waar staat de zon? | subdoel 2 en 3 | eerste versie, nog na te lezen |
-| 4. De hyperbool | `hoofdstukken/04-hyperbool.tex` | waar sloeg de bliksem in, als twee mensen de donder met 3 s verschil horen? | subdoel 2 en 3 | eerste versie, nog na te lezen |
-| 5. Eén familie | `hoofdstukken/05-een-familie.tex` | welk getal beslist of een komeet terugkeert? | synthese; poolvergelijking (KOV) | eerste versie, nog na te lezen |
+| 1. Doorsneden van een kegel | `hoofdstukken/01-doorsneden-van-een-kegel.tex` | de lichtvlek van een zaklamp: welke vormen, en ellips of ei? | GO! WD3\_06.08.11 subdoel 1 en 2 | nagelezen (18 nov 2026), leerkracht moet nog nalezen |
+| 2. De parabool | `hoofdstukken/02-parabool.tex` | waar staat de ontvanger van een schotelantenne? | subdoel 2 en 3 | nagelezen (18 nov 2026), leerkracht moet nog nalezen |
+| 3. De ellips | `hoofdstukken/03-ellips.tex` | hoe plat is de aardbaan, en waar staat de zon? | subdoel 2 en 3 | nagelezen (18 nov 2026), leerkracht moet nog nalezen |
+| 4. De hyperbool | `hoofdstukken/04-hyperbool.tex` | waar sloeg de bliksem in, als twee mensen de donder met 3 s verschil horen? | subdoel 2 en 3 | nagelezen (18 nov 2026), leerkracht moet nog nalezen |
+| 5. Eén familie | `hoofdstukken/05-een-familie.tex` | welk getal beslist of een komeet terugkeert? | synthese; poolvergelijking (KOV) | nagelezen (18 nov 2026), leerkracht moet nog nalezen |
 
 ## Inhoud
 
@@ -30,7 +30,7 @@ Dit is de eerste cursus volgens de regel *Vertrekken vanuit een probleem* (16 no
 
 ## Oefeningen
 
-De 168 oefeningen staan in `oefeningen/*.yaml`, per hoofdstuk (34, 34, 36, 35 en 29), met Start, korte oefeningen, Opdrachten op drie niveaus, Koppel en Test jezelf. Zie de README van Integralen en `Opmaak/oefeningenbank.py` voor de werkwijze.
+De 172 oefeningen staan in `oefeningen/*.yaml`, per hoofdstuk (34, 34, 36, 35 en 33), met Start, korte oefeningen, Opdrachten op drie niveaus, Koppel en Test jezelf. Drie opdrachten hebben een kleine prent (beker, auto, hangbrug), gekopieerd uit Groepen en Integralen; de bron staat in `afbeeldingen/prenten/README.md` van de bron. Zie de README van Integralen en `Opmaak/oefeningenbank.py` voor de werkwijze.
 
 ## Eigen macro's
 
@@ -45,4 +45,4 @@ py -3.13 -P Opmaak/maak-pdf.py 4/Meetkunde/Kegelsneden --hoofdstuk 3
 
 ## Controle
 
-De raaklijnen, de meetkundige plaatsen en enkele vergelijkingen zijn nagerekend met SymPy, de afgeronde getallen (planeetbanen, komeet van Halley, tunnel, koeltoren, onweer, Ramanujan) met een script. Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas. De leerkracht moet de opgaven nog nalezen.
+Op 18 nov 2026 nagelezen: alle voorbeelden, figuren en oefeningen nagerekend, de antwoorden van de oefeningen ook met een SymPy-script (154 controles, waaronder de afgeronde getallen van planeetbanen, komeet van Halley, tunnel, koeltoren, onweer, satelliet en Ramanujan). Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas. De leerkracht moet de opgaven nog nalezen.
