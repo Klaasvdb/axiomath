@@ -79,6 +79,8 @@ function db() {
     CREATE INDEX IF NOT EXISTS logboek_feedback ON logboek(feedback);
     CREATE INDEX IF NOT EXISTS logboek_tijd ON logboek(tijd);
     CREATE TABLE IF NOT EXISTS bezoekdagen(dag TEXT PRIMARY KEY, bezoekers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS profielen(gebruiker INTEGER PRIMARY KEY, koepel TEXT, finaliteiten TEXT, jaren TEXT, richtingen TEXT,
+      opmerking TEXT, ingevuld INTEGER, uitgesteld INTEGER);
   ");
   // Kolommen die later kwamen. reacties.team: een antwoord van het team, ook met een sleutel. reacties.naam: wie
   // antwoordde met een sleutel (zonder account, gebruiker 0). sleutels.naam: voor wie de sleutel is.
@@ -412,7 +414,8 @@ function route() {
   if (is_string($sl) && $sl !== '') met_sleutel($sl, $m, $pad, $delen);
 
   $ik = ik();
-  if ("$m $pad" === 'GET ik') antwoord($ik ? ['id' => (int)$ik['id'], 'naam' => $ik['naam'], 'email' => $ik['email'], 'rol' => $ik['rol']] : null);
+  if ("$m $pad" === 'GET ik') antwoord($ik ? ['id' => (int)$ik['id'], 'naam' => $ik['naam'], 'email' => $ik['email'], 'rol' => $ik['rol'],
+                                               'profiel' => profiel_stand($ik)] : null);
 
   // Zonder account: de boekenkast en de editie 'handboek' (lezen en downloaden). De andere edities
   // (leerkrachtenversie, zelfstudie, oplossingen) en alle feedback alleen met een account.
@@ -436,6 +439,12 @@ function route() {
     if (!password_verify((string)($d['oud'] ?? ''), $ik['wachtwoord'])) fout('Je huidige wachtwoord klopt niet.');
     if (strlen((string)($d['nieuw'] ?? '')) < 10) fout('Kies een wachtwoord van minstens 10 tekens.');
     q('UPDATE gebruikers SET wachtwoord = ? WHERE id = ?', [password_hash($d['nieuw'], PASSWORD_DEFAULT), $ik['id']]);
+    antwoord(['ok' => true]);
+  }
+  if ("$m $pad" === 'GET profiel') antwoord(profiel_van($ik));
+  if ("$m $pad" === 'POST profiel') profiel_bewaar($ik);
+  if ("$m $pad" === 'POST profiel/later') {
+    q('INSERT INTO profielen(gebruiker, uitgesteld) VALUES (?, ?) ON CONFLICT(gebruiker) DO UPDATE SET uitgesteld = excluded.uitgesteld', [$ik['id'], time()]);
     antwoord(['ok' => true]);
   }
   if ($pad === 'feedback' && $m === 'GET') feedback_lijst($ik);
@@ -690,6 +699,67 @@ function feedback_een($ik, $m, $id, $actie) {
   antwoord(een_feedback($ik, $id));
 }
 
+/* Lesopdracht van een leerkracht: koepel, finaliteiten, leerjaren en richtingen. Zo zien we welke koepels,
+   finaliteiten, jaren en richtingen al leerkrachten hebben die meelezen (beheer/dekking), en waar het nog leeg is.
+   Wie het nog niet invulde, krijgt een vraag in de app; 'Later' stelt die een week uit. Geen schoolnamen. */
+const PROFIEL_KOEPELS = ['KOV' => 'Katholiek onderwijs (KOV)', 'GO' => 'GO!', 'OVSG' => 'OVSG', 'POV' => 'POV', 'andere' => 'Andere of weet ik niet'];
+const PROFIEL_UITSTEL = 7 * 86400;
+
+function profiel_rij($gid) { return rij('SELECT * FROM profielen WHERE gebruiker = ?', [$gid]); }
+function profiel_stand($ik) {
+  $r = profiel_rij($ik['id']);
+  if ($r && $r['ingevuld']) return 'ingevuld';
+  if ($r && $r['uitgesteld'] && $r['uitgesteld'] > time() - PROFIEL_UITSTEL) return 'uitgesteld';
+  return 'nodig';
+}
+function json_lijst($s) { $d = json_decode((string)$s, true); return is_array($d) ? $d : []; }
+function profiel_van($ik) {
+  $r = profiel_rij($ik['id']);
+  return ['koepels' => PROFIEL_KOEPELS, 'koepel' => $r['koepel'] ?? null, 'finaliteiten' => json_lijst($r['finaliteiten'] ?? ''),
+          'jaren' => json_lijst($r['jaren'] ?? ''), 'richtingen' => json_lijst($r['richtingen'] ?? ''), 'opmerking' => $r['opmerking'] ?? '',
+          'ingevuld' => iso($r['ingevuld'] ?? null)];
+}
+/* Alle richtingen die de site kent, als "<graad>|<naam>" (uit boeken.json, alle koepels samen). */
+function bekende_richtingen() {
+  $uit = [];
+  foreach ((boekdata()['koepels']['graden'] ?? []) as $g => $per_koepel)
+    foreach ($per_koepel as $richtingen) foreach (array_keys($richtingen) as $naam) $uit["$g|$naam"] = true;
+  return $uit;
+}
+function profiel_bewaar($ik) {
+  $d = body();
+  $koepel = $d['koepel'] ?? '';
+  if (!isset(PROFIEL_KOEPELS[$koepel])) fout('Kies de koepel van je school.');
+  $d['jaren'] = array_map('intval', array_filter((array)($d['jaren'] ?? []), 'is_numeric'));  // vóór $kies: fn() neemt $d nu over
+  $kies = fn($veld, $mag) => array_values(array_unique(array_filter((array)($d[$veld] ?? []), fn($x) => in_array($x, $mag, true))));
+  $fin = $kies('finaliteiten', ['D', 'DA', 'A']);
+  $jaren = $kies('jaren', [3, 4, 5, 6]);
+  sort($jaren);
+  if (!$fin) fout('Kies minstens één finaliteit.');
+  if (!$jaren) fout('Kies minstens één leerjaar.');
+  $bekend = bekende_richtingen();
+  $richtingen = array_slice(array_values(array_unique(array_filter((array)($d['richtingen'] ?? []), fn($x) => is_string($x) && isset($bekend[$x])))), 0, 60);
+  $opm = tekstveld($d, 'opmerking', 500, false);
+  if (!$richtingen && $opm === '') fout('Kies je richtingen, of schrijf bij "Nog iets?" welke richting ontbreekt.');
+  q('INSERT INTO profielen(gebruiker, koepel, finaliteiten, jaren, richtingen, opmerking, ingevuld) VALUES (?,?,?,?,?,?,?)
+     ON CONFLICT(gebruiker) DO UPDATE SET koepel = excluded.koepel, finaliteiten = excluded.finaliteiten, jaren = excluded.jaren,
+       richtingen = excluded.richtingen, opmerking = excluded.opmerking, ingevuld = excluded.ingevuld',
+    [$ik['id'], $koepel, json_encode($fin), json_encode($jaren), json_encode($richtingen, JSON_UNESCAPED_UNICODE), $opm, time()]);
+  antwoord(profiel_van($ik));
+}
+/* Voor het team: de profielen zonder namen, en hoeveel leerkrachten het nog niet invulden. */
+function dekking() {
+  $actief = (int)rij("SELECT COUNT(*) AS n FROM gebruikers WHERE actief = 1 AND rol = 'leerkracht'")['n'];
+  $alle = (int)rij('SELECT COUNT(*) AS n FROM gebruikers WHERE actief = 1')['n'];
+  $p = [];
+  foreach (q('SELECT p.* FROM profielen p JOIN gebruikers g ON g.id = p.gebruiker WHERE g.actief = 1 AND p.ingevuld IS NOT NULL ORDER BY p.ingevuld DESC') as $r) {
+    $p[] = ['koepel' => $r['koepel'], 'finaliteiten' => json_lijst($r['finaliteiten']), 'jaren' => json_lijst($r['jaren']),
+            'richtingen' => json_lijst($r['richtingen']), 'opmerking' => $r['opmerking'] ?: null, 'ingevuld' => iso($r['ingevuld'])];
+  }
+  $uitgesteld = (int)rij('SELECT COUNT(*) AS n FROM profielen p JOIN gebruikers g ON g.id = p.gebruiker WHERE g.actief = 1 AND p.ingevuld IS NULL AND p.uitgesteld IS NOT NULL')['n'];
+  antwoord(['accounts' => $alle, 'leerkrachten' => $actief, 'uitgesteld' => $uitgesteld, 'koepels' => PROFIEL_KOEPELS, 'profielen' => $p]);
+}
+
 /* Bezoekersteller, zonder koekjes en zonder IP-adressen te bewaren. Per dag wordt een hash van IP-adres,
    browser en een geheim zout bijgehouden om unieke bezoekers te tellen; die hashes worden de volgende dag gewist.
    Blijvend bewaard: alleen aantallen per dag, en per dag en handboek hoeveel lezers en weergaven. Beheerders en
@@ -741,6 +811,7 @@ function beheer($ik, $m, $delen) {
     $tot = rij('SELECT COALESCE(SUM(bezoekers),0) AS b, COALESCE(SUM(weergaven),0) AS w, MIN(dag) AS sinds FROM bezoekdagen');
     antwoord(['dagen' => $dagen, 'boeken' => $bk, 'totaal' => ['bezoekers' => (int)$tot['b'], 'weergaven' => (int)$tot['w'], 'sinds' => $tot['sinds']]]);
   }
+  if ("$m $pad" === 'GET dekking') dekking();
   if ("$m $pad" === 'GET feedback') {
     [$waar, $p] = filter_sql($_GET);
     antwoord(feedback_rijen($ik, $waar, $p));

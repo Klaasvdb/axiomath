@@ -16,6 +16,7 @@ Iedereen ziet de boekenkast en kan van elk handboek de editie **Handboek** lezen
 - **Elke opmerking krijgt een soort** uit een vast menu (fout in de wiskunde, tikfout, oefening of oplossing, uitleg onduidelijk, figuur, leerplan, didactisch voorstel, pluim, vraag, andere) en een **ernst** (klein, belangrijk, dringend).
 - Collega's zien elkaars opmerkingen en kunnen ze **steunen** ("Ik ook"). Zo komen er minder dubbele opmerkingen, en zie je wat veel leerkrachten storend vinden.
 - **Als app**: op een gsm of tablet zet je axiomath.be op het beginscherm (Android: *App installeren*; iPhone: deelknop → *Zet op beginscherm*). Dan opent de site schermvullend, zoals een app.
+- **Mijn lesopdracht** (`#/profiel`, ook via het accountmenu): koepel (KOV, GO!, OVSG, POV of andere), de leerjaren, de finaliteit en de richtingen waarin je lesgeeft, en een vrije opmerking. Geen schoolnaam, en collega's zien het niet. Een nieuw account komt na *Account maken* meteen op deze pagina. Een bestaand account zonder lesopdracht krijgt de vraag in een venster bij een nieuw bezoek; *Later* stelt ze een week uit (`profiel_stand()` in `lib.php`).
 - **Mijn feedback**: alles wat je gaf, met de status en de antwoorden van het team. Zolang het team een opmerking nog niet oppakte, kan je ze bewerken of verwijderen.
 
 ## Wat het team kan (rol beheerder)
@@ -25,6 +26,7 @@ Iedereen ziet de boekenkast en kan van elk handboek de editie **Handboek** lezen
 - **Logboek** (*Beheer → Logboek*): één lijst met elke stap van elke opmerking, nooit gewist (ook niet als de opmerking verwijderd wordt): ingediend, bewerkt, goed- of afgekeurd, verwerkt, antwoorden, notities, met wie, wanneer en waarom. Filter op handboek, soort stap en tekst; exporteer als Markdown. Per opmerking staat een inklapbaar *Logboek van deze opmerking*. Een leerkracht ziet het niet.
 - **Export**: de selectie als **Markdown zonder namen** (per handboek, hoofdstuk en pagina, met citaat en afvinkvakjes, klaar om naast de cursus te leggen of aan Claude te geven) of als **CSV** voor Excel (met namen).
 - **Per handboek**: een tabel met de open feedback per handboek en per soort.
+- **Dekking**: wat leerkrachten bij *Mijn lesopdracht* invulden, zonder namen: hoeveel accounts het invulden, balken per koepel, finaliteit en leerjaar, en per graad en finaliteit een tabel met elke richting tegen de koepels. Ook de richtingen zonder leerkracht staan erin (filter *Alleen zonder leerkracht*): daar zoeken we nog collega's.
 - **Leerkrachten**: uitnodigingscodes maken (met een uitnodigingstekst om door te sturen), accounts blokkeren, rollen wijzigen, een herstelcode maken als iemand het wachtwoord vergat. En een **sleutel voor Claude** geven (zie hieronder).
 
 ## Feedback verwerken met Claude Code

@@ -24,6 +24,30 @@
   omslaglabel/.style={fill=accent,text=white,inner sep=2pt,rounded corners=1.5pt,font=\small},
 }
 
+% Kenmerk van het pakket rechtsboven (maak-voorkanten.py, kenmerk()): \omslagkenmerk = {uren}{zijden}{vol|ring}{kleur}{grootte}.
+% Een regelmatige veelhoek met een vlakke onderkant (0 zijden: een cirkel), met de lesuren per week erin.
+\newcommand{\kenmerkvorm}[2]{% #1 zijden, #2 straal; \kstart staat al klaar
+  \ifnum#1=0 (0,0) circle (#2)\else
+  (\kstart:#2) \foreach \ki in {1,...,#1}{-- ({\kstart+360*\ki/#1}:#2)} -- cycle\fi}
+\newcommand{\tekenkenmerk}[5]{%
+  \definecolor{kenmerkkleur}{HTML}{#4}%
+  \ifnum#2=0 \def\kstart{0}\else\pgfmathsetmacro{\kstart}{-90+180/#2}\fi
+  % een driehoek is groter (zijn ingeschreven cirkel is klein)
+  % #5: de lettergrootte van het label (maak-voorkanten.py: kleiner bij een driehoek en bij een lang label)
+  % \khoogte: basislijn van het getal, \kuur: hoeveel lager "uur" staat
+  \ifnum#2=3 \def\kstraal{1.6}\def\khoogte{-.08}\def\kuur{.33}\else\def\kstraal{1.3}\def\khoogte{0}\def\kuur{.42}\fi
+  \def\kgrootte{#5}%
+  \begin{scope}[shift={(18.55,27.15)}]
+    \fill[black,opacity=.28,shift={(.06,-.08)}] \kenmerkvorm{#2}{\kstraal};
+    \filldraw[fill=kenmerkkleur,draw=white,line width=1.8pt,line join=round] \kenmerkvorm{#2}{\kstraal};
+    \ifstrequal{#3}{ring}{\draw[white,line width=1.1pt,line join=round] \kenmerkvorm{#2}{.8*\kstraal};}{}
+    % de lesuren per week, met "uur" klein eronder; zonder vast aantal blijft de vorm leeg
+    \ifx\relax#1\relax\else
+    \node[text=inkt,inner sep=0pt,anchor=base,font=\kopletter\fontsize{\kgrootte}{\kgrootte}\selectfont] at (0,\khoogte) {#1};
+    \node[text=inkt,inner sep=0pt,anchor=base,font=\kopletter\fontsize{8}{9}\selectfont] at (0,\khoogte-\kuur) {uur};
+    \fi
+  \end{scope}}
+
 \ifdefined\motiefnaam\InputIfFileExists{\hoofdmap Ontwerp/voorkanten/motieven/\motiefnaam}{}{}\fi
 
 \newcommand{\maakomslag}{%
@@ -40,6 +64,7 @@
     \fi
     \ifcsname omslagband\endcsname\omslagband\else\standaardband\fi
     \omslagmotief
+    \ifdefined\omslagkenmerk\expandafter\tekenkenmerk\omslagkenmerk\fi
     % titel, met de rubriek erboven en de versie eronder
     \node[name=omslagtitelnode,anchor=south west,inner sep=0pt,text=white,align=left,
       font=\kopletter\fontsize{\omslagtitelgrootte}{\numexpr\omslagtitelgrootte*107/100\relax}\selectfont]

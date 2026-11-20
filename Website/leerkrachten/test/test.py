@@ -272,6 +272,7 @@ def api_tests(url):
     s, d = b("GET", "beheer/gebruikers")
     an = next((g for g in d["gebruikers"] if g["email"] == "an@voorbeeld.be"), None) if s == 200 else None
     meld("beheer: accounts en open codes", bool(an) and len(d["codes"]) == 1, d)
+    profiel_tests(b, l, x, bks)
     sleutel_tests(url, b, l, f1, f2)
     s, d = b("POST", f"beheer/herstel/{an['id']}")
     herstel = d.get("code") if s == 200 else None
@@ -289,6 +290,40 @@ def api_tests(url):
         x("POST", "aanmelden", {"email": "team@voorbeeld.be", "wachtwoord": "fout"})
     s, d = x("POST", "aanmelden", {"email": "team@voorbeeld.be", "wachtwoord": "geheim-wachtwoord"})
     meld("snelheidsrem na 10 mislukte aanmeldingen", s == 429, d)
+
+
+def profiel_tests(b, l, x, bks):
+    """Mijn lesopdracht en Beheer → Dekking."""
+    s, d = l("GET", "ik")
+    meld("lesopdracht: nog niet ingevuld", s == 200 and d.get("profiel") == "nodig", d)
+    s, d = l("POST", "profiel/later")
+    s, d = l("GET", "ik")
+    meld("lesopdracht: later stelt de vraag uit", s == 200 and d.get("profiel") == "uitgesteld", d)
+    graden = (bks.get("koepels") or {}).get("graden", {})
+    richting = next((f"{g}|{n}" for g, per in graden.items() for n in per.get("KOV", {})), None)
+    if not richting:
+        meld("lesopdracht: een richting uit boeken.json", False, "geen richtingen")
+        return
+    s, d = l("POST", "profiel", {"koepel": "Vlaams", "finaliteiten": ["D"], "jaren": [5], "richtingen": [richting]})
+    meld("lesopdracht: onbekende koepel geweigerd", s == 400, d)
+    s, d = l("POST", "profiel", {"koepel": "KOV", "finaliteiten": [], "jaren": [5], "richtingen": [richting]})
+    meld("lesopdracht: finaliteit verplicht", s == 400, d)
+    s, d = l("POST", "profiel", {"koepel": "KOV", "finaliteiten": ["D"], "jaren": [5], "richtingen": ["3|Bestaat niet"]})
+    meld("lesopdracht: onbekende richting telt niet (en zonder richting of opmerking: geweigerd)", s == 400, d)
+    s, d = l("POST", "profiel", {"koepel": "KOV", "finaliteiten": ["D", "DA", "X"], "jaren": [6, "5", 9],
+                                  "richtingen": [richting, "3|Bestaat niet"], "opmerking": "Ook een uur STEM."})
+    meld("lesopdracht: bewaren, ongeldige waarden weggelaten", s == 200 and d["finaliteiten"] == ["D", "DA"] and d["jaren"] == [5, 6]
+         and d["richtingen"] == [richting] and d["ingevuld"], d)
+    s, d = l("GET", "ik")
+    meld("lesopdracht: daarna ingevuld", s == 200 and d.get("profiel") == "ingevuld", d)
+    s, d = x("GET", "profiel")
+    meld("lesopdracht: niet zonder account", s == 401, d)
+    s, d = l("GET", "beheer/dekking")
+    meld("dekking: alleen voor beheerders", s == 403, d)
+    s, d = b("GET", "beheer/dekking")
+    tekst = json.dumps(d, ensure_ascii=False)
+    meld("dekking: profielen zonder namen", s == 200 and len(d["profielen"]) == 1 and d["profielen"][0]["richtingen"] == [richting]
+         and "An Leerkracht" not in tekst and "an@voorbeeld.be" not in tekst and d["accounts"] >= 2, d)
 
 
 def sleutel_tests(url, b, l, f1, f2):

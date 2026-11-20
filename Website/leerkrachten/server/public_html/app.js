@@ -354,7 +354,11 @@ function toonWelkom() {
       const p = new URLSearchParams(location.hash.split("?")[1] || ""); if (p.get("code")) code.value = p.get("code");
       return h("form", { onsubmit: poging(async (e) => {
         e.preventDefault(); fout.textContent = "";
-        try { await api("POST", "registreer", { code: code.value, naam: naam.value, email: email.value, wachtwoord: ww.value }); await start(); } catch (x) { fout.textContent = x.message; }
+        try {
+          await api("POST", "registreer", { code: code.value, naam: naam.value, email: email.value, wachtwoord: ww.value });
+          history.replaceState(null, "", "#/profiel?nieuw=1");  // een nieuw account gaat meteen naar de lesopdracht
+          await start();
+        } catch (x) { fout.textContent = x.message; }
       }) }, h("label", { class: "veld" }, "Uitnodigingscode", h("span", { class: "hulp" }, "Je kreeg ze van het Axiomath-team."), code),
       h("label", { class: "veld" }, "Je naam", h("span", { class: "hulp" }, "Collega's zien je naam bij je feedback."), naam),
       h("label", { class: "veld" }, "E-mailadres", email),
@@ -417,6 +421,7 @@ function kop(actief) {
   const menu = h("div", { class: "menu", hidden: true },
     h("div", { class: "kopje" }, h("b", {}, S.ik.naam), h("div", { class: "zacht klein" }, S.ik.email)),
     h("div", { class: "menu-nav", style: { display: "none" } }, links.map(([href, l]) => h("a", { href }, l))),
+    h("a", { href: "#/profiel", onclick: () => { menu.hidden = true; } }, "Mijn lesopdracht"),
     h("button", { type: "button", onclick: () => { menu.hidden = true; wachtwoordWijzigen(); } }, "Wachtwoord wijzigen"),
     h("button", { type: "button", onclick: poging(async () => { await api("POST", "afmelden"); S.ik = null; S.boeken = null; history.replaceState(null, "", "#/"); route(); }) }, "Afmelden"));
   const knop = h("button", { type: "button", "aria-haspopup": "true", "aria-label": "Account", onclick: (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; } },
@@ -516,6 +521,99 @@ function pdfKnop(b, e, attrs, ...inhoud) {
   if (koepel() === "KOV" || !b.koepelomslag?.[koepel()]?.pdf?.[e.editie])
     return h("a", { ...attrs, href: apiUrl(`pdf/${e.hash}`), target: "_blank", rel: "noopener" }, ...inhoud);
   return h("button", { ...attrs, type: "button", title: `Met de voorkant voor ${koepelNaam()}`, onclick: () => downloadMetVoorkant(b, e.editie, e.label) }, ...inhoud);
+}
+
+// --- lesopdracht -------------------------------------------------------------------------------
+/* Koepel, finaliteiten, leerjaren en richtingen van een leerkracht (lib.php, profiel_*). Het team ziet zo welke delen
+   al meelezers hebben (Beheer → Dekking). Geen schoolnamen. */
+const JAREN = { 3: "3de jaar", 4: "4de jaar", 5: "5de jaar", 6: "6de jaar" };
+const graadVanJaar = (j) => (j <= 4 ? 2 : 3);
+/* Alle richtingen als Map "<graad>|<naam>" -> finaliteit, voor een koepel (KOV, GO) of alle koepels samen. */
+function alleRichtingen(k) {
+  const uit = new Map();
+  const per = S.boeken?.koepels?.graden || {};
+  for (const [g, koepels] of Object.entries(per)) {
+    const bronnen = koepels[k] ? [koepels[k]] : Object.values(koepels);
+    for (const lijst of bronnen) for (const [naam, x] of Object.entries(lijst)) {
+      const sleutel = `${g}|${naam}`;
+      if (!uit.has(sleutel)) uit.set(sleutel, x.finaliteit || finaliteit(S.boeken.pakketten.find((p) => p.id === x.pakket)));
+    }
+  }
+  return uit;
+}
+
+function vraagProfiel() {
+  const d = dialoog("Waar geef je les?", [
+    h("p", {}, "Vertel ons in een halve minuut voor welke koepel, finaliteit, jaren en richtingen je lesgeeft. Zo zien we welke handboeken al nagelezen worden door wie ermee lesgeeft, en waar we nog collega's zoeken."),
+    h("p", { class: "zacht klein" }, "We vragen geen schoolnaam. Je kan het later altijd aanpassen via je account, bij Mijn lesopdracht.")], [
+    h("button", { class: "knop", type: "button", onclick: () => { d.close(); location.hash = "#/profiel"; } }, "Nu invullen"),
+    h("button", { class: "knop licht", type: "button", onclick: () => { d.close(); S.ik.profiel = "uitgesteld"; api("POST", "profiel/later").catch(() => {}); } }, "Later")]);
+}
+
+async function toonProfiel(q) {
+  const [p] = await Promise.all([api("GET", "profiel"), boeken()]);
+  const nieuw = q.get("nieuw") === "1";
+  let k = p.koepel, fins = new Set(p.finaliteiten), jaren = new Set(p.jaren), gekozen = new Set(p.richtingen), zoek = "";
+  const fout = h("p", { class: "fout-tekst", role: "alert" });
+  const chip = (label, actief, opKlik) => h("button", { type: "button", class: "chip zonder-stip", "aria-pressed": String(actief), onclick: opKlik }, label);
+  const wissel = (set, x) => { set.has(x) ? set.delete(x) : set.add(x); teken(); };
+  const koepelRij = h("div", { class: "chips", role: "group", "aria-label": "Koepel" });
+  const jaarRij = h("div", { class: "chips", role: "group", "aria-label": "Leerjaren" });
+  const finRij = h("div", { class: "chips", role: "group", "aria-label": "Finaliteit" });
+  const lijst = h("div", { class: "richting-lijst" });
+  const opm = h("textarea", { maxlength: 500, rows: 3, placeholder: "Bv. een richting die er niet bij staat, of een optie als Wiskunde in de praktijk." });
+  opm.value = p.opmerking || "";
+  const zichtbaar = () => {
+    const graden = new Set([...jaren].map(graadVanJaar));
+    return [...alleRichtingen(k)].filter(([s, f]) => graden.has(Number(s.split("|")[0])) && fins.has(f));
+  };
+  function teken() {
+    koepelRij.replaceChildren(...Object.entries(p.koepels).map(([id, naam]) => chip(naam, k === id, () => { k = id; teken(); })));
+    jaarRij.replaceChildren(...Object.entries(JAREN).map(([j, l]) => chip(l, jaren.has(Number(j)), () => wissel(jaren, Number(j)))));
+    finRij.replaceChildren(...Object.entries(FINALITEITEN).map(([f, l]) => chip(l[0].toUpperCase() + l.slice(1), fins.has(f), () => wissel(fins, f))));
+    const rs = zichtbaar();
+    if (!k || !jaren.size || !fins.size) {
+      lijst.replaceChildren(h("p", { class: "zacht" }, "Kies eerst je koepel, je leerjaren en je finaliteit: dan verschijnen hier de richtingen."));
+      return;
+    }
+    const groepen = new Map();
+    for (const [s, f] of rs) {
+      const g = s.split("|")[0], kop = graadFin({ graad: g, finaliteit: f });
+      if (!groepen.has(kop)) groepen.set(kop, []);
+      groepen.get(kop).push(s);
+    }
+    const past = (s) => !zoek || s.split("|")[1].toLowerCase().includes(zoek.toLowerCase());
+    lijst.replaceChildren(...[...groepen].sort(([a], [b]) => a.localeCompare(b, "nl")).map(([kop, ss]) => {
+      const tonen = ss.filter(past).sort((a, b) => a.localeCompare(b, "nl"));
+      return tonen.length ? h("fieldset", { class: "richting-groep" }, h("legend", {}, kop[0].toUpperCase() + kop.slice(1)),
+        tonen.map((s) => h("label", { class: "vinkje" }, h("input", { type: "checkbox", checked: gekozen.has(s), onchange: (e) => { e.target.checked ? gekozen.add(s) : gekozen.delete(s); } }), s.split("|")[1]))) : null;
+    }).filter(Boolean));
+    if (!lijst.childElementCount) lijst.append(h("p", { class: "zacht" }, zoek ? "Geen richting gevonden." : "Geen richtingen voor deze keuze."));
+  }
+  const bewaar = poging(async () => {
+    fout.textContent = "";
+    const zicht = new Set(zichtbaar().map(([s]) => s));
+    try {
+      await api("POST", "profiel", { koepel: k, finaliteiten: [...fins], jaren: [...jaren], richtingen: [...gekozen].filter((s) => zicht.has(s)), opmerking: opm.value });
+    } catch (x) { fout.textContent = x.message; return; }
+    S.ik.profiel = "ingevuld";
+    melding("Bedankt! Je lesopdracht is bewaard.");
+    location.hash = "#/";
+  });
+  scherm("", h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, nieuw ? "Welkom! Waar geef je les?" : "Mijn lesopdracht"),
+      h("p", {}, "Voor welke koepel, finaliteit, leerjaren en richtingen geef je les? Zo zien we welke handboeken al nagelezen worden door wie ermee lesgeeft, en waar we nog collega's zoeken. We vragen geen schoolnaam, en collega's zien dit niet."))),
+    h("div", { class: "formulier kaart profiel" },
+      h("div", { class: "veld" }, h("p", { class: "veld-kop" }, "Leerplannen van je school"), koepelRij,
+        h("button", { type: "button", class: "knop-tekst klein", onclick: ovsgPov }, "OVSG of POV?")),
+      h("div", { class: "veld" }, h("p", { class: "veld-kop" }, "Leerjaren waarin je wiskunde geeft"), jaarRij),
+      h("div", { class: "veld" }, h("p", { class: "veld-kop" }, "Finaliteit"), finRij),
+      h("div", { class: "veld" }, h("p", { class: "veld-kop" }, "Richtingen"),
+        h("input", { type: "search", placeholder: "Zoek een richting", "aria-label": "Zoek een richting", oninput: (e) => { zoek = e.target.value; teken(); } }), lijst),
+      h("label", { class: "veld" }, "Nog iets? (niet verplicht)", opm),
+      fout,
+      h("div", { class: "knoppen" }, h("button", { class: "knop", type: "button", onclick: bewaar }, "Bewaar"),
+        nieuw ? h("a", { class: "knop licht", href: "#/", onclick: () => api("POST", "profiel/later").catch(() => {}) }, "Later") : h("a", { class: "knop licht", href: "#/" }, "Annuleer"))));
+  teken();
 }
 
 // --- boekenkast --------------------------------------------------------------------------------
@@ -1203,13 +1301,13 @@ async function toonBeheer(tab) {
   const d = await boeken(true);
   tab = tab || "feedback";
   const tabs = h("div", { class: "tabs", role: "tablist", style: { maxWidth: "none" } },
-    [["feedback", "Feedback"], ["logboek", "Logboek"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
+    [["feedback", "Feedback"], ["logboek", "Logboek"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["dekking", "Dekking"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
       h("button", { type: "button", role: "tab", "aria-selected": String(k === tab), onclick: () => { location.hash = `#/beheer/${k}`; } }, l)));
   const plek = h("div", {}, h("p", { class: "laden" }, "Laden …"));
   scherm("beheer", h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, "Beheer"),
     h("p", {}, "Alle feedback op één plek. Exporteer naar Markdown om ze per handboek, hoofdstuk en pagina te verwerken in de bron."))), tabs, plek);
   tabs.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });  // op een gsm schuift de rij
-  const inhoud = await ({ feedback: beheerFeedback, logboek: beheerLogboek, overzicht: beheerOverzicht, mensen: beheerMensen, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
+  const inhoud = await ({ feedback: beheerFeedback, logboek: beheerLogboek, overzicht: beheerOverzicht, mensen: beheerMensen, dekking: beheerDekking, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
   plek.replaceChildren(...[inhoud].flat());
 }
 
@@ -1428,6 +1526,70 @@ async function beheerMensen() {
   return plek;
 }
 
+/* Dekking: welke koepels, finaliteiten, leerjaren en richtingen al leerkrachten hebben die meelezen (Mijn lesopdracht).
+   Zonder namen. De tabel toont ook de richtingen zonder iemand, want daar zoeken we collega's. */
+async function beheerDekking() {
+  const o = await api("GET", "beheer/dekking");
+  const ps = o.profielen;
+  const telOp = (sleutels, waarden) => Object.fromEntries(sleutels.map((s) => [s, ps.filter((p) => waarden(p).includes(s)).length]));
+  const balken = (titel, tel, labels) => {
+    const max = Math.max(1, ...Object.values(tel));
+    return h("section", { class: "kaart dekking-blok" }, h("h3", { class: "sectie-kop" }, titel),
+      Object.entries(tel).map(([s, n]) => h("div", { class: "balk-rij" }, h("span", { class: "balk-label" }, labels[s] || s),
+        h("span", { class: "balk-spoor" }, h("i", { style: { width: `${100 * n / max}%` } })), h("b", { class: "getal" }, n))));
+  };
+  const finLabels = Object.fromEntries(Object.entries(FINALITEITEN).map(([k, l]) => [k, l[0].toUpperCase() + l.slice(1)]));
+  const koepels = Object.keys(o.koepels);
+  const richtingen = alleRichtingen(null);  // alle koepels samen
+  const per = new Map([...richtingen.keys()].map((s) => [s, Object.fromEntries(koepels.map((k) => [k, 0]))]));
+  for (const p of ps) for (const s of p.richtingen) { if (!per.has(s)) per.set(s, Object.fromEntries(koepels.map((k) => [k, 0]))); per.get(s)[p.koepel]++; }
+  let toon = "alle";
+  const tabel = h("div");
+  const max = Math.max(1, ...[...per.values()].flatMap((x) => Object.values(x)));
+  const tekenTabel = () => {
+    const groepen = new Map();
+    for (const [s, x] of per) {
+      const totaal = Object.values(x).reduce((a, b) => a + b, 0);
+      if ((toon === "leeg" && totaal) || (toon === "gedekt" && !totaal)) continue;
+      const kop = graadFin({ graad: s.split("|")[0], finaliteit: richtingen.get(s) || "D" });
+      if (!groepen.has(kop)) groepen.set(kop, []);
+      groepen.get(kop).push([s, x, totaal]);
+    }
+    const cel = (n) => h("td", { class: "getal" }, n ? h("span", { class: "warm", style: { background: `color-mix(in srgb, var(--acc) ${15 + 55 * n / max}%, transparent)` } }, n) : h("span", { class: "zacht" }, "·"));
+    // per graad, dan doorstroom, dubbele finaliteit, arbeidsmarkt
+    const orde = (kop) => kop.slice(0, 1) + ["doorstroom", "dubbele", "arbeidsmarkt"].findIndex((f) => kop.includes(f));
+    tabel.replaceChildren(...[...groepen].sort(([a], [b]) => orde(a).localeCompare(orde(b))).map(([kop, rs]) => {
+      const alleInGroep = [...per].filter(([s]) => graadFin({ graad: s.split("|")[0], finaliteit: richtingen.get(s) || "D" }) === kop);
+      const gedekt = alleInGroep.filter(([, x]) => Object.values(x).some(Boolean)).length;
+      return h("details", { class: "dekking-groep", open: true },
+        h("summary", { class: "sectie-kop" }, kop[0].toUpperCase() + kop.slice(1), h("span", { class: "zacht klein" }, ` · ${gedekt} van ${alleInGroep.length} richtingen met een leerkracht`)),
+        h("div", { class: "tabel-houder" }, h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, "Richting"), koepels.map((k) => h("th", { class: "getal" }, k === "andere" ? "Andere" : o.koepels[k].replace(/ \(.*\)/, ""))), h("th", { class: "getal" }, "Samen"))),
+          h("tbody", {}, rs.sort(([a], [b]) => a.localeCompare(b, "nl")).map(([s, x, totaal]) => h("tr", { class: totaal ? "" : "leeg-rij" },
+            h("td", {}, s.split("|")[1]), koepels.map((k) => cel(x[k])), h("td", { class: "getal" }, h("b", {}, totaal || ""))))))));
+    }));
+    if (!tabel.childElementCount) tabel.append(h("p", { class: "leeg" }, "Geen richtingen in deze selectie."));
+  };
+  tekenTabel();
+  const nog = Math.max(0, o.accounts - ps.length - o.uitgesteld);
+  const opm = ps.filter((p) => p.opmerking);
+  return [h("p", {}, "Wat leerkrachten invullen bij Mijn lesopdracht, zonder namen. Een leerkracht kan meer jaren, finaliteiten en richtingen kiezen, dus de aantallen tellen niet op tot het aantal leerkrachten."),
+    h("div", { class: "tellers" },
+      h("div", { class: "teller" }, h("b", {}, o.accounts), h("span", {}, "actieve accounts")),
+      h("div", { class: "teller" }, h("b", {}, ps.length), h("span", {}, "lesopdracht ingevuld")),
+      h("div", { class: "teller" }, h("b", {}, o.uitgesteld), h("span", {}, "later gekozen")),
+      h("div", { class: "teller" }, h("b", {}, nog), h("span", {}, "nog niet gezien"))),
+    h("div", { class: "dekking-rij" },
+      balken("Koepel", telOp(koepels, (p) => [p.koepel]), Object.fromEntries(koepels.map((k) => [k, { KOV: "KOV", andere: "Andere" }[k] || o.koepels[k]]))),
+      balken("Finaliteit", telOp(Object.keys(FINALITEITEN), (p) => p.finaliteiten), finLabels),
+      balken("Leerjaar", telOp(Object.keys(JAREN).map(Number), (p) => p.jaren), JAREN)),
+    h("div", { class: "balk" }, h("span", { class: "zacht klein" }, "Richtingen:"),
+      h("select", { "aria-label": "Welke richtingen", onchange: (e) => { toon = e.target.value; tekenTabel(); } },
+        h("option", { value: "alle" }, "Alle richtingen"), h("option", { value: "leeg" }, "Alleen zonder leerkracht"), h("option", { value: "gedekt" }, "Alleen met een leerkracht"))),
+    tabel,
+    opm.length ? h("section", { class: "kaart", style: { marginTop: "24px" } }, h("h3", { class: "sectie-kop" }, "Opmerkingen bij de lesopdracht"),
+      h("ul", {}, opm.map((p) => h("li", {}, p.opmerking, h("span", { class: "zacht klein" }, ` (${o.koepels[p.koepel] || p.koepel}, ${datum(p.ingevuld)})`))))) : null].filter(Boolean);
+}
+
 async function beheerPdf(d) {
   const rijen = d.boeken.filter((b) => b.edities.length);
   return [h("section", { class: "kaart", style: { marginBottom: "24px" } }, h("h2", { class: "sectie-kop" }, "Nieuwe PDF's online zetten"),
@@ -1452,6 +1614,7 @@ async function route() {
     else if (delen[0] === "mijn") await toonMijn();
     else if (delen[0] === "algemeen") await toonAlgemeen();
     else if (delen[0] === "over") toonOver();
+    else if (delen[0] === "profiel" && S.ik) await toonProfiel(q);
     else if (delen[0] === "voortgang") await toonVoortgang();
     else if (delen[0] === "plannen") toonPlannen();
     else if (delen[0] === "beheer" && S.ik.rol === "beheerder") await toonBeheer(delen[1]);
@@ -1469,6 +1632,8 @@ async function start() {
   if (!S.ik && location.hash.includes("code=")) return toonWelkom();
   if (S.ik && (location.hash.includes("code=") || location.hash.startsWith("#/aanmelden"))) history.replaceState(null, "", "#/");
   await route();
+  // wie de lesopdracht nog niet invulde (en ze niet uitstelde), krijgt de vraag één keer per bezoek
+  if (S.ik?.profiel === "nodig" && !location.hash.startsWith("#/profiel") && !S.profielGevraagd) { S.profielGevraagd = true; vraagProfiel(); }
 }
 addEventListener("hashchange", route);
 $app.append(h("p", { class: "laden" }, "Laden …"));
