@@ -1,6 +1,6 @@
 # TODO's
 
-Alles wat nog moet gebeuren, op één plaats. **[Ingmar]**: dit mag Ingmar maken. Een nieuw handboek begint met de skill `handboek-hoofdstuk` en volgt de [ontwerpregels](Ontwerp/ontwerpregels.md); zet daarna de status in `voortgang.yaml` en draai `python maak-voortgang.py`.
+Alles wat nog moet gebeuren, op één plaats. Wat af is, gaat naar [DONE.md](DONE.md). **[Ingmar]**: dit mag Ingmar maken. Een nieuw handboek begint met de skill `handboek-hoofdstuk` en volgt de [ontwerpregels](Ontwerp/ontwerpregels.md); zet daarna de status in `voortgang.yaml` en draai `python maak-voortgang.py`.
 
 ## Handboeken maken
 
@@ -31,7 +31,6 @@ Alle 18 onderwerpen hebben een eerste versie sinds 17 nov 2026 (72 handboeken, P
 
 - **Voor GO!:** de homothetie staat in Gelijkvormigheid (hoofdstuk 1, alle pakketten), de constructies met passer en liniaal sinds 18 nov 2026 in hoofdstuk 3 (pakket 4 en 5). Na te kijken: welke constructies GO! precies vraagt, en of KOV ze in pakket 4 of 5 vraagt.
 - **Afspraken tussen de handboeken van de 2de graad, na te kijken:** W/O (Logica, 2de graad) tegenover W/V (Logica en bewijzen, 3de graad); het bewijs dat √2 irrationaal is staat in pakket 5 zowel in Reële getallen als in Logica; kwartielen en standaardafwijking (Statistiek: mediaan van elke helft, delen door n); de rico heet m en een rechte ax + by = c (Functies, Stelsels, Analytische meetkunde).
-- **3de graad, Goniometrische functies:** de leerkrachtentip over de voorkennis uit de 2de graad (goniometrische cirkel in graden voor pakket 4 en 5) is aangepast in PR #47.
 
 ### Dubbele finaliteit (D/A): 45 handboeken (14 onderwerpen) **[Ingmar]**
 
@@ -48,9 +47,9 @@ Indeling, leerplandoelen en voorkanten klaar sinds 16 nov 2026: zie de README's 
 
 ### 3de graad: wat nog ontbreekt
 
-- **Kegelsneden**: nagelezen en aangevuld op 18 nov 2026 (PR #49): fouten verbeterd, 7 korte oefeningen en 6 testvragen per hoofdstuk, prenten die al in de repo stonden. Nog: prenten van Commons bij de andere contextopdrachten (komeet, koeltoren, biljart, tunnel, onweer), en nalezen door een leerkracht.
+- **Kegelsneden**: nagelezen en aangevuld op 18 nov 2026 (PR #49): fouten verbeterd, 7 korte oefeningen en 6 testvragen per hoofdstuk, prenten (zie DONE.md). Nog: nalezen door een leerkracht.
 - **Vertrekken vanuit een probleem:** sinds 18 nov 2026 begint elk hoofdstuk van de 3de graad met een blok Probleem en komt erop terug (PR #47). Na te lezen: de keuze van de problemen en de schattingen (zie de PR).
-- **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken.
+- **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken. Kandidaten: Marimo (Python in de browser, zonder installatie; zie DONE.md), een rekenblad, GeoGebra of JASP.
 - **Telproblemen voor pakket 2 en 3** (voor GO!): lichtere versie sinds 18 nov 2026, uit dezelfde bron met `\alleenvoor`. Na te kijken: de afbakening tegenover de GO!-doelen (zie de README van `cursussen/Telproblemen/`).
 - **Modules voor KOV Complementair** (uitbreiding voor wiskunderichtingen met meer dan 6 uur; een menu, niet alles is nodig): predicatenlogica, krommen en meetkundige plaatsen, oppervlakken in de ruimte, euclidische, affiene en projectieve meetkunde, extra integratiemethodes, differentiaalvergelijkingen, reeksen, numerieke methodes, vectorruimten, getaltheorie, lineair programmeren, financiële algebra, iteraties en fractalen, kansverdelingen, lineaire regressie, multivariate statistiek. **[Ingmar]**
 
@@ -97,9 +96,24 @@ De plannen staan op [axiomath.be/#/plannen](https://axiomath.be/#/plannen), elk 
 - het handboek als webpagina;
 - een open oefeningenbank.
 
-## Visueel kenmerkend element per richting op de voorkaft.
-- Iets was handig is om snel het onderscheid te maken tussen verschillende richtingen op de voorkaft zodat leerkrachten snel kunnen zien welke richting het handboek betreft. Dit kan bijvoorbeeld een icoon zijn dat de richting symboliseert met een éénduidige kleur. Mag hetzelfde zijn over koepels, aangezien een school steeds onder één koepel valt. 
+## Kenmerk op de voorkant
+- Alle handboeken opnieuw bouwen (dan pas staat het kenmerk in de PDF's) en uitrollen, na `uitrol.py --opruimen`.
+- De afdruk in zwart-wit nakijken (de kleuren verschillen dan alleen in grijswaarde).
 
-## Bekijken op Marimo.io interessant is.
-https://docs.marimo.io/
+## Oefeningenbundels per handboek voorzien. 
+Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofdstuk, maar zet ze door elkaar in elk hoofdstuk. Eindig elke bundel met een mengeling van alle hoofdstukken door elkaar.
+- voorzie een keuze om ze gesorteerd en gelabeld te bekijken, of net door elkaar.
 
+## Feedback verwerken met de eigen Claude van een medewerker
+- Een MCP-server (of iets anders, bv. een skill met een API-sleutel per medewerker) zodat medewerkers met hun eigen Claude kunnen aanmelden op axiomath.be en de goedgekeurde feedback zelf verwerken, zoals de skill `feedback-verwerken` nu doet.
+- Daarna bouwt die Claude altijd alle PDF's opnieuw en zet ze op de website.
+- Eerst samen bespreken: wie mag dat (rollen op de site), hoe de rechten voor schrijven in de repo en uitrollen geregeld worden, en hoe twee medewerkers niet tegelijk dezelfde feedback verwerken.
+
+## Bevraging van de leerkrachten
+- Begin december 2026 *Beheer → Dekking* bekijken: hoeveel leerkrachten het invullen, en of er richtingen in "Nog iets?" opduiken die op de site ontbreken.
+
+## Kernvaardigheden toevoegen per jaar.
+
+- Voeg per jaar bundels toe van kernvaardigheden toe. Basisrekenvaardigheden die de leerlingen onder de knie moeten hebben. Voorbeelden: ontbinden, dubbele producten, vereenvoudigen van breuken, machten, wortels, goniometrische getallen, ....
+- **4de jaar, pakket 5 (B+S''):** eerste versie sinds 20 nov 2026: `2g5/Kernvaardigheden 4de jaar`, zeven hoofdstukken (ook stelsels), 1023 drillopgaven. De regels staan in de ontwerpregels (deel Kernvaardigheden). Na te lezen door een leerkracht; wat na te kijken is, staat in de README van de bron.
+- Nog te maken: de andere jaren (3de jaar, 5de en 6de jaar) en de andere pakketten (lichtere bundels met `\alleenvoor` en `pakketten:` uit dezelfde bron).

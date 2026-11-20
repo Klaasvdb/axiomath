@@ -47,7 +47,8 @@ Kleine handboeken, zodat een school modulair kan werken. Hoofdstukken die op elk
 | 4 | Meetkunde/De cirkel (keuze) | – | – | – | K1 | K1 |
 | 4 | Discrete wiskunde/Telproblemen | 25 | 29 | 31 | 35 | 35 |
 | 4 | Discrete wiskunde/Grafen (keuze) | – | – | – | K2-K3 | K2-K3 |
-| | **Aantal handboeken** | 12 | 13 | 13 | 16 | 18 |
+| 4 | Kernvaardigheden 4de jaar (herhaling, drill) | – | – | – | – | herhaling |
+| | **Aantal handboeken** | 12 | 13 | 13 | 16 | 19 |
 
 Wat apart blijft en waarom:
 
@@ -125,6 +126,7 @@ Bordeaux (`8C1D40`) met goud (`FFC857`) in plaats van petrol, met frissere en li
 | De cirkel | Robert Delaunay, *Cirkelvormen, maan nr. 1*, 1913 | Cirkels in volle kleur | Middelpuntshoek 120°, omtrekshoek 60° |
 | Telproblemen | Pieter Bruegel de Oude, *De volkstelling te Bethlehem*, 1566 | Een volkstelling, en kale wintertakken | Een boomdiagram: 2 · 2 · 2 = 8 |
 | Grafen | Paul Klee, *Hoofdweg en zijwegen*, 1929 | Een netwerk van paden | De bruggen van Königsberg, met de graad van elke knoop |
+| Kernvaardigheden | Edgar Degas, *De dansles*, 1871-1874 | Dansers oefenen elke dag de basispassen, zoals leerlingen hun rekenvaardigheden | Drie oefenkaartjes: een dubbel product, een wortel, een goniometrisch getal |
 
 Alle werken staan op Wikimedia Commons als publiek domein (nagekeken met `maak-omslagen.py`). Taeuber-Arp (1931) is publiek domein in de EU; in de VS pas vanaf 2027.
 

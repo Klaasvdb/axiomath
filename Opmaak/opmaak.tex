@@ -127,14 +127,16 @@
   \ifopdrachtdeel\def\secvul{fel}\def\sectekst{inkt}\else\def\secvul{accent}\def\sectekst{white}\fi
   \tikz[baseline=(c.base)]\node[fill=\secvul,rounded corners=2pt,text=\sectekst,inner xsep=1.5mm,inner ysep=1.5mm,font=\sffamily\bfseries\large](c){#1};} 
 % Start van de Opdrachten: nieuwe pagina met een felle band
+% De naam van het deel met de opdrachten: Oefenbundels in een bundel kernvaardigheden (boek.tex)
+\providecommand{\opdrachtennaam}{Opdrachten}
 \newcommand{\opdrachtenkop}{%
   \clearpage\global\opdrachtdeeltrue\thispagestyle{plain}%
   \begin{tikzpicture}[remember picture,overlay]
     \fill[fel] (current page.north west) rectangle ($(current page.north east)+(0,-2.6cm)$);
     \node[anchor=west,inner sep=0pt,text=inkt,font=\kopletter\fontsize{26}{31}\selectfont]
-      at ($(current page.north west)+(2.5cm,-1.45cm)$) {Opdrachten};
+      at ($(current page.north west)+(2.5cm,-1.45cm)$) {\opdrachtennaam};
   \end{tikzpicture}%
-  \phantomsection\addcontentsline{toc}{opdracht}{Opdrachten}%
+  \phantomsection\addcontentsline{toc}{opdracht}{\opdrachtennaam}%
   \par\vspace*{2mm}}
 % Felle balk voor Koppel en Test jezelf
 \newcommand{\opdrachtsectie}[1]{%
@@ -178,7 +180,7 @@
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
 \renewcommand{\sectionmark}[1]{}
 \fancyhf{}
-\fancyhead[L]{\sffamily\footnotesize\color{grijs}\leftmark\ifopdrachtdeel\ \textperiodcentered\ Opdrachten\fi}% rustig, zoals het paginanummer
+\fancyhead[L]{\sffamily\footnotesize\color{grijs}\leftmark\ifopdrachtdeel\ \textperiodcentered\ \opdrachtennaam\fi}% rustig, zoals het paginanummer
 \fancyfoot[R]{\sffamily\footnotesize\color{grijs}\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \fancypagestyle{plain}{\fancyhf{}\fancyfoot[R]{\sffamily\footnotesize\color{grijs}\thepage}\renewcommand{\headrulewidth}{0pt}}

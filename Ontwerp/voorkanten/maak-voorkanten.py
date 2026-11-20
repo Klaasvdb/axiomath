@@ -151,6 +151,8 @@ MODULES_2 = [
     ("Meetkunde/De cirkel", "g2-cirkel", "45"),
     ("Discrete wiskunde/Telproblemen", "g2-tellen", "12345"),
     ("Discrete wiskunde/Grafen", "g2-grafen", "45"),
+    # bundels kernvaardigheden, een per jaar (ontwerpregels, deel Kernvaardigheden)
+    ("Kernvaardigheden 4de jaar", "g2-kernvaardigheden", "5"),
 ]
 HANDBOEKEN_2 = [(pakket, m, n, None) for pakket in PAKKETTEN_2 for m, n, in_ in MODULES_2 if pakket.split()[0] in in_]
 
@@ -259,7 +261,36 @@ TITELS = {
     "Analytische meetkunde": (r"Analytische\\meetkunde", 46),
     "Functies en verandering": (r"Functies en\\verandering", 46),
     "Wiskunde in de praktijk": (r"Wiskunde in\\de praktijk", 46),
+    "Kernvaardigheden 4de jaar": (r"Kernvaardigheden\\4de jaar", 46),
 }
+
+
+# Kenmerk van het pakket rechtsboven: een regelmatige veelhoek met het pakketnummer erin. Meer zijden = meer wiskunde
+# binnen de finaliteit (Basis: driehoek). Doorstroom: gevuld; D/A: dezelfde vorm met een witte binnenrand;
+# A: een cirkel. De kleur per niveau komt uit de felle kleuren van de hoofdstukken (hf1-hf5 en hf8 in Opmaak/opmaak.tex).
+KENMERK_KLEUR = {1: "5CB8FF", 2: "2EDDA5", 3: "FFA62B", 4: "FF7DBD", 5: "BC96FF", "A": "FFD93D"}
+
+
+def kenmerk(pakket):
+    """(niveau, aantal zijden, vorm, kleur) van het pakket; zijden 0 is een cirkel."""
+    n = int(pakket.split()[0])
+    fin = finaliteit(pakket)
+    if fin == "A":
+        return 1, 0, "ring", KENMERK_KLEUR["A"]
+    niveau = n if fin == "D" else n - (4 if graad(pakket) == 3 else 5)
+    return niveau, niveau + 2, "vol" if fin == "D" else "ring", KENMERK_KLEUR[niveau]
+
+
+def uren_kort(uren):
+    """De lesuren per week voor in het kenmerk: "6", "6,5" of "3-4" (een bereik als het per jaar of richting
+    verschilt). Leeg als er geen vast aantal is (bv. GO! D/A: volgens de lessentabel van de richting).
+    Niet meegeteld: het leerjaar ("5de jaar") en het aantal graaduren."""
+    getallen = re.findall(r"(?<![\d,])(\d+(?:,\d+)?)(?![\d,]|de\b| graaduren)", uren or "")
+    waarden = sorted({float(g.replace(",", ".")) for g in getallen})
+    if not waarden:
+        return ""
+    tekst = [f"{w:g}".replace(".", ",") for w in (waarden[0], waarden[-1])]
+    return tekst[0] if tekst[0] == tekst[1] else f"{tekst[0]}-{tekst[1]}"
 
 
 def gegevens(pakket, map_, jaar, richtingen=None, uren=None):
@@ -273,6 +304,11 @@ def gegevens(pakket, map_, jaar, richtingen=None, uren=None):
     tekst = f"{graad(pakket)}de graad {FINALITEITEN[finaliteit(pakket)]}"
     tekst = f"{tekst}, {jaar}" if jaar else tekst
     kleur = [f"\\def\\omslagaccent{{{KLEUR_2[0]}}}", f"\\def\\omslagfel{{{KLEUR_2[1]}}}"] if tweede else []
+    _, zijden, vorm, kkleur = kenmerk(pakket)
+    kort = uren_kort(p["uren"] if uren is None else uren)  # de uren van de koepel van deze voorkant
+    # lettergrootte: een driehoek heeft minder plaats, en een bereik ("3-4", "2,5-3") is breder
+    kgrootte = (19 if zijden == 3 else 24) * (1 if len(kort) <= 1 else .75 if len(kort) <= 3 else .58)
+    kleur.append(f"\\def\\omslagkenmerk{{{{{kort}}}{{{zijden}}}{{{vorm}}}{{{kkleur}}}{{{kgrootte:.1f}}}}}")
     return "\n".join(kleur + [
         f"\\def\\cursusrubriek{{{rubriek}}}",
         f"\\def\\cursusrichtingen{{{p['richtingen'] if richtingen is None else richtingen}}}",

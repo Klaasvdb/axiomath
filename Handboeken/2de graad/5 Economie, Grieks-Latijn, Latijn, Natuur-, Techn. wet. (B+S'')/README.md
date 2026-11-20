@@ -25,3 +25,4 @@ De indeling en de inhoud per handboek staan in [de README van de 2de graad](../R
 | Meetkunde/De cirkel (keuze) | 4de | LPD K1 | eerste versie |
 | Discrete wiskunde/Telproblemen | 4de | LPD 35 | eerste versie |
 | Discrete wiskunde/Grafen (keuze) | 4de | LPD K2-K3 | eerste versie |
+| Kernvaardigheden 4de jaar | 4de | herhaling (drill) | eerste versie |

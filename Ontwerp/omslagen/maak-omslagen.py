@@ -71,6 +71,7 @@ SCHILDERIJEN = {
     "taeuber": ("File:Sophie Taeuber-Arp - Kompozycja r.jpg", 0.5, 0.5),
     "hoofdweg": ("File:Hauptweg und Nebenwege - Paul Klee - Museum Ludwig-7026 (cropped).jpg", 0.5, 0.5),
     "galette": ("File:Auguste Renoir - Dance at Le Moulin de la Galette - Google Art Project.jpg", 0.5, 0.5),
+    "dansles": ("File:Edgar Degas - The Ballet Class - Google Art Project.jpg", 0.5, 0.62),  # Degas, De dansles (Kernvaardigheden)
 }
 # deel dat rondom wegvalt: Seurat schilderde een stippelrand mee, de andere foto's tonen de lijst of de stofrand.
 # Eén getal voor alle kanten, of (links, boven, rechts, onder): bij de zeilwagen vallen de titel en de witte rand weg.
