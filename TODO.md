@@ -97,7 +97,6 @@ De plannen staan op [axiomath.be/#/plannen](https://axiomath.be/#/plannen), elk 
 - een open oefeningenbank.
 
 ## Kenmerk op de voorkant
-- Alle handboeken opnieuw bouwen (dan pas staat het kenmerk in de PDF's) en uitrollen, na `uitrol.py --opruimen`.
 - De afdruk in zwart-wit nakijken (de kleuren verschillen dan alleen in grijswaarde).
 
 ## Oefeningenbundels per handboek voorzien. 
@@ -116,4 +115,14 @@ Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofd
 
 - Voeg per jaar bundels toe van kernvaardigheden toe. Basisrekenvaardigheden die de leerlingen onder de knie moeten hebben. Voorbeelden: ontbinden, dubbele producten, vereenvoudigen van breuken, machten, wortels, goniometrische getallen, ....
 - **4de jaar, pakket 5 (B+S''):** eerste versie sinds 20 nov 2026: `2g5/Kernvaardigheden 4de jaar`, zeven hoofdstukken (ook stelsels), 1023 drillopgaven. De regels staan in de ontwerpregels (deel Kernvaardigheden). Na te lezen door een leerkracht; wat na te kijken is, staat in de README van de bron.
-- Nog te maken: de andere jaren (3de jaar, 5de en 6de jaar) en de andere pakketten (lichtere bundels met `\alleenvoor` en `pakketten:` uit dezelfde bron).
+- **Alle bundels bouwen.** Eén bundel per jaar en per pakket, met de regels uit de ontwerpregels (deel Kernvaardigheden): een korte theoriepagina per vaardigheid, vooral drill, met antwoorden die met SymPy zijn nagerekend. Per jaar is er **één bron** (`cursussen/Kernvaardigheden <jaar>/` in de graad); de verschillen per pakket staan erin met `\alleenvoor` en `pakketten:`. Elke nieuwe bundel moet ook in `MODULES_2` (of de lijst van de 3de graad) en `TITELS` van `maak-voorkanten.py`, in `voortgang.yaml` en in de README van de graad en van het pakket. Daarna de site opnieuw maken en uitrollen.
+
+  | Graad | Jaar | Pakketten | Status | Vaardigheden (voorstel) |
+  |---|---|---|---|---|
+  | 2de | 3de jaar | doorstroom 1-5, D/A 6-7 | te maken | rekenen met breuken en negatieve getallen; machten en wetenschappelijke notatie; vierkantswortels; rekenen met letters en merkwaardige producten; eerstegraadsvergelijkingen en formules omvormen; stelsels; Pythagoras en sinus, cosinus en tangens in een rechthoekige driehoek; verhoudingen en gelijkvormigheid |
+  | 2de | 4de jaar | 5 | eerste versie | machten en wortels; merkwaardige producten; ontbinden; breuken; vergelijkingen; goniometrische getallen; stelsels |
+  | 2de | 4de jaar | doorstroom 1-4, D/A 6-7 | te maken | dezelfde bron als pakket 5, lichter: zonder Horner en groeperen (alleen 5), goniometrische cirkel en verwante hoeken alleen in 4-5, minder breuken met letters in 1-3 en D/A |
+  | 3de | 5de jaar | doorstroom 1-4, D/A 5-8 | te maken | rekenen met functievoorschriften; machten met rationale exponenten en logaritmen; tekenschema's en ongelijkheden; rationale uitdrukkingen; goniometrie in radialen en goniometrische formules; afgeleiden met de rekenregels (waar het pakket ze heeft); vectoren en coördinaten |
+  | 3de | 6de jaar | doorstroom 1-4, D/A 5-8 | te maken | limieten; primitieven en integralen (waar het pakket ze heeft); goniometrische vergelijkingen; telproblemen en combinaties; kansen berekenen; statistische kengetallen; complexe getallen (pakket 4) |
+
+  De arbeidsmarktfinaliteit (pakket 8 van de 2de graad) krijgt pas een bundel als het handboek op aanvraag gemaakt wordt. Eerst samen nakijken: de verdeling van de vaardigheden over de jaren, en welke pakketten een eigen bundel krijgen.

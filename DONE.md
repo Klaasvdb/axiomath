@@ -2,6 +2,11 @@
 
 Wat uit [TODO.md](TODO.md) af is, met de datum en waar het staat. Nieuwste bovenaan. Wat nog open is bij een afgewerkt punt (nalezen, na te kijken), blijft in `TODO.md`.
 
+## 20 nov 2026
+
+- **Volledige bouw met het kenmerk:** alle 123 handboeken opnieuw gebouwd en online. De hosting zat vol, dus per handboek uitgerold: nieuwe versies erop, de site omzetten, dan de oude versies zonder feedback wissen (956 MB vrij).
+- **Feedbackteller op de site:** staat niet meer rechtsboven op de voorkant (daar staat nu het kenmerk), maar onder de titel, met een tekstballon.
+
 ## 19 nov 2026
 
 - **Bevraging van de leerkrachten:** *Mijn lesopdracht* op axiomath.be (koepel, leerjaren, finaliteit, richtingen, geen schoolnaam). Een bestaand account krijgt de vraag in een venster, *Later* stelt ze een week uit; een nieuw account komt er meteen na de registratie. *Beheer → Dekking* toont zonder namen hoeveel leerkrachten het invulden, balken per koepel, finaliteit en leerjaar, en per graad en finaliteit elke richting tegen de koepels, ook de richtingen zonder leerkracht. Zie de README van `Website/leerkrachten/`. Online gezet.

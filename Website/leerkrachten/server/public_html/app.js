@@ -766,13 +766,15 @@ function boekKaart(b, noot) {
   const open = b.feedback?.open || 0;
   const src = omslagVan(b);
   const omslag = src
-    ? h("div", { class: "omslag" }, h("img", { src, alt: "", loading: "lazy" }), open ? h("span", { class: "badge", title: `${open} open opmerkingen` }, open) : null,
+    ? h("div", { class: "omslag" }, h("img", { src, alt: "", loading: "lazy" }),
       b.edities.length ? null : h("span", { class: "geen-pdf" }, "Nog geen PDF"))
     : h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"));
   return h("a", { class: `boek ${rubriekKlasse(b)}`, href: `#/boek/${sleutelUrl(b.sleutel)}` }, omslag,
     h("div", {}, b.rubriek && h("div", { class: "rubriek" }, b.rubriek), h("div", { class: "titel" }, b.titel.replace(/(graads)(?=[a-z])/, "$1\u00AD"))),  // zacht afbreekteken: Eerstegraads-vergelijkingen
     noot ? h("div", { class: "noot" }, noot) : null,
+    // het aantal open opmerkingen staat onder de titel, niet op de voorkant: rechtsboven op de voorkant staat het kenmerk van het pakket
     h("div", { class: "meta" }, statusPil(b.status),
+      open ? h("span", { class: "fb-tel", title: `${open} open ${open === 1 ? "opmerking" : "opmerkingen"}` }, icoon("ballon"), open) : null,
       b.jaar_voorstel && h("span", { title: "Voorstel: je school kiest het leerjaar" }, b.jaar_voorstel),
       b.feedback?.mijn ? h("span", {}, `${b.feedback.mijn} van jou`) : null));
 }
