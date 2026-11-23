@@ -103,6 +103,7 @@ HANDBOEKEN_LIJST += [(P4, m, n, jaar) for m, n, jaar in [
     ("Data en onzekerheid/Statistiek", "statistiek", "6de jaar"),
     ("Data en onzekerheid/Kansverdelingen", "kansverdelingen", "6de jaar"),
     ("Data en onzekerheid/Lineaire regressie", "lineaire-regressie", "6de jaar"),
+    ("Data en onzekerheid/Multivariate statistiek", "multivariate-statistiek", "6de jaar"),
     ("Onderzoekscompetentie", "onderzoekscompetentie", None),
 ]]
 
@@ -279,6 +280,7 @@ TITELS = {
     "Iteraties en fractalen": (r"Iteraties en\\fractalen", 46),
     "Kansverdelingen": ("Kansverdelingen", 50),
     "Lineaire regressie": (r"Lineaire\\regressie", 46),
+    "Multivariate statistiek": (r"Multivariate\\statistiek", 46),
     "Lineair programmeren": (r"Lineair\\programmeren", 46),
     "Vectorruimten": ("Vectorruimten", 52),
     "Financiële algebra": (r"Financiële\\algebra", 46),
@@ -387,7 +389,7 @@ JAAR_VOORSTEL = {
         "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Algebra/Lineair programmeren": "6de jaar", "Algebra/Vectorruimten": "6de jaar", "Algebra/Financiële algebra": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
         "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar", "Discrete wiskunde/Predicatenlogica": "6de jaar", "Discrete wiskunde/Iteraties en fractalen": "6de jaar",
         "Data en onzekerheid/Kansrekenen": "6de jaar", "Data en onzekerheid/Statistiek": "6de jaar",
-        "Data en onzekerheid/Kansverdelingen": "6de jaar", "Data en onzekerheid/Lineaire regressie": "6de jaar"},
+        "Data en onzekerheid/Kansverdelingen": "6de jaar", "Data en onzekerheid/Lineaire regressie": "6de jaar", "Data en onzekerheid/Multivariate statistiek": "6de jaar"},
     2: {m: ("3de jaar" if i < 9 else "4de jaar") for i, (m, _, _) in enumerate(MODULES_2)},
 }
 # Per finaliteit een eigen voorstel waar het verschilt. 2de graad D/A heeft geen tweedegraadsfuncties in het 4de jaar:

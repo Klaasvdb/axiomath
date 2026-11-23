@@ -33,5 +33,6 @@ Leerplan: B+S'' (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met le
 | [Data en onzekerheid/Statistiek](Data%20en%20onzekerheid/Statistiek) | LPD 50-54, K1 | 4 hoofdstukken, eerste versie, nog na te lezen |
 | [Data en onzekerheid/Kansverdelingen](Data%20en%20onzekerheid/Kansverdelingen) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 48-50 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Data en onzekerheid/Lineaire regressie](Data%20en%20onzekerheid/Lineaire%20regressie) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 51-52 | drie hoofdstukken, eerste versie, nog na te lezen |
+| [Data en onzekerheid/Multivariate statistiek](Data%20en%20onzekerheid/Multivariate%20statistiek) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 53-54 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Onderzoekscompetentie](Onderzoekscompetentie) | LPD 55 | drie hoofdstukken, eerste versie, nog na te lezen |
 

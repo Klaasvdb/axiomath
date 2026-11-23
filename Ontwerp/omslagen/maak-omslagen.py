@@ -65,6 +65,7 @@ SCHILDERIJEN = {
     "kazen": ("File:Clara Peeters - Still Life with Cheeses, Almonds and Pretzels - 1203 - Mauritshuis.jpg", 0.5, 0.5),  # Clara Peeters, lineair programmeren
     "geldwisselaar": ("File:Quentin Massys 001.jpg", 0.5, 0.5),  # Quinten Massys, De geldwisselaar en zijn vrouw (financiële algebra)
     "sterrenkundige": ("File:Astronomer in a window, by Gerard Dou.jpg", 0.5, 0.62),  # Gerrit Dou, lineaire regressie
+    "irissen": ("File:KORIN-Irises-R.jpg", 0.42, 0.5),  # Ogata Korin, Irissen (rechterscherm), multivariate statistiek
     "melencolia": ("File:Albrecht Dürer, Melencolia I, 1514, NGA 6640.jpg", 0.5, 0.2),  # Dürer, Melencolia I met het magische vierkant (vectorruimten)
     "theekransje": ("File:John Tenniel - Illustration from The Nursery Alice (1890) - c03757 07.jpg", 0.45, 0.5),  # Tenniel, predicatenlogica
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
