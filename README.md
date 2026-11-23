@@ -24,9 +24,9 @@ Een percentage hoort bij een status: ⚪ **gepland** (0 %): nog niet begonnen, �
 
 ### 3de graad doorstroomfinaliteit
 
-**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 52 handboeken
+**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 53 handboeken
 
-🔴 51 eerste versie · 🟠 1 tweede versie
+🔴 52 eerste versie · 🟠 1 tweede versie
 
 #### Per richting
 
@@ -115,6 +115,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Rationale functies](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Rationale functies/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Limieten en afgeleiden](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Limieten en afgeleiden/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Integralen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>) | Analyse | 🟠 tweede versie | `████████░░░░░░░░░░░░` |  40 % |
+| [Differentiaalvergelijkingen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Differentiaalvergelijkingen/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Reeksen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Reeksen/README.md>) | Analyse | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Matrices](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Matrices/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Complexe getallen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Complexe getallen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |

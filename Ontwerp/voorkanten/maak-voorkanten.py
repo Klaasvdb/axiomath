@@ -82,6 +82,7 @@ HANDBOEKEN_LIJST += [(P4, m, n, jaar) for m, n, jaar in [
     ("Analyse/Rationale functies", "rationale-functies", "5de jaar"),
     ("Analyse/Limieten en afgeleiden", "afgeleiden", "5de jaar"),
     ("Analyse/Integralen", "integralen", "6de jaar"),
+    ("Analyse/Differentiaalvergelijkingen", "differentiaalvergelijkingen", "6de jaar"),
     ("Analyse/Reeksen", "reeksen", "6de jaar"),
     ("Algebra/Matrices", "matrices", "5de jaar"),
     ("Algebra/Complexe getallen", "complexe-getallen", "5de jaar"),
@@ -264,6 +265,7 @@ TITELS = {
     "Functies en verandering": (r"Functies en\\verandering", 46),
     "Wiskunde in de praktijk": (r"Wiskunde in\\de praktijk", 46),
     "Kernvaardigheden 4de jaar": (r"Kernvaardigheden\\4de jaar", 46),
+    "Differentiaalvergelijkingen": (r"Differentiaal-\\vergelijkingen", 46),
 }
 
 
@@ -364,7 +366,7 @@ JAAR_VOORSTEL = {
     3: {"Analyse/Algemene functies": "5de jaar", "Analyse/Exponentiële en logaritmische functies": "5de jaar",
         "Analyse/Goniometrische functies": "5de jaar", "Analyse/Rationale functies": "5de jaar",
         "Analyse/Afgeleiden": "5de jaar", "Analyse/Limieten en afgeleiden": "5de jaar", "Analyse/Integralen": "6de jaar",
-        "Analyse/Reeksen": "6de jaar",
+        "Analyse/Differentiaalvergelijkingen": "6de jaar", "Analyse/Reeksen": "6de jaar",
         "Algebra/Matrices": "5de jaar", "Algebra/Complexe getallen": "5de jaar", "Algebra/Groepen": "6de jaar",
         "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
         "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar",

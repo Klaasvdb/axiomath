@@ -108,8 +108,10 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Statistiek | [Pakket 3 / Data en onzekerheid](<3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Data en onzekerheid/Statistiek/README.md>) | eerste versie, nog na te lezen |
 | Onderzoekscompetentie | [Pakket 4](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Onderzoekscompetentie/README.md>) | eerste versie, nog na te lezen |
 | Complexe getallen | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Complexe getallen/README.md>) | eerste versie, nog na te lezen |
+| Getaltheorie | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Getaltheorie/README.md>) | eerste versie, nog na te lezen |
 | Matrices | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Matrices/README.md>) | eerste versie, nog na te lezen |
 | Algemene functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Algemene functies/README.md>) | eerste versie, nog na te lezen |
+| Differentiaalvergelijkingen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Differentiaalvergelijkingen/README.md>) | eerste versie, nog na te lezen |
 | Exponentiële en logaritmische functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Exponentiële en logaritmische functies/README.md>) | eerste versie, nog na te lezen |
 | Goniometrische functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Goniometrische functies/README.md>) | eerste versie, nog na te lezen |
 | Integralen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>) | eerste versie, nog na te lezen |

@@ -56,6 +56,7 @@ SCHILDERIJEN = {
     "staalmeesters": ("File:Rembrandt - De Staalmeesters- het college van staalmeesters (waardijns) van het Amsterdamse lakenbereidersgilde - Google Art Project.jpg", 0.5, 0.5),
     "geograaf": ("File:Johannes Vermeer - The Geographer - Google Art Project.jpg", 0.5, 0.3),
     "planetarium": ("File:Wright of Derby, The Orrery.jpg", 0.5, 0.45),  # Wright of Derby, kegelsneden
+    "thee": ("File:Jean-Baptiste Siméon Chardin 018.jpg", 0.7, 0.5),  # Chardin, Dame die thee drinkt (differentiaalvergelijkingen)
     "ambassadeurs": ("File:Hans Holbein the Younger - The Ambassadors - Google Art Project.jpg", 0.5, 0.5),  # Holbein, getaltheorie
     "deuren": ("File:Vilhelm Hammershøi- Weiße Türen, offene Türen, 1905.jpg", 0.5, 0.5),  # Hammershøi, reeksen
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
