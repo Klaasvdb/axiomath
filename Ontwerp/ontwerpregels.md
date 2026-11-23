@@ -204,6 +204,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Kansverdelingen | Gustave Caillebotte, *Parijse straat, regenachtige dag*, 1877 | Voorbijgangers die elk op hun eigen moment het plein oversteken: het aantal per minuut volgt een Poissonverdeling (hoofdstuk 2) | Het staafdiagram van de Poissonverdeling met λ = 3, met de twee even hoge toppen bij 2 en 3 in fel |
 | Numerieke methodes | William Blake, *Newton*, 1795-ca. 1805 | Isaac Newton buigt zich met een passer over een tekening; de methode van Newton draagt zijn naam | De methode van Newton voor u² = 2,25: vanuit 5,3 volgen de raaklijnen naar 2,86, 1,82, 1,53 en de nulwaarde 1,5 |
 | Iteraties en fractalen | Ernst Haeckel, *Siphonophorae*, uit *Kunstformen der Natur*, 1904 | Een siphonofoor is een kolonie van steeds dezelfde bouwstenen, met tentakels die zich op elke schaal opnieuw vertakken: de fractale vormen van de natuur | De bovenrand van de band is de Koch-kromme, van links naar rechts na 0, 1, 2 en 3 iteraties |
+| Lineair programmeren | Clara Peeters, *Stilleven met kazen, amandelen en krakelingen*, ca. 1615 | Kaas, brood en amandelen: het dieetprobleem (de goedkoopste voeding die genoeg voedingsstoffen geeft) was een van de eerste problemen van lineair programmeren, en komt terug in hoofdstuk 2 en 3 | Het toegestane gebied van het probleem van hoofdstuk 2, met drie niveaulijnen; de laatste raakt het gebied in het optimum (135, 30), in fel. De bovenrand daalt zoals een niveaulijn |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 

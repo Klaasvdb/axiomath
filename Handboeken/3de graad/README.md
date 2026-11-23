@@ -109,6 +109,7 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Onderzoekscompetentie | [Pakket 4](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Onderzoekscompetentie/README.md>) | eerste versie, nog na te lezen |
 | Complexe getallen | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Complexe getallen/README.md>) | eerste versie, nog na te lezen |
 | Getaltheorie | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Getaltheorie/README.md>) | eerste versie, nog na te lezen |
+| Lineair programmeren | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Lineair programmeren/README.md>) | eerste versie, nog na te lezen |
 | Matrices | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Matrices/README.md>) | eerste versie, nog na te lezen |
 | Algemene functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Algemene functies/README.md>) | eerste versie, nog na te lezen |
 | Differentiaalvergelijkingen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Differentiaalvergelijkingen/README.md>) | eerste versie, nog na te lezen |

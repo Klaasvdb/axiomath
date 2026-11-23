@@ -1,0 +1,513 @@
+%----------------------------------------------------------------------------------------
+% LINEAIR PROGRAMMEREN (GRAFISCH OPTIMALISEREN). Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Grafisch optimaliseren}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Jullie mini-onderneming maakt voor de kerstmarkt geurkaarsen en dozen zeep. Een kaars brengt 4 euro winst op, een doos zeep 5 euro. Een kaars vraagt 20 minuten werk en 10 ml geurolie, een doos zeep 30 minuten werk en 5 ml geurolie. Samen hebben jullie 60 uur werktijd, 1,5 liter geurolie en 100 verpakkingen voor de zeep. Hoeveel kaarsen en hoeveel dozen zeep maak je, als je zoveel mogelijk winst wilt?}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[accent,thick,fill=accent!12] (0,0) rectangle (1.4,2);
+  \draw[grijs,thick] (.7,2) -- (.7,2.3);
+  \fill[accent!70] (.7,2.75) .. controls (.95,2.45) and (.9,2.3) .. (.7,2.3) .. controls (.5,2.3) and (.45,2.45) .. (.7,2.75);
+  \node at (.7,-.4) {4 euro};
+  \draw[accent,thick,fill=accent!12] (2.2,0) rectangle (4.2,1.2);
+  \draw[accent,thick] (2.2,1.2) -- (2.5,1.5) -- (4.5,1.5) -- (4.2,1.2) (4.5,1.5) -- (4.5,.3) -- (4.2,0);
+  \node at (3.3,-.4) {5 euro};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 37, met de wenken over de deelstappen (doelfunctie, beperkende voorwaarden, toegestaan gebied, optimum, interpretatie) en de contexten uit economie, logistiek en productie. Voorkennis: hoofdstuk 1 (oplossingsgebied, hoekpunten, convex) en vectoren voor het lijnstuk. De hoekpuntstelling wordt bewezen; het bewijs gebruikt dat het gebied convex is. Laat de leerlingen het probleem eerst zelf proberen: de meesten kiezen een uiterste, zoals zoveel mogelijk kaarsen, en vinden zo 600 euro. Het optimum van 690 euro ligt in een hoekpunt dat niemand zo raadt.}
+
+In hoofdstuk 1 tekende je alle mogelijkheden die aan een paar voorwaarden voldoen. Maar meestal wil je niet zomaar een mogelijkheid: je wilt de \textit{beste}, met de grootste winst of de kleinste kost. Zo'n probleem heet een lineair programmeringsprobleem. \textit{Programmeren} betekent hier plannen, niet een computer programmeren: het woord komt uit de jaren 1940, toen het Amerikaanse leger zijn bevoorrading leerde plannen.
+
+In dit hoofdstuk zie je waarom het beste punt altijd in een hoekpunt van het gebied ligt. Dat herleidt een oneindig aantal mogelijkheden tot een handvol hoekpunten. Daarna leer je een vraagstuk in vijf stappen oplossen, en zie je wat er gebeurt als er geen beste punt is, of als er heel veel zijn.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. De leerlingen zien dat de punten met dezelfde waarde op evenwijdige rechten liggen, en dat de grootste waarde in een hoekpunt zit.}
+
+%========================================================================================
+\section{Doelfunctie en niveaulijnen}
+
+\subsection{De doelfunctie}
+
+In het probleem is de winst $4x + 5y$ euro, als je $x$ kaarsen en $y$ dozen zeep maakt. Probeer een paar mogelijkheden. Alleen kaarsen: de olie laat er 150 toe, voor 600 euro. Zoveel mogelijk zeep, 100 dozen, en met de werktijd die overblijft nog 30 kaarsen: dat is 620 euro. En 100 kaarsen met 50 dozen? Dat past ook ($3500$ minuten werk, 1250 ml olie), en brengt 650 euro op. Hoe weet je wanneer je de beste hebt gevonden?
+
+Er zijn veel meer combinaties met 650 euro winst: alle punten van het gebied op de rechte $4x + 5y = 650$. Elke winst hoort zo bij een rechte. Dat idee maakt het probleem overzichtelijk.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{doelfunctie}} is een functie $\formule{Z = ax + by}$ die je zo groot of zo klein mogelijk wilt maken. De rechte $\formule{ax + by = k}$ heet de \textbf{\textcolor{accent}{niveaulijn}} van $Z$ bij de waarde $k$: daar is $Z = k$.
+
+\begin{stelling}{Niveaulijnen}
+Neem $Z = ax + by$, met $a$ en $b$ niet allebei nul. Alle niveaulijnen zijn evenwijdig, en in de richting van de vector $(a, b)$ stijgt $Z$:
+
+\vspace{1mm}
+\qquad $\formule{Z\bigl(P + t\,(a, b)\bigr) = Z(P) + t\,(a^2 + b^2)}$
+\end{stelling}
+
+\begin{bewijs}
+Twee niveaulijnen $ax + by = k_1$ en $ax + by = k_2$ hebben dezelfde normaalvector $(a, b)$, dus zijn ze evenwijdig. Neem $P(x, y)$. Dan is
+\bewijsregel{Z\bigl(P + t\,(a, b)\bigr) = a\,(x + ta) + b\,(y + tb) = ax + by + t\,(a^2 + b^2) .}
+Omdat $a^2 + b^2 > 0$, stijgt dat als $t$ groter wordt.
+\end{bewijs}
+\end{theorie}
+
+Schuif je de niveaulijn evenwijdig met zichzelf in de richting van $(a, b)$, dan wordt $Z$ groter, en in de andere richting kleiner. Het beste punt vind je dus door de niveaulijn zo ver mogelijk te schuiven, maar zo dat ze het gebied nog raakt.
+
+\voorbeeld{}{Het gebied $G$ is de vierhoek met hoekpunten $(0, 0)$, $(5, 0)$, $(3, 2)$ en $(0, 3)$, uit voorbeeld~\ref{vb:h1-stelsel}. Teken niveaulijnen van $Z = 2x + y$ en zoek waar $Z$ het grootst is.\label{vb:h2-niveau}}{%
+\uitleg{De niveaulijnen $2x + y = k$ hebben rico $-2$. We tekenen er een paar en schuiven in de richting van $(2, 1)$, waarin $Z$ stijgt.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+2x + y = 2,\ 4,\ 6,\ 8 & Niveaulijnen door het gebied. \\[1ex]
+Z(3, 2) = 8 & De niveaulijn $Z = 8$ raakt nog het hoekpunt $(3, 2)$. \\[1ex]
+Z(5, 0) = 10 & De laatste niveaulijn die het gebied raakt: het maximum.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \path[gebied] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \rooster{-1}{1}{6}{-1}{1}{4}
+  \draw[grens] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \begin{scope}\venster{-1}{6.5}{-1}{4.5}
+    \foreach \k in {2,4,6,8}{\grenslijn[niveau]{2}{1}{\k}}
+    \grenslijn[niveau,very thick]{2}{1}{10}
+  \end{scope}
+  \draw[->,accent,thick] (1,1) -- (3,2) node[above,text=black,font=\tiny] {$(2,1)$};
+  \optimum{5}{0}{}
+\end{tikzpicture}}
+Het maximum is $Z = 10$, in $(5, 0)$. Schuif je in de andere richting, dan is de laatste niveaulijn $2x + y = 0$: het minimum is $0$, in de oorsprong.}
+
+\begin{oefeningen}
+\oef{h2-niveau}
+\end{oefeningen}
+
+%========================================================================================
+\section{De hoekpuntstelling}
+
+\subsection{Waarom altijd een hoekpunt?}
+
+In voorbeeld~\ref{vb:h2-niveau} raakte de laatste niveaulijn het gebied in een hoekpunt. Is dat toeval? Kan het beste punt niet ergens midden in het gebied liggen, of midden op een zijde? We bewijzen dat dat niet nodig is. Het eerste stuk zegt wat $Z$ doet op een lijnstuk.
+
+\begin{theorie}
+\begin{stelling}{Op een lijnstuk}
+Is $R = (1 - t)\,P + t\,Q$ een punt van het lijnstuk $[PQ]$, met $0 \leqslant t \leqslant 1$, dan is
+
+\vspace{1mm}
+\qquad $\formule{Z(R) = (1 - t)\,Z(P) + t\,Z(Q)}$
+
+\vspace{1mm}
+Op een lijnstuk ligt $Z$ dus tussen de waarden in de eindpunten, en is $Z(P) = Z(Q)$, dan is $Z$ constant op $[PQ]$.
+\end{stelling}
+
+\begin{bewijs}
+Met $P(x_1, y_1)$ en $Q(x_2, y_2)$ is
+\bewijsregel{Z(R) = a\bigl((1 - t)x_1 + tx_2\bigr) + b\bigl((1 - t)y_1 + ty_2\bigr) = (1 - t)(ax_1 + by_1) + t\,(ax_2 + by_2) .}
+Omdat $1 - t$ en $t$ niet negatief zijn en samen 1, ligt die waarde tussen $Z(P)$ en $Z(Q)$.
+\end{bewijs}
+\end{theorie}
+
+Langs een lijnstuk verandert $Z$ dus gelijkmatig, als een eerstegraadsfunctie van $t$. Een grootste of kleinste waarde zit daarom in een eindpunt. Met die eigenschap bewijzen we de belangrijkste stelling van de cursus.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+\begin{stelling}{Hoekpuntstelling}
+Is het oplossingsgebied $G$ een begrensde veelhoek, dan bereikt $Z = ax + by$ op $G$ een grootste en een kleinste waarde, en wel in een hoekpunt.
+\end{stelling}
+
+\begin{bewijs}
+Noem $M$ de grootste waarde van $Z$ in de hoekpunten. Neem een punt $R$ van $G$, en een hoekpunt $A$ met $A \neq R$. De halfrechte uit $A$ door $R$ verlaat het begrensde gebied in een randpunt $S$, en omdat $G$ convex is, ligt $R$ op $[AS]$. Het punt $S$ ligt op een zijde $[BC]$, met hoekpunten $B$ en $C$. Twee keer de vorige stelling geeft
+\bewijsregel{Z(S) \leqslant \max\bigl(Z(B), Z(C)\bigr) \leqslant M ,}
+\bewijsregel{Z(R) \leqslant \max\bigl(Z(A), Z(S)\bigr) \leqslant M .}
+Geen enkel punt van $G$ doet dus beter dan $M$, en $M$ wordt in een hoekpunt bereikt. Voor de kleinste waarde keer je de ongelijkheden om.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \path[gebied,draw=grijs,thick] (0,0) -- (3,0) -- (3.8,1.6) -- (2,3) -- (0,2.2) -- cycle;
+  \draw[accent,thick] (0,0) -- (2.9,2.3);
+  \hoekpunt[below left]{0}{0}{$A$}
+  \fill[accent] (1.5,1.19) circle (1.8pt) node[above left,text=black,inner sep=1.5pt] {$R$};
+  \hoekpunt[above right]{2.9}{2.3}{$S$}
+  \hoekpunt[right]{3.8}{1.6}{$B$}
+  \hoekpunt[above]{2}{3}{$C$}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Wat betekent dat? Om het beste punt te vinden, hoef je niet de oneindig vele punten van het gebied te bekijken, maar alleen de hoekpunten. Het bewijs gebruikt twee dingen: dat $Z$ van de eerste graad is (daardoor geldt de stelling op een lijnstuk) en dat het gebied convex is. In een gebied met een deuk, of met een doelfunctie zoals $xy$, kan het optimum wel ergens anders liggen (zie Koppel).
+
+Uit de stelling op een lijnstuk volgt nog iets. Zijn twee naburige hoekpunten allebei optimaal, dan is $Z$ op de hele zijde ertussen even groot: alle punten van die zijde zijn dan optimaal. Daarover gaat sectie 4.
+
+\voorbeeld{}{Bepaal de grootste en de kleinste waarde van $Z = 3x + 4y$ op het oplossingsgebied van voorbeeld~\ref{vb:h1-snijpunt}, met hoekpunten $\bigl(\tfrac12, 1\bigr)$, $(6, 1)$, $(6, 2)$ en $\bigl(\tfrac83, \tfrac{16}{3}\bigr)$.\label{vb:h2-hoekpunt}}{%
+\uitleg{Het gebied is een begrensde vierhoek: volgens de hoekpuntstelling volstaat het om $Z$ in de vier hoekpunten te berekenen.}
+\naast{{\renewcommand{\arraystretch}{1.5}\begin{tabular}{|c|c|}
+\hline
+\textbf{hoekpunt} & $Z = 3x + 4y$ \\ \hline
+$\bigl(\tfrac12, 1\bigr)$ & $\tfrac32 + 4 = \tfrac{11}{2}$ \\ \hline
+$(6, 1)$ & $18 + 4 = 22$ \\ \hline
+$(6, 2)$ & $18 + 8 = 26$ \\ \hline
+$\bigl(\tfrac83, \tfrac{16}{3}\bigr)$ & $8 + \tfrac{64}{3} = \tfrac{88}{3}$ \\ \hline
+\end{tabular}}}{\begin{tikzpicture}[scale=.38,font=\scriptsize]
+  \path[gebied] (.5,1) -- (6,1) -- (6,2) -- (8/3,16/3) -- cycle;
+  \rooster{-1}{1}{8}{-1}{1}{7}
+  \draw[grens] (.5,1) -- (6,1) -- (6,2) -- (8/3,16/3) -- cycle;
+  \begin{scope}\venster{-1}{8.5}{-1}{7.5}\grenslijn[niveau]{3}{4}{88/3}\grenslijn[niveau]{3}{4}{5.5}\end{scope}
+  \optimum[right]{8/3}{16/3}{max}
+  \optimum[below]{.5}{1}{min}
+\end{tikzpicture}}
+Het maximum is $\tfrac{88}{3} \approx 29{,}3$ in $\bigl(\tfrac83, \tfrac{16}{3}\bigr)$, het minimum $\tfrac{11}{2}$ in $\bigl(\tfrac12, 1\bigr)$. Een figuur alleen had niet verteld of $(6, 2)$ of $\bigl(\tfrac83, \tfrac{16}{3}\bigr)$ beter is: de waarden 26 en 29,3 liggen dicht bij elkaar.}
+
+\begin{werkwijze}
+\textbf{Hoekpuntmethode.} Bepaal alle hoekpunten van het begrensde gebied exact, bereken $Z$ in elk hoekpunt, en kies de grootste of de kleinste waarde.
+\end{werkwijze}
+
+\nujij{Bepaal het maximum van $Z = x + 4y$ op de vierhoek van voorbeeld~\ref{vb:h2-niveau}.}{$Z(0, 0) = 0$, $Z(5, 0) = 5$, $Z(3, 2) = 11$ en $Z(0, 3) = 12$: maximum 12 in $(0, 3)$.}
+
+\begin{oefeningen}
+\oef{h2-hoekpunt}
+\end{oefeningen}
+
+\subsection{Met niveaulijnen}
+
+Heeft het gebied veel hoekpunten, dan is het werk om ze allemaal te berekenen. De niveaulijnen tonen welk hoekpunt het wordt: dan bereken je alleen dat ene exact.
+
+\voorbeeld{}{Zoek met niveaulijnen het minimum en het maximum van $Z = x - 2y$ op de vierhoek met hoekpunten $(0, 0)$, $(5, 0)$, $(3, 2)$ en $(0, 3)$.\label{vb:h2-niveaulijn}}{%
+\uitleg{Een negatieve coëfficiënt: $Z$ stijgt in de richting van $(1, -2)$, naar rechts en naar onder. Voor het minimum schuiven we de andere kant op, naar links en naar boven.}
+\naast{\begin{stappenvrij}{4.8cm}{4cm}
+x - 2y = 0 & Een niveaulijn door de oorsprong, met rico $\tfrac12$. \\[1ex]
+Z(0, 3) = -6 & Naar links boven: het laatste punt is $(0, 3)$. \\[1ex]
+Z(5, 0) = 5 & Naar rechts onder: het laatste punt is $(5, 0)$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \path[gebied] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \rooster{-1}{1}{6}{-1}{1}{4}
+  \draw[grens] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \begin{scope}\venster{-1}{6.5}{-1}{4.5}
+    \grenslijn[niveau]{1}{-2}{0}\grenslijn[niveau,very thick]{1}{-2}{-6}\grenslijn[niveau,very thick]{1}{-2}{5}
+  \end{scope}
+  \draw[->,accent,thick] (2,1) -- (2.8,-.6);
+  \optimum[above right]{0}{3}{min}
+  \optimum[above]{5}{0}{max}
+\end{tikzpicture}}
+Het minimum is $-6$ in $(0, 3)$, het maximum 5 in $(5, 0)$.}
+
+\begin{werkwijze}
+\textbf{Niveaulijnmethode.} Teken een niveaulijn $ax + by = k$ door het gebied. Schuif ze evenwijdig in de richting van $(a, b)$ voor een maximum, of in de tegengestelde richting voor een minimum, tot ze het gebied net nog raakt. Bereken het hoekpunt dat ze dan raakt exact, en de waarde van $Z$ daar.
+\end{werkwijze}
+
+Twijfel je tussen twee hoekpunten, omdat de niveaulijn bijna evenwijdig is met een zijde, bereken dan $Z$ in allebei.
+
+\begin{oefeningen}
+\oef{h2-niveaulijn}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een vraagstuk in vijf stappen}
+
+\subsection{Terug naar het probleem}
+
+Nu hebben we alles om het probleem van de mini-onderneming op te lossen. We doen het in vijf stappen, die bij elk lineair programmeringsprobleem terugkomen. De voorwaarden heten in zo'n vraagstuk de \emph{beperkende voorwaarden}, en hun oplossingsgebied het \emph{toegestane gebied}.
+
+\voorbeeld{}{Terug naar het probleem. Hoeveel kaarsen en dozen zeep moet de mini-onderneming maken voor de grootste winst?\label{vb:h2-terug}}{%
+\uitleg{We kiezen de onbekenden, schrijven de doelfunctie en de beperkende voorwaarden op, tekenen het toegestane gebied, en zoeken het optimum. Op het einde vertalen we terug naar de context.}
+\begin{stappen}
+x = \text{kaarsen}, \ y = \text{dozen zeep} & Stap 1: de onbekenden. \\[1ex]
+W = 4x + 5y & Stap 2: de doelfunctie, de winst in euro. Maximaliseren. \\[1ex]
+20x + 30y \leqslant 3600 & Stap 3: werktijd in minuten ($60 \cdot 60$). \\
+10x + 5y \leqslant 1500 & Geurolie in ml. \\
+y \leqslant 100, \quad x, y \geqslant 0 & Verpakkingen, en aantallen.
+\end{stappen}
+\naast{\begin{stappenvrij}{4.6cm}{3.1cm}
+\begin{cases} 2x + 3y = 360 \\ 2x + y = 300 \end{cases} & Stap 4: de hoekpunten. Trek af: $2y = 60$. \\[3ex]
+(135, 30) & Dus $y = 30$ en $x = 135$. \\[1ex]
+(30, 100) & $y = 100$ in $2x + 3y = 360$. \\[1ex]
+(150, 0), \ (0, 100), \ (0, 0) & Op de assen.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.027cm,y=.027cm,font=\scriptsize]
+  \path[gebied] (0,0) -- (150,0) -- (135,30) -- (30,100) -- (0,100) -- cycle;
+  \roosterom{0}{20}{40}{180}{0}{20}{40}{140}
+  \begin{scope}\venster{0}{185}{0}{145}
+    \grenslijn{2}{3}{360}\grenslijn{2}{1}{300}\grenslijn{0}{1}{100}
+    \grenslijn[niveau]{4}{5}{400}\grenslijn[niveau,very thick]{4}{5}{690}
+  \end{scope}
+  \optimum[above right]{135}{30}{}
+  \hoekpunt[above right]{30}{100}{}
+\end{tikzpicture}}
+{\small\renewcommand{\arraystretch}{1.4}\setlength{\tabcolsep}{4pt}\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{hoekpunt} & $(0, 0)$ & $(150, 0)$ & $(135, 30)$ & $(30, 100)$ & $(0, 100)$ \\ \hline
+$W = 4x + 5y$ & 0 & 600 & \textbf{690} & 620 & 500 \\ \hline
+\end{tabular}}
+
+\smallskip
+Stap 5, de interpretatie: maak 135 kaarsen en 30 dozen zeep, voor 690 euro winst. Werktijd en olie zijn dan volledig op, er blijven 70 verpakkingen over.}
+
+Merk op dat het optimum geen voor de hand liggende keuze is. Wie alleen kaarsen maakt (600 euro), of zoveel mogelijk zeep (620 euro), laat geld liggen. In $(135, 30)$ worden de twee schaarse middelen, werktijd en olie, allebei volledig gebruikt.
+
+\begin{werkwijze}
+\textbf{Een lineair programmeringsprobleem in vijf stappen.}
+\begin{enumerate}
+\item Kies de onbekenden en zeg wat ze betekenen, met de eenheid.
+\item Schrijf de doelfunctie op, en zeg of ze maximaal of minimaal moet zijn.
+\item Zet de beperkende voorwaarden om in ongelijkheden, ook $x \geqslant 0$ en $y \geqslant 0$.
+\item Teken het toegestane gebied, bepaal de hoekpunten en zoek het optimum met de hoekpuntmethode of met niveaulijnen.
+\item Beantwoord de vraag in de context, met de eenheden, en controleer of het antwoord zinvol is.
+\end{enumerate}
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-model}
+\end{oefeningen}
+
+\subsection{Een kost minimaliseren}
+
+Een bedrijf wil niet altijd de grootste winst, soms zoekt het de kleinste kost. Dan staan er vaak ondergrenzen in de voorwaarden: \textit{minstens zoveel}. Het toegestane gebied is dan meestal onbegrensd. Heeft een minimum dan nog zin?
+
+\voorbeeld{}{Een tuinier heeft minstens 18 kg stikstof, 16 kg fosfaat en 11 kg kalium nodig. Een zak meststof A bevat 3 kg stikstof, 1 kg fosfaat en 1 kg kalium, en kost 12 euro. Een zak B bevat 1 kg stikstof, 2 kg fosfaat en 1 kg kalium, en kost 10 euro. De winkel verkoopt ook halve zakken. Hoeveel zakken van elk koopt de tuinier voor de laagste prijs?\label{vb:h2-mest}}{%
+\uitleg{De kost moet zo klein mogelijk. Het gebied is onbegrensd, maar de kost stijgt als je verder van de oorsprong gaat. De niveaulijnen schuiven we dus naar de oorsprong toe.}
+\begin{stappen}
+x = \text{zakken A}, \ y = \text{zakken B} & De onbekenden. \\[1ex]
+K = 12x + 10y \text{ minimaal} & De kost in euro. \\[1ex]
+3x + y \geqslant 18, \ x + 2y \geqslant 16, \ x + y \geqslant 11 & Stikstof, fosfaat, kalium; en $x, y \geqslant 0$.
+\end{stappen}
+\naast{\begin{stappenvrij}{4.9cm}{3.7cm}
+\bigl(\tfrac72, \tfrac{15}{2}\bigr) & $3x + y = 18$ en $x + y = 11$: trek af, $2x = 7$. \\[1ex]
+(6, 5) & $x + y = 11$ en $x + 2y = 16$. \\[1ex]
+(0, 18), \ (16, 0) & Op de assen. \\[1ex]
+K: \ 180,\ 117,\ 122,\ 192 & In $(0, 18)$, $\bigl(\tfrac72, \tfrac{15}{2}\bigr)$, $(6, 5)$, $(16, 0)$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.22,font=\scriptsize]
+  \path[gebied] (0,20) -- (0,18) -- (3.5,7.5) -- (6,5) -- (16,0) -- (18,0) -- (18,20) -- cycle;
+  \roosterom{0}{1}{4}{17}{0}{1}{4}{19}
+  \begin{scope}\venster{0}{18}{0}{20}
+    \grenslijn{3}{1}{18}\grenslijn{1}{2}{16}\grenslijn{1}{1}{11}
+    \grenslijn[niveau,very thick]{12}{10}{117}\grenslijn[niveau]{12}{10}{180}
+  \end{scope}
+  \optimum[below left]{3.5}{7.5}{}
+\end{tikzpicture}}
+De laagste prijs is 117 euro, met $3\tfrac12$ zakken A en $7\tfrac12$ zakken B. De voorwaarde op het fosfaat speelt geen rol: er komt $3{,}5 + 15 = 18{,}5$ kg fosfaat, meer dan nodig.}
+
+Waarom bestaat hier een minimum, terwijl het gebied onbegrensd is? Omdat beide coëfficiënten van $K$ positief zijn, en het gebied in het eerste kwadrant ligt: hoe verder van de oorsprong, hoe duurder. Een maximum bestaat er niet: de kost kan zo hoog als je wilt. In sectie 4 zie je dat het ook mis kan lopen.
+
+\begin{oefeningen}
+\oef{h2-min}
+\end{oefeningen}
+
+\subsection{Een transport plannen}
+
+Soms is de keuze van de onbekenden zelf het moeilijkste. In een transportprobleem zijn er meer hoeveelheden dan twee, maar ze hangen van elkaar af.
+
+\voorbeeld{}{Een bakkerijketen heeft twee magazijnen met paletten bloem: A met 70 en B met 60 paletten. Winkel 1 vraagt 40 paletten, winkel 2 vraagt 80. Het transport van één palet kost van A naar 1: 30 euro, van A naar 2: 20 euro, van B naar 1: 25 euro, en van B naar 2: 35 euro. Hoe plan je het transport zo goedkoop mogelijk?\label{vb:h2-transport}}{%
+\uitleg{Er zijn vier hoeveelheden, maar kies je wat A naar elke winkel stuurt, dan ligt de rest vast: B vult aan wat de winkels nog vragen.}
+\begin{stappen}
+x = A \to 1, \ y = A \to 2 & Dan is $B \to 1$ gelijk aan $40 - x$ en $B \to 2$ aan $80 - y$. \\[1ex]
+K = 30x + 20y + 25(40 - x) + 35(80 - y) & De totale kost in euro. \\[1ex]
+K = 5x - 15y + 3800 & Uitgewerkt. Minimaliseren. \\[1ex]
+0 \leqslant x \leqslant 40, \ 0 \leqslant y \leqslant 80 & Geen negatieve vrachten, ook niet uit B. \\[1ex]
+x + y \leqslant 70, \ 120 - x - y \leqslant 60 & De voorraad van A en van B.
+\end{stappen}
+\naast{\begin{stappenvrij}{4.6cm}{4cm}
+(0, 60), \ (0, 70) & Op $x = 0$, met $x + y = 60$ en $70$. \\[1ex]
+(40, 20), \ (40, 30) & Op $x = 40$. \\[1ex]
+K: \ 2900,\ 2750,\ 3700,\ 3550 & In die volgorde. \\[1ex]
+& Het minimum: 2750 euro, in $(0, 70)$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.06cm,y=.04cm,font=\scriptsize]
+  \path[gebied] (0,60) -- (0,70) -- (40,30) -- (40,20) -- cycle;
+  \roosterom{0}{10}{10}{50}{0}{10}{20}{90}
+  \begin{scope}\venster{0}{52}{0}{92}\grenslijn{1}{1}{70}\grenslijn{1}{1}{60}\grenslijn{1}{0}{40}\grenslijn{0}{1}{80}\end{scope}
+  \optimum[right]{0}{70}{}
+\end{tikzpicture}}
+Interpretatie: A stuurt al zijn 70 paletten naar winkel 2. B stuurt 40 paletten naar winkel 1 en 10 naar winkel 2, en houdt er 10 over. De kost is 2750 euro.}
+
+Kijk naar de kost $K = 5x - 15y + 3800$: elke palet van A naar 2 bespaart 15 euro, elke palet van A naar 1 kost 5 euro extra. Dat verklaart het resultaat al bijna: zoveel mogelijk van A naar 2.
+
+\begin{oefeningen}
+\oef{h2-transport}
+\end{oefeningen}
+
+%========================================================================================
+\section{Bijzondere gevallen}
+
+\subsection{Geen optimum}
+
+De hoekpuntstelling geldt voor een begrensd gebied. Wat als het gebied onbegrensd is, of leeg? Is het leeg, dan is er geen enkele mogelijkheid, en dus ook geen beste: het probleem is \textit{strijdig}. Is het onbegrensd, dan kan het optimum bestaan, zoals bij de meststof, maar het kan ook ontbreken.
+
+\voorbeeld{}{Bepaal het minimum en het maximum van $Z = x + 3y$ op het onbegrensde gebied van voorbeeld~\ref{vb:h1-onbegrensd}, met hoekpunten $(0, 6)$, $\bigl(\tfrac85, \tfrac65\bigr)$ en $(4, 0)$.\label{vb:h2-geenmax}}{%
+\uitleg{We kijken in welke richting $Z$ stijgt: $(1, 3)$, naar rechts boven. In die richting loopt het gebied eindeloos verder.}
+\naast{\begin{stappenvrij}{4.8cm}{4cm}
+Z(0, 6) = 18 & \\[.5ex]
+Z\bigl(\tfrac85, \tfrac65\bigr) = \tfrac85 + \tfrac{18}{5} = \tfrac{26}{5} & \\[.5ex]
+Z(4, 0) = 4 & Het minimum. \\[1ex]
+Z(n, n) = 4n & Geen maximum: voor grote $n$ ligt $(n, n)$ in het gebied, en $4n$ wordt zo groot als je wilt.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.38,font=\scriptsize]
+  \path[gebied] (0,7.5) -- (0,6) -- (1.6,1.2) -- (4,0) -- (7.5,0) -- (7.5,7.5) -- cycle;
+  \rooster{-1}{1}{7}{-1}{1}{7}
+  \begin{scope}\venster{-1}{7.5}{-1}{7.5}\grenslijn{1}{2}{4}\grenslijn{3}{1}{6}
+    \grenslijn[niveau,very thick]{1}{3}{4}\grenslijn[niveau]{1}{3}{12}\grenslijn[niveau]{1}{3}{20}\end{scope}
+  \optimum[above right]{4}{0}{min}
+  \draw[->,accent,thick] (5,2) -- (6,5);
+\end{tikzpicture}}
+Het minimum is 4, in $(4, 0)$. Een maximum is er niet. Toch is het minimum gewoon in een hoekpunt bereikt.}
+
+Bij een onbegrensd gebied controleer je dus eerst of de niveaulijn in de goede richting het gebied kan verlaten. Kan ze dat niet, dan zit het optimum in een hoekpunt. Kan ze dat wel, dan is er geen optimum, en meestal is dan het model fout: in werkelijkheid is er altijd een grens.
+
+\subsection{Meer dan één optimum}
+
+Wat als de niveaulijn evenwijdig is met een zijde van het gebied? Dan raakt de laatste niveaulijn het gebied niet in één punt, maar langs een hele zijde.
+
+\voorbeeld{}{Bepaal het maximum van $Z = x + y$ op de vierhoek met hoekpunten $(0, 0)$, $(5, 0)$, $(3, 2)$ en $(0, 3)$.\label{vb:h2-meer}}{%
+\uitleg{De zijde van $(5, 0)$ naar $(3, 2)$ ligt op $x + y = 5$, en dat is een niveaulijn van $Z$.}
+\naast{\begin{stappenvrij}{4.8cm}{4cm}
+Z: \ 0,\ 5,\ 5,\ 3 & In $(0, 0)$, $(5, 0)$, $(3, 2)$, $(0, 3)$. \\[1ex]
+R = (1 - t)(5, 0) + t\,(3, 2) & De punten van de zijde, $0 \leqslant t \leqslant 1$. \\[1ex]
+R = (5 - 2t,\ 2t) & Daar is $Z = 5$, volgens de stelling op een lijnstuk.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \path[gebied] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \rooster{-1}{1}{6}{-1}{1}{4}
+  \draw[grens] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \draw[accent,line width=2.2pt] (5,0) -- (3,2);
+  \begin{scope}\venster{-1}{6.5}{-1}{4.5}\grenslijn[niveau]{1}{1}{2}\grenslijn[niveau]{1}{1}{5.6}\end{scope}
+\end{tikzpicture}}
+Het maximum is 5, en elk punt van de zijde $[(5, 0), (3, 2)]$ is optimaal. In een context is dat goed nieuws: je hebt keuze, en je kunt een andere reden laten beslissen.}
+
+\begin{oefeningen}
+\oef{h2-bijzonder}
+\end{oefeningen}
+
+\subsection{Gehele oplossingen}
+
+Een tuinier kan geen $3\tfrac12$ zak kopen als de winkel geen halve zakken verkoopt, en een bedrijf maakt geen $12{,}7$ stoelen. Dan zoek je het beste punt met gehele coördinaten, een \emph{roosterpunt}, in het toegestane gebied. Volstaat het om af te ronden?
+
+\voorbeeld{}{De winkel van voorbeeld~\ref{vb:h2-mest} verkoopt geen halve zakken meer. Hoeveel zakken koopt de tuinier nu?\label{vb:h2-geheel}}{%
+\uitleg{Het optimum $\bigl(\tfrac72, \tfrac{15}{2}\bigr)$ is geen roosterpunt. We bekijken de roosterpunten in het gebied dicht bij dat hoekpunt, en zoeken welk punt de niveaulijn het eerst raakt als ze vanuit de oorsprong naar buiten schuift.}
+\naast{\begin{stappenvrij}{4.9cm}{3.6cm}
+(4, 8): \ K = 128 & Gewoon afronden naar boven: kan, maar duur. \\[.5ex]
+(3, 8): \ 3 \cdot 3 + 8 = 17 < 18 & Te weinig stikstof. \\[.5ex]
+(4, 7): \ K = 48 + 70 = 118 & Voldoet: $19 \geqslant 18$, $18 \geqslant 16$, $11 \geqslant 11$. \\[.5ex]
+(5, 6): \ K = 120 & Voldoet, maar duurder.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \begin{scope}\clip (2,3) rectangle (8,10);
+    \path[gebied] (8/3,10) -- (3.5,7.5) -- (6,5) -- (8,4) -- (8,10) -- cycle;
+    \draw[black!14,very thin] (2,3) grid (8,10);
+    \begin{scope}\venster{2}{8}{3}{10}\grenslijn{3}{1}{18}\grenslijn{1}{2}{16}\grenslijn{1}{1}{11}
+      \grenslijn[niveau]{12}{10}{117}\grenslijn[niveau,very thick]{12}{10}{118}\end{scope}
+  \end{scope}
+  \foreach \px in {2,...,8}{\node[below,font=\tiny] at (\px,3) {\px};}
+  \foreach \py in {3,...,10}{\node[left,font=\tiny] at (2,\py) {\py};}
+  \foreach \px in {2,...,8}{\foreach \py in {3,...,10}{\fill[grijs] (\px,\py) circle (1.5pt);}}
+  \optimum[left]{4}{7}{}
+  \draw[accent] (3.5,7.5) circle (3pt);
+\end{tikzpicture}}
+De beste keuze is 4 zakken A en 7 zakken B, voor 118 euro: één euro meer dan met halve zakken. Afronden naar boven, tot $(4, 8)$, kost 10 euro meer.}
+
+\begin{werkwijze}
+Zoek eerst het optimum zonder de voorwaarde \textit{geheel}. Bekijk de roosterpunten in het gebied rond dat optimum, controleer dat ze aan alle voorwaarden voldoen, en bereken $Z$ in die punten. Schuif in gedachten de niveaulijn: het eerste roosterpunt dat ze raakt, is het optimum.
+\end{werkwijze}
+
+Het gehele optimum hoeft niet het afgeronde optimum te zijn, en het ligt ook niet altijd vlak bij. In opdracht~\ref{oef:h2-o20} zie je een voorbeeld waar het ver weg ligt. Voor grote problemen is het zoeken naar gehele oplossingen veel moeilijker dan gewoon lineair programmeren.
+
+\begin{oefeningen}
+\oef{h2-geheel}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Afgeleiden en Matrices zagen de leerlingen in het 5de jaar. Ruimtemeetkunde staat in het 6de jaar: geef die oefening pas als vlakken in de ruimte gezien zijn.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-niveaulijn}{oef:h2-niveaulijn}%
+  \fv{oef:h2-t2}{vb:h2-hoekpunt}{oef:h2-hoekpunt}%
+  \fv{oef:h2-t3}{vb:h2-terug}{oef:h2-model}%
+  \fv{oef:h2-t4}{vb:h2-mest}{oef:h2-min}%
+  \fv{oef:h2-t5}{vb:h2-meer}{oef:h2-bijzonder}%
+  \fv{oef:h2-t6}{vb:h2-geenmax}{oef:h2-bijzonder}%
+  \fv{oef:h2-t7}{vb:h2-geheel}{oef:h2-geheel}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een doelfunctie en een niveaulijn zijn, in welke richting $Z$ stijgt, wat $Z$ doet op een lijnstuk, de hoekpuntstelling en het idee van haar bewijs, de hoekpuntmethode en de niveaulijnmethode, de vijf stappen van een vraagstuk, wanneer er geen optimum is, wanneer er meer dan één is, en hoe je een geheel optimum zoekt. Vergelijk daarna met de kaders.
+\fi

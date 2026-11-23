@@ -1,0 +1,473 @@
+%----------------------------------------------------------------------------------------
+% STELSELS VAN ONGELIJKHEDEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Stelsels van ongelijkheden}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Lotte werkt naast school in een ijssalon, voor 10 euro per uur, en ze geeft bijles wiskunde, voor 20 euro per uur. Ze wil per week minstens 160 euro verdienen. Meer dan 15 uur werken in totaal wil ze niet, ze heeft maar 6 uur per week bijles te geven, en de baas van het ijssalon vraagt minstens 5 uur. Kan ze 10 uur in het ijssalon staan en 2 uur bijles geven? En 8 uur ijssalon met 5 uur bijles? Hoe zie je in één oogopslag alle combinaties die kunnen?}{\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thick,fill=accent!12,rounded corners=2pt] (0,1.3) rectangle (2.5,2);
+  \node at (1.25,1.65) {ijssalon: 10 euro/u};
+  \draw[accent,thick,fill=accent!12,rounded corners=2pt] (0,.4) rectangle (2.5,1.1);
+  \node at (1.25,.75) {bijles: 20 euro/u};
+  \node at (1.25,0) {$\leqslant 15$ u \quad $\geqslant 160$ euro};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 36, met de wenken over vertrekken vanuit grenzen in een context en het halfvlak visueel aanbrengen. Voorkennis: uit de 2de graad eerstegraadsongelijkheden met één onbekende, de vergelijking van een rechte (richtingscoëfficiënt, door twee punten) en stelsels van twee eerstegraadsvergelijkingen; uit pakket 4 de eerstegraadsfuncties (Algemene functies) en de methode van Gauss (Matrices). Voor het lijnstuk in sectie 2 gebruiken we vectoren. Het begrip convex (sectie 2) en het bewijs dat een oplossingsgebied convex is, gaan verder dan LPD 36 vraagt: ze dragen de hoekpuntstelling van hoofdstuk 2.}
+
+Een vergelijking met twee onbekenden, zoals $x + y = 15$, heeft als oplossingen de punten van een rechte. Maar in het dagelijks leven zijn grenzen zelden zo strikt: je wilt \textit{hoogstens} 15 uur werken, \textit{minstens} 160 euro verdienen. Dat zijn ongelijkheden, en hun oplossingen vullen een stuk van het vlak.
+
+In dit hoofdstuk leer je zo'n stuk tekenen, eerst voor één ongelijkheid, dan voor een stelsel. Je bewijst dat het altijd een gebied zonder deuken is, en je leert omgekeerd voorwaarden in woorden omzetten in ongelijkheden. Dat is de basis voor de rest van de cursus: in hoofdstuk 2 zoek je in zo'n gebied de beste keuze.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen kleuren roosterpunten en zien dat de grens een rechte is. De vraag wat er gebeurt als ook niet-gehele punten mogen, leidt naar het halfvlak.}
+
+%========================================================================================
+\section{Eén ongelijkheid, een halfvlak}
+
+\subsection{Het halfvlak}
+
+Welke punten $(x, y)$ voldoen aan $2x + y \leqslant 6$? Probeer er een paar. Het punt $(1, 2)$ voldoet, want $2 + 2 = 4 \leqslant 6$. Het punt $(3, 1)$ niet, want $6 + 1 = 7$. En het punt $(2, 2)$ ligt net op de grens: $4 + 2 = 6$.
+
+De punten met $2x + y = 6$ vormen een rechte: $y = -2x + 6$. Schrijf je de ongelijkheid op dezelfde manier, dan staat er $y \leqslant -2x + 6$. Bij elke $x$ zijn dat de punten op of onder de rechte. De oplossingen vullen dus alles aan één kant van de rechte. Dat geldt voor elke eerstegraadsongelijkheid met twee onbekenden.
+
+\begin{theorie}
+Een rechte verdeelt het vlak in twee \textbf{\textcolor{accent}{halfvlakken}}. De rechte zelf is de \textbf{\textcolor{accent}{grensrechte}}. Een \textbf{\textcolor{accent}{gesloten}} halfvlak bevat de grensrechte, een \textbf{\textcolor{accent}{open}} halfvlak niet.
+
+\begin{stelling}{Halfvlak}
+Neem reële getallen $a$, $b$ en $c$, met $a$ en $b$ niet allebei nul. De punten met $\formule{ax + by < c}$ vormen een open halfvlak met grensrechte $\formule{ax + by = c}$. De punten met $\formule{ax + by > c}$ vormen het andere open halfvlak.
+\end{stelling}
+
+\begin{bewijs}
+Stel eerst $b > 0$. Delen door $b$ verandert de richting van de ongelijkheid niet:
+\bewijsregel{ax + by < c \iff y < \dfrac{c - ax}{b} ,}
+en dat zijn de punten onder de grensrechte $y = \tfrac{c - ax}{b}$. Net zo is $ax + by > c \iff y > \tfrac{c - ax}{b}$: de punten erboven. Stel nu $b < 0$. Delen door $b$ keert de ongelijkheid om, dus $ax + by < c$ geeft de punten boven de rechte en $ax + by > c$ die eronder. Stel tot slot $b = 0$, zodat $a \neq 0$. Dan is $ax < c$ hetzelfde als $x < \tfrac ca$ (voor $a > 0$) of $x > \tfrac ca$ (voor $a < 0$): de punten links of rechts van de verticale rechte $x = \tfrac ca$, en $ax > c$ geeft de andere kant. In elk geval zijn de twee verzamelingen de twee kanten van de grensrechte.
+\end{bewijs}
+\end{theorie}
+
+Het bewijs zegt meer dan de stelling: aan één kant van de grensrechte is $ax + by - c$ overal positief, aan de andere kant overal negatief. Daarom volstaat één \emph{testpunt} om te weten welke kant de goede is. Bij $\leqslant$ en $\geqslant$ hoort de grensrechte erbij: dan teken je ze vol. Bij $<$ en $>$ teken je ze in stippellijn. In de figuren van dit boek kleuren we de punten die voldoen.
+
+\voorbeeld{}{Teken de oplossingen van $2x + y \leqslant 6$.\label{vb:h1-halfvlak}}{%
+\uitleg{We tekenen de grensrechte met twee handige punten, en kiezen een testpunt dat er niet op ligt.}
+\naast{\begin{stappenvrij}{4.6cm}{4.6cm}
+2x + y = 6 & De grensrechte. \\[1ex]
+(0, 6) \text{ en } (3, 0) & De snijpunten met de assen: $x = 0$ en $y = 0$ invullen. \\[1ex]
+2 \cdot 0 + 0 = 0 \leqslant 6 & Testpunt $(0, 0)$: waar. \\[1ex]
+& We kleuren de kant van de oorsprong, met de grensrechte vol.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.4,font=\scriptsize]
+  \begin{scope}\venster{-2}{5}{-2}{7}\halfvlak{2}{1}{6}\end{scope}
+  \rooster{-2}{1}{5}{-2}{1}{7}
+  \begin{scope}\venster{-2}{5}{-2}{7}\grenslijn{2}{1}{6}\end{scope}
+  \hoekpunt{0}{6}{}
+  \hoekpunt{3}{0}{}
+\end{tikzpicture}}}
+
+\voorbeeld{}{Teken de oplossingen van $3x - 2y > 6$.\label{vb:h1-open}}{%
+\uitleg{De ongelijkheid is strikt: de grensrechte hoort er niet bij. De oorsprong ligt niet op de grensrechte, dus is ze weer een goed testpunt.}
+\naast{\begin{stappenvrij}{4.6cm}{4.6cm}
+(0, -3) \text{ en } (2, 0) & De snijpunten van $3x - 2y = 6$ met de assen. \\[1ex]
+3 \cdot 0 - 2 \cdot 0 = 0 > 6 & Testpunt $(0, 0)$: vals. \\[1ex]
+& We kleuren de andere kant: rechts onder de rechte, met de grensrechte in stippellijn.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.4,font=\scriptsize]
+  \begin{scope}\venster{-2}{5}{-5}{4}\halfvlak{-3}{2}{-6}\end{scope}
+  \rooster{-2}{1}{5}{-5}{1}{4}
+  \begin{scope}\venster{-2}{5}{-5}{4}\grenslijn[opengrens]{3}{-2}{6}\end{scope}
+  \hoekpunt{0}{-3}{}
+  \hoekpunt{2}{0}{}
+\end{tikzpicture}}
+Controle met de vorm van de stelling: $3x - 2y > 6 \iff y < \tfrac32 x - 3$, de punten onder de rechte. Klopt.}
+
+Let op bij een ongelijkheid waarin maar één onbekende staat. Op een getallenas is $x \geqslant 1{,}5$ een halfrechte, maar in het vlak hoort bij elke $x \geqslant 1{,}5$ elke $y$.
+
+\voorbeeld{}{Teken de oplossingen van $2x - 3 \geqslant 0$ in het vlak.\label{vb:h1-verticaal}}{%
+\uitleg{Er staat geen $y$: in de stelling is $b = 0$. De grensrechte is verticaal.}
+\naast{\begin{stappenvrij}{4.6cm}{4.6cm}
+2x - 3 \geqslant 0 \iff x \geqslant \tfrac32 & Zoals bij een ongelijkheid met één onbekende. \\[1ex]
+x = \tfrac32 & De grensrechte, evenwijdig met de $y$-as. \\[1ex]
+& De punten rechts ervan, met de grensrechte vol. De waarde van $y$ is vrij.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.4,font=\scriptsize]
+  \begin{scope}\venster{-2}{5}{-2}{4}\halfvlak{-1}{0}{-1.5}\end{scope}
+  \rooster{-2}{1}{5}{-2}{1}{4}
+  \begin{scope}\venster{-2}{5}{-2}{4}\grenslijn{1}{0}{1.5}\end{scope}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Teken de grensrechte $ax + by = c$, bijvoorbeeld met haar snijpunten met de assen: vol bij $\leqslant$ en $\geqslant$, in stippellijn bij $<$ en $>$. Kies een testpunt dat niet op de grensrechte ligt, liefst de oorsprong, en vul het in. Is de ongelijkheid waar, kleur dan de kant van het testpunt, anders de andere kant.
+\end{werkwijze}
+
+Gaat de grensrechte door de oorsprong, dan is de oorsprong geen goed testpunt: kies dan bijvoorbeeld $(1, 0)$ of $(0, 1)$.
+
+\nujij{Teken de oplossingen van $x - 2y \geqslant 4$.}{Grensrechte door $(0, -2)$ en $(4, 0)$, vol. Testpunt $(0, 0)$: $0 \geqslant 4$ is vals, dus de kant zonder de oorsprong, onder de rechte.}
+
+\begin{oefeningen}
+\oef{h1-teken}
+
+\needspace{5\baselineskip}
+\oef{h1-punten}
+\end{oefeningen}
+
+%========================================================================================
+\section{Stelsels van ongelijkheden}
+
+\subsection{Het oplossingsgebied}
+
+Lotte heeft niet één voorwaarde, maar vier. Een combinatie van uren is pas goed als ze aan alle vier tegelijk voldoet. Dat is een stelsel van ongelijkheden. Elke ongelijkheid geeft een halfvlak, en een oplossing van het stelsel moet in al die halfvlakken liggen.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{oplossing}} van een stelsel van ongelijkheden in $x$ en $y$ is een punt $(x, y)$ dat aan alle ongelijkheden voldoet. Alle oplossingen samen vormen het \textbf{\textcolor{accent}{oplossingsgebied}}: de doorsnede van de halfvlakken van de ongelijkheden.
+\end{theorie}
+
+Hoe teken je een doorsnede? Teken alle grensrechten, en zoek het stuk dat bij elke ongelijkheid aan de goede kant ligt. Met de hand is het vaak overzichtelijker om per ongelijkheid de \textit{verkeerde} kant te arceren: wat op het einde wit blijft, is het oplossingsgebied. Beide manieren mogen, zeg er wel bij welke je kiest.
+
+\voorbeeld{}{Teken het oplossingsgebied van het stelsel $\begin{cases} x \geqslant 0, \ y \geqslant 0 \\ x + y \leqslant 5 \\ x + 3y \leqslant 9 \end{cases}$\label{vb:h1-stelsel}}{%
+\uitleg{Twee voorwaarden zeggen dat we in het eerste kwadrant blijven. Voor de twee andere tekenen we de grensrechte en kiezen we telkens de kant van de oorsprong, want $0 \leqslant 5$ en $0 \leqslant 9$ zijn waar.}
+\naast{\begin{stappenvrij}{4.8cm}{4.4cm}
+x + y = 5 & Door $(5, 0)$ en $(0, 5)$. \\[1ex]
+x + 3y = 9 & Door $(9, 0)$ en $(0, 3)$. \\[1ex]
+\begin{cases} x + y = 5 \\ x + 3y = 9 \end{cases} & Waar de twee grensrechten elkaar snijden: trek af. \\[3ex]
+2y = 4 \ \Rightarrow \ (3, 2) & Dan is $y = 2$ en $x = 3$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \path[gebied] (0,0) -- (5,0) -- (3,2) -- (0,3) -- cycle;
+  \rooster{-1}{1}{9}{-1}{1}{5}
+  \begin{scope}\venster{-1}{9.5}{-1}{5.5}\grenslijn{1}{1}{5}\grenslijn{1}{3}{9}\end{scope}
+  \draw[grens] (0,0) -- (0,5.5) (0,0) -- (9.5,0);
+  \hoekpunt{3}{2}{$(3,2)$}
+\end{tikzpicture}}
+Het oplossingsgebied is de vierhoek met hoekpunten $(0, 0)$, $(5, 0)$, $(3, 2)$ en $(0, 3)$.}
+
+\subsection{Hoekpunten}
+
+De hoekpunten van een oplossingsgebied worden in hoofdstuk 2 de belangrijkste punten. Een hoekpunt ligt op twee grensrechten, dus je vindt het als oplossing van een stelsel van twee vergelijkingen. Maar niet elk snijpunt van twee grensrechten is een hoekpunt: het moet ook aan de andere ongelijkheden voldoen.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{hoekpunt}} van een oplossingsgebied is een snijpunt van twee grensrechten dat aan alle ongelijkheden van het stelsel voldoet.
+\end{theorie}
+
+\voorbeeld{}{Bepaal de hoekpunten van het oplossingsgebied van $\begin{cases} y \geqslant 1 \\ x + y \leqslant 8 \\ y \leqslant 2x \\ x \leqslant 6 \end{cases}$\label{vb:h1-snijpunt}}{%
+\uitleg{Vier grensrechten geven hoogstens zes snijpunten. We berekenen ze allemaal en controleren telkens de twee andere ongelijkheden.}
+\naast{\begin{stappenvrij}{5.4cm}{3.6cm}
+y = 1, \ x + y = 8: \ (7, 1) & $x \leqslant 6$ vals: geen hoekpunt. \\[.5ex]
+y = 1, \ y = 2x: \ \bigl(\tfrac12, 1\bigr) & Hoekpunt. \\[.5ex]
+y = 1, \ x = 6: \ (6, 1) & Hoekpunt. \\[.5ex]
+x + y = 8, \ y = 2x: \ \bigl(\tfrac83, \tfrac{16}{3}\bigr) & $3x = 8$. Hoekpunt. \\[.5ex]
+x + y = 8, \ x = 6: \ (6, 2) & Hoekpunt. \\[.5ex]
+y = 2x, \ x = 6: \ (6, 12) & $x + y \leqslant 8$ vals.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.4,font=\scriptsize]
+  \path[gebied] (.5,1) -- (6,1) -- (6,2) -- (8/3,16/3) -- cycle;
+  \rooster{-1}{1}{8}{-1}{1}{7}
+  \begin{scope}\venster{-1}{8.5}{-1}{7.5}\grenslijn{0}{1}{1}\grenslijn{1}{1}{8}\grenslijn{-2}{1}{0}\grenslijn{1}{0}{6}\end{scope}
+  \hoekpunt[below left]{.5}{1}{}
+  \hoekpunt[below]{6}{1}{}
+  \hoekpunt[right]{6}{2}{}
+  \hoekpunt[right]{8/3}{16/3}{}
+  \draw (7,1) circle (2pt);
+  \node[above,font=\scriptsize] at (7.2,1) {$(7,1)$};
+\end{tikzpicture}}
+Het oplossingsgebied is een vierhoek. Het snijpunt $(7, 1)$ ligt op twee grensrechten, maar buiten het gebied.}
+
+\begin{werkwijze}
+Teken alle grensrechten en het oplossingsgebied. Kies in de figuur de snijpunten die op de rand van het gebied liggen. Bereken ze exact door het stelsel van hun twee grensrechten op te lossen, en controleer dat ze aan de andere ongelijkheden voldoen.
+\end{werkwijze}
+
+Een figuur alleen is niet genoeg om een hoekpunt af te lezen: $\bigl(\tfrac83, \tfrac{16}{3}\bigr)$ lees je niet nauwkeurig af. Omgekeerd helpt de figuur je om niet alle snijpunten te moeten berekenen.
+
+\nujij{Bepaal de hoekpunten van het oplossingsgebied van $x \geqslant 0$, $y \geqslant 0$, $2x + y \leqslant 8$ en $x + 2y \leqslant 10$.}{$(0, 0)$, $(4, 0)$, $(2, 4)$ en $(0, 5)$.}
+
+\begin{oefeningen}
+\oef{h1-stelsel}
+
+\oef{h1-hoekpunt}
+\end{oefeningen}
+
+\subsection{Begrensd, onbegrensd of leeg}
+
+Moet een oplossingsgebied altijd een veelhoek zijn? Nee. Een halfvlak alleen is al oneindig groot. Een gebied kan ook naar één kant openliggen, of helemaal leeg zijn.
+
+\begin{theorie}
+Een oplossingsgebied is \textbf{\textcolor{accent}{begrensd}} als het binnen een cirkel past, en anders \textbf{\textcolor{accent}{onbegrensd}}. Een begrensd oplossingsgebied dat niet leeg is, is een \textbf{\textcolor{accent}{veelhoek}}, een lijnstuk of een punt.
+\end{theorie}
+
+\voorbeeld{}{Teken het oplossingsgebied van $\begin{cases} x \geqslant 0, \ y \geqslant 0 \\ x + 2y \geqslant 4 \\ 3x + y \geqslant 6 \end{cases}$ en bepaal de hoekpunten.\label{vb:h1-onbegrensd}}{%
+\uitleg{Nu staat er telkens $\geqslant$, en het testpunt $(0, 0)$ voldoet niet: het gebied ligt aan de kant weg van de oorsprong.}
+\naast{\begin{stappenvrij}{5cm}{4.2cm}
+(0, 6) & $x = 0$ en $3x + y = 6$. \\[1ex]
+\begin{cases} x + 2y = 4 \\ 3x + y = 6 \end{cases} & $y = 6 - 3x$ invullen in de eerste. \\[3ex]
+x + 12 - 6x = 4 \ \Rightarrow \ \bigl(\tfrac85, \tfrac65\bigr) & Dan $x = \tfrac85$ en $y = 6 - \tfrac{24}{5} = \tfrac65$. \\[1ex]
+(4, 0) & $y = 0$ en $x + 2y = 4$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \path[gebied] (0,7.5) -- (0,6) -- (1.6,1.2) -- (4,0) -- (7.5,0) -- (7.5,7.5) -- cycle;
+  \rooster{-1}{1}{7}{-1}{1}{7}
+  \begin{scope}\venster{-1}{7.5}{-1}{7.5}\grenslijn{1}{2}{4}\grenslijn{3}{1}{6}\end{scope}
+  \draw[grens] (0,0) -- (0,7.5) (0,0) -- (7.5,0);
+  \hoekpunt[right]{0}{6}{}
+  \hoekpunt[above right]{1.6}{1.2}{}
+  \hoekpunt[above]{4}{0}{}
+\end{tikzpicture}}
+Het gebied is onbegrensd: het loopt naar rechts en naar boven verder, voorbij elke cirkel. Toch heeft het drie hoekpunten.}
+
+Een stelsel kan ook strijdig zijn. Zo vraagt $x + y \leqslant 2$ dat een punt op of onder de rechte $x + y = 2$ ligt, en $x + y \geqslant 4$ dat het op of boven de evenwijdige rechte $x + y = 4$ ligt. Geen enkel punt doet allebei: het oplossingsgebied is leeg. Bij evenwijdige grensrechten zie je dat meteen, maar ook drie grensrechten die elkaar twee aan twee snijden, kunnen een leeg gebied geven (zie opdracht~\ref{oef:h1-o9}).
+
+\begin{oefeningen}
+\oef{h1-soort}
+\end{oefeningen}
+
+\subsection{Een gebied zonder deuken}
+
+Alle oplossingsgebieden die we tot nu toe tekenden, hebben iets gemeen: ze hebben geen deuken en geen gaten. Een gebied in de vorm van een L of een ster kwam nooit voor. Toeval? Om dat te bewijzen, moeten we eerst zeggen wat \textit{zonder deuken} precies betekent.
+
+Een lijnstuk beschrijf je met vectoren. Het punt $R$ op het lijnstuk $[PQ]$ ontstaat door van $P$ een deel $t$ van de weg naar $Q$ af te leggen: $R = P + t\,(Q - P)$, met $0 \leqslant t \leqslant 1$. In coördinaten, met $P(x_1, y_1)$ en $Q(x_2, y_2)$, is dat
+\[ R\bigl((1 - t)\,x_1 + t\,x_2,\ (1 - t)\,y_1 + t\,y_2\bigr), \qquad 0 \leqslant t \leqslant 1 . \]
+Voor $t = 0$ is $R = P$, voor $t = 1$ is $R = Q$, en voor $t = \tfrac12$ het midden.
+
+\begin{theorie}
+Een verzameling punten is \textbf{\textcolor{accent}{convex}} als ze bij elke twee van haar punten $P$ en $Q$ ook het hele lijnstuk $[PQ]$ bevat.
+
+\begin{stelling}{Convex oplossingsgebied}
+Het oplossingsgebied van een stelsel eerstegraadsongelijkheden in $x$ en $y$ is convex.
+\end{stelling}
+
+\begin{bewijs}
+Neem eerst één ongelijkheid $ax + by \leqslant c$, en twee oplossingen $P(x_1, y_1)$ en $Q(x_2, y_2)$. Een punt $R$ van $[PQ]$ heeft coördinaten $\bigl((1 - t)x_1 + tx_2,\ (1 - t)y_1 + ty_2\bigr)$ met $0 \leqslant t \leqslant 1$. Vul ze in:
+\bewijsregel{a x_R + b y_R = (1 - t)(ax_1 + by_1) + t\,(ax_2 + by_2) \leqslant (1 - t)\,c + t\,c = c ,}
+want $1 - t \geqslant 0$ en $t \geqslant 0$. Dus $R$ voldoet ook. Voor $<$ werkt het net zo (een van beide factoren $1 - t$ en $t$ is positief), en $\geqslant$ en $>$ worden $\leqslant$ en $<$ na vermenigvuldigen met $-1$. Elk halfvlak is dus convex. Liggen $P$ en $Q$ nu in het oplossingsgebied van een stelsel, dan liggen ze in elk halfvlak, dus ligt $[PQ]$ in elk halfvlak, en dus in de doorsnede.
+\end{bewijs}
+\end{theorie}
+
+Kort gezegd: een doorsnede van convexe verzamelingen is weer convex, en een halfvlak is convex. Daarom kan een oplossingsgebied geen deuk hebben. Het bewijs gebruikt dat de ongelijkheden van de eerste graad zijn: in hoofdstuk 2 zie je wat dat oplevert.
+
+\voorbeeld{}{Kan het L-vormige gebied in de figuur het oplossingsgebied van een stelsel eerstegraadsongelijkheden zijn?\label{vb:h1-convex}}{%
+\uitleg{Volgens de stelling moet een oplossingsgebied convex zijn. We zoeken dus twee punten van het gebied waarvan het lijnstuk ertussen niet helemaal in het gebied ligt.}
+\naast{\begin{stappenvrij}{4.8cm}{4.4cm}
+P(0{,}5;\ 3) \text{ en } Q(3;\ 0{,}5) & Twee punten van het gebied, in elke poot één. \\[1ex]
+M(1{,}75;\ 1{,}75) & Het midden van $[PQ]$, met $t = \tfrac12$. \\[1ex]
+& $M$ ligt niet in het gebied: het is niet convex.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \path[gebied] (0,0) -- (4,0) -- (4,1) -- (1,1) -- (1,4) -- (0,4) -- cycle;
+  \rooster{-1}{1}{4}{-1}{1}{4}
+  \draw[grens] (0,0) -- (4,0) -- (4,1) -- (1,1) -- (1,4) -- (0,4) -- cycle;
+  \draw[accent,thick] (.5,3) -- (3,.5);
+  \hoekpunt[above right]{.5}{3}{$P$}
+  \hoekpunt[above right]{3}{.5}{$Q$}
+  \draw[fill=white] (1.75,1.75) circle (2pt) node[above right,inner sep=1.5pt] {$M$};
+\end{tikzpicture}}
+Het antwoord is dus nee. Wel is het L-vormige gebied een \textit{unie} van twee rechthoeken, die elk wel een oplossingsgebied zijn.}
+
+\nujij{Is een cirkelschijf convex? Kan ze het oplossingsgebied van een stelsel eerstegraadsongelijkheden zijn?}{Ze is convex, maar ze is geen oplossingsgebied: een begrensd oplossingsgebied heeft rechte zijden.}
+
+\begin{oefeningen}
+\needspace{9\baselineskip}
+\oef{h1-convex}
+\end{oefeningen}
+
+%========================================================================================
+\section{Van figuur en tekst naar stelsel}
+
+\subsection{Een stelsel bij een figuur}
+
+Tot nu toe ging het van stelsel naar figuur. Kan het ook omgekeerd: welk stelsel hoort bij een gegeven gebied? Elke zijde ligt op een grensrechte, dus je zoekt per zijde de vergelijking van een rechte, en daarna de juiste richting van het ongelijkheidsteken.
+
+\voorbeeld{}{Geef een stelsel ongelijkheden met als oplossingsgebied de driehoek met hoekpunten $(0, 0)$, $(4, 0)$ en $(1, 3)$.\label{vb:h1-figuur}}{%
+\uitleg{Per zijde zoeken we de grensrechte. Daarna kiezen we het teken met een testpunt binnen de driehoek, bijvoorbeeld $(1, 1)$.}
+\naast{\begin{stappenvrij}{5.2cm}{4cm}
+y = 0 \ \to \ y \geqslant 0 & De zijde op de $x$-as; $(1, 1)$ ligt erboven. \\[1ex]
+y = 3x \ \to \ y \leqslant 3x & Door $(0, 0)$ en $(1, 3)$; $1 \leqslant 3$. \\[1ex]
+x + y = 4 \ \to \ x + y \leqslant 4 & Door $(4, 0)$ en $(1, 3)$: rico $-1$; $2 \leqslant 4$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \path[gebied] (0,0) -- (4,0) -- (1,3) -- cycle;
+  \rooster{-1}{1}{5}{-1}{1}{4}
+  \draw[grens] (0,0) -- (4,0) -- (1,3) -- cycle;
+  \hoekpunt[above]{1}{3}{$(1,3)$}
+  \fill[accent] (1,1) circle (1.6pt);
+\end{tikzpicture}}
+Het stelsel is $y \geqslant 0$, $y \leqslant 3x$, $x + y \leqslant 4$. Controle: de hoekpunten voldoen aan alle drie.}
+
+\begin{werkwijze}
+Zoek per zijde de vergelijking van de grensrechte door twee hoekpunten. Kies een testpunt binnen het gebied en vul het in elke vergelijking in: dat geeft de richting van het ongelijkheidsteken. Een volle zijde geeft $\leqslant$ of $\geqslant$, een stippellijn $<$ of $>$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-figuur}
+\end{oefeningen}
+
+\subsection{Voorwaarden in woorden}
+
+\needspace{12\baselineskip}
+In een context staan de voorwaarden in woorden. Een paar woorden komen telkens terug. Kijk in de tabel ook naar de getallen: \textit{meer dan 20} laat 20 zelf niet toe, \textit{minstens 20} wel.
+
+{\centering\arrayrulecolor{grijs}\renewcommand{\arraystretch}{1.5}%
+\begin{tabular}{|>{\centering\arraybackslash}m{3.6cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{7cm}|}
+\hline
+\textbf{in woorden} & \textbf{teken} & \textbf{voorbeeld} \\ \hline
+minstens, niet minder dan & $\geqslant$ & minstens 20 kinderen: $y \geqslant 20$ \\ \hline
+hoogstens, niet meer dan & $\leqslant$ & hoogstens 200 tickets: $x + y \leqslant 200$ \\ \hline
+meer dan & $>$ & meer volwassenen dan kinderen: $x > y$ \\ \hline
+minder dan & $<$ & minder dan 50 kinderen: $y < 50$ \\ \hline
+\end{tabular}\par}
+
+\medskip
+Een klassieke valkuil is \textit{zoveel keer als}. \textit{Er zijn minstens twee keer zoveel volwassenen als kinderen} wordt $x \geqslant 2y$, en niet $2x \geqslant y$. Test het met getallen: bij 100 volwassenen en 50 kinderen is aan de voorwaarde voldaan, en inderdaad is $100 \geqslant 2 \cdot 50$.
+
+\voorbeeld{}{Een toneelvereniging verkoopt $x$ tickets voor volwassenen aan 12 euro en $y$ tickets voor kinderen aan 5 euro. De zaal telt 200 plaatsen. Er moeten minstens twee keer zoveel volwassenen als kinderen zijn, en hoogstens een vijfde van de tickets mag voor kinderen zijn. De vereniging wil minstens 1500 euro ontvangen. Schrijf het stelsel op.\label{vb:h1-vertaal}}{%
+\uitleg{We vertalen de voorwaarden één voor één. De voorwaarden die niet in de tekst staan, maar wel vanzelf spreken, vergeten we niet: een aantal tickets is nooit negatief.}
+\begin{stappen}
+x \geqslant 0, \ y \geqslant 0 & Aantallen zijn niet negatief (en geheel). \\[1ex]
+x + y \leqslant 200 & De zaal. \\[1ex]
+x \geqslant 2y & Minstens twee keer zoveel volwassenen als kinderen. \\[1ex]
+y \leqslant \tfrac15 (x + y) \iff 4y \leqslant x & Een vijfde van \textit{alle} tickets: van $x + y$, niet van $x$. \\[1ex]
+12x + 5y \geqslant 1500 & De opbrengst in euro.
+\end{stappen}
+De voorwaarde $x \geqslant 2y$ volgt uit $x \geqslant 4y$ (want $y \geqslant 0$). Ze mag dus weg: ze verandert het oplossingsgebied niet.}
+
+\begin{werkwijze}
+Kies de onbekenden en zeg wat ze betekenen, met de eenheid. Vertaal elke voorwaarde in een ongelijkheid, en vergeet de voorwaarden niet die vanzelf spreken, zoals $x \geqslant 0$. Test een voorwaarde met \textit{zoveel keer als} of een percentage met een paar getallen.
+\end{werkwijze}
+
+\nujij{Vertaal: hoogstens 30\,\% van de $x + y$ deelnemers zijn leerkrachten ($y$).}{$y \leqslant 0{,}3(x + y)$, of $7y \leqslant 3x$.}
+
+\begin{oefeningen}
+\oef{h1-vertaal}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Nu kunnen we alle mogelijkheden van Lotte in één figuur zetten.
+
+\voorbeeld{}{Terug naar het probleem. Lotte werkt $x$ uur in het ijssalon en geeft $y$ uur bijles. Welke combinaties kunnen? Kan ze 10 uur ijssalon met 2 uur bijles doen? En 8 uur ijssalon met 5 uur bijles?\label{vb:h1-terug}}{%
+\uitleg{We vertalen de voorwaarden, tekenen het oplossingsgebied en zoeken de hoekpunten. Daarna controleren we de twee combinaties.}
+\begin{stappen}
+x \geqslant 5, \quad 0 \leqslant y \leqslant 6 & De baas, en het aantal uren bijles. \\[1ex]
+x + y \leqslant 15 & Hoogstens 15 uur in totaal. \\[1ex]
+10x + 20y \geqslant 160 \iff x + 2y \geqslant 16 & Het loon in euro, gedeeld door 10.
+\end{stappen}
+\naast{\begin{stappenvrij}{4.6cm}{3.9cm}
+(5;\ 5{,}5) & $x = 5$ en $x + 2y = 16$. \\[.5ex]
+(5, 6) \text{ en } (9, 6) & Op $y = 6$, met $x = 5$ en $x + y = 15$. \\[.5ex]
+(14, 1) & $x + y = 15$ en $x + 2y = 16$: trek af, $y = 1$. \\[1ex]
+(10, 2): \ 10 + 4 = 14 < 16 & Te weinig loon: 140 euro. \\[.5ex]
+(8, 5): \ 8 + 10 = 18 \geqslant 16 & Ook $13 \leqslant 15$, $5 \leqslant 6$, $8 \geqslant 5$: dat kan.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \path[gebied] (5,5.5) -- (5,6) -- (9,6) -- (14,1) -- cycle;
+  \roosterom{0}{1}{2}{16}{0}{1}{2}{8}
+  \begin{scope}\venster{0}{16.5}{0}{8.5}\grenslijn{1}{0}{5}\grenslijn{0}{1}{6}\grenslijn{1}{1}{15}\grenslijn{1}{2}{16}\end{scope}
+  \hoekpunt[left]{5}{5.5}{}
+  \hoekpunt[above]{5}{6}{}
+  \hoekpunt[above]{9}{6}{}
+  \hoekpunt[above right]{14}{1}{}
+  \draw (10,2) circle (4pt) node[below,inner sep=2pt] {$(10,2)$};
+  \fill[accent] (8,5) circle (4pt);
+\end{tikzpicture}}
+Alle mogelijkheden van Lotte vormen dus de vierhoek in de figuur. De combinatie van 10 uur ijssalon en 2 uur bijles ligt erbuiten: ze voldoet aan drie voorwaarden, maar levert maar 140 euro op. De combinatie van 8 en 5 uur ligt erin.}
+
+Merk op dat $y \geqslant 0$ hier vanzelf volgt: uit $x + y \leqslant 15$ en $x + 2y \geqslant 16$ volgt $y \geqslant 1$. De figuur toont nog meer. Wil Lotte zo weinig mogelijk uren werken, dan zoekt ze het punt van het gebied met de kleinste $x + y$. Zo'n vraag naar de beste keuze in een oplossingsgebied is het onderwerp van hoofdstuk 2.
+
+\begin{oefeningen}
+\oef{h1-model}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Algemene functies zagen de leerlingen in het 5de jaar. Ruimtemeetkunde en Kansrekenen staan in het 6de jaar: geef die oefeningen pas als vlakken in de ruimte en kansen als verhouding van oppervlaktes gezien zijn.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-open}{oef:h1-teken}%
+  \fv{oef:h1-t2}{vb:h1-snijpunt}{oef:h1-hoekpunt}%
+  \fv{oef:h1-t3}{vb:h1-onbegrensd}{oef:h1-soort}%
+  \fv{oef:h1-t4}{vb:h1-figuur}{oef:h1-figuur}%
+  \fv{oef:h1-t5}{vb:h1-vertaal}{oef:h1-vertaal}%
+  \fv{oef:h1-t6}{vb:h1-convex}{oef:h1-convex}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-model}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een halfvlak en een grensrechte zijn, waarom een eerstegraadsongelijkheid een halfvlak geeft, hoe je met een testpunt de goede kant kiest, wanneer de grensrechte vol of in stippellijn staat, wat een oplossingsgebied en een hoekpunt zijn, hoe je hoekpunten berekent en controleert, begrensd, onbegrensd en leeg, wat convex betekent en waarom een oplossingsgebied convex is, en hoe je voorwaarden in woorden vertaalt. Vergelijk daarna met de kaders.
+\fi
