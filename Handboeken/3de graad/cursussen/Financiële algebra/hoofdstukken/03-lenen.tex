@@ -1,0 +1,468 @@
+%----------------------------------------------------------------------------------------
+% LENINGEN AFLOSSEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Leningen aflossen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Sofie en Wout kopen een huis en sluiten een hypothecaire lening van \eur 180\,000 af, over 20 jaar, aan 3,3\,\% per jaar. Ze betalen op het einde van elke maand hetzelfde bedrag terug. Hoeveel is dat per maand, en hoeveel rente betalen ze in totaal? Na 10 jaar erven ze een groot bedrag, en ze willen de lening in één keer afbetalen. De helft van de looptijd is voorbij: is de helft van de schuld dan ook afgelost? Hoeveel moeten ze betalen?}{\begin{tikzpicture}[x=.13cm,y=.012cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (21.5,0) node[right,text=black] {jaar};
+  \draw[->,grijs] (0,0) -- (0,195) node[above,text=black] {schuld};
+  \draw[accent,thick] (0,180) -- (2,180);
+  \node[right,text=accent] at (2,180) {\eur 180\,000};
+  \draw[grijs,dotted] (0,180) -- (20,0);
+  \draw[grijs,dashed] (10,0) -- (10,140) node[above,text=black] {?};
+  \node[below] at (10,0) {10};
+  \node[below] at (20,0) {20};
+  \fill (20,0) circle (1.5pt);
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 42 (beginwaarde en termijnbedrag bij schuldaflossing met postnumerando annuïteiten), met de wenk over vervroegde terugbetaling en wederbeleggingsvergoeding, en LPD 43 (een aflossingstabel opstellen met ICT en interpreteren), met de wenk over rentedeel en kapitaaldeel, de factor $u$ tussen de kapitaaldelen en de vergelijking met een vast kapitaaldeel. Voorkennis: hoofdstuk 1 en 2. De lening als recursievergelijking staat al in Differentiaalvergelijkingen, hoofdstuk 1 (het probleem met de autolening): verwijs ernaar, het is hier niet herhaald. Extra's: de looptijd berekenen, de formule voor de restschuld met bewijs, de totale rente bij vast kapitaaldeel, en in de opdrachten het JKP met dossierkosten (numeriek). Niet nagekeken: de Belgische regels voor de wederbeleggingsvergoeding (hier: drie maanden rente bij een hypothecair krediet, een procent of een half procent bij een consumentenkrediet) en voor het JKP. Controleer de actuele wetgeving voor je ze als feit brengt.}
+
+Wie leent, krijgt vandaag een groot bedrag en betaalt het in kleine stukken terug, met rente. De bank moet daarbij niets verliezen en niets cadeau doen: wat je terugbetaalt, moet vandaag evenveel waard zijn als wat je leent. In de cursus Differentiaalvergelijkingen (hoofdstuk 1) volgde je een lening maand per maand met een recursievergelijking. Nu berekenen we rechtstreeks hoeveel je kunt lenen, hoeveel je per maand betaalt, en hoe elke betaling uiteenvalt in rente en aflossing. Met een rekenblad stel je de volledige aflossingstabel op.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{In de Verken ontdekken de leerlingen dat de eerste betaling vooral rente is, en dat de schuld daardoor in het begin traag daalt. Laat ze voorspellen wat er na de helft van de looptijd nog over is, vóór ze rekenen.}
+
+%========================================================================================
+\section{De beginwaarde}
+
+\subsection{Wat kun je lenen?}
+
+Stel dat je elke maand \eur 700 kunt missen voor een lening van 25 jaar, aan 3,6\,\% per jaar. Hoeveel kun je dan lenen? De bank geeft je vandaag een bedrag, en krijgt daarvoor 300 betalingen van \eur 700 terug, op het einde van elke maand. Die betalingen zijn samen \eur 210\,000, maar dat is niet wat ze vandaag waard zijn: een betaling over 25 jaar is vandaag veel minder waard. Je kunt dus lenen wat al die betalingen samen vandaag waard zijn. Dat is het principe achter elke lening.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{beginwaarde}} van een annuïteit is de som van de beginwaarden van alle termijnbedragen op tijdstip 0. Bij een lening die met een annuïteit wordt afgelost, is het geleende bedrag gelijk aan de beginwaarde van die annuïteit.
+
+\begin{stelling}{Beginwaarde van een postnumerando annuïteit}
+Bij $n$ termijnbedragen $a$ op het einde van elke periode, met rentevoet $i$ per periode en $u = 1 + i$, is de beginwaarde
+
+\vspace{1mm}
+\qquad $\formule{B = a \cdot \frac{1 - u^{-n}}{i}}$
+\end{stelling}
+
+\begin{bewijs}
+Het termijnbedrag op tijdstip $k$ is op tijdstip 0 nog $a\,u^{-k}$ waard, voor $k = 1, \ldots, n$:
+\bewijsregel{B = a\,u^{-1} + a\,u^{-2} + \cdots + a\,u^{-n} .}
+Dat is de som van $n$ termen van een meetkundige rij met eerste term $a\,u^{-1}$ en quotiënt $u^{-1}$, dat verschilt van 1:
+\bewijsregel{B = a\,u^{-1} \cdot \frac{1 - u^{-n}}{1 - u^{-1}} = a \cdot \frac{1 - u^{-n}}{u - 1} = a \cdot \frac{1 - u^{-n}}{i} ,}
+waarbij we teller en noemer met $u$ vermenigvuldigden.
+\end{bewijs}
+\end{theorie}
+
+\naast{De formule zegt ook: $B = a\,\frac{u^n - 1}{i} \cdot u^{-n}$. Dat is de eindwaarde van de postnumerando annuïteit (cursus Rijen), $n$ periodes teruggebracht naar tijdstip 0. Beide manieren geven hetzelfde, zoals het hoort. De figuur toont de beginwaarden van tien jaarlijkse betalingen van \eur 1000 aan 5\,\%: hoe later de betaling, hoe minder ze vandaag waard is. Samen zijn ze $1000 \cdot \frac{1 - 1{,}05^{-10}}{0{,}05} \approx 7721{,}73$ euro waard, en geen \eur 10\,000.}{\begin{tikzpicture}[x=.42cm,y=.0022cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=200] (0,0) grid (10.5,1000);
+  \draw[->,grijs] (0,0) -- (11.2,0) node[right,text=black] {$k$};
+  \draw[->,grijs] (0,0) -- (0,1120) node[above,text=black] {euro};
+  \foreach \t in {2,4,...,10}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \k in {200,600,1000}{\node[left,inner sep=1.5pt] at (0,\k) {$\k$};}
+  \foreach \k in {1,...,10}{%
+    \draw[accent,dashed] (\k,0) -- (\k,1000);
+    \fill[accent!35,draw=accent] (\k-.3,0) rectangle (\k+.3,{1000*1.05^(-\k)});}
+\end{tikzpicture}}
+
+\voorbeeld{}{Je kunt 25 jaar lang op het einde van elke maand \eur 700 aflossen. Hoeveel kun je lenen aan 3,6\,\% per jaar?\label{vb:h3-beginwaarde}}{%
+\uitleg{De betalingen zijn maandelijks, dus rekenen we met de gelijkwaardige maandrente. De eerste betaling valt een maand na het lenen: postnumerando. Het bedrag dat je kunt lenen, is de beginwaarde.}
+\begin{stappen}
+\im = 1{,}036^{\frac{1}{12}} - 1 \approx 0{,}002\,952 & De maandrente (hoofdstuk 1). \\[1ex]
+B = 700 \cdot \frac{1 - \um^{-300}}{\im} \approx 139\,199{,}54 & $n = 300$ en $\um^{-300} = 1{,}036^{-25}$.
+\end{stappen}
+Je kunt \eur 139\,199,54 lenen. Je betaalt in totaal $300 \cdot 700 = 210\,000$ euro terug: ongeveer \eur 70\,800 daarvan is rente.}
+
+\begin{werkwijze}
+Zet de rentevoet om naar de periode van de betalingen, tel het aantal betalingen, en controleer dat de eerste betaling één periode na het lenen valt. De beginwaarde $a\,\frac{1 - u^{-n}}{i}$ is het bedrag dat je kunt lenen.
+\end{werkwijze}
+
+\nujij{Hoeveel kun je lenen als je 10 jaar lang op het einde van elk jaar \eur 5000 terugbetaalt, aan 4\,\% per jaar?}{$B = 5000 \cdot \frac{1 - 1{,}04^{-10}}{0{,}04} \approx 40\,554{,}48$ euro.}
+
+\begin{oefeningen}
+\oef{h3-beginwaarde}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het termijnbedrag}
+
+\subsection{Hoeveel betaal je per maand?}
+
+Meestal weet je hoeveel je wilt lenen, en vraag je je af wat dat per maand kost. Dan ken je $B$, en zoek je $a$ in de formule van de beginwaarde. Ook hier is $a$ een factor.
+
+\begin{theorie}
+\begin{stelling}{Termijnbedrag bij schuldaflossing}
+Een lening $B$ die met $n$ postnumerando termijnbedragen aan rentevoet $i$ per periode wordt afgelost, heeft als termijnbedrag
+
+\vspace{1mm}
+\qquad $\formule{a = \frac{B \cdot i}{1 - u^{-n}}}$
+\end{stelling}
+
+\begin{bewijs}
+Deel beide leden van $B = a\,\frac{1 - u^{-n}}{i}$ door $\frac{1 - u^{-n}}{i}$, dat niet nul is omdat $u > 1$ en $n \geqslant 1$.
+\end{bewijs}
+\end{theorie}
+
+Het termijnbedrag is altijd groter dan $B \cdot i$, de rente op de volledige schuld: anders zou je nooit iets aflossen. Hoe langer de looptijd, hoe dichter het termijnbedrag bij $B \cdot i$ komt, want $u^{-n}$ gaat naar 0.
+
+\voorbeeld{}{Je leent \eur 15\,000 voor een auto, terug te betalen in 4 jaar met maandelijkse betalingen. Het JKP is 5,9\,\%, zonder kosten. Hoeveel betaal je per maand, en hoeveel rente in totaal?\label{vb:h3-termijn}}{%
+\uitleg{Zonder kosten is het JKP de effectieve jaarrente (hoofdstuk 1). We zetten ze om naar een maandrente, en vullen de formule in met $n = 48$.}
+\begin{stappen}
+\im = 1{,}059^{\frac1{12}} - 1 \approx 0{,}004\,789 & De maandrente. \\[1ex]
+a = \frac{15\,000 \cdot \im}{1 - \um^{-48}} \approx 350{,}53 & De maandlast. \\[2ex]
+48 \cdot 350{,}53 - 15\,000 \approx 1825{,}57 & Alles wat je betaalt, min wat je leende.
+\end{stappen}
+Je betaalt \eur 350,53 per maand, en in totaal \eur 1825,57 rente.}
+
+\begin{werkwijze}
+Zet de rentevoet om naar de periode van de betalingen, en bereken $a = \frac{B\,i}{1 - u^{-n}}$. De totale rente is $n\,a - B$.
+\end{werkwijze}
+
+\nujij{Hoeveel bedraagt de maandlast van een lening van \eur 8000 over 3 jaar, aan 4,5\,\% per jaar?}{$\im = 1{,}045^{\frac1{12}} - 1 \approx 0{,}003\,675$; $a = \frac{8000\,\im}{1 - \um^{-36}} \approx 237{,}65$ euro.}
+
+\begin{oefeningen}
+\oef{h3-termijn}
+\end{oefeningen}
+
+\subsection{Hoe lang moet je afbetalen?}
+
+Kun je maar een vast bedrag per maand missen, dan is de looptijd de onbekende. Zet $u^{-n}$ alleen in de formule van de beginwaarde:
+\[
+B = a\,\frac{1 - u^{-n}}{i} \iff u^{-n} = 1 - \frac{B\,i}{a} \iff n = -\frac{\log \bigl(1 - \frac{B\,i}{a}\bigr)}{\log u} .
+\]
+Dat kan alleen als $1 - \frac{B\,i}{a} > 0$, dus als $a > B\,i$: het termijnbedrag moet groter zijn dan de rente op de schuld. Is het kleiner, dan groeit de schuld elke maand. Dat is precies wat de vriendin uit het probleem van hoofdstuk 1 in de cursus Differentiaalvergelijkingen overkwam.
+
+\voorbeeld{}{Je leent \eur 20\,000 aan 4,5\,\% per jaar, en betaalt op het einde van elke maand \eur 400 terug. Hoeveel maanden duurt het? Hoeveel is de laatste, kleinere betaling?\label{vb:h3-looptijd}}{%
+\uitleg{We zetten $u^{-n}$ alleen en nemen de logaritme. De uitkomst is geen geheel getal: na 55 volle betalingen blijft er een restje over, dat we met een kleinere laatste betaling aflossen.}
+\begin{stappen}
+\im = 1{,}045^{\frac1{12}} - 1 \approx 0{,}003\,675 & De maandrente; $B\,\im \approx 73{,}50 < 400$. \\[1ex]
+n = -\frac{\log (1 - 20\,000\,\im / 400)}{\log \um} \approx 55{,}35 & Neem de logaritme. \\[2ex]
+S_{55} = 20\,000\,\um^{55} - 400\,\frac{\um^{55} - 1}{\im} \approx 139{,}11 & De schuld na 55 betalingen (zie paragraaf 3.3). \\[2ex]
+139{,}11 \cdot \um \approx 139{,}63 & Een maand later: de laatste betaling.
+\end{stappen}
+Er zijn 56 betalingen: 55 keer \eur 400 en op het einde \eur 139,63.}
+
+\begin{oefeningen}
+\oef{h3-looptijd}
+\end{oefeningen}
+
+%========================================================================================
+\section{De aflossingstabel}
+
+\subsection{Rente en aflossing}
+
+Wat gebeurt er met elke betaling? De bank rekent eerst de rente aan op wat je nog schuldig bent. Wat er van je betaling overblijft, gaat van de schuld af. Omdat de schuld daalt, daalt ook de rente, en blijft er elke maand meer over om af te lossen.
+
+\begin{theorie}
+Bij een lening $B$ die wordt afgelost met termijnbedragen $a_1, a_2, \ldots, a_n$ op het einde van elke periode, is $S_0 = B$ en voor elke periode $k$:
+\begin{itemize}
+\item het \textbf{\textcolor{accent}{rentedeel}} $\formule{R_k = i \cdot S_{k-1}}$, de rente op de schuld aan het begin van de periode;
+\item het \textbf{\textcolor{accent}{aflossingsdeel}} (of kapitaaldeel) $\formule{A_k = a_k - R_k}$;
+\item de \textbf{\textcolor{accent}{restschuld}} na $k$ periodes $\formule{S_k = S_{k-1} - A_k}$.
+\end{itemize}
+Een \textbf{\textcolor{accent}{aflossingstabel}} zet die getallen per periode in een rij. Een lening met \textbf{\textcolor{accent}{vaste annuïteit}} heeft $a_k = a$ voor elke $k$.
+\end{theorie}
+
+\voorbeeld{}{Stel de aflossingstabel op van een lening van \eur 10\,000 aan 4\,\% per jaar, met een vaste annuïteit op het einde van elk jaar, 5 jaar lang.\label{vb:h3-tabel}}{%
+\uitleg{Eerst het termijnbedrag met de formule. Daarna rij per rij: rente op de vorige restschuld, de rest is aflossing, en de schuld daalt met die aflossing.}
+\begin{stappen}
+a = \frac{10\,000 \cdot 0{,}04}{1 - 1{,}04^{-5}} \approx 2246{,}27 & Het vaste termijnbedrag. \\[2ex]
+R_1 = 0{,}04 \cdot 10\,000 = 400, \quad A_1 = 2246{,}27 - 400 & De eerste rij.
+\end{stappen}
+\begin{rastertabel}{|c|r|r|r|r|}
+\hline
+$k$ & termijnbedrag & rentedeel $R_k$ & aflossingsdeel $A_k$ & restschuld $S_k$ \\ \hline
+0 & & & & 10\,000,00 \\ \hline
+1 & 2246,27 & 400,00 & 1846,27 & 8153,73 \\ \hline
+2 & 2246,27 & 326,15 & 1920,12 & 6233,61 \\ \hline
+3 & 2246,27 & 249,34 & 1996,93 & 4236,68 \\ \hline
+4 & 2246,27 & 169,47 & 2076,80 & 2159,88 \\ \hline
+5 & 2246,27 & 86,40 & 2159,88 & 0,00 \\ \hline
+\end{rastertabel}
+De laatste restschuld is 0: de lening is precies afgelost. De rentedelen samen zijn \eur 1231,36, gelijk aan $5 \cdot 2246{,}27 - 10\,000$. Kijk naar de kolom met de aflossingsdelen: $\frac{1920{,}12}{1846{,}27} \approx 1{,}04$, en zo verder. Dat is geen toeval.}
+
+\begin{oefeningen}
+\oef{h3-tabel}
+\end{oefeningen}
+
+\subsection{De aflossingsdelen groeien met de factor $u$}
+
+In de tabel wordt elk aflossingsdeel 4\,\% groter dan het vorige. Waarom? Als je in periode $k$ een bedrag $A_k$ aflost, betaal je de periode erna $i \cdot A_k$ minder rente. Omdat het termijnbedrag hetzelfde blijft, gaat dat bedrag extra naar de aflossing.
+
+\begin{theorie}
+\begin{stelling}{Aflossingsdelen bij een vaste annuïteit}
+Bij een lening $B$ met vaste annuïteit $a$ is
+
+\vspace{1mm}
+\qquad $\formule{A_{k+1} = u \cdot A_k}$ \qquad en \qquad $\formule{A_1 = a - i\,B}$, \qquad dus \qquad $\formule{A_k = (a - i\,B)\,u^{\,k-1}}$
+\end{stelling}
+
+\begin{bewijs}
+Uit de definities is $R_{k+1} = i\,S_k = i\,(S_{k-1} - A_k) = R_k - i\,A_k$. Omdat het termijnbedrag vast is, volgt
+\bewijsregel{A_{k+1} = a - R_{k+1} = a - R_k + i\,A_k = A_k + i\,A_k = u\,A_k .}
+De aflossingsdelen vormen dus een meetkundige rij met quotiënt $u$, en de eerste term is $A_1 = a - R_1 = a - i\,B$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: de aflossingsdelen groeien zoals een kapitaal op een spaarrekening. In het begin betaal je vooral rente, op het einde vooral aflossing. De som van alle aflossingsdelen is de lening zelf, want de schuld daalt van $B$ tot 0. Ook de restschuld na $k$ periodes kun je zonder tabel berekenen: wat je nog schuldig bent, is wat de nog resterende betalingen vandaag waard zijn.
+
+\begin{theorie}
+\begin{stelling}{Restschuld}
+Bij een lening met vaste annuïteit $a$ in $n$ periodes is de restschuld na $k$ periodes
+
+\vspace{1mm}
+\qquad $\formule{S_k = a \cdot \frac{1 - u^{-(n-k)}}{i}}$ \qquad en ook \qquad $\formule{S_k = B\,u^{\,k} - a \cdot \frac{u^{\,k} - 1}{i}}$
+\end{stelling}
+
+\begin{bewijs}
+Na $k$ periodes is $S_k = B - (A_1 + \cdots + A_k)$, en de aflossingsdelen vormen een meetkundige rij:
+\bewijsregel{S_k = B - (a - iB)\,\frac{u^k - 1}{i} = B - a\,\frac{u^k - 1}{i} + B\,(u^k - 1) = B\,u^k - a\,\frac{u^k - 1}{i} .}
+Vul $B = a\,\frac{1 - u^{-n}}{i}$ in: $B\,u^k = a\,\frac{u^k - u^{k-n}}{i}$, dus
+\bewijsregel{S_k = a\,\frac{u^k - u^{k-n} - u^k + 1}{i} = a \cdot \frac{1 - u^{-(n-k)}}{i} .}
+\end{bewijs}
+\end{theorie}
+
+De eerste vorm is de beginwaarde van de $n - k$ betalingen die nog komen. De tweede vorm vertelt het verhaal van de bank: de lening is met rente aangegroeid tot $B\,u^k$, en jouw betalingen tot hun eindwaarde $a\,\frac{u^k - 1}{i}$; het verschil heb je nog te goed. Controleer met de tabel: $S_2 = 2246{,}27 \cdot \frac{1 - 1{,}04^{-3}}{0{,}04} \approx 6233{,}6$.
+
+\voorbeeld{}{Bereken voor de lening van het probleem (\eur 180\,000, 240 maanden, 3,3\,\% per jaar) de maandlast, het eerste aflossingsdeel en het aflossingsdeel van de laatste maand.\label{vb:h3-aflossingsdeel}}{%
+\uitleg{Eerst de maandrente en de maandlast. Het eerste aflossingsdeel is wat er van de eerste betaling overblijft na de rente; daarna groeit het met de factor $\um$ per maand.}
+\begin{stappen}
+\im = 1{,}033^{\frac1{12}} - 1 \approx 0{,}002\,709\,26 & De maandrente. \\[1ex]
+a = \frac{180\,000 \cdot \im}{1 - \um^{-240}} \approx 1021{,}05 & De maandlast. \\[2ex]
+A_1 = a - 180\,000 \cdot \im \approx 533{,}39 & De rente in de eerste maand is 487,67: bijna de helft. \\[1ex]
+A_{240} = A_1\,\um^{239} \approx 1018{,}29 & Bijna de hele laatste betaling is aflossing.
+\end{stappen}
+Controle: de laatste betaling lost de laatste restschuld $A_{240}$ af, met de rente $\im\,A_{240}$ erbij. Dus is $a = \um\,A_{240}$, en inderdaad $\frac{1021{,}05}{\um} \approx 1018{,}29$.}
+
+\begin{oefeningen}
+\oef{h3-factor}
+\end{oefeningen}
+
+\subsection{Met een rekenblad}
+
+Voor een lening van 240 maanden schrijf je de tabel niet met de hand. In een rekenblad maak je één rij met formules en kopieer je die naar beneden. Zet de gegevens in vaste cellen, en verwijs ernaar met dollartekens. Voor de lening van het probleem:
+
+\begin{rekenblad}{5}{A & B & C & D & E}
+1 & maandrente & 0,00270926 & & lening & 180000 \\ \hline
+2 & maandlast & 1021,05 & & & \\ \hline
+3 & maand & rentedeel & aflossingsdeel & restschuld & \\ \hline
+4 & 0 & & & 180000,00 & \\ \hline
+5 & 1 & 487,67 & 533,39 & 179466,61 & \\ \hline
+6 & 2 & 486,22 & 534,83 & 178931,78 & \\ \hline
+7 & 3 & 484,77 & 536,28 & 178395,50 & \\ \hline
+\end{rekenblad}
+
+De formules op rij 5 zijn: in B5 het rentedeel \texttt{=\$B\$1*D4}, in C5 het aflossingsdeel \texttt{=\$B\$2-B5}, en in D5 de restschuld \texttt{=D4-C5}. De maandlast in B2 bereken je zelf met \texttt{=E1*B1/(1-(1+B1)\^{}(-240))}. Kopieer rij 5 tot rij 244, en controleer dat de laatste restschuld (bijna) 0 is: een klein verschil komt van het afronden van de maandlast.
+
+\naast{Met het rekenblad maak je ook een grafiek. De figuur toont per jaar hoeveel van de twaalf maandlasten (samen \eur 12\,252,65) naar aflossing gaat (donker) en hoeveel naar rente (licht). In het eerste jaar is bijna de helft van wat je betaalt rente, in het laatste jaar bijna niets. De aflossing per jaar groeit met de factor $\um^{12} = 1{,}033$.}{\begin{tikzpicture}[x=.28cm,y=.00034cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=2000] (0,0) grid (20.5,12000);
+  \draw[->,grijs] (0,0) -- (21.5,0) node[right,text=black] {jaar};
+  \draw[->,grijs] (0,0) -- (0,13200) node[above,text=black] {euro};
+  \foreach \t in {5,10,15,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \k in {4000,8000,12000}{\node[left,inner sep=1.5pt] at (0,\k) {$\k$};}
+  \foreach \j/\A in {1/6497,2/6711,3/6933,4/7162,5/7398,6/7642,7/7894,8/8155,9/8424,10/8702,11/8989,12/9286,13/9592,14/9909,15/10236,16/10573,17/10922,18/11283,19/11655,20/12040}{%
+    \fill[accent!25,draw=accent,line width=.3pt] (\j-.38,0) rectangle (\j+.38,12253);
+    \fill[accent] (\j-.38,0) rectangle (\j+.38,\A);}
+\end{tikzpicture}}
+
+\lkr{Hier zit het hoofddoel van LPD 43: laat de leerlingen de tabel echt zelf opstellen in een rekenblad, met dezelfde getallen, en laat ze de tabel lezen: in welk jaar betalen ze voor het eerst minder dan \eur 3000 rente? Wat staat er nog open na 5, 10 en 15 jaar (ongeveer \eur 145\,300, \eur 104\,483 en \eur 56\,473)? Opdracht \ref{oef:h3-o11} vraagt dat.}
+
+\begin{oefeningen}
+\oef{h3-rekenblad}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vast aflossingsdeel}
+
+\subsection{Een andere manier van aflossen}
+
+Bij een vaste annuïteit blijft de maandlast gelijk, en groeien de aflossingsdelen. Het kan ook omgekeerd: je lost elke periode hetzelfde deel van de lening af, $\frac{B}{n}$, en betaalt daarbovenop de rente op de restschuld. Dan daalt de schuld elke periode met hetzelfde bedrag, en daalt ook de rente gelijkmatig. De betalingen worden dus elke periode kleiner: in het begin betaal je veel, op het einde weinig.
+
+\begin{theorie}
+Bij een lening $B$ met \textbf{\textcolor{accent}{vast aflossingsdeel}} in $n$ periodes is $\formule{A_k = \frac{B}{n}}$ voor elke $k$. Dan is
+\[
+\formule{S_k = B\,\Bigl(1 - \frac{k}{n}\Bigr)}, \qquad \formule{R_k = i\,B\,\Bigl(1 - \frac{k - 1}{n}\Bigr)} \qquad \text{en} \qquad \formule{a_k = \frac{B}{n} + R_k}
+\]
+
+\begin{stelling}{Totale rente bij een vast aflossingsdeel}
+De rentedelen vormen een rekenkundige rij met verschil $-\frac{i\,B}{n}$, en samen zijn ze
+
+\vspace{1mm}
+\qquad $\formule{R_1 + R_2 + \cdots + R_n = i\,B \cdot \frac{n + 1}{2}}$
+\end{stelling}
+
+\begin{bewijs}
+Elke periode daalt de schuld met $\frac Bn$, dus $S_{k-1} = B - (k - 1)\frac{B}{n}$ en $R_k = i\,S_{k-1}$. Van $R_k$ naar $R_{k+1}$ daalt de rente met $i\,\frac{B}{n}$: een rekenkundige rij met $R_1 = i\,B$ en $R_n = i\,\frac{B}{n}$. De som van $n$ termen is $n$ keer het gemiddelde van de eerste en de laatste:
+\bewijsregel{n \cdot \frac{i\,B + i\,\frac Bn}{2} = i\,B \cdot \frac{n + 1}{2} .}
+\end{bewijs}
+\end{theorie}
+
+In woorden: je betaalt rente alsof de hele lening gedurende $\frac{n + 1}{2}$ periodes openstond, iets meer dan de helft van de looptijd.
+
+\voorbeeld{}{Stel de aflossingstabel op voor de lening van voorbeeld \ref{vb:h3-tabel} (\eur 10\,000, 5 jaar, 4\,\% per jaar), maar nu met een vast aflossingsdeel. Vergelijk de totale rente met die bij een vaste annuïteit.\label{vb:h3-vast}}{%
+\uitleg{Elk jaar gaat er $\frac{10\,000}{5} = 2000$ euro van de schuld af. De rente is telkens 4\,\% van de schuld aan het begin van het jaar.}
+\naast{\begin{rastertabel}{|c|r|r|r|r|}
+\hline
+$k$ & $a_k$ & $R_k$ & $A_k$ & $S_k$ \\ \hline
+1 & 2400 & 400 & 2000 & 8000 \\ \hline
+2 & 2320 & 320 & 2000 & 6000 \\ \hline
+3 & 2240 & 240 & 2000 & 4000 \\ \hline
+4 & 2160 & 160 & 2000 & 2000 \\ \hline
+5 & 2080 & 80 & 2000 & 0 \\ \hline
+\end{rastertabel}
+De totale rente is $0{,}04 \cdot 10\,000 \cdot \frac{6}{2} = 1200$ euro, tegen \eur 1231,36 bij de vaste annuïteit.}{\begin{tikzpicture}[x=.75cm,y=.0013cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (6,0) node[right,text=black] {$k$};
+  \draw[->,grijs] (0,0) -- (0,2700) node[above,text=black] {euro};
+  \foreach \k in {1000,2000}{\node[left,inner sep=1.5pt] at (0,\k) {$\k$};\draw[black!14,very thin] (0,\k) -- (5.6,\k);}
+  \foreach \k/\R in {1/400,2/320,3/240,4/160,5/80}{%
+    \fill[accent] (\k-.42,0) rectangle (\k-.04,2000);
+    \fill[accent!25,draw=accent] (\k-.42,2000) rectangle (\k-.04,2000+\R);}
+  \foreach \k/\A in {1/1846.27,2/1920.12,3/1996.93,4/2076.80,5/2159.88}{%
+    \fill[black!55] (\k+.04,0) rectangle (\k+.42,\A);
+    \fill[black!12,draw=black!55] (\k+.04,\A) rectangle (\k+.42,2246.27);}
+  \foreach \t in {1,...,5}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+\end{tikzpicture}}
+In de figuur staat per jaar links het vaste aflossingsdeel (in kleur) en rechts de vaste annuïteit (in grijs), telkens met het rentedeel licht erboven. Met een vast aflossingsdeel los je in het begin sneller af, dus staat er gemiddeld minder schuld open en betaal je minder rente. Maar de eerste betalingen zijn hoger: \eur 2400 in plaats van \eur 2246,27.}
+
+\begin{werkwijze}
+Bij een vast aflossingsdeel: deel de lening door het aantal periodes, en tel bij elke aflossing de rente op de restschuld van het begin van de periode op. Bij een vaste annuïteit: bereken eerst het termijnbedrag, en splits het in rente en aflossing.
+\end{werkwijze}
+
+\nujij{Een lening van \eur 6000 wordt in 4 jaar afgelost met een vast aflossingsdeel, aan 5\,\% per jaar. Bereken de eerste en de laatste betaling, en de totale rente.}{$A = 1500$; $a_1 = 1500 + 300 = 1800$; $a_4 = 1500 + 75 = 1575$; totale rente $0{,}05 \cdot 6000 \cdot \frac52 = 750$ euro.}
+
+\begin{oefeningen}
+\oef{h3-vast}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vervroegd terugbetalen}
+
+\subsection{De restschuld en de wederbeleggingsvergoeding}
+
+Wie een lening vroeger wil afbetalen, bijvoorbeeld na een erfenis of bij de verkoop van een huis, betaalt de restschuld: de beginwaarde van alle betalingen die nog zouden komen. Daarbovenop vraagt de bank een \textit{wederbeleggingsvergoeding}. De bank had immers gerekend op de rente van de komende jaren, en moet het terugbetaalde geld nu opnieuw uitlenen, misschien aan een lagere rente. In België is die vergoeding bij een hypothecair krediet wettelijk beperkt tot drie maanden rente op het vervroegd terugbetaalde bedrag. Bij een consumentenkrediet is ze beperkt tot een klein percentage van dat bedrag. (De precieze wettelijke regels kunnen veranderen.)
+
+\needspace{20\baselineskip}
+Nu kunnen we het probleem oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Sofie en Wout lenen \eur 180\,000 over 20 jaar aan 3,3\,\% per jaar, met een vaste maandlast. Hoeveel rente betalen ze in totaal? Hoeveel moeten ze na 10 jaar betalen om alles af te lossen, met een wederbeleggingsvergoeding van drie maanden rente? Is na de helft van de looptijd de helft van de schuld afgelost?\label{vb:h3-terug}}{%
+\uitleg{De maandlast kennen we uit voorbeeld \ref{vb:h3-aflossingsdeel}. Na 10 jaar zijn er 120 betalingen gedaan, en blijven er nog 120 over: de restschuld is hun beginwaarde. De vergoeding rekenen we als drie keer de maandrente op die restschuld.}
+\begin{stappen}
+a \approx 1021{,}05 & De maandlast, met $\im \approx 0{,}002\,709\,26$. \\[1ex]
+240 \cdot 1021{,}05 - 180\,000 \approx 65\,053 & De totale rente, als ze de lening uitdoen. \\[1ex]
+S_{120} = a \cdot \frac{1 - \um^{-120}}{\im} \approx 104\,483{,}23 & De restschuld na 10 jaar. \\[2ex]
+3 \cdot \im \cdot 104\,483{,}23 \approx 849{,}22 & De wederbeleggingsvergoeding. \\[1ex]
+104\,483{,}23 + 849{,}22 = 105\,332{,}45 & Het bedrag dat ze betalen.
+\end{stappen}
+Ze betalen \eur 1021,05 per maand en zouden in totaal ongeveer \eur 65\,053 rente betalen. Na 10 jaar is er nog \eur 104\,483,23 schuld: 58\,\% van de lening. Na de helft van de looptijd is dus minder dan de helft afgelost, omdat de eerste betalingen voor een groot deel rente zijn. Om alles af te betalen, betalen ze \eur 105\,332,45. Daarmee besparen ze de rente van de laatste tien jaar: $120 \cdot 1021{,}05 - 104\,483{,}23 \approx 18\,043$ euro, min de vergoeding.}
+
+\lkr{Wie de vergoeding met de gelijkwaardige rente over drie maanden berekent, $S_{120}\,(\um^3 - 1)$, vindt \eur 851,52. Het verschil is klein; zeg welke afspraak je volgt. Opdracht \ref{oef:h3-o14} vraagt een gedeeltelijke vervroegde terugbetaling, met een kortere looptijd of een lagere maandlast als keuze.}
+
+\begin{oefeningen}
+\oef{h3-vervroegd}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over de oneindige looptijd gebruikt de limiet van een meetkundige rij (Rijen, hoofdstuk 4); wie Reeksen zag, herkent de som van een meetkundige reeks. De oefening over het JKP gebruikt een numerieke methode (Numerieke methodes, hoofdstuk 1, of een tabel op het rekentoestel). De oefening over de restschuld gebruikt de afgeleide en de bolheid van een functie.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+
+\oef{h3-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-beginwaarde}{oef:h3-beginwaarde}%
+  \fv{oef:h3-t2}{vb:h3-termijn}{oef:h3-termijn}%
+  \fv{oef:h3-t3}{vb:h3-looptijd}{oef:h3-looptijd}%
+  \fv{oef:h3-t4}{vb:h3-tabel}{oef:h3-tabel}%
+  \fv{oef:h3-t5}{vb:h3-aflossingsdeel}{oef:h3-factor}%
+  \fv{oef:h3-t6}{vb:h3-aflossingsdeel}{oef:h3-rekenblad}%
+  \fv{oef:h3-t7}{vb:h3-vast}{oef:h3-vast}%
+  \fv{oef:h3-t8}{vb:h3-terug}{oef:h3-vervroegd}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom een lening gelijk is aan de beginwaarde van de aflossingen, de formule van de beginwaarde van een postnumerando annuïteit met haar bewijs, de formule voor het termijnbedrag, wanneer een lening nooit afgelost raakt, wat rentedeel, aflossingsdeel en restschuld zijn, waarom de aflossingsdelen met de factor $u$ groeien (met bewijs), de twee formules voor de restschuld, hoe je de tabel in een rekenblad opstelt, de lening met vast aflossingsdeel en haar totale rente, en wat je betaalt bij een vervroegde terugbetaling. Vergelijk daarna met de kaders.
+\fi

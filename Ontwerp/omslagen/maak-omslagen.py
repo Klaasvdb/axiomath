@@ -63,6 +63,7 @@ SCHILDERIJEN = {
     "siphonophoren": ("File:Haeckel Siphonophorae.jpg", 0.5, 0.5),  # Haeckel, Kunstformen der Natur (iteraties en fractalen)
     "regendag": ("File:Gustave Caillebotte - Paris Street; Rainy Day - Google Art Project.jpg", 0.62, 0.5),  # Caillebotte, kansverdelingen
     "kazen": ("File:Clara Peeters - Still Life with Cheeses, Almonds and Pretzels - 1203 - Mauritshuis.jpg", 0.5, 0.5),  # Clara Peeters, lineair programmeren
+    "geldwisselaar": ("File:Quentin Massys 001.jpg", 0.5, 0.5),  # Quinten Massys, De geldwisselaar en zijn vrouw (financiële algebra)
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),

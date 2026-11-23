@@ -1,0 +1,408 @@
+%----------------------------------------------------------------------------------------
+% RENTE EN GELIJKWAARDIGE RENTEVOETEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Rente en gelijkwaardige rentevoeten}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Je koopt een tweedehandswagen en hebt een lening nodig. De verkoper biedt er zelf een aan: \textit{maar 0,5\,\% rente per maand!} Je bank vraagt 6,1\,\% rente per jaar. Twaalf keer 0,5\,\% is 6\,\%, dus de verkoper lijkt goedkoper. Klopt dat? En welke rente per maand rekent je bank eigenlijk aan, als je elke maand afbetaalt?}{\begin{tikzpicture}[font=\scriptsize]
+  \node[draw=accent,thick,rounded corners=2pt,fill=accent!8,text width=2.3cm,align=center,inner sep=4pt] at (0,0) {\textbf{Verkoper}\\[1pt] 0,5\,\% per maand};
+  \node[draw=grijs,thick,rounded corners=2pt,fill=black!4,text width=2.3cm,align=center,inner sep=4pt] at (2.9,0) {\textbf{Bank}\\[1pt] 6,1\,\% per jaar};
+  \node[font=\large\bfseries,text=fel!80!black] at (1.45,0) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 40, met de wenk dat de periode van de stortingen bepaalt welke rentevoet je gebruikt. Voorkennis uit pakket 4: samengestelde intrest en de eindwaarde van vaste stortingen (Rijen, hoofdstuk 2 en 3, met $q$ in plaats van $u$), de groeifactor per maand en continue groei (Exponentiële en logaritmische functies, hoofdstuk 1) en logaritmen (hoofdstuk 2 daar). Extra's: de beginwaarde en de waarde op een willekeurig tijdstip (nodig in hoofdstuk 2 en 3), de proportionele rentevoet met het bewijs dat hij meer kost, en het jaarlijks kostenpercentage (JKP) als effectieve jaarrente. Wettelijke details (roerende voorheffing, regels voor het JKP en voor hypothecaire kredieten) zijn bedoeld als realistische context en zijn niet nagekeken: controleer de actuele regels voor je ze in de les als feit brengt. Het boek geeft geen financieel advies.}
+
+Geld heeft een tijdswaarde: 1000 euro vandaag is meer waard dan 1000 euro over vijf jaar, want wie het vandaag heeft, kan het beleggen en er rente op krijgen. Wie leent, betaalt daarvoor. Banken spreken die prijs uit in een \textit{rentevoet}, maar niet altijd per jaar: per maand, per trimester, per semester. In dit hoofdstuk leer je rekenen met bedragen op verschillende tijdstippen, en vooral: rentevoeten voor verschillende periodes eerlijk vergelijken. Dat is de basis voor de volgende hoofdstukken, waar je spaart en leent met vaste bedragen per maand.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{De Verken toont meteen het verschil tussen 1\,\% per maand en 12\,\% per jaar: rente op rente maakt 12,68\,\% van twaalf keer 1\,\%. Laat de leerlingen in deelvraag c zelf terugrekenen: zo vinden ze de formule voor de gelijkwaardige rentevoet vóór de uitleg.}
+
+%========================================================================================
+\section{Kapitaal en tijd}
+
+\subsection{Rentevoet en rentefactor}
+
+Zet je een bedrag op een rekening, dan krijg je na elke periode rente: een vast percentage van wat er op dat moment op staat. Wordt die rente bijgeschreven, dan levert ze de volgende periode zelf rente op. Dat is \textit{samengestelde intrest}, die je kent uit de cursus Rijen. In de financiële algebra schrijven we de rentevoet als een decimaal getal, en geven we de factor waarmee het kapitaal per periode groeit een eigen letter.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{rentevoet}} $i$ is de rente per periode op een kapitaal van 1 euro: 3\,\% per jaar is $i = 0{,}03$. De \textbf{\textcolor{accent}{rentefactor}} is
+\[
+\formule{u = 1 + i}
+\]
+\end{theorie}
+
+Het \textit{beginkapitaal} $K_0$ wordt na één periode $K_0 + i K_0 = K_0\,u$, na twee periodes $K_0\,u^2$, en na $n$ periodes
+\[
+K_n = K_0 \cdot u^n .
+\]
+Dat is de formule van samengestelde intrest uit de cursus Rijen, waar $u$ nog $q$ heette: de kapitalen na elke periode vormen een meetkundige rij met quotiënt $u$. Zo'n formule geldt alleen als $i$ en $n$ bij dezelfde periode horen: een rentevoet per jaar met een aantal jaar, een rentevoet per maand met een aantal maanden.
+
+In België wordt op de rente van een termijnrekening \textit{roerende voorheffing} ingehouden, een belasting van 30\,\% van de rente. Je krijgt dan maar 70\,\% van de rente: de rentevoet na belasting, de \textit{nettorentevoet}, is $0{,}7\,i$.
+
+\voorbeeld{}{Je zet \eur 8000 voor 4 jaar op een termijnrekening met een brutorentevoet van 2,6\,\% per jaar. De rente wordt elk jaar bijgeschreven, na aftrek van 30\,\% roerende voorheffing. Hoeveel staat er na 4 jaar op de rekening?\label{vb:h1-netto}}{%
+\uitleg{De belasting gaat elk jaar van de rente af, dus groeit het kapitaal elk jaar met de nettorentevoet. Daarna is het samengestelde intrest.}
+\begin{stappen}
+i = 0{,}7 \cdot 0{,}026 = 0{,}0182 & De nettorentevoet: 1,82\,\% per jaar. \\[1ex]
+K_4 = 8000 \cdot 1{,}0182^4 \approx 8598{,}49 & Vier jaar met rentefactor $u = 1{,}0182$.
+\end{stappen}
+Er staat \eur 8598,49 op de rekening. Zonder belasting was het $8000 \cdot 1{,}026^4 \approx 8865{,}01$ euro geweest.}
+
+\nujij{Hoeveel staat er na 3 jaar op een termijnrekening met \eur 5000 aan 3\,\% bruto per jaar, na aftrek van 30\,\% roerende voorheffing?}{$i = 0{,}021$ en $K_3 = 5000 \cdot 1{,}021^3 \approx 5321{,}66$ euro.}
+
+\begin{oefeningen}
+\oef{h1-netto}
+\end{oefeningen}
+
+\subsection{Terug in de tijd: de beginwaarde}
+
+Wat is een bedrag dat je pas later krijgt vandaag waard? Stel dat je over 6 jaar \eur 12\,000 nodig hebt, en dat je kunt beleggen aan 2,8\,\% per jaar. Dan moet je vandaag het kapitaal $K_0$ beleggen waarvoor $K_0 \cdot 1{,}028^6 = 12\,000$. Je rekent dus terug in de tijd: je deelt door de rentefactor in plaats van ermee te vermenigvuldigen.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{beginwaarde}} (of \textit{contante waarde}) van een kapitaal $K$ dat beschikbaar is na $n$ periodes, is het kapitaal dat vandaag na $n$ periodes aangroeit tot $K$:
+\[
+\formule{K_0 = K \cdot u^{-n}}
+\]
+\end{theorie}
+
+\naast{Op een tijdlijn zie je wat er gebeurt. Een stap naar rechts, een periode later, vermenigvuldigt met $u$. Een stap naar links deelt door $u$, of vermenigvuldigt met $u^{-1}$. Zo kun je elk bedrag naar elk ander tijdstip brengen: een kapitaal $K$ op tijdstip $t$ is op tijdstip $s$ evenveel waard als $K \cdot u^{\,s - t}$, of $s$ nu voor of na $t$ ligt. Twee bedragen op verschillende tijdstippen vergelijk je pas eerlijk als je ze naar hetzelfde tijdstip brengt.}{\begin{tikzpicture}[x=1cm,font=\scriptsize]
+  \tijdas{4}{0/$0$,1/$1$,2/$2$,3/$3$,4/$4$}
+  \fill[accent] (0,0) circle (1.7pt) node[above=1pt] {$K_0$};
+  \fill[accent] (4,0) circle (1.7pt) node[above=1pt] {$K_0\,u^4$};
+  \draw[->,fel!80!black,thick] (.1,.45) to[bend left=20] node[above] {$\cdot\, u^4$} (3.9,.45);
+  \draw[->,accent,thick] (3.9,-.55) to[bend left=20] node[below] {$\cdot\, u^{-4}$} (.1,-.55);
+\end{tikzpicture}}
+
+\voorbeeld{}{Over 6 jaar heb je \eur 12\,000 nodig. Hoeveel moet je vandaag beleggen aan 2,8\,\% per jaar?\label{vb:h1-beginwaarde}}{%
+\uitleg{We zoeken de beginwaarde van \eur 12\,000 na 6 jaar: zes stappen terug in de tijd.}
+\begin{stappen}
+K_0 = 12\,000 \cdot 1{,}028^{-6} \approx 10\,167{,}70 & Delen door $u^6 = 1{,}028^6 \approx 1{,}180$.
+\end{stappen}
+Je moet vandaag \eur 10\,167,70 beleggen. Controle: $10\,167{,}70 \cdot 1{,}028^6 \approx 12\,000$.}
+
+Met de beginwaarde kun je twee bedragen op verschillende tijdstippen vergelijken.
+
+\voorbeeld{}{Een garage biedt een wagen aan voor \eur 9500 contant, of \eur 10\,400 te betalen over 3 jaar. Je kunt je geld beleggen aan 3\,\% per jaar. Welke betaling is voordeliger?\label{vb:h1-vergelijk}}{%
+\uitleg{De twee bedragen staan op een ander tijdstip, dus vergelijken we ze pas na het omrekenen naar hetzelfde tijdstip. We kiezen vandaag.}
+\naast{\begin{stappenvrij}{4.4cm}{4cm}
+10\,400 \cdot 1{,}03^{-3} \approx 9517{,}47 & De beginwaarde van de betaling later. \\[1ex]
+9500 < 9517{,}47 & Contant betalen kost vandaag het minst.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1cm,font=\scriptsize]
+  \tijdas{3}{0/$0$,1/$1$,2/$2$,3/$3$}
+  \fill[accent] (0,0) circle (1.7pt) node[above=1pt] {9500};
+  \fill[accent] (3,0) circle (1.7pt) node[above=1pt] {10\,400};
+  \draw[->,accent,thick] (2.9,-.5) to[bend left=20] node[below] {$\cdot\, 1{,}03^{-3}$} (.1,-.5);
+\end{tikzpicture}}
+Het verschil is klein: \eur 17,47 vandaag. Je kunt ook alles naar jaar 3 brengen: $9500 \cdot 1{,}03^3 \approx 10\,380{,}91 < 10\,400$. De conclusie is dezelfde, want vermenigvuldigen met $1{,}03^3$ behoudt de volgorde.}
+
+\begin{werkwijze}
+Teken een tijdlijn met alle bedragen. Kies één tijdstip, en breng elk bedrag daarheen: vermenigvuldig met $u^{\,s - t}$ om van tijdstip $t$ naar tijdstip $s$ te gaan. Vergelijk pas daarna.
+\end{werkwijze}
+
+\nujij{Wat is voordeliger bij 2\,\% per jaar: \eur 4000 over 2 jaar of \eur 4200 over 5 jaar?}{Beginwaarden: $4000 \cdot 1{,}02^{-2} \approx 3844{,}68$ en $4200 \cdot 1{,}02^{-5} \approx 3804{,}06$. \eur 4000 over 2 jaar is meer waard.}
+
+\begin{oefeningen}
+\oef{h1-beginwaarde}
+\end{oefeningen}
+
+\subsection{Looptijd en rentevoet}
+
+In $K_n = K_0 \cdot u^n$ staan vier grootheden. Ken je er drie, dan vind je de vierde. Voor $K_n$ en $K_0$ heb je alleen vermenigvuldigen of delen nodig. Voor de looptijd $n$ en de rentevoet $i$ moet je een exponentiële vergelijking oplossen, zoals je dat leerde in de cursus Exponentiële en logaritmische functies.
+
+\voorbeeld{}{Hoeveel jaar duurt het voor \eur 5000 aan 1,9\,\% per jaar aangroeit tot minstens \eur 6000, als de rente alleen op het einde van elk jaar wordt bijgeschreven?\label{vb:h1-looptijd}}{%
+\uitleg{De onbekende staat in de exponent, dus nemen we van beide leden een logaritme. Omdat de rente alleen per volledig jaar bijkomt, moet $n$ een natuurlijk getal zijn.}
+\begin{stappen}
+5000 \cdot 1{,}019^n = 6000 \iff 1{,}019^n = 1{,}2 & Deel door het beginkapitaal. \\[1ex]
+n = \frac{\log 1{,}2}{\log 1{,}019} \approx 9{,}69 & Neem de logaritme van beide leden. \\[2ex]
+K_{9} \approx 5922{,}94, \quad K_{10} \approx 6035{,}48 & Na 9 jaar nog net niet, na 10 jaar wel.
+\end{stappen}
+Na 10 jaar staat er voor het eerst meer dan \eur 6000 op de rekening.}
+
+\voorbeeld{}{Een kapitalisatiebon kost vandaag \eur 1000. Je krijgt na 4 jaar in één keer \eur 1115 terug, zonder tussentijdse rente. Welke rentevoet per jaar levert hij op?\label{vb:h1-rentevoet}}{%
+\uitleg{Nu is de rentefactor onbekend. Hij staat in het grondtal, dus nemen we een vierdemachtswortel.}
+\begin{stappen}
+1000 \cdot u^4 = 1115 \iff u = 1{,}115^{\frac14} \approx 1{,}027\,59 & De vierdemachtswortel van $1{,}115$. \\[1ex]
+i = u - 1 \approx 0{,}0276 & Ongeveer 2,76\,\% per jaar.
+\end{stappen}
+Let op: dat is niet $\frac{11{,}5}{4} = 2{,}875\,\%$. Die deling vergeet dat de rente zelf rente opbrengt.}
+
+\begin{werkwijze}
+Zoek je de looptijd, deel dan door $K_0$ en neem de logaritme: $n = \frac{\log (K_n / K_0)}{\log u}$. Rond naar boven af als de rente alleen per volledige periode bijkomt. Zoek je de rentevoet, neem dan de $n$-demachtswortel: $u = \bigl(\frac{K_n}{K_0}\bigr)^{1/n}$ en $i = u - 1$.
+\end{werkwijze}
+
+\nujij{Na hoeveel jaar is een kapitaal aan 2,5\,\% per jaar verdubbeld?}{$n = \frac{\log 2}{\log 1{,}025} \approx 28{,}07$, dus na 29 jaar (bijgeschreven per jaar).}
+
+\begin{oefeningen}
+\oef{h1-looptijd}
+
+\oef{h1-rentevoet}
+\end{oefeningen}
+
+%========================================================================================
+\section{Gelijkwaardige rentevoeten}
+
+\subsection{Per maand of per jaar}
+
+Wat is beter: 1\,\% per maand of 12\,\% per jaar? In de Verken zag je dat 1\,\% per maand na een jaar meer oplevert: \eur 100 wordt $100 \cdot 1{,}01^{12} \approx 112{,}68$ euro, en niet 112 euro. De rente van de eerste maanden brengt de maanden erna zelf rente op. Twaalf keer de maandrente is dus niet de jaarrente. Welke maandrente geeft dan wel precies hetzelfde als 12\,\% per jaar? Dat leidt tot het begrip \textit{gelijkwaardige rentevoeten}.
+
+Een jaar telt 2 semesters, 4 trimesters of 12 maanden. We schrijven $i_k$ voor de rentevoet per $k$-de van een jaar: $i_2$ per semester, $i_4$ per trimester, $\im$ per maand. De rentevoet per jaar blijft gewoon $i$.
+
+\begin{theorie}
+Twee rentevoeten zijn \textbf{\textcolor{accent}{gelijkwaardig}} als ze een kapitaal over dezelfde tijd tot hetzelfde eindkapitaal laten aangroeien.
+
+\begin{stelling}{Gelijkwaardige rentevoeten}
+De rentevoet $i_k$ per $k$-de van een jaar is gelijkwaardig met de jaarlijkse rentevoet $i$ als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{(1 + i_k)^k = 1 + i}$ \qquad of \qquad $\formule{i_k = (1 + i)^{\frac1k} - 1}$
+\end{stelling}
+
+\begin{bewijs}
+Neem een kapitaal $K_0$ voor één jaar. Met $i_k$ groeit het $k$ periodes lang aan tot $K_0\,(1 + i_k)^k$, met $i$ één jaar lang tot $K_0\,(1 + i)$. Die zijn gelijk als en slechts als $(1 + i_k)^k = 1 + i$, en omdat beide grondtallen positief zijn, is dat
+\bewijsregel{1 + i_k = (1 + i)^{\frac1k} .}
+Dan geldt het ook voor elke looptijd van $m$ periodes, want $K_0\,(1 + i_k)^m = K_0\,(1 + i)^{\frac{m}{k}}$: over $\frac mk$ jaar geven beide rentevoeten hetzelfde.
+\end{bewijs}
+\end{theorie}
+
+In woorden: de rentefactor per maand is de twaalfdemachtswortel van de rentefactor per jaar, net zoals je in de cursus Exponentiële en logaritmische functies de groeifactor per maand vond. Gelijkwaardige rentevoeten zijn dus twee namen voor dezelfde groei. Ze verschillen alleen in hoe vaak de rente wordt bijgeschreven.
+
+\voorbeeld{}{Een hypothecaire lening heeft een rentevoet van 3,6\,\% per jaar. De bank rekent met de gelijkwaardige maandrente. Hoeveel is die?\label{vb:h1-maand}}{%
+\uitleg{We zoeken $\im$ met $(1 + \im)^{12} = 1{,}036$: de twaalfdemachtswortel van de rentefactor per jaar.}
+\begin{stappen}
+\im = 1{,}036^{\frac{1}{12}} - 1 \approx 0{,}002\,952 & Ongeveer 0,2952\,\% per maand. \\[1ex]
+\frac{3{,}6\,\%}{12} = 0{,}3\,\% & Iets meer dan de gelijkwaardige maandrente.
+\end{stappen}
+Wie 0,3\,\% per maand betaalt, betaalt per jaar $1{,}003^{12} - 1 \approx 3{,}66\,\%$, en dus meer dan 3,6\,\%.}
+
+\voorbeeld{}{Een spaarformule belooft 0,9\,\% per trimester. Welke jaarlijkse rentevoet is daarmee gelijkwaardig?\label{vb:h1-trimester}}{%
+\uitleg{Nu gaan we van een korte naar een lange periode: vier trimesters na elkaar.}
+\begin{stappen}
+i = 1{,}009^4 - 1 \approx 0{,}036\,49 & Ongeveer 3,65\,\% per jaar.
+\end{stappen}}
+
+\voorbeeld{}{Welke maandrente is gelijkwaardig met 1,4\,\% per semester?\label{vb:h1-semester}}{%
+\uitleg{Een semester telt 6 maanden. We kunnen langs de jaarrente gaan, maar het kan ook rechtstreeks: $(1 + \im)^6 = 1 + i_2$.}
+\begin{stappen}
+\im = 1{,}014^{\frac16} - 1 \approx 0{,}002\,320 & Ongeveer 0,232\,\% per maand. \\[1ex]
+i = 1{,}014^2 - 1 = 0{,}028\,196 & Controle langs het jaar: $1{,}028\,196^{\frac{1}{12}} - 1 \approx 0{,}002\,320$.
+\end{stappen}}
+
+De tabel zet 4\,\% per jaar om in de gelijkwaardige rentevoeten (niet uitgewerkt). Ze zijn telkens iets kleiner dan het jaarpercentage gedeeld door het aantal periodes.
+
+\begin{rastertabel}{|c|c|c|c|}
+\hline
+\textbf{per jaar} & \textbf{per semester} & \textbf{per trimester} & \textbf{per maand} \\ \hline
+$i = 4\,\%$ & $i_2 = 1{,}04^{\frac12} - 1 \approx 1{,}980\,\%$ & $i_4 = 1{,}04^{\frac14} - 1 \approx 0{,}985\,\%$ & $\im = 1{,}04^{\frac1{12}} - 1 \approx 0{,}327\,\%$ \\ \hline
+\end{rastertabel}
+
+\begin{werkwijze}
+Zet beide rentevoeten om naar hun rentefactor. Ga van een korte naar een lange periode met een macht ($u = u_k^{\,k}$), en van een lange naar een korte periode met een wortel ($u_k = u^{1/k}$). Trek op het einde 1 af. Rond tussenresultaten niet af: een maandrente heeft minstens vier beduidende cijfers nodig.
+\end{werkwijze}
+
+\nujij{Welke trimesterrente is gelijkwaardig met 0,25\,\% per maand?}{$i_4 = 1{,}0025^3 - 1 \approx 0{,}752\,\%$.}
+
+\begin{oefeningen}
+\oef{h1-gelijkwaardig}
+\end{oefeningen}
+
+\subsection{Welke rentevoet gebruik je?}
+
+Met gelijkwaardige rentevoeten hoef je niet te kiezen in welke periode je rekent: het resultaat is hetzelfde. Waarom dan omrekenen? Omdat geld vaak per maand of per trimester bewogen wordt: je stort elke maand, of je betaalt elk trimester af. Elke storting groeit dan een aantal maanden aan, en dat aantal past bij een maandrente. Daarom kies je de rentevoet die bij de periode van de stortingen of betalingen hoort.
+
+\naast{Ook een kapitaal dat maar een deel van een jaar uitstaat, reken je zo uit. Na $m$ maanden is het $K_0\,(1 + \im)^m = K_0\,u^{\frac{m}{12}}$: de formule $K_t = K_0 \cdot u^t$ werkt ook voor een niet-gehele looptijd $t$ in jaar. De figuur toont het voor een hoge rentevoet van 30\,\% per jaar, zodat je het verschil ziet: de punten per maand (klein) liggen op dezelfde kromme $K_0 \cdot 1{,}3^t$ als de punten per jaar (groot).}{\begin{tikzpicture}[x=2.2cm,y=.032cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.5,ystep=20] (0,100) grid (2,180);
+  \draw[->,grijs] (0,100) -- (2.15,100) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,100) -- (0,186) node[above,text=black] {$K_t$};
+  \foreach \t in {1,2}{\node[below,inner sep=1.5pt] at (\t,100) {$\t$};}
+  \foreach \k in {100,120,140,160}{\node[left,inner sep=1.5pt] at (0,\k) {$\k$};}
+  \kromme{0}{2}{100*1.3^\x}
+  \foreach \m in {1,...,23}{\fill[fel!80!black] ({\m/12},{100*1.3^(\m/12)}) circle (1pt);}
+  \foreach \t in {0,1,2}{\fill[accent] (\t,{100*1.3^\t}) circle (2pt);}
+\end{tikzpicture}}
+
+\voorbeeld{}{Je zet \eur 2500 voor 9 maanden op een rekening met 2,2\,\% per jaar, met samengestelde intrest. Hoeveel rente krijg je?\label{vb:h1-deel}}{%
+\uitleg{Negen maanden zijn $\frac{9}{12} = 0{,}75$ jaar. We rekenen met de jaarrente en een niet-gehele exponent, en controleren met de gelijkwaardige maandrente.}
+\begin{stappen}
+K = 2500 \cdot 1{,}022^{0{,}75} \approx 2541{,}14 & Na 0,75 jaar. \\[1ex]
+\im = 1{,}022^{\frac1{12}} - 1 \approx 0{,}001\,815 & De gelijkwaardige maandrente. \\[1ex]
+2500 \cdot 1{,}001\,815^{9} \approx 2541{,}14 & Negen maanden: hetzelfde resultaat.
+\end{stappen}
+Je krijgt \eur 41,14 rente.}
+
+\lkr{Op een Belgische gereglementeerde spaarrekening wordt de basisrente binnen het jaar per dag pro rata berekend, met enkelvoudige intrest, en één keer per jaar bijgeschreven; daarnaast is er een getrouwheidspremie. Dat staat in opdracht \ref{oef:h1-o20}. Niet nagekeken: de actuele regels en de vrijstelling van roerende voorheffing.}
+
+\begin{oefeningen}
+\oef{h1-deel}
+\end{oefeningen}
+
+%========================================================================================
+\section{Nominaal en effectief}
+
+\subsection{De proportionele rentevoet}
+
+Toch zie je vaak dat een jaarrente gewoon door 12 gedeeld wordt. Een bank die \textit{6\,\% per jaar, maandelijks aangerekend} zegt, kan twee dingen bedoelen: de gelijkwaardige maandrente van ongeveer 0,487\,\%, of 0,5\,\% per maand. In het tweede geval is 6\,\% maar een naam: in werkelijkheid betaal je per jaar $1{,}005^{12} - 1 \approx 6{,}17\,\%$. Daarom maken we het onderscheid.
+
+\begin{theorie}
+Bij een \textbf{\textcolor{accent}{nominale rentevoet}} $j$ per jaar, aangerekend per $k$-de van een jaar, is de rentevoet per periode de \textbf{\textcolor{accent}{proportionele rentevoet}} $\formule{\dfrac{j}{k}}$. De \textbf{\textcolor{accent}{effectieve rentevoet}} is de jaarlijkse rentevoet die ermee gelijkwaardig is:
+\[
+\formule{i = \Bigl(1 + \frac{j}{k}\Bigr)^{k} - 1}
+\]
+\end{theorie}
+
+\voorbeeld{}{Op het openstaande saldo van een kredietkaart betaal je 1,2\,\% rente per maand. Wat is de nominale en wat is de effectieve rentevoet per jaar?\label{vb:h1-proportioneel}}{%
+\uitleg{De nominale rentevoet is twaalf keer de maandrente. De effectieve rentevoet krijg je door de maandrente twaalf keer te laten werken.}
+\begin{stappen}
+j = 12 \cdot 1{,}2\,\% = 14{,}4\,\% & Nominaal. \\[1ex]
+i = 1{,}012^{12} - 1 \approx 0{,}1539 & Effectief: ongeveer 15,39\,\% per jaar.
+\end{stappen}
+Wie een jaar lang \eur 1000 schuld laat openstaan, betaalt dus \eur 153,89 rente, en niet \eur 144.}
+
+Is de effectieve rentevoet altijd groter dan de nominale? Ja, en dat volgt uit het binomium van Newton.
+
+\begin{theorie}
+\begin{stelling}{Proportioneel kost meer}
+Voor een nominale rentevoet $j > 0$ en $k \geqslant 2$ periodes per jaar is
+
+\vspace{1mm}
+\qquad $\formule{\Bigl(1 + \frac{j}{k}\Bigr)^{k} > 1 + j}$ \qquad en dus \qquad $\formule{i_k < \frac{i}{k}}$
+\end{stelling}
+
+\begin{bewijs}
+Werk de macht uit met het binomium van Newton. Alle termen zijn positief, en de eerste drie zijn
+\bewijsregel{\Bigl(1 + \frac jk\Bigr)^k = 1 + k \cdot \frac jk + \binom k2 \frac{j^2}{k^2} + \cdots \geqslant 1 + j + \binom k2 \frac{j^2}{k^2} > 1 + j .}
+Neem nu een jaarrente $i > 0$ met haar gelijkwaardige rentevoet $i_k$, en stel $j = k\,i_k$. Dan is $1 + i = (1 + i_k)^k = \bigl(1 + \frac jk\bigr)^k > 1 + j = 1 + k\,i_k$, waaruit $i_k < \frac ik$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: de gelijkwaardige rentevoet per periode is altijd wat kleiner dan het jaarpercentage gedeeld door het aantal periodes, en wie de proportionele rentevoet aanrekent, rekent meer aan dan hij zegt. Hoe meer periodes per jaar, hoe groter het verschil. Maar het verschil blijft begrensd: ook als de rente elke dag of elke seconde wordt bijgeschreven, wordt $\bigl(1 + \frac jk\bigr)^k$ nooit groter dan $\e^{j}$. Dat is de continue groei uit de cursus Exponentiële en logaritmische functies.
+
+\subsection{Het jaarlijks kostenpercentage}
+
+Om leningen eerlijk te vergelijken, moet een kredietgever in België bij een consumentenkrediet het \textit{jaarlijks kostenpercentage} (JKP) vermelden: de effectieve rentevoet per jaar, waarin ook de verplichte kosten zitten, zoals dossierkosten. Zonder kosten is het JKP de effectieve jaarrente. Zo kun je een lening met maandrente en een lening met jaarrente toch met elkaar vergelijken. Hoe je het JKP berekent als er wel kosten zijn, zie je in hoofdstuk 3.
+
+\begin{oefeningen}
+\oef{h1-proportioneel}
+
+\oef{h1-jkp}
+\end{oefeningen}
+
+\needspace{18\baselineskip}
+Nu kunnen we het probleem oplossen.
+
+\voorbeeld{}{Terug naar het probleem. De verkoper vraagt 0,5\,\% per maand, de bank 6,1\,\% per jaar. Welke lening is goedkoper? Welke maandrente rekent de bank aan als ze met de gelijkwaardige rentevoet werkt?\label{vb:h1-terug}}{%
+\uitleg{Twee rentevoeten voor een andere periode vergelijk je pas als je ze naar dezelfde periode omrekent. We zetten de maandrente van de verkoper om naar een effectieve jaarrente, en de jaarrente van de bank naar een maandrente.}
+\begin{stappen}
+1{,}005^{12} - 1 \approx 0{,}061\,68 & De verkoper: effectief 6,168\,\% per jaar. \\[1ex]
+6{,}168\,\% > 6{,}1\,\% & De bank is goedkoper. \\[1ex]
+\im = 1{,}061^{\frac1{12}} - 1 \approx 0{,}004\,947 & De bank: 0,4947\,\% per maand, minder dan 0,5\,\%.
+\end{stappen}
+Het verschil lijkt klein, maar op een lening van \eur 15\,000 die je in vier jaar afbetaalt, scheelt het ongeveer twintig euro. De verkoper lijkt goedkoper omdat hij de proportionele rentevoet als argument gebruikt: zijn nominale rentevoet is 6\,\%, maar zijn effectieve 6,17\,\%.}
+
+\lkr{Het verschil op een lening van \eur 15\,000 over 48 maanden: met de formule van hoofdstuk 3 is de maandlast 352,28 euro bij 0,5\,\% en 351,83 euro bij 0,4947\,\%, samen ongeveer \eur 21 rente. Wie het concreet wil maken, kan het hier al tonen.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over continue rente gebruikt de limiet die $\e$ definieert (Exponentiële en logaritmische functies, hoofdstuk 1). De regel van 72 gebruikt de raaklijn aan $\ln(1 + x)$ in 0 (Limieten en afgeleiden).}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-netto}{oef:h1-netto}%
+  \fv{oef:h1-t2}{vb:h1-vergelijk}{oef:h1-beginwaarde}%
+  \fv{oef:h1-t3}{vb:h1-looptijd}{oef:h1-looptijd}%
+  \fv{oef:h1-t4}{vb:h1-maand}{oef:h1-gelijkwaardig}%
+  \fv{oef:h1-t5}{vb:h1-deel}{oef:h1-deel}%
+  \fv{oef:h1-t6}{vb:h1-proportioneel}{oef:h1-proportioneel}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-proportioneel}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een rentevoet en een rentefactor zijn, de formule van samengestelde intrest, wat de beginwaarde van een kapitaal is en hoe je een bedrag naar een ander tijdstip brengt, hoe je een looptijd en een rentevoet berekent, wanneer twee rentevoeten gelijkwaardig zijn, de formule met haar bewijs, welke rentevoet je kiest bij stortingen per maand, wat een nominale, een proportionele en een effectieve rentevoet zijn, waarom de proportionele rentevoet meer kost (met het bewijs), en wat het JKP is. Vergelijk daarna met de kaders.
+\fi

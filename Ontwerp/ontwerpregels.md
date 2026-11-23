@@ -205,6 +205,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Numerieke methodes | William Blake, *Newton*, 1795-ca. 1805 | Isaac Newton buigt zich met een passer over een tekening; de methode van Newton draagt zijn naam | De methode van Newton voor u² = 2,25: vanuit 5,3 volgen de raaklijnen naar 2,86, 1,82, 1,53 en de nulwaarde 1,5 |
 | Iteraties en fractalen | Ernst Haeckel, *Siphonophorae*, uit *Kunstformen der Natur*, 1904 | Een siphonofoor is een kolonie van steeds dezelfde bouwstenen, met tentakels die zich op elke schaal opnieuw vertakken: de fractale vormen van de natuur | De bovenrand van de band is de Koch-kromme, van links naar rechts na 0, 1, 2 en 3 iteraties |
 | Lineair programmeren | Clara Peeters, *Stilleven met kazen, amandelen en krakelingen*, ca. 1615 | Kaas, brood en amandelen: het dieetprobleem (de goedkoopste voeding die genoeg voedingsstoffen geeft) was een van de eerste problemen van lineair programmeren, en komt terug in hoofdstuk 2 en 3 | Het toegestane gebied van het probleem van hoofdstuk 2, met drie niveaulijnen; de laatste raakt het gebied in het optimum (135, 30), in fel. De bovenrand daalt zoals een niveaulijn |
+| Financiële algebra | Quinten Massys, *De geldwisselaar en zijn vrouw*, 1514 | Een Antwerpse geldwisselaar weegt munten: geld wisselen en uitlenen tegen rente | De aflossingstabel van een lening met vaste annuïteit (10 termijnen aan 15 %): elk kapitaaldeel is 1,15 keer het vorige; de bovenrand van de band is de restschuld |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 

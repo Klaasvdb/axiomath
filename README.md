@@ -24,9 +24,9 @@ Een percentage hoort bij een status: ⚪ **gepland** (0 %): nog niet begonnen, �
 
 ### 3de graad doorstroomfinaliteit
 
-**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 57 handboeken
+**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 58 handboeken
 
-🔴 56 eerste versie · 🟠 1 tweede versie
+🔴 57 eerste versie · 🟠 1 tweede versie
 
 #### Per richting
 
@@ -123,6 +123,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Groepen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Groepen/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Getaltheorie](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Getaltheorie/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Lineair programmeren](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Lineair programmeren/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Financiële algebra](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Financiële algebra/README.md>) | Algebra | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Ruimtemeetkunde](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Kegelsneden](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Kegelsneden/README.md>) | Meetkunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Rijen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Rijen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |

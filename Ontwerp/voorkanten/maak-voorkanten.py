@@ -90,6 +90,7 @@ HANDBOEKEN_LIJST += [(P4, m, n, jaar) for m, n, jaar in [
     ("Algebra/Groepen", "groepen", "6de jaar"),
     ("Algebra/Getaltheorie", "getaltheorie", "6de jaar"),
     ("Algebra/Lineair programmeren", "lineair-programmeren", "6de jaar"),
+    ("Algebra/Financiële algebra", "financiele-algebra", "6de jaar"),
     ("Meetkunde/Ruimtemeetkunde", "ruimtemeetkunde", "6de jaar"),
     ("Meetkunde/Kegelsneden", "kegelsneden", "6de jaar"),
     ("Discrete wiskunde/Rijen", "rijen", "6de jaar"),
@@ -274,6 +275,7 @@ TITELS = {
     "Iteraties en fractalen": (r"Iteraties en\\fractalen", 46),
     "Kansverdelingen": ("Kansverdelingen", 50),
     "Lineair programmeren": (r"Lineair\\programmeren", 46),
+    "Financiële algebra": (r"Financiële\\algebra", 46),
 }
 
 
@@ -376,7 +378,7 @@ JAAR_VOORSTEL = {
         "Analyse/Afgeleiden": "5de jaar", "Analyse/Limieten en afgeleiden": "5de jaar", "Analyse/Integralen": "6de jaar",
         "Analyse/Differentiaalvergelijkingen": "6de jaar", "Analyse/Reeksen": "6de jaar", "Analyse/Numerieke methodes": "6de jaar",
         "Algebra/Matrices": "5de jaar", "Algebra/Complexe getallen": "5de jaar", "Algebra/Groepen": "6de jaar",
-        "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Algebra/Lineair programmeren": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
+        "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Algebra/Lineair programmeren": "6de jaar", "Algebra/Financiële algebra": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
         "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar", "Discrete wiskunde/Iteraties en fractalen": "6de jaar",
         "Data en onzekerheid/Kansrekenen": "6de jaar", "Data en onzekerheid/Statistiek": "6de jaar",
         "Data en onzekerheid/Kansverdelingen": "6de jaar"},
