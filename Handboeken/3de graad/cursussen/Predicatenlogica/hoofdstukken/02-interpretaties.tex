@@ -1,0 +1,429 @@
+%----------------------------------------------------------------------------------------
+% INTERPRETATIES. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Interpretaties}
+
+\begin{probleem}
+\naast{\begin{minipage}{8.9cm}
+Anna merkt op dat de zin \textit{elk getal heeft een groter getal}, of
+\[\forall x\, \exists y\, (x < y),\]
+waar is in $\N$, in $\Z$, in $\Q$ en in $\R$. Bas gaat verder: \textit{met zinnen die alleen $<$ en $=$ gebruiken, kun je die vier verzamelingen nooit uit elkaar houden.}
+
+Heeft Bas gelijk? Zoek een zin met alleen $<$, $=$, connectieven en kwantoren die waar is in $\N$ en vals in $\Z$. En een zin die waar is in $\Q$ en vals in $\Z$. Lukt het ook voor $\Q$ en $\R$?
+\end{minipage}}{\begin{tikzpicture}[font=\small,x=.5cm]
+  \foreach \n/\y in {\N/0,\Z/-.9,\Q/-1.8,\R/-2.7}{\node[anchor=east] at (-5.6,\y) {$\n$};}
+  \draw[lijngrijs] (-5.3,0) -- (5.3,0) (-5.3,-.9) -- (5.3,-.9);
+  \foreach \k in {0,...,5}{\fill[accent] (\k,0) circle (2pt);}
+  \node[text=grijs] at (5.6,0) {\ldots};
+  \foreach \k in {-5,...,5}{\fill[accent] (\k,-.9) circle (2pt);}
+  \node[text=grijs] at (5.6,-.9) {\ldots}; \node[text=grijs] at (-5.6,-.9) {};
+  \draw[accent,line width=2.2pt,dash pattern=on .9pt off .5pt] (-5.3,-1.8) -- (5.3,-1.8);
+  \draw[accent,line width=2.2pt] (-5.3,-2.7) -- (5.3,-2.7);
+  \foreach \k in {-4,-2,0,2,4}{\node[font=\scriptsize,text=grijs] at (\k,-3.05) {$\k$};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 2, de waarheidswaarde van uitspraken van de predicatenlogica bepalen door het universum, de predicaten en de vrije variabelen te interpreteren, en een interpretatie zoeken waarin een zin waar of vals is. Voorkennis: hoofdstuk 1, en uit Logica en bewijzen het ontkennen van kwantoren en het tegenvoorbeeld. Laat leerlingen het probleem eerst zelf proberen: \textit{er is een kleinste getal} vinden ze meestal snel, de dichtheid van $\Q$ vraagt meer. Dat geen enkele zin met alleen $<$ de verzamelingen $\Q$ en $\R$ scheidt, is een stelling uit de modeltheorie (Cantor, 1895): ze staat alleen als uitleg in voorbeeld~\ref{vb:h2-terug}.}
+
+Een formule op zich is waar noch vals. Wat betekent $\forall x\, \exists y\, R(x, y)$? Dat hangt af van wat $R$ is, en van de objecten waarover $x$ en $y$ gaan. Met $<$ in $\N$ is ze waar. Met $>$ in $\N$ is ze vals, want 0 heeft geen kleiner natuurlijk getal. In dit hoofdstuk leer je hoe je de betekenis vastlegt, met een \textit{interpretatie}, en hoe je dan de waarheidswaarde van elke formule bepaalt. Je tekent relaties ook: als pijlen tussen punten, of als een gebied in het vlak. Zo zie je in één oogopslag of een zin waar is. Op het einde zoek je zinnen die twee verzamelingen uit elkaar houden, zoals Anna en Bas.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. Dezelfde zin is waar in de ene situatie en vals in de andere: dat is het idee van een interpretatie. In vraag d tekenen de leerlingen al een relatie als pijlen.}
+
+%========================================================================================
+\section{Interpretaties}\label{sec:h2-interpretaties}
+
+\subsection{Een betekenis vastleggen}
+
+In de Verken-opgave gaf je de letter $R$ telkens een andere betekenis, en kreeg je telkens een andere waarheidswaarde. Om over de waarheid van een formule te spreken, moet je dus eerst zeggen wat elk teken erin betekent.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{interpretatie}} van een formule legt vast:
+\begin{itemize}[leftmargin=6mm,itemsep=.5mm]
+\item het universum $U$, een niet-lege verzameling;
+\item voor elke constante: een element van $U$;
+\item voor elke functie met $n$ argumenten: een functie die bij $n$ elementen van $U$ een element van $U$ geeft;
+\item voor elk predicaat met $n$ argumenten: een eigenschap of relatie op $U$;
+\item voor elke vrije variabele: een element van $U$.
+\end{itemize}
+\end{theorie}
+
+Het gelijkheidsteken krijgt geen eigen interpretatie: $t_1 = t_2$ betekent altijd dat $t_1$ en $t_2$ hetzelfde object van $U$ zijn. Een zin heeft geen vrije variabelen, dus daar valt het laatste punt weg. Het universum is nooit leeg: er is altijd minstens één object om over te spreken.
+
+\voorbeeld{}{Geef twee interpretaties van de zin $\forall x\, \bigl(P(x) \dan R(x, c)\bigr)$: één waarin ze waar is, en één waarin ze vals is.\label{vb:h2-interpretatie}}{%
+\uitleg{De zin bevat een predicaat met één argument, een met twee argumenten en een constante. We kiezen voor elk een betekenis, eerst in getallen, dan in mensen.}
+\begin{stappenbreed}
+U = \N,\ P(x)\colon x \text{ is even},\ R(x, y)\colon x \geqslant y,\ c = 0 & De zin zegt: \textit{elk even getal is minstens 0}. Waar. \\[1ex]
+U = \text{de mensen},\ P(x)\colon x \text{ is een kind},\ R(x, y)\colon x \text{ kent } y,\ c = \text{de koning} & De zin zegt: \textit{elk kind kent de koning}. Vals: er zijn kinderen die de koning niet kennen.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-interpretatie}
+\end{oefeningen}
+
+\subsection{De waarheidswaarde bepalen}
+
+Hoe bepaal je in een interpretatie of een formule waar is? Voor de connectieven ken je de waarheidstabellen. Voor de kwantoren leg je vast wat \textit{voor alle} en \textit{er bestaat} betekenen: je laat de variabele over het hele universum lopen.
+
+\begin{theorie}
+In een interpretatie met universum $U$:
+\begin{itemize}[leftmargin=6mm,itemsep=.5mm]
+\item is een atomaire formule $R(t_1, \ldots, t_n)$ waar als de objecten $t_1$, \ldots, $t_n$ de relatie $R$ hebben;
+\item volgen $\niet$, $\en$, $\of$, $\dan$ en $\asa$ hun waarheidstabel;
+\item is $\formule{\forall x\, \varphi}$ waar als $\varphi$ waar is voor elke waarde van $x$ in $U$;
+\item is $\formule{\exists x\, \varphi}$ waar als $\varphi$ waar is voor minstens één waarde van $x$ in $U$.
+\end{itemize}
+\end{theorie}
+
+Bij meer kwantoren werk je van buiten naar binnen. Bij $\forall x\, \exists y\, \varphi$ kies je eerst een willekeurige $x$, en zoek je daarna een $y$ die werkt. Die $y$ mag van $x$ afhangen. Bij $\exists y\, \forall x\, \varphi$ moet je één $y$ vinden die voor alle $x$ werkt.
+
+\voorbeeld{}{Bepaal de waarheidswaarde van $\forall x\, \exists y\, (x + y = 0)$ en $\exists y\, \forall x\, (x + y = x)$, eerst met universum $\Z$, dan met universum $\N$. De $+$ en het getal $0$ hebben hun gewone betekenis.\label{vb:h2-waarde}}{%
+\uitleg{We volgen de kwantoren van links naar rechts. Een $\exists$ bewijs je met een getal dat werkt, een $\forall$ met een redenering voor een willekeurig getal.}
+\begin{stappenbreed}
+\Z\colon \ \forall x\, \exists y\, (x + y = 0)\colon \ \text{waar} & Neem een willekeurige $x \in \Z$, en $y = -x \in \Z$. De $y$ hangt af van $x$. \\[1ex]
+\N\colon \ \forall x\, \exists y\, (x + y = 0)\colon \ \text{vals} & Voor $x = 1$ is $1 + y \geqslant 1$ voor elke $y \in \N$: er is geen $y$. \\[1ex]
+\Z \text{ en } \N\colon \ \exists y\, \forall x\, (x + y = x)\colon \ \text{waar} & $y = 0$ werkt voor elke $x$, en $0$ ligt in beide universums.
+\end{stappenbreed}
+Dezelfde zin kan dus waar zijn in de ene interpretatie en vals in de andere.}
+
+\begin{werkwijze}
+Schrijf eerst op wat het universum en de tekens betekenen. Lees de formule van buiten naar binnen. Een $\forall$ toon je aan met een redenering voor een willekeurige waarde, en weerleg je met één tegenvoorbeeld. Een $\exists$ toon je aan met één waarde die werkt; die mag afhangen van de variabelen die ervoor staan. Om een $\exists$ te weerleggen, toon je aan dat geen enkele waarde werkt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-waarde}
+\end{oefeningen}
+
+\subsection{Vrije variabelen}
+
+Een formule met een vrije variabele is een open zin. Pas als die variabele een waarde krijgt, is de formule waar of vals, en het antwoord kan per waarde verschillen. Zo maakt een open zin met één vrije variabele een deel van het universum: de waarden waarvoor ze waar is.
+
+\voorbeeld{}{Het universum is $\Z$. Voor welke waarden van $x$ is $\varphi(x)\colon \ \exists y\, (x = y \cdot y + 1)$ waar? Is $\varphi(10)$ waar? En $\varphi(-1)$?\label{vb:h2-vrij}}{%
+\uitleg{De vrije variabele is $x$. De formule zegt: \textit{$x$ is één meer dan een kwadraat}. We zoeken een $y$, of tonen aan dat er geen is.}
+\begin{stappenbreed}
+\varphi(10)\colon \ 10 = 3 \cdot 3 + 1 \colon \ \text{waar} & $y = 3$ werkt (ook $y = -3$). \\[1ex]
+\varphi(-1)\colon \ \text{vals} & $y \cdot y + 1 \geqslant 1 > -1$ voor elke $y \in \Z$. \\[1ex]
+x \in \{1, 2, 5, 10, 17, 26, \ldots\} & $\varphi(x)$ is waar voor de getallen $n^2 + 1$ met $n \in \N$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h2-vrij}
+\end{oefeningen}
+
+\subsection{Een eindig universum}
+
+Heeft het universum maar een paar elementen, dan kun je alle waarden gewoon nagaan. Een $\forall$ wordt dan een lange \textit{en}, een $\exists$ een lange \textit{of}.
+
+\begin{theorie}
+\begin{stelling}{Kwantoren in een eindig universum}
+Is $U = \{a_1, a_2, \ldots, a_n\}$, dan is in die interpretatie
+
+\vspace{1mm}
+\qquad $\formule{\forall x\, \varphi(x) \asa \varphi(a_1) \en \varphi(a_2) \en \cdots \en \varphi(a_n)}$
+
+\vspace{1mm}
+\qquad $\formule{\exists x\, \varphi(x) \asa \varphi(a_1) \of \varphi(a_2) \of \cdots \of \varphi(a_n)}$
+\end{stelling}
+
+\begin{bewijs}
+$\forall x\, \varphi(x)$ is waar als $\varphi$ waar is voor elke waarde van $x$ in $U$, dus voor $a_1$, $a_2$, \ldots, $a_n$. Dat is precies wanneer de conjunctie waar is. $\exists x\, \varphi(x)$ is waar als $\varphi$ waar is voor minstens één van $a_1$, \ldots, $a_n$, dus precies wanneer de disjunctie waar is.
+\end{bewijs}
+\end{theorie}
+
+In een eindig universum zijn de ontkenningsregels voor kwantoren dus gewoon de wetten van De Morgan, met meer dan twee delen. In een oneindig universum kun je niet alle waarden nagaan: daar heb je een redenering nodig.
+
+\voorbeeld{}{Het universum is $U = \{1, 2, 3, 4, 5, 6\}$, met $E(x, y)$: \textit{$x$ is een echte deler van $y$} (een deler verschillend van $y$). Is $\forall x\, \exists y\, E(x, y)$ waar? En $\exists x\, \forall y\, \bigl(x \neq y \dan E(x, y)\bigr)$?\label{vb:h2-eindig}}{%
+\naast{\begin{minipage}{9.6cm}
+\uitleg{Teken een pijl van $x$ naar $y$ als $E(x, y)$ waar is. Dan lees je de zinnen af.}
+\begin{stappenvrij}{3.5cm}{5.6cm}
+\forall x\, \exists y\, E(x, y)\colon \ \text{vals} & Uit 4 vertrekt geen pijl: geen getal van $U$ is een veelvoud van 4 en groter dan 4. \\[1ex]
+x = 1\colon \ \text{waar} & Uit 1 vertrekt een pijl naar elk ander getal: 1 is een echte deler van 2, 3, 4, 5 en 6.
+\end{stappenvrij}
+\vspace{1mm}
+De eerste zin is de conjunctie $\exists y\, E(1, y) \en \cdots \en \exists y\, E(6, y)$, en het vierde deel is vals. Ook uit 5 en 6 vertrekt geen pijl.
+\end{minipage}}{\begin{tikzpicture}
+  \foreach \n [count=\i] in {1,...,6}{\node[elt] (\n) at ({90-60*(\i-1)}:1.45) {$\n$};}
+  \foreach \v/\w in {1/2,1/3,1/4,1/5,1/6,2/4,2/6,3/6}{\draw[pijl] (\v) -- (\w);}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-eindig}
+\end{oefeningen}
+
+%========================================================================================
+\section{Relaties tekenen}\label{sec:h2-tekenen}
+
+\subsection{Pijlen}
+
+In voorbeeld~\ref{vb:h2-eindig} toonde een figuur met pijlen meteen waarom een zin vals was. Zo'n figuur kun je bij elke relatie $R$ op een eindig universum tekenen: een punt per element, een pijl van $x$ naar $y$ als $R(x, y)$ waar is, en een lus als $R(x, x)$ waar is. Elke zin over $R$ wordt dan een eigenschap van de figuur. Een paar zinnen komen zo vaak voor dat je ze moet herkennen. (Niet uitgewerkt.)
+
+\begin{center}\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|l|l|}\hline
+\rowcolor{accent!14} zin & in de figuur \\ \hline
+$\forall x\, R(x, x)$ & elk punt heeft een lus \\ \hline
+$\forall x\, \exists y\, R(x, y)$ & uit elk punt vertrekt minstens één pijl \\ \hline
+$\forall y\, \exists x\, R(x, y)$ & in elk punt komt minstens één pijl aan \\ \hline
+$\exists y\, \forall x\, R(x, y)$ & er is een punt waar een pijl aankomt uit elk punt, ook uit zichzelf \\ \hline
+$\forall x\, \forall y\, \bigl(R(x, y) \dan R(y, x)\bigr)$ & bij elke pijl hoort een pijl terug \\ \hline
+\end{tabular}
+\end{center}
+
+\voorbeeld{}{Welke van de vijf zinnen uit de tabel zijn waar voor de relatie in de figuur?\label{vb:h2-pijlen}}{%
+\naast{\begin{minipage}{11.2cm}
+\uitleg{We gaan de zinnen een voor een na in de figuur, en geven bij een valse zin het punt dat het verhindert.}
+\begin{stappenvrij}{5.9cm}{4.9cm}
+\forall x\, R(x, x)\colon \ \text{vals} & $b$ heeft geen lus. \\[.6ex]
+\forall x\, \exists y\, R(x, y)\colon \ \text{waar} & Uit $a$, $b$, $c$ en $d$ vertrekt een pijl. \\[.6ex]
+\forall y\, \exists x\, R(x, y)\colon \ \text{vals} & In $b$ komt geen pijl aan. \\[.6ex]
+\exists y\, \forall x\, R(x, y)\colon \ \text{waar} & In $c$ komen pijlen aan uit $a$, $b$, $d$ en uit $c$ zelf. \\[.6ex]
+\forall x\, \forall y\, \bigl(R(x, y) \dan R(y, x)\bigr)\colon \ \text{vals} & Er is een pijl van $b$ naar $c$, maar niet terug.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}
+  \node[elt] (a) at (0,1.5) {$a$};
+  \node[elt] (b) at (-1.2,0) {$b$};
+  \node[elt] (c) at (0,0) {$c$};
+  \node[elt] (d) at (1.2,0) {$d$};
+  \draw[pijl] (a) -- (c);
+  \draw[pijl] (b) -- (c);
+  \draw[pijl] (d) to[bend left=25] (c);
+  \draw[pijl] (c) to[bend left=25] (d);
+  \draw[pijl] (c) to[lusonder] (c);
+  \draw[pijl] (a) to[lus] (a);
+  \draw[pijl] (a) -- (d);
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-pijlen}
+\end{oefeningen}
+
+\subsection{Gebieden in het vlak}
+
+Een relatie op $\R$ heeft oneindig veel punten, en dus kun je geen pijlen tekenen. Maar een predicaat $P(x, y)$ op $\R$ is waar voor sommige punten $(x, y)$ van het vlak en vals voor de andere. Kleur de punten waarvoor het waar is, en je krijgt een gebied. De kwantoren lees je dan met verticale en horizontale rechten.
+
+\figuren{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\small]
+  \begin{scope}
+    \fill[accent!22] (-2.6,{-.6*2.6-.9}) -- (2.6,{.6*2.6-.9}) -- (2.6,{.6*2.6+.9}) -- (-2.6,{-.6*2.6+.9}) -- cycle;
+    \roosterleeg{-2.6}{1}{2.6}{-2.6}{1}{2.6}
+    \draw[fel!85!black,very thick] (1,-2.6) -- (1,2.6);
+    \node[font=\footnotesize,align=center] at (0,-3.7) {$\forall x\, \exists y\, P(x, y)$:\\elke verticale rechte\\raakt het gebied};
+  \end{scope}
+  \begin{scope}[xshift=5.5cm]
+    \fill[accent!22] (-2.6,-2.6) -- plot[domain=-2.6:2.6,samples=50] (\x,{1.3+.6*sin(110*\x)}) -- (2.6,-2.6) -- cycle;
+    \roosterleeg{-2.6}{1}{2.6}{-2.6}{1}{2.6}
+    \draw[fel!85!black,very thick] (-2.6,.4) -- (2.6,.4);
+    \node[font=\footnotesize,align=center] at (0,-3.7) {$\exists y\, \forall x\, P(x, y)$:\\een horizontale rechte\\ligt helemaal in het gebied};
+  \end{scope}
+  \begin{scope}[xshift=11cm]
+    \fill[accent!22] (-1.4,-2.6) rectangle (-.3,2.6);
+    \roosterleeg{-2.6}{1}{2.6}{-2.6}{1}{2.6}
+    \draw[fel!85!black,very thick] (-.8,-2.6) -- (-.8,2.6);
+    \node[font=\footnotesize,align=center] at (0,-3.7) {$\exists x\, \forall y\, P(x, y)$:\\een verticale rechte\\ligt helemaal in het gebied};
+  \end{scope}
+\end{tikzpicture}}
+
+Bij $\forall x\, \exists y\, P(x, y)$ moet je bij elke $x$ een $y$ vinden: op de verticale rechte door $x$ moet minstens één punt van het gebied liggen. Bij $\exists y\, \forall x\, P(x, y)$ moet één $y$ voor alle $x$ werken: de horizontale rechte op hoogte $y$ ligt dan helemaal in het gebied. In de eerste figuur is $\exists y\, \forall x\, P(x, y)$ vals: geen enkele horizontale rechte ligt helemaal in de schuine strook.
+
+\voorbeeld{}{Het universum is $\R$, met $P(x, y)\colon \ y > x^2$. Is $\forall x\, \exists y\, P(x, y)$ waar? En $\exists y\, \forall x\, P(x, y)$?\label{vb:h2-gebied}}{%
+\naast{\begin{minipage}{10.4cm}
+\uitleg{Het gebied ligt boven de parabool $y = x^2$. We kijken naar verticale en horizontale rechten.}
+\begin{stappenvrij}{4.1cm}{5.9cm}
+\forall x\, \exists y\, (y > x^2)\colon \ \text{waar} & Bij elke $x$ werkt $y = x^2 + 1$: elke verticale rechte loopt het gebied in. \\[1ex]
+\exists y\, \forall x\, (y > x^2)\colon \ \text{vals} & Elke horizontale rechte $y = b$ komt buiten het gebied: neem $x = \sqrt{|b|} + 1$, dan is $x^2 > |b| \geqslant b$.
+\end{stappenvrij}
+\vspace{1mm}
+De parabool stijgt boven elke horizontale rechte uit. Dat is de meetkundige reden waarom de kwantoren hier niet van plaats mogen wisselen.
+\end{minipage}}{\begin{tikzpicture}[x=.6cm,y=.42cm,font=\small]
+  \fill[accent!22] plot[domain=-2.2:2.2,samples=50] (\x,{(\x)^2}) -- (2.2,5.2) -- (-2.2,5.2) -- cycle;
+  \rooster{-2}{1}{2}{-1}{1}{5}
+  \draw[accent,thick,domain=-2.2:2.2,samples=50] plot (\x,{(\x)^2});
+  \draw[fel!85!black,thick] (-1.5,-1) -- (-1.5,5.2);
+  \draw[fel!85!black,thick,dashed] (-2.2,3) -- (2.2,3);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Teken het gebied waar $P(x, y)$ waar is. Voor $\forall x\, \exists y$: raakt elke verticale rechte het gebied? Voor $\exists y\, \forall x$: ligt een horizontale rechte helemaal in het gebied? Voor $\forall y\, \exists x$ en $\exists x\, \forall y$ wissel je verticaal en horizontaal. Bevestig wat je ziet met een berekening.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-gebied}
+\end{oefeningen}
+
+%========================================================================================
+\section{Waar maken en vals maken}\label{sec:h2-modellen}
+
+\subsection{Een interpretatie zoeken}
+
+Tot nu toe was de interpretatie gegeven. Vaak is het omgekeerd: je hebt een zin, en je zoekt een interpretatie waarin ze waar is, of een waarin ze vals is. Een wiskundige die een vermoeden wil weerleggen, doet dat ook: ze zoekt een situatie waarin alle voorwaarden kloppen en het besluit niet.
+
+\begin{theorie}
+Een interpretatie waarin een zin $\varphi$ waar is, heet een \textbf{\textcolor{accent}{model}} van $\varphi$.
+
+\vspace{1mm}
+Een zin is \textbf{\textcolor{accent}{vervulbaar}} als ze minstens één model heeft.
+\end{theorie}
+
+Een zin die vals is in elke interpretatie, zoals $\exists x\, \bigl(P(x) \en \niet P(x)\bigr)$, is niet vervulbaar. Een model hoeft niet groot of ingewikkeld te zijn: probeer eerst een universum met één, twee of drie elementen, of een bekende verzameling zoals $\N$ met $<$.
+
+\voorbeeld{}{Zoek een model en een interpretatie waarin de zin vals is:
+\[\forall x\, \exists y\, R(x, y) \en \forall x\, \niet R(x, x).\]\label{vb:h2-model}}{%
+\naast{\begin{minipage}{10.4cm}
+\uitleg{De zin zegt: uit elk punt vertrekt een pijl, en geen enkel punt heeft een lus. Elke pijl gaat dus naar een ander punt.}
+\begin{stappenvrij}{4.7cm}{5.3cm}
+U = \{a, b\},\ a \to b,\ b \to a & Een model: uit elk punt vertrekt een pijl, en er is geen lus. \\[1ex]
+U = \N,\ R(x, y)\colon \ x < y & Ook een model: bij elke $x$ is $y = x + 1$ groter, en $x < x$ is nooit waar. \\[1ex]
+U = \{a\} & In één punt kan de pijl alleen een lus zijn. Met $R(a, a)$ vals is het eerste deel vals, met $R(a, a)$ waar het tweede. In beide gevallen is de zin vals.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}
+  \node[elt] (a) at (0,0) {$a$};
+  \node[elt] (b) at (1.6,0) {$b$};
+  \draw[pijl] (a) to[bend left=30] (b);
+  \draw[pijl] (b) to[bend left=30] (a);
+  \node[font=\footnotesize,text=grijs] at (.8,-1) {een model};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Vertaal de zin naar een eigenschap van een pijlenfiguur of van een bekende verzameling. Begin klein: een universum met één, twee of drie elementen. Voor een model maak je alle delen waar, voor een interpretatie waarin de zin vals is, maak je één nodig deel vals. Ga je keuze daarna na met de regels voor de kwantoren.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-model}
+\end{oefeningen}
+
+\subsection{Verzamelingen uit elkaar houden}
+
+Een zin die waar is in de ene interpretatie en vals in de andere, houdt die twee uit elkaar. Zo kun je met zinnen eigenschappen van getallenverzamelingen beschrijven die je met woorden al kent.
+
+\voorbeeld{}{Zoek een zin met alleen $\cdot$ en $=$ die waar is in $\R$ en vals in $\Z$. Het universum is telkens de verzameling, en $\cdot$ is de gewone vermenigvuldiging.\label{vb:h2-scheiden}}{%
+\uitleg{In $\R$ kun je delen door elk getal verschillend van 0, in $\Z$ niet. Het getal 1 mogen we niet gebruiken, maar het is het enige getal $e$ met $x \cdot e = x$ voor alle $x$.}
+\begin{stappenbreed}
+\exists e\, \forall x\, (x \cdot e = x) & Er is een neutraal element voor $\cdot$: waar in $\R$ en in $\Z$, met $e = 1$. \\[1ex]
+\exists e\, \Bigl(\forall x\, (x \cdot e = x) \en \forall x\, \bigl(\niet(x \cdot x = x) \dan \exists y\, (x \cdot y = e)\bigr)\Bigr) & \textit{Elk getal behalve 0 en 1 heeft een omgekeerde}: waar in $\R$. Vals in $\Z$: $2 \cdot y = 1$ heeft geen oplossing in $\Z$.
+\end{stappenbreed}
+De getallen met $x \cdot x = x$ zijn $0$ en $1$. Het getal $0$ heeft nooit een omgekeerde, daarom sluiten we het uit, en $1$ is zijn eigen omgekeerde.}
+
+\begin{oefeningen}
+\oef{h2-scheiden}
+\end{oefeningen}
+
+\needspace{16\baselineskip}
+\subsection{Terug naar het probleem}
+
+Anna en Bas hebben vier interpretaties met hetzelfde predicaat $<$. Om ze uit elkaar te houden, zoek je een eigenschap van de ordening die de ene verzameling heeft en de andere niet. Zie je de getallen op een rechte, dan zie je zulke eigenschappen: $\N$ heeft een begin, en in $\Q$ zit tussen twee getallen altijd nog een getal.
+
+\voorbeeld{}{Terug naar het probleem. Zoek een zin met alleen $<$ en $=$ die waar is in $\N$ en vals in $\Z$, en een die waar is in $\Q$ en vals in $\Z$.\label{vb:h2-terug}}{%
+\uitleg{$\N$ heeft een kleinste element en $\Z$ niet. $\Q$ is \textit{dicht}: tussen twee verschillende getallen ligt altijd een derde. In $\Z$ ligt er niets tussen $0$ en $1$.}
+\begin{stappenbreed}
+\exists x\, \forall y\, (x = y \of x < y) & \textit{Er is een kleinste getal}. Waar in $\N$ met $x = 0$. Vals in $\Z$: bij elke $x$ is $y = x - 1$ kleiner. \\[1ex]
+\forall x\, \forall y\, \bigl(x < y \dan \exists z\, (x < z \en z < y)\bigr) & \textit{Tussen twee getallen ligt een derde}. Waar in $\Q$: neem $z = \frac{x + y}{2}$, dat rationaal is. Vals in $\Z$: neem $x = 0$ en $y = 1$.
+\end{stappenbreed}
+De eerste zin is ook vals in $\Q$ en $\R$, de tweede ook vals in $\N$ en waar in $\R$. Met die twee zinnen kun je $\N$, $\Z$ en $\Q$ dus uit elkaar houden.}
+
+En $\Q$ en $\R$? Bas heeft daar gelijk, al bewijzen we het niet: elke zin met alleen $<$ en $=$ die waar is in $\Q$, is ook waar in $\R$, en omgekeerd. Het verschil tussen beide is dat in $\R$ elke begrensde verzameling een kleinste bovengrens heeft, en dat is een uitspraak over \textit{verzamelingen} van getallen, niet over getallen. Met een rijkere taal lukt het wel: de zin $\exists x\, (x \cdot x = 1 + 1)$ is waar in $\R$ en vals in $\Q$, want $\sqrt2$ is irrationaal.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening gebruikt de complexe getallen (de vergelijking $x^2 = -1$), de tweede het product van matrices, de derde de axioma's van een groep uit Groepen. Telkens is dezelfde zin waar in de ene interpretatie en vals in de andere.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-interpretatie}{oef:h2-interpretatie}%
+  \fv{oef:h2-t2}{vb:h2-waarde}{oef:h2-waarde}%
+  \fv{oef:h2-t3}{vb:h2-vrij}{oef:h2-vrij}%
+  \fv{oef:h2-t4}{vb:h2-pijlen}{oef:h2-pijlen}%
+  \fv{oef:h2-t5}{vb:h2-gebied}{oef:h2-gebied}%
+  \fv{oef:h2-t6}{vb:h2-model}{oef:h2-model}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-scheiden}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een interpretatie vastlegt, wanneer $\forall x\, \varphi$ en $\exists x\, \varphi$ waar zijn, hoe je een formule van buiten naar binnen nagaat, wat een vrije variabele in een interpretatie doet, wat de kwantoren in een eindig universum worden, hoe je de basiszinnen in een pijlenfiguur en in een gebied in het vlak herkent, wat een model en een vervulbare zin zijn, en hoe je een zin vindt die twee verzamelingen uit elkaar houdt. Vergelijk daarna met de kaders.
+\fi

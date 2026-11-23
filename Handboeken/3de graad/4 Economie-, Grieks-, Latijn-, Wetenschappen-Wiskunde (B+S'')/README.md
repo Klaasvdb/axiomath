@@ -27,6 +27,7 @@ Leerplan: B+S'' (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met le
 | [Discrete wiskunde/Telproblemen](Discrete%20wiskunde/Telproblemen) | LPD 47 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Discrete wiskunde/Logica en bewijzen](Discrete%20wiskunde/Logica%20en%20bewijzen) | LPD 4 (bewijstechnieken) | 3 hoofdstukken, eerste versie, nog na te lezen |
 | [Discrete wiskunde/Iteraties en fractalen](Discrete%20wiskunde/Iteraties%20en%20fractalen) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 44-47 | vier hoofdstukken, eerste versie, nog na te lezen |
+| [Discrete wiskunde/Predicatenlogica](Discrete%20wiskunde/Predicatenlogica) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 1-3 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Data en onzekerheid/Kansrekenen](Data%20en%20onzekerheid/Kansrekenen) | LPD 48-49 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Data en onzekerheid/Statistiek](Data%20en%20onzekerheid/Statistiek) | LPD 50-54, K1 | 4 hoofdstukken, eerste versie, nog na te lezen |
 | [Data en onzekerheid/Kansverdelingen](Data%20en%20onzekerheid/Kansverdelingen) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 48-50 | vier hoofdstukken, eerste versie, nog na te lezen |

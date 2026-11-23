@@ -1,0 +1,470 @@
+%----------------------------------------------------------------------------------------
+% DE TAAL VAN DE PREDICATENLOGICA. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{De taal van de predicatenlogica}
+
+\begin{probleem}
+\naast{\begin{minipage}{9.6cm}
+Een school laat een computer nagaan of het lesrooster klopt. Het programma begrijpt geen Nederlands: elke regel moet in symbolen staan, met variabelen, de connectieven $\niet$, $\en$, $\of$, $\dan$, $\asa$, de kwantoren $\forall$ en $\exists$, het gelijkheidsteken, en één predicaat:
+\[G(l, k, u)\colon \ \text{leraar $l$ geeft klas $k$ les op uur $u$.}\]
+Schrijf deze drie regels in symbolen.
+
+\vspace{1mm}
+\textbf{1.}~Elke klas heeft op elk uur les.
+
+\textbf{2.}~Geen leraar geeft op hetzelfde uur les aan twee klassen.
+
+\textbf{3.}~Elke klas heeft op elk uur precies één leraar.
+\end{minipage}}{\begin{tikzpicture}[font=\footnotesize]
+  \foreach \u [count=\i] in {1,2,3,4}{\node[text=grijs] at (.15,-.55*\i) {uur \u};}
+  \foreach \k [count=\j] in {5A,5B,6A}{\node[font=\footnotesize\bfseries] at (.55+1.05*\j,0) {\k};}
+  \foreach \i/\j/\l in {1/1/Aerts,1/2/Bos,1/3/Claes,2/1/Bos,2/2/Aerts,2/3/Claes,3/1/Claes,3/2/Dewit,3/3/Bos,4/1/Aerts,4/2/Claes,4/3/Dewit}{%
+    \draw[lijngrijs,fill=accent!7] (.1+1.05*\j,-.55*\i-.25) rectangle (1+1.05*\j,-.55*\i+.25);
+    \node at (.55+1.05*\j,-.55*\i) {\l};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 1, uitspraken in woorden omzetten in de taal van de predicatenlogica en omgekeerd, met variabelen, predicaten met één of meer argumenten, kwantoren en het gelijkheidsteken, en ook constanten en functies. Voorkennis uit pakket 4: Logica en bewijzen, hoofdstuk 1 (uitspraken, open zinnen, connectieven, De Morgan, implicatie en contrapositie, de kwantoren, hun volgorde en hun ontkenning). Uit de 2de graad: waarheidstabellen en tautologieën. Dit hoofdstuk herhaalt die leerstof niet, maar maakt de taal precies: wat een formule is, en hoe je ze vertaalt. Laat leerlingen het probleem eerst zelf proberen: regel 1 lukt meestal, bij regel 2 en 3 zoeken ze een manier om \textit{twee} en \textit{precies één} te zeggen. De oplossing staat in voorbeeld~\ref{vb:h1-terug}.}
+
+Regel 1 kun je met de kwantoren uit Logica en bewijzen opschrijven. Maar hoe zeg je \textit{twee klassen} of \textit{precies één leraar} met alleen $\forall$ en $\exists$? En hoe weet je zeker dat de computer de regel leest zoals jij ze bedoelt? Daarvoor heb je een taal nodig waarin elk teken een vaste betekenis heeft. In Logica en bewijzen gebruikte je de kwantoren al, maar je schreef de beweringen erachter nog in woorden. In dit hoofdstuk kijk je \textit{in} de uitspraken: wat erin over welke objecten gezegd wordt. Die taal heet de \textbf{predicatenlogica}. De Duitse wiskundige Gottlob Frege legde ze vast in 1879, en vandaag kun je er bijna alle wiskunde in schrijven. Ook de zoekvragen van databanken en de specificaties van computerprogramma's zijn erop gebouwd.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. Leerlingen zien dat de sluitrede over Socrates correct is, terwijl haar vorm in de propositielogica geen tautologie is: de propositielogica ziet niet dat \textit{mens} en \textit{sterfelijk} in twee uitspraken terugkomen. Dat motiveert de predicaten.}
+
+%========================================================================================
+\section{Predicaten, constanten en functies}\label{sec:h1-predicaten}
+
+\subsection{In een uitspraak kijken}
+
+In de propositielogica is een uitspraak een blok zonder binnenkant: $p$, $q$ of $r$. Daarom zag je in de Verken-opgave niet waarom de sluitrede over Socrates klopt. \textit{Socrates is een mens} en \textit{Plato is een mens} zijn twee verschillende uitspraken $p$ en $q$, terwijl ze over hetzelfde gaan: de eigenschap \textit{mens zijn}, één keer voor Socrates en één keer voor Plato. Het idee is om die eigenschap een eigen naam te geven, los van wie ze heeft.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{universum}} $\formule{U}$ is de niet-lege verzameling van de objecten waarover je spreekt.
+
+\vspace{1mm}
+Een \textbf{\textcolor{accent}{predicaat}} met $n$ argumenten is een eigenschap van één object of een relatie tussen $n$ objecten van $U$. Voor elke keuze van objecten is ze waar of vals. Notatie: $\formule{P(x)}$, $\formule{R(x, y)}$, $\formule{T(x, y, z)}$, \ldots
+\end{theorie}
+
+Een predicaat met één argument is een eigenschap, zoals $M(x)$: \textit{$x$ is een mens}. Een predicaat met twee argumenten is een relatie, zoals $L(x, y)$: \textit{$x$ is een leerling van $y$}, of $x < y$. De volgorde van de argumenten telt: \textit{Plato is een leerling van Socrates} is $L(p, s)$, en $L(s, p)$ zegt iets anders. Ook drie of meer argumenten kan: $T(x, y, z)$: \textit{$x$ ligt tussen $y$ en $z$}. Het lesrooster uit het probleem heeft er drie.
+
+\voorbeeld{}{Kies een universum en predicaten, en schrijf in symbolen: \textit{Socrates is een mens}, \textit{Plato is een mens}, \textit{Plato is een leerling van Socrates} en \textit{Socrates is geen leerling van Plato}.\label{vb:h1-predicaat}}{%
+\uitleg{Het universum zijn de mensen en de dieren. We geven elk object waarover het gaat een letter, en elke eigenschap of relatie een predicaat.}
+\begin{stappenbreed}
+M(x)\colon \ x \text{ is een mens}, \quad L(x, y)\colon \ x \text{ is een leerling van } y & Eén predicaat met één argument, één met twee. \\[1ex]
+M(s), \quad M(p) & $s$ staat voor Socrates, $p$ voor Plato: dezelfde eigenschap, voor twee objecten. \\[1ex]
+L(p, s) \en \niet L(s, p) & De volgorde van de argumenten volgt de zin: eerst de leerling, dan de leraar.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h1-predicaat}
+\end{oefeningen}
+
+\subsection{Termen en atomaire formules}
+
+In de wiskunde praat je niet alleen over objecten met een naam, zoals 0 en $\pi$. Je maakt ook nieuwe objecten uit oude: $x + 1$, $2y$, $\sin x$, of \textit{de moeder van Plato}. Daarvoor dienen constanten en functies.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{constante}} is de naam van één vast object van $U$, zoals $0$, $1$ of $s$.
+
+\vspace{1mm}
+Een \textbf{\textcolor{accent}{functie}} met $n$ argumenten maakt uit $n$ objecten van $U$ één object van $U$, zoals $\formule{f(x)}$ of $\formule{x + y}$.
+
+\vspace{1mm}
+Een \textbf{\textcolor{accent}{term}} is een variabele, een constante, of een functie toegepast op termen.
+
+\vspace{1mm}
+Een \textbf{\textcolor{accent}{atomaire formule}} is een predicaat toegepast op termen, zoals $\formule{P(t)}$ of $\formule{R(t_1, t_2)}$, of een gelijkheid $\formule{t_1 = t_2}$ van twee termen.
+\end{theorie}
+
+Het verschil is belangrijk: een term is een \textit{object}, een formule is een \textit{bewering}. De term $x + 1$ is een getal, en is waar noch vals. De atomaire formule $x + 1 > y$ is waar of vals zodra je weet wat $x$ en $y$ zijn. In de rekenkunde is $+$ een functie met twee argumenten, en $<$ een predicaat met twee argumenten. Je schrijft ze tussen hun argumenten in, maar je zou ook $\pr{som}(x, 1)$ en $\pr{kleiner}(x, y)$ kunnen schrijven.
+
+\voorbeeld{}{Het universum zijn de mensen, $m(x)$ is \textit{de moeder van $x$} en $J(x, y)$ is \textit{$x$ is jonger dan $y$}. Welke uitdrukkingen zijn een term, welke een formule, en welke geen van beide? \quad $m(p)$ \qquad $J\bigl(p, m(p)\bigr)$ \qquad $m\bigl(m(s)\bigr) = m(p)$ \qquad $m\bigl(J(p, s)\bigr)$\label{vb:h1-term}}{%
+\uitleg{Een functie geeft een object, een predicaat of een gelijkheid geeft een bewering. Een functie kan alleen werken op een object.}
+\begin{stappenbreed}
+m(p)\colon \ \text{term} & De moeder van Plato: een persoon, geen bewering. \\[1ex]
+J\bigl(p, m(p)\bigr)\colon \ \text{atomaire formule} & \textit{Plato is jonger dan zijn moeder}: waar. \\[1ex]
+m\bigl(m(s)\bigr) = m(p)\colon \ \text{atomaire formule} & \textit{De grootmoeder van Socrates langs moederszijde is de moeder van Plato}: een gelijkheid van twee termen. \\[1ex]
+m\bigl(J(p, s)\bigr)\colon \ \text{geen van beide} & $J(p, s)$ is waar of vals, geen persoon: er bestaat geen moeder van \textit{waar}.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h1-term}
+\end{oefeningen}
+
+\subsection{Formules}
+
+Uit atomaire formules bouw je met de connectieven en de kwantoren alle andere formules. Zo krijg je de uitspraak \textit{elke mens is sterfelijk}: neem de open zin $M(x) \dan S(x)$, en zet er $\forall x$ voor.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{formule}} is
+\begin{itemize}[leftmargin=6mm,itemsep=.5mm]
+\item een atomaire formule, of
+\item $\formule{\niet\varphi}$, $\formule{(\varphi \en \psi)}$, $\formule{(\varphi \of \psi)}$, $\formule{(\varphi \dan \psi)}$ of $\formule{(\varphi \asa \psi)}$, met $\varphi$ en $\psi$ formules, of
+\item $\formule{\forall x\, \varphi}$ of $\formule{\exists x\, \varphi}$, met $x$ een variabele en $\varphi$ een formule.
+\end{itemize}
+\end{theorie}
+
+De Griekse letters $\varphi$ (\textit{fi}) en $\psi$ (\textit{psi}) staan voor willekeurige formules. Haakjes rond de hele formule laat je weg, en een kwantor werkt alleen op wat er meteen achter staat: $\forall x\, P(x) \en Q$ is $\bigl(\forall x\, P(x)\bigr) \en Q$. Wil je dat de kwantor ook op $Q$ werkt, dan schrijf je $\forall x\, \bigl(P(x) \en Q\bigr)$. In Logica en bewijzen schreef je ook $\forall x\colon P(x)$ met een dubbelpunt: dat betekent hetzelfde. Een formule is opgebouwd zoals een boom: de laatste stap staat bovenaan.
+
+\voorbeeld{}{Schrijf de sluitrede over Socrates in de predicatenlogica, en teken de opbouw van de eerste premisse.\label{vb:h1-socrates}}{%
+\naast{\begin{minipage}{10.2cm}
+\uitleg{Het universum zijn de mensen en de dieren, met $M(x)$: \textit{$x$ is een mens}, $S(x)$: \textit{$x$ is sterfelijk}, en de constante $s$ voor Socrates.}
+\begin{stappenvrij}{3.4cm}{6.4cm}
+\forall x\, \bigl(M(x) \dan S(x)\bigr) & Elke mens is sterfelijk: voor elk object $x$ geldt \textit{als $x$ een mens is, dan is $x$ sterfelijk}. \\[1ex]
+M(s) & Socrates is een mens. \\[1ex]
+S(s) & Het besluit: Socrates is sterfelijk.
+\end{stappenvrij}
+\vspace{1mm}
+Nu zie je wat de propositielogica verborg: $M$ en $S$ komen terug, en de eerste premisse geldt voor \textit{elk} object, dus ook voor $s$. In hoofdstuk 3 tonen we aan dat zo'n redenering altijd klopt, wat $M$, $S$ en $s$ ook betekenen.
+\end{minipage}}{\begin{tikzpicture}[font=\small,level distance=9mm,sibling distance=17mm,
+    every node/.style={draw=accent,rounded corners=2pt,fill=accent!8,inner sep=2.5pt},edge from parent/.style={draw=accent,thick}]
+  \node {$\forall x\, \bigl(M(x) \dan S(x)\bigr)$}
+    child {node {$M(x) \dan S(x)$}
+      child {node {$M(x)$}}
+      child {node {$S(x)$}}};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-formule}
+\end{oefeningen}
+
+%========================================================================================
+\section{Van woorden naar formules}\label{sec:h1-vertalen}
+
+\subsection{Alle, sommige, geen, alleen}
+
+Hoe schrijf je \textit{alle vierkanten zijn rechthoeken} als formule? Het universum zijn alle vierhoeken. Je zou kunnen denken aan $\forall x\, \bigl(V(x) \en R(x)\bigr)$, maar die formule zegt dat \textit{elke} vierhoek een vierkant en een rechthoek is, en dat is vals. De zin belooft alleen iets over de vierkanten: \textit{als} $x$ een vierkant is, \textit{dan} is $x$ een rechthoek. Een $\forall$ gaat dus samen met een implicatie. Met $\exists$ is het net omgekeerd: \textit{sommige rechthoeken zijn vierkanten} zegt dat er een object is dat een rechthoek \textit{en} een vierkant is.
+
+\begin{theorie}
+De vier basiszinnen, met $A(x)$ en $B(x)$ twee eigenschappen:
+
+\vspace{1mm}
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.45}%
+\begin{tabular}{|>{\centering\arraybackslash}m{3.6cm}|>{\centering\arraybackslash}m{5.4cm}|>{\centering\arraybackslash}m{3.6cm}|}
+\hline
+\textbf{in woorden} & \textbf{formule} & \textbf{ook} \\ \hline
+alle $A$ zijn $B$ & $\formule{\forall x\, \bigl(A(x) \dan B(x)\bigr)}$ & elke $A$ is $B$ \\ \hline
+sommige $A$ zijn $B$ & $\formule{\exists x\, \bigl(A(x) \en B(x)\bigr)}$ & er is een $A$ die $B$ is \\ \hline
+geen enkele $A$ is $B$ & $\formule{\forall x\, \bigl(A(x) \dan \niet B(x)\bigr)}$ & $\niet\exists x\, \bigl(A(x) \en B(x)\bigr)$ \\ \hline
+alleen $A$ zijn $B$ & $\formule{\forall x\, \bigl(B(x) \dan A(x)\bigr)}$ & alle $B$ zijn $A$ \\ \hline
+\end{tabular}\par}
+\end{theorie}
+
+\textit{Sommige} betekent in de logica \textit{minstens één}, en sluit \textit{alle} niet uit. De twee vormen in de rij \textit{geen enkele} zijn gelijkwaardig: dat volgt uit de ontkenning van $\exists$ en De Morgan. Teken je $A$ en $B$ als verzamelingen, dan zegt elke zin welk deel leeg is, of waar minstens één element ligt.
+
+\figuren{\begin{tikzpicture}[font=\small]
+  \foreach \n/\t [count=\i from 0] in {1/alle $A$ zijn $B$,2/sommige $A$ zijn $B$,3/geen $A$ is $B$,4/alleen $A$ zijn $B$}{%
+    \begin{scope}[xshift=3.7*\i cm]
+      \draw[thick,accent] (-.42,0) circle (.75) (.42,0) circle (.75);
+      \node[font=\scriptsize,text=accent] at (-.95,.72) {$A$};
+      \node[font=\scriptsize,text=accent] at (.95,.72) {$B$};
+      \node[font=\footnotesize] at (0,-1.05) {\t};
+    \end{scope}}
+  % alle A zijn B: A zonder B is leeg
+  \begin{scope}
+    \clip (-.42,0) circle (.75); \fill[grijs!45,even odd rule] (-.42,0) circle (.75) (.42,0) circle (.75);
+  \end{scope}
+  \begin{scope}
+    \clip (-.42,0) circle (.75); \fill[white] (.42,0) circle (.75);
+  \end{scope}
+  \draw[thick,accent] (-.42,0) circle (.75) (.42,0) circle (.75);
+  % sommige A zijn B: een element in de doorsnede
+  \fill[accent] (3.7,0) circle (2pt);
+  % geen A is B: de doorsnede is leeg
+  \begin{scope}[xshift=7.4cm]
+    \clip (-.42,0) circle (.75); \fill[grijs!45] (.42,0) circle (.75);
+  \end{scope}
+  \draw[thick,accent,xshift=7.4cm] (-.42,0) circle (.75) (.42,0) circle (.75);
+  % alleen A zijn B: B zonder A is leeg
+  \begin{scope}[xshift=11.1cm]
+    \begin{scope}
+      \clip (.42,0) circle (.75); \fill[grijs!45] (.42,0) circle (.75);
+    \end{scope}
+    \begin{scope}
+      \clip (.42,0) circle (.75); \fill[white] (-.42,0) circle (.75);
+    \end{scope}
+    \draw[thick,accent] (-.42,0) circle (.75) (.42,0) circle (.75);
+  \end{scope}
+\end{tikzpicture}}
+
+Een grijs deel is leeg, de stip is een element dat zeker bestaat. Hieronder staat bij elke rij van het kader een voorbeeld, met het universum $\N$, $P(x)$: \textit{$x$ is priem} en $E(x)$: \textit{$x$ is even}. (Niet uitgewerkt.)
+
+\begin{center}\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|c|}\hline
+\rowcolor{accent!14} zin & formule & waar? \\ \hline
+alle priemgetallen zijn even & $\forall x\, \bigl(P(x) \dan E(x)\bigr)$ & nee: $3$ \\ \hline
+sommige priemgetallen zijn even & $\exists x\, \bigl(P(x) \en E(x)\bigr)$ & ja: $2$ \\ \hline
+geen enkel even getal is priem & $\forall x\, \bigl(E(x) \dan \niet P(x)\bigr)$ & nee: $2$ \\ \hline
+alleen oneven getallen zijn priem & $\forall x\, \bigl(P(x) \dan \niet E(x)\bigr)$ & nee: $2$ \\ \hline
+\end{tabular}
+\end{center}
+
+\voorbeeld{}{Het universum zijn de vierhoeken, met $V(x)$: \textit{$x$ is een vierkant} en $R(x)$: \textit{$x$ is een rechthoek}. Wat zeggen $\forall x\, \bigl(V(x) \en R(x)\bigr)$ en $\exists x\, \bigl(V(x) \dan R(x)\bigr)$? Zijn ze waar?\label{vb:h1-fouten}}{%
+\uitleg{Dit zijn de twee klassieke fouten: $\forall$ met $\en$, en $\exists$ met $\dan$. We lezen ze letterlijk voor.}
+\begin{stappenbreed}
+\forall x\, \bigl(V(x) \en R(x)\bigr) & \textit{Elke vierhoek is een vierkant en een rechthoek}. Vals: een trapezium is geen van beide. \\[1ex]
+\exists x\, \bigl(V(x) \dan R(x)\bigr) & \textit{Er is een vierhoek die, als hij een vierkant is, een rechthoek is}. Waar, maar zonder betekenis: elk trapezium voldoet, want voor een trapezium is $V(x)$ vals, en dan is de implicatie waar.
+\end{stappenbreed}
+De bedoelde zinnen zijn $\forall x\, \bigl(V(x) \dan R(x)\bigr)$ en $\exists x\, \bigl(V(x) \en R(x)\bigr)$.}
+
+\begin{werkwijze}
+Kies het universum en de predicaten, en schrijf ze op. Zoek in de zin de kwantoren (\textit{alle}, \textit{elke}, \textit{geen}, \textit{er is}, \textit{sommige}). Een $\forall$ gaat bijna altijd samen met $\dan$, een $\exists$ met $\en$. Lees de formule daarna letterlijk voor en vergelijk met de zin.
+\end{werkwijze}
+
+Zo begrijp je ook de notatie uit Logica en bewijzen. \textit{Voor alle $x \in A$} is een $\forall$ met een implicatie, en \textit{er is een $x \in A$} een $\exists$ met een conjunctie:
+\[\forall x \in A\colon \varphi \quad \text{betekent} \quad \forall x\, (x \in A \dan \varphi), \qquad\qquad \exists x \in A\colon \varphi \quad \text{betekent} \quad \exists x\, (x \in A \en \varphi).\]
+
+\begin{oefeningen}
+\oef{h1-vertaal}
+\end{oefeningen}
+
+\subsection{Meer kwantoren}
+
+De meeste zinnen in de wiskunde hebben meer dan één kwantor. In Logica en bewijzen zag je al dat hun volgorde telt. Met een predicaat met twee argumenten telt nu ook de volgorde van de argumenten. Neem als universum de leerlingen van een klas en $K(x, y)$: \textit{$x$ kent het telefoonnummer van $y$}. Dan zijn er vier zinnen die erg op elkaar lijken.
+
+\begin{center}\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|l|l|}\hline
+\rowcolor{accent!14} formule & in woorden \\ \hline
+$\forall x\, \exists y\, K(x, y)$ & iedereen kent het nummer van iemand \\ \hline
+$\exists x\, \forall y\, K(x, y)$ & er is iemand die het nummer van iedereen kent \\ \hline
+$\forall y\, \exists x\, K(x, y)$ & van iedereen kent iemand het nummer \\ \hline
+$\exists y\, \forall x\, K(x, y)$ & er is iemand van wie iedereen het nummer kent \\ \hline
+\end{tabular}
+\end{center}
+
+Lees de formule van links naar rechts en hou bij welke variabele de \textit{kenner} is ($x$, het eerste argument) en welke de \textit{gekende} ($y$). In hoofdstuk 2 teken je zulke zinnen met pijlen.
+
+\voorbeeld{}{Schrijf met het universum $\N$, $P(x)$: \textit{$x$ is priem} en het predicaat $<$: \textit{boven elk natuurlijk getal ligt nog een priemgetal}. Wat zegt die zin over het aantal priemgetallen?\label{vb:h1-meer}}{%
+\uitleg{\textit{Elk getal} wordt $\forall x$. Daarna zegt de zin dat er bij dat getal een priemgetal $y$ bestaat dat groter is: een $\exists$, dus met $\en$.}
+\begin{stappenbreed}
+\forall x\, \exists y\, \bigl(P(y) \en x < y\bigr) & Het priemgetal $y$ mag van $x$ afhangen, want $\exists y$ staat na $\forall x$. \\[1ex]
+\text{oneindig veel priemgetallen} & Waren er maar eindig veel, dan lag er boven het grootste geen meer.
+\end{stappenbreed}
+Euclides bewees die zin (Logica en bewijzen, hoofdstuk 2).}
+
+\nujij{Schrijf met het universum $\R$: \textit{er is een getal dat groter is dan elk kwadraat}. Is de zin waar?}{$\exists y\, \forall x\, (x^2 < y)$. Vals: voor elke $y$ is $x = |y| + 1$ een tegenvoorbeeld, want $x^2 \geqslant x > y$.}
+
+\begin{oefeningen}
+\oef{h1-meer}
+\end{oefeningen}
+
+\subsection{Het gelijkheidsteken}\label{sec:h1-gelijk}
+
+Hoe zeg je \textit{er zijn minstens twee priemgetallen}? De formule $\exists x\, \exists y\, \bigl(P(x) \en P(y)\bigr)$ volstaat niet: $x$ en $y$ mogen hetzelfde object zijn, want twee variabelen zijn twee namen, niet noodzakelijk voor twee verschillende dingen. Je moet erbij zeggen dat ze verschillen: $x \neq y$, een afkorting voor $\niet(x = y)$. Met het gelijkheidsteken kun je zo tellen.
+
+\begin{theorie}
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.5}%
+\begin{tabular}{|>{\centering\arraybackslash}m{4.4cm}|>{\centering\arraybackslash}m{8.4cm}|}
+\hline
+\textbf{in woorden} & \textbf{formule} \\ \hline
+minstens twee $x$ met $P(x)$ & $\formule{\exists x\, \exists y\, \bigl(x \neq y \en P(x) \en P(y)\bigr)}$ \\ \hline
+hoogstens één $x$ met $P(x)$ & $\formule{\forall x\, \forall y\, \bigl(P(x) \en P(y) \dan x = y\bigr)}$ \\ \hline
+precies één $x$ met $P(x)$ & $\formule{\exists x\, \bigl(P(x) \en \forall y\, (P(y) \dan y = x)\bigr)}$ \\ \hline
+\end{tabular}\par}
+
+\vspace{1mm}
+Voor \textit{er is precies één $x$ met $P(x)$} schrijf je ook $\formule{\exists! x\, P(x)}$.
+\end{theorie}
+
+\textit{Hoogstens één} zegt dat twee objecten met de eigenschap altijd hetzelfde object zijn. Het zegt niet dat er een is: als geen enkel object de eigenschap heeft, is de zin ook waar. \textit{Precies één} is \textit{minstens één} en \textit{hoogstens één} samen. De formule in het kader zegt dat met één $x$: er is een $x$ met de eigenschap, en elk object $y$ met de eigenschap is die $x$.
+
+\voorbeeld{}{Schrijf met het universum $\N$, $P(x)$: \textit{$x$ is priem} en $E(x)$: \textit{$x$ is even}: \textit{er is precies één even priemgetal}.\label{vb:h1-gelijk}}{%
+\uitleg{We vullen de formule voor \textit{precies één} in, met de eigenschap \textit{$x$ is even en priem}.}
+\begin{stappenbreed}
+\exists x\, \bigl(E(x) \en P(x) \en \ldots\bigr) & Minstens één: er is een even priemgetal $x$. \\[1ex]
+\exists x\, \Bigl(E(x) \en P(x) \en \forall y\, \bigl(E(y) \en P(y) \dan y = x\bigr)\Bigr) & En elk even priemgetal $y$ is gelijk aan $x$. De zin is waar, met $x = 2$.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Wil je zeggen dat objecten verschillen, schrijf dan $x \neq y$. Tellen doe je zo: \textit{minstens $n$} met $n$ variabelen die twee aan twee verschillen, \textit{hoogstens één} met \textit{twee zijn er gelijk}, en \textit{precies één} als \textit{er is een, en elke andere is gelijk aan die ene}.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-gelijk}
+\end{oefeningen}
+
+%========================================================================================
+\section{Van formules naar woorden}\label{sec:h1-lezen}
+
+\subsection{Vrije en gebonden variabelen}
+
+Wat zegt de formule $\exists y\, (x = 2y)$, met universum $\N$? Ze zegt iets over $x$: \textit{$x$ is even}. Over $y$ zegt ze niets: $y$ is een hulpletter, en $\exists z\, (x = 2z)$ zegt precies hetzelfde. Of de formule waar is, hangt alleen af van $x$. Zo'n letter die je moet kennen, heet vrij.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{bereik}} van $\forall x$ of $\exists x$ in $\forall x\, \varphi$ of $\exists x\, \varphi$ is de formule $\varphi$.
+
+\vspace{1mm}
+Een variabele staat \textbf{\textcolor{accent}{gebonden}} op een plaats als ze daar in het bereik van een kwantor met diezelfde variabele staat. Anders staat ze \textbf{\textcolor{accent}{vrij}}.
+
+\vspace{1mm}
+Een formule zonder vrije variabelen heet een \textbf{\textcolor{accent}{zin}}.
+\end{theorie}
+
+Een zin is een uitspraak zodra je weet waarover hij gaat. Een formule met vrije variabelen is een open zin: om te weten of ze waar is, moet je ook de vrije variabelen een waarde geven. Een gebonden variabele mag je overal in haar bereik door een nieuwe letter vervangen, zonder dat de betekenis verandert. De nieuwe letter mag wel niet al vrij in de formule staan: $\exists x\, (x = 2x)$ zegt iets heel anders dan $\exists y\, (x = 2y)$.
+
+\voorbeeld{}{Welke variabelen staan vrij in $\forall x\, \bigl(P(x) \dan R(x, y)\bigr) \en Q(x)$? Is het een zin?\label{vb:h1-vrij}}{%
+\naast{\begin{minipage}{9.4cm}
+\uitleg{Teken de opbouw. Een variabele is gebonden als er boven haar in de boom een kwantor met dezelfde letter staat.}
+\begin{stappenvrij}{3.3cm}{5.7cm}
+P(x),\ R(x, y) & Deze $x$ staan in het bereik van $\forall x$: gebonden. \\[1ex]
+y & Er staat geen $\forall y$ of $\exists y$ boven $y$: vrij. \\[1ex]
+Q(x) & Deze $x$ staat buiten het bereik van $\forall x$: vrij.
+\end{stappenvrij}
+\vspace{1mm}
+De letter $x$ staat dus één keer vrij en twee keer gebonden, en $y$ staat vrij. Het is geen zin. Om verwarring te vermijden, schrijf je liever $\forall z\, \bigl(P(z) \dan R(z, y)\bigr) \en Q(x)$.
+\end{minipage}}{\begin{tikzpicture}[font=\small,level distance=9mm,
+    every node/.style={draw=accent,rounded corners=2pt,fill=accent!8,inner sep=2.5pt},edge from parent/.style={draw=accent,thick},
+    level 1/.style={sibling distance=26mm},level 2/.style={sibling distance=10mm},level 3/.style={sibling distance=15mm}]
+  \node {$\en$}
+    child {node {$\forall x$}
+      child {node {$\dan$}
+        child {node {$P(x)$}}
+        child {node {$R(x, y)$}}}}
+    child {node[fill=fel!30,draw=fel!85!black] {$Q(x)$}};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-vrij}
+\end{oefeningen}
+
+\subsection{Een formule voorlezen}
+
+Een formule letterlijk voorlezen is makkelijk: \textit{voor alle $x$ geldt: als $x$ priem is, dan \ldots}. Maar zo begrijp je ze nog niet. Wat een formule echt zegt, vind je door eerst te kijken waarover ze gaat (de vrije variabelen) en dan van buiten naar binnen te lezen.
+
+\voorbeeld{}{Het universum is $\N$. Wat betekent $\varphi(x)\colon \ \exists y\, (y \cdot y = x)$? En $\forall x\, \bigl(\varphi(x) \dan \niet\varphi(x + 1)\bigr)$? Is de laatste zin waar?\label{vb:h1-lees}}{%
+\uitleg{De eerste formule heeft één vrije variabele, $x$: ze zegt iets over één getal. De tweede is een zin die de eerste gebruikt.}
+\begin{stappenbreed}
+\exists y\, (y \cdot y = x) & \textit{Er is een natuurlijk getal waarvan $x$ het kwadraat is}: \textit{$x$ is een kwadraat}. \\[1ex]
+\forall x\, \bigl(\varphi(x) \dan \niet\varphi(x + 1)\bigr) & \textit{Als $x$ een kwadraat is, dan is $x + 1$ geen kwadraat}: \textit{twee opeenvolgende getallen zijn nooit allebei een kwadraat}. \\[1ex]
+x = 0\colon \ 0 = 0 \cdot 0,\ 1 = 1 \cdot 1 & Vals: $0$ en $1$ zijn allebei een kwadraat. Voor $x \geqslant 1$ klopt het wel, want tussen $n^2$ en $(n + 1)^2 = n^2 + 2n + 1$ zit een gat van $2n + 1 \geqslant 3$.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Zoek de vrije variabelen: daarover gaat de formule. Lees van buiten naar binnen en vervang een stuk dat je herkent door een woord, zoals $\exists y\, (x = 2y)$ door \textit{$x$ is even}. Maak daarna van de letterlijke zin een gewone Nederlandse zin, zonder variabelen als het kan.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-lees}
+\end{oefeningen}
+
+\needspace{16\baselineskip}
+\subsection{Terug naar het probleem}
+
+Je kunt nu alle drie de regels van het lesrooster schrijven. De variabele $l$ gaat over de leraren, $k$ over de klassen en $u$ over de lesuren. Wil je één universum met alles erin, dan voeg je predicaten toe zoals $\pr{Kl}(x)$: \textit{$x$ is een klas}, en schrijf je $\forall k\, (\pr{Kl}(k) \dan \ldots)$, zoals bij $\forall x \in A$.
+
+\voorbeeld{}{Terug naar het probleem. Schrijf de drie regels van het lesrooster met $G(l, k, u)$: \textit{leraar $l$ geeft klas $k$ les op uur $u$}.\label{vb:h1-terug}}{%
+\uitleg{Regel 1 heeft alleen kwantoren nodig. Voor \textit{twee klassen} en \textit{precies één leraar} gebruiken we het gelijkheidsteken, zoals in het kader van sectie~\ref{sec:h1-gelijk}.}
+\begin{stappenbreed}
+\forall k\, \forall u\, \exists l\, G(l, k, u) & Regel 1: bij elke klas en elk uur is er een leraar. De leraar hangt af van $k$ en $u$, dus $\exists l$ staat achteraan. \\[1ex]
+\forall l\, \forall u\, \forall k\, \forall k'\, \bigl(G(l, k, u) \en G(l, k', u) \dan k = k'\bigr) & Regel 2: \textit{hoogstens één} klas per leraar en per uur. Twee klassen van dezelfde leraar op hetzelfde uur zijn dezelfde klas. \\[1ex]
+\forall k\, \forall u\, \exists l\, \Bigl(G(l, k, u) \en \forall l'\, \bigl(G(l', k, u) \dan l' = l\bigr)\Bigr) & Regel 3: \textit{precies één} leraar per klas en per uur: er is een leraar $l$, en elke leraar $l'$ van die klas op dat uur is $l$.
+\end{stappenbreed}
+Regel 3 bevat regel 1: het eerste deel zegt al dat er een leraar is. Een schrijffout zoals $\exists l\, \forall k\, \forall u\, G(l, k, u)$ zegt iets heel anders: één leraar geeft alle klassen op alle uren les.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening gebruikt de deelbaarheid uit Getaltheorie, de tweede de definitie van een stijgende functie uit Algemene functies, de derde de definitie van de limiet van een rij uit Rijen. Zo zien leerlingen dat definities uit de hele wiskunde formules met kwantoren zijn.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-term}{oef:h1-term}%
+  \fv{oef:h1-t2}{vb:h1-fouten}{oef:h1-vertaal}%
+  \fv{oef:h1-t3}{vb:h1-meer}{oef:h1-meer}%
+  \fv{oef:h1-t4}{vb:h1-gelijk}{oef:h1-gelijk}%
+  \fv{oef:h1-t5}{vb:h1-vrij}{oef:h1-vrij}%
+  \fv{oef:h1-t6}{vb:h1-lees}{oef:h1-lees}%
+  \fv{oef:h1-t7}{vb:h1-predicaat}{oef:h1-predicaat}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een universum, een predicaat, een constante, een functie, een term en een atomaire formule zijn, hoe je een formule opbouwt, de vier basiszinnen (alle, sommige, geen, alleen) met de twee klassieke fouten, hoe je minstens twee, hoogstens één en precies één schrijft, wat vrije en gebonden variabelen en een zin zijn, en hoe je een formule voorleest. Vergelijk daarna met de kaders.
+\fi
