@@ -24,6 +24,7 @@ Leerplan: B+S'' (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met le
 | [Meetkunde/Oppervlakken](Meetkunde/Oppervlakken) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 11-13 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Getaltheorie](Algebra/Getaltheorie) | uitbreiding: KOV Complementair (III-WiCo-d LPD 35) | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Lineair programmeren](Algebra/Lineair%20programmeren) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 36-39 | drie hoofdstukken, eerste versie, nog na te lezen |
+| [Algebra/Groepentheorie](Algebra/Groepentheorie) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 31-32 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Vectorruimten](Algebra/Vectorruimten) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 33-34 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Eigenwaarden en eigenvectoren](Algebra/Eigenwaarden%20en%20eigenvectoren) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 30 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Financiële algebra](Algebra/Financi%C3%ABle%20algebra) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 40-43 | drie hoofdstukken, eerste versie, nog na te lezen |

@@ -1,0 +1,1289 @@
+# Oefeningen van hoofdstuk 1. Zie oefeningenbank.py voor de velden.
+# Afspraken zoals in Groepen: in de symmetriegroep van de gelijkzijdige driehoek is r de draaiing over 120 graden
+# tegen de wijzers van de klok in, en s1, s2, s3 de spiegelingen om de as door de hoek boven, linksonder en rechtsonder.
+# Vierkant: r is een kwartdraai, h en v de spiegelingen om de horizontale en verticale as.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        Bereken in $(\Zn{12}, \plusn)$: \ $7 \plusn 7 \plusn 7$.
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $21 = 12 + 9$.
+    - opgave: |-
+        Wat is de orde van $r$ en van $s_1$ in de symmetriegroep van de gelijkzijdige driehoek?
+      antwoord: |-
+        $3$ en $2$
+      uitwerking: |-
+        Drie keer $120^\circ$ is een volle draai; twee keer omklappen om dezelfde as brengt alles terug.
+    - opgave: |-
+        Bereken $\ggd(12, 8)$ en $\kgv(4, 6)$.
+      antwoord: |-
+        $4$ en $12$
+      uitwerking: |-
+        $12 = 2^2 \cdot 3$ en $8 = 2^3$, dus $\ggd = 2^2$. Het kleinste gemeenschappelijke veelvoud van 4 en 6 is 12.
+    - opgave: |-
+        Wat is de rest van $2^{10}$ bij deling door 7?
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $2^{10} = 1024 = 146 \cdot 7 + 2$.
+    - opgave: |-
+        Bereken $\sigma \circ \sigma$ voor $\sigma = \perm{1 & 2 & 3 & 4 \\ 2 & 3 & 4 & 1}$.
+      antwoord: |-
+        $\perm{1 & 2 & 3 & 4 \\ 3 & 4 & 1 & 2}$
+      uitwerking: |-
+        $1 \to 2 \to 3$, $2 \to 3 \to 4$, $3 \to 4 \to 1$, $4 \to 1 \to 2$.
+    - opgave: |-
+        Bereken in $\bigl(\{1, i, -1, -i\}, \cdot\bigr)$: \ $i^3$ en de inverse van $i$.
+      antwoord: |-
+        $-i$ en $-i$
+      uitwerking: |-
+        $i^3 = i^2 \cdot i = -i$, en $i \cdot (-i) = -i^2 = 1$.
+
+- id: h1-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \kring[1]{12}
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad De wijzer van een klok met twaalf uren staat op 0 en springt telkens 8 uur verder. Zo rekent hij in $(\Zn{12}, \plusn)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waar staat de wijzer na 1, 2, 3, 4, 5 en 6 sprongen?
+      antwoord: |-
+        $8, 4, 0, 8, 4, 0$
+      uitwerking: |-
+        Telkens 8 erbij en de rest bij deling door 12: $8$, $16 \to 4$, $24 \to 0$, en dan herhaalt het zich.
+    - opgave: |-
+        Na hoeveel sprongen staat hij voor het eerst terug op 0? Na welke aantallen sprongen staat hij op 0?
+      antwoord: |-
+        na 3 sprongen; na een veelvoud van 3 sprongen
+      uitwerking: |-
+        Na 3 sprongen is hij rond, en daarna herhaalt alles zich om de 3 sprongen.
+    - opgave: |-
+        Waar staat hij na 100 sprongen? En na 100 sprongen achteruit? Reken het uit zonder alle sprongen te tellen.
+      antwoord: |-
+        op 8; op 4
+      uitwerking: |-
+        $100 = 33 \cdot 3 + 1$: hetzelfde als 1 sprong, dus 8. Achteruit: $-100 = (-34) \cdot 3 + 2$, hetzelfde als 2 sprongen vooruit, dus 4.
+    - opgave: |-
+        De wijzer komt alleen op 0, 4 en 8. Stel de tabel op van $\plusn$ op $\{0, 4, 8\}$. Is het een groep?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De rijen zijn $0, 4, 8$ \ / \ $4, 8, 0$ \ / \ $8, 0, 4$. Alle uitkomsten liggen in $\{0, 4, 8\}$, het neutraal element is 0, de inverse van 4 is 8 en omgekeerd, en de optelling is associatief.
+
+- id: h1-machten
+  soort: kort
+  opgave: |-
+    Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In de symmetriegroep van de gelijkzijdige driehoek: \ $r^{-2}$, \ $(r^2)^{-5}$, \ $s_1^{-3}$ \ en \ $r^7 \circ r^{-5}$.
+      antwoord: |-
+        $r$, \ $r^2$, \ $s_1$, \ $r^2$
+      uitwerking: |-
+        $r^{-2} = r^{-3} \circ r = r$. \ $(r^2)^{-5} = r^{-10} = r^{-12} \circ r^2 = r^2$. \ $s_1^{-3} = (s_1^{-1})^3 = s_1^3 = s_1$. \ $r^7 \circ r^{-5} = r^2$.
+    - opgave: |-
+        In $(\Zn{9}, \plusn)$: \ $4 \cdot 5$ \ en \ $(-2) \cdot 7$, dus zeven keer de inverse van 2.
+      antwoord: |-
+        $2$ en $4$
+      uitwerking: |-
+        $20 = 2 \cdot 9 + 2$. De inverse van 2 is 7, en $7 \cdot 7 = 49 = 5 \cdot 9 + 4$. Of: $-14 + 18 = 4$.
+    - opgave: |-
+        In $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$: \ $2^{-1}$ \ en \ $2^{-2}$.
+      antwoord: |-
+        $6$ en $3$
+      uitwerking: |-
+        $2 \cdot 6 = 12$ heeft rest 1, dus $2^{-1} = 6$. Dan is $2^{-2} = 6^2 = 36$, met rest 3.
+    - opgave: |-
+        Toon met $r$ en $s_1$ in de symmetriegroep van de gelijkzijdige driehoek dat $(a \circ b)^2$ en $a^2 \circ b^2$ kunnen verschillen.
+      antwoord: |-
+        $(r \circ s_1)^2 = e$, maar $r^2 \circ s_1^2 = r^2$
+      uitwerking: |-
+        $r \circ s_1 = s_3$ is een spiegeling, dus $(r \circ s_1)^2 = s_3^2 = e$. Maar $r^2 \circ s_1^2 = r^2 \circ e = r^2 \neq e$.
+
+- id: h1-orde
+  soort: kort
+  opgave: |-
+    Bepaal de orde, en gebruik ze.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De orde van 6 in $(\Zn{9}, \plusn)$ en van 2 in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$.
+      antwoord: |-
+        $3$ en $10$
+      uitwerking: |-
+        $6, 12 \to 3, 9 \to 0$. Machten van 2 modulo 11: $2, 4, 8, 5, 10, 9, 7, 3, 6, 1$.
+    - opgave: |-
+        Bereken $2^{1000}$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$.
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        $\ord(2) = 10$ en $1000 = 100 \cdot 10$, dus $2^{1000} = 2^0 = 1$.
+    - opgave: |-
+        In $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$ is $5^4 = 1$ en $5^2 \neq 1$. Wat is $\ord(5)$? Bereken $5^{-1}$ en $5^{99}$.
+      antwoord: |-
+        $\ord(5) = 4$, \ $5^{-1} = 8$, \ $5^{99} = 8$
+      uitwerking: |-
+        De orde deelt 4, en is niet 1 of 2: ze is 4. Dan is $5^{-1} = 5^3 = 125$, met rest 8 (controle: $5 \cdot 8 = 40 = 3 \cdot 13 + 1$). En $99 = 24 \cdot 4 + 3$, dus $5^{99} = 5^3 = 8$.
+    - opgave: |-
+        Van een element $a$ weet je dat $a^{15} = e$ en $a^{10} \neq e$. Welke orde kan $a$ hebben?
+      antwoord: |-
+        $3$ of $15$
+      uitwerking: |-
+        De orde deelt 15: 1, 3, 5 of 15. Was ze 1 of 5, dan was $a^{10} = e$.
+
+- id: h1-cyclisch
+  soort: kort
+  opgave: |-
+    Is de groep cyclisch? Geef een voortbrenger, of verklaar waarom niet.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\bigl(\Zn{5} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        ja, voortbrenger 2 (of 3)
+      uitwerking: |-
+        $2, 4, 8 \to 3, 6 \to 1$: $\ord(2) = 4$, het aantal elementen.
+    - opgave: |-
+        de draaiingen van een vierkant (met $e$)
+      antwoord: |-
+        ja, de kwartdraai $r$
+      uitwerking: |-
+        $e, r, r^2, r^3$ zijn alle vier de draaiingen: $\ord(r) = 4$.
+    - opgave: |-
+        $\bigl(\{1, 3, 5, 7\}, \maaln\bigr)$ in $\Zn{8}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $3^2 = 9$, $5^2 = 25$ en $7^2 = 49$ hebben rest 1 bij deling door 8: elk element heeft orde 1 of 2, geen orde 4.
+    - opgave: |-
+        de symmetriegroep van het vierkant
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Ze is niet commutatief (zoals bij de driehoek: een draaiing na een spiegeling geeft iets anders dan in de omgekeerde volgorde), en een cyclische groep is commutatief.
+    - opgave: |-
+        $\bigl(\{1, 2, 4, 5, 7, 8\}, \maaln\bigr)$ in $\Zn{9}$
+      antwoord: |-
+        ja, voortbrenger 2
+      uitwerking: |-
+        $2, 4, 8, 16 \to 7, 14 \to 5, 10 \to 1$: $\ord(2) = 6$.
+
+- id: h1-voortbrengers
+  soort: kort
+  opgave: |-
+    Rekenen in $(\Zn{n}, \plusn)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef alle voortbrengers van $\Zn{15}$ en van $\Zn{16}$.
+      antwoord: |-
+        $1, 2, 4, 7, 8, 11, 13, 14$; de oneven getallen $1, 3, \ldots, 15$
+      uitwerking: |-
+        $15 = 3 \cdot 5$: schrap de veelvouden van 3 en van 5. $16 = 2^4$: schrap de even getallen.
+    - opgave: |-
+        Bepaal de orde van 6, 9 en 10 in $\Zn{15}$.
+      antwoord: |-
+        $5$, $5$ en $3$
+      uitwerking: |-
+        $\frac{15}{\ggd(6, 15)} = \frac{15}{3}$, \ $\frac{15}{\ggd(9, 15)} = \frac{15}{3}$, \ $\frac{15}{\ggd(10, 15)} = \frac{15}{5}$.
+    - opgave: |-
+        Hoeveel elementen van $\Zn{30}$ hebben orde 30?
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $30 = 2 \cdot 3 \cdot 5$. Geen deler 2, 3 of 5 gemeen met 30: $1, 7, 11, 13, 17, 19, 23, 29$.
+    - opgave: |-
+        Welke elementen van $\Zn{12}$ hebben orde 6?
+      antwoord: |-
+        $2$ en $10$
+      uitwerking: |-
+        $\frac{12}{\ggd(k, 12)} = 6 \iff \ggd(k, 12) = 2$: de even getallen die geen veelvoud zijn van 3 of 4, dus 2 en 10.
+
+- id: h1-vermoeden
+  soort: kort
+  opgave: |-
+    Toets het vermoeden: deelt de orde van elk element de orde van de groep?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De symmetriegroep van het vierkant heeft acht elementen: $e$, de draaiingen $r$, $r^2$, $r^3$ en vier spiegelingen. Bepaal de orde van elk element.
+      antwoord: |-
+        $1, 4, 2, 4, 2, 2, 2, 2$
+      uitwerking: |-
+        Een kwartdraai heeft orde 4, de halve draai $r^2$ orde 2, $r^3$ orde 4 en elke spiegeling orde 2. Al die getallen delen 8.
+    - opgave: |-
+        Bepaal de orde van elk element van $\bigl(\{1, 2, 4, 5, 7, 8\}, \maaln\bigr)$ in $\Zn{9}$.
+      antwoord: |-
+        $1, 6, 3, 6, 3, 2$
+      uitwerking: |-
+        Machten van 2: $2, 4, 8, 7, 5, 1$. Dan $4^3 = 64 \to 1$, $5^6 = 1$ (5 is $2^5$), $7^3 = 343 \to 1$ en $8^2 = 64 \to 1$. Alle ordes delen 6.
+
+- id: h1-voortgebracht
+  soort: kort
+  opgave: |-
+    Bepaal $\vb{a}$ en het aantal elementen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vb{6}$ in $(\Zn{8}, \plusn)$
+      antwoord: |-
+        $\{0, 2, 4, 6\}$, 4 elementen
+      uitwerking: |-
+        $6, 12 \to 4, 10 \to 2, 8 \to 0$.
+    - opgave: |-
+        $\vb{10}$ in $(\Zn{25}, \plusn)$
+      antwoord: |-
+        $\{0, 5, 10, 15, 20\}$, 5 elementen
+      uitwerking: |-
+        $10, 20, 30 \to 5, 15, 25 \to 0$.
+    - opgave: |-
+        $\vb{2}$ in $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        $\{1, 2, 4\}$, 3 elementen
+      uitwerking: |-
+        $2, 4, 8 \to 1$.
+    - opgave: |-
+        $\vb{r^3}$ in de draaiingen van de regelmatige achthoek, met $r$ de draaiing over $45^\circ$
+      antwoord: |-
+        alle 8 draaiingen
+      uitwerking: |-
+        $r^3$ is de draaiing over $135^\circ$; $k \cdot 135^\circ$ is pas een veelvoud van $360^\circ$ voor $k = 8$. De machten van $r^3$ zijn dus 8 verschillende draaiingen: alle draaiingen.
+
+- id: h1-cykelsschrijven
+  soort: kort
+  opgave: |-
+    Schrijf als samenstelling van disjuncte cykels.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 \\ 3 & 5 & 1 & 2 & 4}$
+      antwoord: |-
+        $\cyc{1 & 3} \circ \cyc{2 & 5 & 4}$
+      uitwerking: |-
+        $1 \to 3 \to 1$ en $2 \to 5 \to 4 \to 2$.
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 & 6 \\ 2 & 4 & 6 & 1 & 5 & 3}$, en daarna haar inverse
+      antwoord: |-
+        $\cyc{1 & 2 & 4} \circ \cyc{3 & 6}$; inverse $\cyc{1 & 4 & 2} \circ \cyc{3 & 6}$
+      uitwerking: |-
+        $1 \to 2 \to 4 \to 1$, $3 \to 6 \to 3$, en 5 blijft. Keer elke cykel om voor de inverse.
+
+- id: h1-cykels
+  soort: kort
+  opgave: |-
+    Schrijf als samenstelling van disjuncte cykels en bepaal de orde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 & 6 \\ 4 & 6 & 1 & 3 & 2 & 5}$
+      antwoord: |-
+        $\cyc{1 & 4 & 3} \circ \cyc{2 & 6 & 5}$, orde 3
+      uitwerking: |-
+        $1 \to 4 \to 3 \to 1$ en $2 \to 6 \to 5 \to 2$; $\kgv(3, 3) = 3$.
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 5 & 9 & 7 & 8 & 3 & 4 & 1 & 6 & 2}$
+      antwoord: |-
+        $\cyc{1 & 5 & 3 & 7} \circ \cyc{2 & 9} \circ \cyc{4 & 8 & 6}$, orde 12
+      uitwerking: |-
+        $1 \to 5 \to 3 \to 7 \to 1$, $2 \to 9 \to 2$, $4 \to 8 \to 6 \to 4$; $\kgv(4, 2, 3) = 12$.
+    - opgave: |-
+        $\cyc{1 & 2 & 3} \circ \cyc{3 & 4}$ (eerst de rechtse cykel)
+      antwoord: |-
+        $\cyc{1 & 2 & 3 & 4}$, orde 4
+      uitwerking: |-
+        $1 \to 1 \to 2$, $2 \to 2 \to 3$, $3 \to 4 \to 4$, $4 \to 3 \to 1$. De twee cykels zijn niet disjunct, dus het kgv van 3 en 2 is hier niet de orde.
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    orde van een element
+  opgave: |-
+    Bepaal de orde van het element in de groep.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $9$ in $(\Zn{15}, \plusn)$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $\frac{15}{\ggd(9, 15)} = \frac{15}{3} = 5$.
+    - opgave: |-
+        $3$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $3, 9, 27 \to 5, 15 \to 4, 12 \to 1$.
+    - opgave: |-
+        $10$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $10^2 = 100 = 9 \cdot 11 + 1$. (In feite is $10 = -1$.)
+    - opgave: |-
+        $-1$ in $(\C_0, \cdot)$
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $(-1)^2 = 1$.
+    - opgave: |-
+        $i$ in $(\C_0, \cdot)$
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        $i, -1, -i, 1$.
+    - opgave: |-
+        $2$ in $(\Q_0, \cdot)$
+      antwoord: |-
+        oneindig
+      uitwerking: |-
+        $2^k > 1$ voor elke $k \geqslant 1$.
+    - opgave: |-
+        $-3$ in $(\Z, +)$
+      antwoord: |-
+        oneindig
+      uitwerking: |-
+        $k \cdot (-3) \neq 0$ voor $k \geqslant 1$.
+    - opgave: |-
+        $s_2$ in de symmetriegroep van de gelijkzijdige driehoek
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        Een spiegeling, twee keer uitgevoerd, is $e$.
+    - opgave: |-
+        de draaiing over $144^\circ$ in de symmetriegroep van de regelmatige vijfhoek
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $k \cdot 144^\circ$ is pas een veelvoud van $360^\circ$ voor $k = 5$: $720^\circ$.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    cykels en de orde van een permutatie
+  opgave: |-
+    Schrijf de permutatie als samenstelling van disjuncte cykels, en bepaal haar orde.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 \\ 2 & 3 & 1 & 5 & 4}$
+      antwoord: |-
+        $\cyc{1 & 2 & 3} \circ \cyc{4 & 5}$, orde 6
+      uitwerking: |-
+        $\kgv(3, 2) = 6$.
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 & 6 \\ 6 & 5 & 4 & 3 & 2 & 1}$
+      antwoord: |-
+        $\cyc{1 & 6} \circ \cyc{2 & 5} \circ \cyc{3 & 4}$, orde 2
+      uitwerking: |-
+        Drie verwisselingen: $\kgv(2, 2, 2) = 2$.
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 3 & 1 & 2 & 7 & 4 & 5 & 6}$
+      antwoord: |-
+        $\cyc{1 & 3 & 2} \circ \cyc{4 & 7 & 6 & 5}$, orde 12
+      uitwerking: |-
+        $1 \to 3 \to 2 \to 1$ en $4 \to 7 \to 6 \to 5 \to 4$; $\kgv(3, 4) = 12$.
+    - opgave: |-
+        $\perm{1 & 2 & 3 & 4 & 5 & 6 \\ 2 & 3 & 4 & 5 & 6 & 1}$
+      antwoord: |-
+        $\cyc{1 & 2 & 3 & 4 & 5 & 6}$, orde 6
+      uitwerking: |-
+        Eén cykel van lengte 6.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    cyclisch of niet
+  opgave: |-
+    Is de groep cyclisch? Geef een voortbrenger, of een reden waarom niet.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $(\Zn{10}, \plusn)$
+      antwoord: |-
+        ja, voortbrenger 1
+      uitwerking: |-
+        Ook 3, 7 en 9 zijn voortbrengers.
+    - opgave: |-
+        $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        ja, voortbrenger 2
+      uitwerking: |-
+        De machten van 2 zijn $2, 4, 8, 5, 10, 9, 7, 3, 6, 1$: alle tien elementen.
+    - opgave: |-
+        de symmetriegroep van een ruit die geen vierkant is
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Ze heeft vier elementen: $e$, de halve draai en twee spiegelingen. Elk element heeft orde 1 of 2, geen orde 4.
+    - opgave: |-
+        de draaiingen van een regelmatige zeshoek (met $e$)
+      antwoord: |-
+        ja, de draaiing over $60^\circ$
+      uitwerking: |-
+        Haar machten zijn de zes draaiingen over $0^\circ, 60^\circ, \ldots, 300^\circ$.
+    - opgave: |-
+        de even getallen met de optelling, $(2\Z, +)$
+      antwoord: |-
+        ja, voortbrenger 2 (of $-2$)
+      uitwerking: |-
+        Elk even getal is $k \cdot 2$ met $k \in \Z$.
+    - opgave: |-
+        $(S_3, \circ)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $S_3$ is niet commutatief. (Ook: geen element van orde 6; de ordes zijn 1, 2 en 3.)
+    - opgave: |-
+        $\bigl(\{1, 2, 4, 7, 8, 11, 13, 14\}, \maaln\bigr)$ in $\Zn{15}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De ordes zijn $1, 4, 2, 4, 4, 2, 4, 2$, bijvoorbeeld $2, 4, 8, 16 \to 1$. Geen element heeft orde 8.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    machten berekenen met de orde
+  opgave: |-
+    Bereken. Bepaal eerst de orde van het grondtal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$: \ $2^{25}$ \ en \ $2^{-12}$.
+      antwoord: |-
+        $10$ en $3$
+      uitwerking: |-
+        $\ord(2) = 10$. $25 = 2 \cdot 10 + 5$, dus $2^{25} = 2^5 = 32 \to 10$. $-12 = (-2) \cdot 10 + 8$, dus $2^{-12} = 2^8 = 256 = 23 \cdot 11 + 3$.
+    - opgave: |-
+        In de symmetriegroep van de gelijkzijdige driehoek: \ $r^{50}$, \ $s_1^{77}$ \ en \ $(r \circ s_1)^3$.
+      antwoord: |-
+        $r^2$, \ $s_1$, \ $s_3$
+      uitwerking: |-
+        $50 = 16 \cdot 3 + 2$. $77$ is oneven en $\ord(s_1) = 2$. $r \circ s_1 = s_3$ heeft orde 2, en $3$ is oneven.
+    - opgave: |-
+        In $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$: \ $4^{100}$ \ en \ $4^{-1}$.
+      antwoord: |-
+        $9$ en $10$
+      uitwerking: |-
+        Machten van 4: $4, 3, 12, 9, 10, 1$, dus $\ord(4) = 6$. $100 = 16 \cdot 6 + 4$ geeft $4^4 = 9$. $4^{-1} = 4^5 = 10$; controle: $40 = 3 \cdot 13 + 1$.
+    - opgave: |-
+        In $(\Zn{8}, \plusn)$: \ $123 \cdot 5$.
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        $\ord(5) = 8$, en $123 = 15 \cdot 8 + 3$, dus $123 \cdot 5 = 3 \cdot 5 = 15 \to 7$.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    voortbrengers en ordes in Zn
+  opgave: |-
+    Rekenen in $(\Zn{n}, \plusn)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef alle voortbrengers van $\Zn{9}$, van $\Zn{14}$ en van $\Zn{17}$.
+      antwoord: |-
+        $1, 2, 4, 5, 7, 8$; \ $1, 3, 5, 9, 11, 13$; \ $1, 2, \ldots, 16$
+      uitwerking: |-
+        Schrap de veelvouden van 3 in $\Zn{9}$, en die van 2 en 7 in $\Zn{14}$. 17 is priem: elk element verschillend van 0 is een voortbrenger.
+    - opgave: |-
+        Bepaal de orde van elk element van $\Zn{10}$.
+      antwoord: |-
+        $0$: 1; \ $1, 3, 7, 9$: 10; \ $2, 4, 6, 8$: 5; \ $5$: 2
+      uitwerking: |-
+        $\frac{10}{\ggd(k, 10)}$ met $\ggd$ gelijk aan 1, 2 of 5.
+    - opgave: |-
+        Hoeveel voortbrengers heeft $\Zn{100}$?
+      antwoord: |-
+        $40$
+      uitwerking: |-
+        Schrap de 50 even getallen en de 20 veelvouden van 5, maar de 10 veelvouden van 10 heb je dan twee keer geschrapt: $100 - 50 - 20 + 10 = 40$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de groep van de machten van een element
+  opgave: |-
+    Bepaal $\vb{a}$ en het aantal elementen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\vb{6}$ in $(\Zn{15}, \plusn)$
+      antwoord: |-
+        $\{0, 3, 6, 9, 12\}$, 5 elementen
+      uitwerking: |-
+        $6, 12, 18 \to 3, 9, 15 \to 0$.
+    - opgave: |-
+        $\vb{3}$ in $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        $\{1, 3, 9\}$, 3 elementen
+      uitwerking: |-
+        $3, 9, 27 \to 1$.
+    - opgave: |-
+        $\vb{r^2}$ in de draaiingen van de regelmatige zeshoek, met $r$ over $60^\circ$
+      antwoord: |-
+        $\{e, r^2, r^4\}$, 3 elementen
+      uitwerking: |-
+        Draaiingen over $120^\circ$, $240^\circ$ en $360^\circ$.
+    - opgave: |-
+        $\vb{s_1}$ in de symmetriegroep van de gelijkzijdige driehoek
+      antwoord: |-
+        $\{e, s_1\}$, 2 elementen
+      uitwerking: |-
+        $s_1^2 = e$.
+    - opgave: |-
+        $\vb{-1}$ in $(\Q_0, \cdot)$
+      antwoord: |-
+        $\{1, -1\}$, 2 elementen
+      uitwerking: |-
+        $(-1)^k$ is $1$ of $-1$.
+    - opgave: |-
+        $\vb{10}$ in $(\Z, +)$
+      antwoord: |-
+        de veelvouden van 10, oneindig veel
+      uitwerking: |-
+        $\vb{10} = \{\ldots, -20, -10, 0, 10, 20, \ldots\} = 10\Z$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rekenen met cykels
+  opgave: |-
+    Rekenen met cykels. Voer bij een samenstelling eerst de rechtse cykel uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $\cyc{1 & 4} \circ \cyc{2 & 3 & 5}$ in twee rijen.
+      antwoord: |-
+        $\perm{1 & 2 & 3 & 4 & 5 \\ 4 & 3 & 5 & 1 & 2}$
+      uitwerking: |-
+        De cykels zijn disjunct: $1 \to 4$, $4 \to 1$, $2 \to 3$, $3 \to 5$, $5 \to 2$.
+    - opgave: |-
+        Bepaal de inverse van $\cyc{1 & 5 & 2 & 4 & 3}$.
+      antwoord: |-
+        $\cyc{1 & 3 & 4 & 2 & 5}$
+      uitwerking: |-
+        Lees de cykel van achter naar voor: $\cyc{3 & 4 & 2 & 5 & 1}$, en begin bij 1.
+    - opgave: |-
+        Bereken $\cyc{1 & 2} \circ \cyc{1 & 3}$ en $\cyc{1 & 3} \circ \cyc{1 & 2}$.
+      antwoord: |-
+        $\cyc{1 & 3 & 2}$ en $\cyc{1 & 2 & 3}$
+      uitwerking: |-
+        Eerst $\cyc{1 & 3}$: $1 \to 3 \to 3$, $3 \to 1 \to 2$, $2 \to 2 \to 1$. In de andere volgorde: $1 \to 2 \to 2$, $2 \to 1 \to 3$, $3 \to 3 \to 1$. De uitkomsten verschillen.
+    - opgave: |-
+        Bereken $\cyc{1 & 2 & 3 & 4}^2$ en $\cyc{1 & 2 & 3 & 4}^3$.
+      antwoord: |-
+        $\cyc{1 & 3} \circ \cyc{2 & 4}$ en $\cyc{1 & 4 & 3 & 2}$
+      uitwerking: |-
+        Twee stappen verder in de kring: $1 \to 3 \to 1$ en $2 \to 4 \to 2$. Drie stappen verder is één stap terug: de inverse.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Wat is er fout? Verbeter.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        ``In $(\Zn{12}, \plusn)$ is de orde van 8 gelijk aan $12 : 8$, en dat is geen geheel getal, dus 8 heeft geen orde.''
+      antwoord: |-
+        $\ord(8) = 12 : \ggd(8, 12) = 3$
+      uitwerking: |-
+        Je deelt door de ggd, niet door het element zelf: $8, 16 \to 4, 24 \to 0$. In een eindige groep heeft elk element een orde.
+    - opgave: |-
+        ``$\sigma = \cyc{1 & 2} \circ \cyc{2 & 3}$ heeft orde $\kgv(2, 2) = 2$.''
+      antwoord: |-
+        $\sigma = \cyc{1 & 2 & 3}$ heeft orde 3
+      uitwerking: |-
+        De cykels zijn niet disjunct, want ze hebben 2 gemeen. Reken eerst de samenstelling uit: $1 \to 1 \to 2$, $2 \to 3 \to 3$, $3 \to 2 \to 1$.
+    - opgave: |-
+        ``$a^6 = e$, dus $\ord(a) = 6$.''
+      antwoord: |-
+        de orde is een deler van 6
+      uitwerking: |-
+        Uit $a^6 = e$ volgt alleen dat de orde 6 deelt: ze kan 1, 2, 3 of 6 zijn. Zo is $s_1^6 = e$ en $\ord(s_1) = 2$.
+    - opgave: |-
+        ``In een groep is $(a \ast b)^{-1} = a^{-1} \ast b^{-1}$.''
+      antwoord: |-
+        $(a \ast b)^{-1} = b^{-1} \ast a^{-1}$
+      uitwerking: |-
+        De volgorde keert om (Groepen, hoofdstuk 2). In de symmetriegroep van de driehoek: $(r \circ s_1)^{-1} = s_3^{-1} = s_3$, maar $r^{-1} \circ s_1^{-1} = r^2 \circ s_1 = s_2$.
+    - opgave: |-
+        ``$\bigl(\{1, 3, 5, 7\}, \maaln\bigr)$ in $\Zn{8}$ heeft vier elementen, net als $\Zn{4}$, dus is ze cyclisch.''
+      antwoord: |-
+        niet cyclisch: geen element van orde 4
+      uitwerking: |-
+        Het aantal elementen beslist niet: elk element van $\{1, 3, 5, 7\}$ heeft kwadraat 1.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de Chinese kalender (kgv van twee cycli)
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \kring[.75]{10}
+        \begin{scope}[xshift=2.3cm]\kring[.75]{12}\end{scope}
+        \node at (0,-1.25) {stammen};
+        \node at (2.3,-1.25) {takken};
+      \end{tikzpicture}
+  opgave: |-
+    In de Chinese kalender krijgt elk jaar een \textit{hemelse stam} uit een kring van 10 en een \textit{aardse tak} (een dier) uit een kring van 12. Elk jaar schuiven beide één plaats op. Het jaar 2024 had stam 0 en tak 4 (de draak), als je in beide kringen vanaf 0 telt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Na hoeveel jaar komt een combinatie van stam en tak voor het eerst terug?
+      antwoord: |-
+        $60$ jaar
+      uitwerking: |-
+        Na $k$ jaar is de stam terug als $10 \mid k$ en de tak als $12 \mid k$. De kleinste $k$ is $\kgv(10, 12) = 60$. Het element $(1, 1)$ heeft orde 60.
+    - opgave: |-
+        Welk jaar heeft opnieuw stam 0 en tak 4?
+      antwoord: |-
+        $2084$
+      uitwerking: |-
+        $2024 + 60 = 2084$.
+    - opgave: |-
+        Er zijn $10 \cdot 12 = 120$ koppels van een stam en een tak. Komen ze allemaal voor? Verklaar.
+      antwoord: |-
+        nee, maar 60
+      uitwerking: |-
+        Na $k$ jaar is de stam de rest van $k$ bij deling door 10 en de tak de rest van $4 + k$ bij deling door 12. Omdat 10 en 12 even zijn, is de stam even als $k$ even is, en de tak ook: stam en tak zijn altijd allebei even of allebei oneven. De 60 koppels met een even stam en een oneven tak (of omgekeerd) komen nooit voor.
+    - opgave: |-
+        Stel dat er 11 takken waren in plaats van 12. Na hoeveel jaar komt een combinatie terug, en komen alle koppels voor?
+      antwoord: |-
+        na 110 jaar; ja, alle 110
+      uitwerking: |-
+        $\kgv(10, 11) = 110$, want $\ggd(10, 11) = 1$. In 110 jaar komen 110 verschillende koppels voor, en meer zijn er niet.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de orde uit gegevens afleiden
+  opgave: |-
+    Een element $a$ van een groep heeft de gegeven eigenschappen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je weet dat $a^{12} = e$, $a^4 \neq e$ en $a^6 \neq e$. Wat is $\ord(a)$?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        De orde deelt 12: 1, 2, 3, 4, 6 of 12. Ze deelt 4 niet (dus niet 1, 2, 4) en 6 niet (dus niet 3, 6). Blijft 12.
+    - opgave: |-
+        Je weet dat $\ord(a) = 10$. Bepaal de orde van $a^2$, $a^5$, $a^4$ en $a^3$.
+      antwoord: |-
+        $5$, $2$, $5$ en $10$
+      uitwerking: |-
+        $(a^2)^k = e \iff 10 \mid 2k \iff 5 \mid k$. Net zo: $10 \mid 5k \iff 2 \mid k$; $10 \mid 4k \iff 5 \mid k$; $10 \mid 3k \iff 10 \mid k$.
+    - opgave: |-
+        Je weet dat $\ord(a) = 10$. Voor welke $k$ is $a^k = a^{-1}$?
+      antwoord: |-
+        $k = 9 + 10j$, $j \in \Z$
+      uitwerking: |-
+        Gelijke machten: $a^k = a^{-1} \iff 10 \mid k + 1$.
+    - opgave: |-
+        Je weet dat $a^{35} = e$ en $a^{21} = e$, en dat $a \neq e$. Wat is $\ord(a)$?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        De orde deelt $\ggd(35, 21) = 7$ en is niet 1.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    sterveelhoeken
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \kring[1.2]{12}
+        \sprongen{12}{5}{1.2}
+      \end{tikzpicture}
+  opgave: |-
+    Op een kring staan 12 punten, genummerd zoals in $\Zn{12}$. Vertrek bij 0 en verbind telkens een punt met het punt $m$ plaatsen verder, tot je terug bij 0 bent. In de figuur is $m = 5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel punten bereik je met $m = 5$, met $m = 8$ en met $m = 9$? Welke figuur teken je telkens?
+      antwoord: |-
+        $12$: een ster; $3$: een driehoek; $4$: een vierkant
+      uitwerking: |-
+        Het aantal punten is $\ord(m) = \frac{12}{\ggd(m, 12)}$: $\frac{12}{1}$, $\frac{12}{4}$ en $\frac{12}{3}$.
+    - opgave: |-
+        Met $m = 8$ blijven er punten over. Hoeveel driehoeken heb je nodig om alle punten te bereiken, als je telkens bij een nieuw punt vertrekt?
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        Elke driehoek bevat 3 punten, en ze overlappen niet: $\{0, 4, 8\}$, $\{1, 5, 9\}$, $\{2, 6, 10\}$, $\{3, 7, 11\}$.
+    - opgave: |-
+        Voor welke $m$ teken je in één beweging een ster door alle 12 punten?
+      antwoord: |-
+        $m = 5$ en $m = 7$
+      uitwerking: |-
+        $\ggd(m, 12) = 1$ voor $m = 1, 5, 7, 11$. Met 1 en 11 teken je de twaalfhoek zelf; 5 en 7 geven dezelfde ster, in de andere richting.
+    - opgave: |-
+        Hoeveel verschillende sterren door alle punten bestaan er met 9 punten op een kring? En met 7 punten?
+      antwoord: |-
+        $2$; $2$
+      uitwerking: |-
+        Met 9 punten: $m = 2, 4, 5, 7$ zijn voortbrengers verschillend van 1 en 8, en $m$ en $9 - m$ geven dezelfde ster: $m = 2$ en $m = 4$. Met 7 punten: $m = 2, 3, 4, 5$, dus de sterren met $m = 2$ en $m = 3$.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kaarten schudden
+  opgave: |-
+    Een stapel kaarten, genummerd van boven naar onder, wordt in twee gelijke helften verdeeld die perfect in elkaar geschoven worden, zoals in het probleem.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een stapel van zes kaarten, met kaart 1 bovenaan na het schudden. Geef de nieuwe volgorde, de permutatie in cykels, en het aantal keer schudden tot de beginvolgorde.
+      antwoord: |-
+        $1, 4, 2, 5, 3, 6$; \ $\cyc{2 & 3 & 5 & 4}$; \ 4 keer
+      uitwerking: |-
+        De kaart van plaats 2 komt op plaats 3, die van 3 op 5, die van 5 op 4, die van 4 op 2. De orde is 4.
+    - opgave: |-
+        Dezelfde stapel, maar met de onderste helft bovenaan.
+      antwoord: |-
+        $4, 1, 5, 2, 6, 3$; \ $\cyc{1 & 2 & 4} \circ \cyc{3 & 6 & 5}$; \ 3 keer
+      uitwerking: |-
+        $1 \to 2 \to 4 \to 1$ en $3 \to 6 \to 5 \to 3$; $\kgv(3, 3) = 3$.
+    - opgave: |-
+        Een stapel van vier kaarten, op beide manieren.
+      antwoord: |-
+        kaart 1 boven: 2 keer; onderste helft boven: 4 keer
+      uitwerking: |-
+        $1, 3, 2, 4$ geeft $\cyc{2 & 3}$. $3, 1, 4, 2$ geeft $\cyc{1 & 2 & 4 & 3}$.
+    - opgave: |-
+        Een goochelaar wil een stapel na precies 2 keer schudden terug. Kan dat met zes kaarten, als hij een andere vaste manier van schudden mag kiezen? Geef een voorbeeld.
+      antwoord: |-
+        ja, bijvoorbeeld de stapel omkeren
+      uitwerking: |-
+        Elke permutatie van orde 2 werkt, zoals $\cyc{1 & 6} \circ \cyc{2 & 5} \circ \cyc{3 & 4}$: de stapel omdraaien.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eenheden modulo n
+  opgave: |-
+    De getallen van $\Zn{n}$ die geen deler groter dan 1 gemeen hebben met $n$, vormen met $\maaln$ een groep (dat bewijs je in hoofdstuk 2). Is die groep cyclisch?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $n = 9$
+      antwoord: |-
+        ja, voortbrenger 2
+      uitwerking: |-
+        $\{1, 2, 4, 5, 7, 8\}$ en $\ord(2) = 6$.
+    - opgave: |-
+        $n = 10$
+      antwoord: |-
+        ja, voortbrenger 3
+      uitwerking: |-
+        $\{1, 3, 7, 9\}$: $3, 9, 27 \to 7, 21 \to 1$.
+    - opgave: |-
+        $n = 12$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\{1, 5, 7, 11\}$: $25$, $49$ en $121$ hebben rest 1 bij deling door 12. Geen element van orde 4.
+    - opgave: |-
+        $n = 14$
+      antwoord: |-
+        ja, voortbrenger 3
+      uitwerking: |-
+        $\{1, 3, 5, 9, 11, 13\}$: $3, 9, 27 \to 13, 39 \to 11, 33 \to 5, 15 \to 1$.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    symmetrieën van de regelmatige twaalfhoek
+  opgave: |-
+    De symmetriegroep van de regelmatige twaalfhoek heeft 24 elementen: de draaiingen $e, r, r^2, \ldots, r^{11}$, met $r$ de draaiing over $30^\circ$, en twaalf spiegelingen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de orde van $r^3$, $r^8$ en $r^5$.
+      antwoord: |-
+        $4$, $3$ en $12$
+      uitwerking: |-
+        $\ord(r^k) = \frac{12}{\ggd(k, 12)}$: zoals $k$ in $\Zn{12}$. $r^3$ is een kwartdraai, $r^8$ een draai over $240^\circ$.
+    - opgave: |-
+        Welke draaiingen hebben orde 6?
+      antwoord: |-
+        $r^2$ en $r^{10}$
+      uitwerking: |-
+        $\ggd(k, 12) = 2$ voor $k = 2$ en $k = 10$: de draaiingen over $60^\circ$ en $300^\circ$.
+    - opgave: |-
+        Hoeveel elementen van orde 2 heeft de groep?
+      antwoord: |-
+        $13$
+      uitwerking: |-
+        De twaalf spiegelingen en de halve draai $r^6$.
+    - opgave: |-
+        Voor welke $n \leqslant 20$ heeft de groep van de draaiingen van een regelmatige $n$-hoek precies 4 voortbrengers?
+      antwoord: |-
+        $n = 5, 8, 10, 12$
+      uitwerking: |-
+        Er zijn $\varphi(n)$ voortbrengers. $\varphi(5) = 4$ ($1, 2, 3, 4$), $\varphi(8) = 4$ ($1, 3, 5, 7$), $\varphi(10) = 4$ ($1, 3, 7, 9$), $\varphi(12) = 4$.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een kralenpuzzel
+  opgave: |-
+    Een puzzel heeft negen kralen op de plaatsen 1 tot 9. Eén druk op de knop $M$ verplaatst de kralen volgens $M = \cyc{1 & 2 & 3 & 4} \circ \cyc{5 & 6 & 7} \circ \cyc{8 & 9}$: de kraal op plaats 1 gaat naar plaats 2, enzovoort.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Na hoeveel keer drukken liggen alle kralen terug op hun plaats?
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        $\ord(M) = \kgv(4, 3, 2) = 12$.
+    - opgave: |-
+        Waar ligt na 100 keer drukken de kraal die op plaats 1 begon? En die van plaats 5 en die van plaats 8?
+      antwoord: |-
+        plaats 1, plaats 6, plaats 8
+      uitwerking: |-
+        $100 = 25 \cdot 4$, dus in de kring van lengte 4 is alles terug. $100 = 33 \cdot 3 + 1$: in de kring van lengte 3 één stap, van 5 naar 6. $100$ is even: 8 ligt terug.
+    - opgave: |-
+        Hoe vaak moet je drukken om één druk ongedaan te maken?
+      antwoord: |-
+        $11$ keer
+      uitwerking: |-
+        $M^{-1} = M^{11}$, want $M^{12} = e$.
+    - opgave: |-
+        Een tweede knop doet $N = \cyc{1 & 5} \circ \cyc{2 & 6}$. Schrijf $M \circ N$ (eerst $N$) in disjuncte cykels. Wat is de orde?
+      antwoord: |-
+        $\cyc{1 & 6 & 3 & 4} \circ \cyc{2 & 7 & 5} \circ \cyc{8 & 9}$, orde 12
+      uitwerking: |-
+        $1 \to 5 \to 6$, $6 \to 2 \to 3$, $3 \to 3 \to 4$, $4 \to 4 \to 1$; $2 \to 6 \to 7$, $7 \to 7 \to 5$, $5 \to 1 \to 2$; 8 en 9 wisselen. $\kgv(4, 3, 2) = 12$.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    welke ordes komen voor in Sn?
+  opgave: |-
+    Welke ordes hebben de permutaties van een paar getallen?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef in $S_4$ een voorbeeld van elke soort ontbinding in disjuncte cykels, met de orde. Welke ordes komen voor?
+      antwoord: |-
+        $1, 2, 3, 4$
+      uitwerking: |-
+        $e$ (orde 1), $\cyc{1 & 2}$ (2), $\cyc{1 & 2} \circ \cyc{3 & 4}$ (2), $\cyc{1 & 2 & 3}$ (3), $\cyc{1 & 2 & 3 & 4}$ (4).
+    - opgave: |-
+        Welke ordes komen voor in $S_5$? Waarom heeft $S_4$ geen element van orde 6, en $S_5$ wel?
+      antwoord: |-
+        $1, 2, 3, 4, 5, 6$
+      uitwerking: |-
+        In $S_5$ komen er de 5-cykels (orde 5) en $\cyc{1 & 2 & 3} \circ \cyc{4 & 5}$ (orde 6) bij. Voor orde 6 heb je disjuncte cykels van lengte 2 en 3 nodig (of een 6-cykel): minstens 5 getallen.
+    - opgave: |-
+        Voor welke kleinste $n$ heeft $S_n$ een element van orde 10? En van orde 12?
+      antwoord: |-
+        $n = 7$; $n = 7$
+      uitwerking: |-
+        Orde 10: cykels met $\kgv = 10$, zoals $2 + 5 = 7$ getallen (een 10-cykel vraagt er 10). Orde 12: $3 + 4 = 7$ getallen.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    machten van een product
+  opgave: |-
+    Wanneer is $(a \ast b)^n = a^n \ast b^n$?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In de symmetriegroep van het vierkant is $r$ de kwartdraai en $h$ de spiegeling om de horizontale as. Leg uit waarom $r \circ h$ een spiegeling is. Bereken $(r \circ h)^2$ en $r^2 \circ h^2$.
+      antwoord: |-
+        $(r \circ h)^2 = e$ en $r^2 \circ h^2 = r^2$
+      uitwerking: |-
+        $r \circ h$ is een symmetrie die de oriëntatie omkeert (de nummers van de hoekpunten staan in de andere draaizin), dus een spiegeling, met kwadraat $e$. Maar $h^2 = e$, dus $r^2 \circ h^2 = r^2$, de halve draai.
+    - opgave: |-
+        Bewijs: in een commutatieve groep is $(a \ast b)^n = a^n \ast b^n$ voor elk natuurlijk getal $n$.
+      antwoord: |-
+        met inductie op $n$
+      uitwerking: |-
+        Voor $n = 0$ staat er $e = e$. Stel dat het klopt voor $n$. Dan is $(a \ast b)^{n + 1} = a^n \ast b^n \ast a \ast b = a^n \ast a \ast b^n \ast b = a^{n + 1} \ast b^{n + 1}$, waarbij we $b^n$ en $a$ wisselen.
+    - opgave: |-
+        Zoek twee permutaties $\sigma$ en $\tau$ in $S_3$ met $(\sigma \circ \tau)^2 \neq \sigma^2 \circ \tau^2$.
+      antwoord: |-
+        bijvoorbeeld $\sigma = \cyc{1 & 2}$ en $\tau = \cyc{1 & 3}$
+      uitwerking: |-
+        $\sigma \circ \tau = \cyc{1 & 3 & 2}$, met kwadraat $\cyc{1 & 2 & 3} \neq e$. Maar $\sigma^2 \circ \tau^2 = e$.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de orde van een macht
+  opgave: |-
+    Een element $a$ van een groep heeft orde $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat $\ord(a^m) = \dfrac{n}{\ggd(m, n)}$ voor elk natuurlijk getal $m \geqslant 1$. Volg het bewijs van de stelling over de orde in $\Zn{n}$.
+      antwoord: |-
+        $(a^m)^j = e \iff n \mid mj$
+      uitwerking: |-
+        $(a^m)^j = a^{mj} = e \iff n \mid mj$. Met $d = \ggd(m, n)$, $m = dm'$ en $n = dn'$ is dat $n' \mid m'j$, dus $n' \mid j$. De kleinste $j \geqslant 1$ is $n' = \frac{n}{d}$.
+    - opgave: |-
+        Leid af: $a^m$ is een voortbrenger van $\vb{a}$ als en slechts als $\ggd(m, n) = 1$.
+      antwoord: |-
+        $\ord(a^m) = n \iff \ggd(m, n) = 1$
+      uitwerking: |-
+        $\vb{a^m} \subseteq \vb{a}$, en $\vb{a^m}$ heeft $\ord(a^m)$ elementen. Het is heel $\vb{a}$ als $\ord(a^m) = n$, dus als $\ggd(m, n) = 1$.
+    - opgave: |-
+        In $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$ heeft 2 de orde 12. Bepaal alle voortbrengers van die groep.
+      antwoord: |-
+        $2, 6, 7, 11$
+      uitwerking: |-
+        De voortbrengers zijn $2^m$ met $\ggd(m, 12) = 1$: $2^1 = 2$, $2^5 = 32 \to 6$, $2^7 = 128 \to 11$, $2^{11} = 2^{-1} = 7$.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    elementen met dezelfde orde
+  opgave: |-
+    Neem twee elementen $a$ en $b$ van een groep, met $\ord(a) = n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat $\ord(a^{-1}) = n$.
+      antwoord: |-
+        $(a^{-1})^k = e \iff a^k = e$
+      uitwerking: |-
+        $(a^{-1})^k = a^{-k}$, en $a^{-k} = e \iff a^k = e$ (neem de inverse van beide leden). Dezelfde $k$ werken, dus de kleinste is dezelfde.
+    - opgave: |-
+        Toon aan dat $(b \ast a \ast b^{-1})^k = b \ast a^k \ast b^{-1}$, en leid af dat $\ord(b \ast a \ast b^{-1}) = n$.
+      antwoord: |-
+        de binnenste $b^{-1} \ast b$ vallen weg
+      uitwerking: |-
+        In $(b a b^{-1})(b a b^{-1}) \cdots (b a b^{-1})$ geeft elke $b^{-1} \ast b$ het element $e$: er blijft $b a^k b^{-1}$. Dat is $e$ als en slechts als $a^k = b^{-1} \ast e \ast b = e$.
+    - opgave: |-
+        Bewijs dat $a \ast b$ en $b \ast a$ dezelfde orde hebben. Controleer met $r$ en $s_1$ in de symmetriegroep van de driehoek.
+      antwoord: |-
+        $b \ast a = b \ast (a \ast b) \ast b^{-1}$
+      uitwerking: |-
+        Pas b toe met $a \ast b$ in de plaats van $a$: $b \ast (a \ast b) \ast b^{-1} = b \ast a$ heeft dezelfde orde als $a \ast b$. Controle: $r \circ s_1 = s_3$ en $s_1 \circ r = s_2$, allebei orde 2.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de orde van een product van wisselende elementen
+  opgave: |-
+    In een groep is $a \ast b = b \ast a$, $\ord(a) = m$, $\ord(b) = n$ en $\ggd(m, n) = 1$. We bewijzen dat $\ord(a \ast b) = mn$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $(a \ast b)^{mn} = e$.
+      antwoord: |-
+        $(a \ast b)^{mn} = (a^m)^n \ast (b^n)^m$
+      uitwerking: |-
+        Omdat $a$ en $b$ wisselen, is $(a \ast b)^{mn} = a^{mn} \ast b^{mn} = e \ast e = e$.
+    - opgave: |-
+        Stel $(a \ast b)^k = e$. Toon aan dat $c = a^k = b^{-k}$ in $\vb{a}$ en in $\vb{b}$ ligt, en dat $c^m = e$ en $c^n = e$.
+      antwoord: |-
+        $c^m = (a^m)^k$ en $c^n = (b^n)^{-k}$
+      uitwerking: |-
+        Uit $a^k \ast b^k = e$ volgt $a^k = b^{-k}$. Dan is $c^m = (a^m)^k = e$ en $c^n = (b^n)^{-k} = e$.
+    - opgave: |-
+        Leid af dat $c = e$, en dan dat $m \mid k$ en $n \mid k$. Besluit.
+      antwoord: |-
+        $\ord(c) \mid \ggd(m, n) = 1$
+      uitwerking: |-
+        De orde van $c$ deelt $m$ en $n$, dus hun ggd 1: $c = e$. Dan is $a^k = e$ en $b^k = e$, dus $m \mid k$ en $n \mid k$, en omdat $\ggd(m, n) = 1$ is $mn \mid k$. De kleinste $k$ is $mn$.
+    - opgave: |-
+        In $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$ heeft 2 orde 3 en 6 orde 2. Controleer dat $2 \maaln 6$ orde 6 heeft.
+      antwoord: |-
+        $2 \maaln 6 = 5$, en $\ord(5) = 6$
+      uitwerking: |-
+        $12 \to 5$, en de machten van 5 zijn $5, 4, 6, 2, 3, 1$.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    groepen die niet cyclisch zijn
+  opgave: |-
+    Twee oneindige groepen die niet cyclisch zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel dat $(\Q, +)$ cyclisch is, met voortbrenger $q$. Waarom is $q \neq 0$? Toon aan dat $\frac{q}{2}$ dan geen veelvoud $kq$ is met $k \in \Z$. Besluit.
+      antwoord: |-
+        $kq = \frac q2$ geeft $k = \frac12$
+      uitwerking: |-
+        $\vb{0} = \{0\}$, dus $q \neq 0$. Uit $kq = \frac{q}{2}$ volgt $k = \frac12 \notin \Z$. Dus $\frac{q}{2} \in \Q$ zit niet in $\vb{q}$: $(\Q, +)$ is niet cyclisch.
+    - opgave: |-
+        Stel dat $(\Q_0, \cdot)$ cyclisch is, met voortbrenger $q$. Dan is $-1 = q^k$ voor een geheel getal $k$. Toon aan dat $q = 1$ of $q = -1$, en besluit.
+      antwoord: |-
+        $q^{2k} = 1$ geeft $|q| = 1$
+      uitwerking: |-
+        $k \neq 0$, want $q^0 = 1$. Uit $q^{2k} = 1$ volgt $|q|^{2k} = 1$, dus $|q| = 1$. Maar dan is $\vb{q} \subseteq \{1, -1\}$, en $2 \notin \vb{q}$.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het aantal elementen van elke orde in Zn
+  opgave: |-
+    We tellen hoeveel elementen van $(\Zn{n}, \plusn)$ een gegeven orde hebben.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tel voor elke deler $d$ van 12 het aantal elementen van $\Zn{12}$ met orde $d$.
+      antwoord: |-
+        $d = 1, 2, 3, 4, 6, 12$: $\ 1, 1, 2, 2, 2, 4$
+      uitwerking: |-
+        Orde 1: 0. Orde 2: 6. Orde 3: 4, 8. Orde 4: 3, 9. Orde 6: 2, 10. Orde 12: 1, 5, 7, 11.
+    - opgave: |-
+        Bewijs: is $d$ een deler van $n$, dan heeft $\Zn{n}$ precies $\varphi(d)$ elementen van orde $d$. Gebruik dat $\ord(k) = d \iff \ggd(k, n) = \frac{n}{d}$.
+      antwoord: |-
+        $k = \frac{n}{d} j$ met $\ggd(j, d) = 1$
+      uitwerking: |-
+        Is $\ggd(k, n) = \frac nd$, dan is $k = \frac nd \cdot j$ met $0 \leqslant j < d$, en $\ggd(k, n) = \frac nd \ggd(j, d)$. Dat is $\frac nd$ als en slechts als $\ggd(j, d) = 1$: er zijn $\varphi(d)$ zulke $j$.
+    - opgave: |-
+        Leid af dat de som van $\varphi(d)$ over alle delers $d$ van $n$ gelijk is aan $n$. Controleer voor $n = 12$.
+      antwoord: |-
+        elk element heeft precies één orde
+      uitwerking: |-
+        Elk van de $n$ elementen heeft een orde die $n$ deelt, en we tellen elk element één keer. Voor 12: $1 + 1 + 2 + 2 + 2 + 4 = 12$.
+
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 2
+  thema: |-
+    eenheidswortels
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Complexe getallen
+  opgave: |-
+    De zesde eenheidswortels zijn de oplossingen van $z^6 = 1$ in $\C$. Neem $\omega = \cos 60^\circ + i \sin 60^\circ$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met de formule van De Moivre aan dat $\omega^k$ voor elke $k$ een zesde eenheidswortel is, en dat $1, \omega, \ldots, \omega^5$ verschillend zijn.
+      antwoord: |-
+        $(\omega^k)^6 = (\omega^6)^k = 1$
+      uitwerking: |-
+        $\omega^k = \cos(k \cdot 60^\circ) + i \sin(k \cdot 60^\circ)$, dus $\omega^6 = \cos 360^\circ + i \sin 360^\circ = 1$ en $(\omega^k)^6 = 1$. Voor $k = 0, \ldots, 5$ zijn de argumenten verschillend: de zes hoekpunten van een regelmatige zeshoek.
+    - opgave: |-
+        Een veelterm van graad 6 heeft hoogstens 6 nulpunten. Leid af dat de eenheidswortels de cyclische groep $\vb{\omega}$ vormen. Welke zijn voortbrengers?
+      antwoord: |-
+        $\omega$ en $\omega^5$
+      uitwerking: |-
+        De zes machten zijn alle oplossingen. $\ord(\omega^k) = \frac{6}{\ggd(k, 6)}$ is 6 voor $k = 1$ en $k = 5$.
+    - opgave: |-
+        Teken de eenheidswortels in het vlak van Gauss, en duid $\vb{\omega^2}$ en $\vb{\omega^3}$ aan.
+      antwoord: |-
+        $\{1, \omega^2, \omega^4\}$ en $\{1, -1\}$
+      uitwerking: |-
+        $\vb{\omega^2}$ is een gelijkzijdige driehoek met hoekpunt 1, $\vb{\omega^3}$ zijn de punten 1 en $\omega^3 = -1$.
+    - opgave: |-
+        Bereken $\omega^{100}$ in algebraïsche vorm.
+      antwoord: |-
+        $-\frac12 - \frac{\sqrt3}{2} i$
+      uitwerking: |-
+        $100 = 16 \cdot 6 + 4$, dus $\omega^{100} = \omega^4 = \cos 240^\circ + i \sin 240^\circ$.
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 2
+  thema: |-
+    de periode van een decimale ontwikkeling
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Getaltheorie
+  opgave: |-
+    $\frac17 = 0{,}142857\,142857\ldots$ heeft een periode van 6 cijfers.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Maak de staartdeling van 1 door 7 en noteer de resten na elke stap, tot een rest terugkomt.
+      antwoord: |-
+        $1, 3, 2, 6, 4, 5, 1$
+      uitwerking: |-
+        $10 = 1 \cdot 7 + 3$, $30 = 4 \cdot 7 + 2$, $20 = 2 \cdot 7 + 6$, $60 = 8 \cdot 7 + 4$, $40 = 5 \cdot 7 + 5$, $50 = 7 \cdot 7 + 1$. De quotiënten zijn de cijfers 1, 4, 2, 8, 5, 7.
+    - opgave: |-
+        Leg uit waarom de rest na $k$ stappen de rest is van $10^k$ bij deling door 7. Waarom is de lengte van de periode dus de orde van 10 in $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$?
+      antwoord: |-
+        elke stap vermenigvuldigt de rest met 10
+      uitwerking: |-
+        Bij elke stap zet je een 0 achter de rest en deel je door 7: de nieuwe rest is de rest van $10 \cdot$(oude rest). Vanaf rest 1 is dat na $k$ stappen de rest van $10^k$. De cijfers herhalen zich zodra de rest terug 1 is, dus na $\ord(10)$ stappen.
+    - opgave: |-
+        Bepaal zo de lengte van de periode van $\frac{1}{13}$ en van $\frac{1}{11}$.
+      antwoord: |-
+        $6$ en $2$
+      uitwerking: |-
+        Modulo 13: $10, 9, 12, 3, 4, 1$, dus orde 6 ($\frac{1}{13} = 0{,}076923\ldots$). Modulo 11: $10, 1$, dus orde 2 ($\frac{1}{11} = 0{,}0909\ldots$).
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 2
+  thema: |-
+    permutaties tellen per orde
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Telproblemen
+  opgave: |-
+    Tel de permutaties met de productregel en combinaties.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel 3-cykels heeft $S_4$? Hoeveel 4-cykels?
+      antwoord: |-
+        $8$ en $6$
+      uitwerking: |-
+        Kies 3 van de 4 getallen ($\binom43 = 4$ manieren); met die drie zijn er 2 cykels, $\cyc{a & b & c}$ en $\cyc{a & c & b}$. Een 4-cykel begint bij 1, daarna zijn er $3!$ volgordes.
+    - opgave: |-
+        Hoeveel elementen van $S_4$ hebben orde 2? Controleer dat je met alle ordes samen $4! = 24$ krijgt.
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $\binom42 = 6$ verwisselingen en 3 producten van twee disjuncte verwisselingen. Samen: $1 + 9 + 8 + 6 = 24$.
+    - opgave: |-
+        Hoeveel elementen van $S_5$ hebben orde 6?
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        Een 3-cykel en een disjuncte verwisseling: kies de drie getallen van de cykel ($\binom53 = 10$), dan 2 cykels, en de andere twee wisselen: $10 \cdot 2 = 20$.
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    machten
+  opgave: |-
+    Bereken in de symmetriegroep van de gelijkzijdige driehoek $r^{-5}$ en $r^4 \circ r^{-2}$, en in $(\Zn{8}, \plusn)$ het element $3 \cdot 5$.
+  antwoord: |-
+    $r$, \ $r^2$, \ $7$
+  uitwerking: |-
+    $r^{-5} = r^{-6} \circ r = r$. \ $r^4 \circ r^{-2} = r^2$. \ $3 \cdot 5 = 15 \to 7$.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    orde en grote machten
+  opgave: |-
+    In $\bigl(\Zn{17} \setminus \{0\}, \maaln\bigr)$ is $2^4 = 16$. Bepaal $\ord(2)$, $2^{2026}$ en $2^{-1}$.
+  antwoord: |-
+    $8$, \ $4$, \ $9$
+  uitwerking: |-
+    $2^8 = 16^2 = 256 = 15 \cdot 17 + 1$, en $2^1, 2^2, 2^4 \neq 1$ (de orde deelt 8), dus $\ord(2) = 8$. $2026 = 253 \cdot 8 + 2$: $2^{2026} = 4$. $2^{-1} = 2^7 = 128 = 7 \cdot 17 + 9$; controle $2 \cdot 9 = 18$.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    de machten van een element
+  opgave: |-
+    Bepaal $\vb{8}$ in $(\Zn{14}, \plusn)$ en $\vb{5}$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$.
+  antwoord: |-
+    $\{0, 2, 4, 6, 8, 10, 12\}$ en $\{1, 3, 4, 5, 9\}$
+  uitwerking: |-
+    $\ord(8) = \frac{14}{2} = 7$: de even getallen. Machten van 5: $5, 25 \to 3, 15 \to 4, 20 \to 9, 45 \to 1$.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  thema: |-
+    cyclisch of niet
+  opgave: |-
+    Is de groep cyclisch? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        ja, voortbrenger 2
+      uitwerking: |-
+        De machten van 2 zijn $2, 4, 8, 3, 6, 12, 11, 9, 5, 10, 7, 1$: orde 12.
+    - opgave: |-
+        de symmetriegroep van de rechthoek
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Vier elementen, maar elk element heeft orde 1 of 2.
+
+- id: h1-t5
+  soort: test
+  niveau: 1
+  thema: |-
+    voortbrengers van Zn
+  opgave: |-
+    Geef alle voortbrengers van $(\Zn{18}, \plusn)$, en bepaal de orde van 12 en van 4.
+  antwoord: |-
+    $1, 5, 7, 11, 13, 17$; \ $3$ en $9$
+  uitwerking: |-
+    $18 = 2 \cdot 3^2$: schrap de veelvouden van 2 en van 3. $\frac{18}{\ggd(12, 18)} = \frac{18}{6}$ en $\frac{18}{\ggd(4, 18)} = \frac{18}{2}$.
+
+- id: h1-t6
+  soort: test
+  niveau: 1
+  thema: |-
+    orde van een permutatie
+  opgave: |-
+    Schrijf $\perm{1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 4 & 7 & 1 & 3 & 6 & 5 & 2}$ als samenstelling van disjuncte cykels, en bepaal de orde.
+  antwoord: |-
+    $\cyc{1 & 4 & 3} \circ \cyc{2 & 7} \circ \cyc{5 & 6}$, orde 6
+  uitwerking: |-
+    $1 \to 4 \to 3 \to 1$, $2 \to 7 \to 2$, $5 \to 6 \to 5$; $\kgv(3, 2, 2) = 6$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    de orde uit gegevens
+  opgave: |-
+    Van een element $a$ weet je dat $a^{18} = e$ en $a^{12} = e$, maar $a^2 \neq e$ en $a^3 \neq e$. Wat is $\ord(a)$?
+  antwoord: |-
+    $6$
+  uitwerking: |-
+    De orde deelt $\ggd(18, 12) = 6$, en deelt 2 en 3 niet: ze is 6.

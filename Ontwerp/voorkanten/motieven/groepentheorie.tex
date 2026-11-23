@@ -1,0 +1,26 @@
+% Groepentheorie. Jacopo de' Barbari (toegeschreven), portret van Luca Pacioli, 1495: links hangt een
+% ruitkuboctaëder van glas, rechts staat een regelmatig twaalfvlak. Hun draaiingen vormen groepen (24 en 60
+% elementen), met de draaiingen van de tetraëder (12, het probleem van hoofdstuk 2) als deelgroep.
+% Motief: de stelling van Lagrange in (Z12, +). De deelgroep H = {0, 4, 8} (in fel) en haar nevenklassen
+% {1, 5, 9}, {2, 6, 10} en {3, 7, 11} zijn vier driehoeken die samen de 12 punten precies één keer bedekken:
+% 12 = 4 * 3. De bovenrand heeft vier gelijke golven, zoals de vier nevenklassen.
+\def\omslagbestand{omslag-pacioli.jpg}
+\def\omslagbron{Jacopo de' Barbari (toegeschreven), \textit{Portret van Luca Pacioli}, 1495 (publiek domein)}
+\def\omslagsamples{200}
+\def\omslagrand{10.65 + 0.3*cos(\x*360/5.25)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[shift={(17.15,6.35)}]
+    \draw[white,line width=.6pt,opacity=.5] (0,0) circle (2.05);
+    \foreach \c in {1,2,3}{%
+      \draw[white,line width=1.1pt,line join=round,fill=white,fill opacity=.1]
+        ({90-30*\c}:2.05) -- ({90-30*(\c+4)}:2.05) -- ({90-30*(\c+8)}:2.05) -- cycle;}
+    \draw[omslaglijn=1.8pt,line join=round] (90:2.05) -- (-30:2.05) -- (210:2.05) -- cycle;
+    \draw[fel,line width=1.8pt,line join=round] (90:2.05) -- (-30:2.05) -- (210:2.05) -- cycle;
+    \foreach \k in {0,...,11}{%
+      \fill[white] ({90-30*\k}:2.05) circle (2pt);
+      \node[text=white,font=\scriptsize,inner sep=1pt] at ({90-30*\k}:2.4) {$\k$};}
+    \foreach \k in {0,4,8}{\fill[fel] ({90-30*\k}:2.05) circle (2.6pt);}
+  \end{scope}
+  \node[omslaglabel] at (17.15,3.55) {$12 = 4 \cdot 3$};
+}

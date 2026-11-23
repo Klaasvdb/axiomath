@@ -1,0 +1,173 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS GROEPENTHEORIE (uitbreiding van die van Groepen)
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+% Getallenverzamelingen en de gehele getallen modulo n
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Zn}[1]{\mathbb{Z}_{#1}}
+% Optellen en vermenigvuldigen modulo n
+\newcommand{\plusn}{\oplus}
+\newcommand{\maaln}{\odot}
+% Een permutatie in twee rijen: \perm{1 & 2 & 3 \\ 2 & 3 & 1}
+\newcommand{\perm}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+% De solution komt na \end{metgrafiek}, zoals bij metprent.
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% BEWERKINGSTABEL, met een raster en alles gecentreerd. Alle vakjes staan in wiskundemodus.
+% \begin{bewtabel}[breedte vakje]{aantal elementen}{bewerking}{kopregel}
+%   a & a \ast a & a \ast b \\ \hline
+%   ...
+% \end{bewtabel}
+% Rij a, kolom b: daar staat a * b. Een vakje kleuren: \cellcolor{fel!35}.
+\newenvironment{bewtabel}[4][6.5mm]{%
+  \renewcommand{\arraystretch}{1.3}%
+  \begin{tabular}{|>{\columncolor{accent!14}$}wc{#1}<{$}|*{#2}{>{$}wc{#1}<{$}|}}\hline
+  \rowcolor{accent!14} #3 & #4 \\ \hline
+}{\end{tabular}}
+
+% FIGUREN, te gebruiken binnen een tikzpicture
+% Gelijkzijdige driehoek met straal 1 en de nummers van de hoekpunten:
+% \driehoek[middelpunt]{boven}{linksonder}{rechtsonder}
+\newcommand{\driehoek}[4][0,0]{%
+  \begin{scope}[shift={(#1)}]
+  \draw[accent,thick,fill=accent!8,line join=round] (90:1) -- (210:1) -- (330:1) -- cycle;
+  \node[font=\small,inner sep=1pt] at (90:1.3) {$#2$};
+  \node[font=\small,inner sep=1pt] at (210:1.3) {$#3$};
+  \node[font=\small,inner sep=1pt] at (330:1.3) {$#4$};
+  \end{scope}}
+% De drie symmetrieassen van \driehoek: \driehoekassen[middelpunt]
+\newcommand{\driehoekassen}[1][0,0]{%
+  \begin{scope}[shift={(#1)}]
+  \foreach \h in {90,210,330}{\draw[grijs,dashed,thin] (\h:1.15) -- (\h+180:.75);}
+  \end{scope}}
+% Vierkant met de nummers van de hoekpunten, tegen de wijzers van de klok in vanaf rechtsboven:
+% \vierkant[middelpunt]{rechtsboven}{linksboven}{linksonder}{rechtsonder}
+\newcommand{\vierkant}[5][0,0]{%
+  \begin{scope}[shift={(#1)}]
+  \draw[accent,thick,fill=accent!8,line join=round] (.75,.75) -- (-.75,.75) -- (-.75,-.75) -- (.75,-.75) -- cycle;
+  \node[font=\small,inner sep=1pt] at (1,1) {$#2$};
+  \node[font=\small,inner sep=1pt] at (-1,1) {$#3$};
+  \node[font=\small,inner sep=1pt] at (-1,-1) {$#4$};
+  \node[font=\small,inner sep=1pt] at (1,-1) {$#5$};
+  \end{scope}}
+% Rechthoek (geen vierkant), zoals \vierkant: \rechthoek[middelpunt]{rechtsboven}{linksboven}{linksonder}{rechtsonder}
+\newcommand{\rechthoek}[5][0,0]{%
+  \begin{scope}[shift={(#1)}]
+  \draw[accent,thick,fill=accent!8,line join=round] (1.1,.6) -- (-1.1,.6) -- (-1.1,-.6) -- (1.1,-.6) -- cycle;
+  \node[font=\small,inner sep=1pt] at (1.35,.82) {$#2$};
+  \node[font=\small,inner sep=1pt] at (-1.35,.82) {$#3$};
+  \node[font=\small,inner sep=1pt] at (-1.35,-.82) {$#4$};
+  \node[font=\small,inner sep=1pt] at (1.35,-.82) {$#5$};
+  \end{scope}}
+% Klok voor het rekenen modulo n: \klok[straal]{n}, met 0 bovenaan en de getallen met de wijzers mee
+\newcommand{\klok}[2][1]{%
+  \draw[grijs,thick] (0,0) circle (#1);
+  \foreach \k in {1,...,#2}{%
+    \pgfmathsetmacro{\hoek}{90-360*(\k-1)/#2}%
+    \pgfmathtruncatemacro{\getal}{\k-1}%
+    \fill[accent] (\hoek:#1) circle (1.7pt);
+    \node[font=\small,inner sep=1pt] at (\hoek:#1+.3) {$\getal$};}}
+% Pijlendiagram van een permutatie: \pijlen{2,3,1} (het beeld van 1, 2, 3, ...): bovenaan x, onderaan het beeld
+\newcommand{\pijlen}[1]{%
+  \foreach \b [count=\a] in {#1}{%
+    \node[font=\small,inner sep=1.5pt,fill=white] at (.85*\a,1) {$\a$};
+    \node[font=\small,inner sep=1.5pt,fill=white] at (.85*\a,0) {$\a$};
+    \draw[-{Stealth[length=1.8mm]},accent,thick,shorten >=6pt,shorten <=6pt] (.85*\a,1) -- (.85*\b,0);}}
+% Een draaipijl om het middelpunt: \draaipijl[middelpunt]{straal}{label}
+\newcommand{\draaipijl}[3][0,0]{%
+  \draw[fel!85!black,thick,-{Stealth[length=2mm]}] ($(#1)+(30:#2)$) arc[start angle=30,end angle=150,radius=#2];
+  \node[font=\small,inner sep=1pt] at ($(#1)+(90:#2+.22)$) {#3};}
+
+%----------------------------------------------------------------------------------------
+% EIGEN NOTATIE VAN GROEPENTHEORIE
+%----------------------------------------------------------------------------------------
+% Orde van een element, voortgebrachte deelgroep, ggd en kgv
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\vb}[1]{\langle #1 \rangle}
+\newcommand{\ggd}{\operatorname{ggd}}
+\newcommand{\kgv}{\operatorname{kgv}}
+% Een cykel: \cyc{1 & 3 & 4} geeft (1 3 4)
+\newcommand{\cyc}[1]{{\setlength{\arraycolsep}{2.3pt}\renewcommand{\arraystretch}{1}(\begin{array}{@{}*{12}{c}@{}} #1 \end{array})}}
+% De eenheden modulo n (de getallen van Zn die relatief priem zijn met n), met de vermenigvuldiging
+\newcommand{\Zs}[1]{\mathbb{Z}_{#1}^{\times}}
+% Isomorf
+\newcommand{\isom}{\cong}
+
+% Een punt op een kring van n punten, 0 bovenaan, met de wijzers van de klok mee: \kpt{n}{k}{straal}
+\newcommand{\kpt}[3]{({90-360*(#2)/(#1)}:#3)}
+% Een kring van n punten met hun nummer: \kring[straal]{n}
+\newcommand{\kring}[2][1]{%
+  \draw[lijngrijs,thick] (0,0) circle (#1);
+  \pgfmathtruncatemacro{\kringmax}{#2-1}%
+  \foreach \k in {0,...,\kringmax}{%
+    \fill[accent] ({90-360*\k/#2}:#1) circle (1.5pt);
+    \node[font=\scriptsize,inner sep=1pt] at ({90-360*\k/#2}:{#1+.28}) {$\k$};}}
+% Sprongen van telkens m stappen op een kring van n punten, vanaf 0, tot je terug bent: \sprongen[stijl]{n}{m}{straal}
+\newcommand{\sprongen}[4][fel!85!black,thick]{%
+  \pgfmathtruncatemacro{\sprongd}{gcd(#2,#3)}%
+  \pgfmathtruncatemacro{\sprongk}{#2/\sprongd-1}%
+  \foreach \j in {0,...,\sprongk}{%
+    \draw[#1] ({90-360/#2*mod(\j*#3,#2)}:#4) -- ({90-360/#2*mod((\j+1)*#3,#2)}:#4);}}
+
+% Een kaart met een nummer: \kaart{x}{y}{nummer}
+\newcommand{\kaart}[3]{%
+  \draw[accent,thick,fill=white,rounded corners=1.2pt] (#1-.22,#2-.3) rectangle (#1+.22,#2+.3);
+  \node[font=\scriptsize] at (#1,#2) {$#3$};}
+
+% Tetraëder in een vaste stand: hoekpunten T (boven), A (linksvoor), B (rechtsvoor), C (achter).
+% \tetraeder[opties van de scope]; de achterste ribben zijn gestippeld.
+\newcommand{\tetraeder}[1][]{%
+  \begin{scope}[#1]
+  \coordinate (T) at (0.05,1.55);
+  \coordinate (A) at (-1.05,-.55);
+  \coordinate (B) at (.95,-.7);
+  \coordinate (C) at (.3,.15);
+  \fill[accent!10] (T) -- (A) -- (B) -- cycle;
+  \draw[accent,thin,dashed] (A) -- (C) -- (B) (T) -- (C);
+  \draw[accent,thick,line join=round] (T) -- (A) -- (B) -- cycle;
+  \end{scope}}
+
+% Logaritmische schaal van een rekenlat: \logschaal{x-begin}{y}{lengte}{richting}
+% Het getal k (1..10) staat op afstand lengte * log k van het begin; richting 1: streepjes en getallen boven, -1: onder.
+\newcommand{\logschaal}[4]{%
+  \draw[accent,thick] (#1,#2) -- ++(#3,0);
+  \foreach \k in {1,...,10}{%
+    \draw[accent] ({#1+#3*log10(\k)},#2) -- ++(0,{#4*.2});
+    \node[font=\scriptsize,inner sep=1pt] at ({#1+#3*log10(\k)},{#2+#4*.38}) {$\k$};}
+  \foreach \k in {1.5,2.5,...,9.5}{\draw[accent] ({#1+#3*log10(\k)},#2) -- ++(0,{#4*.1});}}
