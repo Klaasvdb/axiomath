@@ -72,6 +72,7 @@ SCHILDERIJEN = {
     "hooiwagen": ("File:John Constable - The Hay Wain (1821).jpg", 0.25, 0.5),  # Constable, De hooiwagen: een rollend wiel (krommen en meetkundige plaatsen)
     "spinsters": ("File:Velázquez - La Fábula de Aracne o Las Hilanderas (Museo del Prado, 1657-58).jpg", 0.15, 0.5),  # Velázquez, De spinsters: het spinnewiel draait om een vaste as (eigenwaarden en eigenvectoren)
     "pacioli": ("File:Jacopo de' Barbari (attributed to) Portrait of Luca Pacioli (1445 1517) with a student (Guidobaldo da Montefeltro) (2).jpg", 0.35, 0.5),  # Jacopo de' Barbari, Luca Pacioli met veelvlakken en hun draaiingsgroepen (groepentheorie)
+    "vaten": ("File:Francisco de Zurbarán - Still Life with Four Vessels - Google Art Project.jpg", 0.5, 0.5),  # Zurbarán, Stilleven met vier vaten: omwentelingslichamen (integratiemethodes)
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),

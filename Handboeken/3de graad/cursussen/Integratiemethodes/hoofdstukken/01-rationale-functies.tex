@@ -1,0 +1,586 @@
+%----------------------------------------------------------------------------------------
+% RATIONALE FUNCTIES INTEGREREN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Rationale functies integreren}
+
+\begin{probleem}
+\naast{Een parachutist springt uit een vliegtuig. Hoe sneller hij valt, hoe groter de luchtweerstand, en hoe kleiner zijn versnelling. Bij een snelheid $v$ (in m/s) is ze
+\[ a(v) = 9{,}8\,\Bigl(1 - \frac{v^2}{2500}\Bigr) \text{ m/s}^2 . \]
+Zijn snelheid nadert zo 50~m/s, maar haalt die nooit. Na hoeveel seconden valt hij 45~m/s? Zonder lucht zou dat $\tfrac{45}{9{,}8} \approx 4{,}6$~s duren, maar nu neemt de versnelling onderweg af. En bij elke snelheid ken je de versnelling, niet het tijdstip.}{\begin{tikzpicture}[x=.36cm,y=.07cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=10] (0,0) grid (15,50);
+  \draw[->,grijs] (0,0) -- (16,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,57) node[above,text=black] {$v$};
+  \draw[accent,dashed] (0,50) -- (15,50);
+  \kromme{0}{15}{50*tanh(9.8*\x/50)}
+  \draw[fel!80!black,dashed] (0,45) -- (7.51,45) -- (7.51,0);
+  \node[below,fel!80!black] at (7.51,0) {?};
+  \foreach \t in {5,10,15} \node[below] at (\t,0) {\t};
+  \foreach \t in {10,20,30,40,50} \node[left] at (0,\t) {\t};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 17, met beide wenken: de stelling van d'Alembert over de ontbinding van reële veeltermen (sectie 4), en een beperking tot noemers van de tweede graad (sectie 2 en 3). Sectie 5 gaat verder, met noemers van graad 3 en 4: sla ze over als er geen tijd is, want hoofdstuk 2 en 3 steunen alleen op noemers van de tweede graad. Voorkennis uit pakket 4: de euclidische deling en de factorstelling (Rationale functies, hoofdstuk 1), toegevoegde oplossingen (Complexe getallen, hoofdstuk 2), en uit Integralen de substitutieregel en de standaardvormen met $\ln|g(x)|$ en $\bgtan$ (hoofdstuk 3) en oneigenlijke integralen (hoofdstuk 4). De figuur in het probleem is de echte snelheid, $v(t) = 50\tanh(0{,}196\,t)$: die volgt pas uit een differentiaalvergelijking, en is hier niet nodig.}
+
+In de cursus Integralen kon je al veel breuken integreren: $\tfrac{1}{x}$, een breuk met de afgeleide van de noemer in de teller, en $\tfrac{1}{a^2 + x^2}$. Maar bij de parachutist uit het probleem moet je $\tfrac{1}{2500 - v^2}$ integreren, en dat staat nergens in de tabel. Een substitutie helpt ook niet, want de afgeleide $-2v$ van de noemer staat niet in de teller.
+
+In dit hoofdstuk leer je elke \textit{rationale functie} integreren, een breuk met een veelterm in de teller en in de noemer. Het idee is oud en eenvoudig: schrijf de breuk als een som van kleine breuken die je wel kent. Zo'n breuk heet een \textit{partieelbreuk}. Daarvoor moet je de noemer ontbinden, en dan rijst de vraag of dat altijd kan. Het antwoord is een van de grote stellingen uit de algebra.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. In vraag b gebruiken leerlingen de splitsing die ze in a zelf nagingen, en in c zien ze dat substitutie hier niet werkt. In vraag d zoeken ze zelf twee onbekenden: dat is de hele methode van dit hoofdstuk.}
+
+%========================================================================================
+\section{Eerst delen}
+
+Een \textit{rationale functie} is een quotiënt $f(x) = \dfrac{A(x)}{N(x)}$ van twee veeltermen. Welke breuken zijn het eenvoudigst? Bij getallen schrijf je $\tfrac{17}{5}$ als $3 + \tfrac25$: een geheel deel en een breuk kleiner dan 1. Met veeltermen kan dat ook, met de euclidische deling uit de cursus Rationale functies. Daarna blijft er een breuk over waarin de teller een kleinere graad heeft dan de noemer.
+
+\begin{theorie}
+Een rationale functie $\dfrac{A(x)}{N(x)}$ heet \textbf{\textcolor{accent}{echt}} als de graad van de teller kleiner is dan de graad van de noemer.
+
+\begin{stelling}{Veelterm plus echte breuk}
+Elke rationale functie is de som van een veelterm en een echte rationale functie:
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{A(x)}{N(x)} = Q(x) + \dfrac{R(x)}{N(x)}}$ \quad met graad $R <$ graad $N$.
+\end{stelling}
+
+\begin{bewijs}
+De euclidische deling van $A(x)$ door $N(x)$ geeft een quotiënt $Q(x)$ en een rest $R(x)$ met
+\bewijsregel{A(x) = N(x) \cdot Q(x) + R(x) \quad\text{en}\quad \text{graad } R < \text{graad } N .}
+Deel beide leden door $N(x)$.
+\end{bewijs}
+\end{theorie}
+
+De veelterm $Q(x)$ integreer je meteen. De moeilijkheid zit dus alleen in de echte breuk.
+
+\voorbeeld{}{Bereken $\ig \dfrac{x^2 + 3x + 1}{x + 1}\dx$.\label{vb:h1-delen}}{%
+\uitleg{De teller heeft graad 2, de noemer graad 1: de breuk is niet echt. Na de deling blijft er een breuk met een constante in de teller over, en die geeft een logaritme.}
+\naast{\begin{stappenvrij}{6.6cm}{3.6cm}
+x^2 + 3x + 1 = (x + 1)(x + 2) - 1 & De euclidische deling: quotiënt $x + 2$, rest $-1$. \\[1ex]
+\ig \Bigl(x + 2 - \dfrac{1}{x + 1}\Bigr)\dx & Deel door $x + 1$. \\[2.5ex]
+= \dfrac{x^2}{2} + 2x - \ln|x + 1| + C & Per term een primitieve.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.42cm,y=.24cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=2] (-5,-8) grid (3,8);
+  \draw[->,grijs] (-5,0) -- (3.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-8) -- (0,8.8) node[above,text=black] {$y$};
+  \draw[lijngrijs,dashed] (-1,-8) -- (-1,8);
+  \draw[lijngrijs,dashed] (-5,-3) -- (3,5);
+  \kromme{-5}{-1.2}{\x+2-1/(\x+1)}
+  \kromme{-.86}{3}{\x+2-1/(\x+1)}
+  \node[below] at (2,0) {2};
+  \node[left] at (0,4) {4};
+\end{tikzpicture}}
+De figuur toont wat de deling betekent: de grafiek nadert de schuine asymptoot $y = x + 2$, en het verschil is de breuk $-\tfrac{1}{x + 1}$.}
+
+\voorbeeld{}{Bereken $\ig \dfrac{x^3}{x^2 + 1}\dx$.\label{vb:h1-delen2}}{%
+\uitleg{Weer is de breuk niet echt. Na de deling staat de afgeleide van de noemer bijna in de teller van de rest, dus die rest integreren we met een logaritme.}
+\begin{stappen}
+x^3 = x\,(x^2 + 1) - x & Quotiënt $x$, rest $-x$. \\[1ex]
+\ig \Bigl(x - \dfrac{x}{x^2 + 1}\Bigr)\dx = \dfrac{x^2}{2} - \dfrac12\ln(x^2 + 1) + C & In de tweede term is $x$ de helft van de afgeleide $2x$ van de noemer.
+\end{stappen}}
+
+\begin{werkwijze}
+Vergelijk de graad van de teller en de noemer. Is de breuk niet echt, deel dan eerst: schrijf ze als een veelterm plus een echte breuk. Integreer de veelterm, en werk verder met de echte breuk.
+\end{werkwijze}
+
+\nujij{Bereken $\int \dfrac{2x + 5}{x + 2}\dx$.}{$2x + 5 = 2(x + 2) + 1$: \ $2x + \ln|x + 2| + C$.}
+
+\begin{oefeningen}
+\oef{h1-delen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Een noemer van de tweede graad}
+
+Na de deling blijft een echte breuk over. Is de noemer van de eerste graad, dan geeft ze een logaritme. Het eerste echte werk komt bij een noemer van de tweede graad, $ax^2 + bx + c$. Waarom gedragen $\dfrac{1}{x^2 - 1}$, $\dfrac{1}{x^2 - 2x + 1}$ en $\dfrac{1}{x^2 + 1}$ zich zo verschillend? Kijk naar hun grafieken. De eerste heeft twee verticale asymptoten, de tweede één, de derde geen. Dat zijn de nulwaarden van de noemer, en hun aantal hangt af van de discriminant. We bekijken de drie gevallen na elkaar.
+
+\figuren{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \roosterleeg{-3}{1}{3}{-3}{1}{3}
+  \draw[lijngrijs,dashed] (-1,-3) -- (-1,3) (1,-3) -- (1,3);
+  \kromme{-3}{-1.15}{1/((\x)^2-1)}
+  \kromme{-.9}{.9}{1/((\x)^2-1)}
+  \kromme{1.15}{3}{1/((\x)^2-1)}
+  \node[below,text=accent] at (0,-3.3) {$D > 0$: twee nulwaarden};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \roosterleeg{-2}{1}{4}{-3}{1}{3}
+  \draw[lijngrijs,dashed] (1,-3) -- (1,3);
+  \kromme{-2}{.43}{1/((\x-1)^2)}
+  \kromme{1.57}{4}{1/((\x-1)^2)}
+  \node[below,text=accent] at (1,-3.3) {$D = 0$: één nulwaarde};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \roosterleeg{-3}{1}{3}{-3}{1}{3}
+  \kromme{-3}{3}{1/((\x)^2+1)}
+  \node[below,text=accent] at (0,-3.3) {$D < 0$: geen nulwaarden};
+\end{tikzpicture}}
+
+\subsection{Twee verschillende nulwaarden}
+
+In de Verken-opgave zag je dat $\dfrac{1}{x - 1} - \dfrac{1}{x + 1} = \dfrac{2}{x^2 - 1}$. Lees je dat van rechts naar links, dan heb je de breuk gesplitst in twee breuken die je kunt integreren. Kan dat altijd als de noemer twee verschillende nulwaarden $a$ en $b$ heeft? En hoe vind je de tellers? Zet de twee breuken op gelijke noemer: dan moet $A(x - b) + B(x - a)$ de teller zijn. Vul je $x = a$ in, dan valt $B$ weg, en vind je $A$ meteen.
+
+\begin{theorie}
+\begin{stelling}{Splitsen bij twee nulwaarden}
+Is $a \neq b$ en $p(x)$ een veelterm van hoogstens de eerste graad, dan bestaan er unieke getallen $A$ en $B$ met
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{p(x)}{(x - a)(x - b)} = \dfrac{A}{x - a} + \dfrac{B}{x - b}}$, \qquad namelijk \ $\formule{A = \dfrac{p(a)}{a - b}}$ \ en \ $\formule{B = \dfrac{p(b)}{b - a}}$.
+\end{stelling}
+
+\begin{bewijs}
+Op gelijke noemer is het rechterlid $\dfrac{r(x)}{(x - a)(x - b)}$, met teller
+\bewijsregel{r(x) = A(x - b) + B(x - a) .}
+De splitsing klopt dus precies als $r(x) = p(x)$. Neem $A$ en $B$ zoals in de stelling. Dan is $r(a) = A(a - b) = p(a)$ en $r(b) = B(b - a) = p(b)$. De veelterm $r(x) - p(x)$ heeft hoogstens graad 1 en twee nulwaarden $a \neq b$, dus is hij de nulveelterm: $r(x) = p(x)$.
+
+Omgekeerd: klopt de splitsing voor zekere $A$ en $B$, dan is $r(x) = p(x)$, en $x = a$ invullen geeft $A(a - b) = p(a)$. Dus $A$ is het getal uit de stelling, en net zo voor $B$.
+\end{bewijs}
+\end{theorie}
+
+Zo'n kleine breuk $\tfrac{A}{x - a}$ heet een \textbf{partieelbreuk}. De formule voor $A$ is makkelijk te onthouden: bedek in de breuk de factor $x - a$ met je vinger, en vul $x = a$ in wat overblijft. Dat kan omdat elke partieelbreuk precies één factor van de noemer heeft.
+
+\voorbeeld{}{Bereken $\ig \dfrac{x + 7}{x^2 - x - 2}\dx$.\label{vb:h1-twee}}{%
+\uitleg{De breuk is echt. De noemer heeft discriminant $9 > 0$, dus twee nulwaarden: we ontbinden en splitsen. De figuur toont de grafiek van de integrand als de som van twee hyperbolen.}
+\naast{\begin{stappenvrij}{6.3cm}{3.5cm}
+x^2 - x - 2 = (x - 2)(x + 1) & De nulwaarden 2 en $-1$. \\[1ex]
+A = \dfrac{2 + 7}{2 + 1} = 3, \quad B = \dfrac{-1 + 7}{-1 - 2} = -2 & Bedek telkens één factor en vul de nulwaarde in. \\[2.5ex]
+\ig \Bigl(\dfrac{3}{x - 2} - \dfrac{2}{x + 1}\Bigr)\dx & Controle: op gelijke noemer is de teller $3(x + 1) - 2(x - 2) = x + 7$. \\[2.5ex]
+= 3\ln|x - 2| - 2\ln|x + 1| + C & Twee logaritmen.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.45cm,y=.3cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=2] (-4,-8) grid (5,8);
+  \draw[->,grijs] (-4,0) -- (5.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-8) -- (0,8.8) node[above,text=black] {$y$};
+  \draw[lijngrijs,dashed] (-1,-8) -- (-1,8) (2,-8) -- (2,8);
+  \draw[grijs,dashed] plot[domain=-4:1.63,samples=60,smooth] (\x,{3/(\x-2)});
+  \draw[grijs,dashed] plot[domain=2.38:5,samples=60,smooth] (\x,{3/(\x-2)});
+  \draw[grijs,dotted,thick] plot[domain=-4:-1.25,samples=60,smooth] (\x,{-2/(\x+1)});
+  \draw[grijs,dotted,thick] plot[domain=-.75:5,samples=60,smooth] (\x,{-2/(\x+1)});
+  \kromme{-4}{-1.15}{(\x+7)/((\x-2)*(\x+1))}
+  \kromme{-.82}{1.78}{(\x+7)/((\x-2)*(\x+1))}
+  \kromme{2.27}{5}{(\x+7)/((\x-2)*(\x+1))}
+  \node[below] at (2.35,0) {2};
+  \node[left] at (0,4) {4};
+\end{tikzpicture}}
+Gestreept is $\tfrac{3}{x - 2}$, gestippeld $-\tfrac{2}{x + 1}$. Bij elke asymptoot gedraagt de grafiek zich als één van beide: daar wordt de andere partieelbreuk niet groot.}
+
+De tellers kun je ook vinden door coëfficiënten te vergelijken: twee veeltermen zijn gelijk als ze dezelfde coëfficiënten hebben. Dat is meer werk, maar het werkt altijd, ook in de gevallen die nog komen.
+
+\voorbeeld{}{Bereken $\ig \dfrac{5x - 4}{x^2 - 2x}\dx$ door coëfficiënten te vergelijken.\label{vb:h1-coef}}{%
+\uitleg{Zelfde aanpak, andere manier om $A$ en $B$ te vinden: we stellen de tellers gelijk en lezen een stelsel af.}
+\begin{stappen}
+\dfrac{5x - 4}{x(x - 2)} = \dfrac{A}{x} + \dfrac{B}{x - 2} & Ontbind de noemer: nulwaarden 0 en 2. \\[2.5ex]
+5x - 4 = A(x - 2) + Bx = (A + B)\,x - 2A & De tellers op gelijke noemer. \\[1ex]
+A + B = 5 \ \text{ en } \ -2A = -4 & Vergelijk de coëfficiënten van $x$ en de constante termen. Dus $A = 2$ en $B = 3$. \\[1ex]
+\ig \Bigl(\dfrac2x + \dfrac{3}{x - 2}\Bigr)\dx = 2\ln|x| + 3\ln|x - 2| + C & Integreer de partieelbreuken.
+\end{stappen}}
+
+Met grenzen verandert er niets: na het splitsen staan er twee logaritmen, en die mag je samennemen.
+
+\voorbeeld{}{Bereken de oppervlakte van het gebied tussen de grafiek van $f(x) = \dfrac{1}{x^2 + 3x + 2}$, de $x$-as en de rechten $x = 0$ en $x = 1$.\label{vb:h1-tweegrens}}{%
+\uitleg{De functie is positief op $[0, 1]$, dus de oppervlakte is de integraal. De noemer is $(x + 1)(x + 2)$.}
+\naast{\begin{stappenvrij}{7.2cm}{3.4cm}
+\dfrac{1}{(x + 1)(x + 2)} = \dfrac{1}{x + 1} - \dfrac{1}{x + 2} & $A = \tfrac{1}{-1 + 2} = 1$ en $B = \tfrac{1}{-2 + 1} = -1$. \\[2.5ex]
+\ig_0^1 f(x)\dx = \grens{\ln\dfrac{x + 1}{x + 2}}{0}{1} & Beide argumenten zijn positief op $[0, 1]$. \\[3ex]
+= \ln\dfrac23 - \ln\dfrac12 = \ln\dfrac43 \approx 0{,}288 & Een logaritme van een quotiënt.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.6cm,y=2.6cm,font=\scriptsize]
+  \gebied{0}{1}{1/((\x+1)*(\x+2))}
+  \draw[black!14,very thin,xstep=.5,ystep=.25] (0,0) grid (1.5,.5);
+  \draw[->,grijs] (0,0) -- (1.7,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,.62) node[above,text=black] {$y$};
+  \kromme{0}{1.5}{1/((\x+1)*(\x+2))}
+  \node[below] at (1,0) {1};
+  \node[left] at (0,.5) {0,5};
+\end{tikzpicture}}
+Controle met de figuur: het gebied past in een rechthoek van 1 bij 0,5, en is iets meer dan de helft daarvan.}
+
+\begin{werkwijze}
+Ontbind de noemer als $(x - a)(x - b)$. Schrijf de breuk als $\tfrac{A}{x - a} + \tfrac{B}{x - b}$. Vind $A$ door $x - a$ te bedekken en $x = a$ in te vullen (of door coëfficiënten te vergelijken), en net zo $B$. Integreer: $\int \tfrac{A}{x - a}\dx = A\ln|x - a| + C$. Staat er een factor voor $x^2$, zet die dan eerst voor de breuk.
+\end{werkwijze}
+
+\nujij{Bereken $\int \dfrac{1}{x^2 - 9}\dx$.}{$A = \tfrac16$, $B = -\tfrac16$: \ $\tfrac16 \ln\Bigl|\dfrac{x - 3}{x + 3}\Bigr| + C$.}
+
+\begin{oefeningen}
+\oef{h1-twee}
+
+\oef{h1-tweegrens}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Hoe zet je de versnelling om in een tijd? De versnelling is de snelheidstoename per seconde. Om van $v$ naar $v + \Delta v$ te gaan, heeft de parachutist dus ongeveer $\Delta t = \dfrac{\Delta v}{a(v)}$ seconden nodig. Verdeel het snelheidsinterval van 0 tot 45 in kleine stukjes en tel die tijden op: dat is een Riemannsom van $\tfrac{1}{a(v)}$, en in de limiet een integraal.
+\[ t = \int_0^{45} \frac{1}{a(v)}\dv \]
+Nu staat er een rationale functie met een noemer van de tweede graad, en die kunnen we splitsen.
+
+\voorbeeld{}{Terug naar het probleem. Na hoeveel seconden valt de parachutist 45~m/s, als $a(v) = 9{,}8\bigl(1 - \tfrac{v^2}{2500}\bigr)$?\label{vb:h1-terug}}{%
+\uitleg{Eerst brengen we de integrand in een vorm met een noemer zonder breuken. De noemer $2500 - v^2 = (50 - v)(50 + v)$ heeft twee nulwaarden.}
+\naast{\begin{stappenvrij}{6.5cm}{3cm}
+\dfrac{1}{a(v)} = \dfrac{2500}{9{,}8} \cdot \dfrac{1}{(50 - v)(50 + v)} & Vermenigvuldig teller en noemer met 2500. \\[2.5ex]
+\dfrac{1}{(50 - v)(50 + v)} = \dfrac{1}{100}\Bigl(\dfrac{1}{50 - v} + \dfrac{1}{50 + v}\Bigr) & Bedek een factor en vul $v = 50$ of $v = -50$ in. \\[3ex]
+t = \dfrac{25}{9{,}8} \grens{-\ln(50 - v) + \ln(50 + v)}{0}{45} & Let op het minteken: de afgeleide van $50 - v$ is $-1$. \\[3ex]
+= \dfrac{25}{9{,}8}\,\ln\dfrac{95}{5} = \dfrac{25}{9{,}8}\ln 19 \approx 7{,}5 & In $v = 0$ is de haak 0.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.062cm,y=1.2cm,font=\scriptsize]
+  \gebied{0}{45}{1/(9.8*(1-(\x/50)^2))}
+  \draw[black!14,very thin,xstep=10,ystep=.5] (0,0) grid (50,2);
+  \draw[->,grijs] (0,0) -- (54,0) node[right,text=black] {$v$};
+  \draw[->,grijs] (0,0) -- (0,2.3) node[above,text=black] {$\frac{1}{a}$};
+  \draw[lijngrijs,dashed] (50,0) -- (50,2);
+  \kromme{0}{46.8}{1/(9.8*(1-(\x/50)^2))}
+  \foreach \t in {20,40} \node[below] at (\t,0) {\t};
+  \foreach \t in {1,2} \node[left] at (0,\t) {\t};
+\end{tikzpicture}}
+Na ongeveer 7,5~s valt de parachutist 45~m/s, bijna 3~s later dan zonder lucht. Wil hij 50~m/s halen, dan wordt de bovengrens 50, en daar heeft $\tfrac{1}{a}$ een verticale asymptoot. De oneigenlijke integraal divergeert, want $-\ln(50 - v)$ gaat naar $+\infty$: hij haalt 50~m/s nooit.}
+
+%========================================================================================
+\section{Een dubbele nulwaarde of geen nulwaarden}
+
+\subsection{Een dubbele nulwaarde}
+
+Wat als de noemer een kwadraat is, zoals $x^2 - 2x + 1 = (x - 1)^2$? Probeer je $\dfrac{A}{x - 1} + \dfrac{B}{x - 1}$, dan staat er gewoon $\dfrac{A + B}{x - 1}$: die noemer is te klein, en het kwadraat kan zo nooit verschijnen. Er is dus een partieelbreuk met de hele noemer nodig, $\dfrac{B}{(x - 1)^2}$. Die kun je ook integreren, want het is een macht van $x - 1$.
+
+\begin{theorie}
+\begin{stelling}{Splitsen bij een dubbele nulwaarde}
+Is $p(x) = mx + q$ een veelterm van hoogstens de eerste graad, dan is
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{p(x)}{(x - a)^2} = \dfrac{A}{x - a} + \dfrac{B}{(x - a)^2}}$ \qquad met \ $\formule{A = m}$ \ en \ $\formule{B = p(a)}$,
+
+\vspace{1mm}
+en dat zijn de enige getallen $A$ en $B$ waarvoor dat klopt.
+\end{stelling}
+
+\begin{bewijs}
+Schrijf de teller met machten van $x - a$:
+\bewijsregel{p(x) = mx + q = m(x - a) + (ma + q) = m(x - a) + p(a) .}
+Deel door $(x - a)^2$: dat geeft de splitsing met $A = m$ en $B = p(a)$. Omgekeerd: uit $\dfrac{A}{x - a} + \dfrac{B}{(x - a)^2} = \dfrac{p(x)}{(x - a)^2}$ volgt $A(x - a) + B = mx + q$. De coëfficiënt van $x$ geeft $A = m$, en $x = a$ invullen geeft $B = p(a)$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\ig \dfrac{3x + 1}{x^2 - 2x + 1}\dx$.\label{vb:h1-dubbel}}{%
+\uitleg{De discriminant is 0: de noemer is $(x - 1)^2$. Dus één partieelbreuk met $x - 1$ en één met $(x - 1)^2$.}
+\begin{stappen}
+\dfrac{3x + 1}{(x - 1)^2} = \dfrac{3}{x - 1} + \dfrac{4}{(x - 1)^2} & $A$ is de coëfficiënt van $x$, en $B = 3 \cdot 1 + 1 = 4$. \\[3ex]
+\ig \dfrac{4}{(x - 1)^2}\dx = -\dfrac{4}{x - 1} + C & Een macht: $\int (x - 1)^{-2}\dx = -(x - 1)^{-1} + C$. \\[2.5ex]
+\ig \dfrac{3x + 1}{x^2 - 2x + 1}\dx = 3\ln|x - 1| - \dfrac{4}{x - 1} + C & Samen.
+\end{stappen}}
+
+\begin{werkwijze}
+Schrijf de noemer als $(x - a)^2$, en splits in $\tfrac{A}{x - a} + \tfrac{B}{(x - a)^2}$. $A$ is de coëfficiënt van $x$ in de teller, en $B$ is de teller in $x = a$. De eerste partieelbreuk geeft een logaritme, de tweede $-\tfrac{B}{x - a}$.
+\end{werkwijze}
+
+\nujij{Bereken $\int \dfrac{x}{(x + 2)^2}\dx$.}{$A = 1$, $B = -2$: \ $\ln|x + 2| + \dfrac{2}{x + 2} + C$.}
+
+\begin{oefeningen}
+\oef{h1-dubbel}
+\end{oefeningen}
+
+\subsection{Geen nulwaarden}
+
+Bij $x^2 + 2x + 5$ is de discriminant negatief. Er zijn geen nulwaarden, dus ook geen factoren om te splitsen. Toch ken je twee breuken met zo'n noemer: $\dfrac{g'(x)}{g(x)}$ geeft een logaritme, en $\dfrac{1}{(x + 1)^2 + 4}$ geeft een boogtangens, zoals $\dfrac{1}{x^2 + 4}$ na een verschuiving. Het idee is dus om de teller te verdelen: een veelvoud van de afgeleide van de noemer, plus een constante.
+
+\voorbeeld{}{Bereken $\ig \dfrac{2x + 3}{x^2 + 2x + 5}\dx$.\label{vb:h1-geen}}{%
+\uitleg{De afgeleide van de noemer is $2x + 2$. De teller is $2x + 3$: dat is die afgeleide, plus 1.}
+\begin{stappenbreed}
+\ig \dfrac{2x + 2}{x^2 + 2x + 5}\dx + \ig \dfrac{1}{x^2 + 2x + 5}\dx & Verdeel de teller: $2x + 3 = (2x + 2) + 1$. \\[3ex]
+\ig \dfrac{2x + 2}{x^2 + 2x + 5}\dx = \ln(x^2 + 2x + 5) + C & De afgeleide in de teller. De noemer is altijd positief: haakjes volstaan. \\[3ex]
+\ig \dfrac{1}{(x + 1)^2 + 2^2}\dx = \dfrac12 \bgtan\dfrac{x + 1}{2} + C & Splits het kwadraat af, en gebruik $\int \dfrac{1}{a^2 + u^2}\du = \dfrac1a\bgtan\dfrac ua + C$ met $u = x + 1$. \\[3ex]
+\ig \dfrac{2x + 3}{x^2 + 2x + 5}\dx = \ln(x^2 + 2x + 5) + \dfrac12 \bgtan\dfrac{x + 1}{2} + C & Samen.
+\end{stappenbreed}}
+
+\voorbeeld{}{Bereken $\ig_0^1 \dfrac{1}{x^2 + x + 1}\dx$.\label{vb:h1-geen2}}{%
+\uitleg{Hier staat geen $x$ in de teller, dus alleen het tweede deel van de werkwijze: het kwadraat afsplitsen.}
+\naast{\begin{stappenvrij}{6.8cm}{3.3cm}
+x^2 + x + 1 = \Bigl(x + \dfrac12\Bigr)^2 + \dfrac34 & De discriminant is $-3$. Hier is $a = \tfrac{\sqrt3}{2}$. \\[2.5ex]
+\ig_0^1 f(x)\dx = \dfrac{2}{\sqrt3}\grens{\bgtan\dfrac{2x + 1}{\sqrt3}}{0}{1} & $\tfrac{x + 1/2}{\sqrt3/2} = \tfrac{2x + 1}{\sqrt3}$. \\[3ex]
+= \dfrac{2}{\sqrt3}\Bigl(\dfrac{\pi}{3} - \dfrac{\pi}{6}\Bigr) = \dfrac{\pi}{3\sqrt3} \approx 0{,}605 & $\bgtan\sqrt3 = \tfrac{\pi}{3}$ en $\bgtan\tfrac{1}{\sqrt3} = \tfrac{\pi}{6}$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.15cm,y=1.5cm,font=\scriptsize]
+  \gebied{0}{1}{1/((\x)^2+\x+1)}
+  \draw[black!14,very thin,xstep=.5,ystep=.5] (-1,0) grid (1.5,1.5);
+  \draw[->,grijs] (-1,0) -- (1.7,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,1.62) node[above,text=black] {$y$};
+  \kromme{-1}{1.5}{1/((\x)^2+\x+1)}
+  \node[below] at (1,0) {1};
+  \node[left] at (0,1) {1};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Is de discriminant van de noemer negatief, schrijf de teller dan als een veelvoud van de afgeleide van de noemer plus een constante. Het eerste deel geeft een logaritme. Voor het tweede deel splits je het kwadraat af, $(x + m)^2 + k^2$, en dat geeft $\tfrac1k \bgtan\tfrac{x + m}{k}$.
+\end{werkwijze}
+
+\nujij{Bereken $\int \dfrac{x + 1}{x^2 + 4x + 8}\dx$.}{$x + 1 = \tfrac12(2x + 4) - 1$: \ $\tfrac12\ln(x^2 + 4x + 8) - \tfrac12\bgtan\tfrac{x + 2}{2} + C$.}
+
+\begin{oefeningen}
+\oef{h1-geen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Veeltermen ontbinden}
+
+Na de noemers van de tweede graad komen de andere. Neem $\dfrac{1}{x^3 + 8}$, of $\dfrac{1}{x^4 + 1}$. Om te splitsen moet je de noemer ontbinden. Maar lukt dat altijd? Een veelterm van graad 3 heeft altijd een nulwaarde, want zijn grafiek gaat van $-\infty$ naar $+\infty$. Maar $x^4 + 1$ heeft er geen. Kun je die dan ontbinden in twee factoren van de tweede graad? En lukt zoiets bij elke veelterm? Het antwoord komt van de complexe getallen.
+
+\subsection{De hoofdstelling van de algebra}
+
+In $\C$ heeft $x^2 + 1 = 0$ wel oplossingen: $i$ en $-i$. In de cursus Complexe getallen loste je elke vergelijking van de tweede graad op, en ook sommige van hogere graad. Heeft elke veeltermvergelijking een complexe oplossing? Ja, en dat is een van de beroemdste stellingen van de wiskunde.
+
+\begin{theorie}
+\begin{stelling}{Hoofdstelling van de algebra}
+Elke veelterm van graad $n \geqslant 1$ met complexe coëfficiënten heeft minstens één complexe nulwaarde.
+\end{stelling}
+\end{theorie}
+
+Het bewijs laten we weg: het vraagt meer analyse dan je in het secundair onderwijs ziet. De Franse wiskundige Jean d'Alembert gaf in 1746 een eerste bewijs, maar daarin zat een gat. Pas in de 19de eeuw kwamen er volledige bewijzen, onder meer van Argand en Gauss. In Frankrijk heet ze daarom nog altijd de stelling van d'Alembert.
+
+Eén nulwaarde lijkt weinig, maar dankzij de factorstelling volgt er veel meer uit. Is $z_1$ een nulwaarde, dan is $x - z_1$ een factor, en het quotiënt heeft opnieuw een nulwaarde. Zo ga je door tot er een constante overblijft.
+
+\begin{theorie}
+\begin{stelling}{Ontbinding in $\C$}
+Elke veelterm van graad $n \geqslant 1$ met complexe coëfficiënten is een product van $n$ factoren van de eerste graad:
+
+\vspace{1mm}
+\qquad $\formule{p(x) = a_n\,(x - z_1)(x - z_2)\cdots(x - z_n)}$ \quad met $z_1, \ldots, z_n \in \C$.
+\end{stelling}
+
+\begin{bewijs}
+Met volledige inductie naar $n$. Een veelterm van graad 1 is $a_1 x + a_0 = a_1\bigl(x + \tfrac{a_0}{a_1}\bigr)$. Neem $n \geqslant 2$ en stel dat de stelling geldt voor graad $n - 1$. Volgens de hoofdstelling heeft $p$ een nulwaarde $z_1$, en volgens de factorstelling is
+\bewijsregel{p(x) = (x - z_1)\,q(x) ,}
+met $q$ een veelterm van graad $n - 1$ met dezelfde hoogste coëfficiënt $a_n$. Volgens de inductiehypothese is $q(x) = a_n(x - z_2)\cdots(x - z_n)$.
+\end{bewijs}
+\end{theorie}
+
+\subsection{De stelling van d'Alembert}
+
+Voor partieelbreuken willen we reële factoren, want we integreren reële functies. Hoe haal je die uit de ontbinding in $\C$? Uit de cursus Complexe getallen weet je dat de niet-reële oplossingen van een vergelijking met reële coëfficiënten in toegevoegde paren voorkomen. En het product van zo'n paar factoren is reëel.
+\[ (x - z)(x - \conj{z}) = x^2 - (z + \conj{z})\,x + z\conj{z} \qquad\text{met}\quad z + \conj{z} = 2\,\mathrm{Re}(z) \ \text{ en } \ z\conj{z} = |z|^2 \]
+
+\begin{theorie}
+\begin{stelling}{Stelling van d'Alembert}
+Elke veelterm met reële coëfficiënten is het product van een reële constante, factoren van de eerste graad $x - a$ en factoren van de tweede graad $x^2 + bx + c$ met $\formule{b^2 - 4c < 0}$, allemaal met reële coëfficiënten.
+\end{stelling}
+
+\begin{bewijs}
+Met inductie naar de graad $n$ van $p$. Voor $n = 0$ is $p$ een constante. Neem $n \geqslant 1$ en stel dat de stelling geldt voor alle kleinere graden. Volgens de hoofdstelling heeft $p$ een nulwaarde $z$.
+
+Is $z = a$ reëel, dan is $p(x) = (x - a)\,q(x)$, en het quotiënt $q$ van die deling heeft reële coëfficiënten.
+
+Is $z$ niet reëel, dan is ook $\conj{z} \neq z$ een nulwaarde. Uit $p(x) = (x - z)\,q_1(x)$ en $p(\conj{z}) = 0$ volgt $q_1(\conj{z}) = 0$, dus
+\bewijsregel{p(x) = (x - z)(x - \conj{z})\,q(x) = \bigl(x^2 + bx + c\bigr)\,q(x) \quad\text{met}\quad b = -2\,\mathrm{Re}(z), \ c = |z|^2 .}
+Dat is de euclidische deling van $p$ door de reële veelterm $x^2 + bx + c$, met rest 0, dus het quotiënt $q$ is reëel. De factor heeft geen reële nulwaarden, want zijn nulwaarden $z$ en $\conj{z}$ zijn niet reëel, en dus is $b^2 - 4c < 0$.
+
+In beide gevallen heeft $q$ een kleinere graad, en geldt de stelling voor $q$.
+\end{bewijs}
+\end{theorie}
+
+Wat betekent dat? Een reële veelterm kan ingewikkeld lijken, maar zijn bouwstenen zijn altijd heel eenvoudig: rechten en parabolen zonder nulwaarden. Het nadeel is dat de stelling niet zegt hoe je de factoren vindt. Bij graad 3 en 4 lukt dat vaak met een nulwaarde tussen de delers van de constante term en de regel van Horner, of met een merkwaardig product.
+
+\voorbeeld{}{Ontbind $x^3 + 8$ in reële factoren.\label{vb:h1-ontb}}{%
+\uitleg{Een veelterm van graad 3 heeft altijd een reële nulwaarde. Hier zie je ze meteen: $x = -2$.}
+\begin{stappen}
+x^3 + 8 = (x + 2)(x^2 - 2x + 4) & Deel door $x + 2$, of gebruik de som van twee derdemachten. \\[1ex]
+D = 4 - 16 = -12 < 0 & De tweede factor heeft geen nulwaarden: hij is niet verder te ontbinden.
+\end{stappen}}
+
+\voorbeeld{}{Ontbind $x^4 + 1$ in reële factoren.\label{vb:h1-ontb2}}{%
+\uitleg{Er is geen reële nulwaarde, want $x^4 + 1 \geqslant 1$. Volgens de stelling van d'Alembert is $x^4 + 1$ dus een product van twee factoren van de tweede graad. Het idee: vul $x^4 + 1$ aan tot een kwadraat, en schrijf het verschil van twee kwadraten als een product.}
+\begin{stappen}
+x^4 + 1 = (x^2 + 1)^2 - 2x^2 & Want $(x^2 + 1)^2 = x^4 + 2x^2 + 1$. \\[1ex]
+= (x^2 + 1 - \sqrt2\,x)(x^2 + 1 + \sqrt2\,x) & $u^2 - w^2 = (u - w)(u + w)$ met $w = \sqrt2\,x$. \\[1ex]
+D = 2 - 4 = -2 < 0 & Voor beide factoren: niet verder te ontbinden.
+\end{stappen}
+Leibniz dacht in 1702 dat dit niet kon. Hij schreef $x^4 + 1$ in $\C$ als een product van vier factoren, maar zag niet dat je ze per twee kunt samennemen tot reële factoren. Hij besloot dat niet elke breuk in reële partieelbreuken te splitsen is. Euler toonde later aan dat hij zich vergiste.}
+
+\begin{werkwijze}
+Zonder een gemeenschappelijke factor af. Zoek een nulwaarde tussen de delers van de constante term, en deel met de regel van Horner. Herken een merkwaardig product: een verschil van kwadraten, of een som of verschil van derdemachten. Ontbind tot elke factor van de tweede graad een negatieve discriminant heeft.
+\end{werkwijze}
+
+\nujij{Ontbind $x^3 - 2x^2 + x - 2$ in reële factoren.}{Groepeer: $x^2(x - 2) + (x - 2) = (x - 2)(x^2 + 1)$.}
+
+\begin{oefeningen}
+\oef{h1-ontb}
+\end{oefeningen}
+
+%========================================================================================
+\section{Splitsen in het algemeen}
+
+\subsection{De vorm van de splitsing}
+
+Met de stelling van d'Alembert ontbind je elke noemer. Welke partieelbreuken horen daarbij? We zagen al drie bouwstenen: $\dfrac{A}{x - a}$ bij een enkele factor, ook $\dfrac{B}{(x - a)^2}$ bij een kwadraat, en bij een factor van de tweede graad zonder nulwaarden een teller van de eerste graad. Dat laatste is nodig, want een factor $x^2 + bx + c$ laat geen kleinere noemer toe. Wiskundigen hebben bewezen dat die bouwstenen altijd volstaan.
+
+\begin{theorie}
+\begin{stelling}{Splitsen in partieelbreuken}
+Elke echte rationale functie met reële coëfficiënten is op juist één manier een som van \textbf{\textcolor{accent}{partieelbreuken}}. Elke factor van de noemer geeft
+\begin{itemize}
+\item bij $(x - a)^k$: \qquad $\formule{\dfrac{A_1}{x - a} + \dfrac{A_2}{(x - a)^2} + \cdots + \dfrac{A_k}{(x - a)^k}}$
+\item bij $(x^2 + bx + c)^m$ met $b^2 - 4c < 0$: \qquad $\formule{\dfrac{B_1x + C_1}{x^2 + bx + c} + \cdots + \dfrac{B_mx + C_m}{(x^2 + bx + c)^m}}$
+\end{itemize}
+\end{stelling}
+\end{theorie}
+
+Het bewijs van deze stelling laten we weg: het steunt op een eigenschap van de grootste gemene deler van veeltermen die buiten het leerplan valt. Voor de noemers van de tweede graad heb je het in sectie 2 wel gezien. Merk op dat er telkens evenveel onbekenden zijn als de graad van de noemer. Elke factor $x - a$ telt voor één, elke factor van de tweede graad voor twee. In dit boek zijn de machten $m$ van een factor van de tweede graad altijd 1: hogere machten vragen nog een andere techniek, die je in hoofdstuk 2 ziet.
+
+\voorbeeld{}{Bereken $\ig \dfrac{x^2 + 2}{(x - 1)(x^2 + 1)}\dx$.\label{vb:h1-alg}}{%
+\uitleg{De noemer is al ontbonden: een factor van de eerste graad en een van de tweede graad met discriminant $-4$. Dus drie onbekenden. $A$ vinden we door te bedekken, de andere twee door coëfficiënten te vergelijken.}
+\begin{stappenbreed}
+\dfrac{x^2 + 2}{(x - 1)(x^2 + 1)} = \dfrac{A}{x - 1} + \dfrac{Bx + C}{x^2 + 1} & De vorm volgens de stelling. \\[3ex]
+A = \dfrac{1 + 2}{1 + 1} = \dfrac32 & Bedek $x - 1$ en vul $x = 1$ in. \\[2.5ex]
+x^2 + 2 = \tfrac32(x^2 + 1) + (Bx + C)(x - 1) & De tellers op gelijke noemer. \\[1ex]
+1 = \tfrac32 + B, \quad 2 = \tfrac32 - C & De coëfficiënt van $x^2$ en de constante term: $B = -\tfrac12$ en $C = -\tfrac12$. \\[1ex]
+\ig \Bigl(\dfrac{3/2}{x - 1} - \dfrac12 \cdot \dfrac{x}{x^2 + 1} - \dfrac12 \cdot \dfrac{1}{x^2 + 1}\Bigr)\dx & De tweede breuk splitsen we nog eens, zoals bij een noemer zonder nulwaarden. \\[3ex]
+= \dfrac32\ln|x - 1| - \dfrac14\ln(x^2 + 1) - \dfrac12\bgtan x + C & Een logaritme, een logaritme en een boogtangens.
+\end{stappenbreed}}
+
+\voorbeeld{}{Bereken $\ig \dfrac{x + 1}{x^3 - x^2}\dx$.\label{vb:h1-alg2}}{%
+\uitleg{Zonder eerst $x^2$ af: de noemer is $x^2(x - 1)$. De factor $x$ staat in het kwadraat, dus komen er twee partieelbreuken met $x$ en $x^2$.}
+\begin{stappenbreed}
+\dfrac{x + 1}{x^2(x - 1)} = \dfrac{A}{x} + \dfrac{B}{x^2} + \dfrac{C}{x - 1} & Drie onbekenden, want de noemer heeft graad 3. \\[3ex]
+B = \dfrac{0 + 1}{0 - 1} = -1, \quad C = \dfrac{1 + 1}{1^2} = 2 & Bedek $x^2$ en vul $x = 0$ in; bedek $x - 1$ en vul $x = 1$ in. \\[2.5ex]
+x + 1 = Ax(x - 1) + B(x - 1) + Cx^2 & Voor $A$ werkt bedekken niet: vergelijk de coëfficiënten van $x^2$. \\[1ex]
+0 = A + C \ \Rightarrow \ A = -2 & Links staat geen $x^2$. \\[1ex]
+\ig \Bigl(-\dfrac2x - \dfrac{1}{x^2} + \dfrac{2}{x - 1}\Bigr)\dx = -2\ln|x| + \dfrac1x + 2\ln|x - 1| + C & Integreer de drie partieelbreuken.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+\begin{enumerate}[label=\arabic*.,itemsep=0pt,midpenalty=0]
+  \item Is de breuk niet echt, deel dan eerst.
+  \item Ontbind de noemer in factoren $x - a$ en factoren van de tweede graad met een negatieve discriminant.
+  \item Schrijf de vorm van de splitsing met onbekenden, evenveel als de graad van de noemer.
+  \item Bereken de onbekenden: bedek waar het kan, en vergelijk coëfficiënten voor de rest.
+  \item Integreer elke partieelbreuk.
+\end{enumerate}
+\end{werkwijze}
+
+\nujij{Bereken $\int \dfrac{2}{x^3 + x}\dx$.}{$\dfrac{2}{x(x^2 + 1)} = \dfrac2x - \dfrac{2x}{x^2 + 1}$: \ $2\ln|x| - \ln(x^2 + 1) + C$.}
+
+\begin{oefeningen}
+\oef{h1-alg}
+\end{oefeningen}
+
+\subsection{Welke methode?}
+
+Partieelbreuken zijn veel werk. Kijk dus eerst of het niet korter kan: een rationale functie is soms gewoon een geval voor substitutie of een standaardvorm. Vergelijk deze vijf integralen, die erg op elkaar lijken.
+
+\voorbeeld{}{Bereken de vijf integralen hieronder. Ze hebben allemaal $x^2 + 1$ of $x^2 - 1$ in de noemer.\label{vb:h1-keuze}}{%
+\uitleg{Kijk niet alleen naar de noemer, maar naar de bouw: staat de afgeleide van de noemer in de teller, is de breuk echt, en wat is de discriminant?}
+\begin{stappenbreed}
+\ig \dfrac{2x}{x^2 + 1}\dx = \ln(x^2 + 1) + C & De afgeleide van de noemer staat in de teller: substitutie. \\[2.5ex]
+\ig \dfrac{1}{x^2 + 1}\dx = \bgtan x + C & Een standaardvorm uit de tabel van Integralen. \\[2.5ex]
+\ig \dfrac{1}{x^2 - 1}\dx = \dfrac12 \ln\Bigl|\dfrac{x - 1}{x + 1}\Bigr| + C & Twee nulwaarden: partieelbreuken. \\[2.5ex]
+\ig \dfrac{x^2}{x^2 + 1}\dx = x - \bgtan x + C & Niet echt: eerst delen, $\tfrac{x^2}{x^2 + 1} = 1 - \tfrac{1}{x^2 + 1}$. \\[2.5ex]
+\ig \dfrac{x}{(x^2 + 1)^2}\dx = -\dfrac{1}{2(x^2 + 1)} + C & Stel $u = x^2 + 1$: $\tfrac12\int u^{-2}\du$. Splitsen hoeft niet.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Staat de afgeleide van de noemer (of van het grondtal van een macht in de noemer) in de teller, op een constante na? Dan is het substitutie. Is de breuk niet echt? Deel dan eerst. Pas daarna splits je in partieelbreuken.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-keuze}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{18\baselineskip}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Matrices zijn gezien in het 5de jaar. Differentiaalvergelijkingen en Reeksen zijn modules van het leerplan Complementair, net als deze: kijk na of ze al gezien zijn. De Koppel-oefening over differentiaalvergelijkingen legt scheiden van veranderlijken kort uit, zodat ze ook zonder die module kan.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+
+\oef{h1-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+
+\oef{h1-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-delen}{oef:h1-delen}%
+  \fv{oef:h1-t2}{vb:h1-twee}{oef:h1-twee}%
+  \fv{oef:h1-t3}{vb:h1-dubbel}{oef:h1-dubbel}%
+  \fv{oef:h1-t4}{vb:h1-geen}{oef:h1-geen}%
+  \fv{oef:h1-t5}{vb:h1-ontb}{oef:h1-ontb}%
+  \fv{oef:h1-t6}{vb:h1-alg}{oef:h1-alg}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-tweegrens}%
+  \fv{oef:h1-t8}{vb:h1-keuze}{oef:h1-keuze}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een echte rationale functie is en waarom je eerst deelt, de splitsing bij twee nulwaarden met de formule voor $A$ en $B$ en het idee van het bewijs, de splitsing bij een dubbele nulwaarde, de aanpak bij een noemer zonder nulwaarden, de hoofdstelling van de algebra en de stelling van d'Alembert met het idee van het bewijs, de vorm van de splitsing in het algemeen, en de vragen om een methode te kiezen. Vergelijk daarna met de kaders.
+\fi
