@@ -122,6 +122,7 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Rationale functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Rationale functies/README.md>) | eerste versie, nog na te lezen |
 | Reeksen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Reeksen/README.md>) | eerste versie, nog na te lezen |
 | Kansrekenen | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansrekenen/README.md>) | eerste versie, nog na te lezen |
+| Lineaire regressie | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Lineaire regressie/README.md>) | eerste versie, nog na te lezen |
 | Statistiek | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Statistiek/README.md>) | eerste versie, nog na te lezen |
 | Kansverdelingen | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansverdelingen/README.md>) | eerste versie, nog na te lezen |
 | Logica en bewijzen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Logica en bewijzen/README.md>) | eerste versie, nog na te lezen |

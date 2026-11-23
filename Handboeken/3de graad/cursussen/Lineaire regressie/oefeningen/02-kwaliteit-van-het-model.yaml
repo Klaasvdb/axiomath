@@ -1,0 +1,1054 @@
+# Oefeningen van hoofdstuk 2 (Hoe goed is het model?). Zie oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen, behalve het kwartet van Anscombe (1973).
+# Alle getallen nagerekend met Python, sympy en mpmath (t-verdeling via de onvolledige bètafunctie).
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\Syy = \sum (y_i - \ybar)^2$ voor de waarden 3, 5, 4, 8.
+      antwoord: |-
+        $14$
+      uitwerking: |-
+        $\ybar = 5$, afwijkingen $-2, 0, -1, 3$, kwadraten samen $4 + 0 + 1 + 9 = 14$.
+    - opgave: |-
+        Bepaal de regressierechte door $(1, 3)$, $(2, 5)$, $(3, 4)$ en $(4, 8)$, en de vier residuen.
+      antwoord: |-
+        $\yhat = 1{,}4x + 1{,}5$; $0{,}1$; $0{,}7$; ${-1{,}7}$; $0{,}9$
+      uitwerking: |-
+        $\xbar = 2{,}5$, $\ybar = 5$, $\Sxx = 5$, $\Sxy = 3 + 0 - 0{,}5 + 4{,}5 = 7$. $a = 1{,}4$ en $b = 5 - 3{,}5 = 1{,}5$. De voorspellingen $2{,}9$; $4{,}3$; $5{,}7$; $7{,}1$ geven de residuen $0{,}1$; $0{,}7$; $-1{,}7$; $0{,}9$.
+    - opgave: |-
+        Bereken $P(T > 2{,}5)$ voor $T \sim t_6$, en $t^*$ bij 95~\% voor $t_{10}$.
+      antwoord: |-
+        $\approx 0{,}023$; \ $\approx 2{,}228$
+      uitwerking: |-
+        \texttt{tcdf(2.5,1E99,6)} $\approx 0{,}023$ en \texttt{invT(0.975,10)} $\approx 2{,}228$.
+    - opgave: |-
+        Bij een tweezijdige toets is de p-waarde $0{,}03$. Wat besluit je bij een significantieniveau van $0{,}05$? En van $0{,}01$?
+      antwoord: |-
+        $H_0$ verwerpen; niet verwerpen
+      uitwerking: |-
+        $0{,}03 \leqslant 0{,}05$: verwerpen. $0{,}03 > 0{,}01$: niet verwerpen.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem de vier punten en de regressierechte $\yhat = 1{,}4x + 1{,}5$ uit de Opwarmer, met $\ybar = 5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken per punt $\yhat_i - \ybar$, en de som van hun kwadraten.
+      antwoord: |-
+        ${-2{,}1}$; ${-0{,}7}$; $0{,}7$; $2{,}1$; som $9{,}8$
+      uitwerking: |-
+        $\yhat_i - 5 = -2{,}1$; $-0{,}7$; $0{,}7$; $2{,}1$. Kwadraten: $4{,}41 + 0{,}49 + 0{,}49 + 4{,}41 = 9{,}8$.
+    - opgave: |-
+        Bereken de som van de kwadraten van de residuen. Tel op bij het vorige resultaat, en vergelijk met $\Syy = 14$.
+      antwoord: |-
+        $4{,}2$; $9{,}8 + 4{,}2 = 14$
+      uitwerking: |-
+        $0{,}01 + 0{,}49 + 2{,}89 + 0{,}81 = 4{,}2$, en $9{,}8 + 4{,}2 = 14 = \Syy$.
+    - opgave: |-
+        Doe hetzelfde met de rechte $y = 1{,}4x + 2$, die niet de regressierechte is. Klopt de som nog?
+      antwoord: |-
+        $10{,}8 + 5{,}2 = 16 \neq 14$
+      uitwerking: |-
+        Voorspellingen $3{,}4$; $4{,}8$; $6{,}2$; $7{,}6$. Afwijkingen tot 5: $-1{,}6$; $-0{,}2$; $1{,}2$; $2{,}6$, kwadraten samen $10{,}8$. Residuen $-0{,}4$; $0{,}2$; $-2{,}2$; $0{,}4$, kwadraten samen $5{,}2$. Samen 16: de som klopt niet meer.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h2-drie
+  soort: kort
+  opgave: |-
+    De regressierechte door $(2, 3)$, $(4, 7)$, $(6, 6)$, $(8, 10)$ en $(10, 12)$ is $\yhat = 1{,}05x + 1{,}3$. Bereken $\Qt$, $\Qv$ en $\Qf$, en controleer de splitsing.
+  antwoord: |-
+    $\Qt = 49{,}2$; \ $\Qv = 44{,}1$; \ $\Qf = 5{,}1$
+  uitwerking: |-
+    $\ybar = 7{,}6$: afwijkingen $-4{,}6$; $-0{,}6$; $-1{,}6$; $2{,}4$; $4{,}4$, dus $\Qt = 21{,}16 + 0{,}36 + 2{,}56 + 5{,}76 + 19{,}36 = 49{,}2$. Voorspellingen $3{,}4$; $5{,}5$; $7{,}6$; $9{,}7$; $11{,}8$: $\Qv = (-4{,}2)^2 + (-2{,}1)^2 + 0^2 + 2{,}1^2 + 4{,}2^2 = 44{,}1$. Residuen $-0{,}4$; $1{,}5$; $-1{,}6$; $0{,}3$; $0{,}2$: $\Qf = 0{,}16 + 2{,}25 + 2{,}56 + 0{,}09 + 0{,}04 = 5{,}1$. En $44{,}1 + 5{,}1 = 49{,}2$.
+
+- id: h2-r2
+  soort: kort
+  opgave: |-
+    Bereken $R^2$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\Qt = 250$, \ $\Qf = 40$
+      antwoord: |-
+        $0{,}84$
+      uitwerking: |-
+        $1 - \frac{40}{250} = 0{,}84$.
+    - opgave: |-
+        $\Qv = 12$, \ $\Qf = 36$
+      antwoord: |-
+        $0{,}25$
+      uitwerking: |-
+        $\Qt = 48$, dus $\frac{12}{48} = 0{,}25$.
+    - opgave: |-
+        $\Qt = 8{,}5$, \ $\Qv = 8{,}5$
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        $\Qf = 0$: alle punten liggen op de rechte.
+
+- id: h2-r2r
+  soort: kort
+  opgave: |-
+    Waar of niet waar? Verbeter wat niet klopt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij $r = 0{,}6$ verklaart het model $60~\%$ van de variatie.
+      antwoord: |-
+        niet waar: $36~\%$
+      uitwerking: |-
+        $R^2 = 0{,}6^2 = 0{,}36$.
+    - opgave: |-
+        Bij $R^2 = 0{,}81$ is $r = 0{,}9$.
+      antwoord: |-
+        niet altijd: $r = \pm 0{,}9$
+      uitwerking: |-
+        $r$ heeft het teken van de helling: $r = 0{,}9$ of $r = -0{,}9$.
+    - opgave: |-
+        Meet je $x$ in cm in plaats van in m, dan verandert $R^2$ niet.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        De voorspellingen $\yhat_i$ blijven dezelfde (de helling wordt 100 keer kleiner), dus $\Qv$ en $\Qt$ ook. Of: $r$ verandert niet.
+
+- id: h2-residuplot
+  soort: kort
+  opgave: |-
+    Een bioloog telt het aantal bacteriën in een kweek (in duizend per ml) op zes tijdstippen $x$ (in uur).
+
+    \smallskip
+    {\centering\kleinetabel[$x$ (uur)][$y$]{6}{0 & 1 & 2 & 3 & 4 & 5}{100 & 150 & 230 & 340 & 510 & 760}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte en $R^2$ met ICT.
+      antwoord: |-
+        $\yhat \approx 128{,}3x + 27{,}6$; $R^2 \approx 0{,}927$
+      uitwerking: |-
+        \texttt{LinReg(ax+b)}: $a \approx 128{,}3$, $b \approx 27{,}6$, $r^2 \approx 0{,}927$.
+    - opgave: |-
+        Teken de residuplot. Is een rechte een goed model?
+      antwoord: |-
+        nee: een boog
+      uitwerking: |-
+        \begin{tikzpicture}[x=.6cm,y=.016cm,font=\scriptsize]
+          \draw[->,grijs] (0,0) -- (5.6,0) node[right,text=black] {$x$};
+          \draw[->,grijs] (0,-90) -- (0,110) node[above,text=black] {$e$};
+          \foreach \t in {-50,50}{\node[left] at (0,\t) {$\t$};}
+          \punten[inkt]{(0,72.4) (1,-5.9) (2,-54.2) (3,-72.5) (4,-30.8) (5,91.0)}
+        \end{tikzpicture}
+
+        De residuen $72{,}4$; $-5{,}9$; $-54{,}2$; $-72{,}5$; $-30{,}8$; $91{,}0$ vormen een boog: eerst boven, dan onder, dan weer boven de rechte. Een rechte past niet, ondanks $R^2 \approx 0{,}93$. Het aantal groeit met een factor (ongeveer $1{,}5$ per uur): exponentieel (hoofdstuk 3).
+
+- id: h2-se
+  soort: kort
+  opgave: |-
+    Bij 9 punten is $\Sxx = 240$, $a = 0{,}1225$ en $\Qf = 0{,}4585$. Bereken $s_e$ en $s_a$.
+  antwoord: |-
+    $s_e \approx 0{,}256$; \ $s_a \approx 0{,}0165$
+  uitwerking: |-
+    $s_e = \sqrt{\frac{0{,}4585}{7}} \approx 0{,}2559$ en $s_a = \frac{0{,}2559}{\sqrt{240}} \approx 0{,}0165$.
+
+- id: h2-toets
+  soort: kort
+  opgave: |-
+    Toets telkens $H_0\colon \alpha = 0$ tegen $H_1\colon \alpha \neq 0$, met significantieniveau $0{,}05$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een camping noteert op negen dagen de maximumtemperatuur $x$ (in °C) en het waterverbruik $y$ (in m$^3$).
+
+        \smallskip
+        {\centering\kleinetabel[$x$ (°C)][$y$ (m$^3$)]{9}{18 & 20 & 22 & 24 & 26 & 28 & 30 & 32 & 34}{4{,}1 & 4{,}6 & 4{,}2 & 5{,}0 & 5{,}3 & 5{,}1 & 5{,}8 & 5{,}6 & 6{,}2}\par}
+      antwoord: |-
+        $t \approx 7{,}42$, p-waarde $\approx 0{,}0001$: verwerpen
+      uitwerking: |-
+        \texttt{LinRegTTest}: $a = 0{,}1225$, $s_a \approx 0{,}0165$, $t \approx 7{,}42$ met 7 vrijheidsgraden, p-waarde $\approx 0{,}0001 \leqslant 0{,}05$. Er is een verband: op warmere dagen verbruikt de camping meer water.
+    - opgave: |-
+        Een leerling noteert zes dagen hoeveel glazen water ze drinkt ($x = 1, 2, \ldots, 6$) en haar score op een concentratietest: 5,1; 4,2; 6,3; 4,8; 6,0; 5,2.
+      antwoord: |-
+        $t \approx 0{,}64$, p-waarde $\approx 0{,}56$: niet verwerpen
+      uitwerking: |-
+        $a \approx 0{,}126$, $s_a \approx 0{,}197$, $t \approx 0{,}64$ met 4 vrijheidsgraden, p-waarde $\approx 0{,}56 > 0{,}05$. Er is geen bewijs voor een lineair verband. Dat betekent niet dat er geen verband is: met zes metingen zie je een klein verband niet.
+
+- id: h2-interval
+  soort: kort
+  opgave: |-
+    Bereken voor de camping uit oefening \ref{oef:h2-toets} een 95~\%-betrouwbaarheidsinterval voor de helling, en zeg wat het betekent.
+  antwoord: |-
+    $[0{,}083;\ 0{,}162]$ m$^3$ per °C
+  uitwerking: |-
+    $t^* = \texttt{invT(0.975,7)} \approx 2{,}365$, en $0{,}1225 \pm 2{,}365 \cdot 0{,}01652 = 0{,}1225 \pm 0{,}039$: $[0{,}083;\ 0{,}162]$. Per graad warmer verbruikt de camping met 95~\% betrouwbaarheid tussen 83 en 162 liter meer, binnen het gebied van 18 tot 34~°C.
+
+- id: h2-voorwaarden
+  soort: kort
+  opgave: |-
+    Welke voorwaarde van het regressiemodel is telkens niet voldaan?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij een regressie van de verkoop van een winkel op de reclame-uitgaven worden de residuen groter naarmate de uitgaven groter zijn.
+      antwoord: |-
+        dezelfde $\sigma$ voor elke $x$
+      uitwerking: |-
+        De residuplot is een trechter: de spreiding van de fouten hangt af van $x$.
+    - opgave: |-
+        Een leerling meet dertig dagen na elkaar haar eigen hartslag en de buitentemperatuur.
+      antwoord: |-
+        onafhankelijke fouten
+      uitwerking: |-
+        Metingen op opeenvolgende dagen bij dezelfde persoon hangen samen: een verkoudheid of een drukke week beïnvloedt meerdere dagen. De fouten zijn niet onafhankelijk.
+    - opgave: |-
+        Het spreidingsdiagram van de temperatuur van een kop koffie tegenover de tijd buigt af naar de kamertemperatuur.
+      antwoord: |-
+        een lineair verband
+      uitwerking: |-
+        Het verband is gekromd: de residuplot toont een boog. Een rechte is het verkeerde model.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    $R^2$ berekenen en interpreteren
+  opgave: |-
+    Bereken $R^2$ en zeg in een zin wat het betekent.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij een regressie van het brandstofverbruik op de massa van wagens is $\Qt = 18{,}4$ en $\Qf = 3{,}1$.
+      antwoord: |-
+        $R^2 \approx 0{,}83$
+      uitwerking: |-
+        $1 - \frac{3{,}1}{18{,}4} \approx 0{,}83$: de massa verklaart ongeveer 83~\% van de variatie in het verbruik van deze wagens.
+    - opgave: |-
+        Bij een regressie van het aantal uren tv op de leeftijd is $\Qv = 4{,}2$ en $\Qf = 37{,}8$.
+      antwoord: |-
+        $R^2 = 0{,}1$
+      uitwerking: |-
+        $\frac{4{,}2}{42} = 0{,}1$: de leeftijd verklaart maar 10~\% van de variatie in het tv-gebruik.
+    - opgave: |-
+        Bij een regressie van de lengte van een kind op die van de moeder is $r = 0{,}45$.
+      antwoord: |-
+        $R^2 \approx 0{,}20$
+      uitwerking: |-
+        $0{,}45^2 \approx 0{,}20$: de lengte van de moeder verklaart ongeveer een vijfde van de variatie.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    drie kwadratensommen met de hand
+  opgave: |-
+    De regressierechte door $(1, 1)$, $(2, 3)$, $(3, 2)$ en $(4, 4)$ is $\yhat = 0{,}8x + 0{,}5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\Qt$, $\Qv$ en $\Qf$.
+      antwoord: |-
+        $5$; \ $3{,}2$; \ $1{,}8$
+      uitwerking: |-
+        $\ybar = 2{,}5$. $\Qt = 2{,}25 + 0{,}25 + 0{,}25 + 2{,}25 = 5$. Voorspellingen $1{,}3$; $2{,}1$; $2{,}9$; $3{,}7$: $\Qv = 1{,}44 + 0{,}16 + 0{,}16 + 1{,}44 = 3{,}2$. Residuen $-0{,}3$; $0{,}9$; $-0{,}9$; $0{,}3$: $\Qf = 1{,}8$.
+    - opgave: |-
+        Bereken $R^2$ en $r$, en controleer met ICT.
+      antwoord: |-
+        $0{,}64$; \ $0{,}8$
+      uitwerking: |-
+        $R^2 = \frac{3{,}2}{5} = 0{,}64$, en $r = +0{,}8$ omdat de helling positief is.
+    - opgave: |-
+        Ga na dat $\Qv = a^2\Sxx$.
+      antwoord: |-
+        $0{,}64 \cdot 5 = 3{,}2$
+      uitwerking: |-
+        $\Sxx = 5$ en $a^2\Sxx = 0{,}64 \cdot 5 = 3{,}2 = \Qv$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    van $R^2$ naar r
+  opgave: |-
+    Bepaal $r$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $R^2 = 0{,}49$, dalende rechte
+      antwoord: |-
+        ${-0{,}7}$
+      uitwerking: |-
+        $\sqrt{0{,}49} = 0{,}7$, met het teken van de helling.
+    - opgave: |-
+        $R^2 = 0{,}9$, stijgende rechte
+      antwoord: |-
+        $\approx 0{,}949$
+      uitwerking: |-
+        $\sqrt{0{,}9} \approx 0{,}949$.
+    - opgave: |-
+        $R^2 = 0$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        De rechte is horizontaal en $r = 0$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    t-toets voor de helling
+  opgave: |-
+    Bereken $t$ en de tweezijdige p-waarde voor $H_0\colon \alpha = 0$. Wat besluit je bij een significantieniveau van $0{,}05$?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $a = 2{,}4$, \ $s_a = 0{,}8$, \ $n = 12$
+      antwoord: |-
+        $t = 3$; p $\approx 0{,}013$: verwerpen
+      uitwerking: |-
+        $t = \frac{2{,}4}{0{,}8} = 3$ met 10 vrijheidsgraden; \texttt{2*tcdf(3,1E99,10)} $\approx 0{,}013 \leqslant 0{,}05$.
+    - opgave: |-
+        $a = -0{,}35$, \ $s_a = 0{,}21$, \ $n = 9$
+      antwoord: |-
+        $t \approx -1{,}67$; p $\approx 0{,}14$: niet verwerpen
+      uitwerking: |-
+        $t = \frac{-0{,}35}{0{,}21} \approx -1{,}67$ met 7 vrijheidsgraden; p-waarde $\approx 0{,}14 > 0{,}05$.
+    - opgave: |-
+        $a = 0{,}052$, \ $s_a = 0{,}011$, \ $n = 20$
+      antwoord: |-
+        $t \approx 4{,}73$; p $\approx 0{,}0002$: verwerpen
+      uitwerking: |-
+        $t \approx 4{,}73$ met 18 vrijheidsgraden; p-waarde $\approx 0{,}0002$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    betrouwbaarheidsinterval voor de helling
+  opgave: |-
+    Bereken een 95~\%-betrouwbaarheidsinterval voor $\alpha$ bij de drie situaties van opdracht \ref{oef:h2-o4}. Ligt 0 erin? Vergelijk met het besluit van de toets.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        eerste
+      antwoord: |-
+        $[0{,}62;\ 4{,}18]$
+      uitwerking: |-
+        $t^* \approx 2{,}228$: $2{,}4 \pm 1{,}78$. Zonder 0, zoals de toets verwerpt.
+    - opgave: |-
+        tweede
+      antwoord: |-
+        $[-0{,}85;\ 0{,}15]$
+      uitwerking: |-
+        $t^* \approx 2{,}365$: $-0{,}35 \pm 0{,}50$. Met 0: de toets verwerpt niet.
+    - opgave: |-
+        derde
+      antwoord: |-
+        $[0{,}029;\ 0{,}075]$
+      uitwerking: |-
+        $t^* \approx 2{,}101$: $0{,}052 \pm 0{,}023$. Zonder 0.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    uitvoer van LinRegTTest lezen
+  opgave: |-
+    Een leerling onderzoekt bij 15 leerlingen het verband tussen de tijd op sociale media per dag ($x$, in minuten) en de slaapduur ($y$, in minuten). Het rekentoestel toont na \texttt{LinRegTTest}:
+
+    \smallskip
+    {\centering\small\ttfamily y=a+bx \quad $\beta \neq 0$ and $\rho \neq 0$ \quad t=-3.12 \quad p=.0081 \quad df=13\\ a=512.4 \quad b=-.83 \quad s=24.6 \quad r\textsuperscript{2}=.428 \quad r=-.654\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de regressierechte op in de notatie van dit boek. Wat betekent de helling?
+      antwoord: |-
+        $\yhat = -0{,}83x + 512{,}4$
+      uitwerking: |-
+        Het toestel schrijft $y = a + bx$, met $b$ de helling. In ons boek: $\yhat = -0{,}83x + 512{,}4$. Per extra minuut op sociale media slapen deze leerlingen gemiddeld 0,83 minuut minder.
+    - opgave: |-
+        Welk deel van de variatie in slaapduur hangt lineair samen met de tijd op sociale media?
+      antwoord: |-
+        ongeveer 43~\%
+      uitwerking: |-
+        $r^2 \approx 0{,}428$.
+    - opgave: |-
+        Is het verband significant bij een niveau van $0{,}05$? Bereken ook $s_a$.
+      antwoord: |-
+        ja, p $\approx 0{,}008$; $s_a \approx 0{,}27$
+      uitwerking: |-
+        $0{,}0081 \leqslant 0{,}05$: $H_0$ verwerpen. $s_a = \frac{-0{,}83}{-3{,}12} \approx 0{,}27$.
+    - opgave: |-
+        Mag de leerling besluiten dat sociale media slaap kosten?
+      antwoord: |-
+        niet zomaar
+      uitwerking: |-
+        Het is observationeel onderzoek. Wie later gaat slapen, heeft 's avonds misschien meer tijd voor sociale media (omgekeerde causaliteit), of een andere variabele (stress, huiswerk) beïnvloedt beide.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    residuplots lezen
+  opgave: |-
+    Wat zegt elke residuplot over het model?
+
+    \smallskip
+    {\centering\begin{tikzpicture}[x=.33cm,y=.45cm,font=\scriptsize]
+      \draw[->,grijs] (0,0) -- (10,0) node[right,text=black] {$x$};
+      \draw[->,grijs] (0,-2.2) -- (0,2.4) node[above,text=black] {$e$};
+      \punten[inkt]{(1,-1.5) (2,-0.6) (3,0.2) (4,0.9) (5,1.2) (6,1.0) (7,0.3) (8,-0.5) (9,-1.4)}
+      \node[below] at (5,-2.3) {a};
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}[x=.33cm,y=.45cm,font=\scriptsize]
+      \draw[->,grijs] (0,0) -- (10,0) node[right,text=black] {$x$};
+      \draw[->,grijs] (0,-2.2) -- (0,2.4) node[above,text=black] {$e$};
+      \punten[inkt]{(1,0.3) (2,-0.4) (3,0.2) (4,-0.3) (5,2.1) (6,-0.5) (7,0.1) (8,-0.4) (9,0.2)}
+      \node[below] at (5,-2.3) {b};
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}[x=.33cm,y=.45cm,font=\scriptsize]
+      \draw[->,grijs] (0,0) -- (10,0) node[right,text=black] {$x$};
+      \draw[->,grijs] (0,-2.2) -- (0,2.4) node[above,text=black] {$e$};
+      \punten[inkt]{(1,1.8) (2,-1.6) (3,1.3) (4,-1.2) (5,0.9) (6,-0.7) (7,0.5) (8,-0.3) (9,0.2)}
+      \node[below] at (5,-2.3) {c};
+    \end{tikzpicture}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        residuplot a
+      antwoord: |-
+        een boog: niet lineair
+      uitwerking: |-
+        Midden boven, aan de randen onder de rechte: het verband buigt naar beneden (bijvoorbeeld een bergparabool). Kies een ander model.
+    - opgave: |-
+        residuplot b
+      antwoord: |-
+        een uitschieter bij $x = 5$
+      uitwerking: |-
+        Op één punt na liggen de residuen dicht bij 0. Onderzoek dat punt: een meet- of schrijffout, of een echte uitzondering?
+    - opgave: |-
+        residuplot c
+      antwoord: |-
+        de spreiding daalt
+      uitwerking: |-
+        De residuen worden kleiner naarmate $x$ groter wordt: de spreiding is niet overal gelijk. De rechte kan kloppen, maar het interval en de toets steunen op een verkeerde aanname.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    volledige analyse: lengte en spanwijdte
+  opgave: |-
+    Leonardo da Vinci schreef dat de spanwijdte van de armen van een mens gelijk is aan zijn lengte. Een klas meet tien leerlingen, in cm.
+
+    \smallskip
+    {\centering\kleinetabel[lengte $x$][spanwijdte $y$]{10}{158 & 163 & 166 & 170 & 172 & 175 & 178 & 181 & 185 & 190}{157 & 164 & 166 & 170 & 169 & 177 & 179 & 182 & 186 & 191}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte en $R^2$.
+      antwoord: |-
+        $\yhat \approx 1{,}057x - 9{,}6$; $R^2 \approx 0{,}985$
+      uitwerking: |-
+        \texttt{LinReg(ax+b)}: $a \approx 1{,}057$, $b \approx -9{,}62$, $r^2 \approx 0{,}985$.
+    - opgave: |-
+        Teken de residuplot. Welke leerling wijkt het meest af?
+      antwoord: |-
+        de leerling van 172 cm (residu $\approx -3{,}2$)
+      uitwerking: |-
+        De residuen zijn ongeveer $-0{,}4$; $1{,}3$; $0{,}1$; $-0{,}1$; $-3{,}2$; $1{,}6$; $0{,}5$; $0{,}3$; $0{,}1$; $-0{,}2$: geen boog of trechter. De leerling van 172~cm heeft een 3,2~cm kleinere spanwijdte dan het model voorspelt.
+    - opgave: |-
+        Bereken een 95~\%-betrouwbaarheidsinterval voor de helling.
+      antwoord: |-
+        $[0{,}95;\ 1{,}16]$
+      uitwerking: |-
+        $s_e \approx 1{,}376$, $s_a = \frac{1{,}376}{\sqrt{903{,}6}} \approx 0{,}0458$, $t^* = \texttt{invT(0.975,8)} \approx 2{,}306$: $1{,}057 \pm 0{,}106$.
+    - opgave: |-
+        Spreken de gegevens Leonardo tegen?
+      antwoord: |-
+        nee: 1 ligt in het interval
+      uitwerking: |-
+        Volgens Leonardo is $y = x$, met helling 1. Het interval bevat 1, dus de gegevens verwerpen dat niet (en $b \approx -9{,}6$ is klein tegenover lengtes van 170~cm). Ze bewijzen het ook niet: met tien leerlingen is een helling tussen 0,95 en 1,16 even goed mogelijk.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een sterke r met weinig punten
+  opgave: |-
+    Een leerkracht vergelijkt bij vijf leerlingen de studietijd $x$ (in uur) met de score $y$ op een toets: $(2, 55)$, $(4, 62)$, $(5, 54)$, $(7, 70)$, $(9, 66)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ en $R^2$.
+      antwoord: |-
+        $r \approx 0{,}725$; $R^2 \approx 0{,}53$
+      uitwerking: |-
+        $\Sxx = 29{,}2$, $\Syy = 191{,}2$, $\Sxy = 54{,}2$: $r = \frac{54{,}2}{\sqrt{29{,}2 \cdot 191{,}2}} \approx 0{,}725$.
+    - opgave: |-
+        Toets of de helling verschilt van 0, met significantieniveau $0{,}05$.
+      antwoord: |-
+        $t \approx 1{,}83$, p $\approx 0{,}17$: niet verwerpen
+      uitwerking: |-
+        $a \approx 1{,}856$, $s_e \approx 5{,}50$, $s_a \approx 1{,}017$, $t \approx 1{,}83$ met 3 vrijheidsgraden, p-waarde $\approx 0{,}17$.
+    - opgave: |-
+        Hoe kan een $r$ van $0{,}73$ toch niet significant zijn?
+      antwoord: |-
+        te weinig punten
+      uitwerking: |-
+        Met vijf punten kan een vrij grote $r$ door toeval ontstaan: er zijn maar 3 vrijheidsgraden, en $t^* \approx 3{,}18$ is groot. Met dezelfde $r$ bij 20 leerlingen zou het verband wel significant zijn (zie de laatste opdrachten van het hoofdstuk).
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eenzijdige toets
+  opgave: |-
+    Een onderzoeker verwacht dat de reactietijd daalt met het aantal uren slaap. Bij 15 proefpersonen vindt ze een helling $a = -12{,}4$ ms per uur, met $s_a = 6{,}36$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Formuleer $H_0$ en $H_1$.
+      antwoord: |-
+        $H_0\colon \alpha = 0$, \ $H_1\colon \alpha < 0$
+      uitwerking: |-
+        Ze verwacht een daling: eenzijdig naar links.
+    - opgave: |-
+        Bereken $t$ en de p-waarde. Wat besluit ze bij $0{,}05$?
+      antwoord: |-
+        $t \approx -1{,}95$, p $\approx 0{,}037$: verwerpen
+      uitwerking: |-
+        $t = \frac{-12{,}4}{6{,}36} \approx -1{,}95$ met 13 vrijheidsgraden; \texttt{tcdf(-1E99,-1.95,13)} $\approx 0{,}037 \leqslant 0{,}05$.
+    - opgave: |-
+        Wat had ze besloten met een tweezijdige toets? Waarom moet je $H_1$ kiezen vóór je de gegevens bekijkt?
+      antwoord: |-
+        p $\approx 0{,}073$: niet verwerpen
+      uitwerking: |-
+        Tweezijdig is de p-waarde dubbel zo groot, $\approx 0{,}073 > 0{,}05$. Wie na het bekijken van de gegevens de richting kiest, halveert zijn p-waarde onterecht.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    $R^2$ zegt niets over de helling
+  opgave: |-
+    Twee onderzoekers vinden: A: $\yhat = 0{,}2x + 5$ met $R^2 = 0{,}95$; B: $\yhat = 3x + 5$ met $R^2 = 0{,}30$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij welk onderzoek heeft $x$ de grootste invloed op $y$?
+      antwoord: |-
+        B: de helling is groter
+      uitwerking: |-
+        Bij B verandert $y$ gemiddeld met 3 per eenheid $x$, bij A maar met 0,2 (als $x$ en $y$ dezelfde eenheden hebben).
+    - opgave: |-
+        Bij welk onderzoek kun je $y$ het best voorspellen uit $x$?
+      antwoord: |-
+        A
+      uitwerking: |-
+        Bij A liggen de punten dicht bij de rechte: $x$ verklaart 95~\% van de variatie. Bij B verklaart $x$ maar 30~\%: de punten liggen ver van de rechte.
+    - opgave: |-
+        Teken voor elk onderzoek een mogelijk spreidingsdiagram met 6 punten.
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        Bij A liggen de punten bijna op een rechte met kleine helling, bij B rond een steile rechte, maar ver erboven en eronder.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    invloed van een uitschieter op $R^2$
+  opgave: |-
+    In de derde verzameling van Anscombe liggen tien punten op één rechte, en één punt, $(13;\ 12{,}74)$, ligt ver ervan.
+
+    \smallskip
+    {\centering\small\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.25}\begin{tabular}{|c|*{11}{c|}}\hline
+    $x$ & 10 & 8 & 13 & 9 & 11 & 14 & 6 & 4 & 12 & 7 & 5 \\\hline
+    $y$ & 7,46 & 6,77 & 12,74 & 7,11 & 7,81 & 8,84 & 6,08 & 5,39 & 8,15 & 6,42 & 5,73 \\\hline
+    \end{tabular}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte en $R^2$ met alle punten en zonder het punt met $x = 13$.
+      antwoord: |-
+        $R^2 \approx 0{,}67$; zonder: $\yhat \approx 0{,}345x + 4{,}01$, $R^2 \approx 1$
+      uitwerking: |-
+        Met ICT. Met alle punten: $a \approx 0{,}500$, $b \approx 3{,}00$, $R^2 \approx 0{,}666$. Zonder het punt: $a \approx 0{,}345$, $b \approx 4{,}01$, $R^2 \approx 0{,}99999$.
+    - opgave: |-
+        Hoeveel procent van $\Qt$ komt van dat ene punt? Gebruik $\Qt \approx 41{,}23$ en $\ybar = 7{,}5$.
+      antwoord: |-
+        ongeveer 66~\%
+      uitwerking: |-
+        $(12{,}74 - 7{,}5)^2 \approx 27{,}5$, en $\frac{27{,}5}{41{,}23} \approx 0{,}66$. Eén punt maakt twee derde van de totale variatie.
+    - opgave: |-
+        Wat zou je doen als dit echte metingen waren?
+      antwoord: |-
+        het punt onderzoeken en beide resultaten melden
+      uitwerking: |-
+        Nagaan of het een fout is. Zo niet, beide analyses melden: tien punten volgen bijna perfect een rechte met helling 0,345, en één wijkt sterk af.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een rechte door een wolk zonder verband
+  opgave: |-
+    Een leerling gooit twaalf keer twee dobbelstenen, een rode ($x$) en een blauwe ($y$), en berekent de regressierechte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke helling verwacht je voor de populatierechte? Waarom vindt ze toch bijna altijd een helling verschillend van 0?
+      antwoord: |-
+        $\alpha = 0$; door het toeval
+      uitwerking: |-
+        De worpen zijn onafhankelijk: de populatierechte is horizontaal ($y = 3{,}5$). Met twaalf worpen ligt de helling van de steekproef door toeval bijna nooit precies op 0.
+    - opgave: |-
+        Ze vindt $a = 0{,}31$ en $t = 1{,}12$. Bereken de tweezijdige p-waarde. Wat besluit ze?
+      antwoord: |-
+        p $\approx 0{,}29$: niet verwerpen
+      uitwerking: |-
+        Met 10 vrijheidsgraden: \texttt{2*tcdf(1.12,1E99,10)} $\approx 0{,}29 > 0{,}05$.
+    - opgave: |-
+        De hele klas (25 leerlingen) doet hetzelfde, elk met een toets op niveau $0{,}05$. Hoeveel leerlingen verwacht je die toch $H_0$ verwerpen?
+      antwoord: |-
+        ongeveer 1
+      uitwerking: |-
+        $H_0$ is waar, dus elke toets verwerpt met kans $0{,}05$: gemiddeld $25 \cdot 0{,}05 = 1{,}25$ leerlingen. Een fout van de eerste soort. Wie veel verbanden test, vindt er altijd wel een.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    het kwartet van Anscombe
+  opgave: |-
+    De tabel geeft de vier verzamelingen van Anscombe (1973). Bij I, II en III zijn de $x$-waarden dezelfde.
+
+    \smallskip
+    {\centering\small\setlength{\tabcolsep}{2.6pt}\renewcommand{\arraystretch}{1.2}\begin{tabular}{|c|*{11}{c|}}\hline
+    $x$ (I, II, III) & 10 & 8 & 13 & 9 & 11 & 14 & 6 & 4 & 12 & 7 & 5 \\\hline
+    $y$ (I) & 8,04 & 6,95 & 7,58 & 8,81 & 8,33 & 9,96 & 7,24 & 4,26 & 10,84 & 4,82 & 5,68 \\\hline
+    $y$ (II) & 9,14 & 8,14 & 8,74 & 8,77 & 9,26 & 8,10 & 6,13 & 3,10 & 9,13 & 7,26 & 4,74 \\\hline
+    $y$ (III) & 7,46 & 6,77 & 12,74 & 7,11 & 7,81 & 8,84 & 6,08 & 5,39 & 8,15 & 6,42 & 5,73 \\\hline
+    $x$ (IV) & 8 & 8 & 8 & 8 & 8 & 8 & 8 & 19 & 8 & 8 & 8 \\\hline
+    $y$ (IV) & 6,58 & 5,76 & 7,71 & 8,84 & 8,47 & 7,04 & 5,25 & 12,50 & 5,56 & 7,91 & 6,89 \\\hline
+    \end{tabular}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal met ICT voor elke verzameling de regressierechte, $R^2$ en de p-waarde van de t-toets voor de helling.
+      antwoord: |-
+        telkens $\yhat \approx 0{,}50x + 3{,}00$, $R^2 \approx 0{,}67$, p $\approx 0{,}002$
+      uitwerking: |-
+        Alle vier: $a \approx 0{,}500$, $b \approx 3{,}00$, $R^2 \approx 0{,}666$ tot $0{,}667$, $t \approx 4{,}24$ met 9 vrijheidsgraden, p-waarde $\approx 0{,}002$.
+    - opgave: |-
+        Teken de residuplot van II. Wat zie je?
+      antwoord: |-
+        een bergparabool
+      uitwerking: |-
+        De residuen zijn ongeveer $1{,}14$; $1{,}14$; $-0{,}76$; $1{,}27$; $0{,}76$; $-1{,}90$; $0{,}13$; $-1{,}90$; $0{,}13$; $0{,}76$; $-0{,}76$. Gesorteerd naar $x$ (4 tot 14): $-1{,}90$; $-0{,}76$; $0{,}13$; $0{,}76$; $1{,}14$; $1{,}27$; $1{,}14$; $0{,}76$; $0{,}13$; $-0{,}76$; $-1{,}90$: een boog. Het verband is gekromd.
+    - opgave: |-
+        Bij welke verzameling is de toets voor de helling betrouwbaar? Leg uit.
+      antwoord: |-
+        alleen bij I
+      uitwerking: |-
+        Bij II is het verband niet lineair, bij III bepaalt een uitschieter de helling, en bij IV hangt de helling volledig af van één punt (zonder dat punt zijn alle $x$ gelijk). Alleen bij I zijn de voorwaarden redelijk voldaan.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een betere verklarende variabele
+  opgave: |-
+    Neem de remweg uit voorbeeld \ref{vb:h2-residuplot}. De fysica zegt dat de remweg evenredig is met $v^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $u = v^2$ voor de vijf snelheden, en bepaal de regressierechte van de remweg $y$ op $u$.
+      antwoord: |-
+        $\yhat \approx 0{,}0601u - 0{,}03$
+      uitwerking: |-
+        $u = 100, 225, 400, 625, 900$. \texttt{LinReg(ax+b)}: $a \approx 0{,}0601$, $b \approx -0{,}027$.
+    - opgave: |-
+        Vergelijk $R^2$ en de residuplot met die van de rechte in $v$.
+      antwoord: |-
+        $R^2 \approx 0{,}9995$; geen boog meer
+      uitwerking: |-
+        $R^2 \approx 0{,}99947$ tegenover $0{,}976$. De residuen $0{,}22$; $-0{,}40$; $0{,}49$; $-0{,}54$; $0{,}23$ tonen geen boog.
+    - opgave: |-
+        Waarom ligt $b$ dicht bij 0? Voorspel de remweg bij 35 m/s.
+      antwoord: |-
+        bij snelheid 0 is er geen remweg; $\approx 73{,}6$ m
+      uitwerking: |-
+        Een stilstaande auto heeft geen remweg: het model is eigenlijk $y = a v^2$. Bij 35 m/s: $0{,}0601 \cdot 1225 - 0{,}03 \approx 73{,}6$ m (een extrapolatie).
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    waarom n - 2
+  opgave: |-
+    Denk na over de vrijheidsgraden $n - 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem twee punten met verschillende $x$. Wat is de regressierechte, en hoe groot is $\Qf$? Kun je $\sigma$ schatten?
+      antwoord: |-
+        de rechte door beide punten; $\Qf = 0$; nee
+      uitwerking: |-
+        De rechte door beide punten heeft kwadratensom 0, de kleinst mogelijke. Over de spreiding van de fouten zeggen twee punten dus niets: $s_e = \sqrt{\frac{0}{0}}$ bestaat niet.
+    - opgave: |-
+        Neem drie punten. Toon met $\som e_i = 0$ en $\som x_i e_i = 0$ aan dat je de residuen kent zodra je er één kent.
+      antwoord: |-
+        twee vergelijkingen, drie onbekenden
+      uitwerking: |-
+        $e_1 + e_2 + e_3 = 0$ en $x_1 e_1 + x_2 e_2 + x_3 e_3 = 0$ is een stelsel van twee vergelijkingen in $e_2$ en $e_3$ (als $x_2 \neq x_3$): het heeft één oplossing zodra $e_1$ gekend is. Er is maar één vrije residu: $n - 2 = 1$.
+    - opgave: |-
+        Bereken $s_e$ voor de punten $(1, 2)$, $(2, 4)$ en $(3, 5)$.
+      antwoord: |-
+        $\approx 0{,}41$
+      uitwerking: |-
+        $\Qf = \frac16$ en $n - 2 = 1$: $s_e = \sqrt{\frac16} \approx 0{,}41$.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    interval en toets
+  opgave: |-
+    Een onderzoek naar het verband tussen het aantal uren daglicht en de verkoop van zonnebrillen geeft het 95~\%-betrouwbaarheidsinterval $[-0{,}4;\ 2{,}2]$ voor de helling (in brillen per uur daglicht).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat besluit de tweezijdige toets voor $H_0\colon \alpha = 0$ bij een significantieniveau van $0{,}05$?
+      antwoord: |-
+        niet verwerpen
+      uitwerking: |-
+        0 ligt in het interval, dus de tweezijdige toets verwerpt niet.
+    - opgave: |-
+        Bereken $a$ uit het interval. Hoe groot is de foutenmarge?
+      antwoord: |-
+        $a = 0{,}9$; marge $1{,}3$
+      uitwerking: |-
+        Het midden is $\frac{-0{,}4 + 2{,}2}{2} = 0{,}9$, de halve breedte $1{,}3$.
+    - opgave: |-
+        Een collega zegt: \textit{er is dus geen verband}. Wat antwoord je?
+      antwoord: |-
+        te onnauwkeurig om dat te besluiten
+      uitwerking: |-
+        Het interval bevat 0, maar ook 2: een duidelijk verband is net zo goed mogelijk. Het onderzoek toont geen verband aan, maar ook niet dat er geen is. Meer gegevens maken het interval smaller.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    standaardfout en de keuze van x
+  opgave: |-
+    Een student wil de helling van een verband zo nauwkeurig mogelijk schatten. Ze kan 10 metingen doen, met $x$ tussen 0 en 10.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\Sxx$ voor de keuze $x = 1, 2, \ldots, 10$ en voor de keuze vijf keer $x = 0$ en vijf keer $x = 10$.
+      antwoord: |-
+        $82{,}5$ en $250$
+      uitwerking: |-
+        Bij $1, \ldots, 10$: $\Sxx = \frac{10 \cdot 99}{12} = 82{,}5$. Bij $0$ en $10$: elke afwijking is $\pm 5$, dus $\Sxx = 10 \cdot 25 = 250$.
+    - opgave: |-
+        Bij welke keuze is $s_a$ het kleinst, als $s_e$ ongeveer even groot is? Hoeveel keer kleiner?
+      antwoord: |-
+        de tweede; $\sqrt{250/82{,}5} \approx 1{,}74$ keer
+      uitwerking: |-
+        $s_a = \frac{s_e}{\sqrt{\Sxx}}$: bij de tweede keuze $\sqrt{\frac{250}{82{,}5}} \approx 1{,}74$ keer kleiner.
+    - opgave: |-
+        Waarom kiest een onderzoeker toch zelden alleen de twee uiterste waarden?
+      antwoord: |-
+        dan kun je niet nagaan of het verband lineair is
+      uitwerking: |-
+        Met maar twee $x$-waarden zie je in de residuplot geen boog: elke kromme door de twee gemiddelden lijkt dan te passen. Een paar waarden in het midden zijn nodig om het model te controleren.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de toets met r
+  opgave: |-
+    Je kunt de toetsingsgrootheid ook met $r$ alleen berekenen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\Qf = (1 - r^2)\Syy$.
+      antwoord: |-
+        $\Qf = \Qt - \Qv$
+      uitwerking: |-
+        $\Qf = \Qt - \Qv = \Syy - R^2\Syy = (1 - r^2)\Syy$.
+    - opgave: |-
+        Toon aan dat $t = \dfrac{a}{s_a} = \dfrac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}$.
+      antwoord: |-
+        vul $a$, $s_e$ en $s_a$ in
+      uitwerking: |-
+        $s_a = \frac{s_e}{\sqrt{\Sxx}} = \frac{\sqrt{(1 - r^2)\Syy}}{\sqrt{n - 2}\sqrt{\Sxx}}$ en $a = r\frac{\sqrt{\Syy}}{\sqrt{\Sxx}}$. Het quotiënt is $\frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}$.
+    - opgave: |-
+        Bereken $t$ voor $r = 0{,}725$ bij $n = 5$ en bij $n = 20$, en de tweezijdige p-waarden.
+      antwoord: |-
+        $1{,}82$ ($p \approx 0{,}17$) en $4{,}47$ ($p \approx 0{,}0003$)
+      uitwerking: |-
+        $n = 5$: $t = \frac{0{,}725\sqrt3}{\sqrt{1 - 0{,}5256}} \approx 1{,}82$, p-waarde $\approx 0{,}17$, zoals bij de vijf leerlingen. $n = 20$: $t = \frac{0{,}725\sqrt{18}}{\sqrt{0{,}4744}} \approx 4{,}47$, p-waarde $\approx 0{,}0003$.
+    - opgave: |-
+        Vanaf welke $r$ is een verband bij $n = 10$ significant (tweezijdig, $0{,}05$)?
+      antwoord: |-
+        $\abs{r} \geqslant 0{,}632$
+      uitwerking: |-
+        Significant als $\abs{t} \geqslant t^* = \texttt{invT(0.975,8)} \approx 2{,}306$. Los $\frac{r\sqrt8}{\sqrt{1 - r^2}} = 2{,}306$ op: $8r^2 = 5{,}318(1 - r^2)$, dus $r^2 = \frac{5{,}318}{13{,}318} \approx 0{,}399$ en $r \approx 0{,}632$.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    wat $R^2$ met de spreiding doet
+  opgave: |-
+    Neem een grote steekproef, zodat $n - 2 \approx n - 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat dan $s_e \approx s_y\sqrt{1 - R^2}$, met $s_y$ de standaardafwijking van de $y$-waarden.
+      antwoord: |-
+        $\Qf = (1 - R^2)\Syy$
+      uitwerking: |-
+        $s_e = \sqrt{\frac{\Qf}{n - 2}} = \sqrt{\frac{(1 - R^2)\Syy}{n - 2}} \approx \sqrt{1 - R^2}\sqrt{\frac{\Syy}{n - 1}} = s_y\sqrt{1 - R^2}$.
+    - opgave: |-
+        Bij $R^2 = 0{,}5$ verklaart het model de helft van de variatie. Hoeveel procent kleiner is de spreiding rond de rechte dan de spreiding rond $\ybar$?
+      antwoord: |-
+        ongeveer 29~\%
+      uitwerking: |-
+        $\sqrt{1 - 0{,}5} \approx 0{,}71$: de standaardafwijking daalt maar met 29~\%. Een voorspelling met $x$ is dus veel minder nauwkeuriger dan $R^2 = 0{,}5$ doet vermoeden.
+    - opgave: |-
+        Welke $R^2$ is nodig om de spreiding te halveren?
+      antwoord: |-
+        $0{,}75$
+      uitwerking: |-
+        $\sqrt{1 - R^2} = \frac12 \iff R^2 = \frac34$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gestandaardiseerde variabelen
+  opgave: |-
+    Vervang elke $x_i$ door $z_i = \frac{x_i - \xbar}{s_x}$ en elke $y_i$ door $w_i = \frac{y_i - \ybar}{s_y}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de nieuwe gegevens gemiddelde 0 en standaardafwijking 1 hebben.
+      antwoord: |-
+        verschuiven en schalen
+      uitwerking: |-
+        $\sum z_i = \frac{1}{s_x}\sum (x_i - \xbar) = 0$, en $\sum z_i^2 = \frac{\Sxx}{s_x^2} = n - 1$, dus $s_z = 1$. Zo ook voor $w$.
+    - opgave: |-
+        Toon aan dat de regressierechte van $w$ op $z$ de rechte $w = rz$ is.
+      antwoord: |-
+        helling $r\frac{s_w}{s_z} = r$, door $(0, 0)$
+      uitwerking: |-
+        De correlatiecoëfficiënt verandert niet bij verschuiven en schalen met positieve factoren. De helling is $r\frac{s_w}{s_z} = r$, en de rechte gaat door het gemiddelde punt $(0, 0)$.
+    - opgave: |-
+        Verandert $R^2$? Leg uit zonder te rekenen.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $R^2 = r^2$, en $r$ verandert niet. Of: elke voorspelling verschuift en schaalt mee, dus de verhouding van de kwadratensommen blijft.
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gemiddelde of enkele waarde voorspellen
+  opgave: |-
+    Bij de tomatenplanten (voorbeeld \ref{vb:h2-se}) wil de tuinder weten hoeveel tomaten een plant met 2 liter water per dag oplevert.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de voorspelling $\yhat$ bij $x = 2$.
+      antwoord: |-
+        $\approx 3{,}52$ kg
+      uitwerking: |-
+        $0{,}8897 \cdot 2 + 1{,}742 \approx 3{,}52$ kg.
+    - opgave: |-
+        Waarom is een interval voor de gemiddelde oogst van \textit{alle} planten met 2 liter smaller dan een interval voor de oogst van \textit{één} plant?
+      antwoord: |-
+        een enkele plant heeft ook nog haar eigen fout
+      uitwerking: |-
+        Het gemiddelde hangt alleen af van de onzekerheid over de rechte ($a$ en $b$). Eén plant wijkt daarbovenop nog toevallig af van het gemiddelde, met standaardafwijking $\sigma$, geschat door $s_e \approx 0{,}23$ kg.
+    - opgave: |-
+        Een ruwe schatting voor één plant is $\yhat \pm 2s_e$. Bereken ze. Waarom is ze te optimistisch, vooral voor $x$ ver van $\xbar$?
+      antwoord: |-
+        $[3{,}06;\ 3{,}98]$ kg
+      uitwerking: |-
+        $3{,}52 \pm 2 \cdot 0{,}229 = [3{,}06;\ 3{,}98]$. Ze negeert de onzekerheid over de rechte zelf: een kleine fout in de helling geeft ver van $\xbar$ een grote fout in de voorspelling, want de rechte draait rond het gemiddelde punt.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h2-koppel-1
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: meetkunde
+    onderwerp: Ruimtemeetkunde
+  thema: |-
+    de splitsing is Pythagoras
+  opgave: |-
+    Neem weer $(1, 2)$, $(2, 4)$, $(3, 5)$ met regressierechte $\yhat = 1{,}5x + \frac23$ en $\ybar = \frac{11}{3}$. Stel $\vec t = (y_i - \ybar)$, $\vec v = (\yhat_i - \ybar)$ en $\vec e = (y_i - \yhat_i)$, vectoren in de ruimte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de drie vectoren, en toon aan dat $\vec t = \vec v + \vec e$ en $\vec v \cdot \vec e = 0$.
+      antwoord: |-
+        $\vec v = (-\frac32, 0, \frac32)$, $\vec e = (-\frac16, \frac13, -\frac16)$
+      uitwerking: |-
+        $\vec t = (-\frac53, \frac13, \frac43)$, $\vec v = (-\frac32, 0, \frac32)$, $\vec e = (-\frac16, \frac13, -\frac16)$, en $\vec v + \vec e = \vec t$. $\vec v \cdot \vec e = \frac14 + 0 - \frac14 = 0$.
+    - opgave: |-
+        Leg uit waarom $\Qt = \Qv + \Qf$ de stelling van Pythagoras is.
+      antwoord: |-
+        $\abs{\vec t}^2 = \abs{\vec v}^2 + \abs{\vec e}^2$
+      uitwerking: |-
+        $\Qt = \abs{\vec t}^2$, $\Qv = \abs{\vec v}^2$, $\Qf = \abs{\vec e}^2$. De vectoren $\vec v$ en $\vec e$ staan loodrecht op elkaar en hun som is $\vec t$: een rechthoekige driehoek met schuine zijde $\vec t$.
+    - opgave: |-
+        Toon aan dat $\cos^2$ van de hoek tussen $\vec t$ en $\vec v$ gelijk is aan $R^2$.
+      antwoord: |-
+        $\cos\theta = \frac{\abs{\vec v}}{\abs{\vec t}}$
+      uitwerking: |-
+        In de rechthoekige driehoek is $\cos\theta = \frac{\abs{\vec v}}{\abs{\vec t}}$, dus $\cos^2\theta = \frac{\Qv}{\Qt} = R^2$. Hier $\frac{4{,}5}{42/9} = \frac{27}{28}$. (Zo is $r$ zelf de cosinus van de hoek tussen de vectoren $(x_i - \xbar)$ en $(y_i - \ybar)$.)
+
+- id: h2-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Statistiek
+  thema: |-
+    verklaren is geen oorzaak
+  opgave: |-
+    Over twaalf maanden verklaart de verkoop van ijsjes $81~\%$ van de variatie in het aantal verdrinkingen aan de kust, en de helling is significant.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verkleint een verbod op ijsjes het aantal verdrinkingen? Welke verborgen variabele verklaart de samenhang?
+      antwoord: |-
+        nee; het weer en het seizoen
+      uitwerking: |-
+        Bij warm weer zijn er meer ijsjes en meer zwemmers, en dus meer verdrinkingen. \textit{Verklaren} in $R^2$ is statistisch voorspellen, geen oorzaak.
+    - opgave: |-
+        Wat is de correlatiecoëfficiënt?
+      antwoord: |-
+        $0{,}9$
+      uitwerking: |-
+        $r = \sqrt{0{,}81} = 0{,}9$, positief omdat beide samen stijgen.
+
+- id: h2-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Statistiek
+  thema: |-
+    vuistregels voor de residuen
+  opgave: |-
+    In het regressiemodel zijn de fouten normaal verdeeld met gemiddelde 0 en standaardafwijking $\sigma$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welk deel van de punten verwacht je tussen de rechten $y = \alpha x + \beta \pm 2\sigma$?
+      antwoord: |-
+        ongeveer 95~\%
+      uitwerking: |-
+        Met de vuistregels van de normale verdeling ligt ongeveer 95~\% binnen twee standaardafwijkingen van het gemiddelde.
+    - opgave: |-
+        Bij het bladerdek (voorbeeld \ref{vb:h2-terug}) is $s_e \approx 0{,}44$~°C. Hoeveel van de tien residuen liggen tussen $-2s_e$ en $2s_e$? Klopt dat met de verwachting?
+      antwoord: |-
+        alle tien; ja
+      uitwerking: |-
+        $2s_e \approx 0{,}89$ en het grootste residu is $0{,}65$ in absolute waarde: alle tien. Bij 95~\% verwacht je er 9 of 10.
+
+# ---------------------------------------------------------------- test
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    De regressierechte door $(0, 2)$, $(2, 3)$ en $(4, 7)$ is $\yhat = 1{,}25x + 1{,}5$. Bereken $\Qt$, $\Qv$ en $\Qf$, en ga de splitsing na.
+  antwoord: |-
+    $14$; \ $12{,}5$; \ $1{,}5$
+  uitwerking: |-
+    $\ybar = 4$: $\Qt = 4 + 1 + 9 = 14$. Voorspellingen $1{,}5$; $4$; $6{,}5$: $\Qv = 6{,}25 + 0 + 6{,}25 = 12{,}5$. Residuen $0{,}5$; $-1$; $0{,}5$: $\Qf = 1{,}5$. En $12{,}5 + 1{,}5 = 14$.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bij een regressie van de prijs van appartementen op hun oppervlakte is $\Qt = 640$ en $\Qf = 160$ (in duizend euro in het kwadraat). Bereken $R^2$ en zeg wat het betekent.
+  antwoord: |-
+    $0{,}75$
+  uitwerking: |-
+    $R^2 = 1 - \frac{160}{640} = 0{,}75$: de oppervlakte verklaart 75~\% van de variatie in de prijzen.
+
+- id: h2-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Toon aan dat $R^2 = r^2$. Een regressie heeft een dalende rechte met $R^2 = 0{,}64$: wat is $r$?
+  antwoord: |-
+    $r = -0{,}8$
+  uitwerking: |-
+    $\yhat_i - \ybar = a(x_i - \xbar)$, dus $\Qv = a^2\Sxx = \frac{\Sxy^2}{\Sxx}$ en $R^2 = \frac{\Sxy^2}{\Sxx\Syy} = r^2$. Met een dalende rechte is $r = -\sqrt{0{,}64} = -0{,}8$.
+
+- id: h2-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een regressie geeft $R^2 = 0{,}95$, maar de residuplot toont duidelijk een boog. Is een rechte een goed model? Wat doe je?
+  antwoord: |-
+    nee; een gekromd model zoeken
+  uitwerking: |-
+    Een boog betekent dat de punten systematisch boven en onder de rechte liggen: het verband is niet lineair, ook al is $R^2$ hoog. Zoek een model dat de kromming volgt, bijvoorbeeld met een andere verklarende variabele ($x^2$) of een exponentieel model.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bij 12 punten is $\Qf = 20$, $\Sxx = 50$ en $a = 0{,}9$. Bereken $s_e$ en $s_a$.
+  antwoord: |-
+    $s_e \approx 1{,}414$; \ $s_a = 0{,}2$
+  uitwerking: |-
+    $s_e = \sqrt{\frac{20}{10}} = \sqrt2 \approx 1{,}414$ en $s_a = \frac{\sqrt2}{\sqrt{50}} = \frac15 = 0{,}2$.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Toets met de gegevens van de vorige vraag $H_0\colon \alpha = 0$ tegen $H_1\colon \alpha \neq 0$, met significantieniveau $0{,}05$.
+  antwoord: |-
+    $t = 4{,}5$, p $\approx 0{,}001$: verwerpen
+  uitwerking: |-
+    $t = \frac{0{,}9}{0{,}2} = 4{,}5$ met 10 vrijheidsgraden; \texttt{2*tcdf(4.5,1E99,10)} $\approx 0{,}001 \leqslant 0{,}05$: er is een lineair verband.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken met dezelfde gegevens een 95~\%-betrouwbaarheidsinterval voor de helling $\alpha$ van de populatierechte, en zeg wat het betekent.
+  antwoord: |-
+    $[0{,}45;\ 1{,}35]$
+  uitwerking: |-
+    $t^* = \texttt{invT(0.975,10)} \approx 2{,}228$: $0{,}9 \pm 2{,}228 \cdot 0{,}2 = 0{,}9 \pm 0{,}446$. Met 95~\% betrouwbaarheid neemt $y$ per eenheid $x$ gemiddeld met 0,45 tot 1,35 toe; van alle intervallen die je zo maakt, bevat 95~\% de echte helling.

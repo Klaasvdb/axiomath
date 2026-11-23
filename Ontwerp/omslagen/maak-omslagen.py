@@ -64,6 +64,7 @@ SCHILDERIJEN = {
     "regendag": ("File:Gustave Caillebotte - Paris Street; Rainy Day - Google Art Project.jpg", 0.62, 0.5),  # Caillebotte, kansverdelingen
     "kazen": ("File:Clara Peeters - Still Life with Cheeses, Almonds and Pretzels - 1203 - Mauritshuis.jpg", 0.5, 0.5),  # Clara Peeters, lineair programmeren
     "geldwisselaar": ("File:Quentin Massys 001.jpg", 0.5, 0.5),  # Quinten Massys, De geldwisselaar en zijn vrouw (financiële algebra)
+    "sterrenkundige": ("File:Astronomer in a window, by Gerard Dou.jpg", 0.5, 0.62),  # Gerrit Dou, lineaire regressie
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),
@@ -85,7 +86,8 @@ SCHILDERIJEN = {
 # Eén getal voor alle kanten, of (links, boven, rechts, onder): bij de zeilwagen vallen de titel en de witte rand weg.
 RAND = {"grande-jatte": 0.015, "broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
         "zeilwagen": (0.01, 0.07, 0.01, 0.03), "goudweegster": (0.03, 0.01, 0.03, 0.01),
-        "bui": (0.056, 0, 0.026, 0)}  # Hiroshige: de papierrand en het kaderlijntje, links breder dan rechts
+        "bui": (0.056, 0, 0.026, 0),
+        "sterrenkundige": (0.035, 0, 0.035, 0.01)}  # Dou: de witte achtergrond naast de boog; Hiroshige: de papierrand en het kaderlijntje, links breder dan rechts
 
 
 def haal(url):
