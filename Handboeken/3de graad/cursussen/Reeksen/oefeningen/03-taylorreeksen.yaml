@@ -1,0 +1,1139 @@
+# Oefeningen van hoofdstuk 3. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $5!$
+      antwoord: |-
+        120
+      uitwerking: |-
+        $1 \cdot 2 \cdot 3 \cdot 4 \cdot 5 = 120$.
+    - opgave: |-
+        $f'''(x)$ als $f(x) = x^4$
+      antwoord: |-
+        $24x$
+      uitwerking: |-
+        $4x^3$, $12x^2$, $24x$.
+    - opgave: |-
+        de vierde afgeleide van $\sin x$
+      antwoord: |-
+        $\sin x$
+      uitwerking: |-
+        $\cos x$, $-\sin x$, $-\cos x$, $\sin x$.
+    - opgave: |-
+        $f'''(0)$ als $f(x) = \e^{2x}$
+      antwoord: |-
+        8
+      uitwerking: |-
+        $f'''(x) = 8\e^{2x}$.
+    - opgave: |-
+        $\displaystyle\int_0^x t^2\,\mathrm{d}t$
+      antwoord: |-
+        $\tfrac{x^3}{3}$
+      uitwerking: |-
+        Een primitieve is $\tfrac{t^3}{3}$.
+    - opgave: |-
+        de raaklijn aan $y = \e^x$ in $x = 0$
+      antwoord: |-
+        $y = 1 + x$
+      uitwerking: |-
+        $f(0) = 1$ en $f'(0) = 1$.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Zoek de parabool $p(x) = a + bx + cx^2$ die in de buurt van 0 het best op $f(x) = \e^x$ lijkt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $p(0)$, $p'(0)$ en $p''(0)$ in functie van $a$, $b$ en $c$.
+      antwoord: |-
+        $a$, $b$ en $2c$
+      uitwerking: |-
+        $p'(x) = b + 2cx$ en $p''(x) = 2c$.
+    - opgave: |-
+        Kies $a$, $b$ en $c$ zodat $p$ in 0 dezelfde waarde, dezelfde eerste en dezelfde tweede afgeleide heeft als $f$.
+      antwoord: |-
+        $a = 1$, $b = 1$, $c = \tfrac12$
+      uitwerking: |-
+        $f(0) = f'(0) = f''(0) = 1$, dus $a = 1$, $b = 1$ en $2c = 1$.
+    - opgave: |-
+        Vergelijk $p(0{,}5)$ en $p(1)$ met $\e^{0{,}5}$ en $\e$. Waar is de benadering het best?
+      antwoord: |-
+        $1{,}625$ en $2{,}5$; dicht bij 0
+      uitwerking: |-
+        $\e^{0{,}5} \approx 1{,}649$ en $\e \approx 2{,}718$: de fout is $0{,}024$ in $0{,}5$ en $0{,}218$ in 1.
+    - opgave: |-
+        Je voegt een term $dx^3$ toe, zodat ook de derde afgeleide in 0 klopt. Welke $d$ moet je kiezen?
+      antwoord: |-
+        $d = \tfrac16$
+      uitwerking: |-
+        De derde afgeleide van $dx^3$ is $6d$, en die moet gelijk zijn aan $f'''(0) = 1$.
+
+- id: h3-mac
+  soort: kort
+  opgave: |-
+    Bepaal de Maclaurinveelterm.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $T_3$ van $\e^{-x}$
+      antwoord: |-
+        $1 - x + \tfrac{x^2}{2} - \tfrac{x^3}{6}$
+      uitwerking: |-
+        De afgeleiden zijn afwisselend $-\e^{-x}$ en $\e^{-x}$: in 0 is dat $1, -1, 1, -1$.
+    - opgave: |-
+        $T_3$ van $\dfrac{1}{1 - x}$
+      antwoord: |-
+        $1 + x + x^2 + x^3$
+      uitwerking: |-
+        $f^{(k)}(x) = \tfrac{k!}{(1-x)^{k+1}}$, dus $f^{(k)}(0) = k!$ en elke coëfficiënt is 1.
+    - opgave: |-
+        $T_3$ van $\tan x$
+      antwoord: |-
+        $x + \tfrac{x^3}{3}$
+      uitwerking: |-
+        $f' = 1 + \tan^2 x$, $f'' = 2\tan x\,(1 + \tan^2 x)$, $f''' = 2(1 + \tan^2 x)^2 + 4\tan^2 x\,(1 + \tan^2 x)$. In 0: $0, 1, 0, 2$, en $\tfrac{2}{3!} = \tfrac13$.
+
+- id: h3-taylor
+  soort: kort
+  opgave: |-
+    Bepaal de Taylorveelterm rond het gegeven punt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $T_2$ van $\e^x$ rond 1
+      antwoord: |-
+        $\e + \e(x - 1) + \tfrac{\e}{2}(x - 1)^2$
+      uitwerking: |-
+        Alle afgeleiden zijn $\e^x$, met waarde $\e$ in 1.
+    - opgave: |-
+        $T_3$ van $\dfrac1x$ rond 2
+      antwoord: |-
+        $\tfrac12 - \tfrac{x-2}{4} + \tfrac{(x-2)^2}{8} - \tfrac{(x-2)^3}{16}$
+      uitwerking: |-
+        $f' = -\tfrac1{x^2}$, $f'' = \tfrac2{x^3}$, $f''' = -\tfrac{6}{x^4}$. In 2: $\tfrac12$, $-\tfrac14$, $\tfrac14$, $-\tfrac38$. Deel door $0!$, $1!$, $2!$, $3!$.
+    - opgave: |-
+        $T_2$ van $\cos x$ rond $\tfrac\pi3$
+      antwoord: |-
+        $\tfrac12 - \tfrac{\sqrt3}{2}\bigl(x - \tfrac\pi3\bigr) - \tfrac14\bigl(x - \tfrac\pi3\bigr)^2$
+      uitwerking: |-
+        $\cos\tfrac\pi3 = \tfrac12$, $-\sin\tfrac\pi3 = -\tfrac{\sqrt3}2$, $-\cos\tfrac\pi3 = -\tfrac12$, en $\tfrac{-1/2}{2} = -\tfrac14$.
+
+- id: h3-rest
+  soort: kort
+  opgave: |-
+    Schat de fout af.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Benader $\e^{0{,}2}$ met $T_3$. Toon aan dat de fout kleiner is dan $0{,}000\,14$.
+      antwoord: |-
+        $T_3(0{,}2) \approx 1{,}221\,333$
+      uitwerking: |-
+        $1 + 0{,}2 + 0{,}02 + 0{,}001\,333$. Op $[0; 0{,}2]$ is $\e^t < 2$: de fout is hoogstens $\tfrac{2 \cdot 0{,}2^4}{24} \approx 0{,}000\,133$. (Echte waarde $1{,}221\,403$.)
+    - opgave: |-
+        Hoeveel termen van de reeks van $\e^x$ in $x = -1$ heb je nodig om $\tfrac1\e$ tot op $0{,}000\,5$ te kennen?
+      antwoord: |-
+        $T_6$, zeven termen
+      uitwerking: |-
+        Op $[-1, 0]$ is $\e^t \leqslant 1$, dus $M = 1$ en de fout is hoogstens $\tfrac{1}{(n+1)!}$. $6! = 720$ is te weinig, $7! = 5040 \geqslant 2000$ volstaat: $n = 6$.
+
+- id: h3-subst
+  soort: kort
+  opgave: |-
+    Schrijf als een reeks door te substitueren. Geef ook waar de reeks geldt.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\cos(x^2)$
+      antwoord: |-
+        $\sum \tfrac{(-1)^n x^{4n}}{(2n)!}$, voor elke $x$
+      uitwerking: |-
+        $\cos u = \sum \tfrac{(-1)^n u^{2n}}{(2n)!}$ met $u = x^2$: $1 - \tfrac{x^4}{2} + \tfrac{x^8}{24} - \cdots$
+    - opgave: |-
+        $\dfrac{1}{1 + 3x}$
+      antwoord: |-
+        $\sum (-3)^n x^n$, voor $|x| < \tfrac13$
+      uitwerking: |-
+        $\tfrac{1}{1 - u} = \sum u^n$ met $u = -3x$, en $|u| < 1$.
+    - opgave: |-
+        $x^2 \sin x$
+      antwoord: |-
+        $\sum \tfrac{(-1)^n x^{2n+3}}{(2n+1)!}$, voor elke $x$
+      uitwerking: |-
+        Vermenigvuldig de reeks van $\sin x$ met $x^2$: $x^3 - \tfrac{x^5}{6} + \tfrac{x^7}{120} - \cdots$
+
+- id: h3-interval
+  soort: kort
+  opgave: |-
+    Bepaal het convergentie-interval.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{x^n}{2^n}$
+      antwoord: |-
+        $]{-2}, 2[$
+      uitwerking: |-
+        Meetkundig met $q = \tfrac x2$. In $x = \pm 2$ gaan de termen niet naar 0.
+    - opgave: |-
+        $\displaystyle\sominf{n=1} \frac{(x - 2)^n}{n}$
+      antwoord: |-
+        $[1, 3[$
+      uitwerking: |-
+        $L = |x - 2|$. In $x = 3$: harmonisch, divergent. In $x = 1$: $\sum \tfrac{(-1)^n}{n}$, convergent (Leibniz).
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{x^n}{n!}$
+      antwoord: |-
+        $\mathbb{R}$
+      uitwerking: |-
+        $L = \lim \tfrac{|x|}{n+1} = 0 < 1$ voor elke $x$.
+
+- id: h3-ln
+  soort: kort
+  opgave: |-
+    Werk met de reeks van de logaritme.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Benader $\ln(1{,}05)$ met twee termen, en schat de fout af.
+      antwoord: |-
+        $0{,}048\,75$, fout $< 0{,}000\,042$
+      uitwerking: |-
+        $0{,}05 - \tfrac{0{,}0025}{2} = 0{,}048\,75$. Leibniz: de fout is hoogstens $\tfrac{0{,}05^3}{3} \approx 0{,}000\,042$. (Echte waarde $0{,}048\,790$.)
+    - opgave: |-
+        Geef de reeks van $\ln(1 - x)$ en het convergentie-interval.
+      antwoord: |-
+        $-\sum \tfrac{x^n}{n}$, voor $-1 \leqslant x < 1$
+      uitwerking: |-
+        Vervang $x$ door $-x$: $\tfrac{(-1)^{n+1}(-x)^n}{n} = -\tfrac{x^n}{n}$. De voorwaarde $-1 < -x \leqslant 1$ wordt $-1 \leqslant x < 1$.
+
+- id: h3-bin
+  soort: kort
+  opgave: |-
+    Werk met de binomiaalreeks.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de eerste vier termen van de reeks van $\sqrt[3]{1 + x}$.
+      antwoord: |-
+        $1 + \tfrac x3 - \tfrac{x^2}{9} + \tfrac{5x^3}{81}$
+      uitwerking: |-
+        $\alpha = \tfrac13$: $\tbinom{1/3}{2} = \tfrac{\frac13 \cdot (-\frac23)}{2} = -\tfrac19$ en $\tbinom{1/3}{3} = \tfrac{\frac13 \cdot (-\frac23)(-\frac53)}{6} = \tfrac{5}{81}$.
+    - opgave: |-
+        Benader $\sqrt[3]{1{,}03}$.
+      antwoord: |-
+        $1{,}009\,902$
+      uitwerking: |-
+        $1 + 0{,}01 - 0{,}000\,1 + 0{,}000\,001\,7 \approx 1{,}009\,902$ (echte waarde $1{,}009\,902$).
+
+- id: h3-pi
+  soort: kort
+  opgave: |-
+    Benader $\pi$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel termen van $\pi = 4\bigl(1 - \tfrac13 + \tfrac15 - \cdots\bigr)$ heb je nodig voor een fout kleiner dan $0{,}001$?
+      antwoord: |-
+        2000
+      uitwerking: |-
+        De fout is hoogstens $\tfrac{4}{2n+1} \leqslant 0{,}001 \iff 2n + 1 \geqslant 4000 \iff n \geqslant 1999{,}5$.
+    - opgave: |-
+        Gebruik $\bgtan\tfrac{1}{\sqrt3} = \tfrac\pi6$ om te tonen dat $\pi = 2\sqrt3\Bigl(1 - \tfrac{1}{3 \cdot 3} + \tfrac{1}{5 \cdot 3^2} - \tfrac{1}{7 \cdot 3^3} + \cdots\Bigr)$. Benader $\pi$ met vijf termen.
+      antwoord: |-
+        $3{,}1426$
+      uitwerking: |-
+        $\pi = 6\bgtan\tfrac{1}{\sqrt3} = \tfrac{6}{\sqrt3}\sum \tfrac{(-1)^n}{(2n+1)3^n}$ en $\tfrac6{\sqrt3} = 2\sqrt3$. Vijf termen: $3{,}142\,60$, met fout hoogstens $\tfrac{2\sqrt3}{11 \cdot 3^5} \approx 0{,}0013$.
+
+# --- Opdrachten -------------------------------------------------------------------------
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Maclaurinveelterm
+  opgave: |-
+    Bepaal de Maclaurinveelterm van de gegeven orde met de afgeleiden.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $T_3$ van $\e^{3x}$
+      antwoord: |-
+        $1 + 3x + \tfrac92 x^2 + \tfrac92 x^3$
+      uitwerking: |-
+        $f^{(k)}(0) = 3^k$: $1, 3, 9, 27$, gedeeld door $1, 1, 2, 6$.
+    - opgave: |-
+        $T_4$ van $\cos x$
+      antwoord: |-
+        $1 - \tfrac{x^2}{2} + \tfrac{x^4}{24}$
+      uitwerking: |-
+        Afgeleiden in 0: $1, 0, -1, 0, 1$.
+    - opgave: |-
+        $T_3$ van $\dfrac{1}{1 + x}$
+      antwoord: |-
+        $1 - x + x^2 - x^3$
+      uitwerking: |-
+        $f^{(k)}(0) = (-1)^k k!$.
+    - opgave: |-
+        $T_2$ van $\sqrt{1 + x}$
+      antwoord: |-
+        $1 + \tfrac x2 - \tfrac{x^2}{8}$
+      uitwerking: |-
+        $f'(0) = \tfrac12$, $f''(0) = -\tfrac14$, en $\tfrac{-1/4}{2} = -\tfrac18$.
+    - opgave: |-
+        $T_3$ van $\ln(1 + 2x)$
+      antwoord: |-
+        $2x - 2x^2 + \tfrac83 x^3$
+      uitwerking: |-
+        $f' = \tfrac{2}{1+2x}$, $f'' = -\tfrac{4}{(1+2x)^2}$, $f''' = \tfrac{16}{(1+2x)^3}$. In 0: $2, -4, 16$, gedeeld door $1, 2, 6$.
+    - opgave: |-
+        $T_2$ van $\e^x \sin x$
+      antwoord: |-
+        $x + x^2$
+      uitwerking: |-
+        $f' = \e^x(\sin x + \cos x)$, $f'' = 2\e^x \cos x$. In 0: $0, 1, 2$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Taylorveelterm
+  opgave: |-
+    Bepaal de Taylorveelterm van de gegeven orde rond het gegeven punt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $T_3$ van $\ln x$ rond 1
+      antwoord: |-
+        $(x - 1) - \tfrac{(x-1)^2}{2} + \tfrac{(x-1)^3}{3}$
+      uitwerking: |-
+        Afgeleiden in 1: $\ln 1 = 0$, $1$, $-1$, $2$; deel door $k!$.
+    - opgave: |-
+        $T_2$ van $\e^x$ rond 2
+      antwoord: |-
+        $\e^2\bigl(1 + (x-2) + \tfrac{(x-2)^2}{2}\bigr)$
+      uitwerking: |-
+        Alle afgeleiden zijn $\e^2$ in 2.
+    - opgave: |-
+        $T_3$ van $\dfrac1x$ rond 1
+      antwoord: |-
+        $1 - (x-1) + (x-1)^2 - (x-1)^3$
+      uitwerking: |-
+        Afgeleiden in 1: $1, -1, 2, -6$; gedeeld door $k!$ geeft $1, -1, 1, -1$.
+    - opgave: |-
+        $T_4$ van $\sin x$ rond $\tfrac\pi2$
+      antwoord: |-
+        $1 - \tfrac{(x - \pi/2)^2}{2} + \tfrac{(x - \pi/2)^4}{24}$
+      uitwerking: |-
+        Afgeleiden in $\tfrac\pi2$: $1, 0, -1, 0, 1$. Logisch: $\sin x = \cos(x - \tfrac\pi2)$.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    reeksen door substitutie
+  opgave: |-
+    Geef de eerste vier termen die niet nul zijn, en waar de reeks geldt.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\e^{3x}$
+      antwoord: |-
+        $1 + 3x + \tfrac92 x^2 + \tfrac92 x^3$; $\mathbb{R}$
+      uitwerking: |-
+        $u = 3x$ in de reeks van $\e^u$.
+    - opgave: |-
+        $\sin(x^2)$
+      antwoord: |-
+        $x^2 - \tfrac{x^6}{6} + \tfrac{x^{10}}{120} - \tfrac{x^{14}}{5040}$; $\mathbb{R}$
+      uitwerking: |-
+        $u = x^2$ in de reeks van $\sin u$.
+    - opgave: |-
+        $x\,\e^{-x}$
+      antwoord: |-
+        $x - x^2 + \tfrac{x^3}{2} - \tfrac{x^4}{6}$; $\mathbb{R}$
+      uitwerking: |-
+        $x \cdot \bigl(1 - x + \tfrac{x^2}{2} - \tfrac{x^3}{6} + \cdots\bigr)$.
+    - opgave: |-
+        $\cos(2x)$
+      antwoord: |-
+        $1 - 2x^2 + \tfrac23 x^4 - \tfrac{4}{45}x^6$; $\mathbb{R}$
+      uitwerking: |-
+        $u = 2x$: $1 - \tfrac{4x^2}{2} + \tfrac{16x^4}{24} - \tfrac{64x^6}{720}$.
+    - opgave: |-
+        $\dfrac{1}{1 - x^2}$
+      antwoord: |-
+        $1 + x^2 + x^4 + x^6$; $|x| < 1$
+      uitwerking: |-
+        Meetkundig met $u = x^2$, en $|x^2| < 1 \iff |x| < 1$.
+    - opgave: |-
+        $\ln(1 + 2x)$
+      antwoord: |-
+        $2x - 2x^2 + \tfrac83 x^3 - 4x^4$; $-\tfrac12 < x \leqslant \tfrac12$
+      uitwerking: |-
+        $u = 2x$ in de reeks van $\ln(1 + u)$, die geldt voor $-1 < u \leqslant 1$. Dezelfde coëfficiënten als met de afgeleiden.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    convergentie-interval
+  opgave: |-
+    Bepaal het convergentie-interval.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\displaystyle\sominf{n=1} \frac{x^n}{n^2}$
+      antwoord: |-
+        $[-1, 1]$
+      uitwerking: |-
+        $L = |x|$. In $x = \pm1$ convergeert de reeks absoluut ($p = 2$).
+    - opgave: |-
+        $\displaystyle\sominf{n=1} n\,x^n$
+      antwoord: |-
+        $]{-1}, 1[$
+      uitwerking: |-
+        $L = |x|$. In $x = \pm1$ gaan de termen niet naar 0.
+    - opgave: |-
+        $\displaystyle\sominf{n=1} \frac{x^n}{n \cdot 2^n}$
+      antwoord: |-
+        $[-2, 2[$
+      uitwerking: |-
+        $L = \tfrac{|x|}{2}$. In $x = 2$ harmonisch, in $x = -2$ alternerend harmonisch.
+    - opgave: |-
+        $\displaystyle\sominf{n=1} \frac{(x + 1)^n}{\sqrt n}$
+      antwoord: |-
+        $[-2, 0[$
+      uitwerking: |-
+        $L = |x + 1|$. In $x = 0$: $\sum \tfrac{1}{\sqrt n}$, divergent. In $x = -2$: $\sum \tfrac{(-1)^n}{\sqrt n}$, convergent (Leibniz).
+    - opgave: |-
+        $\displaystyle\sominf{n=0} n!\,x^n$
+      antwoord: |-
+        alleen $x = 0$
+      uitwerking: |-
+        $L = \lim (n+1)|x| = +\infty$ voor elke $x \neq 0$.
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{3^n x^{2n}}{(2n)!}$
+      antwoord: |-
+        $\mathbb{R}$
+      uitwerking: |-
+        $\dfrac{3|x|^2}{(2n+2)(2n+1)} \to 0$.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    benaderen met afschatting van de restterm
+  opgave: |-
+    Benader met de gegeven Maclaurinveelterm, en geef een bovengrens voor de fout.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\e^{0{,}1}$ met $T_2$
+      antwoord: |-
+        $1{,}105$, fout $\leqslant 0{,}000\,2$
+      uitwerking: |-
+        $1 + 0{,}1 + 0{,}005$. Op $[0; 0{,}1]$ is $\e^t < 1{,}2$: fout $\leqslant \tfrac{1{,}2 \cdot 0{,}1^3}{6} = 0{,}000\,2$. (Echte waarde $1{,}105\,171$.)
+    - opgave: |-
+        $\cos 0{,}3$ met $T_2$
+      antwoord: |-
+        $0{,}955$, fout $\leqslant 0{,}000\,34$
+      uitwerking: |-
+        $1 - \tfrac{0{,}09}{2}$. Omdat $T_2 = T_3$ en $M = 1$: fout $\leqslant \tfrac{0{,}3^4}{24} \approx 0{,}000\,34$. (Echte waarde $0{,}955\,336$.)
+    - opgave: |-
+        $\sin 0{,}1$ met $T_3$
+      antwoord: |-
+        $0{,}099\,833$, fout $\leqslant 8{,}4 \cdot 10^{-8}$
+      uitwerking: |-
+        $0{,}1 - \tfrac{0{,}001}{6}$. $T_3 = T_4$: fout $\leqslant \tfrac{0{,}1^5}{120} \approx 8{,}3 \cdot 10^{-8}$.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    restterm, kleine hoeken
+  opgave: |-
+    In de fysica vervang je bij een slinger met kleine uitwijking $\sin\theta$ door $\theta$ (in radialen).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $|\sin\theta - \theta| \leqslant \dfrac{|\theta|^3}{6}$.
+      antwoord: |-
+        $T_1 = T_2$, $M = 1$
+      uitwerking: |-
+        $\theta$ is $T_1$ en ook $T_2$ van $\sin$, dus de restterm van orde 2 geldt: $\tfrac{1 \cdot |\theta|^3}{3!}$.
+    - opgave: |-
+        Voor welke hoeken is de fout zeker kleiner dan $0{,}001$? Geef het antwoord ook in graden.
+      antwoord: |-
+        $|\theta| \leqslant 0{,}18$ rad, ongeveer $10{,}4^\circ$
+      uitwerking: |-
+        $\tfrac{|\theta|^3}{6} \leqslant 0{,}001 \iff |\theta| \leqslant \sqrt[3]{0{,}006} \approx 0{,}1817$ rad $\approx 10{,}4^\circ$.
+    - opgave: |-
+        Controleer met je rekentoestel voor $10^\circ$.
+      antwoord: |-
+        fout $0{,}000\,885$
+      uitwerking: |-
+        $10^\circ = 0{,}174\,533$ rad en $\sin 10^\circ = 0{,}173\,648$: het verschil is $0{,}000\,885$, net onder de grens $\tfrac{0{,}174\,533^3}{6} \approx 0{,}000\,886$.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Maclaurinveeltermen, grafieken
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.6cm,y=.75cm,font=\scriptsize]
+        \draw[->,lijngrijs] (-4.4,0) -- (4.6,0) node[right,text=black] {$x$};
+        \draw[->,lijngrijs] (0,-2.4) -- (0,2.4) node[above,text=black] {$y$};
+        \foreach \t in {-4,-2,2,4}{\draw[lijngrijs] (\t,.08) -- (\t,-.08) node[below,text=grijs] {$\t$};}
+        \begin{scope}
+        \clip (-4.4,-2.3) rectangle (4.4,2.3);
+        \kromme[line width=1.3pt]{-4.4}{4.4}{cos(\x r)}
+        \kromme[grijs]{-4.4}{4.4}{1-(\x)^2/2}
+        \kromme[grijs,dashed]{-4.4}{4.4}{1-(\x)^2/2+(\x)^4/24}
+        \kromme[grijs,densely dotted,thick]{-4.4}{4.4}{1-(\x)^2/2+(\x)^4/24-(\x)^6/720}
+        \end{scope}
+        \node[right] at (3.3,2.05) {A};
+        \node[right] at (3.9,-1.55) {B};
+        \node[left] at (-2.35,-2.05) {C};
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont $\cos x$ (dik) en drie Maclaurinveeltermen: $T_2$, $T_4$ en $T_6$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke grafiek (A, B of C) hoort bij welke veelterm? Leg uit met de hoogstegraadsterm.
+      antwoord: |-
+        A is $T_4$, B is $T_6$, C is $T_2$
+      uitwerking: |-
+        $T_2 = 1 - \tfrac{x^2}{2}$ is een dalparabool die snel naar $-\infty$ gaat (C, volle lijn). $T_4$ eindigt op $+\tfrac{x^4}{24}$ en gaat naar $+\infty$ (A, gestreept). $T_6$ eindigt op $-\tfrac{x^6}{720}$ en gaat naar $-\infty$, maar volgt $\cos x$ het langst (B, gestippeld).
+    - opgave: |-
+        Bereken $T_2(2)$, $T_4(2)$ en $T_6(2)$, en vergelijk met $\cos 2$.
+      antwoord: |-
+        $-1$; $-0{,}333$; $-0{,}422$; $\cos 2 \approx -0{,}416$
+      uitwerking: |-
+        $1 - 2 = -1$, $-1 + \tfrac{16}{24} = -\tfrac13$, $-\tfrac13 - \tfrac{64}{720} \approx -0{,}422$. De benaderingen liggen afwisselend onder en boven $\cos 2$.
+    - opgave: |-
+        Geef met de afschatting van de restterm een bovengrens voor $|\cos 2 - T_6(2)|$.
+      antwoord: |-
+        $\tfrac{2^8}{8!} \approx 0{,}006\,3$
+      uitwerking: |-
+        $T_6 = T_7$, en $M = 1$: $\tfrac{2^8}{8!} = \tfrac{256}{40\,320} \approx 0{,}006\,3$. De echte fout is $0{,}006\,1$.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    restterm, het getal e
+  opgave: |-
+    Benader $\e = \e^1$ met de Maclaurinveeltermen van $\e^x$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $|\e - T_n(1)| \leqslant \dfrac{3}{(n+1)!}$.
+      antwoord: |-
+        $M = 3$
+      uitwerking: |-
+        Op $[0, 1]$ is $\e^t \leqslant \e < 3$.
+    - opgave: |-
+        Welke $n$ garandeert zes juiste decimalen (fout kleiner dan $0{,}000\,000\,5$)?
+      antwoord: |-
+        $n = 10$
+      uitwerking: |-
+        $(n+1)! \geqslant 6\,000\,000$: $10! = 3\,628\,800$ is te weinig, $11! = 39\,916\,800$ volstaat.
+    - opgave: |-
+        Bereken $T_{10}(1)$. Bereken elke term uit de vorige.
+      antwoord: |-
+        $2{,}718\,281\,8$
+      uitwerking: |-
+        $1 + 1 + 0{,}5 + 0{,}166\,667 + 0{,}041\,667 + 0{,}008\,333 + 0{,}001\,389 + 0{,}000\,198 + 0{,}000\,025 + 0{,}000\,003 + 0{,}000\,000\,3 \approx 2{,}718\,281\,80$. Dus $\e = 2{,}718\,281\ldots$
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    sommen van reeksen herkennen
+  opgave: |-
+    Herken de reeks, en geef haar som.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{2^n}{n!}$
+      antwoord: |-
+        $\e^2$
+      uitwerking: |-
+        De reeks van $\e^x$ in $x = 2$.
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{(-1)^n}{2n+1}$
+      antwoord: |-
+        $\tfrac\pi4$
+      uitwerking: |-
+        De reeks van $\bgtan x$ in $x = 1$.
+    - opgave: |-
+        $\displaystyle\sominf{n=1} \frac{1}{n\,2^n}$
+      antwoord: |-
+        $\ln 2$
+      uitwerking: |-
+        $-\ln(1 - x) = \sum \tfrac{x^n}{n}$ in $x = \tfrac12$: $-\ln\tfrac12 = \ln 2$.
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{(-1)^n \pi^{2n}}{(2n)!}$
+      antwoord: |-
+        $-1$
+      uitwerking: |-
+        De reeks van $\cos x$ in $x = \pi$.
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{(-1)^n}{n!}$
+      antwoord: |-
+        $\tfrac1\e$
+      uitwerking: |-
+        De reeks van $\e^x$ in $x = -1$.
+    - opgave: |-
+        $\displaystyle\sominf{n=0} \frac{(-1)^n}{(2n+1)!}\Bigl(\frac\pi6\Bigr)^{2n+1}$
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        De reeks van $\sin x$ in $x = \tfrac\pi6$.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    reeks van de logaritme
+  opgave: |-
+    Bereken logaritmen met reeksen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Benader $\ln 1{,}2$ met vier termen, en schat de fout af.
+      antwoord: |-
+        $0{,}182\,267$, fout $\leqslant 0{,}000\,064$
+      uitwerking: |-
+        $0{,}2 - 0{,}02 + 0{,}002\,667 - 0{,}000\,4 = 0{,}182\,267$. Leibniz: fout $\leqslant \tfrac{0{,}2^5}{5} = 0{,}000\,064$. (Echte waarde $0{,}182\,322$.)
+    - opgave: |-
+        Hoeveel termen van $\ln 2 = 1 - \tfrac12 + \tfrac13 - \cdots$ heb je nodig voor zes decimalen?
+      antwoord: |-
+        ongeveer twee miljoen
+      uitwerking: |-
+        De fout is hoogstens $\tfrac{1}{n+1} \leqslant 0{,}000\,000\,5$, dus $n + 1 \geqslant 2\,000\,000$.
+    - opgave: |-
+        Het kan sneller: $\ln 2 = -\ln\bigl(1 - \tfrac12\bigr) = \sominf{n=1} \frac{1}{n\,2^n}$. Bereken tien termen, en toon aan dat de fout kleiner is dan $0{,}000\,09$.
+      antwoord: |-
+        $0{,}693\,065$
+      uitwerking: |-
+        $\tfrac12 + \tfrac18 + \tfrac1{24} + \cdots + \tfrac{1}{10 \cdot 2^{10}} \approx 0{,}693\,065$. De rest is $\sum_{n \geqslant 11} \tfrac{1}{n 2^n} \leqslant \tfrac1{11} \sum_{n \geqslant 11} \tfrac1{2^n} = \tfrac{1}{11 \cdot 2^{10}} \approx 0{,}000\,089$.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    binomiaalreeks
+  opgave: |-
+    Bereken vierkantswortels met de reeks $\sqrt{1 + x} = 1 + \tfrac x2 - \tfrac{x^2}{8} + \tfrac{x^3}{16} - \cdots$
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de volgende coëfficiënt $\tbinom{1/2}{4}$.
+      antwoord: |-
+        $-\tfrac{5}{128}$
+      uitwerking: |-
+        $\dfrac{\frac12 \cdot (-\frac12)(-\frac32)(-\frac52)}{24} = \dfrac{-15/16}{24} = -\dfrac{5}{128}$.
+    - opgave: |-
+        Benader $\sqrt{0{,}9}$ met vier termen.
+      antwoord: |-
+        $0{,}948\,688$
+      uitwerking: |-
+        $x = -0{,}1$: $1 - 0{,}05 - 0{,}001\,25 - 0{,}000\,062\,5 = 0{,}948\,687\,5$. (Echte waarde $0{,}948\,683$.)
+    - opgave: |-
+        Schrijf $\sqrt{10} = 3\sqrt{1 + \tfrac19}$ en benader $\sqrt{10}$ met vier termen.
+      antwoord: |-
+        $3{,}162\,29$
+      uitwerking: |-
+        $3\bigl(1 + \tfrac1{18} - \tfrac1{648} + \tfrac1{11\,664}\bigr) \approx 3{,}162\,294$. (Echte waarde $3{,}162\,278$.) Zo werk je altijd met een kleine $x$.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    limieten met reeksen
+  opgave: |-
+    Bereken de limiet. Vervang elke functie door het begin van haar reeks.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\displaystyle\lim_{x\to0} \frac{\sin x - x}{x^3}$
+      antwoord: |-
+        $-\tfrac16$
+      uitwerking: |-
+        $\sin x - x = -\tfrac{x^3}{6} + \tfrac{x^5}{120} - \cdots$; deel door $x^3$ en neem de limiet.
+    - opgave: |-
+        $\displaystyle\lim_{x\to0} \frac{\e^x - 1 - x}{x^2}$
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        $\e^x - 1 - x = \tfrac{x^2}{2} + \tfrac{x^3}{6} + \cdots$
+    - opgave: |-
+        $\displaystyle\lim_{x\to0} \frac{1 - \cos x}{x^2}$
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        $1 - \cos x = \tfrac{x^2}{2} - \tfrac{x^4}{24} + \cdots$
+    - opgave: |-
+        $\displaystyle\lim_{x\to0} \frac{\ln(1 + x) - x}{x^2}$
+      antwoord: |-
+        $-\tfrac12$
+      uitwerking: |-
+        $\ln(1 + x) - x = -\tfrac{x^2}{2} + \tfrac{x^3}{3} - \cdots$
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    binomiaalreeks, relativiteit
+  opgave: |-
+    Volgens Einstein is de kinetische energie van een voorwerp met massa $m$ en snelheid $v$ gelijk aan $E = mc^2\Bigl(\dfrac{1}{\sqrt{1 - v^2/c^2}} - 1\Bigr)$, met $c$ de lichtsnelheid.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de eerste drie termen van de reeks van $(1 - u)^{-1/2}$.
+      antwoord: |-
+        $1 + \tfrac u2 + \tfrac{3u^2}{8}$
+      uitwerking: |-
+        $\alpha = -\tfrac12$ en $x = -u$: $\tbinom{-1/2}{1} = -\tfrac12$ en $\tbinom{-1/2}{2} = \tfrac{(-\frac12)(-\frac32)}{2} = \tfrac38$.
+    - opgave: |-
+        Toon aan dat $E \approx \tfrac12 mv^2 + \tfrac38 \dfrac{mv^4}{c^2}$. Welke formule herken je?
+      antwoord: |-
+        $\tfrac12 mv^2$ van Newton
+      uitwerking: |-
+        Met $u = \tfrac{v^2}{c^2}$: $mc^2\bigl(\tfrac{v^2}{2c^2} + \tfrac{3v^4}{8c^4}\bigr)$. De eerste term is de kinetische energie uit de klassieke mechanica.
+    - opgave: |-
+        Hoeveel procent wijkt $\tfrac12 mv^2$ ongeveer af bij $v = 0{,}1\,c$?
+      antwoord: |-
+        $0{,}75\,\%$
+      uitwerking: |-
+        De tweede term gedeeld door de eerste: $\tfrac34 \cdot \tfrac{v^2}{c^2} = 0{,}0075$. Bij gewone snelheden is het verschil onmeetbaar klein.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    reeksen integreren
+  opgave: |-
+    Een primitieve van $\dfrac{\sin x}{x}$ kun je niet met gekende functies schrijven. Toch kun je deze integraal berekenen: \[ \int_0^1 \frac{\sin x}{x}\dx \] Neem aan dat je een reeks term per term mag integreren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $\dfrac{\sin x}{x}$ als een reeks.
+      antwoord: |-
+        $1 - \tfrac{x^2}{3!} + \tfrac{x^4}{5!} - \cdots$
+      uitwerking: |-
+        Deel de reeks van $\sin x$ door $x$: $\sum \tfrac{(-1)^n x^{2n}}{(2n+1)!}$.
+    - opgave: |-
+        Integreer term per term van 0 tot 1.
+      antwoord: |-
+        $\sum \tfrac{(-1)^n}{(2n+1)!\,(2n+1)}$
+      uitwerking: |-
+        $\int_0^1 x^{2n}\dx = \tfrac{1}{2n+1}$: $1 - \tfrac{1}{18} + \tfrac{1}{600} - \tfrac{1}{35\,280} + \cdots$
+    - opgave: |-
+        Bereken de integraal tot op $10^{-6}$ nauwkeurig.
+      antwoord: |-
+        $0{,}946\,083$
+      uitwerking: |-
+        Vier termen geven $0{,}946\,082\,8$. De reeks is alternerend met dalende termen, dus de fout is hoogstens de vijfde term $\tfrac{1}{9! \cdot 9} \approx 3 \cdot 10^{-7}$.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    reeksen combineren
+  opgave: |-
+    De hyperbolische functies zijn $\cosh x = \dfrac{\e^x + \e^{-x}}{2}$ en $\sinh x = \dfrac{\e^x - \e^{-x}}{2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met de reeksen van $\e^x$ en $\e^{-x}$ aan dat $\cosh x = 1 + \tfrac{x^2}{2!} + \tfrac{x^4}{4!} + \cdots$
+      antwoord: |-
+        de oneven machten vallen weg
+      uitwerking: |-
+        In $\e^{-x}$ hebben de oneven machten een minteken: bij de som vallen ze weg, de even machten verdubbelen. Delen door 2.
+    - opgave: |-
+        Geef de reeks van $\sinh x$, en vergelijk met de reeks van $\sin x$.
+      antwoord: |-
+        $x + \tfrac{x^3}{3!} + \tfrac{x^5}{5!} + \cdots$
+      uitwerking: |-
+        Nu vallen de even machten weg. Dezelfde termen als bij $\sin x$, maar zonder wisselende tekens.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    convergentie-interval, buiten het interval
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=1.1cm,y=.55cm,font=\scriptsize]
+        \draw[->,lijngrijs] (-1.2,0) -- (2.6,0) node[right,text=black] {$x$};
+        \draw[->,lijngrijs] (0,-3.3) -- (0,3.3) node[above,text=black] {$y$};
+        \foreach \t in {-1,1,2}{\draw[lijngrijs] (\t,.1) -- (\t,-.1) node[below,text=grijs] {$\t$};}
+        \draw[grijs,dashed] (1,-3.2) -- (1,3.2);
+        \begin{scope}
+        \clip (-1.2,-3.2) rectangle (2.5,3.2);
+        \kromme[line width=1.3pt]{-.95}{2.5}{ln(1+\x)}
+        \kromme[grijs,dashed]{-1}{2.5}{\x-(\x)^2/2+(\x)^3/3-(\x)^4/4+(\x)^5/5}
+        \kromme[grijs,densely dotted,thick]{-1}{2.5}{\x-(\x)^2/2+(\x)^3/3-(\x)^4/4+(\x)^5/5-(\x)^6/6}
+        \end{scope}
+      \end{tikzpicture}
+  opgave: |-
+    De functie $\ln(1 + x)$ bestaat voor elke $x > -1$, maar haar reeks convergeert alleen voor $-1 < x \leqslant 1$. De figuur toont $\ln(1 + x)$ met $T_5$ (gestreept) en $T_6$ (gestippeld).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $T_1(2)$ tot $T_6(2)$. Wat gebeurt er?
+      antwoord: |-
+        $2$; $0$; $2{,}667$; $-1{,}333$; $5{,}067$; $-5{,}6$
+      uitwerking: |-
+        De termen $\tfrac{2^n}{n}$ worden steeds groter: de partieelsommen springen steeds verder heen en weer, terwijl $\ln 3 \approx 1{,}099$.
+    - opgave: |-
+        Hoe bereken je dan toch $\ln 3$ met een reeks? Gebruik $\ln 3 = \ln 4 + \ln\tfrac34$ of een andere splitsing.
+      antwoord: |-
+        bv. $\ln 3 = 2\ln 2 + \ln\tfrac34$
+      uitwerking: |-
+        $\ln 2$ ken je uit de snel convergerende reeks $\sum \tfrac{1}{n2^n}$, en $\ln\tfrac34 = \ln\bigl(1 - \tfrac14\bigr)$ heeft een reeks met $x = -\tfrac14$, ruim binnen het interval: $\ln 3 = 2\ln 2 + \ln\tfrac34$.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    restterm, hoeveel termen
+  opgave: |-
+    Een rekentoestel wil $\sin x$ berekenen voor elke $x$ in $[-\pi, \pi]$ met een fout kleiner dan $0{,}001$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke orde $n$ volstaat volgens de afschatting van de restterm?
+      antwoord: |-
+        $n = 12$, dus de termen tot $x^{11}$
+      uitwerking: |-
+        $\tfrac{\pi^{n+1}}{(n+1)!} \leqslant 0{,}001$: $\tfrac{\pi^{12}}{12!} \approx 0{,}001\,9$ is te veel, $\tfrac{\pi^{13}}{13!} \approx 0{,}000\,47$ volstaat. Dus $n = 12$, en omdat $T_{12} = T_{11}$, zijn dat de termen tot en met $x^{11}$.
+    - opgave: |-
+        Waarom is het slim om eerst $x$ in $[-\tfrac\pi4, \tfrac\pi4]$ te brengen, met formules als $\sin(\tfrac\pi2 - x) = \cos x$?
+      antwoord: |-
+        kleinere $|x|$, minder termen
+      uitwerking: |-
+        Voor $|x| \leqslant \tfrac\pi4$ volstaat al $\tfrac{(\pi/4)^{n+1}}{(n+1)!} \leqslant 0{,}001$: $n + 1 = 6$, dus de termen tot $x^5$ (of $x^4$ voor de cosinus).
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    reeks van de boogtangens, formule van Machin
+  opgave: |-
+    John Machin gebruikte in 1706 de formule $\dfrac\pi4 = 4\bgtan\dfrac15 - \bgtan\dfrac1{239}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Noem $\alpha = \bgtan\tfrac15$. Toon aan dat $\tan 2\alpha = \tfrac5{12}$ en $\tan 4\alpha = \tfrac{120}{119}$.
+      antwoord: |-
+        verdubbelingsformule
+      uitwerking: |-
+        $\tan 2\alpha = \dfrac{2/5}{1 - 1/25} = \dfrac{5}{12}$ en $\tan 4\alpha = \dfrac{5/6}{1 - 25/144} = \dfrac{120}{119}$.
+    - opgave: |-
+        Toon aan dat $\tan\bigl(4\alpha - \bgtan\tfrac1{239}\bigr) = 1$.
+      antwoord: |-
+        verschilformule
+      uitwerking: |-
+        $\dfrac{\frac{120}{119} - \frac{1}{239}}{1 + \frac{120}{119 \cdot 239}} = \dfrac{120 \cdot 239 - 119}{119 \cdot 239 + 120} = \dfrac{28\,561}{28\,561} = 1$. Beide hoeken liggen tussen 0 en $\tfrac\pi2$, dus het verschil is $\tfrac\pi4$.
+    - opgave: |-
+        Benader $\pi$ met drie termen van de reeks van $\bgtan\tfrac15$ en één term van die van $\bgtan\tfrac1{239}$. Schat de fout af.
+      antwoord: |-
+        $3{,}141\,62$, fout $\leqslant 0{,}000\,03$
+      uitwerking: |-
+        $16\bigl(\tfrac15 - \tfrac{1}{375} + \tfrac{1}{15\,625}\bigr) - \tfrac{4}{239} \approx 3{,}141\,621$. De fout is hoogstens $16 \cdot \tfrac{(1/5)^7}{7} + 4 \cdot \tfrac{(1/239)^3}{3} \approx 0{,}000\,029$. Vier termen van een reeks, en vier juiste decimalen.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    convergentie-interval, een verrassing
+  opgave: |-
+    De functie $f(x) = \dfrac{1}{1 + x^2}$ bestaat voor elke $x$, is overal afleidbaar en heeft geen verticale asymptoot.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef haar Maclaurinreeks en het convergentie-interval.
+      antwoord: |-
+        $\sum (-1)^n x^{2n}$, $]{-1}, 1[$
+      uitwerking: |-
+        Meetkundig met $q = -x^2$: convergent als $x^2 < 1$. In $x = \pm 1$ staat er $1 - 1 + 1 - \cdots$
+    - opgave: |-
+        Waarom stopt de reeks precies bij $|x| = 1$, terwijl de grafiek daar niets bijzonders toont? Denk aan complexe getallen.
+      antwoord: |-
+        de noemer is 0 in $\pm\mathrm{i}$
+      uitwerking: |-
+        In het complexe vlak is $1 + x^2 = 0$ voor $x = \pm\mathrm{i}$, op afstand 1 van 0. Een reeks rond 0 convergeert in een schijf rond 0 die niet voorbij zo'n punt reikt. Op de reële as zie je het niet, maar de reeks voelt het wel.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    restterm van Lagrange
+  opgave: |-
+    Gebruik de restterm van Lagrange: $R_n(x) = \dfrac{f^{(n+1)}(c)}{(n+1)!}\,x^{n+1}$ voor een $c$ tussen 0 en $x$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\e^x \geqslant 1 + x$ voor elke $x$.
+      antwoord: |-
+        $R_1(x) = \tfrac{\e^c}{2}x^2 \geqslant 0$
+      uitwerking: |-
+        $\e^x - (1 + x) = R_1(x) = \tfrac{\e^c x^2}{2}$, en dat is nooit negatief. De raaklijn ligt dus altijd onder de grafiek.
+    - opgave: |-
+        Toon aan dat $\e^x \geqslant 1 + x + \tfrac{x^2}{2}$ voor $x \geqslant 0$. Waarom niet voor $x < 0$?
+      antwoord: |-
+        $R_2(x) = \tfrac{\e^c}{6}x^3$
+      uitwerking: |-
+        Voor $x \geqslant 0$ is $x^3 \geqslant 0$, dus $R_2(x) \geqslant 0$. Voor $x < 0$ is $R_2(x) < 0$: bijvoorbeeld $\e^{-1} \approx 0{,}368 < 1 - 1 + \tfrac12$.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    reeks van de logaritme, snellere reeks
+  opgave: |-
+    Combineer de reeksen van $\ln(1 + x)$ en $\ln(1 - x)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\ln\dfrac{1 + x}{1 - x} = 2\Bigl(x + \dfrac{x^3}{3} + \dfrac{x^5}{5} + \cdots\Bigr)$ voor $|x| < 1$.
+      antwoord: |-
+        de even machten vallen weg
+      uitwerking: |-
+        $\ln(1 + x) - \ln(1 - x) = \bigl(x - \tfrac{x^2}{2} + \tfrac{x^3}{3} - \cdots\bigr) + \bigl(x + \tfrac{x^2}{2} + \tfrac{x^3}{3} + \cdots\bigr)$.
+    - opgave: |-
+        Welke $x$ geeft $\ln 2$? Bereken vier termen.
+      antwoord: |-
+        $x = \tfrac13$; $0{,}693\,135$
+      uitwerking: |-
+        $\tfrac{1 + x}{1 - x} = 2 \iff x = \tfrac13$. $2\bigl(\tfrac13 + \tfrac1{81} + \tfrac{1}{1215} + \tfrac{1}{15\,309}\bigr) \approx 0{,}693\,135$.
+    - opgave: |-
+        Toon aan dat de fout kleiner is dan $0{,}000\,013$, door de rest te vergelijken met een meetkundige reeks.
+      antwoord: |-
+        $\leqslant \tfrac{2}{9 \cdot 3^9} \cdot \tfrac98$
+      uitwerking: |-
+        De rest is $2\bigl(\tfrac{x^9}{9} + \tfrac{x^{11}}{11} + \cdots\bigr) \leqslant \tfrac29\bigl(x^9 + x^{11} + \cdots\bigr) = \tfrac29 \cdot \tfrac{x^9}{1 - x^2}$, met $x = \tfrac13$: $\tfrac{2}{9 \cdot 19\,683} \cdot \tfrac98 \approx 0{,}000\,012\,7$. (Echte fout $0{,}000\,012\,4$.)
+
+# --- Koppel -----------------------------------------------------------------------------
+
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Complexe getallen
+  opgave: |-
+    Vul in de reeks van $\e^u$ een complex getal $u = \mathrm{i}x$ in, met $x$ reëel. Neem aan dat de reeks ook dan convergeert en dat je de termen mag herschikken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\mathrm{i}^2$, $\mathrm{i}^3$, $\mathrm{i}^4$ en $\mathrm{i}^5$, en schrijf de eerste zes termen van $\sominf{n=0} \frac{(\mathrm{i}x)^n}{n!}$.
+      antwoord: |-
+        $1 + \mathrm{i}x - \tfrac{x^2}{2!} - \mathrm{i}\tfrac{x^3}{3!} + \tfrac{x^4}{4!} + \mathrm{i}\tfrac{x^5}{5!}$
+      uitwerking: |-
+        $\mathrm{i}^2 = -1$, $\mathrm{i}^3 = -\mathrm{i}$, $\mathrm{i}^4 = 1$, $\mathrm{i}^5 = \mathrm{i}$.
+    - opgave: |-
+        Zet de reële en de imaginaire termen apart. Toon aan dat $\e^{\mathrm{i}x} = \cos x + \mathrm{i}\sin x$.
+      antwoord: |-
+        formule van Euler
+      uitwerking: |-
+        Reëel: $1 - \tfrac{x^2}{2!} + \tfrac{x^4}{4!} - \cdots = \cos x$. Imaginair: $x - \tfrac{x^3}{3!} + \tfrac{x^5}{5!} - \cdots = \sin x$.
+    - opgave: |-
+        Bereken $\e^{\mathrm{i}\pi}$ en $\e^{\mathrm{i}\pi/2}$.
+      antwoord: |-
+        $-1$ en $\mathrm{i}$
+      uitwerking: |-
+        $\cos\pi + \mathrm{i}\sin\pi = -1$, zodat $\e^{\mathrm{i}\pi} + 1 = 0$: vijf belangrijke getallen in één formule.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: |-
+      Statistiek
+  opgave: |-
+    Voor een standaardnormaal verdeelde $Z$ is \[ P(0 \leqslant Z \leqslant 1) = \frac{1}{\sqrt{2\pi}} \int_0^1 \e^{-x^2/2}\dx . \] Een primitieve van $\e^{-x^2/2}$ bestaat niet in gekende functies. Neem aan dat je een reeks term per term mag integreren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $\e^{-x^2/2}$ als een reeks.
+      antwoord: |-
+        $\sum \tfrac{(-1)^n x^{2n}}{2^n n!}$
+      uitwerking: |-
+        $u = -\tfrac{x^2}{2}$ in de reeks van $\e^u$: $1 - \tfrac{x^2}{2} + \tfrac{x^4}{8} - \tfrac{x^6}{48} + \cdots$
+    - opgave: |-
+        Integreer van 0 tot 1, en bereken vijf termen.
+      antwoord: |-
+        $0{,}855\,65$
+      uitwerking: |-
+        $\sum \tfrac{(-1)^n}{2^n n!(2n+1)} = 1 - \tfrac16 + \tfrac1{40} - \tfrac1{336} + \tfrac1{3456} - \cdots \approx 0{,}855\,646$.
+    - opgave: |-
+        Bereken $P(0 \leqslant Z \leqslant 1)$ en vergelijk met de 68\,\%-regel.
+      antwoord: |-
+        $0{,}3414$
+      uitwerking: |-
+        $\tfrac{0{,}855\,646}{\sqrt{2\pi}} \approx 0{,}341\,35$, met een fout van hoogstens $10^{-5}$ (Leibniz). Dubbel, voor $[-1, 1]$: $0{,}6827$, de 68\,\% uit de 68-95-99,7-regel.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Telproblemen
+  opgave: |-
+    De binomiaalreeks breidt het binomium van Newton uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\tbinom{3}{k}$ met de nieuwe definitie voor $k = 0, \ldots, 5$. Wat wordt de reeks van $(1 + x)^3$?
+      antwoord: |-
+        $1, 3, 3, 1, 0, 0$; $1 + 3x + 3x^2 + x^3$
+      uitwerking: |-
+        Vanaf $k = 4$ staat de factor $3 - 3 = 0$ in de teller. Dezelfde getallen als in de driehoek van Pascal.
+    - opgave: |-
+        Toon aan dat $\tbinom{-1}{k} = (-1)^k$. Welke reeks krijg je voor $(1 + x)^{-1}$?
+      antwoord: |-
+        $1 - x + x^2 - \cdots$
+      uitwerking: |-
+        $\dfrac{(-1)(-2)\cdots(-k)}{k!} = \dfrac{(-1)^k k!}{k!}$. De meetkundige reeks met $q = -x$.
+    - opgave: |-
+        Toon aan dat $\tbinom{-2}{k} = (-1)^k(k + 1)$, en besluit dat $\sominf{k=0} (k+1)\,x^k = \dfrac{1}{(1 - x)^2}$ voor $|x| < 1$.
+      antwoord: |-
+        vervang $x$ door $-x$
+      uitwerking: |-
+        $\dfrac{(-2)(-3)\cdots(-k-1)}{k!} = (-1)^k \dfrac{(k+1)!}{k!}$. In $(1 + u)^{-2}$ met $u = -x$ worden de tekens positief. Dat is de formule uit de Koppel met de dobbelsteen in hoofdstuk 2.
+
+- id: h3-koppel-4
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Logica en bewijzen
+  opgave: |-
+    Bewijs uit het ongerijmde dat $\e$ irrationaal is. Stel dat $\e = \tfrac pq$ met $p, q$ natuurlijke getallen, $q \geqslant 2$, en noem $x = q!\,\Bigl(\e - \sum_{k=0}^{q} \tfrac{1}{k!}\Bigr)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $x$ een geheel getal is.
+      antwoord: |-
+        $q!\,\e = (q-1)!\,p$ en $\tfrac{q!}{k!}$ is geheel
+      uitwerking: |-
+        $q!\,\e = q! \cdot \tfrac pq = (q-1)!\,p$ is geheel, en voor $k \leqslant q$ is $\tfrac{q!}{k!} = (k+1)(k+2) \cdots q$ geheel.
+    - opgave: |-
+        Toon aan dat $0 < x < \tfrac1q$. Schrijf $x = \sum_{k > q} \tfrac{q!}{k!}$ en vergelijk met een meetkundige reeks.
+      antwoord: |-
+        $x < \sum_{j \geqslant 1} \tfrac{1}{(q+1)^j} = \tfrac1q$
+      uitwerking: |-
+        $\tfrac{q!}{(q+j)!} = \tfrac{1}{(q+1)\cdots(q+j)} \leqslant \tfrac{1}{(q+1)^j}$, met een strikte ongelijkheid vanaf $j = 2$. De som is $\dfrac{1/(q+1)}{1 - 1/(q+1)} = \dfrac1q$. En $x > 0$, want alle termen zijn positief.
+    - opgave: |-
+        Besluit.
+      antwoord: |-
+        strijdig
+      uitwerking: |-
+        Er is geen geheel getal strikt tussen 0 en $\tfrac1q \leqslant \tfrac12$. Dus kan $\e$ geen breuk zijn.
+
+# --- Test jezelf ------------------------------------------------------------------------
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal de Maclaurinveelterm $T_3$ van $\e^{2x}$.
+  antwoord: |-
+    $1 + 2x + 2x^2 + \tfrac43 x^3$
+  uitwerking: |-
+    $f^{(k)}(0) = 2^k$: $1, 2, 4, 8$, gedeeld door $1, 1, 2, 6$.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal de Taylorveelterm van orde 2 van $\sqrt x$ rond 9.
+  antwoord: |-
+    $3 + \tfrac{x - 9}{6} - \tfrac{(x - 9)^2}{216}$
+  uitwerking: |-
+    $f(9) = 3$, $f'(9) = \tfrac{1}{2 \cdot 3} = \tfrac16$, $f''(9) = -\tfrac14 \cdot 9^{-3/2} = -\tfrac{1}{108}$, gedeeld door 2.
+
+- id: h3-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Toon aan dat $T_3(0{,}3)$ van $\e^x$ minder dan $0{,}001$ van $\e^{0{,}3}$ afwijkt.
+  antwoord: |-
+    fout $\leqslant 0{,}000\,68$
+  uitwerking: |-
+    Op $[0; 0{,}3]$ is $\e^t < 2$: $\tfrac{2 \cdot 0{,}3^4}{4!} = 0{,}000\,675$. ($T_3(0{,}3) = 1{,}3495$, $\e^{0{,}3} \approx 1{,}349\,86$.)
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Hoeveel termen van de reeks van $\sin x$ heb je nodig om $\sin 1$ tot op $0{,}000\,05$ te kennen?
+  antwoord: |-
+    vier: $1 - \tfrac16 + \tfrac1{120} - \tfrac{1}{5040}$
+  uitwerking: |-
+    $\tfrac{1}{(n+1)!} \leqslant 0{,}000\,05 \iff (n+1)! \geqslant 20\,000$, dus $n + 1 = 8$ en $T_7$: de termen tot $x^7$. ($0{,}841\,468$ tegenover $0{,}841\,471$.)
+
+- id: h3-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Schrijf $x^2\,\e^{-x}$ als een reeks.
+  antwoord: |-
+    $\sum \tfrac{(-1)^n x^{n+2}}{n!} = x^2 - x^3 + \tfrac{x^4}{2} - \cdots$
+  uitwerking: |-
+    Vervang $u$ door $-x$ in de reeks van $\e^u$ en vermenigvuldig met $x^2$. Geldt voor elke $x$.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepaal het convergentie-interval van $\displaystyle\sominf{n=1} \frac{x^n}{n \cdot 4^n}$.
+  antwoord: |-
+    $[-4, 4[$
+  uitwerking: |-
+    $L = \tfrac{|x|}{4}$. In $x = 4$: harmonisch, divergent. In $x = -4$: alternerend harmonisch, convergent.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Benader $\ln 1{,}1$ met drie termen van de reeks, en schat de fout af.
+  antwoord: |-
+    $0{,}095\,333$, fout $\leqslant 0{,}000\,025$
+  uitwerking: |-
+    $0{,}1 - 0{,}005 + 0{,}000\,333$. Leibniz: fout $\leqslant \tfrac{0{,}1^4}{4} = 0{,}000\,025$. (Echte waarde $0{,}095\,310$.)
+
+- id: h3-t8
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken $\displaystyle\lim_{x\to0} \frac{\cos x - 1 + \frac{x^2}{2}}{x^4}$ met een reeks.
+  antwoord: |-
+    $\tfrac1{24}$
+  uitwerking: |-
+    $\cos x - 1 + \tfrac{x^2}{2} = \tfrac{x^4}{24} - \tfrac{x^6}{720} + \cdots$

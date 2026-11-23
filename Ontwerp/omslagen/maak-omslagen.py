@@ -57,6 +57,7 @@ SCHILDERIJEN = {
     "geograaf": ("File:Johannes Vermeer - The Geographer - Google Art Project.jpg", 0.5, 0.3),
     "planetarium": ("File:Wright of Derby, The Orrery.jpg", 0.5, 0.45),  # Wright of Derby, kegelsneden
     "ambassadeurs": ("File:Hans Holbein the Younger - The Ambassadors - Google Art Project.jpg", 0.5, 0.5),  # Holbein, getaltheorie
+    "deuren": ("File:Vilhelm Hammershøi- Weiße Türen, offene Türen, 1905.jpg", 0.5, 0.5),  # Hammershøi, reeksen
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),

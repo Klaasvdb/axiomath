@@ -199,6 +199,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Onderzoekscompetentie | Johannes Vermeer, *De geograaf*, ca. 1669 | Een onderzoeker met passer en kaart | Meetpunten rond de best passende rechte, die de rand vormt |
 | Kegelsneden | Joseph Wright of Derby, *Een filosoof geeft uitleg bij het planetarium*, ca. 1766 | De ringen van het planetarium zijn ellipsen, de banen van de planeten, en de lamp werpt schaduwen | Eén brandpunt en één top, met een ellips, een parabool en een hyperbool erdoor |
 | Getaltheorie | Hans Holbein de Jonge, *De ambassadeurs*, 1533 | Op de onderste plank ligt een rekenboek voor kooplieden (Peter Apian, 1527), opengeslagen bij het delen | Het algoritme van Euclides voor 91 en 35: een rechthoek van 91 bij 35 gevuld met zo groot mogelijke vierkanten, de kleinste met zijde ggd(91, 35) = 7 |
+| Reeksen | Vilhelm Hammershøi, *Witte deuren, open deuren*, 1905 | Deur na deur, elke opening kleiner: oneindig veel stappen in een eindige ruimte | Een vierkant met zijde 1, opgevuld met stukken van 1/2, 1/4, 1/8, ...: de meetkundige reeks met som 1 |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 
