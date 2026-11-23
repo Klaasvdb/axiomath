@@ -6,11 +6,12 @@
 % Labels van dit hoofdstuk beginnen met h3-.
 %----------------------------------------------------------------------------------------
 
-\mychapter{3}{De kettingregel}
+\mychapter{2}{De kettingregel}
 
 \begin{probleem}
 \naast{Sommige smartwatches meten je hoogte met een luchtdrukmeter: hoe hoger je komt, hoe lager de luchtdruk. Een vereenvoudigd model voor de luchtdruk op $h$ meter boven de zeespiegel is
 \[p(h) = 1013\,\e^{-h/8000} \quad \text{(in hPa)} .\]
+Daarin is $\e \approx 2{,}718$ een getal dat je in dit hoofdstuk leert kennen.
 Een vuistregel zegt: \textit{per $8$ m hoger daalt de luchtdruk met $1$ hPa}. Hoe snel daalt de druk volgens het model aan zee, in hPa per meter? Klopt de vuistregel daar? En geldt ze ook op de top van de Mont Blanc, op ongeveer $4800$ m?}{%
 \begin{tikzpicture}[x=.42cm,y=.0032cm,font=\scriptsize]
   \draw[black!14,very thin,xstep=.84cm,ystep=.64cm] (0,0) grid (9,1000);
@@ -25,9 +26,9 @@ Een vuistregel zegt: \textit{per $8$ m hoger daalt de luchtdruk met $1$ hPa}. Ho
 \end{tikzpicture}}
 \end{probleem}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{3}{19-22}\alleenvoor{2}{18-21}\alleenvoor{1}{14-15} (afgeleiden), het deel over de kettingregel en de afgeleiden van goniometrische, exponentiële en logaritmische functies. Het bewijs van de kettingregel wordt hier alleen aannemelijk gemaakt. De limiet $\lim_{h \to 0} \frac{\sin h}{h} = 1$ is in Goniometrische functies numeriek verkend; hier wordt ze meetkundig verklaard. Het model voor de luchtdruk in het probleem veronderstelt overal dezelfde temperatuur; de internationale standaardatmosfeer geeft op $4800$ m ongeveer $555$ hPa, dicht bij de $556$ hPa van het model. De oplossing staat in voorbeeld \ref{vb:h3-terug}, in de sectie over $\e^x$.}
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{2}{20}\alleenvoor{3}{21} (de kettingregel en de afgeleiden van exponentiële en logaritmische functies\alleenvoor{3}{, en van sinus en cosinus}). Het bewijs van de kettingregel wordt hier alleen aannemelijk gemaakt. Het getal $\e$ wordt hier ingevoerd zoals de wenk bij LPD \alleenvoor{2}{20}\alleenvoor{3}{21} voorstelt: de hellingsgrafiek van $a^x$ is een veelvoud van $a^x$, en $\e$ is het grondtal waarvoor die factor $1$ is. De natuurlijke logaritme is dan $\log_\e$. Zo steunt dit hoofdstuk alleen op $a^x$ en $\log_a x$ uit Exponentiële en logaritmische functies (LPD 7-12); kenden de leerlingen $\e$ en $\ln$ daar al, dan is het hier herhaling met een nieuwe betekenis.\alleenvoor{2}{ B+S vraagt geen afgeleiden van goniometrische functies (LPD 20): die sectie valt weg. De korte bewijzen van $(a^x)'$, $(\ln x)'$ en $(\log_a x)'$ met de kettingregel blijven, als extra bij LPD 4: ze zijn eerder toepassingen van de kettingregel dan bewijzen. Het bewijs van $(\e^x)' = \e^x$ wordt een zin uitleg, en dat van $(x^r)' = r\,x^{r - 1}$ voor reële $r$ valt weg.}\alleenvoor{3}{ De afgeleide van sinus en cosinus wordt grafisch verantwoord (wenk bij LPD 21) en bewezen met de somformule; de limiet $\lim_{h \to 0} \frac{\sin h}{h} = 1$ wordt alleen aannemelijk gemaakt, want het bewijs steunt op de oppervlakte van een cirkelsector, die in dit pakket niet aan bod komt. De tangensfunctie staat niet in LPD 13-17: haar afgeleide valt weg.} Het model voor de luchtdruk in het probleem veronderstelt overal dezelfde temperatuur; de internationale standaardatmosfeer geeft op $4800$ m ongeveer $555$ hPa, dicht bij de $556$ hPa van het model. De oplossing staat in voorbeeld \ref{vb:h3-terug}, in de sectie over $\e^x$.}
 
-Met de rekenregels uit hoofdstuk 2 kun je veeltermen en quotiënten afleiden. Maar de luchtdruk uit het probleem is een exponentiële functie, en in de exponent staat dan nog $-\frac{h}{8000}$. Hoe leid je zoiets af? Dit hoofdstuk geeft eerst de kettingregel, voor een functie binnen een functie, en daarna de afgeleiden van $\sin x$, $\cos x$, $\tan x$, $\e^x$ en $\ln x$. Op het einde heb je een tabel waarmee je elke functie uit deze cursussen kunt afleiden.
+Met de rekenregels uit hoofdstuk 1 kun je veeltermen en quotiënten afleiden. Maar de luchtdruk uit het probleem is een exponentiële functie, en in de exponent staat dan nog $-\frac{h}{8000}$. Hoe leid je zoiets af? Dit hoofdstuk geeft eerst de kettingregel, voor een functie binnen een functie, en daarna de afgeleiden van \alleenvoor{3}{$\sin x$, $\cos x$, }$\e^x$ en $\ln x$. Op het einde heb je een tabel waarmee je elke functie uit deze cursussen kunt afleiden.
 
 \begin{oefeningen}[Start]
 \oef{h3-start-1}
@@ -56,7 +57,7 @@ In woorden: leid de buitenste functie af en laat de binnenste ongewijzigd staan,
 
 Waarom klopt dat? Verandert $x$ een beetje, dan verandert $u = g(x)$ ongeveer $g'(x)$ keer zoveel, en $y = f(u)$ daardoor nog eens ongeveer $f'(u)$ keer zoveel. De veranderingen worden dus met elkaar vermenigvuldigd. In formules: schrijf het differentiequotiënt van $f(g(x))$ als een product,
 \[\frac{f(g(x + h)) - f(g(x))}{h} = \frac{f(g(x + h)) - f(g(x))}{g(x + h) - g(x)} \cdot \frac{g(x + h) - g(x)}{h} .\]
-Voor $h \to 0$ gaat de tweede breuk naar $g'(x)$. Omdat $g$ continu is, gaat ook $g(x + h)$ naar $g(x)$, en dan is de eerste breuk een differentiequotiënt van $f$ in $g(x)$, met limiet $f'(g(x))$.
+Voor $h \to 0$ gaat de tweede breuk naar $g'(x)$. Omdat $g$ afleidbaar is, maakt haar grafiek geen sprong: ook $g(x + h)$ gaat naar $g(x)$, en dan is de eerste breuk een differentiequotiënt van $f$ in $g(x)$, met limiet $f'(g(x))$.
 
 Dat is nog geen volledig bewijs: als $g(x + h) = g(x)$ voor sommige kleine $h$, dan deel je in de eerste breuk door nul. Een volledig bewijs vangt dat op met een technische omweg, die we hier weglaten.
 
@@ -120,6 +121,7 @@ Zoek de buitenste en de binnenste functie: wat reken je als laatste uit? Leid de
 \oef{h3-lagen}
 \end{oefeningen}
 
+\begin{alleenvoor}{3}
 %========================================================================================
 \section{Goniometrische functies}
 
@@ -128,22 +130,25 @@ Zoek de buitenste en de binnenste functie: wat reken je als laatste uit? Leid de
 De afgeleide van $\sin x$ vraagt twee limieten. Werk daarbij altijd in radialen: dan is een hoek $h$ de lengte van de boog die hij op de eenheidscirkel afsnijdt.
 
 \naast{%
-Neem $0 < h < \frac{\pi}{2}$. Op de eenheidscirkel liggen $A(1, 0)$, $P(\cos h, \sin h)$ en op de raaklijn in $A$ het punt $T(1, \tan h)$. In de figuur zie je drie stukken die in elkaar passen: de driehoek $OAP$, de cirkelsector $OAP$ en de driehoek $OAT$.
+Neem een kleine hoek $h > 0$. Op de eenheidscirkel liggen $A(1, 0)$ en $P(\cos h, \sin h)$. De boog $AP$ heeft lengte $h$, het verticale lijnstuk van $P$ naar de $x$-as heeft lengte $\sin h$. Hoe kleiner de hoek, hoe minder die twee verschillen: de boog wordt bijna een recht lijnstuk. Een rekentoestel in radialen toont hoe dicht $\frac{\sin h}{h}$ bij $1$ komt:
 
-Hun oppervlaktes zijn $\frac12 \cdot 1 \cdot \sin h$, $\frac12 h$ (een sector met hoek $h$ in een cirkel met straal $1$) en $\frac12 \cdot 1 \cdot \tan h$.}{%
+\vspace{1mm}
+{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{c|ccc}
+$h$ & $0{,}1$ & $0{,}01$ & $0{,}001$ \\ \hline
+$\frac{\sin h}{h}$ & $0{,}998\,33$ & $0{,}999\,98$ & $0{,}999\,999\,8$
+\end{tabular}}}{%
 \begin{tikzpicture}[scale=2.6,font=\scriptsize]
-  \fill[accent!10] (0,0) -- (1,0) -- (1,{tan(40)}) -- cycle;
-  \fill[accent!25] (0,0) -- (1,0) arc (0:40:1) -- cycle;
-  \fill[accent!45] (0,0) -- (1,0) -- (40:1) -- cycle;
   \draw[grijs] (1,0) arc (0:70:1);
   \draw[->,grijs] (-.05,0) -- (1.2,0);
-  \draw[grijs] (1,-.05) -- (1,1);
-  \draw[accent,thick] (0,0) -- (1,{tan(40)});
-  \draw[accent] (40:1) -- (1,0);
+  \draw[accent,very thick] (1,0) arc (0:40:1);
+  \draw[grijs,thick] (40:1) -- ({cos(40)},0);
+  \draw[grijs] (0,0) -- (40:1);
   \node[below left] at (0,0) {$O$};
   \node[below] at (1,0) {$A$};
-  \node[above left] at (40:1) {$P$};
-  \node[right] at (1,{tan(40)}) {$T$};
+  \node[above right] at (40:1) {$P$};
+  \node[accent,right] at (20:1) {$h$};
+  \node[left] at ({cos(40)},.32) {$\sin h$};
   \node at (.3,.1) {$h$};
 \end{tikzpicture}}
 
@@ -151,18 +156,9 @@ Hun oppervlaktes zijn $\frac12 \cdot 1 \cdot \sin h$, $\frac12 h$ (een sector me
 \begin{stelling}{Limiet van \texorpdfstring{$\frac{\sin h}{h}$}{sin h/h}}
 Met $h$ in radialen is \quad $\formule{\lim_{h \to 0} \frac{\sin h}{h} = 1}$.
 \end{stelling}
-\begin{bewijs}
-Neem eerst $0 < h < \frac{\pi}{2}$. De drie oppervlaktes in de figuur passen in elkaar, dus
-\bewijsregel{\tfrac12 \sin h < \tfrac12 h < \tfrac12 \tan h .}
-Vermenigvuldig met $\frac{2}{\sin h} > 0$: dan is $1 < \frac{h}{\sin h} < \frac{1}{\cos h}$. Neem van alles het omgekeerde (de tekens keren om):
-\bewijsregel{\cos h < \frac{\sin h}{h} < 1 .}
-Voor $-\frac{\pi}{2} < h < 0$ geldt hetzelfde, want $\frac{\sin(-h)}{-h} = \frac{\sin h}{h}$ en $\cos(-h) = \cos h$. Neem nu $\varepsilon > 0$. Omdat $\cos$ continu is, is $\cos h > 1 - \varepsilon$ voor $h$ dicht genoeg bij $0$, en dan is
-\bewijsregel{1 - \varepsilon < \frac{\sin h}{h} < 1 ,}
-zodat $\bigl|\frac{\sin h}{h} - 1\bigr| < \varepsilon$. Dat is de definitie van de limiet.
-\end{bewijs}
 \end{theorie}
 
-Het quotiënt zit ingeklemd tussen $\cos h$ en $1$, en omdat $\cos h$ naar $1$ gaat, kan het nergens anders heen. Meetkundig: voor een kleine hoek zijn de boog $h$ en de verticale $\sin h$ bijna even lang.
+We bewijzen deze limiet niet: het bewijs vergelijkt de oppervlakte van een cirkelsector met die van twee driehoeken, en de oppervlakte van een sector staat niet in dit pakket. De tabel en de figuur maken haar aannemelijk. Voor een negatieve $h$ geldt hetzelfde, want $\frac{\sin(-h)}{-h} = \frac{\sin h}{h}$. Meetkundig: voor een kleine hoek zijn de boog $h$ en de verticale $\sin h$ bijna even lang.
 
 \begin{theorie}
 \begin{stelling}{Limiet van \texorpdfstring{$\frac{1 - \cos h}{h}$}{(1 - cos h)/h}}
@@ -177,18 +173,9 @@ De eerste factor gaat naar $1$, de tweede naar $\frac{0}{1 + 1} = 0$. Het produc
 
 Het verschil tussen $1$ en $\cos h$ is dus veel kleiner dan $h$ zelf. Met deze twee limieten kunnen we de goniometrische functies afleiden.
 
-\voorbeeld{}{Bereken $\displaystyle\lim_{h \to 0} \dfrac{\sin 3h}{h}$.\label{vb:h3-sinlim}}{%
-\uitleg{Invullen geeft $\frac00$. Om de stelling te gebruiken, moet onder $\sin 3h$ ook $3h$ staan. Vermenigvuldig daarom teller en noemer met $3$.}
-\begin{stappen}
-\frac{\sin 3h}{h} = 3 \cdot \frac{\sin 3h}{3h} & Teller en noemer maal $3$. \\[2ex]
-\lim_{h \to 0} 3 \cdot \frac{\sin 3h}{3h} = 3 \cdot 1 = 3 & Stel $u = 3h$: als $h \to 0$, dan $u \to 0$, en $\frac{\sin u}{u} \to 1$.
-\end{stappen}}
-
-\begin{oefeningen}
-\oef{h3-sinlim}
-\end{oefeningen}
-
 \subsection{Afgeleide van de sinus}
+
+Met de somformule voor $\sin(x + h)$ uit Goniometrische functies en de twee limieten kun je nu het differentiequotiënt van de sinus uitwerken.
 
 \begin{theorie}
 \begin{stelling}{Afgeleide van de sinus}
@@ -202,7 +189,7 @@ Met de twee limieten gaat dat voor $h \to 0$ naar
 \end{bewijs}
 \end{theorie}
 
-Kijk naar de grafieken: waar de sinus het steilst stijgt, in $x = 0$, is de cosinus maximaal. In de toppen van de sinus is de raaklijn horizontaal, en daar is de cosinus nul. Waar de sinus daalt, is de cosinus negatief.
+Kijk naar de grafieken: waar de sinus het steilst stijgt, in $x = 0$, is de cosinus maximaal. In de toppen van de sinus is de raaklijn horizontaal, en daar is de cosinus nul. Waar de sinus daalt, is de cosinus negatief. Met ICT zie je het nog beter: teken in GeoGebra $f(x) = \sin(x)$ en $f'(x)$, of op de TI-84 \texttt{Y2 = nDeriv(Y1,X,X)}. De hellingsgrafiek van de sinus valt samen met de cosinus.
 
 \figuren{\begin{tikzpicture}[x=1cm,y=1cm,font=\scriptsize]
   \draw[black!14,very thin] (-1.6,-1) grid[xstep=1.5708,ystep=1] (6.3,1);
@@ -254,33 +241,7 @@ Vergelijk de grafieken: $\cos 3x$ heeft een drie keer kleinere periode dan $\cos
 
 \begin{oefeningen}
 \oef{h3-cosbewijs}
-\end{oefeningen}
 
-\subsection{Afgeleide van de tangens}
-
-De tangens is een quotiënt, $\tan x = \frac{\sin x}{\cos x}$. Met de quotiëntregel volgt haar afgeleide uit die van de sinus en de cosinus.
-
-\begin{theorie}
-\begin{stelling}{Afgeleide van de tangens}
-$\formule{(\tan x)' = \frac{1}{\cos^2 x} = 1 + \tan^2 x}$ \qquad (waar $\cos x \neq 0$)
-\end{stelling}
-\begin{bewijs}
-Met de quotiëntregel en de grondformule $\cos^2 x + \sin^2 x = 1$ is
-\bewijsregel{\Bigl(\frac{\sin x}{\cos x}\Bigr)' = \frac{\cos x \cdot \cos x - \sin x \cdot (-\sin x)}{\cos^2 x} = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} .}
-Dat is $\frac{1}{\cos^2 x}$. Splits je de breuk, dan krijg je $1 + \frac{\sin^2 x}{\cos^2 x} = 1 + \tan^2 x$.
-\end{bewijs}
-\end{theorie}
-
-De afgeleide is overal positief: de tangens stijgt op elk interval van haar domein, en wordt steeds steiler naar de asymptoten toe.
-
-\voorbeeld{}{Bereken de afgeleide van $f(x) = \tan 2x$, en de richtingscoëfficiënt van de raaklijn in $x = \frac{\pi}{8}$.\label{vb:h3-tan}}{%
-\uitleg{Kettingregel, met binnenste functie $2x$.}
-\begin{stappen}
-f'(x) = \frac{1}{\cos^2 2x} \cdot 2 = \frac{2}{\cos^2 2x} & De afgeleide van $\tan u$, maal $u' = 2$. \\[2ex]
-f'\bigl(\tfrac{\pi}{8}\bigr) = \frac{2}{\cos^2 \frac{\pi}{4}} = \frac{2}{\frac12} = 4 & $\cos \frac{\pi}{4} = \frac{\sqrt2}{2}$, met kwadraat $\frac12$.
-\end{stappen}}
-
-\begin{oefeningen}
 \oef{h3-gonio}
 \end{oefeningen}
 
@@ -300,22 +261,37 @@ Verwar $\sin^2 x$ niet met $\sin x^2 = \sin(x^2)$. Daar is de sinus de buitenste
 \oef{h3-gonio2}
 \end{oefeningen}
 
+\end{alleenvoor}
 %========================================================================================
 \section{Exponentiële en logaritmische functies}
 
-\subsection{Afgeleide van \texorpdfstring{$\e^x$}{e tot de x}}
+\subsection{Het getal \texorpdfstring{$\e$}{e} en de afgeleide van \texorpdfstring{$\e^x$}{e tot de x}}
 
-Voor elke exponentiële functie $a^x$ (met $a > 0$) kun je het differentiequotiënt vereenvoudigen met een rekenregel voor machten:
+Begin bij een exponentiële functie $a^x$ (met $a > 0$). Met een rekenregel voor machten kun je het differentiequotiënt vereenvoudigen:
 \[\frac{a^{x + h} - a^x}{h} = \frac{a^x \cdot a^h - a^x}{h} = a^x \cdot \frac{a^h - 1}{h} .\]
-De laatste breuk hangt niet af van $x$: het is het differentiequotiënt van $a^x$ in $0$. De afgeleide van $a^x$ is dus $a^x$ maal de helling van de grafiek in $(0, 1)$. Een rekentoestel geeft voor $h = 0{,}0001$:
+De laatste breuk hangt niet af van $x$: het is het differentiequotiënt van $a^x$ in $0$. De afgeleide van $a^x$ is dus $a^x$ maal een vast getal, de helling van de grafiek in $(0, 1)$. De hellingsgrafiek van een exponentiële functie is dus een veelvoud van de functie zelf. Teken je met ICT $2^x$ en haar hellingsgrafiek (in GeoGebra $f'(x)$, op de TI-84 met \texttt{nDeriv}), dan zie je dat: de hellingsgrafiek is ongeveer $0{,}693$ keer de grafiek van $2^x$.
+
+Welk vast getal hoort bij welk grondtal? Een rekentoestel geeft voor $h = 0{,}0001$:
+
+\figuren{\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{c|ccccc}
+$a$ & $2$ & $2{,}5$ & $2{,}7$ & $2{,}8$ & $3$ \\ \hline
+$\frac{a^h - 1}{h}$ & $0{,}6932$ & $0{,}9163$ & $0{,}9933$ & $1{,}0297$ & $1{,}0987$
+\end{tabular}}
+
+Hoe groter het grondtal, hoe steiler de grafiek in $(0, 1)$. Ergens tussen $2{,}7$ en $2{,}8$ ligt het grondtal waarvoor de helling precies $1$ is. Dat grondtal is het eenvoudigste van allemaal: de afgeleide van die exponentiële functie is de functie zelf.
+
+\begin{theorie}
+Het getal $\formule{\e \approx 2{,}718}$ is het grondtal waarvoor de grafiek van $\e^x$ in $(0, 1)$ de helling $1$ heeft:
+\[\formule{\lim_{h \to 0} \frac{\e^h - 1}{h} = 1}.\]
+
+De logaritme met grondtal $\e$ heet de \textbf{\textcolor{accent}{natuurlijke logaritme}}: \quad $\formule{\ln x = \log_\e x}$ \quad ($x > 0$).
+\end{theorie}
 
 \naast{%
-\figuren{\renewcommand{\arraystretch}{1.2}%
-\begin{tabular}{c|ccc}
-$a$ & $2$ & $\e \approx 2{,}718$ & $3$ \\ \hline
-$\frac{a^h - 1}{h}$ & $0{,}6932$ & $1{,}0001$ & $1{,}0987$
-\end{tabular}}
-Het getal $\e$ is precies het grondtal waarvoor die helling $1$ is: de grafiek van $\e^x$ raakt in $(0, 1)$ de rechte $y = x + 1$. In de figuur ligt de grafiek van $\e^x$ tussen die van $2^x$ en $3^x$, en raakt alleen zij die rechte.}{%
+In de figuur ligt de grafiek van $\e^x$ tussen die van $2^x$ en $3^x$. Ze raakt in $(0, 1)$ de rechte $y = x + 1$, met richtingscoëfficiënt $1$.
+
+Het getal $\e$ is irrationaal, net als $\pi$: $\e = 2{,}718\,281\,828\ldots$ Op het rekentoestel vind je $\e^x$ en $\ln x$ bij de toetsen \texttt{e\textasciicircum x} en \texttt{LN}. Zoals elke logaritme is $\ln$ de inverse van de exponentiële functie met hetzelfde grondtal: $\e^{\ln x} = x$ voor $x > 0$, en $\ln \e^x = x$.}{%
 \begin{tikzpicture}[x=.8cm,y=.8cm,font=\scriptsize]
   \rooster{-2}{1}{1}{-1}{1}{3}
   \kromme[grijs]{-2}{1.4}{2^(\x)}
@@ -327,15 +303,20 @@ Het getal $\e$ is precies het grondtal waarvoor die helling $1$ is: de grafiek v
   \vol{(0,1)}
 \end{tikzpicture}}
 
+Misschien ken je $\e$ al uit Exponentiële en logaritmische functies, als de limiet van $\bigl(1 + \frac1n\bigr)^n$. Het is hetzelfde getal, maar dat bewijzen we niet.
+
 \begin{theorie}
 \begin{stelling}{Afgeleide van \texorpdfstring{$\e^x$}{e tot de x}}
 $\formule{(\e^x)' = \e^x}$
 \end{stelling}
+\begin{alleenvoor}{3}
+\begin{bewijs}
+Met de berekening hierboven, voor $a = \e$, is het differentiequotiënt $\e^x \cdot \frac{\e^h - 1}{h}$. Voor $h \to 0$ gaat de breuk naar $1$, en het geheel naar $\e^x$.
+\end{bewijs}
+\end{alleenvoor}
 \end{theorie}
 
-Dat $\lim_{h \to 0} \frac{\e^h - 1}{h}$ precies $1$ is, volgt uit de definitie van $\e$ als limiet van $\bigl(1 + \frac1n\bigr)^n$. Dat bewijs is te zwaar voor dit boek; de tabel maakt het aannemelijk. Uit die ene limiet volgt de stelling met de berekening hierboven, voor $a = \e$.
-
-De functie $\e^x$ is dus haar eigen afgeleide: in elk punt is de helling van de grafiek gelijk aan de hoogte. Daarom heet $\e$ het natuurlijke grondtal.
+\alleenvoor{2}{Dat volgt meteen uit de berekening hierboven: voor $a = \e$ is de vaste factor $1$. }De functie $\e^x$ is dus haar eigen afgeleide: in elk punt is de helling van de grafiek gelijk aan de hoogte. Daarom heet $\e$ het natuurlijke grondtal.
 
 \voorbeeld{}{Bereken de afgeleide van $f(x) = \e^{-x^2}$.\label{vb:h3-explog}}{%
 \uitleg{De buitenste functie is $\e^u$, en die is haar eigen afgeleide. De binnenste is $u = -x^2$.}
@@ -400,7 +381,7 @@ f'(x) = 3^{2x + 1} \ln 3 \cdot 2 & De afgeleide van $3^u$ is $3^u \ln 3$, maal $
 
 \subsection{Afgeleide van \texorpdfstring{$\ln x$}{ln x}}
 
-De natuurlijke logaritme is de inverse van $\e^x$: $\e^{\ln x} = x$ voor $x > 0$. Leid je beide leden af, dan volgt de afgeleide van $\ln x$.
+De natuurlijke logaritme is de inverse van $\e^x$: $\e^{\ln x} = x$ voor $x > 0$. Leid je beide leden van die gelijkheid af, dan volgt de afgeleide van $\ln x$.
 
 \begin{theorie}
 \begin{stelling}{Afgeleide van \texorpdfstring{$\ln x$}{ln x}}
@@ -450,9 +431,10 @@ f'(x) = \frac{1}{(2x - 1)\ln 3} \cdot 2 = \frac{2}{(2x - 1)\ln 3} & De afgeleide
 \oef{h3-explog2}
 \end{oefeningen}
 
+\begin{alleenvoor}{3}
 \subsection{Machten met een reële exponent}
 
-In hoofdstuk 2 bewezen we de regel voor machten alleen voor natuurlijke en negatieve gehele exponenten, en voor $\frac12$. Met $\e^x$ en $\ln x$ kunnen we ze nu voor elke exponent bewijzen, als $x > 0$.
+In hoofdstuk 1 bewezen we de regel voor machten alleen voor natuurlijke en negatieve gehele exponenten, en voor $\frac12$. Met $\e^x$ en $\ln x$ kunnen we ze nu voor elke exponent bewijzen, als $x > 0$.
 
 \begin{theorie}
 \begin{stelling}{Afgeleide van een macht, voor \texorpdfstring{$x > 0$}{x > 0}}
@@ -466,9 +448,10 @@ Voor $x > 0$ is $x = \e^{\ln x}$, dus $x^r = \e^{r \ln x}$. De kettingregel geef
 
 Zo is de regel voor machten voor $x > 0$ volledig bewezen, ook voor exponenten zoals $\frac23$ of $\sqrt2$.
 
+\end{alleenvoor}
 \subsection{Combinaties}
 
-Met de rekenregels uit hoofdstuk 2 combineer je de nieuwe afgeleiden.
+Met de rekenregels uit hoofdstuk 1 combineer je de nieuwe afgeleiden.
 
 \voorbeeld{}{Bereken de afgeleide van $f(x) = x^2\e^x$.\label{vb:h3-combinatie}}{%
 \uitleg{Een product van twee factoren, dus de productregel. Elke factor kunnen we afleiden.}
@@ -492,7 +475,7 @@ g'(x) = \frac{\frac1x \cdot x - \ln x \cdot 1}{x^2} & Quotiëntregel. \\[2ex]
 
 \subsection{Overzicht}
 
-Met de rekenregels uit hoofdstuk 2 en de afgeleiden uit dit hoofdstuk kun je nu elke functie uit deze cursus afleiden. In de rechterkolom staat telkens de vorm met de kettingregel, met $u$ een functie van $x$.
+Met de rekenregels uit hoofdstuk 1 en de afgeleiden uit dit hoofdstuk kun je nu elke functie uit deze cursus afleiden. In de rechterkolom staat telkens de vorm met de kettingregel, met $u$ een functie van $x$.
 
 \needspace{18\baselineskip}
 \figuren{\renewcommand{\arraystretch}{2.4}%
@@ -500,9 +483,8 @@ Met de rekenregels uit hoofdstuk 2 en de afgeleiden uit dit hoofdstuk kun je nu 
 \hline
 \textbf{functie} & \textbf{afgeleide} & \textbf{met de kettingregel} \\ \hline
 $x^r$ & $r\,x^{r-1}$ & $(u^r)' = r\,u^{r-1}\,u'$ \\ \hline
-$\sin x$ & $\cos x$ & $(\sin u)' = \cos u \cdot u'$ \\ \hline
-$\cos x$ & $-\sin x$ & $(\cos u)' = -\sin u \cdot u'$ \\ \hline
-$\tan x$ & $\dfrac{1}{\cos^2 x} = 1 + \tan^2 x$ & $(\tan u)' = \dfrac{u'}{\cos^2 u}$ \\ \hline
+\alleenvoor{3}{$\sin x$ & $\cos x$ & $(\sin u)' = \cos u \cdot u'$ \\ \hline
+$\cos x$ & $-\sin x$ & $(\cos u)' = -\sin u \cdot u'$ \\ \hline}
 $\e^x$ & $\e^x$ & $(\e^u)' = \e^u\,u'$ \\ \hline
 $a^x$ & $a^x \ln a$ & $(a^u)' = a^u \ln a \cdot u'$ \\ \hline
 $\ln x$ & $\dfrac1x$ & $(\ln u)' = \dfrac{u'}{u}$ \\ \hline
@@ -566,8 +548,6 @@ $\log_a x$ & $\dfrac{1}{x \ln a}$ & $(\log_a u)' = \dfrac{u'}{u \ln a}$ \\ \hlin
 
 \oef{h3-o23}
 
-\oef{h3-o7}
-
 \oef{h3-o25}
 
 \oef{h3-o8}
@@ -582,20 +562,13 @@ $\log_a x$ & $\dfrac{1}{x \ln a}$ & $(\log_a u)' = \dfrac{u'}{u \ln a}$ \\ \hlin
 %----------------------------------------------------------------------------------------
 % KOPPEL: verbanden met andere leerstof
 %----------------------------------------------------------------------------------------
-\needspace{20\baselineskip}
+\needspace{\alleenvoor{2}{20}\alleenvoor{3}{12}\baselineskip}
 \opdrachtsectie{Koppel}
 
-\begin{alleenvoor}{2,3}
-\lkr{Integralen, Exponentiële en logaritmische functies en Goniometrische functies: kijk na wat al gezien is. Het pakket legt de volgorde niet vast.}
-\end{alleenvoor}
-\begin{alleenvoor}{1}
-\lkr{Exponentiële en logaritmische functies en Goniometrische functies: kijk na wat al gezien is. Het pakket legt de volgorde niet vast.}
-\end{alleenvoor}
+\lkr{Integralen\alleenvoor{2}{ en}\alleenvoor{3}{,} Exponentiële en logaritmische functies\alleenvoor{3}{ en Goniometrische functies}: kijk na wat al gezien is. Het pakket legt de volgorde niet vast.}
 
 \begin{oefeningen}
-\begin{alleenvoor}{2,3}
 \oef{h3-koppel-1}
-\end{alleenvoor}
 
 \oef{h3-koppel-2}
 
@@ -625,8 +598,8 @@ $\log_a x$ & $\dfrac{1}{x \ln a}$ & $(\log_a u)' = \dfrac{u'}{u \ln a}$ \\ \hlin
 
 \herhaalschema{%
   \fv{oef:h3-t1}{vb:h3-ketting}{oef:h3-kmacht}%
-  \fv{oef:h3-t2}{vb:h3-gonio}{oef:h3-gonio}%
-  \fv{oef:h3-t3}{vb:h3-explog}{oef:h3-o11}%
+\alleenvoor{3}{  \fv{oef:h3-t2}{vb:h3-gonio}{oef:h3-gonio}%
+}  \fv{oef:h3-t3}{vb:h3-explog}{oef:h3-o11}%
   \fv{oef:h3-t7}{vb:h3-ax}{oef:h3-explog2}%
   \fv{oef:h3-t4}{vb:h3-combinatie}{oef:h3-combi}%
   \fv{oef:h3-t5}{vb:h3-wortel}{oef:h3-o15}%
@@ -635,5 +608,5 @@ $\log_a x$ & $\dfrac{1}{x \ln a}$ & $(\log_a u)' = \dfrac{u'}{u \ln a}$ \\ \hlin
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: de kettingregel in woorden en in formule, de afgeleiden van $\sin$, $\cos$, $\tan$, $\e^x$, $a^x$, $\ln x$ en $\log_a x$, en waarom $\frac{\sin h}{h} \to 1$. Maak er een tabel van, samen met de regels uit hoofdstuk 2. Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: de kettingregel in woorden en in formule, wat het getal $\e$ is, de afgeleiden van \alleenvoor{3}{$\sin$, $\cos$, }$\e^x$, $a^x$, $\ln x$ en $\log_a x$\alleenvoor{3}{, en waarom $\frac{\sin h}{h} \to 1$}. Maak er een tabel van, samen met de regels uit hoofdstuk 1. Vergelijk daarna met de kaders.
 \fi
