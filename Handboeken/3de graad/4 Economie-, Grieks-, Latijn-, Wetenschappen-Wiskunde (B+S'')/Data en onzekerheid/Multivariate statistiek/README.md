@@ -26,7 +26,7 @@ Cursus voor pakket 4 (B+S''), als uitbreiding: bij KOV hoort ze bij het leerplan
 
 ## Oefeningen
 
-De 124 oefeningen staan in `oefeningen/*.yaml`, per hoofdstuk (42, 41 en 41): telkens 2 Start, 8 korte oefeningen, 21 Opdrachten op drie niveaus (69, 61 en 60 deelvragen), 4, 3 en 3 Koppel en 7 testvragen. Er zijn geen prenten.
+De 125 oefeningen staan in `oefeningen/*.yaml`, per hoofdstuk (42, 41 en 42): telkens 2 Start, 8 korte oefeningen, 21 Opdrachten op drie niveaus (69, 61 en 60 deelvragen), 4, 3 en 4 Koppel (de vierde van hoofdstuk 3 verwijst naar de module Eigenwaarden en eigenvectoren) en 7 testvragen. Er zijn geen prenten.
 
 ## Eigen macro's
 

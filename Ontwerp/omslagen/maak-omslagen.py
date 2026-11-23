@@ -70,6 +70,7 @@ SCHILDERIJEN = {
     "bolle-spiegel": ("File:Francesco Mazzola, called Parmigianino - Self-Portrait in a Convex Mirror - Google Art Project.jpg", 0.5, 0.5),  # Parmigianino, Zelfportret in een bolle spiegel (oppervlakken)
     "theekransje": ("File:John Tenniel - Illustration from The Nursery Alice (1890) - c03757 07.jpg", 0.45, 0.5),  # Tenniel, predicatenlogica
     "hooiwagen": ("File:John Constable - The Hay Wain (1821).jpg", 0.25, 0.5),  # Constable, De hooiwagen: een rollend wiel (krommen en meetkundige plaatsen)
+    "spinsters": ("File:Velázquez - La Fábula de Aracne o Las Hilanderas (Museo del Prado, 1657-58).jpg", 0.15, 0.5),  # Velázquez, De spinsters: het spinnewiel draait om een vaste as (eigenwaarden en eigenvectoren)
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),

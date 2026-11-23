@@ -1,0 +1,992 @@
+# Oefeningen van hoofdstuk 2. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{0{,}6 & 0{,}2 \\ 0{,}4 & 0{,}8}\kol{300 \\ 500}$
+      antwoord: |-
+        $\kol{280 \\ 520}$
+      uitwerking: |-
+        $\kol{180 + 100 \\ 120 + 400}$.
+    - opgave: |-
+        de eigenwaarden van $\km{1 & 4 \\ 0{,}5 & 0}$
+      antwoord: |-
+        2 en $-1$
+      uitwerking: |-
+        $(1 - \lambda)(-\lambda) - 2 = \lambda^2 - \lambda - 2 = (\lambda - 2)(\lambda + 1)$.
+    - opgave: |-
+        $\displaystyle\lim_{n \to \infty} 0{,}4^n$
+      antwoord: |-
+        0
+      uitwerking: |-
+        Een meetkundige rij met reden $0{,}4$, en $\abs{0{,}4} < 1$.
+    - opgave: |-
+        $4c_1 + 2c_2 = 10$, $c_1 - c_2 = 1$
+      antwoord: |-
+        $c_1 = 2$, $c_2 = 1$
+      uitwerking: |-
+        Tel de eerste en twee keer de tweede op: $6c_1 = 12$.
+    - opgave: |-
+        $1{,}05^{10}$, op drie decimalen
+      antwoord: |-
+        $1{,}629$
+      uitwerking: |-
+        Met het rekentoestel: $1{,}62889\ldots$
+    - opgave: |-
+        het aandeel van elke toestand in $(6, 3, 1)$
+      antwoord: |-
+        $(0{,}6;\ 0{,}3;\ 0{,}1)$
+      uitwerking: |-
+        Deel door het totaal 10.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem de overgangsmatrix $M = \km{0{,}6 & 0{,}2 \\ 0{,}4 & 0{,}8}$ van de refter uit Matrices (eerst warm, dan boterhammen).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $M\kol{1 \\ 2} = \kol{1 \\ 2}$. Wat betekent dat voor de refter?
+      antwoord: |-
+        $(1, 2)$ is een eigenvector bij 1: het evenwicht
+      uitwerking: |-
+        $\kol{0{,}6 + 0{,}4 \\ 0{,}4 + 1{,}6} = \kol{1 \\ 2}$. Een toestand met twee keer zoveel boterhameters als warme eters verandert niet: het evenwicht, met een derde warm.
+    - opgave: |-
+        Bereken $M\kol{1 \\ -1}$ en $M^2\kol{1 \\ -1}$.
+      antwoord: |-
+        $0{,}4\kol{1 \\ -1}$ en $0{,}16\kol{1 \\ -1}$
+      uitwerking: |-
+        $M\kol{1 \\ -1} = \kol{0{,}4 \\ -0{,}4}$, een eigenvector bij $0{,}4$. Nog eens vermenigvuldigen geeft $0{,}4^2 = 0{,}16$ keer de vector.
+    - opgave: |-
+        Schrijf $(300, 500)$ als $a(1, 2) + b(1, -1)$. Wat gebeurt er met elk van de twee stukken na veel dagen?
+      antwoord: |-
+        $a = \tfrac{800}{3}$, $b = \tfrac{100}{3}$; het tweede stuk verdwijnt
+      uitwerking: |-
+        $a + b = 300$ en $2a - b = 500$ geven $3a = 800$. Het eerste stuk verandert niet, het tweede wordt elke dag met $0{,}4$ vermenigvuldigd en gaat naar 0. Op lange termijn blijft $\tfrac{800}{3}(1, 2)$: ongeveer 267 warme eters.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h2-even
+  soort: kort
+  opgave: |-
+    Bereken het evenwicht in aandelen als een eigenvector bij 1.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{0{,}9 & 0{,}3 \\ 0{,}1 & 0{,}7}$
+      antwoord: |-
+        $\bigl(\tfrac34, \tfrac14\bigr)$
+      uitwerking: |-
+        $M - I = \km{-0{,}1 & 0{,}3 \\ 0{,}1 & -0{,}3}$: $x = 3y$, dus $\Eig{1} = \vb{(3, 1)}$; deel door 4.
+    - opgave: |-
+        $\km{0{,}5 & 0{,}2 \\ 0{,}5 & 0{,}8}$
+      antwoord: |-
+        $\bigl(\tfrac27, \tfrac57\bigr)$
+      uitwerking: |-
+        $M - I = \km{-0{,}5 & 0{,}2 \\ 0{,}5 & -0{,}2}$: $5x = 2y$, dus $\Eig{1} = \vb{(2, 5)}$; deel door 7.
+
+- id: h2-markov3
+  soort: kort
+  opgave: |-
+    Bereken het evenwicht in aandelen van $M = \km{0{,}6 & 0{,}3 & 0{,}1 \\ 0{,}2 & 0{,}5 & 0{,}2 \\ 0{,}2 & 0{,}2 & 0{,}7}$.
+  antwoord: |-
+    $\tfrac{1}{35}(11, 10, 14) \approx (0{,}314;\ 0{,}286;\ 0{,}400)$
+  uitwerking: |-
+    $10(M - I) = \km{-4 & 3 & 1 \\ 2 & -5 & 2 \\ 2 & 2 & -3}$ herleidt tot $x = \tfrac{11}{14}z$, $y = \tfrac{10}{14}z$. Met $z = 14$: $(11, 10, 14)$, met som 35.\\
+    Controle: $M\kol{11 \\ 10 \\ 14} = \kol{6{,}6 + 3 + 1{,}4 \\ 2{,}2 + 5 + 2{,}8 \\ 2{,}2 + 2 + 9{,}8} = \kol{11 \\ 10 \\ 14}$.
+
+- id: h2-leslie
+  soort: kort
+  opgave: |-
+    Neem $L = \km{0{,}5 & 1 & 2 \\ 0{,}6 & 0 & 0 \\ 0 & 0{,}5 & 0}$. Geef de karakteristieke veelterm zonder determinant uit te rekenen, en bereken $R_0$. Is er een stabiele populatie?
+  antwoord: |-
+    $-\lambda^3 + 0{,}5\lambda^2 + 0{,}6\lambda + 0{,}6$; $R_0 = 1{,}7$; nee
+  uitwerking: |-
+    $v_1 = 0{,}5$, $v_2o_1 = 0{,}6$ en $v_3o_1o_2 = 2 \cdot 0{,}6 \cdot 0{,}5 = 0{,}6$. $R_0 = 0{,}5 + 0{,}6 + 0{,}6 = 1{,}7 \neq 1$: 1 is geen eigenwaarde. (Controle: $p_L(1) = -1 + 1{,}7 = 0{,}7 \neq 0$.)
+
+- id: h2-stabiel
+  soort: kort
+  opgave: |-
+    Stabiele populaties.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $L = \km{0{,}4 & 1{,}5 \\ 0{,}4 & 0}$ een stabiele populatie heeft, en geef de verdeling.
+      antwoord: |-
+        $R_0 = 1$; jong en oud in verhouding $5 : 2$
+      uitwerking: |-
+        $R_0 = 0{,}4 + 0{,}4 \cdot 1{,}5 = 1$. $X = (1;\ 0{,}4) \sim (5, 2)$: $\tfrac57 \approx 71~\%$ jong.
+    - opgave: |-
+        Bij welke $v_2$ is $L = \km{0 & v_2 & 2 \\ 0{,}5 & 0 & 0 \\ 0 & 0{,}25 & 0}$ stabiel? Geef de stabiele verdeling.
+      antwoord: |-
+        $v_2 = 1{,}5$; $(8, 4, 1)$
+      uitwerking: |-
+        $R_0 = 0{,}5\,v_2 + 0{,}5 \cdot 0{,}25 \cdot 2 = 0{,}5\,v_2 + 0{,}25 = 1$. $X = (1;\ 0{,}5;\ 0{,}125) \sim (8, 4, 1)$.
+
+- id: h2-macht
+  soort: kort
+  opgave: |-
+    De matrix $A = \km{4 & -2 \\ 1 & 1}$ heeft de eigenwaarde 2 bij $(1, 1)$ en 3 bij $(2, 1)$ (hoofdstuk 1). Bereken zonder machten van $A$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $A^{10}\kol{1 \\ 1}$
+      antwoord: |-
+        $\kol{1024 \\ 1024}$
+      uitwerking: |-
+        $2^{10}\kol{1 \\ 1}$.
+    - opgave: |-
+        $A^4\kol{2 \\ 1}$
+      antwoord: |-
+        $\kol{162 \\ 81}$
+      uitwerking: |-
+        $3^4\kol{2 \\ 1} = 81\kol{2 \\ 1}$.
+    - opgave: |-
+        $A^3\kol{-3 \\ -3}$
+      antwoord: |-
+        $\kol{-24 \\ -24}$
+      uitwerking: |-
+        $(-3, -3)$ is ook een eigenvector bij 2: $2^3\kol{-3 \\ -3}$.
+
+- id: h2-comb
+  soort: kort
+  opgave: |-
+    Neem $A = \km{4 & -2 \\ 1 & 1}$ en $X_0 = (1, 0)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $X_0$ als combinatie van $(1, 1)$ en $(2, 1)$, en geef een formule voor $A^nX_0$.
+      antwoord: |-
+        $A^nX_0 = (2 \cdot 3^n - 2^n,\ 3^n - 2^n)$
+      uitwerking: |-
+        $(1, 0) = -(1, 1) + (2, 1)$, dus $A^nX_0 = -2^n(1, 1) + 3^n(2, 1)$. Controle met $n = 1$: $(6 - 2, 3 - 2) = (4, 1) = A\kol{1 \\ 0}$.
+    - opgave: |-
+        Bereken $A^5X_0$.
+      antwoord: |-
+        $(454, 211)$
+      uitwerking: |-
+        $(2 \cdot 243 - 32,\ 243 - 32)$.
+
+- id: h2-dom
+  soort: kort
+  opgave: |-
+    Een populatie met twee leeftijdsklassen heeft als lesliematrix $L = \km{1 & 1{,}5 \\ 0{,}5 & 0}$. Bereken de groeifactor op lange termijn en de stabiele leeftijdsverdeling.
+  antwoord: |-
+    $1{,}5$; 75~\% jong en 25~\% oud
+  uitwerking: |-
+    $\lambda^2 - \lambda - 0{,}75 = 0$ geeft $\lambda = 1{,}5$ of $\lambda = -0{,}5$: $1{,}5$ is dominant.\\
+    $L - 1{,}5I = \km{-0{,}5 & 1{,}5 \\ 0{,}5 & -1{,}5}$: $x = 3y$, dus $\vec v_1 = (3, 1)$. De populatie groeit op lange termijn met 50~\% per jaar.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    evenwicht van een overgangsmatrix
+  opgave: |-
+    Bereken het evenwicht in aandelen.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{0{,}75 & 0{,}5 \\ 0{,}25 & 0{,}5}$
+      antwoord: |-
+        $\bigl(\tfrac23, \tfrac13\bigr)$
+      uitwerking: |-
+        $-0{,}25x + 0{,}5y = 0$: $x = 2y$, dus $\vb{(2, 1)}$; deel door 3.
+    - opgave: |-
+        $\km{0{,}6 & 0{,}1 \\ 0{,}4 & 0{,}9}$
+      antwoord: |-
+        $\bigl(\tfrac15, \tfrac45\bigr)$
+      uitwerking: |-
+        $-0{,}4x + 0{,}1y = 0$: $y = 4x$, dus $\vb{(1, 4)}$; deel door 5.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    is 1 een eigenwaarde?
+  opgave: |-
+    Is 1 een eigenwaarde? Zo ja, geef de eigenruimte.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\km{0{,}4 & 1{,}2 \\ 0{,}5 & 0}$
+      antwoord: |-
+        ja, $\vb{(2, 1)}$
+      uitwerking: |-
+        $\det(A - I) = (-0{,}6)(-1) - 0{,}6 = 0$. $-0{,}6x + 1{,}2y = 0$ geeft $x = 2y$.
+    - opgave: |-
+        $\km{1 & 4 \\ 0{,}5 & 0}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\det(A - I) = 0 \cdot (-1) - 2 = -2 \neq 0$.
+    - opgave: |-
+        $\km{0{,}7 & 0{,}4 \\ 0{,}3 & 0{,}6}$
+      antwoord: |-
+        ja, $\vb{(4, 3)}$
+      uitwerking: |-
+        Een overgangsmatrix: kolomsom 1. $-0{,}3x + 0{,}4y = 0$.
+    - opgave: |-
+        $\km{0 & 3 \\ \tfrac13 & 0}$
+      antwoord: |-
+        ja, $\vb{(3, 1)}$
+      uitwerking: |-
+        $\det(A - I) = 1 - 1 = 0$. $-x + 3y = 0$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    machten op eigenvectoren
+  opgave: |-
+    De matrix $A = \km{3 & -1 \\ 2 & 0}$ uit hoofdstuk 1 heeft de eigenwaarde 2 bij $(1, 1)$ en 1 bij $(1, 2)$. Bereken zonder machten van $A$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $A^8\kol{1 \\ 1}$
+      antwoord: |-
+        $\kol{256 \\ 256}$
+      uitwerking: |-
+        $2^8\kol{1 \\ 1}$.
+    - opgave: |-
+        $A^{100}\kol{2 \\ 4}$
+      antwoord: |-
+        $\kol{2 \\ 4}$
+      uitwerking: |-
+        Een eigenvector bij 1: $1^{100} = 1$.
+    - opgave: |-
+        $A^6\kol{0 \\ 1}$
+      antwoord: |-
+        $\kol{-63 \\ -62}$
+      uitwerking: |-
+        $(0, 1) = -(1, 1) + (1, 2)$, dus $A^6\kol{0 \\ 1} = -64\kol{1 \\ 1} + \kol{1 \\ 2}$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    lesliematrix van orde 3
+  opgave: |-
+    Neem de lesliematrix $L = \km{0 & 2 & 3 \\ 0{,}5 & 0 & 0 \\ 0 & 0{,}4 & 0}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de karakteristieke veelterm zonder determinant uit te rekenen.
+      antwoord: |-
+        $-\lambda^3 + \lambda + 0{,}6$
+      uitwerking: |-
+        $v_1 = 0$, $v_2o_1 = 2 \cdot 0{,}5 = 1$ en $v_3o_1o_2 = 3 \cdot 0{,}5 \cdot 0{,}4 = 0{,}6$.
+    - opgave: |-
+        Bereken $R_0$. Is er een stabiele populatie?
+      antwoord: |-
+        $R_0 = 1{,}6$; nee
+      uitwerking: |-
+        $R_0 = 0 + 0{,}5 \cdot 2 + 0{,}2 \cdot 3 = 1{,}6 \neq 1$, dus 1 is geen eigenwaarde.
+    - opgave: |-
+        Bereken de dominante eigenwaarde met ICT. Met hoeveel procent groeit de populatie op lange termijn per jaar?
+      antwoord: |-
+        $\lambda_1 \approx 1{,}221$; 22~\%
+      uitwerking: |-
+        De enige reële nulwaarde van $\lambda^3 - \lambda - 0{,}6$ is $1{,}2212$. De andere twee zijn complex, met absolute waarde $\sqrt{0{,}6/1{,}2212} \approx 0{,}70$.
+    - opgave: |-
+        Geef de stabiele leeftijdsverdeling.
+      antwoord: |-
+        ongeveer 65~\%, 27~\% en 9~\%
+      uitwerking: |-
+        $\vec v_1 = \bigl(1,\ \tfrac{0{,}5}{\lambda_1},\ \tfrac{0{,}2}{\lambda_1^2}\bigr) \approx (1;\ 0{,}409;\ 0{,}134)$, met som $1{,}544$: $(0{,}648;\ 0{,}265;\ 0{,}087)$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    context: drie filialen van een bibliotheek
+  opgave: |-
+    Een bibliotheek heeft drie filialen: Centrum ($C$), Haven ($H$) en Station ($S$). Een boek mag in elk filiaal terug. Van de boeken uit $C$ komt 70~\% terug in $C$, 20~\% in $H$ en 10~\% in $S$. Van de boeken uit $H$: 20~\% in $C$, 60~\% in $H$, 20~\% in $S$. Van de boeken uit $S$: 10~\% in $C$, 30~\% in $H$, 60~\% in $S$. De bibliotheek heeft 5800 boeken die uitgeleend worden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de overgangsmatrix op, en teken het overgangsdiagram.
+      antwoord: |-
+        $\km{0{,}7 & 0{,}2 & 0{,}1 \\ 0{,}2 & 0{,}6 & 0{,}3 \\ 0{,}1 & 0{,}2 & 0{,}6}$
+      uitwerking: |-
+        Kolom 1 is \textit{van} $C$, met de kansen naar $C$, $H$ en $S$. Elke kolomsom is 1.
+    - opgave: |-
+        Hoeveel van die boeken staan op lange termijn in elk filiaal?
+      antwoord: |-
+        2000 in $C$, 2200 in $H$, 1600 in $S$
+      uitwerking: |-
+        $10(M - I) = \km{-3 & 2 & 1 \\ 2 & -4 & 3 \\ 1 & 2 & -4}$ herleidt tot $x = \tfrac{10}{8}z$, $y = \tfrac{11}{8}z$: $\Eig{1} = \vb{(10, 11, 8)}$, met som 29. Maal $\tfrac{5800}{29} = 200$.
+    - opgave: |-
+        Welk filiaal heeft op lange termijn de meeste rekken nodig, hoewel het niet het grootste aandeel van zijn eigen boeken terugkrijgt?
+      antwoord: |-
+        Haven
+      uitwerking: |-
+        $H$ krijgt veel boeken uit $S$ (30~\%) en uit $C$ (20~\%), en heeft er op lange termijn 2200, meer dan $C$, dat zijn eigen boeken het best terugkrijgt (70~\%).
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    groei, stabiel of uitsterven met R0
+  opgave: |-
+    Bereken $R_0$. Groeit de populatie op lange termijn, blijft ze stabiel of sterft ze uit? Gebruik dat de dominante eigenwaarde groter is dan 1 als $R_0 > 1$, en kleiner als $R_0 < 1$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\km{0{,}3 & 1{,}4 \\ 0{,}5 & 0}$
+      antwoord: |-
+        $R_0 = 1$: stabiel
+      uitwerking: |-
+        $0{,}3 + 0{,}5 \cdot 1{,}4 = 1$.
+    - opgave: |-
+        $\km{0 & 2 & 3 \\ 0{,}5 & 0 & 0 \\ 0 & 0{,}4 & 0}$
+      antwoord: |-
+        $R_0 = 1{,}6$: groeit
+      uitwerking: |-
+        $0 + 1 + 0{,}6 = 1{,}6$.
+    - opgave: |-
+        $\km{0{,}2 & 0{,}6 & 0{,}8 \\ 0{,}6 & 0 & 0 \\ 0 & 0{,}5 & 0}$
+      antwoord: |-
+        $R_0 = 0{,}8$: sterft uit
+      uitwerking: |-
+        $0{,}2 + 0{,}6 \cdot 0{,}6 + 0{,}6 \cdot 0{,}5 \cdot 0{,}8 = 0{,}2 + 0{,}36 + 0{,}24 = 0{,}8$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    stabiele populatie met een parameter
+  opgave: |-
+    Een vissoort heeft twee leeftijdsklassen, met lesliematrix $L = \km{0{,}6 & v \\ 0{,}5 & 0}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij welke $v$ is de populatie stabiel? Geef de stabiele verdeling.
+      antwoord: |-
+        $v = 0{,}8$; $(2, 1)$
+      uitwerking: |-
+        $R_0 = 0{,}6 + 0{,}5\,v = 1$. $X = (1;\ 0{,}5) \sim (2, 1)$: twee derde jonge vissen.
+    - opgave: |-
+        Door beter voedsel stijgt $v$ naar $1{,}2$. Bereken de groeifactor op lange termijn.
+      antwoord: |-
+        ongeveer $1{,}131$
+      uitwerking: |-
+        $\lambda^2 - 0{,}6\lambda - 0{,}6 = 0$ geeft $\lambda = \dfrac{0{,}6 + \sqrt{0{,}36 + 2{,}4}}{2} \approx 1{,}131$: 13~\% groei per jaar.
+    - opgave: |-
+        Hoe verandert de verdeling over de klassen dan?
+      antwoord: |-
+        ongeveer 69~\% jong
+      uitwerking: |-
+        $\vec v_1 = (1,\ \tfrac{0{,}5}{\lambda_1}) \approx (1;\ 0{,}442)$: $\tfrac{1}{1{,}442} \approx 69~\%$ jong, iets meer dan de twee derde bij een stabiele populatie.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    context: het weer, met een expliciete formule
+  opgave: |-
+    In een eenvoudig weermodel is een dag zonnig ($Z$) of regenachtig ($R$). Na een zonnige dag is de volgende dag met kans $0{,}9$ zonnig, na een regendag met kans $0{,}3$. Vandaag is het zonnig.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de overgangsmatrix $M$ op en bereken het evenwicht.
+      antwoord: |-
+        $M = \km{0{,}9 & 0{,}3 \\ 0{,}1 & 0{,}7}$; $\bigl(\tfrac34, \tfrac14\bigr)$
+      uitwerking: |-
+        $-0{,}1x + 0{,}3y = 0$ geeft $\vb{(3, 1)}$.
+    - opgave: |-
+        Bepaal de andere eigenwaarde met het spoor, en een eigenvector erbij.
+      antwoord: |-
+        $0{,}6$ bij $(1, -1)$
+      uitwerking: |-
+        $1 + \lambda_2 = 1{,}6$. $M - 0{,}6I = \km{0{,}3 & 0{,}3 \\ 0{,}1 & 0{,}1}$ geeft $x = -y$.
+    - opgave: |-
+        Toon aan dat de kans op zon na $n$ dagen gelijk is aan $\tfrac34 + \tfrac14 \cdot 0{,}6^n$.
+      antwoord: |-
+        $X_0 = \tfrac14(3, 1) + \tfrac14(1, -1)$
+      uitwerking: |-
+        $(1, 0) = \tfrac14(3, 1) + \tfrac14(1, -1)$, dus $X_n = \tfrac14(3, 1) + \tfrac14 \cdot 0{,}6^n(1, -1)$. De eerste coördinaat is $\tfrac34 + \tfrac14 \cdot 0{,}6^n$.
+    - opgave: |-
+        Bereken de kans op zon over drie dagen.
+      antwoord: |-
+        $0{,}804$
+      uitwerking: |-
+        $0{,}75 + 0{,}25 \cdot 0{,}216 = 0{,}804$.
+    - opgave: |-
+        Vanaf welke dag verschilt de kans op zon minder dan 1 procentpunt van 75~\%?
+      antwoord: |-
+        vanaf de 7de dag
+      uitwerking: |-
+        $0{,}25 \cdot 0{,}6^n < 0{,}01 \iff 0{,}6^n < 0{,}04 \iff n > \dfrac{\log 0{,}04}{\log 0{,}6} \approx 6{,}3$.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    expliciete formule voor een populatie
+  opgave: |-
+    Neem $L = \km{0{,}5 & 3 \\ 0{,}5 & 0}$ en een begintoestand van 100 jonge en 100 oude dieren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de eigenwaarden en eigenvectoren.
+      antwoord: |-
+        $1{,}5$ bij $(3, 1)$, $-1$ bij $(-2, 1)$
+      uitwerking: |-
+        $\lambda^2 - 0{,}5\lambda - 1{,}5 = 0$: $\lambda = \tfrac{0{,}5 \pm 2{,}5}{2}$. $L - 1{,}5I = \km{-1 & 3 \\ 0{,}5 & -1{,}5}$ en $L + I = \km{1{,}5 & 3 \\ 0{,}5 & 1}$.
+    - opgave: |-
+        Geef een formule voor $X_n$.
+      antwoord: |-
+        $X_n = 60 \cdot 1{,}5^n(3, 1) + 40\,(-1)^n(-2, 1)$
+      uitwerking: |-
+        $3c_1 - 2c_2 = 100$ en $c_1 + c_2 = 100$ geven $c_1 = 60$, $c_2 = 40$. Controle: $X_1 = (270 + 80,\ 90 - 40) = (350, 50) = L\kol{100 \\ 100}$.
+    - opgave: |-
+        Bereken $X_4$ met de formule.
+      antwoord: |-
+        $(831{,}25;\ 343{,}75)$
+      uitwerking: |-
+        $1{,}5^4 = 5{,}0625$: $(911{,}25 - 80;\ 303{,}75 + 40)$.
+    - opgave: |-
+        Wat gebeurt er op lange termijn?
+      antwoord: |-
+        groei met 50~\% per jaar, 75~\% jong
+      uitwerking: |-
+        $1{,}5$ is dominant ($\abs{-1} < 1{,}5$). De tweede term blijft schommelen tussen $\pm 40(-2, 1)$, maar wordt verwaarloosbaar naast de eerste.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    geen dominante eigenwaarde: een cyclus
+  opgave: |-
+    Een insect leeft twee jaar en plant zich alleen in het tweede jaar voort: $L = \km{0 & 4 \\ 0{,}25 & 0}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de eigenwaarden. Is er een dominante eigenwaarde?
+      antwoord: |-
+        $1$ en $-1$; nee
+      uitwerking: |-
+        $\lambda^2 - 1 = 0$. De absolute waarden zijn gelijk.
+    - opgave: |-
+        Bereken $L^2$.
+      antwoord: |-
+        $I$
+      uitwerking: |-
+        $\km{0 + 1 & 0 \\ 0 & 1 + 0}$.
+    - opgave: |-
+        Start met 100 jonge en 40 oude insecten. Bereken de populatie na 1, 2 en 2025 jaar.
+      antwoord: |-
+        $(160, 25)$, $(100, 40)$, $(160, 25)$
+      uitwerking: |-
+        $L\kol{100 \\ 40} = \kol{160 \\ 25}$, en $L^2 = I$: na een even aantal jaren $(100, 40)$, na een oneven aantal $(160, 25)$.
+    - opgave: |-
+        Bij welke begintoestanden blijft de populatie elk jaar dezelfde?
+      antwoord: |-
+        de veelvouden van $(4, 1)$
+      uitwerking: |-
+        De eigenvectoren bij 1: $-x + 4y = 0$.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    context: een opgezegd abonnement
+  opgave: |-
+    Een krant heeft actieve ($A$), gepauzeerde ($G$) en opgezegde ($O$) abonnementen. Elke maand geldt de overgangsmatrix $M = \km{0{,}8 & 0{,}3 & 0 \\ 0{,}1 & 0{,}5 & 0 \\ 0{,}1 & 0{,}2 & 1}$, in de volgorde $A$, $G$, $O$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat betekent de derde kolom?
+      antwoord: |-
+        wie opzegt, blijft opgezegd
+      uitwerking: |-
+        Van $O$ gaat alles naar $O$: een toestand die je nooit meer verlaat.
+    - opgave: |-
+        Bereken het evenwicht.
+      antwoord: |-
+        $(0, 0, 1)$
+      uitwerking: |-
+        $M - I = \km{-0{,}2 & 0{,}3 & 0 \\ 0{,}1 & -0{,}5 & 0 \\ 0{,}1 & 0{,}2 & 0}$. De eerste twee rijen geven $x = y = 0$, en $z$ is vrij.
+    - opgave: |-
+        Toon aan dat de andere eigenwaarden de nulwaarden zijn van $\lambda^2 - 1{,}3\lambda + 0{,}37$, en bereken ze.
+      antwoord: |-
+        ongeveer $0{,}879$ en $0{,}421$
+      uitwerking: |-
+        Ontwikkel naar de derde kolom: $p(\lambda) = (1 - \lambda)\bigl((0{,}8 - \lambda)(0{,}5 - \lambda) - 0{,}03\bigr)$. $\lambda = \tfrac{1{,}3 \pm \sqrt{0{,}21}}{2}$.
+    - opgave: |-
+        Wat voorspelt het model op lange termijn? Is dat realistisch?
+      antwoord: |-
+        alle abonnementen worden opgezegd
+      uitwerking: |-
+        1 is dominant, met evenwicht $(0, 0, 1)$. Het aantal actieve abonnementen daalt ongeveer met factor $0{,}879$ per maand. Niet realistisch: het model kent geen nieuwe abonnees.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    context: rangschikken van webpagina's
+  opgave: |-
+    Een zoekmachine rangschikt drie pagina's. Een surfer klikt telkens op een willekeurige link van de pagina waar hij is. Pagina $A$ linkt naar $B$ en $C$, $B$ naar $C$, en $C$ naar $A$. Hoe vaker een surfer op lange termijn op een pagina is, hoe hoger ze komt.
+  figuur:
+    opties: |-
+      3.2cm
+    code: |-
+      \begin{tikzpicture}[font=\small]
+        \node[knoop] (a) at (0,0) {A};
+        \node[knoop] (b) at (2.4,0) {B};
+        \node[knoop] (c) at (1.2,-2) {C};
+        \draw[boog] (a) -- (b);
+        \draw[boog] (a) to[bend left=15] (c);
+        \draw[boog] (b) -- (c);
+        \draw[boog] (c) to[bend left=15] (a);
+      \end{tikzpicture}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de overgangsmatrix op.
+      antwoord: |-
+        $\km{0 & 0 & 1 \\ \tfrac12 & 0 & 0 \\ \tfrac12 & 1 & 0}$
+      uitwerking: |-
+        Uit $A$ elk van de twee links met kans $\tfrac12$; uit $B$ en $C$ één link.
+    - opgave: |-
+        Bereken het evenwicht.
+      antwoord: |-
+        $\tfrac15(2, 1, 2)$
+      uitwerking: |-
+        $MX = X$: $z = x$, $\tfrac12 x = y$ en $\tfrac12 x + y = z$. Met $x = 2$: $(2, 1, 2)$, met som 5.
+    - opgave: |-
+        Geef de rangschikking. Waarom staat $A$ even hoog als $C$, hoewel $A$ maar één inkomende link heeft en $C$ twee?
+      antwoord: |-
+        $A$ en $C$ samen bovenaan, dan $B$
+      uitwerking: |-
+        $C$ krijgt alle bezoekers van $B$ en de helft van die van $A$. $A$ krijgt alle bezoekers van $C$. Niet het aantal links telt, maar hoe belangrijk de pagina's zijn die naar je linken: dat idee zit achter PageRank (1998).
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de uilen bij een kleinere overlevingskans
+  opgave: |-
+    Neem de uilen uit het probleem met $s = 0{,}3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de karakteristieke veelterm en $R_0$.
+      antwoord: |-
+        $-\lambda^3 + 0{,}45\lambda + 0{,}36$; $R_0 = 0{,}81$
+      uitwerking: |-
+        $v_2o_1 = 1{,}5 \cdot 0{,}3 = 0{,}45$ en $v_3o_1o_2 = 2 \cdot 0{,}3 \cdot 0{,}6 = 0{,}36$. $R_0 = 0{,}45 + 0{,}36$.
+    - opgave: |-
+        Bereken de dominante eigenwaarde met ICT. Met hoeveel procent daalt de populatie per jaar?
+      antwoord: |-
+        $\lambda_1 \approx 0{,}918$; 8,2~\%
+      uitwerking: |-
+        De reële nulwaarde is $0{,}9177$.
+    - opgave: |-
+        Na hoeveel jaar is de populatie ongeveer gehalveerd?
+      antwoord: |-
+        na ongeveer 8 jaar
+      uitwerking: |-
+        $0{,}9177^n = 0{,}5 \iff n = \dfrac{\log 0{,}5}{\log 0{,}9177} \approx 8{,}1$.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    combinatie van drie eigenvectoren
+  opgave: |-
+    De matrix $C = \km{2 & 1 & -1 \\ 0 & 4 & 3 \\ 0 & -1 & 0}$ uit hoofdstuk 1 heeft de eigenwaarden 1, 2 en 3, met eigenvectoren $(2, -1, 1)$, $(1, 0, 0)$ en $(-4, -3, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $X_0 = (-1, -4, 2)$ als combinatie van de drie eigenvectoren.
+      antwoord: |-
+        de som van de drie
+      uitwerking: |-
+        $a(2, -1, 1) + b(1, 0, 0) + c(-4, -3, 1)$: uit de tweede en derde coördinaat $-a - 3c = -4$ en $a + c = 2$, dus $a = c = 1$; uit de eerste $b = 1$.
+    - opgave: |-
+        Geef een formule voor $C^nX_0$, en bereken $C^4X_0$.
+      antwoord: |-
+        $(2, -1, 1) + 2^n(1, 0, 0) + 3^n(-4, -3, 1)$; $(-306, -244, 82)$
+      uitwerking: |-
+        Met $n = 4$: $(2 + 16 - 324,\ -1 - 243,\ 1 + 81)$.
+    - opgave: |-
+        Welke richting neemt $C^nX_0$ op lange termijn aan?
+      antwoord: |-
+        die van $(-4, -3, 1)$
+      uitwerking: |-
+        3 is dominant: $C^nX_0 \approx 3^n(-4, -3, 1)$.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten: waar of vals
+  opgave: |-
+    Waar of vals? Verklaar, of geef een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Elke lesliematrix heeft de eigenwaarde 1.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        $\km{1 & 4 \\ 0{,}5 & 0}$ heeft de eigenwaarden 2 en $-1$. Alleen een overgangsmatrix heeft altijd de eigenwaarde 1.
+    - opgave: |-
+        Een overgangsmatrix heeft precies één evenwicht in aandelen.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Bij $M = I$ (niemand verandert ooit) is elke toestand een evenwicht.
+    - opgave: |-
+        Heeft $A$ de eigenwaarde 1, dan gaat $A^nX_0$ voor elke $X_0$ naar een evenwicht.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        $A = \km{0 & 1 \\ 1 & 0}$ heeft de eigenwaarden 1 en $-1$; met $X_0 = (1, 0)$ wisselt $A^nX_0$ eeuwig tussen $(1, 0)$ en $(0, 1)$.
+    - opgave: |-
+        Is de dominante eigenwaarde van een lesliematrix $0{,}95$, dan sterft de populatie uit.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        $X_n \approx c_1 \cdot 0{,}95^n\vec v_1 \to O$.
+    - opgave: |-
+        $A$ en $A^2$ hebben dezelfde evenwichten.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Met $A = \km{0 & 1 \\ 1 & 0}$ is $A^2 = I$: elke vector is een evenwicht van $A^2$, maar van $A$ alleen de veelvouden van $(1, 1)$. Wel is elk evenwicht van $A$ ook een evenwicht van $A^2$.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    context: twee groeiende wijken
+  opgave: |-
+    In een stad met twee wijken, Noord ($N$) en Zuid ($Z$), geldt elk jaar (in duizenden inwoners) $N_{n+1} = 1{,}1N_n + 0{,}1Z_n$ en $Z_{n+1} = 0{,}2N_n + Z_n$. Nu wonen er 30\,000 mensen in Noord en 20\,000 in Zuid.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de matrix $A$ van het model, en bereken de eigenwaarden en eigenvectoren.
+      antwoord: |-
+        $\km{1{,}1 & 0{,}1 \\ 0{,}2 & 1}$; $1{,}2$ bij $(1, 1)$, $0{,}9$ bij $(1, -2)$
+      uitwerking: |-
+        $\lambda^2 - 2{,}1\lambda + 1{,}08 = 0$: $\lambda = \tfrac{2{,}1 \pm 0{,}3}{2}$. $A - 1{,}2I = \km{-0{,}1 & 0{,}1 \\ 0{,}2 & -0{,}2}$ en $A - 0{,}9I = \km{0{,}2 & 0{,}1 \\ 0{,}2 & 0{,}1}$.
+    - opgave: |-
+        Geef een formule voor de bevolking na $n$ jaar.
+      antwoord: |-
+        $\tfrac{80}{3} \cdot 1{,}2^n(1, 1) + \tfrac{10}{3} \cdot 0{,}9^n(1, -2)$
+      uitwerking: |-
+        $c_1 + c_2 = 30$ en $c_1 - 2c_2 = 20$ geven $c_2 = \tfrac{10}{3}$ en $c_1 = \tfrac{80}{3}$.
+    - opgave: |-
+        Hoe verhouden de wijken zich op lange termijn, en hoe snel groeit de stad?
+      antwoord: |-
+        even groot; 20~\% per jaar
+      uitwerking: |-
+        $1{,}2$ is dominant met eigenvector $(1, 1)$. Een groei van 20~\% per jaar kan natuurlijk niet lang duren: het model geldt alleen voor enkele jaren.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de uilen: welke vruchtbaarheid?
+  opgave: |-
+    Bij de uilen uit Matrices ($s = 0{,}4$) groeide de populatie. Stel dat het aantal jongen in klasse 3 daalt, en de rest gelijk blijft. Bij welke waarde van $v_3$ blijft de populatie stabiel? Geef ook de stabiele verdeling.
+  antwoord: |-
+    $v_3 = \tfrac53 \approx 1{,}67$; $(25, 10, 6)$
+  uitwerking: |-
+    $R_0 = 0{,}4 \cdot 1{,}5 + 0{,}4 \cdot 0{,}6 \cdot v_3 = 0{,}6 + 0{,}24\,v_3 = 1$, dus $v_3 = \tfrac{0{,}4}{0{,}24} = \tfrac53$.\\
+    $X = (1;\ 0{,}4;\ 0{,}24) \sim (25, 10, 6)$: $\tfrac{25}{41} \approx 61~\%$ jonge uilen.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    elke overgangsmatrix van orde 2
+  opgave: |-
+    Neem $M = \km{1 - a & b \\ a & 1 - b}$ met $0 < a < 1$ en $0 < b < 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat het evenwicht $\tfrac{1}{a + b}(b, a)$ is.
+      antwoord: |-
+        $-ax + by = 0$
+      uitwerking: |-
+        $M - I = \km{-a & b \\ a & -b}$: $ax = by$, dus $\vb{(b, a)}$, met som $a + b$.
+    - opgave: |-
+        Toon aan dat de andere eigenwaarde $1 - a - b$ is, en dat ze absolute waarde kleiner dan 1 heeft.
+      antwoord: |-
+        spoor $2 - a - b$
+      uitwerking: |-
+        $1 + \lambda_2 = 2 - a - b$. Omdat $0 < a + b < 2$, is $-1 < 1 - a - b < 1$.
+    - opgave: |-
+        Besluit dat de toestand altijd naar het evenwicht gaat. Wanneer ligt hij er al na één stap?
+      antwoord: |-
+        als $a + b = 1$
+      uitwerking: |-
+        1 is dominant, dus $X_n \to c_1\vec v_1$. Is $a + b = 1$, dan is $\lambda_2 = 0$ en is de tweede term al na één stap weg: dan zijn de twee kolommen van $M$ gelijk, en elke toestand gaat meteen naar die kolom.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een lesliematrix van orde 2 heeft een dominante positieve eigenwaarde
+  opgave: |-
+    Neem $L = \km{v_1 & v_2 \\ o_1 & 0}$ met $v_1 > 0$, $v_2 > 0$ en $o_1 > 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $L$ een positieve en een negatieve eigenwaarde heeft.
+      antwoord: |-
+        het product is $-v_2o_1 < 0$
+      uitwerking: |-
+        $\lambda_1\lambda_2 = \det L = -v_2o_1 < 0$: de eigenwaarden zijn reëel (een product van twee toegevoegde complexe getallen is niet negatief) en hebben een verschillend teken.
+    - opgave: |-
+        Toon aan dat de positieve eigenwaarde dominant is.
+      antwoord: |-
+        de som is $v_1 > 0$
+      uitwerking: |-
+        $\lambda_1 + \lambda_2 = \spoor L = v_1 > 0$. Met $\lambda_1 > 0 > \lambda_2$ volgt $\lambda_1 > -\lambda_2 = \abs{\lambda_2}$.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    R0 > 1 als en slechts als de groeifactor > 1
+  opgave: |-
+    Neem $L = \km{v_1 & v_2 \\ o_1 & 0}$ zoals in opdracht~\ref{oef:h2-o19}, met dominante eigenwaarde $\lambda_1 > 0$. Stel $q(\lambda) = \lambda^2 - v_1\lambda - v_2o_1$, zodat $q(\lambda) = 0$ de karakteristieke vergelijking is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $q(1) = 1 - R_0$ en $q(0) < 0$.
+      antwoord: |-
+        $R_0 = v_1 + o_1v_2$
+      uitwerking: |-
+        $q(1) = 1 - v_1 - v_2o_1$ en $q(0) = -v_2o_1 < 0$.
+    - opgave: |-
+        Teken de grafiek van $q$ voor $\lambda \geqslant 0$, en leid af: $\lambda_1 > 1 \iff R_0 > 1$.
+      antwoord: |-
+        $q(1) < 0 \iff 1 < \lambda_1$
+      uitwerking: |-
+        Op $[0, +\infty[$ is $q$ een dalparabool met $q(0) < 0$: ze is negatief tot haar enige positieve nulwaarde $\lambda_1$ en daarna positief. Dus $q(1) < 0$ precies als $1 < \lambda_1$, en $q(1) < 0 \iff R_0 > 1$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    terug in de tijd
+  opgave: |-
+    In de refter is $X_0 = (300, 500)$ en $X_n = \tfrac{800}{3}(1, 2) + \tfrac{100}{3} \cdot 0{,}4^n(1, -1)$ (de Verken).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan: is $A$ inverteerbaar en $A\vec v = \lambda\vec v$, dan is $A^{-n}\vec v = \lambda^{-n}\vec v$. Leid af dat de formule ook geldt voor negatieve $n$, met $X_{-n} = M^{-n}X_0$.
+      antwoord: |-
+        $A^{-1}\vec v = \tfrac1\lambda\vec v$, en herhalen
+      uitwerking: |-
+        Volgens hoofdstuk 1 is $A^{-1}\vec v = \lambda^{-1}\vec v$; pas de stelling over machten toe op $A^{-1}$. $M$ is inverteerbaar, want 0 is geen eigenwaarde.
+    - opgave: |-
+        Hoeveel leerlingen aten volgens het model warm vijf dagen voor die maandag?
+      antwoord: |-
+        ongeveer 3522
+      uitwerking: |-
+        $\tfrac{800}{3} + \tfrac{100}{3} \cdot 0{,}4^{-5} = 266{,}7 + 33{,}3 \cdot 97{,}66 \approx 3522$.
+    - opgave: |-
+        Wat besluit je over het model?
+      antwoord: |-
+        terug in de tijd werkt het niet
+      uitwerking: |-
+        Er zijn maar 800 leerlingen, en het aantal boterhameters zou negatief zijn. Het model voorspelt goed vooruit, want daar sterft de term met $0{,}4^n$ uit. Achteruit wordt die term net groter: een kleine afwijking in $X_0$ wordt enorm.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h2-koppel-1
+  soort: koppel
+  niveau: 1
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Rijen
+  thema: |-
+    een meetkundige rij naar het evenwicht
+  opgave: |-
+    In de refter eten na $n$ dagen $W_n = \tfrac{800}{3} + \tfrac{100}{3} \cdot 0{,}4^n$ leerlingen warm.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $W_n - \tfrac{800}{3}$ een meetkundige rij is. Geef de reden.
+      antwoord: |-
+        reden $0{,}4$
+      uitwerking: |-
+        $W_n - \tfrac{800}{3} = \tfrac{100}{3} \cdot 0{,}4^n$: met beginterm $\tfrac{100}{3}$ en reden $0{,}4$.
+    - opgave: |-
+        Bereken $\displaystyle\lim_{n \to \infty} W_n$.
+      antwoord: |-
+        $\tfrac{800}{3} \approx 266{,}7$
+      uitwerking: |-
+        $0{,}4^n \to 0$ omdat $\abs{0{,}4} < 1$.
+    - opgave: |-
+        Welke rol speelt de tweede eigenwaarde in de rij?
+      antwoord: |-
+        ze is de reden
+      uitwerking: |-
+        De afwijking van het evenwicht is een meetkundige rij, met als reden de tweede eigenwaarde. Hoe kleiner die, hoe sneller het evenwicht komt.
+
+- id: h2-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Iteraties en fractalen
+  thema: |-
+    dekpunt en eigenwaarde
+  opgave: |-
+    Noem $x_n$ het aandeel leerlingen dat in de refter warm eet op dag $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $x_{n+1} = f(x_n)$ met $f(x) = 0{,}2 + 0{,}4x$.
+      antwoord: |-
+        $0{,}6x + 0{,}2(1 - x)$
+      uitwerking: |-
+        Het aandeel boterhameters is $1 - x_n$: $x_{n+1} = 0{,}6x_n + 0{,}2(1 - x_n) = 0{,}2 + 0{,}4x_n$.
+    - opgave: |-
+        Bereken het dekpunt van $f$. Is het aantrekkend?
+      antwoord: |-
+        $\tfrac13$; ja
+      uitwerking: |-
+        $x = 0{,}2 + 0{,}4x$ geeft $x = \tfrac13$. $\abs{f'(x)} = 0{,}4 < 1$: aantrekkend.
+    - opgave: |-
+        Vergelijk $f'(x)$ met de eigenwaarden van de overgangsmatrix.
+      antwoord: |-
+        $f' = 0{,}4$, de tweede eigenwaarde
+      uitwerking: |-
+        Het dekpunt is het evenwicht (eigenwaarde 1), en de afgeleide is de andere eigenwaarde: ze bepaalt hoe snel de iteratie naar het dekpunt gaat.
+
+- id: h2-koppel-3
+  soort: koppel
+  niveau: 1
+  koppel:
+    rubriek: analyse
+    onderwerp: |-
+      Exponentiële en logaritmische functies
+  thema: |-
+    verdubbelingstijd
+  opgave: |-
+    De uilen uit Matrices groeien op lange termijn met factor $\lambda_1 \approx 1{,}032$ per jaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Na hoeveel jaar is de populatie op lange termijn verdubbeld?
+      antwoord: |-
+        ongeveer 22 jaar
+      uitwerking: |-
+        $1{,}032^n = 2 \iff n = \dfrac{\log 2}{\log 1{,}032} \approx 22{,}0$.
+    - opgave: |-
+        Schrijf de groei als $N(t) = N_0\,\e^{kt}$. Bepaal $k$.
+      antwoord: |-
+        $k \approx 0{,}0315$
+      uitwerking: |-
+        $\e^k = 1{,}032$, dus $k = \ln 1{,}032 \approx 0{,}0315$; met $\lambda_1 = 1{,}03204$ is $k \approx 0{,}0315$.
+
+# ---------------------------------------------------------------- test
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken het evenwicht in aandelen van $\km{0{,}8 & 0{,}3 \\ 0{,}2 & 0{,}7}$ als een eigenvector bij 1.
+  antwoord: |-
+    $\bigl(\tfrac35, \tfrac25\bigr)$
+  uitwerking: |-
+    $-0{,}2x + 0{,}3y = 0$: $\vb{(3, 2)}$, met som 5.
+
+- id: h2-t2
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken het evenwicht in aandelen van $\km{0{,}5 & 0{,}25 & 0 \\ 0{,}5 & 0{,}5 & 0{,}5 \\ 0 & 0{,}25 & 0{,}5}$.
+  antwoord: |-
+    $\bigl(\tfrac14, \tfrac12, \tfrac14\bigr)$
+  uitwerking: |-
+    $4(M - I) = \km{-2 & 1 & 0 \\ 2 & -2 & 2 \\ 0 & 1 & -2}$: $y = 2x$ en $y = 2z$, dus $\vb{(1, 2, 1)}$.
+
+- id: h2-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Toon aan dat $L = \km{0{,}2 & 2 \\ 0{,}4 & 0}$ een stabiele populatie heeft, en geef de verdeling over de klassen.
+  antwoord: |-
+    $R_0 = 1$; $(5, 2)$
+  uitwerking: |-
+    $R_0 = 0{,}2 + 0{,}4 \cdot 2 = 1$. $X = (1;\ 0{,}4) \sim (5, 2)$.
+
+- id: h2-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    $A = \km{1 & 4 \\ 2 & 3}$ heeft de eigenwaarde 5 bij $(1, 1)$ en $-1$ bij $(2, -1)$. Bereken zonder machten van $A$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $A^3\kol{1 \\ 1}$
+      antwoord: |-
+        $\kol{125 \\ 125}$
+      uitwerking: |-
+        $5^3\kol{1 \\ 1}$.
+    - opgave: |-
+        $A^6\kol{2 \\ -1}$
+      antwoord: |-
+        $\kol{2 \\ -1}$
+      uitwerking: |-
+        $(-1)^6 = 1$.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Neem $A$ uit de vorige vraag en $X_0 = (3, 0)$. Geef een formule voor $A^nX_0$ en bereken $A^3X_0$.
+  antwoord: |-
+    $5^n(1, 1) + (-1)^n(2, -1)$; $(123, 126)$
+  uitwerking: |-
+    $(3, 0) = (1, 1) + (2, -1)$. Met $n = 3$: $(125 - 2,\ 125 + 1)$.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een populatie heeft de lesliematrix $\km{1 & 3 \\ 0{,}25 & 0}$. Bereken de groeifactor op lange termijn en de stabiele leeftijdsverdeling.
+  antwoord: |-
+    $1{,}5$; $\tfrac67 \approx 86~\%$ jong
+  uitwerking: |-
+    $\lambda^2 - \lambda - 0{,}75 = 0$: $1{,}5$ en $-0{,}5$. $L - 1{,}5I = \km{-0{,}5 & 3 \\ 0{,}25 & -1{,}5}$: $x = 6y$, dus $(6, 1)$.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bij welke overlevingskans $o_1$ is $L = \km{0 & 1 & 2 \\ o_1 & 0 & 0 \\ 0 & 0{,}5 & 0}$ stabiel? Groeit de populatie als $o_1$ groter is?
+  antwoord: |-
+    $o_1 = 0{,}5$; ja
+  uitwerking: |-
+    $R_0 = o_1 \cdot 1 + o_1 \cdot 0{,}5 \cdot 2 = 2\,o_1 = 1$. Met een grotere $o_1$ is $R_0 > 1$: de populatie groeit.

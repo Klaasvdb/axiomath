@@ -111,6 +111,7 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Getaltheorie | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Getaltheorie/README.md>) | eerste versie, nog na te lezen |
 | Lineair programmeren | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Lineair programmeren/README.md>) | eerste versie, nog na te lezen |
 | Vectorruimten | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Vectorruimten/README.md>) | eerste versie, nog na te lezen |
+| Eigenwaarden en eigenvectoren | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Eigenwaarden en eigenvectoren/README.md>) | eerste versie, nog na te lezen |
 | Financiële algebra | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Financiële algebra/README.md>) | eerste versie, nog na te lezen |
 | Matrices | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Matrices/README.md>) | eerste versie, nog na te lezen |
 | Algemene functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Algemene functies/README.md>) | eerste versie, nog na te lezen |
