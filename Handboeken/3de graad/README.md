@@ -116,6 +116,7 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Goniometrische functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Goniometrische functies/README.md>) | eerste versie, nog na te lezen |
 | Integralen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>) | eerste versie, nog na te lezen |
 | Limieten en afgeleiden | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Limieten en afgeleiden/README.md>) | eerste versie, nog na te lezen |
+| Numerieke methodes | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Numerieke methodes/README.md>) | eerste versie, nog na te lezen |
 | Rationale functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Rationale functies/README.md>) | eerste versie, nog na te lezen |
 | Reeksen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Reeksen/README.md>) | eerste versie, nog na te lezen |
 | Kansrekenen | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansrekenen/README.md>) | eerste versie, nog na te lezen |

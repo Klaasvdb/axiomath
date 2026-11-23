@@ -84,6 +84,7 @@ HANDBOEKEN_LIJST += [(P4, m, n, jaar) for m, n, jaar in [
     ("Analyse/Integralen", "integralen", "6de jaar"),
     ("Analyse/Differentiaalvergelijkingen", "differentiaalvergelijkingen", "6de jaar"),
     ("Analyse/Reeksen", "reeksen", "6de jaar"),
+    ("Analyse/Numerieke methodes", "numerieke-methodes", "6de jaar"),
     ("Algebra/Matrices", "matrices", "5de jaar"),
     ("Algebra/Complexe getallen", "complexe-getallen", "5de jaar"),
     ("Algebra/Groepen", "groepen", "6de jaar"),
@@ -267,6 +268,7 @@ TITELS = {
     "Wiskunde in de praktijk": (r"Wiskunde in\\de praktijk", 46),
     "Kernvaardigheden 4de jaar": (r"Kernvaardigheden\\4de jaar", 46),
     "Differentiaalvergelijkingen": (r"Differentiaal-\\vergelijkingen", 46),
+    "Numerieke methodes": (r"Numerieke\\methodes", 46),
     "Kansverdelingen": ("Kansverdelingen", 50),
 }
 
@@ -368,7 +370,7 @@ JAAR_VOORSTEL = {
     3: {"Analyse/Algemene functies": "5de jaar", "Analyse/Exponentiële en logaritmische functies": "5de jaar",
         "Analyse/Goniometrische functies": "5de jaar", "Analyse/Rationale functies": "5de jaar",
         "Analyse/Afgeleiden": "5de jaar", "Analyse/Limieten en afgeleiden": "5de jaar", "Analyse/Integralen": "6de jaar",
-        "Analyse/Differentiaalvergelijkingen": "6de jaar", "Analyse/Reeksen": "6de jaar",
+        "Analyse/Differentiaalvergelijkingen": "6de jaar", "Analyse/Reeksen": "6de jaar", "Analyse/Numerieke methodes": "6de jaar",
         "Algebra/Matrices": "5de jaar", "Algebra/Complexe getallen": "5de jaar", "Algebra/Groepen": "6de jaar",
         "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
         "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar",

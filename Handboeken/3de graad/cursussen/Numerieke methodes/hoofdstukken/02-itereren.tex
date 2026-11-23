@@ -1,0 +1,648 @@
+%----------------------------------------------------------------------------------------
+% VERGELIJKINGEN: ITEREREN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Dekpunten en de methode van Newton}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een satelliet voor tv-uitzendingen draait in 12 uur rond de aarde, in een langgerekte ellips met excentriciteit 0,74 en halve lange as $a = 26\,600$ km. Hij vertrekt in het punt het dichtst bij de aarde. Waar staat hij na 3 uur?
+
+\vspace{1mm}
+Johannes Kepler vond in 1609 het antwoord: bereken eerst de hoek $x$ (in radialen) uit
+\[ x - 0{,}74 \sin x = \tfrac{\pi}{2} , \]
+dan is de afstand tot het middelpunt van de aarde $r = a\,(1 - 0{,}74 \cos x)$. Hoe los je die vergelijking op tot op $10^{-6}$, met zo weinig mogelijk rekenwerk?}{\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \draw[accent,thick] (0,0) ellipse (2 and 1.345);
+  \fill[accent!25] (1.48,0) circle (.17);
+  \draw[accent] (1.48,0) circle (.17);
+  \node[below=3pt] at (1.48,-.12) {aarde};
+  \draw[grijs,dashed] (-2,0) -- (2,0);
+  \fill[fel!80!black] (2,0) circle (1.8pt) node[right] {start};
+  \fill[fel!80!black] (-1.142,1.104) circle (2.2pt) node[above left] {na 3 uur};
+  \draw[grijs,thick] (1.48,0) -- (-1.142,1.104) node[midway,above right,inner sep=1pt] {$r$};
+  \draw[->,accent] (1.75,.95) arc[start angle=30,end angle=70,radius=1.2];
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 26, het deel over de methode van de dekpunten en de methode van Newton, met de wenken over het herschrijven van $f(x) = 0$ als $x = g(x)$, het vergelijken van de snelheid van convergentie op eenzelfde vergelijking (sectie 3) en de beperkingen van de methodes. De stelling van Lagrange (middelwaardestelling) bewijzen we hier, omdat de cursus Limieten en afgeleiden ze niet behandelt; het bewijs steunt op de stelling van de extreme waarden en op $f'(a) = 0$ in een extremum, die de leerlingen kennen. Voorkennis uit pakket 4: afgeleiden en raaklijnen (Limieten en afgeleiden), limieten van rijen en discrete dynamische processen (Rijen, hoofdstuk 4), hoofdstuk 1 van deze cursus. Het probleem is de vergelijking van Kepler; de baan lijkt op die van de Russische Molniya-satellieten. Laat leerlingen de iteraties op het rekentoestel uitvoeren met de toets \textit{Ans}.}
+
+In hoofdstuk 1 sloten we een oplossing in tussen twee grenzen. Dat is betrouwbaar, maar traag: de methode van de intervalmiddens wint maar één decimaal per drie à vier stappen. In dit hoofdstuk kies je een andere aanpak. Je vertrekt van één benadering en verbetert ze telkens met hetzelfde voorschrift: $x_{n+1} = g(x_n)$. Dat heet \textit{itereren}. Kies je $g$ goed, dan verdubbelt het aantal juiste decimalen bij elke stap. Kies je $g$ slecht, dan vlieg je weg van de oplossing. Het hoofdstuk gaat over het verschil.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Oefening \ref{oef:h2-verken} vóór de uitleg: drie herschrijvingen van dezelfde vergelijking geven drie heel verschillende rijen. De verklaring (de helling van $g$ in het dekpunt) is het doel van sectie 1.}
+
+%========================================================================================
+\section{De methode van de dekpunten}
+
+\subsection{Een vergelijking als dekpunt}
+
+Kepler schreef zijn vergelijking anders: $x = \tfrac{\pi}{2} + 0{,}74 \sin x$. Dan staat er een getal dat door een functie op zichzelf wordt afgebeeld. Vul je een benadering van $x$ rechts in, dan krijg je links hopelijk een betere. Zo'n getal heeft een naam.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{dekpunt}} van een functie $g$ is een getal $L$ met $\formule{g(L) = L}$. Grafisch is het de $x$-coördinaat van een snijpunt van de grafiek van $g$ met de rechte $y = x$.
+\end{theorie}
+
+Elke vergelijking $f(x) = 0$ kun je op veel manieren schrijven als $x = g(x)$. Zo wordt $x^3 + 2x - 5 = 0$ bijvoorbeeld
+\[
+x = \frac{5 - x^3}{2}, \qquad x = \sqrt[3]{5 - 2x} \qquad \text{of} \qquad x = \frac{5}{x^2 + 2} .
+\]
+Een oplossing van de vergelijking is een dekpunt van elk van die drie functies, en omgekeerd. Het oplossen van een vergelijking wordt zo het zoeken van een dekpunt. Waarom zou dat helpen? Omdat je een dekpunt vaak kunt vinden door gewoon te herhalen.
+
+\subsection{Itereren}
+
+Neem een startwaarde $x_0$ en bereken $x_1 = g(x_0)$, $x_2 = g(x_1)$, enzovoort. Zo krijg je een recursief gedefinieerde rij, zoals in de cursus Rijen. Op een rekentoestel typ je $x_0$, en daarna telkens $g(\textit{Ans})$.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{methode van de dekpunten}} (of \textit{vaste-puntmethode}) schrijft $f(x) = 0$ als $x = g(x)$, kiest een startwaarde $x_0$ en berekent
+\[
+\formule{x_{n+1} = g(x_n)}
+\]
+\begin{stelling}{Limiet is een dekpunt}
+Is $g$ continu en is $\formule{\lim\limits_{n \to +\infty} x_n = L}$, dan is $\formule{g(L) = L}$.
+\end{stelling}
+
+\begin{bewijs}
+Als $x_n \to L$, dan ook $x_{n+1} \to L$. Omdat $g$ continu is, gaat $g(x_n)$ naar $g(L)$. Neem de limiet van beide leden van $x_{n+1} = g(x_n)$:
+\bewijsregel{L = \lim_{n \to +\infty} x_{n+1} = \lim_{n \to +\infty} g(x_n) = g(L) .}
+\end{bewijs}
+\end{theorie}
+
+De stelling zegt niet dat de rij convergeert. Ze zegt alleen: \textit{als} ze convergeert, dan naar een dekpunt, en dus naar een oplossing van de vergelijking. Of ze convergeert, zie je in het volgende onderdeel.
+
+\voorbeeld{}{Los $\cos x = x$ op met de methode van de dekpunten, met $x_0 = 1$.\label{vb:h2-cos}}{%
+\uitleg{De vergelijking staat al in de vorm $x = g(x)$ met $g(x) = \cos x$ ($x$ in radialen). We drukken telkens op de cosinus, en tekenen de rij in een \textit{webgrafiek}: verticaal van $x_n$ naar de grafiek van $g$ geeft $x_{n+1}$, horizontaal naar $y = x$ zet $x_{n+1}$ terug op de $x$-as.}
+\naast{{\renewcommand{\arraystretch}{1.2}\begin{tabular}{@{}cc|cc@{}}
+$n$ & $x_n$ & $n$ & $x_n$ \\ \hline
+0 & 1 & 6 & 0,763960 \\
+1 & 0,540302 & 7 & 0,722102 \\
+2 & 0,857553 & 8 & 0,750418 \\
+3 & 0,654290 & 9 & 0,731404 \\
+4 & 0,793480 & 10 & 0,744237 \\
+5 & 0,701369 & & \\
+\end{tabular}}
+
+\vspace{1ex}
+De termen springen beurtelings boven en onder een getal rond 0,74, en komen er steeds dichter bij. In de webgrafiek draait de lijn naar binnen, naar het snijpunt van $y = \cos x$ en $y = x$. Na veel meer stappen vind je $L = 0{,}739085\ldots$. Dat er een oplossing is, volgt ook uit hoofdstuk 1: $\cos x - x$ heeft een tekenwissel op $[0, 1]$.}{\begin{tikzpicture}[x=4.2cm,y=4.2cm,font=\scriptsize]
+  \draw[black!14,very thin,step=.1] (0.4,0.4) grid (1.05,1.05);
+  \draw[->,grijs] (0.4,0.4) -- (1.1,0.4) node[right,text=black] {$x$};
+  \draw[->,grijs] (0.4,0.4) -- (0.4,1.1) node[above,text=black] {$y$};
+  \foreach \t in {0.5,0.7,0.9}{\node[below,inner sep=1.5pt] at (\t,0.4) {$\t$};\node[left,inner sep=1.5pt] at (0.4,\t) {$\t$};}
+  \draw[grijs] (0.4,0.4) -- (1.05,1.05) node[above] {$y = x$};
+  \kromme{0.4}{1.05}{cos(\x r)}
+  \node[accent,right] at (1.02,0.5) {$y = \cos x$};
+  \begin{scope}
+    \clip (0.4,0.4) rectangle (1.05,1.05);
+    \xdef\webx{1}
+    \foreach \k in {1,...,7}{%
+      \pgfmathsetmacro{\weby}{cos(\webx r)}%
+      \draw[fel!80!black,thick] (\webx,\webx) -- (\webx,\weby) -- (\weby,\weby);
+      \xdef\webx{\weby}}
+  \end{scope}
+  \fill (1,0.4) circle (1.3pt) node[below=4pt] {$x_0$};
+  \draw[grijs,dashed] (1,0.4) -- (1,1);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Schrijf de vergelijking als $x = g(x)$, kies een startwaarde dicht bij de oplossing (bijvoorbeeld uit een grafiek of na een paar stappen van de intervalmiddens), en bereken $x_{n+1} = g(x_n)$ tot twee opeenvolgende termen voldoende weinig verschillen. Controleer of de rij echt convergeert.
+\end{werkwijze}
+
+\nujij{Bereken $x_1$ tot $x_4$ voor $x_{n+1} = \e^{-x_n}$ met $x_0 = 0{,}5$. Welke vergelijking los je zo op?}{$0{,}6065$; $0{,}5452$; $0{,}5797$; $0{,}5601$. Je lost $x = \e^{-x}$ op, of $x\,\e^x = 1$ (oplossing $0{,}5671\ldots$).}
+
+\begin{oefeningen}
+\oef{h2-dekpunt}
+\end{oefeningen}
+
+\subsection{Aantrekken en afstoten}
+
+In de Verken-opgave gaf $x = \frac{5 - x^3}{2}$ een rij die wegvloog, terwijl $x = \sqrt[3]{5 - 2x}$ snel naar $1{,}3283$ ging, en $x = \frac{5}{x^2 + 2}$ er traag naartoe zigzagde. Hoe komt dat? Bekijk eerst het eenvoudigste geval: een rechte door het dekpunt, $g(x) = L + k\,(x - L)$. Dan is
+\[
+x_{n+1} - L = k\,(x_n - L) .
+\]
+De fout $x_n - L$ wordt bij elke stap met $k$ vermenigvuldigd: ze is een meetkundige rij met quotiënt $k$. Uit de cursus Rijen weet je dat die naar 0 gaat als $|k| < 1$, en wegvliegt als $|k| > 1$. Is $k$ negatief, dan wisselt de fout van teken: de rij zigzagt.
+
+\figuren{\begin{tikzpicture}[x=1.15cm,y=1.15cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (2.2,0); \draw[->,grijs] (0,0) -- (0,2.2);
+  \draw[grijs] (0,0) -- (2.1,2.1);
+  \kromme{0}{2.1}{1+0.55*(\x-1)}
+  \webgrafiek{1+0.55*(\x-1)}{1.9}{4}
+  \node[text width=2.4cm,align=center] at (1,-.4) {$0 < k < 1$: \\ trap naar binnen};
+\end{tikzpicture}\hspace{3mm}
+\begin{tikzpicture}[x=1.15cm,y=1.15cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (2.2,0); \draw[->,grijs] (0,0) -- (0,2.2);
+  \draw[grijs] (0,0) -- (2.1,2.1);
+  \kromme{0.1}{1.9}{1-0.65*(\x-1)}
+  \webgrafiek{1-0.65*(\x-1)}{1.85}{5}
+  \node[text width=2.4cm,align=center] at (1,-.4) {$-1 < k < 0$: \\ spiraal naar binnen};
+\end{tikzpicture}\hspace{3mm}
+\begin{tikzpicture}[x=1.15cm,y=1.15cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (2.2,0); \draw[->,grijs] (0,0) -- (0,2.2);
+  \draw[grijs] (0,0) -- (2.1,2.1);
+  \kromme{0.3}{1.75}{1+1.6*(\x-1)}
+  \webgrafiek{1+1.6*(\x-1)}{1.12}{3}
+  \node[text width=2.4cm,align=center] at (1,-.4) {$k > 1$: \\ trap naar buiten};
+\end{tikzpicture}\hspace{3mm}
+\begin{tikzpicture}[x=1.15cm,y=1.15cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (2.2,0); \draw[->,grijs] (0,0) -- (0,2.2);
+  \draw[grijs] (0,0) -- (2.1,2.1);
+  \kromme{0.3}{1.7}{1-1.35*(\x-1)}
+  \webgrafiek{1-1.35*(\x-1)}{1.15}{4}
+  \node[text width=2.4cm,align=center] at (1,-.4) {$k < -1$: \\ spiraal naar buiten};
+\end{tikzpicture}}
+
+Een kromme is geen rechte, maar dicht bij het dekpunt lijkt ze op haar raaklijn, met richtingscoëfficiënt $g'(L)$. Je verwacht dus: is $|g'(L)| < 1$, dan trekt het dekpunt de rij aan; is $|g'(L)| > 1$, dan stoot het ze af. Om dat te bewijzen, hebben we een stelling nodig die de helling van een koorde koppelt aan de afgeleide.
+
+\begin{theorie}
+\begin{stelling}{Middelwaardestelling van Lagrange}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+Is $f$ continu op $[a, b]$ en afleidbaar op $\left]a, b\right[$, dan is er een $\xi \in \left]a, b\right[$ met
+
+\vspace{1mm}
+\qquad $\formule{f'(\xi) = \frac{f(b) - f(a)}{b - a}}$
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{0pt}
+\begin{tikzpicture}[x=1.1cm,y=.8cm,font=\scriptsize]
+  \draw[->,grijs] (-.1,0) -- (3.1,0) node[right,text=black] {$x$};
+  \kromme{.2}{2.9}{.6+1.3*sin(1.1*\x r)}
+  \draw[grijs,thick] (.3,1.0213) -- (2.8,.6800);
+  \draw[fel!80!black,thick] (.7149,2.0033) -- (2.3149,1.7849);
+  \fill (.3,1.0213) circle (1.3pt);
+  \fill (2.8,.6800) circle (1.3pt);
+  \fill[fel!80!black] (1.5149,1.8941) circle (1.4pt);
+  \draw[grijs,dashed] (1.5149,0) -- (1.5149,1.8941);
+  \draw[grijs,dashed] (.3,0) -- (.3,1.0213) (2.8,0) -- (2.8,.68);
+  \node[below] at (.3,0) {$a$}; \node[below] at (2.8,0) {$b$}; \node[below] at (1.5149,0) {$\xi$};
+\end{tikzpicture}
+\end{minipage}
+\end{stelling}
+
+\begin{bewijs}
+Neem $q = \frac{f(b) - f(a)}{b - a}$ en de hulpfunctie $h(x) = f(x) - f(a) - q\,(x - a)$, het verschil tussen de grafiek en de koorde. Dan is $h(a) = 0$ en $h(b) = f(b) - f(a) - q(b - a) = 0$. Een continue functie op $[a, b]$ heeft een grootste en een kleinste waarde. Liggen die allebei in een eindpunt, dan is $h$ overal 0, en is $h'(\xi) = 0$ voor elke $\xi$. Anders ligt er een extremum in een punt $\xi \in \left]a, b\right[$, en daar is $h'(\xi) = 0$. In beide gevallen:
+\bewijsregel{h'(\xi) = f'(\xi) - q = 0 .}
+\end{bewijs}
+\end{theorie}
+
+In woorden: ergens tussen $a$ en $b$ is de raaklijn evenwijdig met de koorde. Rij je in een uur 90 km, dan gaf je snelheidsmeter op minstens één ogenblik precies 90 km/h aan. Met deze stelling kunnen we de fout bij de methode van de dekpunten afschatten.
+
+\begin{theorie}
+\begin{stelling}{Convergentie van de methode van de dekpunten}
+Is $L$ een dekpunt van $g$, en is $\formule{|g'(x)| \leqslant k < 1}$ voor alle $x \in I = [L - r, L + r]$, dan convergeert $x_{n+1} = g(x_n)$ voor elke $x_0 \in I$ naar $L$, en
+
+\vspace{1mm}
+\qquad $\formule{|x_n - L| \leqslant k^n\,|x_0 - L|}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $x_n \in I$. Volgens de stelling van Lagrange op het interval tussen $x_n$ en $L$ is er een $\xi$ tussen die twee met
+\bewijsregel{x_{n+1} - L = g(x_n) - g(L) = g'(\xi)\,(x_n - L) .}
+Omdat $\xi \in I$, is $|x_{n+1} - L| \leqslant k\,|x_n - L| \leqslant |x_n - L| \leqslant r$: ook $x_{n+1}$ ligt in $I$. Met volledige inductie volgt $|x_n - L| \leqslant k^n |x_0 - L|$, en omdat $0 \leqslant k < 1$, gaat $k^n$ naar 0.
+\end{bewijs}
+\end{theorie}
+
+Het dekpunt heet dan \emph{aantrekkend}. Is $|g'(L)| > 1$, dan geldt bij elke $x_n \neq L$ dicht bij $L$ juist $|x_{n+1} - L| > |x_n - L|$: het dekpunt is \emph{afstotend}, en de rij vindt het alleen als ze er toevallig exact op belandt. Is $|g'(L)| = 1$, dan zegt de stelling niets.
+
+\voorbeeld{}{Verklaar het gedrag van de drie rijen uit oefening \ref{oef:h2-verken}, met $L \approx 1{,}3283$.\label{vb:h2-aantrek}}{%
+\uitleg{We berekenen voor elke herschrijving $g'(L)$, en vergelijken $|g'(L)|$ met 1. Het teken zegt of de rij trapsgewijs of zigzaggend beweegt.}
+\begin{stappen}
+g(x) = \frac{5 - x^3}{2}: \ g'(L) = -\tfrac32 L^2 \approx -2{,}65 & $|g'(L)| > 1$: afstotend, de rij zigzagt naar buiten. \\[2ex]
+g(x) = \sqrt[3]{5 - 2x}: \ g'(L) = \frac{-2}{3\sqrt[3]{(5 - 2L)^2}} \approx -0{,}38 & Aantrekkend, en snel: de fout wordt per stap ongeveer 0,38 keer zo groot. \\[2ex]
+g(x) = \frac{5}{x^2 + 2}: \ g'(L) = \frac{-10L}{(L^2 + 2)^2} \approx -0{,}94 & Aantrekkend, maar traag: per stap wint de rij maar 6\,\%.
+\end{stappen}
+Drie keer dezelfde vergelijking, drie keer een ander gedrag. Het verschil zit alleen in de helling van $g$ in het dekpunt.}
+
+\begin{werkwijze}
+Bereken $g'(x)$ en schat $|g'(L)|$ met een benadering van $L$. Is $|g'(L)| < 1$, dan convergeert de methode voor een startwaarde dicht genoeg bij $L$, en hoe kleiner $|g'(L)|$, hoe sneller. Is $|g'(L)| > 1$, herschrijf de vergelijking dan op een andere manier.
+\end{werkwijze}
+
+\nujij{Trekt het dekpunt $L \approx 0{,}7391$ van $g(x) = \cos x$ de rij aan? Hoeveel keer kleiner wordt de fout ongeveer per stap?}{$g'(L) = -\sin L \approx -0{,}67$: aantrekkend, de fout wordt per stap ongeveer 0,67 keer zo groot, en wisselt van teken.}
+
+\begin{oefeningen}
+\oef{h2-aantrek}
+\end{oefeningen}
+
+\subsection{Hoe ver nog?}
+
+De stelling geeft een foutgrens met $|x_0 - L|$, maar $L$ ken je niet. In de praktijk heb je meer aan een schatting met twee termen die je wel kent. Ook die volgt uit $|x_{n+1} - L| \leqslant k\,|x_n - L|$.
+
+\begin{theorie}
+\begin{stelling}{Foutschatting achteraf}
+Onder de voorwaarden van de vorige stelling geldt voor elke $n \geqslant 1$
+
+\vspace{1mm}
+\qquad $\formule{|x_n - L| \leqslant \frac{k}{1 - k}\,|x_n - x_{n-1}|}$
+\end{stelling}
+
+\begin{bewijs}
+Uit de vorige stelling en de driehoeksongelijkheid volgt
+\bewijsregel{|x_n - L| \leqslant k\,|x_{n-1} - L| \leqslant k\,\bigl(|x_{n-1} - x_n| + |x_n - L|\bigr) .}
+Breng $k\,|x_n - L|$ naar links: $(1 - k)\,|x_n - L| \leqslant k\,|x_n - x_{n-1}|$. Deel door $1 - k > 0$.
+\end{bewijs}
+\end{theorie}
+
+Is $k$ klein, dan is de fout van $x_n$ zelfs kleiner dan het verschil met de vorige term. Is $k$ dicht bij 1, dan kan de fout veel groter zijn dan dat verschil: bij $k = 0{,}9$ tot negen keer. Twee termen die bijna gelijk zijn, garanderen dus niets zolang je $k$ niet kent.
+
+\voorbeeld{}{Kepler schreef $x - 0{,}74 \sin x = \tfrac{\pi}{2}$ als $x = \tfrac{\pi}{2} + 0{,}74 \sin x$. Toon aan dat de methode van de dekpunten convergeert op $[1, 3]$, en bepaal hoeveel stappen er vanaf $x_0 = \tfrac{\pi}{2}$ zeker nodig zijn voor een fout kleiner dan $10^{-6}$.\label{vb:h2-kepler}}{%
+\uitleg{De oplossing ligt in $[1, 3]$, want $f(x) = x - 0{,}74\sin x - \frac{\pi}{2}$ heeft daar een tekenwissel. We zoeken een $k$ met $|g'(x)| \leqslant k$ en gebruiken $|x_n - L| \leqslant k^n |x_0 - L|$.}
+\begin{stappen}
+g'(x) = 0{,}74 \cos x & Dus $|g'(x)| \leqslant 0{,}74 = k$ voor alle $x$. \\[1ex]
+|x_0 - L| \leqslant 3 - 1 = 2 & $x_0$ en $L$ liggen allebei in $[1, 3]$. \\[1ex]
+2 \cdot 0{,}74^n < 10^{-6} \ \Leftrightarrow\ n > \frac{\log(5 \cdot 10^{-7})}{\log 0{,}74} \approx 48{,}2 & Het teken keert om, want $\log 0{,}74 < 0$.
+\end{stappen}
+De garantie vraagt 49 stappen. In werkelijkheid volstaan er 15: de fout van $x_{15}$ is $8 \cdot 10^{-7}$. Dicht bij $L \approx 2{,}18$ is $|g'(x)| = 0{,}74\,|\cos x| \approx 0{,}42$, veel kleiner dan 0,74. Maar die fout ken je pas als je $L$ kent. De foutschatting achteraf geeft wel een garantie: vanaf $x_2$ liggen alle termen in $[2{,}1;\ 2{,}3]$, en daar is $|g'(x)| \leqslant 0{,}74 \cdot |\cos 2{,}3| < 0{,}5$. Met $k = 0{,}5$ is $\frac{k}{1 - k} = 1$, dus $|x_n - L| \leqslant |x_n - x_{n-1}|$. Dat verschil is $1{,}1 \cdot 10^{-6}$ bij $n = 16$ en $4{,}8 \cdot 10^{-7}$ bij $n = 17$: na 17 stappen is de fout zeker kleiner dan $10^{-6}$.}
+
+\begin{oefeningen}
+\oef{h2-fout}
+\end{oefeningen}
+
+%========================================================================================
+\section{De methode van Newton}
+
+\subsection{Langs de raaklijn}
+
+De regula falsi verving de grafiek door een koorde. Isaac Newton had in 1669 een beter idee: vervang de grafiek door haar \textit{raaklijn} in de laatste benadering. Een raaklijn volgt de grafiek veel beter dan een koorde, tenminste in de buurt van het raakpunt. Bovendien heb je maar één punt nodig, en geen tekenwissel.
+
+\naast{\begin{theorie}
+\begin{stelling}{Nulwaarde van de raaklijn}
+De raaklijn aan de grafiek van $f$ in $(x_n, f(x_n))$, met $f'(x_n) \neq 0$, snijdt de $x$-as in
+
+\vspace{1mm}
+\qquad $\formule{x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}}$
+\end{stelling}
+
+\begin{bewijs}
+De raaklijn is $y = f(x_n) + f'(x_n)\,(x - x_n)$. Stel $y = 0$:
+\bewijsregel{x - x_n = -\frac{f(x_n)}{f'(x_n)} .}
+\end{bewijs}
+\end{theorie}}{\begin{tikzpicture}[x=1.3cm,y=.9cm,font=\scriptsize]
+  \draw[->,grijs] (-.2,0) -- (3.3,0) node[right,text=black] {$x$};
+  \kromme{.4}{3}{.45*(\x)^2-.8}
+  \newtonstappen{.45*(\x)^2-.8}{.9*\x}{2.9}{2}
+  \node[below] at (2.9,0) {$x_0$};
+  \node[below] at (1.759,0) {$x_1$};
+  \node[below=1pt] at (1.39,0) {$x_2$};
+  \fill[fel!80!black] (1.333,0) circle (1.4pt);
+\end{tikzpicture}}
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{methode van Newton}} kiest een startwaarde $x_0$ en berekent
+\[
+\formule{x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}}
+\]
+\end{theorie}
+
+Newton zelf toonde de methode op $x^3 - 2x - 5 = 0$, en de Engelse wiskundige Joseph Raphson schreef ze in 1690 in de vorm van hierboven. Daarom heet ze ook de methode van Newton-Raphson. Ze is nog altijd de methode die rekentoestellen en computers het vaakst gebruiken.
+
+\voorbeeld{}{Bereken $\sqrt 2$ met de methode van Newton, vanaf $x_0 = 1$.\label{vb:h2-heron}}{%
+\uitleg{$\sqrt 2$ is de positieve nulwaarde van $f(x) = x^2 - 2$. We vullen $f$ en $f' $ in de formule in en vereenvoudigen eerst het voorschrift.}
+\begin{stappen}
+x_{n+1} = x_n - \frac{x_n^2 - 2}{2x_n} = \frac12\Bigl(x_n + \frac{2}{x_n}\Bigr) & Het gemiddelde van $x_n$ en $\frac{2}{x_n}$: als $x_n$ te groot is, is $\frac2{x_n}$ te klein. \\[2.5ex]
+x_1 = 1{,}5, \quad x_2 = \tfrac{17}{12} \approx 1{,}416\,667 & Fouten: 0,086 en 0,0025. \\[1ex]
+x_3 = \tfrac{577}{408} \approx 1{,}414\,215\,686 & Fout $2{,}1 \cdot 10^{-6}$. \\[1ex]
+x_4 \approx 1{,}414\,213\,562\,375 & Fout $1{,}6 \cdot 10^{-12}$.
+\end{stappen}
+Het aantal juiste decimalen gaat van 1 naar 2, 5 en 11: het verdubbelt ongeveer bij elke stap. Dit voorschrift was al bekend bij de Babyloniërs en bij Heron van Alexandrië, lang voor Newton.}
+
+\begin{werkwijze}
+Bereken $f'(x)$, en vereenvoudig $x - \frac{f(x)}{f'(x)}$ als dat kan. Kies $x_0$ dicht bij de nulwaarde (uit een grafiek of met een paar stappen van de intervalmiddens). Itereer tot twee opeenvolgende termen voldoende weinig verschillen. Op een rekentoestel: typ $x_0$, en daarna telkens $\textit{Ans} - f(\textit{Ans})/f'(\textit{Ans})$.
+\end{werkwijze}
+
+\nujij{Geef het voorschrift van Newton voor $f(x) = x^3 - 2x - 5$, en bereken $x_1$ en $x_2$ vanaf $x_0 = 2$.}{$x_{n+1} = x_n - \frac{x_n^3 - 2x_n - 5}{3x_n^2 - 2}$; $x_1 = 2{,}1$ en $x_2 \approx 2{,}094568$. De nulwaarde is $2{,}094551\ldots$}
+
+\begin{oefeningen}
+\oef{h2-newton}
+\end{oefeningen}
+
+\subsection{Waarom zo snel?}
+
+De methode van Newton is een methode van de dekpunten, met $g(x) = x - \frac{f(x)}{f'(x)}$: een nulwaarde $c$ van $f$ is een dekpunt van $g$. Volgens sectie 1 bepaalt $g'(c)$ de snelheid. Hoe groot is die?
+
+\begin{theorie}
+\begin{stelling}{Newton als dekpunt}
+Is $f(c) = 0$ en $f'(c) \neq 0$, en is $f''$ continu, dan is voor $g(x) = x - \frac{f(x)}{f'(x)}$
+
+\vspace{1mm}
+\qquad $\formule{g'(c) = 0}$
+\end{stelling}
+
+\begin{bewijs}
+Met de quotiëntregel is
+\bewijsregel{g'(x) = 1 - \frac{f'(x)\,f'(x) - f(x)\,f''(x)}{f'(x)^2} = \frac{f(x)\,f''(x)}{f'(x)^2} .}
+In $c$ is de teller $f(c)\,f''(c) = 0$, en de noemer is niet 0.
+\end{bewijs}
+\end{theorie}
+
+Omdat $g'$ continu is en $g'(c) = 0$, is $|g'(x)|$ heel klein dicht bij $c$. De stelling over de convergentie geeft dan: start je dicht genoeg bij $c$, dan convergeert de methode van Newton, en de factor $k$ waarmee de fout krimpt, wordt zelf steeds kleiner. Voor de vierkantswortel kun je precies zien hoe snel.
+
+\begin{theorie}
+\begin{stelling}{Fout bij de vierkantswortel}
+Is $a > 0$ en $x_{n+1} = \frac12\bigl(x_n + \frac{a}{x_n}\bigr)$ met $x_n > 0$, dan is
+
+\vspace{1mm}
+\qquad $\formule{x_{n+1} - \sqrt a = \frac{(x_n - \sqrt a)^2}{2x_n}}$
+\end{stelling}
+
+\begin{bewijs}
+Zet op één noemer en herken een merkwaardig product:
+\bewijsregel{x_{n+1} - \sqrt a = \frac{x_n^2 + a - 2\sqrt a\, x_n}{2x_n} = \frac{(x_n - \sqrt a)^2}{2x_n} .}
+\end{bewijs}
+\end{theorie}
+
+De nieuwe fout is evenredig met het \textit{kwadraat} van de vorige. Is de fout $10^{-3}$, dan is de volgende ongeveer $10^{-6}$, en daarna $10^{-12}$: het aantal juiste decimalen verdubbelt. Dat geldt in het algemeen bij Newton, als $f'(c) \neq 0$: dicht bij $c$ is $x_{n+1} - c \approx \frac{f''(c)}{2f'(c)}\,(x_n - c)^2$. Het bewijs daarvan vraagt de formule van Taylor, die je in de cursus Reeksen kunt zien.
+
+Uit de stelling volgt ook dat $x_{n+1} \geqslant \sqrt a$ voor elke $x_n > 0$: na de eerste stap ligt de rij altijd boven $\sqrt a$, en daalt ze naar $\sqrt a$ (opdracht \ref{oef:h2-o17}).
+
+\voorbeeld{}{Bereken $\sqrt{10}$ met de methode van Newton vanaf $x_0 = 3$. Hoeveel stappen zijn nodig voor 9 juiste decimalen? Voorspel de fouten met de stelling.\label{vb:h2-wortel10}}{%
+\uitleg{Hier is $a = 10$. De stelling geeft de fout van elke stap uit die van de vorige, zonder dat we $\sqrt{10}$ exact moeten kennen: we gebruiken $x_n \approx 3$ in de noemer.}
+\begin{stappen}
+x_1 = \tfrac12\bigl(3 + \tfrac{10}{3}\bigr) = \tfrac{19}{6} \approx 3{,}166\,667 & Fout $\frac{(3 - 3{,}1623)^2}{6} \approx 0{,}0044$. \\[1ex]
+x_2 = \tfrac12\bigl(\tfrac{19}{6} + \tfrac{60}{19}\bigr) \approx 3{,}162\,280\,70 & Fout $\approx \frac{0{,}0044^2}{6{,}33} \approx 3 \cdot 10^{-6}$. \\[1ex]
+x_3 \approx 3{,}162\,277\,660\,2 & Fout $\approx \frac{(3 \cdot 10^{-6})^2}{6{,}3} \approx 1{,}5 \cdot 10^{-12}$.
+\end{stappen}
+Na drie stappen zijn er meer dan 9 juiste decimalen: $\sqrt{10} = 3{,}162\,277\,660\,1\ldots$}
+
+\begin{oefeningen}
+\oef{h2-heron}
+\end{oefeningen}
+
+\subsection{Wanneer Newton faalt}
+
+Zo snel als Newton is dicht bij de oplossing, zo onvoorspelbaar kan hij zijn als je ver weg start. De methode heeft geen tekenwissel nodig, en daardoor ook geen garantie dat ze in de buurt blijft. De figuren tonen drie manieren waarop het misloopt.
+
+\figuren{\begin{tikzpicture}[x=1.1cm,y=.7cm,font=\scriptsize]
+  \draw[->,grijs] (-2.2,0) -- (1.8,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1.2) -- (0,3.3);
+  \kromme{-1.9}{1.6}{(\x)^3-2*\x+2}
+  \draw[fel!80!black,thick] (0,2) -- (1,0);
+  \draw[fel!80!black,thick] (1,1) -- (0,0);
+  \draw[grijs,dashed] (1,0) -- (1,1);
+  \fill (0,2) circle (1.3pt); \fill (1,1) circle (1.3pt);
+  \node[below left] at (0,0) {$0$}; \node[below] at (1,0) {$1$};
+  \node[text width=3.5cm,align=center] at (-.2,-1.2) {$x^3 - 2x + 2$ vanaf 0: \\ $0, 1, 0, 1, \ldots$ een cyclus};
+\end{tikzpicture}\hspace{3mm}
+\begin{tikzpicture}[x=.75cm,y=1.1cm,font=\scriptsize]
+  \draw[->,grijs] (-2.5,0) -- (2.6,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1.5) -- (0,1.6);
+  \kromme[samples=100]{0}{2.4}{(\x)^(1/3)}
+  \draw[accent,thick] plot[domain=0:2.4,samples=100,smooth] ({-\x},{-(\x)^(1/3)});
+  \draw[fel!80!black,thick] (.5,.794) -- (-1,0);
+  \draw[fel!80!black,thick] (-1,-1) -- (2,0);
+  \draw[grijs,dashed] (-1,0) -- (-1,-1);
+  \fill (.5,.794) circle (1.3pt); \fill (-1,-1) circle (1.3pt);
+  \node[text width=3.5cm,align=center] at (0,-2) {$\sqrt[3]{x}$: $x_{n+1} = -2x_n$, \\ elke stap twee keer verder};
+\end{tikzpicture}\hspace{3mm}
+\begin{tikzpicture}[x=.27cm,y=1.1cm,font=\scriptsize]
+  \draw[->,grijs] (-13.5,0) -- (3.8,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1.2) -- (0,1.4);
+  \kromme[samples=150]{-13.2}{3.6}{sin(\x r)}
+  \draw[fel!80!black,thick] (1.5,.9975) -- (-12.6014,0);
+  \fill (1.5,.9975) circle (1.3pt);
+  \fill[fel!80!black] (-12.566,0) circle (1.6pt);
+  \node[below] at (1.5,0) {$1{,}5$};
+  \node[below] at (-12.566,0) {$-4\pi$};
+  \node[text width=3.6cm,align=center] at (-5,-1.9) {$\sin x$ vanaf 1,5: \\ een sprong naar $-4\pi$, niet naar 0};
+\end{tikzpicture}}
+
+En is $f'(x_n) = 0$, dan is de raaklijn horizontaal en snijdt ze de as niet: de formule deelt door 0. Ligt $f'(x_n)$ dicht bij 0, dan schiet $x_{n+1}$ ver weg. Bij een \textit{dubbele} nulwaarde, zoals $(x - 1)^2$, is ook $f'(c) = 0$: dan werkt Newton nog wel, maar traag (opdracht \ref{oef:h2-o11}).
+
+\voorbeeld{}{Pas de methode van Newton toe op $f(x) = x^3 - 2x + 2$ vanaf $x_0 = 0$ en vanaf $x_0 = -2$.\label{vb:h2-cyclus}}{%
+\uitleg{Het voorschrift is $x_{n+1} = x_n - \frac{x_n^3 - 2x_n + 2}{3x_n^2 - 2}$. We rekenen beide rijen uit en vergelijken.}
+\begin{stappen}
+x_0 = 0: \ x_1 = 0 - \frac{2}{-2} = 1, \ x_2 = 1 - \frac{1}{1} = 0 & De rij is $0, 1, 0, 1, \ldots$: ze convergeert niet. \\[2ex]
+x_0 = -2: \ x_1 = -2 - \frac{-2}{10} = -1{,}8 & De raaklijn wijst naar de nulwaarde. \\[1ex]
+x_2 \approx -1{,}769\,948, \ x_3 \approx -1{,}769\,293, \ x_4 \approx -1{,}769\,292\,35 & Snel naar de enige nulwaarde.
+\end{stappen}
+De functie heeft maar één nulwaarde, bij $-1{,}769$. Vanaf 0 springt de rij heen en weer tussen twee punten waar de raaklijnen elkaars voetpunt aanwijzen. Een betere start, bijvoorbeeld uit een tekenwissel op $[-2, -1]$, lost het op.}
+
+\begin{werkwijze}
+Zoek eerst met een grafiek of met de intervalmiddens een startwaarde dicht bij de nulwaarde, waar $f'$ niet klein is. Volg de termen: blijven ze niet snel dichter bij elkaar komen, of springen ze ver weg, stop dan en kies een andere start.
+\end{werkwijze}
+
+\nujij{Wat gebeurt er met Newton voor $f(x) = x^2 - 4$ vanaf $x_0 = 0$? En vanaf $x_0 = 0{,}1$?}{Vanaf 0 is $f'(0) = 0$: de formule bestaat niet. Vanaf 0,1 is $x_1 = 0{,}1 + \frac{3{,}99}{0{,}2} = 20{,}05$: ver weg, maar daarna convergeert de rij wel naar 2.}
+
+\begin{oefeningen}
+\oef{h2-faal}
+\end{oefeningen}
+
+%========================================================================================
+\section{Snelheid van convergentie}
+
+\subsection{Lineair en kwadratisch}
+
+We hebben nu vier methodes om een vergelijking op te lossen. Om hun snelheid te vergelijken, kijken we hoe de fout $e_n = x_n - c$ van stap tot stap verandert.
+
+\begin{theorie}
+Een rij $(x_n)$ die naar $c$ gaat, met fout $e_n = x_n - c \neq 0$, \textbf{\textcolor{accent}{convergeert lineair}} met factor $k \in \left]0, 1\right[$ als
+\[
+\formule{\lim_{n \to +\infty} \frac{|e_{n+1}|}{|e_n|} = k}
+\]
+en \textbf{\textcolor{accent}{kwadratisch}} als er een $C > 0$ is met
+\[
+\formule{\lim_{n \to +\infty} \frac{|e_{n+1}|}{|e_n|^2} = C}
+\]
+\end{theorie}
+
+Lineair betekent: elke stap wint ongeveer hetzelfde aantal decimalen, namelijk $-\log k$. Kwadratisch betekent: het aantal juiste decimalen verdubbelt ongeveer. De methode van de intervalmiddens past niet helemaal in deze definitie, want haar fout daalt grillig; haar foutgrens daalt lineair met factor $\frac12$. De methode van Newton convergeert kwadratisch als $f'(c) \neq 0$. Voor de methode van de dekpunten is de factor precies $|g'(L)|$.
+
+\begin{theorie}
+\begin{stelling}{Snelheid van de methode van de dekpunten}
+Is $g'$ continu, $x_n \to L$ met $x_n \neq L$, en $g'(L) \neq 0$, dan convergeert $x_{n+1} = g(x_n)$ lineair met factor
+
+\vspace{1mm}
+\qquad $\formule{k = |g'(L)|}$
+\end{stelling}
+
+\begin{bewijs}
+Volgens Lagrange is $x_{n+1} - L = g'(\xi_n)\,(x_n - L)$ met $\xi_n$ tussen $x_n$ en $L$. Omdat $x_n \to L$, gaat ook $\xi_n \to L$, en omdat $g'$ continu is:
+\bewijsregel{\frac{|e_{n+1}|}{|e_n|} = |g'(\xi_n)| \to |g'(L)| .}
+\end{bewijs}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[x=.62cm,y=.33cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=1] (0,0) grid (16,12);
+  \draw[->,grijs] (0,0) -- (16.7,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,12.8) node[above,text=black] {juiste decimalen};
+  \foreach \t in {2,4,...,16}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {2,4,...,12}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,thick] plot coordinates {(0,0.75) (1,0.49) (2,1.14) (3,1.27) (4,2.04) (5,1.66) (6,2.19) (7,2.88) (8,2.59) (9,3.2) (10,3.46) (11,3.85) (12,3.99) (13,4.7) (14,4.39) (15,4.98)};
+  \draw[accent!60,thick] plot coordinates {(0,0.64) (1,1.52) (2,2.44) (3,3.37) (4,4.29) (5,5.22) (6,6.15) (7,7.08) (8,8.01) (9,8.94)};
+  \draw[accent,thick,dashed] plot coordinates {(0,0.22) (1,0.88) (2,1.21) (3,1.61) (4,1.97) (5,2.35) (6,2.73) (7,3.1) (8,3.47) (9,3.85) (10,4.22) (11,4.6) (12,4.97) (13,5.35) (14,5.72) (15,6.09)};
+  \draw[fel!80!black,very thick] plot coordinates {(0,0.22) (1,0.88) (2,2.48) (3,5.63) (4,11.93)};
+  \foreach \x/\y in {0/0.22,1/0.88,2/2.48,3/5.63,4/11.93}{\fill[fel!80!black] (\x,\y) circle (2pt);}
+  \node[right,text=fel!80!black] at (4.1,11.6) {Newton};
+  \node[right,text=accent!60] at (9.1,8.94) {regula falsi};
+  \node[right,text=accent] at (15.1,6.3) {dekpunten};
+  \node[right,text=grijs] at (15.1,4.9) {intervalmiddens};
+\end{tikzpicture}}
+
+De figuur vergelijkt de vier methodes op de vergelijking van Kepler: de regula falsi en de intervalmiddens op $[1, 3]$, de dekpunten en Newton vanaf $\frac{\pi}{2}$. Het aantal juiste decimalen is $-\log |e_n|$. Bij lineaire convergentie stijgt het als een rechte: ongeveer 0,9 decimaal per stap bij de regula falsi, 0,37 bij de dekpunten (factor $0{,}42$, want $-\log 0{,}42 \approx 0{,}37$) en 0,3 bij de intervalmiddens. Newton verdubbelt: 0,9; 2,5; 5,6; 11,9.
+
+\voorbeeld{}{Bij een methode hoort deze tabel van fouten. Convergeert ze lineair of kwadratisch? Schat $k$ of $C$.
+\begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|ccccc}
+$n$ & 0 & 1 & 2 & 3 & 4 \\ \hline
+$|e_n|$ & $0{,}2$ & $0{,}05$ & $0{,}0031$ & $1{,}2 \cdot 10^{-5}$ & $1{,}8 \cdot 10^{-10}$
+\end{tabular}\end{center}\label{vb:h2-orde}}{%
+\uitleg{We berekenen de quotiënten $\frac{|e_{n+1}|}{|e_n|}$ en $\frac{|e_{n+1}|}{|e_n|^2}$. Het quotiënt dat ongeveer constant blijft, bepaalt de soort.}
+\begin{stappen}
+\frac{|e_{n+1}|}{|e_n|}: \ 0{,}25;\ 0{,}062;\ 0{,}0039;\ 0{,}000\,015 & Niet constant: geen lineaire convergentie. De quotiënten gaan naar 0. \\[2ex]
+\frac{|e_{n+1}|}{|e_n|^2}: \ 1{,}25;\ 1{,}24;\ 1{,}25;\ 1{,}25 & Constant: kwadratische convergentie met $C \approx 1{,}25$.
+\end{stappen}
+Het aantal juiste decimalen (0,7; 1,3; 2,5; 4,9; 9,7) verdubbelt ongeveer, zoals bij Newton.}
+
+\begin{werkwijze}
+Bereken voor een paar opeenvolgende fouten (of verschillen tussen opeenvolgende termen) de quotiënten $\frac{|e_{n+1}|}{|e_n|}$ en $\frac{|e_{n+1}|}{|e_n|^2}$. Is het eerste ongeveer constant, dan is de convergentie lineair; is het tweede ongeveer constant, dan kwadratisch.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-snelheid}
+\end{oefeningen}
+
+\subsection{Welke methode kies je?}
+
+\begin{rastertabel}{|c|c|c|c|}
+\hline
+ & \textbf{insluiten} (hfdst.\ 1) & \textbf{dekpunten} & \textbf{Newton} \\ \hline
+nodig & tekenwissel & $x = g(x)$ met $|g'(L)| < 1$ & $f'$, en $f'(c) \neq 0$ \\ \hline
+snelheid & lineair & lineair, factor $|g'(L)|$ & kwadratisch \\ \hline
+garantie & altijd, met foutgrens & op een interval met $|g'| \leqslant k < 1$ & alleen dicht bij $c$ \\ \hline
+\end{rastertabel}
+
+In de praktijk combineer je ze. Begin met een paar stappen van de intervalmiddens om veilig in de buurt te komen, en schakel dan over op Newton voor de snelheid. Computers doen precies dat.
+
+\needspace{18\baselineskip}
+\voorbeeld{}{Terug naar het probleem. Bereken de hoek $x$ uit $x - 0{,}74 \sin x = \frac{\pi}{2}$ tot op $10^{-6}$ met de methode van Newton, en de afstand van de satelliet tot het middelpunt van de aarde na 3 uur.\label{vb:h2-terug}}{%
+\uitleg{Neem $f(x) = x - 0{,}74 \sin x - \frac{\pi}{2}$, met $f'(x) = 1 - 0{,}74 \cos x$. Die afgeleide is altijd minstens $0{,}26$, dus de raaklijn is nooit horizontaal. We starten in $x_0 = \frac{\pi}{2}$, net als Kepler.}
+\begin{stappen}
+x_1 = \tfrac{\pi}{2} - \frac{-0{,}74}{1} \approx 2{,}310\,796 & $f(\frac{\pi}{2}) = -0{,}74$ en $f'(\frac{\pi}{2}) = 1$. \\[2ex]
+x_2 \approx 2{,}181\,686, \quad x_3 \approx 2{,}178\,367\,2 & De verschillen: 0,13 en 0,0033. \\[1ex]
+x_4 \approx 2{,}178\,364\,831 & Verschil $2{,}3 \cdot 10^{-6}$: het verdubbelt de decimalen. \\[1ex]
+r = 26\,600\,(1 - 0{,}74 \cos x_4) \approx 37\,840 \text{ km} & $\cos 2{,}178\,365 \approx -0{,}5709$.
+\end{stappen}
+Na vier stappen is $x \approx 2{,}178\,365$; de volgende term verandert pas op de twaalfde decimaal. De methode van de dekpunten had er 15 stappen voor nodig (voorbeeld \ref{vb:h2-kepler}), de intervalmiddens 20. De satelliet staat na 3 uur op ongeveer 37\,840 km van het middelpunt van de aarde, ver voorbij de helft van zijn weg naar het verste punt (op $26\,600 \cdot 1{,}74 \approx 46\,280$ km). Dat klopt met de tweede wet van Kepler: dicht bij de aarde gaat de satelliet snel.}
+
+\lkr{Wie de positie ook als hoek wil: de ware anomalie $\theta$ volgt uit $\tan\frac{\theta}{2} = \sqrt{\frac{1 + e}{1 - e}}\tan\frac{x}{2}$, en is hier ongeveer $157^\circ$. Na een kwart van de omlooptijd heeft de satelliet dus al bijna de helft van de ellips doorlopen.}
+
+\subsection{Met de computer}
+
+Thuis kun je de methode van Newton in Python schrijven. De functie stopt als twee termen minder dan \texttt{eps} verschillen, of na \texttt{maxstap} stappen, zodat een cyclus of een divergente rij het programma niet laat hangen.
+
+\begin{python}
+from math import sin, cos, pi
+
+def newton(f, df, x, eps=1e-12, maxstap=50):
+    for stap in range(maxstap):
+        nieuw = x - f(x) / df(x)
+        if abs(nieuw - x) < eps:
+            return nieuw
+        x = nieuw
+    print("geen convergentie")
+    return x
+
+print(newton(lambda x: x - 0.74*sin(x) - pi/2,
+             lambda x: 1 - 0.74*cos(x), pi/2))
+\end{python}
+
+Probeer ook $x^3 - 2x + 2$ vanaf 0, en laat het programma bij elke stap $x$ afdrukken.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over complexe getallen veronderstelt de cursus Complexe getallen (rekenen met $a + bi$, delen door een complex getal). De oefening over rijen gaat terug op de discrete dynamische processen uit Rijen, hoofdstuk 4.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-aantrek}{oef:h2-aantrek}%
+  \fv{oef:h2-t2}{vb:h2-cos}{oef:h2-dekpunt}%
+  \fv{oef:h2-t3}{vb:h2-heron}{oef:h2-newton}%
+  \fv{oef:h2-t4}{vb:h2-kepler}{oef:h2-fout}%
+  \fv{oef:h2-t5}{vb:h2-cyclus}{oef:h2-faal}%
+  \fv{oef:h2-t6}{vb:h2-orde}{oef:h2-snelheid}%
+  \fv{oef:h2-t7}{vb:h2-wortel10}{oef:h2-heron}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een dekpunt is, de methode van de dekpunten en waarom de limiet een dekpunt is, hoe je een webgrafiek tekent, de vier gevallen voor de helling, de stelling van Lagrange met haar bewijs, de convergentiestelling en de foutschatting achteraf, de formule van Newton en hoe je ze afleidt, waarom $g'(c) = 0$ bij Newton, de fout bij de vierkantswortel, vier manieren waarop Newton faalt, en het verschil tussen lineaire en kwadratische convergentie. Vergelijk daarna met de kaders.
+\fi

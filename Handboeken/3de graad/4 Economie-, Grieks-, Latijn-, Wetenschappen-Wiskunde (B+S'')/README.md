@@ -14,6 +14,7 @@ Leerplan: B+S'' (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met le
 | [Analyse/Integralen](Analyse/Integralen) | LPD 31-33 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Analyse/Differentiaalvergelijkingen](Analyse/Differentiaalvergelijkingen) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 21-23 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Analyse/Reeksen](Analyse/Reeksen) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 24-25 | drie hoofdstukken, eerste versie, nog na te lezen |
+| [Analyse/Numerieke methodes](Analyse/Numerieke%20methodes) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 26-29 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Matrices](Algebra/Matrices) | LPD 34-37 | 4 hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Complexe getallen](Algebra/Complexe%20getallen) | LPD 38-42 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Groepen](Algebra/Groepen) | LPD 43 | drie hoofdstukken, eerste versie, nog na te lezen |

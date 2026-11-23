@@ -1,0 +1,448 @@
+%----------------------------------------------------------------------------------------
+% STELSELS. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Stelsels iteratief oplossen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een vierkante metalen plaat wordt aan de bovenrand op 100\,°C gehouden, links op 60\,°C, rechts op 20\,°C en onderaan op 0\,°C. Na een tijd verandert de temperatuur nergens meer. Hoe warm is het dan binnenin?
+
+\vspace{1mm}
+Om dat te berekenen, leg je een rooster over de plaat. In evenwicht is de temperatuur in elk roosterpunt het gemiddelde van die in de vier buurpunten. Bij vier punten binnenin geeft dat een stelsel van vier vergelijkingen. Een ingenieur gebruikt een miljoen punten. Lukt het dan nog met de methode van Gauss-Jordan?}{\begin{tikzpicture}[x=.95cm,y=.95cm,font=\scriptsize]
+  \fill[accent!8] (0,0) rectangle (3,3);
+  \draw[black!25] (1,0) -- (1,3) (2,0) -- (2,3) (0,1) -- (3,1) (0,2) -- (3,2);
+  \draw[accent,very thick] (0,3) -- (3,3) node[midway,above] {100\,°C};
+  \draw[accent!70,very thick] (0,0) -- (0,3) node[midway,left] {60\,°C};
+  \draw[accent!45,very thick] (3,0) -- (3,3) node[midway,right] {20\,°C};
+  \draw[accent!25,very thick] (0,0) -- (3,0) node[midway,below] {0\,°C};
+  \foreach \x/\y/\n in {1/2/1,2/2/2,1/1/3,2/1/4}{\fill[fel!80!black] (\x,\y) circle (2.2pt); \node[above right,inner sep=1.5pt] at (\x,\y) {$T_\n$};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 27, met de wenk over iteratieve methodes (Jacobi en Gauss-Seidel). We beginnen met de directe methode uit de samenhang (Gauss-Jordan, III-WisS''-d LPD 37) en haar numerieke zwaktes: afrondingsfouten, de keuze van de spil en slecht geconditioneerde stelsels. Voorkennis uit pakket 4: de methode van Gauss-Jordan en de matrixnotatie (Matrices, hoofdstuk 1 en 2), en de methode van de dekpunten uit hoofdstuk 2 van deze cursus. Het probleem is een discrete versie van de warmtevergelijking; dezelfde stelsels komen voor bij elektrische netwerken en bij kansen (zie Koppel).}
+
+In de cursus Matrices loste je stelsels op met de methode van Gauss-Jordan. Die methode is \textit{direct}: na een vast aantal stappen heb je de exacte oplossing, als je exact rekent. Maar een computer rekent niet exact, en bij grote stelsels wordt het aantal stappen enorm. In dit hoofdstuk zie je eerst waar Gauss-Jordan numeriek kwetsbaar is. Daarna leer je twee \textit{iteratieve} methodes, die het idee van hoofdstuk 2 toepassen op stelsels: begin met een gok, en verbeter hem telkens met hetzelfde voorschrift.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{In oefening \ref{oef:h3-verken} doen de leerlingen zonder het te weten twee stappen van de methode van Gauss-Seidel. Laat ze vergelijken met de exacte oplossing uit Gauss-Jordan: het idee van sectie 2 ligt dan klaar.}
+
+%========================================================================================
+\section{Gauss-Jordan en afronden}
+
+\subsection{Hoeveel rekenwerk?}
+
+Bij de methode van Gauss-Jordan maak je met rijbewerkingen nullen in elke kolom. Bij een stelsel van $n$ vergelijkingen moet je in elke kolom $n - 1$ rijen aanpassen, en elke rij heeft ongeveer $n$ getallen. Over $n$ kolommen is dat ongeveer $n \cdot n \cdot n = n^3$ vermenigvuldigingen (wie preciezer telt, vindt ongeveer $\frac{n^3}{2}$).
+
+\begin{rastertabel}{|c|c|c|}
+\hline
+\textbf{onbekenden} $n$ & \textbf{vermenigvuldigingen} $\approx n^3$ & \textbf{tijd met $10^9$ per seconde} \\ \hline
+4 & 64 & verwaarloosbaar \\ \hline
+1000 & $10^9$ & 1 seconde \\ \hline
+$10^6$ & $10^{18}$ & meer dan 30 jaar \\ \hline
+\end{rastertabel}
+
+Voor de plaat met een miljoen roosterpunten is Gauss-Jordan dus geen optie. Bovendien staan in elke vergelijking van zo'n stelsel maar vijf onbekenden: het punt zelf en zijn vier buren. Bijna alle coëfficiënten zijn 0. Een methode die alleen met de coëfficiënten die niet 0 zijn rekent, is veel sneller. Maar eerst een tweede probleem: afronden.
+
+\begin{oefeningen}
+\oef{h3-ops}
+\end{oefeningen}
+
+\subsection{Afronden en de keuze van de spil}
+
+Een rekentoestel of computer bewaart een vast aantal beduidende cijfers. Bij Gauss-Jordan kan een kleine afrondingsfout groot worden, als je deelt door een klein getal. Het getal waarmee je in een kolom de andere rijen nul maakt, heet de \emph{spil}.
+
+\voorbeeld{}{Los $\begin{cases} 0{,}0001\,x + y = 1 \\ x + y = 2 \end{cases}$ op met Gauss-Jordan, en rond elk tussenresultaat af op drie beduidende cijfers. Doe het daarna opnieuw na het wisselen van de vergelijkingen.\label{vb:h3-spil}}{%
+\uitleg{De exacte oplossing is $x = 1{,}0001\ldots$ en $y = 0{,}9998\ldots$, dus afgerond $x = 1$ en $y = 1$. We zien wat er gebeurt met de kleine spil 0,0001, en met de grote spil 1.}
+\begin{stappenbreed}
+R_2 - 10\,000\,R_1: \ -9999\,y = -9998 \ \to\ -10\,000\,y = -10\,000 & Afronden op drie cijfers: beide getallen worden $-10\,000$. \\[1ex]
+y = 1, \quad x = \frac{1 - y}{0{,}0001} = 0 & Fout: $x$ moet 1 zijn. De kleine afrondingsfout op $y$ is gedeeld door 0,0001. \\[1ex]
+\text{Gewisseld: } R_2 - 0{,}0001\,R_1: \ 0{,}9999\,y = 0{,}9998 \ \to\ 1{,}00\,y = 1{,}00 & Nu is de spil 1. \\[1ex]
+y = 1, \quad x = 2 - y = 1 & Juist.
+\end{stappenbreed}
+Met de kleine spil is $x$ volledig fout, met de grote spil juist. Het verschil zit niet in de wiskunde, maar in de volgorde van het rekenen.}
+
+\begin{werkwijze}
+Kies bij Gauss-Jordan in elke kolom als spil het getal met de grootste absolute waarde in die kolom (in de rijen die nog niet gebruikt zijn), en wissel die rij naar boven. Dat heet \textit{gedeeltelijke spilkeuze}. Rekentoestellen en computers doen dat automatisch.
+\end{werkwijze}
+
+\nujij{Los $\begin{cases} 0{,}001\,x + 2y = 2 \\ 3x + y = 4 \end{cases}$ op met spilkeuze, op drie beduidende cijfers.}{Wissel: $3x + y = 4$ eerst. $R_2 - 0{,}000\,333\,R_1$: $2{,}00\,y = 2{,}00$, dus $y = 1{,}00$ en $x = \frac{4 - 1}{3} = 1{,}00$. (Exact: $x \approx 1{,}0002$, $y \approx 0{,}9995$.)}
+
+\begin{oefeningen}
+\oef{h3-spil}
+\end{oefeningen}
+
+\subsection{Slecht geconditioneerde stelsels}
+
+Soms helpt geen enkele spilkeuze. Bekijk de twee stelsels
+\[
+\begin{cases} x + y = 2 \\ x + 1{,}1\,y = 2{,}1 \end{cases} \qquad \text{en} \qquad \begin{cases} x + y = 2 \\ x + 1{,}1\,y = 2{,}2 \end{cases}
+\]
+Het eerste heeft de oplossing $(1, 1)$, het tweede $(0, 2)$. Eén coëfficiënt verandert met 0,1, en de oplossing verschuift over een afstand van $\sqrt 2 \approx 1{,}4$. Komen de coëfficiënten uit metingen, met een meetfout van 0,1, dan is de oplossing dus waardeloos, hoe exact je ook rekent.
+
+\naast{De figuur toont waarom. Elke vergelijking is een rechte, en de oplossing is het snijpunt. De twee rechten zijn bijna evenwijdig. Schuif je één ervan een beetje op, dan glijdt het snijpunt ver weg langs de andere.
+
+\vspace{1mm}
+Bij een slecht geconditioneerd stelsel is ook de determinant van de coëfficiëntenmatrix klein in verhouding tot de coëfficiënten: hier is $\det \begin{pmatrix} 1 & 1 \\ 1 & 1{,}1 \end{pmatrix} = 0{,}1$. Bij een determinant 0 zijn de rechten evenwijdig.}{\begin{tikzpicture}[x=1.4cm,y=1.4cm,font=\scriptsize]
+  \draw[black!14,very thin,step=.5] (-.5,-.3) grid (2.5,2.5);
+  \draw[->,grijs] (-.5,0) -- (2.7,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-.3) -- (0,2.7) node[above,text=black] {$y$};
+  \foreach \t in {1,2}{\node[below left,inner sep=1pt] at (\t,0) {$\t$};\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] (-.3,2.3) -- (2.3,-.3);
+  \draw[fel!80!black,thick] (-.5,{(2.1+.5)/1.1}) -- (2.5,{(2.1-2.5)/1.1});
+  \draw[fel!80!black,thick,dashed] (-.5,{(2.2+.5)/1.1}) -- (2.5,{(2.2-2.5)/1.1});
+  \fill (1,1) circle (1.6pt) node[above right] {$(1, 1)$};
+  \fill (0,2) circle (1.6pt) node[right=2pt] {$(0, 2)$};
+\end{tikzpicture}}
+
+\begin{theorie}
+Een stelsel is \textbf{\textcolor{accent}{slecht geconditioneerd}} als een kleine verandering van de coëfficiënten of van het rechterlid een grote verandering van de oplossing geeft.
+\end{theorie}
+
+Een slecht geconditioneerd stelsel herken je aan bijna evenwijdige rechten (of vlakken), aan een kleine determinant, of door de coëfficiënten een beetje te veranderen en opnieuw op te lossen. Een numerieke methode kan dat niet verhelpen. Je kunt het wel opmerken, en dan de oplossing met de nodige argwaan behandelen.
+
+\voorbeeld{}{Los $\begin{cases} 2x + 3y = 5 \\ 2{,}02\,x + 3y = 5{,}02 \end{cases}$ op. Los daarna het stelsel op waarin $5{,}02$ vervangen is door $5{,}04$. Is het stelsel slecht geconditioneerd?\label{vb:h3-conditie}}{%
+\uitleg{We trekken de vergelijkingen af, zodat $y$ wegvalt, en vergelijken de twee oplossingen.}
+\begin{stappen}
+0{,}02\,x = 0{,}02 \ \Rightarrow\ x = 1, \ y = 1 & Het eerste stelsel. \\[1ex]
+0{,}02\,x = 0{,}04 \ \Rightarrow\ x = 2, \ y = \tfrac13 & Het rechterlid veranderde met 0,02. \\[1ex]
+\det = 2 \cdot 3 - 3 \cdot 2{,}02 = -0{,}06 & Klein tegenover de coëfficiënten 2 en 3.
+\end{stappen}
+Een verandering van 0,02 verschuift $x$ met 1, vijftig keer zoveel: het stelsel is slecht geconditioneerd.}
+
+\begin{oefeningen}
+\oef{h3-conditie}
+\end{oefeningen}
+
+%========================================================================================
+\section{De methode van Jacobi}
+
+\subsection{Elke vergelijking naar haar eigen onbekende}
+
+Terug naar de plaat. Elke vergelijking zegt: de temperatuur in een punt is het gemiddelde van die van de buren. Voor $T_1$, met boven 100\,°C en links 60\,°C:
+\[
+T_1 = \frac{100 + 60 + T_2 + T_3}{4} .
+\]
+Dat is al een voorschrift om $T_1$ te berekenen, als je $T_2$ en $T_3$ kent. Je kent ze niet, maar je kunt ze gokken, en dan de gok verbeteren: bereken met de oude waarden van de buren een nieuwe waarde voor elk punt, en herhaal. Zo rekent ook de natuur: elk stukje plaat warmt op of koelt af naar het gemiddelde van zijn omgeving.
+
+Dat idee werkt voor elk stelsel waarin de $i$-de vergelijking de $i$-de onbekende bevat. Los elke vergelijking op naar haar eigen onbekende. Dan staat het stelsel in de vorm $\mathbf{x} = g(\mathbf{x})$, zoals in hoofdstuk 2, maar nu met meerdere onbekenden tegelijk.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{methode van Jacobi}} lost een stelsel $\sum_j a_{ij} x_j = b_i$ (met $a_{ii} \neq 0$) op door elke vergelijking op te lossen naar haar eigen onbekende. Vanaf een start $x^{(0)}$ is bij elke stap $k$, voor elke $i$,
+\[
+\formule{x_i^{(k+1)} = \frac{1}{a_{ii}} \Bigl( b_i - \sum_{j \neq i} a_{ij}\, x_j^{(k)} \Bigr)}
+\]
+\end{theorie}
+
+Het bovenschrift $(k)$ is geen exponent: het is het nummer van de stap. Alle nieuwe waarden worden berekend met de oude waarden van de vorige stap. De methode is genoemd naar de Duitse wiskundige Carl Jacobi, die ze in 1845 gebruikte voor berekeningen in de sterrenkunde.
+
+\voorbeeld{}{Pas drie stappen van de methode van Jacobi toe op $\begin{cases} 4x - y + z = 1 \\ x + 5y - 2z = 13 \\ 2x - y + 6z = -6 \end{cases}$ vanaf $(0, 0, 0)$.\label{vb:h3-jacobi}}{%
+\uitleg{We lossen de eerste vergelijking op naar $x$, de tweede naar $y$, de derde naar $z$. Daarna vullen we telkens de waarden van de vorige rij in de tabel in.}
+\naast{\begin{stappenvrij}{4.2cm}{2.6cm}
+x = \tfrac14(1 + y - z) & Uit de eerste. \\
+y = \tfrac15(13 - x + 2z) & Uit de tweede. \\
+z = \tfrac16(-6 - 2x + y) & Uit de derde.
+\end{stappenvrij}}{{\renewcommand{\arraystretch}{1.25}\begin{tabular}{@{}c|ccc@{}}
+$k$ & $x^{(k)}$ & $y^{(k)}$ & $z^{(k)}$ \\ \hline
+0 & 0 & 0 & 0 \\
+1 & 0,25 & 2,6 & $-1$ \\
+2 & 1,15 & 2,15 & $-0{,}65$ \\
+3 & 0,95 & 2,11 & $-1{,}025$ \\
+\end{tabular}}}
+Zo is bij $k = 2$ bijvoorbeeld $x^{(2)} = \frac14(1 + 2{,}6 + 1) = 1{,}15$ en $z^{(2)} = \frac16(-6 - 0{,}5 + 2{,}6) = -0{,}65$. De waarden springen heen en weer rond $(1, 2, -1)$, en dat is inderdaad de oplossing: controleer door in te vullen. Na acht stappen wijkt elke onbekende minder dan 0,001 af.}
+
+\begin{werkwijze}
+Controleer dat elke vergelijking haar eigen onbekende bevat (wissel anders vergelijkingen). Los de $i$-de vergelijking op naar $x_i$. Maak een tabel met een rij per stap, en bereken elke nieuwe rij volledig uit de vorige.
+\end{werkwijze}
+
+\nujij{Bereken $x^{(1)}$ en $x^{(2)}$ met de methode van Jacobi voor $\begin{cases} 4x + y = 9 \\ x + 3y = 5 \end{cases}$ vanaf $(0, 0)$.}{$x = \frac{9 - y}{4}$ en $y = \frac{5 - x}{3}$: $(2{,}25;\ 1{,}6667)$ en $(1{,}8333;\ 0{,}9167)$. De oplossing is $(2, 1)$.}
+
+\begin{oefeningen}
+\oef{h3-jacobi}
+\end{oefeningen}
+
+%========================================================================================
+\section{De methode van Gauss-Seidel}
+
+\subsection{Meteen de nieuwste waarden}
+
+Kijk nog eens naar de methode van Jacobi. Als je $y^{(k+1)}$ berekent, ken je $x^{(k+1)}$ al, en die is waarschijnlijk beter dan $x^{(k)}$. Waarom zou je dan nog de oude waarde gebruiken? Dat is het idee van Carl Friedrich Gauss en zijn leerling Philipp Ludwig von Seidel: gebruik altijd de nieuwste waarde die je hebt.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{methode van Gauss-Seidel}} berekent de onbekenden in volgorde, en gebruikt telkens de waarden die al berekend zijn in dezelfde stap:
+\[
+\formule{x_i^{(k+1)} = \frac{1}{a_{ii}} \Bigl( b_i - \sum_{j < i} a_{ij}\, x_j^{(k+1)} - \sum_{j > i} a_{ij}\, x_j^{(k)} \Bigr)}
+\]
+\end{theorie}
+
+Dat is niet alleen sneller, het is ook eenvoudiger: je hoeft geen oude waarden te bewaren, want je overschrijft elke waarde zodra je de nieuwe kent. Bij een $2 \times 2$-stelsel zie je het verschil op een figuur. Elke vergelijking is een rechte. Gauss-Seidel lost de eerste vergelijking op naar $x$: dat is horizontaal opschuiven tot de eerste rechte. Daarna lost hij de tweede op naar $y$: verticaal opschuiven tot de tweede rechte. Zo trapt hij naar het snijpunt.
+
+\figuren{\begin{tikzpicture}[x=1.5cm,y=1.5cm,font=\scriptsize]
+  \draw[black!14,very thin,step=.5] (0,0) grid (2.5,2);
+  \draw[->,grijs] (0,0) -- (2.7,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,2.2) node[above,text=black] {$y$};
+  \foreach \t in {1,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \node[left,inner sep=1.5pt] at (0,1) {$1$};
+  \draw[accent,thick] (1.75,2) -- (2.25,0) node[below right,inner sep=1pt] {$4x + y = 9$};
+  \draw[accent!60,thick] (0,1.6667) -- (2.5,.8333); \node[above right,inner sep=1pt] at (.1,1.64) {$x + 3y = 5$};
+  \draw[fel!80!black,thick] (0,0) -- (2.25,0) -- (2.25,.9167) -- (2.0208,.9167) -- (2.0208,.9931) -- (2.0017,.9931);
+  \fill (2,1) circle (1.5pt);
+  \node[text width=4cm,align=center] at (1.25,-.45) {Gauss-Seidel: een trap};
+\end{tikzpicture}\hspace{8mm}
+\begin{tikzpicture}[x=1.5cm,y=1.5cm,font=\scriptsize]
+  \draw[black!14,very thin,step=.5] (0,0) grid (2.5,2);
+  \draw[->,grijs] (0,0) -- (2.7,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,2.2) node[above,text=black] {$y$};
+  \foreach \t in {1,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \node[left,inner sep=1.5pt] at (0,1) {$1$};
+  \draw[accent,thick] (1.75,2) -- (2.25,0);
+  \draw[accent!60,thick] (0,1.6667) -- (2.5,.8333);
+  \draw[fel!80!black,thick,->] (0,0) -- (2.25,1.6667);
+  \draw[fel!80!black,thick,->] (2.25,1.6667) -- (1.8333,.9167);
+  \draw[fel!80!black,thick,->] (1.8333,.9167) -- (2.0208,1.0556);
+  \draw[fel!80!black,thick] (2.0208,1.0556) -- (1.9861,.9931);
+  \foreach \x/\y in {0/0,2.25/1.6667,1.8333/.9167,2.0208/1.0556,1.9861/.9931}{\fill[fel!80!black] (\x,\y) circle (1.2pt);}
+  \fill (2,1) circle (1.5pt);
+  \node[text width=4cm,align=center] at (1.25,-.45) {Jacobi: sprongen naar beide rechten tegelijk};
+\end{tikzpicture}}
+
+\voorbeeld{}{Pas drie stappen van de methode van Gauss-Seidel toe op het stelsel van voorbeeld \ref{vb:h3-jacobi}, vanaf $(0, 0, 0)$. Vergelijk met Jacobi.\label{vb:h3-gs}}{%
+\uitleg{Dezelfde formules, maar bij $y$ gebruiken we de nieuwe $x$, en bij $z$ de nieuwe $x$ en $y$.}
+\begin{stappen}
+x^{(1)} = \tfrac14(1 + 0 - 0) = 0{,}25 & Zoals bij Jacobi. \\[1ex]
+y^{(1)} = \tfrac15(13 - 0{,}25 + 0) = 2{,}55 & Met de nieuwe $x$. \\[1ex]
+z^{(1)} = \tfrac16(-6 - 0{,}5 + 2{,}55) \approx -0{,}6583 & Met de nieuwe $x$ en $y$. \\[1ex]
+(x, y, z)^{(2)} \approx (1{,}0521;\ 2{,}1263;\ -0{,}9963) & Op dezelfde manier. \\[1ex]
+(x, y, z)^{(3)} \approx (1{,}0306;\ 1{,}9953;\ -1{,}0110) &
+\end{stappen}
+Na drie stappen is de grootste fout 0,031, tegen 0,11 bij Jacobi. Na zes stappen is ze kleiner dan 0,0002; Jacobi heeft er acht nodig om onder 0,001 te komen.}
+
+\begin{werkwijze}
+Los zoals bij Jacobi elke vergelijking op naar haar eigen onbekende. Bereken de onbekenden in volgorde, en vul telkens de nieuwste waarde in die je kent. Op papier: één rij per stap, die je van links naar rechts invult.
+\end{werkwijze}
+
+\needspace{16\baselineskip}
+Nu kunnen we de plaat aan.
+
+\voorbeeld{}{Terug naar het probleem. Bepaal de temperaturen $T_1$ tot $T_4$ met de methode van Gauss-Seidel, vanaf 0, tot op 0,1\,°C.\label{vb:h3-terug}}{%
+\uitleg{Elk punt is het gemiddelde van zijn vier buren. $T_1$ heeft als buren de bovenrand (100), de linkerrand (60), $T_2$ en $T_3$; zo verder voor de andere punten. We vullen telkens de nieuwste waarden in.}
+\naast{\begin{stappenvrij}{3.8cm}{2.2cm}
+T_1 = \tfrac14(160 + T_2 + T_3) & boven, links \\
+T_2 = \tfrac14(120 + T_1 + T_4) & boven, rechts \\
+T_3 = \tfrac14(60 + T_1 + T_4) & onder, links \\
+T_4 = \tfrac14(20 + T_2 + T_3) & onder, rechts
+\end{stappenvrij}}{{\renewcommand{\arraystretch}{1.2}\begin{tabular}{@{}c|cccc@{}}
+$k$ & $T_1$ & $T_2$ & $T_3$ & $T_4$ \\ \hline
+1 & 40 & 40 & 25 & 21,25 \\
+2 & 56,25 & 49,38 & 34,38 & 25,94 \\
+3 & 60,94 & 51,72 & 36,72 & 27,11 \\
+4 & 62,11 & 52,30 & 37,30 & 27,40 \\
+5 & 62,40 & 52,45 & 37,45 & 27,48 \\
+6 & 62,48 & 52,49 & 37,49 & 27,49 \\
+7 & 62,49 & 52,50 & 37,50 & 27,50 \\
+\end{tabular}}}
+De waarden stijgen naar $(62{,}5;\ 52{,}5;\ 37{,}5;\ 27{,}5)$, en dat is de exacte oplossing: vul ze in, of los het stelsel op met Gauss-Jordan. Na vijf stappen klopt alles op 0,1\,°C. Jacobi heeft er negen nodig: na zes stappen zat Jacobi pas op $T_1 \approx 61{,}8$.}
+
+Bij vier punten had Gauss-Jordan ook gekund. Maar bij een miljoen punten kost één stap van Gauss-Seidel ongeveer vijf miljoen bewerkingen: elke vergelijking heeft maar vijf onbekenden. Zelfs duizenden stappen zijn dan nog sneller dan één keer Gauss-Jordan.
+
+\begin{oefeningen}
+\oef{h3-gs}
+\end{oefeningen}
+
+%========================================================================================
+\section{Wanneer convergeert het?}
+
+\subsection{Diagonaal dominant}
+
+Wissel in het stelsel $4x + y = 9$, $x + 3y = 5$ de vergelijkingen van plaats, en los de eerste op naar $x$ en de tweede naar $y$: $x = 5 - 3y$ en $y = 9 - 4x$. Dan geeft Gauss-Seidel vanaf $(0, 0)$ de punten $(5, -11)$, $(38, -143)$, $(434, -1727)$: de rij vliegt weg. Wat is het verschil? In de goede volgorde staat in elke vergelijking de grootste coëfficiënt bij de eigen onbekende. Dan is de eigen onbekende het belangrijkst, en hebben de andere weinig invloed.
+
+\begin{theorie}
+Een vierkante matrix $A = (a_{ij})$ is \textbf{\textcolor{accent}{strikt diagonaal dominant}} als in elke rij het diagonaalelement in absolute waarde groter is dan de som van de andere:
+\[
+\formule{|a_{ii}| > \sum_{j \neq i} |a_{ij}|} \qquad \text{voor elke } i .
+\]
+\end{theorie}
+
+Het stelsel van de plaat is diagonaal dominant: $4 > 1 + 1$ in elke rij. Ook het stelsel van voorbeeld \ref{vb:h3-jacobi}: $4 > 1 + 1$, $5 > 1 + 2$ en $6 > 2 + 1$. Bij zulke stelsels convergeren beide methodes altijd.
+
+\begin{theorie}
+\begin{stelling}{Convergentie van Jacobi}
+Is de coëfficiëntenmatrix strikt diagonaal dominant, dan convergeert de methode van Jacobi voor elke start naar de oplossing $\mathbf{x}$. Met
+\[
+q = \max_i \sum_{j \neq i} \frac{|a_{ij}|}{|a_{ii}|} < 1 \quad \text{en} \quad E^{(k)} = \max_i |x_i^{(k)} - x_i|
+\]
+geldt \qquad $\formule{E^{(k+1)} \leqslant q\,E^{(k)}}$ \qquad en dus \qquad $\formule{E^{(k)} \leqslant q^k\,E^{(0)}}$
+\end{stelling}
+
+\begin{bewijs}
+De oplossing voldoet aan $x_i = \frac{1}{a_{ii}}\bigl(b_i - \sum_{j \neq i} a_{ij} x_j\bigr)$. Trek dat af van het voorschrift van Jacobi:
+\bewijsregel{x_i^{(k+1)} - x_i = -\sum_{j \neq i} \frac{a_{ij}}{a_{ii}}\,\bigl(x_j^{(k)} - x_j\bigr) .}
+Elke $|x_j^{(k)} - x_j| \leqslant E^{(k)}$, dus $|x_i^{(k+1)} - x_i| \leqslant \sum_{j \neq i} \frac{|a_{ij}|}{|a_{ii}|}\,E^{(k)} \leqslant q\,E^{(k)}$ voor elke $i$. Neem het maximum over $i$. Met inductie volgt $E^{(k)} \leqslant q^k E^{(0)}$, en $q^k \to 0$ omdat $q < 1$.
+\end{bewijs}
+\end{theorie}
+
+Het bewijs is hetzelfde idee als in hoofdstuk 2: de fout wordt bij elke stap met hoogstens $q$ vermenigvuldigd. Het getal $q$ speelt de rol van $k$ bij de methode van de dekpunten. Voor Gauss-Seidel geldt hetzelfde, met een bewijs dat net iets meer zorg vraagt.
+
+\begin{theorie}
+\begin{stelling}{Convergentie van Gauss-Seidel}
+Is de coëfficiëntenmatrix strikt diagonaal dominant, dan convergeert ook de methode van Gauss-Seidel voor elke start, en met $q$ en $E^{(k)}$ zoals hierboven is
+
+\vspace{1mm}
+\qquad $\formule{E^{(k+1)} \leqslant q\,E^{(k)}}$
+\end{stelling}
+
+\begin{bewijs}
+Nu is
+\bewijsregel{x_i^{(k+1)} - x_i = -\sum_{j < i} \frac{a_{ij}}{a_{ii}}\,\bigl(x_j^{(k+1)} - x_j\bigr) - \sum_{j > i} \frac{a_{ij}}{a_{ii}}\,\bigl(x_j^{(k)} - x_j\bigr) .}
+We tonen met inductie op $i$ aan dat $|x_i^{(k+1)} - x_i| \leqslant q\,E^{(k)}$. Stel dat het geldt voor alle $j < i$. Dan zijn die fouten hoogstens $q E^{(k)} \leqslant E^{(k)}$, en de fouten met $j > i$ ook, dus $|x_i^{(k+1)} - x_i| \leqslant \sum_{j \neq i} \frac{|a_{ij}|}{|a_{ii}|}\,E^{(k)} \leqslant q\,E^{(k)}$. Voor $i = 1$ is er geen $j < i$, en klopt het meteen.
+\end{bewijs}
+\end{theorie}
+
+De stelling geeft voor beide methodes dezelfde garantie, maar in de praktijk is Gauss-Seidel bijna altijd sneller: de fouten van de onbekenden die al berekend zijn, zijn al kleiner dan $E^{(k)}$. Bij een $2 \times 2$-stelsel is Gauss-Seidel precies twee keer zo snel (opdracht \ref{oef:h3-o17}).
+
+Let op: de voorwaarde is voldoende, niet nodig. Er zijn stelsels die niet diagonaal dominant zijn en waarbij de methodes toch convergeren (opdracht \ref{oef:h3-o18}). En diagonaal dominant hangt af van de volgorde van de vergelijkingen: wissel ze zo dat de grote coëfficiënten op de diagonaal komen.
+
+\voorbeeld{}{Is $\begin{cases} x + 5y - z = 3 \\ 2x - y + 6z = 19 \\ 7x + 2y - 3z = 0 \end{cases}$ geschikt voor Gauss-Seidel? Herschik het stelsel zo nodig, en geef $q$.\label{vb:h3-dominant}}{%
+\uitleg{In de gegeven volgorde staan op de diagonaal $1$, $-1$ en $-3$: niet dominant. We zoeken voor elke onbekende de vergelijking waarin ze de grootste coëfficiënt heeft.}
+\begin{stappen}
+7x + 2y - 3z = 0 & $|7| > 2 + 3$: deze vergelijking voor $x$. \\[1ex]
+x + 5y - z = 3 & $|5| > 1 + 1$: voor $y$. \\[1ex]
+2x - y + 6z = 19 & $|6| > 2 + 1$: voor $z$. \\[1ex]
+q = \max\bigl(\tfrac57, \tfrac25, \tfrac36\bigr) = \tfrac57 & De fout wordt per stap minstens met $\frac57 \approx 0{,}71$ vermenigvuldigd.
+\end{stappen}
+In de volgorde (3), (1), (2) is het stelsel strikt diagonaal dominant, en convergeren Jacobi en Gauss-Seidel. (De oplossing is $(1, 1, 3)$.)}
+
+\begin{werkwijze}
+Zoek voor elke onbekende een vergelijking waarin haar coëfficiënt in absolute waarde groter is dan de som van de andere, en zet die vergelijkingen in de volgorde van de onbekenden. Lukt dat, dan convergeren beide methodes. Bereken $q$ om te weten hoe snel ten minste. Stop als twee opeenvolgende stappen in elke onbekende minder dan $\varepsilon$ verschillen.
+\end{werkwijze}
+
+\nujij{Is het stelsel van de plaat strikt diagonaal dominant? Hoe groot is $q$? Hoeveel stappen garandeert de stelling voor een fout van 0,1\,°C, als de start hoogstens 100\,°C fout is?}{Ja: $4 > 1 + 1$. $q = \frac24 = \frac12$. $100 \cdot 0{,}5^k < 0{,}1$ geeft $k \geqslant 10$.}
+
+\begin{oefeningen}
+\oef{h3-dominant}
+
+\oef{h3-garantie}
+\end{oefeningen}
+
+\subsection{Met de computer}
+
+Voor een plaat met veel punten schrijf je thuis een kort programma. Hier is de plaat met $n \times n$ punten binnenin, met dezelfde randen als in het probleem. De lijst \texttt{T} bevat ook de randen, zodat elk punt binnenin vier buren heeft.
+
+\begin{python}
+n = 49                                   # punten binnenin per rij
+T = [[0.0] * (n + 2) for _ in range(n + 2)]
+for k in range(n + 2):
+    T[0][k] = 100.0                      # bovenrand
+    T[k][0], T[k][n + 1] = 60.0, 20.0    # links en rechts
+    T[n + 1][k] = 0.0                    # onderrand
+for stap in range(5000):                 # Gauss-Seidel
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            T[i][j] = (T[i-1][j] + T[i+1][j] + T[i][j-1] + T[i][j+1]) / 4
+print(T[25][25])                         # het midden van de plaat
+\end{python}
+
+Het programma geeft in het midden een temperatuur van 45\,°C: het gemiddelde van de vier randen. Dat is geen toeval (opdracht \ref{oef:h3-o19}). Verander het aantal stappen, en kijk hoeveel er nodig zijn voor een stabiel resultaat: bij veel punten convergeert Gauss-Seidel traag, omdat $q$ dan bijna 1 is. Daarom bestaan er nog snellere methodes, die je in het hoger onderwijs kunt leren.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over matrices gebruikt de inverse matrix (Matrices, hoofdstuk 3). De oefening over kansen veronderstelt alleen de productregel en de somregel uit Kansrekenen.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-jacobi}{oef:h3-jacobi}%
+  \fv{oef:h3-t2}{vb:h3-gs}{oef:h3-gs}%
+  \fv{oef:h3-t3}{vb:h3-dominant}{oef:h3-dominant}%
+  \fv{oef:h3-t4}{vb:h3-spil}{oef:h3-spil}%
+  \fv{oef:h3-t5}{vb:h3-conditie}{oef:h3-conditie}%
+  \fv{oef:h3-t6}{vb:h3-dominant}{oef:h3-dominant}%
+  \fv{oef:h3-t7}{vb:h3-terug}{oef:h3-gs}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom Gauss-Jordan bij grote stelsels te traag is, wat de spil is en hoe je ze kiest, wat een slecht geconditioneerd stelsel is en hoe je het herkent, de methode van Jacobi, de methode van Gauss-Seidel en het verschil met Jacobi (ook op een figuur), wat strikt diagonaal dominant betekent, de convergentiestelling met haar bewijs, en hoe je een stelsel herschikt zodat het convergeert. Vergelijk daarna met de kaders.
+\fi
