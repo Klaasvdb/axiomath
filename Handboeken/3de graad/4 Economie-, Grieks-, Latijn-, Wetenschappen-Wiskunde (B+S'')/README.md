@@ -23,6 +23,7 @@ Leerplan: B+S'' (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met le
 | [Meetkunde/Kegelsneden](Meetkunde/Kegelsneden) | uitbreiding: GO! WD3\_06.08.11, KOV Complementair | vijf hoofdstukken, eerste versie, nog na te lezen |
 | [Meetkunde/Krommen en meetkundige plaatsen](Meetkunde/Krommen%20en%20meetkundige%20plaatsen) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 8-10 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Meetkunde/Oppervlakken](Meetkunde/Oppervlakken) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 11-13 | drie hoofdstukken, eerste versie, nog na te lezen |
+| [Meetkunde/Affiene en projectieve meetkunde](Meetkunde/Affiene%20en%20projectieve%20meetkunde) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 14-16 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Getaltheorie](Algebra/Getaltheorie) | uitbreiding: KOV Complementair (III-WiCo-d LPD 35) | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Lineair programmeren](Algebra/Lineair%20programmeren) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 36-39 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Algebra/Groepentheorie](Algebra/Groepentheorie) | uitbreiding: KOV Complementair (III-WiCo-d) LPD 31-32 | drie hoofdstukken, eerste versie, nog na te lezen |

@@ -138,4 +138,5 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Ruimtemeetkunde | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | eerste versie, nog na te lezen |
 | Krommen en meetkundige plaatsen | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Krommen en meetkundige plaatsen/README.md>) | eerste versie, nog na te lezen |
 | Oppervlakken | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Oppervlakken/README.md>) | eerste versie, nog na te lezen |
+| Affiene en projectieve meetkunde | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Affiene en projectieve meetkunde/README.md>) | eerste versie, nog na te lezen |
 | alle overige | per pakket | nog te maken |
