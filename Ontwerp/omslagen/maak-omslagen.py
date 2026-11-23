@@ -65,6 +65,7 @@ SCHILDERIJEN = {
     "kazen": ("File:Clara Peeters - Still Life with Cheeses, Almonds and Pretzels - 1203 - Mauritshuis.jpg", 0.5, 0.5),  # Clara Peeters, lineair programmeren
     "geldwisselaar": ("File:Quentin Massys 001.jpg", 0.5, 0.5),  # Quinten Massys, De geldwisselaar en zijn vrouw (financiële algebra)
     "sterrenkundige": ("File:Astronomer in a window, by Gerard Dou.jpg", 0.5, 0.62),  # Gerrit Dou, lineaire regressie
+    "melencolia": ("File:Albrecht Dürer, Melencolia I, 1514, NGA 6640.jpg", 0.5, 0.2),  # Dürer, Melencolia I met het magische vierkant (vectorruimten)
     "theekransje": ("File:John Tenniel - Illustration from The Nursery Alice (1890) - c03757 07.jpg", 0.45, 0.5),  # Tenniel, predicatenlogica
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
@@ -85,7 +86,7 @@ SCHILDERIJEN = {
 }
 # deel dat rondom wegvalt: Seurat schilderde een stippelrand mee, de andere foto's tonen de lijst of de stofrand.
 # Eén getal voor alle kanten, of (links, boven, rechts, onder): bij de zeilwagen vallen de titel en de witte rand weg.
-RAND = {"grande-jatte": 0.015, "broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
+RAND = {"grande-jatte": 0.015, "melencolia": 0.016, "broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
         "zeilwagen": (0.01, 0.07, 0.01, 0.03), "goudweegster": (0.03, 0.01, 0.03, 0.01),
         "bui": (0.056, 0, 0.026, 0),
         "theekransje": (0.11, 0.09, 0.09, 0.07),  # Tenniel: het witte papier rond de prent
