@@ -203,6 +203,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Differentiaalvergelijkingen | Jean Siméon Chardin, *Dame die thee drinkt*, 1735 | Een dampende kop thee die afkoelt: de afkoelingswet van Newton, het probleem van hoofdstuk 2 | Het richtingsveld van y' = −k(y − A), met drie integraalkrommen die van boven en van onder naar de kamertemperatuur gaan; de bovenrand van de band is zelf een afkoelingskromme |
 | Kansverdelingen | Gustave Caillebotte, *Parijse straat, regenachtige dag*, 1877 | Voorbijgangers die elk op hun eigen moment het plein oversteken: het aantal per minuut volgt een Poissonverdeling (hoofdstuk 2) | Het staafdiagram van de Poissonverdeling met λ = 3, met de twee even hoge toppen bij 2 en 3 in fel |
 | Numerieke methodes | William Blake, *Newton*, 1795-ca. 1805 | Isaac Newton buigt zich met een passer over een tekening; de methode van Newton draagt zijn naam | De methode van Newton voor u² = 2,25: vanuit 5,3 volgen de raaklijnen naar 2,86, 1,82, 1,53 en de nulwaarde 1,5 |
+| Iteraties en fractalen | Ernst Haeckel, *Siphonophorae*, uit *Kunstformen der Natur*, 1904 | Een siphonofoor is een kolonie van steeds dezelfde bouwstenen, met tentakels die zich op elke schaal opnieuw vertakken: de fractale vormen van de natuur | De bovenrand van de band is de Koch-kromme, van links naar rechts na 0, 1, 2 en 3 iteraties |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 

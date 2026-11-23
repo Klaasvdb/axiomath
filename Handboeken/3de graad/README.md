@@ -125,5 +125,6 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Logica en bewijzen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Logica en bewijzen/README.md>) | eerste versie, nog na te lezen |
 | Rijen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Rijen/README.md>) | eerste versie, nog na te lezen |
 | Telproblemen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Telproblemen/README.md>) | eerste versie, nog na te lezen |
+| Iteraties en fractalen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Iteraties en fractalen/README.md>) | eerste versie, nog na te lezen |
 | Ruimtemeetkunde | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | eerste versie, nog na te lezen |
 | alle overige | per pakket | nog te maken |

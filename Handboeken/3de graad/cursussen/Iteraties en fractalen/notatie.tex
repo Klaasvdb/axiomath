@@ -1,0 +1,125 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS ITERATIES EN FRACTALEN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\providecommand{\R}{\mathbb{R}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\ig}{\displaystyle\int}
+\newcommand{\bgtan}{\operatorname{bgtan}}
+% Rechter- en linkerlimiet, met de ongelijkheid onder de pijl
+\newcommand{\limr}[2]{\lim\limits_{\substack{#1 \to #2 \\ >}}}
+\newcommand{\liml}[2]{\lim\limits_{\substack{#1 \to #2 \\ <}}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster met assen: \rooster{xmin}{xstap}{xmax}{ymin}{ystap}{ymax}, met getallen op de assen (gehele waarden).
+% De namen van de assen zijn \asx en \asy (standaard x en y): zet \def\asx{t} vooraan in de tikzpicture.
+% \roosterleeg doet hetzelfde zonder getallen, voor eigen labels.
+\def\asx{x}\def\asy{y}
+\newcommand{\roosterleeg}[6]{%
+  \draw[black!14,very thin,xstep=#2,ystep=#5] (#1,#4) grid (#3,#6);
+  \draw[->,grijs] (#1,0) -- ({#3+.4*#2},0) node[right,text=black] {$\asx$};
+  \draw[->,grijs] (0,#4) -- (0,{#6+.4*#5}) node[above,text=black] {$\asy$};}
+\newcommand{\rooster}[6]{%
+  \roosterleeg{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathtruncatemacro{\rtweex}{#1+#2}\pgfmathtruncatemacro{\rtweey}{#4+#5}
+  \foreach \t in {#1,\rtweex,...,#3}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#4,\rtweey,...,#6}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+
+% In de functievoorschriften is \x de veranderlijke; schrijf (\x)^2 en sin(\x r).
+\newcommand{\assen}[4]{%
+  \draw[->,lijngrijs] (#1,0) -- (#2,0) node[right,text=black] {$\asx$};
+  \draw[->,lijngrijs] (0,#3) -- (0,#4) node[above,text=black] {$\asy$};}
+\newcommand{\kromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=90,smooth] (\x,{#4});}
+\newcommand{\stip}[2]{\fill (#1,#2) circle (1.5pt);}
+
+\newcommand{\C}{\mathbb{C}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+% De n-de iteratie van f: f o f o ... o f (n keer). Niet f^n: dat lijkt op een macht, zoals sin^2 x.
+\newcommand{\iter}[2]{#1^{\circ #2}}
+
+% SPINNENWEBDIAGRAM: \spinnenweb[opties]{f in \x}{x0}{aantal stappen}
+% Begint verticaal vanaf (x0, 0), en gaat dan afwisselend naar de grafiek en naar y = x.
+% Schrijf het voorschrift zoals bij \kromme: (\x)^2 - 1, cos(\x r).
+\newcommand{\spinnenweb}[4][]{%
+  \xdef\swx{#3}%
+  \def\x{\swx}\pgfmathsetmacro{\swy}{#2}%
+  \draw[grijs,#1] (\swx,0) -- (\swx,\swy) -- (\swy,\swy);
+  \xdef\swx{\swy}%
+  \ifnum#4>1
+  \foreach \swi in {2,...,#4}{%
+    \def\x{\swx}\pgfmathsetmacro{\swy}{#2}%
+    \draw[grijs,#1] (\swx,\swx) -- (\swx,\swy) -- (\swy,\swy);
+    \xdef\swx{\swy}}%
+  \fi}
+% De rechte y = x van xmin tot xmax, met het label
+\newcommand{\eerstebissectrice}[2]{\draw[lijngrijs,thick] (#1,#1) -- (#2,#2) node[above,text=black,font=\scriptsize] {$y = x$};}
+
+% FRACTALEN
+\usetikzlibrary{lindenmayersystems}
+% Koch-kromme met de bulten links van de looprichting (naar boven als je naar rechts tekent):
+%   \draw (0,0) [lindenmayer system={Kochkromme, axiom=F, order=3, step={6cm/27}, angle=60}] lindenmayer system;
+\pgfdeclarelindenmayersystem{Kochkromme}{\rule{F -> F+F--F+F}}
+% Sneeuwvlok van Koch: tegen de klok in, bulten naar buiten. axiom=F++F++F, angle=60.
+\pgfdeclarelindenmayersystem{Kochvlok}{\rule{F -> F-F++F-F}}
+% Driehoek van Sierpinski: \sierpinski[vorm]{orde}{x}{y}{zijde}, linksonder in (x, y).
+% De vorm op het laagste niveau is standaard een gevulde driehoek; met [\sierpvierkant] een gevuld vierkant
+% (zo zie je dat de drie gelijkvormigheden ook een vierkant naar de driehoek van Sierpinski brengen).
+\newcommand{\sierpdriehoek}[3]{\fill (#1,#2) -- ++(#3,0) -- ++(120:#3) -- cycle;}
+\newcommand{\sierpvierkant}[3]{\fill (#1,#2) rectangle ++(#3,#3);}
+\newcommand{\sierpinski}[5][\sierpdriehoek]{%
+  \ifnum#2=0
+    #1{#3}{#4}{#5}%
+  \else
+    \begingroup
+    \pgfmathsetmacro{\sph}{#5/2}\pgfmathsetmacro{\spx}{#3+\sph}\pgfmathsetmacro{\spxx}{#3+\sph/2}%
+    \pgfmathsetmacro{\spy}{#4+\sph*0.8660254}\pgfmathtruncatemacro{\spl}{#2-1}%
+    \edef\spvolgende{\noexpand\sierpinski[\noexpand#1]{\spl}{#3}{#4}{\sph}%
+      \noexpand\sierpinski[\noexpand#1]{\spl}{\spx}{#4}{\sph}\noexpand\sierpinski[\noexpand#1]{\spl}{\spxx}{\spy}{\sph}}%
+    \spvolgende
+    \endgroup
+  \fi}
+% Cantorverzameling: \cantor{orde}{x}{y}{lengte} tekent de 2^orde overblijvende stukken als dikke lijnstukken.
+\newcommand{\cantor}[4]{%
+  \ifnum#1=0
+    \draw[line width=2.2pt] (#2,#3) -- ++(#4,0);
+  \else
+    \begingroup
+    \pgfmathsetmacro{\cal}{#4/3}\pgfmathsetmacro{\cax}{#2+2*\cal}\pgfmathtruncatemacro{\cao}{#1-1}%
+    \edef\cavolgende{\noexpand\cantor{\cao}{#2}{#3}{\cal}\noexpand\cantor{\cao}{\cax}{#3}{\cal}}%
+    \cavolgende
+    \endgroup
+  \fi}

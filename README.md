@@ -24,9 +24,9 @@ Een percentage hoort bij een status: ⚪ **gepland** (0 %): nog niet begonnen, �
 
 ### 3de graad doorstroomfinaliteit
 
-**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 55 handboeken
+**Totaal** &nbsp; `█████░░░░░░░░░░░░░░░` &nbsp; **25 %** van 56 handboeken
 
-🔴 54 eerste versie · 🟠 1 tweede versie
+🔴 55 eerste versie · 🟠 1 tweede versie
 
 #### Per richting
 
@@ -127,6 +127,7 @@ Elke richting volgt één pakket, en de voortgang van de richting is het gemidde
 | [Rijen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Rijen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Telproblemen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Telproblemen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Logica en bewijzen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Logica en bewijzen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
+| [Iteraties en fractalen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Iteraties en fractalen/README.md>) | Discrete wiskunde | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Kansrekenen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansrekenen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Statistiek](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Statistiek/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |
 | [Kansverdelingen](<Handboeken/3de graad/4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansverdelingen/README.md>) | Data en onzekerheid | 🔴 eerste versie | `█████░░░░░░░░░░░░░░░` |  25 % |

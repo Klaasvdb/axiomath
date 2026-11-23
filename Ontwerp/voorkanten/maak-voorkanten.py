@@ -94,6 +94,7 @@ HANDBOEKEN_LIJST += [(P4, m, n, jaar) for m, n, jaar in [
     ("Discrete wiskunde/Rijen", "rijen", "6de jaar"),
     ("Discrete wiskunde/Telproblemen", "telproblemen", "6de jaar"),
     ("Discrete wiskunde/Logica en bewijzen", "logica-en-bewijzen", "6de jaar"),
+    ("Discrete wiskunde/Iteraties en fractalen", "iteraties-en-fractalen", "6de jaar"),
     ("Data en onzekerheid/Kansrekenen", "kansrekenen", "6de jaar"),
     ("Data en onzekerheid/Statistiek", "statistiek", "6de jaar"),
     ("Data en onzekerheid/Kansverdelingen", "kansverdelingen", "6de jaar"),
@@ -269,6 +270,7 @@ TITELS = {
     "Kernvaardigheden 4de jaar": (r"Kernvaardigheden\\4de jaar", 46),
     "Differentiaalvergelijkingen": (r"Differentiaal-\\vergelijkingen", 46),
     "Numerieke methodes": (r"Numerieke\\methodes", 46),
+    "Iteraties en fractalen": (r"Iteraties en\\fractalen", 46),
     "Kansverdelingen": ("Kansverdelingen", 50),
 }
 
@@ -373,7 +375,7 @@ JAAR_VOORSTEL = {
         "Analyse/Differentiaalvergelijkingen": "6de jaar", "Analyse/Reeksen": "6de jaar", "Analyse/Numerieke methodes": "6de jaar",
         "Algebra/Matrices": "5de jaar", "Algebra/Complexe getallen": "5de jaar", "Algebra/Groepen": "6de jaar",
         "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
-        "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar",
+        "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar", "Discrete wiskunde/Iteraties en fractalen": "6de jaar",
         "Data en onzekerheid/Kansrekenen": "6de jaar", "Data en onzekerheid/Statistiek": "6de jaar",
         "Data en onzekerheid/Kansverdelingen": "6de jaar"},
     2: {m: ("3de jaar" if i < 9 else "4de jaar") for i, (m, _, _) in enumerate(MODULES_2)},
