@@ -1,0 +1,555 @@
+%----------------------------------------------------------------------------------------
+% DE BOL. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{De bol}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een gps-ontvanger kent zijn plaats niet, maar wel zijn afstand tot elke satelliet die hij hoort: elk signaal zegt wanneer het vertrok, en het reist met de snelheid van het licht. Neem een vereenvoudigd model met de oorsprong in het middelpunt van de aarde en 1000~km als eenheid. Een ontvanger hoort drie satellieten: $A(-7, 2, 21)$ op afstand 17, $B(3, -6, 22)$ op afstand 18 en $C(3, 18, 14)$ op afstand 18. Waar is hij? En waarom heeft hij drie satellieten nodig, en niet twee?}{\begin{tikzpicture}[zicht=.13,font=\scriptsize]
+  \fill[accent!12] (0,0,0) circle[radius={.13*6.4*1cm}];
+  \bolzicht{.13}{0}{0}{0}{6.4}
+  \foreach \p/\n in {{-7,2,21}/A,{3,-6,22}/B,{3,18,14}/C}{%
+    \draw[lijngrijs,densely dashed] (1,2,6) -- (\p);
+    \fill (\p) circle (1.6pt) node[above] {$\n$};}
+  \fill[accent] (1,2,6) circle (1.8pt) node[right=2pt,text=black] {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 11, met de wenken over de middelpuntsvergelijking en de algemene vergelijking, het raakvlak in een punt, en de doorsnede van een bol met een rechte en met een vlak. Voorkennis uit pakket 4: Ruimtemeetkunde (de afstand tussen twee punten, vergelijkingen van rechten en vlakken, het scalair product, de normaalvector, de afstand van een punt tot een vlak en tot een rechte, het voetpunt van de loodlijn) en uit Kegelsneden de vergelijking van een cirkel en het ontdubbelen. Extra's: de bol op een middellijn (Thales in de ruimte), de horizon, en twee en drie bollen, die het probleem oplossen. Het model van het probleem is bewust vereenvoudigd: echte gps-satellieten staan op ongeveer 26\,600~km van het middelpunt van de aarde.}
+
+In Ruimtemeetkunde beschreef je rechten en vlakken: vlakke figuren, met vergelijkingen zonder kwadraten. In dit hoofdstuk zetten we de eerste stap naar gebogen oppervlakken: de bol, de verzameling van de punten op een vaste afstand van een middelpunt. Het is het ruimtelijke broertje van de cirkel, en zijn vergelijking lijkt er sterk op. We snijden de bol met een vlak, een rechte en een andere bol, en zo vinden we de gps-ontvanger terug.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De vergelijking van een bol}
+
+\subsection{Middelpunt en straal}
+
+De ontvanger ligt op afstand 17 van satelliet $A$. Dat legt zijn plaats niet vast: alle punten op afstand 17 van $A$ komen in aanmerking. Die punten vormen een bol. In de Verken vond je dat de punten op afstand 3 van de oorsprong voldoen aan $x^2 + y^2 + z^2 = 9$. Voor een ander middelpunt gebruik je de afstandsformule op dezelfde manier.
+
+\begin{theorie}
+\begin{minipage}[t]{.64\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{bol}} met \textbf{\textcolor{accent}{middelpunt}} $M$ en \textbf{\textcolor{accent}{straal}} $r > 0$ is de verzameling van de punten $P$ met $\formule{|MP| = r}$.
+
+\begin{stelling}{Middelpuntsvergelijking}
+De bol met middelpunt $M(a, b, c)$ en straal $r$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{(x - a)^2 + (y - b)^2 + (z - c)^2 = r^2}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.32\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.9,font=\scriptsize]
+  \bolzicht{.9}{0}{0}{0}{1.4}
+  \fill (0,0,0) circle (1.5pt) node[left] {$M$};
+  \draw[grijs] (0,0,0) -- (0,.9,.9) node[midway,below right=-1pt] {$r$};
+  \fill[accent] (0,.9,.9) circle (1.6pt) node[above right] {$P$};
+\end{tikzpicture}
+\end{minipage}
+
+\begin{bewijs}
+Neem $P(x, y, z)$. Met de afstandsformule uit Ruimtemeetkunde is
+\bewijsregel{|MP| = r \iff \sqrt{(x - a)^2 + (y - b)^2 + (z - c)^2} = r .}
+Beide leden zijn positief, dus kwadrateren levert een gelijkwaardige vergelijking.
+\end{bewijs}
+\end{theorie}
+
+In het dagelijks leven is een bol vaak een vol lichaam, zoals een kogel. In de wiskunde is de bol alleen het oppervlak, de schil. De punten binnenin liggen op een afstand kleiner dan $r$ van $M$: ze voldoen aan $(x - a)^2 + (y - b)^2 + (z - c)^2 < r^2$. Zo zie je meteen of een punt binnen, op of buiten de bol ligt.
+
+\voorbeeld{}{Geef een vergelijking van de bol met middelpunt $M(2, -1, 3)$ die door $P(4, 1, 4)$ gaat. Ligt $Q(0, 0, 4)$ binnen of buiten de bol?\label{vb:h1-mpvgl}}{%
+\uitleg{De straal is de afstand van het middelpunt tot een punt van de bol. Voor $Q$ vergelijken we $|MQ|^2$ met $r^2$: zo vermijden we wortels.}
+\begin{stappen}
+r^2 = |MP|^2 = 2^2 + 2^2 + 1^2 = 9 & De verschillen van de coördinaten van $P$ en $M$ zijn $2$, $2$ en $1$. \\[1ex]
+(x - 2)^2 + (y + 1)^2 + (z - 3)^2 = 9 & Let op het teken: $y - (-1) = y + 1$. \\[1ex]
+|MQ|^2 = 4 + 1 + 1 = 6 < 9 & $Q$ ligt binnen de bol.
+\end{stappen}}
+
+\nujij{Geef een vergelijking van de bol met middelpunt $(0, 3, -1)$ en straal 5.}{$x^2 + (y - 3)^2 + (z + 1)^2 = 25$.}
+
+\begin{oefeningen}
+\oef{h1-mpvgl}
+\end{oefeningen}
+
+\subsection{De algemene vergelijking}
+
+Werk de vergelijking van voorbeeld~\ref{vb:h1-mpvgl} uit: $x^2 + y^2 + z^2 - 4x + 2y - 6z + 5 = 0$. Aan die vorm zie je het middelpunt en de straal niet meer. Hoe vind je ze terug? En stelt elke vergelijking van die vorm een bol voor? Bij de cirkel in Kegelsneden splitste je de kwadraten af. Dat werkt hier ook, met een kwadraat per letter.
+
+\begin{theorie}
+\begin{stelling}{Algemene vergelijking van een bol}
+De vergelijking \quad $\formule{x^2 + y^2 + z^2 + Dx + Ey + Fz + G = 0}$ \quad stelt
+
+\vspace{1mm}
+\begin{itemize}
+\item een bol voor als $D^2 + E^2 + F^2 - 4G > 0$, met middelpunt $\formule{M\bigl(-\tfrac D2, -\tfrac E2, -\tfrac F2\bigr)}$ en straal $\formule{r = \tfrac12\sqrt{D^2 + E^2 + F^2 - 4G}}$,
+\item één punt voor als $D^2 + E^2 + F^2 - 4G = 0$,
+\item geen enkel punt voor als $D^2 + E^2 + F^2 - 4G < 0$.
+\end{itemize}
+\end{stelling}
+
+\begin{bewijs}
+Splits de kwadraten af: $x^2 + Dx = \bigl(x + \tfrac D2\bigr)^2 - \tfrac{D^2}{4}$, en zo ook voor $y$ en $z$. De vergelijking wordt
+\bewijsregel{\Bigl(x + \dfrac D2\Bigr)^2 + \Bigl(y + \dfrac E2\Bigr)^2 + \Bigl(z + \dfrac F2\Bigr)^2 = \dfrac{D^2 + E^2 + F^2 - 4G}{4} .}
+Het linkerlid is een som van kwadraten, dus nooit negatief. Is het rechterlid positief, dan is dit de middelpuntsvergelijking met $r^2$ gelijk aan het rechterlid. Is het nul, dan moeten de drie kwadraten nul zijn: alleen $M$ voldoet. Is het negatief, dan voldoet geen enkel punt.
+\end{bewijs}
+\end{theorie}
+
+Twee dingen moeten kloppen voor je de stelling gebruikt: de coëfficiënten van $x^2$, $y^2$ en $z^2$ zijn gelijk, en er staan geen termen in $xy$, $xz$ of $yz$. Zijn de drie coëfficiënten gelijk maar niet 1, deel dan eerst. Bij $x^2 + 2y^2 + z^2 = 4$ zijn ze niet gelijk: dat is geen bol, maar een ellipsoïde (hoofdstuk 3).
+
+\voorbeeld{}{Bepaal het middelpunt en de straal van $x^2 + y^2 + z^2 - 6x + 4y - 2z - 2 = 0$.\label{vb:h1-alg}}{%
+\uitleg{De coëfficiënten van de kwadraten zijn gelijk aan 1 en er zijn geen gemengde termen. We splitsen de kwadraten af in plaats van de formule te gebruiken: zo zie je wat er gebeurt.}
+\begin{stappenbreed}
+(x - 3)^2 - 9 + (y + 2)^2 - 4 + (z - 1)^2 - 1 - 2 = 0 & De helft van $-6$, $4$ en $-2$. \\[1ex]
+(x - 3)^2 + (y + 2)^2 + (z - 1)^2 = 16 & De constanten naar rechts. \\[1ex]
+M(3, -2, 1), \quad r = 4 & Controle met de formule: $\tfrac12\sqrt{36 + 16 + 4 + 8} = \tfrac12 \cdot 8 = 4$.
+\end{stappenbreed}}
+
+\voorbeeld{}{Stelt $2x^2 + 2y^2 + 2z^2 + 4x - 8z + 12 = 0$ een bol voor?\label{vb:h1-geen}}{%
+\uitleg{Eerst delen door 2, zodat de kwadraten coëfficiënt 1 krijgen. Daarna splitsen we af en kijken we naar het teken van het rechterlid.}
+\begin{stappenbreed}
+x^2 + y^2 + z^2 + 2x - 4z + 6 = 0 & Gedeeld door 2. \\[1ex]
+(x + 1)^2 + y^2 + (z - 2)^2 = -6 + 1 + 4 = -1 & Een som van kwadraten kan niet negatief zijn.
+\end{stappenbreed}
+Geen enkel punt voldoet: dit is geen bol. Wie de formule zonder nadenken invult, vindt $r = \tfrac12\sqrt{-4}$, en dat bestaat niet.}
+
+\begin{werkwijze}
+Controleer dat $x^2$, $y^2$ en $z^2$ dezelfde coëfficiënt hebben en dat er geen gemengde termen zijn. Deel door die coëfficiënt. Splits de kwadraten af en breng de constanten naar rechts. Is het rechterlid positief, dan lees je het middelpunt af en is de straal de wortel van het rechterlid.
+\end{werkwijze}
+
+\nujij{Bepaal het middelpunt en de straal van $x^2 + y^2 + z^2 + 10y = 0$.}{$x^2 + (y + 5)^2 + z^2 = 25$: $M(0, -5, 0)$ en $r = 5$. De bol gaat door de oorsprong.}
+
+\begin{oefeningen}
+\oef{h1-alg}
+\end{oefeningen}
+
+\subsection{Een bol op een middellijn}
+
+Ken je de twee eindpunten $A$ en $B$ van een middellijn, dan is het middelpunt het midden van $[AB]$, en de straal de helft van $|AB|$. Er is ook een kortere weg, die je kent uit de vlakke meetkunde: de stelling van Thales. Een punt $P$ ligt op de cirkel met middellijn $[AB]$ als en slechts als de hoek $APB$ recht is. Geldt dat ook in de ruimte?
+
+\begin{theorie}
+\begin{stelling}{Thales in de ruimte}
+Een punt $P$ ligt op de bol met middellijn $[AB]$ als en slechts als $\formule{\overrightarrow{PA} \cdot \overrightarrow{PB} = 0}$. Voor $A(a_1, a_2, a_3)$ en $B(b_1, b_2, b_3)$ is een vergelijking van die bol dus
+
+\vspace{1mm}
+\qquad $\formule{(x - a_1)(x - b_1) + (y - a_2)(y - b_2) + (z - a_3)(z - b_3) = 0}$
+\end{stelling}
+
+\begin{minipage}[t]{.66\linewidth}
+\vspace{0pt}
+\begin{bewijs}
+Neem het midden $M$ van $[AB]$ en $r = \tfrac12|AB|$. Dan is $\overrightarrow{MB} = -\overrightarrow{MA}$ en $\norm{\overrightarrow{MA}} = r$. Met Chasles is
+\bewijsregel{\overrightarrow{PA} \cdot \overrightarrow{PB} = \bigl(\overrightarrow{MA} - \overrightarrow{MP}\bigr) \cdot \bigl(-\overrightarrow{MA} - \overrightarrow{MP}\bigr) = |MP|^2 - r^2 .}
+Dat is nul als en slechts als $|MP| = r$. Schrijf het scalair product uit in coördinaten, en je krijgt de vergelijking.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.3\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=1,font=\scriptsize]
+  \bolzicht{1}{0}{0}{0}{1.5}
+  \draw[grijs] (0,-1.5,0) -- (0,1.5,0);
+  \draw[accent!70!black] (0,-1.5,0) -- (.6,.4,1.32) -- (0,1.5,0);
+  \fill (0,-1.5,0) circle (1.5pt) node[left] {$A$};
+  \fill (0,1.5,0) circle (1.5pt) node[right] {$B$};
+  \fill (0,0,0) circle (1.2pt) node[below] {$M$};
+  \fill[accent] (.6,.4,1.32) circle (1.6pt) node[above] {$P$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Het bewijs zegt meer dan de stelling: $\overrightarrow{PA} \cdot \overrightarrow{PB}$ is negatief voor een punt binnen de bol, en positief voor een punt erbuiten. Voor $P = A$ en $P = B$ is het scalair product nul: ook die punten liggen op de bol, al is daar geen hoek.
+
+\voorbeeld{}{Bepaal een vergelijking, het middelpunt en de straal van de bol met middellijn $[AB]$, met $A(1, 0, -1)$ en $B(3, 4, 5)$.\label{vb:h1-middellijn}}{%
+\uitleg{Met Thales vinden we meteen een vergelijking zonder wortels. Het middelpunt en de straal volgen dan uit de algemene vergelijking; we controleren met het midden van $[AB]$.}
+\begin{stappenbreed}
+(x - 1)(x - 3) + y(y - 4) + (z + 1)(z - 5) = 0 & Thales in de ruimte. \\[1ex]
+x^2 + y^2 + z^2 - 4x - 4y - 4z - 2 = 0 & Uitgewerkt. \\[1ex]
+(x - 2)^2 + (y - 2)^2 + (z - 2)^2 = 14 & Kwadraten afsplitsen: $2 + 4 + 4 + 4 = 14$. \\[1ex]
+M(2, 2, 2), \quad r = \sqrt{14} & Controle: het midden van $[AB]$ is $(2, 2, 2)$, en $|AB|^2 = 4 + 16 + 36 = 56 = 4 \cdot 14$.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h1-middellijn}
+\end{oefeningen}
+
+%========================================================================================
+\section{Bol en vlak}
+
+\subsection{De doorsnede met een vlak}
+
+Snijd een sinaasappel met een mes: het snijvlak is altijd een schijf, hoe je ook snijdt. Een vlak dat een bol snijdt, snijdt hem dus volgens een cirkel. Maar welke cirkel? Waar ligt zijn middelpunt, en hoe groot is hij? Het antwoord hangt alleen af van de afstand $d$ van het middelpunt van de bol tot het vlak.
+
+\begin{theorie}
+\begin{stelling}{Bol en vlak}
+Neem een bol met middelpunt $M$ en straal $r$, een vlak $\alpha$ met $d = \afst{M}{\alpha}$, en het voetpunt $V$ van de loodlijn uit $M$ op $\alpha$.
+\begin{itemize}
+\item Als $d > r$, hebben de bol en $\alpha$ geen gemeenschappelijk punt.
+\item Als $d = r$, \textbf{\textcolor{accent}{raakt}} $\alpha$ de bol in $V$.
+\item Als $d < r$, snijdt $\alpha$ de bol volgens de cirkel met middelpunt $V$ en straal $\formule{\rho = \sqrt{r^2 - d^2}}$.
+\end{itemize}
+\end{stelling}
+
+\begin{minipage}[t]{.58\linewidth}
+\vspace{0pt}
+\begin{bewijs}
+Neem een punt $P$ van $\alpha$. Omdat $MV$ loodrecht staat op $\alpha$, is de driehoek $MVP$ rechthoekig in $V$, en geeft Pythagoras
+\bewijsregel{|MP|^2 = d^2 + |VP|^2 .}
+Dus ligt $P$ op de bol als en slechts als $|VP|^2 = r^2 - d^2$. Is $r^2 - d^2 < 0$, dan kan dat niet. Is het nul, dan moet $P = V$. Is het positief, dan liggen de punten van $\alpha$ op afstand $\sqrt{r^2 - d^2}$ van $V$: een cirkel in $\alpha$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.38\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.85,font=\scriptsize]
+  \fill[accent!14] (-2.1,-2.1,1) -- (2.1,-2.1,1) -- (2.1,2.1,1) -- (-2.1,2.1,1) -- cycle;
+  \draw[accent!40] (-2.1,-2.1,1) -- (2.1,-2.1,1) -- (2.1,2.1,1) -- (-2.1,2.1,1) -- cycle;
+  \bolzicht{.85}{0}{0}{0}{1.6}
+  \cirkelzicht[very thick]{.85}{0}{0}{1}{1.249}
+  \fill (0,0,0) circle (1.4pt) node[left] {$M$};
+  \fill (0,0,1) circle (1.4pt) node[above left=-1pt] {$V$};
+  \draw[grijs] (0,0,0) -- (0,0,1) node[midway,left=-1pt] {$d$};
+  \draw[grijs] (0,0,1) -- (0,1.249,1) node[midway,above] {$\rho$};
+  \draw[grijs] (0,0,0) -- (0,1.249,1) node[midway,below right=-2pt] {$r$};
+  \node at (2.1,2.1,1) [right] {$\alpha$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Hoe dichter het vlak bij het middelpunt, hoe groter de cirkel. Door het middelpunt ($d = 0$) is $\rho = r$: dan heet de doorsnede een \textit{grootcirkel}, zoals de evenaar of een meridiaan van de aarde.
+
+\voorbeeld{}{Bepaal de doorsnede van de bol $(x - 1)^2 + (y - 2)^2 + (z + 1)^2 = 25$ met het vlak $\alpha\colon 2x + y - 2z = 15$.\label{vb:h1-snijcirkel}}{%
+\uitleg{We berekenen de afstand van $M$ tot $\alpha$ en vergelijken met $r = 5$. Het middelpunt van de cirkel is het voetpunt van de loodlijn uit $M$, met de werkwijze uit Ruimtemeetkunde.}
+\begin{stappenbreed}
+d = \dfrac{|2 + 2 + 2 - 15|}{\sqrt{4 + 1 + 4}} = \dfrac{9}{3} = 3 & De afstandsformule, met $M(1, 2, -1)$. Omdat $3 < 5$, is de doorsnede een cirkel. \\[2ex]
+\rho = \sqrt{25 - 9} = 4 & De straal van de cirkel. \\[1ex]
+(1 + 2t,\ 2 + t,\ -1 - 2t) & De loodlijn uit $M$, met richting $\vec n = \vcr{2}{1}{-2}$. \\[1ex]
+2(1 + 2t) + (2 + t) - 2(-1 - 2t) = 15 \iff t = 1 & Invullen in $\alpha$: $6 + 9t = 15$. \\[1ex]
+V(3, 3, -3) & Het middelpunt van de cirkel. Controle: $|MV| = |t|\,\norm{\vec n} = 3$.
+\end{stappenbreed}}
+
+Een cirkel in de ruimte heeft geen eigen vergelijking, net zoals een rechte: je beschrijft hem met twee vergelijkingen samen, die van de bol en die van het vlak. Of je geeft zijn middelpunt, zijn straal en zijn vlak.
+
+\begin{werkwijze}
+Bereken $d = \afst{M}{\alpha}$ en vergelijk met $r$. Is $d < r$, dan is de straal van de doorsnede $\sqrt{r^2 - d^2}$, en het middelpunt het voetpunt van de loodlijn uit $M$ op $\alpha$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-snijcirkel}
+\end{oefeningen}
+
+\subsection{Het raakvlak}
+
+Leg een bal op de vloer: de vloer raakt de bal in één punt, recht onder het middelpunt. In de stelling hierboven is dat het geval $d = r$: het raakpunt is het voetpunt van de loodlijn. Omgekeerd: ken je het raakpunt $P$, welk vlak raakt dan in $P$? Het vlak door $P$ loodrecht op $MP$. Dan ligt $M$ immers op afstand $|MP| = r$ van dat vlak. Elk ander vlak door $P$ staat niet loodrecht op $MP$, ligt dus dichter bij $M$, en snijdt de bol.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{raakvlak}} in een punt $P$ van een bol met middelpunt $M$ is het vlak door $P$ loodrecht op $MP$.
+
+\begin{stelling}{Vergelijking van het raakvlak}
+Het raakvlak in het punt $P(x_1, y_1, z_1)$ van de bol $(x - a)^2 + (y - b)^2 + (z - c)^2 = r^2$ is
+
+\vspace{1mm}
+\qquad $\formule{(x_1 - a)(x - a) + (y_1 - b)(y - b) + (z_1 - c)(z - c) = r^2}$
+\end{stelling}
+
+\begin{bewijs}
+Het vlak door $P$ met normaalvector $\overrightarrow{MP} = \vcr{x_1 - a}{y_1 - b}{z_1 - c}$ is
+\bewijsregel{(x_1 - a)(x - x_1) + (y_1 - b)(y - y_1) + (z_1 - c)(z - z_1) = 0 .}
+Schrijf $x - x_1 = (x - a) - (x_1 - a)$, en zo ook voor $y$ en $z$. Dan wordt het linkerlid
+\bewijsregel{(x_1 - a)(x - a) + (y_1 - b)(y - b) + (z_1 - c)(z - c) - \bigl((x_1 - a)^2 + (y_1 - b)^2 + (z_1 - c)^2\bigr) ,}
+en de laatste som is $r^2$, omdat $P$ op de bol ligt.
+\end{bewijs}
+\end{theorie}
+
+Dat is hetzelfde \emph{ontdubbelen} als bij de raaklijn aan een kegelsnede: schrijf $(x - a)^2$ als $(x - a)(x - a)$ en vervang één factor door $(x_1 - a)$. Het werkt ook met de algemene vergelijking: $x^2 \to x_1 x$ en $Dx \to D\,\frac{x + x_1}{2}$ (opdracht~\ref{oef:h1-o19}).
+
+\voorbeeld{}{Bepaal het raakvlak in $P(3, -1, 5)$ aan de bol $(x - 1)^2 + (y + 2)^2 + (z - 3)^2 = 9$.\label{vb:h1-raakvlak}}{%
+\uitleg{Eerst controleren we dat $P$ op de bol ligt, want de formule geldt enkel daar. Daarna ontdubbelen we.}
+\naast{\begin{stappenvrij}{5.7cm}{4.3cm}
+2^2 + 1^2 + 2^2 = 9 & $P$ ligt op de bol. \\[1ex]
+2(x - 1) + 1(y + 2) + 2(z - 3) = 9 & Ontdubbelen: $x_1 - a = 2$, $y_1 - b = 1$, $z_1 - c = 2$. \\[1ex]
+2x + y + 2z = 15 & Uitgewerkt. Controle: $P$ geeft $6 - 1 + 10 = 15$.
+\end{stappenvrij}}{\begin{tikzpicture}[zicht=.6,font=\scriptsize]
+  \bolzicht{.6}{0}{0}{0}{3}
+  \fill[accent!20,opacity=.75] (4.05,-.8,.85) -- (3.15,2.8,-.05) -- (-.05,2.8,3.15) -- (.85,-.8,4.05) -- cycle;
+  \fill (0,0,0) circle (1.4pt) node[left] {$M$};
+  \draw[grijs] (0,0,0) -- (2,1,2);
+  \fill[accent] (2,1,2) circle (1.6pt) node[right] {$P$};
+\end{tikzpicture}}}
+
+Een raakvlak heb je ook nodig in de omgekeerde richting: welke bol met een gegeven middelpunt raakt een gegeven vlak? Dan is de straal de afstand van het middelpunt tot het vlak.
+
+\voorbeeld{}{Geef een vergelijking van de bol met middelpunt $M(2, 1, -1)$ die het vlak $x - 2y + 2z = 7$ raakt, en bepaal het raakpunt.\label{vb:h1-raakbol}}{%
+\uitleg{De bol raakt het vlak als de straal gelijk is aan de afstand van $M$ tot het vlak. Het raakpunt is het voetpunt van de loodlijn uit $M$.}
+\begin{stappenbreed}
+r = \dfrac{|2 - 2 - 2 - 7|}{\sqrt{1 + 4 + 4}} = \dfrac{9}{3} = 3 & De afstandsformule. \\[2ex]
+(x - 2)^2 + (y - 1)^2 + (z + 1)^2 = 9 & De bol. \\[1ex]
+(2 + t) - 2(1 - 2t) + 2(-1 + 2t) = 7 \iff t = 1 & De loodlijn $M + t\,\vcr{1}{-2}{2}$ ingevuld in het vlak: $-2 + 9t = 7$. \\[1ex]
+\text{raakpunt } (3, -1, 1) & Controle: $1 + 4 + 4 = 9$, dus het ligt op de bol.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Het raakvlak in een punt $P$ van een bol: controleer dat $P$ op de bol ligt, en ontdubbel de middelpuntsvergelijking. Een bol met middelpunt $M$ die een vlak raakt: de straal is de afstand van $M$ tot het vlak, en het raakpunt is het voetpunt van de loodlijn.
+\end{werkwijze}
+
+\nujij{Bepaal het raakvlak in $(2, -1, 2)$ aan de bol $x^2 + y^2 + z^2 = 9$.}{$2x - y + 2z = 9$.}
+
+\begin{oefeningen}
+\oef{h1-raakvlak}
+
+\oef{h1-raakbol}
+\end{oefeningen}
+
+%========================================================================================
+\section{Bol en rechte}
+
+\subsection{Snijpunten met een rechte}
+
+Een laserstraal schijnt door een glazen bol. Waar gaat hij erin, en waar komt hij eruit? Een rechte geef je met parametervergelijkingen: elk punt is $A + t\,\vec u$. Vul die in de vergelijking van de bol in, en er blijft een vergelijking in $t$ over. Omdat de coördinaten in het kwadraat staan, is dat een vierkantsvergelijking. Die heeft twee, één of geen oplossingen.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{raaklijn}} aan een bol is een rechte met precies één gemeenschappelijk punt met de bol.
+
+\begin{stelling}{Bol en rechte}
+Neem een bol met middelpunt $M$ en straal $r$, en een rechte $l$ met $d = \afst{M}{l}$. Als $d < r$, snijdt $l$ de bol in twee punten. Als $d = r$, is $l$ een raaklijn. Als $d > r$, hebben $l$ en de bol geen gemeenschappelijk punt.
+\end{stelling}
+
+\begin{bewijs}
+Neem $l$ met punten $P(t) = A + t\,\vec u$. Dan is $g(t) = |MP(t)|^2 - r^2$ een tweedegraadsfunctie van $t$ met hoogstegraadscoëfficiënt $\norm{\vec u}^2 > 0$: haar grafiek is een dalparabool. Haar kleinste waarde is $d^2 - r^2$, want $d$ is de kleinste afstand van $M$ tot een punt van $l$. De punten van $l$ op de bol horen bij de nulwaarden van $g$. Een dalparabool met top onder de as heeft twee nulwaarden, met top op de as één, en met top boven de as geen.
+\end{bewijs}
+\end{theorie}
+
+In de praktijk reken je zelden $d$ uit: je vult de rechte in, en de discriminant van de vierkantsvergelijking zegt hoeveel snijpunten er zijn. De stelling verklaart wat je dan ziet.
+
+\voorbeeld{}{Bepaal de snijpunten van de rechte $l\colon x = 7 - 3t,\ y = 4 - 2t,\ z = 1 + 2t$ met de bol $(x - 1)^2 + (y + 2)^2 + (z - 3)^2 = 25$.\label{vb:h1-rechte}}{%
+\uitleg{We vullen het punt $(7 - 3t, 4 - 2t, 1 + 2t)$ in de vergelijking van de bol in, en lossen op naar $t$.}
+\naast{\begin{stappenvrij}{6.2cm}{3.9cm}
+(6 - 3t)^2 + (6 - 2t)^2 + (2t - 2)^2 = 25 & Ingevuld. \\[1ex]
+17t^2 - 68t + 76 = 25 & Uitgewerkt. \\[1ex]
+t^2 - 4t + 3 = 0 \iff t = 1 \text{ of } t = 3 & Gedeeld door 17. \\[1ex]
+(4, 2, 3) \text{ en } (-2, -2, 7) & De rechte snijdt de bol in twee punten.
+\end{stappenvrij}}{\begin{tikzpicture}[zicht=.32,font=\scriptsize]
+  \bolzicht{.32}{1}{-2}{3}{5}
+  \draw[grijs,thick] (10,6,-1) -- (-5,-4,9);
+  \fill[accent] (4,2,3) circle (1.6pt) (-2,-2,7) circle (1.6pt);
+  \fill (1,-2,3) circle (1.3pt) node[below] {$M$};
+  \node[right] at (10,6,-1) {$l$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Vul de parametervergelijkingen van de rechte in de vergelijking van de bol in. Los de vierkantsvergelijking in $t$ op. Twee oplossingen geven twee snijpunten, één oplossing een raakpunt, en geen oplossing betekent dat de rechte de bol mist.
+\end{werkwijze}
+
+\nujij{Snijdt de rechte $x = t,\ y = 2,\ z = t$ de bol $x^2 + y^2 + z^2 = 4$?}{$2t^2 + 4 = 4$ geeft alleen $t = 0$: de rechte raakt de bol in $(0, 2, 0)$.}
+
+\begin{oefeningen}
+\oef{h1-rechte}
+\end{oefeningen}
+
+\subsection{Hoe ver zie je?}
+
+Vanuit een vliegtuig zie je verder dan vanaf het strand. Hoe ver precies? Je zichtlijn naar de horizon is een raaklijn aan de aarde. In het raakpunt $P$ staat die raaklijn loodrecht op de straal $MP$, want ze ligt in het raakvlak. Dat geeft een rechthoekige driehoek.
+
+\voorbeeld{}{Een vliegtuig vliegt op 10~km hoogte. Hoe ver is de horizon? Neem voor de aarde een bol met straal 6371~km.\label{vb:h1-horizon}}{%
+\uitleg{Noem het oog $Q$ en het raakpunt van de zichtlijn $P$. In driehoek $MPQ$ is de hoek in $P$ recht, met $|MP| = 6371$ en $|MQ| = 6371 + 10 = 6381$.}
+\naast{\begin{stappenvrij}{5.4cm}{4.1cm}
+|QP|^2 = 6381^2 - 6371^2 & Pythagoras. \\[1ex]
+= (6381 - 6371)(6381 + 6371) & Een verschil van kwadraten. \\[1ex]
+= 10 \cdot 12\,752 = 127\,520 & \\[1ex]
+|QP| \approx 357 \text{ km} & Ongeveer de afstand van Oostende tot Parijs.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[accent,thick] (-70:3) arc[start angle=-70,end angle=250,radius=3];
+  \fill (0,0) circle (1.5pt) node[below] {$M$};
+  \coordinate (P) at (44.23:3);
+  \draw[grijs] (0,0) -- (0,4.3) (0,0) -- (P);
+  \draw[grijs,thick] (0,4.3) -- ($(0,4.3)!1.25!(P)$);
+  \fill (0,4.3) circle (1.6pt) node[above] {$Q$};
+  \fill[accent] (P) circle (1.6pt) node[above right=-1pt] {$P$};
+  \draw[grijs] ($(P)+(224.23:.25)$) -- ++(134.23:.25) -- ++(44.23:.25);
+\end{tikzpicture}}
+De figuur is niet op schaal: de hoogte van 10~km is in werkelijkheid veel te klein om te zien.}
+
+Alle zichtlijnen naar de horizon samen vormen een kegel, en hun raakpunten een cirkel op de aarde: de horizon. In opdracht~\ref{oef:h1-o24} bewijs je dat het echt een cirkel is.
+
+\begin{oefeningen}
+\oef{h1-horizon}
+\end{oefeningen}
+
+%========================================================================================
+\section{Twee en drie bollen}
+
+\subsection{Twee bollen}
+
+De ontvanger ligt op de bol rond $A$ en op de bol rond $B$. Welke punten liggen op allebei? Probeer het met twee algemene vergelijkingen: allebei beginnen ze met $x^2 + y^2 + z^2$. Trek je ze van elkaar af, dan vallen alle kwadraten weg, en blijft er een vergelijking van de eerste graad over: een vlak.
+
+\begin{theorie}
+\begin{stelling}{Twee bollen}
+Neem twee bollen met verschillende middelpunten $M_1$ en $M_2$ en vergelijkingen
+\bewijsregel{x^2 + y^2 + z^2 + D_1x + E_1y + F_1z + G_1 = 0 \quad \text{en}}
+\bewijsregel{x^2 + y^2 + z^2 + D_2x + E_2y + F_2z + G_2 = 0 .}
+Trek je de vergelijkingen van elkaar af, dan krijg je het \textbf{\textcolor{accent}{machtvlak}}
+\bewijsregel{\formule{(D_1 - D_2)x + (E_1 - E_2)y + (F_1 - F_2)z + G_1 - G_2 = 0} .}
+Het staat loodrecht op $M_1M_2$, en elk gemeenschappelijk punt van de bollen ligt erin.
+\end{stelling}
+
+\begin{bewijs}
+Een punt op beide bollen voldoet aan beide vergelijkingen, en dus ook aan hun verschil. De normaalvector van het verschil is $\vcr{D_1 - D_2}{E_1 - E_2}{F_1 - F_2}$. Met $M_1\bigl(-\tfrac{D_1}{2}, -\tfrac{E_1}{2}, -\tfrac{F_1}{2}\bigr)$ en zo ook voor $M_2$ is dat $-2\,\overrightarrow{M_2M_1}$. Die vector is niet nul, want $M_1 \neq M_2$: het verschil is dus echt een vlak, en het staat loodrecht op $M_1M_2$.
+\end{bewijs}
+\end{theorie}
+
+De gemeenschappelijke punten van de twee bollen zijn dus de punten van één bol die in het machtvlak liggen. Dat is een probleem van de vorige sectie: snijden ze, dan is het een cirkel, een punt of niets. Zo vervang je een moeilijk stelsel met twee kwadratische vergelijkingen door één bol en één vlak.
+
+\voorbeeld{}{Bepaal de snijcirkel van de bollen $x^2 + y^2 + z^2 = 25$ en $(x - 4)^2 + (y + 2)^2 + (z - 4)^2 = 13$.\label{vb:h1-tweebollen}}{%
+\uitleg{We werken de tweede vergelijking uit, trekken ze af van de eerste, en snijden de eerste bol met het machtvlak.}
+\begin{stappenbreed}
+x^2 + y^2 + z^2 - 8x + 4y - 8z + 23 = 0 & De tweede bol, uitgewerkt: $16 + 4 + 16 - 13 = 23$. \\[1ex]
+8x - 4y + 8z - 23 = 25 \iff 2x - y + 2z = 12 & De eerste min de tweede. \\[1ex]
+d = \dfrac{12}{3} = 4, \quad \rho = \sqrt{25 - 16} = 3 & De afstand van $O$ tot het machtvlak, en de straal. \\[2ex]
+V = \tfrac{4}{3}\vcr{2}{-1}{2} = \bigl(\tfrac83, -\tfrac43, \tfrac83\bigr) & Het voetpunt van $O$: $t \cdot 9 = 12$ geeft $t = \tfrac43$.
+\end{stappenbreed}
+De snijcirkel heeft middelpunt $\bigl(\tfrac83, -\tfrac43, \tfrac83\bigr)$ en straal 3, in het vlak $2x - y + 2z = 12$. Controle met de tweede bol: de afstand van $M_2(4, -2, 4)$ tot het vlak is $\tfrac{|8 + 2 + 8 - 12|}{3} = 2$, en $\sqrt{13 - 4} = 3$.}
+
+Of twee bollen snijden, zie je ook zonder rekenwerk, zoals bij twee cirkels: met $e = |M_1M_2|$ snijden ze als $|r_1 - r_2| < e < r_1 + r_2$, en raken ze als $e$ gelijk is aan een van die grenzen (opdracht~\ref{oef:h1-o10}).
+
+\begin{werkwijze}
+Schrijf beide bollen in de algemene vorm, met coëfficiënt 1 voor de kwadraten. Trek ze van elkaar af: dat geeft het machtvlak. Snijd een van de bollen met dat vlak, zoals in sectie 2.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-tweebollen}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+De ontvanger ligt op drie bollen. De eerste twee snijden elkaar volgens een cirkel; de derde snijdt die cirkel in twee punten, of raakt hem. Met machtvlakken wordt dat rekenwerk eenvoudig: elk paar bollen geeft een vlak, twee vlakken snijden elkaar volgens een rechte, en die rechte snijd je met één bol.
+
+\voorbeeld{}{Terug naar het probleem. Waar is de ontvanger op afstand 17 van $A(-7, 2, 21)$, 18 van $B(3, -6, 22)$ en 18 van $C(3, 18, 14)$?\label{vb:h1-terug}}{%
+\uitleg{We trekken de vergelijkingen paarsgewijs af. In de middelpuntsvorm mag dat ook: de kwadraten $x^2$, $y^2$ en $z^2$ vallen evengoed weg.}
+\begin{stappenbreed}
+(y + 6)^2 - (y - 18)^2 + (z - 22)^2 - (z - 14)^2 = 0 & De bol rond $B$ min die rond $C$; de termen in $x$ vallen weg. \\[1ex]
+48y - 288 - 16z + 288 = 0 \iff z = 3y & Het eerste machtvlak. \\[1ex]
+20x + 40 - 16y - 32 + 2z - 43 = 289 - 324 & De bol rond $A$ min die rond $B$. \\[1ex]
+10x - 8y + z = 0 & Het tweede machtvlak. \\[1ex]
+10x - 5y = 0 \iff y = 2x, \quad z = 6x & Vul $z = 3y$ in: de snijlijn is $(t, 2t, 6t)$. \\[1ex]
+(t + 7)^2 + (2t - 2)^2 + (6t - 21)^2 = 289 & Invullen in de bol rond $A$. \\[1ex]
+41t^2 - 246t + 205 = 0 \iff t^2 - 6t + 5 = 0 & Gedeeld door 41: $t = 1$ of $t = 5$.
+\end{stappenbreed}
+Er zijn twee kandidaten: $P(1, 2, 6)$ en $Q(5, 10, 30)$. Hun afstand tot het middelpunt van de aarde is $\sqrt{41} \approx 6{,}40$ en $5\sqrt{41} \approx 32{,}0$, in duizenden km. De straal van de aarde is ongeveer 6\,371~km: de ontvanger is $P$, en $Q$ ligt ver in de ruimte.}
+
+Nu zie je ook waarom twee satellieten niet volstaan: twee bollen snijden elkaar volgens een hele cirkel. Een derde bol snijdt die cirkel in twee punten, die elkaars spiegelbeeld zijn ten opzichte van het vlak door de drie satellieten. Een van beide ligt meestal ver van de aarde, zoals hier. Echte ontvangers gebruiken toch een vierde satelliet, om een andere reden: hun klok is niet nauwkeurig genoeg, en de tijd is een vierde onbekende.
+
+\begin{oefeningen}
+\oef{h1-drie}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+
+\oef{h1-o23}
+
+\oef{h1-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Matrices zag je in het 5de jaar. Integralen staat in het 6de jaar: geef de tweede oefening pas na het hoofdstuk over toepassingen van integralen (volume van een omwentelingslichaam). De derde oefening gebruikt het scalair product uit Ruimtemeetkunde en booglengte op een cirkel.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-mpvgl}{oef:h1-mpvgl}%
+  \fv{oef:h1-t2}{vb:h1-alg}{oef:h1-alg}%
+  \fv{oef:h1-t3}{vb:h1-snijcirkel}{oef:h1-snijcirkel}%
+  \fv{oef:h1-t4}{vb:h1-raakvlak}{oef:h1-raakvlak}%
+  \fv{oef:h1-t5}{vb:h1-rechte}{oef:h1-rechte}%
+  \fv{oef:h1-t6}{vb:h1-tweebollen}{oef:h1-tweebollen}%
+  \fv{oef:h1-t7}{vb:h1-raakbol}{oef:h1-raakbol}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de middelpuntsvergelijking en de algemene vergelijking van een bol, wanneer die laatste een bol voorstelt, Thales in de ruimte, de doorsnede van een bol met een vlak (met $d$, $r$ en $\rho$), het raakvlak door te ontdubbelen, hoe je een rechte met een bol snijdt, en hoe je met het machtvlak twee of drie bollen snijdt. Vergelijk daarna met de kaders.
+\fi

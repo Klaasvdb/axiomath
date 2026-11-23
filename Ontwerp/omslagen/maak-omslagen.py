@@ -67,6 +67,7 @@ SCHILDERIJEN = {
     "sterrenkundige": ("File:Astronomer in a window, by Gerard Dou.jpg", 0.5, 0.62),  # Gerrit Dou, lineaire regressie
     "irissen": ("File:KORIN-Irises-R.jpg", 0.42, 0.5),  # Ogata Korin, Irissen (rechterscherm), multivariate statistiek
     "melencolia": ("File:Albrecht Dürer, Melencolia I, 1514, NGA 6640.jpg", 0.5, 0.2),  # Dürer, Melencolia I met het magische vierkant (vectorruimten)
+    "bolle-spiegel": ("File:Francesco Mazzola, called Parmigianino - Self-Portrait in a Convex Mirror - Google Art Project.jpg", 0.5, 0.5),  # Parmigianino, Zelfportret in een bolle spiegel (oppervlakken)
     "theekransje": ("File:John Tenniel - Illustration from The Nursery Alice (1890) - c03757 07.jpg", 0.45, 0.5),  # Tenniel, predicatenlogica
     "hooiwagen": ("File:John Constable - The Hay Wain (1821).jpg", 0.25, 0.5),  # Constable, De hooiwagen: een rollend wiel (krommen en meetkundige plaatsen)
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
@@ -88,7 +89,7 @@ SCHILDERIJEN = {
 }
 # deel dat rondom wegvalt: Seurat schilderde een stippelrand mee, de andere foto's tonen de lijst of de stofrand.
 # Eén getal voor alle kanten, of (links, boven, rechts, onder): bij de zeilwagen vallen de titel en de witte rand weg.
-RAND = {"grande-jatte": 0.015, "melencolia": 0.016, "broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
+RAND = {"grande-jatte": 0.015, "melencolia": 0.016, "bolle-spiegel": 0.245,"broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
         "zeilwagen": (0.01, 0.07, 0.01, 0.03), "goudweegster": (0.03, 0.01, 0.03, 0.01),
         "bui": (0.056, 0, 0.026, 0),
         "theekransje": (0.11, 0.09, 0.09, 0.07),  # Tenniel: het witte papier rond de prent
