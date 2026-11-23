@@ -1,0 +1,20 @@
+% Krommen en meetkundige plaatsen. Constable, De hooiwagen (1821): de wielen van de hooiwagen rollen door de beek.
+% Een punt op de rand van een rollend wiel beschrijft een cycloïde, het probleem van hoofdstuk 1.
+% Motief: de bovenrand van de band is zelf een cycloïde x = R(t - sin t), y = 10,5 + R(1 - cos t), met R = 21/(12 pi),
+% zodat er precies zes bogen op de breedte passen. Op de vijfde boog staat het wiel dat ze tekent (t = 8 pi + 2,2):
+% het middelpunt in (R(8 pi + 2,2); 10,5 + R), het punt P van de rand in fel, en de snelheidsvector in P,
+% evenwijdig met (1 - cos t, sin t). Alles blijft boven 10,5 cm, dus boven de titel.
+\def\omslagbestand{omslag-hooiwagen.jpg}
+\def\omslagbron{John Constable, \textit{De hooiwagen}, 1821 (publiek domein)}
+\def\omslagrand{10.5}
+\def\omslagband{\fill[accent] (0,0) -- (0,10.5) -- plot[domain=0:37.6991,samples=500,variable=\t]
+  ({0.557042*(\t-sin(\t r))},{10.5+0.557042*(1-cos(\t r))}) -- (21,10.5) -- (21,0) -- cycle;}
+\def\omslagmotief{%
+  \draw[white,line width=2pt,line cap=round,line join=round] plot[domain=0:37.6991,samples=500,variable=\t]
+    ({0.557042*(\t-sin(\t r))},{10.5+0.557042*(1-cos(\t r))});
+  \draw[omslaglijn=1.1pt] (15.2255,11.0570) circle (0.557042);
+  \draw[omslaglijn=1pt] (15.2255,11.0570) -- (14.7751,11.3849);
+  \fill[omslagstip] (15.2255,11.0570) circle (.9mm);
+  \draw[fel,line width=1.8pt,-{Stealth[length=2.6mm]}] (14.7751,11.3849) -- ++(26.98:1.15);
+  \fill[fel,draw=white,line width=.6pt] (14.7751,11.3849) circle (1.3mm);
+}

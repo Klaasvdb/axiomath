@@ -133,4 +133,5 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Iteraties en fractalen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Iteraties en fractalen/README.md>) | eerste versie, nog na te lezen |
 | Predicatenlogica | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Predicatenlogica/README.md>) | eerste versie, nog na te lezen |
 | Ruimtemeetkunde | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | eerste versie, nog na te lezen |
+| Krommen en meetkundige plaatsen | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Krommen en meetkundige plaatsen/README.md>) | eerste versie, nog na te lezen |
 | alle overige | per pakket | nog te maken |

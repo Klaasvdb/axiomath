@@ -68,6 +68,7 @@ SCHILDERIJEN = {
     "irissen": ("File:KORIN-Irises-R.jpg", 0.42, 0.5),  # Ogata Korin, Irissen (rechterscherm), multivariate statistiek
     "melencolia": ("File:Albrecht Dürer, Melencolia I, 1514, NGA 6640.jpg", 0.5, 0.2),  # Dürer, Melencolia I met het magische vierkant (vectorruimten)
     "theekransje": ("File:John Tenniel - Illustration from The Nursery Alice (1890) - c03757 07.jpg", 0.45, 0.5),  # Tenniel, predicatenlogica
+    "hooiwagen": ("File:John Constable - The Hay Wain (1821).jpg", 0.25, 0.5),  # Constable, De hooiwagen: een rollend wiel (krommen en meetkundige plaatsen)
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),
