@@ -201,6 +201,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Getaltheorie | Hans Holbein de Jonge, *De ambassadeurs*, 1533 | Op de onderste plank ligt een rekenboek voor kooplieden (Peter Apian, 1527), opengeslagen bij het delen | Het algoritme van Euclides voor 91 en 35: een rechthoek van 91 bij 35 gevuld met zo groot mogelijke vierkanten, de kleinste met zijde ggd(91, 35) = 7 |
 | Reeksen | Vilhelm Hammershøi, *Witte deuren, open deuren*, 1905 | Deur na deur, elke opening kleiner: oneindig veel stappen in een eindige ruimte | Een vierkant met zijde 1, opgevuld met stukken van 1/2, 1/4, 1/8, ...: de meetkundige reeks met som 1 |
 | Differentiaalvergelijkingen | Jean Siméon Chardin, *Dame die thee drinkt*, 1735 | Een dampende kop thee die afkoelt: de afkoelingswet van Newton, het probleem van hoofdstuk 2 | Het richtingsveld van y' = −k(y − A), met drie integraalkrommen die van boven en van onder naar de kamertemperatuur gaan; de bovenrand van de band is zelf een afkoelingskromme |
+| Kansverdelingen | Gustave Caillebotte, *Parijse straat, regenachtige dag*, 1877 | Voorbijgangers die elk op hun eigen moment het plein oversteken: het aantal per minuut volgt een Poissonverdeling (hoofdstuk 2) | Het staafdiagram van de Poissonverdeling met λ = 3, met de twee even hoge toppen bij 2 en 3 in fel |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 

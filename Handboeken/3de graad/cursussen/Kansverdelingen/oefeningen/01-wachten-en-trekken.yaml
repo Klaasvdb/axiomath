@@ -1,0 +1,1243 @@
+# Oefeningen van hoofdstuk 1. Zie oefeningenbank.py voor de velden.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        Bereken $1 + 0{,}8 + 0{,}8^2 + 0{,}8^3 + \cdots$
+      antwoord: |-
+        5
+      uitwerking: |-
+        Een meetkundige reeks met $u_1 = 1$ en $q = 0{,}8$: $\frac{1}{1 - 0{,}8} = 5$.
+    - opgave: |-
+        Bereken $\binom92$ en $\binom{45}{6}$.
+      antwoord: |-
+        36 en 8\,145\,060
+      uitwerking: |-
+        $\binom92 = \frac{9 \cdot 8}{2} = 36$. Met \texttt{45nCr6}: $\binom{45}{6} = 8\,145\,060$.
+    - opgave: |-
+        Je gooit 3 keer met een dobbelsteen. Wat is de kans dat de eerste zes pas bij de derde worp valt?
+      antwoord: |-
+        $\tfrac{25}{216}$
+      uitwerking: |-
+        Twee keer geen zes en dan een zes: $\frac56 \cdot \frac56 \cdot \frac16 = \frac{25}{216}$.
+    - opgave: |-
+        $X \sim B(6;\, 0{,}5)$. Bereken $P(X \geqslant 2)$.
+      antwoord: |-
+        $\tfrac{57}{64}$
+      uitwerking: |-
+        $1 - P(X = 0) - P(X = 1) = 1 - \frac{1}{64} - \frac{6}{64} = \frac{57}{64} \approx 0{,}891$.
+    - opgave: |-
+        Bereken $0{,}9^{10}$ en $0{,}9^{50}$.
+      antwoord: |-
+        $\approx 0{,}349$ en $\approx 0{,}005$
+      uitwerking: |-
+        $0{,}9^{10} \approx 0{,}3487$ en $0{,}9^{50} \approx 0{,}0052$: een macht van een getal tussen 0 en 1 gaat naar 0.
+    - opgave: |-
+        Uit een vaas met 3 rode en 2 witte knikkers trek je er 2 zonder teruglegging. Wat is de kans op 2 rode?
+      antwoord: |-
+        $\tfrac{3}{10}$
+      uitwerking: |-
+        $\frac35 \cdot \frac24 = \frac{3}{10}$, of met combinaties $\frac{\binom32}{\binom52} = \frac{3}{10}$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Je gooit met een dobbelsteen tot je een zes gooit. $X$ is het aantal worpen, de zes meegeteld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X = 1)$, $P(X = 2)$ en $P(X = 3)$.
+      antwoord: |-
+        $\tfrac16$; \ $\tfrac{5}{36}$; \ $\tfrac{25}{216}$
+      uitwerking: |-
+        Voor $X = 3$ zijn de eerste twee worpen geen zes en de derde wel: $\frac56 \cdot \frac56 \cdot \frac16 = \frac{25}{216}$. Zo ook $P(X = 2) = \frac56 \cdot \frac16 = \frac{5}{36}$.
+    - opgave: |-
+        Geef een formule voor $P(X = k)$. Welke waarden kan $X$ aannemen? Is er een grootste waarde?
+      antwoord: |-
+        $\bigl(\tfrac56\bigr)^{k-1} \cdot \tfrac16$, \ $k = 1, 2, 3, \ldots$; \ nee
+      uitwerking: |-
+        $k - 1$ keer geen zes, dan een zes: $P(X = k) = \bigl(\frac56\bigr)^{k-1} \cdot \frac16$. Elk natuurlijk getal vanaf 1 is mogelijk: er is geen grootste waarde, al worden de kansen heel klein.
+    - opgave: |-
+        Tel alle kansen op. Welke reeks herken je? Klopt de uitkomst?
+      antwoord: |-
+        meetkundige reeks, som 1
+      uitwerking: |-
+        $\frac16 + \frac16 \cdot \frac56 + \frac16 \cdot \bigl(\frac56\bigr)^2 + \cdots$ is een meetkundige reeks met $u_1 = \frac16$ en $q = \frac56$: de som is $\frac{1/6}{1 - 5/6} = 1$. Dat moet ook: vroeg of laat valt er een zes.
+    - opgave: |-
+        Hoeveel worpen verwacht je gemiddeld nodig te hebben? Gooi zelf een paar keer, of vergelijk met je klasgenoten.
+      antwoord: |-
+        ongeveer 6
+      uitwerking: |-
+        Een op de zes worpen is een zes, dus je verwacht gemiddeld 6 worpen. In paragraaf 1.1.4 bewijzen we dat.
+
+- id: h1-geo
+  soort: kort
+  opgave: |-
+    Een basketballer gooit driepunters tot hij scoort. Elke poging lukt met kans 0,4, onafhankelijk van de vorige. Bereken de kans dat hij
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        precies 3 pogingen nodig heeft;
+      antwoord: |-
+        $0{,}144$
+      uitwerking: |-
+        $X \sim \Geo(0{,}4)$: $P(X = 3) = 0{,}6^2 \cdot 0{,}4 = 0{,}144$.
+    - opgave: |-
+        hoogstens 3 pogingen nodig heeft;
+      antwoord: |-
+        $0{,}784$
+      uitwerking: |-
+        $P(X \leqslant 3) = 1 - 0{,}6^3 = 0{,}784$.
+    - opgave: |-
+        minstens 5 pogingen nodig heeft.
+      antwoord: |-
+        $0{,}1296$
+      uitwerking: |-
+        Minstens 5 pogingen: de eerste 4 mislukken. $P(X \geqslant 5) = P(X > 4) = 0{,}6^4 = 0{,}1296$.
+
+- id: h1-geheugen
+  soort: kort
+  opgave: |-
+    Een speler koopt elke week één kraslot. Elk lot wint met kans 0,1. Hij heeft al 12 weken niets gewonnen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat hij ook de volgende 5 weken niets wint?
+      antwoord: |-
+        $\approx 0{,}590$
+      uitwerking: |-
+        Met de geheugenloosheid: $P(X > 17 \gegeven X > 12) = P(X > 5) = 0{,}9^5 \approx 0{,}590$.
+    - opgave: |-
+        Zijn vriend zegt: ``Na twaalf keer niets is je kans volgende week veel groter.'' Wat antwoord je?
+      antwoord: |-
+        de kans blijft 0,1
+      uitwerking: |-
+        De loten zijn onafhankelijk: volgende week wint hij nog altijd met kans 0,1. De twaalf verloren weken veranderen niets (de gokkersfout).
+
+- id: h1-verwacht
+  soort: kort
+  opgave: |-
+    Bij een spel moet je met twee dobbelstenen tegelijk een dubbele zes gooien. $X$ is het aantal worpen tot de eerste dubbele zes.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\E(X)$ en $\sigma$.
+      antwoord: |-
+        36; \ $\approx 35{,}5$
+      uitwerking: |-
+        $X \sim \Geo\bigl(\frac{1}{36}\bigr)$: $\E(X) = 36$ en $\sigma = \frac{\sqrt{35/36}}{1/36} = \sqrt{35 \cdot 36} = \sqrt{1260} \approx 35{,}5$.
+    - opgave: |-
+        Wat is de kans dat je langer wacht dan gemiddeld?
+      antwoord: |-
+        $\approx 0{,}363$
+      uitwerking: |-
+        $P(X > 36) = \bigl(\frac{35}{36}\bigr)^{36} \approx 0{,}363$.
+
+- id: h1-nb
+  soort: kort
+  opgave: |-
+    Een verkoper belt klanten tot hij 2 verkopen heeft. Elke klant koopt met kans 0,15, onafhankelijk van de anderen. Wat is de kans dat hij
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        precies 8 klanten moet bellen?
+      antwoord: |-
+        $\approx 0{,}059$
+      uitwerking: |-
+        $X \sim \NB(2;\, 0{,}15)$: $P(X = 8) = \binom71 \cdot 0{,}15^2 \cdot 0{,}85^6 \approx 0{,}059$.
+    - opgave: |-
+        maar 2 klanten moet bellen?
+      antwoord: |-
+        $0{,}0225$
+      uitwerking: |-
+        Beide eerste klanten kopen: $P(X = 2) = \binom11 \cdot 0{,}15^2 = 0{,}0225$.
+
+- id: h1-nbcum
+  soort: kort
+  opgave: |-
+    Een tennisspeler slaat zijn eerste opslag goed in met kans 0,6, onafhankelijk van de vorige. Bij een training stopt hij na 4 goede opslagen. $X$ is het aantal opslagen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X = 4)$.
+      antwoord: |-
+        $0{,}1296$
+      uitwerking: |-
+        Alle vier de eerste opslagen zijn goed: $0{,}6^4 = 0{,}1296$.
+    - opgave: |-
+        Bereken $P(X \leqslant 6)$ met de binomiale verdeling.
+      antwoord: |-
+        $\approx 0{,}544$
+      uitwerking: |-
+        Minstens 4 goede bij de eerste 6: $P(X \leqslant 6) = P(Y \geqslant 4)$ met $Y \sim B(6;\, 0{,}6)$, dus $1 - \texttt{binomcdf(6,0.6,3)} \approx 0{,}544$.
+    - opgave: |-
+        Wat is de kans dat hij meer dan 8 opslagen nodig heeft?
+      antwoord: |-
+        $\approx 0{,}174$
+      uitwerking: |-
+        Meer dan 8 opslagen: hoogstens 3 goede bij de eerste 8. $P(X > 8) = \texttt{binomcdf(8,0.6,3)} \approx 0{,}174$.
+
+- id: h1-nbmu
+  soort: kort
+  opgave: |-
+    Een boogschutter raakt de roos met kans 0,3, onafhankelijk van de vorige pijlen. Hij schiet tot hij 5 keer de roos geraakt heeft.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel pijlen schiet hij gemiddeld, met welke standaardafwijking?
+      antwoord: |-
+        $\approx 16{,}7$; \ $\approx 6{,}2$
+      uitwerking: |-
+        $X \sim \NB(5;\, 0{,}3)$: $\E(X) = \frac{5}{0{,}3} \approx 16{,}7$ en $\sigma = \frac{\sqrt{5 \cdot 0{,}7}}{0{,}3} \approx 6{,}2$.
+    - opgave: |-
+        Wat is de kans dat hij maar 5 pijlen nodig heeft?
+      antwoord: |-
+        $\approx 0{,}0024$
+      uitwerking: |-
+        Vijf keer na elkaar de roos: $0{,}3^5 = 0{,}00243$.
+
+- id: h1-hyp
+  soort: kort
+  opgave: |-
+    Een klas telt 25 leerlingen, waarvan 10 jongens. Door loting kiest de leerkracht 4 leerlingen voor een jury. Wat is de kans op
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        precies 2 jongens?
+      antwoord: |-
+        $\approx 0{,}374$
+      uitwerking: |-
+        $X \sim \Hyp(25, 10, 4)$: $P(X = 2) = \frac{\binom{10}{2}\binom{15}{2}}{\binom{25}{4}} = \frac{45 \cdot 105}{12\,650} \approx 0{,}374$.
+    - opgave: |-
+        geen enkele jongen?
+      antwoord: |-
+        $\approx 0{,}108$
+      uitwerking: |-
+        $P(X = 0) = \frac{\binom{15}{4}}{\binom{25}{4}} = \frac{1365}{12\,650} \approx 0{,}108$.
+
+- id: h1-hypmu
+  soort: kort
+  opgave: |-
+    Bereken bij de jury uit de vorige oefening de verwachtingswaarde en de standaardafwijking van het aantal jongens. Vergelijk de standaardafwijking met die van een loting met teruglegging.
+  antwoord: |-
+    $1{,}6$; \ $\approx 0{,}92$ (met teruglegging $\approx 0{,}98$)
+  uitwerking: |-
+    $\E(X) = 4 \cdot \frac{10}{25} = 1{,}6$. $\Var(X) = 4 \cdot 0{,}4 \cdot 0{,}6 \cdot \frac{21}{24} = 0{,}84$, dus $\sigma \approx 0{,}92$. Met teruglegging is het aantal $B(4;\, 0{,}4)$, met $\sigma = \sqrt{0{,}96} \approx 0{,}98$: iets meer spreiding.
+
+- id: h1-kies
+  soort: kort
+  opgave: |-
+    Welke verdeling heeft $X$? Geef de parameters.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je trekt een kaart uit een spel van 52, legt ze terug en schudt, tot je een aas trekt. $X$ is het aantal trekkingen.
+      antwoord: |-
+        $\Geo\bigl(\tfrac{1}{13}\bigr)$
+      uitwerking: |-
+        Wachten op het eerste succes, met teruglegging: $p = \frac{4}{52} = \frac{1}{13}$.
+    - opgave: |-
+        Je trekt 5 kaarten zonder teruglegging. $X$ is het aantal azen.
+      antwoord: |-
+        $\Hyp(52, 4, 5)$
+      uitwerking: |-
+        Vast aantal trekkingen zonder teruglegging, uit 52 kaarten met 4 azen.
+    - opgave: |-
+        Je trekt 5 keer een kaart met teruglegging. $X$ is het aantal azen.
+      antwoord: |-
+        $B\bigl(5;\, \tfrac{1}{13}\bigr)$
+      uitwerking: |-
+        Vast aantal onafhankelijke trekkingen met dezelfde kans.
+    - opgave: |-
+        Je gooit met een dobbelsteen tot je drie keer zes gegooid hebt. $X$ is het aantal worpen.
+      antwoord: |-
+        $\NB\bigl(3;\, \tfrac16\bigr)$
+      uitwerking: |-
+        Wachten op het derde succes.
+    - opgave: |-
+        Een quizkandidaat beantwoordt elke vraag juist met kans 0,9. Hij speelt tot zijn eerste fout. $X$ is het aantal vragen, de foute meegeteld.
+      antwoord: |-
+        $\Geo(0{,}1)$
+      uitwerking: |-
+        Het \textit{succes} waarop je wacht is hier een fout, met kans 0,1. Wie $\Geo(0{,}9)$ neemt, wacht op een juist antwoord.
+
+#----------------------------------------------------------------------------------------
+# Opdrachten
+#----------------------------------------------------------------------------------------
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    geometrische verdeling
+  opgave: |-
+    $X \sim \Geo(0{,}25)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X = 1)$ en $P(X = 4)$.
+      antwoord: |-
+        $0{,}25$; \ $\approx 0{,}105$
+      uitwerking: |-
+        $P(X = 1) = p = 0{,}25$ en $P(X = 4) = 0{,}75^3 \cdot 0{,}25 \approx 0{,}105$.
+    - opgave: |-
+        Bereken $P(X \leqslant 3)$.
+      antwoord: |-
+        $\approx 0{,}578$
+      uitwerking: |-
+        $1 - 0{,}75^3 = 0{,}578125$.
+    - opgave: |-
+        Bereken $P(X > 6)$.
+      antwoord: |-
+        $\approx 0{,}178$
+      uitwerking: |-
+        $0{,}75^6 \approx 0{,}178$.
+    - opgave: |-
+        Bereken $\E(X)$ en $\sigma$.
+      antwoord: |-
+        4; \ $\approx 3{,}46$
+      uitwerking: |-
+        $\E(X) = \frac{1}{0{,}25} = 4$ en $\sigma = \frac{\sqrt{0{,}75}}{0{,}25} \approx 3{,}46$.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    hypergeometrische verdeling
+  opgave: |-
+    Een vaas bevat 8 rode en 12 blauwe knikkers. Je trekt er 6 zonder teruglegging. $X$ is het aantal rode.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X = 2)$.
+      antwoord: |-
+        $\approx 0{,}358$
+      uitwerking: |-
+        $X \sim \Hyp(20, 8, 6)$: $\frac{\binom82\binom{12}{4}}{\binom{20}{6}} = \frac{28 \cdot 495}{38\,760} \approx 0{,}358$.
+    - opgave: |-
+        Bereken $P(X = 0)$.
+      antwoord: |-
+        $\approx 0{,}024$
+      uitwerking: |-
+        $\frac{\binom{12}{6}}{\binom{20}{6}} = \frac{924}{38\,760} \approx 0{,}024$.
+    - opgave: |-
+        Bereken de kans op minstens één rode knikker.
+      antwoord: |-
+        $\approx 0{,}976$
+      uitwerking: |-
+        $1 - P(X = 0) \approx 0{,}976$.
+    - opgave: |-
+        Bereken $\E(X)$ en $\sigma$.
+      antwoord: |-
+        $2{,}4$; \ $\approx 1{,}03$
+      uitwerking: |-
+        $\E(X) = 6 \cdot \frac{8}{20} = 2{,}4$. $\Var(X) = 6 \cdot 0{,}4 \cdot 0{,}6 \cdot \frac{14}{19} \approx 1{,}061$, dus $\sigma \approx 1{,}03$.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    negatief-binomiale verdeling
+  opgave: |-
+    Je gooit met een munt tot je 3 keer kop hebt. $X$ is het aantal worpen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X = 3)$ en $P(X = 5)$.
+      antwoord: |-
+        $\tfrac18$; \ $\tfrac{3}{16}$
+      uitwerking: |-
+        $X \sim \NB(3;\, 0{,}5)$: $P(X = 3) = 0{,}5^3 = \frac18$ en $P(X = 5) = \binom42 \cdot 0{,}5^5 = \frac{6}{32} = \frac{3}{16}$.
+    - opgave: |-
+        Bereken $P(X \leqslant 5)$ met de binomiale verdeling.
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        Minstens 3 keer kop bij 5 worpen: $P(Y \geqslant 3)$ met $Y \sim B(5;\, 0{,}5)$. Dat is $\frac{10 + 5 + 1}{32} = \frac12$ (ook uit de symmetrie van $B(5;\, 0{,}5)$).
+    - opgave: |-
+        Bereken $\E(X)$ en $\sigma$.
+      antwoord: |-
+        6; \ $\approx 2{,}45$
+      uitwerking: |-
+        $\E(X) = \frac{3}{0{,}5} = 6$ en $\sigma = \frac{\sqrt{3 \cdot 0{,}5}}{0{,}5} = \sqrt6 \approx 2{,}45$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    geometrische verdeling aflezen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.5cm,y=10cm,font=\scriptsize]
+        \foreach \t in {0.05,0.1,0.15,0.2,0.25,0.3}{\draw[black!14,very thin] (.5,\t) -- (8.5,\t);}
+        \foreach \k in {1,...,8}{\pgfmathsetmacro{\h}{.3*.7^(\k-1)}\staaf{\k}{\h}{.6}}
+        \kansassen{.5}{9.2}{.34}{$k$}
+        \foreach \k in {1,...,8}{\node[below] at (\k,0) {\k};}
+        \foreach \t/\l in {.1/{0,10},.2/{0,20},.3/{0,30}}{\node[left] at (.5,\t) {\l};}
+      \end{tikzpicture}
+  opgave: |-
+    Het staafdiagram toont de kansen $P(X = k)$ voor $k = 1$ tot 8 van een geometrisch verdeelde $X$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees $p$ af. Controleer met de tweede staaf.
+      antwoord: |-
+        $p = 0{,}3$
+      uitwerking: |-
+        $P(X = 1) = p = 0{,}30$. De tweede staaf moet $0{,}7 \cdot 0{,}3 = 0{,}21$ zijn, en dat klopt met de figuur.
+    - opgave: |-
+        Bereken $P(X = 6)$.
+      antwoord: |-
+        $\approx 0{,}050$
+      uitwerking: |-
+        $0{,}7^5 \cdot 0{,}3 \approx 0{,}050$.
+    - opgave: |-
+        Bereken $P(X \leqslant 4)$, de som van de eerste vier staven.
+      antwoord: |-
+        $\approx 0{,}760$
+      uitwerking: |-
+        $1 - 0{,}7^4 = 0{,}7599$.
+    - opgave: |-
+        Bereken $\E(X)$. Waarom ligt die niet bij de hoogste staaf?
+      antwoord: |-
+        $\tfrac{10}{3} \approx 3{,}3$
+      uitwerking: |-
+        $\E(X) = \frac{1}{0{,}3} \approx 3{,}3$. Het staafdiagram is scheef naar rechts: de hoogste staaf staat bij 1, maar de lange staart trekt het gemiddelde naar rechts.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    hypergeometrische verdeling, kwaliteitscontrole
+  opgave: |-
+    Een partij van 50 chips bevat 3 defecte. De koper test er 5, zonder teruglegging, en aanvaardt de partij als er geen defecte bij zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat hij de partij aanvaardt?
+      antwoord: |-
+        $\approx 0{,}724$
+      uitwerking: |-
+        $X \sim \Hyp(50, 3, 5)$: $P(X = 0) = \frac{\binom{47}{5}}{\binom{50}{5}} = \frac{1419}{1960} \approx 0{,}724$.
+    - opgave: |-
+        Bereken dezelfde kans met de binomiale verdeling, alsof hij met teruglegging test. Is het verschil groot?
+      antwoord: |-
+        $\approx 0{,}734$; \ klein
+      uitwerking: |-
+        $0{,}94^5 \approx 0{,}734$. Het verschil is ongeveer 0,01: de steekproef is een tiende van de partij, de grens van de vuistregel.
+    - opgave: |-
+        De koper test er 10 in plaats van 5. Wat is nu de kans dat hij de partij aanvaardt?
+      antwoord: |-
+        $\approx 0{,}504$
+      uitwerking: |-
+        $\frac{\binom{47}{10}}{\binom{50}{10}} = \frac{247}{490} \approx 0{,}504$. Een partij met drie defecte chips komt nog altijd in de helft van de gevallen door.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    klassieke fouten bij de geometrische verdeling
+  opgave: |-
+    $X \sim \Geo(0{,}2)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X \geqslant 3)$ en $P(X > 3)$. Waarom verschillen ze?
+      antwoord: |-
+        $0{,}64$; \ $0{,}512$
+      uitwerking: |-
+        $P(X \geqslant 3) = P(X > 2) = 0{,}8^2 = 0{,}64$ en $P(X > 3) = 0{,}8^3 = 0{,}512$. Het verschil is $P(X = 3) = 0{,}8^2 \cdot 0{,}2 = 0{,}128$.
+    - opgave: |-
+        Lies schrijft $P(X = k) = 0{,}8^k \cdot 0{,}2$. Welke fout maakt ze? Bereken met haar formule de som van alle kansen.
+      antwoord: |-
+        exponent $k$ in plaats van $k - 1$; som $0{,}8$
+      uitwerking: |-
+        Voor $X = k$ mislukken alleen de eerste $k - 1$ pogingen: de exponent is $k - 1$. Haar kansen tellen op tot $\frac{0{,}8 \cdot 0{,}2}{1 - 0{,}8} = 0{,}8$, en niet tot 1.
+    - opgave: |-
+        Willem telt alleen de mislukkingen vóór het eerste succes: $Y = X - 1$. Geef $P(Y = j)$ en $\E(Y)$.
+      antwoord: |-
+        $0{,}8^j \cdot 0{,}2$ voor $j \geqslant 0$; \ $\E(Y) = 4$
+      uitwerking: |-
+        $P(Y = j) = P(X = j + 1) = 0{,}8^j \cdot 0{,}2$ voor $j = 0, 1, 2, \ldots$: dat is wel de formule van Lies, maar voor een andere variabele. Gemiddeld is $Y$ één minder dan $X$: $\E(Y) = 5 - 1 = 4$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    lotto
+  opgave: |-
+    Bij de lotto kies je 6 van de getallen 1 tot 45. Er worden 6 winnende getallen getrokken (het reservegetal laten we weg). $X$ is het aantal van jouw getallen dat getrokken wordt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke verdeling heeft $X$?
+      antwoord: |-
+        $\Hyp(45, 6, 6)$
+      uitwerking: |-
+        Er worden 6 getallen getrokken zonder teruglegging uit 45, waarvan 6 \textit{successen}: jouw getallen.
+    - opgave: |-
+        Wat is de kans op 6 juiste getallen?
+      antwoord: |-
+        $\tfrac{1}{8\,145\,060}$
+      uitwerking: |-
+        $\frac{1}{\binom{45}{6}} = \frac{1}{8\,145\,060} \approx 1{,}2 \cdot 10^{-7}$.
+    - opgave: |-
+        Wat is de kans op precies 3 juiste? En op geen enkel juist getal?
+      antwoord: |-
+        $\approx 0{,}0224$; \ $\approx 0{,}401$
+      uitwerking: |-
+        $\frac{\binom63\binom{39}{3}}{\binom{45}{6}} = \frac{20 \cdot 9139}{8\,145\,060} \approx 0{,}0224$ en $\frac{\binom{39}{6}}{\binom{45}{6}} \approx 0{,}401$.
+    - opgave: |-
+        Hoeveel juiste getallen heb je gemiddeld?
+      antwoord: |-
+        $0{,}8$
+      uitwerking: |-
+        $\E(X) = 6 \cdot \frac{6}{45} = 0{,}8$.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de juiste verdeling kiezen
+  opgave: |-
+    Je werkt met een gewoon spel van 52 kaarten, met 13 harten en 4 azen. Bereken telkens de kans, met de juiste verdeling.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je trekt 5 kaarten zonder teruglegging. Wat is de kans op precies 2 harten?
+      antwoord: |-
+        $\approx 0{,}274$
+      uitwerking: |-
+        $\Hyp(52, 13, 5)$: $\frac{\binom{13}{2}\binom{39}{3}}{\binom{52}{5}} = \frac{78 \cdot 9139}{2\,598\,960} \approx 0{,}274$.
+    - opgave: |-
+        Je trekt 5 kaarten met teruglegging. Wat is de kans op precies 2 harten?
+      antwoord: |-
+        $\approx 0{,}264$
+      uitwerking: |-
+        $B(5;\, 0{,}25)$: $\binom52 \cdot 0{,}25^2 \cdot 0{,}75^3 \approx 0{,}264$.
+    - opgave: |-
+        Je trekt met teruglegging tot je een aas hebt. Wat is de kans dat je precies 4 trekkingen nodig hebt?
+      antwoord: |-
+        $\approx 0{,}061$
+      uitwerking: |-
+        $\Geo\bigl(\frac{1}{13}\bigr)$: $\bigl(\frac{12}{13}\bigr)^3 \cdot \frac{1}{13} \approx 0{,}061$.
+    - opgave: |-
+        Je trekt met teruglegging tot je 2 azen hebt. Wat is de kans dat je precies 10 trekkingen nodig hebt?
+      antwoord: |-
+        $\approx 0{,}028$
+      uitwerking: |-
+        $\NB\bigl(2;\, \frac{1}{13}\bigr)$: $\binom91 \bigl(\frac{1}{13}\bigr)^2 \bigl(\frac{12}{13}\bigr)^8 \approx 0{,}028$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de vraag van De Méré
+  prent:
+    naam: dobbelstenen
+  opgave: |-
+    De Franse edelman en gokker Antoine Gombaud, chevalier de Méré, legde rond 1654 aan Pascal een vraag voor. Hij wedde vaak dat hij bij 4 worpen met één dobbelsteen minstens één zes zou gooien, en won daarmee op lange termijn. Hij dacht dat een weddenschap op minstens één dubbele zes bij 24 worpen met twee dobbelstenen even goed was, want $\frac{4}{6} = \frac{24}{36}$. Maar daarmee verloor hij.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de kans op minstens één zes bij 4 worpen met één dobbelsteen.
+      antwoord: |-
+        $\approx 0{,}518$
+      uitwerking: |-
+        Het aantal worpen tot de eerste zes is $\Geo\bigl(\frac16\bigr)$: $P(X \leqslant 4) = 1 - \bigl(\frac56\bigr)^4 \approx 0{,}518$. Iets meer dan een half: op lange termijn wint hij.
+    - opgave: |-
+        Bereken de kans op minstens één dubbele zes bij 24 worpen met twee dobbelstenen. Verklaar zijn verlies.
+      antwoord: |-
+        $\approx 0{,}491$
+      uitwerking: |-
+        $P(X \leqslant 24) = 1 - \bigl(\frac{35}{36}\bigr)^{24} \approx 0{,}491$, iets minder dan een half. Zijn redenering met $\frac{4}{6} = \frac{24}{36}$ telt de kansen op, alsof ze onverenigbaar zijn; maar de kans op minstens één succes is $1 - (1 - p)^n$ en niet $np$.
+    - opgave: |-
+        Wat is de kans dat de eerste dubbele zes pas bij de tiende worp valt?
+      antwoord: |-
+        $\approx 0{,}022$
+      uitwerking: |-
+        $\bigl(\frac{35}{36}\bigr)^9 \cdot \frac{1}{36} \approx 0{,}022$.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de theeproef van Fisher
+  opgave: |-
+    De Britse statisticus Ronald Fisher beschreef in 1935 een proef met een dame die beweerde te proeven of de melk vóór of na de thee in de kop was gegaan. Ze krijgt 8 koppen in willekeurige volgorde: bij 4 ging de melk eerst. Ze weet dat het er 4 zijn, en moet die 4 aanwijzen. Stel dat ze gokt. $X$ is het aantal juist aangewezen koppen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke verdeling heeft $X$? Geef alle kansen $P(X = k)$.
+      antwoord: |-
+        $\Hyp(8, 4, 4)$; \ $\tfrac{1}{70}, \tfrac{16}{70}, \tfrac{36}{70}, \tfrac{16}{70}, \tfrac{1}{70}$
+      uitwerking: |-
+        Ze kiest 4 koppen uit 8, waarvan 4 \textit{juist}: $P(X = k) = \frac{\binom4k\binom{4}{4-k}}{70}$, dus voor $k = 0, \ldots, 4$: $\frac{1}{70}$, $\frac{16}{70}$, $\frac{36}{70}$, $\frac{16}{70}$, $\frac{1}{70}$.
+    - opgave: |-
+        Wat is de kans dat ze alle 4 juist aanwijst? En minstens 3?
+      antwoord: |-
+        $\approx 0{,}014$; \ $\approx 0{,}243$
+      uitwerking: |-
+        $P(X = 4) = \frac{1}{70} \approx 0{,}014$ en $P(X \geqslant 3) = \frac{17}{70} \approx 0{,}243$.
+    - opgave: |-
+        Fisher zou haar alleen geloven als ze alle 4 koppen juist had. Waarom niet bij 3 juiste?
+      antwoord: |-
+        3 of meer juist gebeurt bij gokken in een kwart van de proeven
+      uitwerking: |-
+        Bij gokken heeft ze in bijna een kwart van de proeven minstens 3 juist: dat is geen sterke aanwijzing. Alle 4 juist gebeurt bij gokken maar in 1 op de 70 proeven, minder dan 5~\%.
+    - opgave: |-
+        Hoeveel koppen wijst ze gemiddeld juist aan als ze gokt?
+      antwoord: |-
+        2
+      uitwerking: |-
+        $\E(X) = 4 \cdot \frac48 = 2$.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    negatief-binomiale verdeling, een wedstrijd in sets
+  opgave: |-
+    Een volleybalwedstrijd wordt gewonnen door de ploeg die eerst 3 sets wint. Ploeg A wint elke set met kans 0,6, onafhankelijk van de andere sets.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat A wint in precies 3 sets?
+      antwoord: |-
+        $0{,}216$
+      uitwerking: |-
+        Het aantal sets tot de derde setwinst van A is $X \sim \NB(3;\, 0{,}6)$: $P(X = 3) = 0{,}6^3 = 0{,}216$.
+    - opgave: |-
+        Wat is de kans dat A wint in precies 4 sets? En in precies 5 sets?
+      antwoord: |-
+        $0{,}2592$; \ $\approx 0{,}2074$
+      uitwerking: |-
+        $P(X = 4) = \binom32 \cdot 0{,}6^3 \cdot 0{,}4 = 0{,}2592$ en $P(X = 5) = \binom42 \cdot 0{,}6^3 \cdot 0{,}4^2 = 0{,}20736$.
+    - opgave: |-
+        Wat is de kans dat A de wedstrijd wint?
+      antwoord: |-
+        $\approx 0{,}683$
+      uitwerking: |-
+        $0{,}216 + 0{,}2592 + 0{,}20736 = 0{,}68256$.
+    - opgave: |-
+        Toon aan dat dit gelijk is aan $P(Y \geqslant 3)$ met $Y \sim B(5;\, 0{,}6)$, hoewel een wedstrijd vaak geen 5 sets duurt.
+      antwoord: |-
+        stelling \textit{wachten en tellen}
+      uitwerking: |-
+        $1 - \texttt{binomcdf(5,0.6,2)} = 0{,}68256$. Speel in gedachten altijd 5 sets: A wint de wedstrijd precies als A minstens 3 van die 5 sets wint. De sets die niet gespeeld worden, veranderen de winnaar niet.
+    - opgave: |-
+        Hoeveel kans heeft A om een wedstrijd te winnen in 2 gewonnen sets (\textit{best of 3})? Wie heeft voordeel bij een langere wedstrijd: de sterkere of de zwakkere ploeg?
+      antwoord: |-
+        $0{,}648$; \ de sterkere ploeg
+      uitwerking: |-
+        $P(Y \geqslant 2)$ met $Y \sim B(3;\, 0{,}6)$: $3 \cdot 0{,}36 \cdot 0{,}4 + 0{,}216 = 0{,}648$. Bij een langere wedstrijd speelt het toeval minder mee: de sterkere ploeg wint vaker (0,683 tegen 0,648).
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de parameter van een geometrische verdeling bepalen
+  opgave: |-
+    $X \sim \Geo(p)$. Bepaal $p$ als je weet dat
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $P(X > 3) = 0{,}343$;
+      antwoord: |-
+        $0{,}3$
+      uitwerking: |-
+        $(1 - p)^3 = 0{,}343 = 0{,}7^3$, dus $1 - p = 0{,}7$ en $p = 0{,}3$.
+    - opgave: |-
+        $\E(X) = 2{,}5$;
+      antwoord: |-
+        $0{,}4$
+      uitwerking: |-
+        $\frac1p = 2{,}5$, dus $p = 0{,}4$.
+    - opgave: |-
+        $P(X = 2) = 0{,}16$. Hoeveel oplossingen zijn er?
+      antwoord: |-
+        $0{,}2$ of $0{,}8$
+      uitwerking: |-
+        $(1 - p)p = 0{,}16 \iff p^2 - p + 0{,}16 = 0 \iff p = 0{,}2$ of $p = 0{,}8$. Twee verdelingen hebben dezelfde kans op $X = 2$, maar ze zijn heel verschillend: bij $p = 0{,}8$ is $P(X = 1) = 0{,}8$.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hypergeometrische verdeling, een jury
+  opgave: |-
+    Uit 12 kandidaten, 5 vrouwen en 7 mannen, wordt door loting een jury van 6 personen samengesteld. $X$ is het aantal vrouwen in de jury.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans op precies 3 vrouwen?
+      antwoord: |-
+        $\approx 0{,}379$
+      uitwerking: |-
+        $X \sim \Hyp(12, 5, 6)$: $\frac{\binom53\binom73}{\binom{12}{6}} = \frac{10 \cdot 35}{924} \approx 0{,}379$.
+    - opgave: |-
+        Een journalist vindt een jury met hoogstens één vrouw verdacht. Hoe groot is die kans bij een eerlijke loting?
+      antwoord: |-
+        $\approx 0{,}121$
+      uitwerking: |-
+        $P(X \leqslant 1) = \frac{\binom76 + \binom51\binom75}{924} = \frac{7 + 105}{924} \approx 0{,}121$: ongeveer een op acht lotingen. Dat is niet zo uitzonderlijk.
+    - opgave: |-
+        Bereken $\E(X)$ en $\sigma$.
+      antwoord: |-
+        $2{,}5$; \ $\approx 0{,}89$
+      uitwerking: |-
+        $\E(X) = 6 \cdot \frac{5}{12} = 2{,}5$ en $\Var(X) = 6 \cdot \frac{5}{12} \cdot \frac{7}{12} \cdot \frac{6}{11} = \frac{35}{44}$, dus $\sigma \approx 0{,}89$.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    geometrische verdeling in een fabriek
+  opgave: |-
+    In een fabriek is 2~\% van de lampjes defect. Een controleur test lampjes tot hij een defect vindt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel lampjes test hij gemiddeld, met welke standaardafwijking?
+      antwoord: |-
+        50; \ $\approx 49{,}5$
+      uitwerking: |-
+        $X \sim \Geo(0{,}02)$: $\E(X) = 50$ en $\sigma = \frac{\sqrt{0{,}98}}{0{,}02} \approx 49{,}5$.
+    - opgave: |-
+        Wat is de kans dat hij meer dan 100 lampjes moet testen?
+      antwoord: |-
+        $\approx 0{,}133$
+      uitwerking: |-
+        $0{,}98^{100} \approx 0{,}133$.
+    - opgave: |-
+        Wat is de kans dat hij tussen 30 en 60 lampjes test, grenzen inbegrepen?
+      antwoord: |-
+        $\approx 0{,}259$
+      uitwerking: |-
+        $P(30 \leqslant X \leqslant 60) = P(X > 29) - P(X > 60) = 0{,}98^{29} - 0{,}98^{60} \approx 0{,}5566 - 0{,}2976 = 0{,}259$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vangst-hervangst
+  prent:
+    naam: kever
+  opgave: |-
+    Om te schatten hoeveel kevers er in een bos leven, vangen biologen er 40, merken ze met een stipje verf en laten ze vrij. Een week later vangen ze er 30. Daarvan zijn er 6 gemerkt. Stel dat het bos $N$ kevers telt, en dat elke groep van 30 even waarschijnlijk gevangen wordt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schat $N$ door te stellen dat het aandeel gemerkte kevers in de tweede vangst gelijk is aan dat in het bos.
+      antwoord: |-
+        $N \approx 200$
+      uitwerking: |-
+        $\frac{40}{N} = \frac{6}{30}$ geeft $N = 200$.
+    - opgave: |-
+        Welke verdeling heeft het aantal gemerkte kevers $X$ in de tweede vangst? Bereken $P(X = 6)$ voor $N = 200$.
+      antwoord: |-
+        $\Hyp(N, 40, 30)$; \ $\approx 0{,}195$
+      uitwerking: |-
+        Zonder teruglegging 30 uit $N$, waarvan 40 gemerkt: $\Hyp(N, 40, 30)$. Voor $N = 200$: $\frac{\binom{40}{6}\binom{160}{24}}{\binom{200}{30}} \approx 0{,}195$.
+    - opgave: |-
+        Bereken $P(X = 6)$ ook voor $N = 150$ en $N = 300$.
+      antwoord: |-
+        $\approx 0{,}126$; \ $\approx 0{,}109$
+      uitwerking: |-
+        Met \texttt{nCr}: voor $N = 150$ is $P(X = 6) \approx 0{,}126$, voor $N = 300$ ongeveer $0{,}109$.
+    - opgave: |-
+        Bij welke $N$ is de waarneming $X = 6$ het waarschijnlijkst? Gebruik de tabel van je rekentoestel. Vergelijk met a.
+      antwoord: |-
+        $N = 199$ en $N = 200$
+      uitwerking: |-
+        De kans $P(X = 6)$ als functie van $N$ stijgt tot $N = 199$, is even groot bij $N = 200$ (beide $\approx 0{,}1946$), en daalt daarna. De schatting uit a is dus ook de $N$ die de waarneming het waarschijnlijkst maakt.\par
+        \begin{tikzpicture}[x=.022cm,y=12cm,font=\scriptsize]
+          \foreach \t in {0.05,0.1,0.15,0.2}{\draw[black!14,very thin] (100,\t) -- (400,\t);}
+          \foreach \N/\h in {100/.0047,125/.05,150/.126,175/.1792,200/.1946,225/.1834,250/.16,275/.1336,300/.1088,325/.0875,350/.0699,375/.0558,400/.0445}{\fill[accent] (\N,\h) circle (1.5pt);}
+          \draw[->,grijs] (100,0) -- (415,0) node[right,text=black] {$N$};
+          \draw[->,grijs] (100,0) -- (100,.22);
+          \foreach \N in {100,200,300,400}{\node[below] at (\N,0) {\N};}
+          \foreach \t/\l in {.1/{0,1},.2/{0,2}}{\node[left] at (100,\t) {\l};}
+        \end{tikzpicture}
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    negatief-binomiale verdeling, een quiz met twee levens
+  opgave: |-
+    Bij een quizspel heb je twee levens: je speelt tot je twee foute antwoorden hebt gegeven. Je beantwoordt elke vraag fout met kans 0,25, onafhankelijk van de andere vragen. $X$ is het aantal vragen dat je krijgt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel vragen krijg je gemiddeld?
+      antwoord: |-
+        8
+      uitwerking: |-
+        $X \sim \NB(2;\, 0{,}25)$: $\E(X) = \frac{2}{0{,}25} = 8$.
+    - opgave: |-
+        Wat is de kans dat je minstens 10 vragen krijgt?
+      antwoord: |-
+        $\approx 0{,}300$
+      uitwerking: |-
+        Minstens 10 vragen: bij de eerste 9 vragen hoogstens 1 fout. $P(X \geqslant 10) = P(Y \leqslant 1)$ met $Y \sim B(9;\, 0{,}25)$: $0{,}75^9 + 9 \cdot 0{,}25 \cdot 0{,}75^8 \approx 0{,}300$.
+    - opgave: |-
+        De score is het aantal juiste antwoorden. Wat is de gemiddelde score?
+      antwoord: |-
+        6
+      uitwerking: |-
+        De score is $X - 2$, want precies 2 antwoorden zijn fout. Gemiddeld $8 - 2 = 6$.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hypergeometrisch of binomiaal
+  opgave: |-
+    Een visser vangt 10 vissen uit een vijver, zonder teruglegging. Een tiende van de vissen in de vijver is gemerkt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De vijver telt 1000 vissen, waarvan 100 gemerkt. Bereken de kans op precies 2 gemerkte vissen, exact en met de binomiale verdeling.
+      antwoord: |-
+        $\approx 0{,}1945$ en $\approx 0{,}1937$
+      uitwerking: |-
+        $\Hyp(1000, 100, 10)$: $\frac{\binom{100}{2}\binom{900}{8}}{\binom{1000}{10}} \approx 0{,}1945$. Met $B(10;\, 0{,}1)$: $\binom{10}{2}\cdot 0{,}1^2 \cdot 0{,}9^8 \approx 0{,}1937$.
+    - opgave: |-
+        De vijver telt 30 vissen, waarvan 3 gemerkt. Bereken opnieuw beide kansen, en ook de kans op geen enkele gemerkte vis.
+      antwoord: |-
+        $\approx 0{,}222$ en $\approx 0{,}194$; \ $\approx 0{,}281$ en $\approx 0{,}349$
+      uitwerking: |-
+        $\Hyp(30, 3, 10)$: $P(X = 2) = \frac{\binom32\binom{27}{8}}{\binom{30}{10}} \approx 0{,}222$, binomiaal $0{,}194$. $P(X = 0) = \frac{\binom{27}{10}}{\binom{30}{10}} \approx 0{,}281$, binomiaal $0{,}9^{10} \approx 0{,}349$.
+    - opgave: |-
+        Wanneer mag je binomiaal rekenen? Verklaar het verschil met de correctiefactor.
+      antwoord: |-
+        als $n$ klein is tegenover $N$
+      uitwerking: |-
+        Bij 1000 vissen is de vangst een honderdste van de vijver: de correctiefactor $\frac{990}{999} \approx 0{,}99$ is bijna 1, en de verdelingen zijn bijna gelijk. Bij 30 vissen is de vangst een derde van de vijver: de factor $\frac{20}{29} \approx 0{,}69$ maakt de spreiding duidelijk kleiner, en de kansen verschillen.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    om beurten gooien
+  opgave: |-
+    Anouk en Jens gooien om beurten met een dobbelsteen. Anouk begint. Wie eerst een zes gooit, wint. $X$ is het aantal worpen tot de eerste zes.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij welke waarden van $X$ wint Jens?
+      antwoord: |-
+        de even waarden
+      uitwerking: |-
+        Jens gooit de worpen 2, 4, 6, \ldots: hij wint als $X$ even is.
+    - opgave: |-
+        Bereken de kans dat Jens wint, als som van een reeks.
+      antwoord: |-
+        $\tfrac{5}{11}$
+      uitwerking: |-
+        $P(X \text{ even}) = \frac56 \cdot \frac16 + \bigl(\frac56\bigr)^3 \frac16 + \bigl(\frac56\bigr)^5 \frac16 + \cdots$, een meetkundige reeks met $u_1 = \frac{5}{36}$ en $q = \frac{25}{36}$: $\frac{5/36}{11/36} = \frac{5}{11}$.
+    - opgave: |-
+        Hoe groot is het voordeel van wie begint? Toon aan dat het voor elke $p$ geldt, met $P(X \text{ even}) = \frac{1 - p}{2 - p}$.
+      antwoord: |-
+        Anouk wint met kans $\tfrac{6}{11}$
+      uitwerking: |-
+        Anouk wint met kans $\frac{6}{11} \approx 0{,}545$. Algemeen: $P(X \text{ even}) = \frac{(1 - p)p}{1 - (1 - p)^2} = \frac{(1 - p)p}{p(2 - p)} = \frac{1 - p}{2 - p} < \frac12$, want $2(1 - p) < 2 - p$.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    variantie van de geometrische verdeling (bewijs)
+  opgave: |-
+    $X \sim \Geo(p)$ met $q = 1 - p$. Je bewijst $\Var(X) = \frac{q}{p^2}$ door naar de eerste poging te kijken. Lukt die, dan is $X = 1$. Mislukt ze, dan begint het wachten opnieuw: door de geheugenloosheid is $X$ dan $1 + X'$, met $X'$ weer $\Geo(p)$. Aanvaard dat je zo verwachtingswaarden mag splitsen: $\E(g(X)) = p \cdot g(1) + q \cdot \E\bigl(g(1 + X)\bigr)$ voor een functie $g$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $g(x) = x$. Toon aan dat $\E(X) = p + q\bigl(1 + \E(X)\bigr)$, en vind opnieuw $\E(X) = \frac1p$.
+      antwoord: |-
+        $\E(X) = \tfrac1p$
+      uitwerking: |-
+        $\E(X) = p \cdot 1 + q\,\E(1 + X) = p + q + q\,\E(X) = 1 + q\,\E(X)$. Dus $(1 - q)\E(X) = 1$, of $\E(X) = \frac1p$.
+    - opgave: |-
+        Neem $g(x) = x^2$. Toon aan dat $\E(X^2) = \frac{2 - p}{p^2}$.
+      antwoord: |-
+        $\E(X^2) = \tfrac{2 - p}{p^2}$
+      uitwerking: |-
+        $\E(X^2) = p + q\,\E\bigl((1 + X)^2\bigr) = p + q\bigl(1 + 2\E(X) + \E(X^2)\bigr) = 1 + \frac{2q}{p} + q\,\E(X^2)$. Dus $p\,\E(X^2) = 1 + \frac{2q}{p} = \frac{p + 2q}{p} = \frac{2 - p}{p}$, en $\E(X^2) = \frac{2 - p}{p^2}$.
+    - opgave: |-
+        Leid $\Var(X)$ af. Controleer met $p = \frac16$.
+      antwoord: |-
+        $\tfrac{1 - p}{p^2}$; \ 30
+      uitwerking: |-
+        $\Var(X) = \frac{2 - p}{p^2} - \frac{1}{p^2} = \frac{1 - p}{p^2}$. Met $p = \frac16$: $\frac{5/6}{1/36} = 30$, dus $\sigma = \sqrt{30}$, zoals bij het voorbeeld van het bordspel.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    variantie van de hypergeometrische verdeling (bewijs)
+  opgave: |-
+    $X \sim \Hyp(N, M, n)$ met $n \geqslant 2$ en $M \geqslant 2$. Je bewijst de formule voor $\Var(X)$ zoals de formule voor $\E(X)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $k(k - 1)\binom{M}{k} = M(M - 1)\binom{M - 2}{k - 2}$ voor $k \geqslant 2$, en dat $\binom{N}{n} = \frac{N(N - 1)}{n(n - 1)}\binom{N - 2}{n - 2}$.
+      antwoord: |-
+        twee keer de kapiteinsregel
+      uitwerking: |-
+        Twee keer de kapiteinsregel: $k(k - 1)\binom{M}{k} = (k - 1) M\binom{M-1}{k-1} = M(M - 1)\binom{M-2}{k-2}$. Zo ook $n(n - 1)\binom{N}{n} = N(N - 1)\binom{N-2}{n-2}$.
+    - opgave: |-
+        Toon aan dat $\E\bigl(X(X - 1)\bigr) = \sum k(k - 1)P(X = k) = \frac{n(n - 1)M(M - 1)}{N(N - 1)}$.
+      antwoord: |-
+        met de kansen van $\Hyp(N - 2, M - 2, n - 2)$
+      uitwerking: |-
+        Met a is $\sum_{k \geqslant 2} k(k - 1)\frac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}} = \frac{n(n - 1)M(M - 1)}{N(N - 1)} \sum_{k \geqslant 2} \frac{\binom{M-2}{k-2}\binom{N-M}{n-k}}{\binom{N-2}{n-2}}$. Omdat $N - M = (N - 2) - (M - 2)$ en $n - k = (n - 2) - (k - 2)$, zijn de termen van de laatste som alle kansen van $\Hyp(N - 2, M - 2, n - 2)$, samen 1.
+    - opgave: |-
+        Leid af dat $\Var(X) = n\frac{M}{N}\bigl(1 - \frac{M}{N}\bigr)\frac{N - n}{N - 1}$. Gebruik $\E(X^2) = \E\bigl(X(X - 1)\bigr) + \E(X)$.
+      antwoord: |-
+        uitrekenen
+      uitwerking: |-
+        $\Var(X) = \frac{n(n - 1)M(M - 1)}{N(N - 1)} + \frac{nM}{N} - \frac{n^2M^2}{N^2} = \frac{nM}{N}\Bigl(\frac{(n - 1)(M - 1)}{N - 1} + 1 - \frac{nM}{N}\Bigr)$. Op noemer $N(N - 1)$ wordt de haakjesvorm $\frac{N(n - 1)(M - 1) + N(N - 1) - nM(N - 1)}{N(N - 1)} = \frac{N^2 - nN - MN + nM}{N(N - 1)} = \frac{(N - M)(N - n)}{N(N - 1)}$. Dus $\Var(X) = n \frac{M}{N} \cdot \frac{N - M}{N} \cdot \frac{N - n}{N - 1}$.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het probleem van de punten algemeen
+  opgave: |-
+    Speler A wint elke ronde met kans $p$, speler B met kans $1 - p$. A heeft nog $a$ gewonnen rondes nodig, B nog $b$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Leg uit waarom het spel na hoogstens $a + b - 1$ rondes beslist is.
+      antwoord: |-
+        na $a + b - 1$ rondes heeft A er $a$ of B er $b$
+      uitwerking: |-
+        Na $a + b - 1$ rondes heeft A er minder dan $a$ gewonnen, dan heeft B er minstens $(a + b - 1) - (a - 1) = b$ gewonnen. Een van beiden heeft dus zijn aantal gehaald.
+    - opgave: |-
+        Toon aan dat A wint met kans $P(Y \geqslant a)$, met $Y \sim B(a + b - 1, p)$.
+      antwoord: |-
+        \textit{wachten en tellen} met $k = a + b - 1$
+      uitwerking: |-
+        A wint als zijn wachttijd $X \sim \NB(a, p)$ hoogstens $a + b - 1$ is: als dat zo is, heeft B nog geen $b$ rondes. Met de stelling \textit{wachten en tellen} is $P(X \leqslant a + b - 1) = P(Y \geqslant a)$.
+    - opgave: |-
+        Bereken de eerlijke verdeling van een pot van 80 euro bij $a = 1$, $b = 3$ en $p = \frac12$.
+      antwoord: |-
+        70 en 10 euro
+      uitwerking: |-
+        $P(Y \geqslant 1)$ met $Y \sim B(3;\, \frac12)$: $1 - \frac18 = \frac78$. A krijgt $\frac78 \cdot 80 = 70$ euro, B 10 euro.
+    - opgave: |-
+        Anna en Bert uit het probleem zijn toch niet even sterk: Anna wint een ronde met kans 0,6. Welk deel van de pot krijgt ze bij 2-1?
+      antwoord: |-
+        $\approx 0{,}821$
+      uitwerking: |-
+        $a = 2$, $b = 3$: $P(Y \geqslant 2)$ met $Y \sim B(4;\, 0{,}6)$ is $1 - 0{,}4^4 - 4 \cdot 0{,}6 \cdot 0{,}4^3 = 0{,}8208$. Ze krijgt ongeveer 52,53 euro van de 64.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het verzamelaarsprobleem
+  opgave: |-
+    In elke doos ontbijtgranen zit een van 6 figuurtjes, elk met dezelfde kans, onafhankelijk van de andere dozen. Hoeveel dozen moet je gemiddeld kopen om alle 6 figuurtjes te hebben? Aanvaard hier dat de verwachtingswaarde van een som de som is van de verwachtingswaarden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je hebt al $j$ verschillende figuurtjes ($0 \leqslant j \leqslant 5$). Welke verdeling heeft het aantal dozen tot je een nieuw figuurtje krijgt? Wat is de verwachtingswaarde?
+      antwoord: |-
+        $\Geo\bigl(\tfrac{6 - j}{6}\bigr)$; \ $\tfrac{6}{6 - j}$
+      uitwerking: |-
+        Elke doos bevat een nieuw figuurtje met kans $\frac{6 - j}{6}$, onafhankelijk: $\Geo\bigl(\frac{6 - j}{6}\bigr)$, met verwachtingswaarde $\frac{6}{6 - j}$.
+    - opgave: |-
+        Toon aan dat je gemiddeld $6\bigl(1 + \frac12 + \frac13 + \frac14 + \frac15 + \frac16\bigr) = 14{,}7$ dozen nodig hebt.
+      antwoord: |-
+        $14{,}7$
+      uitwerking: |-
+        De totale wachttijd is de som van de zes wachttijden voor $j = 0, \ldots, 5$: $\frac66 + \frac65 + \frac64 + \frac63 + \frac62 + \frac61 = 6\bigl(1 + \frac12 + \cdots + \frac16\bigr) = 14{,}7$.
+    - opgave: |-
+        Hoeveel dozen gemiddeld bij 20 figuurtjes? Waarom duurt het laatste figuurtje het langst?
+      antwoord: |-
+        $\approx 72$
+      uitwerking: |-
+        $20\bigl(1 + \frac12 + \cdots + \frac{1}{20}\bigr) \approx 71{,}95$. Voor het laatste figuurtje is de kans per doos maar $\frac{1}{20}$: gemiddeld 20 dozen, meer dan een vierde van het totaal.
+    - opgave: |-
+        Voor grote $n$ is $1 + \frac12 + \cdots + \frac1n \approx \ln n + 0{,}577$. Vergelijk die benadering met c. Wat zegt ze over 100 figuurtjes?
+      antwoord: |-
+        $\approx 71{,}5$; \ ongeveer 519 dozen
+      uitwerking: |-
+        $20(\ln 20 + 0{,}577) \approx 71{,}5$, dicht bij 71,95. Voor 100 figuurtjes: $100(\ln 100 + 0{,}577) \approx 518{,}2$; exact is het ongeveer 518,7. Vijf keer zoveel figuurtjes vraagt dus ruim zeven keer zoveel dozen.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    limieten en de geheugenloosheid
+  opgave: |-
+    Twee eigenschappen van wachttijden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\lim_{k\to+\infty} k^2 q^k = 0$ voor $0 < q < 1$. Schrijf $q = \frac{1}{1 + h}$ en gebruik $(1 + h)^k \geqslant \binom{k}{3}h^3$.
+      antwoord: |-
+        insluiten tussen 0 en $\tfrac{6k}{(k - 1)(k - 2)h^3}$
+      uitwerking: |-
+        Voor $k \geqslant 3$ is $0 < k^2 q^k = \frac{k^2}{(1 + h)^k} \leqslant \frac{k^2}{\frac{k(k-1)(k-2)}{6}h^3} = \frac{6k}{(k - 1)(k - 2)h^3}$, en dat gaat naar 0. Met de insluitstelling is de limiet 0. Zo gaat ook $k^j q^k \to 0$ voor elke $j$, met $\binom{k}{j+1}$.
+    - opgave: |-
+        $X$ neemt de waarden $1, 2, 3, \ldots$ aan, en is geheugenloos: $P(X > m + k) = P(X > m) \cdot P(X > k)$ voor alle natuurlijke $m$ en $k$. Stel $q = P(X > 1)$, met $0 < q < 1$. Toon aan dat $P(X > k) = q^k$.
+      antwoord: |-
+        inductie op $k$
+      uitwerking: |-
+        Met $m = 1$: $P(X > k + 1) = q \cdot P(X > k)$. Omdat $P(X > 0) = 1$, vind je stap voor stap $P(X > 1) = q$, $P(X > 2) = q^2$, en zo verder: $P(X > k) = q^k$.
+    - opgave: |-
+        Besluit dat $X \sim \Geo(1 - q)$: de geometrische verdeling is de enige geheugenloze verdeling op $1, 2, 3, \ldots$
+      antwoord: |-
+        $P(X = k) = q^{k-1}(1 - q)$
+      uitwerking: |-
+        $P(X = k) = P(X > k - 1) - P(X > k) = q^{k-1} - q^k = q^{k-1}(1 - q)$: de geometrische verdeling met $p = 1 - q$.
+
+- id: h1-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de paradox van Sint-Petersburg
+  opgave: |-
+    Een casino biedt een spel aan: je gooit met een munt tot je kop gooit. Valt kop bij worp $k$, dan krijg je $2^k$ euro. Dit spel bestudeerden Nicolaus en Daniel Bernoulli in de 18de eeuw.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de kansverdeling van de winst $W$. Wat is de kans dat je meer dan 100 euro wint?
+      antwoord: |-
+        $P(W = 2^k) = \tfrac{1}{2^k}$; \ $\tfrac{1}{64}$
+      uitwerking: |-
+        $X \sim \Geo(\frac12)$ en $W = 2^X$, dus $P(W = 2^k) = \frac{1}{2^k}$ voor $k \geqslant 1$. Meer dan 100 euro: $2^k > 100$, dus $k \geqslant 7$. $P(X > 6) = \frac{1}{2^6} = \frac{1}{64}$.
+    - opgave: |-
+        Toon aan dat de reeks voor $\E(W)$ divergeert.
+      antwoord: |-
+        elke term is 1
+      uitwerking: |-
+        $\sominf{k=1} 2^k \cdot \frac{1}{2^k} = 1 + 1 + 1 + \cdots$: de partieelsommen zijn $n$, en die gaan naar $+\infty$. De verwachtingswaarde bestaat niet (ze is oneindig).
+    - opgave: |-
+        Zou je 100 euro inzet betalen om het spel één keer te spelen? Wat zegt dat over de verwachtingswaarde als maatstaf?
+      antwoord: |-
+        nee: in 63 van de 64 spelen verlies je
+      uitwerking: |-
+        Met kans $\frac{63}{64}$ win je hoogstens 64 euro, en verlies je dus geld. Alleen op heel lange termijn, met af en toe een gigantische winst, zou het spel zich terugbetalen. Bovendien heeft geen casino oneindig veel geld. De verwachtingswaarde zegt dus niet alles: ook de spreiding en de kans op verlies tellen.
+
+#----------------------------------------------------------------------------------------
+# Koppel
+#----------------------------------------------------------------------------------------
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 1
+  koppel:
+    rubriek: discreet
+    onderwerp: Rijen
+  thema: |-
+    meetkundige rij en partieelsom
+  opgave: |-
+    $X \sim \Geo(0{,}2)$. De kansen $P(X = 1)$, $P(X = 2)$, $P(X = 3)$, \ldots\ vormen een rij.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat het een meetkundige rij is. Wat is het quotiënt?
+      antwoord: |-
+        quotiënt $0{,}8$
+      uitwerking: |-
+        $\frac{P(X = k + 1)}{P(X = k)} = \frac{0{,}8^k \cdot 0{,}2}{0{,}8^{k-1} \cdot 0{,}2} = 0{,}8$, voor elke $k$.
+    - opgave: |-
+        Bereken $P(X \leqslant 10)$ met de somformule voor de eerste $n$ termen van een meetkundige rij, en controleer met de staartkans.
+      antwoord: |-
+        $\approx 0{,}893$
+      uitwerking: |-
+        $0{,}2 \cdot \frac{1 - 0{,}8^{10}}{1 - 0{,}8} = 1 - 0{,}8^{10} \approx 0{,}893$, en dat is $1 - P(X > 10)$.
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: discreet
+    onderwerp: Telproblemen
+  thema: |-
+    de identiteit van Vandermonde
+  opgave: |-
+    Een groep bestaat uit $M$ meisjes en $N - M$ jongens. Je kiest er $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tel op twee manieren hoeveel groepjes van $n$ er zijn, en toon zo aan dat\par\centerline{$\displaystyle\sum_{k} \binom{M}{k}\binom{N - M}{n - k} = \binom{N}{n}$}
+      antwoord: |-
+        tel per aantal meisjes $k$
+      uitwerking: |-
+        Rechtstreeks zijn er $\binom{N}{n}$ groepjes. Tel je ze per aantal meisjes $k$, dan zijn er $\binom{M}{k}\binom{N-M}{n-k}$ met precies $k$ meisjes. Elk groepje heeft één aantal meisjes, dus de som over alle $k$ geeft hetzelfde totaal. Dat is de identiteit van Vandermonde.
+    - opgave: |-
+        Leid af dat de kansen van een hypergeometrische verdeling samen 1 zijn.
+      antwoord: |-
+        deel door $\binom{N}{n}$
+      uitwerking: |-
+        Deel beide leden door $\binom{N}{n}$: $\sum_k P(X = k) = 1$.
+    - opgave: |-
+        Controleer de identiteit voor $M = 4$, $N = 20$ en $n = 5$.
+      antwoord: |-
+        $15\,504$
+      uitwerking: |-
+        $\binom{16}{5} + 4\binom{16}{4} + 6\binom{16}{3} + 4\binom{16}{2} + \binom{16}{1} = 4368 + 7280 + 3360 + 480 + 16 = 15\,504 = \binom{20}{5}$.
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Logaritmen
+  thema: |-
+    hoeveel pogingen
+  opgave: |-
+    Bij een kansexperiment met succeskans $p$ wil je weten hoeveel pogingen je moet voorzien.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een fabriek is 2~\% van de stukken defect. Hoeveel stukken moet een controleur voorzien om met minstens 95~\% kans een defect stuk te vinden?
+      antwoord: |-
+        149
+      uitwerking: |-
+        $P(X \leqslant n) = 1 - 0{,}98^n \geqslant 0{,}95 \iff 0{,}98^n \leqslant 0{,}05 \iff n \geqslant \frac{\log 0{,}05}{\log 0{,}98} \approx 148{,}3$ (het teken draait om, want $\log 0{,}98 < 0$). Dus 149 stukken.
+    - opgave: |-
+        De \textit{mediaan} van $X \sim \Geo(p)$ is de kleinste $k$ met $P(X \leqslant k) \geqslant \frac12$. Bereken ze voor het wachten op een zes, en vergelijk met $\E(X) = 6$.
+      antwoord: |-
+        4
+      uitwerking: |-
+        $1 - \bigl(\frac56\bigr)^k \geqslant \frac12 \iff k \geqslant \frac{\log 0{,}5}{\log(5/6)} \approx 3{,}8$, dus $k = 4$. De helft van de spelers heeft na 4 beurten een zes: de mediaan ligt onder het gemiddelde, omdat de verdeling scheef is.
+
+- id: h1-koppel-4
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Afgeleiden
+  thema: |-
+    de meest aannemelijke p
+  opgave: |-
+    Een leerling gooit een punaise tot ze op haar kop landt. Dat lukt pas bij de vijfde worp. Je kent de kans $p$ niet. Kies voor $p$ de waarde die deze waarneming het waarschijnlijkst maakt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de kans op deze waarneming $L(p) = (1 - p)^4 p$ is.
+      antwoord: |-
+        $P(X = 5)$ bij $\Geo(p)$
+      uitwerking: |-
+        Vier keer mislukt en dan een succes: $L(p) = P(X = 5) = (1 - p)^4 p$.
+    - opgave: |-
+        Bepaal het maximum van $L$ op $]0, 1[$ met de afgeleide.
+      antwoord: |-
+        $p = \tfrac15$
+      uitwerking: |-
+        $L'(p) = -4(1 - p)^3 p + (1 - p)^4 = (1 - p)^3(1 - 5p)$. Die is positief voor $p < \frac15$ en negatief voor $p > \frac15$: het maximum ligt bij $p = \frac15$.
+    - opgave: |-
+        Toon aan dat bij een eerste succes bij poging $k$ de meest aannemelijke $p$ gelijk is aan $\frac1k$. Waarom is dat logisch?
+      antwoord: |-
+        $p = \tfrac1k$
+      uitwerking: |-
+        $L(p) = (1 - p)^{k-1}p$, dus $L'(p) = (1 - p)^{k-2}\bigl((1 - p) - (k - 1)p\bigr) = (1 - p)^{k-2}(1 - kp)$, nul bij $p = \frac1k$, met een tekenwissel van $+$ naar $-$. Logisch: dan is $\E(X) = \frac1p = k$, precies de waargenomen wachttijd.
+
+#----------------------------------------------------------------------------------------
+# Test jezelf
+#----------------------------------------------------------------------------------------
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    $X \sim \Geo(0{,}2)$. Bereken $P(X = 5)$ en $P(X > 5)$.
+  antwoord: |-
+    $\approx 0{,}082$; \ $\approx 0{,}328$
+  uitwerking: |-
+    $P(X = 5) = 0{,}8^4 \cdot 0{,}2 \approx 0{,}082$ en $P(X > 5) = 0{,}8^5 \approx 0{,}328$.
+
+- id: h1-t2
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een grijpautomaat geeft bij elke poging een knuffel met kans $\frac18$. Tom probeerde al 10 keer zonder succes.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat hij bij een van zijn volgende 2 pogingen een knuffel krijgt?
+      antwoord: |-
+        $\approx 0{,}234$
+      uitwerking: |-
+        Geheugenloosheid: $P(X \leqslant 12 \gegeven X > 10) = P(X \leqslant 2) = 1 - \bigl(\frac78\bigr)^2 = \frac{15}{64} \approx 0{,}234$.
+    - opgave: |-
+        Hoeveel extra pogingen heeft hij gemiddeld nog nodig?
+      antwoord: |-
+        8
+      uitwerking: |-
+        De resterende wachttijd is weer $\Geo\bigl(\frac18\bigr)$, met verwachtingswaarde 8.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een hengelaar vangt bij elke worp een vis met kans 0,3. Hij stopt na 2 vissen. Wat is de kans dat hij precies 6 worpen nodig heeft?
+  antwoord: |-
+    $\approx 0{,}108$
+  uitwerking: |-
+    $X \sim \NB(2;\, 0{,}3)$: $P(X = 6) = \binom51 \cdot 0{,}3^2 \cdot 0{,}7^4 \approx 0{,}108$.
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Wat is bij de hengelaar uit de vorige vraag de kans dat hij hoogstens 6 worpen nodig heeft? Gebruik de binomiale verdeling.
+  antwoord: |-
+    $\approx 0{,}580$
+  uitwerking: |-
+    $P(X \leqslant 6) = P(Y \geqslant 2)$ met $Y \sim B(6;\, 0{,}3)$: $1 - 0{,}7^6 - 6 \cdot 0{,}3 \cdot 0{,}7^5 \approx 0{,}580$.
+
+- id: h1-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bij een tombola zijn er 15 lotjes, waarvan 4 winnende. Je koopt er 3. Wat is de kans op minstens één winnend lotje?
+  antwoord: |-
+    $\approx 0{,}637$
+  uitwerking: |-
+    $X \sim \Hyp(15, 4, 3)$: $P(X \geqslant 1) = 1 - \frac{\binom{11}{3}}{\binom{15}{3}} = 1 - \frac{165}{455} \approx 0{,}637$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken bij de tombola uit de vorige vraag de verwachtingswaarde en de standaardafwijking van het aantal winnende lotjes.
+  antwoord: |-
+    $0{,}8$; \ $\approx 0{,}71$
+  uitwerking: |-
+    $\E(X) = 3 \cdot \frac{4}{15} = 0{,}8$ en $\Var(X) = 3 \cdot \frac{4}{15} \cdot \frac{11}{15} \cdot \frac{12}{14} \approx 0{,}503$, dus $\sigma \approx 0{,}71$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Welke verdeling heeft $X$? Geef de parameters.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een doos bevat 30 eieren, waarvan 2 gebarsten. Je neemt er 6. $X$ is het aantal gebarsten eieren.
+      antwoord: |-
+        $\Hyp(30, 2, 6)$
+      uitwerking: |-
+        Een vast aantal, zonder teruglegging, uit een kleine groep.
+    - opgave: |-
+        Een leerling gokt op meerkeuzevragen met 4 antwoorden tot hij er 3 juist heeft. $X$ is het aantal vragen.
+      antwoord: |-
+        $\NB(3;\, 0{,}25)$
+      uitwerking: |-
+        Wachten op het derde succes, met $p = \frac14$.
+    - opgave: |-
+        Je belt een klantendienst tot je iemand aan de lijn krijgt. Elke poging lukt met kans 0,15. $X$ is het aantal pogingen.
+      antwoord: |-
+        $\Geo(0{,}15)$
+      uitwerking: |-
+        Wachten op het eerste succes.

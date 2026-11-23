@@ -95,6 +95,7 @@ HANDBOEKEN_LIJST += [(P4, m, n, jaar) for m, n, jaar in [
     ("Discrete wiskunde/Logica en bewijzen", "logica-en-bewijzen", "6de jaar"),
     ("Data en onzekerheid/Kansrekenen", "kansrekenen", "6de jaar"),
     ("Data en onzekerheid/Statistiek", "statistiek", "6de jaar"),
+    ("Data en onzekerheid/Kansverdelingen", "kansverdelingen", "6de jaar"),
     ("Onderzoekscompetentie", "onderzoekscompetentie", None),
 ]]
 
@@ -266,6 +267,7 @@ TITELS = {
     "Wiskunde in de praktijk": (r"Wiskunde in\\de praktijk", 46),
     "Kernvaardigheden 4de jaar": (r"Kernvaardigheden\\4de jaar", 46),
     "Differentiaalvergelijkingen": (r"Differentiaal-\\vergelijkingen", 46),
+    "Kansverdelingen": ("Kansverdelingen", 50),
 }
 
 
@@ -370,7 +372,8 @@ JAAR_VOORSTEL = {
         "Algebra/Matrices": "5de jaar", "Algebra/Complexe getallen": "5de jaar", "Algebra/Groepen": "6de jaar",
         "Meetkunde/Ruimtemeetkunde": "6de jaar", "Meetkunde/Kegelsneden": "6de jaar", "Algebra/Getaltheorie": "6de jaar", "Discrete wiskunde/Rijen": "6de jaar",
         "Discrete wiskunde/Telproblemen": "6de jaar", "Discrete wiskunde/Logica en bewijzen": "6de jaar",
-        "Data en onzekerheid/Kansrekenen": "6de jaar", "Data en onzekerheid/Statistiek": "6de jaar"},
+        "Data en onzekerheid/Kansrekenen": "6de jaar", "Data en onzekerheid/Statistiek": "6de jaar",
+        "Data en onzekerheid/Kansverdelingen": "6de jaar"},
     2: {m: ("3de jaar" if i < 9 else "4de jaar") for i, (m, _, _) in enumerate(MODULES_2)},
 }
 # Per finaliteit een eigen voorstel waar het verschilt. 2de graad D/A heeft geen tweedegraadsfuncties in het 4de jaar:

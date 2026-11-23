@@ -1,0 +1,645 @@
+%----------------------------------------------------------------------------------------
+% DE t-VERDELING. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{De t-verdeling}
+
+\begin{probleem}
+\naast{Een imker heeft ruim 200 bijenkasten. Na de zomer weegt hij de honingoogst van 8 aselect gekozen kasten, in kg:
+
+\smallskip
+\quad 18,4 \quad 22,1 \quad 19,7 \quad 24,3 \quad 20,6 \quad 17,9 \quad 23,2 \quad 21,0
+
+\smallskip
+Tussen welke grenzen ligt de gemiddelde oogst van al zijn kasten, met 95~\% betrouwbaarheid? En een collega zegt dat een kast in de streek gemiddeld 23~kg oplevert: mag de imker besluiten dat zijn kasten het gemiddeld slechter doen? De standaardafwijking van de oogst van al zijn kasten kent hij niet.}{\begin{tikzpicture}[x=.62cm,font=\scriptsize]
+  \draw[->,grijs] (16.8,0) -- (25.4,0) node[right,text=black] {kg};
+  \foreach \t in {17,19,...,25}{\draw[grijs] (\t,.08) -- (\t,-.08) node[below,text=black] {\t};}
+  \foreach \v in {18.4,22.1,19.7,24.3,20.6,17.9,23.2,21.0}{\fill[accent] (\v,.22) circle (2.2pt);}
+  \draw[fel!80!black,thick] (20.9,-.1) -- (20.9,.75) node[above,text=black] {$\xbar = 20{,}9$};
+  \foreach \i in {0,1,2}{\draw[accent,thick,fill=accent!12] ({18+2.3*\i},1.55) rectangle ({19.5+2.3*\i},2.45);
+    \foreach \j in {1,2,3}{\draw[accent] ({18+2.3*\i},{1.55+.225*\j}) -- ({19.5+2.3*\i},{1.55+.225*\j});}
+    \draw[accent,thick,fill=accent!30] ({17.85+2.3*\i},2.45) -- ({19.65+2.3*\i},2.45) -- ({19.45+2.3*\i},2.7) -- ({18.05+2.3*\i},2.7) -- cycle;}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 49 (een t-verdeling als continu model bij gegeven data als de standaardafwijking niet gekend is), met de wenken: het verschil met de normale verdeling, en dat ze quasi gelijk zijn voor grote $n$; betrouwbaarheidsintervallen voor het populatiegemiddelde met ICT; een t-toets met ICT. De gepaarde t-toets (3.3.3) en het verband tussen interval en tweezijdige toets zijn extra. Voorkennis uit pakket 4: Statistiek, hoofdstuk 2 (de normale verdeling, \texttt{normalcdf} en \texttt{invNorm}), hoofdstuk 3 (de steekproevenverdeling van $\overline{X}$ met standaardafwijking $\frac{\sigma}{\sqrt n}$, de centrale limietstelling, $H_0$, $H_1$, p-waarde, eenzijdig en tweezijdig) en hoofdstuk 4 (het interval $\xbar \pm 1{,}96\frac{\sigma}{\sqrt n}$ met $\sigma$ gekend). In de 2de graad deelde de standaardafwijking door $n$ ($\sigma x$); hier gebruiken we $s$ met $n - 1$ ($Sx$ in \texttt{1-Var Stats}). Op de TI-84: \texttt{tcdf(a,b,df)} en \texttt{invT(opp,df)} in DISTR, \texttt{TInterval} en \texttt{T-Test} in STAT, TESTS. Dit hoofdstuk staat los van hoofdstuk 1 en 2.}
+
+In de cursus Statistiek maakte je een betrouwbaarheidsinterval en een toets voor een gemiddelde, telkens met een standaardafwijking $\sigma$ die je kende, \textit{uit vroegere metingen}. In de praktijk ken je $\sigma$ bijna nooit: wie het gemiddelde van een populatie niet kent, kent haar standaardafwijking meestal ook niet. Dan moet je ook $\sigma$ schatten uit de steekproef. Bij een grote steekproef verandert dat weinig, maar bij 8 kasten wel: de schatting van $\sigma$ schommelt zelf, en daardoor zit je vaker ernaast dan de normale verdeling belooft. In dit hoofdstuk leer je de verdeling die daar rekening mee houdt, de t-verdeling, en hoe je er een interval en een toets mee maakt. Op het einde beantwoord je de vragen van de imker.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\needspace{16\baselineskip}
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h3-verken} maken vóór de uitleg, in groepjes die elk twee of drie rijen berekenen. Zet de waarden van $z$ en $t$ op het bord. De les is: $t$ springt veel verder weg dan $z$, en dat komt telkens door een kleine $s$. Wie wil, simuleert het met een rekenblad: \texttt{=NORM.INV(ASELECT();50;10)} in vier kolommen.}
+
+%========================================================================================
+\section{Als $\sigma$ onbekend is}
+
+\subsection{De standaardafwijking van een steekproef}
+
+Hoe schat je $\sigma$ uit een steekproef? Het ligt voor de hand de standaardafwijking van de steekproef zelf te nemen, zoals in de 2de graad: de wortel uit het gemiddelde kwadraat van de afwijkingen. Maar die afwijkingen meet je ten opzichte van $\xbar$, want $\mu$ ken je niet. En de waarnemingen liggen altijd dichter bij hun eigen gemiddelde dan bij $\mu$: daardoor valt de schatting gemiddeld te klein uit. Daarom deel je door $n - 1$ in plaats van door $n$.
+
+\begin{theorie}
+Van een steekproef $x_1, x_2, \ldots, x_n$ met gemiddelde $\xbar$ is de \textbf{\textcolor{accent}{steekproefstandaardafwijking}}
+
+\vspace{1mm}
+\qquad $\formule{s = \sqrt{\dfrac{1}{n - 1} \sum_{i=1}^{n} (x_i - \xbar)^2}}$
+\end{theorie}
+
+Op de TI-84 is dat $Sx$ in \texttt{1-Var Stats}; $\sigma x$ deelt door $n$. Bij een grote steekproef is het verschil klein, bij 5 waarnemingen niet.
+
+\voorbeeld{}{Een leerling meet vijf keer haar reactietijd, in honderdsten van een seconde: 4, 7, 5, 9, 5. Bereken $s$ en vergelijk met $\sigma x$.\label{vb:h3-s}}{%
+\uitleg{We berekenen eerst het gemiddelde, dan de afwijkingen en hun kwadraten. Die som delen we door $n - 1 = 4$.}
+\begin{stappenbreed}
+\xbar = \frac{4 + 7 + 5 + 9 + 5}{5} = 6 & Het gemiddelde. \\[1ex]
+-2,\ 1,\ {-1},\ 3,\ {-1} & De afwijkingen $x_i - \xbar$: samen 0. \\[.6ex]
+4 + 1 + 1 + 9 + 1 = 16 & De som van de kwadraten. \\[.6ex]
+s = \sqrt{\tfrac{16}{4}} = 2 \qquad \sigma x = \sqrt{\tfrac{16}{5}} \approx 1{,}79 & Met $n - 1$ is de schatting groter.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h3-s}
+\end{oefeningen}
+
+Waarom precies $n - 1$? Twee eigenschappen leggen uit wat er gebeurt. De eerste zag je al in het voorbeeld: de afwijkingen zijn samen 0.
+
+\begin{theorie}
+\begin{stelling}{Som van de afwijkingen}
+\qquad $\formule{\sum_{i=1}^{n} (x_i - \xbar) = 0}$
+\end{stelling}
+
+\begin{bewijs}
+Omdat $n\xbar = x_1 + x_2 + \cdots + x_n$, is
+\bewijsregel{\sum_{i=1}^{n} (x_i - \xbar) = \sum_{i=1}^{n} x_i - n\xbar = 0 .}
+\end{bewijs}
+
+\begin{stelling}{Kleinste kwadratensom}
+Voor elk getal $a$ is \quad $\formule{\sum_{i=1}^{n} (x_i - a)^2 = \sum_{i=1}^{n} (x_i - \xbar)^2 + n(\xbar - a)^2}$
+
+\vspace{1mm}
+De som van de kwadraten van de afwijkingen tot $a$ is dus het kleinst voor $a = \xbar$.
+\end{stelling}
+
+\begin{bewijs}
+Schrijf $x_i - a = (x_i - \xbar) + (\xbar - a)$ en werk het kwadraat uit:
+\bewijsregel{\sum_{i=1}^{n} (x_i - a)^2 = \sum_{i=1}^{n} (x_i - \xbar)^2 + 2(\xbar - a) \sum_{i=1}^{n} (x_i - \xbar) + n(\xbar - a)^2 .}
+De middelste som is 0 door de vorige stelling. De laatste term is positief, behalve als $a = \xbar$.
+\end{bewijs}
+\end{theorie}
+
+\naast{\begin{minipage}{9.4cm}
+De eerste stelling zegt: ken je $\xbar$ en $n - 1$ afwijkingen, dan ligt de laatste vast. Er zijn maar $n - 1$ \textit{vrije} afwijkingen, en daarom heet $n - 1$ het aantal \textbf{vrijheidsgraden}. De tweede stelling zegt dat de afwijkingen tot $\xbar$ kleiner zijn dan die tot $\mu$, behalve als toevallig $\xbar = \mu$. Rechts zie je de som $\sum (x_i - a)^2 = 16 + 5(a - 6)^2$ voor de reactietijden: de top van de parabool ligt bij $\xbar = 6$. Wie door $n$ deelt, onderschat $\sigma$ dus gemiddeld. Dat de deling door $n - 1$ dat precies goedmaakt, bewijzen we niet: daarvoor zijn rekenregels nodig voor sommen van toevalsvariabelen, die buiten het leerplan vallen. In opdracht \ref{oef:h3-o20} controleer je het voor twee worpen met een dobbelsteen.
+\end{minipage}}{\begin{tikzpicture}[x=.62cm,y=.07cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=10] (3,0) grid (9,50);
+  \draw[->,grijs] (3,0) -- (9.5,0) node[right,text=black] {$a$};
+  \draw[->,grijs] (3,0) -- (3,54);
+  \foreach \t in {3,...,9}{\node[below] at (\t,0) {\t};}
+  \foreach \t in {10,20,...,50}{\node[left] at (3,\t) {\t};}
+  \draw[accent,thick] plot[domain=3.1:8.9,samples=60,smooth] (\x,{16+5*(\x-6)^2});
+  \draw[fel!80!black,dashed] (6,0) -- (6,16);
+  \fill[fel!80!black] (6,16) circle (1.8pt) node[below right=-1pt,text=black] {16};
+\end{tikzpicture}}
+
+\needspace{16\baselineskip}
+\subsection{Een nieuwe toetsingsgrootheid}
+
+Ken je $\sigma$, dan is bij een normaal verdeelde populatie $Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}}$ standaardnormaal verdeeld: daarop steunden het interval en de toets in de cursus Statistiek. Ken je $\sigma$ niet, dan vervang je haar door $s$. Maar $s$ hangt af van de steekproef: is ze toevallig klein, dan deel je door een klein getal en wordt het quotiënt groot. Het nieuwe quotiënt schommelt dus meer dan $Z$. Dat zag je in de Verken, en een computer toont het nog duidelijker.
+
+\voorbeeld{}{Een computer trekt 10\,000 steekproeven van 4 waarden uit een normaal verdeelde populatie met $\mu = 50$ en $\sigma = 10$. Bij elke steekproef berekent hij $z = \frac{\xbar - 50}{10/2}$ en $t = \frac{\xbar - 50}{s/2}$. Welk deel ligt buiten $[-1{,}96;\ 1{,}96]$?\label{vb:h3-simulatie}}{%
+\uitleg{We tekenen de histogrammen van beide quotiënten, met de standaardnormale kromme erop, en tellen wat buiten $\pm 1{,}96$ valt.}
+\figuren{\begin{tikzpicture}[x=.62cm,y=7cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=.1] (-4.5,0) grid (4.5,.4);
+  \foreach \m/\h in {-3.25/.002,-2.75/.011,-2.25/.031,-1.75/.090,-1.25/.199,-.75/.299,-.25/.380,.25/.377,.75/.296,1.25/.186,1.75/.086,2.25/.032,2.75/.008,3.25/.002}{\staaf{\m}{\h}{.5}}
+  \draw[fel!80!black,thick] plot[domain=-4.5:4.5,samples=80,smooth] (\x,{gauss(\x,0,1)});
+  \kansassen{-4.5}{4.9}{.44}{$z$}
+  \foreach \t in {-4,-2,0,2,4}{\node[below] at (\t,0) {$\t$};}
+  \node[anchor=north east] at (4.5,.43) {$z$: 4,9~\% buiten};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.62cm,y=7cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=.1] (-4.5,0) grid (4.5,.4);
+  \foreach \m/\h in {-4.25/.011,-3.75/.013,-3.25/.018,-2.75/.031,-2.25/.052,-1.75/.099,-1.25/.167,-.75/.262,-.25/.341,.25/.343,.75/.259,1.25/.160,1.75/.092,2.25/.054,2.75/.030,3.25/.015,3.75/.011,4.25/.008}{\staaf{\m}{\h}{.5}}
+  \draw[fel!80!black,thick] plot[domain=-4.5:4.5,samples=80,smooth] (\x,{gauss(\x,0,1)});
+  \kansassen{-4.5}{4.9}{.44}{$t$}
+  \foreach \t in {-4,-2,0,2,4}{\node[below] at (\t,0) {$\t$};}
+  \node[anchor=north east] at (4.5,.43) {$t$: 14,5~\% buiten};
+\end{tikzpicture}}
+Het histogram van $z$ volgt de normale kromme, en 4,9~\% ligt buiten $\pm 1{,}96$: bijna de beloofde 5~\%. Het histogram van $t$ is lager in het midden en heeft dikkere staarten. Bijna drie keer zoveel waarden liggen buiten $\pm 1{,}96$. Een interval $\xbar \pm 1{,}96\frac{s}{\sqrt n}$ zou $\mu$ bij steekproeven van 4 dus niet in 95~\% van de gevallen bevatten, maar in ongeveer 85~\%.}
+
+\needspace{20\baselineskip}
+\subsection{De t-verdeling}
+
+De verdeling van dat nieuwe quotiënt vond William Gosset, scheikundige bij de brouwerij Guinness in Dublin. Hij moest besluiten nemen over gerst en hop met maar een handvol metingen, en merkte dat de normale verdeling dan te optimistisch was. Hij leidde de juiste verdeling af en controleerde ze met een simulatie met de hand: duizenden metingen op kaartjes, getrokken in groepjes van vier. De brouwerij liet haar personeel niet onder eigen naam publiceren, dus verscheen zijn artikel in 1908 onder het pseudoniem \textit{Student}. De verdeling heet nog altijd de \textit{t-verdeling van Student}.
+
+\begin{theorie}
+Neem een aselecte steekproef van grootte $n$ uit een normaal verdeelde populatie met gemiddelde $\mu$. Dan heeft
+
+\vspace{1mm}
+\qquad $\formule{T = \dfrac{\overline{X} - \mu}{S/\sqrt{n}}}$
+
+\vspace{1mm}
+een \textbf{\textcolor{accent}{t-verdeling}} met $\formule{\nu = n - 1}$ \textbf{\textcolor{accent}{vrijheidsgraden}}. Je schrijft $\formule{T \sim t_{n-1}}$.
+\end{theorie}
+
+Merk op: $\sigma$ komt niet voor in $T$, en ook niet in de verdeling. Dat maakt $T$ bruikbaar: je kunt het berekenen zonder $\sigma$ te kennen. Dat $T$ precies deze verdeling heeft, bewijzen we niet: daarvoor heb je de verdeling van $S$ nodig, en integralen die buiten het leerplan vallen. De dichtheidsfunctie van $t_\nu$ is
+\[ f_\nu(x) = c_\nu \Bigl(1 + \frac{x^2}{\nu}\Bigr)^{-\frac{\nu + 1}{2}} , \]
+met een constante $c_\nu$ die ervoor zorgt dat de totale oppervlakte 1 is. Dat voorschrift hoef je niet te kennen: je rekentoestel kent het. Je gebruikt het wel om de vorm van de kromme te verklaren.
+
+\figuren{\begin{tikzpicture}[x=1.15cm,y=10cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=.1] (-4,0) grid (4,.4);
+  \kansassen{-4}{4.4}{.45}{$x$}
+  \foreach \t in {-4,...,4}{\node[below] at (\t,0) {$\t$};}
+  \foreach \t/\l in {.1/{0,1},.2/{0,2},.3/{0,3},.4/{0,4}}{\node[left] at (-4,\t) {\l};}
+  \draw[fel!80!black,very thick] plot[domain=-4:4,samples=90,smooth] (\x,{gauss(\x,0,1)});
+  \draw[accent!40,thick] plot[domain=-4:4,samples=90,smooth] (\x,{tdich(\x,1)});
+  \draw[accent!70,thick] plot[domain=-4:4,samples=90,smooth] (\x,{tdich(\x,3)});
+  \draw[accent,thick] plot[domain=-4:4,samples=90,smooth] (\x,{tdich(\x,10)});
+  \node[anchor=west] at (1.3,.33) {\textcolor{fel!80!black}{\textbf{normaal}}};
+  \node[anchor=west] at (1.3,.29) {\textcolor{accent}{$\nu = 10$}};
+  \node[anchor=west] at (1.3,.25) {\textcolor{accent!70}{$\nu = 3$}};
+  \node[anchor=west] at (1.3,.21) {\textcolor{accent!40}{$\nu = 1$}};
+\end{tikzpicture}}
+
+De figuur toont $t_1$, $t_3$ en $t_{10}$ naast de standaardnormale kromme. Alle krommen zijn klokvormig en symmetrisch rond 0, maar hoe kleiner $\nu$, hoe lager de top en hoe dikker de staarten. Bij $\nu = 10$ is het verschil met de normale kromme al klein. Twee eigenschappen maken dat precies.
+
+\begin{theorie}
+\begin{stelling}{Symmetrie en top}
+De dichtheid $f_\nu$ van $t_\nu$ is symmetrisch rond 0: \quad $\formule{f_\nu(-x) = f_\nu(x)}$. Ze is maximaal in $x = 0$.
+\end{stelling}
+
+\begin{bewijs}
+$f_\nu(x)$ hangt alleen af van $x^2$, en $(-x)^2 = x^2$. Verder is $1 + \frac{x^2}{\nu} \geqslant 1$, met gelijkheid alleen voor $x = 0$, en de exponent $-\frac{\nu + 1}{2}$ is negatief: hoe groter het grondtal, hoe kleiner de macht. Dus $f_\nu(x) \leqslant c_\nu = f_\nu(0)$.
+\end{bewijs}
+
+\begin{stelling}{Naar de normale verdeling}
+Voor elke $x$ is \quad $\formule{\lim_{\nu \to +\infty} \Bigl(1 + \frac{x^2}{\nu}\Bigr)^{-\frac{\nu + 1}{2}} = \e^{-\frac{x^2}{2}}}$
+\end{stelling}
+
+\begin{bewijs}
+Voor $x = 0$ zijn beide leden 1. Neem $x \neq 0$ en stel $u = \frac{x^2}{\nu}$, zodat $u \to 0$ als $\nu \to +\infty$. De natuurlijke logaritme van het linkerlid is
+\bewijsregel{-\frac{\nu + 1}{2} \ln(1 + u) = -\frac{\nu + 1}{2\nu} \cdot x^2 \cdot \frac{\ln(1 + u)}{u} .}
+Nu is $\frac{\nu + 1}{2\nu} \to \frac12$, en $\lim_{u \to 0} \frac{\ln(1 + u)}{u} = 1$: dat is de afgeleide van $\ln$ in 1. De logaritme gaat dus naar $-\frac{x^2}{2}$, en omdat de exponentiële functie continu is, gaat het linkerlid naar $\e^{-\frac{x^2}{2}}$.
+\end{bewijs}
+\end{theorie}
+
+De tweede stelling zegt: voor grote $\nu$ heeft de t-dichtheid de vorm van de Gausskromme $\frac{1}{\sqrt{2\pi}}\e^{-\frac{x^2}{2}}$. Omdat beide oppervlakten 1 zijn, gaat ook $c_\nu$ naar $\frac{1}{\sqrt{2\pi}} \approx 0{,}399$: bij $\nu = 1$ is $c_\nu = \frac1\pi \approx 0{,}318$, bij $\nu = 20$ al $0{,}394$. Intuïtief: bij een grote steekproef ligt $s$ zo dicht bij $\sigma$ dat het weinig uitmaakt of je de ene of de andere gebruikt.
+
+Waar zit het verschil dan wel? In de staarten. Een waarde boven 3 is bij de normale verdeling zeldzaam (0,13~\%), bij $t_3$ niet (2,9~\%). Precies die staarten bepalen een interval of een p-waarde.
+
+\figuren{\begin{tikzpicture}[x=1.6cm,y=60cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.5,ystep=.01] (2,0) grid (5,.06);
+  \kansassen{2}{5.3}{.065}{$x$}
+  \foreach \t in {2,3,4,5}{\node[below] at (\t,0) {$\t$};}
+  \foreach \t/\l in {.02/{0,02},.04/{0,04},.06/{0,06}}{\node[left] at (2,\t) {\l};}
+  \fill[accent!25] plot[domain=3:5,samples=40] (\x,{tdich(\x,3)}) -- (5,0) -- (3,0) -- cycle;
+  \draw[fel!80!black,very thick] plot[domain=2:5,samples=60,smooth] (\x,{gauss(\x,0,1)});
+  \draw[accent,thick] plot[domain=2:5,samples=60,smooth] (\x,{tdich(\x,3)});
+  \node[anchor=west] at (3.3,.045) {\textcolor{accent}{$t_3$: $P(T > 3) \approx 0{,}029$}};
+  \node[anchor=west] at (3.3,.037) {\textcolor{fel!80!black}{normaal: $P(Z > 3) \approx 0{,}001$}};
+\end{tikzpicture}}
+
+\needspace{16\baselineskip}
+\subsection{Kansen en grenzen met het rekentoestel}
+
+Je rekentoestel berekent oppervlakten onder de t-kromme zoals bij de normale verdeling. Het commando \texttt{tcdf(a,b,df)} geeft $P(a < T < b)$, met \texttt{df} het aantal vrijheidsgraden. Omgekeerd geeft \texttt{invT(opp,df)} de grens met oppervlakte \texttt{opp} links ervan.
+
+\voorbeeld{}{Bereken $P(T > 2)$ voor $T \sim t_5$, en vergelijk met $P(Z > 2)$ voor de standaardnormale $Z$.\label{vb:h3-tcdf}}{%
+\uitleg{We zoeken een staart rechts. Als bovengrens geven we het rekentoestel $10^{99}$, zoals bij \texttt{normalcdf}.}
+\naast{\begin{stappenvrij}{3.2cm}{4.6cm}
+P(T > 2) \approx 0{,}051 & \texttt{tcdf(2,1E99,5)}. \\[1ex]
+P(Z > 2) \approx 0{,}023 & \texttt{normalcdf(2,1E99,0,1)}.
+\end{stappenvrij}
+
+\smallskip
+Bij $t_5$ is de staart meer dan dubbel zo groot.}{\begin{tikzpicture}[x=.62cm,y=8cm,font=\scriptsize]
+  \fill[accent!30] plot[domain=2:4,samples=30] (\x,{tdich(\x,5)}) -- (4,0) -- (2,0) -- cycle;
+  \draw[accent,thick] plot[domain=-4:4,samples=70,smooth] (\x,{tdich(\x,5)});
+  \kansassen{-4}{4.4}{.44}{$t$}
+  \foreach \t in {-2,0,2}{\node[below] at (\t,0) {$\t$};}
+  \node at (3.1,.1) {0,051};
+\end{tikzpicture}}}
+
+Voor een interval heb je de grens $t^*$ nodig waartussen 95~\% van de oppervlakte ligt, net zoals $1{,}96$ bij de normale verdeling.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{kritieke waarde}} $t^*$ bij een betrouwbaarheid van 95~\% en $\nu$ vrijheidsgraden is het positieve getal met
+
+\vspace{1mm}
+\qquad $\formule{P(-t^* \leqslant T \leqslant t^*) = 0{,}95}$ \quad voor $T \sim t_\nu$, \quad dus \quad $\formule{t^* = \texttt{invT(0.975},\nu\texttt{)}}$
+
+\vspace{1mm}
+Bij een betrouwbaarheid van $1 - \alpha$ is $\formule{t^* = \texttt{invT(}1 - \tfrac{\alpha}{2},\nu\texttt{)}}$.
+\end{theorie}
+
+Waarom 0,975? Links van $-t^*$ en rechts van $t^*$ ligt telkens 2,5~\%: links van $t^*$ ligt dus $0{,}95 + 0{,}025 = 0{,}975$.
+
+\voorbeeld{}{Bepaal $t^*$ bij 95~\% betrouwbaarheid voor een steekproef van 12 waarnemingen.\label{vb:h3-tster}}{%
+\uitleg{Er zijn $\nu = 12 - 1 = 11$ vrijheidsgraden. We vragen de grens met 0,975 links ervan.}
+\naast{\begin{stappenvrij}{3.2cm}{4.6cm}
+\nu = 11 & Eén minder dan $n$. \\[1ex]
+t^* \approx 2{,}201 & \texttt{invT(0.975,11)}; groter dan 1,96.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.62cm,y=8cm,font=\scriptsize]
+  \fill[accent!30] plot[domain=-2.201:2.201,samples=40] (\x,{tdich(\x,11)}) -- (2.201,0) -- (-2.201,0) -- cycle;
+  \draw[accent,thick] plot[domain=-4:4,samples=70,smooth] (\x,{tdich(\x,11)});
+  \kansassen{-4}{4.4}{.44}{$t$}
+  \node at (0,.13) {0,95};
+  \foreach \t/\l in {-2.201/{-t^*},2.201/{t^*}}{\node[below] at (\t,0) {$\l$};}
+  \foreach \t in {-3.1,3.1}{\node at (\t,.06) {0,025};}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bepaal $\nu = n - 1$. Kans tussen twee grenzen: \texttt{tcdf(a,b,$\nu$)}; meer dan $a$: bovengrens $10^{99}$; minder dan $b$: ondergrens $-10^{99}$. Kritieke waarde bij betrouwbaarheid $1 - \alpha$: \texttt{invT(}$1 - \frac{\alpha}{2}$\texttt{,$\nu$)}. Maak altijd een schets met de gevraagde oppervlakte.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-tcdf}
+\end{oefeningen}
+
+\naast{\begin{minipage}{9.2cm}
+De tabel en de grafiek tonen hoe $t^*$ naar 1,96 gaat als $\nu$ groeit. Bij kleine steekproeven is het verschil groot: bij 3 vrijheidsgraden is $t^*$ bijna 1,6 keer zo groot als 1,96. Vanaf $\nu \approx 30$ is het verschil klein. Dat is wat we al zagen: voor grote $n$ zijn de t-verdeling en de normale verdeling quasi gelijk. Bij een betrouwbaarheid van 99~\% vervangt $t^*$ het getal 2,576 van de normale verdeling.
+\end{minipage}}{\begin{tikzpicture}[x=.16cm,y=1cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=.5] (0,1.5) grid (30,4.5);
+  \draw[->,grijs] (0,1.5) -- (32,1.5) node[right,text=black] {$\nu$};
+  \draw[->,grijs] (0,1.5) -- (0,4.8) node[above,text=black] {$t^*$};
+  \foreach \t in {0,10,20,30}{\node[below] at (\t,1.5) {\t};}
+  \foreach \t/\l in {2/2,3/3,4/4}{\node[left] at (0,\t) {\l};}
+  \draw[fel!80!black,dashed] (0,1.96) -- (30,1.96) node[above left=-1pt,text=black] {1,96};
+  \foreach \n/\v in {2/4.303,3/3.182,4/2.776,5/2.571,6/2.447,7/2.365,8/2.306,9/2.262,10/2.228,12/2.179,15/2.131,20/2.086,25/2.060,30/2.042}{\fill[accent] (\n,\v) circle (1.5pt);}
+\end{tikzpicture}}
+
+\figuren{\renewcommand{\arraystretch}{1.25}\small
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+$\nu$ & 1 & 2 & 3 & 5 & 10 & 20 & 30 & 100 & normaal \\\hline
+$t^*$ (95~\%) & 12,706 & 4,303 & 3,182 & 2,571 & 2,228 & 2,086 & 2,042 & 1,984 & 1,960 \\\hline
+$t^*$ (99~\%) & 63,657 & 9,925 & 5,841 & 4,032 & 3,169 & 2,845 & 2,750 & 2,626 & 2,576 \\\hline
+\end{tabular}}
+
+%========================================================================================
+\section{Het betrouwbaarheidsinterval}
+
+Hoe maak je nu een interval voor $\mu$ zonder $\sigma$? In de cursus Statistiek was het $\xbar \pm 1{,}96\frac{\sigma}{\sqrt n}$. Je vervangt $\sigma$ door $s$, en om de extra onzekerheid op te vangen vervang je 1,96 door het grotere getal $t^*$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{95~\%-betrouwbaarheidsinterval}} voor een populatiegemiddelde $\mu$, met $\sigma$ niet gekend, op basis van een aselecte steekproef van grootte $n$ met gemiddelde $\xbar$ en standaardafwijking $s$, is
+
+\vspace{1mm}
+\qquad $\formule{\Bigl[\xbar - E,\ \xbar + E\Bigr]}$ \quad met \quad $\formule{E = t^* \dfrac{s}{\sqrt n}}$ \quad en $t^*$ de kritieke waarde bij $n - 1$ vrijheidsgraden.
+
+\begin{stelling}{Betrouwbaarheid van de methode}
+Is de populatie normaal verdeeld, dan bevat dit interval $\mu$ bij 95~\% van de steekproeven.
+\end{stelling}
+
+\begin{bewijs}
+Schrijf $S$ voor de steekproefstandaardafwijking als toevalsvariabele. Het interval bevat $\mu$ als en slechts als
+\bewijsregel{\overline{X} - t^* \frac{S}{\sqrt n} \leqslant \mu \leqslant \overline{X} + t^* \frac{S}{\sqrt n} \iff -t^* \leqslant \frac{\overline{X} - \mu}{S/\sqrt n} \leqslant t^* \iff -t^* \leqslant T \leqslant t^* .}
+Omdat $T \sim t_{n-1}$, is de kans daarop 0,95, door de definitie van $t^*$.
+\end{bewijs}
+\end{theorie}
+
+De betekenis is dezelfde als in de cursus Statistiek: 95~\% gaat over de methode, niet over één interval. Van alle intervallen die je zo maakt, bevat 95~\% het echte gemiddelde.
+
+\voorbeeld{}{Een leerling noteert 10 schooldagen hoeveel minuten de bus van de school naar het station nodig heeft. Gemiddeld is dat 14,2 minuten, met $s = 1{,}8$ minuten. Bereken een 95~\%-betrouwbaarheidsinterval voor de gemiddelde rijtijd.\label{vb:h3-interval}}{%
+\uitleg{$\sigma$ is niet gekend, dus gebruiken we $s$ en de t-verdeling met $10 - 1 = 9$ vrijheidsgraden.}
+\begin{stappenbreed}
+t^* = \texttt{invT(0.975,9)} \approx 2{,}262 & De kritieke waarde. \\[1ex]
+E = 2{,}262 \cdot \frac{1{,}8}{\sqrt{10}} \approx 1{,}29 & De foutenmarge, in minuten. \\[1.5ex]
+[14{,}2 - 1{,}29;\ 14{,}2 + 1{,}29] = [12{,}9;\ 15{,}5] & Met \texttt{TInterval} (Inpt: Stats, $\xbar$, $Sx$, $n$): hetzelfde.
+\end{stappenbreed}
+De gemiddelde rijtijd ligt met 95~\% betrouwbaarheid tussen 12,9 en 15,5 minuten.}
+
+Wat als je toch $s$ als $\sigma$ gebruikt, met 1,96? Dan krijg je een interval dat te smal is.
+
+\voorbeeld{}{Bereken met de gegevens van de bus het interval $\xbar \pm 1{,}96\frac{s}{\sqrt n}$, en vergelijk met het juiste interval.\label{vb:h3-vergelijk}}{%
+\uitleg{Alleen de factor verandert: 1,96 in plaats van 2,262. We tekenen beide intervallen.}
+\naast{\begin{stappenvrij}{5cm}{3.6cm}
+1{,}96 \cdot \frac{1{,}8}{\sqrt{10}} \approx 1{,}12 & Een kleinere marge. \\[1.5ex]
+[13{,}1;\ 15{,}3] & Smaller dan $[12{,}9;\ 15{,}5]$.
+\end{stappenvrij}
+
+\smallskip
+Het smallere interval doet alsof $s$ precies $\sigma$ is. Het bevat $\mu$ in minder dan 95~\% van de steekproeven: het belooft meer dan het waarmaakt.}{\begin{tikzpicture}[x=1.4cm,font=\scriptsize]
+  \draw[->,grijs] (12.5,0) -- (16,0);
+  \foreach \t in {13,14,15,16}{\draw[grijs] (\t,.06) -- (\t,-.06) node[below,text=black] {\t};}
+  \draw[accent,very thick,|-|] (12.91,.55) -- (15.49,.55) node[right,text=black] {$t$};
+  \draw[fel!80!black,very thick,|-|] (13.08,1) -- (15.32,1) node[right,text=black] {$z$};
+  \fill[black] (14.2,.55) circle (1.5pt) (14.2,1) circle (1.5pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Controleer de voorwaarden (sectie 3.4). Bereken $\xbar$ en $s$ (\texttt{1-Var Stats}, $Sx$). Bepaal $t^*$ met $n - 1$ vrijheidsgraden, de foutenmarge $E = t^*\frac{s}{\sqrt n}$ en het interval $[\xbar - E,\ \xbar + E]$. Of met \texttt{TInterval}: Inpt Data (met de gegevens in een lijst) of Stats (met $\xbar$, $Sx$ en $n$). Formuleer het besluit in de context.
+\end{werkwijze}
+
+\nujij{Bereken voor de bus een 99~\%-betrouwbaarheidsinterval.}{$t^* = \texttt{invT(0.995,9)} \approx 3{,}250$, $E \approx 1{,}85$: $[12{,}4;\ 16{,}0]$.}
+
+\begin{oefeningen}
+\oef{h3-interval}
+
+\oef{h3-interval-data}
+\end{oefeningen}
+
+\needspace{12\baselineskip}
+\subsection{Foutenmarge en steekproefgrootte}
+
+Hoe groot moet een steekproef zijn voor een gegeven foutenmarge? Met $\sigma$ gekend loste je $1{,}96\frac{\sigma}{\sqrt n} \leqslant E$ op naar $n$. Nu hangen zowel $s$ als $t^*$ van de steekproef af. Je schat $s$ met een kleine proefsteekproef, rekent eerst met 1,96, en controleert daarna met $t^*$.
+
+\voorbeeld{}{De leerling van de bus wil de gemiddelde rijtijd tot op een halve minuut kennen, met 95~\% betrouwbaarheid. Neem $s = 1{,}8$ uit de eerste 10 dagen. Hoeveel ritten moet ze opmeten?\label{vb:h3-n}}{%
+\uitleg{We rekenen eerst alsof $t^* = 1{,}96$. Omdat $t^*$ iets groter is, controleren we daarna de marge en nemen we $n$ zo nodig groter.}
+\begin{stappenbreed}
+1{,}96 \cdot \frac{1{,}8}{\sqrt n} \leqslant 0{,}5 \iff n \geqslant \Bigl(\frac{1{,}96 \cdot 1{,}8}{0{,}5}\Bigr)^2 \approx 49{,}8 & Een eerste schatting: 50. \\[2ex]
+n = 50\colon\ \texttt{invT(0.975,49)} \cdot \frac{1{,}8}{\sqrt{50}} \approx 2{,}010 \cdot 0{,}255 \approx 0{,}512 & Net te groot. \\[1.5ex]
+n = 53\colon\ \texttt{invT(0.975,52)} \cdot \frac{1{,}8}{\sqrt{53}} \approx 0{,}496 & Bij $n = 52$ is het nog $0{,}501$.
+\end{stappenbreed}
+Ze meet best ongeveer 53 ritten, op voorwaarde dat $s$ ongeveer 1,8 blijft.}
+
+\begin{oefeningen}
+\oef{h3-marge}
+\end{oefeningen}
+
+%========================================================================================
+\section{De t-toets}
+
+\subsection{Een toets voor een gemiddelde}
+
+Ook een toets voor een gemiddelde steunde op $\sigma$: onder $H_0\colon \mu = \mu_0$ was $\frac{\xbar - \mu_0}{\sigma/\sqrt n}$ standaardnormaal verdeeld. Zonder $\sigma$ gebruik je weer $s$, en de t-verdeling.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{t-toets}} voor $H_0\colon \mu = \mu_0$ gebruikt de \textbf{\textcolor{accent}{toetsingsgrootheid}}
+
+\vspace{1mm}
+\qquad $\formule{t = \dfrac{\xbar - \mu_0}{s/\sqrt n}}$
+
+\vspace{1mm}
+Als $H_0$ waar is en de populatie normaal verdeeld, komt $t$ uit $\formule{t_{n-1}}$. De p-waarde is de oppervlakte onder $t_{n-1}$ voorbij $t$, in de richting van $H_1$; bij een tweezijdige toets verdubbel je ze.
+\end{theorie}
+
+De rest gaat zoals in de cursus Statistiek: is de p-waarde $\leqslant \alpha$, dan verwerp je $H_0$.
+
+\voorbeeld{}{Een bakker verkoopt broden van 800~g. Een controleur weegt 9 broden: gemiddeld 792,4~g, met $s = 9{,}1$~g. Zijn de broden gemiddeld te licht? Toets bij $\alpha = 0{,}05$.\label{vb:h3-toets}}{%
+\uitleg{De controleur vermoedt \textit{te licht}: een eenzijdige toets naar links. $\sigma$ is niet gekend, dus gebruiken we $t_8$.}
+\naast{\begin{stappenvrij}{5.4cm}{3.7cm}
+H_0\colon \mu = 800 \qquad H_1\colon \mu < 800 & Eenzijdig. \\[1ex]
+t = \frac{792{,}4 - 800}{9{,}1/\sqrt9} \approx -2{,}51 & De toetsingsgrootheid. \\[1.5ex]
+P(T \leqslant -2{,}51) \approx 0{,}018 & De p-waarde: \texttt{tcdf(-1E99,-2.51,8)}. \\[1ex]
+0{,}018 \leqslant 0{,}05\colon\ H_0 \text{ verwerpen} & Significant.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.5cm,y=7cm,font=\scriptsize]
+  \fill[fel!80!black] plot[domain=-4:-2.51,samples=30] (\x,{tdich(\x,8)}) -- (-2.51,0) -- (-4,0) -- cycle;
+  \draw[accent,thick] plot[domain=-4:4,samples=70,smooth] (\x,{tdich(\x,8)});
+  \kansassen{-4}{4.4}{.44}{$t$}
+  \node[below] at (-2.51,0) {$-2{,}51$};
+  \node[below] at (0,0) {0};
+  \draw[->] (-3.3,.12) node[above] {0,018} -- (-2.9,.015);
+\end{tikzpicture}}
+De broden zijn waarschijnlijk gemiddeld te licht. Het commando \texttt{T-Test} geeft $t$ en de p-waarde meteen: kies Inpt Stats, vul $\mu_0 = 800$, $\xbar$, $Sx$ en $n$ in, en kies $\mu < \mu_0$.}
+
+\voorbeeld{}{Een machine is ingesteld op schroeven van 12,00~mm lang. Een technicus meet 15 schroeven: gemiddeld 12,08~mm, met $s = 0{,}11$~mm. Is de machine ontregeld? Toets bij $\alpha = 0{,}05$.\label{vb:h3-tweezijdig}}{%
+\uitleg{\textit{Ontregeld} kan te lang of te kort zijn: tweezijdig. Het resultaat ligt rechts, dus we verdubbelen de rechterstaart.}
+\begin{stappenbreed}
+H_0\colon \mu = 12 \qquad H_1\colon \mu \neq 12 & Tweezijdig, met $\nu = 14$. \\[1ex]
+t = \frac{12{,}08 - 12}{0{,}11/\sqrt{15}} \approx 2{,}82 & De toetsingsgrootheid. \\[1.5ex]
+\text{p-waarde} = 2 \cdot P(T \geqslant 2{,}82) \approx 2 \cdot 0{,}0069 \approx 0{,}014 & \texttt{2*tcdf(2.82,1E99,14)}. \\[1ex]
+0{,}014 \leqslant 0{,}05\colon\ H_0 \text{ verwerpen} & De machine is waarschijnlijk ontregeld.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+\textbf{1.}~Formuleer $H_0\colon \mu = \mu_0$ en $H_1$ ($<$, $>$ of $\neq$), en kies $\alpha$. \ \textbf{2.}~Controleer de voorwaarden. \ \textbf{3.}~Bereken $t = \frac{\xbar - \mu_0}{s/\sqrt n}$ met $\nu = n - 1$. \ \textbf{4.}~Bereken de p-waarde met \texttt{tcdf} in de richting van $H_1$ (tweezijdig: verdubbelen), of alles samen met \texttt{T-Test}. \ \textbf{5.}~Vergelijk met $\alpha$ en besluit voorzichtig, in de context.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-toets}
+
+\oef{h3-toets-2}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Interval en toets}
+
+Het interval voor de schroeven is $12{,}08 \pm 2{,}145 \cdot \frac{0{,}11}{\sqrt{15}} = [12{,}02;\ 12{,}14]$. Daar ligt 12 niet in, en de tweezijdige toets verwierp $\mu = 12$. Dat is geen toeval.
+
+\begin{theorie}
+\begin{stelling}{Interval en tweezijdige toets}
+De tweezijdige t-toets verwerpt $H_0\colon \mu = \mu_0$ bij $\alpha = 0{,}05$ als en slechts als $\mu_0$ \textbf{niet} in het 95~\%-betrouwbaarheidsinterval ligt.
+\end{stelling}
+
+\begin{bewijs}
+Stel $t = \frac{\xbar - \mu_0}{s/\sqrt n}$. De p-waarde is $2P(T \geqslant |t|)$, en die is $\leqslant 0{,}05$ als en slechts als $P(T \geqslant |t|) \leqslant 0{,}025$, dus als en slechts als $|t| \geqslant t^*$, want rechts van $t^*$ ligt precies 0,025. Verder is
+\bewijsregel{|t| \geqslant t^* \iff |\xbar - \mu_0| \geqslant t^* \frac{s}{\sqrt n} = E \iff \mu_0 \notin\ ]\xbar - E,\ \xbar + E[ .}
+(Op de rand zelf, $|t| = t^*$, is de p-waarde precies 0,05: dat geval komt met afgeronde gegevens zo goed als nooit voor.)
+\end{bewijs}
+\end{theorie}
+
+Een interval zegt dus meer dan een toets: het toont meteen \textit{alle} waarden $\mu_0$ die je niet kunt verwerpen. Het besluit van de toets lees je erin af, en je ziet ook hoe groot het verschil ongeveer is.
+
+\begin{oefeningen}
+\oef{h3-interval-toets}
+\end{oefeningen}
+
+\needspace{16\baselineskip}
+\subsection{Gepaarde waarnemingen}
+
+Werkt een training? Je kunt dezelfde personen vóór en na meten. Dan heb je geen twee aparte steekproeven, maar één steekproef van \textit{paren}. Het idee: bereken per persoon het verschil, en toets of het gemiddelde verschil $\mu_d$ nul is. Zo valt de grote spreiding tussen personen weg: alleen de verandering per persoon telt.
+
+\voorbeeld{}{Acht recreatieve lopers meten hun hartslag in rust, vóór en na zes weken training (in slagen per minuut). Daalt de rusthartslag door de training? Toets bij $\alpha = 0{,}05$.
+\begin{center}\small\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|}\hline
+loper & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\hline
+vóór & 72 & 68 & 75 & 80 & 66 & 71 & 77 & 69 \\\hline
+na & 69 & 67 & 70 & 76 & 66 & 68 & 73 & 68 \\\hline
+\end{tabular}\end{center}\label{vb:h3-gepaard}}{%
+\uitleg{Elke loper levert een paar. We berekenen de daling $d = \text{vóór} - \text{na}$, en toetsen of het gemiddelde van $d$ groter is dan 0.}
+\naast{\begin{stappenvrij}{5.9cm}{3.3cm}
+d\colon\ 3,\ 1,\ 5,\ 4,\ 0,\ 3,\ 4,\ 1 & De dalingen. \\[1ex]
+\overline{d} = 2{,}625 \qquad s_d \approx 1{,}77 & Met \texttt{1-Var Stats}. \\[1ex]
+H_0\colon \mu_d = 0 \qquad H_1\colon \mu_d > 0 & Eenzijdig. \\[1ex]
+t = \frac{2{,}625}{1{,}77/\sqrt8} \approx 4{,}20 & Met $\nu = 7$. \\[1.5ex]
+\text{p-waarde} \approx 0{,}002 & \texttt{tcdf(4.2,1E99,7)}.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.8cm,y=.16cm,font=\scriptsize]
+  \draw[->,grijs] (0,64) -- (0,82) node[above,text=black] {slagen};
+  \foreach \t in {65,70,75,80}{\draw[grijs] (.05,\t) -- (-.05,\t) node[left,text=black] {\t};}
+  \node[below] at (.3,64) {vóór}; \node[below] at (1.3,64) {na};
+  \foreach \v/\n in {72/69,68/67,75/70,80/76,66/66,71/68,77/73,69/68}{\draw[accent,thick] (.3,\v) -- (1.3,\n); \fill[accent] (.3,\v) circle (1.4pt) (1.3,\n) circle (1.4pt);}
+\end{tikzpicture}}
+De p-waarde is veel kleiner dan 0,05: de rusthartslag daalt significant. Op de figuur dalen bijna alle lijnen, al liggen de lopers onderling ver uit elkaar.}
+
+Behandel je vóór en na als twee aparte groepen, dan verdwijnt het effect in de spreiding tussen de lopers (opdracht \ref{oef:h3-o22}). Let op: zonder controlegroep weet je niet zeker dat de training de oorzaak is. Misschien daalt de hartslag ook door het seizoen, of omdat lopers bij een tweede meting rustiger zijn.
+
+\begin{oefeningen}
+\oef{h3-gepaard}
+\end{oefeningen}
+
+%========================================================================================
+\section{Voorwaarden}
+
+\subsection{Wanneer mag het?}
+
+De stelling achter alle methodes van dit hoofdstuk vraagt twee dingen: een aselecte steekproef, en een normaal verdeelde populatie. Het eerste regel je met de manier van kiezen. Het tweede kun je bij een kleine steekproef nooit zeker weten. Gelukkig is de t-methode \textbf{robuust}: ze werkt ook goed als de populatie niet precies normaal is, zolang er geen sterke scheefheid of uitschieters zijn. En bij een grote steekproef is $\overline{X}$ door de centrale limietstelling toch bij benadering normaal verdeeld.
+
+Een uitschieter is gevaarlijk omdat hij $\xbar$ en vooral $s$ sterk beïnvloedt: in $s$ telt het kwadraat van zijn afwijking.
+
+\voorbeeld{}{Zeven leerlingen lopen de 200~m. Hun tijden in seconden: 31, 29, 33, 30, 32, 28, 52. De laatste viel tijdens de race. Bereken het 95~\%-betrouwbaarheidsinterval met en zonder die tijd.\label{vb:h3-uitschieter}}{%
+\uitleg{We tekenen eerst de waarden, en berekenen dan het interval twee keer met \texttt{TInterval}.}
+\naast{\begin{stappenvrij}{5.4cm}{3.7cm}
+\text{met: } \xbar \approx 33{,}6,\ s \approx 8{,}30 & Eén waarde trekt $s$ omhoog. \\[1ex]
+[25{,}9;\ 41{,}3] & Met $t^* \approx 2{,}447$ ($\nu = 6$). \\[1ex]
+\text{zonder: } \xbar = 30{,}5,\ s \approx 1{,}87 & Zes waarden. \\[1ex]
+[28{,}5;\ 32{,}5] & Met $t^* \approx 2{,}571$ ($\nu = 5$).
+\end{stappenvrij}}{\begin{tikzpicture}[x=.17cm,font=\scriptsize]
+  \draw[->,grijs] (26,0) -- (55,0) node[right,text=black] {s};
+  \foreach \t in {30,40,50}{\draw[grijs] (\t,.08) -- (\t,-.08) node[below,text=black] {\t};}
+  \foreach \v in {31,29,33,30,32,28}{\fill[accent] (\v,.25) circle (2pt);}
+  \fill[fel!80!black] (52,.25) circle (2pt);
+  \draw[accent,very thick,|-|] (25.9,.85) -- (41.3,.85) node[right,text=black] {met};
+  \draw[accent,very thick,|-|] (28.5,1.35) -- (32.5,1.35) node[right,text=black] {zonder};
+\end{tikzpicture}}
+De ene uitschieter maakt het interval vier keer zo breed, en het steunt op een model dat niet past: de zeven tijden komen niet uit één klokvormige populatie. Het eerlijkste is beide resultaten te melden, en uit te leggen waarom de val apart staat.}
+
+\begin{werkwijze}
+Teken de waarden altijd eerst, op een getallenas of in een histogram. Bij $n < 15$: gebruik de t-methode alleen als de waarden ongeveer symmetrisch liggen, zonder uitschieters. Bij $15 \leqslant n < 40$: ook bij een lichte scheefheid, maar niet bij uitschieters of sterke scheefheid. Bij $n \geqslant 40$: meestal ook bij een scheve verdeling. Een uitschieter onderzoek je: is het een fout, een uitzondering, of een echte waarde?
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-voorwaarden}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Terug naar het probleem}
+
+Nu kunnen we de vragen van de imker beantwoorden. Zijn 8 kasten zijn aselect gekozen, en op de figuur bij het probleem liggen de waarden ongeveer symmetrisch, zonder uitschieter: de t-methode mag.
+
+\voorbeeld{}{Terug naar het probleem. Bereken een 95~\%-betrouwbaarheidsinterval voor de gemiddelde oogst van alle kasten. Doen ze het gemiddeld slechter dan de 23~kg van de streek? Toets bij $\alpha = 0{,}05$.\label{vb:h3-terug}}{%
+\uitleg{$\sigma$ is onbekend en $n = 8$ is klein, dus werken we met $t_7$. Eerst het interval, daarna de eenzijdige toets.}
+\begin{stappenbreed}
+\xbar = 20{,}9 \qquad s \approx 2{,}239 & Met \texttt{1-Var Stats} ($Sx$). \\[1ex]
+t^* = \texttt{invT(0.975,7)} \approx 2{,}365 \qquad E = 2{,}365 \cdot \frac{2{,}239}{\sqrt8} \approx 1{,}87 & De foutenmarge. \\[1.5ex]
+[19{,}0;\ 22{,}8] & Het interval in kg; ook met \texttt{TInterval}. \\[1ex]
+H_0\colon \mu = 23 \qquad H_1\colon \mu < 23 & Het vermoeden: slechter. \\[1ex]
+t = \frac{20{,}9 - 23}{2{,}239/\sqrt8} \approx -2{,}65 \qquad \text{p-waarde} \approx 0{,}016 & \texttt{tcdf(-1E99,-2.65,7)}, of \texttt{T-Test}.
+\end{stappenbreed}
+\naast{\begin{minipage}{9.4cm}
+De gemiddelde oogst van alle kasten ligt met 95~\% betrouwbaarheid tussen 19,0 en 22,8~kg. Omdat de p-waarde $0{,}016 \leqslant 0{,}05$ is, verwerpt de imker $H_0$: zijn kasten brengen gemiddeld waarschijnlijk minder op dan 23~kg. Het interval zegt hetzelfde, en meer: 23 ligt er zelfs boven. Met 1,96 in plaats van $t^*$ was het interval $[19{,}3;\ 22{,}5]$ geweest: te smal, want het doet alsof $s$ de echte $\sigma$ is.
+\end{minipage}}{\begin{tikzpicture}[x=.62cm,font=\scriptsize]
+  \draw[->,grijs] (17.5,0) -- (24.4,0) node[right,text=black] {kg};
+  \foreach \t in {18,20,22,24}{\draw[grijs] (\t,.08) -- (\t,-.08) node[below,text=black] {\t};}
+  \foreach \v in {18.4,22.1,19.7,24.3,20.6,17.9,23.2,21.0}{\fill[accent!60] (\v,.22) circle (2pt);}
+  \draw[accent,very thick,|-|] (19.03,.75) -- (22.77,.75);
+  \fill[accent] (20.9,.75) circle (1.6pt);
+  \draw[fel!80!black,thick,dashed] (23,-.1) -- (23,1.25) node[above,text=black] {23};
+\end{tikzpicture}}
+Of de oorzaak bij de imker ligt, of bij een slechte zomer, zegt de toets niet: daarvoor moet hij met kasten van andere imkers in dezelfde zomer vergelijken.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\needspace{10\baselineskip}
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\needspace{12\baselineskip}
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\needspace{10\baselineskip}
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\needspace{12\baselineskip}
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\needspace{10\baselineskip}
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\needspace{12\baselineskip}
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\needspace{12\baselineskip}
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\needspace{12\baselineskip}
+\oef{h3-o19}
+
+\needspace{14\baselineskip}
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\needspace{12\baselineskip}
+\oef{h3-o22}
+
+\oef{h3-o23}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening steunt op Statistiek (hoofdstuk 3 en 4), de tweede op Integralen (oneigenlijke integralen en $\int \frac{1}{1 + x^2}\dx = \operatorname{bgtan} x$), de derde op de afgeleiden van Limieten en afgeleiden (buigpunten), de vierde op limieten van functies en het getal e uit Exponentiële en logaritmische functies.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+
+\oef{h3-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-s}{oef:h3-s}%
+  \fv{oef:h3-t2}{vb:h3-tster}{oef:h3-tcdf}%
+  \fv{oef:h3-t3}{vb:h3-interval}{oef:h3-interval}%
+  \fv{oef:h3-t4}{vb:h3-toets}{oef:h3-toets}%
+  \fv{oef:h3-t5}{vb:h3-tweezijdig}{oef:h3-toets-2}%
+  \fv{oef:h3-t6}{vb:h3-gepaard}{oef:h3-gepaard}%
+  \fv{oef:h3-t7}{vb:h3-uitschieter}{oef:h3-voorwaarden}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de formule voor $s$ en waarom je door $n - 1$ deelt, de definitie van de t-verdeling en wanneer ze geldt, hoe ze verschilt van de normale verdeling en waarom ze ernaar gaat, wat $t^*$ is en hoe je het vindt, het betrouwbaarheidsinterval en waarom het 95~\% betrouwbaar is, de stappen van de t-toets, het verband tussen interval en tweezijdige toets, de gepaarde t-toets, en de voorwaarden. Vergelijk daarna met de kaders.
+\fi

@@ -59,6 +59,7 @@ SCHILDERIJEN = {
     "thee": ("File:Jean-Baptiste Siméon Chardin 018.jpg", 0.7, 0.5),  # Chardin, Dame die thee drinkt (differentiaalvergelijkingen)
     "ambassadeurs": ("File:Hans Holbein the Younger - The Ambassadors - Google Art Project.jpg", 0.5, 0.5),  # Holbein, getaltheorie
     "deuren": ("File:Vilhelm Hammershøi- Weiße Türen, offene Türen, 1905.jpg", 0.5, 0.5),  # Hammershøi, reeksen
+    "regendag": ("File:Gustave Caillebotte - Paris Street; Rainy Day - Google Art Project.jpg", 0.62, 0.5),  # Caillebotte, kansverdelingen
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),
