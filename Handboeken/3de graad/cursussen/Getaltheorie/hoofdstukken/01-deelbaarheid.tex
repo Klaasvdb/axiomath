@@ -1,0 +1,598 @@
+%----------------------------------------------------------------------------------------
+% DEELBAARHEID. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Deelbaarheid}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Je hebt een grote kom en twee maatbekers: één van 91 ml en één van 35 ml. Je mag een volle beker water in de kom gieten, of een volle beker water uit de kom scheppen, zo vaak je wilt. Kun je zo precies 7 ml water in de kom krijgen? En precies 10 ml? Welke hoeveelheden kun je allemaal maken?}{\begin{tikzpicture}[scale=.68,font=\scriptsize]
+  \draw[accent,thick,fill=accent!12] (0,0) -- (-.3,3) -- (1.9,3) -- (1.6,0) -- cycle;
+  \node at (.8,1.4) {91 ml};
+  \draw[accent,thick,fill=accent!12] (2.6,0) -- (2.45,1.6) -- (3.75,1.6) -- (3.6,0) -- cycle;
+  \node at (3.1,.75) {35 ml};
+  \draw[grijs,thick] (4.4,1.5) arc[start angle=180,end angle=360,x radius=1.6,y radius=1.3];
+  \draw[grijs,thick] (4.4,1.5) -- (7.6,1.5);
+  \fill[accent!25] (4.6,.75) arc[start angle=200,end angle=340,x radius=1.48,y radius=1.1] -- cycle;
+  \node at (6,.95) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 35, het deel over deelbaarheid, met de wenken over het algoritme van Euclides en de stelling van Bachet-Bézout. De lineaire diophantische vergelijkingen (sectie 4) zijn een toepassing van Bachet-Bézout die het leerplan niet noemt; ze maken het probleem volledig af. Voorkennis uit pakket 4: de definitie van \textit{deelt}, even en oneven, het rechtstreeks bewijs en het bewijs uit het ongerijmde (Logica en bewijzen, hoofdstuk 2) en volledige inductie (hoofdstuk 3). Laat de leerlingen het probleem eerst proberen: de meesten vinden 7 ml na wat proberen, maar niemand kan bewijzen dat 10 ml onmogelijk is. Dat bewijs is het doel van het hoofdstuk.}
+
+Rekenen met gehele getallen ken je al heel lang. Toch zitten er verrassend diepe vragen in: welke getallen kun je maken met twee gegeven getallen, als je ze mag optellen en aftrekken? Wanneer heeft een vergelijking als $91x + 35y = 7$ een oplossing in gehele getallen? Die vragen gaan allemaal over \textit{deelbaarheid}.
+
+In dit hoofdstuk leer je de grootste gemene deler van twee getallen snel berekenen, met een methode die al 2300 jaar oud is: het algoritme van Euclides. Daarna bewijs je een stelling die zegt welke getallen je met twee gegeven getallen kunt maken. Dat beantwoordt het probleem met de maatbekers, en het is de sleutel voor alles wat volgt: priemgetallen, modulorekenen en het versleutelen van berichten.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen ontdekken dat de kikker met sprongen van 6 en 10 juist op de even getallen kan komen, en met 6 en 9 op de drievouden: telkens de veelvouden van de grootste gemene deler. Dat vermoeden wordt in sectie 3 een stelling.}
+
+%========================================================================================
+\section{Delers en deling met rest}
+
+\subsection{Delers en veelvouden}
+
+In de cursus Logica en bewijzen zag je de definitie: een geheel getal $a$ \emph{deelt} $b$, kort $a \deelt b$, als $b = a \cdot k$ voor een geheel getal $k$. We zeggen ook dat $a$ een \emph{deler} is van $b$, en $b$ een \emph{veelvoud} van $a$. Zo is $7 \deelt 91$, want $91 = 7 \cdot 13$, en $-3 \deelt 12$, want $12 = (-3) \cdot (-4)$. Maar $5 \ndeelt 12$: er is geen geheel getal $k$ met $5k = 12$.
+
+Let op twee bijzondere gevallen. Elk getal deelt 0, want $0 = a \cdot 0$. En 0 deelt alleen 0 zelf. Let ook op het verschil tussen $a \deelt b$ en $a : b$. Het eerste is een uitspraak, die waar of vals is. Het tweede is een getal.
+
+Waarom zou je deelbaarheid bestuderen? Omdat je met een paar eenvoudige eigenschappen al veel kunt bewijzen. We bekijken ze één voor één.
+
+\subsection{Drie eigenschappen}
+
+Als 6 een deler is van 30, en 30 een deler van 120, dan is ook 6 een deler van 120. Dat geldt altijd.
+
+\begin{theorie}
+\begin{stelling}{Transitiviteit}
+Voor gehele getallen $a$, $b$ en $c$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a \deelt b \ \text{ en } \ b \deelt c \ \Rightarrow \ a \deelt c}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $b = ak$ en $c = bl$, met $k, l \in \Z$. Dan is
+\bewijsregel{c = bl = (ak)l = a(kl), \quad \text{met } kl \in \Z ,}
+dus $a \deelt c$.
+\end{bewijs}
+\end{theorie}
+
+De tweede eigenschap gebruik je in bijna elk bewijs van dit hoofdstuk. Deelt $a$ twee getallen, dan deelt $a$ ook hun som en hun verschil, en elk veelvoud ervan. Zo deelt 7 zowel 91 als 35, en dus ook $91 - 2 \cdot 35 = 21$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{lineaire combinatie}} van $b$ en $c$ is een getal van de vorm $\formule{bx + cy}$, met $x, y \in \Z$.
+
+\begin{stelling}{Lineaire combinatie}
+Voor gehele getallen $a$, $b$ en $c$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a \deelt b \ \text{ en } \ a \deelt c \ \Rightarrow \ a \deelt bx + cy}$ \qquad voor alle $x, y \in \Z$.
+\end{stelling}
+
+\begin{bewijs}
+Stel $b = ak$ en $c = al$, met $k, l \in \Z$. Dan is
+\bewijsregel{bx + cy = akx + aly = a(kx + ly), \quad \text{met } kx + ly \in \Z ,}
+dus $a \deelt bx + cy$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: een gemeenschappelijke deler van twee getallen deelt alles wat je met die twee getallen kunt maken door op te tellen, af te trekken en te vermenigvuldigen met gehele getallen. Met $x = 1$ en $y = \pm 1$ zit de som en het verschil erin.
+
+De derde eigenschap zegt iets over de grootte. Een deler van 12 is hoogstens 12, op het teken na.
+
+\begin{theorie}
+\begin{stelling}{Grootte van een deler}
+Voor gehele getallen $a$ en $b$ met $b \neq 0$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a \deelt b \ \Rightarrow \ |a| \leqslant |b|}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $b = ak$ met $k \in \Z$. Omdat $b \neq 0$, is $k \neq 0$, dus $|k| \geqslant 1$. Dan is
+\bewijsregel{|b| = |a| \cdot |k| \geqslant |a| .}
+\end{bewijs}
+\end{theorie}
+
+Een gevolg dat we vaak gebruiken: als $a \deelt b$ en $|b| < |a|$, dan moet $b = 0$. Een getal dat kleiner is dan $a$ en toch een veelvoud van $a$, is 0.
+
+\voorbeeld{}{Toon aan dat $5n + 3$ en $3n + 2$ voor geen enkel geheel getal $n$ een gemeenschappelijke deler groter dan 1 hebben.\label{vb:h1-lincomb}}{%
+\uitleg{We kennen $n$ niet, dus we kunnen de delers niet opsommen. Het idee: neem een gemeenschappelijke deler $d$, en zoek een lineaire combinatie waarin $n$ wegvalt. Vermenigvuldig daarvoor de eerste uitdrukking met 3 en de tweede met 5.}
+\begin{stappen}
+d \deelt 5n + 3 \ \text{ en } \ d \deelt 3n + 2 & Neem een gemeenschappelijke deler $d \geqslant 1$. \\[1ex]
+d \deelt 3(5n + 3) - 5(3n + 2) & Eigenschap van de lineaire combinatie, met $x = 3$ en $y = -5$. \\[1ex]
+3(5n + 3) - 5(3n + 2) = 9 - 10 = -1 & De termen in $n$ vallen weg. \\[1ex]
+d \deelt -1 \ \Rightarrow \ d = 1 & Grootte van een deler: $d \leqslant |-1| = 1$.
+\end{stappen}}
+
+\voorbeeld{}{Voor welke gehele getallen $n$ is $n + 2$ een deler van $n^2 + 7$?\label{vb:h1-ndeler}}{%
+\uitleg{Een deler van $n^2 + 7$ die van $n$ afhangt, is moeilijk. We maken de term $n^2$ weg met een veelvoud van $n + 2$ dat ook $n^2$ bevat: $(n + 2)(n - 2) = n^2 - 4$.}
+\begin{stappen}
+n + 2 \deelt n^2 + 7 \ \text{ en } \ n + 2 \deelt n^2 - 4 & Het tweede, omdat $n^2 - 4 = (n + 2)(n - 2)$. \\[1ex]
+n + 2 \deelt (n^2 + 7) - (n^2 - 4) = 11 & Het verschil is een lineaire combinatie. \\[1ex]
+n + 2 \in \{1, -1, 11, -11\} & De delers van 11. \\[1ex]
+n \in \{-1, -3, 9, -13\} & Controle voor $n = 9$: $11 \deelt 88$. Ook de andere drie kloppen.
+\end{stappen}
+Omgekeerd: als $n + 2 \deelt 11$, dan deelt $n + 2$ ook $11 + (n^2 - 4) = n^2 + 7$. Er zijn dus precies vier oplossingen.}
+
+\begin{werkwijze}
+Om te tonen dat $d$ een uitdrukking deelt, schrijf je die uitdrukking als een lineaire combinatie van getallen waarvan je al weet dat $d$ ze deelt. Kies de coëfficiënten zo dat de onbekende wegvalt. Wat overblijft, is een vast getal, en daarvan ken je de delers.
+\end{werkwijze}
+
+\nujij{Toon aan: als $7 \deelt a + 2b$, dan $7 \deelt 3a - b$.}{$3a - b = 3(a + 2b) - 7b$, en 7 deelt beide termen.}
+
+\begin{oefeningen}
+\oef{h1-eig}
+\end{oefeningen}
+
+\subsection{Deling met rest}
+
+Deel je 100 door 7, dan vind je 14, met rest 2: $100 = 7 \cdot 14 + 2$. Zo'n deling met rest leerde je in de lagere school. Maar wat met $-100$ gedeeld door 7? Een rekentoestel geeft $-14{,}28\ldots$, en $-100 = 7 \cdot (-14) - 2$. Een negatieve rest is onhandig: we willen dat de rest altijd tussen 0 en de deler ligt. Dan moet het quotiënt $-15$ zijn: $-100 = 7 \cdot (-15) + 5$.
+
+\figuren{\begin{tikzpicture}[x=.62cm,font=\scriptsize]
+  \draw[->,grijs] (-.6,0) -- (13.6,0);
+  \foreach \k/\t in {0/{b(q - 1)},4.5/{bq},9/{b(q + 1)}}{%
+    \draw[accent,thick] (\k,-.12) -- (\k,.12);
+    \node[below=2pt] at (\k,0) {$\t$};}
+  \fill[accent] (7,0) circle (2.4pt) node[below=3pt] {$a$};
+  \draw[decorate,decoration={brace,amplitude=4pt}] (4.5,.2) -- (7,.2) node[midway,above=4pt] {$r = a - bq$};
+  \draw[decorate,decoration={brace,amplitude=4pt}] (9,-.65) -- (4.5,-.65) node[midway,below=4pt] {$b$};
+  \node[right,text width=4.6cm] at (13.9,0) {Het getal $a$ ligt tussen twee opeenvolgende veelvouden van $b$. De rest is de afstand tot het veelvoud links ervan.};
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Deling met rest}
+Voor elk geheel getal $a$ en elk natuurlijk getal $b \geqslant 1$ zijn er precies één $q \in \Z$ en één $r \in \Z$ met
+
+\vspace{1mm}
+\qquad $\formule{a = bq + r}$ \qquad en \qquad $\formule{0 \leqslant r < b}$
+\end{stelling}
+Het getal $q$ is het \textbf{\textcolor{accent}{quotiënt}} en $r$ de \textbf{\textcolor{accent}{rest}} bij deling van $a$ door $b$.
+
+\begin{bewijs}
+\textit{Bestaan.} De veelvouden $\ldots, -2b, -b, 0, b, 2b, \ldots$ liggen op afstand $b$ van elkaar, dus $a$ ligt tussen twee opeenvolgende veelvouden. Neem voor $q$ het grootste geheel getal met $bq \leqslant a$, en stel $r = a - bq$. Dan is $r \geqslant 0$. Omdat $b(q + 1) > a$, is $r = a - bq < b$.
+
+\textit{Uniciteit.} Stel dat ook $a = bq' + r'$ met $0 \leqslant r' < b$. Trek af:
+\bewijsregel{b(q - q') = r' - r .}
+Dus $b \deelt r' - r$, terwijl $-b < r' - r < b$. Een veelvoud van $b$ dat in absolute waarde kleiner is dan $b$, is 0. Dus $r' = r$, en dan ook $q' = q$.
+\end{bewijs}
+\end{theorie}
+
+Dat de deling met rest bestaat, wist je al. Het nieuwe is dat het quotiënt en de rest uniek zijn, als je eist dat $0 \leqslant r < b$. Daarom mag je spreken van \textit{de} rest. En: $b \deelt a$ betekent precies dat de rest 0 is.
+
+\voorbeeld{}{Bepaal het quotiënt en de rest bij deling van $-2026$ door 17.\label{vb:h1-rest}}{%
+\uitleg{We delen eerst $2026$ door 17, en schuiven daarna één veelvoud op om een rest tussen 0 en 17 te krijgen.}
+\begin{stappen}
+2026 = 17 \cdot 119 + 3 & Een rekentoestel geeft $119{,}17\ldots$, en $17 \cdot 119 = 2023$. \\[1ex]
+-2026 = 17 \cdot (-119) - 3 & Vermenigvuldig met $-1$: de rest is negatief. \\[1ex]
+-2026 = 17 \cdot (-120) + 14 & Neem één veelvoud van 17 meer weg: $-3 + 17 = 14$.
+\end{stappen}
+Het quotiënt is $-120$ en de rest is 14. Controle: $17 \cdot (-120) + 14 = -2040 + 14 = -2026$.}
+
+De deling met rest is ook een bewijsmiddel. Elk geheel getal heeft bij deling door 2 rest 0 of 1, dus elk getal is even of oneven. Bij deling door 3 is de rest 0, 1 of 2, dus elk geheel getal heeft de vorm $3k$, $3k + 1$ of $3k + 2$. Zo kun je een bewering over alle gehele getallen opsplitsen in een paar gevallen.
+
+\voorbeeld{}{Toon aan dat het kwadraat van een geheel getal bij deling door 4 altijd rest 0 of 1 heeft.\label{vb:h1-kwadraat}}{%
+\uitleg{Probeer eerst: $3^2 = 9 = 4 \cdot 2 + 1$, $6^2 = 36 = 4 \cdot 9$. Het vermoeden klopt, maar we bewijzen het voor alle $n$. We splitsen op volgens de rest van $n$ bij deling door 2.}
+\begin{stappen}
+n = 2k: \ n^2 = 4k^2 & Rest 0, want $4k^2 = 4 \cdot k^2 + 0$. \\[1ex]
+n = 2k + 1: \ n^2 = 4(k^2 + k) + 1 & Want $n^2 = 4k^2 + 4k + 1$: rest 1.
+\end{stappen}
+Er zijn geen andere gevallen, dus een kwadraat heeft nooit rest 2 of 3 bij deling door 4.}
+
+Een gevolg: $1003$ is geen kwadraat, want $1003 = 4 \cdot 250 + 3$. In de opdrachten gebruik je dit om te tonen dat sommige getallen geen som van twee kwadraten kunnen zijn.
+
+\begin{werkwijze}
+Wil je iets bewijzen voor alle gehele getallen $n$, kies dan een geschikte deler $b$ en splits op volgens de rest: $n = bk$, $n = bk + 1$, \ldots, $n = bk + (b - 1)$. Werk elk geval uit met letters.
+\end{werkwijze}
+
+\nujij{Bepaal het quotiënt en de rest bij deling van $-1$ door 9.}{$-1 = 9 \cdot (-1) + 8$: quotiënt $-1$, rest 8.}
+
+\begin{oefeningen}
+\oef{h1-rest}
+\end{oefeningen}
+
+%========================================================================================
+\section{De grootste gemene deler}
+
+\subsection{Gemeenschappelijke delers}
+
+Terug naar de maatbekers. Elke hoeveelheid in de kom is een lineaire combinatie $91x + 35y$. Elke gemeenschappelijke deler van 91 en 35 deelt dus elke hoeveelheid die je kunt maken. Welke gemeenschappelijke delers zijn er? De positieve delers van 91 zijn 1, 7, 13 en 91, die van 35 zijn 1, 5, 7 en 35. De grootste gemeenschappelijke is 7.
+
+\begin{theorie}
+Neem gehele getallen $a$ en $b$, niet allebei 0. De \textbf{\textcolor{accent}{grootste gemene deler}} $\formule{\ggd(a, b)}$ is het grootste gehele getal dat zowel $a$ als $b$ deelt.
+
+\vspace{1mm}
+Als $\formule{\ggd(a, b) = 1}$, dan zijn $a$ en $b$ \textbf{\textcolor{accent}{relatief priem}}.
+\end{theorie}
+
+Omdat 1 altijd een gemeenschappelijke deler is, geldt $\ggd(a, b) \geqslant 1$. Het teken speelt geen rol: $\ggd(-12, 18) = \ggd(12, 18) = 6$. En $\ggd(a, 0) = |a|$, want elk getal deelt 0. Relatief priem zijn bijvoorbeeld 8 en 15: ze hebben geen gemeenschappelijke deler behalve 1, al is geen van beide een priemgetal. Voorbeeld~\ref{vb:h1-lincomb} toonde dat $\ggd(5n + 3, 3n + 2) = 1$ voor elke $n$.
+
+Voor kleine getallen kun je de delers opsommen. Maar wat is $\ggd(2340, 1638)$? Alle delers opschrijven wordt een lange klus. Er is een veel snellere weg.
+
+\subsection{Het algoritme van Euclides}
+
+Het idee staat al in de vorige alinea's. Een gemeenschappelijke deler van 91 en 35 deelt ook $91 - 2 \cdot 35 = 21$. Omgekeerd deelt een gemeenschappelijke deler van 35 en 21 ook $2 \cdot 35 + 21 = 91$. De paren $(91, 35)$ en $(35, 21)$ hebben dus dezelfde gemeenschappelijke delers, en zeker dezelfde grootste. Maar het tweede paar is kleiner.
+
+\begin{theorie}
+\begin{stelling}{Euclides}
+Als $a = bq + r$, met $a, b, q, r \in \Z$ en $b \neq 0$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\ggd(a, b) = \ggd(b, r)}$
+\end{stelling}
+
+\begin{bewijs}
+We tonen aan dat $(a, b)$ en $(b, r)$ dezelfde gemeenschappelijke delers hebben. Stel $d \deelt a$ en $d \deelt b$. Dan deelt $d$ de lineaire combinatie $a - qb = r$, dus $d$ is een gemeenschappelijke deler van $b$ en $r$. Stel omgekeerd $d \deelt b$ en $d \deelt r$. Dan deelt $d$ ook $bq + r = a$. Twee verzamelingen met dezelfde elementen hebben hetzelfde grootste element.
+\end{bewijs}
+\end{theorie}
+
+Pas je die stelling telkens opnieuw toe met de deling met rest, dan worden de getallen steeds kleiner. Dat is het \emph{algoritme van Euclides}: deel $a$ door $b$, deel daarna $b$ door de rest, dan die rest door de nieuwe rest, enzovoort. De laatste rest die niet 0 is, is de ggd. Euclides beschreef het rond 300 voor Christus in zijn \textit{Elementen}, en het is een van de oudste algoritmen die nog dagelijks gebruikt worden.
+
+\naast{Waarom stopt het? Elke rest is kleiner dan de vorige deler: $b > r_1 > r_2 > \cdots \geqslant 0$. Een dalende rij natuurlijke getallen bereikt na hoogstens $b$ stappen 0.
+
+\vspace{1mm}
+De figuur toont het algoritme voor 91 en 35 als een rechthoek die je opvult met zo groot mogelijke vierkanten. Uit $91 \times 35$ knip je twee vierkanten van 35. Uit de rest, $21 \times 35$, één vierkant van 21. Dan één van 14, en dan passen er precies twee van 7. Een vierkante tegel met zijde $d$ vult de hele rechthoek als $d$ zowel 91 als 35 deelt: de grootste zo'n tegel heeft zijde $\ggd(91, 35) = 7$.}{\begin{tikzpicture}[x=.62mm,y=.62mm,font=\scriptsize]
+  \draw[accent,thick,fill=accent!10] (0,0) rectangle (35,35) node[midway] {35};
+  \draw[accent,thick,fill=accent!10] (35,0) rectangle (70,35) node[midway] {35};
+  \draw[accent,thick,fill=accent!22] (70,14) rectangle (91,35) node[midway] {21};
+  \draw[accent,thick,fill=accent!34] (70,0) rectangle (84,14) node[midway] {14};
+  \draw[accent,thick,fill=fel!60] (84,7) rectangle (91,14);
+  \draw[accent,thick,fill=fel!60] (84,0) rectangle (91,7);
+  \node[right] at (91,3.5) {7};
+  \node[right] at (91,10.5) {7};
+  \draw[decorate,decoration={brace,amplitude=3pt,mirror}] (0,-1.5) -- (91,-1.5) node[midway,below=3pt] {91};
+\end{tikzpicture}}
+
+\voorbeeld{}{Bereken $\ggd(2340, 1638)$ met het algoritme van Euclides.\label{vb:h1-euclides}}{%
+\uitleg{We delen telkens de deler door de rest, tot de rest 0 is. Na elke stap is het ggd-probleem kleiner, maar de ggd blijft dezelfde.}
+\begin{stappen}
+2340 = 1 \cdot 1638 + 702 & Dus $\ggd(2340, 1638) = \ggd(1638, 702)$. \\[1ex]
+1638 = 2 \cdot 702 + 234 & Dus $= \ggd(702, 234)$. \\[1ex]
+702 = 3 \cdot 234 + 0 & De rest is 0: $234 \deelt 702$, dus $\ggd(702, 234) = 234$.
+\end{stappen}
+Dus $\ggd(2340, 1638) = 234$, de laatste rest die niet 0 is. Drie delingen volstonden, waar het opsommen van alle delers van 2340 er tientallen vraagt.}
+
+\begin{werkwijze}
+Deel het grootste getal door het kleinste, met rest. Deel daarna de deler door de rest, en herhaal tot de rest 0 is. De laatste rest die niet 0 is, is de ggd. Is een getal negatief, reken dan met zijn absolute waarde.
+\end{werkwijze}
+
+\nujij{Bereken $\ggd(1386, 546)$.}{$1386 = 2 \cdot 546 + 294$, $546 = 1 \cdot 294 + 252$, $294 = 1 \cdot 252 + 42$, $252 = 6 \cdot 42$: de ggd is 42.}
+
+\begin{oefeningen}
+\oef{h1-euclides}
+\end{oefeningen}
+
+%========================================================================================
+\section{De stelling van Bachet-Bézout}
+
+\subsection{Het algoritme achterstevoren}
+
+Kunnen we 7 ml in de kom krijgen? Dan zoeken we gehele getallen $x$ en $y$ met $91x + 35y = 7$. Het algoritme van Euclides gaf 7 als laatste rest. Elke rest is een lineaire combinatie van de twee getallen ervoor. Lees je de stappen van onder naar boven, dan schrijf je 7 als combinatie van 91 en 35.
+
+\voorbeeld{}{Schrijf $7 = \ggd(91, 35)$ als lineaire combinatie van 91 en 35.\label{vb:h1-terugrekenen}}{%
+\uitleg{Eerst het algoritme, met bij elke stap de rest apart geschreven. Daarna vullen we van onder naar boven in: telkens vervangen we de kleinste rest door de uitdrukking erboven.}
+\begin{stappen}
+91 = 2 \cdot 35 + 21 & Dus $21 = 91 - 2 \cdot 35$. \\[1ex]
+35 = 1 \cdot 21 + 14 & Dus $14 = 35 - 21$. \\[1ex]
+21 = 1 \cdot 14 + 7 & Dus $7 = 21 - 14$. Hier staat de ggd. \\[1ex]
+7 = 21 - (35 - 21) = 2 \cdot 21 - 35 & Vervang 14. \\[1ex]
+7 = 2(91 - 2 \cdot 35) - 35 = 2 \cdot 91 - 5 \cdot 35 & Vervang 21, en tel de veelvouden van 35 samen.
+\end{stappen}
+Controle: $182 - 175 = 7$. Met $x = 2$ en $y = -5$ is $91x + 35y = 7$.}
+
+Werkt dat altijd? Het algoritme van Euclides eindigt altijd met de ggd, en elke stap kun je achterstevoren lezen. Dus de ggd is altijd een lineaire combinatie. Omdat een bewijs met ``enzovoort'' niet waterdicht is, geven we een kort bewijs dat een andere weg kiest.
+
+\begin{theorie}
+\begin{stelling}{Bachet-Bézout}
+Voor gehele getallen $a$ en $b$, niet allebei 0, zijn er gehele getallen $x$ en $y$ met
+
+\vspace{1mm}
+\qquad $\formule{ax + by = \ggd(a, b)}$
+\end{stelling}
+
+\begin{bewijs}
+Bekijk alle positieve lineaire combinaties $ax + by > 0$. Die zijn er, want $a^2 + b^2 > 0$ is er een. Elke niet-lege verzameling natuurlijke getallen heeft een kleinste element: noem de kleinste positieve combinatie $d = ax_0 + by_0$. We tonen aan dat $d = \ggd(a, b)$.
+
+Deel $a$ door $d$: $a = dq + r$ met $0 \leqslant r < d$. Dan is
+\bewijsregel{r = a - dq = a(1 - qx_0) + b(-qy_0)}
+ook een lineaire combinatie. Was $r > 0$, dan was $r$ een positieve combinatie kleiner dan $d$: onmogelijk. Dus $r = 0$ en $d \deelt a$. Net zo is $d \deelt b$. Dus $d$ is een gemeenschappelijke deler, en $d \leqslant \ggd(a, b)$.
+
+Omgekeerd deelt $\ggd(a, b)$ zowel $a$ als $b$, dus ook $ax_0 + by_0 = d$. Uit de grootte van een deler volgt $\ggd(a, b) \leqslant d$. Dus $d = \ggd(a, b)$.
+\end{bewijs}
+\end{theorie}
+
+De stelling zegt meer dan het algoritme: de ggd is de \textit{kleinste} positieve lineaire combinatie van $a$ en $b$. Ze is genoemd naar Claude-Gaspard Bachet de Méziriac, die ze in 1624 voor relatief priemgetallen bewees, en naar Étienne Bézout, die in 1779 hetzelfde deed voor veeltermen. De getallen $x$ en $y$ zijn niet uniek: ook $2 \cdot 91 - 5 \cdot 35 + 35 \cdot 91 - 91 \cdot 35 = 37 \cdot 91 - 96 \cdot 35$ geeft 7.
+
+\voorbeeld{}{Schrijf $\ggd(2340, 1638)$ als lineaire combinatie van 2340 en 1638.\label{vb:h1-bezout}}{%
+\uitleg{In voorbeeld~\ref{vb:h1-euclides} vonden we $\ggd = 234$ in drie stappen. We gebruiken de eerste twee, achterstevoren.}
+\begin{stappen}
+702 = 2340 - 1638 & Uit de eerste stap. \\[1ex]
+234 = 1638 - 2 \cdot 702 & Uit de tweede stap. \\[1ex]
+234 = 1638 - 2(2340 - 1638) = 3 \cdot 1638 - 2 \cdot 2340 & Vervang 702 en tel samen.
+\end{stappen}
+Controle: $3 \cdot 1638 - 2 \cdot 2340 = 4914 - 4680 = 234$.}
+
+\begin{werkwijze}
+Voer het algoritme van Euclides uit en schrijf bij elke stap de rest als ``deeltal min quotiënt maal deler''. Begin bij de stap met de ggd en vervang telkens de kleinste rest door zijn uitdrukking, tot alleen $a$ en $b$ overblijven. Werk niet uit tot getallen: houd $a$ en $b$ als ``letters''. Controleer op het einde.
+\end{werkwijze}
+
+\nujij{Schrijf $\ggd(47, 30)$ als lineaire combinatie van 47 en 30.}{$47 = 30 + 17$, $30 = 17 + 13$, $17 = 13 + 4$, $13 = 3 \cdot 4 + 1$. Terug: $1 = 13 - 3 \cdot 4 = 4 \cdot 13 - 3 \cdot 17 = 4 \cdot 30 - 7 \cdot 17 = 11 \cdot 30 - 7 \cdot 47$.}
+
+\begin{oefeningen}
+\oef{h1-bezout}
+\end{oefeningen}
+
+\subsection{Welke getallen kun je maken?}
+
+Nu kunnen we zeggen welke hoeveelheden je met de maatbekers kunt maken. Elke combinatie van 91 en 35 is een veelvoud van 7. En elk veelvoud van 7 is een combinatie: vermenigvuldig $2 \cdot 91 - 5 \cdot 35 = 7$ gewoon met een geheel getal.
+
+\begin{theorie}
+\begin{stelling}{Oplosbaarheid}
+Neem gehele getallen $a$ en $b$, niet allebei 0, en $c \in \Z$. De vergelijking
+
+\vspace{1mm}
+\qquad $\formule{ax + by = c}$ \qquad heeft een oplossing met $x, y \in \Z$ \quad $\formule{\iff \ \ggd(a, b) \deelt c}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $d = \ggd(a, b)$. Stel dat $ax + by = c$ met $x, y \in \Z$. Omdat $d \deelt a$ en $d \deelt b$, deelt $d$ de lineaire combinatie $c$.
+
+Stel omgekeerd $d \deelt c$, dus $c = dk$ met $k \in \Z$. Bachet-Bézout geeft $x_0, y_0 \in \Z$ met $ax_0 + by_0 = d$. Vermenigvuldig met $k$:
+\bewijsregel{a(kx_0) + b(ky_0) = dk = c .}
+\end{bewijs}
+\end{theorie}
+
+De lineaire combinaties van $a$ en $b$ zijn dus precies de veelvouden van hun ggd. Met sprongen van 6 en 10 kwam de kikker in de Verken op alle veelvouden van $\ggd(6, 10) = 2$, en op niets anders.
+
+\voorbeeld{}{Terug naar het probleem. Kun je met de bekers van 91 ml en 35 ml precies 7 ml in de kom krijgen? En 10 ml?\label{vb:h1-terug}}{%
+\uitleg{Na $x$ keer gieten met de grote beker en $y$ keer met de kleine (een negatief getal betekent scheppen) zit er $91x + 35y$ ml in de kom. De vraag is dus of $91x + 35y = 7$ en $91x + 35y = 10$ oplosbaar zijn in $\Z$.}
+\naast{\begin{stappenvrij}{4.1cm}{4.4cm}
+\ggd(91, 35) = 7 & Voorbeeld~\ref{vb:h1-terugrekenen}. \\[1ex]
+7 = 2 \cdot 91 - 5 \cdot 35 & Twee keer gieten met 91 ml, vijf keer scheppen met 35 ml. \\[1ex]
+7 \ndeelt 10 & Dus 10 ml kan nooit, hoe slim je het ook aanpakt.
+\end{stappenvrij}}{\begin{tikzpicture}[x=5mm,y=.28mm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=1,ystep=20] (7,120);
+  \draw[->,grijs] (0,0) -- (7.5,0) node[right,text=black] {stap};
+  \draw[->,grijs] (0,0) -- (0,128) node[above,text=black] {ml};
+  \foreach \y in {20,40,...,120}{\node[left,inner sep=1.5pt] at (0,\y) {$\y$};}
+  \draw[accent,thick] (0,0) -- (1,91) -- (2,56) -- (3,21) -- (4,112) -- (5,77) -- (6,42) -- (7,7);
+  \foreach \x/\y in {0/0,1/91,2/56,3/21,4/112,5/77,6/42,7/7}{\fill[accent] (\x,\y) circle (1.6pt);}
+  \node[right] at (7,10) {7};
+\end{tikzpicture}}
+In de kom mag nooit een negatieve hoeveelheid zitten. Dat lukt met een slimme volgorde: giet 91 ml, schep twee keer 35 ml (21 ml), giet 91 ml (112 ml) en schep drie keer 35 ml. Er blijft 7 ml over. De figuur toont de hoeveelheid na elke stap. De hoeveelheden die je kunt maken, zijn juist de veelvouden van 7.}
+
+\nujij{Heeft $18x + 42y = 10$ een oplossing in $\Z$? En $18x + 42y = 12$?}{$\ggd(18, 42) = 6$. Omdat $6 \ndeelt 10$: geen oplossing. Omdat $6 \deelt 12$: wel, bijvoorbeeld $x = -2$, $y = 1$.}
+
+\begin{oefeningen}
+\oef{h1-oplosbaar}
+\end{oefeningen}
+
+\subsection{Relatief priem}
+
+Een belangrijk speciaal geval is $\ggd(a, b) = 1$. Dan zegt Bachet-Bézout dat 1 een combinatie is, en omgekeerd.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van relatief priem}
+Voor gehele getallen $a$ en $b$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\ggd(a, b) = 1 \ \iff \ ax + by = 1}$ \quad voor zekere $x, y \in \Z$.
+\end{stelling}
+
+\begin{bewijs}
+Van links naar rechts is dat Bachet-Bézout. Stel omgekeerd $ax + by = 1$. Dan deelt $\ggd(a, b)$ de combinatie 1, dus $\ggd(a, b) = 1$.
+\end{bewijs}
+\end{theorie}
+
+Zo zie je meteen dat twee opeenvolgende getallen relatief priem zijn: $(n + 1) \cdot 1 + n \cdot (-1) = 1$. Uit dit kenmerk volgt een eigenschap die je in de volgende hoofdstukken steeds weer nodig hebt. Deelt 6 het product $4 \cdot 9$, dan deelt 6 geen van beide factoren. Maar als een deler geen enkele factor gemeen heeft met de ene factor, moet hij de andere delen.
+
+\begin{theorie}
+\begin{stelling}{Lemma van Gauss}
+Voor gehele getallen $a$, $b$ en $c$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a \deelt bc \ \text{ en } \ \ggd(a, b) = 1 \ \Rightarrow \ a \deelt c}$
+\end{stelling}
+
+\begin{bewijs}
+Omdat $\ggd(a, b) = 1$, is er een combinatie $ax + by = 1$. Vermenigvuldig met $c$:
+\bewijsregel{c = acx + bcy .}
+Nu deelt $a$ de term $acx$, en ook $bcy$, want $a \deelt bc$. Dus $a$ deelt de som $c$.
+\end{bewijs}
+\end{theorie}
+
+Het woord \textit{lemma} betekent hulpstelling: een stelling die je vooral gebruikt om andere te bewijzen. Carl Friedrich Gauss schreef ze in 1801 op in zijn boek over getaltheorie. Dezelfde redenering geeft nog een gevolg.
+
+\begin{theorie}
+\begin{stelling}{Product van delers}
+Voor gehele getallen $a$, $b$ en $c$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a \deelt c, \ b \deelt c \ \text{ en } \ \ggd(a, b) = 1 \ \Rightarrow \ ab \deelt c}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $c = ak$ met $k \in \Z$. Dan is $b \deelt ak$ en $\ggd(b, a) = 1$, dus volgens het lemma van Gauss $b \deelt k$. Stel $k = bl$, dan is $c = abl$, en $ab \deelt c$.
+\end{bewijs}
+\end{theorie}
+
+De voorwaarde $\ggd(a, b) = 1$ is nodig: $4 \deelt 12$ en $6 \deelt 12$, maar $24 \ndeelt 12$.
+
+\voorbeeld{}{Toon aan dat $n^3 - n$ voor elk geheel getal $n$ deelbaar is door 6.\label{vb:h1-zes}}{%
+\uitleg{Omdat $6 = 2 \cdot 3$ met $\ggd(2, 3) = 1$, volstaat het te tonen dat 2 en 3 delers zijn. Ontbind eerst: $n^3 - n = (n - 1)n(n + 1)$, het product van drie opeenvolgende getallen.}
+\begin{stappen}
+2 \deelt (n - 1)n(n + 1) & Van twee opeenvolgende getallen $n - 1$ en $n$ is er één even. \\[1ex]
+3 \deelt (n - 1)n(n + 1) & Is $n = 3k$, dan $3 \deelt n$. Is $n = 3k + 1$, dan $3 \deelt n - 1$. Is $n = 3k + 2$, dan $3 \deelt n + 1$. \\[1ex]
+6 \deelt n^3 - n & Product van delers, want $\ggd(2, 3) = 1$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-gauss}
+\end{oefeningen}
+
+%========================================================================================
+\section{Lineaire diophantische vergelijkingen}
+
+\subsection{Alle oplossingen}
+
+Een vergelijking $ax + by = c$ waarvan je alleen de gehele oplossingen zoekt, heet een \emph{lineaire diophantische vergelijking}, naar Diophantus van Alexandrië, die rond het jaar 250 een boek schreef vol vergelijkingen met gehele of rationale oplossingen. We weten al wanneer er een oplossing is. Maar in een context wil je vaak alle oplossingen, of alleen de positieve. Hoe vind je die?
+
+Bekijk de vergelijking $2x + 3y = 12$ in een assenstelsel. De oplossingen in $\R$ vormen een rechte. De gehele oplossingen zijn de roosterpunten op die rechte: $(0, 4)$, $(3, 2)$, $(6, 0)$, $(-3, 6)$, \ldots Ze liggen op gelijke afstand: telkens 3 naar rechts en 2 naar onder. Dat is geen toeval.
+
+\begin{theorie}
+\begin{stelling}{Alle oplossingen}
+Neem $a, b \in \Z_0$, $d = \ggd(a, b)$, en een oplossing $(x_0, y_0)$ van $ax + by = c$ in $\Z$. Alle gehele oplossingen zijn
+
+\vspace{1mm}
+\qquad $\formule{x = x_0 + \dfrac{b}{d}\,k}$ \qquad en \qquad $\formule{y = y_0 - \dfrac{a}{d}\,k}$ \qquad met $k \in \Z$.
+\end{stelling}
+
+\begin{bewijs}
+Dit zijn oplossingen: $a\bigl(x_0 + \tfrac bd k\bigr) + b\bigl(y_0 - \tfrac ad k\bigr) = ax_0 + by_0 + \tfrac{ab}{d}k - \tfrac{ab}{d}k = c$.
+
+Neem omgekeerd een oplossing $(x, y)$. Trek $ax_0 + by_0 = c$ af, en deel door $d$:
+\bewijsregel{a(x - x_0) = b(y_0 - y) \quad \Rightarrow \quad \frac ad (x - x_0) = \frac bd (y_0 - y) .}
+Deel je $ax' + by' = d$ (Bachet-Bézout) door $d$, dan zie je dat $\ggd\bigl(\tfrac ad, \tfrac bd\bigr) = 1$. Het lemma van Gauss geeft $\tfrac bd \deelt x - x_0$, dus $x = x_0 + \tfrac bd k$ voor een $k \in \Z$. Vul in: $\tfrac ad \cdot \tfrac bd k = \tfrac bd (y_0 - y)$, dus $y = y_0 - \tfrac ad k$.
+\end{bewijs}
+\end{theorie}
+
+Je ziet het in de figuur bij het volgende voorbeeld: de stap $\bigl(\tfrac bd, -\tfrac ad\bigr)$ is de kleinste stap met gehele getallen langs de rechte, want de richtingscoëfficiënt is $-\tfrac ab$. Vergeet niet te delen door $d$: neem je $(b, -a)$ als stap, dan sla je oplossingen over zodra $d > 1$.
+
+\voorbeeld{}{Op een schoolfuif kost een ticket 7 euro in voorverkoop en 11 euro aan de deur. De kassa telt in totaal 300 euro. Hoeveel tickets van elke soort zijn er verkocht? Het waren er meer dan 30 en minder dan 40.\label{vb:h1-dioph}}{%
+\uitleg{Noem $x$ het aantal tickets in voorverkoop en $y$ aan de deur: $7x + 11y = 300$ met $x, y \in \N$. We zoeken eerst één oplossing in $\Z$ met Bachet-Bézout, dan alle oplossingen, en dan de natuurlijke.}
+\begin{stappen}
+11 = 7 + 4, \ 7 = 4 + 3, \ 4 = 3 + 1 & Euclides: de ggd is 1. \\[1ex]
+1 = 2 \cdot 11 - 3 \cdot 7 & Achterstevoren: $1 = 4 - 3 = 2 \cdot 4 - 7$. \\[1ex]
+7 \cdot (-900) + 11 \cdot 600 = 300 & Maal 300. \\[1ex]
+x = -900 + 11k, \ y = 600 - 7k & Alle oplossingen in $\Z$ ($d = 1$). \\[1ex]
+82 \leqslant k \leqslant 85 & Uit $x \geqslant 0$ volgt $k \geqslant 81{,}8$, uit $y \geqslant 0$ volgt $k \leqslant 85{,}7$.
+\end{stappen}
+\naast{Vier oplossingen in $\N$: $(2, 26)$, $(13, 19)$, $(24, 12)$ en $(35, 5)$, met in totaal 28, 32, 36 en 40 tickets. Alleen 36 ligt tussen 30 en 40: er waren 24 tickets in voorverkoop en 12 aan de deur. Controle: $7 \cdot 24 + 11 \cdot 12 = 168 + 132 = 300$.}{\begin{tikzpicture}[scale=.11,font=\scriptsize]
+  \draw[black!14,very thin,step=5] (0,0) grid (45,30);
+  \draw[->,grijs] (0,0) -- (47,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,32) node[above,text=black] {$y$};
+  \foreach \t in {10,20,30,40}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] (0,27.27) -- (42.86,0);
+  \foreach \x/\y in {2/26,13/19,24/12,35/5}{\fill[accent] (\x,\y) circle (14pt);}
+  \draw[->,fel!85!black,thick] (13,19) -- (24,19) -- (24,12.6);
+  \node[above] at (18.5,19) {11};
+  \node[right] at (24,15.5) {7};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bereken $d = \ggd(a, b)$. Deelt $d$ niet $c$, dan zijn er geen oplossingen. Anders: schrijf $d$ als combinatie van $a$ en $b$, vermenigvuldig met $\tfrac cd$ voor een oplossing $(x_0, y_0)$, en schrijf de algemene oplossing op met de stap $\bigl(\tfrac bd, -\tfrac ad\bigr)$. Zoek je alleen positieve oplossingen, los dan de ongelijkheden op voor $k$.
+\end{werkwijze}
+
+Een kleine oplossing zie je soms ook meteen, en dan hoef je niet te rekenen. In $7x + 11y = 300$ moet $300 - 11y$ een zevenvoud zijn. Probeer $y = 26$: $300 - 286 = 14$, dus $x = 2$. Dat is sneller, maar alleen Bachet-Bézout werkt altijd.
+
+\nujij{Bepaal alle gehele oplossingen van $12x + 18y = 30$.}{$d = 6$ en $6 \deelt 30$. Deel door 6: $2x + 3y = 5$, met de oplossing $(1, 1)$. Alle oplossingen: $x = 1 + 3k$, $y = 1 - 2k$, met $k \in \Z$.}
+
+\begin{oefeningen}
+\oef{h1-dioph}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Matrices zagen de leerlingen in het 5de jaar. Rijen en Logica en bewijzen staan in het 6de jaar: geef die oefeningen pas als de rij van Fibonacci en volledige inductie gezien zijn.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-rest}{oef:h1-rest}%
+  \fv{oef:h1-t2}{vb:h1-euclides}{oef:h1-euclides}%
+  \fv{oef:h1-t3}{vb:h1-bezout}{oef:h1-bezout}%
+  \fv{oef:h1-t4}{vb:h1-terug}{oef:h1-oplosbaar}%
+  \fv{oef:h1-t5}{vb:h1-dioph}{oef:h1-dioph}%
+  \fv{oef:h1-t6}{vb:h1-ndeler}{oef:h1-eig}%
+  \fv{oef:h1-t7}{vb:h1-zes}{oef:h1-gauss}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de drie eigenschappen van \textit{deelt}, de deling met rest, de definitie van de ggd en van relatief priem, het algoritme van Euclides met de stelling waarop het steunt, de stelling van Bachet-Bézout en het idee van haar bewijs, wanneer $ax + by = c$ een gehele oplossing heeft, het lemma van Gauss, en hoe je alle oplossingen van een lineaire diophantische vergelijking vindt. Vergelijk daarna met de kaders.
+\fi

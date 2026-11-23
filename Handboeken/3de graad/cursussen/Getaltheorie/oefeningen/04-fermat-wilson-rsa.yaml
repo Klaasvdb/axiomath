@@ -1,0 +1,1040 @@
+# Oefeningen van hoofdstuk 4. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h4-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken of beantwoord.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        de rest van $2^{10}$ bij deling door 11
+      antwoord: |-
+        1
+      uitwerking: |-
+        $1024 = 93 \cdot 11 + 1$.
+    - opgave: |-
+        $5!$
+      antwoord: |-
+        120
+      uitwerking: |-
+        $1 \cdot 2 \cdot 3 \cdot 4 \cdot 5$.
+    - opgave: |-
+        de omgekeerde van 3 modulo 7
+      antwoord: |-
+        5
+      uitwerking: |-
+        $3 \cdot 5 = 15 \equiv 1$.
+    - opgave: |-
+        13 als som van machten van 2
+      antwoord: |-
+        $8 + 4 + 1$
+      uitwerking: |-
+        Binair: 1101.
+    - opgave: |-
+        de rest van $6!$ bij deling door 7
+      antwoord: |-
+        6
+      uitwerking: |-
+        $720 = 102 \cdot 7 + 6$.
+    - opgave: |-
+        $\ggd(7, 60)$
+      antwoord: |-
+        1
+      uitwerking: |-
+        7 is priem en deelt 60 niet.
+
+- id: h4-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Machten en faculteiten modulo $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $a^4 \bmod 5$ voor $a = 1, 2, 3, 4$, en $a^3 \bmod 4$ voor $a = 1, 2, 3$.
+      antwoord: |-
+        1, 1, 1, 1; 1, 0, 3
+      uitwerking: |-
+        $2^4 = 16$, $3^4 = 81$, $4^4 = 256$: telkens rest 1. Modulo 4: $1$, $8 \equiv 0$, $27 \equiv 3$.
+    - opgave: |-
+        Bereken $(n - 1)! \bmod n$ voor $n = 3, 4, 5, 6, 7$.
+      antwoord: |-
+        2, 2, 4, 0, 6
+      uitwerking: |-
+        $2! = 2$, $3! = 6 \equiv 2$, $4! = 24 \equiv 4$, $5! = 120 \equiv 0$, $6! = 720 \equiv 6$.
+    - opgave: |-
+        Formuleer twee vermoedens voor een priemgetal $p$. Welke getallen $n$ uit a en b voldoen er niet aan?
+      antwoord: |-
+        $a^{p - 1} \equiv 1$ en $(p - 1)! \equiv -1$; 4 en 6
+      uitwerking: |-
+        Modulo 5 is $a^4 \equiv 1$; modulo 3, 5, 7 is $(p - 1)! \equiv p - 1 \equiv -1$. Voor de samengestelde 4 en 6 klopt het niet.
+
+- id: h4-fermat
+  soort: kort
+  opgave: |-
+    Bepaal de rest met de kleine stelling van Fermat.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $2^{100}$ bij deling door 13
+      antwoord: |-
+        3
+      uitwerking: |-
+        $100 = 12 \cdot 8 + 4$: $2^4 = 16 \equiv 3$.
+    - opgave: |-
+        $5^{2026}$ bij deling door 7
+      antwoord: |-
+        2
+      uitwerking: |-
+        $2026 = 6 \cdot 337 + 4$: $5^4 = 625 = 89 \cdot 7 + 2$.
+    - opgave: |-
+        $3^{1000}$ bij deling door 17
+      antwoord: |-
+        16
+      uitwerking: |-
+        $1000 = 16 \cdot 62 + 8$: $3^8 = 6561 = 385 \cdot 17 + 16$. Of: $3^4 = 81 \equiv 13 \equiv -4$, $3^8 \equiv 16$.
+    - opgave: |-
+        $10^{100}$ bij deling door 11
+      antwoord: |-
+        1
+      uitwerking: |-
+        $100 = 10 \cdot 10$.
+    - opgave: |-
+        $7^{222}$ bij deling door 23
+      antwoord: |-
+        3
+      uitwerking: |-
+        $222 = 22 \cdot 10 + 2$: $49 = 2 \cdot 23 + 3$.
+    - opgave: |-
+        $123^{456}$ bij deling door 7
+      antwoord: |-
+        1
+      uitwerking: |-
+        $7 \ndeelt 123$ en $456 = 6 \cdot 76$.
+
+- id: h4-fermattest
+  soort: kort
+  opgave: |-
+    Los op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een computer berekent dat $2^{220} \equiv 16 \md{221}$. Wat besluit je? Zoek daarna een deler van 221.
+      antwoord: |-
+        221 is niet priem; $221 = 13 \cdot 17$
+      uitwerking: |-
+        Was 221 priem, dan was $2^{220} \equiv 1$.
+    - opgave: |-
+        Toon aan dat $n^7 - n$ voor elke $n \in \Z$ deelbaar is door 7.
+      antwoord: |-
+        Fermat voor elke $a$
+      uitwerking: |-
+        $n^7 \equiv n \md{7}$ volgens de tweede vorm van de stelling.
+    - opgave: |-
+        Waarom mag je niet besluiten dat $5^{3} \equiv 1 \md{4}$, met $p = 4$?
+      antwoord: |-
+        4 is geen priemgetal
+      uitwerking: |-
+        Toevallig klopt het wel ($125 = 31 \cdot 4 + 1$), maar $3^3 = 27 \equiv 3 \md{4}$: Fermat geldt alleen voor priemgetallen.
+
+- id: h4-wilson
+  soort: kort
+  opgave: |-
+    Los op met de stelling van Wilson.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de rest van $12!$, van $11!$ en van $10!$ bij deling door 13.
+      antwoord: |-
+        12, 1, 6
+      uitwerking: |-
+        $12! \equiv -1 \equiv 12$. $12! = 11! \cdot 12 \equiv -11!$, dus $11! \equiv 1$. $11! = 10! \cdot 11 \equiv -2 \cdot 10!$, dus $-2 \cdot 10! \equiv 1$; de omgekeerde van $-2$ is $-7$ ($14 \equiv 1$), dus $10! \equiv -7 \equiv 6$.
+    - opgave: |-
+        Toon aan dat $6! + 1$ deelbaar is door 7 en $10! + 1$ door 11.
+      antwoord: |-
+        Wilson met $p = 7$ en $p = 11$
+      uitwerking: |-
+        $(p - 1)! \equiv -1$ betekent $p \deelt (p - 1)! + 1$. Controle: $721 = 7 \cdot 103$.
+    - opgave: |-
+        Is $9! + 1$ deelbaar door 10? Gebruik de omgekeerde van de stelling.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        10 is niet priem, dus $9! \not\equiv -1 \md{10}$. Inderdaad eindigt $9!$ op 0, en $9! + 1$ op 1.
+
+- id: h4-snel
+  soort: kort
+  opgave: |-
+    Bereken met kwadrateren en vermenigvuldigen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $3^{13} \bmod 50$
+      antwoord: |-
+        23
+      uitwerking: |-
+        $13 = 8 + 4 + 1$. $3^2 = 9$, $3^4 = 81 \equiv 31$, $3^8 \equiv 961 \equiv 11$. $11 \cdot 31 = 341 \equiv 41$, $41 \cdot 3 = 123 \equiv 23$.
+    - opgave: |-
+        $5^{20} \bmod 77$
+      antwoord: |-
+        67
+      uitwerking: |-
+        $20 = 16 + 4$. $5^2 = 25$, $5^4 = 625 \equiv 9$, $5^8 \equiv 81 \equiv 4$, $5^{16} \equiv 16$. $16 \cdot 9 = 144 \equiv 67$.
+    - opgave: |-
+        Hoeveel vermenigvuldigingen heb je nodig voor een exponent 1000? Schrijf 1000 als som van machten van 2.
+      antwoord: |-
+        14
+      uitwerking: |-
+        $1000 = 512 + 256 + 128 + 64 + 32 + 8$: negen keer kwadrateren (tot $a^{512}$) en vijf keer vermenigvuldigen.
+
+- id: h4-euler
+  soort: kort
+  opgave: |-
+    Bereken met de stelling van Euler voor $pq$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $4^{100} \bmod 21$
+      antwoord: |-
+        4
+      uitwerking: |-
+        $21 = 3 \cdot 7$: $4^{12} \equiv 1$. $100 = 12 \cdot 8 + 4$: $4^4 = 256 = 12 \cdot 21 + 4$.
+    - opgave: |-
+        $2^{2026} \bmod 35$
+      antwoord: |-
+        9
+      uitwerking: |-
+        $35 = 5 \cdot 7$: $2^{24} \equiv 1$. $2026 = 24 \cdot 84 + 10$: $2^{10} = 1024 = 29 \cdot 35 + 9$.
+    - opgave: |-
+        Waarom mag je de stelling niet gebruiken voor $3^{100} \bmod 15$? Wat is de rest dan wel?
+      antwoord: |-
+        $\ggd(3, 15) \neq 1$; 6
+      uitwerking: |-
+        $3^k$ is nooit $\equiv 1 \md{15}$, want $3 \deelt 3^k$ en $3 \ndeelt 1 + 15t$. De resten van $3^k$ zijn $3, 9, 12, 6, 3, \ldots$ met periode 4; $100 = 4 \cdot 25$, dus de rest is 6.
+
+- id: h4-rsa
+  soort: kort
+  opgave: |-
+    Een klein RSA-systeem: $p = 5$, $q = 11$ en $e = 3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $n$, $m$ en de geheime sleutel $d$.
+      antwoord: |-
+        $n = 55$, $m = 40$, $d = 27$
+      uitwerking: |-
+        $3 \cdot 27 = 81 = 2 \cdot 40 + 1$.
+    - opgave: |-
+        Versleutel $M = 8$.
+      antwoord: |-
+        17
+      uitwerking: |-
+        $8^3 = 512 = 9 \cdot 55 + 17$.
+    - opgave: |-
+        Ontcijfer $c = 17$ met snel machtsverheffen.
+      antwoord: |-
+        8
+      uitwerking: |-
+        $27 = 16 + 8 + 2 + 1$. $17^2 = 289 \equiv 14$, $17^4 \equiv 196 \equiv 31$, $17^8 \equiv 961 \equiv 26$, $17^{16} \equiv 676 \equiv 16$. $16 \cdot 26 = 416 \equiv 31$, $31 \cdot 14 = 434 \equiv 49$, $49 \cdot 17 = 833 \equiv 8$.
+
+- id: h4-rsa-veilig
+  soort: kort
+  opgave: |-
+    Iemand publiceert de openbare sleutel $(n, e) = (323, 5)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kraak de sleutel: ontbind $n$ en bereken $d$.
+      antwoord: |-
+        $323 = 17 \cdot 19$, $d = 173$
+      uitwerking: |-
+        $m = 16 \cdot 18 = 288$. $288 = 57 \cdot 5 + 3$, $5 = 3 + 2$, $3 = 2 + 1$: $1 = 2 \cdot 3 - 5 = 2 \cdot 288 - 115 \cdot 5$. $-115 \equiv 173$; controle: $5 \cdot 173 = 865 = 3 \cdot 288 + 1$.
+    - opgave: |-
+        Waarom mag $e$ nooit even zijn?
+      antwoord: |-
+        $m$ is even
+      uitwerking: |-
+        $p - 1$ en $q - 1$ zijn even (voor $p, q > 2$), dus $2 \deelt m$ en dan is $\ggd(e, m) \neq 1$: er is geen $d$.
+
+# --- Opdrachten -------------------------------------------------------------------------
+
+- id: h4-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kleine stelling van Fermat
+  opgave: |-
+    Bepaal de rest.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2^{50}$ bij deling door 7
+      antwoord: |-
+        4
+      uitwerking: |-
+        $50 = 6 \cdot 8 + 2$.
+    - opgave: |-
+        $3^{2026}$ bij deling door 11
+      antwoord: |-
+        3
+      uitwerking: |-
+        $2026 = 10 \cdot 202 + 6$: $3^6 = 729 = 66 \cdot 11 + 3$.
+    - opgave: |-
+        $6^{100}$ bij deling door 13
+      antwoord: |-
+        9
+      uitwerking: |-
+        $100 = 12 \cdot 8 + 4$: $6^4 = 1296 = 99 \cdot 13 + 9$.
+    - opgave: |-
+        $4^{1001}$ bij deling door 19
+      antwoord: |-
+        16
+      uitwerking: |-
+        $1001 = 18 \cdot 55 + 11$. $4^2 \equiv -3$, $4^4 \equiv 9$, $4^8 \equiv 81 \equiv 5$, $4^{11} = 4^8 \cdot 4^2 \cdot 4 \equiv 5 \cdot (-3) \cdot 4 = -60 \equiv 16$.
+    - opgave: |-
+        $9^{99}$ bij deling door 23
+      antwoord: |-
+        1
+      uitwerking: |-
+        $9^{99} = 3^{198} = (3^{22})^9 \equiv 1$.
+    - opgave: |-
+        $20^{20}$ bij deling door 17
+      antwoord: |-
+        13
+      uitwerking: |-
+        $20 \equiv 3$, $3^{16} \equiv 1$: $3^4 = 81 \equiv 13$.
+
+- id: h4-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    stelling van Wilson
+  opgave: |-
+    Bepaal de rest.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $22!$ bij deling door 23
+      antwoord: |-
+        22
+      uitwerking: |-
+        Wilson: $-1 \equiv 22$.
+    - opgave: |-
+        $21!$ bij deling door 23
+      antwoord: |-
+        1
+      uitwerking: |-
+        $22! = 21! \cdot 22 \equiv -21! \equiv -1$.
+    - opgave: |-
+        $20!$ bij deling door 23
+      antwoord: |-
+        11
+      uitwerking: |-
+        $22! = 20! \cdot 21 \cdot 22 \equiv 20! \cdot (-2)(-1) = 2 \cdot 20!$. Dus $2 \cdot 20! \equiv -1$, en met de omgekeerde 12 van 2: $20! \equiv -12 \equiv 11$.
+    - opgave: |-
+        $(p - 2)! \bmod p$, met $p$ priem
+      antwoord: |-
+        1
+      uitwerking: |-
+        $(p - 1)! = (p - 2)! \cdot (p - 1) \equiv -(p - 2)! \equiv -1$.
+
+- id: h4-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    snel machtsverheffen
+  opgave: |-
+    Bereken met kwadrateren en vermenigvuldigen.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $2^{25} \bmod 39$
+      antwoord: |-
+        2
+      uitwerking: |-
+        $2^8 = 256 \equiv 22$, $2^{16} \equiv 484 \equiv 16$. $2^{25} = 2^{16} \cdot 2^8 \cdot 2 \equiv 16 \cdot 22 \cdot 2 = 704 \equiv 2$.
+    - opgave: |-
+        $7^{13} \bmod 100$
+      antwoord: |-
+        7
+      uitwerking: |-
+        $7^2 = 49$, $7^4 \equiv 2401 \equiv 1$, $7^8 \equiv 1$. $7^{13} \equiv 1 \cdot 1 \cdot 7$.
+    - opgave: |-
+        $11^{40} \bmod 97$
+      antwoord: |-
+        62
+      uitwerking: |-
+        $11^2 \equiv 24$, $11^4 \equiv 576 \equiv 91$, $11^8 \equiv 91^2 \equiv (-6)^2 = 36$, $11^{16} \equiv 1296 \equiv 35$, $11^{32} \equiv 1225 \equiv 61$. $11^{40} \equiv 61 \cdot 36 = 2196 \equiv 62$.
+
+- id: h4-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Fermattest
+  opgave: |-
+    Een computer berekent de volgende resten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $2^{340} \equiv 1 \md{341}$. Is 341 dan priem?
+      antwoord: |-
+        nee, $341 = 11 \cdot 31$
+      uitwerking: |-
+        Fermat zegt alleen: is $n$ priem, dan $a^{n - 1} \equiv 1$. Het omgekeerde geldt niet. 341 is een \textit{pseudopriemgetal} voor grondtal 2.
+    - opgave: |-
+        $3^{340} \equiv 56 \md{341}$. Wat besluit je?
+      antwoord: |-
+        341 is niet priem
+      uitwerking: |-
+        Met grondtal 3 faalt de test, en dat bewijst dat 341 samengesteld is.
+    - opgave: |-
+        $561 = 3 \cdot 11 \cdot 17$, en $a^{560} \equiv 1 \md{561}$ voor elke $a$ met $\ggd(a, 561) = 1$. Wat betekent dat voor de Fermattest?
+      antwoord: |-
+        de test herkent 561 nooit
+      uitwerking: |-
+        Met elk grondtal dat relatief priem is met 561 doorstaat 561 de test. Zulke getallen heten getallen van Carmichael (1910); 561 is het kleinste. Daarom gebruikt men verfijnde tests.
+
+- id: h4-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    RSA
+  opgave: |-
+    Een RSA-systeem met $p = 7$, $q = 13$ en $e = 5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $n$, $m$ en $d$.
+      antwoord: |-
+        $n = 91$, $m = 72$, $d = 29$
+      uitwerking: |-
+        $72 = 14 \cdot 5 + 2$, $5 = 2 \cdot 2 + 1$: $1 = 5 - 2 \cdot 2 = 29 \cdot 5 - 2 \cdot 72$. Controle: $145 = 2 \cdot 72 + 1$.
+    - opgave: |-
+        Versleutel $M = 10$.
+      antwoord: |-
+        82
+      uitwerking: |-
+        $10^2 = 100 \equiv 9$, $10^4 \equiv 81$, $10^5 \equiv 810 = 8 \cdot 91 + 82$.
+    - opgave: |-
+        Ontcijfer $c = 2$.
+      antwoord: |-
+        32
+      uitwerking: |-
+        $29 = 16 + 8 + 4 + 1$. $2^8 = 256 \equiv 74$, $2^{16} \equiv 74^2 = 5476 \equiv 16$. $2^{16} \cdot 2^8 = 16 \cdot 74 = 1184 \equiv 1$, dan $1 \cdot 2^4 \cdot 2 = 32$. Controle: $32^5 = 2^{25} \equiv 2$.
+
+- id: h4-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    stelling van Euler voor pq
+  opgave: |-
+    Bepaal de rest.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $3^{100}$ bij deling door 35
+      antwoord: |-
+        11
+      uitwerking: |-
+        $m = 4 \cdot 6 = 24$, $100 = 24 \cdot 4 + 4$: $3^4 = 81 \equiv 11$.
+    - opgave: |-
+        $2^{1000}$ bij deling door 33
+      antwoord: |-
+        1
+      uitwerking: |-
+        $m = 2 \cdot 10 = 20$, en $20 \deelt 1000$.
+    - opgave: |-
+        $5^{50}$ bij deling door 14
+      antwoord: |-
+        11
+      uitwerking: |-
+        $m = 1 \cdot 6 = 6$, $50 = 6 \cdot 8 + 2$: $5^2 = 25 \equiv 11$.
+
+- id: h4-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    omgekeerde van Wilson
+  opgave: |-
+    We bekijken $(n - 1)! \bmod n$ voor samengestelde getallen $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $(n - 1)! \bmod n$ voor $n = 4, 6, 8, 9, 10, 12$.
+      antwoord: |-
+        2, 0, 0, 0, 0, 0
+      uitwerking: |-
+        $3! = 6 \equiv 2 \md{4}$. Voor de andere deelt $n$ een product van twee verschillende factoren van $(n - 1)!$: $2 \cdot 3$ in $5!$, $2 \cdot 4$ in $7!$, $3 \cdot 6$ in $8!$, $2 \cdot 5$ in $9!$, $3 \cdot 4$ in $11!$.
+    - opgave: |-
+        Toon aan: is $n = ab$ met $1 < a < b < n$, dan is $(n - 1)! \equiv 0 \md{n}$.
+      antwoord: |-
+        $a$ en $b$ zijn twee verschillende factoren
+      uitwerking: |-
+        $a$ en $b$ komen allebei voor in $1 \cdot 2 \cdots (n - 1)$, op verschillende plaatsen, dus $ab \deelt (n - 1)!$.
+    - opgave: |-
+        Toon aan dat ook $(p^2 - 1)! \equiv 0 \md{p^2}$ voor een priemgetal $p \geqslant 3$. Waarom is $n = 4$ de enige uitzondering?
+      antwoord: |-
+        $p$ en $2p$ zijn factoren
+      uitwerking: |-
+        Voor $p \geqslant 3$ is $2p < p^2$, dus $p \cdot 2p = 2p^2$ deelt $(p^2 - 1)!$. Elk samengesteld getal is $ab$ met $a < b$ of een kwadraat $p^2$. Alleen voor $p = 2$ is $2p = p^2$, en dan is $3! \equiv 2$.
+
+- id: h4-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    torens van machten
+  opgave: |-
+    Bepaal de rest. Bereken eerst de exponent modulo $p - 1$ of modulo een kleinere periode.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $2^{2^{100}}$ bij deling door 7
+      antwoord: |-
+        2
+      uitwerking: |-
+        $2^3 \equiv 1 \md{7}$, dus de exponent telt modulo 3. $2^{100} \equiv (-1)^{100} = 1 \md{3}$, dus $2^{2^{100}} \equiv 2^1 = 2$.
+    - opgave: |-
+        $7^{7^7}$ bij deling door 10 (het laatste cijfer)
+      antwoord: |-
+        3
+      uitwerking: |-
+        $7^4 \equiv 1 \md{10}$: de exponent telt modulo 4. $7^7 \equiv (-1)^7 = -1 \equiv 3 \md{4}$. Dus $7^{7^7} \equiv 7^3 = 343 \equiv 3$.
+    - opgave: |-
+        $3^{3^{3}}$ bij deling door 11
+      antwoord: |-
+        9
+      uitwerking: |-
+        $3^5 = 243 \equiv 1 \md{11}$: de exponent telt modulo 5. $3^3 = 27 \equiv 2 \md{5}$, dus $3^{27} \equiv 3^2 = 9$.
+
+- id: h4-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    omgekeerde met Fermat
+  opgave: |-
+    Neem een priemgetal $p$ en $p \ndeelt a$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $a^{p - 2}$ een omgekeerde is van $a$ modulo $p$.
+      antwoord: |-
+        $a \cdot a^{p - 2} = a^{p - 1} \equiv 1$
+      uitwerking: |-
+        Kleine stelling van Fermat.
+    - opgave: |-
+        Bereken zo de omgekeerde van 3 modulo 11, en van 5 modulo 13.
+      antwoord: |-
+        4; 8
+      uitwerking: |-
+        $3^9 = 3^5 \cdot 3^4 \equiv 1 \cdot 81 \equiv 4$; controle $12 \equiv 1$. $5^{11} = (5^2)^5 \cdot 5 \equiv (-1)^5 \cdot 5 = -5 \equiv 8$; controle $40 = 3 \cdot 13 + 1$.
+    - opgave: |-
+        Vergelijk met het algoritme van Euclides. Welke methode is sneller voor grote $p$?
+      antwoord: |-
+        beide snel; Euclides iets sneller
+      uitwerking: |-
+        Snel machtsverheffen kost ongeveer $2 \log_2 p$ vermenigvuldigingen. Euclides heeft hoogstens ongeveer evenveel stappen, maar elke stap is een deling met kleinere getallen. Bovendien werkt Euclides ook als de modulus geen priemgetal is.
+
+- id: h4-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    deelbaarheid met Fermat
+  opgave: |-
+    Toon aan voor elk geheel getal $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $13 \deelt n^{13} - n$
+      antwoord: |-
+        Fermat voor elke $a$
+      uitwerking: |-
+        $n^{13} \equiv n \md{13}$.
+    - opgave: |-
+        $30 \deelt n^5 - n$
+      antwoord: |-
+        modulo 2, 3 en 5
+      uitwerking: |-
+        Modulo 5: Fermat. Modulo 3: $n^3 \equiv n$, dus $n^5 = n^3 \cdot n^2 \equiv n^3 \equiv n$. Modulo 2: $n^2 \equiv n$, dus ook $n^5 \equiv n$. De drie priemgetallen delen $n^5 - n$, dus ook hun product 30.
+    - opgave: |-
+        Is ook $n^4 - n$ altijd deelbaar door 4?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $n = 2$: $16 - 2 = 14$. 4 is geen priemgetal.
+
+- id: h4-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    digitale handtekening
+  opgave: |-
+    Met RSA kan Tom ook een bericht ondertekenen. Hij berekent $s = M^d \bmod n$ met zijn geheime sleutel. Iedereen controleert dan of $s^e \equiv M \md{n}$. Tom gebruikt de sleutels van het probleem: $n = 391$, $e = 7$, $d = 151$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom kan alleen Tom een geldige handtekening maken?
+      antwoord: |-
+        alleen hij kent $d$
+      uitwerking: |-
+        Een $s$ met $s^7 \equiv M$ vinden zonder $d$ is even moeilijk als RSA kraken.
+    - opgave: |-
+        Een computer geeft $2^{151} \equiv 26 \md{391}$. Tom ondertekent $M = 2$ met $s = 26$. Controleer de handtekening.
+      antwoord: |-
+        $26^7 \equiv 2$
+      uitwerking: |-
+        $26^2 = 676 \equiv 285$, $26^4 \equiv 285^2 = 81\,225 \equiv 288$, $26^7 = 26^4 \cdot 26^2 \cdot 26 \equiv 288 \cdot 285 \cdot 26$. $288 \cdot 285 = 82\,080 \equiv 361$, $361 \cdot 26 = 9386 \equiv 2$.
+    - opgave: |-
+        Waarom werkt de controle altijd? Gebruik de stelling van RSA.
+      antwoord: |-
+        $(M^d)^e = M^{ed}$
+      uitwerking: |-
+        $s^e = M^{de} = M^{ed} \equiv M$, met hetzelfde bewijs als voor het ontcijferen.
+
+- id: h4-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    berichten die niet veranderen
+  opgave: |-
+    Neem een RSA-systeem met openbare sleutel $(n, e)$, waarbij $e$ oneven is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de berichten $M = 0$, $M = 1$ en $M = n - 1$ niet veranderen bij het versleutelen.
+      antwoord: |-
+        $0^e = 0$, $1^e = 1$, $(-1)^e = -1$
+      uitwerking: |-
+        $n - 1 \equiv -1$, en $e$ is oneven.
+    - opgave: |-
+        Waarom is $e$ altijd oneven?
+      antwoord: |-
+        $\ggd(e, m) = 1$ met $m$ even
+      uitwerking: |-
+        $m = (p - 1)(q - 1)$ is even, en $\ggd(e, m) = 1$.
+    - opgave: |-
+        Zoek in het systeem van opdracht \ref{oef:h4-o5} ($n = 91$, $e = 5$) nog een bericht $M$ met $1 < M < 90$ dat niet verandert. Tip: probeer $M = 27$.
+      antwoord: |-
+        bv. 27
+      uitwerking: |-
+        $27 \equiv 1 \md{13}$ en $27 \equiv -1 \md{7}$, dus $27^5 \equiv 1$ modulo 13 en $\equiv -1 \equiv 27$ modulo 7: $27^5 \equiv 27$ modulo beide, dus modulo 91.
+
+- id: h4-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de functie phi van Euler
+  opgave: |-
+    $\varphi(n)$ is het aantal getallen van 1 tot $n$ die relatief priem zijn met $n$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\varphi(10)$, $\varphi(12)$, $\varphi(15)$ en $\varphi(16)$.
+      antwoord: |-
+        4, 4, 8, 8
+      uitwerking: |-
+        Tel: 1, 3, 7, 9; 1, 5, 7, 11; acht getallen zonder factor 3 of 5; de acht oneven getallen.
+    - opgave: |-
+        Controleer $a^{\varphi(n)} \equiv 1$ voor $3$ modulo 10, $5$ modulo 12 en $3$ modulo 16.
+      antwoord: |-
+        $81$, $625$, $6561$
+      uitwerking: |-
+        $81 \equiv 1 \md{10}$, $625 = 52 \cdot 12 + 1$, $6561 = 410 \cdot 16 + 1$.
+    - opgave: |-
+        Toon aan dat $\varphi(pq) = (p - 1)(q - 1)$ voor verschillende priemgetallen $p$ en $q$.
+      antwoord: |-
+        tel de veelvouden van $p$ en $q$ af
+      uitwerking: |-
+        Van $1, \ldots, pq$ hebben de $q$ veelvouden van $p$ en de $p$ veelvouden van $q$ een factor gemeen met $pq$; $pq$ zelf is dubbel geteld. $pq - q - p + 1 = (p - 1)(q - 1)$.
+
+- id: h4-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    RSA kraken als p en q dicht bij elkaar liggen
+  opgave: |-
+    De openbare sleutel is $(n, e) = (2021, 5)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $45^2 = 2025$. Schrijf $2021$ als verschil van twee kwadraten en ontbind.
+      antwoord: |-
+        $2021 = 45^2 - 2^2 = 43 \cdot 47$
+      uitwerking: |-
+        $a^2 - b^2 = (a - b)(a + b)$.
+    - opgave: |-
+        Bereken de geheime sleutel $d$.
+      antwoord: |-
+        773
+      uitwerking: |-
+        $m = 42 \cdot 46 = 1932$. $1932 = 386 \cdot 5 + 2$, $5 = 2 \cdot 2 + 1$: $1 = 5 - 2 \cdot 2 = 773 \cdot 5 - 2 \cdot 1932$. Controle: $3865 = 2 \cdot 1932 + 1$.
+    - opgave: |-
+        Waarom kiest men $p$ en $q$ best niet te dicht bij elkaar?
+      antwoord: |-
+        dan is $n$ bijna een kwadraat
+      uitwerking: |-
+        Liggen ze dicht bij elkaar, dan is $n = \bigl(\tfrac{p + q}{2}\bigr)^2 - \bigl(\tfrac{q - p}{2}\bigr)^2$ met een klein tweede kwadraat. Probeer $a = \lceil \sqrt n \rceil, \ldots$ tot $a^2 - n$ een kwadraat is. Dat is de ontbindingsmethode van Fermat.
+
+- id: h4-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    orde modulo p
+  opgave: |-
+    De \textit{orde} van $a$ modulo $p$ is de kleinste $k \geqslant 1$ met $a^k \equiv 1 \md{p}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de ordes van 1 tot 6 modulo 7 af in de tabel van sectie 1.
+      antwoord: |-
+        1, 3, 6, 3, 6, 2
+      uitwerking: |-
+        De eerste kolom met een 1 in elke rij.
+    - opgave: |-
+        Bepaal de ordes van 1 tot 10 modulo 11.
+      antwoord: |-
+        1, 10, 5, 5, 5, 10, 10, 10, 5, 2
+      uitwerking: |-
+        Bv. $3^5 = 243 \equiv 1$, $2^5 = 32 \equiv -1$, dus 2 heeft orde 10.
+    - opgave: |-
+        Welke ordes komen voor? Wat vermoed je over het verband met $p - 1$?
+      antwoord: |-
+        delers van $p - 1$
+      uitwerking: |-
+        Modulo 7: 1, 2, 3, 6; modulo 11: 1, 2, 5, 10. Telkens een deler van $p - 1$. Dat bewijs je in de laatste opdracht van dit hoofdstuk.
+
+- id: h4-o16
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een vierkantswortel van -1 met Wilson
+  opgave: |-
+    Neem een oneven priemgetal $p$ en $h = \frac{p - 1}{2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $6! \bmod 13$ en $(6!)^2 \bmod 13$.
+      antwoord: |-
+        5 en 12
+      uitwerking: |-
+        $720 = 55 \cdot 13 + 5$, en $25 \equiv 12 \equiv -1$.
+    - opgave: |-
+        Schrijf $(p - 1)! = \prod_{k = 1}^{h} k(p - k)$ en toon aan dat $(p - 1)! \equiv (-1)^h (h!)^2 \md{p}$.
+      antwoord: |-
+        $p - k \equiv -k$
+      uitwerking: |-
+        Elk paar $k(p - k) \equiv -k^2$, en er zijn $h$ paren: $(-1)^h (1 \cdot 2 \cdots h)^2$.
+    - opgave: |-
+        Besluit met Wilson: is $p \equiv 1 \md{4}$, dan is $(h!)^2 \equiv -1 \md{p}$.
+      antwoord: |-
+        $h$ is even
+      uitwerking: |-
+        $-1 \equiv (-1)^h (h!)^2$. Is $p = 4k + 1$, dan $h = 2k$ even, dus $(h!)^2 \equiv -1$. Zo heeft $x^2 \equiv -1 \md{p}$ een oplossing, zoals je in hoofdstuk 3 vond voor 5, 13, 17 en 29.
+
+- id: h4-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    RSA zonder voorwaarde op M
+  opgave: |-
+    We tonen aan dat RSA ook werkt als $\ggd(M, n) \neq 1$. Neem $n = pq$ en $ed = 1 + k(p - 1)(q - 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $M^{ed} \equiv M \md{p}$, zowel als $p \deelt M$ als wanneer $p \ndeelt M$.
+      antwoord: |-
+        0 of Fermat
+      uitwerking: |-
+        Als $p \deelt M$, dan zijn beide leden $\equiv 0$. Anders is $M^{ed} = M \cdot (M^{p - 1})^{k(q - 1)} \equiv M$.
+    - opgave: |-
+        Besluit dat $M^{ed} \equiv M \md{n}$ voor elke $M$.
+      antwoord: |-
+        product van delers
+      uitwerking: |-
+        Net zo modulo $q$. Dus $p$ en $q$ delen $M^{ed} - M$, en dan ook $pq$.
+    - opgave: |-
+        Controleer met het systeem $n = 55$, $e = 3$, $d = 27$ voor $M = 10$.
+      antwoord: |-
+        $10^3 \equiv 10$, en $10^{27} \equiv 10$
+      uitwerking: |-
+        $10^3 = 1000 = 18 \cdot 55 + 10$: 10 verandert zelfs niet. Dan ook $10^{81} \equiv 10$.
+
+- id: h4-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    sneller ontcijferen met de Chinese reststelling
+  opgave: |-
+    Tom kent $p = 17$ en $q = 23$, en kan het ontcijferen van $c = 127$ met $d = 151$ opsplitsen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat modulo 17 alleen de rest van $d$ bij deling door 16 telt, en modulo 23 alleen de rest bij deling door 22. Bereken beide resten.
+      antwoord: |-
+        7 en 19
+      uitwerking: |-
+        Fermat: modulo 17 telt de exponent modulo 16, modulo 23 modulo 22. $151 = 9 \cdot 16 + 7 = 6 \cdot 22 + 19$.
+    - opgave: |-
+        Bereken $127^7 \bmod 17$ en $127^{19} \bmod 23$. Gebruik dat $127 \equiv 8$ modulo 17 en $127 \equiv 12$ modulo 23.
+      antwoord: |-
+        15 en 8
+      uitwerking: |-
+        $8^2 = 64 \equiv 13 \equiv -4$, $8^4 \equiv 16 \equiv -1$, $8^7 = 8^4 \cdot 8^2 \cdot 8 \equiv (-1)(-4) \cdot 8 = 32 \equiv 15$. $12^2 = 144 \equiv 6$, $12^4 \equiv 36 \equiv 13$, $12^8 \equiv 169 \equiv 8$, $12^{16} \equiv 64 \equiv 18$; $12^{19} = 12^{16} \cdot 12^2 \cdot 12 \equiv 18 \cdot 6 \cdot 12 = 1296 \equiv 8$.
+    - opgave: |-
+        Los het stelsel $M \equiv 15 \md{17}$, $M \equiv 8 \md{23}$ op.
+      antwoord: |-
+        $M = 100$
+      uitwerking: |-
+        $M = 15 + 17k \equiv 8 \md{23}$: $17k \equiv -7 \equiv 16$. De omgekeerde van 17 modulo 23 is 19 ($323 = 14 \cdot 23 + 1$): $k \equiv 304 \equiv 5$. $M = 15 + 85 = 100$.
+
+- id: h4-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    periode van een decimale breuk
+  opgave: |-
+    $\frac17 = 0{,}\overline{142857}$ heeft een periode van 6 cijfers, en $6 = 7 - 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan: als $10^k \equiv 1 \md{p}$, dan is $\frac1p = \frac{N}{10^k - 1}$ met $N \in \N$, en heeft $\frac1p$ een periode van (hoogstens) $k$ cijfers.
+      antwoord: |-
+        $N = \frac{10^k - 1}{p}$
+      uitwerking: |-
+        $\frac{N}{10^k - 1} = N \cdot (10^{-k} + 10^{-2k} + \cdots)$: de $k$ cijfers van $N$ (met nullen vooraan) herhalen zich.
+    - opgave: |-
+        Leid uit Fermat af dat de periode van $\frac1p$ hoogstens $p - 1$ is, voor elk priemgetal $p \neq 2, 5$.
+      antwoord: |-
+        $10^{p - 1} \equiv 1$
+      uitwerking: |-
+        $p \ndeelt 10$, dus Fermat met $a = 10$ en $k = p - 1$.
+    - opgave: |-
+        $\frac{1}{41}$ heeft een veel kortere periode. Bereken $10^5 \bmod 41$ en schrijf $\frac{1}{41}$ als decimaal getal.
+      antwoord: |-
+        $10^5 \equiv 1$; $0{,}\overline{02439}$
+      uitwerking: |-
+        $10^5 = 2439 \cdot 41 + 1$, dus $\frac{1}{41} = \frac{2439}{99\,999} = 0{,}\overline{02439}$.
+
+- id: h4-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    stelling van Wilson met een paarsgewijze telling
+  opgave: |-
+    Bekijk het bewijs van Wilson voor $p = 13$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Deel $2, 3, \ldots, 11$ op in paren getallen die elkaars omgekeerde zijn modulo 13.
+      antwoord: |-
+        $\{2, 7\}$, $\{3, 9\}$, $\{4, 10\}$, $\{5, 8\}$, $\{6, 11\}$
+      uitwerking: |-
+        $14$, $27$, $40$, $40$ en $66$ zijn allemaal $\equiv 1 \md{13}$.
+    - opgave: |-
+        Waarom werkt het bewijs niet voor $n = 9$? Welke getallen van 2 tot 7 hebben geen omgekeerde?
+      antwoord: |-
+        3 en 6
+      uitwerking: |-
+        $\ggd(3, 9) = \ggd(6, 9) = 3$. Het bewijs veronderstelt dat elk getal een omgekeerde heeft.
+    - opgave: |-
+        Welke getallen zijn modulo 8 hun eigen omgekeerde? Waarom faalt hier de stap ``dan is $a = 1$ of $a = p - 1$''?
+      antwoord: |-
+        1, 3, 5, 7
+      uitwerking: |-
+        $3^2 = 9 \equiv 1$ en $5^2 = 25 \equiv 1$. Uit $8 \deelt (a - 1)(a + 1)$ volgt niet dat 8 een van de factoren deelt: 8 is niet priem.
+
+- id: h4-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de orde deelt p - 1
+  opgave: |-
+    Neem een priemgetal $p$, $p \ndeelt a$, en $k$ de orde van $a$ modulo $p$ (zie opdracht \ref{oef:h4-o15}).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan: als $a^s \equiv 1$ en $a^t \equiv 1$, dan $a^{\ggd(s, t)} \equiv 1$. Gebruik Bachet-Bézout. (Voor negatieve exponenten: $a^{-1}$ is de omgekeerde.)
+      antwoord: |-
+        $\ggd(s, t) = sx + ty$
+      uitwerking: |-
+        $a^{\ggd(s, t)} = a^{sx + ty} = (a^s)^x (a^t)^y \equiv 1$.
+    - opgave: |-
+        Besluit dat $k \deelt p - 1$.
+      antwoord: |-
+        anders een kleinere exponent
+      uitwerking: |-
+        $a^k \equiv 1$ en $a^{p - 1} \equiv 1$ (Fermat), dus $a^g \equiv 1$ met $g = \ggd(k, p - 1) \leqslant k$. Omdat $k$ de kleinste is, is $g = k$, en $k \deelt p - 1$.
+    - opgave: |-
+        Toon aan dat $a^n \equiv 1 \md{p}$ als en slechts als $k \deelt n$.
+      antwoord: |-
+        deel $n$ door $k$
+      uitwerking: |-
+        $n = kq + r$ met $0 \leqslant r < k$: $a^n = (a^k)^q a^r \equiv a^r$. Dat is 1 als en slechts als $r = 0$, want $k$ is de kleinste positieve exponent.
+
+# --- Koppel -----------------------------------------------------------------------------
+
+- id: h4-koppel-1
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Telproblemen
+  opgave: |-
+    Een tweede bewijs van Fermat, met het binomium van Newton. Neem een priemgetal $p$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $p \deelt \binom pk$ voor $0 < k < p$. Gebruik $k! \binom pk = p(p - 1) \cdots (p - k + 1)$.
+      antwoord: |-
+        $p$ deelt het rechterlid, niet $k!$
+      uitwerking: |-
+        $p$ deelt het rechterlid. Geen factor van $k!$ is deelbaar door $p$, dus $p \ndeelt k!$, en volgens het lemma van Euclides $p \deelt \binom pk$.
+    - opgave: |-
+        Toon aan dat $(a + 1)^p \equiv a^p + 1 \md{p}$.
+      antwoord: |-
+        de middelste termen vallen weg
+      uitwerking: |-
+        $(a + 1)^p = \sum_{k = 0}^{p} \binom pk a^k$, en alle termen met $0 < k < p$ zijn $\equiv 0$.
+    - opgave: |-
+        Bewijs met volledige inductie dat $a^p \equiv a \md{p}$ voor elk $a \in \N$.
+      antwoord: |-
+        $(a + 1)^p \equiv a^p + 1 \equiv a + 1$
+      uitwerking: |-
+        Voor $a = 0$ klopt het. Stel $a^p \equiv a$; dan $(a + 1)^p \equiv a^p + 1 \equiv a + 1$.
+
+- id: h4-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Groepen
+  opgave: |-
+    De getallen $1, 2, \ldots, p - 1$ vormen met de vermenigvuldiging modulo $p$ een groep $G$ van orde $p - 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom heeft elk element een invers in $G$, en waarom is $G$ gesloten?
+      antwoord: |-
+        omgekeerde modulo $p$; lemma van Euclides
+      uitwerking: |-
+        Elk $a \not\equiv 0$ heeft een omgekeerde modulo $p$. Als $p \ndeelt a$ en $p \ndeelt b$, dan $p \ndeelt ab$.
+    - opgave: |-
+        De machten van $a$ vormen een deelgroep. Hoeveel elementen heeft die, uitgedrukt met de orde $k$ van $a$?
+      antwoord: |-
+        $k$
+      uitwerking: |-
+        $\{1, a, a^2, \ldots, a^{k - 1}\}$: $k$ verschillende elementen, want $a^i \equiv a^j$ met $0 \leqslant i < j < k$ gaf $a^{j - i} \equiv 1$ met $0 < j - i < k$.
+    - opgave: |-
+        Leid de kleine stelling van Fermat af uit de stelling van Lagrange.
+      antwoord: |-
+        $k \deelt p - 1$
+      uitwerking: |-
+        De orde van een deelgroep deelt de orde van de groep: $k \deelt p - 1$. Dus $a^{p - 1} = (a^k)^{(p - 1)/k} \equiv 1$.
+
+- id: h4-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: |-
+      Exponentiële en logaritmische functies
+  opgave: |-
+    Een RSA-sleutel van ``2048 bits'' heeft een modulus $n$ met 2048 binaire cijfers: $2^{2047} \leqslant n < 2^{2048}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel decimale cijfers heeft $n$ ongeveer?
+      antwoord: |-
+        617
+      uitwerking: |-
+        $\log 2^{2048} = 2048 \log 2 \approx 616{,}5$, dus $n < 10^{616{,}5}$: hoogstens 617 cijfers.
+    - opgave: |-
+        Een exponent met 600 decimale cijfers: hoeveel binaire cijfers heeft die, en hoeveel vermenigvuldigingen kost snel machtsverheffen hoogstens?
+      antwoord: |-
+        ongeveer 1994; ongeveer 4000
+      uitwerking: |-
+        $\log_2 10^{600} = \frac{600}{\log 2} \approx 1993{,}2$, dus 1994 binaire cijfers, en hoogstens $2 \cdot 1994$ vermenigvuldigingen.
+    - opgave: |-
+        Iemand probeert $n$ te ontbinden door alle getallen tot $\sqrt n$ als deler te testen, met $10^{12}$ delingen per seconde. Hoeveel jaar duurt dat ongeveer? (Een jaar heeft ongeveer $3{,}2 \cdot 10^7$ seconden.)
+      antwoord: |-
+        ongeveer $3 \cdot 10^{288}$ jaar
+      uitwerking: |-
+        $\sqrt n \approx 10^{308}$ delingen: $\frac{10^{308}}{10^{12} \cdot 3{,}2 \cdot 10^7} \approx 3 \cdot 10^{288}$ jaar.
+
+# --- Test jezelf ------------------------------------------------------------------------
+
+- id: h4-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal de rest van $5^{100}$ bij deling door 11 en van $2^{2027}$ bij deling door 13.
+  antwoord: |-
+    1; 7
+  uitwerking: |-
+    $5^{10} \equiv 1$ en $10 \deelt 100$. $2^{12} \equiv 1$, $2027 = 12 \cdot 168 + 11$: $2^{11} = 2048 = 157 \cdot 13 + 7$.
+
+- id: h4-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een computer berekent $2^{86} \equiv 4 \md{87}$. Wat besluit je over 87, zonder een deler te zoeken? Waarom?
+  antwoord: |-
+    87 is niet priem
+  uitwerking: |-
+    Was 87 priem, dan was $2^{86} \equiv 1$ (Fermat). Inderdaad: $87 = 3 \cdot 29$.
+
+- id: h4-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepaal de rest van $28!$ bij deling door 31.
+  antwoord: |-
+    15
+  uitwerking: |-
+    $30! = 28! \cdot 29 \cdot 30 \equiv 28! \cdot (-2)(-1) = 2 \cdot 28! \equiv -1$. De omgekeerde van 2 is 16: $28! \equiv -16 \equiv 15$.
+
+- id: h4-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken $3^{21} \bmod 47$ met kwadrateren en vermenigvuldigen.
+  antwoord: |-
+    21
+  uitwerking: |-
+    $21 = 16 + 4 + 1$. $3^2 = 9$, $3^4 = 81 \equiv 34$, $3^8 \equiv 1156 \equiv 28$, $3^{16} \equiv 784 \equiv 32$. $32 \cdot 34 = 1088 \equiv 7$, $7 \cdot 3 = 21$.
+
+- id: h4-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal de rest van $2^{100}$ bij deling door 21 met de stelling van Euler.
+  antwoord: |-
+    16
+  uitwerking: |-
+    $21 = 3 \cdot 7$: $2^{12} \equiv 1$, $100 = 12 \cdot 8 + 4$: $2^4 = 16$.
+
+- id: h4-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een RSA-systeem heeft $p = 11$, $q = 13$ en $e = 7$. Bepaal de openbare en de geheime sleutel, en versleutel $M = 2$.
+  antwoord: |-
+    $(143, 7)$; $d = 103$; 128
+  uitwerking: |-
+    $m = 120$. $120 = 17 \cdot 7 + 1$: $1 = 120 - 17 \cdot 7$, dus $d \equiv -17 \equiv 103$. $2^7 = 128 < 143$.
+
+- id: h4-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    De openbare sleutel is $(221, 5)$. Kraak de sleutel en ontcijfer het bericht $c = 32$.
+  antwoord: |-
+    $221 = 13 \cdot 17$, $d = 77$; $M = 2$
+  uitwerking: |-
+    $m = 12 \cdot 16 = 192$. $192 = 38 \cdot 5 + 2$, $5 = 2 \cdot 2 + 1$: $1 = 5 - 2(192 - 38 \cdot 5) = 77 \cdot 5 - 2 \cdot 192$. $M \equiv 32^{77}$; omdat $32 = 2^5$, is $M = 2$: $2^5 = 32$.

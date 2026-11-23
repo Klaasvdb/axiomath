@@ -198,6 +198,7 @@ Toegevoegd op 6 november 2026: elke cursus erfde hetzelfde schilderij van Monet,
 | Statistiek | Rembrandt van Rijn, *De staalmeesters*, 1662 | Laken keuren op basis van stalen: een steekproef | De normale verdeling, met 68 % binnen één σ |
 | Onderzoekscompetentie | Johannes Vermeer, *De geograaf*, ca. 1669 | Een onderzoeker met passer en kaart | Meetpunten rond de best passende rechte, die de rand vormt |
 | Kegelsneden | Joseph Wright of Derby, *Een filosoof geeft uitleg bij het planetarium*, ca. 1766 | De ringen van het planetarium zijn ellipsen, de banen van de planeten, en de lamp werpt schaduwen | Eén brandpunt en één top, met een ellips, een parabool en een hyperbool erdoor |
+| Getaltheorie | Hans Holbein de Jonge, *De ambassadeurs*, 1533 | Op de onderste plank ligt een rekenboek voor kooplieden (Peter Apian, 1527), opengeslagen bij het delen | Het algoritme van Euclides voor 91 en 35: een rechthoek van 91 bij 35 gevuld met zo groot mogelijke vierkanten, de kleinste met zijde ggd(91, 35) = 7 |
 
 Vul deze tabel aan bij elk nieuw onderwerp.
 

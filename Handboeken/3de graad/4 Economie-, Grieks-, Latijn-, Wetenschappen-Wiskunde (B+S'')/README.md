@@ -17,6 +17,7 @@ Leerplan: B+S'' (Katholiek Onderwijs Vlaanderen). Doelen volgens de tabel met le
 | [Algebra/Groepen](Algebra/Groepen) | LPD 43 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Meetkunde/Ruimtemeetkunde](Meetkunde/Ruimtemeetkunde) | LPD 5-8 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Meetkunde/Kegelsneden](Meetkunde/Kegelsneden) | uitbreiding: GO! WD3\_06.08.11, KOV Complementair | vijf hoofdstukken, eerste versie, nog na te lezen |
+| [Algebra/Getaltheorie](Algebra/Getaltheorie) | uitbreiding: KOV Complementair (III-WiCo-d LPD 35) | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Discrete wiskunde/Rijen](Discrete%20wiskunde/Rijen) | LPD 44-46 | vier hoofdstukken, eerste versie, nog na te lezen |
 | [Discrete wiskunde/Telproblemen](Discrete%20wiskunde/Telproblemen) | LPD 47 | drie hoofdstukken, eerste versie, nog na te lezen |
 | [Discrete wiskunde/Logica en bewijzen](Discrete%20wiskunde/Logica%20en%20bewijzen) | LPD 4 (bewijstechnieken) | 3 hoofdstukken, eerste versie, nog na te lezen |
