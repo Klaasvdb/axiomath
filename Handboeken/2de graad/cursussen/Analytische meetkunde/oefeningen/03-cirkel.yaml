@@ -1,0 +1,991 @@
+# Oefeningen van hoofdstuk 3 (alleen pakket 5, uit het servicedocument voor 5 uur). Zie Opmaak/oefeningenbank.py voor de velden.
+# Alle uitkomsten nagerekend met SymPy, de afgeronde getallen ook numeriek.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken of beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de afstand tussen $A\vc{1}{-2}$ en $B\vc{4}{2}$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $\sqrt{3^2 + 4^2} = \sqrt{25}$.
+    - opgave: |-
+        Werk uit: $(x - 3)^2 + (y + 2)^2$.
+      antwoord: |-
+        $x^2 + y^2 - 6x + 4y + 13$
+      uitwerking: |-
+        $x^2 - 6x + 9 + y^2 + 4y + 4$.
+    - opgave: |-
+        Vul aan: $x^2 + 8x = (x + \ldots)^2 - \ldots$
+      antwoord: |-
+        $(x + 4)^2 - 16$
+      uitwerking: |-
+        De helft van $8$ is $4$, en $(x + 4)^2 = x^2 + 8x + 16$.
+    - opgave: |-
+        Los op: $x^2 - 2x - 3 = 0$.
+      antwoord: |-
+        $x = -1$ of $x = 3$
+      uitwerking: |-
+        $(x + 1)(x - 3) = 0$.
+    - opgave: |-
+        de afstand van $O\vc{0}{0}$ tot de rechte $3x + 4y = 10$
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $\tfrac{\abs{0 + 0 - 10}}{\sqrt{9 + 16}} = \tfrac{10}{5}$.
+
+- id: h3-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.28cm,y=.28cm,font=\scriptsize]
+        \roosterleeg{-6}{1}{6}{-6}{1}{6}
+        \xgetallen{-5,5} \ygetallen{-5,5}
+        \punt[above right]{3}{4}{A} \punt[above left]{-5}{0}{B} \punt[below left]{-4}{-3}{C}
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad Welke punten liggen op afstand 5 van de oorsprong $O$?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ga na dat $A\vc{3}{4}$, $B\vc{-5}{0}$ en $C\vc{-4}{-3}$ op afstand 5 van $O$ liggen.
+      antwoord: |-
+        $\sqrt{9 + 16} = \sqrt{25 + 0} = \sqrt{16 + 9} = 5$
+      uitwerking: |-
+        Telkens is de som van de kwadraten van de coördinaten $25$.
+    - opgave: |-
+        Er zijn nog negen andere punten met gehele coördinaten op afstand 5 van $O$. Zoek ze en teken ze.
+      antwoord: |-
+        $\vc{5}{0}$, $\vc{0}{\pm 5}$, $\vc{-3}{4}$, $\vc{\pm 3}{-4}$, $\vc{\pm 4}{3}$, $\vc{4}{-3}$
+      uitwerking: |-
+        Je zoekt twee gehele getallen waarvan de kwadraten samen $25$ zijn: $0 + 25$ of $9 + 16$, met alle tekens.
+    - opgave: |-
+        Op welke figuur liggen al die punten?
+      antwoord: |-
+        op de cirkel met middelpunt $O$ en straal 5
+      uitwerking: |-
+        Ze liggen allemaal even ver van $O$.
+    - opgave: |-
+        Een punt $P(x, y)$ ligt op afstand 5 van $O$. Schrijf $\lengte{OP} = 5$ met de afstandsformule, en kwadrateer. Welke vergelijking krijg je?
+      antwoord: |-
+        $x^2 + y^2 = 25$
+      uitwerking: |-
+        $\sqrt{x^2 + y^2} = 5$, dus $x^2 + y^2 = 25$.
+
+- id: h3-verg
+  soort: kort
+  opgave: |-
+    Beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een vergelijking van de cirkel met middelpunt $M\vc{3}{-4}$ en straal $2$.
+      antwoord: |-
+        $(x - 3)^2 + (y + 4)^2 = 4$
+      uitwerking: |-
+        Invullen, met $r^2 = 4$.
+    - opgave: |-
+        Geef een vergelijking van de cirkel met middelpunt $O$ en straal $\sqrt6$.
+      antwoord: |-
+        $x^2 + y^2 = 6$
+      uitwerking: |-
+        $(x - 0)^2 + (y - 0)^2 = (\sqrt6)^2$.
+    - opgave: |-
+        Geef een vergelijking van de cirkel met middelpunt $M\vc{-2}{1}$ die door $A\vc{1}{5}$ gaat.
+      antwoord: |-
+        $(x + 2)^2 + (y - 1)^2 = 25$
+      uitwerking: |-
+        $r^2 = \lengte{MA}^2 = 3^2 + 4^2 = 25$.
+    - opgave: |-
+        Geef het middelpunt en de straal van de cirkel $(x + 5)^2 + y^2 = 49$.
+      antwoord: |-
+        $M\vc{-5}{0}$, $r = 7$
+      uitwerking: |-
+        $x + 5 = x - ({-5})$ en $y = y - 0$.
+    - opgave: |-
+        Ligt $P\vc{1}{-1}$ op, binnen of buiten de cirkel $(x - 3)^2 + (y + 4)^2 = 4$?
+      antwoord: |-
+        buiten
+      uitwerking: |-
+        $(1 - 3)^2 + ({-1} + 4)^2 = 4 + 9 = 13 > 4$.
+
+- id: h3-algemeen
+  soort: kort
+  opgave: |-
+    Bepaal het middelpunt en de straal, of toon aan dat de vergelijking geen cirkel voorstelt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 + 4x - 10y + 20 = 0$
+      antwoord: |-
+        $M\vc{-2}{5}$, $r = 3$
+      uitwerking: |-
+        $(x + 2)^2 - 4 + (y - 5)^2 - 25 + 20 = 0$, dus $(x + 2)^2 + (y - 5)^2 = 9$.
+    - opgave: |-
+        $x^2 + y^2 - 8y = 0$
+      antwoord: |-
+        $M\vc{0}{4}$, $r = 4$
+      uitwerking: |-
+        $x^2 + (y - 4)^2 - 16 = 0$.
+    - opgave: |-
+        $x^2 + y^2 - 2x + 6y + 15 = 0$
+      antwoord: |-
+        geen cirkel
+      uitwerking: |-
+        $(x - 1)^2 + (y + 3)^2 = 1 + 9 - 15 = -5 < 0$.
+    - opgave: |-
+        $2x^2 + 2y^2 - 4x + 12y - 12 = 0$
+      antwoord: |-
+        $M\vc{1}{-3}$, $r = 4$
+      uitwerking: |-
+        Eerst delen door $2$: $x^2 + y^2 - 2x + 6y - 6 = 0$, dus $(x - 1)^2 + (y + 3)^2 = 1 + 9 + 6 = 16$.
+    - opgave: |-
+        Geef de algemene vergelijking van de cirkel met middelpunt $\vc{-3}{1}$ en straal $2$.
+      antwoord: |-
+        $x^2 + y^2 + 6x - 2y + 6 = 0$
+      uitwerking: |-
+        $(x + 3)^2 + (y - 1)^2 = 4$ uitgewerkt: $x^2 + 6x + 9 + y^2 - 2y + 1 - 4 = 0$.
+
+- id: h3-ligging
+  soort: kort
+  opgave: |-
+    Onderzoek de ligging van de cirkel $(x + 1)^2 + (y - 3)^2 = 10$ en de rechte. De snijpunten hoef je niet te berekenen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x + 3y = 18$
+      antwoord: |-
+        raaklijn
+      uitwerking: |-
+        $d = \tfrac{\abs{-1 + 9 - 18}}{\sqrt{10}} = \tfrac{10}{\sqrt{10}} = \sqrt{10} = r$.
+    - opgave: |-
+        $x - y = 0$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $d = \tfrac{\abs{-1 - 3}}{\sqrt2} = 2\sqrt2 \approx 2{,}83$, kleiner dan $r = \sqrt{10} \approx 3{,}16$.
+    - opgave: |-
+        $y = -2$
+      antwoord: |-
+        geen punt gemeen
+      uitwerking: |-
+        $d = \abs{3 - ({-2})} = 5 > \sqrt{10}$.
+
+- id: h3-snij
+  soort: kort
+  opgave: |-
+    Bereken de snijpunten van de cirkel en de rechte, als ze er zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 = 25$ en $x + y = 7$
+      antwoord: |-
+        $\vc{3}{4}$ en $\vc{4}{3}$
+      uitwerking: |-
+        $y = 7 - x$: $x^2 + (7 - x)^2 = 25$, dus $2x^2 - 14x + 24 = 0$ en $x^2 - 7x + 12 = 0$, met $x = 3$ of $x = 4$.
+    - opgave: |-
+        $(x - 2)^2 + (y + 1)^2 = 5$ en $y = 2x$
+      antwoord: |-
+        alleen $\vc{0}{0}$: de rechte raakt de cirkel
+      uitwerking: |-
+        $(x - 2)^2 + (2x + 1)^2 = 5$, dus $5x^2 + 5 = 5$ en $x = 0$: één oplossing.
+    - opgave: |-
+        $x^2 + y^2 - 4x = 0$ en $x - y = 5$
+      antwoord: |-
+        geen snijpunten
+      uitwerking: |-
+        $y = x - 5$: $x^2 + (x - 5)^2 - 4x = 0$, dus $2x^2 - 14x + 25 = 0$ met discriminant $196 - 200 < 0$. Ook: $M\vc{2}{0}$, $r = 2$ en $d = \tfrac{3}{\sqrt2} \approx 2{,}12 > 2$.
+
+- id: h3-raaklijn
+  soort: kort
+  opgave: |-
+    Geef een vergelijking van de raaklijn aan de cirkel in het punt $T$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 = 10$ en $T\vc{1}{3}$
+      antwoord: |-
+        $x + 3y = 10$
+      uitwerking: |-
+        $\vect{MT} = \vc{1}{3}$: $(x - 1) + 3(y - 3) = 0$.
+    - opgave: |-
+        $(x + 2)^2 + (y - 1)^2 = 20$ en $T\vc{2}{3}$
+      antwoord: |-
+        $2x + y = 7$
+      uitwerking: |-
+        $T$ ligt erop: $16 + 4 = 20$. $\vect{MT} = \vc{4}{2} = 2\,\vc{2}{1}$: $2(x - 2) + (y - 3) = 0$.
+    - opgave: |-
+        $x^2 + y^2 - 6x + 2y = 0$ en $T\vc{0}{0}$
+      antwoord: |-
+        $3x - y = 0$
+      uitwerking: |-
+        $(x - 3)^2 + (y + 1)^2 = 10$, dus $M\vc{3}{-1}$ en $\vect{MT} = \vc{-3}{1}$: $-3x + y = 0$.
+
+- id: h3-raakuit
+  soort: kort
+  opgave: |-
+    Geef vergelijkingen van de raaklijnen uit $P$ aan de cirkel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 = 20$ en $P\vc{6}{2}$. Bereken ook de raakpunten.
+      antwoord: |-
+        $y = 2x - 10$ met raakpunt $\vc{4}{-2}$, en $y = -\tfrac12 x + 5$ met raakpunt $\vc{2}{4}$
+      uitwerking: |-
+        $mx - y = 6m - 2$ en $\tfrac{\abs{2 - 6m}}{\sqrt{m^2 + 1}} = \sqrt{20}$, dus $4 - 24m + 36m^2 = 20m^2 + 20$, of $2m^2 - 3m - 2 = 0$: $m = 2$ of $m = -\tfrac12$. Voetpunt uit $O$ op $2x - y = 10$: $\vc{2t}{-t}$ met $5t = 10$, dus $\vc{4}{-2}$; op $x + 2y = 10$: $\vc{t}{2t}$ met $5t = 10$, dus $\vc{2}{4}$.
+    - opgave: |-
+        $(x - 1)^2 + y^2 = 4$ en $P\vc{3}{4}$
+      antwoord: |-
+        $y = \tfrac34 x + \tfrac74$ en $x = 3$
+      uitwerking: |-
+        $mx - y = 3m - 4$ en $\tfrac{\abs{m - 3m + 4}}{\sqrt{m^2 + 1}} = 2$, dus $16 - 16m + 4m^2 = 4m^2 + 4$ en $m = \tfrac34$. Maar één rico: de verticale $x = 3$ ligt op afstand $\abs{3 - 1} = 2$ van $M$, dus ook dat is een raaklijn.
+
+#----------------------------------------------------------------------------------------
+# OPDRACHTEN: niveau 1 (o1-o7), niveau 2 (o8-o17), niveau 3 (o18-o21)
+#----------------------------------------------------------------------------------------
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    middelpunt en straal aflezen
+  opgave: |-
+    Geef het middelpunt en de straal van de cirkel.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(x - 7)^2 + (y - 2)^2 = 81$
+      antwoord: |-
+        $\vc{7}{2}$, $9$
+      uitwerking: |-
+        $r = \sqrt{81}$.
+    - opgave: |-
+        $(x + 1)^2 + (y - 4)^2 = 12$
+      antwoord: |-
+        $\vc{-1}{4}$, $2\sqrt3$
+      uitwerking: |-
+        $r = \sqrt{12} = 2\sqrt3$.
+    - opgave: |-
+        $x^2 + (y + 6)^2 = 1$
+      antwoord: |-
+        $\vc{0}{-6}$, $1$
+      uitwerking: |-
+        $x^2 = (x - 0)^2$.
+    - opgave: |-
+        $\bigl(x - \tfrac12\bigr)^2 + y^2 = \tfrac94$
+      antwoord: |-
+        $\bigl(\tfrac12, 0\bigr)$, $\tfrac32$
+      uitwerking: |-
+        $r = \sqrt{\tfrac94}$.
+    - opgave: |-
+        $(y - 3)^2 + (x + 2)^2 = 16$
+      antwoord: |-
+        $\vc{-2}{3}$, $4$
+      uitwerking: |-
+        De volgorde van de termen speelt geen rol: de $x$-coördinaat hoort bij $x$.
+    - opgave: |-
+        $(x + 4)^2 + (y + 4)^2 = 50$
+      antwoord: |-
+        $\vc{-4}{-4}$, $5\sqrt2$
+      uitwerking: |-
+        $r = \sqrt{50} = 5\sqrt2$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ligging van een rechte en een cirkel
+  opgave: |-
+    Onderzoek de ligging van de cirkel $(x - 3)^2 + (y + 1)^2 = 8$ en de rechte.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $x + y = 6$
+      antwoord: |-
+        raaklijn
+      uitwerking: |-
+        $d = \tfrac{\abs{3 - 1 - 6}}{\sqrt2} = \tfrac{4}{\sqrt2} = 2\sqrt2 = r$.
+    - opgave: |-
+        $x - y = 2$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $d = \tfrac{\abs{3 + 1 - 2}}{\sqrt2} = \sqrt2 < 2\sqrt2$.
+    - opgave: |-
+        $y = 3$
+      antwoord: |-
+        geen punt gemeen
+      uitwerking: |-
+        $d = \abs{3 - ({-1})} = 4 > 2\sqrt2 \approx 2{,}83$.
+    - opgave: |-
+        $x = 1$
+      antwoord: |-
+        snijdend
+      uitwerking: |-
+        $d = \abs{1 - 3} = 2 < 2\sqrt2$.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de vergelijking van een cirkel opstellen
+  opgave: |-
+    Geef een vergelijking van de cirkel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        met middelpunt $\vc{4}{-1}$ en straal $6$
+      antwoord: |-
+        $(x - 4)^2 + (y + 1)^2 = 36$
+      uitwerking: |-
+        Invullen.
+    - opgave: |-
+        met middelpunt $O$, door het punt $\vc{-2}{5}$
+      antwoord: |-
+        $x^2 + y^2 = 29$
+      uitwerking: |-
+        $r^2 = 4 + 25 = 29$.
+    - opgave: |-
+        met diameter $[AB]$, met $A\vc{-1}{2}$ en $B\vc{5}{-6}$
+      antwoord: |-
+        $(x - 2)^2 + (y + 2)^2 = 25$
+      uitwerking: |-
+        Het middelpunt is het midden $\vc{2}{-2}$, en $r = \tfrac12\lengte{AB} = \tfrac12\sqrt{36 + 64} = 5$.
+    - opgave: |-
+        met middelpunt $\vc{-3}{2}$, die de $x$-as raakt
+      antwoord: |-
+        $(x + 3)^2 + (y - 2)^2 = 4$
+      uitwerking: |-
+        De straal is de afstand van het middelpunt tot de $x$-as: $2$.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de raaklijn in een punt van de cirkel
+  opgave: |-
+    Ga na dat $T$ op de cirkel ligt, en geef een vergelijking van de raaklijn in $T$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 = 13$ en $T\vc{-2}{3}$
+      antwoord: |-
+        $-2x + 3y = 13$
+      uitwerking: |-
+        $4 + 9 = 13$. $\vect{MT} = \vc{-2}{3}$: $-2(x + 2) + 3(y - 3) = 0$.
+    - opgave: |-
+        $(x - 4)^2 + (y + 2)^2 = 10$ en $T\vc{5}{1}$
+      antwoord: |-
+        $x + 3y = 8$
+      uitwerking: |-
+        $1 + 9 = 10$. $\vect{MT} = \vc{1}{3}$: $(x - 5) + 3(y - 1) = 0$.
+    - opgave: |-
+        $x^2 + y^2 + 2x - 4y - 20 = 0$ en $T\vc{3}{5}$
+      antwoord: |-
+        $4x + 3y = 27$
+      uitwerking: |-
+        $9 + 25 + 6 - 20 - 20 = 0$. $(x + 1)^2 + (y - 2)^2 = 25$, dus $M\vc{-1}{2}$ en $\vect{MT} = \vc{4}{3}$: $4(x - 3) + 3(y - 5) = 0$.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    middelpunt en straal uit de algemene vergelijking
+  opgave: |-
+    Bepaal het middelpunt en de straal, of toon aan dat de vergelijking geen cirkel voorstelt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 - 10x + 6y + 9 = 0$
+      antwoord: |-
+        $M\vc{5}{-3}$, $r = 5$
+      uitwerking: |-
+        $(x - 5)^2 + (y + 3)^2 = 25 + 9 - 9 = 25$.
+    - opgave: |-
+        $x^2 + y^2 + 12y = 0$
+      antwoord: |-
+        $M\vc{0}{-6}$, $r = 6$
+      uitwerking: |-
+        $x^2 + (y + 6)^2 = 36$.
+    - opgave: |-
+        $x^2 + y^2 + 2x - 4y + 5 = 0$
+      antwoord: |-
+        geen cirkel: alleen het punt $\vc{-1}{2}$
+      uitwerking: |-
+        $(x + 1)^2 + (y - 2)^2 = 1 + 4 - 5 = 0$: alleen $x = -1$, $y = 2$ klopt.
+    - opgave: |-
+        $x^2 + y^2 - 3x + y - 1{,}5 = 0$
+      antwoord: |-
+        $M\bigl(\tfrac32, -\tfrac12\bigr)$, $r = 2$
+      uitwerking: |-
+        $\bigl(x - \tfrac32\bigr)^2 + \bigl(y + \tfrac12\bigr)^2 = \tfrac94 + \tfrac14 + \tfrac32 = 4$.
+    - opgave: |-
+        $3x^2 + 3y^2 - 6x + 12y + 3 = 0$
+      antwoord: |-
+        $M\vc{1}{-2}$, $r = 2$
+      uitwerking: |-
+        Gedeeld door $3$: $x^2 + y^2 - 2x + 4y + 1 = 0$, dus $(x - 1)^2 + (y + 2)^2 = 1 + 4 - 1 = 4$.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    op, binnen of buiten de cirkel
+  opgave: |-
+    Gegeven is de cirkel $c\colon x^2 + y^2 - 4x + 2y - 20 = 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal het middelpunt en de straal van $c$.
+      antwoord: |-
+        $M\vc{2}{-1}$, $r = 5$
+      uitwerking: |-
+        $(x - 2)^2 + (y + 1)^2 = 4 + 1 + 20 = 25$.
+    - opgave: |-
+        Ligt het punt op, binnen of buiten $c$? $A\vc{5}{3}$, $B\vc{-1}{2}$, $C\vc{6}{-5}$, $D\vc{2}{-6}$
+      antwoord: |-
+        $A$ op, $B$ binnen, $C$ buiten, $D$ op
+      uitwerking: |-
+        $\lengte{MA}^2 = 9 + 16 = 25$, $\lengte{MB}^2 = 9 + 9 = 18$, $\lengte{MC}^2 = 16 + 16 = 32$, $\lengte{MD}^2 = 0 + 25 = 25$.
+    - opgave: |-
+        Vul de coördinaten van de vier punten in in $x^2 + y^2 - 4x + 2y - 20$. Wat merk je? Verklaar.
+      antwoord: |-
+        $0$, $-7$, $7$, $0$: negatief binnen, positief buiten
+      uitwerking: |-
+        Het linkerlid is $(x - 2)^2 + (y + 1)^2 - 25 = \lengte{MP}^2 - r^2$. Dat is $0$ op de cirkel, negatief als $\lengte{MP} < r$ en positief als $\lengte{MP} > r$.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vergelijkingen van cirkels uit een figuur
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+        \roosterleeg{-7}{1}{6}{-6}{1}{6}
+        \xgetallen{-6,-4,-2,2,4,6} \ygetallen{-6,-4,-2,2,4,6}
+        \draw[accent,thick] (-4,3) circle (2);
+        \draw[accent,thick] (2,2) circle (3);
+        \draw[accent,thick] (0,-3) circle ({sqrt(5)});
+        \node[accent] at (-6.2,5.6) {$c_1$}; \node[accent] at (5.6,5.2) {$c_2$}; \node[accent] at (3,-5.6) {$c_3$};
+      \end{tikzpicture}
+  opgave: |-
+    Geef een vergelijking van elke cirkel in de figuur. Lees het middelpunt af, en een punt van de cirkel op het rooster.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $c_1$
+      antwoord: |-
+        $(x + 4)^2 + (y - 3)^2 = 4$
+      uitwerking: |-
+        Middelpunt $\vc{-4}{3}$, door $\vc{-2}{3}$: straal $2$.
+    - opgave: |-
+        $c_2$
+      antwoord: |-
+        $(x - 2)^2 + (y - 2)^2 = 9$
+      uitwerking: |-
+        Middelpunt $\vc{2}{2}$, door $\vc{5}{2}$: straal $3$.
+    - opgave: |-
+        $c_3$
+      antwoord: |-
+        $x^2 + (y + 3)^2 = 5$
+      uitwerking: |-
+        Middelpunt $\vc{0}{-3}$, door $\vc{1}{-1}$: $r^2 = 1 + 4 = 5$.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snijpunten van een rechte en een cirkel
+  opgave: |-
+    Bereken de snijpunten van de cirkel en de rechte, exact en zo nodig afgerond op $0{,}01$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 = 50$ en $x + y = 6$
+      antwoord: |-
+        $\vc{7}{-1}$ en $\vc{-1}{7}$
+      uitwerking: |-
+        $x^2 + (6 - x)^2 = 50$, dus $2x^2 - 12x - 14 = 0$ en $x^2 - 6x - 7 = 0$: $x = 7$ of $x = -1$.
+    - opgave: |-
+        $(x + 1)^2 + (y - 2)^2 = 20$ en $2x - y = 1$
+      antwoord: |-
+        $\bigl(1 + \sqrt3, 1 + 2\sqrt3\bigr) \approx \vc{2{,}73}{4{,}46}$ en $\bigl(1 - \sqrt3, 1 - 2\sqrt3\bigr) \approx \vc{-0{,}73}{-2{,}46}$
+      uitwerking: |-
+        $y = 2x - 1$: $(x + 1)^2 + (2x - 3)^2 = 20$, dus $5x^2 - 10x - 10 = 0$ en $x^2 - 2x - 2 = 0$: $x = 1 \pm \sqrt3$, en $y = 2x - 1 = 1 \pm 2\sqrt3$.
+    - opgave: |-
+        $x^2 + y^2 - 6x - 2y = 0$ en $x + 2y = 10$
+      antwoord: |-
+        $\vc{6}{2}$ en $\vc{2}{4}$
+      uitwerking: |-
+        $x = 10 - 2y$: $(10 - 2y)^2 + y^2 - 6(10 - 2y) - 2y = 0$, dus $5y^2 - 30y + 40 = 0$ en $y^2 - 6y + 8 = 0$: $y = 2$ of $y = 4$.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de omgeschreven cirkel van een driehoek
+  opgave: |-
+    De omgeschreven cirkel van een driehoek gaat door de drie hoekpunten. Gegeven is de driehoek met $A\vc{-2}{0}$, $B\vc{6}{0}$ en $C\vc{4}{6}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom ligt het middelpunt van de omgeschreven cirkel op de middelloodlijn van elke zijde?
+      antwoord: |-
+        het ligt even ver van elk paar hoekpunten
+      uitwerking: |-
+        Het middelpunt $M$ ligt even ver van $A$, $B$ en $C$. Een punt dat even ver van $A$ en $B$ ligt, ligt op de middelloodlijn van $[AB]$, en zo ook voor de andere zijden.
+    - opgave: |-
+        Geef vergelijkingen van de middelloodlijnen van $[AB]$ en $[AC]$.
+      antwoord: |-
+        $x = 2$; $x + y = 4$
+      uitwerking: |-
+        Het midden van $[AB]$ is $\vc{2}{0}$, met normaalvector $\vc{8}{0}$: $x = 2$. Het midden van $[AC]$ is $\vc{1}{3}$, met normaalvector $\vect{AC} = \vc{6}{6} = 6\,\vc{1}{1}$: $(x - 1) + (y - 3) = 0$.
+    - opgave: |-
+        Bereken het middelpunt en geef een vergelijking van de omgeschreven cirkel.
+      antwoord: |-
+        $M\vc{2}{2}$; $(x - 2)^2 + (y - 2)^2 = 20$
+      uitwerking: |-
+        $x = 2$ en $2 + y = 4$. $r^2 = \lengte{MA}^2 = 16 + 4 = 20$.
+    - opgave: |-
+        Controleer dat $B$ en $C$ op de cirkel liggen.
+      antwoord: |-
+        klopt
+      uitwerking: |-
+        $B$: $16 + 4 = 20$. $C$: $4 + 16 = 20$.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    raaklijnen uit een punt, met de raakpunten
+  opgave: |-
+    Geef vergelijkingen van de raaklijnen uit $P$ aan de cirkel, en bereken de raakpunten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 + y^2 = 8$ en $P\vc{4}{0}$
+      antwoord: |-
+        $y = x - 4$ met raakpunt $\vc{2}{-2}$, en $y = -x + 4$ met raakpunt $\vc{2}{2}$
+      uitwerking: |-
+        $mx - y = 4m$ en $\tfrac{\abs{4m}}{\sqrt{m^2 + 1}} = \sqrt8$, dus $16m^2 = 8m^2 + 8$ en $m = \pm 1$. Voetpunten uit $O$: op $x - y = 4$ is dat $\vc{t}{-t}$ met $2t = 4$; op $x + y = 4$ is dat $\vc{t}{t}$ met $2t = 4$.
+    - opgave: |-
+        $(x - 3)^2 + (y - 2)^2 = 5$ en $P\vc{-2}{2}$
+      antwoord: |-
+        $y = \tfrac12 x + 3$ met raakpunt $\vc{2}{4}$, en $y = -\tfrac12 x + 1$ met raakpunt $\vc{2}{0}$
+      uitwerking: |-
+        $mx - y = -2m - 2$ en $\tfrac{\abs{3m - 2 + 2m + 2}}{\sqrt{m^2 + 1}} = \sqrt5$, dus $25m^2 = 5m^2 + 5$ en $m = \pm\tfrac12$. Voetpunt uit $M\vc{3}{2}$ op $x - 2y = -6$: $\vc{3 + t}{2 - 2t}$ met $5t - 1 = -6$, dus $t = -1$. Op $x + 2y = 2$: $\vc{3 + t}{2 + 2t}$ met $5t + 7 = 2$, dus $t = -1$.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een trein in het bereik van een gsm-mast
+  opgave: |-
+    Een gsm-mast staat in $M\vc{6}{4}$ (eenheid 1~km) en heeft een bereik van 5~km. Een trein rijdt langs $x = -2 + 2t$, $y = 1 + t$, met $t$ in stappen van 10 minuten vanaf 12.00 uur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een vergelijking van de cirkel die de grens van het bereik is.
+      antwoord: |-
+        $(x - 6)^2 + (y - 4)^2 = 25$
+      uitwerking: |-
+        Middelpunt $M$, straal $5$.
+    - opgave: |-
+        Om hoe laat en in welk punt komt de trein in het bereik van de mast? Om hoe laat verlaat hij het bereik, en waar?
+      antwoord: |-
+        om 12.16 uur in $\vc{1{,}2}{2{,}6}$; om 13.00 uur in $\vc{10}{7}$
+      uitwerking: |-
+        $(2t - 8)^2 + (t - 3)^2 = 25$, dus $5t^2 - 38t + 48 = 0$, met discriminant $1444 - 960 = 484 = 22^2$: $t = \tfrac{38 \pm 22}{10}$, dus $t = 1{,}6$ of $t = 6$. Dat is na 16 en na 60 minuten.
+    - opgave: |-
+        Hoe dicht komt de trein bij de mast?
+      antwoord: |-
+        $\tfrac{2}{\sqrt5} \approx 0{,}89$~km
+      uitwerking: |-
+        Het spoor is $x - 2y = -4$ (normaalvector $\vc{1}{-2}$, door $\vc{-2}{1}$). $d(M, \text{spoor}) = \tfrac{\abs{6 - 8 + 4}}{\sqrt5} = \tfrac{2}{\sqrt5}$.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    foutenanalyse: middelpunt, straal en geen cirkel
+  opgave: |-
+    Zoek de fout, en geef het juiste antwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Sam: \textit{De cirkel $(x + 3)^2 + (y - 1)^2 = 16$ heeft middelpunt $\vc{3}{-1}$ en straal $16$.}
+      antwoord: |-
+        middelpunt $\vc{-3}{1}$, straal $4$
+      uitwerking: |-
+        Het middelpunt heeft het andere teken dan in de haakjes: $x + 3 = x - ({-3})$. Rechts staat $r^2$, dus $r = \sqrt{16} = 4$.
+    - opgave: |-
+        Yara: \textit{$x^2 + y^2 + 4x - 2y + 9 = 0$ is een cirkel met middelpunt $\vc{-2}{1}$ en straal $3$, want $9 = 3^2$.}
+      antwoord: |-
+        geen cirkel
+      uitwerking: |-
+        Het getal $9$ is niet $r^2$. Kwadraatafsplitsen geeft $(x + 2)^2 + (y - 1)^2 = 4 + 1 - 9 = -4 < 0$: geen enkel punt klopt.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    raaklijnen met een gegeven richting
+  opgave: |-
+    Gegeven is de cirkel $c\colon (x - 1)^2 + (y + 1)^2 = 20$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef vergelijkingen van de raaklijnen aan $c$ die evenwijdig zijn met $x + 2y = 0$, met hun raakpunten. Tip: zo'n rechte heeft een vergelijking $x + 2y = k$.
+      antwoord: |-
+        $x + 2y = 9$ met raakpunt $\vc{3}{3}$, en $x + 2y = -11$ met raakpunt $\vc{-1}{-5}$
+      uitwerking: |-
+        $\tfrac{\abs{1 - 2 - k}}{\sqrt5} = \sqrt{20}$, dus $\abs{k + 1} = 10$ en $k = 9$ of $k = -11$. Voetpunt uit $M\vc{1}{-1}$: $\vc{1 + t}{-1 + 2t}$ met $5t - 1 = k$, dus $t = 2$ of $t = -2$.
+    - opgave: |-
+        Geef vergelijkingen van de raaklijnen aan $c$ die loodrecht staan op $x + 2y = 0$.
+      antwoord: |-
+        $2x - y = 13$ en $2x - y = -7$
+      uitwerking: |-
+        Normaalvector $\vc{2}{-1}$: $2x - y = k$ met $\tfrac{\abs{2 + 1 - k}}{\sqrt5} = \sqrt{20}$, dus $\abs{3 - k} = 10$. De raakpunten zijn $\vc{5}{-3}$ en $\vc{-3}{1}$.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snijpunten met de assen en een koorde
+  opgave: |-
+    Gegeven is de cirkel $c\colon x^2 + y^2 - 4x - 6y - 12 = 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de snijpunten van $c$ met de $x$-as en met de $y$-as, exact.
+      antwoord: |-
+        $\vc{6}{0}$ en $\vc{-2}{0}$; $\bigl(0, 3 + \sqrt{21}\bigr)$ en $\bigl(0, 3 - \sqrt{21}\bigr)$
+      uitwerking: |-
+        $y = 0$: $x^2 - 4x - 12 = 0$, dus $x = 6$ of $x = -2$. $x = 0$: $y^2 - 6y - 12 = 0$, dus $y = \tfrac{6 \pm \sqrt{84}}{2} = 3 \pm \sqrt{21}$.
+    - opgave: |-
+        Een \textit{koorde} is een lijnstuk tussen twee punten van een cirkel. Bereken de lengte van de koorde op de $x$-as.
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        Van $\vc{-2}{0}$ tot $\vc{6}{0}$.
+    - opgave: |-
+        Bereken die lengte nog eens, nu met het middelpunt, de straal en de stelling van Pythagoras.
+      antwoord: |-
+        $2\sqrt{25 - 9} = 8$
+      uitwerking: |-
+        $(x - 2)^2 + (y - 3)^2 = 25$, dus $M\vc{2}{3}$ en $r = 5$. De afstand van $M$ tot de $x$-as is $3$. Het voetpunt is het midden van de koorde, en de halve koorde is $\sqrt{5^2 - 3^2} = 4$.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een rechte met een parameter die een cirkel raakt
+  opgave: |-
+    Gegeven zijn de cirkel $x^2 + y^2 = 5$ en de rechten $y = kx + 5$, met $k$ een getal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke waarden van $k$ raakt de rechte de cirkel?
+      antwoord: |-
+        $k = 2$ of $k = -2$
+      uitwerking: |-
+        $kx - y = -5$, met $d(O, l) = \tfrac{5}{\sqrt{k^2 + 1}} = \sqrt5$, dus $k^2 + 1 = 5$.
+    - opgave: |-
+        Voor welke waarden van $k$ snijdt de rechte de cirkel in twee punten?
+      antwoord: |-
+        $k < -2$ of $k > 2$
+      uitwerking: |-
+        $\tfrac{5}{\sqrt{k^2 + 1}} < \sqrt5 \iff \sqrt{k^2 + 1} > \sqrt5 \iff k^2 > 4$.
+    - opgave: |-
+        Bereken de raakpunten.
+      antwoord: |-
+        $\vc{-2}{1}$ voor $k = 2$, en $\vc{2}{1}$ voor $k = -2$
+      uitwerking: |-
+        Voetpunt uit $O$ op $2x - y = -5$: $\vc{2t}{-t}$ met $5t = -5$, dus $t = -1$. Op $-2x - y = -5$: $\vc{-2t}{-t}$ met $5t = -5$.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vonken van een slijpschijf langs de raaklijn
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.16cm,y=.16cm,font=\scriptsize]
+        \draw[black!14,very thin,step=5] (-17,-7) grid (7,7);
+        \draw[->,grijs] (-17,0) -- (8,0) node[right,text=black,font=\footnotesize] {$x$};
+        \draw[->,grijs] (0,-7) -- (0,8) node[above,text=black,font=\footnotesize] {$y$};
+        \xgetallen{-10,-5,5} \ygetallen{-5,5}
+        \draw[accent,thick] (0,0) circle (5);
+        \draw[accent,-{Stealth[length=2mm]}] (0,5) arc (90:30:5);
+        \draw[inkt,line width=1.6pt] (-15,-7) -- (-15,7);
+        \node[inkt,right] at (-15,-5.5) {muur};
+        \node[inkt,right] at (-15,6) {$x = -15$};
+        \punt[left]{-3}{-4}{T}
+      \end{tikzpicture}
+  opgave: |-
+    Een slijpschijf heeft middelpunt $M\vc{0}{0}$ en straal 5 (eenheid 1~cm), en draait in wijzerzin. Ze slijpt een stuk metaal in het punt $T\vc{-3}{-4}$. De vonken vliegen weg langs de raaklijn in $T$, in de richting waarin de rand beweegt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een vergelijking van de raaklijn in $T$.
+      antwoord: |-
+        $3x + 4y = -25$
+      uitwerking: |-
+        $\vect{MT} = \vc{-3}{-4}$: $-3(x + 3) - 4(y + 4) = 0$, dus $-3x - 4y = 25$.
+    - opgave: |-
+        Bij een draaiing in wijzerzin beweegt de rand in $T$ in de richting van $\vect{MT}$, een kwartslag gedraaid in wijzerzin: $(y_T, -x_T)$. Welke richtingsvector hebben de vonken?
+      antwoord: |-
+        $\vc{-4}{3}$
+      uitwerking: |-
+        $(y_T, -x_T) = \vc{-4}{3}$. Controle: $\vc{-4}{3} \cdot \vc{-3}{-4} = 12 - 12 = 0$.
+    - opgave: |-
+        Waar raken de vonken de muur langs $x = -15$, en hoe ver vliegen ze tot daar?
+      antwoord: |-
+        in $\vc{-15}{5}$, na 15~cm
+      uitwerking: |-
+        $3 \cdot ({-15}) + 4y = -25$, dus $y = 5$. Van $T$ tot daar is $\vc{-12}{9} = 3\,\vc{-4}{3}$: in de goede richting, en $\sqrt{144 + 81} = 15$.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de kortste weg van een rechte naar een cirkel
+  opgave: |-
+    Een ronde vijver is de schijf met als rand $c\colon (x - 2)^2 + (y - 1)^2 = 9$ (eenheid 10~m). Een rechte weg loopt langs $l\colon 3x + 4y = 35$. De gemeente legt een zo kort mogelijk pad aan van de weg naar de vijver.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de weg de vijver niet raakt.
+      antwoord: |-
+        $d(M, l) = 5 > 3$
+      uitwerking: |-
+        $\tfrac{\abs{6 + 4 - 35}}{5} = 5$.
+    - opgave: |-
+        Het kortste pad ligt op de loodlijn uit $M$ op $l$. Waar begint het pad aan de weg, en waar komt het aan de vijver?
+      antwoord: |-
+        van $\vc{5}{5}$ naar $\vc{3{,}8}{3{,}4}$
+      uitwerking: |-
+        De loodlijn is $\vc{2 + 3t}{1 + 4t}$. Op $l$: $10 + 25t = 35$, dus $t = 1$ en $\vc{5}{5}$. Op de cirkel: $(3t)^2 + (4t)^2 = 9$, dus $t = \tfrac35$ (naar de kant van de weg) en $\vc{3{,}8}{3{,}4}$.
+    - opgave: |-
+        Hoe lang is het pad?
+      antwoord: |-
+        20~m
+      uitwerking: |-
+        $d(M, l) - r = 5 - 3 = 2$ eenheden. Ook: $\sqrt{1{,}2^2 + 1{,}6^2} = 2$.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    twee cirkels: ligging en snijpunten
+  opgave: |-
+    Twee cirkels snijden elkaar in twee punten als de afstand tussen hun middelpunten tussen het verschil en de som van hun stralen ligt. Gegeven zijn $c_1\colon x^2 + y^2 = 25$ en $c_2\colon x^2 + y^2 - 12x - 6y + 35 = 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de middelpunten en de stralen, en toon aan dat de cirkels elkaar snijden.
+      antwoord: |-
+        $\vc{0}{0}$, $5$ en $\vc{6}{3}$, $\sqrt{10}$; $5 - \sqrt{10} < 3\sqrt5 < 5 + \sqrt{10}$
+      uitwerking: |-
+        $(x - 6)^2 + (y - 3)^2 = 36 + 9 - 35 = 10$. De afstand tussen de middelpunten is $\sqrt{45} = 3\sqrt5 \approx 6{,}71$, en $5 - \sqrt{10} \approx 1{,}84$ en $5 + \sqrt{10} \approx 8{,}16$.
+    - opgave: |-
+        Trek de vergelijkingen van elkaar af. Wat voor vergelijking krijg je?
+      antwoord: |-
+        $2x + y = 10$: een rechte
+      uitwerking: |-
+        $(x^2 + y^2 - 25) - (x^2 + y^2 - 12x - 6y + 35) = 12x + 6y - 60$. De kwadraten vallen weg.
+    - opgave: |-
+        Een punt dat op beide cirkels ligt, klopt ook die vergelijking. Bereken zo de snijpunten.
+      antwoord: |-
+        $\vc{3}{4}$ en $\vc{5}{0}$
+      uitwerking: |-
+        $y = 10 - 2x$ in $c_1$: $x^2 + (10 - 2x)^2 = 25$, dus $5x^2 - 40x + 75 = 0$ en $x^2 - 8x + 15 = 0$: $x = 3$ of $x = 5$.
+    - opgave: |-
+        Toon aan dat die rechte loodrecht staat op de rechte door de twee middelpunten. Kun je dat ook zonder rekenen verklaren?
+      antwoord: |-
+        $\vc{2}{1}$ is een normaalvector en $\vect{M_1M_2} = 3\,\vc{2}{1}$
+      uitwerking: |-
+        De snijpunten liggen even ver van $M_1$ (straal $5$) en even ver van $M_2$ (straal $\sqrt{10}$). Dus $M_1$ en $M_2$ liggen allebei op de middelloodlijn van het lijnstuk tussen de snijpunten: de rechte $M_1M_2$ is die middelloodlijn.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de ingeschreven cirkel van een driehoek
+  opgave: |-
+    De ingeschreven cirkel van een driehoek raakt de drie zijden. Gegeven is de driehoek met $O\vc{0}{0}$, $A\vc{6}{0}$ en $B\vc{0}{8}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom ligt het middelpunt $I$ van de ingeschreven cirkel op de bissectrice van elke hoek?
+      antwoord: |-
+        het ligt even ver van de drie zijden
+      uitwerking: |-
+        De afstand van $I$ tot elke zijde is de straal. Een punt dat even ver van twee rechten ligt, ligt op een bissectrice (hoofdstuk 2).
+    - opgave: |-
+        Geef vergelijkingen van de bissectrices van de hoeken in $O$ en in $A$ die door de driehoek gaan.
+      antwoord: |-
+        $y = x$; $x + 2y = 6$
+      uitwerking: |-
+        In $O$: $\abs{x} = \abs{y}$, en binnen de driehoek zijn $x$ en $y$ positief. In $A$, tussen $y = 0$ en $AB\colon 4x + 3y = 24$: $\abs{y} = \tfrac{\abs{4x + 3y - 24}}{5}$. Binnen de driehoek is $y > 0$ en $4x + 3y - 24 < 0$, dus $5y = 24 - 4x - 3y$, of $x + 2y = 6$.
+    - opgave: |-
+        Bereken $I$ en de straal, en geef een vergelijking van de ingeschreven cirkel.
+      antwoord: |-
+        $I\vc{2}{2}$, $r = 2$; $(x - 2)^2 + (y - 2)^2 = 4$
+      uitwerking: |-
+        $y = x$ in $x + 2y = 6$: $x = 2$. De straal is de afstand tot de $x$-as: $2$.
+    - opgave: |-
+        Controleer dat de cirkel ook $AB$ raakt.
+      antwoord: |-
+        $d(I, AB) = 2$
+      uitwerking: |-
+        $\tfrac{\abs{8 + 6 - 24}}{5} = 2 = r$.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: de raaklijn aan een cirkel met middelpunt O
+  opgave: |-
+    Gegeven is de cirkel $x^2 + y^2 = r^2$ met middelpunt $O$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat de raaklijn in het punt $T(x_T, y_T)$ van de cirkel als vergelijking $x_T\,x + y_T\,y = r^2$ heeft.
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        $\vect{OT} = (x_T, y_T)$ is een normaalvector, dus $x_T(x - x_T) + y_T(y - y_T) = 0$, of $x_T x + y_T y = x_T^2 + y_T^2$. Omdat $T$ op de cirkel ligt, is $x_T^2 + y_T^2 = r^2$.
+    - opgave: |-
+        Gebruik die formule voor de raaklijn aan $x^2 + y^2 = 25$ in $\vc{-3}{4}$.
+      antwoord: |-
+        $-3x + 4y = 25$
+      uitwerking: |-
+        $x_T = -3$, $y_T = 4$, $r^2 = 25$.
+    - opgave: |-
+        Neem een punt $P(p, q)$ buiten de cirkel. Bewijs dat de raakpunten van de raaklijnen uit $P$ op de rechte $px + qy = r^2$ liggen. Controleer met het probleem van dit hoofdstuk: de raakpunten uit $\vc{25}{25}$ aan $x^2 + y^2 = 25$.
+      antwoord: |-
+        zie de uitwerking; $x + y = 1$ gaat door $\vc{4}{-3}$ en $\vc{-3}{4}$
+      uitwerking: |-
+        Is $T$ een raakpunt, dan gaat de raaklijn $x_T x + y_T y = r^2$ door $P$, dus $x_T p + y_T q = r^2$. Dat zegt dat $T$ de vergelijking $px + qy = r^2$ klopt. In het probleem: $25x + 25y = 25$, of $x + y = 1$, en $4 - 3 = 1$, $-3 + 4 = 1$.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de cirkel van Apollonius
+  opgave: |-
+    Gegeven zijn $A\vc{-3}{0}$ en $B\vc{3}{0}$. Je zoekt alle punten $P$ die twee keer zo ver van $A$ liggen als van $B$: $\lengte{PA} = 2\lengte{PB}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ga na dat $\vc{1}{0}$ en $\vc{9}{0}$ zulke punten zijn.
+      antwoord: |-
+        $4 = 2 \cdot 2$ en $12 = 2 \cdot 6$
+      uitwerking: |-
+        Voor $\vc{1}{0}$: $\lengte{PA} = 4$, $\lengte{PB} = 2$. Voor $\vc{9}{0}$: $\lengte{PA} = 12$, $\lengte{PB} = 6$.
+    - opgave: |-
+        Toon aan dat alle zulke punten op een cirkel liggen. Geef het middelpunt en de straal.
+      antwoord: |-
+        $(x - 5)^2 + y^2 = 16$: middelpunt $\vc{5}{0}$, straal $4$
+      uitwerking: |-
+        $\lengte{PA}^2 = 4\lengte{PB}^2$: $(x + 3)^2 + y^2 = 4\bigl((x - 3)^2 + y^2\bigr)$, dus $3x^2 + 3y^2 - 30x + 27 = 0$, of $x^2 + y^2 - 10x + 9 = 0$, en $(x - 5)^2 + y^2 = 16$. Omdat de afstanden positief zijn, mag je kwadrateren.
+    - opgave: |-
+        Ligt $\vc{5}{4}$ op die cirkel? Controleer met de afstanden.
+      antwoord: |-
+        ja: $\lengte{PA} = \sqrt{80} = 2\sqrt{20} = 2\lengte{PB}$
+      uitwerking: |-
+        $0 + 16 = 16$. $\lengte{PA}^2 = 64 + 16 = 80$ en $\lengte{PB}^2 = 4 + 16 = 20$.
+
+# --- Test jezelf ------------------------------------------------------------------------
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    de vergelijking van een cirkel
+  opgave: |-
+    Geef een vergelijking van de cirkel met middelpunt $M\vc{-2}{3}$ die door $A\vc{2}{0}$ gaat.
+  antwoord: |-
+    $(x + 2)^2 + (y - 3)^2 = 25$
+  uitwerking: |-
+    $r^2 = \lengte{MA}^2 = 16 + 9 = 25$.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    middelpunt en straal uit de algemene vergelijking
+  opgave: |-
+    Bepaal het middelpunt en de straal van de cirkel $x^2 + y^2 + 8x - 2y - 8 = 0$.
+  antwoord: |-
+    $M\vc{-4}{1}$, $r = 5$
+  uitwerking: |-
+    $(x + 4)^2 - 16 + (y - 1)^2 - 1 - 8 = 0$, dus $(x + 4)^2 + (y - 1)^2 = 25$.
+
+- id: h3-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    ligging van een rechte en een cirkel
+  opgave: |-
+    Onderzoek de ligging van de rechte $4x - 3y = 20$ en de cirkel $x^2 + y^2 = 16$.
+  antwoord: |-
+    de rechte raakt de cirkel
+  uitwerking: |-
+    $d(O, l) = \tfrac{\abs{-20}}{5} = 4 = r$.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  thema: |-
+    snijpunten van een rechte en een cirkel
+  opgave: |-
+    Bereken de snijpunten van de cirkel $x^2 + y^2 - 4y = 21$ en de rechte $x - y = -1$.
+  antwoord: |-
+    $\vc{4}{5}$ en $\vc{-3}{-2}$
+  uitwerking: |-
+    $y = x + 1$: $x^2 + (x + 1)^2 - 4(x + 1) = 21$, dus $2x^2 - 2x - 24 = 0$ en $x^2 - x - 12 = 0$: $x = 4$ of $x = -3$.
+
+- id: h3-t5
+  soort: test
+  niveau: 2
+  thema: |-
+    de raaklijn in een punt van de cirkel
+  opgave: |-
+    Ga na dat $T\vc{1}{-2}$ op de cirkel $(x - 4)^2 + (y + 6)^2 = 25$ ligt, en geef een vergelijking van de raaklijn in $T$.
+  antwoord: |-
+    $3x - 4y = 11$
+  uitwerking: |-
+    $9 + 16 = 25$. $\vect{MT} = \vc{-3}{4}$: $-3(x - 1) + 4(y + 2) = 0$, dus $-3x + 4y = -11$.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    raaklijnen uit een punt
+  opgave: |-
+    Geef vergelijkingen van de raaklijnen uit $P\vc{5}{0}$ aan de cirkel $x^2 + y^2 = 5$, en bereken de raakpunten.
+  antwoord: |-
+    $y = \tfrac12 x - \tfrac52$ met raakpunt $\vc{1}{-2}$, en $y = -\tfrac12 x + \tfrac52$ met raakpunt $\vc{1}{2}$
+  uitwerking: |-
+    $mx - y = 5m$ en $\tfrac{\abs{5m}}{\sqrt{m^2 + 1}} = \sqrt5$, dus $25m^2 = 5m^2 + 5$ en $m = \pm\tfrac12$. Voetpunt uit $O$ op $x - 2y = 5$: $\vc{t}{-2t}$ met $5t = 5$; op $x + 2y = 5$: $\vc{t}{2t}$ met $5t = 5$.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    een cirkel die een rechte raakt
+  opgave: |-
+    Geef een vergelijking van de cirkel met middelpunt $M\vc{3}{-1}$ die de rechte $3x + 4y = 15$ raakt.
+  antwoord: |-
+    $(x - 3)^2 + (y + 1)^2 = 4$
+  uitwerking: |-
+    De straal is de afstand van $M$ tot de rechte: $\tfrac{\abs{9 - 4 - 15}}{5} = 2$.
