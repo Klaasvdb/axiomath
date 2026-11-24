@@ -85,7 +85,7 @@ Pakket betekent hier een pakket van Axiomath (3de graad: 1 Basis, 2 B+S, 3 B+S',
 **Wat KOV als keuze of uitbreiding heeft:**
 
 - Basis: matrices als keuzedeel (K3, K4), en enkele keuzedoelen in exponentiële functies, goniometrische functies en statistiek (K1, K2, K5).
-- B+S, B+S' en B+S'': een keuzedoel bij rationale functies of statistiek (K1).
+- B+S en B+S': een keuzedoel bij rationale functies (K1: veeltermvergelijkingen van hogere graad); betrouwbaarheidsintervallen (Statistiek, hoofdstuk 4) zijn daar geen doel. B+S'': een keuzedoel bij statistiek (K1).
 - **Complementair (III-WiCo-d)** voor de wiskunderichtingen die meer dan 6 uur geven: een menu met predicatenlogica, kegelsneden, krommen en oppervlakken, euclidische, affiene en projectieve meetkunde, extra integratiemethodes, differentiaalvergelijkingen, reeksen, numerieke methodes, vectorruimten, getaltheorie, lineair programmeren, financiële algebra, iteraties en fractalen, kansverdelingen, regressie en multivariate statistiek.
 - Overal: de wenken "extra" bij een leerplandoel.
 
