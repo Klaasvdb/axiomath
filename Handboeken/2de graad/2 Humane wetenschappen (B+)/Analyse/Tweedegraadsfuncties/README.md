@@ -1,17 +1,17 @@
 # Tweedegraadsfuncties: handboek
 
-Handboek voor pakket 2 (B+) van de 2de graad, LPD 24-28 en keuzedoel K2, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van John Singer Sargent (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 2 (B+) van de 2de graad, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Leerplan: KOV II-Wis'-d (B+, versie oktober 2024), LPD 24-28 en keuzedoel K2. Alle opgaven zijn eigen werk. De omslag is van John Singer Sargent (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Tweedegraadsfuncties/](<../../../cursussen/Tweedegraadsfuncties/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Hoofdstuk 4 (tweedegraadsongelijkheden) is een keuzehoofdstuk (K2): een school mag het weglaten. Kwadraatafsplitsen, ontbinden met de oplossingen en ongelijkheden met een parameter staan alleen in pakket 4-5. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Tweedegraadsfuncties/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Tweedegraadsfuncties/](<../../../cursussen/Tweedegraadsfuncties/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Hoofdstuk 4 (tweedegraadsongelijkheden) is een keuzehoofdstuk (K2): een school mag het weglaten. Daarom staat het tekenschema van een parabool ook al in hoofdstuk 2. Kwadraatafsplitsen, ontbinden met de oplossingen en de opdrachten met parameters staan alleen in pakket 4-5 (feedback van leerkrachten, 20 november 2026). De volledige tabel met verschillen, de toetsing aan het leerplan en wat open blijft, staat in de [README van de bron](<../../../cursussen/Tweedegraadsfuncties/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. De parabool $y = a(x - p)^2 + q$ | `hoofdstukken/01-parabool.tex` | LPD 24-28 | eerste versie, nog na te lezen |
-| 2. De vorm $ax^2 + bx + c$ | `hoofdstukken/02-algemene-vorm.tex` | LPD 24-28 | eerste versie, nog na te lezen |
-| 3. Tweedegraadsvergelijkingen | `hoofdstukken/03-vergelijkingen.tex` | LPD 24-28 | eerste versie, nog na te lezen |
-| 4. Tweedegraadsongelijkheden | `hoofdstukken/04-ongelijkheden.tex` | K2 (keuze) | eerste versie, nog na te lezen |
+| 1. De parabool $y = a(x - p)^2 + q$ | `hoofdstukken/01-parabool.tex` | LPD 24, 25, 26 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. De vorm $ax^2 + bx + c$ | `hoofdstukken/02-algemene-vorm.tex` | LPD 24, 25, 26 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 3. Tweedegraadsvergelijkingen | `hoofdstukken/03-vergelijkingen.tex` | LPD 27, 28 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 4. Tweedegraadsongelijkheden | `hoofdstukken/04-ongelijkheden.tex` | K2 (keuze) | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-De verdeling van de leerplandoelen over de hoofdstukken is nog na te kijken in het leerplan.
+De verdeling van de leerplandoelen over de hoofdstukken is getoetst aan het leerplan (24 november 2026).
 
 ## PDF's
 
