@@ -58,7 +58,7 @@ Indeling, leerplandoelen en voorkanten klaar sinds 16 nov 2026: zie de README's 
 ## Handboeken afwerken (3de graad)
 
 - **Alle 47 handboeken** staan op "eerste versie" (Integralen in pakket 4 op "tweede versie"). Ze moeten door de stadia van `voortgang.yaml`: tweede en derde versie, dan nalezen door leerkrachten. **[Ingmar]**
-- **Pakket 1 afstemmen op Basis:** gedaan op 18 nov 2026 voor alle acht cursussen van pakket 1 (PR #48), met het leerplan III-Wis-d; wat twijfelachtig is, staat onder "Na te kijken" in de README van elke cursus van pakket 1. Nog te doen: hetzelfde voor pakket 2 en 3 tegenover pakket 4, met de leerplannen III-WisS-d en III-WisS'-d (online niet gevonden). **[Ingmar]**
+- **Pakket 1 afstemmen op Basis:** gedaan op 18 nov 2026 voor alle acht cursussen van pakket 1 (PR #48), met het leerplan III-Wis-d; wat twijfelachtig is, staat onder "Na te kijken" in de README van elke cursus van pakket 1. Pakket 2 en 3: afgestemd op 24 nov 2026 met III-WisS-d en III-WisS'-d (PR #51, links in `Ontwerp/koepels.md`); wat twijfelachtig is, staat onder "Na te kijken" in de README van elke cursus van pakket 2 en 3. Open: het somteken (Integralen H1 gebruikt het vóór Rijen), en of pakket 3 meer bewijzen of de afleiding van de kleinste-kwadratenrechte als verrijking wil.
 - **Rijen in pakket 1, 2 en 3:** ingekort sinds 18 nov 2026 (PR #48), met een eigen motief zonder limiet. Na te kijken: de lestijden per pakket (schattingen).
 
 ## Koepels

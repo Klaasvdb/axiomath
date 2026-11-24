@@ -28,7 +28,7 @@ $T$ (jaar) & $0{,}241$ & $0{,}615$ & $1{,}000$ & $1{,}881$ & $11{,}86$ & $29{,}4
 \end{tabular}}}
 \end{probleem}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{55}\alleenvoor{3}{41}\alleenvoor{2}{35} (onderzoekscompetentie), met het modelleren van meetgegevens. De kleinste-kwadratenrechte wordt hier ingevoerd zoals ze in een onderzoek gebruikt wordt; de formules worden in sectie 2 bewezen met de top van een dalparabool; een afleiding met afgeleiden staat als opdracht. Met een rekentoestel of rekenblad thuis gaat het rekenwerk sneller; in de klas volstaan kleine datasets. Alle getallen in dit hoofdstuk zijn voorbeeldgegevens, geen echte metingen.}
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{4}{55}\alleenvoor{3}{41}\alleenvoor{2}{35} (onderzoekscompetentie), met het modelleren van meetgegevens. De kleinste-kwadratenrechte wordt hier ingevoerd zoals ze in een onderzoek gebruikt wordt; \alleenvoor{4}{de formules worden in sectie 2 bewezen met de top van een dalparabool; een afleiding met afgeleiden staat als opdracht.}\alleenvoor{2,3}{de rechte en de correlatiecoëfficiënt komen van ICT (zie 2.2), het lineariseren steunt op de logaritmen. Een afleiding met afgeleiden staat als Koppel-oefening.} \alleenvoor{4}{Met een rekentoestel of rekenblad thuis gaat het rekenwerk sneller; in de klas volstaan kleine datasets.}\alleenvoor{2,3}{Een rekentoestel of rekenblad is in dit hoofdstuk nodig.} Alle getallen in dit hoofdstuk zijn voorbeeldgegevens, geen echte metingen.}
 
 Bij veel onderzoeksvragen heb je metingen, en zoek je de formule erachter: hoe de omlooptijd van een planeet afhangt van haar afstand, hoe lang een slinger is en hoe snel hij slingert, hoe snel thee afkoelt. De punten liggen nooit precies op een mooie grafiek: er zijn meetfouten, en het model is een vereenvoudiging. Bij de planeten zie je wel een stijgende kromme, maar welke? Een rechte past niet, en tussen Mars en Jupiter staat geen enkel punt. Toch wil je weten welk verband het best past, zodat je ook tussen de metingen kunt voorspellen. Dat is modelleren. Dit hoofdstuk volgt de stappen: variabelen kiezen en meten, een model kiezen, de best passende rechte berekenen, een verband rechttrekken, en het model kritisch bekijken. Op het einde vind je zo de wet die Kepler in 1618 ontdekte, en het jaar van Ceres.
 
@@ -166,6 +166,7 @@ Vier van de vijf residuen zijn positief of nul: de meeste punten liggen boven de
 \oef{h2-residu}
 \end{oefeningen}
 
+\begin{alleenvoor}{4}
 \subsection{De beste rechte met een gegeven richting}
 
 In het voorbeeld lag de lat te laag. Schuif je ze evenwijdig omhoog, dan blijft $a$ gelijk en verandert alleen $b$. Bij een vaste $a$ is $S$ een kwadratische functie van $b$, en waar die het kleinst is, weet je al: in de top van een dalparabool. Zo vind je de beste $b$ zonder te proberen.
@@ -352,6 +353,81 @@ De beste rechte houdt $40$\,\% van de spreiding $6$ over. Met de residuen van $y
 \begin{oefeningen}
 \oef{h2-rgrenzen}
 \end{oefeningen}
+\end{alleenvoor}
+\begin{alleenvoor}{2,3}
+\subsection{De kleinste-kwadratenrechte met ICT}
+
+Welke rechte heeft de kleinste kwadratensom? Met proberen, zoals in de Verken, vind je telkens een iets betere lat, maar nooit de beste. Er bestaan formules voor de beste $a$ en $b$, maar in een onderzoek laat je dat rekenwerk over aan ICT. Jij kiest wat je uitzet, voert de gegevens juist in, en beoordeelt het resultaat.
+
+\lkr{Leerplan \pakketnaam: de spreidingsdiagrammen komen uit de 2de graad, waar een informeel begrip van de trendlijn volstaat en ICT het rekenwerk doet; het algoritme en de definitie van de correlatiecoëfficiënt zijn niet nodig, en LPD \alleenvoor{3}{41}\alleenvoor{2}{35} vraagt niet meer. Daarom geen formules en geen bewijzen voor de rechte en voor $r$. Op de TI-84: \texttt{LinReg(ax+b)} in het menu STAT, CALC (zet \texttt{DiagnosticOn} aan om $r$ te zien); in een rekenblad een trendlijn bij het spreidingsdiagram, of de functies \texttt{RICHTING}, \texttt{SNIJPUNT} en \texttt{CORRELATIE}.}
+
+\begin{theorie}
+Een rekentoestel of een rekenblad berekent bij de punten $(x_i, y_i)$ de \textbf{\textcolor{accent}{kleinste-kwadratenrechte}} $y = ax + b$, ook \textbf{\textcolor{accent}{trendlijn}} of regressierechte genoemd.
+
+\vspace{1mm}
+Twee eigenschappen helpen om het resultaat te controleren:
+\begin{itemize}
+\item de kleinste-kwadratenrechte gaat door het \textbf{\textcolor{accent}{gemiddelde punt}} $\formule{(\xbar, \ybar)}$;
+\item de som van haar residuen is $\formule{0}$.
+\end{itemize}
+\end{theorie}
+
+Het gemiddelde punt is het zwaartepunt van de punten. Dat de beste rechte erdoor gaat, kun je zo inzien. Ligt een rechte te laag, zoals de lat in voorbeeld~\ref{vb:h2-residu}, dan liggen de meeste punten erboven, en wordt de kwadratensom kleiner als je de rechte evenwijdig omhoog schuift. De beste rechte ligt dus zo dat de residuen boven en onder elkaar in evenwicht houden: hun som is $0$, en dat gebeurt precies als de rechte door $(\xbar, \ybar)$ gaat. Het omgekeerde geldt niet. Elke rechte door $(\xbar, \ybar)$ heeft residuen met som $0$, ook een rechte met een slechte richting. De controle kan dus alleen een fout opsporen, zoals een verkeerd ingetikt getal.
+
+\voorbeeld{}{Bepaal met ICT de kleinste-kwadratenrechte voor de punten $(1, 2)$, $(2, 4)$, $(3, 5)$, $(4, 4)$, $(5, 5)$ uit voorbeeld~\ref{vb:h2-residu}. Controleer het resultaat.\label{vb:h2-rechte}}{%
+\uitleg{We voeren de $x$-waarden en de $y$-waarden in als twee lijsten (of twee kolommen), laten ICT de rechte berekenen, en controleren met het gemiddelde punt.}
+\begin{stappenbreed}
+a = 0{,}6,\quad b = 2{,}2 & Wat ICT geeft: op een rekentoestel met lineaire regressie, in een rekenblad met een trendlijn. \\
+\xbar = 3,\quad \ybar = 4 & Het gemiddelde punt is $(3, 4)$. \\
+0{,}6 \cdot 3 + 2{,}2 = 4 & Het gemiddelde punt ligt op de rechte: de invoer is wellicht juist.
+\end{stappenbreed}
+De rechte is $y = 0{,}6x + 2{,}2$. Ze is iets steiler dan de lat $y = 0{,}5x + 2$, en haar kwadratensom is $2{,}4$ (reken na in opdracht~\ref{oef:h2-o3}): kleiner dan de $3{,}75$ van de lat. Geen enkele rechte doet beter.}
+
+\begin{werkwijze}
+Voer de gegevens in als twee lijsten of kolommen, en laat ICT de kleinste-kwadratenrechte berekenen. Controleer of het gemiddelde punt $(\xbar, \ybar)$ op de rechte ligt. Rond $a$ en $b$ zinvol af, en schrijf de rechte op met de namen en de eenheden van de variabelen.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-helling}
+
+\oef{h2-controle}
+\end{oefeningen}
+
+\subsection{De correlatiecoëfficiënt}
+
+De kleinste-kwadratenrechte bestaat altijd, ook als de punten niet op een rechte liggen. Hoe goed past ze? Dat zegt de correlatiecoëfficiënt $r$, die ICT ook geeft.
+
+\naast{%
+Verdeel het vlak met de lijnen $x = \xbar$ en $y = \ybar$ in vier stukken. Liggen de punten vooral rechtsboven en linksonder, dan liggen $x$ en $y$ meestal samen boven of samen onder hun gemiddelde: een stijgend verband, en $r$ is positief. Liggen ze vooral linksboven en rechtsonder, dan is het verband dalend en $r$ negatief. Liggen ze overal verspreid, dan ligt $r$ dicht bij $0$.}{%
+\begin{tikzpicture}[x=.7cm,y=.5cm,font=\scriptsize]
+  \rooster{0}{1}{5}{0}{1}{6}
+  \draw[grijs,dashed] (3,0) -- (3,6.2) (0,4) -- (5.3,4);
+  \node[text=accent] at (4.6,5.6) {$+$}; \node[text=accent] at (.6,1) {$+$};
+  \node[text=grijs] at (.6,5.6) {$-$}; \node[text=grijs] at (4.6,1) {$-$};
+  \foreach \x/\y in {1/2,2/4,3/5,4/4,5/5}{\fill[accent] (\x,\y) circle (2pt);}
+  \node[below] at (3,-.5) {$\xbar$};
+\end{tikzpicture}}
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{correlatiecoëfficiënt}} $r$ meet hoe dicht de punten bij een rechte liggen:
+\begin{itemize}
+\item altijd is $\formule{-1 \leqslant r \leqslant 1}$, en $r$ heeft hetzelfde teken als $a$;
+\item $r = 1$ of $r = -1$ precies als alle punten op één rechte liggen;
+\item hoe dichter $r$ bij $1$ of $-1$ ligt, hoe dichter de punten bij de rechte liggen;
+\item ligt $r$ dicht bij $0$, dan is er geen lineair verband (wel misschien een ander verband).
+\end{itemize}
+\end{theorie}
+
+Hoe ICT $r$ berekent, hoef je niet te kennen. Wel: $r$ hangt niet af van de eenheden, en is geen percentage.
+
+\voorbeeld{}{ICT geeft voor de punten van voorbeeld~\ref{vb:h2-rechte} de correlatiecoëfficiënt $r \approx 0{,}77$. Wat zegt dat over de punten?\label{vb:h2-correlatie}}{%
+\uitleg{We kijken naar het teken van $r$, naar hoe dicht $r$ bij $1$ ligt, en vergelijken met de figuur hierboven.}
+De correlatiecoëfficiënt is positief, zoals de richtingscoëfficiënt $a = 0{,}6$: een stijgend verband. Maar $r$ ligt niet dicht bij $1$: de punten liggen niet mooi op een rechte, want na $x = 3$ stijgt $y$ nauwelijks nog. Er is dus een duidelijk stijgend verband, maar een rechte beschrijft het maar matig.}
+
+\begin{oefeningen}
+\oef{h2-rechte}
+\end{oefeningen}
+\end{alleenvoor}
 
 %========================================================================================
 \section{Niet-lineaire verbanden}
@@ -418,8 +494,10 @@ Uit de rechte $\ln y = ax + b$ reken je dus terug met $g = \e^a$ en $c = \e^b$. 
 \uitleg{De verhoudingen zijn ongeveer constant ($1{,}32$; $1{,}33$; $1{,}31$; $1{,}32$), dus we vermoeden $A = c \cdot g^t$. We zetten $\ln A$ uit tegen $t$, en bepalen de kleinste-kwadratenrechte.}
 \begin{stappenbreed}
 \ln A\colon\ 3{,}912;\ 4{,}190;\ 4{,}477;\ 4{,}745;\ 5{,}024 & Bijna gelijke stappen van ongeveer $0{,}28$: een rechte. \\
+\begin{alleenvoor}{4}
 \sum (t_i - \overline{t})^2 = 10,\quad \sum (t_i - \overline{t})(\ln A_i - \overline{\ln A}) \approx 2{,}779 & Met $\overline{t} = 2$ en $\overline{\ln A} \approx 4{,}470$. \\
-\ln A \approx 0{,}278\,t + 3{,}914 & $a \approx 0{,}278$, $b \approx 4{,}470 - 0{,}278 \cdot 2$; $r \approx 1{,}000$. \\
+\end{alleenvoor}
+\ln A \approx 0{,}278\,t + 3{,}914 & \alleenvoor{4}{$a \approx 0{,}278$, $b \approx 4{,}470 - 0{,}278 \cdot 2$; $r \approx 1{,}000$.}\alleenvoor{2,3}{De kleinste-kwadratenrechte van $\ln A$ tegen $t$ met ICT, met $r \approx 1{,}000$.} \\
 g = \e^{0{,}278} \approx 1{,}32,\quad c = \e^{3{,}914} \approx 50 & Terugrekenen met de stelling.
 \end{stappenbreed}
 \figuren{%
@@ -664,6 +742,10 @@ Een jaar op Ceres duurt dus ongeveer $4{,}6$ aardse jaren. De gemeten waarde is 
 \oef{h2-o21}
 
 \oef{h2-o20}
+\begin{alleenvoor}{2,3}
+
+\oef{h2-o22}
+\end{alleenvoor}
 
 \oef{h2-o5}
 \end{oefeningen}
@@ -718,5 +800,5 @@ Een jaar op Ceres duurt dus ongeveer $4{,}6$ aardse jaren. De gemeten waarde is 
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: de soorten variabelen en meetfouten, wat een residu en de kwadratensom zijn, de stellingen over de kleinste-kwadratenrechte (met hun bewijs), de correlatiecoëfficiënt en waarom ze tussen $-1$ en $1$ ligt, hoe je een macht- of exponentieel verband lineair maakt, de stappen van het modelleren, en de drie valkuilen. Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: de soorten variabelen en meetfouten, wat een residu en de kwadratensom zijn, \alleenvoor{4}{de stellingen over de kleinste-kwadratenrechte (met hun bewijs), de correlatiecoëfficiënt en waarom ze tussen $-1$ en $1$ ligt,}\alleenvoor{2,3}{hoe je de kleinste-kwadratenrechte met ICT bepaalt en controleert, wat de correlatiecoëfficiënt zegt,} hoe je een macht- of exponentieel verband lineair maakt, de stappen van het modelleren, en de drie valkuilen. Vergelijk daarna met de kaders.
 \fi

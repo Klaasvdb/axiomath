@@ -1,6 +1,7 @@
 # Oefeningen van hoofdstuk 1. Zie oefeningenbank.py voor de velden.
 
 - id: h1-start-1
+  pakketten: [4]
   soort: start
   opgave: |-
     \blokkop{Opwarmer}
@@ -19,6 +20,39 @@
         120
       uitwerking: |-
         $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1$.
+    - opgave: |-
+        Geef de volgende term: $1, 4, 9, 16, \ldots$
+      antwoord: |-
+        25
+      uitwerking: |-
+        De kwadraten.
+    - opgave: |-
+        Geef de volgende term: $2, 3, 5, 8, 12, \ldots$
+      antwoord: |-
+        17
+      uitwerking: |-
+        De verschillen zijn $1, 2, 3, 4$; dan $5$.
+
+- id: h1-start-1
+  pakketten: [2, 3]
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        Bereken $1 + 2 + 3 + \cdots + 10$.
+      antwoord: |-
+        55
+      uitwerking: |-
+        $\frac{10 \cdot 11}{2} = 55$.
+    - opgave: |-
+        Bereken $1 \cdot 2 \cdot 3 \cdot 4 \cdot 5$.
+      antwoord: |-
+        120
+      uitwerking: |-
+        $2 \cdot 3 = 6$, $6 \cdot 4 = 24$, $24 \cdot 5 = 120$.
     - opgave: |-
         Geef de volgende term: $1, 4, 9, 16, \ldots$
       antwoord: |-
@@ -327,6 +361,7 @@
     $1, 2, 3, 5, 8$: elke term is de som van de twee vorige. Verklaring: de eerste stap is één trede (dan blijven er $n - 1$) of twee (dan blijven er $n - 2$), dus $a_n = a_{n-1} + a_{n-2}$. Verder: $13, 21, 34, 55, 89$.
 
 - id: h1-o6
+  pakketten: [4]
   soort: opdracht
   niveau: 3
   thema: |-
@@ -347,6 +382,29 @@
     $1, 2, 4, 8, 16$; $31$
   uitwerking: |-
     $1, 2, 4, 8, 16$ suggereert $2^{n-1}$, maar $n = 6$ geeft $31$. Een patroon uit enkele gevallen kan bedriegen: zonder bewijs is het maar een vermoeden. De juiste formule is $\binom{n}{4} + \binom{n}{2} + 1$.
+
+- id: h1-o6
+  pakketten: [2, 3]
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    stukken van een cirkel
+  figuur:
+    opties: |-
+      3cm
+    code: |-
+      \begin{tikzpicture}[scale=1.1]
+        \draw[grijs] (0,0) circle (1);
+        \foreach \i in {0,...,3}{\coordinate (Q\i) at ({20+95*\i}:1);}
+        \draw[accent] (Q0) -- (Q1) -- (Q2) -- (Q3) -- (Q0) -- (Q2) (Q1) -- (Q3);
+        \foreach \i in {0,...,3}{\fill[accent] (Q\i) circle (1.6pt);}
+      \end{tikzpicture}
+  opgave: |-
+    Je zet $n$ punten op een cirkel en trekt alle koorden ertussen (nooit drie door één punt). Tel het aantal stukken voor $n = 1, \ldots, 5$. Teken $n = 6$ zorgvuldig en tel. Wat leer je hieruit over vermoedens?
+  antwoord: |-
+    $1, 2, 4, 8, 16$; $31$
+  uitwerking: |-
+    $1, 2, 4, 8, 16$ suggereert $2^{n-1}$, maar $n = 6$ geeft $31$. Een patroon uit enkele gevallen kan bedriegen: zonder bewijs is het maar een vermoeden. Een formule die voor elke $n$ klopt, bestaat wel: een veelterm van graad $4$ in $n$.
 
 - id: h1-o7
   soort: opdracht
@@ -599,6 +657,7 @@
         Zonder rechten is er $1$ gebied, en er komen $1 + 2 + \cdots + n$ bij: $g_n = 1 + \frac{n(n + 1)}{2}$. Voor $n = 4$: $11$, klopt. Voor $n = 5$: $1 + 15 = 16$, en ook $11 + 5 = 16$.
 
 - id: h1-o14
+  pakketten: [4]
   soort: opdracht
   niveau: 2
   thema: |-
@@ -635,6 +694,45 @@
         $\binom{2n}{n}$; $70$
       uitwerking: |-
         Elke route telt $2n$ stappen, waarvan er $n$ naar rechts gaan. Een route ligt vast als je kiest welke $n$ van de $2n$ stappen naar rechts gaan: $\binom{2n}{n}$. Controle: $\binom21 = 2$, $\binom42 = 6$, $\binom63 = 20$. Voor $n = 4$: $\binom84 = 70$.
+
+- id: h1-o14
+  pakketten: [2, 3]
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kortste routes in een rooster
+  figuur:
+    opties: ''
+    code: |-
+      \begin{tikzpicture}[scale=.6]
+        \draw[black!30] (0,0) grid (3,3);
+        \draw[accent,very thick] (0,0) -- (1,0) -- (1,2) -- (3,2) -- (3,3);
+        \fill[accent] (0,0) circle (2.5pt) (3,3) circle (2.5pt);
+        \node[below left,font=\scriptsize] at (0,0) {$S$};
+        \node[above right,font=\scriptsize] at (3,3) {$E$};
+      \end{tikzpicture}
+  opgave: |-
+    In een stad met een rooster van straten wandel je van de hoek $S$ naar de hoek $E$ van een vierkant van $n$ op $n$ blokken, telkens naar rechts of naar boven. De figuur toont één route voor $n = 3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tel het aantal routes voor $n = 1$ en $n = 2$.
+      antwoord: |-
+        $2$; $6$
+      uitwerking: |-
+        $n = 1$: rechts-boven of boven-rechts, $2$ routes. $n = 2$: schrijf elke route als een woord met twee R en twee B: RRBB, RBRB, RBBR, BRRB, BRBR, BBRR, dus $6$.
+    - opgave: |-
+        Tel voor $n = 3$. Tip: schrijf bij elk kruispunt het aantal routes ernaartoe; dat is de som van de getallen links en onder.
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        Langs de onderrand en de linkerrand staat overal $1$. Rij per rij: $1, 2, 3, 4$; $1, 3, 6, 10$; $1, 4, 10, 20$. In $E$ staat $20$.
+    - opgave: |-
+        Waarom is het getal bij een kruispunt de som van de getallen links en onder? Bereken zo het aantal routes voor $n = 4$.
+      antwoord: |-
+        de laatste stap komt van links of van onder; $70$
+      uitwerking: |-
+        Een route naar een kruispunt komt in haar laatste stap van het kruispunt links ervan, of van het kruispunt eronder. Zo telt elke route precies één keer mee. Voor $n = 4$ groeit het rooster met één rij en één kolom: rij per rij $1, 2, 3, 4, 5$; $1, 3, 6, 10, 15$; $1, 4, 10, 20, 35$; $1, 5, 15, 35, 70$. In $E$ staat $70$.
 
 - id: h1-o15
   soort: opdracht
@@ -693,6 +791,7 @@
         Bijvoorbeeld: \textit{Onder welke hoek moet je een kogel stoten om zo ver mogelijk te komen, als je hem op $2$ m hoogte loslaat met een vaste snelheid?} Deelvragen: \textit{Wat is de beste hoek als je de kogel op de grond loslaat?} (dan $45^\circ$) en \textit{Hoe verandert die hoek door de hoogte van $2$ m?}
 
 - id: h1-o17
+  pakketten: [4]
   soort: opdracht
   niveau: 2
   thema: |-
@@ -719,6 +818,35 @@
         $\binom{n}{3}$: kies drie hoekpunten
       uitwerking: |-
         Een driehoek ligt vast door drie hoekpunten, en drie hoekpunten van een convexe veelhoek liggen nooit op één rechte. Kies ze na elkaar: $n(n - 1)(n - 2)$ manieren. Zo telt elk drietal $3 \cdot 2 \cdot 1 = 6$ keer (in elke volgorde). Dus $\frac{n(n - 1)(n - 2)}{6} = \binom{n}{3}$.
+
+- id: h1-o17
+  pakketten: [2, 3]
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    driehoeken in een veelhoek
+  opgave: |-
+    Hoeveel driehoeken hebben als hoekpunten drie hoekpunten van een convexe $n$-hoek?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tel voor $n = 3, 4, 5$.
+      antwoord: |-
+        $1, 4, 10$
+      uitwerking: |-
+        Driehoek: $1$. Vierhoek: elke keuze van drie hoekpunten laat er één weg, dus $4$. Vijfhoek: $10$ (laat telkens twee hoekpunten weg: $10$ paren).
+    - opgave: |-
+        De verschillen zijn $3$ en $6$. Voorspel het aantal voor $n = 6$, en vergelijk met $\frac{n(n - 1)(n - 2)}{6}$.
+      antwoord: |-
+        $20$
+      uitwerking: |-
+        De verschillen $3, 6$ zijn de aantallen handdrukken; het volgende verschil is $10$, dus $10 + 10 = 20$. De formule geeft $\frac{3 \cdot 2 \cdot 1}{6} = 1$, $\frac{4 \cdot 3 \cdot 2}{6} = 4$, $\frac{5 \cdot 4 \cdot 3}{6} = 10$ en $\frac{6 \cdot 5 \cdot 4}{6} = 20$.
+    - opgave: |-
+        Verklaar waarom de formule voor elke $n$ klopt.
+      antwoord: |-
+        kies drie hoekpunten na elkaar; elk drietal telt $6$ keer
+      uitwerking: |-
+        Een driehoek ligt vast door drie hoekpunten, en drie hoekpunten van een convexe veelhoek liggen nooit op één rechte. Kies ze na elkaar: $n(n - 1)(n - 2)$ manieren. Zo telt elk drietal $3 \cdot 2 \cdot 1 = 6$ keer (in elke volgorde). Dus zijn er $\frac{n(n - 1)(n - 2)}{6}$ driehoeken.
 
 - id: h1-o18
   soort: opdracht
@@ -749,6 +877,7 @@
         Stel het oneven getal $2k + 1$, met $k$ natuurlijk. Dan is $(2k + 1)^2 - 1 = 4k^2 + 4k = 4k(k + 1)$. Van de opeenvolgende getallen $k$ en $k + 1$ is er één even, dus $k(k + 1) = 2m$ en $(2k + 1)^2 - 1 = 8m$.
 
 - id: h1-o19
+  pakketten: [4]
   soort: opdracht
   niveau: 3
   thema: |-
@@ -872,6 +1001,7 @@
     Bijvoorbeeld: \textit{Waarom bestaat een klassieke voetbal uit 12 vijfhoeken en 20 zeshoeken, en niet uit andere aantallen?} Of: \textit{Hoeveel naden heeft een voetbal met 12 vijfhoeken en 20 zeshoeken?} ($90$).
 
 - id: h1-t2
+  pakketten: [4]
   soort: test
   niveau: 1
   thema: |-
@@ -882,6 +1012,19 @@
     $\frac{n(n - 1)}{2}$
   uitwerking: |-
     Voor $n = 1, 2, 3, 4, 5$ tel je $0, 1, 3, 6, 10$ lijnstukken. De verschillen zijn $1, 2, 3, 4$, zoals bij de handdrukken: vermoeden $\frac{n(n - 1)}{2}$. Test met $n = 6$: $15$. Verklaring: uit elk punt vertrekken $n - 1$ lijnstukken, samen $n(n - 1)$, maar zo telt elk lijnstuk twee keer, eens vanuit elk eindpunt. Dus $\frac{n(n - 1)}{2} = \binom{n}{2}$.
+
+- id: h1-t2
+  pakketten: [2, 3]
+  soort: test
+  niveau: 1
+  thema: |-
+    patroon zoeken
+  opgave: |-
+    Hoeveel lijnstukken verbinden $n$ punten op een cirkel? Tel voor kleine $n$, stel een vermoeden op en verklaar het.
+  antwoord: |-
+    $\frac{n(n - 1)}{2}$
+  uitwerking: |-
+    Voor $n = 1, 2, 3, 4, 5$ tel je $0, 1, 3, 6, 10$ lijnstukken. De verschillen zijn $1, 2, 3, 4$, zoals bij de handdrukken: vermoeden $\frac{n(n - 1)}{2}$. Test met $n = 6$: $15$. Verklaring: uit elk punt vertrekken $n - 1$ lijnstukken, samen $n(n - 1)$, maar zo telt elk lijnstuk twee keer, eens vanuit elk eindpunt. Dus zijn er $\frac{n(n - 1)}{2}$ lijnstukken.
 
 - id: h1-t3
   soort: test
