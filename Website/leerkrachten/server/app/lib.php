@@ -424,6 +424,7 @@ function route() {
     $v = versie($delen[1], $ik);
     $v['label'] = EDITIES[$v['editie']] ?? $v['editie'];
     $v['jongste'] = laatste()[$v['sleutel']][$v['editie']]['hash'] ?? null;
+    $v['verwerkt'] = (json_bestand('verwerkt.json') ?? [])[$v['hash']] ?? [];  // wat uit de feedback verwerkt is (maak.py)
     antwoord($v, 200, 'application/json; charset=utf-8', ['Cache-Control' => 'private, max-age=60']);
   }
   if ($m === 'GET' && $delen[0] === 'pdf' && count($delen) === 2) pdf($delen[1], $ik);
@@ -633,11 +634,15 @@ function feedback_nieuw($ik) {
   } else {
     fout('Onbekend soort feedback.');
   }
+  // Feedback van het team (een beheerder, niet de sleutel) is meteen goedgekeurd: het team keurt zijn eigen opmerkingen niet nog eens goed.
+  $team = is_team($ik) && empty($ik['sleutel_id']);
+  if ($team) $rij['status'] = 'behandeling';
   $kol = array_keys($rij);
   q('INSERT INTO feedback(gebruiker, ' . implode(', ', $kol) . ', aangemaakt, bijgewerkt) VALUES (?, '
     . implode(', ', array_fill(0, count($kol), '?')) . ', ?, ?)', array_merge([$ik['id']], array_values($rij), [time(), time()]));
   $nieuw_id = (int)db()->lastInsertId();
   log_stap($ik, ['id' => $nieuw_id] + $rij, 'ingediend', null, 'nieuw');
+  if ($team) log_stap($ik, ['id' => $nieuw_id] + $rij, 'status', 'nieuw', 'behandeling', 'feedback van het team: meteen goedgekeurd');
   antwoord(een_feedback($ik, $nieuw_id));
 }
 
@@ -666,8 +671,11 @@ function feedback_een($ik, $m, $id, $actie) {
     if ($beheerder) {
       if (isset(STATUSSEN[$d['status'] ?? '']) && $d['status'] !== $r['status']) {
         // Goed- of afkeuren doet alleen een beheerder. Een sleutel (Claude) zet een goedgekeurde opmerking op verwerkt, niets anders.
-        if (!empty($ik['sleutel_id']) && !($r['status'] === 'behandeling' && $d['status'] === 'verwerkt'))
-          fout('Met een sleutel kan je alleen een goedgekeurde opmerking op verwerkt zetten. Goed- en afkeuren doet het team op de site.', 403);
+        // Uitzondering: feedback van het team zelf (een beheerder) mag de sleutel ook goedkeuren.
+        $van_team = (bool)rij("SELECT 1 FROM gebruikers WHERE id = ? AND rol = 'beheerder'", [$r['gebruiker']]);
+        if (!empty($ik['sleutel_id']) && !($r['status'] === 'behandeling' && $d['status'] === 'verwerkt')
+            && !($van_team && $r['status'] === 'nieuw' && $d['status'] === 'behandeling'))
+          fout('Met een sleutel kan je alleen een goedgekeurde opmerking op verwerkt zetten, en feedback van het team goedkeuren. Goed- en afkeuren doet het team op de site.', 403);
         $velden['status'] = $d['status'];
       }
       if (array_key_exists('notitie', $d)) $velden['notitie'] = tekstveld($d, 'notitie', 3000, false);

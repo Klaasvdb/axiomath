@@ -108,6 +108,9 @@ Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofd
 - Daarna bouwt die Claude altijd alle PDF's opnieuw en zet ze op de website.
 - Eerst samen bespreken: wie mag dat (rollen op de site), hoe de rechten voor schrijven in de repo en uitrollen geregeld worden, en hoe twee medewerkers niet tegelijk dezelfde feedback verwerken.
 
+## Na de feedback op Tweedegraadsfuncties (20 nov 2026)
+- **Grafisch vóór algebraïsch, in alle cursussen** (feedback #37): zoek waar een grafische aanpak (een korte schets) achter een algebraïsche regel of een formule om van buiten te leren staat, en draai dat om, zoals bij het tekenschema in Tweedegraadsfuncties. Gedaan: Functies (tekenschema van een eerstegraadsfunctie). Goniometrie (tekens per kwadrant) vertrekt al van een schets van de cirkel. Eerstegraadsvergelijkingen werkt al met de getallenas (nog geen functies). Nog na te kijken, in de 3de graad: Algemene functies, Limieten en de afgeleiden (tekenschema van f').
+
 ## Bevraging van de leerkrachten
 - Begin december 2026 *Beheer → Dekking* bekijken: hoeveel leerkrachten het invullen, en of er richtingen in "Nog iets?" opduiken die op de site ontbreken.
 

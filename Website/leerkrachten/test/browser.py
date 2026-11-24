@@ -38,6 +38,29 @@ def doorloop(url, startcode, uit: Path):
         g.wait_for_selector(".blad canvas.geladen", timeout=30000)
         check("browser: zonder account lezen, zonder markeerstift", g.locator("button.markeer").count() == 0)
         g.screenshot(path=uit / "00-gast-lezer.png")
+        # de kaders "Verwerkt" (verwerkt.yaml): een boek waarvan de versie er heeft, op de pagina van het eerste
+        doel = g.evaluate("""async () => {
+          const d = await (await fetch('/api/index.php?r=boeken')).json();
+          for (const b of d.boeken) for (const e of b.edities.filter((e) => e.editie === 'handboek')) {
+            const v = await (await fetch('/api/index.php?r=versie/' + e.hash)).json();
+            if (v.verwerkt && v.verwerkt.length) return [e.hash, v.verwerkt[0].pagina];
+          }
+          return null; }""")
+        if doel:
+            g.goto(f"{url}#/lees/{doel[0]}?p={doel[1]}")
+            g.wait_for_selector(".verwerkt-kader", timeout=30000)
+            g.wait_for_timeout(800)
+            g.locator(".verwerkt-kader").first.scroll_into_view_if_needed()
+            g.screenshot(path=uit / "00-gast-verwerkt.png")
+            g.click("button[aria-label='Paneel met de inhoud']")  # zonder paneel: de kaders naast de pagina
+            g.wait_for_timeout(600)
+            g.locator(".verwerkt-kader").first.scroll_into_view_if_needed()
+            g.screenshot(path=uit / "00-gast-verwerkt-ruim.png")
+            check("browser: kaders Verwerkt naast de pagina", g.locator(".vel.ruim").count() == 1)
+            check("browser: kaders Verwerkt in de lezer", g.locator(".verwerkt-kader").count() > 0 and g.locator(".verwerkt-lijn").count() > 0)
+            g.click("button.verwerkt-knop")
+            check("browser: kaders Verwerkt uit te zetten", g.locator(".verwerkt-kader").count() == 0)
+            g.click("button.verwerkt-knop")
         g.goto(url + "/#/mijn")
         g.wait_for_selector(".welkom")
         check("browser: zonder account naar aanmelden bij mijn feedback", True)

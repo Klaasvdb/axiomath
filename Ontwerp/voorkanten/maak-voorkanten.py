@@ -397,9 +397,14 @@ def _uren_tekst(graaduren):
     return f"{per_week} uur per week"
 
 
+def is_extra(s):
+    """Een handboek dat bij een pakket hoort maar geen leerstof is (de bundels kernvaardigheden): op de site bij Extra."""
+    return bool(s) and s.split("/", 1)[-1].startswith("Kernvaardigheden")
+
+
 def koepeltabel():
     """{graad: {koepel: {richting: gegevens}}} met elke verwijzing uit koepels.yaml omgezet naar een sleutel.
-    Gegevens: profiel, decreet, leerplan, pakket (id), uren, verplicht, keuze, uitbreiding, nieuw (nog te maken),
+    Gegevens: profiel, decreet, leerplan, pakket (id), uren, verplicht, keuze, uitbreiding, extra (kernvaardigheden), nieuw (nog te maken),
     opmerking. Een item in een lijst: {"sleutel": ..., "noot": ...} of {"tekst": ...}."""
     import yaml
     cfg = yaml.safe_load(KOEPELS_YAML.read_text(encoding="utf-8"))
@@ -458,6 +463,9 @@ def koepeltabel():
                 # een hele cursus als keuze (bv. Matrices in KOV Basis) is niet verplicht; een hoofdstuk als keuze wel
                 hele = {i["sleutel"] for i in rec["keuze"] if "sleutel" in i and not i.get("noot", "").startswith("hoofdstuk")}
                 rec["verplicht"] = [i for i in rec["verplicht"] if i.get("sleutel") not in hele]
+                # de bundels kernvaardigheden zitten in een pakket, maar zijn geen leerstof: op de site bij Extra
+                rec["extra"] = [i for i in rec["verplicht"] if is_extra(i.get("sleutel"))]
+                rec["verplicht"] = [i for i in rec["verplicht"] if not is_extra(i.get("sleutel"))]
                 rec["uitbreiding"] = [item(r) for r in e.get("uitbreiding", [])]
                 for r in e.get("niet", []):
                     rec["uitbreiding"].append({**item(r), "noot": "geen leerstof voor deze koepel"})
@@ -506,7 +514,7 @@ def koepel_voorkant(koepel):
         for r, rec in tabel[int(g)].get(koepel, {}).items():
             if rec["profiel"] not in profielen:
                 continue
-            for i in rec["verplicht"]:
+            for i in rec["verplicht"] + rec.get("extra", []):
                 if "sleutel" in i:
                     per_boek.setdefault(i["sleutel"], {}).setdefault(rec["profiel"], []).append(r)
         for s, pp in per_boek.items():

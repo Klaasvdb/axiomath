@@ -1,6 +1,6 @@
 # Tweedegraadsfuncties: bron
 
-Bron van het handboek Analyse/Tweedegraadsfuncties van de 2de graad, voor alle vijf pakketten, volgens de [ontwerpregels](../../../../Ontwerp/ontwerpregels.md) (ook het deel "2de graad"). Alle opgaven, teksten en figuren zijn eigen werk. Status: eerste versie, nog na te lezen.
+Bron van het handboek Analyse/Tweedegraadsfuncties van de 2de graad, voor alle vijf pakketten, volgens de [ontwerpregels](../../../../Ontwerp/ontwerpregels.md) (ook het deel "2de graad"). Alle opgaven, teksten en figuren zijn eigen werk. Status: eerste versie, nog na te lezen. De verwerkte feedback van leerkrachten staat in `verwerkt.yaml` (op axiomath.be als kader *Verwerkt* in de lezer).
 
 | Hoofdstuk | Bestand | Pakketten |
 |---|---|---|
@@ -15,14 +15,14 @@ De oefeningen staan in `oefeningen/*.yaml` (zie `Opmaak/oefeningenbank.py`), de 
 
 ## Inhoud
 
-1. **De parabool.** Probleem: de boog van een voetgangersbrug, $40$ m breed en $10$ m hoog (hoe hoog op $5$ m van een voet, hoe breed is de strook voor een boot van $8$ m hoog). De parabool $y = x^2$ (tabel, waarom geen gebroken lijn, top, symmetrieas, kenmerken, punten op een hoogte); $y = ax^2$ (een kader per eigenschap: teken van $a$, grootte van $\abs{a}$), tekenen, "twee keer zo ver, vier keer zo hoog" (de pizza), het voorschrift uit één punt, kenmerken. Pakket 1: de vergelijking $ax^2 = k$, problemen (vallende steen), Terug naar het probleem met de oorsprong in de top. Pakket 2-5: verticaal en horizontaal verschuiven (een kader per verschuiving), de topvorm met top $(p, q)$ en as $x = p$, tekenen vanuit de top ($1$ opzij $a$ omhoog, $2$ opzij $4a$), het voorschrift aflezen met de top en één punt, Terug naar het probleem met de oorsprong op het water.
-2. **De vorm $ax^2 + bx + c$.** Probleem: een fontein, $h(x) = -0,8x^2 + 3,2x + 0,4$ (hoe hoog, waar, en waar weer op de hoogte van de spuitmond). Van topvorm naar algemene vorm, de definitie van tweedegraadsfunctie; de top via twee punten op hoogte $c$ ($x = 0$ en $x = -\tfrac ba$), de formule $x = -\tfrac{b}{2a}$; van algemene vorm naar topvorm; de grafiek tekenen met de top, $(0, c)$ en zijn spiegelbeeld; kenmerken (een kader voor extremum en bereik, een voor stijgen en dalen), het aantal nulwaarden afleiden uit de top; problemen met een maximum (de speelzone tegen een gevel), Terug naar het probleem.
-3. **Tweedegraadsvergelijkingen.** Probleem: een grindpad rond een grasveld van $20$ m op $15$ m met $200$ m$^2$ grind. Definitie en verband met de nulwaarden; $ax^2 + c = 0$; de product-nulregel; $ax^2 + bx = 0$ (en waarom je niet door $x$ deelt); merkwaardige producten, de som-productmethode, eerst herleiden op nul; de discriminant, ingeleid met de topvorm van $x^2 - 4x + 1$, de formule met de drie gevallen en de betekenis op de grafiek; de keuze van de methode; grafisch oplossen (parabool en rechte); vraagstukken (waar de fontein in de vijver komt), Terug naar het probleem.
-4. **Tweedegraadsongelijkheden.** Probleem: een vuurpijl, $h(t) = -5t^2 + 40t$ (wanneer hoger dan $60$ m, wanneer minstens $75$ m). Het tekenschema bij twee, één en geen nulwaarden (een kader per geval); ongelijkheden oplossen met het tekenschema, grenzen erbij of niet, de unie, de fout "wortel nemen" bij $x^2 < 9$; de bijzondere gevallen ($\R$, één getal, $\emptyset$); grafisch oplossen; problemen, Terug naar het probleem.
+1. **De parabool.** Probleem: de boog van een voetgangersbrug, $40$ m breed en $10$ m hoog (hoe hoog op $5$ m van een voet, hoe breed is de strook voor een boot van $8$ m hoog). De parabool $y = x^2$ (tabel, waarom geen gebroken lijn, top, symmetrieas, kenmerken, punten op een hoogte); $y = ax^2$ (een kader per eigenschap: teken van $a$, grootte van $\abs{a}$), tekenen, "twee keer zo ver, vier keer zo hoog" (de pizza), het voorschrift uit één punt, kenmerken. Pakket 1: de vergelijking $ax^2 = k$, problemen (vallende steen), Terug naar het probleem met de oorsprong in de top. Pakket 2-5: verticaal en horizontaal verschuiven (een kader per verschuiving), de topvorm met top $(p, q)$ en as $x = p$, tekenen vanuit de top ($1$ opzij $a$ omhoog, $2$ opzij $4a$), het voorschrift aflezen met de top en één punt, Terug naar het probleem met de oorsprong op het water, twee punten op dezelfde hoogte (een stelling: de as ligt in het midden), het voorschrift zonder top (drie punten, of de nulwaarden en het snijpunt met de $y$-as).
+2. **De vorm $ax^2 + bx + c$.** Probleem: een fontein, $h(x) = -0,8x^2 + 3,2x + 0,4$ (hoe hoog, waar, en waar weer op de hoogte van de spuitmond). Van topvorm naar algemene vorm, de definitie van tweedegraadsfunctie; de top: in pakket 2-3 via twee punten op hoogte $c$ ($x = 0$ en $x = -\tfrac ba$), in pakket 4-5 eerst kwadraatafsplitsen en daarmee de formule $x = -\tfrac{b}{2a}$; van algemene vorm naar topvorm; de grafiek tekenen met de top, $(0, c)$ en zijn spiegelbeeld; kenmerken (een kader voor extremum en bereik, een voor stijgen en dalen), het aantal nulwaarden afleiden uit de top; problemen met een maximum (de speelzone tegen een gevel), Terug naar het probleem.
+3. **Tweedegraadsvergelijkingen.** Probleem: een grindpad rond een grasveld van $20$ m op $15$ m met $200$ m$^2$ grind. Definitie en verband met de nulwaarden; $ax^2 + c = 0$; de product-nulregel; $ax^2 + bx = 0$ (en waarom je niet door $x$ deelt); merkwaardige producten, de som-productmethode, eerst herleiden op nul; de discriminant, ingeleid met de topvorm van $x^2 - 4x + 1$, de formule met de drie gevallen en de betekenis op de grafiek; de keuze van de methode; grafisch oplossen (parabool en rechte); vraagstukken (waar de fontein in de vijver komt), de top uit de nulwaarden (de voetbal), Terug naar het probleem.
+4. **Tweedegraadsongelijkheden.** Probleem: een vuurpijl, $h(t) = -5t^2 + 40t$ (wanneer hoger dan $60$ m, wanneer minstens $75$ m). Het tekenschema bij twee, één en geen nulwaarden (een kader per geval), afgelezen op een korte schets; ongelijkheden oplossen met het tekenschema, grenzen erbij of niet, de unie, de fout $x < 3$ uit $x^2 < 9$; de bijzondere gevallen ($\R$, één getal, $\emptyset$) en de fout "$D < 0$, dus geen oplossingen"; grafisch oplossen; wanneer de grafiek van $f$ boven die van $g$ ligt; problemen, Terug naar het probleem.
 
 ## Aantallen
 
-Opdrachten (deelvragen) / korte oefeningen / testvragen, per hoofdstuk.
+Opdrachten (deelvragen) / korte oefeningen / testvragen, per hoofdstuk. Stand vóór de verwerking van de feedback op 20 november 2026: sindsdien zijn er opdrachten en korte oefeningen bij (zie `verwerkt.yaml`).
 
 | Hoofdstuk | Pakket 1 | Pakket 2-3 | Pakket 4 | Pakket 5 |
 |---|---|---|---|---|
@@ -43,16 +43,21 @@ Pakket 1 heeft LPD 24 en één hoofdstuk; pakket 2 heeft LPD 24-28 en hoofdstuk 
 | H1 sectie Toepassingen ($ax^2 = k$, contexten), `h1-vglax`, `h1-context`, opdrachten `h1-o20` tot `h1-o30`, testvragen 5-7 in een eigen variant | x | | | | |
 | H1 verschuiven, topvorm, voorschrift aflezen, `h1-verschuif`, `h1-tekentop`, `h1-aflezen`, opdrachten `h1-o40` tot `h1-o48` | | x | x | x | x |
 | H1 opdracht spiegelen en verschuiven (`h1-o49`) | | | | x | x |
-| H1 bewijs van de symmetrie van de topvorm (in 2-4 als uitleg in de tekst), bewijsopdracht `h1-o50` | | | | | x |
+| H1 twee punten op dezelfde hoogte (stelling), het voorschrift zonder top, `h1-zondertop`, opdrachten `h1-o51`, `h1-o52` | | x | x | x | x |
+| H1 bewijs van de symmetrie van de topvorm en van $p = \tfrac{x_1 + x_2}{2}$ (in 2-4 als uitleg in de tekst) | | | | | x |
 | Hoofdstuk 2 en 3 | | x | x | x | x |
 | Hoofdstuk 4 (in pakket 2 als keuzehoofdstuk, vermeld in de leerkrachtenversie) | | x | x | x | x |
-| H2 kwadraatafsplitsen: subsectie, twee voorbeelden, `h2-afsplitsen`, `h2-o21`, `h2-o22`, testvraag `h2-t7` (2-3: een variant met de symmetrieas) | | | | x | x |
-| H2 bewijs van de formule voor de top (in 2-4 als uitleg), bewijsopdracht `h2-o23` (de topvorm met letters) | | | | | x |
-| H3 ontbinden met de oplossingen $a(x - x_1)(x - x_2)$, `h3-ontbindwortels`, `h3-o21`, testvraag `h3-t8` | | | | x | x |
+| H2 de top met twee punten op hoogte $c$ | | x | x | | |
+| H2 kwadraatafsplitsen vóór de formule voor de top: subsectie, twee voorbeelden, `h2-afsplitsen`, `h2-o21`, `h2-o22`, testvraag `h2-t7` (2-3: een variant met de symmetrieas) | | | | x | x |
+| H2 bewijs van de formule voor de top met kwadraatafsplitsen (in 4 als uitleg), opdracht `h2-o25` (de toppen van een familie parabolen) | | | | | x |
+| H3 ontbinden met de oplossingen $a(x - x_1)(x - x_2)$ (bewijs in 5, uitleg in 4), `h3-ontbindwortels`, `h3-o21`, testvraag `h3-t8` | | | | x | x |
+| H3 de top uit de nulwaarden, `h3-symnul`; opdrachten `h3-o29`, `h3-o30`, `h3-o31` | | x | x | x | x |
+| H3 opdrachten met parameters `h3-o26`, `h3-o27` | | | | x | x |
 | H3 de gulden snede (`h3-o20`) | | | | x | x |
 | H3 bewijs van de formule met de discriminant (kwadraatafsplitsen; in 2-4 alleen gezegd dat het dezelfde stappen met letters zijn) | | | | | x |
-| H3 som en product van de oplossingen met bewijs, `h3-somproduct`, `h3-o22`, bewijsopdracht `h3-o23` | | | | | x |
-| H4 ongelijkheden met een parameter, `h4-parameter`, `h4-o20`, `h4-o21`, testvraag `h4-t8` | | | | x | x |
+| H3 som en product van de oplossingen met bewijs (de som ook met de symmetrie), `h3-somproduct`, `h3-o22`, `h3-o28`, bewijsopdracht `h3-o23` | | | | | x |
+| H4 $f$ boven $g$, `h4-boven`, `h4-o27` | | x | x | x | x |
+| H4 ongelijkheden met een parameter, `h4-parameter`, `h4-o20`, `h4-o21`, `h4-o25`, `h4-o26`, testvraag `h4-t8` | | | | x | x |
 | H4 bewijsopdracht ($x^2 - x + 1 > 0$, $a^2 + b^2 \geqslant 2ab$, $x + \tfrac1x \geqslant 2$) (`h4-o22`) | | | | | x |
 
 ## Na te kijken
@@ -61,7 +66,7 @@ Pakket 1 heeft LPD 24 en één hoofdstuk; pakket 2 heeft LPD 24-28 en hoofdstuk 
 - **Keuze voor pakket 1.** Geen apart bronhoofdstuk `00-ax2`, maar `\alleenvoor` in hoofdstuk 1 (zie boven). Een apart hoofdstuk zou de theorie over $y = x^2$ en $y = ax^2$ verdubbelen.
 - **LPD per hoofdstuk.** De leerkrachtenversie zegt bij hoofdstuk 1-3 "LPD 24-28" (pakket 2), "LPD 25-30" (pakket 3) of "LPD 29-34" (pakket 4-5), en bij hoofdstuk 4 K2, LPD 25-30 of LPD 29-34. Welk nummer bij welk hoofdstuk hoort, is niet nagekeken.
 - **Notatie en woorden.** Topvorm $y = a(x - p)^2 + q$ met top $(p, q)$; algemene vorm $ax^2 + bx + c$; "naar boven geopend" en "naar onder geopend" (met dal en berg als beeld; sommige scholen zeggen dalparabool en bergparabool); discriminant $D = b^2 - 4ac$, oplossingen $x_1$ en $x_2$; oplossingsverzameling $V = \{-2, 4\}$; "product-nulregel" en "som-productmethode". Een punt met een kommagetal krijgt een puntkomma: $(2;\ 3,6)$.
-- **Bewijzen.** In pakket 5 staan de symmetrie van de topvorm, de formule voor de top, de discriminantformule en de som en het product. De formule voor de top wordt in alle pakketten verklaard met twee punten op hoogte $c$ (uitleg in de tekst), met de product-nulregel die pas in hoofdstuk 3 een kader krijgt; daar staat dat "een product is nul als een factor nul is", wat leerlingen uit de 1ste graad kennen.
+- **Bewijzen.** In pakket 5 staan de symmetrie van de topvorm, de formule voor de top, de discriminantformule en de som en het product. De formule voor de top wordt in pakket 2-3 verklaard met twee punten op hoogte $c$ (uitleg in de tekst) en in pakket 4-5 met kwadraatafsplitsen (feedback #50), met de product-nulregel die pas in hoofdstuk 3 een kader krijgt; daar staat dat "een product is nul als een factor nul is", wat leerlingen uit de 1ste graad kennen.
 - **Contexten met eigen gekozen getallen**, geen echte gegevens: de brug, de pizza's, de remweg $0,008v^2$ en de stopafstand $0,3v + 0,008v^2$ (als "stel dat"), de valweg $5t^2$ (afgerond), de hangbrug (een kabel onder een gelijkmatig verdeelde last heeft ongeveer de vorm van een parabool), de schotelantenne, de fontein, de vuurpijl (zonder luchtweerstand), de fietsverhuur, de brouwerij, de smoothies.
 - **Galilei.** Opdracht `h1-o30` (pakket 1) zegt dat Galilei rond 1604 de regel van de oneven getallen ontdekte. Galilei vond de valwet rond 1604; de regel staat in zijn *Discorsi* van 1638. Na te kijken of die formulering goed genoeg is.
 - **Moeilijke opdrachten.** `h3-o19` (kosten van een chalet delen) leidt tot een vergelijking met $x$ in de noemer; dat staat in alle pakketten 2-5 als niveau 3 en kan in pakket 2-3 te zwaar zijn. `h4-o18` (dubbele ongelijkheid) gebruikt de doorsnede van intervallen zonder dat woord.

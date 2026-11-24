@@ -100,7 +100,7 @@ def logboek(a):
     UIT.mkdir(exist_ok=True)
     md = api("GET", "logboek", {"max": "5000", "formaat": "md"})
     if a.handboek:  # de kop (3 regels) en de stappen van dat handboek: een stap is een regel met een inspringende vervolgregel
-        z, regels, uit = a.handboek.lower(), md.split("\n")
+        z, regels = a.handboek.lower(), md.split("\n")
         uit = regels[:4]
         i = 4
         while i < len(regels):
@@ -118,9 +118,8 @@ def logboek(a):
 
 def zet(a):
     if a.status:
-        if a.status != "verwerkt":
-            sys.exit("Met een sleutel kan je alleen een goedgekeurde opmerking op verwerkt zetten. Goed- en afkeuren doet het team op de site.")
-        api("PATCH", f"feedback/{a.id}", body={"status": a.status, **({"notitie": a.notitie} if a.notitie is not None else {})})
+        status = {"goedgekeurd": "behandeling"}.get(a.status, a.status)  # goedkeuren: alleen feedback van het team zelf (de server controleert)
+        api("PATCH", f"feedback/{a.id}", body={"status": status, **({"notitie": a.notitie} if a.notitie is not None else {})})
     elif a.notitie is not None:
         api("PATCH", f"feedback/{a.id}", body={"notitie": a.notitie})
     if a.antwoord:
@@ -143,7 +142,7 @@ def main():
     h.add_argument("--niveau", choices=["plek", "handboek", "algemeen"])
     z = sub.add_parser("zet", help="status, antwoord aan de leerkracht of interne notitie")
     z.add_argument("id", type=int)
-    z.add_argument("status", nargs="?", choices=["verwerkt"], help="alleen verwerkt; goed- en afkeuren doet het team")
+    z.add_argument("status", nargs="?", choices=["verwerkt", "goedgekeurd"], help="verwerkt; goedgekeurd alleen voor feedback van het team zelf")
     z.add_argument("--antwoord", help="zichtbaar voor de leerkracht, als antwoord van het team")
     z.add_argument("--notitie", help="interne notitie, alleen voor het team")
     lg = sub.add_parser("logboek", help="het logboek van alle stappen ophalen")

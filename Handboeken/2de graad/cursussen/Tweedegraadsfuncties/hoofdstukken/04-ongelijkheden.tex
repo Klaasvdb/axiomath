@@ -40,13 +40,13 @@ Neem $f(x) = x^2 - 2x - 3 = (x + 1)(x - 3)$, met nulwaarden $-1$ en $3$. De para
 \figuren{\begin{tabular}{c@{\qquad\qquad}c}
 \begin{tikzpicture}[x=.42cm,y=.3cm]
   \roosterleeg{-2}{1}{4}{-4}{1}{5}\xgetallen{-1,3}
-  \fill[accent!15] plot[domain=-1:3,samples=40] (\x,{(\x+1)*(\x-3)}) -- cycle;
+  \fill[accent,fill opacity=.15] plot[domain=-1:3,samples=40] (\x,{(\x+1)*(\x-3)}) -- cycle;
   \parabool{1}{1}{-4}{-1.95}{3.95}
   \punt{-1}{0}\punt{3}{0}
 \end{tikzpicture} &
 \begin{tikzpicture}[x=.42cm,y=.3cm]
   \roosterleeg{-2}{1}{4}{-4}{1}{5}\xgetallen{-1,3}
-  \fill[accent!15] plot[domain=-1:3,samples=40] (\x,{-(\x+1)*(\x-3)}) -- cycle;
+  \fill[accent,fill opacity=.15] plot[domain=-1:3,samples=40] (\x,{-(\x+1)*(\x-3)}) -- cycle;
   \parabool{-1}{1}{4}{-1.95}{3.95}
   \punt{-1}{0}\punt{3}{0}
 \end{tikzpicture} \\[1mm]
@@ -63,15 +63,32 @@ Heeft $f(x) = ax^2 + bx + c$ twee nulwaarden $x_1 < x_2$ ($D > 0$), dan heeft $f
 \end{stelling}
 \end{theorie}
 
-Je hoeft de parabool dus niet te tekenen: de nulwaarden en het teken van $a$ zijn genoeg. Maar een kleine schets helpt om je niet te vergissen.
+Dit kader hoef je niet van buiten te leren: een korte schets toont het meteen. Zet de nulwaarden op de $x$-as en teken er een parabool door, naar boven geopend als $a > 0$ en naar onder als $a < 0$. Waar de schets boven de $x$-as ligt, is $f(x)$ positief, waar ze eronder ligt, negatief. De schets hoeft niet op schaal: alleen de nulwaarden en de opening tellen.
+
+\figuren{\begin{tikzpicture}[x=.7cm,y=.45cm,font=\scriptsize]
+  \draw[->,grijs] (-2.4,0) -- (2.6,0) node[right] {$x$};
+  \fill[accent,fill opacity=.15] plot[domain=-1.2:1.2,samples=30] (\x,{\x*\x-1.44}) -- cycle;
+  \draw[accent,thick] plot[domain=-2:2,samples=40,smooth] (\x,{\x*\x-1.44});
+  \node[below left] at (-1.2,0) {$x_1$};\node[below right] at (1.2,0) {$x_2$};
+  \node[inkt] at (-1.9,1.2) {$+$};\node[inkt] at (1.9,1.2) {$+$};\node[inkt] at (0,-.7) {$-$};
+  \node at (0,-3) {$a > 0$};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[x=.7cm,y=.45cm,font=\scriptsize]
+  \draw[->,grijs] (-2.4,0) -- (2.6,0) node[right] {$x$};
+  \fill[accent,fill opacity=.15] plot[domain=-1.2:1.2,samples=30] (\x,{-\x*\x+1.44}) -- cycle;
+  \draw[accent,thick] plot[domain=-2:2,samples=40,smooth] (\x,{-\x*\x+1.44});
+  \node[above left] at (-1.2,0) {$x_1$};\node[above right] at (1.2,0) {$x_2$};
+  \node[inkt] at (-1.9,-1.2) {$-$};\node[inkt] at (1.9,-1.2) {$-$};\node[inkt] at (0,.7) {$+$};
+  \node at (0,-3) {$a < 0$};
+\end{tikzpicture}}
 
 \voorbeeld{}{Maak het tekenschema van $f(x) = -2x^2 + 4x + 6$.\label{vb:h4-twee}}{%
-\naast{\uitleg{We zoeken de nulwaarden, en kijken naar het teken van $a$.}
+\naast{\uitleg{We zoeken de nulwaarden en maken een schets: het teken van $a$ zegt hoe de parabool opent.}
 \begin{stappenvrij}{4.4cm}{4cm}
 -2x^2 + 4x + 6 = 0 & \\
 x^2 - 2x - 3 = 0 & Deel door $-2$. \\
 (x + 1)(x - 3) = 0 & Nulwaarden $-1$ en $3$. \\
-a = -2 < 0 & Buiten: $-$, tussen: $+$.
+a = -2 < 0 & Naar onder geopend: ertussen boven de as.
 \end{stappenvrij}
 \medskip
 \tekenschema{5}{ & -1 & & 3 & }{- & 0 & + & 0 & -}}{\begin{tikzpicture}[x=.42cm,y=.2cm]
@@ -134,7 +151,7 @@ a = 1 > 0 & Overal positief.
 \end{tikzpicture}}}
 
 \begin{werkwijze}
-Bereken de nulwaarden (ontbinden of de discriminant). Zet ze van klein naar groot in het tekenschema, met een $0$ eronder. Vul het teken in: bij twee nulwaarden buiten het teken van $a$ en ertussen het tegengestelde; bij één of geen nulwaarde overal het teken van $a$. Controleer met één getal, bijvoorbeeld $x = 0$: $f(0) = c$.
+Bereken de nulwaarden (ontbinden of de discriminant). Maak een korte schets: de nulwaarden op de $x$-as, en een parabool die naar boven opent als $a > 0$ en naar onder als $a < 0$. Zet de nulwaarden van klein naar groot in het tekenschema, met een $0$ eronder, en lees het teken af op de schets: $+$ waar de parabool boven de $x$-as ligt, $-$ waar ze eronder ligt. Controleer met één getal, bijvoorbeeld $x = 0$: $f(0) = c$.
 \end{werkwijze}
 
 \begin{oefeningen}
@@ -200,7 +217,7 @@ V = \ivog{\minf}{0} \cup \ivgo{4}{\pinf} & Teken $-$ of $0$: de nulwaarden horen
 Herleid de ongelijkheid tot $ax^2 + bx + c$ tegenover $0$. Maak het tekenschema van het linkerlid. Lees af waar het teken klopt met de ongelijkheid. Bij $<$ en $>$ horen de nulwaarden er niet bij, bij $\leqslant$ en $\geqslant$ wel. Noteer de oplossing met intervallen.
 \end{werkwijze}
 
-Een veelgemaakte fout is de vierkantswortel nemen. Uit $x^2 < 9$ volgt niet $x < 3$, want ook $x = -5$ voldoet aan $x < 3$, terwijl $(-5)^2 = 25$. Met het tekenschema van $x^2 - 9$ vind je de juiste oplossing: $\ivoo{-3}{3}$.
+Een veelgemaakte fout: uit $x^2 < 9$ besluiten dat $x < 3$. Maar $9$ heeft twee vierkantswortels, $3$ en $-3$, en ook $x = -5$ voldoet aan $x < 3$, terwijl $(-5)^2 = 25$. Met het tekenschema van $x^2 - 9$ vind je de juiste oplossing: $\ivoo{-3}{3}$.
 
 \begin{oefeningen}
 \oef{h4-wortelfout}
@@ -228,7 +245,22 @@ V = \{3\} & Alleen $3$: nergens negatief.
   \punt{3}{0}
 \end{tikzpicture}}}
 
-Zo is ook $x^2 + 2x + 5 < 0$ zonder oplossing, want het linkerlid is overal positief (voorbeeld~\ref{vb:h4-geen}): $V = \emptyset$. En $x^2 + 2x + 5 > 0$ geldt voor elke $x$: $V = \R$.
+Zo is ook $x^2 + 2x + 5 < 0$ zonder oplossing, want het linkerlid is overal positief (voorbeeld~\ref{vb:h4-geen}): $V = \emptyset$. En $x^2 + 2x + 5 > 0$ geldt voor elke $x$: $V = \R$. Geen nulwaarden betekent dus niet dat er geen oplossingen zijn.
+
+\voorbeeld{}{Een leerling lost $-x^2 + 2x - 5 < 0$ op. Hij berekent $D = 4 - 20 = -16$ en schrijft: \textit{$D < 0$, dus geen oplossingen.} Waar zit de fout?\label{vb:h4-fout}}{%
+\naast{\uitleg{$D < 0$ zegt alleen dat de parabool de $x$-as niet snijdt. Aan welke kant ze ligt, zegt het teken van $a$.}
+\begin{stappenvrij}{4.1cm}{4.3cm}
+D = -16 < 0 & Geen nulwaarden. \\
+a = -1 < 0 & Volledig onder de $x$-as. \\
+\multicolumn{2}{@{}l}{\tekenschema{1}{ }{-}} \\[2ex]
+V = \R & Elke $x$ voldoet.
+\end{stappenvrij}
+\textit{De leerling verwart \emph{geen nulwaarden} met \emph{geen oplossingen}. Bij $-x^2 + 2x - 5 > 0$ was zijn antwoord wel juist geweest: $V = \emptyset$.}}{\begin{tikzpicture}[x=.5cm,y=.3cm]
+  
+  \roosterleeg{-1}{1}{3}{-7}{1}{1}\xgetallen{1,2}\ygetallen{-4,-6}
+  \asdeel{-1}{3}
+  \parabool{-1}{1}{-4}{-.7}{2.7}
+\end{tikzpicture}}}
 
 \begin{oefeningen}
 \oef{h4-bijzonder}
@@ -259,6 +291,38 @@ V = \ivoo{\minf}{-1} \cup \ivoo{2}{\pinf} & Links en rechts van de snijpunten.
 
 \begin{oefeningen}
 \oef{h4-grafisch}
+\end{oefeningen}
+
+\subsection{Wanneer ligt de grafiek van \texorpdfstring{$f$}{f} boven die van \texorpdfstring{$g$}{g}?}
+
+Hetzelfde idee werkt voor twee parabolen, of een parabool en een rechte. De grafiek van $f$ ligt boven die van $g$ als $f(x) > g(x)$. Breng je alles naar één kant, dan krijg je $f(x) - g(x) > 0$: een ongelijkheid met één functie, het verschil. De nulwaarden van dat verschil zijn de $x$-coördinaten van de snijpunten, en het tekenschema zegt waar $f$ boven $g$ ligt.
+
+\voorbeeld{}{Neem $f(x) = x^2 - 3x$ en $g(x) = -x^2 + x + 6$. Voor welke $x$ ligt de grafiek van $f$ boven die van $g$?\label{vb:h4-boven}}{%
+\naast{\uitleg{We lossen $f(x) > g(x)$ algebraïsch op: alles naar het linkerlid, dan het tekenschema van het verschil.}
+\begin{stappenvrij}{4.1cm}{4.3cm}
+x^2 - 3x > -x^2 + x + 6 & $f(x) > g(x)$. \\
+2x^2 - 4x - 6 > 0 & Alles naar het linkerlid. \\
+x^2 - 2x - 3 > 0 & Deel door $2 > 0$. \\
+(x + 1)(x - 3) = 0 & Nulwaarden $-1$ en $3$. \\
+\multicolumn{2}{@{}l}{\tekenschema[f(x) - g(x)]{5}{ & -1 & & 3 & }{+ & 0 & - & 0 & +}} \\[2ex]
+V = \ivoo{\minf}{-1} \cup \ivoo{3}{\pinf} & Links en rechts van de snijpunten.
+\end{stappenvrij}
+\textit{De snijpunten zijn $(-1, 4)$ en $(3, 0)$: vul $x = -1$ en $x = 3$ in $f$ of in $g$ in.}}{\begin{tikzpicture}[x=.45cm,y=.25cm]
+  \rooster{-2}{1}{5}{-3}{1}{8}
+  \asdeel{-2}{-1}\asdeel{3}{5}
+  \parabool{1}{1.5}{-2.25}{-1.77}{4.77}
+  \parabool[inkt]{-1}{.5}{6.25}{-2}{3.54}
+  \openpunt{-1}{4}\openpunt{3}{0}
+  \node[accent,font=\scriptsize] at (4.6,6.5) {$f$};
+  \node[inkt,font=\scriptsize] at (-1.6,-1.6) {$g$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Schrijf de vraag als een ongelijkheid: \textit{$f$ boven $g$} is $f(x) > g(x)$, \textit{$f$ onder $g$} is $f(x) < g(x)$. Breng alles naar het linkerlid, werk uit tot $ax^2 + bx + c$ en maak het tekenschema van dat verschil. Een schets van beide grafieken is een goede controle.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-boven}
 \end{oefeningen}
 
 \begin{alleenvoor}{4,5}
@@ -358,10 +422,16 @@ De vuurpijl is hoger dan $60$ m van $2$ tot $6$ seconden na de lancering, dus ge
 \oef{h4-o13}
 
 \needspace{6\baselineskip}
+\oef{h4-o27}
+
+\needspace{6\baselineskip}
 \oef{h4-o10}
 
 \needspace{6\baselineskip}
 \oef{h4-o20}
+
+\needspace{6\baselineskip}
+\oef{h4-o25}
 
 \needspace{6\baselineskip}
 \oef{h4-o12}
@@ -389,6 +459,9 @@ De vuurpijl is hoger dan $60$ m van $2$ tot $6$ seconden na de lancering, dus ge
 
 \needspace{6\baselineskip}
 \oef{h4-o21}
+
+\needspace{6\baselineskip}
+\oef{h4-o26}
 
 \needspace{6\baselineskip}
 \oef{h4-o22}
@@ -436,5 +509,5 @@ De vuurpijl is hoger dan $60$ m van $2$ tot $6$ seconden na de lancering, dus ge
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: hoe het tekenschema van een tweedegraadsfunctie eruitziet bij twee, één en geen nulwaarden, hoe je een tweedegraadsongelijkheid oplost, wanneer de grenzen erbij horen, wat er gebeurt met het ongelijkheidsteken als je deelt door een negatief getal, waarom je bij $x^2 < 9$ geen wortel mag nemen, en hoe je een ongelijkheid grafisch oplost\alleenvoor{4,5}{, en hoe je met de discriminant een ongelijkheid met een parameter opstelt}. Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: hoe het tekenschema van een tweedegraadsfunctie eruitziet bij twee, één en geen nulwaarden, hoe je een tweedegraadsongelijkheid oplost, wanneer de grenzen erbij horen, wat er gebeurt met het ongelijkheidsteken als je deelt door een negatief getal, waarom uit $x^2 < 9$ niet volgt dat $x < 3$, en hoe je een ongelijkheid grafisch oplost\alleenvoor{4,5}{, en hoe je met de discriminant een ongelijkheid met een parameter opstelt}. Vergelijk daarna met de kaders.
 \fi

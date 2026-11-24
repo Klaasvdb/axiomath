@@ -7,6 +7,7 @@ Leest:
   - de PDF's die Opmaak/maak-pdf.py in elke cursus zet (handboek, leerkracht, zelfstudie, oplossingen).
 Schrijft:
   - server/app/boeken.json en server/app/laatste.json;
+  - server/app/verwerkt.json: per versie wat uit de feedback verwerkt is (verwerkt.yaml van de cursus), met de plek;
   - server/app/versies/<h>.pdf en <h>.json: elke nieuwe PDF als vaste versie (h = begin van de SHA-256);
   - server/public_html/omslagen/<h>.webp: de voorkant (pagina 1 van het handboek);
   - server/public_html/fonts/, logo.svg, icoon.svg, kunst.jpg (het schilderij op de aanmeldpagina) en de iconen
@@ -74,7 +75,7 @@ def laad_lijst(graden=None):
             "sleutel": sleutel, "graad": m.graad(pakket), "finaliteit": m.finaliteit(pakket),
             "pakketid": m.pakket_id(pakket), "pakket": pakket,
             "pakketnr": int(pakket.split()[0]), "map": map_, "pad": m.cursusmap(pakket, map_).relative_to(REPO).as_posix(),
-            "titel": delen[-1], "rubriek": delen[0] if len(delen) > 1 else "",
+            "titel": delen[-1], "rubriek": "Extra" if m.is_extra(sleutel) else delen[0] if len(delen) > 1 else "",
             "jaar": jaar, "jaar_voorstel": m.jaar_voorstel(pakket, map_), "motief": motief,
             "status": status_van.get(sleutel, "gepland"),
         })
@@ -109,6 +110,48 @@ def bewaar_versie(bron, sleutel, editie):
                             "inhoud": inhoud, "gebouwd": int(bron.stat().st_mtime)})
         print(f"  nieuwe versie {h}  {sleutel} · {editie}")
     return h, json.loads(meta.read_text(encoding="utf-8"))
+
+
+ZOEK = pymupdf.TEXT_DEHYPHENATE | pymupdf.TEXT_MEDIABOX_CLIP  # zonder TEXT_PRESERVE_LIGATURES: "fi" vindt ook de ligatuur
+
+
+def verwerkt(boeken, laatste):
+    """Wat uit de feedback verwerkt is: <cursusbron>/verwerkt.yaml (zie het voorbeeld in Tweedegraadsfuncties).
+    Per versie in laatste.json de plek van elk item in de PDF (de eerste pagina waarop `zoek` staat), als
+    {hash: [{pagina, rect (in delen van de pagina), tekst, feedback, datum}]} in app/verwerkt.json.
+    De lezer tekent er een stippellijn naar een kader "Verwerkt: ..." mee. Versies die niet meer in laatste.json
+    staan, houden wat ze hadden."""
+    pad = APP / "verwerkt.json"
+    uit = json.loads(pad.read_text(encoding="utf-8")) if pad.exists() else {}
+    nooit = {}
+    for b in boeken:
+        bron = REPO / "Handboeken" / f"{b['graad']}de graad" / "cursussen" / b["titel"] / "verwerkt.yaml"
+        if not bron.is_file() or b["sleutel"] not in laatste:
+            continue
+        items = yaml.safe_load(bron.read_text(encoding="utf-8")) or []
+        for e, x in laatste[b["sleutel"]].items():
+            lijst = []
+            with pymupdf.open(APP / "versies" / f"{x['hash']}.pdf") as doc:
+                for i, item in enumerate(items):
+                    zinnen = item["zoek"] if isinstance(item["zoek"], list) else [item["zoek"]]
+                    plek = next(((p, r) for z in zinnen for p in doc for r in [p.search_for(str(z), flags=ZOEK)] if r), None)
+                    if not plek:
+                        continue
+                    p, rs = plek
+                    W, H = p.rect.width, p.rect.height
+                    x0, y0 = min(r.x0 for r in rs), min(r.y0 for r in rs)
+                    x1, y1 = max(r.x1 for r in rs), max(r.y1 for r in rs)
+                    lijst.append({"pagina": p.number + 1, "rect": [round(x0 / W, 4), round(y0 / H, 4), round(x1 / W, 4), round(y1 / H, 4)],
+                                  "tekst": str(item["tekst"]).strip(), "feedback": item.get("feedback", []), "datum": str(item.get("datum", ""))})
+                    nooit.setdefault(bron, set()).add(i)
+            uit[x["hash"]] = lijst
+        nooit.setdefault(bron, set())
+    for bron, gevonden in nooit.items():
+        items = yaml.safe_load(bron.read_text(encoding="utf-8")) or []
+        for i, item in enumerate(items):
+            if i not in gevonden:
+                print(f"  verwerkt: niet gevonden in een PDF: {item['zoek']!r} ({bron.parent.name})")
+    schrijf_json(pad, uit)
 
 
 def omslag(h):
@@ -288,6 +331,7 @@ def main(argv=()):
     schrijf_json(APP / "boeken.json", {"pakketten": pakketten, "boeken": boeken, "voortgang": voortgang,
                                        "koepels": koepels(graden or GRADEN_OP_SITE)})
     schrijf_json(APP / "laatste.json", laatste)
+    verwerkt(boeken, laatste)
     vaste_bestanden()
     voorbeeldcursus()
     n = sum(len(v) for v in laatste.values())

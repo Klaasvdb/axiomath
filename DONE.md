@@ -5,6 +5,12 @@ Wat uit [TODO.md](TODO.md) af is, met de datum en waar het staat. Nieuwste boven
 ## 20 nov 2026
 
 - **Volledige bouw met het kenmerk:** alle 123 handboeken opnieuw gebouwd en online. De hosting zat vol, dus per handboek uitgerold: nieuwe versies erop, de site omzetten, dan de oude versies zonder feedback wissen (956 MB vrij).
+- **Feedback op Tweedegraadsfuncties verwerkt** (#32-#41, #48-#53, gegeven op pakket 5; de bron is gedeeld, dus alle pakketten 1-5 zijn opnieuw gebouwd). Hoofdstuk 1: twee punten op dezelfde hoogte als stelling, het voorschrift zonder top. Hoofdstuk 2: in pakket 4-5 eerst kwadraatafsplitsen en daarmee de formule voor de top. Hoofdstuk 3: het discriminantbewijs in puntjes, het bewijs van de ontbinding met de oplossingen, de som met de symmetrie, de top uit de nulwaarden, 25 nieuwe deelvragen (parameters en gevarieerde opdrachten). Hoofdstuk 4: tekenschema vanuit een schets, doorzichtige inkleuring, "vierkantswortels" in plaats van "de wortel nemen", een voorbeeld met de fout "D < 0, dus geen oplossingen", f boven g, 10 nieuwe deelvragen met parameters. Alle nieuwe antwoorden nagerekend met SymPy.
+- **De 16 opmerkingen op de site afgerond:** goedgekeurd en op *Verwerkt* gezet, met een antwoord. Feedback van het team is voortaan meteen goedgekeurd.
+- **"De vierkantswortel nemen" ook in Goniometrie** (2de graad, de werkwijze bij de grondformule): nu "dat kwadraat heeft twee vierkantswortels". Bij de kettingregel en het samenstellen blijft "neem je de wortel": daar gaat het over de bewerking.
+- **Grafisch vóór de regel in Functies** (naar feedback #37): het tekenschema van een eerstegraadsfunctie vertrekt nu van een schets (stijgende of dalende rechte door de nulwaarde); het kader is een samenvatting. Pakket 1-5 opnieuw gebouwd en online.
+- **Verwerkt in de lezer:** wat uit de feedback verwerkt is, staat op axiomath.be bij de plek, met een stippellijn naar een kader *Verwerkt: …* (bron: `verwerkt.yaml` per cursus; de skill `feedback-verwerken` houdt het bij).
+- **Kernvaardigheden bij Extra** op axiomath.be: label *Extra* in de kast, en bij een richting een eigen blok *Extra* in plaats van bij de verplichte handboeken.
 - **Feedbackteller op de site:** staat niet meer rechtsboven op de voorkant (daar staat nu het kenmerk), maar onder de titel, met een tekstballon.
 
 ## 19 nov 2026

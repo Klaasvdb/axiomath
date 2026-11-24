@@ -200,7 +200,13 @@ De \textbf{\textcolor{accent}{discriminant}} van $ax^2 + bx + c = 0$ is het geta
 \alleenvoor{5}{\begin{bewijs}
 Deel beide leden door $a \neq 0$ en splits het kwadraat af, zoals in hoofdstuk 2:
 \bewijsregel{x^2 + \frac ba x + \frac ca = 0 \iff \Bigl(x + \frac{b}{2a}\Bigr)^2 - \frac{b^2}{4a^2} + \frac ca = 0 \iff \Bigl(x + \frac{b}{2a}\Bigr)^2 = \frac{b^2 - 4ac}{4a^2} = \frac{D}{4a^2}.}
-Het rechterlid heeft het teken van $D$, want $4a^2 > 0$. Is $D < 0$, dan is er geen oplossing, want een kwadraat is nooit negatief. Is $D = 0$, dan is $x + \tfrac{b}{2a} = 0$. Is $D > 0$, dan is
+Het rechterlid heeft het teken van $D$, want $4a^2 > 0$. Er zijn drie gevallen.
+
+\textbullet\ $D < 0$: het rechterlid is negatief, en een kwadraat is nooit negatief. Er is geen oplossing.
+
+\textbullet\ $D = 0$: dan is $\bigl(x + \tfrac{b}{2a}\bigr)^2 = 0$, dus $x + \tfrac{b}{2a} = 0$ en $x = -\tfrac{b}{2a}$.
+
+\textbullet\ $D > 0$: de vierkantswortels van $\tfrac{D}{4a^2}$ zijn $\pm\tfrac{\sqrt D}{2\abs{a}}$, dus
 \bewijsregel{x + \frac{b}{2a} = \pm\frac{\sqrt D}{2\abs{a}} = \pm\frac{\sqrt D}{2a} \qquad\text{zodat}\qquad x = \frac{-b \pm \sqrt D}{2a}.}
 (Het teken van $2a$ maakt niet uit, want er staat $\pm$.)
 \end{bewijs}}
@@ -269,10 +275,20 @@ Ken je de oplossingen van $ax^2 + bx + c = 0$, dan ken je ook een ontbinding. Bi
 Heeft $ax^2 + bx + c = 0$ de oplossingen $x_1$ en $x_2$, dan is
 
 \qquad $\formule{ax^2 + bx + c = a(x - x_1)(x - x_2)}$.
+
+Is $D = 0$, dan is $x_1 = x_2$ en is $ax^2 + bx + c = a(x - x_1)^2$. Is $D < 0$, dan bestaat er geen ontbinding in factoren van de eerste graad.
 \end{stelling}
+\alleenvoor{5}{\begin{bewijs}
+In hoofdstuk 2 vonden we met kwadraatafsplitsen dat $ax^2 + bx + c = a\bigl(x + \tfrac{b}{2a}\bigr)^2 + \tfrac{4ac - b^2}{4a}$, dus
+\bewijsregel{ax^2 + bx + c = a\Bigl(\Bigl(x + \frac{b}{2a}\Bigr)^2 - \frac{D}{4a^2}\Bigr).}
+Is $D \geqslant 0$, dan is $\tfrac{D}{4a^2} = \bigl(\tfrac{\sqrt D}{2a}\bigr)^2$, en met $A^2 - B^2 = (A - B)(A + B)$ is
+\bewijsregel{ax^2 + bx + c = a\Bigl(x + \frac{b}{2a} - \frac{\sqrt D}{2a}\Bigr)\Bigl(x + \frac{b}{2a} + \frac{\sqrt D}{2a}\Bigr)}
+\bewijsregel{\phantom{ax^2 + bx + c} = a\Bigl(x - \frac{-b + \sqrt D}{2a}\Bigr)\Bigl(x - \frac{-b - \sqrt D}{2a}\Bigr) = a(x - x_1)(x - x_2).}
+Is $D < 0$ en zou $ax^2 + bx + c = a(x - r)(x - s)$ zijn, dan was $r$ een oplossing van $ax^2 + bx + c = 0$, volgens de product-nulregel. Maar er zijn geen oplossingen: zo'n ontbinding bestaat dus niet.
+\end{bewijs}}
 \end{theorie}
 
-Is $D = 0$, dan is $x_1 = x_2$ en krijg je $a(x - x_1)^2$. Is $D < 0$, dan bestaat er geen ontbinding in factoren van de eerste graad.
+\alleenvoor{4}{Waarom klopt dat? In hoofdstuk 2 schreef je $ax^2 + bx + c$ met kwadraatafsplitsen als $a$ maal een verschil van twee kwadraten, $\bigl(x + \tfrac{b}{2a}\bigr)^2 - \tfrac{D}{4a^2}$. Met het merkwaardig product $A^2 - B^2 = (A - B)(A + B)$ wordt dat een product van twee factoren, en die zijn nul in $x_1$ en in $x_2$. Is $D < 0$, dan lukt dat niet: een factor $x - r$ zou een oplossing $r$ geven, en die zijn er niet.}
 
 \voorbeeld{}{Ontbind $2x^2 + 3x - 2$ in factoren.\label{vb:h3-ontbindwortels}}{%
 \uitleg{In voorbeeld~\ref{vb:h3-D} vonden we de oplossingen $\tfrac12$ en $-2$.}
@@ -303,6 +319,9 @@ Tel de twee formules op en vermenigvuldig ze:
 \bewijsregel{x_1 + x_2 = \frac{-b + \sqrt D}{2a} + \frac{-b - \sqrt D}{2a} = \frac{-2b}{2a} = -\frac ba,}
 \bewijsregel{x_1 \cdot x_2 = \frac{(-b + \sqrt D)(-b - \sqrt D)}{4a^2} = \frac{b^2 - D}{4a^2} = \frac{b^2 - b^2 + 4ac}{4a^2} = \frac ca.}
 In het product gebruiken we het merkwaardig product $(A + B)(A - B) = A^2 - B^2$ met $A = -b$ en $B = \sqrt D$.
+
+Voor de som kan het ook zonder rekenen, met de symmetrie. De oplossingen zijn de nulwaarden van $f(x) = ax^2 + bx + c$: twee punten van de parabool op hoogte $0$. Ze liggen dus symmetrisch om de as $x = -\tfrac{b}{2a}$ (hoofdstuk 1), en
+\bewijsregel{\frac{x_1 + x_2}{2} = -\frac{b}{2a} \qquad\text{zodat}\qquad x_1 + x_2 = -\frac ba.}
 \end{bewijs}
 \end{theorie}
 
@@ -369,6 +388,30 @@ De oplossing $-0,12$ ligt achter de spuitmond: daar spuit de fontein niet. Het w
 \oef{h3-vraagstuk}
 \end{oefeningen}
 
+\subsection{De top uit de nulwaarden}
+
+In hoofdstuk 1 zag je dat de symmetrieas midden tussen de nulwaarden ligt. Staat het voorschrift als een product, dan lees je de nulwaarden af met de product-nulregel, en de top volgt met weinig rekenwerk. Je hoeft de haakjes niet uit te werken.
+
+\voorbeeld{}{Een voetballer trapt een bal weg. Op een horizontale afstand $x$ (in m) is de bal $h(x) = -0,02x(x - 50)$ meter hoog. Hoe hoog komt de bal?\label{vb:h3-symnul}}{%
+\naast{\uitleg{Het voorschrift is een product. De nulwaarden lezen we zo af, en de top ligt midden ertussen.}
+\begin{stappenvrij}{4.4cm}{4cm}
+x = 0 \ \text{ of } \ x = 50 & De nulwaarden, met de product-nulregel. \\[1ex]
+x = \dfrac{0 + 50}{2} = 25 & De symmetrieas. \\[1ex]
+h(25) = -0,02 \cdot 25 \cdot (-25) = 12,5 & De top is $(25;\ 12,5)$.
+\end{stappenvrij}
+\textit{De bal komt $12,5$ m hoog, na $25$ m. Zo werkt het ook bij $f(x) = (3x + 6)(2x - 1)$: de nulwaarden zijn $-2$ en $\tfrac12$, en de as ligt bij $x = \tfrac12\bigl(-2 + \tfrac12\bigr) = -\tfrac34$.}}{\begin{tikzpicture}[x=.08cm,y=.22cm]
+  \roosterleeg[$x$][$h$]{0}{10}{55}{0}{5}{15}
+  \xgetallen{10,20,30,40,50}\ygetallen{5,10}
+  \symas{25}{0}{12.5}
+  \parabool{-.02}{25}{12.5}{0}{50}
+  \toppunt[above]{25}{12.5}{}
+  \punt{0}{0}\punt{50}{0}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h3-symnul}
+\end{oefeningen}
+
 \voorbeeld{}{Terug naar het probleem. Het grasveld is $20$ m op $15$ m, en er is grind voor $200$ m$^2$. Hoe breed wordt het pad?\label{vb:h3-terug}}{%
 \uitleg{Noem de breedte van het pad $x$ (in m). Grasveld en pad samen vormen een rechthoek van $20 + 2x$ op $15 + 2x$. Het pad is die rechthoek min het gras.}
 \begin{stappenbreed}
@@ -412,6 +455,10 @@ Het pad wordt $2,5$ m breed. Controle: $(20 + 5)(15 + 5) - 300 = 500 - 300 = 200
 \needspace{6\baselineskip}
 \oef{h3-o7}
 
+
+\needspace{6\baselineskip}
+\oef{h3-o29}
+
 \needspace{6\baselineskip}
 \oef{h3-o11}
 
@@ -439,6 +486,10 @@ Het pad wordt $2,5$ m breed. Controle: $(20 + 5)(15 + 5) - 300 = 500 - 300 = 200
 \needspace{6\baselineskip}
 \oef{h3-o16}
 
+
+\needspace{6\baselineskip}
+\oef{h3-o30}
+
 \needspace{6\baselineskip}
 \oef{h3-o13}
 
@@ -447,6 +498,10 @@ Het pad wordt $2,5$ m breed. Controle: $(20 + 5)(15 + 5) - 300 = 500 - 300 = 200
 
 \needspace{6\baselineskip}
 \oef{h3-o19}
+
+
+\needspace{6\baselineskip}
+\oef{h3-o31}
 
 \needspace{6\baselineskip}
 \oef{h3-o18}
@@ -459,6 +514,18 @@ Het pad wordt $2,5$ m breed. Controle: $(20 + 5)(15 + 5) - 300 = 500 - 300 = 200
 
 \needspace{6\baselineskip}
 \oef{h3-o23}
+
+
+\needspace{6\baselineskip}
+\oef{h3-o26}
+
+
+\needspace{6\baselineskip}
+\oef{h3-o27}
+
+
+\needspace{6\baselineskip}
+\oef{h3-o28}
 \end{oefeningen}
 
 %----------------------------------------------------------------------------------------

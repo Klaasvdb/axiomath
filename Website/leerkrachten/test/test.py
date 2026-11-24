@@ -173,6 +173,8 @@ def api_tests(url):
     h = boek["edities"][0]["hash"]
     s, v = l("GET", f"versie/{h}")
     meld("versie: pagina's en inhoud", s == 200 and v["paginas"] > 0 and len(v["maten"]) == v["paginas"], v)
+    meld("versie: lijst met wat verwerkt is", s == 200 and isinstance(v.get("verwerkt"), list)
+         and all(1 <= w["pagina"] <= v["paginas"] and len(w["rect"]) == 4 and w["tekst"] for w in v["verwerkt"]), v.get("verwerkt"))
     s, pdf = l("GET", f"pdf/{h}", ruw=True)
     meld("PDF wordt geleverd", s == 200 and pdf[:4] == b"%PDF", pdf[:40])
     ed = {e["editie"]: e["hash"] for e in boek["edities"]}
@@ -391,8 +393,16 @@ def sleutel_tests(url, b, l, f1, f2):
     f = next((x for x in d if x["id"] == f2["id"]), {}) if s == 200 else {}
     meld("feedback.py zet: verwerkt, met antwoord", r.returncode == 0 and f.get("status") == "verwerkt"
          and f["reacties"][-1]["tekst"] == "Het tempo ligt nu lager." and f["reacties"][-1]["team"], r.stdout + r.stderr)
-    r = subprocess.run(script + ["zet", str(f1["id"]), "behandeling"], env=env, capture_output=True, text=True, encoding="utf-8")
-    meld("feedback.py zet: goed- of afkeuren kan niet", r.returncode != 0, r.stdout + r.stderr)
+    r = subprocess.run(script + ["zet", str(f1["id"]), "goedgekeurd"], env=env, capture_output=True, text=True, encoding="utf-8")
+    meld("feedback.py zet: feedback van een leerkracht goedkeuren kan niet", r.returncode != 0, r.stdout + r.stderr)
+    # feedback van het team: meteen goedgekeurd; staat ze toch op nieuw, dan mag de sleutel ze goedkeuren
+    s, ft = b("POST", "feedback", {"niveau": "algemeen", "soort": "andere", "tekst": "Opmerking van het team."})
+    meld("feedback van het team is meteen goedgekeurd", s == 200 and ft.get("status") == "behandeling", ft)
+    if s == 200:
+        b("PATCH", f"feedback/{ft['id']}", {"status": "nieuw"})
+        r = subprocess.run(script + ["zet", str(ft["id"]), "goedgekeurd"], env=env, capture_output=True, text=True, encoding="utf-8")
+        s, d = b("GET", "beheer/feedback?status=behandeling")
+        meld("feedback.py zet: feedback van het team goedkeuren", r.returncode == 0 and s == 200 and any(x["id"] == ft["id"] for x in d), r.stdout + r.stderr)
     r = subprocess.run(script + ["logboek"], env=env, capture_output=True, text=True, encoding="utf-8")
     meld("feedback.py logboek", r.returncode == 0 and (uit / "logboek.md").is_file() and f"**#{f2['id']}**" in (uit / "logboek.md").read_text(encoding="utf-8"), r.stdout + r.stderr)
     r = subprocess.run(script + ["haal"], env=dict(env, AXIOMATH_SLEUTEL="axm-fout"), capture_output=True, text=True, encoding="utf-8")

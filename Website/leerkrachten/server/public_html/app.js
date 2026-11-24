@@ -42,6 +42,7 @@ const ICONEN = {
   zon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   maan: '<path d="M20 14.5A8 8 0 119.5 4a6.5 6.5 0 0010.5 10.5z"/>',
   ballon: '<path d="M4 5h16v11H9l-5 4V5z"/>',
+  vink: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   breed: '<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>',
   kopie: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V4h12"/>',
   kruis: '<path d="M6 6l12 12M18 6L6 18"/>',
@@ -650,7 +651,7 @@ async function toonKast() {
     if (keuze.richting) return tekenRichting();
     let vorige = null;  // een kop per graad en finaliteit
     kasten.replaceChildren(...d.pakketten.filter(zichtbaar).flatMap((p) => {
-      const lijst = d.boeken.filter((b) => b.pakketid === p.id && past(b));
+      const lijst = d.boeken.filter((b) => b.pakketid === p.id && past(b)).sort((a, b2) => (a.rubriek === "Extra") - (b2.rubriek === "Extra"));  // Extra achteraan
       if (!lijst.length) return [];
       const alle = d.boeken.filter((b) => b.pakketid === p.id);
       const groep = graadFin(p);
@@ -700,7 +701,8 @@ async function toonKast() {
         x.nieuw?.length ? h("p", { class: "zacht klein" }, "Nog te maken: ", x.nieuw.join(", "), ".") : null,
         lijstje((x.verplicht || [])).length ? h("ul", { class: "los" }, lijstje(x.verplicht)) : null),
       ...[blok("Keuze", "Keuzedoelen of een optiepakket: je school beslist of ze aan bod komen.", x.keuze),
-        blok("Uitbreiding", "Verder dan het leerplan, voor wie meer lesuren heeft of meer wil.", x.uitbreiding)].filter(Boolean));  // replaceChildren maakt van null de tekst "null"
+        blok("Uitbreiding", "Verder dan het leerplan, voor wie meer lesuren heeft of meer wil.", x.uitbreiding),
+        blok("Extra", "Oefenbundels met de rekenvaardigheden van het jaar: geen leerstof, wel om in te oefenen of bij te werken.", x.extra)].filter(Boolean));  // replaceChildren maakt van null de tekst "null"
     if (!eerst && !x.opmerking) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
 
@@ -781,9 +783,9 @@ function boekKaart(b, noot) {
 
 /* Welke richtingen van de gekozen koepel dit handboek gebruiken: verplicht, als keuze of als uitbreiding. */
 function richtingenVoorBoek(b) {
-  const uit = { verplicht: [], keuze: [], uitbreiding: [], uren: new Set() };
+  const uit = { verplicht: [], keuze: [], uitbreiding: [], extra: [], uren: new Set() };
   for (const [naam, x] of Object.entries(koepelRichtingen(b.graad))) {
-    for (const soort of ["verplicht", "keuze", "uitbreiding"]) {
+    for (const soort of ["verplicht", "keuze", "uitbreiding", "extra"]) {
       if ((x[soort] || []).some((i) => i.sleutel === b.sleutel)) { uit[soort].push(naam); if (soort === "verplicht" && x.uren) uit.uren.add(x.uren); }
     }
   }
@@ -876,7 +878,8 @@ async function toonBoek(sleutel) {
             const r = richtingenVoorBoek(b);
             const lijst = (xs) => xs.length ? xs.join(", ") : "geen";
             return [h("dt", {}, "Koepel"), h("dd", {}, koepelNaam(), " · ", h("a", { href: "#/" }, "kies een andere")),
-              h("dt", {}, "Richtingen"), h("dd", {}, lijst(r.verplicht)),
+              h("dt", {}, "Richtingen"), h("dd", {}, lijst(r.verplicht.length ? r.verplicht : r.extra)),
+              r.extra.length && !r.verplicht.length ? [h("dt", {}, "Soort"), h("dd", {}, "Extra: een oefenbundel bij het pakket, geen verplichte leerstof")] : null,
               r.keuze.length ? [h("dt", {}, "Als keuze"), h("dd", {}, lijst(r.keuze))] : null,
               r.uitbreiding.length ? [h("dt", {}, "Als uitbreiding"), h("dd", {}, lijst(r.uitbreiding))] : null,
               r.uren.size ? [h("dt", {}, "Uren"), h("dd", {}, [...r.uren].join("; "))] : null];
@@ -919,6 +922,13 @@ async function toonLezer(hash, q) {
   let filter = "alle", nieuw = null, actief = null, huidige = 1;
   const paneelOpen = () => !lezer.classList.contains("zonder-paneel");
 
+  const verwerkt = v.verwerkt || [];
+  let toonVerwerkt = opslag.lees("verwerkt") !== "0";
+  const verwerktKnop = verwerkt.length ? h("button", { class: "knop-icoon verwerkt-knop", type: "button", "aria-pressed": String(toonVerwerkt),
+    title: `Wat uit de feedback verwerkt is (${verwerkt.length})`, onclick: () => {
+      toonVerwerkt = !toonVerwerkt; opslag.zet("verwerkt", toonVerwerkt ? "1" : "0"); schaal(true);
+      verwerktKnop.setAttribute("aria-pressed", String(toonVerwerkt)); tekenVerwerkt();
+    } }, icoon("vink")) : null;
   // balk
   const paginaInput = h("input", { type: "text", inputmode: "numeric", value: "1", "aria-label": "Pagina", onchange: () => naarPagina(parseInt(paginaInput.value) || 1) });
   const markeerKnop = h("button", { class: "markeer", type: "button", "aria-pressed": String(markeren), title: "Markeerstift (M): trek een kader of klik op een plek",
@@ -940,6 +950,7 @@ async function toonLezer(hash, q) {
     h("button", { class: "knop-icoon verberg-smal", type: "button", "aria-label": "Groter", onclick: () => zetZoom(zoom * 1.2) }, icoon("plus")),
     h("span", { class: "scheiding" }),
     !gast && markeerKnop,
+    verwerktKnop,
     (() => { const b = d.boeken.find((x) => x.sleutel === v.sleutel); const e = b?.edities.find((x) => x.hash === hash);
       return b && e ? pdfKnop(b, e, { class: "knop-icoon verberg-smal", "aria-label": "Download de PDF" }, icoon("download"))
         : h("a", { class: "knop-icoon verberg-smal", href: apiUrl(`pdf/${hash}`), target: "_blank", rel: "noopener", "aria-label": "Download de PDF" }, icoon("download")); })(),
@@ -1048,9 +1059,13 @@ async function toonLezer(hash, q) {
   function schaal(behoud) {
     const anker = behoud ? huidige : null, binnen = anker ? (vel.scrollTop - blad[anker - 1].offsetTop) / blad[anker - 1].offsetHeight : 0;
     const beschikbaar = Math.max(240, vel.clientWidth - (innerWidth > 900 ? 100 : 16));
-    breedte = Math.round(Math.min(beschikbaar, 900) * zoom);
+    // met kaders Verwerkt en een breed venster: de pagina iets smaller, zodat de kaders ernaast passen
+    const max = toonVerwerkt && verwerkt.length && beschikbaar - 540 >= 680 ? Math.min(900, beschikbaar - 540) : 900;
+    breedte = Math.round(Math.min(beschikbaar, max) * zoom);
     blad.forEach((el) => { el.style.width = breedte + "px"; el.style.height = Math.round(breedte * el._ratio) + "px"; });
     inBeeld.forEach((el) => laad(el));
+    vel.classList.toggle("ruim", (vel.clientWidth - breedte) / 2 > 250);  // plaats voor de kaders Verwerkt naast de pagina
+    if (verwerkt.length) tekenVerwerkt();
     if (anker) vel.scrollTop = blad[anker - 1].offsetTop + binnen * blad[anker - 1].offsetHeight;
   }
   function zetZoom(z) { zoom = Math.min(4, Math.max(0.4, z)); opslag.zet("zoom", zoom); schaal(true); }
@@ -1079,6 +1094,37 @@ async function toonLezer(hash, q) {
     }
   }
   const zichtbaar = () => alle.filter((f) => f.rect && (filter === "alle" || f.van_mij));
+
+  /* Wat uit de feedback verwerkt is (verwerkt.yaml van de cursus, via maak.py): een stippellijn van de plek naar
+     rechts, met een kader "Verwerkt: ...". Is er naast de pagina plaats, dan staat het kader ernaast, anders op de
+     rechterrand. Kaders op dezelfde pagina schuiven onder elkaar als ze elkaar zouden raken. */
+  function tekenVerwerkt() {
+    vel.querySelectorAll(".verwerkt-plek, .verwerkt-lijn, .verwerkt-kader").forEach((x) => x.remove());
+    if (!toonVerwerkt) return;
+    const perPagina = new Map();
+    for (const w of verwerkt) {
+      const el = blad[w.pagina - 1];
+      if (!el) continue;
+      const [x0, y0, x1, y1] = w.rect, midden = (y0 + y1) / 2;
+      el.append(h("div", { class: "verwerkt-plek", style: { left: x0 * 100 + "%", top: y0 * 100 + "%", width: (x1 - x0) * 100 + "%", height: (y1 - y0) * 100 + "%" } }),
+        h("div", { class: "verwerkt-lijn", style: { left: Math.max(x1, 0.885) * 100 + "%", top: midden * 100 + "%" } }));  // pas in de rechtermarge: niet door de tekst
+      // zonder plaats naast de pagina: alleen het label "Verwerkt", de tekst bij aanwijzen of tikken (CSS)
+      const kader = h("div", { class: "verwerkt-kader", role: "note", tabindex: "0", onclick: () => kader.classList.toggle("open") },
+        h("b", {}, "Verwerkt"), h("span", { class: "inhoud" }, ": ", w.tekst,
+          w.datum ? h("span", { class: "wanneer" }, ` · ${new Date(w.datum).toLocaleDateString("nl-BE", { day: "numeric", month: "short", year: "numeric" })}`) : null));
+      kader._midden = midden;
+      el.append(kader);
+      (perPagina.get(el) || perPagina.set(el, []).get(el)).push(kader);
+    }
+    requestAnimationFrame(() => perPagina.forEach((kaders, el) => {
+      let onder = -Infinity;
+      for (const k of kaders.sort((a, b2) => a._midden - b2._midden)) {
+        const hoogte = k.offsetHeight, top = Math.max(k._midden * el.offsetHeight - hoogte / 2, onder + 6, 0);
+        k.style.top = top + "px";
+        onder = top + hoogte;
+      }
+    }));
+  }
 
   // tekenen met de markeerstift
   let trek = null;

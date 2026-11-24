@@ -6,6 +6,7 @@
 Wat er gebeurt:
   app/lib.php, app/.htaccess          de serverlogica, BUITEN public_html
   app/boeken.json, app/laatste.json   de handboeken en de jongste versie van elke editie
+  app/verwerkt.json                   wat uit de feedback verwerkt is, per versie (de kaders Verwerkt in de lezer)
   app/versies/<h>.pdf en <h>.json     alleen de versies die nog niet online staan (een versie verandert nooit)
   app/config.php                      alleen de eerste keer, of met --config
   public_html/                        de app (index.html, app.js, plannen.js, app.css), lettertypes, logo, voorkanten, api/index.php
@@ -219,6 +220,8 @@ def main():
     print("site")
     upload(SERVER / "app" / "boeken.json", "app")
     upload(SERVER / "app" / "laatste.json", "app")  # pas na de versies: leerkrachten zien de nieuwe edities nu
+    if (SERVER / "app" / "verwerkt.json").exists():
+        upload(SERVER / "app" / "verwerkt.json", "app")  # de kaders "Verwerkt" in de lezer
     for f in sorted((SERVER / "public_html" / "fonts").iterdir()):
         upload(f, "public_html/fonts")
     upload(SERVER / "public_html" / "api" / "index.php", "public_html/api")

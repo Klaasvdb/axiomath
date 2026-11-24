@@ -364,6 +364,20 @@ body.lezend { overflow: hidden; }
 @keyframes flits { 50% { background: color-mix(in srgb, var(--c) 45%, transparent); } }
 .trek { position: absolute; border: 2px solid var(--acc); background: color-mix(in srgb, var(--acc) 14%, transparent); border-radius: 3px; pointer-events: none; }
 .vel.markeren .markering { pointer-events: none; }
+/* Verwerkt: een stippellijn van de plek naar rechts, en een kader met wat er veranderd is (tekenVerwerkt in app.js).
+   Naast de pagina als daar plaats is (.vel.ruim), anders op de rechterrand van de pagina. */
+.verwerkt-plek { position: absolute; border-bottom: 1.5px dotted color-mix(in srgb, var(--goed) 70%, transparent); pointer-events: none; }
+.verwerkt-lijn { position: absolute; right: 0; height: 0; border-top: 1.5px dotted color-mix(in srgb, var(--goed) 70%, transparent); pointer-events: none; }
+.vel.ruim .verwerkt-lijn { right: -14px; }
+.verwerkt-kader { position: absolute; z-index: 2; right: 6px; width: min(230px, 42%); font-size: .76rem; line-height: 1.35; color: var(--tekst);
+  background: color-mix(in srgb, var(--goed) 7%, var(--papier)); border: 1px solid color-mix(in srgb, var(--goed) 45%, transparent);
+  border-left: 3px solid var(--goed); border-radius: 6px; padding: 5px 8px; box-shadow: 0 1px 4px rgb(0 0 0 / .08); }
+.vel.ruim .verwerkt-kader { right: auto; left: calc(100% + 14px); width: 230px; }
+.vel:not(.ruim) .verwerkt-kader { width: auto; cursor: pointer; }
+.vel:not(.ruim) .verwerkt-kader:not(:hover):not(:focus-visible):not(.open) .inhoud { display: none; }
+.vel:not(.ruim) .verwerkt-kader:is(:hover, :focus-visible, .open) { width: min(260px, 60%); z-index: 4; }
+.verwerkt-kader b { color: var(--goed); }
+.verwerkt-kader .wanneer { color: var(--zacht); white-space: nowrap; }
 .oud-bericht { position: sticky; top: 0; z-index: 3; margin: -8px auto 16px; max-width: 640px; background: color-mix(in srgb, var(--let) 14%, var(--papier));
   border: 1px solid var(--let); border-radius: 10px; padding: 8px 12px; display: flex; gap: 10px; align-items: center; font-size: .92rem; }
 .paneel { background: var(--papier); border-left: 1px solid var(--lijn); display: grid; grid-template-rows: auto minmax(0, 1fr); min-width: 0; overflow: hidden; }
