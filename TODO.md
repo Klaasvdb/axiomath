@@ -131,3 +131,7 @@ Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofd
   | 3de | 6de jaar | doorstroom 1-4, D/A 5-8 | te maken | limieten; primitieven en integralen (waar het pakket ze heeft); goniometrische vergelijkingen; telproblemen en combinaties; kansen berekenen; statistische kengetallen; complexe getallen (pakket 4) |
 
   De arbeidsmarktfinaliteit (pakket 8 van de 2de graad) krijgt pas een bundel als het handboek op aanvraag gemaakt wordt. Eerst samen nakijken: de verdeling van de vaardigheden over de jaren, en welke pakketten een eigen bundel krijgen.
+
+
+## De problemen verkappen.
+- Elk hoofdstuk begint nu met het formuleren van een probleem. Dat wordt een aantal keren terug opgenomen doorheen het hoofdstuk. Doe dit niet. Enkel wanneer de vraag helemaal kan opgelost worden (aan het einde van het hoofdstuk of halverwege), herneem je het probleem weer en geef je de uitwerking. Wat er nu staat is een blinde recal van het probleem, maar de leerlingen hebben geen idee meer waarover dat precies ging.
