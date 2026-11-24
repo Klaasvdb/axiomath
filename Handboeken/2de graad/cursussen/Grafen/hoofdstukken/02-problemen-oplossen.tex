@@ -3,9 +3,10 @@
 %
 % Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
 % Labels van dit hoofdstuk beginnen met h2-.
-% Keuze: Euler (eulerpad en eulerkring) en het kortste pad met het algoritme van Dijkstra. Kleuren alleen als opdracht van niveau 3.
-% Verschillen per pakket: pakket 5 bewijst ook dat even graden volstaan voor een eulerkring, en heeft twee extra opdrachten.
-% De grafen zijn nagerekend met een Python-script (eulerpaden en kortste paden met brute force).
+% Keuze: Euler (eulerspoor en eulercircuit) en het kortste pad met het algoritme van Dijkstra. Kleuren alleen als opdracht van niveau 3.
+% Woorden volgens de wenk bij LPD K3 (KOV): wandeling, spoor, circuit, pad, cykel; eulerspoor, eulercircuit, eulergraaf.
+% Verschillen per pakket: pakket 5 bewijst ook dat even graden volstaan voor een eulercircuit, en heeft twee extra opdrachten.
+% De grafen zijn nagerekend met een Python-script (eulersporen en kortste paden met brute force).
 %----------------------------------------------------------------------------------------
 
 \mychapter{2}{Problemen oplossen met grafen}
@@ -30,9 +31,9 @@ In de 18de eeuw stroomde de rivier de Pregel door de stad Königsberg (nu Kalini
 \begin{center}\small Schets van de vier stadsdelen $A$, $B$, $C$, $D$ en de zeven bruggen (donker). Het water is getint.\end{center}
 \end{probleem}
 
-\lkr{Leerplan \pakketnaam: keuzedoelen K2-K3 (dit hoofdstuk: problemen oplossen met grafen: eulerpaden en eulerkringen, het kortste pad met het algoritme van Dijkstra). Na te kijken in het leerplan: welke problemen K3 precies vraagt. Hier is gekozen voor Euler (een klassiek probleem met een redenering die past bij de 2de graad) en het kortste pad (dat voortbouwt op de gewogen grafen van hoofdstuk 1). Kleuren staat alleen als uitdagende opdracht. Laat de leerlingen het probleem eerst zelf proberen op de schets: na een paar pogingen vermoeden ze dat het niet kan, maar bewijzen kunnen ze het nog niet.\alleenvoor{5}{ In pakket 5 staat ook het bewijs dat even graden volstaan voor een eulerkring, en twee extra opdrachten (opdracht~\ref{oef:h2-o22} en~\ref{oef:h2-o23}).}}
+\lkr{Leerplan \pakketnaam: LPD K2-K3, het keuzedeel Grafen (rubriek 4.5.3). Uit K2: de begrippen wandeling en pad, hier via een busnet (wenk), en samenhangend. Uit K3: de woorden spoor, circuit, pad en cykel uit de wenk (bij sporen en circuits geen boog twee keer, bij paden en cykels geen knoop twee keer), en twee probleemtypes uit de lijst van de wenk: de wandelingen over elke boog met de bruggen van Königsberg (eulerspoor, eulercircuit, eulergraaf) en het kortste pad met het algoritme van Dijkstra. Het derde type uit de lijst, de graden en het even aantal oneven graden, staat in hoofdstuk 1. Het leerplan raadt aan het aantal types te beperken: opspannende bomen, kleuren, hamiltonpaden en bijzondere grafen staan er niet in; kleuren alleen als uitdagende opdracht. Laat de leerlingen het probleem eerst zelf proberen op de schets: na een paar pogingen vermoeden ze dat het niet kan, maar bewijzen kunnen ze het nog niet. De redeneringen bij de stellingen van Euler horen bij \alleenvoor{4}{LPD 4 (redeneringen beargumenteren; het extra bij LPD 4 noemt het reconstrueren van bewijzen van eigenschappen van grafen)}\alleenvoor{5}{LPD B1 (bewijzen; de wenk noemt eigenschappen van grafen)}.\alleenvoor{5}{ In pakket 5 staat ook het bewijs dat even graden volstaan voor een eulercircuit, en twee extra opdrachten (opdracht~\ref{oef:h2-o22} en~\ref{oef:h2-o23}).}}
 
-In 1736 loste de Zwitserse wiskundige Leonhard Euler het probleem van de bruggen op. Hij deed dat niet door alle wandelingen te proberen, maar door het probleem te herleiden tot wat er echt toe doet: welke stadsdelen door welke bruggen verbonden zijn. Dat is een graaf, en Eulers redenering geldt als het begin van de grafentheorie. In dit hoofdstuk leer je eerst hoe je een route in een graaf beschrijft. Daarna volg je de redenering van Euler, en tot slot zoek je de kortste route in een gewogen graaf, zoals een routeplanner dat doet.
+In 1736 loste de Zwitserse wiskundige Leonhard Euler het probleem van de bruggen op. Hij deed dat niet door alle wandelingen te proberen, maar door het probleem te herleiden tot wat er echt toe doet: welke stadsdelen door welke bruggen verbonden zijn. Dat is een graaf, en Eulers redenering geldt als het begin van de grafentheorie. In dit hoofdstuk leer je eerst hoe je een route in een graaf beschrijft, en welke soorten routes er zijn. Daarna volg je de redenering van Euler, en tot slot zoek je de kortste route in een gewogen graaf, zoals een routeplanner dat doet.
 
 \begin{oefeningen}[Start]
 \oef{h2-start-1}
@@ -42,40 +43,49 @@ In 1736 loste de Zwitserse wiskundige Leonhard Euler het probleem van de bruggen
 \end{oefeningen}
 
 %========================================================================================
-\section{Wandelingen, paden en kringen}
+\section{Wandelingen, sporen en paden}
 
 \subsection{Een route in een graaf}
 
-Hoe beschrijf je een route in een graaf? Je somt de knopen op in de volgorde waarin je ze bezoekt, zoals $A, B, C$. Dat gaat alleen als er telkens een boog ligt van de ene knoop naar de volgende. Bij het probleem van de bruggen is er nog een voorwaarde: geen enkele brug mag twee keer gebruikt worden. Een knoop mag wel vaker voorkomen: je mag een stadsdeel meer dan eens bezoeken. Daarom maken we onderscheid tussen drie soorten routes.
+Hoe beschrijf je een route in een graaf? Je somt de knopen op in de volgorde waarin je ze bezoekt, zoals $A, B, C$. Dat gaat alleen als er telkens een boog ligt van de ene knoop naar de volgende. Vaak stel je nog een voorwaarde. Bij het probleem van de bruggen mag geen enkele brug twee keer gebruikt worden, maar een stadsdeel mag je wel meer dan eens bezoeken. Wie met de bus zo snel mogelijk ergens wil komen, rijdt liefst geen halte twee keer voorbij. Daarom krijgen die soorten routes een eigen naam.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{wandeling}} is een rij knopen waarin elke twee opeenvolgende knopen verbonden zijn door een boog.
 
-Een \textbf{\textcolor{accent}{pad}} is een wandeling waarin geen enkele boog twee keer gebruikt wordt. Een knoop mag wel meer dan eens voorkomen.
+Een \textbf{\textcolor{accent}{spoor}} is een wandeling waarin geen enkele boog twee keer gebruikt wordt. Een \textbf{\textcolor{accent}{circuit}} is een spoor dat eindigt in zijn beginknoop.
 
-Een \textbf{\textcolor{accent}{kring}} is een pad dat eindigt in zijn beginknoop.
+Een \textbf{\textcolor{accent}{pad}} is een wandeling waarin geen enkele knoop twee keer voorkomt. Een \textbf{\textcolor{accent}{cykel}} is een circuit waarin geen knoop twee keer voorkomt, behalve de beginknoop, die ook de eindknoop is.
 \end{theorie}
 
-Zijn er meervoudige bogen, dan zeg je ook welke boog je neemt, bijvoorbeeld \textit{de westelijke brug van $A$ naar $B$}. Let op: niet elk boek gebruikt deze woorden op dezelfde manier. Soms mag in een pad ook geen knoop twee keer voorkomen.
+Bij sporen en circuits telt dus de boog: hij mag maar één keer gebruikt worden, een knoop mag wel vaker voorkomen. Bij paden en cykels telt de knoop. Elk pad is ook een spoor, want wie geen knoop twee keer bezoekt, kan ook geen boog twee keer gebruiken. Zijn er meervoudige bogen, dan zeg je ook welke boog je neemt, bijvoorbeeld \textit{de westelijke brug van $A$ naar $B$}. Let op: niet elk boek gebruikt deze woorden op dezelfde manier. Soms heet een spoor ook een pad, en een cykel een kring.
 
-\voorbeeld{}{Is de rij knopen een wandeling, een pad of een kring in de graaf?\label{vb:h2-wandeling}
+\voorbeeld{}{De graaf toont de rechtstreekse busverbindingen tussen zes haltes. Welke naam past het best bij de rij knopen: wandeling, spoor, circuit, pad of cykel?\label{vb:h2-wandeling}
 
 \naast{\begin{enumerate}
 \item $A, B, C, E, F, C, D$
 \item $A, B, D, A, B, C$
+\item $A, D, C, E$
 \item $C, E, F, C$
+\item $D, A, B, C, E, F, C, D$
 \item $A, C, D$
 \end{enumerate}}{\begin{tikzpicture}
   \knopen{A/0/1, B/1.5/2, C/3/1, D/1.5/0, E/4.5/2, F/4.5/0}
   \bogen{A/B, B/C, C/D, D/A, B/D, C/E, C/F, E/F}
 \end{tikzpicture}}}{%
-\uitleg{We kijken eerst of elke stap langs een boog gaat. Dan kijken we of een boog twee keer gebruikt wordt, en tot slot of de route terugkomt in haar begin.}
+\uitleg{We kijken eerst of elke stap langs een boog gaat. Dan kijken we of er een boog of een knoop twee keer voorkomt, en of de rij terugkomt in haar begin.}
 \begin{stappen}
-AB,\ BC,\ CE,\ EF,\ FC,\ CD & a. Alle bogen bestaan en zijn verschillend: een pad. Dat $C$ twee keer voorkomt, mag. \\
-AB,\ BD,\ DA,\ AB,\ BC & b. De boog $AB$ komt twee keer voor: een wandeling, maar geen pad. \\
-CE,\ EF,\ FC & c. Een pad dat in $C$ begint en eindigt: een kring. \\
-AC\ ? & d. Er is geen boog tussen $A$ en $C$: geen wandeling.
-\end{stappen}}
+AB,\ BC,\ CE,\ EF,\ FC,\ CD & a. Alle bogen bestaan en zijn verschillend, maar $C$ komt twee keer voor: een spoor, geen pad. \\
+AB,\ BD,\ DA,\ AB,\ BC & b. De boog $AB$ komt twee keer voor: een wandeling, maar geen spoor. \\
+AD,\ DC,\ CE & c. Vier verschillende knopen: een pad. \\
+CE,\ EF,\ FC & d. Terug in $C$, en verder geen knoop twee keer: een cykel. \\
+DA,\ AB,\ BC,\ CE,\ EF,\ FC,\ CD & e. Verschillende bogen en terug in $D$, maar $C$ komt twee keer voor: een circuit, geen cykel. \\
+AC\ ? & f. Er is geen boog tussen $A$ en $C$: geen wandeling.
+\end{stappen}
+Wie van $A$ naar $E$ wil, neemt het best een pad, zoals $A, D, C, E$: zo komt hij geen halte twee keer voorbij.}
+
+\begin{werkwijze}
+Controleer eerst of elke stap een boog is. Komt er een boog twee keer voor, dan is het alleen een wandeling. Anders is het een spoor, of een circuit als het eindigt waar het begon. Komt bovendien geen knoop twee keer voor, dan is het spoor een pad, en het circuit een cykel (bij een cykel tellen het begin en het einde als één knoop).
+\end{werkwijze}
 
 \begin{oefeningen}
 \oef{h2-wandeling}
@@ -130,13 +140,13 @@ AD,\ BD,\ CD & Drie bruggen naar $D$. \\
 \end{tikzpicture}}
 De graaf heeft 7 bogen, en $5 + 3 + 3 + 3 = 14 = 2 \cdot 7$, zoals de handdrukstelling zegt.}
 
-De vraag van het probleem wordt nu een vraag over de graaf: bestaat er een pad dat elke boog precies één keer gebruikt? Zulke paden krijgen de naam van Euler.
+De vraag van het probleem wordt nu een vraag over de graaf: bestaat er een spoor dat elke boog precies één keer gebruikt? Een stadsdeel mag je meer dan eens bezoeken, dus het hoeft geen pad te zijn. Zulke sporen krijgen de naam van Euler.
 
 \begin{theorie}
-Een \textbf{\textcolor{accent}{eulerpad}} is een pad dat elke boog van de graaf precies één keer gebruikt. Een \textbf{\textcolor{accent}{eulerkring}} is een eulerpad dat eindigt in zijn beginknoop.
+Een \textbf{\textcolor{accent}{eulerspoor}} is een spoor dat elke boog van de graaf precies één keer gebruikt. Een \textbf{\textcolor{accent}{eulercircuit}} is een eulerspoor dat eindigt in zijn beginknoop. Een graaf met een eulercircuit heet een \textbf{\textcolor{accent}{eulergraaf}}.
 \end{theorie}
 
-Een figuur \textit{in één haal tekenen}, zonder je potlood op te heffen en zonder een lijn twee keer te trekken, is hetzelfde als een eulerpad zoeken. Dat deed je in de Verken.
+Een figuur \textit{in één haal tekenen}, zonder je potlood op te heffen en zonder een lijn twee keer te trekken, is hetzelfde als een eulerspoor zoeken. Dat deed je in de Verken.
 
 \begin{oefeningen}
 \needspace{14\baselineskip}
@@ -145,7 +155,7 @@ Een figuur \textit{in één haal tekenen}, zonder je potlood op te heffen en zon
 
 \subsection{Waarom de graden beslissen}
 
-In de Verken lukte het bij sommige figuren wel en bij andere niet, en de graden leken een rol te spelen. Waarom? Volg een wandelaar die een eulerpad loopt. Telkens als hij door een knoop komt, gaat hij er langs een boog in en langs een andere boog weer uit. Elke doortocht gebruikt dus twee bogen van die knoop. Elke boog wordt precies één keer gebruikt, dus de bogen van een knoop gaan per twee op, behalve in het begin en op het einde: daar vertrekt hij zonder aan te komen, en komt hij aan zonder te vertrekken.
+In de Verken lukte het bij sommige figuren wel en bij andere niet, en de graden leken een rol te spelen. Waarom? Volg een wandelaar die een eulerspoor loopt. Telkens als hij door een knoop komt, gaat hij er langs een boog in en langs een andere boog weer uit. Elke doortocht gebruikt dus twee bogen van die knoop. Elke boog wordt precies één keer gebruikt, dus de bogen van een knoop gaan per twee op, behalve in het begin en op het einde: daar vertrekt hij zonder aan te komen, en komt hij aan zonder te vertrekken.
 
 \figuren{\begin{tikzpicture}
   \node[knoop] (X) at (0,0) {$X$};
@@ -163,36 +173,36 @@ In de Verken lukte het bij sommige figuren wel en bij andere niet, en de graden 
   \node[grijs,font=\footnotesize,align=center] at (0,-1.1) {begin en één doortocht: graad 3};
 \end{tikzpicture}}
 
-Een knoop die geen begin of einde is, heeft dus een even graad. Bij een eulerkring is het begin ook het einde: de eerste boog vertrekt er en de laatste komt er aan, en die twee vormen samen een paar. Dan zijn alle graden even. Euler toonde ook het omgekeerde: in een samenhangende graaf waarin alle graden even zijn, bestaat er altijd een eulerkring.
+Een knoop die geen begin of einde is, heeft dus een even graad. Bij een eulercircuit is het begin ook het einde: de eerste boog vertrekt er en de laatste komt er aan, en die twee vormen samen een paar. Dan zijn alle graden even. Euler toonde ook het omgekeerde: in een samenhangende graaf waarin alle graden even zijn, bestaat er altijd een eulercircuit.
 
 \begin{theorie}
-\begin{stelling}{Eulerkring}
-Een samenhangende graaf heeft een eulerkring als en slechts als elke knoop een even graad heeft.
+\begin{stelling}{Eulercircuit}
+Een samenhangende graaf heeft een eulercircuit als en slechts als elke knoop een even graad heeft. Een samenhangende graaf is dus een eulergraaf als en slechts als alle graden even zijn.
 \end{stelling}
 \begin{bewijs}
-Stel dat er een eulerkring is. Elke keer dat de kring door een knoop komt, gebruikt hij twee bogen van die knoop: één om aan te komen en één om te vertrekken. Ook de beginknoop doet mee: de eerste boog (vertrekken) en de laatste (aankomen) vormen een paar. Elke boog wordt precies één keer gebruikt, dus de graad van elke knoop is twee keer het aantal doortochten: een even getal.
-\alleenvoor{4}{Dat ook het omgekeerde klopt, bewijzen we hier niet; de werkwijze verderop toont hoe je de kring altijd vindt.}
+Stel dat er een eulercircuit is. Elke keer dat het circuit door een knoop komt, gebruikt hij twee bogen van die knoop: één om aan te komen en één om te vertrekken. Ook de beginknoop doet mee: de eerste boog (vertrekken) en de laatste (aankomen) vormen een paar. Elke boog wordt precies één keer gebruikt, dus de graad van elke knoop is twee keer het aantal doortochten: een even getal.
+\alleenvoor{4}{Dat ook het omgekeerde klopt, bewijzen we hier niet; de werkwijze verderop toont hoe je het circuit altijd vindt.}
 \end{bewijs}
 \begin{alleenvoor}{5}
 \begin{bewijs}
-Omgekeerd: stel dat alle graden even zijn. Vertrek in een knoop $X$ en wandel langs bogen die je nog niet gebruikte, zolang het kan. In een andere knoop dan $X$ raak je nooit vast: telkens als je er aankomt, heb je er een oneven aantal bogen gebruikt, en de graad is even, dus er blijft een vrije boog over om te vertrekken. Je stopt dus in $X$, en je hebt een kring. Gebruikt die kring alle bogen, dan ben je klaar. Zo niet, dan ligt er op de kring een knoop $Y$ met een ongebruikte boog, want de graaf is samenhangend. Zonder de gebruikte bogen zijn alle graden nog even (de kring gebruikte van elke knoop een even aantal bogen). Maak dus vanuit $Y$ op dezelfde manier een tweede kring met ongebruikte bogen, en las die in de eerste in, op de plaats van $Y$. Herhaal tot alle bogen gebruikt zijn. Zo krijg je een eulerkring.
+Omgekeerd: stel dat alle graden even zijn. Vertrek in een knoop $X$ en wandel langs bogen die je nog niet gebruikte, zolang het kan. In een andere knoop dan $X$ raak je nooit vast: telkens als je er aankomt, heb je er een oneven aantal bogen gebruikt, en de graad is even, dus er blijft een vrije boog over om te vertrekken. Je stopt dus in $X$, en je hebt een circuit. Gebruikt dat circuit alle bogen, dan ben je klaar. Zo niet, dan ligt er op het circuit een knoop $Y$ met een ongebruikte boog, want de graaf is samenhangend. Zonder de gebruikte bogen zijn alle graden nog even (het circuit gebruikte van elke knoop een even aantal bogen). Maak dus vanuit $Y$ op dezelfde manier een tweede circuit met ongebruikte bogen, en las dat in het eerste in, op de plaats van $Y$. Herhaal tot alle bogen gebruikt zijn. Zo krijg je een eulercircuit.
 \end{bewijs}
 \end{alleenvoor}
 \end{theorie}
 
 In woorden: een rondwandeling over elke boog kan precies dan als je in elke knoop even vaak kunt aankomen als vertrekken.
 
-\voorbeeld{}{Toon aan dat de graaf een eulerkring heeft, en zoek er een.\label{vb:h2-kring}
+\voorbeeld{}{Toon aan dat de graaf een eulercircuit heeft, en zoek er een.\label{vb:h2-kring}
 
 \figuren{\begin{tikzpicture}
   \knopen{A/0/0, B/2/0, C/4/0, D/1/1.6, E/3/1.6, F/2/3.2}
   \bogen{A/B, B/C, A/D, B/D, B/E, C/E, D/E, D/F, E/F}
 \end{tikzpicture}}}{%
-\uitleg{Eerst controleren we de graden. Daarna zoeken we de kring stuk voor stuk: we maken een kleine kring, en lassen er telkens een nieuwe kring in met bogen die nog niet gebruikt zijn.}
+\uitleg{Eerst controleren we de graden. Daarna zoeken we het circuit stuk voor stuk: we maken een klein circuit, en lassen er telkens een nieuw circuit in met bogen die nog niet gebruikt zijn.}
 \begin{stappen}
 \gr{A} = \gr{C} = \gr{F} = 2 & De graaf is samenhangend en alle graden zijn even: \\
-\gr{B} = \gr{D} = \gr{E} = 4 & er is een eulerkring. \\
-A, B, D, A & Een eerste kring. De bogen $BC$, $BE$, $CE$, $DE$, $DF$, $EF$ zijn nog vrij. \\
+\gr{B} = \gr{D} = \gr{E} = 4 & er is een eulercircuit. \\
+A, B, D, A & Een eerste circuit. De bogen $BC$, $BE$, $CE$, $DE$, $DF$, $EF$ zijn nog vrij. \\
 B, C, E, B & Vanuit $B$, met vrije bogen. \\
 A, B, C, E, B, D, A & Ingelast op de plaats van $B$. Nog vrij: $DE$, $EF$, $FD$. \\
 D, E, F, D & Vanuit $D$. \\
@@ -200,37 +210,37 @@ A, B, C, E, B, D, E, F, D, A & Ingelast op de plaats van $D$: alle 9 bogen.
 \end{stappen}}
 
 \begin{werkwijze}
-Controleer dat de graaf samenhangend is en dat alle graden even zijn. Wandel vanuit een knoop langs vrije bogen tot je terug bent: een kring. Blijven er bogen over, kies dan een knoop op je kring met een vrije boog, maak daar een nieuwe kring, en las die in. Herhaal tot alle bogen gebruikt zijn.
+Controleer dat de graaf samenhangend is en dat alle graden even zijn. Wandel vanuit een knoop langs vrije bogen tot je terug bent: een circuit. Blijven er bogen over, kies dan een knoop op je circuit met een vrije boog, maak daar een nieuw circuit, en las dat in. Herhaal tot alle bogen gebruikt zijn.
 \end{werkwijze}
 
 \begin{oefeningen}
 \oef{h2-kring}
 \end{oefeningen}
 
-\subsection{Een eulerpad met begin en einde}
+\subsection{Een eulerspoor met begin en einde}
 
 En als de wandelaar niet hoeft terug te keren? Dan zijn het begin en het einde verschillende knopen. Daar is de graad oneven: in het begin vertrekt hij één keer zonder aan te komen, op het einde komt hij één keer aan zonder te vertrekken. Alle andere knopen hebben een even graad.
 
 \begin{theorie}
-\begin{stelling}{Eulerpad}
-Een samenhangende graaf heeft een eulerpad dat niet in zijn beginknoop eindigt als en slechts als precies twee knopen een oneven graad hebben. Het eulerpad begint dan in de ene en eindigt in de andere.
+\begin{stelling}{Eulerspoor}
+Een samenhangende graaf heeft een eulerspoor dat niet in zijn beginknoop eindigt als en slechts als precies twee knopen een oneven graad hebben. Het eulerspoor begint dan in de ene en eindigt in de andere.
 \end{stelling}
 \begin{bewijs}
-Een knoop die geen begin of einde is, heeft een even graad, zoals bij de eulerkring. In de beginknoop komt er bij de doortochten één vertrekkende boog bij, en in de eindknoop één aankomende: die twee hebben een oneven graad.
+Een knoop die geen begin of einde is, heeft een even graad, zoals bij het eulercircuit. In de beginknoop komt er bij de doortochten één vertrekkende boog bij, en in de eindknoop één aankomende: die twee hebben een oneven graad.
 
-Omgekeerd: stel dat $U$ en $V$ de enige knopen met een oneven graad zijn. Voeg een extra boog toe tussen $U$ en $V$. Nu zijn alle graden even, dus is er een eulerkring, en die gebruikt de extra boog. Laat je de kring beginnen met die boog, van $V$ naar $U$, en schrap je hem daarna, dan blijft er een eulerpad over van $U$ naar $V$.
+Omgekeerd: stel dat $U$ en $V$ de enige knopen met een oneven graad zijn. Voeg een extra boog toe tussen $U$ en $V$. Nu zijn alle graden even, dus is er een eulercircuit, en dat gebruikt de extra boog. Laat je het circuit beginnen met die boog, van $V$ naar $U$, en schrap je hem daarna, dan blijft er een eulerspoor over van $U$ naar $V$.
 \end{bewijs}
 \end{theorie}
 
-\voorbeeld{}{Waar moet een eulerpad in deze graaf beginnen? Zoek er een.\label{vb:h2-pad}
+\voorbeeld{}{Waar moet een eulerspoor in deze graaf beginnen? Zoek er een.\label{vb:h2-pad}
 
 \figuren{\begin{tikzpicture}
   \knopen{A/0/0, B/2/0, C/4/0, D/0/2, E/2/2, F/4/2}
   \bogen{A/B, B/C, D/E, E/F, A/D, B/E, C/F, A/E, B/F}
 \end{tikzpicture}}}{%
-\uitleg{We zoeken de knopen met een oneven graad. Daar moet het pad beginnen en eindigen.}
+\uitleg{We zoeken de knopen met een oneven graad. Daar moet het spoor beginnen en eindigen.}
 \begin{stappen}
-\gr{A} = \gr{F} = 3 & Precies twee oneven graden: een eulerpad van $A$ naar $F$. \\
+\gr{A} = \gr{F} = 3 & Precies twee oneven graden: een eulerspoor van $A$ naar $F$. \\
 \gr{B} = \gr{E} = 4,\ \gr{C} = \gr{D} = 2 & De andere graden zijn even. \\
 A, D, E, A, B, E, F, B, C, F & Begin in $A$ en gebruik geen boog twee keer: alle 9 bogen.
 \end{stappen}
@@ -239,7 +249,7 @@ Begin je in een knoop met een even graad, zoals $B$, dan lukt het nooit: je eind
 Samengevat beslist het aantal knopen met een oneven graad. Volgens hoofdstuk 1 is dat aantal altijd even: 0, 2, 4, \ldots
 
 \begin{werkwijze}
-Controleer of de graaf samenhangend is, en tel de knopen met een oneven graad. Zijn er geen, dan is er een eulerkring: begin waar je wilt. Zijn er twee, dan is er een eulerpad: begin in de ene en eindig in de andere. Zijn er meer, dan is er geen eulerpad.
+Controleer of de graaf samenhangend is, en tel de knopen met een oneven graad. Zijn er geen, dan is er een eulercircuit: begin waar je wilt. Zijn er twee, dan is er een eulerspoor: begin in de ene en eindig in de andere. Zijn er meer, dan is er geen eulerspoor.
 \end{werkwijze}
 
 \begin{oefeningen}
@@ -256,11 +266,11 @@ Nu kunnen we de vraag van de inwoners van Königsberg beantwoorden, zonder ook m
 \uitleg{In voorbeeld~\ref{vb:h2-konigsberg} maakten we de graaf. We tellen de knopen met een oneven graad.}
 \begin{stappen}
 \gr{A} = 5,\ \gr{B} = \gr{C} = \gr{D} = 3 & Alle vier de graden zijn oneven. \\
-4 > 2 & Meer dan twee oneven graden: geen eulerpad.
+4 > 2 & Meer dan twee oneven graden: geen eulerspoor.
 \end{stappen}
 Zo'n wandeling bestaat niet: niet met terugkeren, en ook niet zonder. Elk stadsdeel dat geen begin of einde is, moet aan een even aantal bruggen liggen, en in Königsberg liggen ze alle vier aan een oneven aantal. Dat bewijst dat het niet kan, hoe lang je ook zoekt.}
 
-Wat moet er veranderen opdat het wel kan? Bouw een achtste brug tussen $B$ en $C$, en dan hebben alleen $A$ en $D$ nog een oneven graad: er is een eulerpad van $A$ naar $D$. Probeer het in de opdrachten.
+Wat moet er veranderen opdat het wel kan? Bouw een achtste brug tussen $B$ en $C$, en dan hebben alleen $A$ en $D$ nog een oneven graad: er is een eulerspoor van $A$ naar $D$. Probeer het in de opdrachten.
 
 %========================================================================================
 \section{Het kortste pad}
@@ -277,6 +287,8 @@ Een routeplanner zoekt de kortste route in een gewogen graaf: de knopen zijn kru
 \begin{theorie}
 Een \textbf{\textcolor{accent}{kortste pad}} tussen twee knopen van een gewogen graaf is een pad tussen die knopen met de kleinste lengte. Die lengte heet de \textbf{\textcolor{accent}{afstand}} tussen de knopen.
 \end{theorie}
+
+Waarom een pad, en niet gewoon een wandeling? Als alle gewichten positief zijn, komt in een kortste route geen knoop twee keer voor: kom je ergens een tweede keer langs, dan kun je het rondje ertussen weglaten, en de route wordt korter.
 
 \subsection{Het algoritme van Dijkstra}
 
@@ -326,7 +338,7 @@ Het algoritme vindt in één keer de afstand van het vertrekpunt tot elke knoop.
 %========================================================================================
 \opdrachtenkop
 
-\lkr{De opdrachten mengen alle onderwerpen van het hoofdstuk. Opdracht~\ref{oef:h2-o19} gaat over kleuren, wat niet in de leerstof staat: een uitdaging voor sterke leerlingen.\alleenvoor{5}{ Opdrachten~\ref{oef:h2-o22} en~\ref{oef:h2-o23} zijn bewijzen; ze staan alleen in pakket 5.}}
+\lkr{De opdrachten mengen alle onderwerpen van het hoofdstuk. Opdracht~\ref{oef:h2-o19} gaat over kleuren, een ander probleemtype uit de wenk bij K3 dat niet in de leerstof staat: een uitdaging voor sterke leerlingen. Opdracht~\ref{oef:h2-o18} (de postbode) combineert Euler met het kortste pad.\alleenvoor{5}{ Opdrachten~\ref{oef:h2-o22} en~\ref{oef:h2-o23} zijn bewijzen; ze staan alleen in pakket 5.}}
 
 \begin{oefeningen}
 \oef{h2-o1}
@@ -432,5 +444,5 @@ Het algoritme vindt in één keer de afstand van het vertrekpunt tot elke knoop.
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: wat een wandeling, een pad en een kring zijn, wanneer een graaf samenhangend is, wat een eulerpad en een eulerkring zijn, waarom de graden beslissen of er een bestaat (met de redenering), hoe je een eulerkring vindt door kringen in te lassen, waar een eulerpad begint en eindigt, waarom de bruggen van Königsberg niet lukken, en hoe het algoritme van Dijkstra werkt. Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: wat een wandeling, een spoor, een circuit, een pad en een cykel zijn, wanneer een graaf samenhangend is, wat een eulerspoor, een eulercircuit en een eulergraaf zijn, waarom de graden beslissen of er een bestaat (met de redenering), hoe je een eulercircuit vindt door circuits in te lassen, waar een eulerspoor begint en eindigt, waarom de bruggen van Königsberg niet lukken, en hoe het algoritme van Dijkstra werkt. Vergelijk daarna met de kaders.
 \fi
