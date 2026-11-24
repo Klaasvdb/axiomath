@@ -1037,6 +1037,79 @@
 
 # --- Test jezelf ------------------------------------------------------------------------
 
+- id: h2-o27
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een driehoek in een balk
+  figuur:
+    opties: |-
+      3.6cm
+    code: |-
+      \begin{tikzpicture}[scale=.4,font=\scriptsize]
+        \coordinate (A) at (0,0); \coordinate (B) at (6,0); \coordinate (C) at (8,1.4); \coordinate (D) at (2,1.4);
+        \coordinate (E) at (0,3); \coordinate (F) at (6,3); \coordinate (G) at (8,4.4); \coordinate (H) at (2,4.4);
+        \fill[accent!15] (B) -- (D) -- (E) -- cycle;
+        \draw[grijs,dashed] (A) -- (D) -- (C) (D) -- (H);
+        \draw[grijs] (A) -- (B) -- (C) -- (G) -- (H) -- (E) -- cycle (E) -- (F) -- (G) (B) -- (F);
+        \draw[accent,thick] (B) -- (E);
+        \draw[accent,thick,dashed] (B) -- (D) -- (E);
+        \node[below left] at (A) {$A$}; \node[below right] at (B) {$B$}; \node[right] at (C) {$C$}; \node[left,inner sep=2pt] at (D) {$D$};
+        \node[left] at (E) {$E$}; \node[above left,inner sep=1pt] at (F) {$F$}; \node[above right] at (G) {$G$}; \node[above] at (H) {$H$};
+        \node[below] at (3,0) {6}; \node[left] at (0,1.5) {3}; \node[below right,inner sep=1pt] at (7,.7) {4};
+      \end{tikzpicture}
+  opgave: |-
+    Een balk $ABCD.EFGH$ heeft ribben $\lengte{AB} = 6$~cm, $\lengte{AD} = 4$~cm en $\lengte{AE} = 3$~cm. De diagonalen $[BD]$, $[DE]$ en $[EB]$ van drie zijvlakken vormen een driehoek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de zijden van driehoek $BDE$ exact, met de stelling van Pythagoras in de zijvlakken.
+      antwoord: |-
+        $\lengte{BD} = 2\sqrt{13}$, $\lengte{BE} = 3\sqrt5$ en $\lengte{DE} = 5$ (in cm)
+      uitwerking: |-
+        In het grondvlak is $\lengte{BD}^2 = 6^2 + 4^2 = 52$, in het voorvlak $\lengte{BE}^2 = 6^2 + 3^2 = 45$ en in het linkerzijvlak $\lengte{DE}^2 = 4^2 + 3^2 = 25$.
+    - opgave: |-
+        Bereken de hoeken van driehoek $BDE$, afgerond op $0{,}01^\circ$.
+      antwoord: |-
+        in $E$: $74{,}44^\circ$; in $B$: $41{,}91^\circ$; in $D$: $63{,}66^\circ$
+      uitwerking: |-
+        Begin met de grootste hoek, tegenover $[BD]$: $\cos\hoek{E} = \frac{45 + 25 - 52}{2 \cdot \sqrt{45} \cdot 5} \approx 0{,}2683$, dus $\hoek{E} \approx 74{,}44^\circ$. Daarna $\cos\hoek{B} = \frac{52 + 45 - 25}{2\sqrt{52}\,\sqrt{45}} \approx 0{,}7442$, dus $\hoek{B} \approx 41{,}91^\circ$, en $\hoek{D} \approx 180^\circ - 74{,}44^\circ - 41{,}91^\circ \approx 63{,}66^\circ$ (met de niet-afgeronde waarden).
+    - opgave: |-
+        Bereken de oppervlakte van driehoek $BDE$, afgerond op $0{,}01$~cm$^2$.
+      antwoord: |-
+        $16{,}16$~cm$^2$
+      uitwerking: |-
+        $\tfrac12 \cdot \lengte{EB} \cdot \lengte{ED} \cdot \sin\hoek{E} = \tfrac12 \cdot \sqrt{45} \cdot 5 \cdot \sin 74{,}44^\circ \approx 16{,}16$.
+
+- id: h2-o28
+  soort: opdracht
+  niveau: 3
+  pakketten: [5]
+  thema: |-
+    de formule van Heron
+  opgave: |-
+    Met de formule van Heron bereken je de oppervlakte $S$ van een driehoek uit de drie zijden. Noem $s = \frac{a + b + c}{2}$ de halve omtrek. Dan is $S = \sqrt{s(s - a)(s - b)(s - c)}$. Bewijs die formule met de cosinusregel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $1 + \cos\gamma = \dfrac{(a + b + c)(a + b - c)}{2ab}$ en $1 - \cos\gamma = \dfrac{(c - a + b)(c + a - b)}{2ab}$. (Tip: schrijf $\cos\gamma$ met de cosinusregel, zet op één noemer en ontbind een verschil van twee kwadraten.)
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        Uit de cosinusregel is $\cos\gamma = \frac{a^2 + b^2 - c^2}{2ab}$. Dan is $1 + \cos\gamma = \frac{a^2 + 2ab + b^2 - c^2}{2ab} = \frac{(a + b)^2 - c^2}{2ab} = \frac{(a + b + c)(a + b - c)}{2ab}$ en $1 - \cos\gamma = \frac{c^2 - (a^2 - 2ab + b^2)}{2ab} = \frac{c^2 - (a - b)^2}{2ab} = \frac{(c - a + b)(c + a - b)}{2ab}$.
+    - opgave: |-
+        Leid af dat $S^2 = s(s - a)(s - b)(s - c)$. (Tip: $S = \tfrac12 ab\sin\gamma$, $\sin^2\gamma = (1 + \cos\gamma)(1 - \cos\gamma)$ en $a + b - c = 2(s - c)$.)
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        $S^2 = \tfrac14 a^2b^2 \sin^2\gamma = \tfrac14 a^2b^2 (1 + \cos\gamma)(1 - \cos\gamma) = \frac{(a + b + c)(a + b - c)(c - a + b)(c + a - b)}{16}$. Met $a + b + c = 2s$, $a + b - c = 2(s - c)$, $c - a + b = 2(s - a)$ en $c + a - b = 2(s - b)$ wordt dat $\frac{16\,s(s - a)(s - b)(s - c)}{16}$. Omdat $S > 0$, is $S = \sqrt{s(s - a)(s - b)(s - c)}$.
+    - opgave: |-
+        Controleer de formule met de driehoek met zijden 13, 14 en 15 uit opdracht \ref{oef:h2-o21}.
+      antwoord: |-
+        $S = 84$
+      uitwerking: |-
+        $s = 21$, en $\sqrt{21 \cdot 8 \cdot 7 \cdot 6} = \sqrt{7056} = 84$, zoals in die opdracht.
+
 - id: h2-t1
   soort: test
   niveau: 1
