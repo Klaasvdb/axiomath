@@ -1,17 +1,17 @@
 # Functies: handboek
 
-Handboek voor pakket 4 (B+S) van de 2de graad, LPD 21-25 en 28, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Utagawa Hiroshige (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 4 (B+S) van de 2de graad, leerplan II-WisS-d (KOV, versie oktober 2024): LPD 21-25 en 28, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Utagawa Hiroshige (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Functies/](<../../../cursussen/Functies/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Met meer diepgang dan pakket 1-3: de pijlnotatie $f: x \mapsto \ldots$, de puntrichtingsvorm $y - y_1 = m(x - x_1)$, relatief en absoluut extremum, het woord asymptoot en de puntsymmetrie van de hyperbool, en enkele extra opdrachten. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Functies/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Functies/](<../../../cursussen/Functies/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Inhoudelijk gelijk aan pakket 3: de doelen en wenken over functies zijn in beide leerplannen gelijk, alleen de nummers verschillen. De pijlnotatie, relatief en absoluut extremum, het woord asymptoot en enkele extra opdrachten stonden eerst ook in dit pakket, maar het leerplan vraagt ze niet; ze staan nu alleen in pakket 5. De volledige tabel met verschillen, de toetsing aan het leerplan en wat open blijft, staan in de [README van de bron](<../../../cursussen/Functies/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Wat is een functie? | `hoofdstukken/01-functies.tex` | LPD 21-25 | eerste versie, nog na te lezen |
-| 2. Eerstegraadsfuncties | `hoofdstukken/02-eerstegraadsfuncties.tex` | LPD 21-25 | eerste versie, nog na te lezen |
-| 3. Kenmerken en grafisch oplossen | `hoofdstukken/03-kenmerken.tex` | LPD 21-25 | eerste versie, nog na te lezen |
-| 4. De functie $f(x) = \frac{c}{x}$ | `hoofdstukken/04-omgekeerd-evenredig.tex` | LPD 28 | eerste versie, nog na te lezen |
+| 1. Wat is een functie? | `hoofdstukken/01-functies.tex` | LPD 21 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Eerstegraadsfuncties | `hoofdstukken/02-eerstegraadsfuncties.tex` | LPD 22, 23 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 3. Kenmerken en grafisch oplossen | `hoofdstukken/03-kenmerken.tex` | LPD 24, 25 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 4. De functie $f(x) = \frac{c}{x}$ | `hoofdstukken/04-omgekeerd-evenredig.tex` | LPD 28 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-De verdeling van de leerplandoelen over de hoofdstukken is nog na te kijken in het leerplan.
+De verdeling van de leerplandoelen over de hoofdstukken is getoetst aan het leerplan (24 november 2026).
 
 ## PDF's
 
