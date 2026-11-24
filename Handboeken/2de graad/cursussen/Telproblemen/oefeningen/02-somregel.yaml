@@ -1,5 +1,6 @@
 # Oefeningen van hoofdstuk 2. Zie Opmaak/oefeningenbank.py voor de velden.
-# pakketten: drie verzamelingen (h2-drie, h2-o23, h2-o24, h2-t8) alleen in pakket 5; h2-o25 niet in pakket 1.
+# pakketten: drie verzamelingen (h2-drie, h2-o23, h2-o24, h2-t8) alleen in pakket 5; h2-o25 niet in pakket 1;
+# wegendiagram en tabel of rooster (h2-o12, h2-o17, h2-o22) alleen in 4-5 (extra bij LPD 35 in 4, wenk in 5).
 # Alle aantallen zijn nagerekend met een Python-script (brute force waar het kan).
 
 - id: h2-start-1
@@ -665,6 +666,7 @@
         Drie verschillende: $6 \cdot 5 \cdot 4 = 120$. Dus $216 - 120 = 96$.
 
 - id: h2-o12
+  pakketten: [4, 5]
   soort: opdracht
   niveau: 2
   thema: |-
@@ -789,7 +791,45 @@
       uitwerking: |-
         De doorsnede ligt in de brildragers, dus hoogstens 17. Dat kan als alle brildragers bruin haar hebben.
 
+- id: h2-o26
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    zelf een gepaste tekening kiezen
+  opgave: |-
+    Kies bij a en b zelf een tekening: een boomdiagram of een venndiagram. Teken ze en lees het antwoord af.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In een klas van 24 leerlingen hebben 14 leerlingen een hond en 9 een kat. Vijf leerlingen hebben allebei. Hoeveel leerlingen hebben alleen een kat? En hoeveel hebben geen hond en geen kat?
+      antwoord: |-
+        $4$; $6$
+      uitwerking: |-
+        Een venndiagram, want het gaat over twee groepen die overlappen. Midden 5, alleen hond $14 - 5 = 9$, alleen kat $9 - 5 = 4$, erbuiten $24 - 9 - 5 - 4 = 6$.\par
+        \begin{tikzpicture}[scale=.9]
+          \venntwee{hond}{kat}
+          \vennaantal{9}{5}{4}{6}
+        \end{tikzpicture}
+    - opgave: |-
+        Een gezin heeft drie kinderen. Je noteert van het oudste tot het jongste kind of het een jongen (j) of een meisje (m) is, zoals jmm. Hoeveel volgordes zijn er? Bij hoeveel daarvan zijn er precies twee meisjes?
+      antwoord: |-
+        $8$; $3$: jmm, mjm, mmj
+      uitwerking: |-
+        Een boomdiagram, want het is een keuze in drie stappen (oudste, middelste, jongste kind). Het heeft $2 \cdot 2 \cdot 2 = 8$ bladeren. Met precies twee meisjes: jmm, mjm en mmj.\par
+        \begin{tikzpicture}[boom=12mm,level 1/.style={sibling distance=20mm},level 2/.style={sibling distance=10mm},level 3/.style={sibling distance=5mm}]
+          \node[wortel] {}
+            child{node{j} child{node{j} child{node[uitkomst=jjj]{j}} child{node[uitkomst=jjm]{m}}} child{node{m} child{node[uitkomst=jmj]{j}} child{node[uitkomst=jmm]{m}}}}
+            child{node{m} child{node{j} child{node[uitkomst=mjj]{j}} child{node[uitkomst=mjm]{m}}} child{node{m} child{node[uitkomst=mmj]{j}} child{node[uitkomst=mmm]{m}}}};
+        \end{tikzpicture}
+    - opgave: |-
+        Waarom past bij a een venndiagram en bij b een boomdiagram?
+      antwoord: |-
+        a: groepen die overlappen; b: een keuze in stappen
+      uitwerking: |-
+        Bij a gaat het over groepen leerlingen, en sommige leerlingen zitten in beide groepen: een venndiagram toont de vier stukken. Bij b ligt de uitkomst vast in drie stappen na elkaar, één per kind: een boomdiagram toont alle uitkomsten.
+
 - id: h2-o17
+  pakketten: [4, 5]
   soort: opdracht
   niveau: 2
   thema: |-
@@ -874,6 +914,7 @@
     Door 2: 500. Door 3: 333. Door 6: 166. Door 2 of 3: $500 + 333 - 166 = 667$. Geen van beide: $1000 - 667 = 333$.
 
 - id: h2-o22
+  pakketten: [4, 5]
   soort: opdracht
   niveau: 3
   thema: |-
