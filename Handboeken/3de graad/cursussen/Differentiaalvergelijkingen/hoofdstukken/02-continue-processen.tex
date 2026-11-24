@@ -1,0 +1,532 @@
+%----------------------------------------------------------------------------------------
+% CONTINUE VERANDERINGSPROCESSEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Continue veranderingsprocessen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een tas thee van 90\,°C staat op tafel in een kamer van 20\,°C. Na 5 minuten is de thee 70\,°C. Je drinkt thee het liefst op 55\,°C. Hoe lang moet je wachten? Een vriend redeneert: \textit{in 5 minuten zakt de temperatuur 20 graden, dus 4 graden per minuut, en na 8,75 minuten is ze 55\,°C}. Klopt dat? En wordt de thee ooit precies 20\,°C?}{\begin{tikzpicture}[x=.14cm,y=.032cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=10] (0,0) grid (30,90);
+  \draw[->,grijs] (0,0) -- (32,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,98) node[above,text=black] {$T$};
+  \foreach \t in {10,20,30}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {20,55,90}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,20) -- (30,20);
+  \draw[grijs,dashed] (0,55) -- (30,55);
+  \fill[accent] (0,90) circle (2pt) (5,70) circle (2pt);
+  \node[right] at (5.5,72) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 22 (continue veranderingsprocessen beschrijven) en de begrippen van LPD 23 (algemene en particuliere oplossing, richtingsveld, methode van Euler). Voorkennis uit pakket 4: afgeleiden, de exponentiële functie met $(\e^{kt})' = k\,\e^{kt}$, logaritmen, primitieven (cursus Integralen) en de eigenschap dat een functie met afgeleide 0 op een interval constant is. De contexten komen uit de wenk bij LPD 22: radioactief verval, absorptie van licht, de afkoelingswet van Newton en de parachutist. De logistische groei en de kogel volgen in hoofdstuk 3, het prooi-roofdiermodel staat als opdracht in hoofdstuk 4. Richtingsvelden tekenen gaat thuis het best met ICT (GeoGebra: \textit{Richtingsveld}); in de les volstaat een veld op papier.}
+
+In hoofdstuk 1 keken we naar een proces met vaste tussenpozen, en aan het einde maakten we de stappen oneindig klein. Dan verandert een differentievergelijking in een differentiaalvergelijking: een verband tussen een functie en haar afgeleide. Veel natuurwetten hebben die vorm, omdat ze zeggen hoe snel iets verandert, niet waar het uitkomt. In dit hoofdstuk leer je zulke vergelijkingen opstellen en de eenvoudigste oplossen, en zie je hoe je zonder formule kunt voorspellen wat een oplossing doet: met een richtingsveld en met de methode van Euler.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Wat is een differentiaalvergelijking?}
+
+\subsection{Een vergelijking met een afgeleide}
+
+Een bacteriecultuur heeft genoeg voedsel. Elke bacterie deelt zich af en toe, dus hoe meer bacteriën er zijn, hoe sneller het aantal groeit. Stel dat de groeisnelheid 0,3 keer het aantal is (per uur). Met $N(t)$ het aantal na $t$ uur is dat
+\[
+N'(t) = 0{,}3\, N(t) .
+\]
+De onbekende is hier geen getal, maar een functie $N$. Welke functie is haar eigen afgeleide, op een factor 0,3 na? Je kent er een: $(\e^{0{,}3t})' = 0{,}3\,\e^{0{,}3t}$. Ook $500\,\e^{0{,}3t}$ werkt, en $C\,\e^{0{,}3t}$ voor elke constante $C$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{differentiaalvergelijking}} is een vergelijking met een onbekende functie $y(t)$ en een of meer van haar afgeleiden. De \textbf{\textcolor{accent}{orde}} is de hoogste afgeleide die erin voorkomt. Een \textbf{\textcolor{accent}{oplossing}} op een interval $I$ is een afleidbare functie die op heel $I$ aan de vergelijking voldoet. De grafiek van een oplossing heet een \textbf{\textcolor{accent}{integraalkromme}}.
+\end{theorie}
+
+We schrijven vaak $y$ en $y'$ in plaats van $y(t)$ en $y'(t)$, of met de notatie van Leibniz $\afg{y}{t}$. Zo is $y' = 0{,}3\,y$ van de eerste orde, en $y'' = -9y$ van de tweede orde. De veranderlijke heet $t$ als ze tijd voorstelt, maar ook $x$ komt voor. Of een functie een oplossing is, ga je na door ze in te vullen.
+
+\voorbeeld{}{Toon aan dat $y = 4\,\e^{-2t} + 3$ een oplossing is van $y' = -2y + 6$.\label{vb:h2-controle}}{%
+\uitleg{We berekenen $y'$ en vullen $y$ en $y'$ in de twee leden in. Beide moeten gelijk zijn voor elke $t$.}
+\begin{stappen}
+y' = -8\,\e^{-2t} & Linkerlid, met de kettingregel. \\
+-2y + 6 = -8\,\e^{-2t} - 6 + 6 = -8\,\e^{-2t} & Rechterlid. \\
+y' = -2y + 6 \text{ voor elke } t \in \R & Beide leden zijn gelijk.
+\end{stappen}}
+
+\voorbeeld{}{Is $y = \sin 3t$ een oplossing van $y'' = -9y$? En $y = \sin 3t + 1$?\label{vb:h2-orde2}}{%
+\uitleg{Een vergelijking van de tweede orde: we hebben twee afgeleiden nodig. Het verschil tussen de twee functies is net het punt van dit voorbeeld.}
+\begin{stappen}
+y' = 3\cos 3t, \quad y'' = -9\sin 3t = -9y & $y = \sin 3t$ is een oplossing. \\
+(\sin 3t + 1)'' = -9\sin 3t \neq -9(\sin 3t + 1) & Het rechterlid is $-9\sin 3t - 9$: geen oplossing.
+\end{stappen}
+Een constante erbij tellen mag dus niet altijd: dat hangt af van de vergelijking.}
+
+\begin{werkwijze}
+Bereken de afgeleiden die in de vergelijking staan. Vul alles in, en vereenvoudig beide leden apart. Ze moeten gelijk zijn voor elke $t$ van het interval.
+\end{werkwijze}
+
+\nujij{Is $y = t^3$ een oplossing van $t\,y' = 3y$?}{$y' = 3t^2$, dus $t\,y' = 3t^3 = 3y$: ja.}
+
+\begin{oefeningen}
+\oef{h2-controle}
+\end{oefeningen}
+
+\subsection{Algemene en particuliere oplossing}
+
+De eenvoudigste differentiaalvergelijking is $y' = f(t)$: een functie waarvan je de afgeleide kent. Dat is zoeken naar een primitieve, en je weet uit de cursus Integralen dat er oneindig veel zijn, die op een constante na gelijk zijn. Ook $y' = 0{,}3\,y$ had oneindig veel oplossingen. Om er één te kiezen, heb je een extra gegeven nodig, zoals de beginwaarde.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{algemene oplossing}} van een differentiaalvergelijking is een formule met een of meer willekeurige constanten, die voor elke waarde van de constanten een oplossing geeft, en waarin op enkele uitzonderingen na alle oplossingen zitten. Een \textbf{\textcolor{accent}{particuliere oplossing}} is één oplossing, met een vaste waarde voor de constanten. Een \textbf{\textcolor{accent}{beginvoorwaarde}} $\formule{y(t_0) = y_0}$ legt die waarde vast.
+\end{theorie}
+
+De uitzonderingen heten singuliere oplossingen: die komen in hoofdstuk 3. Een differentiaalvergelijking met een beginvoorwaarde heet ook een \textit{beginwaardeprobleem}. In een figuur is de algemene oplossing een hele familie van integraalkrommen, en de beginvoorwaarde kiest de kromme door het punt $(t_0, y_0)$.
+
+\voorbeeld{}{Bepaal de algemene oplossing van $y' = 3t^2 - 3$, en de particuliere oplossing met $y(0) = 1$.\label{vb:h2-particulier}}{%
+\uitleg{Het rechterlid hangt alleen van $t$ af, dus is $y$ een primitieve van $3t^2 - 3$. De beginvoorwaarde bepaalt de constante.}
+\naast{\begin{stappenvrij}{4.4cm}{4.4cm}
+y = t^3 - 3t + C & De algemene oplossing: alle primitieven. \\
+1 = 0 - 0 + C \ \Rightarrow \ C = 1 & Vul $t = 0$ en $y = 1$ in. \\
+y = t^3 - 3t + 1 & De particuliere oplossing.
+\end{stappenvrij}
+De figuur toont de familie voor $C = -2, -1, \ldots, 3$. Alle krommen zijn verticale verschuivingen van elkaar, en door elk punt gaat er precies één.}{\begin{tikzpicture}[x=.75cm,y=.32cm,font=\scriptsize]
+  \def\asx{t}
+  \rooster{-2}{1}{2}{-4}{2}{6}
+  \foreach \c in {-2,-1,0,2,3}{\draw[accent!45] plot[domain=-2.1:2.1,samples=50,smooth] (\x,{(\x)^3-3*\x+\c});}
+  \kromme[very thick]{-2.1}{2.1}{(\x)^3-3*\x+1}
+  \fill[accent] (0,1) circle (2.2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Zoek de algemene oplossing, met een constante. Vul de beginvoorwaarde in, los op naar de constante, en schrijf de particuliere oplossing.
+\end{werkwijze}
+
+\nujij{Bepaal de oplossing van $y' = \e^{t} + 2$ met $y(0) = 5$.}{$y = \e^t + 2t + C$ en $5 = 1 + C$, dus $y = \e^t + 2t + 4$.}
+
+\begin{oefeningen}
+\oef{h2-particulier}
+\end{oefeningen}
+
+%========================================================================================
+\section{Exponentiële groei en verval}
+
+\subsection{Evenredig met de hoeveelheid}
+
+Bij de bacteriën is de groeisnelheid evenredig met het aantal: $y' = ky$. Dat is de continue versie van een meetkundige rij, waarbij elke stap met dezelfde factor vermenigvuldigt. We vonden de oplossingen $C\,\e^{kt}$. Maar zijn dat ze allemaal? Misschien is er nog een andere functie die zich zo gedraagt. De stelling zegt van niet.
+
+\begin{theorie}
+\begin{stelling}{Exponentiële groei}
+De algemene oplossing van $\formule{y' = ky}$ (met $k \in \R$) is
+\[
+\formule{y = C\,\e^{kt}} \qquad (C \in \R)
+\]
+De oplossing met $y(0) = y_0$ is $y = y_0\,\e^{kt}$.
+\end{stelling}
+
+\begin{bewijs}
+Elke $C\,\e^{kt}$ is een oplossing, want $(C\,\e^{kt})' = kC\,\e^{kt}$. Omgekeerd: neem een oplossing $y$ op een interval, en $z(t) = y(t)\,\e^{-kt}$. Met de productregel is
+\bewijsregel{z'(t) = y'(t)\,\e^{-kt} - k\,y(t)\,\e^{-kt} = \bigl(y'(t) - k\,y(t)\bigr)\,\e^{-kt} = 0 .}
+Een functie met afgeleide 0 op een interval is constant: $z(t) = C$, dus $y(t) = C\,\e^{kt}$. Invullen van $t = 0$ geeft $C = y_0$.
+\end{bewijs}
+\end{theorie}
+
+Wat betekent $y' = ky$? Deel door $y$: $\tfrac{y'}{y} = k$. De \textit{relatieve} groeisnelheid, de groei per eenheid, is constant. Is $k > 0$, dan groeit $y$ exponentieel; is $k < 0$, dan neemt het exponentieel af. De constante oplossing $y = 0$ zit er ook bij ($C = 0$).
+
+\voorbeeld{}{De bacteriën groeien volgens $N' = 0{,}3\,N$ (met $t$ in uur). Bij de start zijn er 500. Wanneer zijn het er 10\,000?\label{vb:h2-bacterien}}{%
+\uitleg{Volgens de stelling is $N(t) = 500\,\e^{0{,}3t}$. We lossen een exponentiële vergelijking op met de natuurlijke logaritme.}
+\naast{\begin{stappenvrij}{4.6cm}{4.4cm}
+500\,\e^{0{,}3t} = 10\,000 & Het aantal moet 10\,000 zijn. \\
+\e^{0{,}3t} = 20 & Deel door 500. \\
+t = \dfrac{\ln 20}{0{,}3} \approx 9{,}99 & Neem $\ln$ van beide leden.
+\end{stappenvrij}
+Na ongeveer 10 uur. Het aantal verdubbelt elke $\tfrac{\ln 2}{0{,}3} \approx 2{,}3$ uur, hoeveel bacteriën er ook zijn.}{\begin{tikzpicture}[x=.38cm,y=.0002cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=2,ystep=2000] (0,0) grid (10.5,11000);
+  \draw[->,grijs] (0,0) -- (11.2,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,12000) node[above,text=black] {$N$};
+  \foreach \t in {2,4,6,8,10}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {5,10}{\node[left,inner sep=1.5pt] at (0,\t*1000) {$\t\,000$};}
+  \draw[accent,thick] plot[domain=0:10.3,samples=50,smooth] (\x,{500*exp(0.3*\x)});
+  \draw[grijs,dashed] (0,10000) -- (9.99,10000) -- (9.99,0);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Herken de vorm $y' = ky$: de verandering is evenredig met de hoeveelheid zelf. Schrijf $y = y_0\,\e^{kt}$, en los vragen naar de tijd op met $\ln$.
+\end{werkwijze}
+
+\nujij{Een populatie voldoet aan $P' = 0{,}02\,P$ (per jaar), met $P(0) = 8000$. Hoeveel is $P(10)$?}{$8000\,\e^{0{,}2} \approx 9771$.}
+
+\begin{oefeningen}
+\oef{h2-exp}
+\end{oefeningen}
+
+\subsection{Radioactief verval}
+
+Hoe oud is een bot uit een grot? Levende wezens nemen koolstof op, met een vaste fractie radioactieve koolstof-14. Na de dood komt er geen meer bij, en vervalt wat er is. Elke kern heeft per jaar dezelfde kleine kans om te vervallen, dus het aantal kernen dat per jaar vervalt, is evenredig met het aantal dat er nog is: $N' = -\lambda N$ met $\lambda > 0$. Dat is exponentieel verval, en dan hoort er een halveringstijd bij.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{halveringstijd}} $T$ is de tijd waarin een hoeveelheid halveert.
+
+\begin{stelling}{Halveringstijd}
+De oplossingen van $N' = -\lambda N$ (met $\lambda > 0$) halveren elke
+\[
+\formule{T = \frac{\ln 2}{\lambda}}
+\]
+Zo is $\formule{N(t) = N_0 \Bigl(\frac12\Bigr)^{t/T}}$.
+\end{stelling}
+
+\begin{bewijs}
+Uit $N(t) = N_0\,\e^{-\lambda t}$ volgt $N(t + T) = N(t)\,\e^{-\lambda T}$. Dat is de helft van $N(t)$ als $\e^{-\lambda T} = \tfrac12$, dus als $\lambda T = \ln 2$. En $\e^{-\lambda t} = \bigl(\e^{-\ln 2}\bigr)^{t/T} = \bigl(\tfrac12\bigr)^{t/T}$.
+\end{bewijs}
+\end{theorie}
+
+De halveringstijd hangt dus niet af van hoeveel er is: 1 gram en 1 kilogram koolstof-14 halveren even snel. Dat is typisch voor $y' = ky$, en het verschilt van een lineaire afname, waar een kleinere hoeveelheid sneller op is.
+
+\voorbeeld{}{Koolstof-14 heeft een halveringstijd van 5730 jaar. In een bot zit nog 30\,\% van de oorspronkelijke hoeveelheid koolstof-14. Hoe oud is het bot?\label{vb:h2-verval}}{%
+\uitleg{We gebruiken $N(t) = N_0 \bigl(\tfrac12\bigr)^{t/T}$ en zoeken $t$ waarvoor $N(t) = 0{,}3\,N_0$.}
+\begin{stappen}
+\Bigl(\frac12\Bigr)^{t/5730} = 0{,}3 & Deel door $N_0$: de beginhoeveelheid hoeven we niet te kennen. \\[2ex]
+\dfrac{t}{5730} = \dfrac{\ln 0{,}3}{\ln 0{,}5} \approx 1{,}737 & Neem $\ln$ van beide leden. \\[2ex]
+t \approx 9950 & Het bot is ongeveer 10\,000 jaar oud.
+\end{stappen}}
+
+\nujij{Jodium-131 heeft een halveringstijd van 8 dagen. Welk percentage is er na 30 dagen nog over?}{$\bigl(\tfrac12\bigr)^{30/8} \approx 0{,}074$: ongeveer 7,4\,\%.}
+
+\subsection{Absorptie van licht}
+
+Hoe donker is het op 30 meter diepte in de zee? Elke dunne laag water slorpt een vast deel van het licht op dat erop valt. Een laag van dikte $\Delta x$ slorpt ongeveer $\mu\,I\,\Delta x$ op, met $I$ de intensiteit en $\mu$ een constante van het water. Dus $\Delta I \approx -\mu\,I\,\Delta x$, en voor een oneindig dunne laag
+\[
+\afg{I}{x} = -\mu\, I .
+\]
+Hier is de veranderlijke de diepte $x$, niet de tijd. Toch is het dezelfde vergelijking: $I(x) = I_0\,\e^{-\mu x}$. Dat heet de wet van Lambert.
+
+\voorbeeld{}{Op 10 m diepte is er nog 25\,\% van het licht aan het oppervlak. Op welke diepte is dat nog 1\,\%?\label{vb:h2-licht}}{%
+\uitleg{Eerst halen we $\mu$ uit het gegeven, dan lossen we de vraag op. Het wordt eenvoudiger met halveringsdiktes: 25\,\% is twee keer halveren.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+\e^{-10\mu} = 0{,}25 \ \Rightarrow \ \mu = \dfrac{\ln 4}{10} & Uit $I(10) = 0{,}25\,I_0$. \\[2ex]
+\e^{-\mu x} = 0{,}01 \ \Rightarrow \ x = \dfrac{\ln 100}{\mu} & De gevraagde diepte. \\[2ex]
+x = \dfrac{10 \ln 100}{\ln 4} \approx 33{,}2 & Op ongeveer 33 m.
+\end{stappenvrij}
+Elke 5 m halveert het licht: na 10 m een kwart, na 30 m nog $\tfrac{1}{64} \approx 1{,}6\,\%$.}{\begin{tikzpicture}[x=.09cm,y=.025cm,font=\scriptsize]
+  \fill[accent!8] (0,0) rectangle (40,100);
+  \draw[black!14,very thin,xstep=10,ystep=25] (0,0) grid (40,100);
+  \draw[->,grijs] (0,0) -- (43,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,108) node[above,text=black] {$I$ (\%)};
+  \foreach \t in {10,20,30,40}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {25,50,100}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] plot[domain=0:40,samples=50,smooth] (\x,{100*exp(-0.13863*\x)});
+  \fill[accent] (10,25) circle (2pt) (33.2,1) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-verval}
+\end{oefeningen}
+
+%========================================================================================
+\section{Groei naar een evenwicht}
+
+\subsection{Evenredig met de afstand tot een evenwicht}
+
+Terug naar de thee. Ze koelt niet af met een vast aantal graden per minuut: hete thee koelt sneller af dan lauwe. Isaac Newton stelde voor dat de afkoelsnelheid evenredig is met het verschil met de omgeving. Met $T(t)$ de temperatuur en $A$ de kamertemperatuur is dat
+\[
+T' = -k\,(T - A) \qquad (k > 0) .
+\]
+Dat is de continue versie van de differentievergelijking $\Delta t_n = (a - 1)(t_{n-1} - E)$ uit hoofdstuk 1. Het verschil $T - A$ gedraagt zich als in $y' = ky$, en dat is meteen het idee van de oplossing.
+
+\begin{theorie}
+\begin{stelling}{Groei naar een evenwicht}
+De algemene oplossing van $\formule{y' = k\,(y - A)}$ is
+\[
+\formule{y = A + C\,\e^{kt}} \qquad (C \in \R)
+\]
+Met $y(0) = y_0$ is $C = y_0 - A$.
+\end{stelling}
+
+\begin{bewijs}
+Stel $z = y - A$. Dan is $z' = y'$, zodat
+\bewijsregel{y' = k\,(y - A) \iff z' = k\,z .}
+Volgens de vorige stelling is dat zo als $z = C\,\e^{kt}$, dus $y = A + C\,\e^{kt}$. Voor $t = 0$ is $y_0 = A + C$.
+\end{bewijs}
+\end{theorie}
+
+De constante functie $y = A$ is een oplossing, met $C = 0$: het \textit{evenwicht}, waar $y' = 0$. Is $k < 0$, zoals bij de afkoeling, dan gaat $\e^{kt}$ naar 0 en gaat elke oplossing naar $A$: een stabiel evenwicht, zoals bij $|a| < 1$ in hoofdstuk 1. Is $k > 0$, dan loopt elke oplossing behalve $y = A$ ervan weg. De vergelijking schrijf je ook vaak als $y' = ay + b$: dan is $A = -\tfrac{b}{a}$, de waarde waar $y'$ nul wordt.
+
+\voorbeeld{}{Een patiënt krijgt via een infuus 20 mg per uur van een geneesmiddel toegediend. Het lichaam breekt per uur 10\,\% af van wat er aanwezig is. Bij de start is er niets. Stel een differentiaalvergelijking op, los ze op, en bepaal wanneer er 90\,\% van het evenwicht aanwezig is.\label{vb:h2-infuus}}{%
+\uitleg{De verandering per uur is wat erbij komt min wat afgebroken wordt. We brengen de vergelijking in de vorm $y' = k(y - A)$.}
+\begin{stappen}
+y' = 20 - 0{,}1\,y = -0{,}1\,(y - 200) & Het evenwicht is $A = 200$ mg. \\
+y = 200 + C\,\e^{-0{,}1t} & De algemene oplossing. \\
+y = 200\,(1 - \e^{-0{,}1t}) & Uit $y(0) = 0$: $C = -200$. \\
+\e^{-0{,}1t} = 0{,}1 \ \Rightarrow \ t = 10 \ln 10 \approx 23{,}0 & 90\,\% van 200 is 180 mg, en $200 - 180 = 200\,\e^{-0{,}1t}$.
+\end{stappen}
+\naast{Na ongeveer 23 uur is er 90\,\% van het evenwicht. In hoofdstuk 1 kwam het geneesmiddel in porties binnen, en schommelde de hoeveelheid tussen twee innames. Hier stroomt het voortdurend binnen, en stijgt de hoeveelheid zonder schokken naar 200 mg. Ze haalt die waarde nooit helemaal: dat zegt de horizontale asymptoot.}{\begin{tikzpicture}[x=.12cm,y=.0115cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=10,ystep=50] (0,0) grid (40,210);
+  \draw[->,grijs] (0,0) -- (42,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,225) node[above,text=black] {$y$};
+  \foreach \t in {10,20,30,40}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {100,200}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,200) -- (40,200);
+  \draw[accent,thick] plot[domain=0:40,samples=50,smooth] (\x,{200*(1-exp(-0.1*\x))});
+  \fill[accent] (23.03,180) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Schrijf de verandering als wat erbij komt min wat verdwijnt. Breng het rechterlid in de vorm $k\,(y - A)$: het evenwicht $A$ is de waarde waar $y' = 0$. Schrijf $y = A + C\,\e^{kt}$ en bepaal $C$ uit de beginvoorwaarde.
+\end{werkwijze}
+
+\nujij{Los op: $y' = 6 - 2y$ met $y(0) = 1$.}{$y' = -2(y - 3)$, dus $y = 3 - 2\,\e^{-2t}$.}
+
+Nu kunnen we het probleem oplossen. Bij de thee kennen we $k$ niet: die halen we uit de meting na 5 minuten.
+
+\voorbeeld{}{Terug naar het probleem. Thee van 90\,°C staat in een kamer van 20\,°C, en is na 5 minuten 70\,°C. Wanneer is ze 55\,°C? Klopt de redenering van de vriend?\label{vb:h2-terug}}{%
+\uitleg{Volgens Newton is $T = 20 + C\,\e^{-kt}$, met $C = 90 - 20 = 70$. De meting na 5 minuten geeft $\e^{-5k}$, en meer hebben we niet nodig.}
+\begin{stappen}
+70 = 20 + 70\,\e^{-5k} \ \Rightarrow \ \e^{-5k} = \dfrac57 & De meting na 5 minuten. \\[2ex]
+T(t) = 20 + 70 \Bigl(\dfrac57\Bigr)^{t/5} & Want $\e^{-kt} = (\e^{-5k})^{t/5}$. \\[2ex]
+\Bigl(\dfrac57\Bigr)^{t/5} = \dfrac12 \ \Rightarrow \ t = \dfrac{5 \ln 2}{\ln(7/5)} \approx 10{,}3 & Uit $T = 55$: het verschil met 20 is gehalveerd, van 70 naar 35.
+\end{stappen}
+\naast{Je moet dus ongeveer 10 minuten en 20 seconden wachten. De vriend rekent met een vaste daling van 4 graden per minuut: de grijze rechte. Die klopt alleen de eerste 5 minuten ongeveer. Daarna koelt de thee trager af, want het verschil met de kamer wordt kleiner. Na 8,75 minuten is de thee nog ongeveer 59\,°C.}{\begin{tikzpicture}[x=.14cm,y=.032cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=10] (0,0) grid (30,90);
+  \draw[->,grijs] (0,0) -- (32,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,98) node[above,text=black] {$T$};
+  \foreach \t in {10,20,30}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {20,55,90}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,20) -- (30,20);
+  \draw[grijs,dashed] (0,55) -- (10.3,55) -- (10.3,0);
+  \draw[grijs] (0,90) -- (17.5,20);
+  \draw[accent,thick] plot[domain=0:30,samples=50,smooth] (\x,{20+70*exp(-0.067294*\x)});
+  \fill[accent] (0,90) circle (2pt) (5,70) circle (2pt);
+\end{tikzpicture}}
+En precies 20\,°C wordt ze nooit: $70\,(\tfrac57)^{t/5}$ is altijd positief. Wel komt ze er willekeurig dicht bij.}
+
+\begin{oefeningen}
+\oef{h2-evenwicht}
+\end{oefeningen}
+
+\subsection{De parachutist}
+
+Waarom valt een parachutist niet steeds sneller? Twee krachten werken op hem in: de zwaartekracht $mg$ naar beneden, en de luchtweerstand naar boven. Bij een open valscherm is die weerstand ongeveer evenredig met de snelheid: $b\,v$. Volgens de tweede wet van Newton is massa keer versnelling gelijk aan de totale kracht:
+\[
+m\,\afg{v}{t} = mg - b\,v .
+\]
+Deel door $m$: $v' = g - \tfrac{b}{m}\,v = -\tfrac{b}{m}\Bigl(v - \tfrac{mg}{b}\Bigr)$. Opnieuw groei naar een evenwicht, nu een snelheid: de \textit{eindsnelheid} $v_\infty = \tfrac{mg}{b}$, waarbij de weerstand de zwaartekracht precies opheft.
+
+\voorbeeld{}{Een parachutist van 80 kg opent zijn valscherm bij een snelheid van 50 m/s. Met open scherm is $b = 160$ kg/s. Neem $g = 9{,}8$ m/s\textsuperscript{2}. Bepaal de eindsnelheid en $v(t)$. Wanneer is de snelheid onder 6 m/s?\label{vb:h2-parachute}}{%
+\uitleg{We vullen de getallen in de vergelijking in, en herkennen de vorm $v' = k(v - A)$.}
+\naast{\begin{stappenvrij}{4.9cm}{3.9cm}
+v' = 9{,}8 - 2v = -2\,(v - 4{,}9) & Delen door $m = 80$: $\tfrac{b}{m} = 2$. \\
+v_\infty = 4{,}9 \text{ m/s} & Het evenwicht, ongeveer 18 km/h. \\
+v = 4{,}9 + 45{,}1\,\e^{-2t} & Met $C = 50 - 4{,}9$. \\
+45{,}1\,\e^{-2t} < 1{,}1 \ \Rightarrow \ t > 1{,}86 & Uit $v < 6$.
+\end{stappenvrij}
+Na minder dan 2 seconden is hij al bijna op zijn eindsnelheid: het scherm remt hard.}{\begin{tikzpicture}[x=1.2cm,y=.055cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.5,ystep=10] (0,0) grid (3,50);
+  \draw[->,grijs] (0,0) -- (3.2,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,56) node[above,text=black] {$v$};
+  \foreach \t in {1,2,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,30,50}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,4.9) -- (3,4.9);
+  \draw[accent,thick] plot[domain=0:3,samples=60,smooth] (\x,{4.9+45.1*exp(-2*\x)});
+\end{tikzpicture}}}
+
+\nujij{Wat is de eindsnelheid van een parachutist van 60 kg met $b = 150$ kg/s ($g = 9{,}8$ m/s\textsuperscript{2})?}{$v_\infty = \tfrac{60 \cdot 9{,}8}{150} = 3{,}92$ m/s.}
+
+%========================================================================================
+\section{Oplossingen voorspellen}
+
+\subsection{Het richtingsveld}
+
+Niet elke differentiaalvergelijking heeft een oplossing die je met een formule kunt schrijven. Wat weet je dan toch? Neem $y' = t - y$. De vergelijking zegt in elk punt $(t, y)$ hoe steil een integraalkromme daar loopt: in $(2, 1)$ met helling $2 - 1 = 1$, in $(0, 1)$ met helling $-1$. Teken je in veel punten een klein lijnstukje met die helling, dan zie je de krommen al verschijnen.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{richtingsveld}} van $\formule{y' = f(t, y)}$ bestaat uit kleine lijnstukjes: in een punt $(t, y)$ een stukje met helling $f(t, y)$. Een integraalkromme raakt in elk van haar punten aan het lijnstukje van dat punt.
+\end{theorie}
+
+Je tekent een integraalkromme dus door de lijnstukjes te volgen, zoals een blad dat op een stroom drijft. Een handig hulpmiddel zijn de punten waar de helling dezelfde is: bij $y' = t - y$ is de helling 0 op de rechte $y = t$, en 1 op de rechte $y = t - 1$.
+
+\voorbeeld{}{Teken het richtingsveld van $y' = t - y$, en schets de integraalkromme door $(0, 1)$. Toon aan dat de rechte $y = t - 1$ een integraalkromme is.\label{vb:h2-veld}}{%
+\uitleg{We berekenen de helling in een rooster van punten. Op de rechte $y = t - 1$ is de helling overal $t - (t - 1) = 1$, even groot als de helling van de rechte zelf.}
+\naast{\begin{stappenvrij}{4.2cm}{4.6cm}
+f(0, 1) = -1, \ f(1, 0) = 1 & Enkele hellingen. \\
+f(t, t) = 0 & Op $y = t$ is het lijnstukje horizontaal. \\
+y = t - 1: \ y' = 1 = t - y & De rechte is een oplossing.
+\end{stappenvrij}
+De kromme door $(0, 1)$ daalt eerst, wordt horizontaal waar ze $y = t$ snijdt, en stijgt dan. Daarna komt ze steeds dichter bij de rechte $y = t - 1$. Alle andere krommen doen dat ook: de rechte trekt ze aan. (In hoofdstuk 3 vinden we $y = t - 1 + 2\,\e^{-t}$.)}{\begin{tikzpicture}[scale=.9,font=\scriptsize]
+  \def\asx{t}
+  \draw[black!8,very thin] (-.5,-1.5) grid (3.5,3);
+  \draw[->,grijs] (-.5,0) -- (3.7,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-1.5) -- (0,3.2) node[above,text=black] {$y$};
+  \foreach \t in {1,2,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-1,1,2,3}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \richtingsveld{-0.5,0,...,3.5}{-1.5,-1,...,3}{\x-\y}{1.3mm}
+  \draw[lijngrijs,dashed] (-.5,-.5) -- (3,3) node[above,text=black] {$y = t$};
+  \draw[accent!60,thick] (-.5,-1.5) -- (3.5,2.5);
+  \draw[accent,very thick] plot[domain=-.5:3.5,samples=60,smooth] (\x,{\x-1+2*exp(-\x)});
+  \fill[accent] (0,1) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bereken de helling $f(t, y)$ in een rooster van punten, en teken in elk punt een klein lijnstukje. Zoek eerst waar de helling 0 is: daar zijn de krommen horizontaal. Volg vanuit het beginpunt de richting van de lijnstukjes.
+\end{werkwijze}
+
+Een richtingsveld toont ook evenwichten zonder te rekenen. Bij $y' = y\,(2 - y)$ hangt de helling niet van $t$ af: in elke rij staan de lijnstukjes evenwijdig. Op $y = 0$ en $y = 2$ zijn ze horizontaal, en daar liggen twee constante oplossingen.
+
+\naast{Tussen 0 en 2 is de helling positief, dus stijgen de krommen naar 2. Boven 2 dalen ze naar 2. Onder 0 dalen ze weg van 0. Het evenwicht $y = 2$ is dus stabiel, en $y = 0$ onstabiel. Dat is het model van een populatie die niet onbeperkt kan groeien. In hoofdstuk 3 lossen we die vergelijking op.}{\begin{tikzpicture}[x=.7cm,y=.7cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (4.3,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-.8) -- (0,3.3) node[above,text=black] {$y$};
+  \foreach \t in {1,2}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \richtingsveld{.4,.9,...,4}{-.6,-.2,...,3}{\y*(2-\y)}{1.2mm}
+  \draw[grijs,dashed] (0,2) -- (4.1,2);
+  \draw[accent,thick] plot[domain=0:4,samples=50,smooth] (\x,{2/(1+19*exp(-2*\x))});
+  \draw[accent,thick] plot[domain=0:4,samples=50,smooth] (\x,{2/(1-1/3*exp(-2*\x))});
+\end{tikzpicture}}
+
+\nujij{Waar zijn de lijnstukjes van het richtingsveld van $y' = y^2 - 1$ horizontaal? Welke evenwichten zijn stabiel?}{Op $y = 1$ en $y = -1$. Tussen $-1$ en 1 is $y' < 0$, daarbuiten $y' > 0$: $y = -1$ is stabiel, $y = 1$ onstabiel.}
+
+\begin{oefeningen}
+\oef{h2-veld}
+\end{oefeningen}
+
+\subsection{De methode van Euler}
+
+Kun je de lijnstukjes ook volgen met een rekenmachine in plaats van een potlood? Vertrek in $(t_0, y_0)$, en ga een stapje $h$ vooruit langs het lijnstukje. Je komt uit bij $t_1 = t_0 + h$ en $y_1 = y_0 + h\,f(t_0, y_0)$, want de helling is $f(t_0, y_0)$. Daar neem je de nieuwe helling, en zo verder. De Zwitserse wiskundige Leonhard Euler beschreef dat in 1768.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{methode van Euler}} met stap $h$ benadert de oplossing van $y' = f(t, y)$ met $y(t_0) = y_0$ door
+\[
+\formule{t_n = t_{n-1} + h} \qquad \formule{y_n = y_{n-1} + h\, f(t_{n-1}, y_{n-1})}
+\]
+\end{theorie}
+
+Het is een recursievergelijking: de discrete wereld van hoofdstuk 1 komt terug. De benadering vervangt de kromme door een gebroken lijn die telkens de raaklijn volgt. Omdat een kromme afwijkt van haar raaklijn, stapelen de fouten zich op. Maar met een kleinere stap is de fout kleiner.
+
+\voorbeeld{}{Benader $y(2)$ voor $y' = t - y$ met $y(0) = 1$, met de methode van Euler en $h = 0{,}5$. Vergelijk met de exacte oplossing $y = t - 1 + 2\,\e^{-t}$.\label{vb:h2-euler}}{%
+\uitleg{Vier stappen van 0,5. Bij elke stap rekenen we eerst de helling uit in het punt waar we staan.}
+\naast{{\renewcommand{\arraystretch}{1.3}\begin{tabular}{@{}cccc@{}}
+$n$ & $t_n$ & $y_n$ & helling $t_n - y_n$ \\ \hline
+0 & 0 & 1 & $-1$ \\
+1 & 0,5 & $1 + 0{,}5 \cdot (-1) = 0{,}5$ & 0 \\
+2 & 1 & $0{,}5 + 0 = 0{,}5$ & 0,5 \\
+3 & 1,5 & $0{,}5 + 0{,}25 = 0{,}75$ & 0,75 \\
+4 & 2 & $0{,}75 + 0{,}375 = 1{,}125$ &
+\end{tabular}}
+
+\vspace{1ex}
+De exacte waarde is $y(2) = 1 + 2\,\e^{-2} \approx 1{,}271$: de fout is ongeveer 0,15. Met $h = 0{,}25$ is de benadering 1,200 (fout 0,07), en met $h = 0{,}1$ is ze 1,243 (fout 0,03). Halveer je de stap, dan halveert de fout ongeveer.}{\begin{tikzpicture}[x=1.5cm,y=1.5cm,font=\scriptsize]
+  \draw[black!14,very thin,step=.5] (0,0) grid (2,1.5);
+  \draw[->,grijs] (0,0) -- (2.2,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,1.65) node[above,text=black] {$y$};
+  \foreach \t/\n in {0.5/0{,}5,1/1,1.5/1{,}5,2/2}{\node[below,inner sep=1.5pt] at (\t,0) {$\n$};}
+  \foreach \t/\n in {0.5/0{,}5,1/1,1.5/1{,}5}{\node[left,inner sep=1.5pt] at (0,\t) {$\n$};}
+  \draw[accent!60,thick] plot[domain=0:2,samples=50,smooth] (\x,{\x-1+2*exp(-\x)});
+  \draw[grijs,thick] (0,1) -- (.5,.5) -- (1,.5) -- (1.5,.75) -- (2,1.125);
+  \foreach \x/\y in {0/1,.5/.5,1/.5,1.5/.75,2/1.125}{\fill (\x,\y) circle (1.5pt);}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Maak een tabel met $t_n$, $y_n$ en de helling $f(t_n, y_n)$. Bereken telkens $y_{n+1} = y_n + h \cdot \text{helling}$. Een kleinere stap geeft een betere benadering, maar vraagt meer stappen: gebruik een rekenblad of een programma.
+\end{werkwijze}
+
+\nujij{Benader $y(1)$ voor $y' = y$ met $y(0) = 1$, met $h = 0{,}5$. Vergelijk met de exacte waarde.}{$y_1 = 1{,}5$ en $y_2 = 2{,}25$; de exacte waarde is $\e \approx 2{,}718$.}
+
+\begin{oefeningen}
+\oef{h2-euler}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De Koppel-oefeningen steunen op de cursussen Exponentiële en logaritmische functies (het getal $\e$ als limiet van $(1 + \tfrac1n)^n$, 5de jaar), Integralen (Riemannsommen) en Kansrekenen (binomiale verdeling), allemaal uit pakket 4.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-controle}{oef:h2-controle}%
+  \fv{oef:h2-t2}{vb:h2-particulier}{oef:h2-particulier}%
+  \fv{oef:h2-t3}{vb:h2-verval}{oef:h2-verval}%
+  \fv{oef:h2-t4}{vb:h2-terug}{oef:h2-evenwicht}%
+  \fv{oef:h2-t5}{vb:h2-parachute}{oef:h2-o8}%
+  \fv{oef:h2-t6}{vb:h2-veld}{oef:h2-veld}%
+  \fv{oef:h2-t7}{vb:h2-euler}{oef:h2-euler}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een differentiaalvergelijking, haar orde en een oplossing zijn, het verschil tussen een algemene en een particuliere oplossing, de oplossing van $y' = ky$ met het bewijs, de halveringstijd, de oplossing van $y' = k(y - A)$ en wat het evenwicht betekent, hoe je een richtingsveld tekent en leest, en de formule van de methode van Euler. Vergelijk daarna met de kaders.
+\fi

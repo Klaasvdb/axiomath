@@ -1,0 +1,1307 @@
+# Oefeningen van hoofdstuk 2. Zie oefeningenbank.py voor de velden. Alle getallen nagerekend met Python (mpmath).
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        Bereken $\e^{-2}$ op vier decimalen.
+      antwoord: |-
+        $0{,}1353$
+      uitwerking: |-
+        Met de toets $\e^x$: $\e^{-2} \approx 0{,}1353$.
+    - opgave: |-
+        Bereken $\dfrac{3^4}{4!}$.
+      antwoord: |-
+        $3{,}375$
+      uitwerking: |-
+        $\frac{81}{24} = 3{,}375$.
+    - opgave: |-
+        $X \sim B(20;\, 0{,}1)$. Bereken $P(X = 1)$.
+      antwoord: |-
+        $\approx 0{,}2702$
+      uitwerking: |-
+        $\binom{20}{1} \cdot 0{,}1 \cdot 0{,}9^{19} = 2 \cdot 0{,}9^{19} \approx 0{,}2702$.
+    - opgave: |-
+        $X \sim B(50;\, 0{,}04)$. Bereken $\E(X)$ en $\Var(X)$.
+      antwoord: |-
+        2 en $1{,}92$
+      uitwerking: |-
+        $\E(X) = 50 \cdot 0{,}04 = 2$ en $\Var(X) = 50 \cdot 0{,}04 \cdot 0{,}96 = 1{,}92$.
+    - opgave: |-
+        Bereken $0!$ en $5!$.
+      antwoord: |-
+        1 en 120
+      uitwerking: |-
+        $0! = 1$ per afspraak, en $5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$.
+    - opgave: |-
+        Bereken $1 + 2 + \frac{2^2}{2!} + \frac{2^3}{3!}$ en vergelijk met $\e^2$.
+      antwoord: |-
+        $\tfrac{19}{3} \approx 6{,}33$; \ $\e^2 \approx 7{,}39$
+      uitwerking: |-
+        $1 + 2 + 2 + \frac43 = \frac{19}{3} \approx 6{,}33$. Dat is al in de buurt van $\e^2 \approx 7{,}39$: de eerste termen van de reeks van $\e^x$ met $x = 2$.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een webshop krijgt gemiddeld 3 bestellingen per uur. $X$ is het aantal bestellingen in een uur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verdeel het uur in 60 minuten. Neem aan dat er in een minuut hoogstens één bestelling binnenkomt, met kans $\frac{3}{60} = 0{,}05$, onafhankelijk van de andere minuten. Welke verdeling heeft $X$ dan? Bereken $P(X = 0)$ en $P(X = 2)$.
+      antwoord: |-
+        $B(60;\, 0{,}05)$; \ $\approx 0{,}0461$ en $\approx 0{,}2259$
+      uitwerking: |-
+        60 onafhankelijke minuten met kans $0{,}05$: $X \sim B(60;\, 0{,}05)$. $P(X = 0) = 0{,}95^{60} \approx 0{,}0461$ en $P(X = 2) = \binom{60}{2} \cdot 0{,}05^2 \cdot 0{,}95^{58} \approx 0{,}2259$.
+    - opgave: |-
+        Verdeel het uur nu in 3600 seconden, met kans $\frac{3}{3600}$ per seconde. Bereken opnieuw $P(X = 0)$ en $P(X = 2)$.
+      antwoord: |-
+        $\approx 0{,}0497$ en $\approx 0{,}2241$
+      uitwerking: |-
+        $X \sim B\bigl(3600, \frac{1}{1200}\bigr)$: $P(X = 0) = \bigl(1 - \frac{1}{1200}\bigr)^{3600} \approx 0{,}0497$ en $P(X = 2) = \binom{3600}{2}\bigl(\frac{1}{1200}\bigr)^2\bigl(\frac{1199}{1200}\bigr)^{3598} \approx 0{,}2241$.
+    - opgave: |-
+        Bereken $\e^{-3}$ en $\e^{-3} \cdot \frac{3^2}{2}$. Wat merk je op?
+      antwoord: |-
+        $\approx 0{,}0498$ en $\approx 0{,}2240$; de kansen naderen die getallen
+      uitwerking: |-
+        $\e^{-3} \approx 0{,}0498$ en $4{,}5\,\e^{-3} \approx 0{,}2240$. Hoe kleiner de stukjes, hoe dichter de binomiale kansen bij deze getallen liggen. Het aantal stukjes speelt dan bijna geen rol meer: alleen het gemiddelde 3 telt.
+
+- id: h2-limiet
+  soort: kort
+  opgave: |-
+    Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\displaystyle\lim_{n \to +\infty} \Bigl(1 + \frac{3}{n}\Bigr)^n$
+      antwoord: |-
+        $\e^3$
+      uitwerking: |-
+        De stelling met $x = 3$: $\e^3 \approx 20{,}09$.
+    - opgave: |-
+        $\displaystyle\lim_{n \to +\infty} \Bigl(1 + \frac{1}{n}\Bigr)^{2n}$
+      antwoord: |-
+        $\e^2$
+      uitwerking: |-
+        $\bigl(1 + \frac1n\bigr)^{2n} = \Bigl(\bigl(1 + \frac1n\bigr)^n\Bigr)^2 \to \e^2$, omdat kwadrateren continu is.
+    - opgave: |-
+        $\displaystyle\lim_{n \to +\infty} \Bigl(1 - \frac{2}{3n}\Bigr)^n$
+      antwoord: |-
+        $\e^{-\frac23}$
+      uitwerking: |-
+        $1 - \frac{2}{3n} = 1 + \frac{-\frac23}{n}$, dus de limiet is $\e^{-\frac23} \approx 0{,}513$.
+    - opgave: |-
+        $\displaystyle\lim_{n \to +\infty} \Bigl(1 + \frac{4}{n}\Bigr)^{n/2}$
+      antwoord: |-
+        $\e^2$
+      uitwerking: |-
+        $\bigl(1 + \frac4n\bigr)^{n/2} = \sqrt{\bigl(1 + \frac4n\bigr)^{n}} \to \sqrt{\e^4} = \e^2$.
+
+- id: h2-formule
+  soort: kort
+  opgave: |-
+    Een brandweerpost krijgt gemiddeld 1,8 oproepen per dag, Poissonverdeeld. Bereken de kans op een dag met
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        geen oproep;
+      antwoord: |-
+        $\approx 0{,}1653$
+      uitwerking: |-
+        $X \sim \Poi(1{,}8)$: $P(X = 0) = \e^{-1{,}8} \approx 0{,}1653$.
+    - opgave: |-
+        precies 2 oproepen;
+      antwoord: |-
+        $\approx 0{,}2678$
+      uitwerking: |-
+        $\e^{-1{,}8} \cdot \frac{1{,}8^2}{2} = 1{,}62\,\e^{-1{,}8} \approx 0{,}2678$.
+    - opgave: |-
+        precies 5 oproepen.
+      antwoord: |-
+        $\approx 0{,}0260$
+      uitwerking: |-
+        $\e^{-1{,}8} \cdot \frac{1{,}8^5}{120} \approx 0{,}0260$, of \texttt{poissonpdf(1.8,5)}.
+
+- id: h2-cumul
+  soort: kort
+  opgave: |-
+    $X \sim \Poi(3{,}5)$. Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $P(X \leqslant 2)$
+      antwoord: |-
+        $\approx 0{,}3208$
+      uitwerking: |-
+        \texttt{poissoncdf(3.5,2)} $\approx 0{,}3208$.
+    - opgave: |-
+        $P(X \geqslant 4)$
+      antwoord: |-
+        $\approx 0{,}4634$
+      uitwerking: |-
+        $1 - P(X \leqslant 3) \approx 1 - 0{,}5366 = 0{,}4634$.
+    - opgave: |-
+        $P(2 \leqslant X \leqslant 5)$
+      antwoord: |-
+        $\approx 0{,}7217$
+      uitwerking: |-
+        $P(X \leqslant 5) - P(X \leqslant 1) \approx 0{,}8576 - 0{,}1359 = 0{,}7217$.
+    - opgave: |-
+        $P(X < 2)$
+      antwoord: |-
+        $\approx 0{,}1359$
+      uitwerking: |-
+        \textit{Minder dan 2} is $X \leqslant 1$: $\e^{-3{,}5}(1 + 3{,}5) \approx 0{,}1359$.
+
+- id: h2-mu
+  soort: kort
+  opgave: |-
+    Een geigerteller registreert door de achtergrondstraling gemiddeld 6,25 deeltjes per seconde, Poissonverdeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\mu$ en $\sigma$ van het aantal deeltjes in een seconde.
+      antwoord: |-
+        $6{,}25$ en $2{,}5$
+      uitwerking: |-
+        $\mu = \lambda = 6{,}25$ en $\sigma = \sqrt{6{,}25} = 2{,}5$.
+    - opgave: |-
+        In één seconde registreert de teller 12 deeltjes. Ligt dat buiten $\mu \pm 2\sigma$? Bereken \mbox{$P(X \geqslant 12)$}. Is het verrassend?
+      antwoord: |-
+        ja, boven $11{,}25$; \ $\approx 0{,}0263$; vrij verrassend
+      uitwerking: |-
+        $\mu + 2\sigma = 11{,}25 < 12$. $P(X \geqslant 12) = 1 - P(X \leqslant 11) \approx 0{,}0263$. Bij achtergrondstraling gebeurt dat in ongeveer 2,6~\% van de seconden: zeldzaam, maar niet uitzonderlijk. Gebeurt het vaak na elkaar, dan is er waarschijnlijk een bron in de buurt.
+
+- id: h2-data
+  soort: kort
+  opgave: |-
+    Een student telt 40 uur lang hoeveel e-mails ze per uur krijgt: 4 keer geen, 9 keer één, 11 keer twee, 8 keer drie, 5 keer vier, 2 keer vijf en 1 keer zes.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde en de variantie van de 40 aantallen.
+      antwoord: |-
+        $2{,}275$ en $\approx 2{,}10$
+      uitwerking: |-
+        $\xbar = \frac{0 + 9 + 22 + 24 + 20 + 10 + 6}{40} = \frac{91}{40} = 2{,}275$. Met $\sum k^2 f = 9 + 44 + 72 + 80 + 50 + 36 = 291$ is de variantie $\frac{291}{40} - 2{,}275^2 \approx 2{,}10$.
+    - opgave: |-
+        Kan een Poissonmodel passen? Met welke $\lambda$?
+      antwoord: |-
+        ja, $\lambda \approx 2{,}3$
+      uitwerking: |-
+        Gemiddelde en variantie liggen dicht bij elkaar, zoals bij een Poissonverdeling. Een Poissonmodel met $\lambda \approx 2{,}3$ kan passen.
+
+- id: h2-tempo
+  soort: kort
+  opgave: |-
+    Een callcenter krijgt gemiddeld 12 oproepen per uur, volgens een Poissonproces. Bereken de kans op
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        geen oproep in 10 minuten;
+      antwoord: |-
+        $\approx 0{,}1353$
+      uitwerking: |-
+        $\lambda = 12 \cdot \frac{10}{60} = 2$: $P(X = 0) = \e^{-2} \approx 0{,}1353$.
+    - opgave: |-
+        minstens 3 oproepen in een kwartier;
+      antwoord: |-
+        $\approx 0{,}5768$
+      uitwerking: |-
+        $\lambda = 12 \cdot \frac14 = 3$: $1 - P(X \leqslant 2) \approx 1 - 0{,}4232 = 0{,}5768$.
+    - opgave: |-
+        meer dan 30 oproepen in 2 uur.
+      antwoord: |-
+        $\approx 0{,}0958$
+      uitwerking: |-
+        $\lambda = 24$: $P(X \geqslant 31) = 1 - P(X \leqslant 30) \approx 0{,}0958$.
+
+- id: h2-herken
+  soort: kort
+  opgave: |-
+    Is $X$ (ongeveer) Poissonverdeeld? Zeg waarom wel of niet.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $X$ is het aantal zessen bij 20 worpen met een dobbelsteen.
+      antwoord: |-
+        nee, binomiaal
+      uitwerking: |-
+        Er is een vast aantal pogingen (20) met een kans $\frac16$ die niet klein is: $X \sim B(20, \frac16)$. Een Poissonvariabele heeft geen bovengrens.
+    - opgave: |-
+        $X$ is het aantal meteorieten van meer dan 1 kg dat in een jaar op een gebied van 1000~km² valt.
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Zeldzame inslagen, één voor één, onafhankelijk van elkaar en met een constant gemiddelde per jaar en per oppervlakte.
+    - opgave: |-
+        $X$ is het aantal klanten dat tussen 15 en 16 uur een bakkerij binnenkomt, op een rustige namiddag.
+      antwoord: |-
+        ja, ongeveer
+      uitwerking: |-
+        Klanten komen meestal één voor één en onafhankelijk binnen, en binnen één rustig uur is het tempo ongeveer constant.
+    - opgave: |-
+        $X$ is het aantal gasten dat in een bepaalde minuut op een feest aankomt.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Gasten komen vaak in groepjes (met dezelfde auto), dus niet één voor één en niet onafhankelijk. Bovendien komen ze vooral rond het afgesproken uur: het tempo is niet constant.
+
+- id: h2-benader
+  soort: kort
+  opgave: |-
+    Bij een fabriek is 0,3~\% van de chips defect. Een doos bevat 1500 chips. Mag je het aantal defecte chips met een Poissonverdeling benaderen? Bereken de kans op precies 4 defecte chips, exact en benaderd.
+  antwoord: |-
+    ja, $\lambda = 4{,}5$; \ $\approx 0{,}1900$ en $\approx 0{,}1898$
+  uitwerking: |-
+    $X \sim B(1500;\, 0{,}003)$ met $n$ groot en $p$ klein: $X \approx \Poi(4{,}5)$. Exact: \texttt{binompdf(1500,0.003,4)} $\approx 0{,}1900$. Benaderd: $\e^{-4{,}5} \cdot \frac{4{,}5^4}{24} \approx 0{,}1898$.
+
+- id: h2-past
+  soort: kort
+  opgave: |-
+    Een nalezer telt de drukfouten op 100 bladzijden van een boek: 50 bladzijden zonder fout, 33 met één, 12 met twee, 4 met drie en 1 met vier fouten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde aantal fouten per bladzijde.
+      antwoord: |-
+        $0{,}73$
+      uitwerking: |-
+        $\frac{33 + 24 + 12 + 4}{100} = 0{,}73$.
+    - opgave: |-
+        Bereken de verwachte aantallen bladzijden met 0, 1, 2 en 3 fouten bij een Poissonmodel met dat gemiddelde. Passen ze bij de waargenomen aantallen?
+      antwoord: |-
+        48,2; \ 35,2; \ 12,8; \ 3,1; \ ja
+      uitwerking: |-
+        $100 \cdot P(X = k)$ met $\lambda = 0{,}73$: $100\,\e^{-0{,}73} \approx 48{,}2$, $35{,}2$, $12{,}8$ en $3{,}1$ (en $0{,}7$ voor 4 of meer). De verschillen met 50, 33, 12 en 4 zijn klein: het model past goed.
+
+#----------------------------------------------------------------------------------------
+# OPDRACHTEN. Niveau 1: o1-o7, niveau 2: o8-o18, niveau 3: o19-o23 (volgorde in het boek: zie het hoofdstuk).
+#----------------------------------------------------------------------------------------
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    formule en cumulatieve kansen
+  opgave: |-
+    Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $X \sim \Poi(2)$: \ $P(X = 3)$
+      antwoord: |-
+        $\approx 0{,}1804$
+      uitwerking: |-
+        $\e^{-2} \cdot \frac{8}{6} \approx 0{,}1804$.
+    - opgave: |-
+        $X \sim \Poi(0{,}5)$: \ $P(X = 0)$
+      antwoord: |-
+        $\approx 0{,}6065$
+      uitwerking: |-
+        $\e^{-0{,}5} \approx 0{,}6065$.
+    - opgave: |-
+        $X \sim \Poi(4)$: \ $P(X \leqslant 2)$
+      antwoord: |-
+        $\approx 0{,}2381$
+      uitwerking: |-
+        $\e^{-4}(1 + 4 + 8) = 13\,\e^{-4} \approx 0{,}2381$.
+    - opgave: |-
+        $X \sim \Poi(1{,}2)$: \ $P(X \geqslant 2)$
+      antwoord: |-
+        $\approx 0{,}3374$
+      uitwerking: |-
+        $1 - \e^{-1{,}2}(1 + 1{,}2) \approx 0{,}3374$.
+    - opgave: |-
+        $X \sim \Poi(7)$: \ $P(X = 7)$
+      antwoord: |-
+        $\approx 0{,}1490$
+      uitwerking: |-
+        \texttt{poissonpdf(7,7)} $\approx 0{,}1490$.
+    - opgave: |-
+        $X \sim \Poi(3)$: \ $P(3 \leqslant X \leqslant 6)$
+      antwoord: |-
+        $\approx 0{,}5433$
+      uitwerking: |-
+        $P(X \leqslant 6) - P(X \leqslant 2) \approx 0{,}9665 - 0{,}4232 = 0{,}5433$.
+    - opgave: |-
+        $X \sim \Poi(10)$: \ $P(X < 8)$
+      antwoord: |-
+        $\approx 0{,}2202$
+      uitwerking: |-
+        $P(X \leqslant 7) \approx 0{,}2202$.
+    - opgave: |-
+        $X \sim \Poi(0{,}8)$: \ $P(X > 1)$
+      antwoord: |-
+        $\approx 0{,}1912$
+      uitwerking: |-
+        $1 - P(X \leqslant 1) = 1 - 1{,}8\,\e^{-0{,}8} \approx 0{,}1912$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    het model herkennen
+  opgave: |-
+    Is $X$ (ongeveer) Poissonverdeeld? Geef dan $\lambda$, of zeg waarom niet.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $X$ is het aantal keer kop bij 10 worpen met een munt.
+      antwoord: |-
+        nee, $B(10;\, 0{,}5)$
+      uitwerking: |-
+        Een vast aantal pogingen met een grote kans: binomiaal. $X$ kan niet groter zijn dan 10.
+    - opgave: |-
+        Op aarde zijn er per jaar gemiddeld 150 aardbevingen met een kracht van minstens 6. $X$ is het aantal in een maand.
+      antwoord: |-
+        ja, $\lambda = 12{,}5$
+      uitwerking: |-
+        Zware aardbevingen zijn ongeveer onafhankelijk, met een vast tempo: $\lambda = \frac{150}{12} = 12{,}5$. (Naschokken volgen wel kort op een zware beving; voor een ruwe schatting volstaat het model.)
+    - opgave: |-
+        $X$ is het aantal leerlingen van een klas van 25 dat vandaag jarig is.
+      antwoord: |-
+        ja, bij benadering, $\lambda \approx 0{,}068$
+      uitwerking: |-
+        Eigenlijk $B(25, \frac{1}{365})$, maar $p$ is heel klein: $X \approx \Poi\bigl(\frac{25}{365}\bigr)$ met $\lambda \approx 0{,}068$. De vuistregel $n \geqslant 50$ geldt niet, maar met zo'n kleine $p$ is de benadering toch goed.
+    - opgave: |-
+        $X$ is het aantal bezoekers dat in een bepaalde minuut een pretpark binnenkomt, over de hele dag gezien.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Het tempo is niet constant: 's morgens komen veel bezoekers, 's avonds bijna niemand. Bovendien komen ze in groepen. Voor een korte periode met een ongeveer constant tempo en per groep geteld, kan het wel.
+    - opgave: |-
+        Een fietsenmaker verkoopt gemiddeld 2 elektrische fietsen per week. $X$ is het aantal in 4 weken.
+      antwoord: |-
+        ja, $\lambda = 8$
+      uitwerking: |-
+        Klanten kopen onafhankelijk van elkaar, met een constant tempo (als er geen seizoenseffect is): $\lambda = 2 \cdot 4 = 8$.
+    - opgave: |-
+        $X$ is het aantal mensen dat in de laatste minuut voor de start van een film de zaal binnenkomt.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De bezoekers komen vaak samen (vrienden, gezinnen), dus niet onafhankelijk, en vlak voor de start is het tempo hoger dan daarvoor.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tempo omrekenen
+  opgave: |-
+    Een hulplijn krijgt tussen 20 en 22 uur gemiddeld 9 oproepen per uur, volgens een Poissonproces.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de kans op precies 9 oproepen tussen 20 en 21 uur.
+      antwoord: |-
+        $\approx 0{,}1318$
+      uitwerking: |-
+        $\lambda = 9$: \texttt{poissonpdf(9,9)} $\approx 0{,}1318$. Zelfs het gemiddelde zelf heeft maar een kans van 13~\%.
+    - opgave: |-
+        Bereken de kans dat er 5 minuten lang niemand belt.
+      antwoord: |-
+        $\approx 0{,}4724$
+      uitwerking: |-
+        $\lambda = 9 \cdot \frac{5}{60} = 0{,}75$: $\e^{-0{,}75} \approx 0{,}4724$.
+    - opgave: |-
+        Bereken de kans op meer dan 20 oproepen tussen 20 en 22 uur.
+      antwoord: |-
+        $\approx 0{,}2693$
+      uitwerking: |-
+        $\lambda = 18$: $1 - P(X \leqslant 20) \approx 0{,}2693$.
+    - opgave: |-
+        Hoeveel oproepen verwacht je in 20 minuten, met welke standaardafwijking?
+      antwoord: |-
+        3, met $\sigma \approx 1{,}73$
+      uitwerking: |-
+        $\lambda = 9 \cdot \frac13 = 3$, dus $\mu = 3$ en $\sigma = \sqrt3 \approx 1{,}73$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    staafdiagrammen lezen
+  opgave: |-
+    De staafdiagrammen tonen drie Poissonverdelingen, met $\lambda = 0{,}8$, $\lambda = 3$ en $\lambda = 5$.
+
+    \figuren{\begin{tikzpicture}[x=.27cm,y=5cm,font=\scriptsize]
+      \draw[black!14,very thin] (-.5,0) grid[xstep=20,ystep=.1] (10.5,.5);
+      \foreach \k/\h in {0/.0498,1/.1494,2/.224,3/.224,4/.168,5/.1008,6/.0504,7/.0216,8/.0081,9/.0027,10/.0008}{\staaf{\k}{\h}{.6}}
+      \kansassen{-.5}{11}{.53}{$k$}
+      \foreach \k in {0,2,...,10}{\node[below] at (\k,0) {\k};}
+      \foreach \t/\l in {.1/{0,1},.2/{0,2},.3/{0,3},.4/{0,4},.5/{0,5}}{\node[left] at (-.5,\t) {\l};}
+      \node[anchor=north east,font=\small\bfseries] at (10.5,.52) {A};
+    \end{tikzpicture}\hspace{2mm}
+    \begin{tikzpicture}[x=.27cm,y=5cm,font=\scriptsize]
+      \draw[black!14,very thin] (-.5,0) grid[xstep=20,ystep=.1] (10.5,.5);
+      \foreach \k/\h in {0/.4493,1/.3595,2/.1438,3/.0383,4/.0077,5/.0012,6/.0002}{\staaf{\k}{\h}{.6}}
+      \kansassen{-.5}{11}{.53}{$k$}
+      \foreach \k in {0,2,...,10}{\node[below] at (\k,0) {\k};}
+      \node[anchor=north east,font=\small\bfseries] at (10.5,.52) {B};
+    \end{tikzpicture}\hspace{2mm}
+    \begin{tikzpicture}[x=.27cm,y=5cm,font=\scriptsize]
+      \draw[black!14,very thin] (-.5,0) grid[xstep=20,ystep=.1] (10.5,.5);
+      \foreach \k/\h in {0/.0067,1/.0337,2/.0842,3/.1404,4/.1755,5/.1755,6/.1462,7/.1044,8/.0653,9/.0363,10/.0181}{\staaf{\k}{\h}{.6}}
+      \kansassen{-.5}{11}{.53}{$k$}
+      \foreach \k in {0,2,...,10}{\node[below] at (\k,0) {\k};}
+      \node[anchor=north east,font=\small\bfseries] at (10.5,.52) {C};
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welk diagram hoort bij welke $\lambda$? Verklaar.
+      antwoord: |-
+        A: 3; \ B: $0{,}8$; \ C: 5
+      uitwerking: |-
+        De top ligt ongeveer bij $\lambda$, en de verdeling wordt breder als $\lambda$ groeit. B heeft zijn top bij 0: $\lambda = 0{,}8$. A heeft de top bij 2 en 3: $\lambda = 3$. C ligt het meest naar rechts: $\lambda = 5$.
+    - opgave: |-
+        Lees in B de kans op 0 af, en bereken ze exact.
+      antwoord: |-
+        ongeveer 0,45; \ $\e^{-0{,}8} \approx 0{,}4493$
+      uitwerking: |-
+        De staaf bij 0 komt tot net onder 0,45. Exact: $P(X = 0) = \e^{-0{,}8} \approx 0{,}4493$.
+    - opgave: |-
+        In A en in C zijn telkens twee staven even hoog. Welke? Toon voor C met de formule aan dat ze precies even hoog zijn.
+      antwoord: |-
+        A: 2 en 3; \ C: 4 en 5
+      uitwerking: |-
+        In C: $P(X = 5) = \e^{-5}\frac{5^5}{5!} = \e^{-5}\frac{5 \cdot 5^4}{5 \cdot 4!} = \e^{-5}\frac{5^4}{4!} = P(X = 4)$. Op dezelfde manier is in A $P(X = 3) = P(X = 2)$.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    verwachtingswaarde en standaardafwijking
+  opgave: |-
+    $X \sim \Poi(\lambda)$. Bepaal $\lambda$, $\mu$ en $\sigma$ als
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\lambda = 2{,}25$;
+      antwoord: |-
+        $\mu = 2{,}25$, \ $\sigma = 1{,}5$
+      uitwerking: |-
+        $\mu = \lambda = 2{,}25$ en $\sigma = \sqrt{2{,}25} = 1{,}5$.
+    - opgave: |-
+        $\sigma = 3$;
+      antwoord: |-
+        $\lambda = \mu = 9$
+      uitwerking: |-
+        $\sqrt{\lambda} = 3$, dus $\lambda = \mu = 9$.
+    - opgave: |-
+        $\Var(X) = 0{,}49$;
+      antwoord: |-
+        $\lambda = \mu = 0{,}49$, \ $\sigma = 0{,}7$
+      uitwerking: |-
+        De variantie is $\lambda$: $\lambda = \mu = 0{,}49$, en $\sigma = 0{,}7$.
+    - opgave: |-
+        $P(X = 0) = 0{,}05$;
+      antwoord: |-
+        $\lambda = \ln 20 \approx 3{,}00$, \ $\sigma \approx 1{,}73$
+      uitwerking: |-
+        $\e^{-\lambda} = 0{,}05 \iff \lambda = -\ln 0{,}05 = \ln 20 \approx 3{,}00$. Dan $\mu \approx 3{,}00$ en $\sigma \approx 1{,}73$.
+    - opgave: |-
+        $P(X = 1) = P(X = 2)$.
+      antwoord: |-
+        $\lambda = \mu = 2$, \ $\sigma \approx 1{,}41$
+      uitwerking: |-
+        $\e^{-\lambda}\lambda = \e^{-\lambda}\frac{\lambda^2}{2} \iff \lambda = \frac{\lambda^2}{2} \iff \lambda = 2$ (want $\lambda > 0$). Dus $\mu = 2$ en $\sigma = \sqrt2 \approx 1{,}41$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    voorvallen in de ruimte
+  opgave: |-
+    Na een strenge winter telt een gemeente gemiddeld 1,5 putten per kilometer weg. Neem aan dat de putten volgens een Poissonproces over de wegen verspreid liggen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat een stuk weg van 1 km geen put heeft?
+      antwoord: |-
+        $\approx 0{,}2231$
+      uitwerking: |-
+        $\lambda = 1{,}5$: $\e^{-1{,}5} \approx 0{,}2231$.
+    - opgave: |-
+        Wat is de kans op precies 3 putten op een stuk van 2 km?
+      antwoord: |-
+        $\approx 0{,}2240$
+      uitwerking: |-
+        $\lambda = 3$: $\e^{-3}\frac{27}{6} \approx 0{,}2240$.
+    - opgave: |-
+        Hoeveel putten verwacht je op een weg van 20 km, met welke standaardafwijking?
+      antwoord: |-
+        30, met $\sigma \approx 5{,}48$
+      uitwerking: |-
+        $\lambda = 1{,}5 \cdot 20 = 30$, dus $\mu = 30$ en $\sigma = \sqrt{30} \approx 5{,}48$.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Waar of fout? Verbeter wat fout is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij $X \sim \Poi(2)$ is $P(X = 2)$ de grootste kans.
+      antwoord: |-
+        fout (half): $P(X = 1)$ is even groot
+      uitwerking: |-
+        $P(X = 1) = 2\e^{-2}$ en $P(X = 2) = \frac{4}{2}\e^{-2} = 2\e^{-2}$: beide $\approx 0{,}2707$. Er zijn twee waarden met de grootste kans.
+    - opgave: |-
+        Gebeurt iets gemiddeld 2 keer per uur, dan is het aantal keer in een half uur $\Poi(2)$.
+      antwoord: |-
+        fout: $\Poi(1)$
+      uitwerking: |-
+        $\lambda$ hoort bij het gevraagde interval: $\lambda = 2 \cdot \frac12 = 1$.
+    - opgave: |-
+        $P(X \geqslant 3) = 1 - P(X \leqslant 3)$.
+      antwoord: |-
+        fout: $1 - P(X \leqslant 2)$
+      uitwerking: |-
+        Het complement van \textit{minstens 3} is \textit{hoogstens 2}. Met $P(X \leqslant 3)$ tel je $P(X = 3)$ ten onrechte niet mee.
+    - opgave: |-
+        Een Poissonvariabele kan elk natuurlijk getal als waarde aannemen.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        $P(X = k) = \e^{-\lambda}\frac{\lambda^k}{k!} > 0$ voor elke $k \in \N$, ook al worden de kansen zeer klein.
+    - opgave: |-
+        Als $\sigma = 4$, dan is $\lambda = 2$.
+      antwoord: |-
+        fout: $\lambda = 16$
+      uitwerking: |-
+        $\sigma = \sqrt{\lambda}$, dus $\lambda = \sigma^2 = 16$. Het is de variantie die gelijk is aan $\lambda$, niet de standaardafwijking.
+    - opgave: |-
+        Bij een Poissonverdeling is $P(X = 0) = \e^{-\lambda}$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        $\e^{-\lambda}\frac{\lambda^0}{0!} = \e^{-\lambda}$.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rozijnen in broodjes
+  prent:
+    naam: bakker
+  opgave: |-
+    Een bakker mengt 600 rozijnen door het deeg voor 150 rozijnenbroodjes. De rozijnen worden goed gemengd, zodat het aantal rozijnen in een broodje Poissonverdeeld is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is $\lambda$? Wat is de kans dat een broodje geen enkele rozijn bevat?
+      antwoord: |-
+        $\lambda = 4$; \ $\approx 0{,}0183$
+      uitwerking: |-
+        $\lambda = \frac{600}{150} = 4$ per broodje. $P(X = 0) = \e^{-4} \approx 0{,}0183$.
+    - opgave: |-
+        Wat is de kans dat een broodje minstens 3 rozijnen bevat?
+      antwoord: |-
+        $\approx 0{,}7619$
+      uitwerking: |-
+        $1 - P(X \leqslant 2) = 1 - 13\e^{-4} \approx 0{,}7619$.
+    - opgave: |-
+        Hoeveel broodjes zonder rozijn verwacht je in de hele bakvorm?
+      antwoord: |-
+        $\approx 2{,}75$
+      uitwerking: |-
+        $150 \cdot \e^{-4} \approx 2{,}75$: ongeveer 3 broodjes.
+    - opgave: |-
+        Een klant klaagt over een broodje zonder rozijn. Hoeveel rozijnen moet de bakker minstens gebruiken voor 150 broodjes, zodat de kans op een broodje zonder rozijn hoogstens 1~\% is?
+      antwoord: |-
+        691
+      uitwerking: |-
+        $\e^{-\lambda} \leqslant 0{,}01 \iff \lambda \geqslant \ln 100 \approx 4{,}605$. Voor 150 broodjes: $150 \cdot 4{,}605 \approx 690{,}8$, dus minstens 691 rozijnen.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    benadering en verrassende uitkomst
+  opgave: |-
+    Een vaccin geeft bij 1 op 10\,000 gevaccineerden een ernstige bijwerking. In een stad worden 25\,000 mensen gevaccineerd.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke verdeling heeft het aantal ernstige bijwerkingen? Waarom mag je ze door een Poissonverdeling benaderen, en met welke $\lambda$?
+      antwoord: |-
+        $B(25\,000;\, 0{,}0001) \approx \Poi(2{,}5)$
+      uitwerking: |-
+        Elke gevaccineerde is een poging met kans $0{,}0001$, onafhankelijk van de anderen: binomiaal. $n$ is groot en $p$ klein, dus $\approx \Poi(np) = \Poi(2{,}5)$.
+    - opgave: |-
+        Bereken de kans op geen enkele ernstige bijwerking, en op minstens 5.
+      antwoord: |-
+        $\approx 0{,}0821$; \ $\approx 0{,}1088$
+      uitwerking: |-
+        $\e^{-2{,}5} \approx 0{,}0821$, en $1 - P(X \leqslant 4) \approx 0{,}1088$.
+    - opgave: |-
+        Bereken de kans op minstens 5 ook met de binomiale verdeling. Is de benadering goed?
+      antwoord: |-
+        $\approx 0{,}1088$; ja
+      uitwerking: |-
+        $1 - $ \texttt{binomcdf(25000,0.0001,4)} $\approx 0{,}1088$: gelijk op vier decimalen.
+    - opgave: |-
+        Er worden 8 ernstige bijwerkingen gemeld. Is dat verrassend als de kans echt 1 op 10\,000 is?
+      antwoord: |-
+        ja, $P(X \geqslant 8) \approx 0{,}0042$
+      uitwerking: |-
+        $P(X \geqslant 8) = 1 - P(X \leqslant 7) \approx 0{,}0042$. Dat gebeurt maar in 4 op de 1000 steden: een sterke aanwijzing dat de kans groter is, of dat er iets anders speelt (meldingen van andere klachten, een kwetsbare groep). Nader onderzoek is nodig.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    model en data vergelijken
+  opgave: |-
+    Een sportjournalist telt de doelpunten in 120 voetbalwedstrijden van een competitie.
+
+    \begin{center}\renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    doelpunten & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+    wedstrijden & 9 & 24 & 31 & 27 & 16 & 9 & 4 \\ \hline
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde en de variantie van het aantal doelpunten per wedstrijd.
+      antwoord: |-
+        $2{,}5$ en $\approx 2{,}22$
+      uitwerking: |-
+        $\xbar = \frac{24 + 62 + 81 + 64 + 45 + 24}{120} = \frac{300}{120} = 2{,}5$. Met $\sum k^2 f = 1016$ is de variantie $\frac{1016}{120} - 2{,}5^2 \approx 2{,}22$.
+    - opgave: |-
+        Bereken het verwachte aantal wedstrijden met 0, 1, 2, 3, 4, 5 en minstens 6 doelpunten bij een Poissonmodel met dat gemiddelde.
+      antwoord: |-
+        9,9; \ 24,6; \ 30,8; \ 25,7; \ 16,0; \ 8,0; \ 5,0
+      uitwerking: |-
+        $120 \cdot P(X = k)$ met $\lambda = 2{,}5$: $9{,}9$, $24{,}6$, $30{,}8$, $25{,}7$, $16{,}0$ en $8{,}0$. Voor minstens 6: $120\bigl(1 - P(X \leqslant 5)\bigr) \approx 5{,}0$.
+    - opgave: |-
+        Teken een staafdiagram van de waargenomen aantallen met de verwachte aantallen als stippen. Past het model?
+      antwoord: |-
+        ja, de verschillen zijn klein
+      uitwerking: |-
+        De stippen liggen dicht bij de toppen van de staven, en gemiddelde en variantie zijn vergelijkbaar: het Poissonmodel past redelijk. (De laatste stip, 5,0, is het verwachte aantal voor 6 of meer.)
+
+        \begin{tikzpicture}[x=.7cm,y=.06cm,font=\scriptsize]
+          \draw[black!14,very thin] (-.5,0) grid[xstep=20,ystep=10] (6.5,35);
+          \foreach \k/\w in {0/9,1/24,2/31,3/27,4/16,5/9,6/4}{\staaf{\k}{\w}{.55}}
+          \foreach \k/\v in {0/9.9,1/24.6,2/30.8,3/25.7,4/16,5/8,6/5}{\fill[fel!80!black] (\k,\v) circle (2pt);}
+          \kansassen{-.5}{7}{38}{$k$}
+          \foreach \k in {0,...,6}{\node[below] at (\k,0) {\k};}
+          \foreach \t in {10,20,30}{\node[left] at (-.5,\t) {\t};}
+        \end{tikzpicture}
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    radioactief verval (klassieker)
+  opgave: |-
+    In 1910 telden Ernest Rutherford en Hans Geiger hoeveel alfadeeltjes een radioactieve bron uitzond, in 2608 tijdvakken van 7,5 seconden. Ze telden samen 10\,097 deeltjes. In 57 tijdvakken zagen ze geen deeltje, in 203 één en in 383 twee.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde aantal deeltjes per tijdvak op twee decimalen.
+      antwoord: |-
+        $3{,}87$
+      uitwerking: |-
+        $\frac{10\,097}{2608} \approx 3{,}87$.
+    - opgave: |-
+        Hoeveel tijdvakken met 0, 1 en 2 deeltjes verwacht je bij een Poissonmodel met $\lambda = 3{,}87$? Vergelijk.
+      antwoord: |-
+        54,4; \ 210,5; \ 407,4
+      uitwerking: |-
+        $2608 \cdot \e^{-3{,}87} \approx 54{,}4$, $2608 \cdot \e^{-3{,}87} \cdot 3{,}87 \approx 210{,}5$ en $2608 \cdot \e^{-3{,}87}\frac{3{,}87^2}{2} \approx 407{,}4$. Dicht bij 57, 203 en 383: het model past goed.
+    - opgave: |-
+        Waarom is radioactief verval een goed voorbeeld van een Poissonproces?
+      antwoord: |-
+        onafhankelijke, zeldzame vervallen, constant tempo
+      uitwerking: |-
+        Elke kern vervalt onafhankelijk van de andere, met een zeer kleine kans per seconde, en er zijn ontzettend veel kernen: binomiaal met een grote $n$ en kleine $p$. Omdat de bron traag vervalt, blijft het tempo tijdens de proef bijna constant.
+    - opgave: |-
+        Bereken de kans op meer dan 10 deeltjes in een tijdvak. Hoeveel tijdvakken met meer dan 10 deeltjes verwacht je? (In werkelijkheid waren het er 6.)
+      antwoord: |-
+        $\approx 0{,}0022$; \ ongeveer 6
+      uitwerking: |-
+        $1 - P(X \leqslant 10) \approx 0{,}0022$, en $2608 \cdot 0{,}0022 \approx 5{,}8$: ongeveer 6, zoals waargenomen.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    lekke banden en reserve
+  prent:
+    naam: fiets
+  opgave: |-
+    Een fietskoerier rijdt 12\,000~km per jaar. Hij heeft gemiddeld één lekke band per 1500~km, volgens een Poissonproces.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans op hoogstens 5 lekke banden in een jaar?
+      antwoord: |-
+        $\approx 0{,}1912$
+      uitwerking: |-
+        $\lambda = \frac{12\,000}{1500} = 8$: \texttt{poissoncdf(8,5)} $\approx 0{,}1912$.
+    - opgave: |-
+        Wat is de kans op een maand zonder lekke band, als hij die maand 1000~km rijdt?
+      antwoord: |-
+        $\approx 0{,}5134$
+      uitwerking: |-
+        $\lambda = \frac{1000}{1500} = \frac23$: $\e^{-2/3} \approx 0{,}5134$.
+    - opgave: |-
+        Hoeveel reservebinnenbanden moet hij voor 3000~km kopen, zodat de kans dat hij er te weinig heeft kleiner is dan 5~\%?
+      antwoord: |-
+        5
+      uitwerking: |-
+        $\lambda = 2$. $P(X \leqslant 4) \approx 0{,}9473$ is te weinig, $P(X \leqslant 5) \approx 0{,}9834$ volstaat: 5 binnenbanden.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    recursieve formule
+  opgave: |-
+    $X \sim \Poi(\lambda)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $P(X = k + 1) = \dfrac{\lambda}{k + 1} \cdot P(X = k)$ voor elke $k \in \N$.
+      antwoord: |-
+        $\frac{\lambda^{k+1}}{(k+1)!} = \frac{\lambda}{k+1} \cdot \frac{\lambda^k}{k!}$
+      uitwerking: |-
+        $P(X = k + 1) = \e^{-\lambda}\frac{\lambda^{k+1}}{(k + 1)!} = \frac{\lambda}{k + 1} \cdot \e^{-\lambda}\frac{\lambda^k}{k!} = \frac{\lambda}{k + 1} P(X = k)$, want $(k + 1)! = (k + 1) \cdot k!$.
+    - opgave: |-
+        Neem $\lambda = 3{,}2$. Bereken $P(X = 0)$, en daaruit met de formule van a de kansen tot en met $P(X = 5)$, op vier decimalen.
+      antwoord: |-
+        0,0408; \ 0,1304; \ 0,2087; \ 0,2226; \ 0,1781; \ 0,1140
+      uitwerking: |-
+        $P(X = 0) = \e^{-3{,}2} \approx 0{,}0408$. Telkens vermenigvuldigen met $\frac{3{,}2}{1}$, $\frac{3{,}2}{2}$, $\frac{3{,}2}{3}$, $\frac{3{,}2}{4}$, $\frac{3{,}2}{5}$: $0{,}1304$, $0{,}2087$, $0{,}2226$, $0{,}1781$, $0{,}1140$.
+    - opgave: |-
+        Voor welke $k$ is $P(X = k + 1) > P(X = k)$, bij $\lambda = 3{,}2$? Waar ligt dus de top?
+      antwoord: |-
+        $k = 0, 1, 2$; \ top bij 3
+      uitwerking: |-
+        $\frac{3{,}2}{k + 1} > 1 \iff k < 2{,}2$, dus voor $k = 0, 1, 2$ stijgen de kansen, daarna dalen ze. De grootste kans is $P(X = 3)$.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    capaciteit bepalen
+  opgave: |-
+    Een server krijgt gemiddeld 7 aanvragen per seconde, volgens een Poissonproces.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel aanvragen per seconde moet de server aankunnen, zodat hij in minstens 99~\% van de seconden volstaat?
+      antwoord: |-
+        14
+      uitwerking: |-
+        We zoeken de kleinste $c$ met $P(X \leqslant c) \geqslant 0{,}99$. $P(X \leqslant 13) \approx 0{,}9872$ en $P(X \leqslant 14) \approx 0{,}9943$: $c = 14$.
+    - opgave: |-
+        En voor 99,9~\% van de seconden?
+      antwoord: |-
+        16
+      uitwerking: |-
+        $P(X \leqslant 15) \approx 0{,}9976$ en $P(X \leqslant 16) \approx 0{,}9990$: $c = 16$.
+    - opgave: |-
+        Het tempo verdubbelt tot 14 aanvragen per seconde. Moet de capaciteit voor 99~\% dan ook verdubbelen? Verklaar met $\sigma$.
+      antwoord: |-
+        nee, 23 in plaats van 28
+      uitwerking: |-
+        Bij $\lambda = 14$: $P(X \leqslant 22) \approx 0{,}9833$ en $P(X \leqslant 23) \approx 0{,}9907$, dus 23, minder dan $2 \cdot 14 = 28$. De reserve boven het gemiddelde hangt af van $\sigma = \sqrt{\lambda}$, en die groeit maar met een factor $\sqrt2$.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Poisson en binomiaal samen
+  opgave: |-
+    Een bibliotheek krijgt gemiddeld 0,9 beschadigde boeken per dag terug, volgens een Poissonproces. Ze is 6 dagen per week open.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans op een dag zonder beschadigd boek?
+      antwoord: |-
+        $\approx 0{,}4066$
+      uitwerking: |-
+        $\e^{-0{,}9} \approx 0{,}4066$.
+    - opgave: |-
+        Wat is de kans dat er in een week minstens 4 dagen zonder beschadigd boek zijn?
+      antwoord: |-
+        $\approx 0{,}1884$
+      uitwerking: |-
+        De dagen zijn onafhankelijk, elk met kans $q = \e^{-0{,}9}$ op een dag zonder schade. Het aantal zulke dagen is $Y \sim B(6, q)$, en $P(Y \geqslant 4) = 1 - P(Y \leqslant 3) \approx 0{,}1884$.
+    - opgave: |-
+        Wat is de kans op hoogstens 3 beschadigde boeken in een week?
+      antwoord: |-
+        $\approx 0{,}2133$
+      uitwerking: |-
+        In een week is $\lambda = 6 \cdot 0{,}9 = 5{,}4$: \texttt{poissoncdf(5.4,3)} $\approx 0{,}2133$.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    zeldzame hoofdprijs
+  opgave: |-
+    Een krasbiljet wint de hoofdprijs met kans 1 op 500\,000. Er worden 1,2 miljoen biljetten verkocht.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat niemand de hoofdprijs wint?
+      antwoord: |-
+        $\approx 0{,}0907$
+      uitwerking: |-
+        $X \approx \Poi(2{,}4)$ met $\lambda = \frac{1\,200\,000}{500\,000}$: $\e^{-2{,}4} \approx 0{,}0907$.
+    - opgave: |-
+        Wat is de kans op precies één winnaar?
+      antwoord: |-
+        $\approx 0{,}2177$
+      uitwerking: |-
+        $2{,}4\,\e^{-2{,}4} \approx 0{,}2177$.
+    - opgave: |-
+        Hoeveel biljetten moeten er verkocht worden, zodat de kans op minstens één winnaar 99~\% is?
+      antwoord: |-
+        2\,302\,586
+      uitwerking: |-
+        Met $n$ biljetten is $\lambda = \frac{n}{500\,000}$, en $1 - \e^{-\lambda} \geqslant 0{,}99 \iff \lambda \geqslant \ln 100$. Dus $n \geqslant 500\,000 \cdot \ln 100 \approx 2\,302\,585{,}1$: minstens 2\,302\,586 biljetten, ongeveer 2,3 miljoen.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    voorraad en verwachte verkoop
+  opgave: |-
+    Een winkel verkoopt een duur keukentoestel. Per week vragen gemiddeld 2 klanten ernaar, Poissonverdeeld. Elke maandag heeft de winkel er 3 in voorraad.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kans dat er in een week meer klanten zijn dan toestellen?
+      antwoord: |-
+        $\approx 0{,}1429$
+      uitwerking: |-
+        $P(X \geqslant 4) = 1 - P(X \leqslant 3) \approx 0{,}1429$.
+    - opgave: |-
+        De winkel verkoopt er $\min(X, 3)$. Bereken het verwachte aantal verkochte toestellen per week.
+      antwoord: |-
+        $\approx 1{,}78$
+      uitwerking: |-
+        $0 \cdot P(X = 0) + 1 \cdot P(X = 1) + 2 \cdot P(X = 2) + 3 \cdot P(X \geqslant 3) \approx 0{,}2707 + 0{,}5413 + 3 \cdot 0{,}3233 \approx 1{,}78$.
+    - opgave: |-
+        Hoeveel klanten per week vertrekken gemiddeld zonder toestel?
+      antwoord: |-
+        $\approx 0{,}22$
+      uitwerking: |-
+        Gemiddeld komen er $\E(X) = 2$ klanten, en worden er $1{,}78$ geholpen: $2 - 1{,}78 \approx 0{,}22$ klanten per week, ongeveer één om de vijf weken.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    wanneer de benadering faalt
+  opgave: |-
+    Een leerling benadert $X \sim B(10;\, 0{,}3)$ door $\Poi(3)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(X = 0)$ exact en met de benadering.
+      antwoord: |-
+        $\approx 0{,}0282$ en $\approx 0{,}0498$
+      uitwerking: |-
+        $0{,}7^{10} \approx 0{,}0282$ tegenover $\e^{-3} \approx 0{,}0498$: bijna dubbel zo groot.
+    - opgave: |-
+        Bereken $P(X = 3)$ exact en met de benadering.
+      antwoord: |-
+        $\approx 0{,}2668$ en $\approx 0{,}2240$
+      uitwerking: |-
+        \texttt{binompdf(10,0.3,3)} $\approx 0{,}2668$ en \texttt{poissonpdf(3,3)} $\approx 0{,}2240$.
+    - opgave: |-
+        Vergelijk de varianties. Wat zegt dat over de vorm?
+      antwoord: |-
+        $2{,}1$ en 3
+      uitwerking: |-
+        $\Var = 10 \cdot 0{,}3 \cdot 0{,}7 = 2{,}1$ tegenover $\lambda = 3$. De Poissonverdeling is breder, dus te laag in het midden en te hoog aan de randen. Ze geeft zelfs een kleine kans ($\approx 0{,}0003$) op meer dan 10, wat bij de binomiale onmogelijk is.
+    - opgave: |-
+        Waarom is de benadering hier slecht? Welke voorwaarde is niet voldaan?
+      antwoord: |-
+        $n$ te klein en $p$ te groot
+      uitwerking: |-
+        De variantie van de binomiale verdeling is $np(1 - p)$, die van Poisson $np$. Ze liggen dicht bij elkaar als $1 - p \approx 1$, dus als $p$ klein is. Hier is $p = 0{,}3$, en ook $n = 10 < 50$.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de modus (top) van de verdeling
+  opgave: |-
+    $X \sim \Poi(\lambda)$. De \textit{modus} is de waarde met de grootste kans.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat voor $k \geqslant 1$ geldt: $P(X = k) > P(X = k - 1) \iff k < \lambda$.
+      antwoord: |-
+        het quotiënt is $\frac{\lambda}{k}$
+      uitwerking: |-
+        $\frac{P(X = k)}{P(X = k - 1)} = \frac{\lambda^k/k!}{\lambda^{k-1}/(k - 1)!} = \frac{\lambda}{k}$, en dat is groter dan 1 als en slechts als $k < \lambda$. Gelijk is het als $k = \lambda$.
+    - opgave: |-
+        Besluit: wat is de modus als $\lambda$ geen geheel getal is? En als $\lambda$ wel geheel is?
+      antwoord: |-
+        $\lfloor \lambda \rfloor$; \ $\lambda - 1$ en $\lambda$
+      uitwerking: |-
+        De kansen stijgen zolang $k < \lambda$ en dalen daarna. Is $\lambda$ niet geheel, dan is de grootste kans die bij het grootste gehele getal kleiner dan $\lambda$. Is $\lambda$ geheel, dan is $P(X = \lambda) = P(X = \lambda - 1)$: twee modi.
+    - opgave: |-
+        Wat is de modus bij $\lambda = 4{,}7$, bij $\lambda = 0{,}6$ en bij $\lambda = 3$?
+      antwoord: |-
+        4; \ 0; \ 2 en 3
+      uitwerking: |-
+        $\lambda = 4{,}7$: modus 4. $\lambda = 0{,}6$: modus 0 (de kansen dalen meteen). $\lambda = 3$: twee modi, 2 en 3, zoals in diagram A van de opdracht met de drie staafdiagrammen.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de wachttijd tot het eerste voorval
+  opgave: |-
+    Voorvallen gebeuren volgens een Poissonproces met tempo $c$ per uur. $T$ is de tijd in uur tot het eerste voorval.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Leg uit waarom $P(T > t) = \e^{-ct}$ voor elke $t > 0$.
+      antwoord: |-
+        $T > t \iff$ geen voorval in $[0, t]$
+      uitwerking: |-
+        Het eerste voorval komt na $t$ als er in het interval van 0 tot $t$ geen voorval is. Het aantal voorvallen daarin is $\Poi(ct)$, dus $P(T > t) = \e^{-ct}\frac{(ct)^0}{0!} = \e^{-ct}$.
+    - opgave: |-
+        Bij de spoedafdeling uit het probleem is $c = 0{,}3$ per uur. Wat is de kans dat er de eerste 2 uur van de nacht niemand komt?
+      antwoord: |-
+        $\approx 0{,}5488$
+      uitwerking: |-
+        $\e^{-0{,}3 \cdot 2} = \e^{-0{,}6} \approx 0{,}5488$.
+    - opgave: |-
+        Na hoeveel tijd is de kans 50~\% dat de eerste patiënt al binnen is?
+      antwoord: |-
+        $\approx 2{,}31$ uur
+      uitwerking: |-
+        $\e^{-0{,}3t} = \frac12 \iff t = \frac{\ln 2}{0{,}3} \approx 2{,}31$ uur, ongeveer 2 uur en 19 minuten.
+    - opgave: |-
+        Toon aan dat $P(T > s + t \gegeven T > s) = P(T > t)$. Wat betekent dat? Welke verdeling uit hoofdstuk 1 heeft dezelfde eigenschap?
+      antwoord: |-
+        geheugenloos, zoals de geometrische verdeling
+      uitwerking: |-
+        $P(T > s + t \gegeven T > s) = \frac{P(T > s + t)}{P(T > s)} = \frac{\e^{-c(s + t)}}{\e^{-cs}} = \e^{-ct} = P(T > t)$, want $T > s + t$ houdt $T > s$ in. Hoe lang je al wacht, verandert niets aan de rest van de wachttijd: het proces heeft geen geheugen. Zo is het ook bij de geometrische verdeling, het aantal pogingen tot het eerste succes.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    som van twee Poissonvariabelen
+  opgave: |-
+    $X \sim \Poi(\lambda)$ en $Y \sim \Poi(\mu)$ zijn onafhankelijk: $P(X = i \text{ en } Y = j) = P(X = i) \cdot P(Y = j)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $P(X + Y = n) = \e^{-(\lambda + \mu)}\dfrac{(\lambda + \mu)^n}{n!}$. Gebruik de somregel over $X = 0, 1, \ldots, n$ en het binomium van Newton.
+      antwoord: |-
+        $X + Y \sim \Poi(\lambda + \mu)$
+      uitwerking: |-
+        $P(X + Y = n) = \sum_{i=0}^{n} P(X = i)\,P(Y = n - i) = \sum_{i=0}^{n} \e^{-\lambda}\frac{\lambda^i}{i!}\,\e^{-\mu}\frac{\mu^{n-i}}{(n - i)!} = \frac{\e^{-(\lambda + \mu)}}{n!} \sum_{i=0}^{n} \binom{n}{i}\lambda^i \mu^{n-i} = \e^{-(\lambda + \mu)}\frac{(\lambda + \mu)^n}{n!}$, met $\frac{n!}{i!(n - i)!} = \binom{n}{i}$ en het binomium.
+    - opgave: |-
+        De spoedafdeling uit het probleem krijgt 's nachts gemiddeld 2,4 volwassenen en, onafhankelijk daarvan, 1,1 kinderen die moeten blijven. Wat is de kans op hoogstens 4 opnames samen?
+      antwoord: |-
+        $\approx 0{,}7254$
+      uitwerking: |-
+        Samen $\Poi(3{,}5)$: \texttt{poissoncdf(3.5,4)} $\approx 0{,}7254$.
+    - opgave: |-
+        Verklaar het resultaat van a zonder te rekenen, met het Poissonproces.
+      antwoord: |-
+        twee processen samen vormen één proces met tempo $\lambda + \mu$
+      uitwerking: |-
+        Beide soorten voorvallen gebeuren één voor één, onafhankelijk en met een constant tempo. Samen doen ze dat ook, met als tempo de som van de tempo's: het samengevoegde aantal is dus Poissonverdeeld met $\lambda + \mu$.
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een even aantal (met reeksen)
+  opgave: |-
+    $X \sim \Poi(\lambda)$. Je gebruikt de reeksen $\e^{\lambda} = \sum \frac{\lambda^k}{k!}$ en $\e^{-\lambda} = \sum \frac{(-\lambda)^k}{k!}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $P(X \text{ is even}) = \dfrac{1 + \e^{-2\lambda}}{2}$.
+      antwoord: |-
+        tel de twee reeksen op
+      uitwerking: |-
+        $\e^{\lambda} + \e^{-\lambda} = \sum \frac{\lambda^k + (-\lambda)^k}{k!} = 2\bigl(1 + \frac{\lambda^2}{2!} + \frac{\lambda^4}{4!} + \cdots\bigr)$: de oneven termen vallen weg. Dus $P(X \text{ even}) = \e^{-\lambda}\bigl(1 + \frac{\lambda^2}{2!} + \cdots\bigr) = \e^{-\lambda}\frac{\e^{\lambda} + \e^{-\lambda}}{2} = \frac{1 + \e^{-2\lambda}}{2}$.
+    - opgave: |-
+        Bereken de kans op een even aantal patiënten in een nacht bij de spoedafdeling ($\lambda = 2{,}4$).
+      antwoord: |-
+        $\approx 0{,}5041$
+      uitwerking: |-
+        $\frac{1 + \e^{-4{,}8}}{2} \approx 0{,}5041$.
+    - opgave: |-
+        Wat gebeurt er met die kans als $\lambda \to 0$, en als $\lambda \to +\infty$? Verklaar.
+      antwoord: |-
+        naar 1; naar $\frac12$
+      uitwerking: |-
+        Als $\lambda \to 0$, gaat $\e^{-2\lambda} \to 1$ en de kans naar 1: er gebeurt bijna zeker niets, en 0 is even. Als $\lambda \to +\infty$, gaat $\e^{-2\lambda} \to 0$ en de kans naar $\frac12$: de verdeling is zo breed dat even en oneven bijna even vaak voorkomen.
+
+- id: h2-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    voorwaardelijk op het totaal
+  opgave: |-
+    Een webshop krijgt bestellingen uit België, gemiddeld 3 per uur, en onafhankelijk daarvan uit Nederland, gemiddeld 2 per uur, telkens volgens een Poissonproces. $X$ is het aantal Belgische en $Y$ het aantal Nederlandse bestellingen in een uur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $P(X = k \gegeven X + Y = n) = \binom{n}{k}\bigl(\frac35\bigr)^k\bigl(\frac25\bigr)^{n - k}$. Gebruik opdracht \ref{oef:h2-o20}.
+      antwoord: |-
+        $X$ is, gegeven $X + Y = n$, binomiaal $B\bigl(n, \frac35\bigr)$
+      uitwerking: |-
+        $P(X = k \gegeven X + Y = n) = \frac{P(X = k)\,P(Y = n - k)}{P(X + Y = n)} = \frac{\e^{-3}\frac{3^k}{k!} \cdot \e^{-2}\frac{2^{n-k}}{(n - k)!}}{\e^{-5}\frac{5^n}{n!}} = \frac{n!}{k!(n - k)!} \cdot \frac{3^k 2^{n-k}}{5^n} = \binom{n}{k}\bigl(\frac35\bigr)^k\bigl(\frac25\bigr)^{n-k}$.
+    - opgave: |-
+        In een uur kwamen 10 bestellingen binnen. Wat is de kans dat er precies 6 uit België kwamen? Verklaar waarom het resultaat logisch is.
+      antwoord: |-
+        $\approx 0{,}2508$
+      uitwerking: |-
+        \texttt{binompdf(10,0.6,6)} $\approx 0{,}2508$. Logisch: elke bestelling komt, los van de andere, met kans $\frac{3}{3 + 2} = \frac35$ uit België.
+
+#----------------------------------------------------------------------------------------
+# KOPPEL
+#----------------------------------------------------------------------------------------
+
+- id: h2-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Reeksen
+  thema: |-
+    partieelsommen van de reeks van $\e^x$
+  opgave: |-
+    $X \sim \Poi(2{,}4)$ en $s_n = \sum_{k=0}^{n} \frac{2{,}4^k}{k!}$ is de $n$-de partieelsom van de reeks van $\e^{2{,}4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $P(X \leqslant n) = \e^{-2{,}4} s_n$, en dus $s_n = \e^{2{,}4} P(X \leqslant n)$.
+      antwoord: |-
+        haal $\e^{-2{,}4}$ buiten de som
+      uitwerking: |-
+        $P(X \leqslant n) = \sum_{k=0}^{n} \e^{-2{,}4}\frac{2{,}4^k}{k!} = \e^{-2{,}4} s_n$.
+    - opgave: |-
+        Hoeveel termen heeft $s_n$ nodig om op minder dan 0,1~\% na gelijk te zijn aan $\e^{2{,}4}$? Gebruik \texttt{poissoncdf}.
+      antwoord: |-
+        $n = 8$, dus 9 termen
+      uitwerking: |-
+        $\e^{2{,}4} - s_n = \e^{2{,}4}\bigl(1 - P(X \leqslant n)\bigr)$, dus we zoeken $P(X \leqslant n) > 0{,}999$. $P(X \leqslant 7) \approx 0{,}99666$ en $P(X \leqslant 8) \approx 0{,}99914$: $n = 8$, de termen $k = 0$ tot 8.
+    - opgave: |-
+        Wat betekent de rest $\e^{2{,}4} - s_n$ voor de Poissonverdeling?
+      antwoord: |-
+        $\e^{2{,}4} \cdot P(X > n)$
+      uitwerking: |-
+        De rest van de reeks, vermenigvuldigd met $\e^{-2{,}4}$, is de kans op meer dan $n$ voorvallen. Dat de reeks convergeert, betekent dat die kans naar 0 gaat.
+
+- id: h2-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Exponentiële functies
+  thema: |-
+    samengestelde en continue interest
+  opgave: |-
+    Je zet 2000 euro op een rekening met een jaarlijkse rente van 3~\%. Wordt de rente $n$ keer per jaar uitbetaald, telkens $\frac{3}{n}$~\%, dan heb je na 10 jaar $K_n = 2000\bigl(1 + \frac{0{,}03}{n}\bigr)^{10n}$ euro.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het eindbedrag als de rente jaarlijks, maandelijks en dagelijks (365 keer) wordt uitbetaald.
+      antwoord: |-
+        2687,83; \ 2698,71; \ 2699,68 euro
+      uitwerking: |-
+        $n = 1$: $2000 \cdot 1{,}03^{10} \approx 2687{,}83$. $n = 12$: $\approx 2698{,}71$. $n = 365$: $\approx 2699{,}68$ euro.
+    - opgave: |-
+        Bereken de limiet als $n \to +\infty$ met de stelling uit 2.1.
+      antwoord: |-
+        $2000\,\e^{0{,}3} \approx 2699{,}72$ euro
+      uitwerking: |-
+        $\bigl(1 + \frac{0{,}03}{n}\bigr)^{10n} = \Bigl(\bigl(1 + \frac{0{,}03}{n}\bigr)^{n}\Bigr)^{10} \to (\e^{0{,}03})^{10} = \e^{0{,}3}$, dus $2000\,\e^{0{,}3} \approx 2699{,}72$ euro.
+    - opgave: |-
+        Welk idee hebben deze berekening en de afleiding van de Poissonverdeling gemeen?
+      antwoord: |-
+        een tijd in steeds meer, steeds kleinere stukjes verdelen
+      uitwerking: |-
+        In beide gevallen verdeel je een periode in $n$ stukjes met een kleine kans of een kleine rente per stukje, en laat je $n$ groeien. De limiet $(1 + \frac{x}{n})^n \to \e^x$ geeft dan het resultaat.
+
+- id: h2-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: analyse
+    onderwerp: Integralen
+  thema: |-
+    de exponentiële wachttijd
+  opgave: |-
+    In opdracht \ref{oef:h2-o21} is $T$ de wachttijd tot het eerste voorval, met $P(T > t) = \e^{-ct}$. Dan is $P(T \leqslant t) = 1 - \e^{-ct}$, en $T$ heeft als dichtheid de afgeleide $f(t) = c\,\e^{-ct}$ voor $t \geqslant 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\displaystyle\int_0^{+\infty} c\,\e^{-ct}\,\mathrm{d}t = 1$.
+      antwoord: |-
+        $\lim_{b \to +\infty} (1 - \e^{-cb}) = 1$
+      uitwerking: |-
+        $\int_0^{b} c\,\e^{-ct}\,\mathrm{d}t = \bigl[-\e^{-ct}\bigr]_0^b = 1 - \e^{-cb} \to 1$ als $b \to +\infty$, want $c > 0$.
+    - opgave: |-
+        De gemiddelde wachttijd is $\E(T) = \displaystyle\int_0^{+\infty} t \cdot c\,\e^{-ct}\,\mathrm{d}t$. Toon met partiële integratie aan dat $\E(T) = \frac1c$.
+      antwoord: |-
+        $\frac1c$
+      uitwerking: |-
+        $\int_0^{b} t\,c\,\e^{-ct}\,\mathrm{d}t = \bigl[-t\,\e^{-ct}\bigr]_0^b + \int_0^b \e^{-ct}\,\mathrm{d}t = -b\,\e^{-cb} + \frac{1 - \e^{-cb}}{c}$. Als $b \to +\infty$, gaat $b\,\e^{-cb} \to 0$ en $\e^{-cb} \to 0$, dus $\E(T) = \frac1c$.
+    - opgave: |-
+        Hoe lang wacht de spoedafdeling uit het probleem ($c = 0{,}3$ per uur) gemiddeld op de eerste patiënt? Vergelijk met de 50~\%-tijd uit opdracht \ref{oef:h2-o21}.
+      antwoord: |-
+        $\approx 3{,}33$ uur; langer dan $2{,}31$ uur
+      uitwerking: |-
+        $\frac{1}{0{,}3} \approx 3{,}33$ uur. Dat is meer dan de mediaan van $2{,}31$ uur: een paar heel lange wachttijden trekken het gemiddelde omhoog, de verdeling is scheef naar rechts.
+
+- id: h2-koppel-4
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Afgeleiden
+  thema: |-
+    de meest aannemelijke parameter
+  opgave: |-
+    Een nieuwe nachtdienst telt in de eerste nacht 3 patiënten. Welke $\lambda$ maakt die uitkomst het waarschijnlijkst? Bekijk daarvoor $f(\lambda) = P(X = 3) = \e^{-\lambda}\frac{\lambda^3}{6}$ als functie van $\lambda > 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $f'(\lambda)$ en toon aan dat $f$ een maximum bereikt bij $\lambda = 3$.
+      antwoord: |-
+        $f'(\lambda) = \frac{\e^{-\lambda}\lambda^2(3 - \lambda)}{6}$
+      uitwerking: |-
+        $f'(\lambda) = \frac{1}{6}\bigl(-\e^{-\lambda}\lambda^3 + 3\lambda^2\e^{-\lambda}\bigr) = \frac{\e^{-\lambda}\lambda^2(3 - \lambda)}{6}$. Voor $0 < \lambda < 3$ is $f' > 0$, voor $\lambda > 3$ is $f' < 0$: een maximum bij $\lambda = 3$, met $f(3) = \frac{27}{6}\e^{-3} \approx 0{,}224$.
+    - opgave: |-
+        Toon algemeen aan: als je $k \geqslant 1$ voorvallen telt, dan is $\lambda = k$ de waarde die die uitkomst het waarschijnlijkst maakt.
+      antwoord: |-
+        $f'(\lambda) = \frac{\e^{-\lambda}\lambda^{k-1}(k - \lambda)}{k!}$
+      uitwerking: |-
+        $f(\lambda) = \e^{-\lambda}\frac{\lambda^k}{k!}$ heeft $f'(\lambda) = \frac{\e^{-\lambda}\lambda^{k-1}(k - \lambda)}{k!}$, positief voor $\lambda < k$ en negatief voor $\lambda > k$. Het maximum ligt bij $\lambda = k$: de beste schatting van $\lambda$ uit één telling is de telling zelf.
+
+#----------------------------------------------------------------------------------------
+# TEST JEZELF
+#----------------------------------------------------------------------------------------
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\displaystyle\lim_{n \to +\infty} \Bigl(1 + \frac{2}{3n}\Bigr)^n$
+      antwoord: |-
+        $\e^{2/3} \approx 1{,}948$
+      uitwerking: |-
+        De stelling met $x = \frac23$: $\e^{2/3} \approx 1{,}948$.
+    - opgave: |-
+        $\displaystyle\lim_{n \to +\infty} \Bigl(1 - \frac{5}{n}\Bigr)^{2n}$
+      antwoord: |-
+        $\e^{-10}$
+      uitwerking: |-
+        $\Bigl(\bigl(1 + \frac{-5}{n}\bigr)^n\Bigr)^2 \to (\e^{-5})^2 = \e^{-10}$.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een kantoor krijgt gemiddeld 2,7 klachten per week, Poissonverdeeld. Wat is de kans op een week zonder klacht? En op precies 2 klachten?
+  antwoord: |-
+    $\approx 0{,}0672$; \ $\approx 0{,}2450$
+  uitwerking: |-
+    $\e^{-2{,}7} \approx 0{,}0672$ en $\e^{-2{,}7}\frac{2{,}7^2}{2} \approx 0{,}2450$.
+
+- id: h2-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    $X \sim \Poi(5)$. Bereken.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $P(X \leqslant 3)$
+      antwoord: |-
+        $\approx 0{,}2650$
+      uitwerking: |-
+        \texttt{poissoncdf(5,3)} $\approx 0{,}2650$.
+    - opgave: |-
+        $P(X \geqslant 7)$
+      antwoord: |-
+        $\approx 0{,}2378$
+      uitwerking: |-
+        $1 - P(X \leqslant 6) \approx 1 - 0{,}7622 = 0{,}2378$.
+    - opgave: |-
+        $P(4 \leqslant X \leqslant 6)$
+      antwoord: |-
+        $\approx 0{,}4972$
+      uitwerking: |-
+        $P(X \leqslant 6) - P(X \leqslant 3) \approx 0{,}7622 - 0{,}2650 = 0{,}4972$.
+
+- id: h2-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Tijdens een meteorenregen zie je gemiddeld 0,2 vallende sterren per minuut, volgens een Poissonproces. Wat is de kans dat je er in een kwartier minstens 2 ziet?
+  antwoord: |-
+    $\approx 0{,}8009$
+  uitwerking: |-
+    $\lambda = 0{,}2 \cdot 15 = 3$: $1 - P(X \leqslant 1) = 1 - 4\e^{-3} \approx 0{,}8009$.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    $X$ is Poissonverdeeld met $\sigma = 1{,}5$. Bepaal $\lambda$, en bereken de kans dat $X$ meer dan twee standaardafwijkingen boven het gemiddelde ligt.
+  antwoord: |-
+    $\lambda = 2{,}25$; \ $\approx 0{,}0274$
+  uitwerking: |-
+    $\lambda = \sigma^2 = 2{,}25$ en $\mu + 2\sigma = 5{,}25$. $P(X > 5{,}25) = P(X \geqslant 6) = 1 - P(X \leqslant 5) \approx 0{,}0274$.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bij het transport breekt 0,5~\% van de eieren. Een winkel krijgt 600 eieren. Benader de kans dat er hoogstens één gebroken is met een Poissonverdeling, en vergelijk met de exacte kans.
+  antwoord: |-
+    $\approx 0{,}1991$; exact $\approx 0{,}1984$
+  uitwerking: |-
+    $n = 600$ is groot en $p = 0{,}005$ klein: $\lambda = 3$. $P(X \leqslant 1) \approx 4\e^{-3} \approx 0{,}1991$. Exact: \texttt{binomcdf(600,0.005,1)} $\approx 0{,}1984$.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een taxibedrijf krijgt op vrijdagavond gemiddeld 5,5 ritaanvragen per kwartier, volgens een Poissonproces. Een taxi doet één rit per kwartier. Hoeveel taxi's moeten er rijden, zodat in minstens 90~\% van de kwartieren alle aanvragen meteen een taxi krijgen?
+  antwoord: |-
+    9
+  uitwerking: |-
+    Zoek de kleinste $c$ met $P(X \leqslant c) \geqslant 0{,}9$: $P(X \leqslant 8) \approx 0{,}8944$ en $P(X \leqslant 9) \approx 0{,}9462$. Dus 9 taxi's.

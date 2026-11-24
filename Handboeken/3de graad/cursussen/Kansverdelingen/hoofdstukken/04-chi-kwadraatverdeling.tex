@@ -1,0 +1,591 @@
+%----------------------------------------------------------------------------------------
+% DE CHI-KWADRAATVERDELING. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof (theorie, voorbeeld, werkwijze, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h4-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{De chi-kwadraatverdeling}
+
+\begin{probleem}
+\naast{Lotte vertrouwt de dobbelsteen van een oud gezelschapsspel niet. Ze gooit er 120 keer mee en telt hoe vaak elk aantal ogen valt. Bij een zuivere dobbelsteen verwacht je elk aantal ongeveer 20 keer. Zes valt 31 keer, één maar 14 keer, en ook de andere aantallen wijken af. Is de dobbelsteen vals, of passen zulke afwijkingen nog bij het toeval?
+
+\vspace{2mm}
+{\small\renewcommand{\arraystretch}{1.15}\begin{tabular}{|l|*{6}{c|}}\hline
+ogen & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+aantal keer & 14 & 17 & 22 & 16 & 20 & 31 \\\hline
+\end{tabular}}}{\begin{tikzpicture}[x=.62cm,y=.1cm,font=\scriptsize]
+  \foreach \t in {5,10,...,35}{\draw[black!14,very thin] (.4,\t) -- (6.6,\t);}
+  \foreach \k/\h in {1/14,2/17,3/22,4/16,5/20,6/31}{\staaf{\k}{\h}{.6}}
+  \draw[fel!80!black,thick,dashed] (.4,20) -- (6.6,20) node[right,text=black] {20};
+  \draw[->,grijs] (.4,0) -- (6.9,0);
+  \draw[->,grijs] (.4,0) -- (.4,37);
+  \foreach \k in {1,...,6}{\node[below] at (\k,0) {\k};}
+  \foreach \t in {10,20,30}{\node[left] at (.4,\t) {\t};}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 50 (de chi-kwadraatverdeling gebruiken), met de wenk over de twee toetsen: past een experiment bij een veronderstelde verdeling (is een dobbelsteen zuiver?), en zijn twee categorische variabelen onafhankelijk? Voorkennis uit pakket 4: hypothesetoetsen met nulhypothese, p-waarde en significantieniveau, en de toets voor een proportie (Statistiek, hoofdstuk 3), de normale verdeling en standaardiseren (Statistiek, hoofdstuk 2), kruistabellen en onafhankelijke gebeurtenissen (Kansrekenen, hoofdstuk 2). Extra's buiten de wenken: de stelling $X^2 = z^2$ bij twee categorieën, de vrijheidsgraad die je verliest door een parameter te schatten (de Poissonfit van de paardentrappen uit hoofdstuk 2), en Fishers kritiek op de erwten van Mendel (opdracht). Dat $X^2$ bij benadering chi-kwadraatverdeeld is, bewijzen we niet: dat vraagt kansrekenen met meerdere variabelen tegelijk. Op de TI-84: \texttt{$\chi^2$cdf(a,b,vg)} in DISTR, \texttt{$\chi^2$GOF-Test} en \texttt{$\chi^2$-Test} in STAT, TESTS. Oudere toestellen (OS voor 2.30) hebben geen \texttt{$\chi^2$GOF-Test}: dan bereken je $X^2$ met lijsten, \texttt{sum((L1-L2)\^{}2/L2)}.}
+
+Met een hypothesetoets uit de cursus Statistiek toets je één getal: een proportie of een gemiddelde. Maar een dobbelsteen heeft zes kansen, en een kruistabel heeft een vakje voor elke combinatie van twee kenmerken. Om zulke data in één keer te beoordelen, vat je alle afwijkingen samen in één getal, $X^2$. In dit hoofdstuk leer je hoe je dat getal maakt, welke kansverdeling het volgt als het model klopt, en hoe je er twee belangrijke toetsen mee uitvoert. Op het einde van de aanpassingstoets weet je of Lotte haar dobbelsteen mag weggooien.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h4-verken} maken vóór de uitleg. Leerlingen merken dat de afwijkingen $O - E$ altijd optellen tot 0, en dat dezelfde afwijking van 6 bij 100 verwachte worpen veel minder zegt dan bij 10. Zo ontstaan de kwadraten en de deling door $E$ uit hun eigen pogingen.}
+
+%========================================================================================
+\section{Eén maat voor de afwijking}
+
+\subsection{Zes toetsen zijn er te veel}
+
+Waarom toets je niet gewoon elke zijde apart, zoals je met de binomiale verdeling leerde? Omdat je dan zes keer de kans neemt op een vals alarm. Bij een toets op niveau $\alpha = 0{,}05$ verwerp je een juiste nulhypothese in 5~\% van de gevallen. Doe je zes zulke toetsen, dan is de kans dat er minstens één alarm slaat, ongeveer $1 - 0{,}95^6 \approx 0{,}26$: bij een zuivere dobbelsteen dus in ongeveer een kwart van de proeven. (De zes toetsen zijn niet helemaal onafhankelijk, want de aantallen tellen samen op tot 120, maar de orde van grootte klopt.) Wat je nodig hebt, is één toets voor alle zijden samen, met één getal dat zegt hoe ver de hele tabel van het model afligt.
+
+\subsection{De grootheid $X^2$}
+
+In de Verken probeerde je een paar maten. De som van de afwijkingen $O - E$ is altijd 0: de te grote en te kleine aantallen heffen elkaar op. Daarom neem je de kwadraten, zoals bij de variantie. En je deelt elk kwadraat door het verwachte aantal, omdat een afwijking van 6 meer zegt als je er maar 10 verwacht dan als je er 100 verwacht.
+
+\begin{theorie}
+Een experiment wordt $n$ keer herhaald, en elke uitkomst valt in één van $k$ \emph{categorieën}. In categorie $i$ is $O_i$ het \emph{waargenomen aantal} en $E_i$ het \emph{verwachte aantal} volgens het model. Heeft categorie $i$ in het model kans $p_i$, dan is $\formule{E_i = n\,p_i}$. De \emph{chi-kwadraatgrootheid} is
+
+\vspace{1mm}
+\qquad $\formule{X^2 = \sum_{i=1}^{k} \dfrac{(O_i - E_i)^2}{E_i}}$
+\end{theorie}
+
+$X^2$ is 0 als elk aantal precies klopt, en groeit met elke afwijking, naar boven of naar beneden. De naam komt van de Griekse letter $\chi$ (chi, uitgesproken als \textit{chie}). We schrijven $X^2$ voor het getal uit de data, en $\chi^2$ voor de kansverdeling uit de volgende sectie. Gebruik altijd \textit{aantallen}, nooit percentages: met percentages hangt $X^2$ niet meer af van het aantal worpen, en dat moet net wel (opdracht \ref{oef:h4-o14}).
+
+\voorbeeld{}{Bereken $X^2$ voor de dobbelsteen van Lotte.\label{vb:h4-x2}}{%
+\uitleg{Het model is een zuivere dobbelsteen: elke zijde heeft kans $\frac16$, dus $E_i = 120 \cdot \frac16 = 20$ voor elke $i$. We berekenen per zijde $\frac{(O - E)^2}{E}$ en tellen op.}
+\begin{center}\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|l|*{6}{c|}c|}\hline
+ogen & 1 & 2 & 3 & 4 & 5 & 6 & som \\\hline
+$O$ & 14 & 17 & 22 & 16 & 20 & 31 & 120 \\\hline
+$E$ & 20 & 20 & 20 & 20 & 20 & 20 & 120 \\\hline
+$O - E$ & $-6$ & $-3$ & $2$ & $-4$ & $0$ & $11$ & $0$ \\\hline
+$\frac{(O - E)^2}{E}$ & $1{,}8$ & $0{,}45$ & $0{,}2$ & $0{,}8$ & $0$ & $6{,}05$ & $9{,}3$ \\\hline
+\end{tabular}
+\end{center}
+Dus $X^2 = 9{,}3$. De zes draagt het meest bij: $6{,}05$ van de $9{,}3$. Of $9{,}3$ veel is, weten we nog niet.}
+
+\begin{oefeningen}
+\oef{h4-x2}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Waarom delen door $E$?}
+
+Vergelijk twee situaties. In de eerste verwacht je 20 keer zes, en tel je er 30. In de tweede verwacht je 1000 keer zes bij 6000 worpen, en tel je er 1010. Beide keren is $O - E = 10$. Toch is de eerste afwijking opvallend en de tweede niet. Een binomiaal aantal met kleine kans $p$ heeft een standaardafwijking $\sqrt{np(1 - p)} \approx \sqrt{np} = \sqrt{E}$: ongeveer 4,5 in de eerste situatie en ongeveer 32 in de tweede. Een afwijking meet je dus in eenheden $\sqrt{E}$, en het kwadraat daarvan is $\frac{(O - E)^2}{E}$. Bij twee categorieën klopt dat zelfs exact.
+
+\begin{theorie}
+\begin{stelling}{Twee categorieën}
+Bij twee categorieën, succes met kans $p$ en mislukking met kans $1 - p$, en $X$ successen bij $n$ herhalingen, is
+
+\vspace{1mm}
+\qquad $\formule{X^2 = z^2}$ \quad met \quad $\formule{z = \dfrac{X - np}{\sqrt{np(1 - p)}}}$
+\end{stelling}
+
+\begin{bewijs}
+Er zijn $O_1 = X$ successen en $O_2 = n - X$ mislukkingen, met $E_1 = np$ en $E_2 = n(1 - p)$. Dan is $O_2 - E_2 = n - X - n + np = -(X - np)$, zodat beide tellers gelijk zijn aan $(X - np)^2$:
+\bewijsregel{X^2 = \frac{(X - np)^2}{np} + \frac{(X - np)^2}{n(1 - p)} = (X - np)^2 \cdot \frac{(1 - p) + p}{np(1 - p)} = \frac{(X - np)^2}{np(1 - p)} = z^2 .}
+\end{bewijs}
+\end{theorie}
+
+De $z$ is de z-score van het aantal successen, die je kent van de toets voor een proportie: hoeveel standaardafwijkingen $X$ van $np$ ligt. $X^2$ is dus een veralgemeend kwadraat van een z-score. De deling door $E$ is geen willekeurige keuze: ze maakt van elke afwijking een soort gestandaardiseerde afwijking.
+
+\voorbeeld{}{Een munt valt 60 keer op kop bij 100 worpen. Bereken $X^2$ en $z$ voor het model van een eerlijke munt, en ga na dat $X^2 = z^2$.\label{vb:h4-z2}}{%
+\uitleg{Twee categorieën, kop en munt, met verwacht 50 en 50. Voor $z$ gebruiken we $\mu = np = 50$ en $\sigma = \sqrt{100 \cdot 0{,}5 \cdot 0{,}5} = 5$.}
+\begin{stappen}
+X^2 = \frac{(60 - 50)^2}{50} + \frac{(40 - 50)^2}{50} = 2 + 2 = 4 & Kop en munt dragen evenveel bij. \\[2.5ex]
+z = \frac{60 - 50}{5} = 2 & 60 ligt twee standaardafwijkingen boven 50. \\[2ex]
+z^2 = 4 = X^2 & Zoals de stelling zegt.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h4-z2}
+\end{oefeningen}
+
+%========================================================================================
+\section{De chi-kwadraatverdeling}
+
+\subsection{Een som van kwadraten}
+
+Hoe groot moet $X^2$ zijn voor je het model verwerpt? Daarvoor moet je weten hoe $X^2$ verdeeld is als het model klopt. Bij twee categorieën weet je het al: $z$ is bij benadering standaardnormaal, dus $X^2$ is het kwadraat van een standaardnormale variabele. Bij meer categorieën is $X^2$ een som van zulke kwadraten. Dat leidt tot een nieuwe familie van verdelingen.
+
+\begin{theorie}
+Zijn $Z_1, Z_2, \ldots, Z_k$ onafhankelijke standaardnormale toevalsvariabelen, dan heeft
+
+\vspace{1mm}
+\qquad $\formule{\chi^2 = Z_1^2 + Z_2^2 + \cdots + Z_k^2}$
+
+\vspace{1mm}
+een \emph{chi-kwadraatverdeling} met $k$ \emph{vrijheidsgraden}, kort $\formule{\chi^2_k}$.
+
+\begin{stelling}{Verwachtingswaarde}
+De chi-kwadraatverdeling met $k$ vrijheidsgraden heeft verwachtingswaarde \quad $\formule{\E(\chi^2_k) = k}$
+\end{stelling}
+
+\begin{bewijs}
+Een standaardnormale $Z$ heeft $\E(Z) = 0$ en $\Var(Z) = 1$. De variantie is de verwachtingswaarde van het kwadraat van de afwijking tot het gemiddelde, en dat gemiddelde is 0:
+\bewijsregel{\E(Z^2) = \E\bigl((Z - 0)^2\bigr) = \Var(Z) = 1 .}
+Elke term $Z_i^2$ heeft dus verwachtingswaarde 1. De verwachtingswaarde van een som is de som van de verwachtingswaarden (een rekenregel die we hier aannemen; voor twee worpen met een dobbelsteen controleerde je hem in Kansrekenen), dus $\E(\chi^2_k) = 1 + 1 + \cdots + 1 = k$.
+\end{bewijs}
+\end{theorie}
+
+Een chi-kwadraatverdeelde variabele is nooit negatief: het is een som van kwadraten. De figuur toont de dichtheden voor een paar waarden van $k$. Bij $k = 1$ en $k = 2$ is de dichtheid het grootst bij 0. Vanaf $k = 3$ heeft ze een top, die met $k$ naar rechts schuift. De verdeling is scheef naar rechts, maar hoe groter $k$, hoe meer ze op een normale verdeling lijkt. De variantie is $2k$; dat bewijzen we niet.
+
+\figuren{\begin{tikzpicture}[x=.62cm,y=5.2cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=2,ystep=.1] (20,.6);
+  \foreach \k/\a in {1/.32,2/.001,3/.001,5/.001,10/.001}{%
+    \draw[accent,thick] plot[domain=\a:20,samples=120,smooth] (\x,{chidich(\x,\k)});}
+  \kansassen{0}{20.6}{.66}{$x$}
+  \foreach \t in {0,2,...,20}{\node[below] at (\t,0) {\t};}
+  \foreach \t/\l in {.2/{0,2},.4/{0,4},.6/{0,6}}{\node[left] at (0,\t) {\l};}
+  \node[fill=white,inner sep=1pt] at (1.25,.48) {$k = 1$};
+  \node[fill=white,inner sep=1pt] at (2.4,.32) {$k = 2$};
+  \node[fill=white,inner sep=1pt] at (2.2,.2) {$k = 3$};
+  \node[fill=white,inner sep=1pt] at (4.6,.18) {$k = 5$};
+  \node[fill=white,inner sep=1pt] at (9.2,.125) {$k = 10$};
+\end{tikzpicture}}
+
+\needspace{14\baselineskip}
+\subsection{$X^2$ volgt bij benadering een chi-kwadraatverdeling}
+
+Welke verdeling heeft $X^2$ bij een dobbelsteen? Er zijn zes afwijkingen $O_i - E_i$, maar ze zijn niet vrij: ze tellen op tot 0. Ken je er vijf, dan ligt de zesde vast. Er zijn dus maar vijf vrije afwijkingen, en dat zie je terug in de verdeling.
+
+\begin{theorie}
+\begin{stelling}{Verdeling van $X^2$}
+Klopt het model, en is elk verwacht aantal $E_i \geqslant 5$, dan is $X^2$ bij benadering chi-kwadraatverdeeld met $\formule{k - 1}$ vrijheidsgraden, met $k$ het aantal categorieën.
+\end{stelling}
+\end{theorie}
+
+We bewijzen dit niet: daarvoor heb je kansrekenen met veel variabelen tegelijk nodig. Bij $k = 2$ heb je het wel gezien: $X^2 = z^2$ met $z$ bij benadering standaardnormaal, dus $\chi^2$ met $2 - 1 = 1$ vrijheidsgraad. De voorwaarde $E_i \geqslant 5$ lijkt op de vuistregel $np \geqslant 5$ voor de normale benadering van de binomiale verdeling: met kleine verwachte aantallen klopt de benadering niet meer.
+
+\voorbeeld{}{Toon met de standaardnormale verdeling aan dat $P(\chi^2_1 \geqslant 3{,}84) \approx 0{,}05$.\label{vb:h4-k1}}{%
+\uitleg{Met één vrijheidsgraad is $\chi^2_1 = Z^2$. Een kwadraat is groot als $Z$ ver van 0 ligt, langs welke kant ook. We zetten de gebeurtenis om naar $Z$.}
+\begin{stappen}
+Z^2 \geqslant 3{,}84 \iff |Z| \geqslant \sqrt{3{,}84} \approx 1{,}96 & Positief of negatief: beide staarten tellen mee. \\[1ex]
+P(|Z| \geqslant 1{,}96) \approx 2 \cdot 0{,}025 = 0{,}05 & De bekende grens van 95~\% bij de normale verdeling.
+\end{stappen}
+\figuren{\begin{tikzpicture}[x=.55cm,y=3.2cm,font=\scriptsize]
+  \fill[fel!70] (1.96,0) -- plot[domain=1.96:3.6,samples=30] (\x,{gauss(\x,0,1)}) -- (3.6,0) -- cycle;
+  \fill[fel!70] (-1.96,0) -- plot[domain=-1.96:-3.6,samples=30] (\x,{gauss(\x,0,1)}) -- (-3.6,0) -- cycle;
+  \draw[accent,thick] plot[domain=-3.6:3.6,samples=80,smooth] (\x,{gauss(\x,0,1)});
+  \draw[->,grijs] (-3.8,0) -- (4,0) node[right,text=black] {$z$};
+  \foreach \t/\l in {-1.96/{-1{,}96},0/0,1.96/{1{,}96}}{\node[below] at (\t,0) {$\l$};}
+  \node at (0,.55) {$Z$};
+\end{tikzpicture}\qquad\raisebox{9mm}{$=$}\qquad
+\begin{tikzpicture}[x=.55cm,y=1.1cm,font=\scriptsize]
+  \fill[fel!70] (3.84,0) -- plot[domain=3.84:9,samples=30] (\x,{chidich(\x,1)}) -- (9,0) -- cycle;
+  \draw[accent,thick] plot[domain=.08:9,samples=90,smooth] (\x,{min(chidich(\x,1),1.4)});
+  \draw[->,grijs] (0,0) -- (9.4,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,1.5);
+  \foreach \t/\l in {0/0,3.84/{3{,}84},8/8}{\node[below] at (\t,0) {$\l$};}
+  \node at (3.6,1.1) {$\chi^2_1$};
+\end{tikzpicture}}
+De twee staarten van $Z$ samen worden één staart van $\chi^2_1$: $3{,}84 = 1{,}96^2$.}
+
+\needspace{16\baselineskip}
+\subsection{Kansen en kritieke waarden}
+
+Bij een toets met $X^2$ is alleen een \textit{grote} waarde verdacht: een kleine $X^2$ betekent dat de data dicht bij het model liggen. De p-waarde is dus altijd een rechterstaart, $P(\chi^2_{\vg} \geqslant X^2)$. Je rekentoestel berekent ze met \texttt{$\chi^2$cdf(ondergrens,bovengrens,vg)}, met $10^{99}$ als bovengrens. Zonder rekentoestel vergelijk je $X^2$ met de \textbf{kritieke waarde}: de grens waarboven een fractie $\alpha$ van de verdeling ligt.
+
+\begin{center}\small\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|*{10}{c|}}\hline
+vg & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\hline
+$\alpha = 0{,}10$ & 2,71 & 4,61 & 6,25 & 7,78 & 9,24 & 10,64 & 12,02 & 13,36 & 14,68 & 15,99 \\\hline
+$\alpha = 0{,}05$ & 3,84 & 5,99 & 7,81 & 9,49 & 11,07 & 12,59 & 14,07 & 15,51 & 16,92 & 18,31 \\\hline
+$\alpha = 0{,}01$ & 6,63 & 9,21 & 11,34 & 13,28 & 15,09 & 16,81 & 18,48 & 20,09 & 21,67 & 23,21 \\\hline
+\end{tabular}
+\end{center}
+
+\voorbeeld{}{Bij een toets met 3 vrijheidsgraden is $X^2 = 7{,}2$. Bereken de p-waarde. Wat besluit je bij $\alpha = 0{,}05$ en bij $\alpha = 0{,}10$?\label{vb:h4-pwaarde}}{%
+\uitleg{De p-waarde is de oppervlakte onder de dichtheid van $\chi^2_3$ rechts van 7,2. We controleren met de tabel.}
+\naast{\begin{minipage}{8.3cm}
+\begin{stappenvrij}{4.0cm}{4.0cm}
+P(\chi^2_3 \geqslant 7{,}2) \approx 0{,}066 & \texttt{$\chi^2$cdf(7.2,1E99,3)}. \\[1ex]
+0{,}066 > 0{,}05 & Niet verwerpen bij 5~\%: ook $7{,}2 < 7{,}81$. \\[1ex]
+0{,}066 \leqslant 0{,}10 & Wel verwerpen bij 10~\%: $7{,}2 \geqslant 6{,}25$.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[x=.42cm,y=9cm,font=\scriptsize]
+  \fill[fel!70] (7.2,0) -- plot[domain=7.2:13,samples=30] (\x,{chidich(\x,3)}) -- (13,0) -- cycle;
+  \draw[accent,thick] plot[domain=0.01:13,samples=90,smooth] (\x,{chidich(\x,3)});
+  \draw[->,grijs] (0,0) -- (13.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,.28);
+  \foreach \t/\l in {0/0,3/3,7.2/{7{,}2}}{\node[below] at (\t,0) {$\l$};}
+  \draw[fel!80!black,->] (9.5,.07) node[above,text=black] {$0{,}066$} -- (8.2,.02);
+  \node at (4.4,.24) {$\chi^2_3$};
+\end{tikzpicture}}}
+
+De p-waarde zegt, zoals altijd: als het model klopt, vind je in ongeveer 6,6~\% van de herhalingen een $X^2$ van minstens 7,2.
+
+\begin{oefeningen}
+\oef{h4-verdeling}
+
+\oef{h4-pwaarde}
+\end{oefeningen}
+
+%========================================================================================
+\section{De aanpassingstoets}
+
+\subsection{De toets}
+
+Past een reeks waarnemingen bij een model dat elke categorie een vaste kans geeft? Dat model hoeft niet uniform te zijn, zoals bij de dobbelsteen. De erfelijkheidsleer voorspelt bijvoorbeeld verhoudingen zoals $9 : 3 : 3 : 1$. Met $X^2$ en de chi-kwadraatverdeling toets je zo'n model in één keer.
+
+\begin{theorie}
+De \emph{aanpassingstoets} (\textit{goodness of fit}) toetst
+
+\vspace{1mm}
+\qquad $H_0\colon$ de kansen van de $k$ categorieën zijn $p_1, p_2, \ldots, p_k$
+
+\qquad $H_1\colon$ minstens één kans is anders.
+
+\vspace{1mm}
+Onder $H_0$, en als elk $E_i = n p_i \geqslant 5$, is $X^2$ bij benadering $\chi^2_{k-1}$. De p-waarde is \quad $\formule{P(\chi^2_{k-1} \geqslant X^2)}$
+\end{theorie}
+
+$H_1$ heeft geen richting: elke afwijking, in welke categorie ook, maakt $X^2$ groter. Daarom is de toets eenzijdig naar rechts, al is de vraag tweezijdig.
+
+\voorbeeld{}{In 1866 publiceerde Gregor Mendel zijn proeven met erwten. Bij een kruising vond hij 315 ronde gele, 108 ronde groene, 101 hoekige gele en 32 hoekige groene erwten. Zijn erfelijkheidsleer voorspelde de verhouding $9 : 3 : 3 : 1$. Passen de aantallen bij die verhouding? Toets bij $\alpha = 0{,}05$.\label{vb:h4-mendel}}{%
+\uitleg{De verhouding $9 : 3 : 3 : 1$ geeft de kansen $\frac{9}{16}$, $\frac{3}{16}$, $\frac{3}{16}$ en $\frac{1}{16}$. Er zijn $n = 556$ erwten. We berekenen de verwachte aantallen, $X^2$ en de p-waarde met $4 - 1 = 3$ vrijheidsgraden.}
+\begin{stappenbreed}
+H_0\colon p = \tfrac{9}{16}, \tfrac{3}{16}, \tfrac{3}{16}, \tfrac{1}{16} \qquad H_1\colon \text{andere kansen} & Het model van Mendel. \\[1ex]
+E = 312{,}75;\ 104{,}25;\ 104{,}25;\ 34{,}75 & $556 \cdot \frac{9}{16}$ enzovoort; alle $E \geqslant 5$. \\[1ex]
+X^2 = \tfrac{2{,}25^2}{312{,}75} + \tfrac{3{,}75^2}{104{,}25} + \tfrac{3{,}25^2}{104{,}25} + \tfrac{2{,}75^2}{34{,}75} \approx 0{,}47 & De afwijkingen zijn klein. \\[1ex]
+\text{p-waarde} = P(\chi^2_3 \geqslant 0{,}47) \approx 0{,}93 & \texttt{$\chi^2$cdf(0.47,1E99,3)}. \\[1ex]
+0{,}93 > 0{,}05\colon\ H_0 \text{ niet verwerpen} & De aantallen passen goed bij $9 : 3 : 3 : 1$.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=1.5cm,y=.013cm,font=\scriptsize]
+  \foreach \t in {50,100,...,350}{\draw[black!14,very thin] (.4,\t) -- (4.6,\t);}
+  \foreach \i/\o/\e in {1/315/312.75,2/108/104.25,3/101/104.25,4/32/34.75}{%
+    \staaf{\i-.14}{\o}{.26}
+    \fill[fel!60] (\i+.01,0) rectangle (\i+.27,\e); \draw[fel!80!black] (\i+.01,0) rectangle (\i+.27,\e);}
+  \draw[->,grijs] (.4,0) -- (4.8,0);
+  \draw[->,grijs] (.4,0) -- (.4,370);
+  \foreach \i/\n in {1/rond geel,2/rond groen,3/hoekig geel,4/hoekig groen}{\node[below] at (\i,0) {\n};}
+  \foreach \t in {100,200,300}{\node[left] at (.4,\t) {\t};}
+  \fill[accent!55] (3.3,330) rectangle (3.5,350); \node[right] at (3.5,340) {waargenomen};
+  \fill[fel!60] (3.3,290) rectangle (3.5,310); \node[right] at (3.5,300) {verwacht};
+\end{tikzpicture}}}
+
+Een grote p-waarde bewijst niet dat het model juist is: ze zegt alleen dat de data er niet tegen spreken. In opdracht \ref{oef:h4-o21} zie je waarom de statisticus Ronald Fisher de resultaten van Mendel later net \textit{te} mooi vond.
+
+Op de TI-84 zet je de waargenomen aantallen in \texttt{L1} en de verwachte in \texttt{L2}. \texttt{$\chi^2$GOF-Test} geeft dan $X^2$, de p-waarde en de bijdrage van elke categorie (\texttt{CNTRB}).
+
+\begin{werkwijze}
+\textbf{1.}~Formuleer $H_0$ met de kansen $p_i$ van het model, en $H_1$: minstens één kans is anders. Kies $\alpha$. \ \textbf{2.}~Bereken de verwachte aantallen $E_i = n p_i$ en ga na of ze allemaal minstens 5 zijn. \ \textbf{3.}~Bereken $X^2$ met de \textit{aantallen}. \ \textbf{4.}~Bepaal het aantal vrijheidsgraden en de p-waarde, $P(\chi^2_{\vg} \geqslant X^2)$, of vergelijk met de kritieke waarde. \ \textbf{5.}~Besluit in de context, voorzichtig: niet verwerpen is geen bewijs dat het model klopt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-aanpassing}
+
+\oef{h4-model}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Klassen samennemen en geschatte parameters}
+
+Bij een model zoals de Poissonverdeling heb je vaak twee problemen. De categorieën aan de rand hebben kleine verwachte aantallen, en de parameter $\lambda$ ken je niet vooraf: je schat hem uit dezelfde data. Beide hebben een oplossing.
+
+\begin{theorie}
+Is een verwacht aantal kleiner dan 5, neem die categorie dan samen met een buur, tot elk ${E_i \geqslant 5}$. Schat je $m$ parameters van het model uit de data, dan is het aantal vrijheidsgraden
+
+\vspace{1mm}
+\qquad $\formule{\vg = k - 1 - m}$ \qquad met $k$ het aantal categorieën na het samennemen.
+\end{theorie}
+
+Waarom een vrijheidsgraad minder per geschatte parameter? Een $\lambda$ die je uit de data haalt, past het model aan de data aan: de verwachte aantallen liggen dan vanzelf dichter bij de waargenomen, en $X^2$ wordt kleiner. Met een vrijheidsgraad minder houd je daar rekening mee. Ook dat bewijzen we niet.
+
+\voorbeeld{}{In hoofdstuk 2 zag je de paardentrappen van Bortkiewicz: in 200 korpsjaren van het Pruisische leger telde hij 109 jaren zonder dode, 65 met één, 22 met twee, 3 met drie en 1 met vier doden. Het gemiddelde is $\lambda = 0{,}61$. Toets bij $\alpha = 0{,}05$ of een Poissonverdeling past.\label{vb:h4-bortkiewicz}}{%
+\uitleg{De verwachte aantallen zijn $200 \cdot P(X = k)$ met $X \sim \Poi(0{,}61)$. De laatste categorieën zijn te klein, dus nemen we ze samen. $\lambda$ is uit de data geschat: één vrijheidsgraad minder.}
+\begin{center}\small\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|c|c|c|c|c|}\hline
+doden per korpsjaar & 0 & 1 & 2 & 3 & 4 of meer \\\hline
+$O$ & 109 & 65 & 22 & 3 & 1 \\\hline
+$E = 200 \cdot P(X = k)$ & 108,67 & 66,29 & 20,22 & 4,11 & 0,71 \\\hline
+\end{tabular}
+\end{center}
+\begin{stappenbreed}
+\text{klassen } 0,\ 1,\ \text{2 of meer}\colon\ E = 108{,}67;\ 66{,}29;\ 25{,}04 & 3 of meer geeft $4{,}82 < 5$: nog te klein, dus 2 of meer. \\[1ex]
+O = 109;\ 65;\ 26 & Ook de waargenomen aantallen samennemen. \\[1ex]
+X^2 = 0{,}001 + 0{,}025 + 0{,}037 \approx 0{,}063 & Bijna perfect. \\[1ex]
+\vg = 3 - 1 - 1 = 1 & Drie klassen, en $\lambda$ geschat. \\[1ex]
+\text{p-waarde} = P(\chi^2_1 \geqslant 0{,}063) \approx 0{,}80 & $H_0$ niet verwerpen: het Poissonmodel past.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h4-samennemen}
+\end{oefeningen}
+
+\needspace{20\baselineskip}
+\subsection{Terug naar het probleem}
+
+Nu kunnen we de dobbelsteen van Lotte beoordelen, met alle zes de zijden tegelijk.
+
+\voorbeeld{}{Terug naar het probleem. Is de dobbelsteen van Lotte vals? Toets bij $\alpha = 0{,}05$.\label{vb:h4-terug}}{%
+\uitleg{Het model is een zuivere dobbelsteen. In voorbeeld \ref{vb:h4-x2} vonden we $X^2 = 9{,}3$, met alle $E_i = 20 \geqslant 5$. Er zijn 6 categorieën en geen geschatte parameters.}
+\naast{\begin{minipage}{7.8cm}
+\begin{stappenvrij}{3.7cm}{3.8cm}
+H_0\colon p_i = \tfrac16 \text{ voor elke } i & $H_1$: de dobbelsteen is niet zuiver. \\[1ex]
+\vg = 6 - 1 = 5 & Vijf vrije afwijkingen. \\[1ex]
+P(\chi^2_5 \geqslant 9{,}3) \approx 0{,}098 & \texttt{$\chi^2$cdf(9.3,1E99,5)}. \\[1ex]
+0{,}098 > 0{,}05 & $H_0$ niet verwerpen; ook $9{,}3 < 11{,}07$.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[x=.36cm,y=12cm,font=\scriptsize]
+  \fill[fel!70] (9.3,0) -- plot[domain=9.3:17,samples=30] (\x,{chidich(\x,5)}) -- (17,0) -- cycle;
+  \draw[accent,thick] plot[domain=0.01:17,samples=90,smooth] (\x,{chidich(\x,5)});
+  \draw[->,grijs] (0,0) -- (17.5,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,.2);
+  \draw[grijs,dashed] (11.07,0) -- (11.07,.1) node[above,text=black] {$11{,}07$};
+  \foreach \t/\l in {0/0,5/5,9.3/{9{,}3}}{\node[below] at (\t,0) {$\l$};}
+  \node at (4,.18) {$\chi^2_5$};
+\end{tikzpicture}}
+Bij een zuivere dobbelsteen vind je in bijna 10~\% van de reeksen van 120 worpen een $X^2$ van 9,3 of meer. De afwijkingen passen dus nog bij het toeval: we kunnen niet aantonen dat de dobbelsteen vals is.}
+
+Maar 31 zessen, is dat niet heel veel? Bij een zuivere dobbelsteen is het aantal zessen $B(120;\, \frac16)$, en $P(X \geqslant 31) \approx 0{,}007$. Toch mag je die toets hier niet gebruiken. Lotte koos de zes pas \textit{na} het tellen, omdat die het meest opviel. Bij zes zijden is de kans dat \textit{een} zijde zo opvalt, veel groter dan de kans dat de zes het doet. Had Lotte vooraf een vermoeden over de zes, bijvoorbeeld omdat de dobbelsteen aan één kant afgesleten is, dan was de binomiale toets wel eerlijk geweest, en significant. Het verschil zit dus niet in de data, maar in de vraag die je vooraf stelt. Wil Lotte zekerheid, dan gooit ze opnieuw, nu met de vraag over de zes vooraf vastgelegd.
+
+%========================================================================================
+\section{De onafhankelijkheidstoets}
+
+\subsection{Verwachte aantallen in een kruistabel}
+
+Hangt de manier waarop leerlingen naar school komen af van waar ze wonen? Een school bevraagt 200 leerlingen. De kruistabel toont twee categorische variabelen: de woonplaats en het vervoer. Kansrekenen leerde je dat twee gebeurtenissen onafhankelijk zijn als $P(A \cap B) = P(A) \cdot P(B)$. Om een kruistabel te toetsen, heb je de aantallen nodig die je bij onafhankelijkheid zou verwachten.
+
+\begin{center}\small\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|c|c|c|c|}\hline
+ & fiets & bus & auto & totaal \\\hline
+stad & 52 & 18 & 10 & 80 \\\hline
+platteland & 38 & 52 & 30 & 120 \\\hline
+totaal & 90 & 70 & 40 & 200 \\\hline
+\end{tabular}
+\end{center}
+
+\begin{theorie}
+\begin{stelling}{Verwachte aantallen bij onafhankelijkheid}
+Een kruistabel met $n$ waarnemingen heeft rijtotalen $r_i$ en kolomtotalen $c_j$. Zijn de twee variabelen onafhankelijk, dan is het verwachte aantal in rij $i$ en kolom $j$
+
+\vspace{1mm}
+\qquad $\formule{E_{ij} = \dfrac{r_i \cdot c_j}{n}}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $A_i$ de gebeurtenis \textit{in rij $i$} en $B_j$ \textit{in kolom $j$}. Hun kansen schatten we met de relatieve frequenties van de totalen: $P(A_i) = \frac{r_i}{n}$ en $P(B_j) = \frac{c_j}{n}$. Bij onafhankelijkheid is
+\bewijsregel{P(A_i \cap B_j) = P(A_i) \cdot P(B_j) = \frac{r_i}{n} \cdot \frac{c_j}{n} ,}
+en het verwachte aantal bij $n$ waarnemingen is $n$ keer die kans: $E_{ij} = n \cdot \frac{r_i c_j}{n^2} = \frac{r_i c_j}{n}$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: \textit{rijtotaal maal kolomtotaal, gedeeld door het eindtotaal}. De verwachte aantallen hebben dezelfde totalen als de waargenomen: tel je $E_{ij}$ op over een rij, dan krijg je $\frac{r_i}{n}(c_1 + \cdots + c_k) = r_i$.
+
+\voorbeeld{}{Bereken de verwachte aantallen voor de kruistabel van woonplaats en vervoer, als de twee onafhankelijk zijn.\label{vb:h4-verwacht}}{%
+\uitleg{We passen de formule toe op elk vakje. Als controle moeten de rij- en kolomtotalen dezelfde blijven.}
+\naast{\begin{minipage}{7.2cm}
+\begin{stappenvrij}{3.4cm}{3.5cm}
+E_{11} = \frac{80 \cdot 90}{200} = 36 & Stad en fiets. \\[2ex]
+E_{12} = \frac{80 \cdot 70}{200} = 28 & Stad en bus. \\[2ex]
+E_{13} = \frac{80 \cdot 40}{200} = 16 & Stad en auto.
+\end{stappenvrij}
+\end{minipage}}{\begin{minipage}{6.6cm}\small\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|c|c|c|c|}\hline
+$E$ & fiets & bus & auto & totaal \\\hline
+stad & 36 & 28 & 16 & 80 \\\hline
+platteland & 54 & 42 & 24 & 120 \\\hline
+totaal & 90 & 70 & 40 & 200 \\\hline
+\end{tabular}\end{minipage}}
+De tweede rij volgt uit de kolomtotalen: $90 - 36 = 54$, $70 - 28 = 42$ en $40 - 16 = 24$. In de stad zouden bij onafhankelijkheid 36 leerlingen fietsen; het zijn er 52.}
+
+\begin{oefeningen}
+\oef{h4-verwacht}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Vrijheidsgraden}
+
+In het voorbeeld hoefde je maar twee vakjes uit te rekenen: de rest volgde uit de totalen. Hetzelfde geldt voor de afwijkingen $O_{ij} - E_{ij}$: in elke rij en elke kolom tellen ze op tot 0. Bij een tabel met $r$ rijen en $c$ kolommen kies je vrij de vakjes van de eerste $r - 1$ rijen en $c - 1$ kolommen; de laatste rij en kolom liggen dan vast door de totalen.
+
+\naast{\begin{minipage}{9.4cm}
+\begin{theorie}
+Bij een kruistabel met $r$ rijen en $c$ kolommen is het aantal vrijheidsgraden
+
+\vspace{1mm}
+\qquad $\formule{\vg = (r - 1)(c - 1)}$
+\end{theorie}
+In de figuur: een tabel met 3 rijen en 4 kolommen heeft $2 \cdot 3 = 6$ vrije vakjes (gekleurd). De vakjes in de laatste rij en kolom volgen uit de totalen (\textsf{T}).
+\end{minipage}}{\begin{tikzpicture}[x=.7cm,y=.6cm,font=\scriptsize]
+  \foreach \i in {0,1}{\foreach \j in {0,1,2}{\fill[accent!35] (\j,-\i) rectangle (\j+1,-\i+1);}}
+  \draw[grijs] (0,-2) grid (4,1);
+  \draw[grijs] (4,-2) rectangle (5,1); \draw[grijs] (0,-3) rectangle (4,-2);
+  \foreach \i in {0,-1,-2}{\node at (4.5,\i+.5) {\textsf{T}};}
+  \foreach \j in {0,...,3}{\node at (\j+.5,-2.5) {\textsf{T}};}
+  \draw[grijs] (4,-3) rectangle (5,-2); \node at (4.5,-2.5) {$n$};
+\end{tikzpicture}}
+
+\needspace{16\baselineskip}
+\subsection{De toets}
+
+Met de verwachte aantallen en de vrijheidsgraden heb je alles voor een toets. Je berekent $X^2$ zoals altijd, nu over alle vakjes van de tabel.
+
+\begin{theorie}
+De \emph{onafhankelijkheidstoets} toetst $H_0\colon$ de twee variabelen zijn onafhankelijk, tegen $H_1\colon$ ze hangen samen. Met de verwachte aantallen $E_{ij} = \frac{r_i c_j}{n}$, allemaal minstens 5, is
+
+\vspace{1mm}
+\qquad $\formule{X^2 = \sum_{i,j} \dfrac{(O_{ij} - E_{ij})^2}{E_{ij}}}$
+
+\vspace{1mm}
+bij benadering $\chi^2_{(r - 1)(c - 1)}$. De p-waarde is $\formule{P\bigl(\chi^2_{(r-1)(c-1)} \geqslant X^2\bigr)}$.
+\end{theorie}
+
+\voorbeeld{}{Hangt het vervoer naar school af van de woonplaats? Toets bij $\alpha = 0{,}05$.\label{vb:h4-onafh}}{%
+\uitleg{De verwachte aantallen vonden we in voorbeeld \ref{vb:h4-verwacht}; ze zijn allemaal minstens 5. We tellen de zes bijdragen op.}
+\begin{stappenbreed}
+H_0\colon \text{woonplaats en vervoer onafhankelijk} & $H_1$: ze hangen samen. \\[1ex]
+X^2 = \tfrac{16^2}{36} + \tfrac{10^2}{28} + \tfrac{6^2}{16} + \tfrac{16^2}{54} + \tfrac{10^2}{42} + \tfrac{6^2}{24} \approx 21{,}6 & De afwijkingen $O - E$ zijn $\pm 16$, $\pm 10$ en $\pm 6$. \\[1ex]
+\vg = (2 - 1)(3 - 1) = 2 & Twee rijen, drie kolommen. \\[1ex]
+\text{p-waarde} = P(\chi^2_2 \geqslant 21{,}6) \approx 0{,}00002 & Ver boven de kritieke waarde 5,99. \\[1ex]
+H_0 \text{ verwerpen} & Woonplaats en vervoer hangen samen.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=6cm,y=.55cm,font=\scriptsize]
+  \foreach \y/\n/\a/\b in {1.2/stad/.65/.225,0/platteland/.3167/.4333}{%
+    \fill[accent!55] (0,\y) rectangle (\a,\y+.8); \fill[fel!60] (\a,\y) rectangle (\a+\b,\y+.8); \fill[black!15] (\a+\b,\y) rectangle (1,\y+.8);
+    \draw[grijs] (0,\y) rectangle (1,\y+.8);
+    \node[left] at (0,\y+.4) {\n};}
+  \node at (.15,1.6) {fiets}; \node at (.76,1.6) {bus}; \node at (.94,1.6) {auto};
+  \node at (.15,.4) {fiets}; \node at (.53,.4) {bus}; \node at (.87,.4) {auto};
+  \foreach \t/\l in {0/0,.5/50,1/100}{\node[below] at (\t,0) {\l~\%};}
+\end{tikzpicture}}
+In de stad fietst 65~\% van de leerlingen, op het platteland 32~\%. Zo'n verschil ontstaat bijna nooit door toeval.}
+
+Met de TI-84: zet de waargenomen aantallen in de matrix \texttt{[A]} (MATRX, EDIT) en kies \texttt{$\chi^2$-Test}. Het toestel geeft $X^2$, de p-waarde en het aantal vrijheidsgraden, en zet de verwachte aantallen in \texttt{[B]}: controleer daar of ze minstens 5 zijn.
+
+Let op wat de toets wel en niet zegt. Een significante samenhang is geen oorzaak: dat woonplaats en vervoer samenhangen, ligt voor de hand, maar bij andere kruistabellen kan een verborgen variabele achter de samenhang zitten, zoals je in de cursus Statistiek zag. En de toets zegt niet \textit{hoe} de variabelen samenhangen: daarvoor kijk je naar de grootste bijdragen tot $X^2$ en naar de percentages per rij.
+
+\begin{werkwijze}
+\textbf{1.}~$H_0$: de variabelen zijn onafhankelijk; $H_1$: ze hangen samen. \ \textbf{2.}~Bereken de rij- en kolomtotalen en de verwachte aantallen $E_{ij} = \frac{r_i c_j}{n}$; ga na of ze minstens 5 zijn. \ \textbf{3.}~Bereken $X^2$ over alle vakjes. \ \textbf{4.}~$\vg = (r - 1)(c - 1)$, en de p-waarde $P(\chi^2_{\vg} \geqslant X^2)$. \ \textbf{5.}~Besluit in de context, en beschrijf de samenhang met percentages per rij. Samenhang is geen oorzaak.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-onafh}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h4-o1}
+
+\oef{h4-o4}
+
+\needspace{8\baselineskip}
+\oef{h4-o2}
+
+\needspace{12\baselineskip}
+\oef{h4-o5}
+
+\oef{h4-o7}
+
+\needspace{10\baselineskip}
+\oef{h4-o3}
+
+\needspace{14\baselineskip}
+\oef{h4-o6}
+
+\needspace{10\baselineskip}
+\oef{h4-o8}
+
+\needspace{14\baselineskip}
+\oef{h4-o11}
+
+\oef{h4-o13}
+
+\needspace{14\baselineskip}
+\oef{h4-o9}
+
+\oef{h4-o18}
+
+\needspace{14\baselineskip}
+\oef{h4-o12}
+
+\oef{h4-o14}
+
+\needspace{12\baselineskip}
+\oef{h4-o16}
+
+\needspace{10\baselineskip}
+\oef{h4-o10}
+
+\needspace{12\baselineskip}
+\oef{h4-o24}
+
+\needspace{12\baselineskip}
+\oef{h4-o17}
+
+\needspace{10\baselineskip}
+\oef{h4-o15}
+
+\oef{h4-o19}
+
+\needspace{10\baselineskip}
+\oef{h4-o21}
+
+\needspace{10\baselineskip}
+\oef{h4-o20}
+
+\oef{h4-o23}
+
+\needspace{10\baselineskip}
+\oef{h4-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening gebruikt het product van matrices (Matrices), de tweede een oneigenlijke integraal (Integralen), de derde de toets voor een proportie (Statistiek, hoofdstuk 3), de vierde de voorwaardelijke kans (Kansrekenen, hoofdstuk 2).}
+
+\begin{oefeningen}
+\oef{h4-koppel-1}
+
+\oef{h4-koppel-2}
+
+\oef{h4-koppel-3}
+
+\oef{h4-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+
+\oef{h4-t6}
+
+\oef{h4-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-x2}{oef:h4-x2}%
+  \fv{oef:h4-t2}{vb:h4-bortkiewicz}{oef:h4-samennemen}%
+  \fv{oef:h4-t3}{vb:h4-pwaarde}{oef:h4-pwaarde}%
+  \fv{oef:h4-t4}{vb:h4-mendel}{oef:h4-model}%
+  \fv{oef:h4-t5}{vb:h4-verwacht}{oef:h4-verwacht}%
+  \fv{oef:h4-t6}{vb:h4-onafh}{oef:h4-onafh}%
+  \fv{oef:h4-t7}{vb:h4-z2}{oef:h4-z2}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom je geen toets per categorie doet, de formule voor $X^2$ en waarom je door $E$ deelt, het verband $X^2 = z^2$ bij twee categorieën, de definitie van de chi-kwadraatverdeling en haar verwachtingswaarde, hoe je het aantal vrijheidsgraden bepaalt (aanpassingstoets, geschatte parameters, kruistabel), de voorwaarde $E \geqslant 5$, de verwachte aantallen in een kruistabel, en de stappen van beide toetsen. Vergelijk daarna met de kaders.
+\fi

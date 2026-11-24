@@ -1,0 +1,567 @@
+%----------------------------------------------------------------------------------------
+% DEELGROEPEN EN DE STELLING VAN LAGRANGE. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+% Tetraëder: hoekpunten 1 (boven), 2 (linksvoor), 3 (rechtsvoor), 4 (achter). Een draaiing is een even
+% permutatie van de hoekpunten: een 3-cykel (draaiing om de as door een hoekpunt) of een product van twee
+% verwisselingen (halve draai om de as door de middens van twee overstaande ribben).
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Deelgroepen en de stelling van Lagrange}
+
+\begin{probleem}
+\naast{Een houten tetraëder, een piramide met vier gelijkzijdige driehoeken als zijvlakken, ligt in een uitgesneden vorm. Je kunt hem op 12 manieren terugleggen door hem te draaien, niets doen meegerekend: die 12 draaiingen vormen een groep. Sommige draaiingen vormen samen een kleinere groep. Zo geven de drie draaiingen om de as door de top, over $0^\circ$, $120^\circ$ en $240^\circ$, na elkaar altijd weer zo'n draaiing. Hoeveel draaiingen kan zo'n kleinere groep tellen? Bestaat er een met 5 draaiingen? Met 6?}{\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \draw[grijs,dashed] (.05,2.05) -- (.07,-.37);
+  \tetraeder
+  \draw[fel!85!black,thick,-{Stealth[length=1.8mm]}] (-.32,1.86) arc[start angle=200,end angle=520,x radius=.37,y radius=.12];
+  \node[above] at (.05,2.05) {as};
+  \node[left=3pt] at (T) {$1$};
+  \node[below left=-1pt] at (A) {$2$};
+  \node[below right=-1pt] at (B) {$3$};
+  \node[below=1.5pt] at (C) {$4$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 32, het deel over deelgroepen, met de wenken: nagaan of een deelverzameling een deelgroep is, en voor eindige groepen de stelling van Lagrange. De gevolgen in sectie 3 bewijzen het vermoeden van LPD 31 uit hoofdstuk 1 (de orde van een element deelt de orde van de groep). Uitbreidingen: deelgroepen van cyclische groepen, nevenklassen (nodig voor het bewijs van Lagrange), de groep van de eenheden modulo $n$ met de stelling van Euler, en de deelgroep met index 2 in het probleem. Voorkennis: hoofdstuk 1, en uit Groepen de groepstabel en de symmetriegroepen.}
+
+In hoofdstuk 1 zag je dat de machten van één element een groep vormen binnen een grotere groep. Zo'n groep in een groep heet een \textit{deelgroep}. Je kent er al meer: de draaiingen van de gelijkzijdige driehoek vormen een groep binnen alle symmetrieën van de driehoek, en de even getallen vormen een groep binnen de gehele getallen.
+
+In dit hoofdstuk leer je snel nagaan of een deelverzameling een deelgroep is. Daarna bewijs je de belangrijkste stelling over eindige groepen: het aantal elementen van een deelgroep is altijd een deler van het aantal elementen van de groep. Dat is de stelling van Lagrange. Ze bewijst het vermoeden uit hoofdstuk 1, en ze geeft een nieuw bewijs van een bekende stelling over priemgetallen. Ze zegt ook meteen dat de tetraëder geen groep van 5 draaiingen heeft. Voor 6 draaiingen heb je nog een extra idee nodig.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. Door $\{0, 4, 8\}$ te verschuiven, vinden de leerlingen vier driehoeken die de twaalf getallen precies één keer bedekken: dat zijn de nevenklassen van sectie 2. De laatste vraag laat vermoeden dat een deelgroep van $\Zn{12}$ geen 5 elementen kan hebben.}
+
+%========================================================================================
+\section{Deelgroepen}
+
+\subsection{Wat is een deelgroep?}
+
+De draaiingen $e$, $r$ en $r^2$ van de gelijkzijdige driehoek vormen met de samenstelling een groep: twee draaiingen na elkaar geven een draaiing, en elke draaiing kun je terugdraaien. Ze liggen in de grotere symmetriegroep van de driehoek, met dezelfde bewerking. Zo'n groep in een groep krijgt een naam.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{deelgroep}} van een groep $(G, \ast)$ is een niet-lege deelverzameling $H \subseteq G$ die met dezelfde bewerking $\ast$ zelf een groep is. We noteren \quad $\formule{H \leqslant G}$
+\end{theorie}
+
+Elke groep $G$ heeft minstens twee deelgroepen: $\{e\}$ en $G$ zelf. Uit hoofdstuk 1 ken je er veel meer: voor elk element $a$ is $\vb{a}$ een deelgroep van $G$. Maar moet je telkens alle eigenschappen van een groep nagaan? De associativiteit krijg je gratis, want ze geldt al in $G$. Ook de rest kan korter.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van een deelgroep}
+Een niet-lege deelverzameling $H$ van een groep $(G, \ast)$ is een deelgroep als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{a, b \in H \ \Rightarrow \ a \ast b \in H}$ \qquad en \qquad $\formule{a \in H \ \Rightarrow \ a^{-1} \in H}$
+\end{stelling}
+
+\begin{bewijs}
+Stel dat $H$ een deelgroep is. Dan is $\ast$ een bewerking op $H$: de eerste voorwaarde. Noem $f$ het neutraal element van $H$. In $G$ is $f \ast f = f = f \ast e$, en schrappen geeft $f = e$. Heeft $a \in H$ in $H$ de inverse $a''$, dan is $a \ast a'' = e$, en omdat de inverse in $G$ uniek is, is $a'' = a^{-1}$. Dus $a^{-1} \in H$.
+
+Omgekeerd: de eerste voorwaarde zegt dat $\ast$ een bewerking is op $H$, en ze is associatief omdat ze dat in $G$ is. Neem $a \in H$ (er is er een, want $H$ is niet leeg). Dan is $a^{-1} \in H$ en
+\bewijsregel{e = a \ast a^{-1} \in H .}
+Elk element van $H$ heeft zijn inverse in $H$, dus $H$ is een groep.
+\end{bewijs}
+\end{theorie}
+
+Het bewijs toont ook iets wat je nodig hebt bij het nagaan: een deelgroep bevat altijd het neutraal element $e$ van $G$. Ligt $e$ niet in $H$, dan ben je meteen klaar: geen deelgroep.
+
+\voorbeeld{}{Toon aan dat de veelvouden van 3, $3\Z = \{\ldots, -6, -3, 0, 3, 6, \ldots\}$, een deelgroep vormen van $(\Z, +)$.\label{vb:h2-deelgroep}}{%
+\uitleg{$3\Z$ is niet leeg, want $0 \in 3\Z$. We gaan de twee voorwaarden van het kenmerk na met willekeurige elementen $3k$ en $3l$, met $k, l \in \Z$.}
+\begin{stappen}
+3k + 3l = 3(k + l) \in 3\Z & De som van twee veelvouden van 3 is een veelvoud van 3. \\[1ex]
+-(3k) = 3 \cdot (-k) \in 3\Z & De inverse voor $+$ is het tegengestelde.
+\end{stappen}
+$3\Z$ is een deelgroep van $(\Z, +)$. Net zo is $n\Z$ een deelgroep voor elk natuurlijk getal $n$.}
+
+\voorbeeld{}{Is $\{e, s_1, s_2\}$ een deelgroep van de symmetriegroep van de gelijkzijdige driehoek?\label{vb:h2-geendeelgroep}}{%
+\uitleg{We zoeken een samenstelling die buiten de verzameling valt. Twee spiegelingen na elkaar geven een draaiing.}
+\begin{stappen}
+s_1 \circ s_2 = r & Uit de tabel in Groepen, hoofdstuk 3. \\[1ex]
+r \notin \{e, s_1, s_2\} & De eerste voorwaarde faalt.
+\end{stappen}
+Het is geen deelgroep, ook al bevat het $e$ en de inverse van elk element.}
+
+\voorbeeld{}{Is $\N$ een deelgroep van $(\Z, +)$?\label{vb:h2-nietinvers}}{%
+\uitleg{De som van twee natuurlijke getallen is natuurlijk: de eerste voorwaarde klopt. We kijken naar de inversen.}
+\begin{stappen}
+2 \in \N, \ \ -2 \notin \N & De inverse van 2 ligt niet in $\N$.
+\end{stappen}
+$\N$ is geen deelgroep van $(\Z, +)$: je moet beide voorwaarden nagaan.}
+
+\begin{werkwijze}
+Ga na of $H$ niet leeg is (ligt $e$ erin?), of $a \ast b \in H$ voor alle $a, b \in H$, en of $a^{-1} \in H$ voor alle $a \in H$. Bewijs dat met willekeurige elementen. Faalt één voorwaarde, geef dan een tegenvoorbeeld.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-deelgroep}
+\end{oefeningen}
+
+\subsection{Deelgroepen van een eindige groep}
+
+In een eindige groep is het nog eenvoudiger: de inversen komen vanzelf. Elk element heeft er een orde $n$, dus $a^{n - 1} \ast a = e$: de inverse is een macht van $a$ zelf.
+
+\begin{theorie}
+\begin{stelling}{Eindige deelgroep}
+Een niet-lege eindige deelverzameling $H$ van een groep is een deelgroep als en slechts als \quad $\formule{a, b \in H \ \Rightarrow \ a \ast b \in H}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $a \in H$. Alle machten $a, a^2, a^3, \ldots$ liggen in $H$, en $H$ is eindig. Zoals in hoofdstuk 1 (orde in een eindige groep) heeft $a$ dan een eindige orde $n$. Is $n = 1$, dan is $a = e = a^{-1}$. Anders is
+\bewijsregel{a^{-1} = a^{n - 1} \in H .}
+Volgens het kenmerk is $H$ een deelgroep.
+\end{bewijs}
+\end{theorie}
+
+Met deze stelling vind je alle deelgroepen van een kleine groep. Je kunt ze tekenen in een \textit{deelgroepenschema}: een deelgroep staat hoger dan de deelgroepen die erin liggen, en een lijn verbindt ze.
+
+\voorbeeld{}{Bepaal alle deelgroepen van de symmetriegroep van de gelijkzijdige driehoek.\label{vb:h2-allesD3}}{%
+\uitleg{Een deelgroep die een element bevat, bevat ook al zijn machten. We vertrekken van de deelgroepen $\vb{a}$ en kijken wat er gebeurt als we twee elementen samen nemen.}
+\naast{\begin{minipage}{\linewidth}
+\begin{stappenvrij}{3.2cm}{5.6cm}
+\{e\}, \ \vb{s_1}, \ \vb{s_2}, \ \vb{s_3} & $\vb{s_i} = \{e, s_i\}$, want $s_i^2 = e$. \\[1ex]
+\vb{r} = \{e, r, r^2\} & De draaiingen; $\vb{r^2}$ is dezelfde. \\[1ex]
+r \text{ en } s_i & Bevat $H$ een draaiing en een spiegeling $s_i$, dan ook $\vb{r}$, en $r \circ s_i$ en $r^2 \circ s_i$: de andere twee spiegelingen. $H$ is de hele groep. \\[1ex]
+s_i \text{ en } s_j \ (i \neq j) & Bevat $H$ twee spiegelingen, dan ook hun samenstelling, een draaiing $r$ of $r^2$: zie het vorige geval.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize,y=1.25cm]
+  \node (G) at (0,2.2) {$G$};
+  \node (R) at (-1.3,1.3) {$\vb{r}$};
+  \node (S1) at (-.15,.8) {$\vb{s_1}$};
+  \node (S2) at (.75,.8) {$\vb{s_2}$};
+  \node (S3) at (1.65,.8) {$\vb{s_3}$};
+  \node (E) at (0,-.1) {$\{e\}$};
+  \foreach \x in {R,S1,S2,S3}{\draw[accent,thick] (G) -- (\x) -- (E);}
+  \foreach \y/\t in {2.2/6,1.3/3,.8/2,-.1/1}{\node[grijs,anchor=east] at (-1.8,\y) {\t};}
+\end{tikzpicture}}
+Er zijn zes deelgroepen: $\{e\}$, de drie $\vb{s_i}$, $\vb{r}$ en de hele groep. De getallen links in het schema zijn hun aantal elementen: 1, 2, 3 en 6, allemaal delers van 6.}
+
+\begin{oefeningen}
+\oef{h2-eindig}
+\end{oefeningen}
+
+\subsection{Deelgroepen van een cyclische groep}
+
+In de Verken vond je in $\Zn{12}$ deelgroepen met 3 en met 4 elementen. Elke deelgroep die je in $\Zn{12}$ kunt vinden, is zelf cyclisch. Dat geldt in elke cyclische groep.
+
+\begin{theorie}
+\begin{stelling}{Deelgroepen van een cyclische groep}
+Elke deelgroep van een cyclische groep is cyclisch.
+\end{stelling}
+
+\begin{bewijs}
+Stel $G = \vb{a}$ en $H \leqslant G$. Is $H = \{e\}$, dan is $H = \vb{e}$. Anders bevat $H$ een macht $a^k \neq e$, en ook $a^{-k}$: er zijn machten met een positieve exponent in $H$. Neem de kleinste $m \geqslant 1$ met $a^m \in H$. Dan is $\vb{a^m} \subseteq H$. Omgekeerd: neem $a^k \in H$ en deel $k$ door $m$, met $k = qm + r$ en $0 \leqslant r < m$. Dan is
+\bewijsregel{a^r = a^k \ast (a^m)^{-q} \in H ,}
+en omdat $m$ de kleinste positieve exponent is in $H$, is $r = 0$. Dus $a^k = (a^m)^q \in \vb{a^m}$, en $H = \vb{a^m}$.
+\end{bewijs}
+\end{theorie}
+
+Zo zijn de deelgroepen van $(\Z, +)$ precies de verzamelingen $n\Z$, met $n \in \N$. In $\Zn{n}$ vind je voor elke deler $d$ van $n$ precies één deelgroep met $d$ elementen: $\vb{\tfrac{n}{d}}$. Dat bewijs je in de opdrachten.
+
+\voorbeeld{}{Bepaal alle deelgroepen van $(\Zn{12}, \plusn)$ en teken het deelgroepenschema.\label{vb:h2-Z12}}{%
+\uitleg{Elke deelgroep is cyclisch, dus van de vorm $\vb{k}$. We berekenen $\vb{k}$ voor elke $k$: met de orde $12 : \ggd(k, 12)$ uit hoofdstuk 1 hangt $\vb{k}$ alleen af van $\ggd(k, 12)$.}
+\naast{\begin{minipage}{\linewidth}
+\begin{stappenvrij}{6.4cm}{3.3cm}
+\vb{0} = \{0\} & 1 element. \\[1ex]
+\vb{6} = \{0, 6\} & 2 elementen. \\[1ex]
+\vb{4} = \vb{8} = \{0, 4, 8\} & 3 elementen. \\[1ex]
+\vb{3} = \vb{9} = \{0, 3, 6, 9\} & 4 elementen. \\[1ex]
+\vb{2} = \vb{10} = \{0, 2, 4, \ldots, 10\} & 6 elementen. \\[1ex]
+\vb{1} = \vb{5} = \vb{7} = \vb{11} = \Zn{12} & De voortbrengers.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize,x=.9cm,y=.85cm]
+  \node (a) at (0,3) {$\Zn{12}$};
+  \node (b) at (-1,2) {$\vb{2}$};
+  \node (c) at (1,2) {$\vb{3}$};
+  \node (d) at (1,1) {$\vb{6}$};
+  \node (e) at (-1,1) {$\vb{4}$};
+  \node (f) at (0,0) {$\vb{0}$};
+  \draw[accent,thick] (a) -- (b) (a) -- (c) (b) -- (d) (c) -- (d) (b) -- (e) (d) -- (f) (e) -- (f);
+  \node[grijs,anchor=west] at (1.5,3) {12};
+  \node[grijs,anchor=west] at (1.5,2) {6 en 4};
+  \node[grijs,anchor=west] at (1.5,1) {3 en 2};
+  \node[grijs,anchor=west] at (1.5,0) {1};
+\end{tikzpicture}}
+Er zijn zes deelgroepen, één voor elke deler van 12. Een lijn betekent dat de onderste deelgroep in de bovenste ligt: $\vb{6} \subseteq \vb{2}$ en $\vb{6} \subseteq \vb{3}$, maar $\vb{4} \not\subseteq \vb{3}$.}
+
+\begin{oefeningen}
+\oef{h2-cyclischdeel}
+\end{oefeningen}
+
+%========================================================================================
+\section{De stelling van Lagrange}
+
+\subsection{Nevenklassen}
+
+Waarom heeft elke deelgroep in de voorbeelden een aantal elementen dat de orde van de groep deelt? In de Verken verschoof je de deelgroep $H = \{0, 4, 8\}$ van $\Zn{12}$ over 1, 2 en 3. Je kreeg vier driehoeken van elk drie getallen, die samen alle twaalf getallen precies één keer bedekken. Dus is $12 = 4 \cdot 3$. Dat idee werkt in elke groep.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \kring[1.25]{12}
+  \foreach \c/\kl in {0/fel!85!black,1/accent,2/accent!60,3/grijs}{%
+    \draw[\kl,thick,line join=round] \kpt{12}{\c}{1.25} -- \kpt{12}{\c+4}{1.25} -- \kpt{12}{\c+8}{1.25} -- cycle;}
+  \begin{scope}[xshift=4.6cm]
+  \node[anchor=west,align=left] at (0,.75) {$H = 0 \plusn H = \{0, 4, 8\}$};
+  \node[anchor=west] at (0,.25) {$1 \plusn H = \{1, 5, 9\}$};
+  \node[anchor=west] at (0,-.25) {$2 \plusn H = \{2, 6, 10\}$};
+  \node[anchor=west] at (0,-.75) {$3 \plusn H = \{3, 7, 11\}$};
+  \end{scope}
+\end{tikzpicture}}
+
+\begin{theorie}
+Is $H$ een deelgroep van $(G, \ast)$ en $a \in G$, dan is de \textbf{\textcolor{accent}{nevenklasse}} van $a$
+
+\vspace{1mm}
+\qquad $\formule{a \ast H = \{a \ast h \mid h \in H\}}$
+
+\vspace{1mm}
+Bij een optelling schrijf je $a + H$ of $a \plusn H$.
+\end{theorie}
+
+Elk element ligt in zijn eigen nevenklasse, want $a = a \ast e$ en $e \in H$. De nevenklasse van een element van $H$ is $H$ zelf. Om tot de stelling van Lagrange te komen, hebben we twee eigenschappen nodig.
+
+\begin{theorie}
+\begin{stelling}{Even grote nevenklassen}
+Is $H$ een eindige deelgroep, dan heeft elke nevenklasse $a \ast H$ evenveel elementen als $H$.
+\end{stelling}
+
+\begin{bewijs}
+De elementen van $a \ast H$ zijn $a \ast h$, met $h \in H$. Twee verschillende $h$ geven verschillende elementen, want uit $a \ast h_1 = a \ast h_2$ volgt $h_1 = h_2$ (schrappen). Er zijn dus evenveel elementen $a \ast h$ als elementen $h$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Nevenklassen overlappen niet}
+Twee nevenklassen $a \ast H$ en $b \ast H$ zijn gelijk, of ze hebben geen enkel element gemeen.
+\end{stelling}
+
+\begin{bewijs}
+Stel dat ze een element gemeen hebben: $a \ast h_1 = b \ast h_2$ met $h_1, h_2 \in H$. Dan is $a = b \ast h_2 \ast h_1^{-1}$, en voor elke $h \in H$ is
+\bewijsregel{a \ast h = b \ast (h_2 \ast h_1^{-1} \ast h) \in b \ast H ,}
+want $h_2 \ast h_1^{-1} \ast h \in H$. Dus $a \ast H \subseteq b \ast H$. Op dezelfde manier is $b \ast H \subseteq a \ast H$.
+\end{bewijs}
+\end{theorie}
+
+De nevenklassen verdelen de groep dus in even grote, losse stukken, zoals de vier driehoeken in de figuur.
+
+\voorbeeld{}{Bepaal de nevenklassen van $H = \{e, s_1\}$ in de symmetriegroep van de gelijkzijdige driehoek.\label{vb:h2-nevenklassen}}{%
+\uitleg{We berekenen $a \circ H = \{a, a \circ s_1\}$ voor elk element $a$, met de tabel uit Groepen. Elementen die al in een nevenklasse zitten, geven dezelfde nevenklasse.}
+\naast{\begin{minipage}{\linewidth}
+\begin{stappenvrij}{5.9cm}{3.4cm}
+e \circ H = s_1 \circ H = \{e, s_1\} & De deelgroep zelf. \\[1ex]
+r \circ H = \{r, r \circ s_1\} = \{r, s_3\} & In de tabel: $r \circ s_1 = s_3$. \\[1ex]
+r^2 \circ H = \{r^2, r^2 \circ s_1\} = \{r^2, s_2\} & En $r^2 \circ s_1 = s_2$.
+\end{stappenvrij}
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \x/\a/\b in {0/e/s_1,1.15/r/s_3,2.3/r^2/s_2}{%
+    \draw[accent,thick,fill=accent!8,rounded corners=6pt] (\x-.42,-.95) rectangle (\x+.42,.95);
+    \node at (\x,.45) {$\a$};\node at (\x,-.45) {$\b$};}
+\end{tikzpicture}}
+Er zijn drie nevenklassen met elk twee elementen: $6 = 3 \cdot 2$.}
+
+Let op: $a \ast H$ en $H \ast a$ kunnen verschillen. Zo is $H \circ r = \{r, s_1 \circ r\} = \{r, s_2\}$, en dat is niet $r \circ H$. In deze cursus gebruiken we alleen nevenklassen met $a$ links.
+
+\begin{oefeningen}
+\oef{h2-nevenklassen}
+\end{oefeningen}
+
+\subsection{De stelling}
+
+Nu volgt de stelling van Lagrange in één regel: de groep is verdeeld in nevenklassen, en die hebben allemaal $|H|$ elementen.
+
+\begin{theorie}
+Het aantal verschillende nevenklassen van $H$ in $G$ is de \textbf{\textcolor{accent}{index}} $\formule{[G : H]}$
+
+\begin{stelling}{Stelling van Lagrange}
+Is $H$ een deelgroep van een eindige groep $G$, dan is \qquad $\formule{|G| = [G : H] \cdot |H|}$
+
+\vspace{1mm}
+In het bijzonder is $|H|$ een deler van $|G|$.
+\end{stelling}
+
+\begin{bewijs}
+Elk element van $G$ ligt in een nevenklasse (zijn eigen), en in niet meer dan één, want twee verschillende nevenklassen overlappen niet. De $[G : H]$ nevenklassen verdelen $G$ dus in losse stukken, en elk stuk heeft $|H|$ elementen. Tel ze op: $|G| = [G : H] \cdot |H|$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: een groep kun je in even grote stukken verdelen, met een deelgroep als vorm van elk stuk. De stelling is genoemd naar Joseph-Louis Lagrange, die in 1771 een vroege vorm ervan vond toen hij onderzocht hoe de oplossingen van een vergelijking van plaats kunnen wisselen. In de vorm van het kader bewezen latere wiskundigen ze, toen het begrip groep er was.
+
+\voorbeeld{}{Een groep $G$ heeft 12 elementen. Hoeveel elementen kan een deelgroep van $G$ hebben? Kan $G$ een deelgroep met 8 elementen hebben?\label{vb:h2-lagrange}}{%
+\uitleg{Volgens Lagrange deelt $|H|$ het getal 12. We sommen de delers op.}
+\begin{stappen}
+|H| \in \{1, 2, 3, 4, 6, 12\} & De delers van 12. \\[1ex]
+8 \nmid 12 & Geen deelgroep met 8 elementen.
+\end{stappen}
+Lagrange zegt niet dat er voor elke deler ook een deelgroep is. Dat zie je bij de tetraëder van het probleem.}
+
+\begin{werkwijze}
+Om een uitspraak over het aantal elementen van een deelgroep te weerleggen, kijk je of dat aantal de orde van de groep deelt. Deelt het niet, dan bestaat zo'n deelgroep niet. Deelt het wel, dan moet je de deelgroep nog zoeken. De index vind je als $[G : H] = |G| : |H|$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-lagrange}
+\end{oefeningen}
+
+%========================================================================================
+\section{Gevolgen van de stelling van Lagrange}
+
+\subsection{De orde van een element}
+
+Nu kunnen we het vermoeden uit hoofdstuk 1 bewijzen. De machten van een element vormen een deelgroep, en het aantal elementen van die deelgroep is de orde van het element.
+
+\begin{theorie}
+\begin{stelling}{Orde van een element}
+In een eindige groep $G$ is de orde van elk element een deler van $|G|$.
+\end{stelling}
+
+\begin{bewijs}
+$\vb{a}$ is een deelgroep van $G$ met $\ord(a)$ elementen (hoofdstuk 1). Volgens Lagrange deelt $\ord(a)$ dus $|G|$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Macht tot de orde van de groep}
+In een eindige groep $G$ is \qquad $\formule{a^{|G|} = e}$ \qquad voor elk element $a$.
+\end{stelling}
+
+\begin{bewijs}
+$\ord(a)$ deelt $|G|$, dus $a^{|G|} = e$ (hoofdstuk 1: wanneer is $a^k = e$?).
+\end{bewijs}
+\end{theorie}
+
+Je hoeft de orde van een element dus niet te kennen om een grote macht te berekenen: de orde van de groep volstaat als exponent die $e$ geeft.
+
+\voorbeeld{}{Bereken $3^{100}$ in de groep $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$.\label{vb:h2-macht}}{%
+\uitleg{De groep heeft 6 elementen, dus $3^6 = 1$. We delen de exponent door 6.}
+\begin{stappen}
+100 = 16 \cdot 6 + 4 & Deel door $|G| = 6$. \\[1ex]
+3^{100} = (3^6)^{16} \maaln 3^4 = 3^4 & Macht tot de orde van de groep. \\[1ex]
+3^4 = 81 = 11 \cdot 7 + 4 & De uitkomst is 4.
+\end{stappen}}
+
+\subsection{Groepen met een priemgetal als orde}
+
+Heeft een groep een priemgetal $p$ als orde, dan laat Lagrange bijna niets toe: een deelgroep heeft 1 of $p$ elementen.
+
+\begin{theorie}
+\begin{stelling}{Groep van priemorde}
+Een groep waarvan de orde een priemgetal $p$ is, is cyclisch. Elk element verschillend van $e$ is een voortbrenger.
+\end{stelling}
+
+\begin{bewijs}
+Neem $a \neq e$. De orde van $a$ deelt $p$ en is niet 1, dus ze is $p$. Dan heeft $\vb{a}$ evenveel elementen als $G$, en is $\vb{a} = G$.
+\end{bewijs}
+\end{theorie}
+
+Zo is elke groep met 2, 3, 5, 7 of 11 elementen cyclisch, en dus ook commutatief. Een groep met 7 elementen ziet eruit zoals $(\Zn{7}, \plusn)$: in hoofdstuk 3 maken we dat precies.
+
+\voorbeeld{}{Toon aan dat elk element van $(\Zn{11}, \plusn)$ verschillend van 0 een voortbrenger is, zonder een orde uit te rekenen. Wat is de orde van 7?\label{vb:h2-priem}}{%
+\uitleg{De groep heeft 11 elementen, en 11 is een priemgetal.}
+\begin{stappen}
+\ord(k) \mid 11 & Orde van een element. \\[1ex]
+k \neq 0 \Rightarrow \ord(k) = 11 & De enige delers zijn 1 en 11, en alleen 0 heeft orde 1.
+\end{stappen}
+De orde van 7 is 11. Dat volgt ook uit $\ggd(7, 11) = 1$.}
+
+\begin{oefeningen}
+\oef{h2-gevolgen}
+\end{oefeningen}
+
+\subsection{De eenheden modulo \texorpdfstring{$n$}{n}}
+
+In Groepen zag je dat $\bigl(\Zn{n} \setminus \{0\}, \maaln\bigr)$ geen groep is als $n$ geen priemgetal is: in $\Zn{6}$ is $2 \maaln 3 = 0$. Laat je ook de getallen weg die een deler met $n$ gemeen hebben, dan krijg je wel een groep. In $\Zn{8}$ was dat $\{1, 3, 5, 7\}$.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{eenheden}} modulo $n$ zijn de elementen van $\Zn{n}$ die geen deler groter dan 1 met $n$ gemeen hebben:
+
+\vspace{1mm}
+\qquad $\formule{\Zs{n} = \{k \in \Zn{n} \mid \ggd(k, n) = 1\}}$ \qquad met \quad $\formule{|\Zs{n}| = \varphi(n)}$
+
+\begin{stelling}{Groep van de eenheden}
+$(\Zs{n}, \maaln)$ is een commutatieve groep.
+\end{stelling}
+
+\begin{bewijs}
+Hebben $k$ en $l$ geen priemfactor gemeen met $n$, dan ook $kl$ niet, en ook de rest van $kl$ bij deling door $n$ niet (een gemeenschappelijke deler van die rest en $n$ deelt ook $kl$). Dus $\maaln$ is een bewerking op $\Zs{n}$. Ze is associatief en commutatief, zoals in Groepen, en $1$ is het neutraal element.
+
+Inverse: neem $k \in \Zs{n}$, en bekijk $k \maaln x$ voor de $\varphi(n)$ elementen $x \in \Zs{n}$. Uit $k \maaln x = k \maaln y$ volgt dat $n$ een deler is van $k(x - y)$, en omdat $k$ geen priemfactor met $n$ gemeen heeft, deelt $n$ dan $x - y$: $x = y$. De $\varphi(n)$ producten zijn dus verschillend: het zijn alle elementen van $\Zs{n}$, ook 1. Er is dus een $x$ met $k \maaln x = 1$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Stelling van Euler}
+Heeft $k$ geen deler groter dan 1 met $n$ gemeen, dan is
+
+\vspace{1mm}
+\qquad $\formule{k^{\varphi(n)} \text{ heeft rest } 1 \text{ bij deling door } n}$
+\end{stelling}
+
+\begin{bewijs}
+De rest van $k$ ligt in de groep $\Zs{n}$, die $\varphi(n)$ elementen heeft. Volgens de vorige sectie is $k^{\varphi(n)} = 1$ in die groep.
+\end{bewijs}
+\end{theorie}
+
+Leonhard Euler bewees deze stelling in 1763, zonder groepen. Met Lagrange is het bewijs één regel. Is $n = p$ een priemgetal, dan is $\varphi(p) = p - 1$, en krijg je de kleine stelling van Fermat: $a^{p - 1}$ heeft rest 1 bij deling door $p$ (zie de Koppel).
+
+\voorbeeld{}{Bepaal $\Zs{15}$, en bereken met de stelling van Euler de rest van $7^{2026}$ bij deling door 15.\label{vb:h2-euler}}{%
+\uitleg{$15 = 3 \cdot 5$: we schrappen de veelvouden van 3 en 5. Daarna delen we de exponent door $\varphi(15)$.}
+\begin{stappen}
+\Zs{15} = \{1, 2, 4, 7, 8, 11, 13, 14\} & $\varphi(15) = 8$. \\[1ex]
+2026 = 253 \cdot 8 + 2 & Deel de exponent door 8. \\[1ex]
+7^{2026} = (7^8)^{253} \maaln 7^2 = 49 \to 4 & $49 = 3 \cdot 15 + 4$.
+\end{stappen}
+De rest is 4. In feite heeft 7 al orde 4 in $\Zs{15}$, maar dat hoefden we niet te weten.}
+
+\begin{werkwijze}
+Om een grote macht te berekenen in een eindige groep, deel je de exponent door de orde van de groep (of door de orde van het element, als je die kent), en hou je de rest als exponent. Voor een rest bij deling door $n$ is de groep $\Zs{n}$, met orde $\varphi(n)$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-eenheden}
+\end{oefeningen}
+
+\subsection{Geldt het omgekeerde?}
+
+Heeft een groep met 12 elementen voor elke deler van 12 een deelgroep? Bij $\Zn{12}$ wel, maar bij de draaiingen van de tetraëder niet. Om dat te bewijzen, gebruiken we een eigenschap van een deelgroep die precies de helft van de groep bevat.
+
+\begin{theorie}
+\begin{stelling}{Deelgroep met index 2}
+Is $[G : H] = 2$, dan is \qquad $\formule{a^2 \in H}$ \qquad voor elk element $a$ van $G$.
+\end{stelling}
+
+\begin{bewijs}
+Voor $a \in H$ is het duidelijk. Neem $a \notin H$. De twee nevenklassen zijn $H$ en $a \ast H$, en $a^2$ ligt in een van beide. Stel $a^2 \in a \ast H$, dus $a^2 = a \ast h$ met $h \in H$. Schrappen geeft $a = h \in H$, en dat kan niet. Dus $a^2 \in H$.
+\end{bewijs}
+\end{theorie}
+
+Nu kunnen we het probleem oplossen. Nummer de hoekpunten van de tetraëder 1 (boven), 2, 3 en 4. Elke draaiing permuteert de hoekpunten, en we schrijven ze in cykels. Naast $e$ zijn er twee soorten draaiingen. Om de as door een hoekpunt en het midden van het overstaande zijvlak draai je over $120^\circ$ of $240^\circ$: vier assen, dus 8 draaiingen van orde 3, zoals $\cyc{2 & 3 & 4}$. Om de as door de middens van twee overstaande ribben draai je een halve draai: drie assen, dus 3 draaiingen van orde 2, zoals $\cyc{1 & 2} \circ \cyc{3 & 4}$. Samen met $e$ zijn dat er 12.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \draw[grijs,dashed] (.05,2.05) -- (.07,-.37);
+  \tetraeder
+  \node[left=3pt] at (T) {$1$};\node[below left=-1pt] at (A) {$2$};
+  \node[below right=-1pt] at (B) {$3$};\node[below=1.5pt] at (C) {$4$};
+  \node at (0,-1.15) {$\cyc{2 & 3 & 4}$: as door hoekpunt 1};
+  \begin{scope}[xshift=5cm]
+  \tetraeder
+  \coordinate (M1) at ($(T)!.5!(A)$);\coordinate (M2) at ($(B)!.5!(C)$);
+  \draw[grijs,dashed] ($(M1)!-.35!(M2)$) -- ($(M2)!-.35!(M1)$);
+  \fill[fel!85!black] (M1) circle (1.5pt) (M2) circle (1.5pt);
+  \node[left=3pt] at (T) {$1$};\node[below left=-1pt] at (A) {$2$};
+  \node[below right=-1pt] at (B) {$3$};\node[below=1.5pt] at (C) {$4$};
+  \node at (0,-1.15) {$\cyc{1 & 2} \circ \cyc{3 & 4}$: halve draai};
+  \end{scope}
+\end{tikzpicture}}
+
+\voorbeeld{}{Terug naar het probleem. Hoeveel draaiingen kan een groep van draaiingen van de tetraëder tellen? Bestaat er een met 5 of met 6 draaiingen?\label{vb:h2-terug}}{%
+\uitleg{De 12 draaiingen vormen een groep $G$. We passen eerst Lagrange toe. Voor 6 draaiingen gebruiken we de stelling over index 2.}
+\begin{stappenbreed}
+1, \ 2, \ 3, \ 4, \ 6, \ 12 & Volgens Lagrange de mogelijke aantallen: 5 deelt 12 niet, dus er is geen groep met 5 draaiingen. \\[1ex]
+|H| = 6 \ \Rightarrow \ [G : H] = 2 & Stel dat er een groep $H$ met 6 draaiingen bestaat. \\[1ex]
+\rho = \rho^4 = (\rho^2)^2 \in H & Voor elke draaiing $\rho$ van orde 3 is $\rho^3 = e$, dus $\rho$ is een kwadraat, en ligt in $H$ (index 2). \\[1ex]
+|H| \geqslant 8 + 1 & Alle 8 draaiingen van orde 3 en $e$ liggen in $H$: meer dan 6. Tegenspraak.
+\end{stappenbreed}
+Er is dus geen groep van 5 en ook geen van 6 draaiingen.}
+
+De andere aantallen komen wel voor: $\{e\}$, drie groepen $\{e, \text{halve draai}\}$ met 2 elementen, vier groepen $\vb{\rho}$ met 3 elementen (één per as door een hoekpunt), één groep met 4 elementen ($e$ en de drie halve draaien), en de hele groep. De stelling van Lagrange geeft dus een voorwaarde die nodig is, maar niet voldoende. Wiskundigen vonden later wel gedeeltelijke omkeringen: is een priemgetal $p$ een deler van $|G|$, dan heeft $G$ altijd een element van orde $p$ (Augustin-Louis Cauchy, 1845). Bij de tetraëder: 2 en 3 delen 12, en er zijn halve draaien en draaiingen over $120^\circ$.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Getaltheorie is een module van Complementair: de eerste twee oefeningen geven een tweede bewijs van de kleine stelling van Fermat en van de werking van RSA (Getaltheorie, hoofdstuk 4). Zonder die module zijn ze een kennismaking. Matrices zit in het 5de jaar van pakket 4.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-deelgroep}{oef:h2-deelgroep}%
+  \fv{oef:h2-t2}{vb:h2-Z12}{oef:h2-cyclischdeel}%
+  \fv{oef:h2-t3}{vb:h2-nevenklassen}{oef:h2-nevenklassen}%
+  \fv{oef:h2-t4}{vb:h2-lagrange}{oef:h2-lagrange}%
+  \fv{oef:h2-t5}{vb:h2-macht}{oef:h2-gevolgen}%
+  \fv{oef:h2-t6}{vb:h2-euler}{oef:h2-eenheden}%
+  \fv{oef:h2-t7}{vb:h2-priem}{oef:h2-o3}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een deelgroep is, het kenmerk van een deelgroep en de kortere versie voor eindige deelverzamelingen (met een voorbeeld en twee tegenvoorbeelden), waarom elke deelgroep van een cyclische groep cyclisch is, wat een nevenklasse is en de twee eigenschappen van nevenklassen, de stelling van Lagrange met haar bewijs, de gevolgen voor de orde van een element en voor groepen van priemorde, de groep $\Zs{n}$ en de stelling van Euler, en waarom het omgekeerde van Lagrange niet geldt. Vergelijk daarna met de kaders.
+\fi

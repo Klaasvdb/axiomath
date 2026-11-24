@@ -1,0 +1,562 @@
+%----------------------------------------------------------------------------------------
+% LINEAIRE AFBEELDINGEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Lineaire afbeeldingen}
+
+\begin{probleem}
+\naast{Op een zonnige namiddag vallen de zonnestralen evenwijdig, in de richting $\vec d = (1, 2, -2)$. De $x$- en de $y$-as liggen op de grond, de $z$-as wijst omhoog, en de eenheid is de meter. In de oorsprong staat een verticale paal van 2 meter. Waar valt de schaduw van zijn top? Een architect wil de schaduw kennen van een gebouw met duizenden hoekpunten: kan hij de schaduw van elk punt $(x, y, z)$ met één matrix berekenen? En welke punten hebben dezelfde schaduw als de top van de paal?}{\begin{tikzpicture}[ruimte,scale=.85,font=\scriptsize]
+  \fill[accent!10] (-.6,-.6,0) -- (2.4,-.6,0) -- (2.4,3,0) -- (-.6,3,0) -- cycle;
+  \assendrie{2.6}
+  \draw[grijs,very thick] (0,0,0) -- (0,0,2);
+  \fill[black] (0,0,2) circle (1.6pt);
+  \draw[fel!80!black,thick,-{Stealth[length=2mm]}] (-.6,-1.2,3.2) -- (0,0,2);
+  \draw[fel!80!black,thick,dashed] (0,0,2) -- (1,2,0);
+  \draw[black,line width=2.4pt,opacity=.55] (0,0,0) -- (1,2,0);
+  \fill[accent] (1,2,0) circle (1.8pt);
+  \node[left] at (0,0,2) {top};
+  \node[right] at (-.3,-.6,2.6) {$\vec d$};
+  \node[below right] at (1,2,0) {schaduw};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 34, het deel over lineaire afbeeldingen, met de wenk over het verband met matrices: elke lineaire afbeelding van $\R^n$ naar $\R^m$ is een vermenigvuldiging met een $m \times n$-matrix. Voorkennis: hoofdstuk 1 en 2, en uit pakket 4 het matrixproduct met zijn rekenregels (Matrices, hoofdstuk 1), de rang en de inverse (Matrices, hoofdstuk 3), de somformules (Goniometrische functies) en vectoren in de ruimte (Ruimtemeetkunde). Uitbreidingen die de LPD dragen: kern en beeld (met de stelling dat het deelruimten zijn), injectief, de dimensiestelling, de structuur van de oplossingen van $AX = B$, en de samenstelling als matrixproduct.}
+
+In de vorige hoofdstukken bekeken we één vectorruimte tegelijk. Nu bekijken we functies tussen twee vectorruimten. De interessantste zijn de functies die de bewerkingen respecteren: het beeld van een som is de som van de beelden, en het beeld van een veelvoud is het veelvoud van het beeld. Zo'n functie heet \textit{lineair}. In Groepen zag je al iets gelijkaardigs: twee groepen met dezelfde structuur.
+
+Je kent veel lineaire afbeeldingen zonder dat je ze zo noemde. Een draaiing om de oorsprong, een spiegeling om een rechte door de oorsprong, de afgeleide van een veelterm, en ook de schaduw van het probleem. Bij $\R^n$ blijkt elke lineaire afbeelding een vermenigvuldiging met een matrix te zijn. Zo krijgen matrices een nieuwe betekenis: een matrix is een afbeelding.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h3-verken} maken vóór de uitleg. Bij $f$ is het beeld van $(3, 2)$ gelijk aan $3f(1, 0) + 2f(0, 1)$: de beelden van twee vectoren leggen alles vast. Bij $g$, een verschuiving, loopt dat mis.}
+
+%========================================================================================
+\section{Lineaire afbeeldingen}
+
+\subsection{De definitie}
+
+Een functie van een vectorruimte naar een andere noemen we een \textit{afbeelding}, en we schrijven $f \colon V \to W$. Welke afbeeldingen passen bij de structuur van een vectorruimte? Die waarbij het niet uitmaakt of je eerst rekent en dan afbeeldt, of eerst afbeeldt en dan rekent.
+
+\begin{theorie}
+Een afbeelding $f \colon V \to W$ tussen twee vectorruimten is \textbf{\textcolor{accent}{lineair}} als voor alle $\vec u, \vec v \in V$ en alle getallen $r$
+
+\vspace{1mm}
+\qquad $\formule{f(\vec u + \vec v) = f(\vec u) + f(\vec v)}$ \qquad en \qquad $\formule{f(r\vec v) = r\,f(\vec v)}$
+\end{theorie}
+
+Links van het gelijkheidsteken reken je in $V$, rechts in $W$. In $\R^2$ zie je wat dat betekent: een lineaire afbeelding beeldt een parallellogram met hoekpunt $O$ af op een parallellogram (of een lijnstuk), en de oorsprong blijft op zijn plaats. Een rooster van evenwijdige lijnen wordt weer zo'n rooster, met lijnen die even ver uit elkaar liggen.
+
+\figuren{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[black!14,very thin] (-1,-1) grid (4,4);
+  \draw[->,grijs] (-1,0) -- (4.4,0);
+  \draw[->,grijs] (0,-1) -- (0,4.4);
+  \fill[accent!25,draw=accent,thick] (0,0) -- (2,0) -- (2,1) -- (1,1) -- (1,3) -- (0,3) -- cycle;
+  \node[font=\footnotesize] at (1.5,-1.8) {een figuur};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \begin{scope}[cm={1,.5,.6,1,(0,0)}]
+  \draw[accent!35,very thin] (-1,-1) grid (4,4);
+  \fill[accent!25,draw=accent,thick] (0,0) -- (2,0) -- (2,1) -- (1,1) -- (1,3) -- (0,3) -- cycle;
+  \end{scope}
+  \draw[->,grijs] (-1.6,0) -- (5.4,0);
+  \draw[->,grijs] (0,-1.5) -- (0,4.6);
+  \node[font=\footnotesize] at (2,-1.8) {lineair: rooster blijft rooster};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \foreach \i in {-1,...,4}{\draw[accent!35,very thin] plot[domain=-1:4,samples=20,smooth] (\x,{\i+.12*\x*\x});}
+  \foreach \i in {-1,...,4}{\draw[accent!35,very thin] plot[domain=-1:4,samples=20,smooth] ({\i},{\x+.12*\i*\i});}
+  \fill[accent!25,draw=accent,thick] plot[domain=0:2,samples=10] (\x,{.12*\x*\x}) -- plot[domain=2:1,samples=10] (\x,{1+.12*\x*\x}) -- (1,{3+.12}) -- (0,3) -- cycle;
+  \draw[->,grijs] (-1,0) -- (4.4,0);
+  \draw[->,grijs] (0,-1) -- (0,4.4);
+  \node[font=\footnotesize] at (1.5,-1.8) {niet lineair: krom};
+\end{tikzpicture}}
+
+\voorbeeld{}{Toon aan dat $f \colon \R^2 \to \R^3$ met $f(x, y) = (2x + y,\ x - y,\ 3y)$ lineair is.\label{vb:h3-lineair}}{%
+\uitleg{We nemen twee willekeurige vectoren en een getal, en rekenen beide kanten uit. Elke coördinaat van $f(x, y)$ is een combinatie van $x$ en $y$ zonder constante: daarom zal het lukken.}
+\begin{stappenbreed}
+f(x_1 + x_2, y_1 + y_2) = \bigl(2(x_1 + x_2) + (y_1 + y_2),\ \ldots\bigr) & Vul de som in. \\[1ex]
+= (2x_1 + y_1,\ x_1 - y_1,\ 3y_1) + (2x_2 + y_2,\ x_2 - y_2,\ 3y_2) & Herschik elke coördinaat: $f(x_1, y_1) + f(x_2, y_2)$. \\[1ex]
+f(rx, ry) = (2rx + ry,\ rx - ry,\ 3ry) = r\,f(x, y) & Haal $r$ buiten haakjes.
+\end{stappenbreed}
+Beide voorwaarden gelden: $f$ is lineair.}
+
+\voorbeeld{}{Toon aan dat afleiden een lineaire afbeelding is: $D \colon \Rx{3} \to \Rx{2}$ met $D(p) = p'$.\label{vb:h3-afgeleide}}{%
+\uitleg{De afgeleide van een veelterm van graad hoogstens 3 is een veelterm van graad hoogstens 2. De rekenregels voor afgeleiden zeggen meteen dat de twee voorwaarden gelden.}
+\begin{stappen}
+(p + q)' = p' + q' & De afgeleide van een som. \\[1ex]
+(rp)' = r\,p' & Een constante factor.
+\end{stappen}
+$D$ is lineair. Zo is $D(2x^3 - x) = 6x^2 - 1$, en dat is $2D(x^3) - D(x)$.}
+
+\subsection{Niet lineair}
+
+Uit de definitie volgt meteen een snelle test. Een lineaire afbeelding beeldt de nulvector af op de nulvector.
+
+\begin{theorie}
+\begin{stelling}{Nulvector}
+Is $f \colon V \to W$ lineair, dan is \quad $\formule{f(\nulv) = \nulv}$
+\end{stelling}
+
+\begin{bewijs}
+Omdat $\nulv = 0\vec v$ voor elke $\vec v$ (hoofdstuk 1), is
+\bewijsregel{f(\nulv) = f(0\,\nulv) = 0\,f(\nulv) = \nulv .}
+\end{bewijs}
+\end{theorie}
+
+Let op: een eerstegraadsfunctie $f(x) = 2x + 3$ is \textit{niet} lineair in deze betekenis, want $f(0) = 3$. Alleen de functies $f(x) = ax$, met een rechte door de oorsprong als grafiek, zijn lineaire afbeeldingen van $\R$ naar $\R$. Maar ook als $f(\nulv) = \nulv$ kan het mislopen.
+
+\voorbeeld{}{Is $g(x, y) = (x^2, y)$ een lineaire afbeelding van $\R^2$ naar $\R^2$?\label{vb:h3-nietlineair}}{%
+\uitleg{De nulvector gaat naar de nulvector, dus die test zegt niets. We proberen de tweede voorwaarde met eenvoudige getallen.}
+\begin{stappen}
+g(2 \cdot (1, 0)) = g(2, 0) = (4, 0) & Eerst vermenigvuldigen, dan afbeelden. \\[1ex]
+2\,g(1, 0) = 2\,(1, 0) = (2, 0) & Eerst afbeelden, dan vermenigvuldigen.
+\end{stappen}
+$(4, 0) \neq (2, 0)$: $g$ is niet lineair.}
+
+\begin{werkwijze}
+Ga eerst na of $f(\nulv) = \nulv$; zo niet, dan is $f$ niet lineair. Bewijs anders de twee voorwaarden met willekeurige vectoren en een willekeurig getal. Lukt dat niet, zoek dan een tegenvoorbeeld met eenvoudige getallen. In $\R^n$: is elke coördinaat van $f$ een combinatie van de coördinaten zonder constante term, dan is $f$ lineair.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-lineair}
+\end{oefeningen}
+
+\subsection{Lineaire combinaties}
+
+Een lineaire afbeelding respecteert niet alleen sommen en veelvouden, maar alle lineaire combinaties. Dat is de eigenschap die we het vaakst gebruiken.
+
+\begin{theorie}
+\begin{stelling}{Beeld van een lineaire combinatie}
+Is $f$ lineair, dan is \quad $\formule{f(c_1\vec v_1 + \cdots + c_k\vec v_k) = c_1 f(\vec v_1) + \cdots + c_k f(\vec v_k)}$
+\end{stelling}
+
+\begin{bewijs}
+Pas de eerste voorwaarde toe op de som, telkens met één term apart, en dan de tweede op elke term:
+\bewijsregel{f(c_1\vec v_1 + \cdots + c_k\vec v_k) = f(c_1\vec v_1) + \cdots + f(c_k\vec v_k) = c_1f(\vec v_1) + \cdots + c_kf(\vec v_k) .}
+\end{bewijs}
+\end{theorie}
+
+Ken je dus de beelden van een paar vectoren, dan ken je ook de beelden van al hun combinaties. Ken je de beelden van een basis, dan ken je alles.
+
+\begin{theorie}
+\begin{stelling}{Vastgelegd door een basis}
+Is $(\vec b_1, \ldots, \vec b_n)$ een basis van $V$ en zijn $\vec w_1, \ldots, \vec w_n$ vectoren van $W$, dan is er precies één lineaire afbeelding $f \colon V \to W$ met $\formule{f(\vec b_i) = \vec w_i}$ voor $i = 1, \ldots, n$.
+\end{stelling}
+
+\begin{bewijs}
+Elke $\vec v$ is op precies één manier $c_1\vec b_1 + \cdots + c_n\vec b_n$. Een lineaire $f$ met de gevraagde beelden moet dus $f(\vec v) = c_1\vec w_1 + \cdots + c_n\vec w_n$ zijn: er is er hoogstens één. Omgekeerd is dit voorschrift lineair: de coördinaten van $\vec u + \vec v$ zijn de sommen van de coördinaten, en die van $r\vec v$ zijn $r$ keer die van $\vec v$.
+\end{bewijs}
+\end{theorie}
+
+\begin{oefeningen}
+\oef{h3-basisbeelden}
+\end{oefeningen}
+
+%========================================================================================
+\section{Lineaire afbeeldingen en matrices}
+
+\subsection{De matrix van een lineaire afbeelding}
+
+Hoe bereken je snel het beeld van duizenden vectoren? In $\R^n$ is het antwoord een matrix. Schrijf een vector van $\R^n$ als kolom $X$, en noem $\vec e_1, \ldots, \vec e_n$ de standaardbasis. Volgens de vorige stelling ligt $f$ vast door de beelden $f(\vec e_1), \ldots, f(\vec e_n)$. Zet die als kolommen naast elkaar.
+
+\begin{theorie}
+\begin{stelling}{Matrix van een lineaire afbeelding}
+Een afbeelding $f \colon \R^n \to \R^m$ is lineair als en slechts als er een $m \times n$-matrix $A$ is met
+\[ \formule{f(X) = AX} \quad \text{voor elke } X \in \R^n . \]
+De kolommen van $A$ zijn dan de beelden $f(\vec e_1), \ldots, f(\vec e_n)$ van de standaardbasis.
+\end{stelling}
+
+\begin{bewijs}
+Is $f(X) = AX$, dan is $f$ lineair door de rekenregels voor het matrixproduct: $A(X + Y) = AX + AY$ en $A(rX) = r(AX)$.
+
+Stel omgekeerd dat $f$ lineair is, en neem $X = (x_1, \ldots, x_n) = x_1\vec e_1 + \cdots + x_n\vec e_n$. Dan is
+\bewijsregel{f(X) = x_1 f(\vec e_1) + \cdots + x_n f(\vec e_n) = AX ,}
+want het product van $A$ met de kolom $X$ is de combinatie van de kolommen van $A$ met coëfficiënten $x_1, \ldots, x_n$.
+\end{bewijs}
+\end{theorie}
+
+Dat is de nieuwe betekenis van een matrix: een $m \times n$-matrix is een lineaire afbeelding van $\R^n$ naar $\R^m$. Kolom $j$ vertelt waar $\vec e_j$ terechtkomt.
+
+\voorbeeld{}{Bepaal de matrix van $f(x, y) = (2x + y,\ x - y,\ 3y)$, en bereken zo $f(4, -1)$.\label{vb:h3-matrix}}{%
+\uitleg{De kolommen zijn de beelden van $(1, 0)$ en $(0, 1)$. Je kunt ook de coëfficiënten van $x$ en $y$ rij per rij aflezen.}
+\begin{stappenbreed}
+f(1, 0) = (2, 1, 0), \quad f(0, 1) = (1, -1, 3) & De beelden van de standaardbasis. \\[1ex]
+A = \km{2 & 1 \\ 1 & -1 \\ 0 & 3} & Een $3 \times 2$-matrix: van $\R^2$ naar $\R^3$. \\[3ex]
+A\km{4 \\ -1} = \km{8 - 1 \\ 4 + 1 \\ 0 - 3} = \km{7 \\ 5 \\ -3} & Het beeld van $(4, -1)$.
+\end{stappenbreed}
+Controle met het voorschrift: $f(4, -1) = (8 - 1,\ 4 + 1,\ -3)$.}
+
+Ook meetkundige afbeeldingen van het vlak hebben een matrix. Een draaiing om de oorsprong is lineair: ze beeldt een parallellogram met hoekpunt $O$ af op een parallellogram, en een veelvoud op hetzelfde veelvoud van het beeld. Je hoeft dus alleen te weten waar $\vec e_1$ en $\vec e_2$ terechtkomen.
+
+\voorbeeld{}{Bepaal de matrix van de draaiing om $O$ over een hoek $\alpha$. Bereken het beeld van $(2, 1)$ bij een draaiing over $90^\circ$.\label{vb:h3-rotatie}}{%
+\uitleg{De eenheidsvector $\vec e_1$ draait naar het punt van de eenheidscirkel bij de hoek $\alpha$. De vector $\vec e_2$ staat een kwartslag verder, bij $\alpha + 90^\circ$.}
+\naast{\begin{stappenvrij}{4.6cm}{4.6cm}
+f(\vec e_1) = (\cos\alpha, \sin\alpha) & De definitie van cosinus en sinus. \\[1ex]
+f(\vec e_2) = (-\sin\alpha, \cos\alpha) & $\cos(\alpha + 90^\circ) = -\sin\alpha$ en $\sin(\alpha + 90^\circ) = \cos\alpha$. \\[1ex]
+R_\alpha = \km{\cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha} & De beelden als kolommen. \\[3ex]
+R_{90^\circ}\km{2 \\ 1} = \km{-1 \\ 2} & Met $\cos 90^\circ = 0$ en $\sin 90^\circ = 1$ is $R_{90^\circ} = \km{0 & -1 \\ 1 & 0}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \draw[->,lijngrijs] (-1.8,0) -- (2.6,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-.5) -- (0,2.6) node[above,text=black] {$y$};
+  \draw[grijs,thin] (1,0) arc[start angle=0,end angle=180,radius=1];
+  \vpijl[accent!50]{(0,0)}{(1,0)}
+  \vpijl[accent!50]{(0,0)}{(0,1)}
+  \vpijl{(0,0)}{(.819,.574)}
+  \vpijl{(0,0)}{(-.574,.819)}
+  \draw[fel!80!black,thick,-{Stealth[length=2mm]}] (0,0) -- (2,1);
+  \draw[fel!80!black,thick,-{Stealth[length=2mm]}] (0,0) -- (-1,2);
+  \draw[grijs,->] (1.6,.8) arc[start angle=26.57,end angle=116.57,radius=1.79];
+  \node[right] at (2,1) {$(2, 1)$};
+  \node[left] at (-1,2) {$(-1, 2)$};
+  \node[right] at (.82,.6) {$f(\vec e_1)$};
+\end{tikzpicture}}
+In de figuur zie je ook de draaiing over $\alpha = 35^\circ$ van $\vec e_1$ en $\vec e_2$. Controle: $(-1, 2)$ heeft dezelfde lengte $\sqrt5$ als $(2, 1)$, en staat er loodrecht op.}
+
+Soms ken je de beelden van een andere basis. Dan schrijf je eerst $\vec e_1$ en $\vec e_2$ als combinatie van die basis.
+
+\voorbeeld{}{Een lineaire afbeelding $f \colon \R^2 \to \R^2$ heeft $f(1, 1) = (3, 1)$ en $f(1, -1) = (1, 5)$. Bepaal haar matrix.\label{vb:h3-basisbeelden}}{%
+\uitleg{$(1, 1)$ en $(1, -1)$ vormen een basis, dus $f$ ligt vast. We schrijven $\vec e_1$ en $\vec e_2$ in die basis en gebruiken dat $f$ combinaties bewaart.}
+\begin{stappenbreed}
+\vec e_1 = \tfrac12(1, 1) + \tfrac12(1, -1), \quad \vec e_2 = \tfrac12(1, 1) - \tfrac12(1, -1) & Tel op en trek af. \\[1ex]
+f(\vec e_1) = \tfrac12(3, 1) + \tfrac12(1, 5) = (2, 3) & Het beeld van een combinatie. \\[1ex]
+f(\vec e_2) = \tfrac12(3, 1) - \tfrac12(1, 5) = (1, -2) & \\[1ex]
+A = \km{2 & 1 \\ 3 & -2} & De beelden als kolommen.
+\end{stappenbreed}
+Controle: $A\km{1 \\ 1} = \km{3 \\ 1}$ en $A\km{1 \\ -1} = \km{1 \\ 5}$.}
+
+\begin{werkwijze}
+Bereken de beelden van de standaardbasis $\vec e_1, \ldots, \vec e_n$ en zet ze als kolommen in $A$. Ken je de beelden van een andere basis, schrijf dan eerst elke $\vec e_j$ als combinatie van die basis. Het beeld van een vector $X$ is dan $AX$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-matrix}
+
+\oef{h3-meetkundig}
+\end{oefeningen}
+
+\subsection{Samenstellen}
+
+Wat gebeurt er als je twee lineaire afbeeldingen na elkaar uitvoert, eerst $f$ en dan $g$? Dan krijg je de samenstelling $g \circ f$, met $(g \circ f)(X) = g\bigl(f(X)\bigr)$. Ook die heeft een matrix.
+
+\begin{theorie}
+\begin{stelling}{Samenstelling en product}
+Heeft $f \colon \R^n \to \R^m$ de matrix $A$ en $g \colon \R^m \to \R^p$ de matrix $B$, dan heeft $g \circ f$ de matrix \quad $\formule{BA}$
+\end{stelling}
+
+\begin{bewijs}
+Door de associativiteit van het matrixproduct is
+\bewijsregel{(g \circ f)(X) = g(AX) = B(AX) = (BA)X .}
+\end{bewijs}
+\end{theorie}
+
+Let op de volgorde: eerst $f$ betekent dat $A$ rechts staat, het dichtst bij $X$. Zo verklaart de stelling ook waarom het matrixproduct zo gedefinieerd is, en waarom het niet commutatief is: eerst draaien en dan spiegelen geeft meestal iets anders dan eerst spiegelen en dan draaien.
+
+\voorbeeld{}{Draai eerst over $\alpha$ en dan over $\beta$. Leid zo de somformules voor $\cos(\alpha + \beta)$ en $\sin(\alpha + \beta)$ af.\label{vb:h3-samenstelling}}{%
+\uitleg{Twee draaiingen na elkaar zijn samen een draaiing over $\alpha + \beta$. Volgens de stelling is haar matrix het product $R_\beta R_\alpha$. We vergelijken de eerste kolom.}
+\begin{stappenbreed}
+R_\beta R_\alpha = \km{\cos\beta & -\sin\beta \\ \sin\beta & \cos\beta}\km{\cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha} & Eerst $\alpha$, dus $R_\alpha$ rechts. \\[3ex]
+\text{kolom 1: } \km{\cos\beta\cos\alpha - \sin\beta\sin\alpha \\ \sin\beta\cos\alpha + \cos\beta\sin\alpha} & Rij maal kolom. \\[3ex]
+\text{kolom 1 van } R_{\alpha + \beta}\text{: } \km{\cos(\alpha + \beta) \\ \sin(\alpha + \beta)} & De draaiing over $\alpha + \beta$.
+\end{stappenbreed}
+Dus $\cos(\alpha + \beta) = \cos\alpha\cos\beta - \sin\alpha\sin\beta$ en $\sin(\alpha + \beta) = \sin\alpha\cos\beta + \cos\alpha\sin\beta$: de somformules volgen uit het matrixproduct.}
+
+\begin{oefeningen}
+\oef{h3-samenstelling}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kern en beeld}
+
+\subsection{De kern}
+
+Welke vectoren verdwijnen bij een lineaire afbeelding, en welke vectoren worden bereikt? Bij de schaduw van het probleem verdwijnt een hele rechte in de oorsprong, en bereik je elk punt van de grond. Die twee verzamelingen zeggen veel over een afbeelding.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{kern}} van een lineaire afbeelding $f \colon V \to W$ is \quad $\formule{\Ker f = \bigl\{\vec v \in V \bigm| f(\vec v) = \nulv\bigr\}}$
+
+\begin{stelling}{De kern is een deelruimte}
+De kern van een lineaire afbeelding $f \colon V \to W$ is een deelruimte van $V$.
+\end{stelling}
+
+\begin{bewijs}
+$f(\nulv) = \nulv$, dus $\nulv \in \Ker f$. Zijn $\vec u, \vec v \in \Ker f$, dan is
+\bewijsregel{f(\vec u + \vec v) = f(\vec u) + f(\vec v) = \nulv + \nulv = \nulv \quad \text{en} \quad f(r\vec v) = r\,\nulv = \nulv .}
+\end{bewijs}
+\end{theorie}
+
+Heeft $f$ de matrix $A$, dan is de kern de verzameling oplossingen van $AX = O$. Dat is de stelling uit hoofdstuk 1 opnieuw, en hoofdstuk 2 geeft haar dimensie: $n - \rang A$.
+
+\voorbeeld{}{Bepaal de kern van de lineaire afbeelding $f \colon \R^3 \to \R^3$ met matrix $A = \km{1 & 2 & 0 \\ 2 & 4 & 1 \\ 1 & 2 & 1}$.\label{vb:h3-kern}}{%
+\uitleg{De kern bestaat uit de oplossingen van $AX = O$. We rijherleiden.}
+\begin{stappenbreed}
+\km{1 & 2 & 0 \\ 2 & 4 & 1 \\ 1 & 2 & 1} \to \km{1 & 2 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0} & $R_2 - 2R_1$, $R_3 - R_1$, dan $R_3 - R_2$. \\[4ex]
+x_3 = 0, \quad x_1 = -2x_2 & Met $x_2 = t$ als parameter. \\[1ex]
+\Ker f = \vb{(-2, 1, 0)} & Een rechte door de oorsprong: dimensie $3 - 2 = 1$.
+\end{stappenbreed}
+Controle: $A\,(-2, 1, 0) = (-2 + 2,\ -4 + 4,\ -2 + 2) = (0, 0, 0)$.}
+
+Waarom is de kern zo belangrijk? Ze zegt of verschillende vectoren hetzelfde beeld kunnen hebben. Is $f(\vec u) = f(\vec v)$, dan is $f(\vec u - \vec v) = \nulv$: het verschil ligt in de kern. Een afbeelding waarbij verschillende vectoren altijd verschillende beelden hebben, heet \textit{injectief}.
+
+\begin{theorie}
+\begin{stelling}{Injectief}
+Een lineaire afbeelding $f$ is injectief als en slechts als \quad $\formule{\Ker f = \{\nulv\}}$
+\end{stelling}
+
+\begin{bewijs}
+Is $f$ injectief, dan heeft alleen $\nulv$ het beeld $\nulv$, want $f(\nulv) = \nulv$. Stel omgekeerd $\Ker f = \{\nulv\}$ en $f(\vec u) = f(\vec v)$. Dan is $f(\vec u - \vec v) = f(\vec u) - f(\vec v) = \nulv$, dus $\vec u - \vec v = \nulv$ en $\vec u = \vec v$.
+\end{bewijs}
+\end{theorie}
+
+De afbeelding van het voorbeeld is dus niet injectief: zo hebben $(0, 0, 0)$ en $(-2, 1, 0)$ allebei het beeld $\nulv$.
+
+\begin{oefeningen}
+\oef{h3-kern}
+\end{oefeningen}
+
+\subsection{Het beeld}
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{beeld}} van een lineaire afbeelding $f \colon V \to W$ is \quad $\formule{\Img f = \bigl\{f(\vec v) \bigm| \vec v \in V\bigr\}}$
+
+\begin{stelling}{Het beeld is een deelruimte}
+Het beeld van een lineaire afbeelding $f \colon V \to W$ is een deelruimte van $W$.
+\end{stelling}
+
+\begin{bewijs}
+$\nulv = f(\nulv) \in \Img f$. Twee vectoren van het beeld zijn $f(\vec u)$ en $f(\vec v)$, en dan zijn ook
+\bewijsregel{f(\vec u) + f(\vec v) = f(\vec u + \vec v) \quad \text{en} \quad r\,f(\vec v) = f(r\vec v)}
+beelden.
+\end{bewijs}
+\end{theorie}
+
+Heeft $f$ de matrix $A$, dan is $f(X) = AX = x_1 \cdot (\text{kolom } 1) + \cdots + x_n \cdot (\text{kolom } n)$. Het beeld is dus de deelruimte voortgebracht door de kolommen van $A$. Een basis vind je door uit te dunnen met de spilkolommen, zoals in hoofdstuk 2. Zo krijgt de rang een tweede betekenis.
+
+\begin{theorie}
+\begin{stelling}{Beeld en rang}
+Heeft $f \colon \R^n \to \R^m$ de matrix $A$, dan is \quad $\formule{\dim \Img f = \rang A}$
+\end{stelling}
+
+\begin{bewijs}
+Rijherleid $A$ tot $R$. De stelsels $AC = O$ en $RC = O$ hebben dezelfde oplossingen, dus geldt een lineair verband tussen de kolommen van $A$ als en slechts als hetzelfde verband tussen de kolommen van $R$ geldt. In $R$ zijn de $\rang A$ spilkolommen verschillende kolommen van de eenheidsmatrix, dus onafhankelijk, en elke andere kolom heeft alleen getallen in de rijen van de spillen, dus is een combinatie van de spilkolommen. Hetzelfde geldt dus voor de kolommen van $A$: de spilkolommen van $A$ vormen een basis van $\Img f$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bepaal een basis en een vergelijking van het beeld van de afbeelding $f$ uit voorbeeld \ref{vb:h3-kern}.\label{vb:h3-beeld}}{%
+\uitleg{De rijgereduceerde vorm hebben we al: de spillen staan in kolom 1 en kolom 3. De kolommen 1 en 3 van $A$ vormen dus een basis van het beeld. Voor de vergelijking elimineren we de parameters, zoals in hoofdstuk 1.}
+\begin{stappenbreed}
+\Img f = \vb{(1, 2, 1), (0, 1, 1)} & De spilkolommen van $A$. Kolom 2 is $2 \cdot$ kolom 1. \\[1ex]
+(x, y, z) = (a,\ 2a + b,\ a + b) & Een willekeurige combinatie. \\[1ex]
+y = x + z \iff x - y + z = 0 & Want $2a + b = a + (a + b)$.
+\end{stappenbreed}
+Het beeld is het vlak $x - y + z = 0$, met dimensie $2 = \rang A$.}
+
+\begin{oefeningen}
+\oef{h3-beeld}
+\end{oefeningen}
+
+\subsection{De dimensiestelling}
+
+In de voorbeelden had $f \colon \R^3 \to \R^3$ een kern van dimensie 1 en een beeld van dimensie 2. Samen is dat 3. Toeval? Nee: wat in de kern verdwijnt, ontbreekt in het beeld.
+
+\begin{theorie}
+\begin{stelling}{Dimensiestelling}
+Voor een lineaire afbeelding $f \colon \R^n \to \R^m$ is \quad $\formule{\dim \Ker f + \dim \Img f = n}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $A$ de matrix van $f$. De kern bestaat uit de oplossingen van $AX = O$, met dimensie $n - \rang A$ (hoofdstuk 2). Het beeld heeft dimensie $\rang A$. Samen is dat $n$.
+\end{bewijs}
+\end{theorie}
+
+De stelling geldt voor elke lineaire afbeelding vanuit een vectorruimte van dimensie $n$: kies een basis, en reken met de coördinaten. Ze heeft verrassende gevolgen. Een lineaire afbeelding van $\R^3$ naar $\R^2$ kan nooit injectief zijn: het beeld heeft hoogstens dimensie 2, dus de kern minstens dimensie 1. En een lineaire afbeelding van $\R^n$ naar $\R^n$ is injectief precies als ze elke vector bereikt: kern $\{\nulv\}$ betekent beeld van dimensie $n$, en dan is het beeld heel $\R^n$.
+
+\begin{oefeningen}
+\oef{h3-dimensie}
+\end{oefeningen}
+
+\subsection{De oplossingen van \texorpdfstring{$AX = B$}{AX = B}}
+
+In hoofdstuk 1 zag je dat de oplossingen van $AX = B$ met $B \neq O$ geen deelruimte vormen. Toch hebben ze een duidelijke vorm: het verschil van twee oplossingen ligt in de kern.
+
+\begin{theorie}
+\begin{stelling}{Oplossingen van $AX = B$}
+Is $X_p$ een oplossing van $AX = B$, dan zijn de oplossingen precies de vectoren
+\[ \formule{X = X_p + X_h} \qquad \text{met } X_h \text{ een oplossing van } AX = O . \]
+\end{stelling}
+
+\begin{bewijs}
+Is $AX_h = O$, dan is $A(X_p + X_h) = B + O = B$. Is omgekeerd $AX = B$, dan is $A(X - X_p) = B - B = O$, dus $X_h = X - X_p$ ligt in de kern, en $X = X_p + X_h$.
+\end{bewijs}
+\end{theorie}
+
+\naast{\begin{minipage}{10.6cm}
+De oplossingen van $AX = B$ zijn dus de kern, verschoven over één oplossing $X_p$. In de figuur zijn de oplossingen van $x + 2y = 3$ een rechte evenwijdig met de kern $x + 2y = 0$, door de oplossing $X_p = (3, 0)$. Dezelfde structuur ken je uit Differentiaalvergelijkingen (de algemene oplossing is een particuliere oplossing plus de oplossingen van de homogene vergelijking) en uit Ruimtemeetkunde (een rechte is een punt plus de veelvouden van een richtingsvector).
+\end{minipage}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \draw[black!14,very thin] (-3,-2) grid (4,3);
+  \draw[->,grijs] (-3,0) -- (4.4,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-2) -- (0,3.4) node[above,text=black] {$y$};
+  \draw[accent!60,thick] (-3,1.5) -- (4,-2);
+  \draw[fel!80!black,thick] (-3,3) -- (4,-.5);
+  \fill[fel!80!black] (3,0) circle (3pt) node[above right,text=black] {$X_p$};
+  \vpijl{(3,0)}{(1,1)}
+  \node[below left,text=accent] at (-1.6,.8) {kern};
+\end{tikzpicture}}
+
+\voorbeeld{}{Los op met de structuur van de oplossingen: $\begin{cases} x - y = 2 \\ y - z = 1 \end{cases}$\label{vb:h3-stelsel}}{%
+\uitleg{We zoeken één oplossing, bijvoorbeeld met $z = 0$, en de kern van de afbeelding $f(x, y, z) = (x - y, y - z)$.}
+\begin{stappenbreed}
+z = 0: \ y = 1, \ x = 3 \ \Rightarrow \ X_p = (3, 1, 0) & Een particuliere oplossing. \\[1ex]
+x - y = 0, \ y - z = 0 \ \Rightarrow \ X_h = t\,(1, 1, 1) & De kern: $x = y = z$. \\[1ex]
+X = (3, 1, 0) + t\,(1, 1, 1) & De stelling.
+\end{stappenbreed}
+De oplossingen vormen een rechte door $(3, 1, 0)$, evenwijdig met de kern.}
+
+\begin{oefeningen}
+\oef{h3-stelsel}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Nu kunnen we de schaduw volledig beschrijven: haar matrix, haar kern en haar beeld.
+
+\voorbeeld{}{Terug naar het probleem. De zonnestralen hebben richting $\vec d = (1, 2, -2)$. Bepaal de schaduw $s(x, y, z)$ van een punt op de grond $z = 0$, en de matrix van $s$. Waar valt de schaduw van de top $(0, 0, 2)$ van de paal? Welke punten hebben dezelfde schaduw?\label{vb:h3-terug}}{%
+\uitleg{Een zonnestraal door $P(x, y, z)$ is de rechte $P + t\,\vec d$. De schaduw is het punt waar die rechte de grond raakt. Daarna lezen we de kern en het beeld af.}
+\begin{stappenbreed}
+(x + t,\ y + 2t,\ z - 2t), \quad z - 2t = 0 & De straal raakt de grond als de derde coördinaat 0 is: $t = \frac z2$. \\[1ex]
+s(x, y, z) = \bigl(x + \tfrac12 z,\ y + z\bigr) & Elke coördinaat is een combinatie zonder constante: $s$ is lineair. \\[1ex]
+S = \km{1 & 0 & \frac12 \\ 0 & 1 & 1} & De beelden van $\vec e_1$, $\vec e_2$, $\vec e_3$ als kolommen. \\[2ex]
+s(0, 0, 2) = (1, 2) & De schaduw van de top. \\[1ex]
+\Ker s = \vb{\bigl(-\tfrac12, -1, 1\bigr)} = \vb{(1, 2, -2)} & $x + \frac12 z = 0$ en $y + z = 0$: de zonnestraal door $O$. \\[1ex]
+\Img s = \R^2, \quad 1 + 2 = 3 & $\rang S = 2$; de dimensiestelling klopt.
+\end{stappenbreed}
+De schaduw van elk punt is het product van $S$ met zijn kolom. Voor een gebouw zet de architect alle hoekpunten als kolommen in één $3 \times N$-matrix $P$: het product $SP$ geeft in één keer alle schaduwen. De punten met dezelfde schaduw als de top zijn volgens de stelling over $AX = B$ de punten $(0, 0, 2) + t\,(1, 2, -2)$: de zonnestraal door de top. Dat had je ook zonder rekenen kunnen zeggen.}
+
+\figuren{\begin{tikzpicture}[ruimte,scale=1.05,font=\scriptsize]
+  \fill[accent!10] (-.6,-.6,0) -- (3.4,-.6,0) -- (3.4,4.8,0) -- (-.6,4.8,0) -- cycle;
+  \assendrie{3}
+  \fill[black,opacity=.35] (2,1,0) -- (2.7,2.4,0) -- (2.7,3.9,0) -- (1.2,3.9,0) -- (.5,2.5,0) -- (.5,1,0) -- cycle;
+  \draw[fel!80!black,thick,dashed] (2,1,1.4) -- (2.7,2.4,0) (2,2.5,1.4) -- (2.7,3.9,0) (.5,2.5,1.4) -- (1.2,3.9,0);
+  \fill[white,opacity=.75] (2,1,0) -- (2,2.5,0) -- (2,2.5,1.4) -- (2,1,1.4) -- cycle;
+  \fill[white,opacity=.75] (2,1,1.4) -- (2,2.5,1.4) -- (.5,2.5,1.4) -- (.5,1,1.4) -- cycle;
+  \fill[white,opacity=.75] (2,2.5,0) -- (.5,2.5,0) -- (.5,2.5,1.4) -- (2,2.5,1.4) -- cycle;
+  \draw[grijs,thick] (2,1,0) -- (2,2.5,0) -- (2,2.5,1.4) -- (2,1,1.4) -- cycle;
+  \draw[grijs,thick] (2,1,1.4) -- (.5,1,1.4) -- (.5,2.5,1.4) -- (2,2.5,1.4);
+  \draw[grijs,thick] (2,2.5,0) -- (.5,2.5,0) -- (.5,2.5,1.4);
+  \draw[grijs,thin,dashed] (2,1,0) -- (.5,1,0) -- (.5,2.5,0) (.5,1,0) -- (.5,1,1.4);
+  \node[font=\footnotesize] at (3.4,1.4,-.7) {een doos van 1,4 m hoog en haar schaduw};
+\end{tikzpicture}}
+
+Een lineaire afbeelding vanuit $\R^3$ met een kern van dimensie 1 drukt de ruimte plat langs de richting van de kern. Zo werkt elke schaduw bij zonlicht, en ook de tekeningen in schuine projectie die je in Ruimtemeetkunde maakt: een computer tekent een ruimtelijke figuur door alle hoekpunten met één matrix te vermenigvuldigen.
+
+\begin{oefeningen}
+\oef{h3-schaduw}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\needspace{14\baselineskip}
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Differentiaalvergelijkingen is een cursus van het complementair gedeelte. Goniometrische functies, Ruimtemeetkunde (scalair product) en Groepen komen uit pakket 4.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-nietlineair}{oef:h3-lineair}%
+  \fv{oef:h3-t2}{vb:h3-matrix}{oef:h3-matrix}%
+  \fv{oef:h3-t3}{vb:h3-rotatie}{oef:h3-meetkundig}%
+  \fv{oef:h3-t4}{vb:h3-basisbeelden}{oef:h3-basisbeelden}%
+  \fv{oef:h3-t5}{vb:h3-kern}{oef:h3-kern}%
+  \fv{oef:h3-t6}{vb:h3-stelsel}{oef:h3-stelsel}%
+  \fv{oef:h3-t7}{vb:h3-terug}{oef:h3-schaduw}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van een lineaire afbeelding met twee voorbeelden en twee tegenvoorbeelden, waarom $f(\nulv) = \nulv$, waarom een lineaire afbeelding vastligt door de beelden van een basis, hoe je de matrix van een lineaire afbeelding $\R^n \to \R^m$ vindt (ook voor een draaiing), waarom een samenstelling een matrixproduct is, wat kern en beeld zijn en waarom het deelruimten zijn, wanneer $f$ injectief is, het verband tussen beeld en rang, de dimensiestelling, de vorm van de oplossingen van $AX = B$, en de matrix van de schaduw. Vergelijk daarna met de kaders.
+\fi

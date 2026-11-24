@@ -1,0 +1,957 @@
+# Oefeningen van hoofdstuk 4. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h4-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken of beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het differentiequotiënt van $f(x) = x^2$ tussen 3 en 3,1, en $f'(3)$.
+      antwoord: |-
+        $6{,}1$; $6$
+      uitwerking: |-
+        $\frac{9{,}61 - 9}{0{,}1} = 6{,}1$, en $f'(x) = 2x$ geeft $f'(3) = 6$.
+    - opgave: |-
+        De oppervlakte van een trapezium met evenwijdige zijden 3 en 5 en hoogte 2.
+      antwoord: |-
+        8
+      uitwerking: |-
+        $\frac{3 + 5}{2} \cdot 2 = 8$.
+    - opgave: |-
+        $\ig_0^2 x^2\dx$ en $\ig_1^2 \frac1x\dx$
+      antwoord: |-
+        $\frac83$; $\ln 2$
+      uitwerking: |-
+        $\grens{\tfrac{x^3}{3}}{0}{2} = \frac83$ en $\grens{\ln x}{1}{2} = \ln 2 \approx 0{,}6931$.
+    - opgave: |-
+        Een Riemannsom van $f(x) = x^2$ op $[0, 2]$ met vier rechthoeken, met de hoogte in het midden van elk deelinterval.
+      antwoord: |-
+        $2{,}625$
+      uitwerking: |-
+        Breedte 0,5, middens 0,25; 0,75; 1,25; 1,75: $0{,}5 \cdot (0{,}0625 + 0{,}5625 + 1{,}5625 + 3{,}0625) = 2{,}625$. (Exact: $\frac83 \approx 2{,}667$.)
+
+- id: h4-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad We benaderen de afgeleide van $f(x) = x^2$ in $a = 3$, die gelijk is aan 6.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\frac{f(3 + h) - f(3)}{h}$ voor $h = 0{,}5$ en $h = 0{,}1$. Hoe groot is de fout?
+      antwoord: |-
+        $6{,}5$ en $6{,}1$; fout $h$
+      uitwerking: |-
+        $\frac{12{,}25 - 9}{0{,}5} = 6{,}5$ en $\frac{9{,}61 - 9}{0{,}1} = 6{,}1$. De fout is telkens $h$.
+    - opgave: |-
+        Bereken $\frac{f(3 + h) - f(3 - h)}{2h}$ voor dezelfde $h$. Wat valt op?
+      antwoord: |-
+        telkens 6: exact
+      uitwerking: |-
+        $\frac{12{,}25 - 6{,}25}{1} = 6$ en $\frac{9{,}61 - 8{,}41}{0{,}2} = 6$. Het symmetrische quotiënt is exact.
+    - opgave: |-
+        Doe hetzelfde voor $f(x) = x^3$ in $a = 1$ (waar $f'(1) = 3$), met $h = 0{,}1$. Is het symmetrische quotiënt nog exact?
+      antwoord: |-
+        $3{,}31$ en $3{,}01$; nee, maar bijna
+      uitwerking: |-
+        $\frac{1{,}331 - 1}{0{,}1} = 3{,}31$ (fout 0,31) en $\frac{1{,}331 - 0{,}729}{0{,}2} = 3{,}01$ (fout 0,01). Niet exact, maar dertig keer beter.
+
+- id: h4-voorwaarts
+  soort: kort
+  opgave: |-
+    Benader met de voorwaartse en met de achterwaartse differentie, met $h = 0{,}1$. Vergelijk met de exacte waarde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f'(0)$ voor $f(x) = \sin x$
+      antwoord: |-
+        $0{,}998\,33$ en $0{,}998\,33$; exact 1
+      uitwerking: |-
+        $\frac{\sin 0{,}1 - 0}{0{,}1} \approx 0{,}998\,33$ en $\frac{0 - \sin(-0{,}1)}{0{,}1} \approx 0{,}998\,33$. Ze zijn gelijk omdat $\sin$ oneven is. De fout is $-0{,}0017$.
+    - opgave: |-
+        $f'(1)$ voor $f(x) = \frac1x$
+      antwoord: |-
+        $-0{,}909$ en $-1{,}111$; exact $-1$
+      uitwerking: |-
+        $\frac{1/1{,}1 - 1}{0{,}1} \approx -0{,}909$ en $\frac{1 - 1/0{,}9}{0{,}1} \approx -1{,}111$. Het gemiddelde, $-1{,}010$, is al veel beter.
+
+- id: h4-differentie
+  soort: kort
+  opgave: |-
+    Benader de afgeleide met de centrale differentie, met $h = 0{,}1$ en $h = 0{,}05$. Met welke factor wordt de fout kleiner?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f'(1)$ voor $f(x) = \ln x$ (exact 1)
+      antwoord: |-
+        $1{,}003\,353$ en $1{,}000\,834$; factor 4
+      uitwerking: |-
+        $\frac{\ln 1{,}1 - \ln 0{,}9}{0{,}2} \approx 1{,}003\,353$ (fout 0,003\,35) en $\frac{\ln 1{,}05 - \ln 0{,}95}{0{,}1} \approx 1{,}000\,834$ (fout 0,000\,83): vier keer kleiner.
+    - opgave: |-
+        $f'(2)$ voor $f(x) = x^3 - 5x^2$ (exact $-8$). Wat is de fout precies? Verklaar.
+      antwoord: |-
+        $-7{,}99$ en $-7{,}9975$; fout $h^2$
+      uitwerking: |-
+        Het deel $-5x^2$ geeft een exacte centrale differentie (stelling); het deel $x^3$ geeft $3a^2 + h^2$. Dus de benadering is $f'(2) + h^2$: $-8 + 0{,}01 = -7{,}99$ en $-8 + 0{,}0025 = -7{,}9975$.
+
+- id: h4-afronden
+  soort: kort
+  opgave: |-
+    Een rekentoestel met 10 beduidende cijfers berekent $\frac{\sin(1 + h) - \sin 1}{h}$. Exact is $\cos 1 = 0{,}540\,302\,3\ldots$
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor $h = 10^{-9}$ geeft het toestel $\sin(1 + h) = 0{,}841\,470\,985\,3$ en $\sin 1 = 0{,}841\,470\,984\,8$. Welke benadering krijg je? Hoeveel cijfers zijn juist?
+      antwoord: |-
+        $0{,}5$; nul
+      uitwerking: |-
+        $\frac{0{,}000\,000\,000\,5}{10^{-9}} = 0{,}5$. Het verschil heeft nog maar één cijfer, en dat is door afronding fout: $0{,}54$ zou juist zijn.
+    - opgave: |-
+        Welke $h$ kies je beter? Waarom?
+      antwoord: |-
+        ongeveer $10^{-5}$ (of de centrale differentie met $h \approx 10^{-3}$)
+      uitwerking: |-
+        De afbreekfout is ongeveer $\frac h2 |\sin 1| \approx 0{,}42\,h$, de afrondingsfout ongeveer $\frac{10^{-10}}{h}$. Ze zijn even groot bij $h \approx 1{,}5 \cdot 10^{-5}$. Beter nog: neem de centrale differentie met $h = 10^{-3}$.
+
+- id: h4-meting
+  soort: kort
+  opgave: |-
+    Een thermometer in een kop thee meet om de 2 minuten de temperatuur.
+    \begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|cccccc}
+    $t$ (min) & 0 & 2 & 4 & 6 & 8 & 10 \\ \hline
+    $T$ (°C) & 90,0 & 80,2 & 71,9 & 64,9 & 59,0 & 54,0
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schat de afkoelsnelheid (in °C per minuut) na 4 minuten en na 8 minuten.
+      antwoord: |-
+        $-3{,}83$ en $-2{,}73$
+      uitwerking: |-
+        Centraal: $\frac{64{,}9 - 80{,}2}{4} \approx -3{,}83$ na 4 minuten, en $\frac{54{,}0 - 64{,}9}{4} \approx -2{,}73$ na 8 minuten.
+    - opgave: |-
+        Schat de afkoelsnelheid na 0 minuten. Waarom is die schatting minder goed?
+      antwoord: |-
+        $-4{,}9$; alleen voorwaarts
+      uitwerking: |-
+        Alleen de voorwaartse differentie kan: $\frac{80{,}2 - 90{,}0}{2} = -4{,}9$. Haar fout is evenredig met $h$ in plaats van $h^2$, en de grafiek is hol, dus ze is te klein in absolute waarde.
+
+- id: h4-mt
+  soort: kort
+  opgave: |-
+    Benader $\ig_0^1 \e^{x^2}\dx$ met $M_4$ en $T_4$. Tussen welke grenzen ligt de integraal? Verklaar.
+  antwoord: |-
+    $M_4 \approx 1{,}4487$, $T_4 \approx 1{,}4907$; $1{,}4487 \leqslant I \leqslant 1{,}4907$
+  uitwerking: |-
+    $h = 0{,}25$. $M_4 = 0{,}25\,(\e^{0{,}015\,625} + \e^{0{,}140\,625} + \e^{0{,}390\,625} + \e^{0{,}765\,625}) \approx 1{,}4487$. $T_4 = 0{,}25\,(\frac12 + \e^{0{,}0625} + \e^{0{,}25} + \e^{0{,}5625} + \frac{\e}{2}) \approx 1{,}4907$. De grafiek is hol ($f''(x) = (2 + 4x^2)\e^{x^2} > 0$), dus $M_4 \leqslant I \leqslant T_4$. (Exact: $1{,}4627$.)
+
+- id: h4-parabool
+  soort: kort
+  opgave: |-
+    Neem $\ig_0^1 x^2\dx = \frac13$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $M_2$ en $T_2$, en hun fouten. Controleer dat de fout van $T_2$ precies $-2$ keer die van $M_2$ is.
+      antwoord: |-
+        $M_2 = 0{,}3125$, $T_2 = 0{,}375$; fouten $\frac{1}{48}$ en $-\frac{1}{24}$
+      uitwerking: |-
+        $M_2 = 0{,}5\,(0{,}0625 + 0{,}5625) = 0{,}3125$ en $T_2 = 0{,}5\,(0 + 0{,}25 + 0{,}5) = 0{,}375$. $I - M_2 = \frac13 - \frac{5}{16} = \frac{1}{48}$ en $I - T_2 = \frac13 - \frac38 = -\frac{1}{24} = -2 \cdot \frac{1}{48}$.
+    - opgave: |-
+        Bereken $\frac{2M_2 + T_2}{3}$. Wat stel je vast?
+      antwoord: |-
+        $\frac13$: exact
+      uitwerking: |-
+        $\frac{0{,}625 + 0{,}375}{3} = \frac13$. De fouten heffen elkaar op: dat is de regel van Simpson.
+
+- id: h4-simpson
+  soort: kort
+  opgave: |-
+    Los op met de regel van Simpson.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Benader $\ig_0^\pi \sin x\dx$ met $S_2$ en $S_4$. Met welke factor wordt de fout kleiner?
+      antwoord: |-
+        $2{,}0944$ en $2{,}0046$; ongeveer 21
+      uitwerking: |-
+        $S_2 = \frac{\pi/2}{3}(0 + 4 + 0) = \frac{2\pi}{3} \approx 2{,}0944$. $S_4 = \frac{\pi/4}{3}\bigl(0 + 4 \cdot \frac{\sqrt2}{2} + 2 \cdot 1 + 4 \cdot \frac{\sqrt2}{2} + 0\bigr) \approx 2{,}0046$. Fouten 0,0944 en 0,0046: ongeveer 21 keer kleiner (bij kleine $h$ wordt dat 16).
+    - opgave: |-
+        Toon zonder te rekenen aan dat $S_2 = \ig_{-1}^{3} (x^3 - 2x + 1)\dx$.
+      antwoord: |-
+        Simpson is exact voor derdegraadsveeltermen
+      uitwerking: |-
+        De functie is een veelterm van de derde graad, en $S_n$ is daarvoor exact (stelling). Controle: $S_2 = \frac{2}{3}(2 + 4 \cdot 0 + 22) = 16$ en $\grens{\tfrac{x^4}{4} - x^2 + x}{-1}{3} = (20{,}25 - 9 + 3) - (0{,}25 - 1 - 1) = 16$.
+
+- id: h4-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    drie differenties
+  opgave: |-
+    Benader $f'(2)$ voor $f(x) = \ln x$ met $h = 0{,}1$. De exacte waarde is $0{,}5$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        voorwaarts
+      antwoord: |-
+        $0{,}487\,90$
+      uitwerking: |-
+        $\frac{\ln 2{,}1 - \ln 2}{0{,}1} \approx 0{,}487\,90$, fout $-0{,}0121$.
+    - opgave: |-
+        achterwaarts
+      antwoord: |-
+        $0{,}512\,93$
+      uitwerking: |-
+        $\frac{\ln 2 - \ln 1{,}9}{0{,}1} \approx 0{,}512\,93$, fout $0{,}0129$.
+    - opgave: |-
+        centraal
+      antwoord: |-
+        $0{,}500\,42$
+      uitwerking: |-
+        $\frac{\ln 2{,}1 - \ln 1{,}9}{0{,}2} \approx 0{,}500\,42$, fout $0{,}000\,42$: dertig keer kleiner.
+
+- id: h4-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    snelheid en versnelling uit posities (context)
+  opgave: |-
+    Een bal valt van een toren. Uit een video lees je om de 0,1 s de afgelegde weg $s$ (in m) af:
+    \begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|cccccc}
+    $t$ (s) & 0 & 0,1 & 0,2 & 0,3 & 0,4 & 0,5 \\ \hline
+    $s$ (m) & 0 & 0,049 & 0,196 & 0,441 & 0,784 & 1,225
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schat de snelheid op $t = 0{,}1$; $0{,}2$; $0{,}3$; $0{,}4$ met de centrale differentie.
+      antwoord: |-
+        $0{,}98$; $1{,}96$; $2{,}94$; $3{,}92$ m/s
+      uitwerking: |-
+        $\frac{0{,}196 - 0}{0{,}2} = 0{,}98$, $\frac{0{,}441 - 0{,}049}{0{,}2} = 1{,}96$, $\frac{0{,}784 - 0{,}196}{0{,}2} = 2{,}94$, $\frac{1{,}225 - 0{,}441}{0{,}2} = 3{,}92$.
+    - opgave: |-
+        De snelheden stijgen telkens evenveel. Wat is dus de versnelling?
+      antwoord: |-
+        $9{,}8$ m/s²
+      uitwerking: |-
+        Per 0,1 s stijgt de snelheid met 0,98 m/s: de versnelling is $\frac{0{,}98}{0{,}1} = 9{,}8$ m/s², de valversnelling.
+    - opgave: |-
+        De posities zijn precies $s = 4{,}9\,t^2$. Waarom zijn de geschatte snelheden dan exact?
+      antwoord: |-
+        centrale differentie is exact bij een parabool
+      uitwerking: |-
+        $s(t)$ is een tweedegraadsfunctie, en daarvoor is de centrale differentie exact (stelling): $v(t) = 9{,}8\,t$.
+
+- id: h4-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    middelpunt, trapezium en Simpson vergelijken
+  opgave: |-
+    Benader $\ig_0^2 \frac{1}{1 + x^2}\dx$ met $n = 4$. De exacte waarde is $\bgtan 2 \approx 1{,}107\,149$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $M_4$
+      antwoord: |-
+        $1{,}108\,787$
+      uitwerking: |-
+        $h = 0{,}5$, middens 0,25; 0,75; 1,25; 1,75: $0{,}5\,(0{,}941\,18 + 0{,}64 + 0{,}390\,24 + 0{,}246\,15) \approx 1{,}108\,787$, fout $0{,}0016$.
+    - opgave: |-
+        $T_4$
+      antwoord: |-
+        $1{,}103\,846$
+      uitwerking: |-
+        $0{,}5\,(0{,}5 + 0{,}8 + 0{,}5 + 0{,}307\,69 + 0{,}1) \approx 1{,}103\,846$, fout $-0{,}0033$.
+    - opgave: |-
+        $S_4$
+      antwoord: |-
+        $1{,}105\,128$
+      uitwerking: |-
+        $\frac{0{,}5}{3}\,(1 + 3{,}2 + 1 + 1{,}230\,77 + 0{,}2) \approx 1{,}105\,128$, fout $-0{,}0020$. Hier doet Simpson het niet beter dan $M_4$: met $h = 0{,}5$ is de grafiek nog te sterk gebogen voor een goede parabool per paar intervallen.
+
+- id: h4-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    regel van Simpson uitvoeren
+  opgave: |-
+    Benader $\ig_1^3 \frac{\e^x}{x}\dx$ met de regel van Simpson.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Met $n = 2$.
+      antwoord: |-
+        $S_2 \approx 8{,}0639$
+      uitwerking: |-
+        $h = 1$: $\frac13\bigl(\e + 4 \cdot \frac{\e^2}{2} + \frac{\e^3}{3}\bigr) = \frac13(2{,}7183 + 14{,}7781 + 6{,}6952) \approx 8{,}0638$.
+    - opgave: |-
+        Met $n = 4$. Hoeveel decimalen van $S_4$ vertrouw je, als je alleen $S_2$ en $S_4$ kent?
+      antwoord: |-
+        $S_4 \approx 8{,}0409$; ongeveer één decimaal
+      uitwerking: |-
+        $h = 0{,}5$: $\frac{0{,}5}{3}\bigl(2{,}7183 + 4 \cdot 2{,}9878 + 2 \cdot 3{,}6945 + 4 \cdot 4{,}8730 + 6{,}6952\bigr) \approx 8{,}0409$. $S_2$ en $S_4$ verschillen 0,023; zolang je niet weet hoe snel de fout daalt, vertrouw je alleen de decimalen waarin ze overeenstemmen: 8,0. (De exacte waarde is $8{,}0387$: de fout van $S_4$ is $0{,}0022$.)
+
+- id: h4-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    grafiek lezen: te groot of te klein
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=1.1cm,y=.9cm,font=\scriptsize]
+        \draw[->,grijs] (-.2,0) -- (4.3,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,-.2) -- (0,2.6) node[above,text=black] {$y$};
+        \kromme{0}{4}{2.2-0.12*(\x-0.5)^2}
+        \node[below] at (0,0) {$a$};
+        \node[below] at (4,0) {$b$};
+        \draw[grijs,dashed] (4,0) -- (4,0.73);
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont de grafiek van een functie $f$ op $[a, b]$. Ze is overal bol.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is $T_n$ te groot of te klein? En $M_n$?
+      antwoord: |-
+        $T_n$ te klein, $M_n$ te groot
+      uitwerking: |-
+        Bij een bolle grafiek liggen de lijnstukken van de trapezia onder de grafiek: $T_n \leqslant I$. De raaklijn in een midden ligt boven de grafiek, en de rechthoek heeft dezelfde oppervlakte als het trapezium onder die raaklijn: $M_n \geqslant I$.
+    - opgave: |-
+        Rangschik $M_4$, $T_4$ en $I$.
+      antwoord: |-
+        $T_4 \leqslant I \leqslant M_4$
+      uitwerking: |-
+        Zie a.
+    - opgave: |-
+        Iemand vindt $M_4 = 6{,}21$ en $T_4 = 6{,}06$. Geef een betere schatting en een interval waarin $I$ zeker ligt.
+      antwoord: |-
+        $\frac{2M_4 + T_4}{3} = 6{,}16$; $[6{,}06;\ 6{,}21]$
+      uitwerking: |-
+        $\frac{2 \cdot 6{,}21 + 6{,}06}{3} = 6{,}16$ (dat is $S_8$). Zeker ligt $I$ tussen $T_4$ en $M_4$.
+
+- id: h4-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    waar of vals: afleiden en integreren
+  opgave: |-
+    Waar of vals? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe kleiner $h$, hoe beter de voorwaartse differentie op een rekentoestel.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Bij een te kleine $h$ overheerst de afrondingsfout (zie het voorbeeld met 10 beduidende cijfers).
+    - opgave: |-
+        De centrale differentie is exact voor elke tweedegraadsfunctie.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Zie de stelling: de koorde door $a - h$ en $a + h$ is evenwijdig met de raaklijn in $a$.
+    - opgave: |-
+        De trapeziumregel is exact voor elke tweedegraadsfunctie.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Bij $x^2$ op $[0, 1]$ is $T_2 = 0{,}375 \neq \frac13$. Hij is alleen exact voor eerstegraadsfuncties.
+    - opgave: |-
+        De regel van Simpson is exact voor $x^3$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Zie de stelling: exact voor elke veelterm van hoogstens de derde graad.
+    - opgave: |-
+        Meetfouten wegen zwaarder door bij afleiden dan bij integreren.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Bij afleiden deel je een verschil van twee metingen door een kleine $h$; bij integreren vermenigvuldig je met $h$ en tel je op, zodat fouten uitmiddelen.
+
+- id: h4-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    neerslag uit metingen (context)
+  opgave: |-
+    Tijdens een onweer meet een station elk half uur de neerslagintensiteit $r$ (in mm per uur):
+    \begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|ccccc}
+    $t$ (h) & 0 & 0,5 & 1 & 1,5 & 2 \\ \hline
+    $r$ (mm/h) & 2 & 14 & 22 & 9 & 3
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel mm regen viel er in totaal, volgens de trapeziumregel?
+      antwoord: |-
+        $23{,}75$ mm
+      uitwerking: |-
+        $0{,}5\,(1 + 14 + 22 + 9 + 1{,}5) = 0{,}5 \cdot 47{,}5 = 23{,}75$ mm.
+    - opgave: |-
+        En volgens de regel van Simpson?
+      antwoord: |-
+        $23{,}5$ mm
+      uitwerking: |-
+        $\frac{0{,}5}{3}\,(2 + 56 + 44 + 36 + 3) = \frac{0{,}5}{3} \cdot 141 = 23{,}5$ mm.
+    - opgave: |-
+        Hoeveel liter is dat op een dak van 80 m²?
+      antwoord: |-
+        ongeveer 1880 liter
+      uitwerking: |-
+        1 mm op 1 m² is 1 liter. $23{,}5 \cdot 80 = 1880$ liter (met de trapeziumregel 1900 liter).
+
+- id: h4-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    oppervlakte van een vijver (context)
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+        \fill[accent!15] plot[smooth cycle,tension=.7] coordinates {(0,0) (3,2.6) (6,3.3) (9,3.6) (12,3.0) (15,1.8) (16,0) (15,-1.7) (12,-2.8) (9,-3.0) (6,-2.9) (3,-2.0)};
+        \draw[accent,thick] plot[smooth cycle,tension=.7] coordinates {(0,0) (3,2.6) (6,3.3) (9,3.6) (12,3.0) (15,1.8) (16,0) (15,-1.7) (12,-2.8) (9,-3.0) (6,-2.9) (3,-2.0)};
+        \draw[grijs] (0,0) -- (16,0);
+        \foreach \x in {2,4,...,14}{\draw[grijs,dashed] (\x,-3.6) -- (\x,4);}
+        \node[below] at (0,-3.6) {$0$}; \node[below] at (16,-3.6) {$16$};
+      \end{tikzpicture}
+  opgave: |-
+    Om de oppervlakte van een vijver te schatten, spant een tuinman een koord van 16 m over de lengte, en meet om de 2 m de breedte $b$ loodrecht op het koord:
+    \begin{center}\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{3.5pt}\begin{tabular}{c|ccccccccc}
+    $x$ (m) & 0 & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 \\ \hline
+    $b$ (m) & 0 & 4,0 & 5,4 & 6,2 & 6,5 & 6,3 & 5,8 & 4,1 & 0
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is de oppervlakte gelijk aan $\ig_0^{16} b(x)\dx$?
+      antwoord: |-
+        som van dunne stroken met breedte $\Delta x$ en lengte $b(x)$
+      uitwerking: |-
+        Verdeel de vijver in smalle stroken loodrecht op het koord. Een strook bij $x$ is ongeveer een rechthoek met oppervlakte $b(x)\,\Delta x$. De som van die stroken is een Riemannsom van $b$.
+    - opgave: |-
+        Schat de oppervlakte met de trapeziumregel en met Simpson.
+      antwoord: |-
+        $76{,}6$ m²; $78{,}5$ m²
+      uitwerking: |-
+        $T_8 = 2\,(4{,}0 + 5{,}4 + 6{,}2 + 6{,}5 + 6{,}3 + 5{,}8 + 4{,}1) = 2 \cdot 38{,}3 = 76{,}6$. $S_8 = \frac23\,(0 + 16 + 10{,}8 + 24{,}8 + 13 + 25{,}2 + 11{,}6 + 16{,}4 + 0) = \frac23 \cdot 117{,}8 \approx 78{,}5$.
+    - opgave: |-
+        Welke schatting vertrouw je het meest? Waarom is het verschil hier vooral aan de uiteinden te zoeken?
+      antwoord: |-
+        Simpson; aan de uiteinden is de rand bijna verticaal
+      uitwerking: |-
+        Simpson volgt de kromming van de rand beter. Aan de uiteinden stijgt $b$ heel steil van 0 naar 4 m: daar wijkt een lijnstuk het meest af van de echte rand, en de trapeziumregel onderschat er het meest.
+
+- id: h4-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    energie uit vermogen (context)
+  opgave: |-
+    Een fietser rijdt een rit van een uur. De fietscomputer meet om de 10 minuten het vermogen $P$ (in watt):
+    \begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|ccccccc}
+    $t$ (min) & 0 & 10 & 20 & 30 & 40 & 50 & 60 \\ \hline
+    $P$ (W) & 150 & 210 & 240 & 280 & 230 & 190 & 160
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De energie is de integraal van het vermogen over de tijd. Schat ze met de regel van Simpson, in joule (1 W gedurende 1 s is 1 J).
+      antwoord: |-
+        ongeveer $794\,000$ J
+      uitwerking: |-
+        Met $h = 600$ s: $S_6 = \frac{600}{3}\,(150 + 840 + 480 + 1120 + 460 + 760 + 160) = 200 \cdot 3970 = 794\,000$ J.
+    - opgave: |-
+        Het menselijk lichaam zet ongeveer een kwart van de energie uit voedsel om in arbeid. Hoeveel kilocalorie verbrandde de fietser (1 kcal = 4184 J)?
+      antwoord: |-
+        ongeveer 760 kcal
+      uitwerking: |-
+        Het lichaam verbruikt $4 \cdot 794\,000 \approx 3{,}18 \cdot 10^6$ J, of $\frac{3{,}18 \cdot 10^6}{4184} \approx 759$ kcal.
+    - opgave: |-
+        Wat is het gemiddelde vermogen?
+      antwoord: |-
+        ongeveer 221 W
+      uitwerking: |-
+        Gemiddelde waarde: $\frac{794\,000}{3600} \approx 221$ W.
+
+- id: h4-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de fout van de differenties exact berekenen
+  opgave: |-
+    Los op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat voor $f(x) = px^2 + qx + r$ de voorwaartse differentie precies $f'(a) + ph$ is.
+      antwoord: |-
+        $\frac{p(2ah + h^2) + qh}{h}$
+      uitwerking: |-
+        $f(a + h) - f(a) = p(2ah + h^2) + qh$. Delen door $h$: $2pa + q + ph = f'(a) + ph$.
+    - opgave: |-
+        Toon aan dat voor $f(x) = x^3$ de centrale differentie precies $f'(a) + h^2$ is.
+      antwoord: |-
+        $(a + h)^3 - (a - h)^3 = 6a^2h + 2h^3$
+      uitwerking: |-
+        Met het binomium: $(a + h)^3 - (a - h)^3 = 2(3a^2 h + h^3)$. Delen door $2h$: $3a^2 + h^2$.
+    - opgave: |-
+        Vergelijk met de formules $\frac h2 f''(a)$ en $\frac{h^2}{6} f'''(a)$ uit de tekst. Kloppen ze hier exact?
+      antwoord: |-
+        ja: $\frac h2 \cdot 2p = ph$ en $\frac{h^2}{6} \cdot 6 = h^2$
+      uitwerking: |-
+        $f''(x) = 2p$, dus $\frac h2 f''(a) = ph$. Bij $x^3$ is $f'''(x) = 6$, dus $\frac{h^2}{6} \cdot 6 = h^2$. Bij deze veeltermen zijn de formules exact; in het algemeen alleen bij benadering.
+
+- id: h4-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vooraf het aantal deelintervallen bepalen
+  opgave: |-
+    Is $|f''| \leqslant K_2$ op $[a, b]$, dan is de fout van $T_n$ hoogstens $\tfrac{(b - a)h^2}{12}K_2$. Is $|f^{(4)}| \leqslant K_4$, dan is de fout van $S_n$ hoogstens $\tfrac{(b - a)h^4}{180}K_4$. We benaderen $\ig_1^2 \frac1x\dx$ tot op $10^{-4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $K_2$ en $K_4$ op $[1, 2]$.
+      antwoord: |-
+        $K_2 = 2$, $K_4 = 24$
+      uitwerking: |-
+        $f''(x) = \frac{2}{x^3} \leqslant 2$ en $f^{(4)}(x) = \frac{24}{x^5} \leqslant 24$ op $[1, 2]$.
+    - opgave: |-
+        Hoeveel deelintervallen vraagt de trapeziumregel?
+      antwoord: |-
+        41
+      uitwerking: |-
+        $\frac{h^2}{12} \cdot 2 \leqslant 10^{-4}$ geeft $h \leqslant \sqrt{6 \cdot 10^{-4}} \approx 0{,}0245$, dus $n = \frac1h \geqslant 40{,}8$: $n = 41$.
+    - opgave: |-
+        Hoeveel deelintervallen vraagt de regel van Simpson? Vergelijk met de tabel in de tekst.
+      antwoord: |-
+        8
+      uitwerking: |-
+        $\frac{h^4}{180} \cdot 24 \leqslant 10^{-4}$ geeft $h \leqslant (7{,}5 \cdot 10^{-4})^{1/4} \approx 0{,}165$, dus $n \geqslant 6{,}04$; $n$ moet even zijn: $n = 8$. Inderdaad is de fout van $S_8$ ongeveer $7{,}4 \cdot 10^{-6}$, en die van $S_4$ ($1{,}1 \cdot 10^{-4}$) nog net te groot.
+
+- id: h4-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    extrapolatie van Richardson bij afgeleiden
+  opgave: |-
+    Noem $D(h)$ de centrale differentie. Omdat haar fout ongeveer $C h^2$ is, is de fout van $D(\frac h2)$ ongeveer $\frac{C h^2}{4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de fout van $\frac{4D(h/2) - D(h)}{3}$ dan ongeveer 0 is.
+      antwoord: |-
+        $\frac{4 \cdot \frac{Ch^2}{4} - Ch^2}{3} = 0$
+      uitwerking: |-
+        Is $D(h) = f'(a) + Ch^2$ en $D(\frac h2) = f'(a) + \frac{Ch^2}{4}$, dan is $\frac{4D(h/2) - D(h)}{3} = \frac{3f'(a) + Ch^2 - Ch^2}{3} = f'(a)$.
+    - opgave: |-
+        Pas toe op $f(x) = \e^x$ in $a = 1$ met $h = 0{,}1$ (zie voorbeeld \ref{vb:h4-centraal}). Hoe groot is de fout nu?
+      antwoord: |-
+        $2{,}718\,281\,3$; fout $6 \cdot 10^{-7}$
+      uitwerking: |-
+        $D(0{,}1) \approx 2{,}722\,814\,6$ en $D(0{,}05) \approx 2{,}719\,414\,6$. $\frac{4 \cdot 2{,}719\,414\,6 - 2{,}722\,814\,6}{3} \approx 2{,}718\,281\,3$, fout ongeveer $-6 \cdot 10^{-7}$, tegen $0{,}001\,13$ bij $D(0{,}05)$.
+
+- id: h4-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Simpson als extrapolatie van de trapeziumregel
+  opgave: |-
+    Ook de fout van de trapeziumregel is ongeveer $Ch^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\frac{4T_4 - T_2}{3}$ voor $\ig_1^2 \frac1x\dx$, met $T_2 \approx 0{,}708\,333$ en $T_4 \approx 0{,}697\,024$. Vergelijk met $S_4$.
+      antwoord: |-
+        $0{,}693\,254 = S_4$
+      uitwerking: |-
+        $\frac{4 \cdot 0{,}697\,024 - 0{,}708\,333}{3} \approx 0{,}693\,254$: precies $S_4$.
+    - opgave: |-
+        Toon algemeen aan dat $\frac{4T_2 - T_1}{3} = S_2$ op een interval $[x_0, x_2]$ met midden $x_1$.
+      antwoord: |-
+        uitwerken met $h = x_1 - x_0$
+      uitwerking: |-
+        $T_1 = 2h \cdot \frac{f_0 + f_2}{2} = h(f_0 + f_2)$ en $T_2 = h\bigl(\frac{f_0}{2} + f_1 + \frac{f_2}{2}\bigr)$. Dan is $4T_2 - T_1 = h(2f_0 + 4f_1 + 2f_2 - f_0 - f_2) = h(f_0 + 4f_1 + f_2)$, en gedeeld door 3 is dat $S_2$.
+
+- id: h4-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    booglengte van een parabool
+  opgave: |-
+    In de cursus Integralen zag je dat de booglengte van de grafiek van $f$ op $[a, b]$ gelijk is aan $\ig_a^b \sqrt{1 + f'(x)^2}\dx$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de booglengte van $y = x^2$ op $[0, 1]$ als integraal. Waarom is ze moeilijk exact te berekenen?
+      antwoord: |-
+        $\ig_0^1 \sqrt{1 + 4x^2}\dx$
+      uitwerking: |-
+        $f'(x) = 2x$. Een primitieve van $\sqrt{1 + 4x^2}$ bestaat wel, maar vraagt hyperbolische functies of een lastige substitutie.
+    - opgave: |-
+        Benader ze met $S_2$ en $S_4$.
+      antwoord: |-
+        $1{,}482\,15$; $1{,}478\,98$
+      uitwerking: |-
+        $S_2 = \frac{0{,}5}{3}\bigl(1 + 4\sqrt2 + \sqrt5\bigr) \approx 1{,}482\,15$. $S_4 = \frac{0{,}25}{3}\bigl(1 + 4\sqrt{1{,}25} + 2\sqrt2 + 4\sqrt{3{,}25} + \sqrt5\bigr) \approx 1{,}478\,98$.
+    - opgave: |-
+        De exacte waarde is $\frac{\sqrt5}{2} + \frac{\ln(2 + \sqrt5)}{4} \approx 1{,}478\,943$. Met welke factor daalde de fout van $S_2$ naar $S_4$?
+      antwoord: |-
+        ongeveer 90
+      uitwerking: |-
+        Fouten $0{,}0032$ en $0{,}000\,035$: ongeveer 90 keer kleiner. Bij een kleine $h$ is dat 16; bij een grote $h$ kan het meer of minder zijn.
+
+- id: h4-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een afgeleide uit meetwaarden met ruis
+  opgave: |-
+    Iemand meet de hoogte $y$ (in cm) van een plant om de dag: 12,0; 12,9; 14,1; 14,8; 16,0; 17,1. De metingen zijn op 0,3 cm nauwkeurig.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schat de groeisnelheid op dag 2 en dag 3 met de centrale differentie.
+      antwoord: |-
+        $0{,}95$ en $0{,}95$ cm/dag
+      uitwerking: |-
+        Dag 2: $\frac{14{,}8 - 12{,}9}{2} = 0{,}95$. Dag 3: $\frac{16{,}0 - 14{,}1}{2} = 0{,}95$.
+    - opgave: |-
+        Schat dezelfde snelheden met de voorwaartse differentie. Waarom verschillen ze zo veel?
+      antwoord: |-
+        $0{,}7$ en $1{,}2$; de meetfout wordt niet uitgemiddeld
+      uitwerking: |-
+        $14{,}8 - 14{,}1 = 0{,}7$ en $16{,}0 - 14{,}8 = 1{,}2$. Een meetfout van 0,3 cm op twee metingen kan het verschil met 0,6 cm veranderen, terwijl de groei per dag maar ongeveer 1 cm is.
+    - opgave: |-
+        Hoe groot kan de fout op de centrale schatting door meetfouten hoogstens zijn? Hoe kun je een betrouwbaardere groeisnelheid vinden?
+      antwoord: |-
+        $0{,}3$ cm/dag; een grotere $h$, of een rechte door alle punten
+      uitwerking: |-
+        Het verschil van twee metingen kan 0,6 cm fout zijn, gedeeld door 2: 0,3 cm/dag. Met een grotere $h$ wordt dat kleiner: $\frac{17{,}1 - 12{,}0}{5} = 1{,}02$ cm/dag over de hele periode, met een fout van hoogstens 0,12. Nog beter is een regressierechte door alle punten (cursus Statistiek).
+
+- id: h4-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de middelpuntsregel met een foutgrens
+  opgave: |-
+    We berekenen $\ig_0^1 \e^{-x^2}\dx$, een integraal zonder primitieve in een formule.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $M_4$ en $T_4$.
+      antwoord: |-
+        $M_4 \approx 0{,}748\,747$; $T_4 \approx 0{,}742\,984$
+      uitwerking: |-
+        $h = 0{,}25$. $M_4 = 0{,}25\,(\e^{-0{,}015\,625} + \e^{-0{,}140\,625} + \e^{-0{,}390\,625} + \e^{-0{,}765\,625}) \approx 0{,}748\,747$ en $T_4 = 0{,}25\,(0{,}5 + \e^{-0{,}0625} + \e^{-0{,}25} + \e^{-0{,}5625} + 0{,}5\,\e^{-1}) \approx 0{,}742\,984$.
+    - opgave: |-
+        Geef de schatting $\frac{2M_4 + T_4}{3}$.
+      antwoord: |-
+        $0{,}746\,826$
+      uitwerking: |-
+        $\frac{2 \cdot 0{,}748\,747 + 0{,}742\,984}{3} \approx 0{,}746\,826$. (Exact: $0{,}746\,824$.)
+    - opgave: |-
+        Waarom ligt de integraal hier niet zeker tussen $T_4$ en $M_4$?
+      antwoord: |-
+        de grafiek is niet overal hol of bol
+      uitwerking: |-
+        $f''(x) = (4x^2 - 2)\e^{-x^2}$ wisselt van teken in $\frac{1}{\sqrt2}$: de grafiek is bol op $[0, 0{,}707]$ en hol daarna. De redenering met de raaklijn en de koorde geldt dan niet op het hele interval, al ligt de integraal hier toch ertussen.
+
+- id: h4-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: Simpson is de oppervlakte onder een parabool
+  opgave: |-
+    Neem drie punten $(-h, y_0)$, $(0, y_1)$ en $(h, y_2)$ en de parabool $p(x) = \alpha x^2 + \beta x + \gamma$ erdoor.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\gamma = y_1$ en $2\alpha h^2 = y_0 - 2y_1 + y_2$.
+      antwoord: |-
+        vul $x = 0$ en $x = \pm h$ in
+      uitwerking: |-
+        $p(0) = \gamma = y_1$. $p(h) + p(-h) = 2\alpha h^2 + 2\gamma = y_0 + y_2$, dus $2\alpha h^2 = y_0 + y_2 - 2y_1$.
+    - opgave: |-
+        Toon aan dat $\ig_{-h}^{h} p(x)\dx = \frac h3\,(y_0 + 4y_1 + y_2)$.
+      antwoord: |-
+        $\frac23\alpha h^3 + 2\gamma h$
+      uitwerking: |-
+        De term $\beta x$ is oneven en valt weg. $\ig_{-h}^h (\alpha x^2 + \gamma)\dx = \frac23 \alpha h^3 + 2\gamma h = \frac h3\,(2\alpha h^2) + 2hy_1 = \frac h3\,(y_0 - 2y_1 + y_2 + 6y_1) = \frac h3\,(y_0 + 4y_1 + y_2)$.
+
+- id: h4-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de fout van Simpson bij $x^4$
+  opgave: |-
+    We berekenen de fout van de regel van Simpson voor $f(x) = x^4$ op $[-h, h]$, de eenvoudigste functie waarvoor Simpson niet exact is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de integraal en $S_2$. Toon aan dat de fout $S_2 - I = \frac{4}{15}h^5$ is.
+      antwoord: |-
+        $I = \frac25 h^5$, $S_2 = \frac23 h^5$
+      uitwerking: |-
+        $I = \grens{\frac{x^5}{5}}{-h}{h} = \frac25 h^5$. $S_2 = \frac h3\,(h^4 + 0 + h^4) = \frac23 h^5$. Verschil $\bigl(\frac23 - \frac25\bigr) h^5 = \frac{4}{15}h^5$.
+    - opgave: |-
+        Op $[a, b]$ zijn er $\frac{b - a}{2h}$ zulke paren. Waarom is de totale fout dan evenredig met $h^4$?
+      antwoord: |-
+        $\frac{b - a}{2h} \cdot C h^5$
+      uitwerking: |-
+        Op een klein interval lijkt de functie op een veelterm van graad 4, en alleen het deel met $x^4$ geeft een fout, van ongeveer $C h^5$ per paar. Samen: $\frac{b - a}{2h} \cdot Ch^5 = \frac{(b - a)C}{2} h^4$.
+    - opgave: |-
+        Verklaar zo waarom de fout ongeveer 16 keer kleiner wordt als je $h$ halveert.
+      antwoord: |-
+        $2^4 = 16$
+      uitwerking: |-
+        $\bigl(\frac h2\bigr)^4 = \frac{h^4}{16}$.
+
+- id: h4-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de beste stap bij afronden
+  opgave: |-
+    Bij de voorwaartse differentie is de afbreekfout ongeveer $\frac h2 |f''(a)|$. Rekent een toestel met een relatieve nauwkeurigheid $\varepsilon$, dan is de afrondingsfout op het verschil ongeveer $2\varepsilon |f(a)|$, en na deling door $h$ dus $\frac{2\varepsilon |f(a)|}{h}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de totale fout $E(h) = \frac h2 M + \frac{2\varepsilon F}{h}$ (met $M = |f''(a)|$ en $F = |f(a)|$) het kleinst is bij $h = 2\sqrt{\frac{\varepsilon F}{M}}$.
+      antwoord: |-
+        $E'(h) = \frac M2 - \frac{2\varepsilon F}{h^2} = 0$
+      uitwerking: |-
+        $E'(h) = 0$ geeft $h^2 = \frac{4\varepsilon F}{M}$. Voor kleinere $h$ is $E' < 0$ en voor grotere $E' > 0$: een minimum.
+    - opgave: |-
+        Bereken die $h$ voor $f(x) = \e^x$ in 1, met $\varepsilon = 10^{-10}$. Vergelijk met voorbeeld \ref{vb:h4-afronden}.
+      antwoord: |-
+        $h = 2 \cdot 10^{-5}$
+      uitwerking: |-
+        $F = M = \e$, dus $h = 2\sqrt{10^{-10}} = 2 \cdot 10^{-5}$. In het voorbeeld was $h = 10^{-5}$ inderdaad de beste.
+    - opgave: |-
+        Hoe groot is de kleinste fout ongeveer? Hoeveel juiste cijfers kun je dus hoogstens verwachten?
+      antwoord: |-
+        ongeveer $5 \cdot 10^{-5}$; vier à vijf
+      uitwerking: |-
+        $E = \frac{2 \cdot 10^{-5}}{2}\e + \frac{2 \cdot 10^{-10}\,\e}{2 \cdot 10^{-5}} = 2\e \cdot 10^{-5} \approx 5 \cdot 10^{-5}$. Van de tien cijfers van het toestel blijven er maar een vijftal over: de helft.
+
+- id: h4-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de tweede differentie
+  opgave: |-
+    De \textit{tweede differentie} $\frac{f(a + h) - 2f(a) + f(a - h)}{h^2}$ benadert $f''(a)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat ze het verschil is van twee differentiequotiënten, gedeeld door $h$.
+      antwoord: |-
+        $\frac1h\Bigl(\frac{f(a + h) - f(a)}{h} - \frac{f(a) - f(a - h)}{h}\Bigr)$
+      uitwerking: |-
+        Het verschil van de voorwaartse en de achterwaartse differentie, gedeeld door $h$: de verandering van de helling per lengte-eenheid.
+    - opgave: |-
+        Toon aan dat ze exact is voor $f(x) = x^3$.
+      antwoord: |-
+        $\frac{6ah^2}{h^2} = 6a$
+      uitwerking: |-
+        $(a + h)^3 - 2a^3 + (a - h)^3 = 6ah^2$, gedeeld door $h^2$: $6a = f''(a)$. Voor veeltermen van lagere graad ook (zelfde berekening zonder de derde macht).
+    - opgave: |-
+        Bereken met de tabel van opdracht \ref{oef:h4-o2} de versnelling op $t = 0{,}2$ s rechtstreeks uit de posities.
+      antwoord: |-
+        $9{,}8$ m/s²
+      uitwerking: |-
+        $\frac{0{,}441 - 2 \cdot 0{,}196 + 0{,}049}{0{,}01} = \frac{0{,}098}{0{,}01} = 9{,}8$ m/s².
+
+- id: h4-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de regel van Gauss met twee punten
+  opgave: |-
+    Carl Friedrich Gauss vond een regel die met maar twee functiewaarden exact is tot de derde graad: $\ig_{-1}^{1} f(x)\dx \approx f\bigl(-\tfrac{1}{\sqrt3}\bigr) + f\bigl(\tfrac{1}{\sqrt3}\bigr)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de regel exact is voor $1$, $x$, $x^2$ en $x^3$.
+      antwoord: |-
+        $2$, $0$, $\frac23$, $0$
+      uitwerking: |-
+        $f = 1$: $1 + 1 = 2 = \ig_{-1}^1 1\dx$. $f = x$ en $f = x^3$: de punten liggen symmetrisch, dus de som is 0, net als de integraal. $f = x^2$: $\frac13 + \frac13 = \frac23 = \ig_{-1}^1 x^2\dx$.
+    - opgave: |-
+        Benader $\ig_{-1}^1 \e^x\dx$ met deze regel en met $S_2$. Vergelijk met de exacte waarde $\e - \e^{-1}$.
+      antwoord: |-
+        $2{,}3427$; $2{,}3621$; exact $2{,}3504$
+      uitwerking: |-
+        Gauss: $\e^{-0{,}5774} + \e^{0{,}5774} \approx 2{,}3427$ (fout $-0{,}0077$). Simpson: $\frac13(\e^{-1} + 4 + \e) \approx 2{,}3621$ (fout $0{,}0117$). Gauss is beter met twee punten dan Simpson met drie.
+    - opgave: |-
+        Waarom kiest Gauss net $\pm\frac{1}{\sqrt3}$ en niet de eindpunten?
+      antwoord: |-
+        de vrije keuze van de punten levert twee extra voorwaarden
+      uitwerking: |-
+        Met twee gewichten en twee vrije punten heb je vier onbekenden, en kun je dus vier voorwaarden opleggen: exact voor $1$, $x$, $x^2$, $x^3$. Met vaste punten, zoals bij de trapeziumregel, blijven er maar twee onbekenden over.
+
+- id: h4-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: |-
+      Statistiek
+  opgave: |-
+    De standaardnormale verdeling heeft dichtheidsfunctie $\varphi(z) = \frac{1}{\sqrt{2\pi}}\,\e^{-z^2/2}$. In de cursus Statistiek zag je dat ongeveer 68\,\% van de waarden tussen $-1$ en 1 ligt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf die kans als integraal. Waarom gebruikt een rekentoestel daarvoor een numerieke methode?
+      antwoord: |-
+        $\ig_{-1}^{1} \varphi(z)\,\mathrm{d}z$; er is geen primitieve in een formule
+      uitwerking: |-
+        $P(-1 \leqslant Z \leqslant 1) = \ig_{-1}^1 \varphi(z)\,\mathrm{d}z$. Een primitieve van $\e^{-z^2/2}$ bestaat, maar is niet te schrijven met de gewone functies. Daarom rekent \textit{normalcdf} numeriek.
+    - opgave: |-
+        Benader de kans met $S_2$ en $S_4$.
+      antwoord: |-
+        $0{,}6932$; $0{,}6831$
+      uitwerking: |-
+        $\varphi(0) \approx 0{,}398\,94$, $\varphi(\pm0{,}5) \approx 0{,}352\,07$, $\varphi(\pm1) \approx 0{,}241\,97$. $S_2 = \frac13\,(0{,}241\,97 + 4 \cdot 0{,}398\,94 + 0{,}241\,97) \approx 0{,}6932$. $S_4 = \frac{0{,}5}{3}\,(0{,}241\,97 + 4 \cdot 0{,}352\,07 + 2 \cdot 0{,}398\,94 + 4 \cdot 0{,}352\,07 + 0{,}241\,97) \approx 0{,}6831$.
+    - opgave: |-
+        Vergelijk met \textit{normalcdf}$(-1, 1) \approx 0{,}6827$. Hoeveel juiste decimalen heeft $S_4$?
+      antwoord: |-
+        drie
+      uitwerking: |-
+        De fout van $S_4$ is $0{,}0004$: drie juiste decimalen, na afronding 0,683.
+
+- id: h4-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Rijen
+  opgave: |-
+    Bij een rij is $\Delta u_n = u_{n+1} - u_n$ een voorwaartse differentie met $h = 1$, en $\Delta^2 u_n = \Delta u_{n+1} - \Delta u_n$ een tweede differentie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat een rij rekenkundig is als en slechts als $\Delta u_n$ constant is. Wat is het verband met de afgeleide van een eerstegraadsfunctie?
+      antwoord: |-
+        $\Delta u_n = v$ is de definitie; de afgeleide is ook constant
+      uitwerking: |-
+        Een rekenkundige rij heeft $u_{n+1} = u_n + v$, dus $\Delta u_n = v$, en omgekeerd. Een rekenkundige rij is een eerstegraadsfunctie $u_n = u_0 + vn$ op de natuurlijke getallen, en daarvoor is de voorwaartse differentie exact de afgeleide $v$.
+    - opgave: |-
+        Bereken $\Delta u_n$ en $\Delta^2 u_n$ voor $u_n = 3n^2 - n + 2$, voor $n = 0, 1, 2, 3$.
+      antwoord: |-
+        $\Delta u_n = 6n + 2$; $\Delta^2 u_n = 6$
+      uitwerking: |-
+        $u_n$: 2, 4, 12, 26, 46. $\Delta u_n$: 2, 8, 14, 20. $\Delta^2 u_n$: 6, 6, 6. Algemeen: $\Delta u_n = 3(2n + 1) - 1 = 6n + 2$.
+    - opgave: |-
+        De rij 1, 4, 11, 22, 37, \ldots heeft een constante tweede differentie. Bepaal haar voorschrift $u_n = an^2 + bn + c$ (met $u_0 = 1$).
+      antwoord: |-
+        $u_n = 2n^2 + n + 1$
+      uitwerking: |-
+        $\Delta u_n$: 3, 7, 11, 15; $\Delta^2 u_n = 4 = 2a$, dus $a = 2$. $\Delta u_0 = a + b = 3$, dus $b = 1$, en $c = u_0 = 1$. Controle: $u_3 = 18 + 3 + 1 = 22$.
+
+- id: h4-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Matrices
+  opgave: |-
+    We zoeken gewichten $w_0$, $w_1$, $w_2$ zodat $\ig_{-1}^{1} f(x)\dx = w_0 f(-1) + w_1 f(0) + w_2 f(1)$ exact is voor $f(x) = 1$, $x$ en $x^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel het stelsel op dat de gewichten moeten voldoen.
+      antwoord: |-
+        $w_0 + w_1 + w_2 = 2$, $-w_0 + w_2 = 0$, $w_0 + w_2 = \frac23$
+      uitwerking: |-
+        Voor $f = 1$: integraal 2. Voor $f = x$: integraal 0. Voor $f = x^2$: integraal $\frac23$, en $f(-1) = f(1) = 1$, $f(0) = 0$.
+    - opgave: |-
+        Los het op met de methode van Gauss-Jordan. Welke regel vind je?
+      antwoord: |-
+        $\bigl(\frac13, \frac43, \frac13\bigr)$: de regel van Simpson met $h = 1$
+      uitwerking: |-
+        Uit de tweede en de derde: $w_0 = w_2 = \frac13$; uit de eerste: $w_1 = \frac43$. Dat is $\frac h3(f_0 + 4f_1 + f_2)$ met $h = 1$.
+    - opgave: |-
+        Toon zonder te rekenen aan dat de regel ook exact is voor $x^3$.
+      antwoord: |-
+        symmetrie: integraal en som zijn 0
+      uitwerking: |-
+        $x^3$ is oneven: de integraal over $[-1, 1]$ is 0, en $\frac13(-1) + \frac43 \cdot 0 + \frac13 \cdot 1 = 0$.
+
+- id: h4-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Benader $f'(2)$ voor $f(x) = x^3$ met de voorwaartse en met de centrale differentie, met $h = 0{,}1$. Geef telkens de fout. Hoe verandert elke fout als je $h$ halveert?
+  antwoord: |-
+    $12{,}61$ (fout 0,61); $12{,}01$ (fout 0,01); halveert en wordt vier keer kleiner
+  uitwerking: |-
+    $\frac{9{,}261 - 8}{0{,}1} = 12{,}61$ en $\frac{9{,}261 - 6{,}859}{0{,}2} = 12{,}01$; $f'(2) = 12$. De voorwaartse fout is evenredig met $h$, de centrale met $h^2$ (hier precies $h^2$).
+
+- id: h4-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een leerling berekent $\frac{\e^{2 + h} - \e^2}{h}$ op een rekentoestel met 10 cijfers. Voor $h = 10^{-2}$ krijgt hij 7,426, voor $h = 10^{-5}$ krijgt hij 7,389, en voor $h = 10^{-10}$ krijgt hij 0. Verklaar. Welke waarde is de beste?
+  antwoord: |-
+    $h = 10^{-5}$; bij $10^{-10}$ zijn beide waarden gelijk na afronding
+  uitwerking: |-
+    $f'(2) = \e^2 \approx 7{,}389$. Bij $h = 10^{-2}$ is de afbreekfout groot (ongeveer $\frac h2 \e^2 \approx 0{,}037$). Bij $h = 10^{-10}$ zijn $\e^{2 + h}$ en $\e^2$ op 10 cijfers gelijk, dus het verschil is 0: alleen afrondingsfout. De beste is $h = 10^{-5}$.
+
+- id: h4-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een drone stijgt. Om de seconde wordt de hoogte (in m) gemeten: 0; 3,1; 8,0; 14,8; 23,9. Schat de verticale snelheid na 2 s en na 4 s. Welke schatting is het betrouwbaarst? Waarom?
+  antwoord: |-
+    $5{,}85$ m/s; $9{,}1$ m/s; de eerste
+  uitwerking: |-
+    Na 2 s centraal: $\frac{14{,}8 - 3{,}1}{2} = 5{,}85$ m/s. Na 4 s alleen achterwaarts: $\frac{23{,}9 - 14{,}8}{1} = 9{,}1$ m/s. De centrale schatting heeft een fout evenredig met $h^2$, de achterwaartse met $h$; bovendien versnelt de drone, dus de achterwaartse schatting is te klein.
+
+- id: h4-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Benader $\ig_0^2 \frac{1}{1 + x^2}\dx$ met $M_4$ en met $T_4$. Welke fout verwacht je groter? Waarom?
+  antwoord: |-
+    $1{,}1088$ en $1{,}1038$; die van $T_4$
+  uitwerking: |-
+    $M_4 \approx 1{,}108\,787$ en $T_4 \approx 1{,}103\,846$ (zie de opdracht met dezelfde integraal). De fout van de trapeziumregel is ongeveer $-2$ keer die van de middelpuntsregel. Inderdaad: fouten $0{,}0016$ en $-0{,}0033$ tegenover $\bgtan 2 \approx 1{,}107\,149$.
+
+- id: h4-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Benader $\ig_0^1 \frac{4}{1 + x^2}\dx$ met $S_4$. Welk bekend getal benader je zo?
+  antwoord: |-
+    $3{,}141\,57$; $\pi$
+  uitwerking: |-
+    $h = 0{,}25$: $\frac{0{,}25}{3}\bigl(4 + 4 \cdot 3{,}764\,71 + 2 \cdot 3{,}2 + 4 \cdot 2{,}56 + 2\bigr) \approx 3{,}141\,57$. De integraal is $4\bgtan 1 = \pi$.
+
+- id: h4-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Toon aan dat de middelpuntsregel en de trapeziumregel exact zijn voor elke eerstegraadsfunctie, en dat Simpson exact is voor $x^2$ op $[0, 2]$ met $n = 2$.
+  antwoord: |-
+    rechthoek en trapezium vallen samen met het gebied; $S_2 = \frac83$
+  uitwerking: |-
+    Onder een rechte is het gebied een trapezium, en dat is wat $T_1$ berekent. De rechthoek met hoogte in het midden heeft dezelfde oppervlakte, want het driehoekje dat links te veel is, is rechts te weinig. $S_2 = \frac13(0 + 4 \cdot 1 + 4) = \frac83 = \ig_0^2 x^2\dx$.
+
+- id: h4-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Het debiet van een beek (in liter per minuut) wordt om de 10 minuten gemeten: 120, 150, 200, 260, 230, 180, 140. Schat met de regel van Simpson hoeveel water er in die 60 minuten voorbijstroomt.
+  antwoord: |-
+    ongeveer $11\,600$ liter
+  uitwerking: |-
+    $S_6 = \frac{10}{3}\,(120 + 600 + 400 + 1040 + 460 + 720 + 140) = \frac{10}{3} \cdot 3480 = 11\,600$ liter.

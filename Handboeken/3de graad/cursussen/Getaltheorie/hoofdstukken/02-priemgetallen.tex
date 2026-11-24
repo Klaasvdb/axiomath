@@ -1,0 +1,534 @@
+%----------------------------------------------------------------------------------------
+% PRIEMGETALLEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Priemgetallen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{In het oosten van de Verenigde Staten leven cicaden die 17 jaar onder de grond zitten. Dan kruipen ze allemaal tegelijk naar boven, met miljoenen. Een roofdier met een topjaar om de 4 jaar vindt ze alleen een feestmaal als zijn topjaar samenvalt met een cicadenjaar. Hoe vaak gebeurt dat? En als de cicaden om de 12 jaar bovenkwamen? Biologen vermoeden dat een priemgetal als cyclus de cicaden beschermt. Waarom zou dat zo zijn?}{\begin{tikzpicture}[x=.082cm,y=1cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (73,0) node[right,text=black] {jaar};
+  \foreach \t in {0,4,...,68}{\fill[fel!85!black] (\t,.45) circle (1.5pt);}
+  \foreach \t in {0,17,34,51,68}{\fill[accent] (\t,1.1) circle (2pt);}
+  \foreach \t in {0,17,34,51,68}{\draw[grijs] (\t,-.08) -- (\t,.08) node[below=3pt,text=black] {$\t$};}
+  \draw[accent,thick] (68,.78) ellipse (4pt and 14pt);
+  \node[above,inner sep=2pt] at (25.5,1.15) {cicaden: om de 17 jaar};
+  \node[above,inner sep=2pt] at (25.5,.5) {roofdier: om de 4 jaar};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 35, het deel over priemgetallen, met de wenken over de stelling van Euclides (oneindig veel priemgetallen) en de unieke factorisatie. Het kleinste gemeen veelvoud, het aantal delers en de priemgetalstelling (alleen als uitleg) zijn extra's die het probleem oplossen. Voorkennis: hoofdstuk 1 (vooral het lemma van Gauss), het bewijs uit het ongerijmde en volledige inductie (Logica en bewijzen). De cicaden van 13 en 17 jaar bestaan echt (\textit{Magicicada}); de verklaring met roofdieren is een hypothese van biologen, geen vaststaand feit.}
+
+Priemgetallen zijn de bouwstenen van de gehele getallen: elk getal groter dan 1 is een product van priemgetallen, op precies één manier. Dat klinkt vanzelfsprekend, maar het is een stelling die een bewijs nodig heeft, en dat bewijs steunt op het lemma van Gauss uit hoofdstuk 1.
+
+In dit hoofdstuk zie je hoe je nagaat of een getal priem is, waarom er oneindig veel priemgetallen zijn, en waarom de ontbinding in priemfactoren uniek is. Met die ontbinding vind je daarna snel alle delers, de grootste gemene deler en het kleinste gemeen veelvoud van twee getallen. Dat laatste lost het probleem van de cicaden op.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{De Verken (oefening \ref{oef:h2-verken}) laat zien dat een unieke ontbinding niet vanzelf spreekt: in de wereld van de even getallen heeft 60 twee ontbindingen. Kom erop terug bij de hoofdstelling in sectie 3: wat gaat daar mis? Het lemma van Euclides geldt er niet, want 6 deelt $2 \cdot 30$ in die wereld zonder 2 of 30 te delen.}
+
+%========================================================================================
+\section{Priemgetallen herkennen}
+
+\subsection{Wat is een priemgetal?}
+
+Het getal 12 kun je schrijven als $2 \cdot 6$ of $3 \cdot 4$, maar 13 alleen als $1 \cdot 13$. Getallen als 13 laten zich niet verder opsplitsen in kleinere factoren. Ze zijn de bouwstenen voor de vermenigvuldiging, zoals de atomen in de scheikunde.
+
+\begin{theorie}
+Een natuurlijk getal $p > 1$ is een \textbf{\textcolor{accent}{priemgetal}} als zijn enige positieve delers 1 en $p$ zijn.
+
+\vspace{1mm}
+Een natuurlijk getal $n > 1$ dat geen priemgetal is, heet \textbf{\textcolor{accent}{samengesteld}}: dan is $\formule{n = ab}$ met $\formule{1 < a, b < n}$.
+\end{theorie}
+
+Het getal 1 is geen priemgetal en ook niet samengesteld. Dat is een afspraak, met een goede reden: met 1 als priemgetal kon je $6 = 2 \cdot 3 = 1 \cdot 2 \cdot 3 = 1 \cdot 1 \cdot 2 \cdot 3$ schrijven, en dan was de ontbinding in priemfactoren niet meer uniek. Het enige even priemgetal is 2: elk ander even getal heeft 2 als deler.
+
+\subsection{Elk getal heeft een priemdeler}
+
+Neem een samengesteld getal, zoals 84. Het heeft delers groter dan 1: 2, 3, 4, 6, 7, \ldots\ De kleinste ervan, 2, is een priemgetal. Dat is geen toeval.
+
+\begin{theorie}
+\begin{stelling}{Kleinste deler}
+Voor elk natuurlijk getal $n \geqslant 2$ is de kleinste deler groter dan 1 een priemgetal. Dus
+
+\vspace{1mm}
+\qquad $\formule{\text{elk } n \geqslant 2 \text{ heeft een priemdeler.}}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $p$ de kleinste deler van $n$ met $p > 1$. Die bestaat, want $n$ zelf is zo'n deler. Stel dat $p$ samengesteld is: $p = ab$ met $1 < a < p$. Dan is $a \deelt p$ en $p \deelt n$, dus $a \deelt n$ (transitiviteit). Maar $1 < a < p$, en $p$ was de kleinste. Dat is een tegenspraak, dus $p$ is priem.
+\end{bewijs}
+\end{theorie}
+
+\subsection{Een priemtest}
+
+Is 391 een priemgetal? Je kunt delen door 2, 3, 4, \ldots, 390, maar dat is veel werk. Er zijn twee besparingen. Je hoeft alleen door priemgetallen te delen, want heeft 391 een deler, dan ook een priemdeler. En je mag stoppen bij $\sqrt{391}$, want delers komen in paren: is $391 = ab$, dan is een van beide hoogstens $\sqrt{391}$.
+
+\begin{theorie}
+\begin{stelling}{Priemtest}
+Is $n \geqslant 2$ samengesteld, dan heeft $n$ een priemdeler $p$ met
+
+\vspace{1mm}
+\qquad $\formule{p \leqslant \sqrt n}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $n = ab$ met $1 < a \leqslant b < n$. Was $a > \sqrt n$, dan ook $b > \sqrt n$, en dan $ab > n$. Dus $a \leqslant \sqrt n$. Volgens de vorige stelling heeft $a$ een priemdeler $p$. Dan is $p \leqslant a \leqslant \sqrt n$, en $p \deelt a \deelt n$.
+\end{bewijs}
+\end{theorie}
+
+Omgekeerd gelezen: heeft $n$ geen enkele priemdeler tot en met $\sqrt n$, dan is $n$ priem.
+
+\voorbeeld{}{Is 391 een priemgetal?\label{vb:h2-391}}{%
+\uitleg{We delen door de priemgetallen tot $\sqrt{391}$. Omdat $19^2 = 361$ en $20^2 = 400$, is $\sqrt{391} \approx 19{,}8$: we testen 2, 3, 5, 7, 11, 13, 17 en 19.}
+\begin{stappen}
+2, 3, 5 \ndeelt 391 & 391 is oneven, de som van de cijfers is 13, het laatste cijfer is 1. \\[1ex]
+391 = 7 \cdot 55 + 6 = 11 \cdot 35 + 6 = 13 \cdot 30 + 1 & Geen deler. \\[1ex]
+391 = 17 \cdot 23 & Gevonden.
+\end{stappen}
+Dus 391 is samengesteld. De kleinste deler, 17, ligt inderdaad onder $\sqrt{391}$.}
+
+\voorbeeld{}{Is 401 een priemgetal?\label{vb:h2-401}}{%
+\uitleg{Nu is $20^2 = 400 < 401 < 441 = 21^2$, dus we testen de priemgetallen tot 20.}
+\begin{stappen}
+401 = 7 \cdot 57 + 2 = 11 \cdot 36 + 5 & Ook 2, 3 en 5 delen niet. \\[1ex]
+401 = 13 \cdot 30 + 11 = 17 \cdot 23 + 10 = 19 \cdot 21 + 2 & Geen enkele rest is 0.
+\end{stappen}
+Geen priemgetal tot 20 deelt 401, dus 401 is een priemgetal. Acht delingen volstonden.}
+
+\begin{werkwijze}
+Bereken $\sqrt n$ en deel $n$ door elk priemgetal tot en met $\sqrt n$. Is een rest 0, dan is $n$ samengesteld. Is geen enkele rest 0, dan is $n$ priem.
+\end{werkwijze}
+
+\subsection{De zeef van Eratosthenes}
+
+\naast{Wil je alle priemgetallen tot 100, dan gaat het sneller zonder te delen. Schrijf de getallen van 2 tot 100 op. Omcirkel 2 en schrap alle andere veelvouden van 2. Het eerste getal dat overblijft, 3, is priem: omcirkel het en schrap zijn veelvouden. Zo verder met 5 en 7. Het volgende priemgetal is 11, en $11^2 = 121 > 100$: elk samengesteld getal tot 100 heeft een priemdeler tot 7 en is dus al geschrapt.
+
+\vspace{1mm}
+Wat overblijft, zijn de 25 priemgetallen onder 100, gekleurd in de figuur. Eratosthenes van Cyrene, die rond 240 voor Christus ook de omtrek van de aarde berekende, beschreef deze methode als een zeef: de samengestelde getallen vallen erdoor.}{\begin{tikzpicture}[scale=.56]
+  \foreach \r in {0,...,9}{\foreach \k in {1,...,10}{%
+    \pgfmathtruncatemacro{\g}{10*\r+\k}%
+    \pgfmathtruncatemacro{\y}{9-\r}%
+    \def\kl{white}%
+    \foreach \p in {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97}{\ifnum\g=\p\gdef\kl{accent!22}\fi}%
+    \getalvak[\kl]{\k}{\y}{\g}}}
+\end{tikzpicture}}
+
+\nujij{Is 323 een priemgetal? En 331?}{$\sqrt{323} \approx 18$: $323 = 17 \cdot 19$, samengesteld. $\sqrt{331} \approx 18{,}2$, en geen priemgetal tot 17 deelt 331: priem.}
+
+\begin{oefeningen}
+\oef{h2-priemtest}
+\end{oefeningen}
+
+%========================================================================================
+\section{Oneindig veel priemgetallen}
+
+\subsection{De stelling van Euclides}
+
+In de zeef staan 25 priemgetallen onder 100. Tussen 100 en 200 zijn het er 21, en onder 1000 zijn het er 168. Ze worden dus zeldzamer. Houdt de rij ergens op? Is er een grootste priemgetal? Euclides bewees rond 300 voor Christus van niet, met een van de mooiste bewijzen uit de wiskunde.
+
+Het idee: neem een eindig aantal priemgetallen, en maak een getal dat door geen enkel ervan deelbaar is. Vermenigvuldig ze en tel er 1 bij. Bij deling door elk van die priemgetallen is de rest dan 1.
+
+\begin{theorie}
+\begin{stelling}{Euclides}
+\qquad $\formule{\text{Er zijn oneindig veel priemgetallen.}}$
+\end{stelling}
+
+\begin{bewijs}
+Stel dat er maar eindig veel priemgetallen zijn: $p_1, p_2, \ldots, p_k$. Bekijk
+\bewijsregel{N = p_1 p_2 \cdots p_k + 1 .}
+Omdat $N \geqslant 2$, heeft $N$ een priemdeler $p$. Die staat in de lijst, dus $p \deelt p_1 p_2 \cdots p_k$. Dan deelt $p$ ook het verschil $N - p_1 p_2 \cdots p_k = 1$. Dat is onmogelijk, want $p > 1$. De lijst was dus niet volledig.
+\end{bewijs}
+\end{theorie}
+
+Let op: het bewijs zegt niet dat $N$ zelf priem is. Het zegt alleen dat $N$ een priemdeler heeft die niet in de lijst staat.
+
+\voorbeeld{}{Pas het bewijs van Euclides toe op de lijst 2, 3, 5, 7, 11, 13. Welk nieuw priemgetal vind je?\label{vb:h2-euclides}}{%
+\uitleg{We berekenen $N$ en zoeken zijn kleinste priemdeler. Die kan niet in de lijst staan.}
+\begin{stappen}
+N = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 13 + 1 = 30\,031 & Het product is $30\,030$. \\[1ex]
+30\,031 = 59 \cdot 509 & Delen door 17, 19, \ldots, 53 geeft telkens een rest; 59 deelt wel.
+\end{stappen}
+$N$ is dus niet priem, maar zijn priemdelers 59 en 509 staan niet in de lijst. Voor kortere lijsten is $N$ wel priem: $2 + 1 = 3$, $2 \cdot 3 + 1 = 7$, $2 \cdot 3 \cdot 5 + 1 = 31$, $211$ en $2311$.}
+
+\nujij{Pas het bewijs toe op de lijst 3, 5. Welk nieuw priemgetal vind je?}{$N = 16 = 2^4$: het nieuwe priemgetal is 2.}
+
+\subsection{Gaten tussen priemgetallen}
+
+Er zijn oneindig veel priemgetallen, maar de gaten ertussen kunnen willekeurig groot worden. Tussen 89 en 97 liggen al zeven samengestelde getallen. Wil je er duizend na elkaar, dan bestaat daar een eenvoudige constructie.
+
+\voorbeeld{}{Toon aan dat de zes getallen $7! + 2$, $7! + 3$, \ldots, $7! + 7$ allemaal samengesteld zijn.\label{vb:h2-gaten}}{%
+\uitleg{Het getal $7! = 1 \cdot 2 \cdot 3 \cdots 7 = 5040$ is deelbaar door 2, 3, \ldots, 7. Tel je er $k$ bij, dan blijft het getal deelbaar door $k$.}
+\begin{stappen}
+k \deelt 7! \ \text{ en } \ k \deelt k & Voor $k = 2, 3, \ldots, 7$. \\[1ex]
+k \deelt 7! + k & Lineaire combinatie. \\[1ex]
+1 < k < 7! + k & Dus $k$ is een echte deler: $7! + k$ is samengesteld.
+\end{stappen}
+De getallen 5042, 5043, \ldots, 5047 zijn dus allemaal samengesteld. Op dezelfde manier zijn de $n - 1$ getallen $n! + 2$, \ldots, $n! + n$ samengesteld, voor elke $n \geqslant 2$.}
+
+\naast{Hoeveel priemgetallen zijn er ongeveer tot $x$? Noem dat aantal $\pi(x)$: zo is $\pi(10) = 4$ en $\pi(100) = 25$. De grafiek van $\pi(x)$ is een trap die bij elk priemgetal één hoger gaat. Gauss vermoedde rond 1792 dat $\pi(x) \approx \dfrac{x}{\ln x}$, en in 1896 werd dat bewezen: de \textit{priemgetalstelling}. Het bewijs valt ver buiten deze cursus. De benadering is niet scherp, maar de verhouding gaat naar 1: $\pi(10^6) = 78\,498$, tegenover $\tfrac{10^6}{\ln 10^6} \approx 72\,382$.
+
+\vspace{1mm}
+Andere vragen zijn nog open. Zijn er oneindig veel \textit{priemtweelingen}, zoals 11 en 13 of 41 en 43, die maar 2 verschillen? Is elk even getal groter dan 2 een som van twee priemgetallen (het vermoeden van Goldbach, 1742)? Niemand weet het.}{\begin{tikzpicture}[x=.052cm,y=.11cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=10,ystep=5] (0,0) grid (100,25);
+  \draw[->,grijs] (0,0) -- (106,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,28);
+  \foreach \t in {20,40,60,80,100}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {5,10,...,25}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] plot[const plot] coordinates {(1,0) (2,1) (3,2) (5,3) (7,4) (11,5) (13,6) (17,7) (19,8) (23,9) (29,10) (31,11) (37,12) (41,13) (43,14) (47,15) (53,16) (59,17) (61,18) (67,19) (71,20) (73,21) (79,22) (83,23) (89,24) (97,25) (100,25)};
+  \draw[fel!85!black,thick,dashed] plot[domain=3:100,samples=60,smooth] (\x,{\x/ln(\x)});
+  \node[accent,above] at (52,25) {$\pi(x)$};
+  \node[fel!85!black,right] at (72,13) {$\dfrac{x}{\ln x}$};
+\end{tikzpicture}}
+
+\begin{oefeningen}
+\oef{h2-oneindig}
+\end{oefeningen}
+
+%========================================================================================
+\section{De hoofdstelling van de rekenkunde}
+
+\subsection{Het lemma van Euclides}
+
+Deel je 360 telkens door zijn kleinste priemdeler, dan vind je $360 = 2 \cdot 2 \cdot 2 \cdot 3 \cdot 3 \cdot 5$. Begin je anders, met $360 = 10 \cdot 36 = (2 \cdot 5)(2 \cdot 2 \cdot 3 \cdot 3)$, dan vind je dezelfde factoren. Is dat altijd zo? In de Verken zag je een wereld waar het misloopt. Wat maakt de gewone gehele getallen anders? Het antwoord is een eigenschap van priemgetallen die je kent van het lemma van Gauss.
+
+\begin{theorie}
+\begin{stelling}{Lemma van Euclides}
+Voor een priemgetal $p$ en gehele getallen $a$ en $b$ geldt
+
+\vspace{1mm}
+\qquad $\formule{p \deelt ab \ \Rightarrow \ p \deelt a \ \text{ of } \ p \deelt b}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $p \deelt ab$ en $p \ndeelt a$. De enige positieve delers van $p$ zijn 1 en $p$, en $p \ndeelt a$, dus $\ggd(p, a) = 1$. Het lemma van Gauss geeft dan $p \deelt b$.
+\end{bewijs}
+\end{theorie}
+
+Voor getallen die geen priemgetal zijn, geldt dat niet: $6 \deelt 4 \cdot 9$, maar $6 \ndeelt 4$ en $6 \ndeelt 9$. Met inductie breid je het lemma uit naar meer factoren.
+
+\begin{theorie}
+\begin{stelling}{Lemma van Euclides, meer factoren}
+Voor een priemgetal $p$ en gehele getallen $a_1, \ldots, a_k$ geldt
+
+\vspace{1mm}
+\qquad $\formule{p \deelt a_1 a_2 \cdots a_k \ \Rightarrow \ p \deelt a_i}$ \quad voor minstens één $i$.
+\end{stelling}
+
+\begin{bewijs}
+Met inductie op $k$. Voor $k = 1$ is er niets te bewijzen. Stel dat de eigenschap geldt voor $k$ factoren, en dat $p \deelt a_1 \cdots a_k \cdot a_{k + 1}$. Het lemma van Euclides met $a = a_1 \cdots a_k$ en $b = a_{k + 1}$ geeft $p \deelt a_1 \cdots a_k$ of $p \deelt a_{k + 1}$. In het eerste geval deelt $p$ volgens de inductiehypothese een van $a_1, \ldots, a_k$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Toon aan: als een priemgetal $p$ een deler is van $a^2$, dan is $p^2$ een deler van $a^2$.\label{vb:h2-lemma}}{%
+\uitleg{Het lemma van Euclides vertelt ons iets over $a$ zelf. Daarna kwadrateren we.}
+\begin{stappen}
+p \deelt a \cdot a \ \Rightarrow \ p \deelt a & Lemma van Euclides, met twee keer dezelfde factor. \\[1ex]
+a = pk \ \Rightarrow \ a^2 = p^2 k^2 & Met $k \in \Z$. \\[1ex]
+p^2 \deelt a^2
+\end{stappen}
+Voor een getal dat niet priem is, klopt het niet altijd: $4 \deelt 6^2$, maar $16 \ndeelt 36$.}
+
+\nujij{Toon aan dat een priemgetal $p$ dat $a^3$ deelt, ook $a$ deelt.}{$p \deelt a \cdot a \cdot a$, dus volgens het lemma voor meer factoren deelt $p$ een van de drie factoren $a$.}
+
+\begin{oefeningen}
+\oef{h2-lemma}
+\end{oefeningen}
+
+\subsection{Ontbinden in priemfactoren}
+
+Nu kunnen we de hoofdstelling bewijzen. Ze bestaat uit twee delen: elk getal heeft een ontbinding (bestaan), en er is er maar één (uniciteit). Voor het bestaan gebruiken we een \textit{kleinste tegenvoorbeeld}: stel dat het misloopt, neem het kleinste getal waarvoor het misloopt, en toon aan dat dat niet kan.
+
+\begin{theorie}
+\begin{stelling}{Hoofdstelling van de rekenkunde}
+Elk natuurlijk getal $n \geqslant 2$ is een product van priemgetallen
+
+\vspace{1mm}
+\qquad $\formule{n = p_1 p_2 \cdots p_k}$
+
+\vspace{1mm}
+en die ontbinding is uniek, op de volgorde van de factoren na.
+\end{stelling}
+
+\begin{bewijs}
+\textit{Bestaan.} Stel dat er getallen $n \geqslant 2$ zijn die geen product van priemgetallen zijn, en neem het kleinste, $n$. Dan is $n$ niet priem, want een priemgetal is een product met één factor. Dus $n = ab$ met $1 < a, b < n$. Omdat $a$ en $b$ kleiner zijn dan $n$, zijn ze wel een product van priemgetallen, en dan $n = ab$ ook. Tegenspraak.
+
+\textit{Uniciteit.} Met inductie op $k$, het kleinste aantal factoren. Stel
+\bewijsregel{p_1 p_2 \cdots p_k = q_1 q_2 \cdots q_l}
+met priemgetallen $p_i$ en $q_j$ en $k \leqslant l$. Dan is $p_1 \deelt q_1 q_2 \cdots q_l$, dus $p_1 \deelt q_j$ voor een $j$ (lemma van Euclides). Omdat $q_j$ priem is en $p_1 > 1$, is $p_1 = q_j$. Schrap die factor links en rechts. Is $k = 1$, dan blijft $1 = $ een product van $l - 1$ priemgetallen over, dus $l = 1$. Anders blijven twee producten met $k - 1$ en $l - 1$ factoren over, en die zijn volgens de inductiehypothese gelijk op de volgorde na.
+\end{bewijs}
+\end{theorie}
+
+Zet je gelijke factoren samen als macht, dan krijg je de \emph{priemontbinding} $n = p_1^{e_1} p_2^{e_2} \cdots p_r^{e_r}$, met verschillende priemgetallen $p_1 < p_2 < \cdots < p_r$ en exponenten $e_i \geqslant 1$. Zo is $360 = 2^3 \cdot 3^2 \cdot 5$. In de wereld van de even getallen uit de Verken geldt het lemma van Euclides niet: daar is 6 ``priem'' en $6 \deelt 2 \cdot 30$, maar 6 deelt in die wereld 2 noch 30. Daarom is de ontbinding daar niet uniek.
+
+\voorbeeld{}{Ontbind 13\,860 in priemfactoren.\label{vb:h2-ontbind}}{%
+\uitleg{We delen telkens door het kleinste priemgetal dat nog deelt. Zo komen de factoren van klein naar groot.}
+\begin{stappen}
+13\,860 = 2 \cdot 6930 = 2^2 \cdot 3465 & Even, en nog eens even. \\[1ex]
+3465 = 3 \cdot 1155 = 3^2 \cdot 385 & De som van de cijfers is 18, en dan 12. \\[1ex]
+385 = 5 \cdot 77 = 5 \cdot 7 \cdot 11 & 77 is $7 \cdot 11$.
+\end{stappen}
+Dus $13\,860 = 2^2 \cdot 3^2 \cdot 5 \cdot 7 \cdot 11$. Elke andere volgorde van delen geeft dezelfde factoren.}
+
+\begin{werkwijze}
+Deel $n$ door het kleinste priemgetal dat deelt, en herhaal met het quotiënt. Gebruik de kenmerken van deelbaarheid door 2, 3, 5 en 9. Is het quotiënt groter dan 1 en heeft het geen priemdeler tot zijn vierkantswortel, dan is het zelf priem en ben je klaar.
+\end{werkwijze}
+
+\nujij{Ontbind 5544 in priemfactoren.}{$5544 = 2^3 \cdot 693 = 2^3 \cdot 3^2 \cdot 77 = 2^3 \cdot 3^2 \cdot 7 \cdot 11$.}
+
+\begin{oefeningen}
+\oef{h2-ontbind}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenen met de priemontbinding}
+
+\subsection{Alle delers}
+
+Wat zijn de delers van $72 = 2^3 \cdot 3^2$? Een deler kan geen andere priemfactoren hebben dan 2 en 3, en niet meer factoren 2 of 3 dan 72 zelf. Zo is $2^2 \cdot 3 = 12$ een deler, maar $2^4$ niet en $5$ ook niet.
+
+\begin{theorie}
+\begin{stelling}{Delers}
+Als $n = p_1^{e_1} \cdots p_r^{e_r}$, dan zijn de positieve delers van $n$ precies de getallen
+
+\vspace{1mm}
+\qquad $\formule{d = p_1^{f_1} \cdots p_r^{f_r}}$ \qquad met \qquad $\formule{0 \leqslant f_i \leqslant e_i}$
+\end{stelling}
+
+\begin{bewijs}
+Zo'n $d$ is een deler: $n = d \cdot p_1^{e_1 - f_1} \cdots p_r^{e_r - f_r}$, en alle exponenten zijn $\geqslant 0$.
+
+Stel omgekeerd $d \deelt n$, dus $n = dm$ met $d, m \geqslant 1$. Ontbind $d$ en $m$ in priemfactoren, en zet ze naast elkaar: dat is een ontbinding van $n$. Die is uniek, dus in $d$ komen alleen de priemgetallen $p_i$ voor, en elke $p_i$ hoogstens $e_i$ keer.
+\end{bewijs}
+\end{theorie}
+
+\naast{Voor elke priemfactor $p_i$ kies je een exponent uit $0, 1, \ldots, e_i$: dat zijn $e_i + 1$ keuzes. Elke keuze geeft een andere deler, want de ontbinding is uniek. In de tabel staan de twaalf delers van $72$: vier keuzes voor de macht van 2 (kolommen), drie voor de macht van 3 (rijen).}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \foreach \i/\a in {0/1,1/2,2/4,3/8}{\node at ({\i+1.5},3.4) {$2^{\i}$};}
+  \foreach \j in {0,1,2}{\node at (.4,{2.5-\j}) {$3^{\j}$};}
+  \foreach \i/\a in {0/1,1/2,2/4,3/8}{\foreach \j/\b in {0/1,1/3,2/9}{%
+    \pgfmathtruncatemacro{\g}{\a*\b}%
+    \getalvak[accent!12]{\i+1}{2-\j}{\g}}}
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Aantal delers}
+Als $n = p_1^{e_1} \cdots p_r^{e_r}$, dan heeft $n$ precies
+
+\vspace{1mm}
+\qquad $\formule{(e_1 + 1)(e_2 + 1) \cdots (e_r + 1)}$
+
+\vspace{1mm}
+positieve delers.
+\end{stelling}
+
+\begin{bewijs}
+Volgens de vorige stelling komt elke deler overeen met één rij exponenten $(f_1, \ldots, f_r)$ met $0 \leqslant f_i \leqslant e_i$, en verschillende rijen geven verschillende delers (uniciteit). Voor $f_i$ zijn er $e_i + 1$ mogelijkheden, onafhankelijk van de andere: samen $(e_1 + 1) \cdots (e_r + 1)$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Hoeveel positieve delers heeft 360? Hoeveel daarvan zijn even?\label{vb:h2-delers}}{%
+\uitleg{We ontbinden 360 en tellen de keuzes voor de exponenten. Een even deler heeft minstens één factor 2.}
+\begin{stappen}
+360 = 2^3 \cdot 3^2 \cdot 5 & Zie de inleiding van sectie 3. \\[1ex]
+(3 + 1)(2 + 1)(1 + 1) = 24 & Alle delers. \\[1ex]
+3 \cdot 3 \cdot 2 = 18 & Even: de exponent van 2 is 1, 2 of 3.
+\end{stappen}
+Er zijn 24 delers, waarvan 18 even en $24 - 18 = 6$ oneven: de delers 1, 3, 5, 9, 15, 45 van $3^2 \cdot 5$.}
+
+\nujij{Hoeveel positieve delers heeft 1000? En $2^{10}$?}{$1000 = 2^3 \cdot 5^3$: $4 \cdot 4 = 16$. $2^{10}$: 11.}
+
+\begin{oefeningen}
+\oef{h2-delers}
+\end{oefeningen}
+
+\subsection{Grootste gemene deler en kleinste gemeen veelvoud}
+
+Twee getallen hebben ook gemeenschappelijke veelvouden. Het roofdier en de cicaden van het probleem treffen elkaar in de jaren die een veelvoud zijn van 4 én van 17.
+
+\begin{theorie}
+Neem $a, b \in \N_0$. Het \textbf{\textcolor{accent}{kleinste gemeen veelvoud}} $\formule{\kgv(a, b)}$ is het kleinste getal $m \geqslant 1$ met $a \deelt m$ en $b \deelt m$.
+\end{theorie}
+
+Het product $ab$ is altijd een gemeenschappelijk veelvoud, dus het kgv bestaat en is hoogstens $ab$. Met de priemontbinding vind je de ggd en het kgv zonder het algoritme van Euclides. Schrijf $a$ en $b$ met dezelfde priemgetallen, en exponent 0 waar een priemgetal ontbreekt: $a = p_1^{e_1} \cdots p_r^{e_r}$ en $b = p_1^{f_1} \cdots p_r^{f_r}$.
+
+\begin{theorie}
+\begin{stelling}{ggd met de ontbinding}
+\qquad $\formule{\ggd(a, b) = p_1^{\min(e_1, f_1)} \cdots p_r^{\min(e_r, f_r)}}$
+\end{stelling}
+
+\begin{bewijs}
+Een gemeenschappelijke deler $d = p_1^{g_1} \cdots p_r^{g_r}$ heeft $g_i \leqslant e_i$ en $g_i \leqslant f_i$ (stelling van de delers), dus $g_i \leqslant \min(e_i, f_i)$. De grootste krijg je door elke $g_i$ zo groot mogelijk te kiezen.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{kgv met de ontbinding}
+\qquad $\formule{\kgv(a, b) = p_1^{\max(e_1, f_1)} \cdots p_r^{\max(e_r, f_r)}}$
+\end{stelling}
+
+\begin{bewijs}
+Een gemeenschappelijk veelvoud $m$ heeft $a$ en $b$ als deler. In de ontbinding van $m$ heeft $p_i$ dus een exponent van minstens $e_i$ en minstens $f_i$, dus minstens $\max(e_i, f_i)$. Het getal met precies die exponenten en geen andere priemfactoren is een gemeenschappelijk veelvoud, en het kleinste.
+\end{bewijs}
+\end{theorie}
+
+Omdat $\min(e, f) + \max(e, f) = e + f$ voor elk paar getallen, volgt uit de twee stellingen samen een verband dat je vaak gebruikt.
+
+\begin{theorie}
+\begin{stelling}{Product van ggd en kgv}
+Voor $a, b \in \N_0$ geldt
+
+\vspace{1mm}
+\qquad $\formule{\ggd(a, b) \cdot \kgv(a, b) = ab}$
+\end{stelling}
+
+\begin{bewijs}
+De exponent van $p_i$ links is $\min(e_i, f_i) + \max(e_i, f_i) = e_i + f_i$, en dat is ook de exponent van $p_i$ in $ab$. Twee getallen met dezelfde ontbinding zijn gelijk.
+\end{bewijs}
+\end{theorie}
+
+Zo kun je het kgv ook berekenen met het algoritme van Euclides: $\kgv(a, b) = \tfrac{ab}{\ggd(a, b)}$. Dat is handig voor grote getallen die je moeilijk ontbindt. En zijn $a$ en $b$ relatief priem, dan is $\kgv(a, b) = ab$.
+
+\voorbeeld{}{Bereken $\ggd(1260, 1188)$ en $\kgv(1260, 1188)$.\label{vb:h2-ggdkgv}}{%
+\uitleg{We ontbinden beide getallen en schrijven ze met dezelfde priemgetallen. Dan nemen we per priemgetal de kleinste en de grootste exponent.}
+\begin{stappen}
+1260 = 2^2 \cdot 3^2 \cdot 5 \cdot 7 \cdot 11^0 & Ontbinden zoals in voorbeeld~\ref{vb:h2-ontbind}. \\[1ex]
+1188 = 2^2 \cdot 3^3 \cdot 5^0 \cdot 7^0 \cdot 11 & \\[1ex]
+\ggd = 2^2 \cdot 3^2 = 36 & De kleinste exponenten. \\[1ex]
+\kgv = 2^2 \cdot 3^3 \cdot 5 \cdot 7 \cdot 11 = 41\,580 & De grootste exponenten.
+\end{stappen}
+Controle: $36 \cdot 41\,580 = 1\,496\,880 = 1260 \cdot 1188$.}
+
+\begin{werkwijze}
+Ontbind beide getallen in priemfactoren. Neem voor de ggd elk gemeenschappelijk priemgetal met de kleinste exponent, en voor het kgv elk priemgetal dat voorkomt met de grootste exponent. Ken je de ggd al, dan is het kgv $\tfrac{ab}{\ggd(a, b)}$.
+\end{werkwijze}
+
+\voorbeeld{}{Terug naar het probleem. Hoe vaak valt een topjaar van een roofdier met een cyclus van 4 jaar samen met een cicadenjaar, als de cicaden een cyclus hebben van 17 jaar? En van 12 jaar? Wat als het roofdier een andere cyclus heeft?\label{vb:h2-terug}}{%
+\uitleg{Stel dat beide in jaar 0 samenvallen. Ze treffen elkaar opnieuw in de jaren die een veelvoud zijn van beide cycli, dus om de $\kgv$ jaar. We berekenen het kgv met $\kgv(a, b) = \tfrac{ab}{\ggd(a, b)}$.}
+\begin{stappen}
+\kgv(4, 17) = 4 \cdot 17 = 68 & 17 is priem en $17 \ndeelt 4$, dus $\ggd = 1$. \\[1ex]
+\kgv(4, 12) = 12 & Want $4 \deelt 12$.
+\end{stappen}
+Met een cyclus van 17 jaar treffen de cicaden het roofdier maar om de 68 jaar, dus één keer op vier generaties. Met een cyclus van 12 jaar zou elke generatie het roofdier treffen. De tabel toont het kgv voor roofdieren met een cyclus van 2 tot 8 jaar.
+
+\begin{center}\small\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+cyclus roofdier & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
+cicaden 12 jaar & 12 & 12 & 12 & 60 & 12 & 84 & 24 \\ \hline
+cicaden 13 jaar & 26 & 39 & 52 & 65 & 78 & 91 & 104 \\ \hline
+cicaden 17 jaar & 34 & 51 & 68 & 85 & 102 & 119 & 136 \\ \hline
+\end{tabular}
+\end{center}
+Is de cyclus $c$ een priemgetal groter dan de cyclus $k$ van het roofdier, dan is $\ggd(k, c) = 1$ en $\kgv(k, c) = kc$: het grootst mogelijke. Een priemgetal heeft geen kleine delers waarop roofdieren zich kunnen afstemmen.}
+
+\nujij{Bereken $\ggd(504, 540)$ en $\kgv(504, 540)$ met de priemontbinding.}{$504 = 2^3 \cdot 3^2 \cdot 7$, $540 = 2^2 \cdot 3^3 \cdot 5$: ggd $= 2^2 \cdot 3^2 = 36$, kgv $= 2^3 \cdot 3^3 \cdot 5 \cdot 7 = 7560$.}
+
+\begin{oefeningen}
+\oef{h2-ggdkgv}
+
+\oef{h2-kgv}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+
+\oef{h2-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Exponentiële en logaritmische functies zagen de leerlingen in het 5de jaar. Telproblemen staat in het 6de jaar: geef die oefening pas na de productregel.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-401}{oef:h2-priemtest}%
+  \fv{oef:h2-t2}{vb:h2-ontbind}{oef:h2-ontbind}%
+  \fv{oef:h2-t3}{vb:h2-delers}{oef:h2-delers}%
+  \fv{oef:h2-t4}{vb:h2-ggdkgv}{oef:h2-ggdkgv}%
+  \fv{oef:h2-t5}{vb:h2-terug}{oef:h2-ggdkgv}%
+  \fv{oef:h2-t6}{vb:h2-euclides}{oef:h2-oneindig}%
+  \fv{oef:h2-t7}{vb:h2-lemma}{oef:h2-lemma}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van priemgetal en samengesteld getal, waarom 1 geen priemgetal is, de priemtest met $\sqrt n$, de zeef van Eratosthenes, de stelling van Euclides met haar bewijs, het lemma van Euclides en waarom het niet geldt voor samengestelde getallen, de hoofdstelling van de rekenkunde, hoe je de delers, hun aantal, de ggd en het kgv uit de priemontbinding afleest, en het verband tussen ggd en kgv. Vergelijk daarna met de kaders.
+\fi

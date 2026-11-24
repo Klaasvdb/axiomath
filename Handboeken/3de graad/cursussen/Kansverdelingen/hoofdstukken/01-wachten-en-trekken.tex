@@ -1,0 +1,575 @@
+%----------------------------------------------------------------------------------------
+% WACHTEN EN TREKKEN: de geometrische, de negatief-binomiale en de hypergeometrische verdeling.
+% Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof (uitleg, theorie, voorbeeld, werkwijze, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Wachten en trekken}
+
+\begin{probleem}
+\naast{Anna en Bert spelen een spel van rondes. Ze zijn even sterk: elke ronde wint elk van beiden met kans $\frac12$. Wie eerst 4 rondes gewonnen heeft, krijgt de pot van 64 euro. Bij een stand van 2-1 voor Anna moeten ze stoppen. Hoe verdelen ze de pot eerlijk? Krijgt Anna twee derde, omdat ze twee van de drie rondes won? Of de helft, omdat het spel niet af is?}{\begin{tikzpicture}[font=\small]
+  \node[anchor=east] at (-.2,.6) {Anna};
+  \node[anchor=east] at (-.2,0) {Bert};
+  \foreach \i in {1,...,4}{
+    \draw[accent,thick] (\i*.55-.3,.6) circle (.19);
+    \draw[accent,thick] (\i*.55-.3,0) circle (.19);}
+  \foreach \i in {1,2}{\fill[accent] (\i*.55-.3,.6) circle (.19);}
+  \fill[accent] (.25,0) circle (.19);
+  \node[font=\scriptsize,text=grijs] at (1.1,-.5) {wie eerst 4 heeft, wint};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 48 (discrete verdelingen gebruiken om kansen te bepalen), met uit de wenk de geometrische, de negatief-binomiale en de hypergeometrische verdeling; de Poissonverdeling volgt in hoofdstuk 2. Voorkennis uit pakket 4: Kansrekenen (kansverdeling, verwachtingswaarde, variantie, de binomiale verdeling met \texttt{binompdf} en \texttt{binomcdf}, de kapiteinsregel), Telproblemen (combinaties) en Rijen (de meetkundige reeks en limieten van rijen). Extra's: de geheugenloosheid, het verband tussen de negatief-binomiale en de binomiale verdeling, en de vergelijking van de hypergeometrische met de binomiale verdeling. Het probleem is het probleem van de punten, waarover Blaise Pascal en Pierre de Fermat in 1654 brieven schreven: men ziet die briefwisseling vaak als het begin van de kansrekening. Laat de klas eerst stemmen over een verdeling (32-32, 43-21, 48-16 ...) en hou de vraag open tot 1.2.4.}
+
+Bij een binomiaal experiment ligt het aantal herhalingen vast, en tel je de successen. Vaak is het net andersom: je herhaalt tot er een succes is, en telt hoe lang dat duurt. Hoeveel worpen moet je wachten op een zes? Hoeveel klanten moet een verkoper bellen voor hij er drie heeft overtuigd? Zo'n wachttijd heeft geen bovengrens, en dus oneindig veel mogelijke waarden. Daarnaast trek je vaak \textit{zonder} teruglegging, zoals bij de lotto of bij een controle van een partij lampen: dan zijn de herhalingen niet onafhankelijk. In dit hoofdstuk leer je drie verdelingen die bij die situaties horen. Met de tweede verdeel je de pot van Anna en Bert.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg, het liefst met echte dobbelstenen: elke leerling noteert hoeveel worpen hij op een zes wacht, en de klas berekent het gemiddelde. Het ligt meestal in de buurt van 6, en het langste wachten verrast (vaak meer dan 20 worpen).}
+
+%========================================================================================
+\section{De geometrische verdeling}
+
+\subsection{Wachten op het eerste succes}
+
+Bij een bordspel mag je pas vertrekken als je een zes gooit. Hoeveel beurten heb je daarvoor nodig? In de Verken vond je de kansen voor de eerste beurten: $\frac16$, $\frac56 \cdot \frac16$, $\bigl(\frac56\bigr)^2 \cdot \frac16$, \ldots\ Om de eerste zes pas bij beurt $k$ te gooien, moet je eerst $k - 1$ keer iets anders gooien, en dan een zes. Omdat de worpen onafhankelijk zijn, vermenigvuldig je de kansen. Dat patroon geldt voor elk experiment dat je herhaalt tot het lukt.
+
+\begin{theorie}
+Herhaal een kansexperiment met kans $p$ op succes ($0 < p < 1$), onafhankelijk, tot het eerste succes. Het aantal pogingen $X$, het succes meegeteld, heeft een \textbf{\textcolor{accent}{geometrische verdeling}} met parameter $p$: $\formule{X \sim \Geo(p)}$, met
+
+\vspace{1mm}
+\qquad $\formule{P(X = k) = (1 - p)^{k - 1}\, p}$ \qquad voor $k = 1, 2, 3, \ldots$
+\end{theorie}
+
+De naam komt van de kansen zelf: elke staaf is $1 - p$ keer de vorige, dus de kansen vormen een meetkundige (geometrische) rij. Er zijn oneindig veel waarden, dus de som van alle kansen is een reeks. Het is de meetkundige reeks uit de cursus Rijen, met eerste term $p$ en quotiënt $1 - p$:
+\[ p + (1 - p)p + (1 - p)^2 p + \cdots = \frac{p}{1 - (1 - p)} = 1 . \]
+De kansen zijn dus samen 1, zoals bij elke kansverdeling. Het staafdiagram daalt altijd: één poging is de meest waarschijnlijke waarde, ook als $p$ klein is. Hoe kleiner $p$, hoe trager het daalt.
+
+\figuren{\begin{tikzpicture}[x=.3cm,y=7cm,font=\scriptsize]
+  \foreach \t in {0.1,0.2,0.3,0.4,0.5}{\draw[black!14,very thin] (.5,\t) -- (15.5,\t);}
+  \foreach \k in {1,...,15}{\pgfmathsetmacro{\h}{.5^\k}\staaf{\k}{\h}{.6}}
+  \kansassen{.5}{16}{.55}{$k$}
+  \foreach \k in {1,5,10,15}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.3/{0,3},.5/{0,5}}{\node[left] at (.5,\t) {\l};}
+  \node[anchor=north east] at (15.5,.5) {$\Geo(0{,}5)$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.3cm,y=7cm,font=\scriptsize]
+  \foreach \t in {0.1,0.2,0.3,0.4,0.5}{\draw[black!14,very thin] (.5,\t) -- (15.5,\t);}
+  \foreach \k in {1,...,15}{\pgfmathsetmacro{\h}{(5/6)^(\k-1)/6}\staaf{\k}{\h}{.6}}
+  \kansassen{.5}{16}{.55}{$k$}
+  \foreach \k in {1,5,10,15}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.3/{0,3},.5/{0,5}}{\node[left] at (.5,\t) {\l};}
+  \node[anchor=north east] at (15.5,.5) {$\Geo(\frac16)$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Wat is de kans dat je bij het bordspel pas in de vierde beurt een zes gooit?\label{vb:h1-geo}}{%
+\uitleg{We herhalen tot de eerste zes, onafhankelijk, telkens met kans $\frac16$: het aantal beurten is geometrisch verdeeld. De eerste drie worpen zijn geen zes, de vierde wel.}
+\begin{stappenbreed}
+X \sim \Geo\bigl(\tfrac16\bigr) & $X$ is het aantal beurten tot en met de eerste zes. \\[1ex]
+P(X = 4) = \Bigl(\frac56\Bigr)^3 \cdot \frac16 = \frac{125}{1296} \approx 0{,}096 & Op het rekentoestel: \texttt{geometpdf(1/6,4)}.
+\end{stappenbreed}}
+
+\nujij{Een speler zet in op één getal bij roulette, met kans $\frac{1}{37}$ op winst. Wat is de kans dat hij pas bij de vijfde keer wint?}{$\bigl(\frac{36}{37}\bigr)^4 \cdot \frac{1}{37} \approx 0{,}024$.}
+
+\subsection{Langer dan $k$ pogingen}
+
+Hoe groot is de kans dat je meer dan 10 beurten moet wachten? Je zou de kansen van 11, 12, 13, \ldots\ beurten kunnen optellen, maar dat zijn er oneindig veel. Het kan veel eenvoudiger: meer dan 10 beurten wachten betekent dat de eerste 10 beurten mislukken.
+
+\begin{theorie}
+\begin{stelling}{Staartkans van de geometrische verdeling}
+Voor $X \sim \Geo(p)$ en $k = 0, 1, 2, \ldots$ is
+
+\vspace{1mm}
+\qquad $\formule{P(X > k) = (1 - p)^k}$ \quad en dus \quad $\formule{P(X \leqslant k) = 1 - (1 - p)^k}$
+\end{stelling}
+
+\begin{bewijs}
+$X > k$ betekent dat het eerste succes niet bij de eerste $k$ pogingen valt: die $k$ pogingen mislukken allemaal. Omdat ze onafhankelijk zijn, is
+\bewijsregel{P(X > k) = \underbrace{(1 - p)(1 - p)\cdots(1 - p)}_{k \text{ factoren}} = (1 - p)^k .}
+De tweede formule volgt met de complementregel.
+\end{bewijs}
+\end{theorie}
+
+Je kunt ook de reeks $\sum_{j=k+1}^{+\infty} (1 - p)^{j-1}p$ uitrekenen: ze geeft hetzelfde. De redenering hierboven is korter, en zegt waarom de formule zo eenvoudig is.
+
+\voorbeeld{}{Wat is de kans dat je bij het bordspel meer dan 10 beurten moet wachten op een zes? En hoogstens 3?\label{vb:h1-staart}}{%
+\uitleg{Meer dan 10 beurten wachten: de eerste 10 worpen zijn geen zes. Hoogstens 3 is het complement van meer dan 3.}
+\begin{stappenbreed}
+P(X > 10) = \Bigl(\frac56\Bigr)^{10} \approx 0{,}162 & Bijna een op de zes spelers wacht zo lang: de felle staven. \\[2.5ex]
+P(X \leqslant 3) = 1 - \Bigl(\frac56\Bigr)^3 \approx 0{,}421 & Met \texttt{geometcdf(1/6,3)}.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[x=.3cm,y=18cm,font=\scriptsize]
+  \foreach \t in {0.05,0.1,0.15,0.2}{\draw[black!14,very thin] (.5,\t) -- (20.5,\t);}
+  \foreach \k in {1,...,10}{\pgfmathsetmacro{\h}{(5/6)^(\k-1)/6}\staaf{\k}{\h}{.6}}
+  \foreach \k in {11,...,20}{\pgfmathsetmacro{\h}{(5/6)^(\k-1)/6}\staaffel{\k}{\h}{.6}}
+  \kansassen{.5}{21.2}{.22}{$k$}
+  \foreach \k in {1,5,10,15,20}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.2/{0,2}}{\node[left] at (.5,\t) {\l};}
+  \node[fill=white,inner sep=1pt] at (15.5,.1) {$P(X > 10)$};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-geo}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Het toeval heeft geen geheugen}
+
+Je vriend heeft al 8 beurten geen zes gegooid. ``Nu moet het wel lukken'', zegt hij. Klopt dat? Een dobbelsteen weet niet wat hij eerder gooide: elke worp heeft opnieuw kans $\frac16$. De kans dat hij nog meer dan 3 beurten moet wachten, is dus dezelfde als bij het begin van het spel. Bij de geometrische verdeling kun je dat ook uitrekenen.
+
+\begin{theorie}
+\begin{stelling}{Geheugenloosheid}
+Voor $X \sim \Geo(p)$ en natuurlijke getallen $m$ en $k$ is
+
+\vspace{1mm}
+\qquad $\formule{P(X > m + k \gegeven X > m) = P(X > k)}$
+\end{stelling}
+
+\begin{bewijs}
+Als $X > m + k$, dan is ook $X > m$: de doorsnede van beide gebeurtenissen is $X > m + k$. Met de definitie van voorwaardelijke kans en de staartkans is dan
+\bewijsregel{P(X > m + k \gegeven X > m) = \frac{P(X > m + k)}{P(X > m)} = \frac{(1 - p)^{m + k}}{(1 - p)^m} = (1 - p)^k = P(X > k) .}
+\end{bewijs}
+\end{theorie}
+
+In woorden: wie al $m$ keer zonder succes wachtte, staat er niet beter of slechter voor dan iemand die net begint. De verdeling van de resterende wachttijd is weer $\Geo(p)$. Dat de kans ``nu wel aan de beurt is'', heet de \textit{gokkersfout}.
+
+\voorbeeld{}{Je vriend gooide al 8 beurten geen zes. Wat is de kans dat hij ook de volgende 3 beurten geen zes gooit?\label{vb:h1-geheugen}}{%
+\uitleg{We zoeken $P(X > 11 \gegeven X > 8)$. Met de geheugenloosheid is dat $P(X > 3)$.}
+\begin{stappenbreed}
+P(X > 11 \gegeven X > 8) = P(X > 3) = \Bigl(\frac56\Bigr)^3 \approx 0{,}579 & Precies zoals bij de start van het spel.
+\end{stappenbreed}
+De 8 mislukte beurten maken een zes niet waarschijnlijker. Wel was het vooraf onwaarschijnlijk dat hij zo lang zou wachten: $P(X > 8) \approx 0{,}23$.}
+
+\begin{oefeningen}
+\oef{h1-geheugen}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Hoe lang wacht je gemiddeld?}
+
+In de Verken schatte je dat je gemiddeld 6 worpen wacht op een zes. Dat ligt voor de hand: op lange termijn is een op de zes worpen een zes. Om het te bewijzen, moeten we eerst zeggen wat een verwachtingswaarde is bij oneindig veel waarden. De som $\sum k\, P(X = k)$ uit de cursus Kansrekenen wordt nu een reeks.
+
+\begin{theorie}
+Neemt $X$ de waarden $1, 2, 3, \ldots$ aan, dan is de \textbf{\textcolor{accent}{verwachtingswaarde}} de som van de reeks
+
+\vspace{1mm}
+\qquad $\formule{\E(X) = \sominf{k=1} k\, P(X = k)}$, \qquad als die convergeert.
+
+\vspace{1mm}
+De variantie is $\formule{\Var(X) = \E(X^2) - \bigl(\E(X)\bigr)^2}$ en de standaardafwijking $\formule{\sigma = \sqrt{\Var(X)}}$, zoals bij eindig veel waarden.
+
+\begin{stelling}{Verwachtingswaarde van de geometrische verdeling}
+Voor $X \sim \Geo(p)$ is \quad $\formule{\E(X) = \frac1p}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $q = 1 - p$, dus $0 < q < 1$. De $n$-de partieelsom van de reeks is $p\,T_n$, met
+\bewijsregel{T_n = \sum_{k=1}^{n} k q^{k-1} = 1 + 2q + 3q^2 + \cdots + n q^{n-1} .}
+Trek daarvan $qT_n = q + 2q^2 + \cdots + (n - 1)q^{n-1} + nq^n$ af. Per macht van $q$ blijft er telkens $1$ over:
+\bewijsregel{(1 - q)\,T_n = 1 + q + q^2 + \cdots + q^{n-1} - nq^n = \frac{1 - q^n}{1 - q} - nq^n .}
+Nu is $\lim_{n\to+\infty} q^n = 0$, en ook $\lim_{n\to+\infty} nq^n = 0$. Schrijf daarvoor $q = \frac{1}{1 + h}$ met $h > 0$. Het binomium geeft $(1 + h)^n \geqslant \binom{n}{2}h^2$, dus
+\bewijsregel{0 < nq^n = \frac{n}{(1 + h)^n} \leqslant \frac{n}{\frac{n(n-1)}{2}h^2} = \frac{2}{(n - 1)h^2} \quad\text{voor } n \geqslant 2,}
+en dat gaat naar 0. Zo vinden we $\lim_{n\to+\infty} (1 - q)\,T_n = \frac{1}{1 - q}$, dus $T_n \to \frac{1}{(1 - q)^2} = \frac{1}{p^2}$, en $\E(X) = p \cdot \frac{1}{p^2} = \frac1p$.
+\end{bewijs}
+
+\begin{stelling}{Standaardafwijking van de geometrische verdeling}
+Voor $X \sim \Geo(p)$ is \quad $\formule{\Var(X) = \frac{1 - p}{p^2}}$ \quad en \quad $\formule{\sigma = \frac{\sqrt{1 - p}}{p}}$
+\end{stelling}
+\end{theorie}
+
+De tweede stelling bewijs je in opdracht \ref{oef:h1-o18}, met een slimme redenering over de eerste poging. De formule $\E(X) = \frac1p$ is wat je intuïtief verwacht: lukt een op de zes pogingen, dan wacht je gemiddeld 6 pogingen. Maar de spreiding is groot. Bij een kleine $p$ is $\sigma \approx \frac1p$: ongeveer even groot als het gemiddelde zelf.
+
+\voorbeeld{}{Hoeveel beurten wacht je bij het bordspel gemiddeld op een zes, en met welke standaardafwijking? Wat is de kans dat je langer wacht dan gemiddeld?\label{vb:h1-verwacht}}{%
+\uitleg{We gebruiken de formules met $p = \frac16$, en voor de laatste vraag de staartkans.}
+\begin{stappenbreed}
+\E(X) = \frac{1}{1/6} = 6 & Gemiddeld 6 beurten, zoals in de Verken. \\[2ex]
+\sigma = \frac{\sqrt{5/6}}{1/6} = 6\sqrt{\tfrac56} = \sqrt{30} \approx 5{,}5 & Bijna even groot als het gemiddelde. \\[2ex]
+P(X > 6) = \Bigl(\frac56\Bigr)^6 \approx 0{,}335 & Een derde van de spelers wacht langer dan gemiddeld.
+\end{stappenbreed}
+De kans op langer dan gemiddeld is geen $\frac12$: het staafdiagram is scheef, met een lange staart naar rechts. Een paar heel lange wachttijden trekken het gemiddelde omhoog.}
+
+\begin{werkwijze}
+Ga na of je herhaalt tot het eerste succes, onafhankelijk en met dezelfde $p$: dan is het aantal pogingen $X \sim \Geo(p)$. Gebruik $P(X = k) = (1 - p)^{k-1}p$, $P(X > k) = (1 - p)^k$ en $P(X \leqslant k) = 1 - (1 - p)^k$, of \texttt{geometpdf(p,k)} en \texttt{geometcdf(p,k)}. Let op de grens: \textit{minstens} $k$ pogingen is $X > k - 1$. Telt de vraag de mislukkingen vóór het succes, dan is dat $X - 1$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-verwacht}
+\end{oefeningen}
+
+%========================================================================================
+\section{De negatief-binomiale verdeling}
+
+\subsection{Wachten op het $r$-de succes}
+
+Een verkoper belt klanten op. Elke klant koopt met kans $0{,}2$, onafhankelijk van de anderen. De verkoper stopt zodra hij 3 verkopen heeft. Hoeveel klanten moet hij bellen? Dat is geen geometrische verdeling meer: hij wacht niet op het eerste succes, maar op het derde. We tellen de rijtjes, zoals bij de binomiale verdeling.
+
+\begin{theorie}
+Herhaal een kansexperiment met kans $p$ op succes, onafhankelijk, tot het $r$-de succes. Het aantal pogingen $X$ heeft een \textbf{\textcolor{accent}{negatief-binomiale verdeling}} met parameters $r$ en $p$: $\formule{X \sim \NB(r, p)}$.
+
+\begin{stelling}{Negatief-binomiale kans}
+Voor $X \sim \NB(r, p)$ en $k = r, r + 1, r + 2, \ldots$ is \quad $\formule{P(X = k) = \binom{k - 1}{r - 1} p^r (1 - p)^{k - r}}$
+\end{stelling}
+
+\begin{bewijs}
+$X = k$ betekent: poging $k$ is een succes, en bij de eerste $k - 1$ pogingen zijn er precies $r - 1$ successen. Die $r - 1$ successen kunnen op $\binom{k-1}{r-1}$ manieren over de eerste $k - 1$ plaatsen verdeeld zijn. Elk zo'n rijtje van $k$ pogingen bevat $r$ successen en $k - r$ mislukkingen, en heeft dus kans $p^r(1 - p)^{k-r}$. De rijtjes zijn onverenigbaar, dus
+\bewijsregel{P(X = k) = \binom{k - 1}{r - 1} p^r (1 - p)^{k - r} .}
+\end{bewijs}
+\end{theorie}
+
+Met $r = 1$ vind je de geometrische verdeling terug: $\binom{k-1}{0} = 1$. Het verschil met de binomiale kans $\binom{k}{r}p^r(1 - p)^{k-r}$ zit in de combinatie: het laatste succes ligt vast op plaats $k$, alleen de andere $r - 1$ kies je. Op het rekentoestel staat de verdeling niet, maar de formule is $p$ maal een binomiale kans: $P(X = k) = p \cdot P(Y = r - 1)$ met $Y \sim B(k - 1, p)$. De naam komt van een reeksontwikkeling met een negatieve exponent, die je hier niet nodig hebt. Het staafdiagram van $\NB(3;\, 0{,}2)$ hieronder stijgt eerst: met maar 3 of 4 pogingen al 3 successen hebben, is zeldzaam. De fel gekleurde staaf hoort bij het volgende voorbeeld.
+
+\figuren{\begin{tikzpicture}[x=.36cm,y=36cm,font=\scriptsize]
+  \foreach \t in {0.02,0.04,0.06}{\draw[black!14,very thin] (2.5,\t) -- (35.5,\t);}
+  \foreach \k in {3,...,35}{\pgfmathsetmacro{\h}{(\k-1)*(\k-2)/2*.008*.8^(\k-3)}\ifnum\k=10 \staaffel{\k}{\h}{.6}\else\staaf{\k}{\h}{.6}\fi}
+  \kansassen{2.5}{36.3}{.07}{$k$}
+  \foreach \k in {3,10,20,30}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.02/{0,02},.04/{0,04},.06/{0,06}}{\node[left] at (2.5,\t) {\l};}
+  \node[anchor=north east] at (35.5,.06) {$\NB(3;\, 0{,}2)$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Wat is de kans dat de verkoper precies 10 klanten moet bellen voor zijn derde verkoop?\label{vb:h1-nb}}{%
+\uitleg{De tiende klant koopt, en bij de eerste negen klanten zijn er precies twee verkopen. De verkoper wacht op het derde succes: $X \sim \NB(3;\, 0{,}2)$.}
+\begin{stappenbreed}
+P(X = 10) = \binom92 \cdot 0{,}2^3 \cdot 0{,}8^7 & De 2 andere verkopen liggen ergens bij de eerste 9 klanten: $\binom92 = 36$ manieren. \\[1ex]
+= 36 \cdot 0{,}008 \cdot 0{,}8^7 \approx 0{,}060 & Op het rekentoestel: \texttt{0.2*binompdf(9,0.2,2)}.
+\end{stappenbreed}
+}
+
+\begin{oefeningen}
+\oef{h1-nb}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Het verband met de binomiale verdeling}
+
+Hoe groot is de kans dat de verkoper hoogstens 15 klanten moet bellen? Je zou 13 kansen kunnen optellen. Er is een slimmere weg: kijk naar de eerste 15 klanten. Heeft de verkoper zijn derde verkoop na hoogstens 15 telefoons, dan zijn er bij de eerste 15 klanten minstens 3 kopers. En omgekeerd. Stel je daarvoor voor dat de verkoper na zijn derde verkoop toch gewoon verder belt.
+
+\begin{theorie}
+\begin{stelling}{Wachten en tellen}
+Voor $X \sim \NB(r, p)$ en $Y \sim B(k, p)$ is \quad $\formule{P(X \leqslant k) = P(Y \geqslant r)}$
+\end{stelling}
+
+\begin{bewijs}
+Laat de pogingen doorlopen, ook na het $r$-de succes, en noem $Y$ het aantal successen bij de eerste $k$ pogingen. Dan is $Y \sim B(k, p)$. Is $X \leqslant k$, dan valt het $r$-de succes bij de eerste $k$ pogingen, dus $Y \geqslant r$. Is omgekeerd $Y \geqslant r$, dan is het $r$-de succes er na hoogstens $k$ pogingen, dus $X \leqslant k$. Beide gebeurtenissen zijn dezelfde, en hebben dus dezelfde kans.
+\end{bewijs}
+\end{theorie}
+
+De stelling toont ook dat de kansen van $\NB(r, p)$ samen 1 zijn. Want $P(X \leqslant k) = 1 - P(Y \leqslant r - 1)$, en $P(Y \leqslant r - 1)$ is een som van $r$ termen $\binom{k}{j}p^j(1 - p)^{k-j}$ met $j < r$. Voor een vaste $j$ is zo'n term hoogstens $k^j (1 - p)^{k-j}$: een macht van $k$ maal een macht van een getal tussen 0 en 1. Zoals $nq^n$ in het vorige bewijs gaat dat naar 0 (opdracht \ref{oef:h1-o21}). Dus $P(X \leqslant k) \to 1$: vroeg of laat komt het $r$-de succes.
+
+\voorbeeld{}{Wat is de kans dat de verkoper hoogstens 15 klanten moet bellen voor zijn derde verkoop?\label{vb:h1-nbcum}}{%
+\uitleg{Hoogstens 15 telefoons voor 3 verkopen betekent minstens 3 verkopen bij de eerste 15 klanten. Dat rekent het rekentoestel binomiaal uit.}
+\begin{stappenbreed}
+P(X \leqslant 15) = P(Y \geqslant 3) \text{ met } Y \sim B(15;\, 0{,}2) & Wachten wordt tellen. \\[1ex]
+= 1 - P(Y \leqslant 2) \approx 1 - 0{,}398 = 0{,}602 & Met \texttt{binomcdf(15,0.2,2)}.
+\end{stappenbreed}
+Iets meer dan de helft van de keren is hij klaar na 15 telefoons.}
+
+\begin{werkwijze}
+Herhaal je tot het $r$-de succes, dan is het aantal pogingen $X \sim \NB(r, p)$. Voor $P(X = k)$: de formule, of $p$ maal \texttt{binompdf(k-1,p,r-1)}. Voor $P(X \leqslant k)$: tel de successen bij de eerste $k$ pogingen, $P(X \leqslant k) = 1 - \texttt{binomcdf(k,p,r-1)}$. Voor $P(X > k)$: \texttt{binomcdf(k,p,r-1)}.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-nbcum}
+\end{oefeningen}
+
+\needspace{24\baselineskip}
+\subsection{Verwachtingswaarde en standaardafwijking}
+
+Wacht je op één verkoop, dan bel je gemiddeld $\frac{1}{0{,}2} = 5$ klanten. Voor drie verkopen verwacht je dan drie keer zo lang: gemiddeld 15 klanten. Om dat te bewijzen, gebruiken we een rekenregel zoals de kapiteinsregel uit Kansrekenen.
+
+\begin{theorie}
+\begin{stelling}{Verwachtingswaarde van de negatief-binomiale verdeling}
+Voor $X \sim \NB(r, p)$ is \quad $\formule{\E(X) = \frac{r}{p}}$
+\end{stelling}
+
+\begin{bewijs}
+Schrijf $q = 1 - p$. Voor $k \geqslant r$ is
+\bewijsregel{k\binom{k-1}{r-1} = k \cdot \frac{(k-1)!}{(r-1)!\,(k-r)!} = \frac{k!}{(r-1)!\,(k-r)!} = r \cdot \frac{k!}{r!\,(k-r)!} = r\binom{k}{r} .}
+Daarmee is
+\bewijsregel{\E(X) = \sominf{k=r} k\binom{k-1}{r-1}p^r q^{k-r} = \frac{r}{p} \sominf{k=r} \binom{k}{r} p^{r+1} q^{k-r} .}
+Stel $j = k + 1$. Dan wordt de term $\binom{j-1}{r}p^{r+1}q^{j-(r+1)}$, met $j$ van $r + 1$ tot $+\infty$: dat zijn alle kansen van $\NB(r + 1, p)$, en die zijn samen 1. Dus $\E(X) = \frac{r}{p}$.
+\end{bewijs}
+
+\begin{stelling}{Standaardafwijking van de negatief-binomiale verdeling}
+Voor $X \sim \NB(r, p)$ is \quad $\formule{\Var(X) = \frac{r(1 - p)}{p^2}}$ \quad en \quad $\formule{\sigma = \frac{\sqrt{r(1 - p)}}{p}}$
+\end{stelling}
+\end{theorie}
+
+De tweede formule bewijzen we niet. Het idee is eenvoudig: de wachttijd op $r$ successen is een som van $r$ onafhankelijke geometrische wachttijden, één per succes. Maar de rekenregels voor de variantie van een som van onafhankelijke toevalsvariabelen vallen buiten het leerplan. Merk wel op dat de formules $r$ keer die van de geometrische verdeling zijn, en dat de standaardafwijking maar met $\sqrt r$ groeit.
+
+\voorbeeld{}{Hoeveel klanten moet de verkoper gemiddeld bellen voor drie verkopen, met welke standaardafwijking?\label{vb:h1-nbmu}}{%
+\uitleg{$X \sim \NB(3;\, 0{,}2)$: we vullen de formules in.}
+\begin{stappen}
+\E(X) = \frac{3}{0{,}2} = 15 & Drie keer 5 klanten. \\[2ex]
+\sigma = \frac{\sqrt{3 \cdot 0{,}8}}{0{,}2} \approx 7{,}7 & Het staafdiagram in 1.2.1 is breed en scheef.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-nbmu}
+\end{oefeningen}
+
+\needspace{20\baselineskip}
+\subsection{Terug naar het probleem}
+
+Anna heeft nog 2 gewonnen rondes nodig, Bert nog 3. Anna wint de pot als haar tweede gewonnen ronde komt voor Berts derde. Dat is een wachttijd op het tweede succes.
+
+\voorbeeld{}{Terug naar het probleem. Hoe verdelen Anna en Bert de pot van 64 euro eerlijk bij een stand van 2-1?\label{vb:h1-terug}}{%
+\uitleg{Een eerlijke verdeling geeft elke speler zijn kans om te winnen maal de pot. Na hoogstens 4 rondes is het spel beslist: dan heeft Anna 2 rondes gewonnen of Bert 3. Anna wint dus als haar wachttijd op 2 gewonnen rondes hoogstens 4 is.}
+\begin{stappenbreed}
+X \sim \NB\bigl(2;\, \tfrac12\bigr) & $X$ is het aantal rondes tot Anna's tweede overwinning. \\[1ex]
+P(X \leqslant 4) = P(Y \geqslant 2) \text{ met } Y \sim B\bigl(4;\, \tfrac12\bigr) & Wachten wordt tellen: speel in gedachten alle 4 rondes. \\[1ex]
+= 1 - \frac{1}{16} - \frac{4}{16} = \frac{11}{16} & Geen of één gewonnen ronde voor Anna valt weg. \\[1ex]
+\tfrac{11}{16} \cdot 64 = 44 \quad\text{en}\quad \tfrac{5}{16} \cdot 64 = 20 & Anna krijgt 44 euro, Bert 20 euro.
+\end{stappenbreed}
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \s/\x/\y/\w in {AAAA/0/0/1,AAAB/1/0/1,AABA/2/0/1,AABB/3/0/1,ABAA/4/0/1,ABAB/5/0/1,ABBA/6/0/1,ABBB/7/0/0,
+                          BAAA/0/1/1,BAAB/1/1/1,BABA/2/1/1,BABB/3/1/0,BBAA/4/1/1,BBAB/5/1/0,BBBA/6/1/0,BBBB/7/1/0}{
+    \ifnum\w=1 \node[fill=accent!25,draw=accent,rounded corners=1pt,inner sep=2pt,minimum width=10mm] at (\x*1.2,-\y*.6) {\texttt{\s}};
+    \else \node[draw=lijngrijs,rounded corners=1pt,inner sep=2pt,minimum width=10mm,text=grijs] at (\x*1.2,-\y*.6) {\texttt{\s}};\fi}
+\end{tikzpicture}}
+Zo redeneerde Fermat: speel in gedachten de 4 rondes uit. Er zijn 16 even waarschijnlijke uitslagen, en bij 11 ervan (gekleurd) wint Anna minstens 2 rondes. Ook als het spel eigenlijk eerder stopt, verandert dat de winnaar niet.}
+
+Een verdeling volgens de stand (twee derde voor Anna) houdt geen rekening met wat er nog nodig is, en een verdeling in twee helften geeft Anna niets voor haar voorsprong. Pascal en Fermat vonden in 1654 elk op een eigen manier dezelfde $\frac{11}{16}$: Pascal met een recursieve redenering, Fermat met de uitslagen hierboven. Het idee dat je een onzekere toekomst eerlijk verdeelt volgens kansen, is de kern van de verwachtingswaarde.
+
+%========================================================================================
+\section{De hypergeometrische verdeling}
+
+\subsection{Trekken zonder teruglegging}
+
+Een doos bevat 20 lampen, waarvan 4 defect. Een controleur neemt er willekeurig 5 uit en test ze. Hoe groot is de kans dat er precies één defecte lamp bij zit? Binomiaal is het niet: de controleur legt een geteste lamp niet terug. Is de eerste lamp defect, dan blijven er nog 3 defecte over op 19, anders 4 op 19. De trekkingen zijn afhankelijk. Toch is de kans eenvoudig: elke groep van 5 lampen is even waarschijnlijk, dus je kunt tellen met de wet van Laplace.
+
+\begin{theorie}
+Een groep van $N$ elementen bevat er $M$ met een eigenschap (de successen). Je trekt er willekeurig $n$, zonder teruglegging. Het aantal successen $X$ heeft een \textbf{\textcolor{accent}{hypergeometrische verdeling}}: $\formule{X \sim \Hyp(N, M, n)}$.
+
+\begin{stelling}{Hypergeometrische kans}
+Voor $X \sim \Hyp(N, M, n)$ is \quad $\formule{P(X = k) = \dfrac{\binom{M}{k}\binom{N - M}{n - k}}{\binom{N}{n}}}$
+\end{stelling}
+
+\begin{bewijs}
+Elke groep van $n$ uit de $N$ elementen heeft dezelfde kans: er zijn $\binom{N}{n}$ mogelijke uitkomsten. Een gunstige uitkomst bevat $k$ van de $M$ successen, op $\binom{M}{k}$ manieren te kiezen, en $n - k$ van de $N - M$ andere elementen, op $\binom{N-M}{n-k}$ manieren. Met de productregel van het tellen zijn er $\binom{M}{k}\binom{N-M}{n-k}$ gunstige uitkomsten, en de wet van Laplace geeft de formule.
+\end{bewijs}
+\end{theorie}
+
+$k$ kan niet groter zijn dan $n$ of $M$, en $n - k$ niet groter dan $N - M$. Voor andere $k$ is de kans 0, en dat geeft de formule ook als je $\binom{a}{b} = 0$ neemt voor $b > a$. Dat de kansen samen 1 zijn, toon je in de Koppel. Op het rekentoestel staat de verdeling niet: je rekent met \texttt{nCr}.
+
+\voorbeeld{}{Wat is de kans dat de controleur precies één defecte lamp vindt bij 5 lampen uit de doos?\label{vb:h1-hyp}}{%
+\uitleg{Er zijn $N = 20$ lampen, waarvan $M = 4$ defect, en de controleur trekt er $n = 5$ zonder teruglegging. We kiezen 1 van de 4 defecte en 4 van de 16 goede.}
+\begin{stappenbreed}
+X \sim \Hyp(20, 4, 5) & $X$ is het aantal defecte lampen bij de 5. \\[1ex]
+P(X = 1) = \frac{\binom41 \binom{16}{4}}{\binom{20}{5}} = \frac{4 \cdot 1820}{15\,504} \approx 0{,}470 & Op het rekentoestel: \texttt{4nCr1*16nCr4/20nCr5}.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h1-hyp}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Verwachtingswaarde en standaardafwijking}
+
+Een vijfde van de lampen is defect. Trek je er 5, dan verwacht je gemiddeld $5 \cdot \frac15 = 1$ defecte lamp, net zoals met teruglegging. Dat klopt, en het bewijs gebruikt opnieuw de kapiteinsregel $k\binom{n}{k} = n\binom{n-1}{k-1}$ uit Kansrekenen.
+
+\begin{theorie}
+\begin{stelling}{Verwachtingswaarde van de hypergeometrische verdeling}
+Voor $X \sim \Hyp(N, M, n)$ is \quad $\formule{\E(X) = n \cdot \frac{M}{N}}$
+\end{stelling}
+
+\begin{bewijs}
+De term met $k = 0$ is nul. Voor de andere termen is $k\binom{M}{k} = M\binom{M-1}{k-1}$, en ook $\binom{N}{n} = \frac{N}{n}\binom{N-1}{n-1}$. Dus
+\bewijsregel{\E(X) = \sum_{k \geqslant 1} k \frac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}} = \frac{nM}{N} \sum_{k \geqslant 1} \frac{\binom{M-1}{k-1}\binom{(N-1)-(M-1)}{(n-1)-(k-1)}}{\binom{N-1}{n-1}} .}
+Stel $j = k - 1$. De laatste som bevat dan alle kansen $P(Z = j)$ van \mbox{$Z \sim \Hyp(N - 1, M - 1, n - 1)$}, en die zijn samen 1. Dus $\E(X) = \frac{nM}{N}$.
+\end{bewijs}
+
+\begin{stelling}{Standaardafwijking van de hypergeometrische verdeling}
+Voor $X \sim \Hyp(N, M, n)$ is \quad $\formule{\Var(X) = n \cdot \frac{M}{N}\Bigl(1 - \frac{M}{N}\Bigr) \cdot \frac{N - n}{N - 1}}$
+\end{stelling}
+\end{theorie}
+
+Het bewijs van de tweede formule werkt net zo, met $k(k - 1)$ in plaats van $k$: je maakt het in opdracht \ref{oef:h1-o20}. Vergelijk met de binomiale verdeling $B(n, p)$ met $p = \frac{M}{N}$: de verwachtingswaarde is dezelfde, en de variantie is die van de binomiale verdeling maal de \textbf{correctiefactor} $\frac{N - n}{N - 1}$. Die is kleiner dan 1: zonder teruglegging is er minder spreiding, omdat elke trekking de samenstelling van de rest bijstuurt. Trek je alles ($n = N$), dan is de factor 0: je weet dan zeker dat je $M$ successen hebt.
+
+\voorbeeld{}{Bereken de verwachtingswaarde en de standaardafwijking van het aantal defecte lampen bij de controle. Vergelijk met trekken met teruglegging.\label{vb:h1-hypmu}}{%
+\uitleg{$X \sim \Hyp(20, 4, 5)$, met $\frac{M}{N} = 0{,}2$. Met teruglegging zou het aantal $B(5;\, 0{,}2)$ zijn.}
+\begin{stappenbreed}
+\E(X) = 5 \cdot \frac{4}{20} = 1 & Hetzelfde als bij $B(5;\, 0{,}2)$. \\[2ex]
+\Var(X) = 5 \cdot 0{,}2 \cdot 0{,}8 \cdot \frac{15}{19} \approx 0{,}632, \quad \sigma \approx 0{,}795 & De correctiefactor is $\frac{15}{19}$. \\[2ex]
+\text{met teruglegging: } \sigma = \sqrt{5 \cdot 0{,}2 \cdot 0{,}8} \approx 0{,}894 & Iets meer spreiding.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h1-hypmu}
+\end{oefeningen}
+
+\needspace{14\baselineskip}
+\subsection{Hypergeometrisch of binomiaal?}
+
+In de cursus Statistiek trek je een steekproef zonder teruglegging uit een grote populatie, en toch reken je binomiaal. Mag dat? Neem een doos met 200 lampen waarvan 40 defect, weer met een vijfde defect. Trek je er 5, dan verandert één getrokken lamp de samenstelling van de rest bijna niet. De figuur vergelijkt beide verdelingen: links met 20 lampen, rechts met 200.
+
+\figuren{\begin{tikzpicture}[x=.95cm,y=8cm,font=\scriptsize]
+  \foreach \t in {0.1,0.2,0.3,0.4,0.5}{\draw[black!14,very thin] (-.5,\t) -- (5.5,\t);}
+  \foreach \k/\a/\b in {0/.2817/.3277,1/.4696/.4096,2/.2167/.2048,3/.031/.0512,4/.001/.0064,5/0/.0003}{
+    \fill[accent!15] (\k-.32,0) rectangle (\k-.02,\a); \draw[accent,thick] (\k-.32,0) rectangle (\k-.02,\a);
+    \fill[fel!80!black] (\k+.02,0) rectangle (\k+.32,\b);}
+  \kansassen{-.5}{5.8}{.55}{$k$}
+  \foreach \k in {0,...,5}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.3/{0,3},.5/{0,5}}{\node[left] at (-.5,\t) {\l};}
+  \node[anchor=north east,align=right] at (5.5,.5) {\textcolor{accent}{$\Hyp(20, 4, 5)$}\\ \textcolor{fel!80!black}{$B(5;\, 0{,}2)$}};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.95cm,y=8cm,font=\scriptsize]
+  \foreach \t in {0.1,0.2,0.3,0.4,0.5}{\draw[black!14,very thin] (-.5,\t) -- (5.5,\t);}
+  \foreach \k/\a/\b in {0/.3235/.3277,1/.4148/.4096,2/.2061/.2048,3/.0496/.0512,4/.0058/.0064,5/.0003/.0003}{
+    \fill[accent!15] (\k-.32,0) rectangle (\k-.02,\a); \draw[accent,thick] (\k-.32,0) rectangle (\k-.02,\a);
+    \fill[fel!80!black] (\k+.02,0) rectangle (\k+.32,\b);}
+  \kansassen{-.5}{5.8}{.55}{$k$}
+  \foreach \k in {0,...,5}{\node[below] at (\k,0) {\k};}
+  \foreach \t/\l in {.1/{0,1},.3/{0,3},.5/{0,5}}{\node[left] at (-.5,\t) {\l};}
+  \node[anchor=north east,align=right] at (5.5,.5) {\textcolor{accent}{$\Hyp(200, 40, 5)$}\\ \textcolor{fel!80!black}{$B(5;\, 0{,}2)$}};
+\end{tikzpicture}}
+
+Bij 20 lampen verschillen de kansen duidelijk: zonder teruglegging is 1 defecte lamp waarschijnlijker, en 0 of 3 minder. Bij 200 lampen zijn de staven bijna gelijk. Dat zie je ook aan de correctiefactor: $\frac{195}{199} \approx 0{,}98$. Als vuistregel mag je binomiaal rekenen met $p = \frac{M}{N}$ als de steekproef hoogstens een tiende van de groep is ($n \leqslant 0{,}1N$). Bij een opiniepeiling van 1000 personen uit miljoenen kiezers is dat ruim zo.
+
+\needspace{14\baselineskip}
+\subsection{Welke verdeling?}
+
+Je kent nu vier verdelingen die tellen bij herhaalde experimenten. Welke je nodig hebt, hangt af van twee vragen: ligt het aantal pogingen vast, of wacht je op successen? En leg je terug, of niet?
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}\small
+\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{onafhankelijk (met teruglegging)} & \textbf{zonder teruglegging} \\ \hline
+\textbf{vast aantal $n$, tel de successen} & $B(n, p)$ & $\Hyp(N, M, n)$ \\ \hline
+\textbf{wacht op het eerste succes} & $\Geo(p)$ & (niet in deze cursus) \\ \hline
+\textbf{wacht op het $r$-de succes} & $\NB(r, p)$ & (niet in deze cursus) \\ \hline
+\end{tabular}
+\end{center}
+
+\voorbeeld{}{Welke verdeling heeft $X$? Geef de parameters. (a) Je trekt 6 kaarten uit een spel van 52, zonder teruglegging; $X$ is het aantal harten. (b) Je trekt een kaart, legt ze terug en schudt, tot je een harten hebt; $X$ is het aantal trekkingen. (c) Je trekt zo tot je een tweede harten hebt.\label{vb:h1-kies}}{%
+\uitleg{We vragen telkens: ligt het aantal trekkingen vast, en leg je terug?}
+\begin{stappenvrij}{3.6cm}{11cm}
+\text{(a) } X \sim \Hyp(52, 13, 6) & Vast aantal trekkingen, zonder teruglegging: 13 harten op 52 kaarten. \\[1ex]
+\text{(b) } X \sim \Geo\bigl(\tfrac14\bigr) & Wachten op het eerste succes, met teruglegging: elke trekking heeft kans $\frac{13}{52}$. \\[1ex]
+\text{(c) } X \sim \NB\bigl(2;\, \tfrac14\bigr) & Wachten op het tweede succes.
+\end{stappenvrij}}
+
+\begin{werkwijze}
+Bepaal wat $X$ telt: successen bij een vast aantal pogingen, of pogingen tot het $r$-de succes. Ga na of de pogingen onafhankelijk zijn met dezelfde $p$ (met teruglegging, of uit een grote groep), of afhankelijk (zonder teruglegging uit een kleine groep). Kies dan de verdeling uit de tabel, en schrijf ze met haar parameters op voor je rekent.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-kies}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\needspace{10\baselineskip}
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o8}
+
+\oef{h1-o7}
+
+\needspace{10\baselineskip}
+\oef{h1-o23}
+
+\oef{h1-o6}
+
+\needspace{10\baselineskip}
+\oef{h1-o9}
+
+\oef{h1-o12}
+
+\oef{h1-o15}
+
+\oef{h1-o13}
+
+\oef{h1-o11}
+
+\needspace{12\baselineskip}
+\oef{h1-o10}
+
+\oef{h1-o16}
+
+\oef{h1-o14}
+
+\oef{h1-o17}
+
+\needspace{10\baselineskip}
+\oef{h1-o18}
+
+\oef{h1-o20}
+
+\oef{h1-o22}
+
+\oef{h1-o19}
+
+\oef{h1-o21}
+
+\oef{h1-o24}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening gebruikt de somformule van een meetkundige rij (Rijen), de tweede combinaties (Telproblemen), de derde logaritmen (Exponentiële en logaritmische functies) en de vierde afgeleiden (Limieten en afgeleiden). De vierde is een eerste kennismaking met de methode van de grootste aannemelijkheid, waarmee statistici parameters schatten.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+
+\oef{h1-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-staart}{oef:h1-geo}%
+  \fv{oef:h1-t2}{vb:h1-geheugen}{oef:h1-geheugen}%
+  \fv{oef:h1-t3}{vb:h1-nb}{oef:h1-nb}%
+  \fv{oef:h1-t4}{vb:h1-nbcum}{oef:h1-nbcum}%
+  \fv{oef:h1-t5}{vb:h1-hyp}{oef:h1-hyp}%
+  \fv{oef:h1-t6}{vb:h1-hypmu}{oef:h1-hypmu}%
+  \fv{oef:h1-t7}{vb:h1-kies}{oef:h1-kies}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wanneer een aantal pogingen geometrisch of negatief-binomiaal verdeeld is, de formules voor $P(X = k)$ en waarom ze kloppen, de staartkans $P(X > k)$ en de geheugenloosheid, de verwachtingswaarde en de standaardafwijking van beide (met het idee van het bewijs van $\E(X) = \frac1p$), het verband \textit{wachten wordt tellen} met de binomiale verdeling, de hypergeometrische kans met haar verwachtingswaarde en de correctiefactor, wanneer je binomiaal mag rekenen, en de tabel om een verdeling te kiezen. Vergelijk daarna met de kaders.
+\fi

@@ -1,0 +1,20 @@
+% Financiële algebra. Quinten Massys: een geldwisselaar weegt munten, zijn vrouw kijkt mee. Geld lenen en
+% wisselen tegen rente was het werk van de Antwerpse wisselaars.
+% Motief: de aflossingstabel van een lening met vaste annuïteit in 10 termijnen aan 15 % per termijn (hoog,
+% zodat je het ziet). Elke staaf is één termijnbedrag (3 cm): onderaan het kapitaaldeel in fel, bovenaan het
+% rentedeel. Met termijnbedrag 1 is het kapitaaldeel A_k = u^(k-1-n): 3 * 1,15^(k-11) cm, telkens 1,15 keer
+% het vorige (hoofdstuk 3). De bovenrand van de band is de restschuld S = 1 - u^-(n - t), van links naar
+% rechts afgelost, met t = 10 - (21 - x)/2,1 termijnen.
+\def\omslagbestand{omslag-geldwisselaar.jpg}
+\def\omslagbron{Quinten Massys, \textit{De geldwisselaar en zijn vrouw}, 1514 (publiek domein)}
+\def\omslagrand{10.4 + 1.6*(1 - 1.15^(-(21-\x)/2.1))/(1 - 1.15^(-10))}
+\def\omslagmotief{%
+  \randlijn
+  \foreach \k/\h in {1/0.742,2/0.853,3/0.981,4/1.128,5/1.297,6/1.492,7/1.715,8/1.973,9/2.268,10/2.609}{%
+    \pgfmathsetmacro{\plek}{13.85+\k*.62}%
+    \fill[white,draw=accent,line width=.7pt] (\plek-.22,8.75) rectangle (\plek+.22,11.75);
+    \fill[fel,draw=white,line width=.7pt] (\plek-.22,8.75) rectangle (\plek+.22,8.75+\h);
+  }
+  \draw[white,line width=.8pt] (14.1,8.75) -- (20.6,8.75);
+  \node[omslaglabel,anchor=east] at (20.5,12.45) {$A_{k+1} = u \cdot A_k$};
+}

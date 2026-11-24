@@ -1,0 +1,479 @@
+%----------------------------------------------------------------------------------------
+% ITERATIES EN DEKPUNTEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Iteraties en dekpunten}
+
+\begin{probleem}
+\naast{Zet je rekentoestel in radialen, tik een getal in en druk daarna steeds opnieuw op de toets $\cos$. Na een dertigtal keer verandert het scherm niet meer: je ziet $0{,}739085\ldots$ Begin je met een ander getal, zoals 100 of $-3$, dan kom je bij hetzelfde getal uit. Met de toets $x^2$ lukt dat niet: daar hangt alles af van het getal waarmee je begint.
+
+Waarom komt bij $\cos$ elke startwaarde op hetzelfde getal uit? Welk getal is dat precies? En waarom gebeurt dat niet bij $x^2$?}{\small\renewcommand{\arraystretch}{1.1}%
+\begin{tabular}{|c|c|c|}
+\hline
+keer & start 1 & start 100 \\ \hline
+0 & 1 & 100 \\
+1 & 0,540302 & 0,862319 \\
+2 & 0,857553 & 0,650678 \\
+3 & 0,654290 & 0,795673 \\
+4 & 0,793480 & 0,699804 \\
+5 & 0,701369 & 0,764968 \\
+10 & 0,744237 & 0,735462 \\
+20 & 0,739184 & 0,739016 \\
+30 & 0,739087 & 0,739084 \\ \hline
+\end{tabular}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 44 en 45, met de wenken over stap voor stap itereren, het spinnenwebdiagram (webdiagram) met $\cos x$ en $x^2 - 1$, aantrekkende en afstotende dekpunten, en dekpunten bepalen met $f(x) = x$. Voorkennis uit pakket 4: Rijen (recursief voorschrift, limiet, en de stelling dat een stijgende, naar boven begrensde rij convergeert), Limieten en afgeleiden (continuïteit, de definitie van de afgeleide), Goniometrische functies. Het spinnenwebdiagram van een lineair proces $t_n = a\,t_{n-1} + b$ staat in Differentiaalvergelijkingen, hoofdstuk 1; hier wordt het opnieuw uitgelegd, zodat het hoofdstuk ook zonder die cursus werkt. Het bewijs van het criterium met de afgeleide gebruikt alleen de definitie van de afgeleide, niet de stelling van Lagrange. Hoe je dekpunten gebruikt om vergelijkingen numeriek op te lossen, staat in Numerieke methodes, hoofdstuk 2. Laat de leerlingen het probleem echt uitvoeren op hun rekentoestel.}
+
+Druk je steeds opnieuw op dezelfde toets, dan pas je steeds opnieuw dezelfde functie toe op de vorige uitkomst. Dat heet \emph{itereren}, van het Latijnse \textit{iterum}: opnieuw. Het lijkt een eenvoudig spelletje, maar het zit overal: een populatie die elk jaar volgens dezelfde regel groeit, een rekentoestel dat een wortel berekent, een computer die een figuur steeds opnieuw verkleint en kopieert. In dit hoofdstuk leer je voorspellen waar zo'n herhaling naartoe gaat. De sleutel is een getal dat de functie niet verandert: een dekpunt. Of een baan daar naartoe gaat of ervan wegvlucht, lees je af aan de afgeleide.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Itereren}
+
+\subsection{Een functie herhalen}
+
+Wat gebeurt er als je de uitkomst van een functie telkens opnieuw invult? Je krijgt een rij getallen, die volledig vastligt door de functie en het getal waarmee je begint. Zo'n rij is recursief gedefinieerd, zoals in de cursus Rijen: elke term is de functiewaarde van de vorige.
+
+\begin{theorie}
+Neem een functie $f$ en een \textbf{\textcolor{accent}{startwaarde}} $x_0$. \textbf{\textcolor{accent}{Itereren}} is $f$ steeds opnieuw toepassen:
+\[
+\formule{x_n = f(x_{n-1})} \qquad (n \geqslant 1)
+\]
+De rij $x_0, x_1, x_2, \ldots$ is de \textbf{\textcolor{accent}{baan}} van $x_0$. De functie die $f$ $n$ keer na elkaar toepast, is de \textbf{\textcolor{accent}{$n$-de iteratie}} $\formule{\iter{f}{n} = f \circ f \circ \cdots \circ f}$, zodat $\formule{x_n = \iter{f}{n}(x_0)}$.
+\end{theorie}
+
+We schrijven $\iter{f}{2}$ en niet $f^2$, want $f^2(x)$ lijkt op een kwadraat: bij $\sin^2 x$ betekent het $(\sin x)^2$, en dat is iets heel anders dan $\sin(\sin x)$. Een baan hoeft niet alleen uit getallen te bestaan: in hoofdstuk 3 itereren we figuren, en in hoofdstuk 4 complexe getallen.
+
+\voorbeeld{}{Bereken de baan van $x_0 = 0{,}5$ onder $f(x) = x^2 - 1$ tot $x_6$, en beschrijf wat je ziet.\label{vb:h1-baan}}{%
+\uitleg{We vullen telkens de vorige uitkomst in. Een grafiek van $x_n$ tegen $n$ toont het verloop beter dan de getallen.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+x_1 = 0{,}5^2 - 1 = -0{,}75 & De eerste stap. \\
+x_2 = (-0{,}75)^2 - 1 = -0{,}4375 & Het kwadraat van een negatief getal is positief. \\
+x_3 \approx -0{,}8086, \ x_4 \approx -0{,}3462 & Op vier decimalen. \\
+x_5 \approx -0{,}8802, \ x_6 \approx -0{,}2253 & De sprongen worden groter.
+\end{stappenvrij}
+De baan springt heen en weer, en de twee helften lijken naar twee verschillende getallen te gaan: de oneven termen naar $-1$, de even termen naar $0$. Ze komt dus niet tot rust bij één getal. Zulk gedrag bestuderen we in hoofdstuk 2.}{\begin{tikzpicture}[x=.32cm,y=1.4cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=2,ystep=.5] (0,-1) grid (12,.5);
+  \draw[->,grijs] (0,0) -- (12.6,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,-1.1) -- (0,.75) node[above,text=black] {$x_n$};
+  \foreach \t in {4,8,12}{\node[above,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-1,-.5,.5}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent!45] (0,.5) -- (1,-.75) -- (2,-.4375) -- (3,-.8086) -- (4,-.3462) -- (5,-.8802) -- (6,-.2253) -- (7,-.9492) -- (8,-.099) -- (9,-.9902) -- (10,-.0195) -- (11,-.9996) -- (12,-.0008);
+  \foreach \x/\y in {0/.5,1/-.75,2/-.4375,3/-.8086,4/-.3462,5/-.8802,6/-.2253,7/-.9492,8/-.099,9/-.9902,10/-.0195,11/-.9996,12/-.0008}{\fill[accent] (\x,\y) circle (1.6pt);}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Tik de startwaarde in en druk op \texttt{=}. Tik daarna het voorschrift in met \texttt{Ans} in plaats van $x$, zoals \texttt{Ans\textasciicircum 2 - 1}, en druk telkens opnieuw op \texttt{=}: elke druk is één stap. Rond pas af als je de getallen noteert.
+\end{werkwijze}
+
+\nujij{Bereken de baan van $x_0 = 1$ onder $f(x) = \dfrac{1}{1 + x}$ tot $x_5$, als breuken. Herken je de tellers en de noemers?}{$\tfrac12$, $\tfrac23$, $\tfrac35$, $\tfrac58$, $\tfrac8{13}$: quotiënten van opeenvolgende getallen van Fibonacci.}
+
+\begin{oefeningen}
+\oef{h1-baan}
+\end{oefeningen}
+
+\subsection{Het spinnenwebdiagram}
+
+Kun je een baan ook zien zonder te rekenen? Teken de grafiek van $f$ en de rechte $y = x$. Vertrek bij $x_0$ op de $x$-as en ga verticaal naar de grafiek: je staat op hoogte $f(x_0) = x_1$. Om $x_1$ opnieuw als invoer te gebruiken, moet die hoogte naar de $x$-as. Dat doe je via de rechte $y = x$: ga horizontaal tot je die rechte raakt, en je staat recht boven $x_1$. Ga weer verticaal naar de grafiek, en je staat op hoogte $x_2$. Zo ontstaat een trap of een spinnenweb.
+
+\voorbeeld{}{Teken het spinnenwebdiagram van $f(x) = \sqrt{2x + 3}$ voor de startwaarden $x_0 = 0$ en $x_0 = 8$.\label{vb:h1-spinnenweb}}{%
+\uitleg{We tekenen de grafiek van $f$ en de rechte $y = x$ op hetzelfde rooster, en volgen de regel: verticaal naar de grafiek, horizontaal naar de rechte.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+0 \to 1{,}73 \to 2{,}54 \to 2{,}84 & Vanuit $x_0 = 0$: de trap gaat naar boven. \\
+8 \to 4{,}36 \to 3{,}42 \to 3{,}14 & Vanuit $x_0 = 8$: de trap gaat naar beneden. \\
+f(3) = \sqrt 9 = 3 & Het snijpunt van de grafiek met $y = x$.
+\end{stappenvrij}
+Beide trappen lopen naar het punt $(3, 3)$, waar de grafiek de rechte $y = x$ snijdt. Daar stopt de trap: wie in 3 staat, blijft in 3.}{\begin{tikzpicture}[scale=.48,font=\scriptsize]
+  \rooster{0}{2}{8}{0}{2}{8}
+  \eerstebissectrice{0}{8.3}
+  \kromme{0}{8.3}{sqrt(2*\x+3)}
+  \spinnenweb{sqrt(2*\x+3)}{0}{5}
+  \spinnenweb{sqrt(2*\x+3)}{8}{5}
+  \fill[accent] (3,3) circle (3.5pt);
+  \node[accent,right] at (8.3,4.45) {$f$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Teken de grafiek van $f$ en de rechte $y = x$. Vertrek bij $x_0$ op de $x$-as. Herhaal: verticaal naar de grafiek, dan horizontaal naar de rechte $y = x$. De hoogte van elke trede is de volgende term van de baan.
+\end{werkwijze}
+
+\nujij{Schets het spinnenwebdiagram van $f(x) = x^2$ voor $x_0 = 0{,}8$ en voor $x_0 = 1{,}1$. Wat zie je?}{Vanuit 0,8 loopt een trap naar beneden naar $(0, 0)$. Vanuit 1,1 loopt een trap naar boven weg: de grafiek ligt daar boven $y = x$.}
+
+\begin{oefeningen}
+\oef{h1-spinnenweb}
+\end{oefeningen}
+
+\subsection{De startwaarde beslist}
+
+Bij $f(x) = \sqrt{2x + 3}$ kwamen twee banen bij hetzelfde punt uit. Is dat altijd zo? Neem de toets $x^2$ van het probleem. Daar kun je de baan zelfs exact opschrijven: $x_1 = x_0^2$, $x_2 = (x_0^2)^2 = x_0^4$, $x_3 = x_0^8$, en zo verder, dus $x_n = x_0^{\,2^n}$. De exponent verdubbelt bij elke stap.
+
+\voorbeeld{}{Beschrijf de baan van $x_0$ onder $f(x) = x^2$, voor elke startwaarde $x_0$.\label{vb:h1-startwaarde}}{%
+\uitleg{Met $x_n = x_0^{\,2^n}$ is het een vraag over machten: wat doet $|x_0|^m$ als de exponent $m$ groot wordt? Dat hangt af van $|x_0|$ tegenover 1, zoals bij een meetkundige rij.}
+\begin{stappen}
+|x_0| < 1 & $x_n = x_0^{\,2^n} \to 0$: de baan gaat naar 0, en snel. \\
+x_0 = 1 \text{ of } x_0 = -1 & Vanaf $x_1$ is de baan constant 1. \\
+|x_0| > 1 & $x_n \to +\infty$: de baan loopt weg.
+\end{stappen}
+Een kleine verandering van de startwaarde, van 0,99 naar 1,01, verandert het lot van de baan volledig: naar 0 of naar oneindig.}
+
+Dat is het eerste wat je bij een iteratie onderzoekt: welke startwaarden leiden waarheen? Er zijn ook startwaarden die niets doen, zoals 0 en 1 bij $x^2$. Die bekijken we in de volgende sectie.
+
+\nujij{Beschrijf de baan van $x_0$ onder $f(x) = x^3$, voor elke startwaarde $x_0$.}{$x_n = x_0^{\,3^n}$: naar 0 als $|x_0| < 1$; constant bij $x_0 \in \{-1, 0, 1\}$; naar $+\infty$ als $x_0 > 1$ en naar $-\infty$ als $x_0 < -1$.}
+
+\begin{oefeningen}
+\oef{h1-startwaarde}
+\end{oefeningen}
+
+%========================================================================================
+\section{Dekpunten}
+
+\subsection{Waar een baan tot rust komt}
+
+Bij $f(x) = \sqrt{2x + 3}$ liepen beide banen naar 3, en $f(3) = 3$: wie in 3 staat, blijft er. Moet een baan die tot rust komt, altijd zo'n getal vinden? Ja, als de functie geen sprongen maakt.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{dekpunt}} van $f$ is een getal $p$ met
+\[
+\formule{f(p) = p}
+\]
+De baan van een dekpunt is constant. In de figuur is $(p, p)$ een snijpunt van de grafiek van $f$ met de rechte $y = x$.
+
+\begin{stelling}{De limiet van een baan is een dekpunt}
+Convergeert de baan $x_n = f(x_{n-1})$ naar een getal $L$, en is $f$ continu in $L$, dan is $\formule{f(L) = L}$.
+\end{stelling}
+
+\begin{bewijs}
+Als $n \to +\infty$, gaat ook $n - 1 \to +\infty$, dus $x_{n-1} \to L$. Omdat $f$ continu is in $L$, gaat dan $f(x_{n-1}) \to f(L)$. Neem de limiet van beide leden van $x_n = f(x_{n-1})$:
+\bewijsregel{L = \lim_{n \to +\infty} x_n = \lim_{n \to +\infty} f(x_{n-1}) = f(L) .}
+\end{bewijs}
+\end{theorie}
+
+De stelling zegt: een baan kan alleen tot rust komen in een dekpunt. Wil je weten waar een convergente baan heen gaat, dan zoek je dus de dekpunten. Omgekeerd hoeft een dekpunt niet bereikt te worden: in sectie 3 zie je dekpunten waar banen van wegvluchten.
+
+\voorbeeld{}{Bepaal de dekpunten van $f(x) = \sqrt{2x + 3}$.\label{vb:h1-dekpunten}}{%
+\uitleg{We lossen $f(x) = x$ op. Om de wortel weg te werken, kwadrateren we, maar dan kunnen er valse oplossingen bijkomen: we controleren elke oplossing in de oorspronkelijke vergelijking.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+\sqrt{2x + 3} = x & De vergelijking $f(x) = x$. \\
+2x + 3 = x^2 & Kwadrateren. \\
+(x - 3)(x + 1) = 0 & Dus $x = 3$ of $x = -1$. \\
+f(3) = 3, \ f(-1) = 1 \neq -1 & Alleen 3 voldoet.
+\end{stappenvrij}
+Het enige dekpunt is 3. De figuur toont waarom $-1$ wegvalt: de grafiek van $f$ ligt boven de $x$-as, en snijdt de rechte $y = x$ maar één keer.}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \rooster{-2}{1}{5}{-2}{1}{5}
+  \eerstebissectrice{-2}{5.2}
+  \kromme{-1.5}{5.2}{sqrt(2*\x+3)}
+  \fill[accent] (3,3) circle (3.5pt);
+  \draw[grijs] (-1,-1) circle (3.5pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Los $f(x) = x$ op. Heb je gekwadrateerd of met $x$ vermenigvuldigd, controleer dan elke oplossing in $f(x) = x$. Lukt het algebraïsch niet, zoek dan de snijpunten van de grafiek met $y = x$, of benader het dekpunt door te itereren.
+\end{werkwijze}
+
+\nujij{Bepaal de dekpunten van $f(x) = x^2 - 1$.}{$x^2 - x - 1 = 0$, dus $p = \tfrac{1 + \sqrt5}{2} \approx 1{,}618$ en $p = \tfrac{1 - \sqrt5}{2} \approx -0{,}618$.}
+
+\begin{oefeningen}
+\oef{h1-dekpunten}
+\end{oefeningen}
+
+%========================================================================================
+\section{Aantrekkend of afstotend}
+
+\subsection{Twee soorten dekpunten}
+
+De functie $f(x) = x^2 - 1$ heeft het dekpunt $p = \tfrac{1 + \sqrt5}{2} \approx 1{,}618$. Begin je er vlakbij, in $x_0 = 1{,}6$, dan krijg je $1{,}56$, $1{,}434$, $1{,}055$, $0{,}114$: de baan loopt weg naar beneden. Begin je in $1{,}62$, dan krijg je $1{,}624$, $1{,}639$, $1{,}685$, $1{,}840$, $2{,}386$: ze loopt weg naar boven. Het dekpunt stoot de banen af. Bij $\sqrt{2x + 3}$ trok het dekpunt 3 ze net aan.
+
+\begin{theorie}
+Een dekpunt $p$ van $f$ is
+\begin{itemize}
+\item \textbf{\textcolor{accent}{aantrekkend}} als er een interval $]p - \delta, p + \delta[$ is zodat de baan van elke startwaarde in dat interval naar $p$ convergeert;
+\item \textbf{\textcolor{accent}{afstotend}} als er een interval $]p - \delta, p + \delta[$ is zodat de baan van elke startwaarde $x_0 \neq p$ in dat interval dat interval ooit verlaat.
+\end{itemize}
+\end{theorie}
+
+Het gaat telkens over startwaarden \textit{dicht bij} $p$: wat een baan van ver weg doet, zegt niets over de soort. Een afstotende baan mag na het verlaten ook terugkomen, maar ze kan niet voorgoed in de buurt blijven.
+
+\naast{De functie $g(x) = \tfrac15(x^2 + 4)$ heeft twee dekpunten: uit $x^2 + 4 = 5x$ volgt $x = 1$ of $x = 4$. De figuur toont beide soorten. De baan van 3,5 loopt een trap af naar 1: dat dekpunt trekt aan. De baan van 4,2 loopt een trap op, weg van 4: dat dekpunt stoot af. Waar zit het verschil? Bij $x = 1$ is de grafiek minder steil dan de rechte $y = x$, bij $x = 4$ steiler.}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \rooster{0}{1}{6}{0}{1}{6}
+  \eerstebissectrice{0}{6.2}
+  \kromme{-.3}{5.12}{(\x*\x+4)/5}
+  \spinnenweb{(\x*\x+4)/5}{3.5}{7}
+  \spinnenweb{(\x*\x+4)/5}{4.2}{4}
+  \fill[accent] (1,1) circle (3.5pt);
+  \draw[accent,fill=white] (4,4) circle (3.5pt);
+  \node[accent,left] at (5.12,6.04) {$g$};
+\end{tikzpicture}}
+
+\subsection{Het criterium met de afgeleide}
+
+Waarom maakt de helling het verschil? Zoom in op het dekpunt. Dicht bij $p$ ligt de grafiek van $f$ bijna op haar raaklijn, en die heeft richtingscoëfficiënt $f'(p)$. Een stap verandert de afstand tot $p$ dus ongeveer met de factor $f'(p)$:
+\[
+x_n - p = f(x_{n-1}) - f(p) \approx f'(p)\,(x_{n-1} - p) .
+\]
+Is $|f'(p)| < 1$, dan krimpt de afstand bij elke stap, is $|f'(p)| > 1$, dan groeit ze. Het bewijs maakt van dat \textit{ongeveer} een echte ongelijkheid.
+
+\begin{theorie}
+\begin{stelling}{Aantrekkend dekpunt}
+Is $p$ een dekpunt van $f$, is $f$ afleidbaar in $p$ en is $\formule{|f'(p)| < 1}$, dan is $p$ aantrekkend.
+\end{stelling}
+
+\begin{bewijs}
+Kies een getal $k$ met $|f'(p)| < k < 1$. Omdat $f(p) = p$, zegt de definitie van de afgeleide
+\bewijsregel{\lim_{x \to p} \left|\frac{f(x) - p}{x - p}\right| = |f'(p)| < k .}
+Er is dus een $\delta > 0$ zodat $|f(x) - p| \leqslant k\,|x - p|$ voor elke $x$ met $|x - p| < \delta$. Neem $|x_0 - p| < \delta$. Dan is $|x_1 - p| \leqslant k\,|x_0 - p| < \delta$, zodat ook $x_1$ in het interval ligt, en zo verder: voor elke $n$ is
+\bewijsregel{|x_n - p| \leqslant k\,|x_{n-1} - p| \leqslant \cdots \leqslant k^n\,|x_0 - p| .}
+Omdat $0 < k < 1$, gaat $k^n \to 0$, dus $x_n \to p$.
+\end{bewijs}
+\end{theorie}
+
+De stelling zegt: is de grafiek in het dekpunt minder steil dan de rechte $y = x$ (in absolute waarde), dan trekt het dekpunt aan. Het getal $k$ is de factor waarmee de afstand tot $p$ minstens krimpt.
+
+\begin{theorie}
+\begin{stelling}{Afstotend dekpunt}
+Is $p$ een dekpunt van $f$, is $f$ afleidbaar in $p$ en is $\formule{|f'(p)| > 1}$, dan is $p$ afstotend.
+\end{stelling}
+
+\begin{bewijs}
+Kies een getal $k$ met $1 < k < |f'(p)|$. Zoals hierboven is er een $\delta > 0$ zodat $|f(x) - p| \geqslant k\,|x - p|$ voor elke $x$ met $|x - p| < \delta$. Neem $x_0 \neq p$ met $|x_0 - p| < \delta$, en stel dat de baan het interval nooit verlaat. Dan is voor elke $n$
+\bewijsregel{\delta > |x_n - p| \geqslant k^n\,|x_0 - p| .}
+Maar $k^n\,|x_0 - p| \to +\infty$, want $k > 1$ en $|x_0 - p| > 0$. Dat kan niet, dus de baan verlaat het interval.
+\end{bewijs}
+\end{theorie}
+
+Is $|f'(p)| = 1$, dan zegt het criterium niets: dat geval bekijken we verderop.
+
+\voorbeeld{}{Is elk dekpunt van $g(x) = \tfrac15(x^2 + 4)$ aantrekkend of afstotend?\label{vb:h1-criterium}}{%
+\uitleg{De dekpunten zijn 1 en 4. We berekenen de afgeleide in elk dekpunt en vergelijken haar absolute waarde met 1.}
+\begin{stappen}
+g'(x) = \tfrac25\,x & De afgeleide. \\
+g'(1) = 0{,}4 & $|0{,}4| < 1$: het dekpunt 1 is aantrekkend. \\
+g'(4) = 1{,}6 & $|1{,}6| > 1$: het dekpunt 4 is afstotend.
+\end{stappen}
+Dat klopt met de figuur hierboven. Het getal 0,4 zegt meer: dicht bij 1 wordt de afstand tot 1 bij elke stap ongeveer 0,4 keer zo klein.}
+
+\begin{werkwijze}
+Bepaal de dekpunten met $f(x) = x$. Bereken in elk dekpunt $f'(p)$. Is $|f'(p)| < 1$, dan is $p$ aantrekkend, is $|f'(p)| > 1$, dan is $p$ afstotend. Is $|f'(p)| = 1$, dan moet je verder zoeken.
+\end{werkwijze}
+
+\nujij{Zijn de dekpunten van $f(x) = x^2 - 1$ aantrekkend of afstotend?}{$f'(p) = 2p$, dus $f'(p) = 1 \pm \sqrt5$, ongeveer $3{,}24$ en $-1{,}24$. Beide zijn afstotend.}
+
+\begin{oefeningen}
+\oef{h1-criterium}
+\end{oefeningen}
+
+De twee dekpunten van $x^2 - 1$ stoten allebei af. Waar gaat de baan van $0{,}5$ dan heen? Ze sprong in voorbeeld~\ref{vb:h1-baan} heen en weer tussen twee getallen: dat is periodiek gedrag, het onderwerp van hoofdstuk 2.
+
+\subsection{Trap of spinnenweb}
+
+Het teken van $f'(p)$ bepaalt de vorm van het diagram. Dicht bij $p$ heeft $\tfrac{f(x) - p}{x - p}$ hetzelfde teken als zijn limiet $f'(p)$. Is $f'(p) > 0$, dan liggen $x_n$ en $x_{n-1}$ aan dezelfde kant van $p$: een trap. Is $f'(p) < 0$, dan liggen ze aan weerszijden: de baan springt om $p$ heen, en het diagram wordt een spinnenweb. De vier figuren hieronder tonen de vier gevallen.
+
+\figuren{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid (6,6);
+  \draw[lijngrijs,thick] (0,0) -- (6,6);
+  \kromme{0}{6}{sqrt(2*\x+3)}
+  \spinnenweb{sqrt(2*\x+3)}{.5}{5}
+  \fill[accent] (3,3) circle (3pt);
+  \node[above,align=center] at (3,6) {$0 < f'(p) < 1$\\ aantrekkend};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=3,font=\scriptsize]
+  \draw[black!14,very thin,step=1/6] (0,0) grid (1,1);
+  \draw[lijngrijs,thick] (0,0) -- (1,1);
+  \kromme{0}{1}{cos(\x r)}
+  \spinnenweb{cos(\x r)}{.05}{9}
+  \fill[accent] (.739,.739) circle (.5pt);
+  \node[above,align=center] at (.5,1) {$-1 < f'(p) < 0$\\ aantrekkend};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \begin{scope}
+  \clip (0,0) rectangle (6,6);
+  \draw[black!14,very thin] (0,0) grid (6,6);
+  \draw[lijngrijs,thick] (0,0) -- (6,6);
+  \kromme{0}{6}{(\x*\x+4)/5}
+  \spinnenweb{(\x*\x+4)/5}{4.1}{4}
+  \spinnenweb{(\x*\x+4)/5}{3.9}{5}
+  \end{scope}
+  \draw[accent,fill=white] (4,4) circle (3pt);
+  \node[above,align=center] at (3,6) {$f'(p) > 1$\\ afstotend};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=2,font=\scriptsize]
+  \draw[black!14,very thin,step=.25] (-1.2,-1.2) grid (.3,.3);
+  \draw[lijngrijs,thick] (-1.2,-1.2) -- (.3,.3);
+  \kromme{-1.2}{.3}{\x*\x-1}
+  \draw[grijs] (-.6,-.6) -- (-.6,-.64) -- (-.64,-.64) -- (-.64,-.5904) -- (-.5904,-.5904) -- (-.5904,-.6514) -- (-.6514,-.6514) -- (-.6514,-.5756) -- (-.5756,-.5756) -- (-.5756,-.6686) -- (-.6686,-.6686) -- (-.6686,-.5529) -- (-.5529,-.5529) -- (-.5529,-.6943) -- (-.6943,-.6943) -- (-.6943,-.518);
+  \draw[accent,fill=white] (-.618,-.618) circle (1.5pt);
+  \node[above,align=center] at (-.45,.3) {$f'(p) < -1$\\ afstotend};
+\end{tikzpicture}}
+
+Van links naar rechts: $\sqrt{2x + 3}$ bij 3, $\cos x$ bij 0,739, $\tfrac15(x^2 + 4)$ bij 4 en $x^2 - 1$ bij $-0{,}618$, telkens met $y = x$ in het grijs. In de laatste figuur draait het spinnenweb naar buiten: de baan van $-0{,}6$ springt om het dekpunt heen, steeds verder ervan weg.
+
+\nujij{De functie $f$ heeft een dekpunt $p$ met $f'(p) = -0{,}3$. Beschrijf de baan van een startwaarde vlak bij $p$.}{Ze gaat naar $p$ (want $|{-0{,}3}| < 1$) en ligt afwisselend links en rechts van $p$ (want $f'(p) < 0$). De afstand tot $p$ wordt per stap ongeveer 0,3 keer zo klein.}
+
+\subsection{Als de afgeleide 1 of \texorpdfstring{$-1$}{-1} is}
+
+Wat als $|f'(p)| = 1$? Dan is de grafiek in het dekpunt even steil als $y = x$ of $y = -x$, en beslist de kromming van de grafiek. Drie voorbeelden met het dekpunt 0 en $f'(0) = 1$ tonen dat alles kan:
+\begin{itemize}
+\item $f(x) = \sin x$: het dekpunt is aantrekkend (zie het voorbeeld hieronder), maar traag: de baan van 1 is na 100 stappen pas bij 0,17;
+\item $f(x) = x + x^3$: het dekpunt is afstotend, want $|x + x^3| > |x|$ voor $x \neq 0$;
+\item $f(x) = x + x^2$: banen links van 0 gaan naar 0, banen rechts van 0 lopen weg. Het dekpunt is aantrekkend noch afstotend.
+\end{itemize}
+
+\voorbeeld{}{Toon aan dat het dekpunt 0 van $f(x) = \sin x$ aantrekkend is, hoewel $f'(0) = 1$.\label{vb:h1-grensgeval}}{%
+\uitleg{Het criterium helpt niet. We gebruiken wat we over rijen weten: een dalende rij die naar onder begrensd is, convergeert. Op de eenheidscirkel is de boog $x$ langer dan de halve koorde $\sin x$, dus $0 < \sin x < x$ voor $0 < x \leqslant 1$.}
+\begin{stappen}
+0 < x_0 \leqslant 1 & Neem eerst een positieve startwaarde. \\
+0 < x_n = \sin x_{n-1} < x_{n-1} & Elke term is positief en kleiner dan de vorige. \\
+x_n \to L \text{ met } \sin L = L & De rij daalt en is begrensd: ze convergeert, naar een dekpunt. \\
+L = 0 & Het enige dekpunt, want $\sin x < x$ voor $x > 0$.
+\end{stappen}
+Voor $-1 \leqslant x_0 < 0$ is de baan het tegengestelde van die van $-x_0$, want $\sin(-x) = -\sin x$. Elke baan die in $[-1, 1]$ start, gaat dus naar 0.}
+
+\begin{oefeningen}
+\oef{h1-grensgeval}
+\end{oefeningen}
+
+\subsection{Het aantrekkingsgebied}
+
+Een aantrekkend dekpunt trekt de banen in de buurt aan. Maar hoe ver reikt die aantrekking? Bij $g(x) = \tfrac15(x^2 + 4)$ ging de baan van 3,5 naar 1, die van 4,2 niet.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{aantrekkingsgebied}} van een dekpunt $p$ is de verzameling van alle startwaarden waarvan de baan naar $p$ convergeert.
+\end{theorie}
+
+\voorbeeld{}{Bepaal het aantrekkingsgebied van het dekpunt 1 van $g(x) = \tfrac15(x^2 + 4)$.\label{vb:h1-gebied}}{%
+\uitleg{We kijken naar het teken van $g(x) - x = \tfrac15(x - 1)(x - 4)$: dat zegt of een stap naar links of naar rechts gaat. Tussen twee dekpunten blijft een baan monotoon, en een monotone, begrensde rij convergeert naar een dekpunt.}
+\begin{stappenvrij}{5.2cm}{9.2cm}
+1 < x_0 < 4: \ 1 < x_n < x_{n-1} & Daar is $g(x) < x$, en $g(x) > g(1) = 1$. De baan daalt en blijft boven 1: ze gaat naar een dekpunt in $[1, x_0[$, en dat is 1. \\
+0 \leqslant x_0 < 1: \ x_{n-1} < x_n < 1 & Daar is $g(x) > x$ en $g(x) < g(1) = 1$. De baan stijgt naar 1. \\
+-4 < x_0 < 0 & $x_1 = g(x_0) = g(-x_0)$: na één stap zit je in een van de vorige gevallen. \\
+|x_0| > 4 & $x_1 = g(|x_0|) > |x_0| > 4$, en voor $x > 4$ is $g(x) > x$: de baan stijgt. Ze kan niet naar een dekpunt gaan (dat zou groter moeten zijn dan 4), dus $x_n \to +\infty$.
+\end{stappenvrij}
+Het aantrekkingsgebied van 1 is $]-4, 4[$. De startwaarden 4 en $-4$ gaan naar het afstotende dekpunt 4 (in één stap), de rest loopt weg naar oneindig.}
+
+\begin{werkwijze}
+Bepaal de dekpunten en het teken van $f(x) - x$ ertussen: positief betekent dat de baan naar rechts gaat, negatief naar links. Teken een spinnenwebdiagram om te zien of een baan tussen twee dekpunten blijft. Een monotone, begrensde baan gaat naar een dekpunt.
+\end{werkwijze}
+
+\nujij{Bepaal het aantrekkingsgebied van het dekpunt 0 van $f(x) = x^2$.}{$]-1, 1[$ (voorbeeld~\ref{vb:h1-startwaarde}).}
+
+\begin{oefeningen}
+\oef{h1-gebied}
+\end{oefeningen}
+
+Nu kunnen we het probleem oplossen. De cosinus heeft één dekpunt, en het criterium zegt of het aantrekt. Dat elke startwaarde erheen gaat, vraagt nog één stap meer: we moeten de afstand tot het dekpunt niet alleen dichtbij, maar op een heel interval afschatten.
+
+\voorbeeld{}{Terug naar het probleem. Waarom komt bij herhaald $\cos$ elke startwaarde bij hetzelfde getal uit, en welk getal is dat? Waarom gebeurt dat niet bij $x^2$?\label{vb:h1-terug}}{%
+\uitleg{We zoeken het dekpunt van $f(x) = \cos x$, kijken naar $f'(p)$, en tonen daarna dat de afstand tot $p$ vanaf $x_2$ bij elke stap krimpt.}
+\begin{stappenvrij}{5.6cm}{8.8cm}
+\cos p = p, \ p \approx 0{,}739085 & Er is precies één dekpunt: $h(x) = \cos x - x$ is dalend, met $h(0) = 1 > 0$ en $h(1) < 0$. Algebraïsch vind je het niet: het rekentoestel vond het door te itereren. \\
+f'(p) = -\sin p \approx -0{,}674 & $|f'(p)| < 1$: aantrekkend. Negatief: de baan springt om $p$ heen. \\
+x_1 \in [-1, 1], \ x_2 \in [\cos 1, 1] \subset [0{,}54; 1] & Na twee stappen zit elke baan in $[0{,}54; 1]$, want $\cos$ is even en daalt op $[0, 1]$. \\
+|\cos x - \cos p| \leqslant \sin 1 \cdot |x - p| & Voor $x$ in $[0, 1]$: volgens de stelling van Lagrange is $\cos x - \cos p = -\sin c\,(x - p)$ voor een $c$ tussen $x$ en $p$, en $\sin c \leqslant \sin 1$. \\
+|x_n - p| \leqslant 0{,}85^{\,n - 2}\,|x_2 - p| \to 0 & Want $\sin 1 \approx 0{,}841 < 0{,}85$.
+\end{stappenvrij}
+Elke baan gaat dus naar $p \approx 0{,}739085$, het enige getal dat gelijk is aan zijn eigen cosinus. De afstand tot $p$ krimpt ongeveer met de factor $0{,}674$ per stap: zes decimalen vragen ongeveer dertig stappen, zoals in het probleem. Bij $x^2$ zijn er twee dekpunten: 0, met $f'(0) = 0$, is aantrekkend met aantrekkingsgebied $]-1, 1[$, en 1, met $f'(1) = 2$, is afstotend. Welk lot een baan heeft, hangt dus af van de startwaarde.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o8}
+
+\oef{h1-o13}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Numerieke methodes en Exponentiële en logaritmische functies staan in pakket 4; Numerieke methodes is, net als deze cursus, een module van het leerplan Complementair: kijk na of ze gezien is. De oefening over rijen hoort bij de cursus Rijen (hoofdstuk 4).}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-baan}{oef:h1-baan}%
+  \fv{oef:h1-t2}{vb:h1-spinnenweb}{oef:h1-spinnenweb}%
+  \fv{oef:h1-t3}{vb:h1-dekpunten}{oef:h1-dekpunten}%
+  \fv{oef:h1-t4}{vb:h1-criterium}{oef:h1-criterium}%
+  \fv{oef:h1-t5}{vb:h1-startwaarde}{oef:h1-startwaarde}%
+  \fv{oef:h1-t6}{vb:h1-gebied}{oef:h1-gebied}%
+  \fv{oef:h1-t7}{vb:h1-grensgeval}{oef:h1-grensgeval}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat itereren en een baan zijn, hoe je een spinnenwebdiagram tekent, wat een dekpunt is en waarom een convergente baan naar een dekpunt gaat, het criterium met de afgeleide voor aantrekkende en afstotende dekpunten (en het idee van het bewijs), wat het teken van $f'(p)$ zegt over de vorm van het diagram, wat er kan gebeuren als $|f'(p)| = 1$, en wat een aantrekkingsgebied is. Vergelijk daarna met de kaders.
+\fi

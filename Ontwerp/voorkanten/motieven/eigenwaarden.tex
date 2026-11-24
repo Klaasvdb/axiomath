@@ -1,0 +1,28 @@
+% Eigenwaarden en eigenvectoren. Velázquez, De spinsters (Las Hilanderas, ca. 1655-1660): het spinnewiel draait,
+% maar zijn as blijft op haar plaats. Een draaiing in de ruimte heeft altijd zo'n as: een eigenvector met eigenwaarde 1
+% (opdracht 20 van hoofdstuk 1).
+% Motief: de afbeelding f(x, y) = (3x - y, 2x) uit het probleem van hoofdstuk 1, met eenheid 0,9 cm vanuit
+% O = (15,2; 3,75). De eigenvector v = (1, 1) gaat naar Av = (2, 2) = 2v, op dezelfde rechte (fel); de eigenvector
+% (1, 2) blijft staan (eigenwaarde 1); de vector w = (1, 0) draait weg naar Aw = (3, 2) (dun en wit).
+% De gestippelde rechten zijn de twee eigenruimten y = x en y = 2x.
+% De bovenrand groeit exponentieel, zoals een populatie met een dominante eigenwaarde groter dan 1 (hoofdstuk 2).
+\def\omslagbestand{omslag-spinsters.jpg}
+\def\omslagbron{Diego Velázquez, \textit{De spinsters}, ca. 1655-1660 (publiek domein)}
+\def\omslagsamples{120}
+\def\omslagrand{10.4 + 0.8*(1.12^(\x) - 1)/(1.12^21 - 1)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[shift={(15.2,3.75)},x=.9cm,y=.9cm]
+    \draw[white,line width=.7pt,opacity=.6,dash pattern=on 3pt off 2pt] (-.5,-.5) -- (2.6,2.6);
+    \draw[white,line width=.7pt,opacity=.6,dash pattern=on 3pt off 2pt] (-.35,-.7) -- (1.45,2.9);
+    \draw[white,line width=.9pt,-{Stealth[length=2.4mm]},opacity=.85] (0,0) -- (3,2);
+    \draw[omslaglijn=1.6pt,-{Stealth[length=3mm]}] (0,0) -- (1,0);
+    \draw[fel,line width=2pt,-{Stealth[length=3.4mm]}] (0,0) -- (2,2);
+    \draw[omslaglijn=1.6pt,-{Stealth[length=3mm]}] (0,0) -- (1,1);
+    \draw[omslaglijn=1.6pt,-{Stealth[length=3mm]}] (0,0) -- (1,2);
+    \fill[omslagstip] (0,0) circle (2.2pt);
+    \node[text=white,font=\small,inner sep=1pt,anchor=north] at (.55,-.05) {$\vec w$};
+    \node[text=white,font=\small,inner sep=1pt,anchor=west] at (3.05,1.85) {$A\vec w$};
+    \node[omslaglabel,anchor=south west] at (2.2,2.3) {$A\vec v = 2\vec v$};
+  \end{scope}
+}

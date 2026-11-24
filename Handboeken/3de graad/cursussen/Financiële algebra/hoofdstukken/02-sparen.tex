@@ -1,0 +1,404 @@
+%----------------------------------------------------------------------------------------
+% SPAREN MET VASTE STORTINGEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Sparen met vaste stortingen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Bij de geboorte van Mila openen haar grootouders een spaarrekening. Ze storten aan het begin van elke maand hetzelfde bedrag, de eerste keer op de dag van haar geboorte, de laatste keer een maand voor haar 18de verjaardag. Op die verjaardag moet er \eur 15\,000 op de rekening staan. De rekening brengt 2,4\,\% per jaar op. Hoeveel moeten ze per maand storten? Hoeveel van de \eur 15\,000 is dan rente? En hoeveel moeten ze per maand storten als ze pas beginnen als Mila 6 jaar is?}{\begin{tikzpicture}[x=.3cm,font=\scriptsize]
+  \draw[->,grijs] (-.3,0) -- (13.6,0);
+  \foreach \t in {0,1,2,3,4,5,9,10,11}{\fill[accent] (\t,0) circle (1.6pt);}
+  \node[fill=white,inner sep=1pt] at (7,0) {$\cdots$};
+  \draw[grijs] (12,.1) -- (12,-.1);
+  \node[below] at (0,-.05) {geboorte};
+  \node[below] at (12,-.05) {18 jaar};
+  \node[above=2pt,text=fel!80!black,font=\scriptsize\bfseries] at (12,.05) {15\,000};
+  \node[above=2pt] at (2,.05) {$a$ per maand};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 41 (eindwaarde en termijnbedrag bij kapitaalsvorming met prenumerando annuïteiten), met de wenk van LPD 40 dat de periode van de stortingen de rentevoet bepaalt. Voorkennis: hoofdstuk 1, de somformule van een meetkundige rij en de eindwaarde van vaste stortingen op het einde van elk jaar (Rijen, hoofdstuk 3: dat is de postnumerando eindwaarde). Extra's: de looptijd berekenen, de rentevoet numeriek bepalen (verwijzing naar de cursus Numerieke methodes), de rij van de saldi in een rekenblad. Met de TVM Solver van de TI-84 (Finance) kan alles ook, met de instelling BEGIN voor prenumerando; dat is een controle, geen vervanging van de formules.}
+
+Wie spaart, stort meestal niet één keer een groot bedrag, maar elke maand een klein bedrag: een spaarplan, pensioensparen, een rekening voor de studies van een kind. Elke storting groeit apart aan, maar niet even lang. In de cursus Rijen telde je zulke stortingen op met de somformule van een meetkundige rij, voor stortingen op het einde van elk jaar. In dit hoofdstuk storten we aan het begin van elke periode, per maand of per jaar, en leren we niet alleen wat er op het einde op de rekening staat, maar ook hoeveel je moet storten om een doel te halen.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{De Verken laat zien dat het tijdstip van de stortingen een factor $u$ scheelt: elke storting van Ann staat een jaar langer uit dan die van Bert. Dat is de kern van het verschil tussen prenumerando en postnumerando.}
+
+%========================================================================================
+\section{Annuïteiten}
+
+\subsection{Gelijke bedragen op gelijke tijdstippen}
+
+Mila's grootouders storten elke maand hetzelfde bedrag. Een huurder betaalt elke maand dezelfde huur, een werknemer krijgt elke maand hetzelfde loon, een lener betaalt elke maand dezelfde aflossing. Telkens gaat het om een rij gelijke bedragen, op gelijke afstanden in de tijd. Het verschil zit in het moment: de huur betaal je aan het begin van de maand, het loon krijg je op het einde.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{annuïteit}} is een rij van $n$ gelijke bedragen $a$, het \textbf{\textcolor{accent}{termijnbedrag}}, die betaald worden met gelijke tussenperiodes. De annuïteit is
+\begin{itemize}
+\item \textbf{\textcolor{accent}{prenumerando}} als elk bedrag aan het begin van een periode betaald wordt;
+\item \textbf{\textcolor{accent}{postnumerando}} als elk bedrag op het einde van een periode betaald wordt.
+\end{itemize}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[x=.95cm,font=\scriptsize]
+  \tijdas{6}{0/$0$,1/$1$,2/$2$,3/$3$,5/$n-1$,6/$n$}
+  \foreach \t in {0,1,2,3,5}{\fill[accent] (\t,0) circle (1.7pt) node[above=1pt] {$a$};}
+  \node[fill=white,inner sep=1pt] at (4,0) {$\cdots$};
+  \node[above=2pt,text=fel!80!black,font=\scriptsize\bfseries] at (6,.25) {eindwaarde};
+  \node[font=\small\bfseries] at (3,-.9) {prenumerando};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}[x=.95cm,font=\scriptsize]
+  \tijdas{6}{0/$0$,1/$1$,2/$2$,3/$3$,5/$n-1$,6/$n$}
+  \foreach \t in {1,2,3,5,6}{\fill[accent] (\t,0) circle (1.7pt) node[above=1pt] {$a$};}
+  \node[fill=white,inner sep=1pt] at (4,0) {$\cdots$};
+  \node[font=\small\bfseries] at (3,-.9) {postnumerando};
+\end{tikzpicture}}
+
+In beide gevallen zijn er $n$ bedragen. Bij prenumerando valt het eerste bedrag op tijdstip 0 en het laatste op $n - 1$; bij postnumerando valt het eerste op 1 en het laatste op $n$. Pre en post zijn Latijn voor \textit{voor} en \textit{na}: de betaling valt vóór of na de periode waarvoor ze geldt. Bij sparen stort je meestal prenumerando: de eerste storting gebeurt meteen bij de opening van de rekening. Bij een lening betaal je postnumerando: de eerste aflossing komt een maand na het lenen. Daarover gaat hoofdstuk 3.
+
+\voorbeeld{}{Lotte stort vanaf 1 januari aan het begin van elk kwartaal \eur 300 op een spaarrekening, vier jaar lang. Welke soort annuïteit is dat? Wat zijn de periode, het termijnbedrag en het aantal termijnen? Wanneer valt de laatste storting?\label{vb:h2-soort}}{%
+\uitleg{We kijken wanneer elke storting valt ten opzichte van de periode waarin ze rente opbrengt.}
+\begin{stappen}
+\text{prenumerando} & Elke storting valt aan het begin van een kwartaal. \\
+\text{periode: een trimester, } a = 300 & Een kwartaal is een trimester. \\
+n = 4 \cdot 4 = 16 & Vier trimesters per jaar, vier jaar lang. \\
+\text{laatste storting: 1 oktober van jaar 4} & Tijdstip $n - 1 = 15$: het begin van het laatste trimester.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h2-soort}
+\end{oefeningen}
+
+%========================================================================================
+\section{De eindwaarde}
+
+\subsection{Alle stortingen samen}
+
+Hoeveel staat er op de rekening na de laatste periode? Begin met een klein geval: je stort 3 jaar lang aan het begin van elk jaar \eur 100, aan 10\,\% per jaar. De eerste storting staat er 3 jaar en wordt $100 \cdot 1{,}1^3 = 133{,}10$. De tweede staat er 2 jaar en wordt $121$, de derde 1 jaar en wordt $110$. Op het einde van het derde jaar staat er $110 + 121 + 133{,}10 = 364{,}10$ euro: weer de som van een meetkundige rij, maar elke term is een factor $1{,}1$ groter dan bij stortingen op het einde van het jaar.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{eindwaarde}} van een annuïteit is de som van de waarden van alle termijnbedragen op het einde van de laatste periode, tijdstip $n$.
+
+\begin{stelling}{Eindwaarde van een prenumerando annuïteit}
+Bij $n$ termijnbedragen $a$ aan het begin van elke periode, met rentevoet $i$ per periode en $u = 1 + i$, is de eindwaarde
+
+\vspace{1mm}
+\qquad $\formule{E = a\,u \cdot \frac{u^n - 1}{i}}$
+\end{stelling}
+
+\begin{bewijs}
+De storting op tijdstip $k$ staat $n - k$ periodes uit, en is op tijdstip $n$ dus $a\,u^{\,n-k}$ waard, voor $k = 0, 1, \ldots, n - 1$. Lees de termen van de laatste naar de eerste storting:
+\bewijsregel{E = a\,u + a\,u^2 + \cdots + a\,u^n .}
+Dat is de som van $n$ termen van een meetkundige rij met eerste term $a\,u$ en quotiënt $u \neq 1$:
+\bewijsregel{E = a\,u \cdot \frac{u^n - 1}{u - 1} = a\,u \cdot \frac{u^n - 1}{i} .}
+\end{bewijs}
+\end{theorie}
+
+\naast{De breuk $\frac{u^n - 1}{i}$ ken je uit de cursus Rijen: $a \cdot \frac{u^n - 1}{i}$ is de eindwaarde als je op het einde van elke periode stort, op het moment van de laatste storting. Bij prenumerando staat elke storting één periode langer uit, dus is de eindwaarde $u$ keer zo groot. Wat erbij komt boven de $n \cdot a$ die je zelf gestort hebt, is rente. De figuur toont hoe die rente aangroeit bij \eur 50 per maand aan 2\,\% per jaar (voorbeeld \ref{vb:h2-eind}): de donkere staven zijn de stortingen, de lichte de rente.}{\begin{tikzpicture}[x=.42cm,y=.00055cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=1000] (0,0) grid (10.5,7000);
+  \draw[->,grijs] (0,0) -- (11,0) node[right,text=black] {jaar};
+  \draw[->,grijs] (0,0) -- (0,7400) node[above,text=black] {euro};
+  \foreach \t in {2,4,...,10}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \k in {2000,4000,6000}{\node[left,inner sep=1.5pt] at (0,\k) {$\k$};}
+  \foreach \j in {1,...,10}{%
+    \pgfmathsetmacro{\E}{50*1.0016516*(1.0016516^(12*\j)-1)/0.0016516}%
+    \fill[accent!25,draw=accent] (\j-.32,0) rectangle (\j+.32,\E);
+    \fill[accent] (\j-.32,0) rectangle (\j+.32,600*\j);}
+\end{tikzpicture}}
+
+\voorbeeld{}{Je stort 10 jaar lang aan het begin van elke maand \eur 50 op een rekening met 2\,\% per jaar. Hoeveel staat er na 10 jaar op de rekening? Hoeveel daarvan is rente?\label{vb:h2-eind}}{%
+\uitleg{De stortingen gebeuren per maand, dus rekenen we met de gelijkwaardige maandrente en tellen we het aantal maanden. De stortingen vallen aan het begin van de maand: prenumerando.}
+\begin{stappen}
+\im = 1{,}02^{\frac1{12}} - 1 \approx 0{,}001\,651\,6 & De maandrente (hoofdstuk 1), niet afronden. \\[1ex]
+n = 120 & Tien jaar van twaalf maanden. \\[1ex]
+E = 50 \cdot \um \cdot \frac{\um^{120} - 1}{\im} \approx 6640{,}79 & Met $\um = 1 + \im$ en $\um^{120} = 1{,}02^{10}$. \\[2ex]
+6640{,}79 - 120 \cdot 50 = 640{,}79 & Je stortte zelf \eur 6000.
+\end{stappen}
+Na 10 jaar staat er \eur 6640,79 op de rekening, waarvan \eur 640,79 rente.}
+
+Wat als de rente per jaar gegeven is en je per jaar stort? Dan is er niets om te rekenen: periode en rentevoet passen al bij elkaar.
+
+\voorbeeld{}{Op 1 januari van elk jaar stort je \eur 1000 in een spaarplan aan 3\,\% per jaar, 8 jaar lang. Hoeveel staat er op 31 december van het achtste jaar op?\label{vb:h2-jaar}}{%
+\uitleg{Acht stortingen aan het begin van een jaar, en we zoeken de waarde op het einde van het laatste jaar: precies de eindwaarde van een prenumerando annuïteit.}
+\begin{stappen}
+E = 1000 \cdot 1{,}03 \cdot \frac{1{,}03^8 - 1}{0{,}03} \approx 9159{,}11 & $a = 1000$, $u = 1{,}03$, $n = 8$.
+\end{stappen}
+Er staat \eur 9159,11 op, waarvan \eur 1159,11 rente.}
+
+\begin{werkwijze}
+Bepaal de periode van de stortingen, en zet de rentevoet om naar die periode (gelijkwaardige rentevoet). Tel het aantal stortingen $n$. Ga na of ze prenumerando of postnumerando vallen, en of je de waarde zoekt op het einde van de laatste periode. Vul dan de formule in.
+\end{werkwijze}
+
+\nujij{Je stort 6 jaar lang aan het begin van elk trimester \eur 200, aan 2,8\,\% per jaar. Bereken de eindwaarde.}{$i_4 = 1{,}028^{\frac14} - 1 \approx 0{,}006\,928$, $n = 24$: $E = 200 \cdot u_4 \cdot \frac{u_4^{24} - 1}{i_4} \approx 5238{,}60$ euro.}
+
+\begin{oefeningen}
+\oef{h2-eind}
+
+\oef{h2-prepost}
+\end{oefeningen}
+
+\subsection{De waarde op een ander tijdstip}
+
+De eindwaarde is één getal op één tijdstip. Vaak stop je met storten, maar blijft het geld nog een tijd op de rekening staan. Dan behandel je de eindwaarde als één kapitaal, en breng je het naar het gevraagde tijdstip zoals in hoofdstuk 1: vermenigvuldig met $u^m$ voor $m$ periodes later.
+
+\voorbeeld{}{Lien stort 10 jaar lang aan het begin van elke maand \eur 100 op een rekening aan 2,5\,\% per jaar. Daarna laat ze het geld nog 5 jaar staan. Hoeveel heeft ze na 15 jaar?\label{vb:h2-later}}{%
+\uitleg{Eerst de eindwaarde na 10 jaar, met de maandrente. Daarna groeit dat kapitaal nog 5 jaar aan: dan kunnen we met de jaarrente rekenen.}
+\naast{\begin{stappenvrij}{5cm}{3.3cm}
+\im = 1{,}025^{\frac{1}{12}} - 1 \approx 0{,}002\,060 & Maandrente. \\[1ex]
+E = 100 \cdot \um \cdot \frac{\um^{120} - 1}{\im} \approx 13\,625{,}43 & Na 10 jaar. \\[2ex]
+13\,625{,}43 \cdot 1{,}025^5 \approx 15\,415{,}92 & Nog 5 jaar.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.27cm,font=\scriptsize]
+  \tijdas{15}{0/$0$,10/$10$,15/$15$}
+  \foreach \t in {0,.5,...,9.5}{\fill[accent] (\t,0) circle (1pt);}
+  \fill[fel!80!black] (10,0) circle (1.8pt) node[above=2pt] {$E$};
+  \fill[fel!80!black] (15,0) circle (1.8pt);
+  \draw[->,fel!80!black,thick] (10.2,.3) to[bend left=30] node[above] {$\cdot\,1{,}025^5$} (14.8,.3);
+\end{tikzpicture}}
+Na 15 jaar heeft Lien \eur 15\,415,92. Ze stortte zelf \eur 12\,000.}
+
+\begin{oefeningen}
+\oef{h2-later}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het termijnbedrag}
+
+\subsection{Hoeveel moet je storten?}
+
+Meestal ken je het doel, en zoek je het bedrag per maand: zoveel wil je hebben op je 25ste, of voor de studies van je kind. In de formule van de eindwaarde is $E$ dan gegeven, en $a$ onbekend. Omdat $a$ een factor is, los je de formule eenvoudig op.
+
+\begin{theorie}
+\begin{stelling}{Termijnbedrag bij kapitaalsvorming}
+Om met $n$ prenumerando termijnbedragen aan rentevoet $i$ per periode een eindwaarde $E$ te bereiken, is het termijnbedrag
+
+\vspace{1mm}
+\qquad $\formule{a = \frac{E \cdot i}{u\,(u^n - 1)}}$
+\end{stelling}
+
+\begin{bewijs}
+Deel beide leden van $E = a\,u \cdot \frac{u^n - 1}{i}$ door $\frac{u\,(u^n - 1)}{i}$, dat niet nul is omdat $u > 1$ en $n \geqslant 1$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Je wilt over 5 jaar \eur 10\,000 hebben voor een auto. Je stort aan het begin van elke maand, op een rekening met 1,8\,\% per jaar. Hoeveel moet je per maand storten?\label{vb:h2-termijn}}{%
+\uitleg{De stortingen zijn per maand, dus rekenen we met de gelijkwaardige maandrente en $n = 60$. De eindwaarde is gegeven.}
+\begin{stappen}
+\im = 1{,}018^{\frac1{12}} - 1 \approx 0{,}001\,487\,8 & De maandrente. \\[1ex]
+a = \frac{10\,000 \cdot \im}{\um\,(\um^{60} - 1)} \approx 159{,}23 & Met $\um^{60} = 1{,}018^5$.
+\end{stappen}
+Je stort \eur 159,23 per maand. Zonder rente had je $\frac{10\,000}{60} \approx 166{,}67$ euro per maand nodig gehad: de rente spaart je \eur 7,44 per maand.}
+
+Een veelgemaakte fout is de jaarrente gebruiken met een aantal maanden, of de proportionele maandrente $\frac{1{,}8\,\%}{12}$. Het eerste geeft een veel te klein bedrag, het tweede een bedrag dat een paar cent scheelt. Het principe is altijd hetzelfde: de periode van de stortingen bepaalt de rentevoet.
+
+\begin{werkwijze}
+Zet de rentevoet om naar de periode van de stortingen, tel het aantal stortingen, en vul de formule voor het termijnbedrag in. Controleer met de eindwaarde: $a\,u\,\frac{u^n - 1}{i}$ moet het doel opleveren.
+\end{werkwijze}
+
+\nujij{Hoeveel moet je aan het begin van elk jaar storten om na 12 jaar \eur 20\,000 te hebben, aan 2,2\,\% per jaar?}{$a = \frac{20\,000 \cdot 0{,}022}{1{,}022\,(1{,}022^{12} - 1)} \approx 1442{,}76$ euro.}
+
+\begin{oefeningen}
+\oef{h2-termijn}
+\end{oefeningen}
+
+%========================================================================================
+\section{Looptijd en rentevoet}
+
+\subsection{Hoe lang moet je sparen?}
+
+Wie een vast bedrag per maand kan missen, vraagt zich af hoe lang het duurt om een doel te halen. Nu is $n$ onbekend, en die staat in de exponent. Zoals in hoofdstuk 1 heb je een logaritme nodig, maar eerst moet je $u^n$ alleen zetten:
+\[
+E = a\,u \cdot \frac{u^n - 1}{i} \iff u^n = 1 + \frac{E \cdot i}{a\,u} \iff n = \frac{\log \bigl(1 + \frac{E\,i}{a\,u}\bigr)}{\log u} .
+\]
+
+\voorbeeld{}{Je stort aan het begin van elke maand \eur 150 op een rekening aan 2,5\,\% per jaar. Na hoeveel maanden staat er voor het eerst minstens \eur 5000 op?\label{vb:h2-looptijd}}{%
+\uitleg{We zetten $u^n$ alleen en nemen de logaritme. Het aantal stortingen is een natuurlijk getal, dus ronden we naar boven af en controleren we.}
+\begin{stappen}
+\im = 1{,}025^{\frac{1}{12}} - 1 \approx 0{,}002\,060 & De maandrente. \\[1ex]
+\um^{\,n} = 1 + \frac{5000 \cdot \im}{150 \cdot \um} \approx 1{,}0685 & Uit de formule van de eindwaarde. \\[2ex]
+n = \frac{\log 1{,}0685}{\log \um} \approx 32{,}2 & Neem de logaritme. \\[2ex]
+E_{32} \approx 4966{,}67, \quad E_{33} \approx 5127{,}21 & Controle met de formule.
+\end{stappen}
+Na 33 maanden staat er voor het eerst meer dan \eur 5000 op.}
+
+\begin{oefeningen}
+\oef{h2-looptijd}
+\end{oefeningen}
+
+\subsection{Welke rente heb je gekregen?}
+
+Ken je het termijnbedrag, het aantal termijnen en de eindwaarde, welke rentevoet hoort er dan bij? Probeer $E = a\,u \cdot \frac{u^n - 1}{i}$ op te lossen naar $i$: de onbekende staat in de teller met macht $n + 1$ en ook in de noemer. Voor $n \geqslant 4$ bestaat er geen formule die dat exact oplost. Hier heb je een numerieke methode nodig, zoals de methode van de intervalmiddens uit de cursus Numerieke methodes, of een tabel op het rekentoestel. Dat werkt omdat de eindwaarde stijgt als de rentevoet stijgt: elke term $a\,u^k$ wordt groter.
+
+\voorbeeld{}{Een spaarplan belooft: \textit{stort 5 jaar lang aan het begin van elke maand \eur 100, en je krijgt \eur 6500}. Welke rentevoet per maand en per jaar zit daarin?\label{vb:h2-rentevoet}}{%
+\uitleg{We zoeken $\im$ met $E(\im) = 100\,\um \cdot \frac{\um^{60} - 1}{\im} = 6500$. Dat lukt niet algebraïsch. We maken een tabel van $E$ en sluiten de oplossing in, zoals bij de methode van de intervalmiddens.}
+\naast{\begin{rastertabel}{|c|c|}
+\hline
+$\im$ & $E(\im)$ \\ \hline
+0,002 & 6380,82 \\ \hline
+0,003 & 6582,85 \\ \hline
+0,0025 & 6480,83 \\ \hline
+0,0026 & 6501,07 \\ \hline
+0,00259 & 6499,05 \\ \hline
+\end{rastertabel}
+De maandrente ligt tussen 0,259\,\% en 0,260\,\%. Per jaar is dat $1{,}002\,59^{12} - 1 \approx 3{,}16\,\%$ (met 0,0026 is het 3,17\,\%, dus 3,2\,\% op een tiende juist).}{\begin{tikzpicture}[x=9cm,y=.0022cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.001,ystep=250] (0,5800) grid (.006,7250);
+  \draw[->,grijs] (0,5800) -- (.0063,5800) node[right,text=black] {$\im$};
+  \draw[->,grijs] (0,5800) -- (0,7350) node[above,text=black] {$E$};
+  \foreach \t/\l in {.002/0{,}002,.004/0{,}004,.006/0{,}006}{\node[below,inner sep=1.5pt] at (\t,5800) {$\l$};}
+  \foreach \k in {6000,6500,7000}{\node[left,inner sep=1.5pt] at (0,\k) {$\k$};}
+  \draw[grijs,dashed] (0,6500) -- (.006,6500);
+  \draw[accent,thick] plot[domain=0.0001:.006,samples=40,smooth] (\x,{100*(1+\x)*((1+\x)^60-1)/\x});
+  \fill[fel!80!black] (.002595,6500) circle (2pt);
+\end{tikzpicture}}}
+
+\lkr{Wie de cursus Numerieke methodes gezien heeft, kan hier de methode van de intervalmiddens met een foutgrens toepassen, of de regula falsi. Op de TI-84 lost de TVM Solver dit meteen op (I\% is daar de nominale rentevoet per jaar, met P/Y = C/Y = 12; zet je C/Y = 1, dan rekent hij met de gelijkwaardige maandrente).}
+
+\begin{werkwijze}
+Schrijf de eindwaarde als functie van de rentevoet. Bereken ze voor een paar rentevoeten tot je een te kleine en een te grote eindwaarde vindt, en sluit de rentevoet steeds nauwer in. Reken de gevonden maandrente om naar een jaarrente.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-rentevoet}
+\end{oefeningen}
+
+%========================================================================================
+\section{Met een rekenblad}
+
+\subsection{Het saldo maand per maand}
+
+De formule geeft alleen het eindresultaat. Wil je zien hoe het saldo groeit, dan rekenen we maand per maand. Neem $S_k$, het saldo op het einde van maand $k$, met $S_0 = 0$. Aan het begin van maand $k$ stort je $a$, en daarna groeit alles een maand aan:
+\[
+S_k = (S_{k-1} + a) \cdot u .
+\]
+Dat is een recursievergelijking zoals in de cursus Differentiaalvergelijkingen (hoofdstuk 1), en ze past perfect in een rekenblad. Zet de maandrente in een vaste cel, en laat elke rij de vorige gebruiken. Voor het probleem van Mila (met het termijnbedrag uit het volgende voorbeeld) ziet dat er zo uit:
+
+\begin{rekenblad}{3}{A & B & C}
+1 & maandrente & 0,001978 & \\ \hline
+2 & storting & 55,62 & \\ \hline
+3 & maand & saldo & formule in C5 \\ \hline
+4 & 0 & 0,00 & \\ \hline
+5 & 1 & 55,73 & \texttt{=(B4+\$B\$2)*(1+\$B\$1)} \\ \hline
+6 & 2 & 111,57 & \\ \hline
+7 & 3 & 167,52 & \\ \hline
+\end{rekenblad}
+
+De dollartekens houden de verwijzing naar de rentevoet en het termijnbedrag vast als je de formule naar beneden kopieert. Op rij 220 (maand 216) staat dan de eindwaarde. Zo zie je ook dat de formule van de eindwaarde en de recursie hetzelfde geven: werk de recursie uit, en je krijgt $S_n = a\,u + a\,u^2 + \cdots + a\,u^n$.
+
+\begin{oefeningen}
+\oef{h2-recursie}
+\end{oefeningen}
+
+\needspace{18\baselineskip}
+Nu kunnen we het probleem van Mila oplossen.
+
+\voorbeeld{}{Terug naar het probleem. De grootouders storten aan het begin van elke maand, vanaf de geboorte tot een maand voor de 18de verjaardag, aan 2,4\,\% per jaar. Hoeveel per maand voor \eur 15\,000? Hoeveel is rente? Hoeveel per maand als ze beginnen als Mila 6 jaar is?\label{vb:h2-terug}}{%
+\uitleg{De stortingen vallen aan het begin van elke maand, en de laatste valt een maand voor de verjaardag: een prenumerando annuïteit met $n = 18 \cdot 12 = 216$, waarvan de eindwaarde precies op de verjaardag valt.}
+\begin{stappen}
+\im = 1{,}024^{\frac1{12}} - 1 \approx 0{,}001\,978 & De maandrente. \\[1ex]
+a = \frac{15\,000 \cdot \im}{\um\,(\um^{216} - 1)} \approx 55{,}62 & Met $\um^{216} = 1{,}024^{18}$. \\[2ex]
+15\,000 - 216 \cdot 55{,}62 \approx 2986{,}49 & Het deel van de eindwaarde dat rente is. \\[1ex]
+a = \frac{15\,000 \cdot \im}{\um\,(\um^{144} - 1)} \approx 89{,}96 & Vanaf 6 jaar: nog $12 \cdot 12 = 144$ stortingen.
+\end{stappen}
+De grootouders storten \eur 55,62 per maand. Van de \eur 15\,000 is bijna \eur 3000 rente, een vijfde. Beginnen ze zes jaar later, dan moeten ze \eur 89,96 per maand storten, en is maar ongeveer \eur 2046 rente. Vroeg beginnen loont: de eerste stortingen hebben het langst de tijd om aan te groeien.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over de recursie gebruikt de vaste waarde van een discreet proces (Rijen, hoofdstuk 4, en Differentiaalvergelijkingen, hoofdstuk 1). De oefening over de afgeleide toont dat de eindwaarde stijgt met de rentevoet, wat de numerieke aanpak van paragraaf 2.4 rechtvaardigt.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-soort}{oef:h2-soort}%
+  \fv{oef:h2-t2}{vb:h2-eind}{oef:h2-eind}%
+  \fv{oef:h2-t3}{vb:h2-later}{oef:h2-later}%
+  \fv{oef:h2-t4}{vb:h2-termijn}{oef:h2-termijn}%
+  \fv{oef:h2-t5}{vb:h2-looptijd}{oef:h2-looptijd}%
+  \fv{oef:h2-t6}{vb:h2-rentevoet}{oef:h2-rentevoet}%
+  \fv{oef:h2-t7}{vb:h2-terug}{oef:h2-termijn}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een annuïteit, een termijnbedrag, prenumerando en postnumerando zijn (met een tijdlijn), de formule van de eindwaarde van een prenumerando annuïteit met haar bewijs, het verband met de postnumerando eindwaarde, hoe je een eindwaarde naar een later tijdstip brengt, de formule voor het termijnbedrag, hoe je de looptijd berekent, hoe je een rentevoet numeriek insluit, en de recursie voor het saldo in een rekenblad. Vergelijk daarna met de kaders.
+\fi

@@ -1,0 +1,973 @@
+# Oefeningen van hoofdstuk 3. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        de inverse van $\km{1 & 2 \\ 1 & 1}$
+      antwoord: |-
+        $\km{-1 & 2 \\ 1 & -1}$
+      uitwerking: |-
+        $\det = -1$: $\tfrac{1}{-1}\km{1 & -2 \\ -1 & 1}$.
+    - opgave: |-
+        $\km{2 & 0 \\ 0 & -1}^5$
+      antwoord: |-
+        $\km{32 & 0 \\ 0 & -1}$
+      uitwerking: |-
+        Een diagonaalmatrix: de machten op de hoofddiagonaal.
+    - opgave: |-
+        $\km{1 & 2 \\ 1 & 1}\km{2 & 0 \\ 0 & 3}$
+      antwoord: |-
+        $\km{2 & 6 \\ 2 & 3}$
+      uitwerking: |-
+        Elke kolom wordt vermenigvuldigd met het getal op de hoofddiagonaal.
+    - opgave: |-
+        $\det\km{1 & 1 \\ 2 & -1}$
+      antwoord: |-
+        $-3$
+      uitwerking: |-
+        $-1 - 2 = -3$.
+    - opgave: |-
+        de oplossingen van $\lambda^2 - \lambda - 1 = 0$
+      antwoord: |-
+        $\tfrac{1 \pm \sqrt5}{2}$
+      uitwerking: |-
+        $D = 1 + 4 = 5$.
+    - opgave: |-
+        de volgende drie termen van $1, 1, 2, 3, 5, 8$
+      antwoord: |-
+        13, 21, 34
+      uitwerking: |-
+        Telkens de som van de twee vorige.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem $A = \km{3 & -1 \\ 2 & 0}$ uit hoofdstuk 1, met de eigenwaarde 2 bij $(1, 1)$ en 1 bij $(1, 2)$. Stel $P = \km{1 & 1 \\ 1 & 2}$ en $D = \km{2 & 0 \\ 0 & 1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $AP$ en $PD$. Wat merk je op?
+      antwoord: |-
+        $AP = PD = \km{2 & 1 \\ 2 & 2}$
+      uitwerking: |-
+        De kolommen van $AP$ zijn $A(1, 1) = (2, 2)$ en $A(1, 2) = (1, 2)$. De kolommen van $PD$ zijn $2(1, 1)$ en $1 \cdot (1, 2)$: hetzelfde.
+    - opgave: |-
+        Waarom is $P$ inverteerbaar?
+      antwoord: |-
+        $\det P = 1 \neq 0$
+      uitwerking: |-
+        $\det P = 2 - 1 = 1$. De eigenvectoren vormen een basis van $\R^2$.
+    - opgave: |-
+        Leid af dat $A = PDP^{-1}$, en controleer.
+      antwoord: |-
+        $P^{-1} = \km{2 & -1 \\ -1 & 1}$
+      uitwerking: |-
+        Vermenigvuldig $AP = PD$ rechts met $P^{-1}$. $PD \cdot P^{-1} = \km{2 & 1 \\ 2 & 2}\km{2 & -1 \\ -1 & 1} = \km{3 & -1 \\ 2 & 0}$.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h3-diag2
+  soort: kort
+  opgave: |-
+    Diagonaliseer de matrix: geef $P$ en $D$, en controleer met $AP = PD$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{6 & -2 \\ 2 & 1}$
+      antwoord: |-
+        $P = \km{1 & 2 \\ 2 & 1}$, $D = \diag(2, 5)$
+      uitwerking: |-
+        $\lambda^2 - 7\lambda + 10 = 0$: 2 en 5. $\lambda = 2$: $\km{4 & -2 \\ 2 & -1}$, $(1, 2)$. $\lambda = 5$: $\km{1 & -2 \\ 2 & -4}$, $(2, 1)$. $AP = \km{2 & 10 \\ 4 & 5} = PD$.
+    - opgave: |-
+        $\km{-1 & 4 \\ 1 & 2}$
+      antwoord: |-
+        $P = \km{1 & -4 \\ 1 & 1}$, $D = \diag(3, -2)$
+      uitwerking: |-
+        Eigenwaarde 3 bij $(1, 1)$ en $-2$ bij $(-4, 1)$ (hoofdstuk 1). $AP = \km{3 & 8 \\ 3 & -2} = PD$.
+
+- id: h3-diag3
+  soort: kort
+  opgave: |-
+    De matrix $A = \km{3 & 0 & 2 \\ 0 & 3 & 2 \\ -2 & 1 & 0}$ heeft de eigenwaarden 1, 2 en 3, met eigenvectoren $(-1, -1, 1)$, $(-2, -2, 1)$ en $(1, 2, 0)$. Diagonaliseer $A$ en controleer met $AP = PD$.
+  antwoord: |-
+    $P = \km{-1 & -2 & 1 \\ -1 & -2 & 2 \\ 1 & 1 & 0}$, $D = \diag(1, 2, 3)$
+  uitwerking: |-
+    Drie verschillende eigenwaarden, dus diagonaliseerbaar. $AP = \km{-1 & -4 & 3 \\ -1 & -4 & 6 \\ 1 & 2 & 0} = PD$: elke kolom van $P$ maal haar eigenwaarde.
+
+- id: h3-niet
+  soort: kort
+  opgave: |-
+    Is de matrix diagonaliseerbaar over $\R$? Verklaar.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\km{2 & 1 \\ 0 & 2}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Alleen de eigenwaarde 2; $A - 2I = \km{0 & 1 \\ 0 & 0}$ geeft $y = 0$: $\dim \Eig{2} = 1 < 2$.
+    - opgave: |-
+        $\km{2 & 1 \\ 0 & 3}$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Twee verschillende eigenwaarden, 2 en 3.
+    - opgave: |-
+        $\km{2 & 0 \\ 0 & 2}$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Ze is al diagonaal ($P = I$).
+    - opgave: |-
+        $\km{0 & -2 \\ 2 & 0}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\lambda^2 + 4 = 0$: geen reële eigenwaarden. Over $\C$ wel, met $\pm 2i$.
+
+- id: h3-macht
+  soort: kort
+  opgave: |-
+    De matrix $A = \km{2 & 3 \\ 0 & 5}$ is $PDP^{-1}$ met $P = \km{1 & 1 \\ 0 & 1}$ en $D = \diag(2, 5)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een formule voor $A^n$.
+      antwoord: |-
+        $\km{2^n & 5^n - 2^n \\ 0 & 5^n}$
+      uitwerking: |-
+        $P^{-1} = \km{1 & -1 \\ 0 & 1}$ en $PD^n = \km{2^n & 5^n \\ 0 & 5^n}$, dus $A^n = \km{2^n & -2^n + 5^n \\ 0 & 5^n}$.
+    - opgave: |-
+        Bereken $A^3$.
+      antwoord: |-
+        $\km{8 & 117 \\ 0 & 125}$
+      uitwerking: |-
+        $5^3 - 2^3 = 117$.
+
+- id: h3-markov
+  soort: kort
+  opgave: |-
+    Neem de overgangsmatrix $M = \km{0{,}7 & 0{,}2 \\ 0{,}3 & 0{,}8}$, met de eigenwaarde 1 bij $(2, 3)$ en $0{,}5$ bij $(1, -1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef een formule voor $M^n$.
+      antwoord: |-
+        $\tfrac15\km{2 + 3 \cdot 0{,}5^n & 2 - 2 \cdot 0{,}5^n \\ 3 - 3 \cdot 0{,}5^n & 3 + 2 \cdot 0{,}5^n}$
+      uitwerking: |-
+        $P = \km{2 & 1 \\ 3 & -1}$, $\det P = -5$, $P^{-1} = \tfrac15\km{1 & 1 \\ 3 & -2}$. $PD^n = \km{2 & 0{,}5^n \\ 3 & -0{,}5^n}$, maal $P^{-1}$.
+    - opgave: |-
+        Bereken $\displaystyle\lim_{n \to \infty} M^n$.
+      antwoord: |-
+        $\tfrac15\km{2 & 2 \\ 3 & 3}$
+      uitwerking: |-
+        $0{,}5^n \to 0$: elke kolom wordt het evenwicht $\bigl(\tfrac25, \tfrac35\bigr)$.
+
+- id: h3-complex
+  soort: kort
+  opgave: |-
+    Neem $A = \km{0 & -2 \\ 2 & 0}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Diagonaliseer $A$ over $\C$.
+      antwoord: |-
+        $P = \km{i & -i \\ 1 & 1}$, $D = \diag(2i, -2i)$
+      uitwerking: |-
+        $\lambda^2 + 4 = 0$: $\pm 2i$. $A - 2iI = \km{-2i & -2 \\ 2 & -2i}$: de rij $(2, -2i)$ geeft $(-2i, -2)$, of $(i, 1)$. Bij $-2i$ de toegevoegde $(-i, 1)$.
+    - opgave: |-
+        Bereken $A^4$ met $D^4$.
+      antwoord: |-
+        $16I$
+      uitwerking: |-
+        $(2i)^4 = (-2i)^4 = 16$, dus $D^4 = 16I$ en $A^4 = P \cdot 16I \cdot P^{-1} = 16I$. Meetkundig: vier keer een kwartslag en een factor 2.
+
+- id: h3-recursie
+  soort: kort
+  opgave: |-
+    Neem de rij met $u_0 = 0$, $u_1 = 1$ en $u_{n+1} = 3u_n - 2u_{n-1}$. Schrijf ze als een matrixmodel en toon aan dat $u_n = 2^n - 1$.
+  antwoord: |-
+    $\km{3 & -2 \\ 1 & 0}$, eigenwaarden 2 en 1
+  uitwerking: |-
+    Met $X_n = (u_{n+1}, u_n)$ is $X_{n+1} = \km{3 & -2 \\ 1 & 0}X_n$. $\lambda^2 - 3\lambda + 2 = 0$: 2 bij $(2, 1)$ en 1 bij $(1, 1)$. $X_0 = (1, 0) = (2, 1) - (1, 1)$, dus $X_n = 2^n(2, 1) - (1, 1)$, met tweede coördinaat $2^n - 1$. Controle: 0, 1, 3, 7, 15.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    diagonaliseren van orde 2
+  opgave: |-
+    Diagonaliseer: geef $P$ en $D$. De eigenwaarden en eigenvectoren vond je in hoofdstuk 1.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\km{2 & 3 \\ 3 & 2}$
+      antwoord: |-
+        $P = \km{1 & 1 \\ 1 & -1}$, $D = \diag(5, -1)$
+      uitwerking: |-
+        Eigenwaarde 5 bij $(1, 1)$, $-1$ bij $(1, -1)$.
+    - opgave: |-
+        $\km{0 & 2 \\ -1 & 3}$
+      antwoord: |-
+        $P = \km{2 & 1 \\ 1 & 1}$, $D = \diag(1, 2)$
+      uitwerking: |-
+        Eigenwaarde 1 bij $(2, 1)$, 2 bij $(1, 1)$.
+    - opgave: |-
+        $\km{1 & 4 \\ 1 & 1}$
+      antwoord: |-
+        $P = \km{2 & 2 \\ 1 & -1}$, $D = \diag(3, -1)$
+      uitwerking: |-
+        Eigenwaarde 3 bij $(2, 1)$, $-1$ bij $(2, -1)$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    van P en D naar A
+  opgave: |-
+    Bereken $A = PDP^{-1}$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $P = \km{1 & 1 \\ 0 & 1}$, $D = \diag(2, 5)$
+      antwoord: |-
+        $\km{2 & 3 \\ 0 & 5}$
+      uitwerking: |-
+        $PD = \km{2 & 5 \\ 0 & 5}$ en $P^{-1} = \km{1 & -1 \\ 0 & 1}$.
+    - opgave: |-
+        $P = \km{1 & 1 \\ 1 & -1}$, $D = \diag(3, 1)$
+      antwoord: |-
+        $\km{2 & 1 \\ 1 & 2}$
+      uitwerking: |-
+        $PD = \km{3 & 1 \\ 3 & -1}$ en $P^{-1} = \tfrac12\km{1 & 1 \\ 1 & -1}$.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    machten van een diagonaalmatrix
+  opgave: |-
+    Neem $D = \diag\bigl(2, -1, \tfrac12\bigr)$. Bereken.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $D^4$
+      antwoord: |-
+        $\diag\bigl(16, 1, \tfrac{1}{16}\bigr)$
+      uitwerking: |-
+        De machten op de hoofddiagonaal.
+    - opgave: |-
+        $D^{-1}$
+      antwoord: |-
+        $\diag\bigl(\tfrac12, -1, 2\bigr)$
+      uitwerking: |-
+        $D \cdot \diag\bigl(\tfrac12, -1, 2\bigr) = I$.
+    - opgave: |-
+        $\displaystyle\lim_{n \to \infty} \Bigl(\tfrac12 D\Bigr)^n$
+      antwoord: |-
+        $\diag(1, 0, 0)$
+      uitwerking: |-
+        $\tfrac12D = \diag\bigl(1, -\tfrac12, \tfrac14\bigr)$, met machten $\diag\bigl(1, (-\tfrac12)^n, \tfrac{1}{4^n}\bigr) \to \diag(1, 0, 0)$, en niet $O$: de eigenwaarde 1 blijft.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    diagonaliseerbaar of niet
+  opgave: |-
+    Is de matrix diagonaliseerbaar over $\R$? Verklaar.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\km{3 & 1 \\ 0 & 3}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Eigenwaarde 3, twee keer, met $\dim \Eig{3} = 1$.
+    - opgave: |-
+        $\km{1 & 2 \\ 0 & 3}$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Twee verschillende eigenwaarden.
+    - opgave: |-
+        $\km{2 & -1 \\ 1 & 4}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Eigenwaarde 3, twee keer, met $\Eig{3} = \vb{(1, -1)}$ (hoofdstuk 1).
+    - opgave: |-
+        $\km{1 & 1 \\ 1 & 1}$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\lambda^2 - 2\lambda = 0$: 0 en 2, verschillend.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    diagonaliseren van orde 3
+  opgave: |-
+    Neem $A = \km{1 & -1 & 1 \\ 0 & 3 & 0 \\ 0 & 2 & 2}$. In opdracht~\ref{oef:h1-o6} vond je de eigenwaarden 1, 2 en 3, met eigenvectoren $(1, 0, 0)$, $(1, 0, 1)$ en $(1, 2, 4)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is $A$ diagonaliseerbaar?
+      antwoord: |-
+        drie verschillende eigenwaarden
+      uitwerking: |-
+        Een $3 \times 3$-matrix met drie verschillende eigenwaarden.
+    - opgave: |-
+        Geef $P$ en $D$, en controleer met $AP = PD$.
+      antwoord: |-
+        $P = \km{1 & 1 & 1 \\ 0 & 0 & 2 \\ 0 & 1 & 4}$, $D = \diag(1, 2, 3)$
+      uitwerking: |-
+        $AP = \km{1 & 2 & 3 \\ 0 & 0 & 6 \\ 0 & 2 & 12} = PD$.
+    - opgave: |-
+        Geef een andere $P$ en $D$ voor dezelfde matrix.
+      antwoord: |-
+        bv.\ andere volgorde
+      uitwerking: |-
+        Bijvoorbeeld $P = \km{1 & 1 & 1 \\ 2 & 0 & 0 \\ 4 & 1 & 0}$ met $D = \diag(3, 2, 1)$, of een kolom maal $-1$.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een macht met de formule
+  opgave: |-
+    Neem $B = \km{2 & 1 \\ 1 & 2} = PDP^{-1}$ met $P = \km{1 & 1 \\ 1 & -1}$ en $D = \diag(3, 1)$ (opdracht~\ref{oef:h3-o2}).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $B^n = \tfrac12\km{3^n + 1 & 3^n - 1 \\ 3^n - 1 & 3^n + 1}$.
+      antwoord: |-
+        $PD^nP^{-1}$
+      uitwerking: |-
+        $PD^n = \km{3^n & 1 \\ 3^n & -1}$, maal $P^{-1} = \tfrac12\km{1 & 1 \\ 1 & -1}$.
+    - opgave: |-
+        Bereken $B^4$.
+      antwoord: |-
+        $\km{41 & 40 \\ 40 & 41}$
+      uitwerking: |-
+        $3^4 = 81$: $\tfrac12(82, 80; 80, 82)$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    context: het weer op lange termijn
+  opgave: |-
+    In het weermodel van hoofdstuk 2 (opdracht~\ref{oef:h2-o8}) is $M = \km{0{,}9 & 0{,}3 \\ 0{,}1 & 0{,}7}$, met de eigenwaarde 1 bij $(3, 1)$ en $0{,}6$ bij $(1, -1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Diagonaliseer $M$.
+      antwoord: |-
+        $P = \km{3 & 1 \\ 1 & -1}$, $D = \diag(1;\ 0{,}6)$
+      uitwerking: |-
+        $\det P = -4$, $P^{-1} = \tfrac14\km{1 & 1 \\ 1 & -3}$.
+    - opgave: |-
+        Geef een formule voor $M^n$.
+      antwoord: |-
+        $\tfrac14\km{3 + 0{,}6^n & 3 - 3 \cdot 0{,}6^n \\ 1 - 0{,}6^n & 1 + 3 \cdot 0{,}6^n}$
+      uitwerking: |-
+        $PD^n = \km{3 & 0{,}6^n \\ 1 & -0{,}6^n}$, maal $P^{-1}$.
+    - opgave: |-
+        Wat is de kans op regen over 5 dagen, als het vandaag regent?
+      antwoord: |-
+        ongeveer $0{,}308$
+      uitwerking: |-
+        Het element $(2, 2)$: $\tfrac14(1 + 3 \cdot 0{,}6^5) = \tfrac14(1 + 0{,}233) \approx 0{,}308$.
+    - opgave: |-
+        Bereken $\displaystyle\lim_{n \to \infty} M^n$, en verklaar de kolommen.
+      antwoord: |-
+        $\tfrac14\km{3 & 3 \\ 1 & 1}$
+      uitwerking: |-
+        Op lange termijn maakt het niet uit of het vandaag zon of regen is: beide kolommen zijn het evenwicht $\bigl(\tfrac34, \tfrac14\bigr)$.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    diagonaliseerbaar met een parameter
+  opgave: |-
+    Voor welke waarden van $k$ is de matrix diagonaliseerbaar?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\km{2 & k \\ 0 & 2}$
+      antwoord: |-
+        alleen $k = 0$
+      uitwerking: |-
+        Eigenwaarde 2, twee keer. $A - 2I = \km{0 & k \\ 0 & 0}$ heeft twee parameters alleen als $k = 0$.
+    - opgave: |-
+        $\km{1 & k \\ 0 & 2}$
+      antwoord: |-
+        voor elke $k$
+      uitwerking: |-
+        De eigenwaarden 1 en 2 verschillen altijd.
+    - opgave: |-
+        $\km{1 & 1 \\ k & 1}$
+      antwoord: |-
+        $k > 0$
+      uitwerking: |-
+        $(1 - \lambda)^2 = k$. Met $k > 0$: twee verschillende reële eigenwaarden $1 \pm \sqrt k$. Met $k = 0$: de afschuiving, niet diagonaliseerbaar. Met $k < 0$: geen reële eigenwaarden (over $\C$ wel diagonaliseerbaar).
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    multipliciteiten bij orde 3
+  opgave: |-
+    Bepaal bij elke eigenwaarde de algebraïsche en de meetkundige multipliciteit. Is de matrix diagonaliseerbaar? Geef zo ja $P$ en $D$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\km{2 & 0 & 0 \\ 1 & 2 & 0 \\ 0 & 0 & 3}$
+      antwoord: |-
+        bij 2: 2 en 1; niet diagonaliseerbaar
+      uitwerking: |-
+        Benedendriehoeksmatrix: 2, 2 en 3. $A - 2I = \km{0 & 0 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1}$ geeft $x = z = 0$: één parameter.
+    - opgave: |-
+        $\km{2 & 0 & 0 \\ 0 & 2 & 0 \\ 1 & 1 & 3}$
+      antwoord: |-
+        bij 2: 2 en 2; $P = \km{1 & 0 & 0 \\ 0 & 1 & 0 \\ -1 & -1 & 1}$, $D = \diag(2, 2, 3)$
+      uitwerking: |-
+        $A - 2I = \km{0 & 0 & 0 \\ 0 & 0 & 0 \\ 1 & 1 & 1}$ geeft $x + y + z = 0$: twee parameters, met $(1, 0, -1)$ en $(0, 1, -1)$. Bij 3: $A - 3I$ geeft $x = y = 0$: $(0, 0, 1)$.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een matrix met gegeven eigenvectoren
+  opgave: |-
+    Een matrix $A$ heeft de eigenwaarde 1 bij $(1, 2)$ en $-1$ bij $(1, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $A$.
+      antwoord: |-
+        $\km{-3 & 2 \\ -4 & 3}$
+      uitwerking: |-
+        $P = \km{1 & 1 \\ 2 & 1}$, $P^{-1} = \km{-1 & 1 \\ 2 & -1}$, $PD = \km{1 & -1 \\ 2 & -1}$, en $PDP^{-1} = \km{-3 & 2 \\ -4 & 3}$.
+    - opgave: |-
+        Bereken $A^2$ en $A^{2025}$ zonder te vermenigvuldigen.
+      antwoord: |-
+        $A^2 = I$, $A^{2025} = A$
+      uitwerking: |-
+        $D^2 = \diag(1, 1) = I$, dus $A^2 = PIP^{-1} = I$. Dan is $A^{2025} = (A^2)^{1012}A = A$.
+    - opgave: |-
+        Welke meetkundige afbeelding stelt $A$ voor?
+      antwoord: |-
+        een scheve spiegeling
+      uitwerking: |-
+        De rechte $y = 2x$ blijft punt voor punt staan, en de richting $(1, 1)$ keert om: een spiegeling om $y = 2x$, evenwijdig met $y = x$. Daarom is twee keer spiegelen de identiteit.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een recursie oplossen
+  opgave: |-
+    Neem de rij met $u_0 = 0$, $u_1 = 1$ en $u_{n+1} = u_n + 2u_{n-1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $u_2$ tot $u_6$.
+      antwoord: |-
+        1, 3, 5, 11, 21
+      uitwerking: |-
+        $1 + 0$, $1 + 2$, $3 + 2$, $5 + 6$, $11 + 10$.
+    - opgave: |-
+        Toon aan dat $X_n = (u_{n+1}, u_n)$ voldoet aan $X_{n+1} = AX_n$ met $A = \km{1 & 2 \\ 1 & 0}$.
+      antwoord: |-
+        $(u_{n+1} + 2u_n,\ u_{n+1})$
+      uitwerking: |-
+        $AX_n = (u_{n+1} + 2u_n,\ u_{n+1}) = (u_{n+2}, u_{n+1})$.
+    - opgave: |-
+        Bereken de eigenwaarden en eigenvectoren van $A$.
+      antwoord: |-
+        2 bij $(2, 1)$, $-1$ bij $(-1, 1)$
+      uitwerking: |-
+        $\lambda^2 - \lambda - 2 = 0$. $A - 2I = \km{-1 & 2 \\ 1 & -2}$ en $A + I = \km{2 & 2 \\ 1 & 1}$.
+    - opgave: |-
+        Toon aan dat $u_n = \dfrac{2^n - (-1)^n}{3}$.
+      antwoord: |-
+        $X_0 = \tfrac13(2, 1) - \tfrac13(-1, 1)$
+      uitwerking: |-
+        $X_0 = (1, 0) = c_1(2, 1) + c_2(-1, 1)$ geeft $c_1 = \tfrac13$, $c_2 = -\tfrac13$. De tweede coördinaat van $X_n = c_1 2^n(2, 1) + c_2(-1)^n(-1, 1)$ is $\tfrac13 2^n - \tfrac13(-1)^n$. Controle: $u_6 = \tfrac{64 - 1}{3} = 21$.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten: waar of vals
+  opgave: |-
+    Waar of vals? Verklaar, of geef een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een diagonaliseerbare matrix is inverteerbaar.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        $\km{1 & 0 \\ 0 & 0}$ is diagonaal, maar niet inverteerbaar.
+    - opgave: |-
+        Een inverteerbare matrix is diagonaliseerbaar.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        De afschuiving $\km{1 & 1 \\ 0 & 1}$ heeft determinant 1, maar is niet diagonaliseerbaar.
+    - opgave: |-
+        Een $3 \times 3$-matrix met drie verschillende reële eigenwaarden is diagonaliseerbaar.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        De stelling over genoeg verschillende eigenwaarden.
+    - opgave: |-
+        Een diagonaliseerbare $n \times n$-matrix heeft $n$ verschillende eigenwaarden.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        $I$ is diagonaliseerbaar, met alleen de eigenwaarde 1.
+    - opgave: |-
+        Bij een diagonaliseerbare matrix liggen $P$ en $D$ vast.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Je mag de kolommen van $P$ met een getal $\neq 0$ vermenigvuldigen, of $P$ en $D$ in dezelfde volgorde herschikken.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    diagonaliseren over C
+  opgave: |-
+    Neem $R = \km{0 & -1 \\ 1 & 0}$, $P = \km{1 & 1 \\ -i & i}$ en $D = \diag(i, -i)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Controleer dat $RP = PD$.
+      antwoord: |-
+        $\km{i & -i \\ 1 & 1}$
+      uitwerking: |-
+        $RP = \km{i & -i \\ 1 & 1}$ en $PD = \km{i & -i \\ -i^2 & -i^2} = \km{i & -i \\ 1 & 1}$.
+    - opgave: |-
+        Bereken $P^{-1}$, en controleer dat $PDP^{-1} = R$.
+      antwoord: |-
+        $P^{-1} = \tfrac12\km{1 & i \\ 1 & -i}$
+      uitwerking: |-
+        $\det P = i + i = 2i$, dus $P^{-1} = \tfrac{1}{2i}\km{i & -1 \\ i & 1} = \tfrac12\km{1 & i \\ 1 & -i}$. $PD \cdot P^{-1} = \tfrac12\km{i + (-i) & -1 - 1 \\ 1 + 1 & i - i} = R$.
+    - opgave: |-
+        Leid af dat $R^{4k} = I$ en $R^{4k+1} = R$ voor elk natuurlijk getal $k$.
+      antwoord: |-
+        $i^4 = 1$
+      uitwerking: |-
+        $D^4 = \diag(i^4, (-i)^4) = I$, dus $R^4 = I$, en de machten herhalen zich om de vier stappen: een kwartslag.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    context: huurauto's tussen luchthaven en station
+  opgave: |-
+    Een autoverhuurder heeft een kantoor op de luchthaven ($L$) en aan het station ($S$). Van de auto's die op de luchthaven vertrekken, komt 70~\% daar terug en 30~\% aan het station. Van de auto's die aan het station vertrekken, komt 80~\% daar terug.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel de overgangsmatrix op, en diagonaliseer ze.
+      antwoord: |-
+        $\km{0{,}7 & 0{,}2 \\ 0{,}3 & 0{,}8}$; $P = \km{2 & 1 \\ 3 & -1}$, $D = \diag(1;\ 0{,}5)$
+      uitwerking: |-
+        Spoor $1{,}5$: eigenwaarden 1 en $0{,}5$. $M - I = \km{-0{,}3 & 0{,}2 \\ 0{,}3 & -0{,}2}$ geeft $(2, 3)$; $M - 0{,}5I = \km{0{,}2 & 0{,}2 \\ 0{,}3 & 0{,}3}$ geeft $(1, -1)$.
+    - opgave: |-
+        Alle auto's staan vandaag op de luchthaven. Welk deel staat er na $n$ dagen? Gebruik korte oefening~\ref{oef:h3-markov}.
+      antwoord: |-
+        $\tfrac25 + \tfrac35 \cdot 0{,}5^n$
+      uitwerking: |-
+        De eerste kolom van $M^n$: $\tfrac15(2 + 3 \cdot 0{,}5^n)$.
+    - opgave: |-
+        Na hoeveel dagen staat er minder dan 41~\% op de luchthaven?
+      antwoord: |-
+        na 6 dagen
+      uitwerking: |-
+        $0{,}6 \cdot 0{,}5^n < 0{,}01 \iff 0{,}5^n < \tfrac{1}{60}$: $n = 6$, want $2^6 = 64$.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de afschuiving is nooit diagonaliseerbaar
+  opgave: |-
+    Neem $S = \km{1 & a \\ 0 & 1}$ met $a \neq 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat 1 de enige eigenwaarde is.
+      antwoord: |-
+        $p(\lambda) = (1 - \lambda)^2$
+      uitwerking: |-
+        Een bovendriehoeksmatrix met 1 en 1 op de hoofddiagonaal.
+    - opgave: |-
+        Stel dat $S = PDP^{-1}$. Toon aan dat dan $S = I$, en besluit.
+      antwoord: |-
+        $D = I$
+      uitwerking: |-
+        In $D$ staan de eigenwaarden van $S$, dus $D = I$ en $S = PIP^{-1} = PP^{-1} = I$. Maar $a \neq 0$, dus $S \neq I$: $S$ is niet diagonaliseerbaar.
+    - opgave: |-
+        Toon aan dat $S^n = \km{1 & na \\ 0 & 1}$.
+      antwoord: |-
+        door inductie
+      uitwerking: |-
+        $S^{n+1} = S^nS = \km{1 & na \\ 0 & 1}\km{1 & a \\ 0 & 1} = \km{1 & (n + 1)a \\ 0 & 1}$. De elementen groeien lineair, niet als een macht van een eigenwaarde.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de vierkantswortel van een matrix
+  opgave: |-
+    Zoek een matrix $B$ met $B^2 = A$, voor $A = \km{5 & 4 \\ 4 & 5}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Diagonaliseer $A$.
+      antwoord: |-
+        $P = \km{1 & 1 \\ 1 & -1}$, $D = \diag(9, 1)$
+      uitwerking: |-
+        $(5 - \lambda)^2 = 16$: 9 en 1, met $(1, 1)$ en $(1, -1)$.
+    - opgave: |-
+        Neem $B = P\,\diag(3, 1)\,P^{-1}$. Bereken $B$ en ga na dat $B^2 = A$.
+      antwoord: |-
+        $\km{2 & 1 \\ 1 & 2}$
+      uitwerking: |-
+        $P\,\diag(3, 1)\,P^{-1} = \tfrac12\km{4 & 2 \\ 2 & 4}$. $B^2 = \km{5 & 4 \\ 4 & 5}$. Algemeen: $B^2 = P\,\diag(3, 1)^2P^{-1} = PDP^{-1}$.
+    - opgave: |-
+        Geef nog een matrix $B$ met $B^2 = A$.
+      antwoord: |-
+        bv.\ $\km{1 & 2 \\ 2 & 1}$
+      uitwerking: |-
+        Neem $\diag(3, -1)$: $P\,\diag(3, -1)\,P^{-1} = \km{1 & 2 \\ 2 & 1}$, en $\km{1 & 2 \\ 2 & 1}^2 = \km{5 & 4 \\ 4 & 5}$. Ook $-B$ werkt.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de limiet van een macht
+  opgave: |-
+    Een matrix $A$ heeft de eigenwaarde 1 bij $(1, 1)$ en $\tfrac12$ bij $(1, 2)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $A$.
+      antwoord: |-
+        $\km{\tfrac32 & -\tfrac12 \\ 1 & 0}$
+      uitwerking: |-
+        $P = \km{1 & 1 \\ 1 & 2}$, $P^{-1} = \km{2 & -1 \\ -1 & 1}$, $PD = \km{1 & \tfrac12 \\ 1 & 1}$.
+    - opgave: |-
+        Bereken $L = \displaystyle\lim_{n \to \infty} A^n$.
+      antwoord: |-
+        $\km{2 & -1 \\ 2 & -1}$
+      uitwerking: |-
+        $D^n \to \diag(1, 0)$, dus $L = P\,\diag(1, 0)\,P^{-1} = \km{1 & 0 \\ 1 & 0}\km{2 & -1 \\ -1 & 1}$.
+    - opgave: |-
+        Toon aan dat $L^2 = L$. Wat doet $L$ meetkundig?
+      antwoord: |-
+        een projectie op $y = x$
+      uitwerking: |-
+        $L^2 = P\,\diag(1, 0)^2P^{-1} = L$. $L$ beeldt $(1, 1)$ af op zichzelf en $(1, 2)$ op $O$: een projectie op de rechte $y = x$, evenwijdig met $(1, 2)$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de stelling van Cayley-Hamilton voor orde 2
+  opgave: |-
+    Voor een $2 \times 2$-matrix is $p_A(\lambda) = \lambda^2 - \spoor A \cdot \lambda + \det A$. Vul je $A$ in, dan krijg je $p_A(A) = A^2 - \spoor A \cdot A + \det A \cdot I$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Controleer dat $p_A(A) = O$ voor $A = \km{4 & -2 \\ 1 & 1}$.
+      antwoord: |-
+        $A^2 - 5A + 6I = O$
+      uitwerking: |-
+        $A^2 = \km{14 & -10 \\ 5 & -1}$, $5A = \km{20 & -10 \\ 5 & 5}$: $A^2 - 5A + 6I = \km{14 - 20 + 6 & 0 \\ 0 & -1 - 5 + 6} = O$.
+    - opgave: |-
+        Bewijs dat $p_A(A) = O$ voor elke diagonaliseerbare $2 \times 2$-matrix.
+      antwoord: |-
+        $p_A(A) = P\,p_A(D)\,P^{-1}$
+      uitwerking: |-
+        Met $A^2 = PD^2P^{-1}$ en $I = PIP^{-1}$ is $p_A(A) = P\bigl(D^2 - \spoor A \cdot D + \det A \cdot I\bigr)P^{-1}$. De matrix tussen haakjes is $\diag\bigl(p_A(\lambda_1), p_A(\lambda_2)\bigr) = O$.
+    - opgave: |-
+        Gebruik $A^2 = 5A - 6I$ om $A^3$ als combinatie van $A$ en $I$ te schrijven.
+      antwoord: |-
+        $A^3 = 19A - 30I$
+      uitwerking: |-
+        $A^3 = 5A^2 - 6A = 5(5A - 6I) - 6A = 19A - 30I$. (De stelling geldt voor elke vierkante matrix: dat is de stelling van Cayley-Hamilton.)
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gelijkvormige matrices
+  opgave: |-
+    Twee matrices $A$ en $B$ heten \textit{gelijkvormig} als $A = PBP^{-1}$ voor een inverteerbare $P$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat gelijkvormige matrices dezelfde karakteristieke veelterm hebben.
+      antwoord: |-
+        $A - \lambda I = P(B - \lambda I)P^{-1}$
+      uitwerking: |-
+        $P(B - \lambda I)P^{-1} = PBP^{-1} - \lambda PP^{-1}$. Met de productregel: $\det(A - \lambda I) = \det P \cdot \det(B - \lambda I) \cdot \tfrac{1}{\det P}$.
+    - opgave: |-
+        Leid af dat het spoor van een diagonaliseerbare matrix de som van haar eigenwaarden is, en haar determinant het product.
+      antwoord: |-
+        vergelijk met $D$
+      uitwerking: |-
+        $A$ en $D$ hebben dezelfde karakteristieke veelterm, dus dezelfde coëfficiënt van $\lambda^{n-1}$ (op het teken na het spoor) en dezelfde constante term (de determinant). Bij $D$ zijn dat de som en het product van de eigenwaarden.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de getallen van Lucas
+  opgave: |-
+    De getallen van Lucas volgen dezelfde regel als die van Fibonacci, $L_{n+1} = L_n + L_{n-1}$, maar starten met $L_0 = 2$ en $L_1 = 1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $L_2$ tot $L_7$.
+      antwoord: |-
+        3, 4, 7, 11, 18, 29
+      uitwerking: |-
+        Telkens de som van de twee vorige.
+    - opgave: |-
+        Toon aan dat $L_n = \varphi^n + \psi^n$, met $\varphi$ en $\psi$ uit voorbeeld~\ref{vb:h3-terug}.
+      antwoord: |-
+        $(L_1, L_0) = \varphi(\varphi, 1) + \psi(\psi, 1)$
+      uitwerking: |-
+        $(1, 2) = c_1(\varphi, 1) + c_2(\psi, 1)$: met $c_1 = c_2 = 1$ is dat $(\varphi + \psi, 2) = (1, 2)$. Dus $X_n = \varphi^n(\varphi, 1) + \psi^n(\psi, 1)$, met $X_n = (L_{n+1}, L_n)$, en de tweede coördinaat is $\varphi^n + \psi^n$.
+    - opgave: |-
+        Toon aan dat $L_n$ voor $n \geqslant 2$ het gehele getal is dat het dichtst bij $\varphi^n$ ligt.
+      antwoord: |-
+        $\abs{\psi^n} < \tfrac12$
+      uitwerking: |-
+        $L_n - \varphi^n = \psi^n$, en $\abs{\psi}^n \leqslant 0{,}618^2 < 0{,}5$ voor $n \geqslant 2$. Zo is $\varphi^{10} \approx 122{,}99$ en $L_{10} = 123$.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    drie eigenvectoren bij verschillende eigenwaarden
+  opgave: |-
+    Neem eigenvectoren $\vec v_1$, $\vec v_2$, $\vec v_3$ van $A$ bij drie verschillende eigenwaarden $\lambda_1$, $\lambda_2$, $\lambda_3$. Stel $c_1\vec v_1 + c_2\vec v_2 + c_3\vec v_3 = \nulv$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vermenigvuldig met $A$ en trek $\lambda_3$ keer de gegeven vergelijking af. Welke vergelijking houd je over?
+      antwoord: |-
+        $c_1(\lambda_1 - \lambda_3)\vec v_1 + c_2(\lambda_2 - \lambda_3)\vec v_2 = \nulv$
+      uitwerking: |-
+        $c_1\lambda_1\vec v_1 + c_2\lambda_2\vec v_2 + c_3\lambda_3\vec v_3 - \lambda_3(c_1\vec v_1 + c_2\vec v_2 + c_3\vec v_3)$: de term met $\vec v_3$ valt weg.
+    - opgave: |-
+        Besluit met de stelling over twee eigenvectoren dat $c_1 = c_2 = c_3 = 0$.
+      antwoord: |-
+        $\vec v_1$ en $\vec v_2$ zijn onafhankelijk
+      uitwerking: |-
+        Omdat $\vec v_1$ en $\vec v_2$ lineair onafhankelijk zijn, is $c_1(\lambda_1 - \lambda_3) = 0$ en $c_2(\lambda_2 - \lambda_3) = 0$, en de eigenwaarden verschillen: $c_1 = c_2 = 0$. Dan is $c_3\vec v_3 = \nulv$, dus $c_3 = 0$. Zo gaat het ook met vier of meer vectoren.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: |-
+      Differentiaalvergelijkingen
+  thema: |-
+    dezelfde karakteristieke vergelijking
+  opgave: |-
+    Neem de differentiaalvergelijking $y'' - 5y' + 6y = 0$ en de recursie $u_{n+1} = 5u_n - 6u_{n-1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de karakteristieke vergelijking van de differentiaalvergelijking, en haar algemene oplossing.
+      antwoord: |-
+        $r^2 - 5r + 6 = 0$; $y = C_1\e^{2t} + C_2\e^{3t}$
+      uitwerking: |-
+        Met $y = \e^{rt}$: $r^2 - 5r + 6 = 0$, dus $r = 2$ of $r = 3$.
+    - opgave: |-
+        Schrijf de recursie als $X_{n+1} = AX_n$ met $X_n = (u_{n+1}, u_n)$, en bereken de eigenwaarden van $A$.
+      antwoord: |-
+        $A = \km{5 & -6 \\ 1 & 0}$; 2 en 3
+      uitwerking: |-
+        $p_A(\lambda) = \lambda^2 - 5\lambda + 6$: dezelfde vergelijking.
+    - opgave: |-
+        Vergelijk de oplossingen.
+      antwoord: |-
+        $u_n = c_1 2^n + c_2 3^n$
+      uitwerking: |-
+        De recursie heeft als oplossingen $c_1 2^n + c_2 3^n$, de differentiaalvergelijking $C_1\e^{2t} + C_2\e^{3t}$. Telkens één term per wortel: bij stappen een macht, bij continue tijd een exponentiële functie.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Complexe getallen
+  thema: |-
+    de formule van De Moivre
+  opgave: |-
+    De draaiing om $O$ over een hoek $\theta$ heeft als matrix
+    \[ R_\theta = \km{\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta} . \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de eigenwaarden $\cos\theta \pm i\sin\theta$ zijn.
+      antwoord: |-
+        $(\cos\theta - \lambda)^2 + \sin^2\theta = 0$
+      uitwerking: |-
+        $\cos\theta - \lambda = \pm i\sin\theta$.
+    - opgave: |-
+        Toon aan dat $(1, -i)$ en $(1, i)$ eigenvectoren zijn, voor elke $\theta$.
+      antwoord: |-
+        $R_\theta(1, -i) = (\cos\theta + i\sin\theta)(1, -i)$
+      uitwerking: |-
+        $R_\theta\km{1 \\ -i} = \km{\cos\theta + i\sin\theta \\ \sin\theta - i\cos\theta}$, en $(\cos\theta + i\sin\theta)(-i) = \sin\theta - i\cos\theta$. Zo ook voor $(1, i)$ met $\cos\theta - i\sin\theta$.
+    - opgave: |-
+        Diagonaliseer $R_\theta$ over $\C$, en leid met De Moivre af dat $R_\theta^n = R_{n\theta}$.
+      antwoord: |-
+        $D^n = \diag(\cos n\theta + i\sin n\theta, \ldots)$
+      uitwerking: |-
+        Met dezelfde $P$ voor elke $\theta$ is $R_\theta = P\,\diag(z, \bar z)\,P^{-1}$ met $z = \cos\theta + i\sin\theta$. Dan is $R_\theta^n = P\,\diag(z^n, \bar z^n)\,P^{-1}$, en $z^n = \cos n\theta + i\sin n\theta$ (De Moivre): dat is de diagonaalmatrix van $R_{n\theta}$. $n$ keer draaien over $\theta$ is draaien over $n\theta$.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: |-
+      Multivariate statistiek
+  thema: |-
+    orthogonaal diagonaliseren
+  opgave: |-
+    In Multivariate statistiek diagonaliseer je een covariantiematrix als $S = PDP\tr$, met genormeerde eigenvectoren. Neem $S = \km{3 & 1 \\ 1 & 3}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Diagonaliseer $S$ met genormeerde eigenvectoren.
+      antwoord: |-
+        $P = \tfrac{1}{\sqrt2}\km{1 & 1 \\ 1 & -1}$, $D = \diag(4, 2)$
+      uitwerking: |-
+        Eigenwaarde 4 bij $(1, 1)$ en 2 bij $(1, -1)$ (hoofdstuk 1, Koppel). Deel door de norm $\sqrt2$.
+    - opgave: |-
+        Toon aan dat $P^{-1} = P\tr$. Waarom is dat handig?
+      antwoord: |-
+        $P\tr P = I$
+      uitwerking: |-
+        $P\tr P = \tfrac12\km{2 & 0 \\ 0 & 2} = I$. Een inverse berekenen is dan overbodig: transponeren volstaat. Dat lukt omdat de eigenvectoren van een symmetrische matrix loodrecht op elkaar staan.
+
+# ---------------------------------------------------------------- test
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Diagonaliseer $A = \km{5 & -1 \\ 2 & 2}$.
+  antwoord: |-
+    $P = \km{1 & 1 \\ 2 & 1}$, $D = \diag(3, 4)$
+  uitwerking: |-
+    $\lambda^2 - 7\lambda + 12 = 0$: 3 en 4. $A - 3I = \km{2 & -1 \\ 2 & -1}$: $(1, 2)$. $A - 4I = \km{1 & -1 \\ 2 & -2}$: $(1, 1)$. Controle: $AP = \km{3 & 4 \\ 6 & 4} = PD$.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Is de matrix diagonaliseerbaar? Verklaar.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{2 & 1 \\ 0 & 2}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Eigenwaarde 2, twee keer, maar $\dim \Eig{2} = 1$.
+    - opgave: |-
+        $\km{2 & 0 \\ 1 & 3}$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Twee verschillende eigenwaarden, 2 en 3.
+
+- id: h3-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepaal beide multipliciteiten van de eigenwaarde van $\km{3 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 1 & 3}$. Is de matrix diagonaliseerbaar?
+  antwoord: |-
+    3 en 2; nee
+  uitwerking: |-
+    Benedendriehoeksmatrix: alleen 3, drie keer. $A - 3I = \km{0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 1 & 0}$ geeft $y = 0$: twee parameters. $2 < 3$.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Geef een formule voor $A^n$, met $A$ uit de eerste testvraag, en bereken $A^2$ met de formule.
+  antwoord: |-
+    $\km{2 \cdot 4^n - 3^n & 3^n - 4^n \\ 2 \cdot 4^n - 2 \cdot 3^n & 2 \cdot 3^n - 4^n}$; $\km{23 & -7 \\ 14 & 2}$
+  uitwerking: |-
+    $P^{-1} = \km{-1 & 1 \\ 2 & -1}$ en $PD^n = \km{3^n & 4^n \\ 2 \cdot 3^n & 4^n}$. Met $n = 2$: $\km{32 - 9 & 9 - 16 \\ 32 - 18 & 18 - 16}$.
+
+- id: h3-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    De overgangsmatrix $M = \km{0{,}8 & 0{,}4 \\ 0{,}2 & 0{,}6}$ heeft de eigenwaarde 1 bij $(2, 1)$ en $0{,}4$ bij $(1, -1)$. Bereken $\displaystyle\lim_{n \to \infty} M^n$.
+  antwoord: |-
+    $\tfrac13\km{2 & 2 \\ 1 & 1}$
+  uitwerking: |-
+    $P = \km{2 & 1 \\ 1 & -1}$, $P^{-1} = \tfrac13\km{1 & 1 \\ 1 & -2}$. $D^n \to \diag(1, 0)$: $P\,\diag(1, 0)\,P^{-1} = \km{2 & 0 \\ 1 & 0}\tfrac13\km{1 & 1 \\ 1 & -2}$.
+
+- id: h3-t6
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken $A = PDP^{-1}$ met $P = \km{1 & 0 \\ 1 & 1}$ en $D = \diag(2, -1)$.
+  antwoord: |-
+    $\km{2 & 0 \\ 3 & -1}$
+  uitwerking: |-
+    $PD = \km{2 & 0 \\ 2 & -1}$ en $P^{-1} = \km{1 & 0 \\ -1 & 1}$.
+
+- id: h3-t7
+  soort: test
+  niveau: 3
+  opgave: |-
+    Neem de rij met $u_0 = 0$, $u_1 = 1$ en $u_{n+1} = u_n + 6u_{n-1}$. Toon met een matrix aan dat $u_n = \dfrac{3^n - (-2)^n}{5}$.
+  antwoord: |-
+    $A = \km{1 & 6 \\ 1 & 0}$, eigenwaarden 3 en $-2$
+  uitwerking: |-
+    Met $X_n = (u_{n+1}, u_n)$ is $X_{n+1} = AX_n$. $\lambda^2 - \lambda - 6 = 0$: 3 bij $(3, 1)$ en $-2$ bij $(-2, 1)$. $X_0 = (1, 0) = \tfrac15(3, 1) - \tfrac15(-2, 1)$, dus $u_n = \tfrac15 3^n - \tfrac15(-2)^n$.

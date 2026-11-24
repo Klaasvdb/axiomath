@@ -1,0 +1,979 @@
+# Oefeningen van hoofdstuk 3 (Afstand en hoofdassen). Zie oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen.
+# Alle getallen nagerekend met Python, sympy en numpy.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de inverse van $\km{4 & 2 \\ 2 & 4}$.
+      antwoord: |-
+        $\frac{1}{12}\km{4 & -2 \\ -2 & 4}$
+      uitwerking: |-
+        $\det = 16 - 4 = 12$; wissel de diagonaal en verander het teken van de andere elementen.
+    - opgave: |-
+        Geef de eenheidsvector in de richting van $(3, 4)$.
+      antwoord: |-
+        $(0{,}6;\ 0{,}8)$
+      uitwerking: |-
+        De norm is 5: deel elke component door 5.
+    - opgave: |-
+        Los op: $\lambda^2 - 7\lambda + 6 = 0$.
+      antwoord: |-
+        $\lambda = 1$ of $\lambda = 6$
+      uitwerking: |-
+        $(\lambda - 1)(\lambda - 6) = 0$.
+    - opgave: |-
+        Hoe lang zijn de halve assen van de ellips $\frac{x^2}{9} + \frac{y^2}{4} = 1$?
+      antwoord: |-
+        $3$ en $2$
+      uitwerking: |-
+        De snijpunten met de assen zijn $(\pm 3, 0)$ en $(0, \pm 2)$.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een puntenwolk heeft covariantiematrix $S = \km{5 & 2 \\ 2 & 2}$. Voor een eenheidsvector $\vec a$ meet $\vec a\tr S\vec a$ de spreiding in de richting van $\vec a$ (hoofdstuk 2).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\vec a\tr S\vec a$ voor $\vec a = (1, 0)$, $(0, 1)$, $\frac{1}{\sqrt2}(1, 1)$ en $\frac{1}{\sqrt2}(1, -1)$. In welke richting is de spreiding het grootst?
+      antwoord: |-
+        $5$; $2$; $5{,}5$; $1{,}5$
+      uitwerking: |-
+        $5$, $2$, $\frac12(5 + 4 + 2) = 5{,}5$ en $\frac12(5 - 4 + 2) = 1{,}5$. Van de vier is de richting $(1, 1)$ de beste.
+    - opgave: |-
+        Bereken $\vec a\tr S\vec a$ voor $\vec a = \frac{1}{\sqrt5}(2, 1)$.
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        $\frac15(5 \cdot 4 + 2 \cdot 2 \cdot 2 \cdot 1 + 2 \cdot 1) = \frac{30}{5} = 6$: nog groter.
+    - opgave: |-
+        Bereken $S\km{2 \\ 1}$ en $S\km{-1 \\ 2}$. Wat valt op?
+      antwoord: |-
+        $6\km{2 \\ 1}$ en $1\km{-1 \\ 2}$
+      uitwerking: |-
+        $S\km{2 \\ 1} = \km{12 \\ 6}$ en $S\km{-1 \\ 2} = \km{-1 \\ 2}$: $S$ verandert de richting van die vectoren niet, en vermenigvuldigt ze met 6 en met 1.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h3-mahalanobis
+  soort: kort
+  opgave: |-
+    Een wolk heeft centrum $(10, 20)$ en covariantiematrix $S = \km{4 & 2 \\ 2 & 4}$. Bereken de Euclidische afstand en de afstand van Mahalanobis tot het centrum voor $P = (12, 22)$ en $Q = (12, 18)$. Welk punt is het meest uitzonderlijk?
+  antwoord: |-
+    beide $\sqrt8$; \ $\dM(P) \approx 1{,}15$, $\dM(Q) = 2$: $Q$
+  uitwerking: |-
+    $S^{-1} = \frac{1}{12}\km{4 & -2 \\ -2 & 4}$. $P$: $\vec d = (2, 2)$, $\dM^2 = \frac{16 - 16 + 16}{12} = \frac43$. $Q$: $\vec d = (2, -2)$, $\dM^2 = \frac{16 + 16 + 16}{12} = 4$. $P$ ligt in de richting van de positieve samenhang, $Q$ ertegenin.
+
+- id: h3-eigenschappen
+  soort: kort
+  opgave: |-
+    Twee eigenschappen van de afstand van Mahalanobis.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een wolk heeft $S = \km{16 & 0 \\ 0 & 4}$. Bereken $\dM$ voor een punt met afwijking $(4, 2)$, en ook de gestandaardiseerde afstand.
+      antwoord: |-
+        beide $\sqrt2 \approx 1{,}41$
+      uitwerking: |-
+        $S$ is diagonaal: $\dM^2 = \frac{16}{16} + \frac{4}{4} = 2$, en de z-scores zijn 1 en 1.
+    - opgave: |-
+        In het probleem drukt een leerkracht de punten uit op 20 in plaats van in procent. Verandert de afstand van Mahalanobis van Lien? En haar Euclidische afstand?
+      antwoord: |-
+        $\dM$ niet; Euclidisch wel
+      uitwerking: |-
+        Dit is $\vec y = 0{,}2\,\vec x$, een lineaire transformatie met een inverteerbare matrix: $\dM$ blijft. De Euclidische afstand wordt 5 keer kleiner.
+
+- id: h3-eigen
+  soort: kort
+  opgave: |-
+    Bereken de eigenwaarden en bij elke eigenwaarde een eigenvector.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{3 & 1 \\ 1 & 3}$
+      antwoord: |-
+        $4$: $(1, 1)$; \ $2$: $(-1, 1)$
+      uitwerking: |-
+        $(3 - \lambda)^2 - 1 = 0$ geeft $\lambda = 4$ of $2$. Bij 4: $-v_1 + v_2 = 0$; bij 2: $v_1 + v_2 = 0$.
+    - opgave: |-
+        $\km{6 & -2 \\ -2 & 9}$
+      antwoord: |-
+        $10$: $(1, -2)$; \ $5$: $(2, 1)$
+      uitwerking: |-
+        $\lambda^2 - 15\lambda + 50 = 0$ geeft $\lambda = 10$ of $5$. Bij 10: $-4v_1 - 2v_2 = 0$; bij 5: $v_1 - 2v_2 = 0$.
+
+- id: h3-symmetrisch
+  soort: kort
+  opgave: |-
+    Neem $S = \km{1 & 3 \\ 3 & 1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de eigenwaarden. Kan $S$ een covariantiematrix zijn?
+      antwoord: |-
+        $4$ en $-2$; \ nee
+      uitwerking: |-
+        $(1 - \lambda)^2 = 9$ geeft $\lambda = 4$ of $-2$. Een covariantiematrix heeft geen negatieve eigenwaarde. (Ook: $r = 3 > 1$.)
+    - opgave: |-
+        Bereken de eigenvectoren en controleer dat ze loodrecht op elkaar staan.
+      antwoord: |-
+        $(1, 1)$ en $(1, -1)$
+      uitwerking: |-
+        Bij 4: $-3v_1 + 3v_2 = 0$, bij $-2$: $3v_1 + 3v_2 = 0$. Het scalair product is $1 - 1 = 0$: $S$ is symmetrisch.
+
+- id: h3-diagonaliseren
+  soort: kort
+  opgave: |-
+    Diagonaliseer $S = \km{3 & 1 \\ 1 & 3}$ uit oefening \ref{oef:h3-eigen}: geef $P$ en $D$ met $S = PDP\tr$, en controleer.
+  antwoord: |-
+    $P = \frac{1}{\sqrt2}\km{1 & -1 \\ 1 & 1}$, $D = \km{4 & 0 \\ 0 & 2}$
+  uitwerking: |-
+    De eigenvectoren $(1, 1)$ en $(-1, 1)$ hebben norm $\sqrt2$. $PD = \frac{1}{\sqrt2}\km{4 & -2 \\ 4 & 2}$ en $PDP\tr = \frac12\km{4 & -2 \\ 4 & 2}\km{1 & 1 \\ -1 & 1} = \frac12\km{6 & 2 \\ 2 & 6} = S$.
+
+- id: h3-assen
+  soort: kort
+  opgave: |-
+    Een punt heeft de afwijking $\vec d = (3, 1)$ tot het centrum van een wolk met $S = \km{3 & 1 \\ 1 & 3}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken zijn coördinaten $u_1$ en $u_2$ langs de hoofdassen.
+      antwoord: |-
+        $2\sqrt2$; \ $-\sqrt2$
+      uitwerking: |-
+        Met $\vec e_1 = \frac{1}{\sqrt2}(1, 1)$ en $\vec e_2 = \frac{1}{\sqrt2}(-1, 1)$: $u_1 = \frac{4}{\sqrt2} = 2\sqrt2$ en $u_2 = \frac{-2}{\sqrt2} = -\sqrt2$.
+    - opgave: |-
+        Welk deel van de totale variantie ligt langs de eerste hoofdas?
+      antwoord: |-
+        $\tfrac23 \approx 67~\%$
+      uitwerking: |-
+        $\frac{4}{4 + 2} = \frac23$.
+
+- id: h3-ellips
+  soort: kort
+  opgave: |-
+    Een wolk heeft $S = \km{6 & -2 \\ -2 & 9}$, met de eigenwaarden en eigenvectoren uit oefening \ref{oef:h3-eigen}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de richting en de lengte van de halve assen van de ellips $\dM = 2$.
+      antwoord: |-
+        $2\sqrt{10} \approx 6{,}32$ langs $(1, -2)$; \ $2\sqrt5 \approx 4{,}47$ langs $(2, 1)$
+      uitwerking: |-
+        Halve assen $2\sqrt{\lambda_1}$ en $2\sqrt{\lambda_2}$, langs de eigenvectoren.
+    - opgave: |-
+        Bereken met de hoofdassen de afstand van Mahalanobis van het punt met afwijking $(4, 2)$. Controleer met $S^{-1}$.
+      antwoord: |-
+        $\dM = 2$
+      uitwerking: |-
+        $(4, 2)$ ligt langs $(2, 1)$: $u_1 = 0$ en $u_2 = \sqrt{20}$, dus $\dM^2 = \frac{20}{5} = 4$. Met $S^{-1} = \frac{1}{50}\km{9 & 2 \\ 2 & 6}$: $\frac{9 \cdot 16 + 4 \cdot 8 + 6 \cdot 4}{50} = \frac{200}{50} = 4$. Het punt ligt op de ellips $\dM = 2$, aan het eind van de korte as.
+
+- id: h3-beperking
+  soort: kort
+  opgave: |-
+    Beperkingen van de afstand van Mahalanobis.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom kun je bij $S = \km{4 & 2 \\ 2 & 1}$ geen afstand van Mahalanobis berekenen? Bereken de eigenwaarden.
+      antwoord: |-
+        $\det S = 0$; \ $5$ en $0$
+      uitwerking: |-
+        $\det S = 4 - 4 = 0$: $S^{-1}$ bestaat niet. De eigenwaarden zijn 5 en 0: in de richting $(-1, 2)$ heeft de wolk geen spreiding, alle punten liggen op een rechte met richting $(2, 1)$.
+    - opgave: |-
+        Een fabriek wil uitschieters vinden met $\dM > 3$. Eén meting is fout ingevoerd en ligt heel ver. Waarom kan ze een kleinere $\dM$ krijgen dan je verwacht?
+      antwoord: |-
+        het punt zit zelf in $S$
+      uitwerking: |-
+        Het verre punt maakt de varianties en covarianties in zijn richting groter, zodat de wolk in die richting breder lijkt. Daardoor lijkt het punt zelf minder ver. Bereken $S$ beter zonder het verdachte punt.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    eigenwaarden en eigenvectoren
+  opgave: |-
+    Bereken de eigenwaarden en bij elke eigenwaarde een eigenvector.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\km{7 & 0 \\ 0 & 2}$
+      antwoord: |-
+        $7$: $(1, 0)$; \ $2$: $(0, 1)$
+      uitwerking: |-
+        Een diagonaalmatrix: de eigenwaarden staan op de diagonaal, de eigenvectoren langs de assen.
+    - opgave: |-
+        $\km{8 & 6 \\ 6 & 8}$
+      antwoord: |-
+        $14$: $(1, 1)$; \ $2$: $(-1, 1)$
+      uitwerking: |-
+        $(8 - \lambda)^2 = 36$ geeft $\lambda = 14$ of $2$.
+    - opgave: |-
+        $\km{10 & -3 \\ -3 & 2}$
+      antwoord: |-
+        $11$: $(3, -1)$; \ $1$: $(1, 3)$
+      uitwerking: |-
+        $\lambda^2 - 12\lambda + 11 = 0$ geeft 11 of 1. Bij 11: $-v_1 - 3v_2 = 0$; bij 1: $9v_1 - 3v_2 = 0$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    afstand van Mahalanobis berekenen
+  opgave: |-
+    Bereken de afstand van Mahalanobis van een punt met afwijking $\vec d$ tot het centrum.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $S = \km{9 & 0 \\ 0 & 1}$, \ $\vec d = (3, 1)$
+      antwoord: |-
+        $\sqrt2 \approx 1{,}41$
+      uitwerking: |-
+        $\frac{9}{9} + \frac11 = 2$.
+    - opgave: |-
+        $S = \km{4 & 2 \\ 2 & 4}$, \ $\vec d = (1, 1)$
+      antwoord: |-
+        $\tfrac{1}{\sqrt3} \approx 0{,}58$
+      uitwerking: |-
+        $S^{-1} = \frac{1}{12}\km{4 & -2 \\ -2 & 4}$: $\frac{4 - 4 + 4}{12} = \frac13$.
+    - opgave: |-
+        $S = \km{4 & 2 \\ 2 & 4}$, \ $\vec d = (1, -1)$
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        $\frac{4 + 4 + 4}{12} = 1$.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    is dit een eigenvector?
+  opgave: |-
+    Is $\vec v$ een eigenvector van $S = \km{4 & 1 \\ 1 & 4}$? Zo ja, bij welke eigenwaarde?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vec v = (1, 1)$
+      antwoord: |-
+        ja, $5$
+      uitwerking: |-
+        $S\vec v = (5, 5) = 5\vec v$.
+    - opgave: |-
+        $\vec v = (2, -2)$
+      antwoord: |-
+        ja, $3$
+      uitwerking: |-
+        $S\vec v = (6, -6) = 3\vec v$.
+    - opgave: |-
+        $\vec v = (1, 2)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $S\vec v = (6, 9)$ is geen veelvoud van $(1, 2)$.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    van eigenwaarden naar ellips en matrix
+  opgave: |-
+    Een wolk heeft de eigenwaarden $\lambda_1 = 16$ en $\lambda_2 = 4$, met $\vec e_1 = \frac{1}{\sqrt2}(1, 1)$ en $\vec e_2 = \frac{1}{\sqrt2}(-1, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de halve assen van de ellipsen $\dM = 1$ en $\dM = 2$, en schets ze.
+      antwoord: |-
+        $4$ en $2$; \ $8$ en $4$
+      uitwerking: |-
+        $k\sqrt{16}$ langs $(1, 1)$ en $k\sqrt4$ langs $(-1, 1)$, voor $k = 1$ en $k = 2$. De ellipsen liggen schuin onder $45^\circ$.
+    - opgave: |-
+        Bereken de covariantiematrix $S = PDP\tr$.
+      antwoord: |-
+        $\km{10 & 6 \\ 6 & 10}$
+      uitwerking: |-
+        $\frac12\km{1 & -1 \\ 1 & 1}\km{16 & 0 \\ 0 & 4}\km{1 & 1 \\ -1 & 1} = \frac12\km{20 & 12 \\ 12 & 20}$.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    orthogonale matrices
+  opgave: |-
+    Controleer dat $P\tr P = I$. Is $P$ een draaiing (en over welke hoek) of een draaiing met een spiegeling?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $P = \frac15\km{3 & -4 \\ 4 & 3}$
+      antwoord: |-
+        draaiing over $\approx 53{,}1^\circ$
+      uitwerking: |-
+        $\frac{1}{25}\km{9 + 16 & -12 + 12 \\ -12 + 12 & 16 + 9} = I$. De eerste kolom $(0{,}6;\ 0{,}8)$ is $(\cos\theta, \sin\theta)$ met $\theta \approx 53{,}1^\circ$, en $\det P = 1$.
+    - opgave: |-
+        $P = \frac{1}{\sqrt2}\km{1 & 1 \\ 1 & -1}$
+      antwoord: |-
+        met een spiegeling
+      uitwerking: |-
+        $\frac12\km{2 & 0 \\ 0 & 2} = I$, maar $\det P = -1$: ze spiegelt (om de rechte onder $22{,}5^\circ$).
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ongecorreleerde variabelen
+  opgave: |-
+    Een wolk heeft $S = \km{25 & 0 \\ 0 & 4}$. Bereken voor elke afwijking de Euclidische afstand en de afstand van Mahalanobis.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\vec d = (5, 2)$
+      antwoord: |-
+        $\sqrt{29} \approx 5{,}39$; \ $\sqrt2 \approx 1{,}41$
+      uitwerking: |-
+        z-scores 1 en 1.
+    - opgave: |-
+        $\vec d = (0, 6)$
+      antwoord: |-
+        $6$; \ $3$
+      uitwerking: |-
+        z-scores 0 en 3: dichter bij het centrum, maar veel ongewoner.
+    - opgave: |-
+        $\vec d = (-5, -4)$
+      antwoord: |-
+        $\sqrt{41} \approx 6{,}40$; \ $\sqrt5 \approx 2{,}24$
+      uitwerking: |-
+        z-scores $-1$ en $-2$, dus $\dM^2 = 1 + 4 = 5$.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    het deel van de variantie langs de hoofdassen
+  opgave: |-
+    Welk deel van de totale variantie ligt langs de eerste hoofdas? Of langs de eerste twee?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Twee variabelen met eigenwaarden 9 en 1.
+      antwoord: |-
+        $90~\%$
+      uitwerking: |-
+        $\frac{9}{10}$.
+    - opgave: |-
+        Drie variabelen met eigenwaarden 30, 20 en 10.
+      antwoord: |-
+        $50~\%$; \ $\approx 83~\%$
+      uitwerking: |-
+        $\frac{30}{60}$, en de eerste twee samen $\frac{50}{60}$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kwaliteitscontrole met de afstand van Mahalanobis
+  opgave: |-
+    Een fabriek van chocoladerepen meet de lengte $L$ (in mm) en de massa $M$ (in g). Bij goede repen is het gemiddelde $(100, 50)$ en $S = \km{4 & 3 \\ 3 & 4}$. Drie repen: $A = (103, 53)$, $B = (101, 48)$ en $C = (102, 48)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de eigenwaarden en genormeerde eigenvectoren van $S$.
+      antwoord: |-
+        $7$: $\frac{1}{\sqrt2}(1, 1)$; \ $1$: $\frac{1}{\sqrt2}(-1, 1)$
+      uitwerking: |-
+        $(4 - \lambda)^2 = 9$ geeft 7 of 1.
+    - opgave: |-
+        Bereken voor elke reep de afstand van Mahalanobis met de hoofdassen.
+      antwoord: |-
+        $\approx 1{,}60$; \ $\approx 2{,}14$; \ $\approx 2{,}83$
+      uitwerking: |-
+        $A$: $\vec d = (3, 3)$, $u_1 = 3\sqrt2$, $u_2 = 0$, $\dM^2 = \frac{18}{7}$. $B$: $\vec d = (1, -2)$, $u_1 = -\frac{1}{\sqrt2}$, $u_2 = -\frac{3}{\sqrt2}$, $\dM^2 = \frac{0{,}5}{7} + 4{,}5 = \frac{32}{7}$. $C$: $\vec d = (2, -2)$, $u_1 = 0$, $u_2 = -2\sqrt2$, $\dM^2 = 8$.
+    - opgave: |-
+        De fabriek keurt een reep af als $\dM > 2{,}5$. Welke repen worden afgekeurd? Welke zou je afkeuren met de Euclidische afstand?
+      antwoord: |-
+        alleen $C$; \ Euclidisch: $A$
+      uitwerking: |-
+        Alleen $C$ heeft $\dM > 2{,}5$. Euclidisch ligt $A$ het verst ($\sqrt{18} \approx 4{,}24$, tegen $\sqrt5$ en $\sqrt8$). Maar $A$ is een grote reep met de bijbehorende massa; $C$ is lang en toch licht: daar is iets mis.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hoofdcomponenten van drie variabelen met ICT
+  opgave: |-
+    Neem de covariantiematrix van de proefexamens uit hoofdstuk 2: $S = \km{16 & 6 & 4 \\ 6 & 9 & 3 \\ 4 & 3 & 4}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de eigenwaarden en de genormeerde eigenvectoren met ICT.
+      antwoord: |-
+        $\approx 20{,}91$; $5{,}66$; $2{,}43$
+      uitwerking: |-
+        \texttt{numpy.linalg.eigh(S)}. De eerste eigenvector is ongeveer $(0{,}826;\ 0{,}488;\ 0{,}282)$ (of het tegengestelde).
+    - opgave: |-
+        Welk deel van de totale variantie ligt langs de eerste hoofdas?
+      antwoord: |-
+        $\approx 72~\%$
+      uitwerking: |-
+        $\frac{20{,}91}{29} \approx 0{,}72$. De som van de eigenwaarden is de som van de varianties, $16 + 9 + 4 = 29$.
+    - opgave: |-
+        De eerste hoofdcomponent is een gewogen som van $W$, $F$ en $N$. Welk vak weegt het zwaarst? Waarom is dat geen keuze van de school?
+      antwoord: |-
+        wiskunde
+      uitwerking: |-
+        De grootste coëfficiënt hoort bij $W$: wiskunde spreidt het meest en hangt samen met de andere vakken. De gewichten volgen uit de gegevens, niet uit een afspraak; in andere eenheden zouden ze anders zijn.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eigenvectoren met een parameter
+  opgave: |-
+    Neem $S = \km{a & b \\ b & a}$ met $b \neq 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $(1, 1)$ en $(1, -1)$ altijd eigenvectoren zijn, en geef de eigenwaarden.
+      antwoord: |-
+        $a + b$ en $a - b$
+      uitwerking: |-
+        $S\km{1 \\ 1} = \km{a + b \\ a + b}$ en $S\km{1 \\ -1} = \km{a - b \\ b - a} = (a - b)\km{1 \\ -1}$.
+    - opgave: |-
+        Wanneer is $S$ een covariantiematrix? Wanneer is ze inverteerbaar?
+      antwoord: |-
+        $\abs{b} \leqslant a$; \ $\abs{b} < a$
+      uitwerking: |-
+        Beide eigenwaarden moeten $\geqslant 0$ zijn: $a \geqslant \abs{b}$. Inverteerbaar als geen eigenwaarde 0 is.
+    - opgave: |-
+        Leg uit: bij twee variabelen met dezelfde variantie liggen de hoofdassen altijd onder $45^\circ$, wat de correlatie ook is.
+      antwoord: |-
+        de eigenvectoren hangen niet af van $b$
+      uitwerking: |-
+        De richtingen $(1, 1)$ en $(1, -1)$ hangen niet af van $a$ of $b$. Bij $b > 0$ is $(1, 1)$ de eerste hoofdas, bij $b < 0$ is het $(1, -1)$.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hoofdassen uit gegevens
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.55cm,y=.55cm,font=\scriptsize]
+        \diagram{0}{1}{6}{0}{1}{6}
+        \xas{0,1,...,6}\yas{0,1,...,6}
+        \punten[inkt]{(1,1) (2,3) (3,2) (4,5) (5,4)}
+      \end{tikzpicture}
+  opgave: |-
+    Gegeven zijn de punten $(1, 1)$, $(2, 3)$, $(3, 2)$, $(4, 5)$ en $(5, 4)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de covariantiematrix.
+      antwoord: |-
+        $\km{2{,}5 & 2 \\ 2 & 2{,}5}$
+      uitwerking: |-
+        Centrum $(3, 3)$. $\Sxx = \Syy = 10$, $\Sxy = 4 + 0 + 0 + 2 + 2 = 8$. Delen door 4.
+    - opgave: |-
+        Bereken de eigenwaarden en de eigenvectoren. Teken de hoofdassen in de figuur.
+      antwoord: |-
+        $4{,}5$: $(1, 1)$; \ $0{,}5$: $(-1, 1)$
+      uitwerking: |-
+        $(2{,}5 - \lambda)^2 = 4$: $\lambda = 4{,}5$ of $0{,}5$. De eerste hoofdas is de rechte $y = x$ door $(3, 3)$.
+    - opgave: |-
+        Welk deel van de variantie ligt langs de eerste hoofdas? Geef de eerste hoofdcomponent als formule.
+      antwoord: |-
+        $90~\%$; \ $u_1 = \frac{(x - 3) + (y - 3)}{\sqrt2}$
+      uitwerking: |-
+        $\frac{4{,}5}{5} = 0{,}9$.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de hoofdcomponenten zijn ongecorreleerd
+  opgave: |-
+    Neem de punten uit opdracht \ref{oef:h3-o11}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elk punt $u_1$ en $u_2$ (met $\vec e_2 = \frac{1}{\sqrt2}(1, -1)$).
+      antwoord: |-
+        $u_1\colon -2\sqrt2, -\tfrac{\sqrt2}{2}, -\tfrac{\sqrt2}{2}, \tfrac{3\sqrt2}{2}, \tfrac{3\sqrt2}{2}$; \ $u_2\colon 0, -\tfrac{\sqrt2}{2}, \tfrac{\sqrt2}{2}, -\tfrac{\sqrt2}{2}, \tfrac{\sqrt2}{2}$
+      uitwerking: |-
+        Afwijkingen $(-2, -2)$, $(-1, 0)$, $(0, -1)$, $(1, 2)$, $(2, 1)$. $u_1 = \frac{d_1 + d_2}{\sqrt2}$ en $u_2 = \frac{d_1 - d_2}{\sqrt2}$.
+    - opgave: |-
+        Bereken de covariantiematrix van $u_1$ en $u_2$ rechtstreeks. Wat stel je vast?
+      antwoord: |-
+        $\km{4{,}5 & 0 \\ 0 & 0{,}5}$
+      uitwerking: |-
+        $\sum u_1^2 = 8 + 0{,}5 + 0{,}5 + 4{,}5 + 4{,}5 = 18$, $\sum u_2^2 = 2$ en $\sum u_1u_2 = 0 + 0{,}5 - 0{,}5 - 1{,}5 + 1{,}5 = 0$. Delen door 4: de diagonaalmatrix met de eigenwaarden. De hoofdcomponenten zijn ongecorreleerd.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de afstand van Mahalanobis verandert niet
+  opgave: |-
+    Neem Lien uit het probleem, met afwijking $(21, 22)$ en $\dM = \sqrt5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De school gebruikt het totaal $T = W + F$ en het verschil $D = W - F$. Bereken de covariantiematrix van $T$ en $D$, en de afstand van Mahalanobis van Lien in die variabelen.
+      antwoord: |-
+        $\km{442 & 56 \\ 56 & 58}$; \ $\sqrt5$
+      uitwerking: |-
+        $ASA\tr$ met $A = \km{1 & 1 \\ 1 & -1}$: $153 + 97 + 192 = 442$, $153 - 97 = 56$, $153 + 97 - 192 = 58$. Lien heeft afwijking $(43, -1)$. $\det = 25\,636 - 3136 = 22\,500$, en $\dM^2 = \frac{58 \cdot 1849 + 2 \cdot 56 \cdot 43 + 442 \cdot 1}{22\,500} = \frac{112\,500}{22\,500} = 5$.
+    - opgave: |-
+        Welke stelling heb je zo nagerekend?
+      antwoord: |-
+        onafhankelijk van de eenheden
+      uitwerking: |-
+        Een inverteerbare lineaire transformatie verandert de afstand van Mahalanobis niet.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten over eigenvectoren en afstanden
+  opgave: |-
+    Waar of niet waar? Verklaar of geef een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Elke symmetrische $2 \times 2$-matrix heeft reële eigenwaarden.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        De discriminant is $(a - c)^2 + 4b^2 \geqslant 0$.
+    - opgave: |-
+        De eigenvectoren van $\km{2 & 1 \\ 0 & 3}$ staan loodrecht op elkaar.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Ze zijn $(1, 0)$ en $(1, 1)$, met scalair product 1. De matrix is niet symmetrisch.
+    - opgave: |-
+        De afstand van Mahalanobis is altijd kleiner dan de Euclidische afstand.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Bij $S = \km{0{,}25 & 0 \\ 0 & 0{,}25}$ is $\dM$ het dubbele van de Euclidische afstand. Het hangt af van de spreiding.
+    - opgave: |-
+        Is een eigenwaarde van $S$ gelijk aan 0, dan bestaat de afstand van Mahalanobis niet.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Dan is er een $\vec v \neq \vec 0$ met $S\vec v = \vec 0$, dus is $S$ niet inverteerbaar.
+    - opgave: |-
+        De eerste hoofdas ligt altijd langs de variabele met de grootste variantie.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Bij $S = \km{5 & 2 \\ 2 & 2}$ ligt ze onder $26{,}6^\circ$, niet langs de $x$-as. Alleen bij ongecorreleerde variabelen ligt ze langs een as.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een wolk die bijna op een rechte ligt
+  opgave: |-
+    Twee metingen van dezelfde grootheid met twee toestellen hebben $S = \km{10 & 9{,}9 \\ 9{,}9 & 10}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de eigenwaarden en de correlatie.
+      antwoord: |-
+        $19{,}9$ en $0{,}1$; \ $r = 0{,}99$
+      uitwerking: |-
+        De eigenwaarden van $\km{a & b \\ b & a}$ zijn $a \pm b$. $r = \frac{9{,}9}{10}$.
+    - opgave: |-
+        Bereken de Euclidische afstand en de afstand van Mahalanobis voor een afwijking $(1, -1)$.
+      antwoord: |-
+        $\sqrt2 \approx 1{,}41$; \ $\sqrt{20} \approx 4{,}47$
+      uitwerking: |-
+        $(1, -1)$ ligt langs de tweede hoofdas: $u_2 = \sqrt2$ en $\dM^2 = \frac{2}{0{,}1} = 20$.
+    - opgave: |-
+        Wat betekent zo'n punt in de context?
+      antwoord: |-
+        de toestellen zijn het oneens
+      uitwerking: |-
+        Normaal geven beide toestellen bijna hetzelfde. Een verschil van 2 tussen de twee metingen is dan zeer ongewoon, ook al zijn de waarden zelf gewoon: een van de toestellen faalt misschien.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    binnen of buiten de ellips
+  opgave: |-
+    Neem de leerlingen uit het probleem: centrum $(62, 58)$, $\lambda_1 = 225$, $\lambda_2 = 25$, $\vec e_1 = \frac15(4, 3)$ en $\vec e_2 = \frac15(-3, 4)$. Ligt de leerling binnen de ellips $\dM = 2$?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(70, 70)$
+      antwoord: |-
+        ja, $\dM \approx 1{,}32$
+      uitwerking: |-
+        $\vec d = (8, 12)$: $u_1 = 13{,}6$, $u_2 = 4{,}8$, $\dM^2 = 0{,}822 + 0{,}922 \approx 1{,}74$.
+    - opgave: |-
+        $(50, 60)$
+      antwoord: |-
+        ja, $\dM \approx 1{,}85$
+      uitwerking: |-
+        $\vec d = (-12, 2)$: $u_1 = -8{,}4$, $u_2 = 8{,}8$, $\dM^2 = 0{,}314 + 3{,}098 \approx 3{,}41$.
+    - opgave: |-
+        $(40, 30)$
+      antwoord: |-
+        nee, $\dM \approx 2{,}94$
+      uitwerking: |-
+        $\vec d = (-22, -28)$: $u_1 = -34{,}4$, $u_2 = -9{,}2$, $\dM^2 = 5{,}259 + 3{,}386 \approx 8{,}64$.
+    - opgave: |-
+        $(80, 50)$
+      antwoord: |-
+        nee, $\dM \approx 3{,}50$
+      uitwerking: |-
+        $\vec d = (18, -8)$: $u_1 = 9{,}6$, $u_2 = -17{,}2$, $\dM^2 = 0{,}410 + 11{,}834 \approx 12{,}24$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    som en product van de eigenwaarden
+  opgave: |-
+    Neem een symmetrische matrix $S = \km{a & b \\ b & c}$ met eigenwaarden $\lambda_1$ en $\lambda_2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\lambda_1 + \lambda_2 = a + c$ en $\lambda_1\lambda_2 = \det S$.
+      antwoord: |-
+        som en product van de wortels
+      uitwerking: |-
+        De karakteristieke vergelijking is $\lambda^2 - (a + c)\lambda + (ac - b^2) = 0$. Voor de wortels van $\lambda^2 - s\lambda + p = 0$ geldt $\lambda_1 + \lambda_2 = s$ en $\lambda_1\lambda_2 = p$.
+    - opgave: |-
+        Wat betekent de eerste gelijkheid voor een covariantiematrix?
+      antwoord: |-
+        de totale variantie blijft
+      uitwerking: |-
+        $a + c = s_1^2 + s_2^2$ is de totale variantie. Na de draaiing naar de hoofdassen is ze $\lambda_1 + \lambda_2$: draaien verandert de totale spreiding niet, het verdeelt ze alleen anders.
+    - opgave: |-
+        Leid af: een covariantiematrix is inverteerbaar als en slechts als geen eigenwaarde 0 is. Controleer met het probleem.
+      antwoord: |-
+        $\det S = \lambda_1\lambda_2$; \ $225 \cdot 25 = 5625$
+      uitwerking: |-
+        $\det S \neq 0 \iff \lambda_1\lambda_2 \neq 0$. In het probleem: $\det S = 153 \cdot 97 - 96^2 = 5625 = 225 \cdot 25$, en $153 + 97 = 250 = 225 + 25$.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    afstand tussen twee groepen
+  opgave: |-
+    Mahalanobis gebruikte zijn afstand om groepen te vergelijken. Twee groepen hebben dezelfde covariantiematrix $S = \km{4 & 2 \\ 2 & 4}$; de afstand tussen hun gemiddelden $\vec m_1$ en $\vec m_2$ is $\sqrt{(\vec m_1 - \vec m_2)\tr S^{-1}(\vec m_1 - \vec m_2)}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de afstand tussen groepen met gemiddelden $(10, 10)$ en $(12, 8)$, en tussen $(10, 10)$ en $(12, 12)$.
+      antwoord: |-
+        $2$; \ $\approx 1{,}15$
+      uitwerking: |-
+        Verschillen $(2, -2)$ en $(2, 2)$: $\frac{16 + 16 + 16}{12} = 4$ en $\frac{16 - 16 + 16}{12} = \frac43$.
+    - opgave: |-
+        Beide paren liggen even ver uit elkaar met een lat. Leg uit waarom het eerste paar beter te onderscheiden is.
+      antwoord: |-
+        het verschil ligt dwars op de wolken
+      uitwerking: |-
+        De wolken liggen langs $(1, 1)$. Een verschil $(2, 2)$ ligt in de lengterichting, waar de wolken elkaar sterk overlappen. Een verschil $(2, -2)$ ligt dwars, waar ze smal zijn: daar overlappen ze minder.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een $3 \times 3$-matrix met een dubbele eigenwaarde
+  opgave: |-
+    Neem $S = \km{2 & 1 & 0 \\ 1 & 2 & 0 \\ 0 & 0 & 3}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\det(S - \lambda I) = (3 - \lambda)\bigl((2 - \lambda)^2 - 1\bigr)$, en geef de eigenwaarden.
+      antwoord: |-
+        $3$ (dubbel) en $1$
+      uitwerking: |-
+        Ontwikkel naar de laatste rij. $(2 - \lambda)^2 = 1$ geeft $\lambda = 3$ of $1$; samen met de factor $3 - \lambda$ is 3 een dubbele wortel.
+    - opgave: |-
+        Toon aan dat bij $\lambda = 3$ alle vectoren $(t, t, s)$ eigenvectoren zijn.
+      antwoord: |-
+        een vlak van eigenvectoren
+      uitwerking: |-
+        $(S - 3I)\vec v = \vec 0$ geeft $-v_1 + v_2 = 0$ (twee keer) en $0 = 0$. Dus $v_1 = v_2$ en $v_3$ vrij.
+    - opgave: |-
+        Kies drie genormeerde eigenvectoren die twee aan twee loodrecht op elkaar staan.
+      antwoord: |-
+        $\tfrac{1}{\sqrt2}(1, 1, 0)$, $(0, 0, 1)$, $\tfrac{1}{\sqrt2}(1, -1, 0)$
+      uitwerking: |-
+        Bij $\lambda = 1$: $v_1 + v_2 = 0$ en $v_3 = 0$. In het vlak van $\lambda = 3$ kies je twee loodrechte vectoren, zoals $(1, 1, 0)$ en $(0, 0, 1)$. Zo krijg je een orthogonale matrix $P$.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    niet elke matrix is diagonaliseerbaar
+  opgave: |-
+    De stelling over diagonaliseren steunt op de symmetrie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\km{1 & 1 \\ 0 & 1}$ alleen eigenvectoren heeft in de richting $(1, 0)$.
+      antwoord: |-
+        $\lambda = 1$, $v_2 = 0$
+      uitwerking: |-
+        $(1 - \lambda)^2 = 0$ geeft alleen $\lambda = 1$, en $(S - I)\vec v = (v_2, 0) = \vec 0$ geeft $v_2 = 0$.
+    - opgave: |-
+        Waarom bestaat er dan geen matrix $P$ met eigenvectoren als kolommen, met $\det P \neq 0$?
+      antwoord: |-
+        twee evenwijdige kolommen
+      uitwerking: |-
+        Twee kolommen in de richting $(1, 0)$ zijn evenwijdig: de determinant is 0. Er is geen basis van eigenvectoren.
+    - opgave: |-
+        Kan dit gebeuren bij een covariantiematrix? Verklaar.
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een covariantiematrix is symmetrisch. Bij twee verschillende eigenwaarden staan de eigenvectoren loodrecht op elkaar; bij één eigenwaarde is $S = \lambda I$, en is elke vector een eigenvector.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    hoe zeldzaam is een grote afstand?
+  opgave: |-
+    Is een wolk met twee variabelen normaal verdeeld, dan geldt (zonder bewijs) $P(\dM > k) = \e^{-k^2/2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het deel van de punten buiten de ellips $\dM = 1$, $2$ en $3$.
+      antwoord: |-
+        $\approx 60{,}7~\%$; \ $13{,}5~\%$; \ $1{,}1~\%$
+      uitwerking: |-
+        $\e^{-0{,}5} \approx 0{,}607$, $\e^{-2} \approx 0{,}135$, $\e^{-4{,}5} \approx 0{,}011$.
+    - opgave: |-
+        Vergelijk met één normaal verdeelde variabele, waar $68~\%$ binnen één standaardafwijking ligt. Waarom ligt bij twee variabelen een groter deel buiten de ellips $\dM = 1$?
+      antwoord: |-
+        twee richtingen om af te wijken
+      uitwerking: |-
+        $\dM^2 = w_1^2 + w_2^2$ telt de afwijking in twee onafhankelijke richtingen op. Een punt dat in elke richting gewoon is, kan samen toch buiten de ellips liggen.
+    - opgave: |-
+        In het zesde jaar zitten 240 leerlingen. Hoeveel verwacht je buiten de ellips $\dM = 3$? Is Ruben met $\dM = 4$ uitzonderlijk?
+      antwoord: |-
+        $\approx 2{,}7$; \ ja
+      uitwerking: |-
+        $240 \cdot 0{,}0111 \approx 2{,}7$ leerlingen. Buiten $\dM = 4$: $\e^{-8} \approx 0{,}00034$, dus $0{,}08$ leerlingen: bij een normale verdeling is zo'n combinatie heel zeldzaam.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: meetkunde
+    onderwerp: Kegelsneden
+  thema: |-
+    de ellips van Mahalanobis
+  opgave: |-
+    Neem de wolk met $S = \km{5 & 2 \\ 2 & 2}$, met $\lambda_1 = 6$, $\lambda_2 = 1$, $\vec e_1 = \frac{1}{\sqrt5}(2, 1)$ en $\vec e_2 = \frac{1}{\sqrt5}(-1, 2)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de vergelijking van de ellips $\dM = 1$ in de coördinaten $(u_1, u_2)$, en geef $a$ en $b$.
+      antwoord: |-
+        $\frac{u_1^2}{6} + u_2^2 = 1$; \ $a = \sqrt6$, $b = 1$
+      uitwerking: |-
+        $\dM^2 = \frac{u_1^2}{6} + \frac{u_2^2}{1}$.
+    - opgave: |-
+        Bereken de brandpunten in de coördinaten $(u_1, u_2)$ en daarna in het oorspronkelijke assenstelsel.
+      antwoord: |-
+        $(\pm\sqrt5, 0)$; \ $\pm(2, 1)$
+      uitwerking: |-
+        $c^2 = a^2 - b^2 = 5$. De brandpunten liggen op de eerste hoofdas, op afstand $\sqrt5$: $\pm\sqrt5\,\vec e_1 = \pm(2, 1)$.
+    - opgave: |-
+        Bereken de excentriciteit. Wat zegt een excentriciteit dicht bij 1 over de wolk?
+      antwoord: |-
+        $\sqrt{\tfrac56} \approx 0{,}91$
+      uitwerking: |-
+        $e = \frac ca = \frac{\sqrt5}{\sqrt6}$. Dicht bij 1 is de ellips langgerekt: de variabelen hangen sterk samen. Bij een cirkel ($e = 0$) zijn ze ongecorreleerd met dezelfde variantie.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: Matrices
+  thema: |-
+    de evenwichtstoestand is een eigenvector
+  opgave: |-
+    In een stad verhuist elk jaar $10~\%$ van de inwoners van het centrum naar de rand, en $20~\%$ van de rand naar het centrum. De overgangsmatrix is $A = \km{0{,}9 & 0{,}2 \\ 0{,}1 & 0{,}8}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een evenwicht is een verdeling $\vec x$ met $A\vec x = \vec x$. Leg uit dat dat een eigenvector bij de eigenwaarde 1 is, en bereken het evenwicht.
+      antwoord: |-
+        $\tfrac23$ in het centrum, $\tfrac13$ aan de rand
+      uitwerking: |-
+        $(A - I)\vec x = \vec 0$ geeft $-0{,}1x_1 + 0{,}2x_2 = 0$, dus $x_1 = 2x_2$: de richting $(2, 1)$, met som 1 de verdeling $(\frac23, \frac13)$.
+    - opgave: |-
+        Bereken de andere eigenwaarde en een eigenvector.
+      antwoord: |-
+        $0{,}7$: $(1, -1)$
+      uitwerking: |-
+        $\lambda^2 - 1{,}7\lambda + 0{,}7 = 0$ geeft 1 en $0{,}7$. Bij $0{,}7$: $0{,}2x_1 + 0{,}2x_2 = 0$.
+    - opgave: |-
+        Staan de eigenvectoren loodrecht op elkaar? Waarom niet?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $(2, 1) \cdot (1, -1) = 1 \neq 0$. De matrix $A$ is niet symmetrisch, dus de stelling over loodrechte eigenvectoren geldt niet.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: analyse
+    onderwerp: Goniometrische functies
+  thema: |-
+    de grootste spreiding met goniometrie
+  opgave: |-
+    Neem $S = \km{a & b \\ b & c}$ en $V(\theta) = \vec a\tr S\vec a$ met $\vec a = (\cos\theta, \sin\theta)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $V(\theta) = \frac{a + c}{2} + \frac{a - c}{2}\cos 2\theta + b\sin 2\theta$.
+      antwoord: |-
+        verdubbelingsformules
+      uitwerking: |-
+        $V = a\cos^2\theta + 2b\sin\theta\cos\theta + c\sin^2\theta$, met $\cos^2\theta = \frac{1 + \cos 2\theta}{2}$, $\sin^2\theta = \frac{1 - \cos 2\theta}{2}$ en $2\sin\theta\cos\theta = \sin 2\theta$.
+    - opgave: |-
+        Een uitdrukking $p\cos x + q\sin x$ heeft als maximum $\sqrt{p^2 + q^2}$. Leid af dat het maximum van $V$ de grootste eigenwaarde is.
+      antwoord: |-
+        $\frac{a + c}{2} + \sqrt{\bigl(\frac{a - c}{2}\bigr)^2 + b^2}$
+      uitwerking: |-
+        De grootste wortel van $\lambda^2 - (a + c)\lambda + ac - b^2 = 0$ is $\frac{a + c + \sqrt{(a - c)^2 + 4b^2}}{2}$, en dat is hetzelfde.
+    - opgave: |-
+        Controleer voor $S = \km{5 & 2 \\ 2 & 2}$, en bereken de hoek van de eerste hoofdas met $\tan 2\theta = \frac{2b}{a - c}$.
+      antwoord: |-
+        $3{,}5 + 2{,}5 = 6$; \ $\theta \approx 26{,}6^\circ$
+      uitwerking: |-
+        $\sqrt{1{,}5^2 + 2^2} = 2{,}5$. $\tan 2\theta = \frac43$, dus $2\theta \approx 53{,}13^\circ$ en $\theta \approx 26{,}57^\circ$: de richting $(2, 1)$.
+
+- id: h3-koppel-4
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: algebra
+    onderwerp: Eigenwaarden en eigenvectoren
+  thema: |-
+    machten en de inverse uit de diagonalisatie
+  opgave: |-
+    In de module Eigenwaarden en eigenvectoren (hoofdstuk 3) zag je dat $A = PDP^{-1}$ leidt tot $A^n = PD^nP^{-1}$. Neem $S = \km{5 & 2 \\ 2 & 2} = PDP\tr$ uit voorbeeld~\ref{vb:h3-diagonaliseren}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $S^n = \tfrac15\km{4 \cdot 6^n + 1 & 2 \cdot 6^n - 2 \\ 2 \cdot 6^n - 2 & 6^n + 4}$.
+      antwoord: |-
+        $S^n = PD^nP\tr$
+      uitwerking: |-
+        $PD^n = \tfrac{1}{\sqrt5}\km{2 \cdot 6^n & -1 \\ 6^n & 2}$, maal $P\tr = \tfrac{1}{\sqrt5}\km{2 & 1 \\ -1 & 2}$. Controle met $n = 1$: $\tfrac15\km{25 & 10 \\ 10 & 10} = S$.
+    - opgave: |-
+        De formule geldt ook voor $n = -1$, want $S^{-1} = PD^{-1}P\tr$. Bereken zo $S^{-1}$, en controleer met de formule voor de inverse.
+      antwoord: |-
+        $\km{\tfrac13 & -\tfrac13 \\ -\tfrac13 & \tfrac56}$
+      uitwerking: |-
+        $\tfrac15\km{\tfrac46 + 1 & \tfrac26 - 2 \\ \tfrac26 - 2 & \tfrac16 + 4} = \km{\tfrac13 & -\tfrac13 \\ -\tfrac13 & \tfrac56}$, en $\tfrac16\km{2 & -2 \\ -2 & 5}$ geeft hetzelfde.
+    - opgave: |-
+        Wat betekent dat voor de matrix $S^{-1}$ in de afstand van Mahalanobis?
+      antwoord: |-
+        dezelfde hoofdassen, eigenwaarden $\tfrac16$ en 1
+      uitwerking: |-
+        $S^{-1}$ heeft dezelfde eigenvectoren als $S$, met de omgekeerde eigenwaarden. Daarom tellen afwijkingen langs de eerste hoofdas (grote spreiding, eigenwaarde 6) maar voor $\tfrac16$ mee in $\dM^2$.
+
+# ---------------------------------------------------------------- test
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een wolk heeft $S = \km{9 & 3 \\ 3 & 4}$. Bereken met $S^{-1}$ de afstand van Mahalanobis van een punt met afwijking $(3, -2)$.
+  antwoord: |-
+    $2$
+  uitwerking: |-
+    $\det S = 27$, $S^{-1} = \frac{1}{27}\km{4 & -3 \\ -3 & 9}$. $\dM^2 = \frac{4 \cdot 9 - 6 \cdot (-6) + 9 \cdot 4}{27} = \frac{108}{27} = 4$.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de eigenwaarden en eigenvectoren van $S = \km{7 & 2 \\ 2 & 4}$.
+  antwoord: |-
+    $8$: $(2, 1)$; \ $3$: $(1, -2)$
+  uitwerking: |-
+    $\lambda^2 - 11\lambda + 24 = 0$ geeft 8 en 3. Bij 8: $-v_1 + 2v_2 = 0$; bij 3: $2v_1 + v_2 = 0$.
+
+- id: h3-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Diagonaliseer $S$ uit testvraag \ref{oef:h3-t2}: geef een orthogonale matrix $P$ en een diagonaalmatrix $D$ met $S = PDP\tr$.
+  antwoord: |-
+    $P = \frac{1}{\sqrt5}\km{2 & 1 \\ 1 & -2}$, $D = \km{8 & 0 \\ 0 & 3}$
+  uitwerking: |-
+    De eigenvectoren hebben norm $\sqrt5$ en staan loodrecht op elkaar. $PDP\tr = \frac15\km{16 & 3 \\ 8 & -6}\km{2 & 1 \\ 1 & -2} = \frac15\km{35 & 10 \\ 10 & 20} = S$.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken voor de wolk van testvraag \ref{oef:h3-t2} de coördinaten langs de hoofdassen van een punt met afwijking $(4, 3)$.
+  antwoord: |-
+    $u_1 = \tfrac{11}{\sqrt5} \approx 4{,}92$; \ $u_2 = -\tfrac{2}{\sqrt5} \approx -0{,}89$
+  uitwerking: |-
+    $u_1 = \frac{8 + 3}{\sqrt5}$ en $u_2 = \frac{4 - 6}{\sqrt5}$.
+
+- id: h3-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Geef de richting en de lengte van de halve assen van de ellips $\dM = 2$ voor de wolk van testvraag \ref{oef:h3-t2}.
+  antwoord: |-
+    $4\sqrt2 \approx 5{,}66$ langs $(2, 1)$; \ $2\sqrt3 \approx 3{,}46$ langs $(1, -2)$
+  uitwerking: |-
+    $2\sqrt8$ en $2\sqrt3$, langs de eigenvectoren.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken met de hoofdassen de afstand van Mahalanobis van het punt uit testvraag \ref{oef:h3-t4}. Controleer met $S^{-1}$.
+  antwoord: |-
+    $\dM = \sqrt{\tfrac{79}{24}} \approx 1{,}81$
+  uitwerking: |-
+    $\frac{121/5}{8} + \frac{4/5}{3} = \frac{121}{40} + \frac{4}{15} = \frac{79}{24}$. Met $S^{-1} = \frac{1}{24}\km{4 & -2 \\ -2 & 7}$: $\frac{64 - 48 + 63}{24} = \frac{79}{24}$.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    In de wolk van testvraag \ref{oef:h3-t2} hebben $P$ en $Q$ de afwijkingen $(4, 2)$ en $(2, -4)$. Welk punt is het meest uitzonderlijk? Verklaar met de hoofdassen.
+  antwoord: |-
+    $Q$: $\dM \approx 2{,}58$ tegen $1{,}58$
+  uitwerking: |-
+    Beide hebben Euclidische afstand $\sqrt{20}$. $P$ ligt langs de eerste hoofdas: $\dM^2 = \frac{20}{8} = 2{,}5$. $Q$ ligt langs de tweede, waar de wolk smaller is: $\dM^2 = \frac{20}{3} \approx 6{,}67$.

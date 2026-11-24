@@ -1,0 +1,957 @@
+# Oefeningen van hoofdstuk 3. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken of beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Los op met de methode van Gauss-Jordan: $\begin{cases} 4x + y = 9 \\ x + 3y = 5 \end{cases}$
+      antwoord: |-
+        $(2, 1)$
+      uitwerking: |-
+        $\begin{pmatrix} 4 & 1 & 9 \\ 1 & 3 & 5 \end{pmatrix}$: wissel de rijen, $R_2 - 4R_1$ geeft $-11y = -11$, dus $y = 1$ en $x = 5 - 3 = 2$.
+    - opgave: |-
+        $\det \begin{pmatrix} 2 & 3 \\ 2{,}02 & 3 \end{pmatrix}$
+      antwoord: |-
+        $-0{,}06$
+      uitwerking: |-
+        $2 \cdot 3 - 3 \cdot 2{,}02 = 6 - 6{,}06 = -0{,}06$.
+    - opgave: |-
+        $\begin{pmatrix} 0 & -\frac14 \\ -\frac13 & 0 \end{pmatrix} \begin{pmatrix} 4 \\ 6 \end{pmatrix}$
+      antwoord: |-
+        $\begin{pmatrix} -1{,}5 \\ -\frac43 \end{pmatrix}$
+      uitwerking: |-
+        Rij maal kolom: $0 \cdot 4 - \frac14 \cdot 6 = -1{,}5$ en $-\frac13 \cdot 4 + 0 \cdot 6 = -\frac43$.
+    - opgave: |-
+        Rond af op drie beduidende cijfers: $9998$, $0{,}012\,345$ en $1{,}0049$.
+      antwoord: |-
+        $10\,000$; $0{,}0123$; $1{,}00$
+      uitwerking: |-
+        Beduidende cijfers tel je vanaf het eerste cijfer dat niet 0 is: $9998 \approx 1{,}00 \cdot 10^4$, $0{,}0123$ en $1{,}00$.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Twee getallen $x$ en $y$ voldoen aan: $x$ is het gemiddelde van 10 en $y$, en $y$ is het gemiddelde van $x$ en 4.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf het stelsel op en los het exact op.
+      antwoord: |-
+        $x = \frac{10 + y}{2}$, $y = \frac{x + 4}{2}$; $(8, 6)$
+      uitwerking: |-
+        Vul de tweede in de eerste in: $x = 5 + \frac{x + 4}{4}$, dus $\frac34 x = 6$ en $x = 8$, $y = 6$.
+    - opgave: |-
+        Gok $y = 0$. Bereken $x$ met de eerste vergelijking, daarna $y$ met die nieuwe $x$, daarna weer $x$, enzovoort. Doe drie rondes.
+      antwoord: |-
+        $(5;\ 4{,}5)$, $(7{,}25;\ 5{,}625)$, $(7{,}8125;\ 5{,}906)$
+      uitwerking: |-
+        $x = \frac{10 + 0}{2} = 5$, $y = \frac{5 + 4}{2} = 4{,}5$; $x = 7{,}25$, $y = 5{,}625$; $x = 7{,}8125$, $y \approx 5{,}906$.
+    - opgave: |-
+        Wat valt op? Met welke factor wordt de afstand tot de oplossing per ronde kleiner?
+      antwoord: |-
+        de getallen naderen $(8, 6)$; factor $\frac14$
+      uitwerking: |-
+        De fouten van $x$ zijn 3; 0,75; 0,1875: telkens gedeeld door 4. Dat komt doordat elke vergelijking maar de helft van de andere onbekende gebruikt: $\frac12 \cdot \frac12 = \frac14$.
+
+- id: h3-ops
+  soort: kort
+  opgave: |-
+    Een computer doet $10^9$ vermenigvuldigingen per seconde. Hoe lang duurt ongeveer
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Gauss-Jordan voor een stelsel met 10\,000 onbekenden (ongeveer $n^3$ vermenigvuldigingen)?
+      antwoord: |-
+        ongeveer 17 minuten
+      uitwerking: |-
+        $(10^4)^3 = 10^{12}$ vermenigvuldigingen, dus $10^3$ seconden, ongeveer 17 minuten.
+    - opgave: |-
+        één stap Gauss-Seidel voor een plaat met $100 \times 100$ punten, met vijf onbekenden per vergelijking? Hoeveel stappen kun je doen in de tijd van één keer Gauss-Jordan?
+      antwoord: |-
+        $5 \cdot 10^{-5}$ s; 20 miljoen stappen
+      uitwerking: |-
+        $10^4$ vergelijkingen met elk ongeveer 5 vermenigvuldigingen: $5 \cdot 10^4$ bewerkingen, of $5 \cdot 10^{-5}$ seconden. In $10^3$ seconden passen $\frac{10^3}{5 \cdot 10^{-5}} = 2 \cdot 10^7$ stappen.
+
+- id: h3-spil
+  soort: kort
+  opgave: |-
+    Los $\begin{cases} 0{,}0003\,x + y = 1 \\ 3x + y = 4 \end{cases}$ op met Gauss-Jordan, met elk tussenresultaat afgerond op drie beduidende cijfers.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zonder de vergelijkingen te wisselen.
+      antwoord: |-
+        $y = 1$, $x = 0$ (fout)
+      uitwerking: |-
+        $R_2 - 10\,000\,R_1$: $(1 - 10\,000)\,y = 4 - 10\,000$, of $-9999\,y = -9996$. Afgerond: $-10\,000\,y = -10\,000$, dus $y = 1{,}00$. Dan $x = \frac{1 - 1}{0{,}0003} = 0$.
+    - opgave: |-
+        Met spilkeuze. Vergelijk met de exacte oplossing $x \approx 1{,}0001$, $y \approx 0{,}9997$.
+      antwoord: |-
+        $x = 1$, $y = 1$
+      uitwerking: |-
+        Wissel: $3x + y = 4$ eerst. $R_2 - 0{,}0001\,R_1$: $0{,}9999\,y = 0{,}9996$, afgerond $1{,}00\,y = 1{,}00$. Dan $x = \frac{4 - 1}{3} = 1{,}00$. Op drie cijfers is dat de juiste oplossing.
+
+- id: h3-conditie
+  soort: kort
+  opgave: |-
+    Gegeven is $\begin{cases} x + 2y = 3 \\ 1{,}001\,x + 2y = 3{,}001 \end{cases}$
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Los het stelsel op. Los het ook op met $3{,}002$ in plaats van $3{,}001$.
+      antwoord: |-
+        $(1, 1)$; $(2;\ 0{,}5)$
+      uitwerking: |-
+        Trek af: $0{,}001\,x = 0{,}001$, dus $x = 1$ en $y = 1$. Met 3,002: $0{,}001\,x = 0{,}002$, dus $x = 2$ en $y = 0{,}5$.
+    - opgave: |-
+        Bereken de determinant. Is het stelsel slecht geconditioneerd? Wat betekent dat voor de twee rechten?
+      antwoord: |-
+        $-0{,}002$; ja; bijna evenwijdig
+      uitwerking: |-
+        $\det = 1 \cdot 2 - 2 \cdot 1{,}001 = -0{,}002$. Een verandering van 0,001 verschuift $x$ met 1: slecht geconditioneerd. De richtingscoëfficiënten $-0{,}5$ en $-0{,}5005$ zijn bijna gelijk.
+
+- id: h3-jacobi
+  soort: kort
+  opgave: |-
+    Pas twee stappen van de methode van Jacobi toe vanaf $(0, 0)$ op $\begin{cases} 5x - y = 9 \\ x + 4y = 6 \end{cases}$. De oplossing is $(2, 1)$.
+  antwoord: |-
+    $(1{,}8;\ 1{,}5)$; $(2{,}1;\ 1{,}05)$
+  uitwerking: |-
+    $x = \frac{9 + y}{5}$ en $y = \frac{6 - x}{4}$. Stap 1: $x = 1{,}8$, $y = 1{,}5$. Stap 2: $x = \frac{9 + 1{,}5}{5} = 2{,}1$ en $y = \frac{6 - 1{,}8}{4} = 1{,}05$.
+
+- id: h3-gs
+  soort: kort
+  opgave: |-
+    Los op met de methode van Gauss-Seidel vanaf 0.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Twee stappen voor het stelsel van oefening \ref{oef:h3-jacobi}. Vergelijk met Jacobi.
+      antwoord: |-
+        $(1{,}8;\ 1{,}05)$; $(2{,}01;\ 0{,}9975)$
+      uitwerking: |-
+        $x = \frac{9 + 0}{5} = 1{,}8$, $y = \frac{6 - 1{,}8}{4} = 1{,}05$; $x = \frac{9 + 1{,}05}{5} = 2{,}01$, $y = \frac{6 - 2{,}01}{4} = 0{,}9975$. De grootste fout na twee stappen is 0,01, tegen 0,1 bij Jacobi.
+    - opgave: |-
+        Een plaat heeft boven 80\,°C en links, rechts en onderaan 20\,°C, met vier punten binnenin zoals in het probleem. Stel het stelsel op, en doe één stap Gauss-Seidel.
+      antwoord: |-
+        $(25;\ 31{,}25;\ 16{,}25;\ 21{,}875)$
+      uitwerking: |-
+        $T_1 = \frac14(100 + T_2 + T_3)$, $T_2 = \frac14(100 + T_1 + T_4)$, $T_3 = \frac14(40 + T_1 + T_4)$, $T_4 = \frac14(40 + T_2 + T_3)$. Vanaf 0: $T_1 = 25$, $T_2 = \frac{125}{4} = 31{,}25$, $T_3 = \frac{65}{4} = 16{,}25$, $T_4 = \frac{87{,}5}{4} = 21{,}875$.
+
+- id: h3-dominant
+  soort: kort
+  opgave: |-
+    Herschik het stelsel zodat het strikt diagonaal dominant is, en geef $q$. Lukt het niet, zeg dan waarom.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\begin{cases} x + 4y = 6 \\ 5x - y = 9 \end{cases}$
+      antwoord: |-
+        wissel; $q = \frac14$
+      uitwerking: |-
+        $5x - y = 9$ voor $x$ ($5 > 1$) en $x + 4y = 6$ voor $y$ ($4 > 1$). $q = \max\bigl(\frac15, \frac14\bigr) = \frac14$.
+    - opgave: |-
+        $\begin{cases} 2x + y - 6z = 1 \\ x - 5y + 2z = 0 \\ 8x + y + 3z = 4 \end{cases}$
+      antwoord: |-
+        volgorde 3, 2, 1; $q = \frac35$
+      uitwerking: |-
+        Voor $x$: $8x + y + 3z = 4$ ($8 > 4$). Voor $y$: $x - 5y + 2z = 0$ ($5 > 3$). Voor $z$: $2x + y - 6z = 1$ ($6 > 3$). $q = \max\bigl(\frac48, \frac35, \frac36\bigr) = \frac35$.
+    - opgave: |-
+        $\begin{cases} x + y = 2 \\ x - y = 0 \end{cases}$
+      antwoord: |-
+        kan niet
+      uitwerking: |-
+        In beide vergelijkingen zijn de coëfficiënten van $x$ en $y$ even groot in absolute waarde. Geen volgorde geeft een diagonaalelement dat strikt groter is dan de rest.
+
+- id: h3-garantie
+  soort: kort
+  opgave: |-
+    Het stelsel $\begin{cases} 10x - 2y + z = 9 \\ x + 8y - 3z = 6 \\ 2x + y + 5z = 8 \end{cases}$ wordt opgelost met Gauss-Seidel vanaf 0. De oplossing ligt in $[-2, 2]$ voor elke onbekende.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $q$.
+      antwoord: |-
+        $q = \frac35$
+      uitwerking: |-
+        $\max\bigl(\frac{3}{10}, \frac48, \frac35\bigr) = \frac35$.
+    - opgave: |-
+        Hoeveel stappen garandeert de stelling voor een fout kleiner dan $10^{-4}$?
+      antwoord: |-
+        20
+      uitwerking: |-
+        $E^{(0)} \leqslant 2$, dus volstaat $2 \cdot 0{,}6^k < 10^{-4}$: $k > \frac{\log(5 \cdot 10^{-5})}{\log 0{,}6} \approx 19{,}4$, dus 20 stappen. (In de praktijk zijn er veel minder nodig: de oplossing is $(1, 1, 1)$ en na 6 stappen is de fout al kleiner dan $10^{-4}$.)
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Jacobi en Gauss-Seidel uitvoeren
+  opgave: |-
+    Gegeven is $\begin{cases} 5x + y - z = 12 \\ x - 4y + 2z = -4 \\ -x + y + 3z = -4 \end{cases}$, met oplossing $(2, 1, -1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat het stelsel strikt diagonaal dominant is, en bereken $q$.
+      antwoord: |-
+        $5 > 2$, $4 > 3$, $3 > 2$; $q = \frac34$
+      uitwerking: |-
+        $q = \max\bigl(\frac25, \frac34, \frac23\bigr) = \frac34$.
+    - opgave: |-
+        Doe twee stappen van de methode van Jacobi vanaf $(0, 0, 0)$.
+      antwoord: |-
+        $(2{,}4;\ 1;\ -1{,}3333)$; $(1{,}9333;\ 0{,}9333;\ -0{,}8667)$
+      uitwerking: |-
+        $x = \frac{12 - y + z}{5}$, $y = \frac{4 + x + 2z}{4}$, $z = \frac{-4 + x - y}{3}$. Stap 1: $(2{,}4;\ 1;\ -1{,}3333)$. Stap 2: $x = \frac{12 - 1 - 1{,}3333}{5} \approx 1{,}9333$, $y = \frac{4 + 2{,}4 - 2{,}6667}{4} \approx 0{,}9333$, $z = \frac{-4 + 2{,}4 - 1}{3} \approx -0{,}8667$.
+    - opgave: |-
+        Doe twee stappen van de methode van Gauss-Seidel vanaf $(0, 0, 0)$. Bereken voor beide methodes de grootste fout na twee stappen.
+      antwoord: |-
+        $(2{,}4;\ 1{,}6;\ -1{,}0667)$; $(1{,}8667;\ 0{,}9333;\ -1{,}0222)$; beide 0,133
+      uitwerking: |-
+        Stap 1: $x = 2{,}4$, $y = \frac{4 + 2{,}4}{4} = 1{,}6$, $z = \frac{-4 + 2{,}4 - 1{,}6}{3} \approx -1{,}0667$. Stap 2: $x = \frac{12 - 1{,}6 - 1{,}0667}{5} \approx 1{,}8667$, $y = \frac{4 + 1{,}8667 - 2{,}1333}{4} \approx 0{,}9333$, $z = \frac{-4 + 1{,}8667 - 0{,}9333}{3} \approx -1{,}0222$. De grootste fout is bij beide 0,133. Na meer stappen wint Gauss-Seidel wel duidelijk (zie de opdracht over het aantal stappen).
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Gauss-Seidel op een figuur
+  opgave: |-
+    Gegeven is $\begin{cases} 5x + 2y = 12 \\ x + 4y = 6 \end{cases}$
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Doe drie stappen van de methode van Gauss-Seidel vanaf $(0, 0)$.
+      antwoord: |-
+        $(2{,}4;\ 0{,}9)$, $(2{,}04;\ 0{,}99)$, $(2{,}004;\ 0{,}999)$
+      uitwerking: |-
+        $x = \frac{12 - 2y}{5}$, $y = \frac{6 - x}{4}$. $(2{,}4;\ 0{,}9)$, $(2{,}04;\ 0{,}99)$, $(2{,}004;\ 0{,}999)$.
+    - opgave: |-
+        Teken de twee rechten op een rooster, en het pad van de punten $(0, 0) \to (2{,}4;\ 0) \to (2{,}4;\ 0{,}9) \to \cdots$
+      antwoord: |-
+        een trap naar $(2, 1)$
+      uitwerking: |-
+        Horizontaal naar de rechte $5x + 2y = 12$, verticaal naar $x + 4y = 6$, enzovoort.
+        \figuren{\begin{tikzpicture}[x=1.6cm,y=1.6cm,font=\scriptsize]
+          \draw[black!14,very thin,step=.5] (0,0) grid (3,1.5);
+          \draw[->,grijs] (0,0) -- (3.2,0) node[right,text=black] {$x$};
+          \draw[->,grijs] (0,0) -- (0,1.7) node[above,text=black] {$y$};
+          \foreach \t in {1,2,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+          \node[left,inner sep=1.5pt] at (0,1) {$1$};
+          \draw[accent,thick] (1.8,1.5) -- (2.4,0);
+          \draw[accent!60,thick] (0,1.5) -- (3,.75);
+          \draw[fel!80!black,thick] (0,0) -- (2.4,0) -- (2.4,.9) -- (2.04,.9) -- (2.04,.99) -- (2.004,.99);
+          \fill (2,1) circle (1.5pt);
+        \end{tikzpicture}}
+    - opgave: |-
+        Met welke factor wordt de fout in $y$ per stap ongeveer kleiner? Vergelijk met $\frac{bc}{ad}$ voor het stelsel $ax + by = e$, $cx + dy = f$.
+      antwoord: |-
+        $\frac{1}{10}$; $\frac{2 \cdot 1}{5 \cdot 4} = \frac1{10}$
+      uitwerking: |-
+        De fouten in $y$: 0,1; 0,01; 0,001. Factor $\frac{1}{10} = \frac{bc}{ad}$ (zie de opdracht over $2 \times 2$-stelsels).
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    diagonaal dominant maken
+  opgave: |-
+    Herschik zo dat het stelsel strikt diagonaal dominant is. Lukt het niet, leg dan uit waarom.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\begin{cases} x - 6y = 5 \\ 3x + y = 2 \end{cases}$
+      antwoord: |-
+        wissel
+      uitwerking: |-
+        $3x + y = 2$ voor $x$ ($3 > 1$) en $x - 6y = 5$ voor $y$ ($6 > 1$).
+    - opgave: |-
+        $\begin{cases} 2x + 3y + 9z = 1 \\ 7x - y + 2z = 3 \\ x + 5y - z = 0 \end{cases}$
+      antwoord: |-
+        volgorde 2, 3, 1
+      uitwerking: |-
+        Voor $x$: $7x - y + 2z = 3$ ($7 > 3$). Voor $y$: $x + 5y - z = 0$ ($5 > 2$). Voor $z$: $2x + 3y + 9z = 1$ ($9 > 5$).
+    - opgave: |-
+        $\begin{cases} 4x + 2y + 3z = 1 \\ x + 5y + 2z = 3 \\ 3x + y + 2z = 0 \end{cases}$
+      antwoord: |-
+        kan niet
+      uitwerking: |-
+        Alleen de tweede vergelijking is dominant voor $y$ ($5 > 3$). Voor $x$ is $4 < 2 + 3$ en $3 < 1 + 2$, en voor $z$ is $3 < 4 + 2$, $2 < 1 + 5$ en $2 < 3 + 1$: geen enkele vergelijking is dominant voor $z$. De methodes kunnen toch convergeren, maar de stelling geeft geen garantie.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rekenwerk van Gauss-Jordan en Gauss-Seidel
+  opgave: |-
+    Een plaat wordt gemodelleerd met $m \times m$ punten binnenin. Een computer doet $10^9$ bewerkingen per seconde.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel onbekenden heeft het stelsel bij $m = 300$? Hoe lang duurt Gauss-Jordan ongeveer, met $n^3$ bewerkingen?
+      antwoord: |-
+        $90\,000$; ongeveer 8 dagen
+      uitwerking: |-
+        $n = 300^2 = 9 \cdot 10^4$. $n^3 \approx 7{,}3 \cdot 10^{14}$ bewerkingen: $7{,}3 \cdot 10^5$ seconden, ongeveer 8,4 dagen.
+    - opgave: |-
+        Hoe lang duurt één stap van Gauss-Seidel, met 5 bewerkingen per onbekende? En 10\,000 stappen?
+      antwoord: |-
+        $0{,}45$ ms; 4,5 s
+      uitwerking: |-
+        $5 \cdot 9 \cdot 10^4 = 4{,}5 \cdot 10^5$ bewerkingen per stap: $4{,}5 \cdot 10^{-4}$ s. 10\,000 stappen: 4,5 seconden.
+    - opgave: |-
+        Hoeveel geheugen vraagt de volledige matrix (8 bytes per getal), en hoeveel alleen de getallen die niet 0 zijn?
+      antwoord: |-
+        $6{,}5 \cdot 10^{10}$ bytes (65 GB); $3{,}6$ MB
+      uitwerking: |-
+        Volledig: $n^2 = 8{,}1 \cdot 10^9$ getallen, of $6{,}5 \cdot 10^{10}$ bytes. Alleen de vijf getallen per rij: $4{,}5 \cdot 10^5$ getallen, $3{,}6 \cdot 10^6$ bytes. Ook daarom werkt men bij grote stelsels iteratief.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    waar of vals: stelsels
+  opgave: |-
+    Waar of vals? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij exact rekenen geeft Gauss-Jordan na een eindig aantal stappen de exacte oplossing.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Het is een directe methode: het aantal rijbewerkingen ligt vast.
+    - opgave: |-
+        Jacobi en Gauss-Seidel geven na een eindig aantal stappen de exacte oplossing.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        In het algemeen naderen ze de oplossing alleen: de fout wordt kleiner, maar is na een eindig aantal stappen meestal niet 0.
+    - opgave: |-
+        Is een stelsel niet strikt diagonaal dominant, dan convergeert Gauss-Seidel niet.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        De voorwaarde is voldoende, niet nodig. Zie de opdrachten over de staaf en over het stelsel met parameter $a$.
+    - opgave: |-
+        De volgorde van de vergelijkingen kan bepalen of Gauss-Seidel convergeert.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Bij $4x + y = 9$, $x + 3y = 5$ convergeert ze; na het wisselen van de vergelijkingen vliegt de rij weg.
+    - opgave: |-
+        Met een goede spilkeuze wordt elk stelsel goed geconditioneerd.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        De conditie is een eigenschap van het stelsel zelf, niet van de methode. Spilkeuze beperkt alleen de afrondingsfouten van het rekenen.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    spilkeuze met afronden
+  opgave: |-
+    Los $\begin{cases} 0{,}0002\,x + 3y = 3 \\ 2x + y = 3 \end{cases}$ op met Gauss-Jordan, en rond elk tussenresultaat af op drie beduidende cijfers.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zonder te wisselen.
+      antwoord: |-
+        $y = 1$, $x = 0$
+      uitwerking: |-
+        $R_2 - 10\,000\,R_1$: $(1 - 30\,000)\,y = 3 - 30\,000$, of $-29\,999\,y = -29\,997$. Afgerond: $-30\,000\,y = -30\,000$, dus $y = 1{,}00$ en $x = \frac{3 - 3}{0{,}0002} = 0$.
+    - opgave: |-
+        Met spilkeuze.
+      antwoord: |-
+        $x = 1$, $y = 1$
+      uitwerking: |-
+        Wissel. $R_2 - 0{,}0001\,R_1$: $(3 - 0{,}0001)\,y = 3 - 0{,}0003$, afgerond $3{,}00\,y = 3{,}00$. Dus $y = 1$ en $x = \frac{3 - 1}{2} = 1$.
+    - opgave: |-
+        Bereken de exacte oplossing. Welke resultaten zijn juist op drie cijfers?
+      antwoord: |-
+        $x = \frac{30\,000}{29\,999} \approx 1{,}000\,03$, $y = \frac{29\,997}{29\,999} \approx 0{,}999\,93$; die met spilkeuze
+      uitwerking: |-
+        Uit de tweede: $y = 3 - 2x$. In de eerste: $0{,}0002x + 9 - 6x = 3$, dus $5{,}9998\,x = 6$ en $x \approx 1{,}000\,03$, $y \approx 0{,}999\,93$. Met spilkeuze is het resultaat juist op drie cijfers; zonder is $x$ volledig fout.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een slecht geconditioneerd stelsel herkennen
+  opgave: |-
+    Gegeven zijn twee stelsels die alleen in één coëfficiënt verschillen: $\begin{cases} 5x + 7y = 12 \\ 7x + 10y = 17 \end{cases}$ en $\begin{cases} 5x + 7y = 12 \\ 7x + 10{,}1\,y = 17 \end{cases}$
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Los beide op.
+      antwoord: |-
+        $(1, 1)$; $\bigl(\frac{22}{15}, \frac23\bigr) \approx (1{,}467;\ 0{,}667)$
+      uitwerking: |-
+        Met de regel van Cramer. Eerste: $\det = 50 - 49 = 1$, $x = 12 \cdot 10 - 7 \cdot 17 = 1$, $y = 5 \cdot 17 - 7 \cdot 12 = 1$. Tweede: $\det = 50{,}5 - 49 = 1{,}5$, $x = \frac{12 \cdot 10{,}1 - 7 \cdot 17}{1{,}5} = \frac{2{,}2}{1{,}5} \approx 1{,}467$ en $y = \frac{5 \cdot 17 - 7 \cdot 12}{1{,}5} = \frac{1}{1{,}5} \approx 0{,}667$.
+    - opgave: |-
+        Hoeveel procent veranderde de coëfficiënt, en hoeveel procent de oplossing?
+      antwoord: |-
+        1\,\%; ongeveer 47\,\% en 33\,\%
+      uitwerking: |-
+        10 werd 10,1: 1\,\%. $x$ ging van 1 naar 1,467 en $y$ van 1 naar 0,667: veranderingen van 47\,\% en 33\,\%. Het stelsel is slecht geconditioneerd.
+    - opgave: |-
+        Hoe zie je dat aan de rechten en aan de determinant?
+      antwoord: |-
+        bijna evenwijdig; $\det = 1$ is klein tegenover de coëfficiënten
+      uitwerking: |-
+        Schrijf $y$ in functie van $x$: de richtingscoëfficiënten zijn $-\frac57 \approx -0{,}714$ en $-\frac{7}{10} = -0{,}7$, bijna dezelfde. De determinant 1 is het verschil van twee grote getallen, 50 en 49.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een plaat met symmetrie (context)
+  opgave: |-
+    Een plaat met vier punten binnenin, zoals in het probleem, heeft boven 80\,°C en links, rechts en onderaan 20\,°C.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Doe drie stappen van Gauss-Seidel vanaf 0 (zie ook oefening \ref{oef:h3-gs}).
+      antwoord: |-
+        $(25;\ 31{,}25;\ 16{,}25;\ 21{,}88)$, $(36{,}88;\ 39{,}69;\ 24{,}69;\ 26{,}09)$, $(41{,}09;\ 41{,}80;\ 26{,}80;\ 27{,}15)$
+      uitwerking: |-
+        Met $T_1 = \frac14(100 + T_2 + T_3)$, $T_2 = \frac14(100 + T_1 + T_4)$, $T_3 = \frac14(40 + T_1 + T_4)$, $T_4 = \frac14(40 + T_2 + T_3)$.
+    - opgave: |-
+        Waarom moet in de oplossing $T_1 = T_2$ en $T_3 = T_4$? Waarom geldt dat niet voor de benaderingen?
+      antwoord: |-
+        de plaat is symmetrisch; Gauss-Seidel rekent links eerst
+      uitwerking: |-
+        De randen zijn symmetrisch om de verticale middellijn, dus de oplossing ook (ze is uniek). Gauss-Seidel berekent $T_1$ vóór $T_2$, en gebruikt bij $T_2$ al de nieuwe $T_1$: de volgorde breekt de symmetrie, tot de rij convergeert.
+    - opgave: |-
+        Gebruik de symmetrie om het stelsel te herleiden tot twee vergelijkingen, en los het exact op.
+      antwoord: |-
+        $T_1 = T_2 = 42{,}5$; $T_3 = T_4 = 27{,}5$
+      uitwerking: |-
+        Met $T_2 = T_1$ en $T_4 = T_3$: $4T_1 = 100 + T_1 + T_3$ en $4T_3 = 40 + T_1 + T_3$. Dus $3T_1 - T_3 = 100$ en $3T_3 - T_1 = 40$: $8T_1 = 340$, $T_1 = 42{,}5$, $T_3 = 27{,}5$.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    snelheid van Jacobi en Gauss-Seidel vergelijken
+  opgave: |-
+    Gegeven is $\begin{cases} 3x - y = 5 \\ x + 4y = 6 \end{cases}$, met oplossing $(2, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Doe vier stappen Jacobi en drie stappen Gauss-Seidel vanaf $(0, 0)$.
+      antwoord: |-
+        Jacobi: $(1{,}6667;\ 1{,}5)$, $(2{,}1667;\ 1{,}0833)$, $(2{,}0278;\ 0{,}9583)$, $(1{,}9861;\ 0{,}9931)$; Gauss-Seidel: $(1{,}6667;\ 1{,}0833)$, $(2{,}0278;\ 0{,}9931)$, $(1{,}9977;\ 1{,}0006)$
+      uitwerking: |-
+        $x = \frac{5 + y}{3}$, $y = \frac{6 - x}{4}$. Zie het antwoord.
+    - opgave: |-
+        Vergelijk: de waarden van Gauss-Seidel na stap $k$ zijn (bijna) die van Jacobi na stap $2k$. Verklaar.
+      antwoord: |-
+        Gauss-Seidel gebruikt in één stap wat Jacobi pas een stap later gebruikt
+      uitwerking: |-
+        Jacobi na 2 stappen: $x = 2{,}1667$; na 4: $x = 1{,}9861$, $y = 0{,}9931$. Gauss-Seidel na 2: $y = 0{,}9931$, dezelfde $y$. Bij een $2 \times 2$-stelsel gebruikt Gauss-Seidel voor $y$ de nieuwe $x$, die Jacobi pas bij de volgende stap gebruikt: elke stap Gauss-Seidel is twee halve stappen Jacobi.
+    - opgave: |-
+        Hoeveel stappen heeft elke methode nodig voor een fout kleiner dan $10^{-4}$ (rekentoestel of rekenblad)?
+      antwoord: |-
+        Jacobi 8, Gauss-Seidel 5
+      uitwerking: |-
+        Per stap wordt de fout bij Gauss-Seidel ongeveer met $\frac{1}{12}$ vermenigvuldigd, bij Jacobi per twee stappen. Gauss-Seidel: 5 stappen, Jacobi: 8.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de volgorde van de vergelijkingen
+  opgave: |-
+    Gegeven is $\begin{cases} 3x + y = 5 \\ x + 2y = 5 \end{cases}$, met oplossing $(1, 2)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Doe drie stappen Gauss-Seidel vanaf $(0, 0)$, met de eerste vergelijking voor $x$.
+      antwoord: |-
+        $(1{,}6667;\ 1{,}6667)$, $(1{,}1111;\ 1{,}9444)$, $(1{,}0185;\ 1{,}9907)$
+      uitwerking: |-
+        $x = \frac{5 - y}{3}$ en $y = \frac{5 - x}{2}$.
+    - opgave: |-
+        Doe drie stappen met de tweede vergelijking voor $x$ en de eerste voor $y$. Wat gebeurt er?
+      antwoord: |-
+        $(5, -10)$, $(25, -70)$, $(145, -430)$: de rij vliegt weg
+      uitwerking: |-
+        $x = 5 - 2y$ en $y = 5 - 3x$. Vanaf $(0, 0)$: $(5, -10)$, $(25, -70)$, $(145, -430)$.
+    - opgave: |-
+        Verklaar met de factor $\frac{bc}{ad}$ en met een figuur van de twee rechten.
+      antwoord: |-
+        $\frac16$ tegen 6
+      uitwerking: |-
+        In de goede volgorde is de factor $\frac{1 \cdot 1}{3 \cdot 2} = \frac16$, in de andere volgorde $\frac{2 \cdot 3}{1 \cdot 1} = 6$. Op de figuur: horizontaal naar een steile rechte en verticaal naar een vlakke rechte geeft een trap naar binnen; omgekeerd een trap naar buiten.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Jacobi in matrixvorm
+  opgave: |-
+    De methode van Jacobi voor $\begin{cases} 4x + y = 9 \\ x + 3y = 5 \end{cases}$ is $\mathbf{x}^{(k+1)} = M\,\mathbf{x}^{(k)} + \mathbf{c}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $M$ en $\mathbf{c}$.
+      antwoord: |-
+        $M = \begin{pmatrix} 0 & -\frac14 \\ -\frac13 & 0 \end{pmatrix}$, $\mathbf{c} = \begin{pmatrix} \frac94 \\ \frac53 \end{pmatrix}$
+      uitwerking: |-
+        $x = \frac94 - \frac14 y$ en $y = \frac53 - \frac13 x$.
+    - opgave: |-
+        Toon aan dat de fout $\mathbf{e}^{(k)} = \mathbf{x}^{(k)} - \mathbf{x}$ voldoet aan $\mathbf{e}^{(k+1)} = M\,\mathbf{e}^{(k)}$.
+      antwoord: |-
+        trek $\mathbf{x} = M\mathbf{x} + \mathbf{c}$ af
+      uitwerking: |-
+        De oplossing is een dekpunt: $\mathbf{x} = M\mathbf{x} + \mathbf{c}$. Aftrekken: $\mathbf{x}^{(k+1)} - \mathbf{x} = M(\mathbf{x}^{(k)} - \mathbf{x})$.
+    - opgave: |-
+        Bereken $M^2$. Wat betekent het resultaat voor de fout na twee stappen?
+      antwoord: |-
+        $M^2 = \frac{1}{12} I$; de fout wordt per twee stappen precies door 12 gedeeld
+      uitwerking: |-
+        $M^2 = \begin{pmatrix} \frac{1}{12} & 0 \\ 0 & \frac{1}{12} \end{pmatrix}$. Dus $\mathbf{e}^{(k+2)} = M^2 \mathbf{e}^{(k)} = \frac{1}{12}\mathbf{e}^{(k)}$: elke twee stappen wordt de fout precies 12 keer kleiner.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    diagonaal dominant is niet nodig
+  opgave: |-
+    Gegeven is $\begin{cases} a\,x + y = 1 \\ x + 2y = 3 \end{cases}$ met $a \neq 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke $a$ is het stelsel strikt diagonaal dominant?
+      antwoord: |-
+        $|a| > 1$
+      uitwerking: |-
+        Eerste rij: $|a| > 1$. Tweede rij: $2 > 1$, altijd.
+    - opgave: |-
+        Neem $a = 0{,}8$. Doe vier stappen Gauss-Seidel vanaf $(0, 0)$. Convergeert de rij? De oplossing is $\bigl(-\frac53, \frac73\bigr)$.
+      antwoord: |-
+        $(1{,}25;\ 0{,}875)$, $(0{,}156;\ 1{,}422)$, $(-0{,}527;\ 1{,}764)$, $(-0{,}955;\ 1{,}977)$; ja, traag
+      uitwerking: |-
+        $x = \frac{1 - y}{0{,}8}$, $y = \frac{3 - x}{2}$. De rij nadert $(-1{,}667;\ 2{,}333)$, al is het stelsel niet diagonaal dominant.
+    - opgave: |-
+        Toon aan dat Gauss-Seidel convergeert zodra $|a| > \frac12$, en divergeert als $|a| < \frac12$.
+      antwoord: |-
+        factor $\frac{bc}{ad} = \frac{1}{2a}$
+      uitwerking: |-
+        De fout in $y$ wordt per stap vermenigvuldigd met $\frac{bc}{ad} = \frac{1 \cdot 1}{a \cdot 2} = \frac{1}{2a}$ (zie de opdracht over $2 \times 2$-stelsels). Convergentie als $\bigl|\frac{1}{2a}\bigr| < 1$, of $|a| > \frac12$.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aantal stappen: garantie en praktijk
+  opgave: |-
+    We lossen het stelsel van opdracht \ref{oef:h3-o1} op vanaf $(0, 0, 0)$, met $q = \frac34$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel stappen garandeert de stelling voor een fout kleiner dan $10^{-3}$? (De beginfout is $E^{(0)} = 2$.)
+      antwoord: |-
+        27
+      uitwerking: |-
+        $2 \cdot 0{,}75^k < 10^{-3}$ geeft $k > \frac{\log(5 \cdot 10^{-4})}{\log 0{,}75} \approx 26{,}4$: 27 stappen.
+    - opgave: |-
+        Met een rekenblad: hoeveel stappen hebben Jacobi en Gauss-Seidel echt nodig?
+      antwoord: |-
+        Jacobi 8, Gauss-Seidel 5
+      uitwerking: |-
+        Jacobi is na 8 stappen binnen $10^{-3}$, Gauss-Seidel na 5.
+    - opgave: |-
+        Waarom is de garantie zo pessimistisch?
+      antwoord: |-
+        $q$ is het slechtste geval per rij
+      uitwerking: |-
+        $q$ is het maximum over de rijen, en de afschatting neemt aan dat alle fouten even groot zijn en elkaar versterken. In werkelijkheid hebben de fouten verschillende tekens en heffen ze elkaar deels op.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een methode kiezen
+  opgave: |-
+    Welke methode kies je, en waarom: Gauss-Jordan met spilkeuze, Jacobi of Gauss-Seidel?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een stelsel met 5 onbekenden, waarin geen enkele coëfficiënt 0 is, en dat niet diagonaal dominant te maken is.
+      antwoord: |-
+        Gauss-Jordan
+      uitwerking: |-
+        Klein stelsel: het rekenwerk is beperkt, en de iteratieve methodes hebben geen garantie.
+    - opgave: |-
+        Een stelsel met een miljoen onbekenden, met in elke vergelijking hoogstens zeven onbekenden, strikt diagonaal dominant.
+      antwoord: |-
+        Gauss-Seidel
+      uitwerking: |-
+        Gauss-Jordan kost $10^{18}$ bewerkingen; een stap Gauss-Seidel maar enkele miljoenen, en convergentie is gegarandeerd.
+    - opgave: |-
+        Een rekenmachine met veel processoren die tegelijk kunnen rekenen.
+      antwoord: |-
+        Jacobi
+      uitwerking: |-
+        Bij Jacobi hangt elke nieuwe waarde alleen af van de vorige stap: alle onbekenden kunnen tegelijk berekend worden. Gauss-Seidel moet ze na elkaar berekenen.
+    - opgave: |-
+        Een stelsel waarvan je vermoedt dat het slecht geconditioneerd is.
+      antwoord: |-
+        geen methode helpt; verander de gegevens een beetje en vergelijk
+      uitwerking: |-
+        Elke methode geeft een oplossing die gevoelig is voor kleine fouten in de gegevens. Los op met Gauss-Jordan met spilkeuze, en controleer de gevoeligheid door de coëfficiënten een beetje te wijzigen.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    foutschatting achteraf bij stelsels
+  opgave: |-
+    Neem een strikt diagonaal dominant stelsel met $q < 1$, en $\Delta^{(k+1)} = \max_i |x_i^{(k+1)} - x_i^{(k)}|$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $E^{(k+1)} \leqslant \frac{q}{1 - q}\,\Delta^{(k+1)}$, zoals in hoofdstuk 2.
+      antwoord: |-
+        $E^{(k+1)} \leqslant q E^{(k)} \leqslant q(\Delta^{(k+1)} + E^{(k+1)})$
+      uitwerking: |-
+        Voor elke $i$ is $|x_i^{(k)} - x_i| \leqslant |x_i^{(k)} - x_i^{(k+1)}| + |x_i^{(k+1)} - x_i|$, dus $E^{(k)} \leqslant \Delta^{(k+1)} + E^{(k+1)}$. Met $E^{(k+1)} \leqslant qE^{(k)}$ volgt $(1 - q)E^{(k+1)} \leqslant q\Delta^{(k+1)}$.
+    - opgave: |-
+        Bij het stelsel van voorbeeld \ref{vb:h3-gs} ($q = 0{,}6$) verschillen stap 5 en stap 6 van Gauss-Seidel hoogstens 0,000\,71. Geef een foutgrens voor stap 6. Vergelijk met de echte fout.
+      antwoord: |-
+        $0{,}0011$; echte fout $0{,}000\,14$
+      uitwerking: |-
+        $\frac{0{,}6}{0{,}4} \cdot 0{,}000\,71 \approx 0{,}0011$. Stap 6 is $(0{,}99986;\ 2{,}00012;\ -0{,}99993)$: de echte fout is 0,000\,14.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Gauss-Seidel in een andere volgorde
+  opgave: |-
+    Pas Gauss-Seidel toe op de plaat van het probleem, maar bereken de punten in de volgorde $T_4$, $T_3$, $T_2$, $T_1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Doe twee stappen vanaf 0.
+      antwoord: |-
+        $(51{,}88;\ 31{,}25;\ 16{,}25;\ 5)$, $(59{,}84;\ 47{,}19;\ 32{,}19;\ 16{,}88)$
+      uitwerking: |-
+        Stap 1: $T_4 = 5$, $T_3 = \frac{60 + 0 + 5}{4} = 16{,}25$, $T_2 = \frac{120 + 0 + 5}{4} = 31{,}25$, $T_1 = \frac{160 + 31{,}25 + 16{,}25}{4} = 51{,}875$. Stap 2 op dezelfde manier.
+    - opgave: |-
+        Naar welke waarden gaat de rij? Hangt de oplossing af van de volgorde?
+      antwoord: |-
+        $(62{,}5;\ 52{,}5;\ 37{,}5;\ 27{,}5)$; nee
+      uitwerking: |-
+        De limiet voldoet aan het stelsel, en dat heeft maar één oplossing. Alleen de weg ernaartoe verschilt.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: Gauss-Seidel is bij $2 \times 2$ twee keer zo snel
+  opgave: |-
+    Neem $\begin{cases} ax + by = e \\ cx + dy = f \end{cases}$ met $a, d \neq 0$ en oplossing $(x^*, y^*)$. Noem $u_k = x^{(k)} - x^*$ en $v_k = y^{(k)} - y^*$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat bij Jacobi $u_{k+1} = -\frac{b}{a} v_k$ en $v_{k+1} = -\frac{c}{d} u_k$. Besluit dat $u_{k+2} = \frac{bc}{ad}\,u_k$.
+      antwoord: |-
+        trek de vergelijkingen van de oplossing af
+      uitwerking: |-
+        $x^{(k+1)} = \frac{e - by^{(k)}}{a}$ en $x^* = \frac{e - by^*}{a}$, dus $u_{k+1} = -\frac ba v_k$. Evenzo $v_{k+1} = -\frac cd u_k$. Dan $u_{k+2} = -\frac ba v_{k+1} = \frac{bc}{ad} u_k$.
+    - opgave: |-
+        Toon aan dat bij Gauss-Seidel $v_{k+1} = \frac{bc}{ad}\,v_k$.
+      antwoord: |-
+        $u_{k+1} = -\frac ba v_k$ en $v_{k+1} = -\frac cd u_{k+1}$
+      uitwerking: |-
+        Gauss-Seidel gebruikt voor $y$ de nieuwe $x$: $v_{k+1} = -\frac cd u_{k+1} = -\frac cd \cdot \bigl(-\frac ba\bigr) v_k = \frac{bc}{ad} v_k$.
+    - opgave: |-
+        Besluit: wanneer convergeren de methodes, en waarom is Gauss-Seidel twee keer zo snel?
+      antwoord: |-
+        als $|bc| < |ad|$
+      uitwerking: |-
+        Beide convergeren als $\bigl|\frac{bc}{ad}\bigr| < 1$, en divergeren als $\bigl|\frac{bc}{ad}\bigr| > 1$. Gauss-Seidel vermenigvuldigt de fout met die factor bij elke stap, Jacobi pas na twee stappen. Diagonaal dominant ($|a| > |b|$ en $|d| > |c|$) is voldoende, maar $|bc| < |ad|$ kan ook zonder.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een staaf: niet strikt dominant, toch convergent
+  opgave: |-
+    Een metalen staaf heeft links 100\,°C en rechts 20\,°C. In vier punten ertussen is de temperatuur in evenwicht het gemiddelde van de twee buren: $T_1 = \frac{100 + T_2}{2}$, $T_2 = \frac{T_1 + T_3}{2}$, $T_3 = \frac{T_2 + T_4}{2}$, $T_4 = \frac{T_3 + 20}{2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de temperatuur lineair daalt, en bereken ze.
+      antwoord: |-
+        84, 68, 52, 36
+      uitwerking: |-
+        Elk punt is het gemiddelde van zijn buren, dus $T_{i+1} - T_i = T_i - T_{i-1}$: een rekenkundige rij van 100 naar 20 in vijf stappen van $-16$.
+    - opgave: |-
+        Schrijf het stelsel als $2T_1 - T_2 = 100$, \ldots Is het strikt diagonaal dominant?
+      antwoord: |-
+        nee: in de middelste rijen is $2 = 1 + 1$
+      uitwerking: |-
+        In rij 1 en 4 is $2 > 1$, maar in rij 2 en 3 is $|2| = |-1| + |-1|$: niet strikt.
+    - opgave: |-
+        Doe drie stappen Gauss-Seidel vanaf 0. Convergeert de methode?
+      antwoord: |-
+        $(50;\ 25;\ 12{,}5;\ 16{,}25)$, $(62{,}5;\ 37{,}5;\ 26{,}88;\ 23{,}44)$, $(68{,}75;\ 47{,}81;\ 35{,}63;\ 27{,}81)$; ja, traag
+      uitwerking: |-
+        De waarden stijgen naar $(84, 68, 52, 36)$. De stelling geeft geen garantie, maar de methode convergeert toch.
+    - opgave: |-
+        Met een rekenblad zie je dat de verschillen tussen opeenvolgende stappen uiteindelijk per stap met $0{,}6545$ vermenigvuldigd worden bij Gauss-Seidel, en met $0{,}809$ bij Jacobi. Wat valt op aan die getallen?
+      antwoord: |-
+        $0{,}6545 \approx 0{,}809^2$
+      uitwerking: |-
+        $0{,}809^2 \approx 0{,}6545$: ook hier is Gauss-Seidel twee keer zo snel als Jacobi. (Het getal 0,809 is $\cos 36^\circ$: wie later eigenwaarden leert, kan dat verklaren.)
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het midden van de plaat
+  opgave: |-
+    In het programma van de tekst is de temperatuur in het midden van een vierkante plaat 45\,°C, het gemiddelde van de vier randen. We verklaren dat voor een rooster met een oneven aantal punten per rij.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan: zijn $T$ en $T'$ oplossingen bij de randen $R$ en $R'$, dan is $T + T'$ een oplossing bij de randen $R + R'$.
+      antwoord: |-
+        de vergelijkingen zijn lineair
+      uitwerking: |-
+        Elke vergelijking zegt: $4T_P - (\text{som van de buren}) = (\text{som van de randwaarden bij } P)$. Tel de vergelijkingen voor $T$ en $T'$ op: $T + T'$ voldoet aan dezelfde vergelijkingen met rechterlid $R + R'$.
+    - opgave: |-
+        Noem $c$ de temperatuur in het midden als de bovenrand 1\,°C is en de andere randen 0\,°C. Waarom is $c$ ook de temperatuur in het midden als alleen de linkerrand 1\,°C is?
+      antwoord: |-
+        draai de plaat een kwartslag
+      uitwerking: |-
+        Draai de plaat een kwartslag: de linkerrand wordt de bovenrand, en het midden blijft het midden. Het stelsel verandert niet van vorm, dus de temperatuur in het midden ook niet.
+    - opgave: |-
+        Zijn alle randen 1\,°C, dan is overal 1\,°C een oplossing. Besluit dat $c = \frac14$, en dat het midden het gemiddelde is van de vier randtemperaturen.
+      antwoord: |-
+        $4c = 1$
+      uitwerking: |-
+        Met de eerste deelvraag is de som van de vier oplossingen (één rand 1\,°C) de oplossing met alle randen 1\,°C, en die is overal 1. In het midden: $4c = 1$. Met randen $a$, $b$, $c'$, $d$ is het midden dan $\frac{a}{4} + \frac{b}{4} + \frac{c'}{4} + \frac{d}{4}$. Bij het probleem: $\frac{100 + 60 + 20 + 0}{4} = 45$.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    overrelaxatie
+  opgave: |-
+    Bij \textit{overrelaxatie} schuif je bij elke onbekende iets verder dan Gauss-Seidel voorstelt: is $g$ de nieuwe waarde volgens Gauss-Seidel en $x$ de oude, dan neem je $x + \omega\,(g - x)$, met $1 < \omega < 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom kan dat helpen bij de plaat van het probleem? Kijk naar de tabel van voorbeeld \ref{vb:h3-terug}.
+      antwoord: |-
+        de waarden stijgen altijd in dezelfde richting
+      uitwerking: |-
+        Alle temperaturen stijgen bij elke stap, maar te weinig: ze kruipen naar de oplossing. Een iets grotere stap in dezelfde richting brengt ze sneller.
+    - opgave: |-
+        Doe twee stappen met $\omega = 1{,}1$ vanaf 0.
+      antwoord: |-
+        $(44;\ 45{,}10;\ 28{,}60;\ 25{,}77)$, $(59{,}87;\ 52{,}04;\ 37{,}19;\ 27{,}46)$
+      uitwerking: |-
+        $T_1 = 0 + 1{,}1 \cdot 40 = 44$, $T_2 = 1{,}1 \cdot \frac{120 + 44}{4} = 45{,}1$, $T_3 = 1{,}1 \cdot \frac{60 + 44}{4} = 28{,}6$, $T_4 = 1{,}1 \cdot \frac{20 + 45{,}1 + 28{,}6}{4} \approx 25{,}77$. Stap 2 op dezelfde manier.
+    - opgave: |-
+        Met een rekenblad: hoeveel stappen zijn nodig voor een fout kleiner dan 0,01\,°C met $\omega = 1$; $1{,}1$; $1{,}2$; $1{,}3$?
+      antwoord: |-
+        7; 5; 6; 8
+      uitwerking: |-
+        $\omega = 1$ (Gauss-Seidel): 7, $\omega = 1{,}1$: 5, $\omega = 1{,}2$: 6, $\omega = 1{,}3$: 8. Een goede $\omega$ wint, een te grote schiet voorbij. Bij grote roosters wint de beste $\omega$ honderden keren.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een driehoekig stelsel
+  opgave: |-
+    Gegeven is $\begin{cases} 2x = 4 \\ x + 4y = 10 \\ x - y + 5z = 15 \end{cases}$
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Doe één stap Gauss-Seidel vanaf $(0, 0, 0)$. Wat valt op?
+      antwoord: |-
+        $(2, 2, 3)$: meteen exact
+      uitwerking: |-
+        $x = 2$, $y = \frac{10 - 2}{4} = 2$, $z = \frac{15 - 2 + 2}{5} = 3$. Dat is de oplossing: in een driehoekig stelsel gebruikt elke vergelijking alleen onbekenden die al berekend zijn.
+    - opgave: |-
+        Hoeveel stappen heeft Jacobi nodig? Verklaar.
+      antwoord: |-
+        3
+      uitwerking: |-
+        Stap 1: $(2;\ 2{,}5;\ 3)$, stap 2: $(2;\ 2;\ 3{,}1)$, stap 3: $(2, 2, 3)$. Na stap $k$ zijn de eerste $k$ onbekenden exact, want elke onbekende hangt alleen af van de vorige.
+    - opgave: |-
+        Toon aan: is de matrix onder de diagonaal driehoekig (alle $a_{ij} = 0$ voor $j > i$), dan geeft Gauss-Seidel na één stap de exacte oplossing, wat de start ook is.
+      antwoord: |-
+        $x_i^{(1)}$ gebruikt alleen $x_j^{(1)}$ met $j < i$
+      uitwerking: |-
+        Zonder termen met $j > i$ is $x_i^{(1)} = \frac{1}{a_{ii}}\bigl(b_i - \sum_{j < i} a_{ij} x_j^{(1)}\bigr)$: dat is precies het achterwaarts (hier voorwaarts) invullen, en de start komt nergens voor. Met inductie op $i$ is elke $x_i^{(1)}$ exact.
+
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Matrices
+  opgave: |-
+    Twee sectoren, energie en voeding, leveren aan elkaar en aan de consumenten. Om 1 euro energie te maken, is 0,2 euro energie en 0,4 euro voeding nodig; voor 1 euro voeding 0,3 euro energie en 0,1 euro voeding. De consumenten vragen 60 (energie) en 30 (voeding). De productie $\mathbf{x}$ voldoet aan $\mathbf{x} = A\mathbf{x} + \mathbf{d}$, met $A = \begin{pmatrix} 0{,}2 & 0{,}3 \\ 0{,}4 & 0{,}1 \end{pmatrix}$ en $\mathbf{d} = \begin{pmatrix} 60 \\ 30 \end{pmatrix}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Los op met de inverse matrix: $\mathbf{x} = (I - A)^{-1}\mathbf{d}$.
+      antwoord: |-
+        $\mathbf{x} = \begin{pmatrix} 105 \\ 80 \end{pmatrix}$
+      uitwerking: |-
+        $I - A = \begin{pmatrix} 0{,}8 & -0{,}3 \\ -0{,}4 & 0{,}9 \end{pmatrix}$, $\det = 0{,}72 - 0{,}12 = 0{,}6$, $(I - A)^{-1} = \frac{1}{0{,}6}\begin{pmatrix} 0{,}9 & 0{,}3 \\ 0{,}4 & 0{,}8 \end{pmatrix} = \begin{pmatrix} 1{,}5 & 0{,}5 \\ \frac23 & \frac43 \end{pmatrix}$. Dus $\mathbf{x} = (90 + 15,\ 40 + 40) = (105, 80)$.
+    - opgave: |-
+        Itereer $\mathbf{x}^{(k+1)} = A\mathbf{x}^{(k)} + \mathbf{d}$ vanaf $\mathbf{0}$, drie stappen. Wat betekenen de stappen economisch?
+      antwoord: |-
+        $(60, 30)$, $(81, 57)$, $(93{,}3;\ 68{,}1)$
+      uitwerking: |-
+        Eerst produceer je wat de consumenten vragen; daarna wat nodig was om dat te maken, en zo verder. $A(60, 30) = (21, 27)$, dus $(81, 57)$; $A(81, 57) = (33{,}3;\ 38{,}1)$, dus $(93{,}3;\ 68{,}1)$.
+    - opgave: |-
+        Toon aan dat $I - A$ strikt diagonaal dominant is. Wat zegt dat over de methode van Jacobi op $(I - A)\mathbf{x} = \mathbf{d}$?
+      antwoord: |-
+        $0{,}8 > 0{,}3$ en $0{,}9 > 0{,}4$; ze convergeert
+      uitwerking: |-
+        In elke rij is het diagonaalelement groter dan het andere. Jacobi convergeert dus, met $q = \max\bigl(\frac{0{,}3}{0{,}8}, \frac{0{,}4}{0{,}9}\bigr) \approx 0{,}44$. Voor grote economieën met honderden sectoren rekent men zo, zonder een inverse te berekenen.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: |-
+      Kansrekenen
+  opgave: |-
+    Een pion staat op een van de vakjes 1, 2 of 3 van een rij van vakjes 0 tot 4. Bij elke worp van een munt gaat hij één vakje naar rechts (kop) of naar links (munt). Komt hij op 4, dan win je; op 0 verlies je. Noem $p_i$ de kans om te winnen vanaf vakje $i$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verklaar waarom $p_i = \frac12 p_{i-1} + \frac12 p_{i+1}$, met $p_0 = 0$ en $p_4 = 1$.
+      antwoord: |-
+        somregel en productregel na de eerste worp
+      uitwerking: |-
+        Na de eerste worp sta je met kans $\frac12$ op $i - 1$ en met kans $\frac12$ op $i + 1$, en vandaar is de kans om te winnen $p_{i-1}$ of $p_{i+1}$.
+    - opgave: |-
+        Los het stelsel voor $p_1$, $p_2$, $p_3$ op met drie stappen Gauss-Seidel vanaf 0.
+      antwoord: |-
+        $(0;\ 0;\ 0{,}5)$, $(0;\ 0{,}25;\ 0{,}625)$, $(0{,}125;\ 0{,}375;\ 0{,}6875)$
+      uitwerking: |-
+        $p_1 = \frac12 p_2$, $p_2 = \frac12(p_1 + p_3)$, $p_3 = \frac12(p_2 + 1)$. Stap 1: $0$, $0$, $0{,}5$. Stap 2: $0$, $0{,}25$, $0{,}625$. Stap 3: $0{,}125$, $0{,}375$, $0{,}6875$.
+    - opgave: |-
+        De rij nadert $(0{,}25;\ 0{,}5;\ 0{,}75)$. Controleer dat dat de oplossing is, en geef de kans om te winnen vanaf vakje $i$ in een rij van 0 tot $N$.
+      antwoord: |-
+        $p_i = \frac iN$
+      uitwerking: |-
+        $\frac12(0 + 0{,}5) = 0{,}25$, $\frac12(0{,}25 + 0{,}75) = 0{,}5$, $\frac12(0{,}5 + 1) = 0{,}75$. Zoals bij de staaf uit de opdrachten is de oplossing lineair: $p_i = \frac{i}{N}$. Hetzelfde stelsel beschrijft de temperatuur in een staaf.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: meetkunde
+    onderwerp: |-
+      Ruimtemeetkunde
+  opgave: |-
+    De rechten $a\!: x + y = 2$ en $b\!: x + 1{,}1\,y = 2{,}1$ snijden elkaar in $(1, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de hoek tussen de rechten met de normaalvectoren $(1, 1)$ en $(1;\ 1{,}1)$ en het scalair product.
+      antwoord: |-
+        ongeveer $2{,}7^\circ$
+      uitwerking: |-
+        $\cos\varphi = \frac{1 + 1{,}1}{\sqrt 2 \cdot \sqrt{2{,}21}} = \frac{2{,}1}{2{,}1024} \approx 0{,}998\,86$, dus $\varphi \approx 2{,}7^\circ$.
+    - opgave: |-
+        Verschuif $b$ evenwijdig over een afstand $d$. Toon met een schets aan dat het snijpunt dan verschuift over $\frac{d}{\sin\varphi}$.
+      antwoord: |-
+        rechthoekige driehoek met hoek $\varphi$
+      uitwerking: |-
+        Het snijpunt schuift langs $a$. De verschuiving $s$ langs $a$ en de afstand $d$ tussen de oude en de nieuwe $b$ vormen een rechthoekige driehoek met hoek $\varphi$ tegenover $d$: $d = s \sin\varphi$.
+    - opgave: |-
+        Met $2{,}2$ in plaats van $2{,}1$ verschuift $b$ over $d = \frac{0{,}1}{\sqrt{2{,}21}} \approx 0{,}067$. Bereken de verschuiving van het snijpunt, en controleer met de oplossing $(0, 2)$.
+      antwoord: |-
+        $\sqrt 2 \approx 1{,}41$
+      uitwerking: |-
+        $\frac{0{,}067}{\sin 2{,}7^\circ} \approx \frac{0{,}067}{0{,}0475} \approx 1{,}41$, en de afstand van $(1, 1)$ tot $(0, 2)$ is $\sqrt 2$. Hoe kleiner de hoek, hoe slechter geconditioneerd het stelsel.
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Doe twee stappen van de methode van Jacobi vanaf $(0, 0, 0)$ op $\begin{cases} 4x + y = 6 \\ x + 5y - z = 10 \\ y + 2z = 4 \end{cases}$
+  antwoord: |-
+    $(1{,}5;\ 2;\ 2)$; $(1;\ 2{,}1;\ 1)$
+  uitwerking: |-
+    $x = \frac{6 - y}{4}$, $y = \frac{10 - x + z}{5}$, $z = \frac{4 - y}{2}$. Stap 1: $(1{,}5;\ 2;\ 2)$. Stap 2: $x = \frac{6 - 2}{4} = 1$, $y = \frac{10 - 1{,}5 + 2}{5} = 2{,}1$, $z = \frac{4 - 2}{2} = 1$. (De oplossing is $(1, 2, 1)$.)
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Doe twee stappen van de methode van Gauss-Seidel vanaf $(0, 0, 0)$ op het stelsel van testvraag \ref{oef:h3-t1}.
+  antwoord: |-
+    $(1{,}5;\ 1{,}7;\ 1{,}15)$; $(1{,}075;\ 2{,}015;\ 0{,}9925)$
+  uitwerking: |-
+    Stap 1: $x = 1{,}5$, $y = \frac{10 - 1{,}5 + 0}{5} = 1{,}7$, $z = \frac{4 - 1{,}7}{2} = 1{,}15$. Stap 2: $x = \frac{6 - 1{,}7}{4} = 1{,}075$, $y = \frac{10 - 1{,}075 + 1{,}15}{5} = 2{,}015$, $z = \frac{4 - 2{,}015}{2} = 0{,}9925$.
+
+- id: h3-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Herschik $\begin{cases} x + 2y + 7z = 3 \\ 6x - y + 2z = 1 \\ x + 4y - z = 2 \end{cases}$ zodat het strikt diagonaal dominant is, en bereken $q$.
+  antwoord: |-
+    volgorde 2, 3, 1; $q = \frac12$
+  uitwerking: |-
+    Voor $x$: $6x - y + 2z = 1$ ($6 > 3$). Voor $y$: $x + 4y - z = 2$ ($4 > 2$). Voor $z$: $x + 2y + 7z = 3$ ($7 > 3$). $q = \max\bigl(\frac36, \frac24, \frac37\bigr) = \frac12$.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Los $\begin{cases} 0{,}0002\,x + y = 1 \\ 2x + y = 3 \end{cases}$ op met Gauss-Jordan op drie beduidende cijfers, zonder en met spilkeuze. Welk resultaat is juist?
+  antwoord: |-
+    zonder: $(0, 1)$; met: $(1, 1)$, juist
+  uitwerking: |-
+    Zonder: $R_2 - 10\,000\,R_1$ geeft $-9999\,y = -9997$, afgerond $-10\,000\,y = -10\,000$, dus $y = 1$ en $x = \frac{1 - 1}{0{,}0002} = 0$. Met spilkeuze: $R_2 - 0{,}0001\,R_1$ geeft $0{,}9999\,y = 0{,}9997$, afgerond $y = 1{,}00$, en $x = \frac{3 - 1}{2} = 1$. Exact is $x \approx 1{,}0001$ en $y \approx 0{,}9998$.
+
+- id: h3-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Los $\begin{cases} 3x + 4y = 7 \\ 3x + 4{,}01\,y = 7{,}01 \end{cases}$ op, en daarna hetzelfde stelsel met $7{,}02$ in plaats van $7{,}01$. Is het stelsel slecht geconditioneerd? Verklaar met de determinant en met de rechten.
+  antwoord: |-
+    $(1, 1)$; $\bigl(-\frac13, 2\bigr)$; ja
+  uitwerking: |-
+    Aftrekken: $0{,}01\,y = 0{,}01$, dus $y = 1$ en $x = 1$. Met 7,02: $0{,}01\,y = 0{,}02$, $y = 2$ en $x = \frac{7 - 8}{3} = -\frac13$. $\det = 3 \cdot 4{,}01 - 4 \cdot 3 = 0{,}03$: klein. De rechten zijn bijna evenwijdig.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Iemand past Gauss-Seidel toe op $\begin{cases} x + 3y = 4 \\ 5x + y = 6 \end{cases}$, met de eerste vergelijking voor $x$, en ziet de rij wegvliegen. Verklaar, en geef een oplossing voor het probleem.
+  antwoord: |-
+    niet diagonaal dominant; wissel de vergelijkingen
+  uitwerking: |-
+    Met $x = 4 - 3y$ en $y = 6 - 5x$ is de factor $\frac{bc}{ad} = \frac{3 \cdot 5}{1 \cdot 1} = 15$: de fout wordt telkens 15 keer groter. Wissel: $5x + y = 6$ voor $x$ en $x + 3y = 4$ voor $y$. Dat is strikt diagonaal dominant, met factor $\frac{1}{15}$. (De oplossing is $(1, 1)$.)
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een plaat met vier punten binnenin heeft boven 50\,°C, links 30\,°C, rechts 10\,°C en onderaan 10\,°C. Stel het stelsel op, en doe twee stappen Gauss-Seidel vanaf 0.
+  antwoord: |-
+    $(20;\ 20;\ 15;\ 13{,}75)$; $(28{,}75;\ 25{,}63;\ 20{,}63;\ 16{,}56)$
+  uitwerking: |-
+    $T_1 = \frac14(80 + T_2 + T_3)$, $T_2 = \frac14(60 + T_1 + T_4)$, $T_3 = \frac14(40 + T_1 + T_4)$, $T_4 = \frac14(20 + T_2 + T_3)$. Stap 1: $T_1 = 20$, $T_2 = \frac{80}{4} = 20$, $T_3 = \frac{60}{4} = 15$, $T_4 = \frac{55}{4} = 13{,}75$. Stap 2: $T_1 = \frac{115}{4} = 28{,}75$, $T_2 = \frac{102{,}5}{4} \approx 25{,}63$, $T_3 = \frac{82{,}5}{4} \approx 20{,}63$, $T_4 = \frac{66{,}25}{4} \approx 16{,}56$.

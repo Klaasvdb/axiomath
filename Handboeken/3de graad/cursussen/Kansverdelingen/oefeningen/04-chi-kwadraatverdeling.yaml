@@ -1,0 +1,1217 @@
+# Oefeningen van hoofdstuk 4. Zie oefeningenbank.py voor de velden.
+
+- id: h4-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $Z$ is standaardnormaal. Bereken $P(Z \geqslant 1{,}96)$.
+      antwoord: |-
+        $\approx 0{,}025$
+      uitwerking: |-
+        \texttt{normalcdf(1.96,1E99,0,1)} $\approx 0{,}025$.
+    - opgave: |-
+        Bereken $P(|Z| \geqslant 2)$.
+      antwoord: |-
+        $\approx 0{,}046$
+      uitwerking: |-
+        Door de symmetrie: $2 \cdot P(Z \geqslant 2) \approx 2 \cdot 0{,}0228 \approx 0{,}046$.
+    - opgave: |-
+        Je gooit 60 keer met een zuivere dobbelsteen. Hoeveel zessen verwacht je?
+      antwoord: |-
+        10
+      uitwerking: |-
+        $\E(X) = np = 60 \cdot \frac16 = 10$.
+    - opgave: |-
+        $A$ en $B$ zijn onafhankelijk, met $P(A) = 0{,}4$ en $P(B) = 0{,}25$. Bereken $P(A \cap B)$.
+      antwoord: |-
+        $0{,}1$
+      uitwerking: |-
+        $P(A \cap B) = P(A) \cdot P(B) = 0{,}4 \cdot 0{,}25 = 0{,}1$.
+    - opgave: |-
+        Een toets geeft p-waarde 0,03. Wat besluit je bij $\alpha = 0{,}05$?
+      antwoord: |-
+        $H_0$ verwerpen
+      uitwerking: |-
+        $0{,}03 \leqslant 0{,}05$: het resultaat is significant, je verwerpt $H_0$.
+    - opgave: |-
+        Bereken $\dfrac{(26 - 20)^2}{20}$.
+      antwoord: |-
+        $1{,}8$
+      uitwerking: |-
+        $\frac{36}{20} = 1{,}8$.
+
+- id: h4-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Bram gooit 60 keer met een dobbelsteen en telt 8, 12, 9, 11, 6 en 14 keer één tot zes ogen. Saar gooit 600 keer met een andere dobbelsteen en telt 104, 96, 103, 97, 94 en 106.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel keer verwacht Bram elk aantal ogen bij een zuivere dobbelsteen? Bereken bij Bram voor elke zijde de afwijking $O - E$ (waargenomen min verwacht), en de som van de zes afwijkingen.
+      antwoord: |-
+        10; \ $-2$, $2$, $-1$, $1$, $-4$, $4$; som 0
+      uitwerking: |-
+        $E = 60 \cdot \frac16 = 10$. De afwijkingen zijn $-2$, $2$, $-1$, $1$, $-4$ en $4$, samen 0.
+    - opgave: |-
+        Leg uit waarom de som van de afwijkingen bij elke dobbelsteen 0 is. Is die som dan een goede maat voor de afwijking?
+      antwoord: |-
+        $\sum O = n = \sum E$; nee
+      uitwerking: |-
+        De waargenomen aantallen tellen op tot het aantal worpen, en de verwachte ook. Dus $\sum (O - E) = n - n = 0$, altijd: de som zegt niets.
+    - opgave: |-
+        Bereken bij Bram en bij Saar de som van de kwadraten $(O - E)^2$. Welke dobbelsteen lijkt volgens die som het minst zuiver?
+      antwoord: |-
+        Bram 42, Saar 122: die van Saar
+      uitwerking: |-
+        Bram: $4 + 4 + 1 + 1 + 16 + 16 = 42$. Saar: $E = 100$, en $16 + 16 + 9 + 9 + 36 + 36 = 122$. Volgens die som wijkt de dobbelsteen van Saar het meest af.
+    - opgave: |-
+        Toch lijkt de dobbelsteen van Saar het meest zuiver: haar afwijkingen zijn klein \textit{in verhouding tot} 100. Pas de som aan zodat ze daar rekening mee houdt, en bereken ze opnieuw voor beiden.
+      antwoord: |-
+        delen door $E$: Bram 4,2, Saar 1,22
+      uitwerking: |-
+        Deel elk kwadraat door het verwachte aantal: $\sum \frac{(O - E)^2}{E}$. Bram: $\frac{42}{10} = 4{,}2$. Saar: $\frac{122}{100} = 1{,}22$. Nu wijkt Bram het meest af.
+
+#----------------------------------------------------------------------------------------
+# Korte oefeningen
+#----------------------------------------------------------------------------------------
+
+- id: h4-x2
+  soort: kort
+  opgave: |-
+    Bereken $X^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een munt valt 31 keer op kop en 19 keer op munt. Model: een eerlijke munt.
+      antwoord: |-
+        $2{,}88$
+      uitwerking: |-
+        $E = 25$ en $25$: $X^2 = \frac{6^2}{25} + \frac{6^2}{25} = 2{,}88$.
+    - opgave: |-
+        Een draaischijf met vier even grote vakken stopt 26, 14, 22 en 18 keer op elk vak. Model: elk vak even waarschijnlijk.
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        $n = 80$, $E = 20$: $X^2 = \frac{36 + 36 + 4 + 4}{20} = 4$.
+    - opgave: |-
+        Drie categorieën met waargenomen aantallen 16, 14 en 10. Model: kansen $\frac12$, $\frac14$ en $\frac14$.
+      antwoord: |-
+        $2{,}4$
+      uitwerking: |-
+        $n = 40$, dus $E = 20$, $10$, $10$: $X^2 = \frac{16}{20} + \frac{16}{10} + 0 = 2{,}4$.
+
+- id: h4-z2
+  soort: kort
+  opgave: |-
+    Een punaise valt bij 400 worpen 248 keer met de punt omhoog. Je toetst het model $p = 0{,}6$ voor \textit{punt omhoog}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de z-score van 248.
+      antwoord: |-
+        $\approx 0{,}82$
+      uitwerking: |-
+        $np = 240$ en $\sqrt{400 \cdot 0{,}6 \cdot 0{,}4} = \sqrt{96} \approx 9{,}80$, dus $z = \frac{8}{9{,}80} \approx 0{,}82$.
+    - opgave: |-
+        Bereken $X^2$ met de twee categorieën \textit{punt omhoog} en \textit{punt opzij}.
+      antwoord: |-
+        $\approx 0{,}667$
+      uitwerking: |-
+        $E = 240$ en $160$: $X^2 = \frac{64}{240} + \frac{64}{160} \approx 0{,}267 + 0{,}4 = 0{,}667$.
+    - opgave: |-
+        Ga na dat $X^2 = z^2$.
+      antwoord: |-
+        $z^2 = \tfrac{64}{96} = \tfrac23$
+      uitwerking: |-
+        $z^2 = \frac{8^2}{96} = \frac{2}{3} \approx 0{,}667$, en $X^2 = \frac{64}{240} + \frac{64}{160} = \frac{64 \cdot 400}{240 \cdot 160} = \frac23$.
+
+- id: h4-verdeling
+  soort: kort
+  opgave: |-
+    Over de chi-kwadraatverdeling.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de verwachtingswaarde van $\chi^2_7$? Welke waarden kan $\chi^2_7$ aannemen?
+      antwoord: |-
+        7; \ alleen waarden $\geqslant 0$
+      uitwerking: |-
+        $\E(\chi^2_k) = k = 7$. Een som van kwadraten is nooit negatief.
+    - opgave: |-
+        Bereken $P(\chi^2_1 \geqslant 6{,}63)$ met de standaardnormale verdeling, zoals in voorbeeld \ref{vb:h4-k1}.
+      antwoord: |-
+        $\approx 0{,}01$
+      uitwerking: |-
+        $\chi^2_1 = Z^2 \geqslant 6{,}63 \iff |Z| \geqslant \sqrt{6{,}63} \approx 2{,}575$. Dus $2 \cdot P(Z \geqslant 2{,}575) \approx 2 \cdot 0{,}005 = 0{,}01$.
+    - opgave: |-
+        Welke van de twee is groter: $P(\chi^2_2 \geqslant 6)$ of $P(\chi^2_{10} \geqslant 6)$? Verklaar zonder te rekenen, en controleer met je rekentoestel.
+      antwoord: |-
+        $P(\chi^2_{10} \geqslant 6)$; \ $0{,}050$ en $0{,}815$
+      uitwerking: |-
+        $\chi^2_{10}$ heeft verwachtingswaarde 10, dus 6 ligt links van het midden: de kans erboven is groot. $\chi^2_2$ heeft verwachtingswaarde 2, dus 6 ligt ver in de staart. \texttt{$\chi^2$cdf(6,1E99,2)} $\approx 0{,}050$ en \texttt{$\chi^2$cdf(6,1E99,10)} $\approx 0{,}815$.
+
+- id: h4-pwaarde
+  soort: kort
+  opgave: |-
+    Bereken de p-waarde, of zoek de kritieke waarde in de tabel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $X^2 = 6{,}2$ met 2 vrijheidsgraden. Besluit bij $\alpha = 0{,}05$.
+      antwoord: |-
+        $\approx 0{,}045$; verwerpen
+      uitwerking: |-
+        \texttt{$\chi^2$cdf(6.2,1E99,2)} $\approx 0{,}045 \leqslant 0{,}05$: $H_0$ verwerpen. Ook $6{,}2 \geqslant 5{,}99$.
+    - opgave: |-
+        $X^2 = 12{,}5$ met 4 vrijheidsgraden. Besluit bij $\alpha = 0{,}01$.
+      antwoord: |-
+        $\approx 0{,}014$; niet verwerpen
+      uitwerking: |-
+        \texttt{$\chi^2$cdf(12.5,1E99,4)} $\approx 0{,}014 > 0{,}01$: $H_0$ niet verwerpen. Ook $12{,}5 < 13{,}28$.
+    - opgave: |-
+        $X^2 = 3{,}1$ met 1 vrijheidsgraad. Besluit bij $\alpha = 0{,}10$.
+      antwoord: |-
+        $\approx 0{,}078$; verwerpen
+      uitwerking: |-
+        \texttt{$\chi^2$cdf(3.1,1E99,1)} $\approx 0{,}078 \leqslant 0{,}10$: $H_0$ verwerpen. Ook $3{,}1 \geqslant 2{,}71$.
+    - opgave: |-
+        De kritieke waarden bij 6 vrijheidsgraden, voor $\alpha = 0{,}05$ en $\alpha = 0{,}01$.
+      antwoord: |-
+        $12{,}59$ en $16{,}81$
+      uitwerking: |-
+        Uit de tabel, kolom 6.
+
+- id: h4-aanpassing
+  soort: kort
+  opgave: |-
+    Een draaischijf heeft vijf even grote vakken. Bij 150 keer draaien stopt ze 38, 27, 24, 33 en 28 keer op elk vak. Toets bij $\alpha = 0{,}05$ of elk vak even waarschijnlijk is.
+  antwoord: |-
+    $X^2 \approx 4{,}07$, p $\approx 0{,}40$: niet verwerpen
+  uitwerking: |-
+    $H_0\colon p_i = \frac15$ voor elk vak. $E = 30$ voor elk vak, allemaal $\geqslant 5$. $X^2 = \frac{64 + 9 + 36 + 9 + 4}{30} = \frac{122}{30} \approx 4{,}07$, met $5 - 1 = 4$ vrijheidsgraden. p-waarde $= P(\chi^2_4 \geqslant 4{,}07) \approx 0{,}40 > 0{,}05$: $H_0$ niet verwerpen. Er is geen aanwijzing dat de schijf een vak voortrekt.
+
+- id: h4-model
+  soort: kort
+  opgave: |-
+    Bij een kruising van planten verwacht een bioloog de verhouding $3 : 1$ voor paarse en witte bloemen. Van 240 planten bloeien er 167 paars. Toets bij $\alpha = 0{,}05$.
+  antwoord: |-
+    $X^2 \approx 3{,}76$, p $\approx 0{,}053$: net niet verwerpen
+  uitwerking: |-
+    $H_0\colon p = \frac34, \frac14$. $E = 180$ en $60$; $O = 167$ en $73$. $X^2 = \frac{13^2}{180} + \frac{13^2}{60} \approx 0{,}939 + 2{,}817 = 3{,}76$, met 1 vrijheidsgraad. p-waarde $= P(\chi^2_1 \geqslant 3{,}76) \approx 0{,}053 > 0{,}05$: $H_0$ net niet verwerpen ($3{,}76 < 3{,}84$). Een randgeval: meer planten tellen.
+
+- id: h4-samennemen
+  soort: kort
+  opgave: |-
+    Je toetst of het aantal telefoontjes per minuut bij een kleine hulplijn Poissonverdeeld is, met 100 waargenomen minuten. Met $\lambda = 1$ zijn de verwachte aantallen 36,8 (0 telefoontjes), 36,8 (1), 18,4 (2), 6,1 (3), 1,5 (4) en 0,4 (5 of meer).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke categorieën neem je samen? Hoeveel categorieën blijven er over?
+      antwoord: |-
+        3, 4 en 5 of meer samen; 4 categorieën
+      uitwerking: |-
+        3 alleen is genoeg ($6{,}1 \geqslant 5$), maar 4 en 5 of meer zijn te klein. Samen met 3 wordt het \textit{3 of meer}, met $E = 8{,}0$. Er blijven 4 categorieën: 0, 1, 2 en 3 of meer.
+    - opgave: |-
+        Hoeveel vrijheidsgraden heeft de toets als $\lambda = 1$ vooraf vastlag?
+      antwoord: |-
+        3
+      uitwerking: |-
+        $\vg = 4 - 1 = 3$.
+    - opgave: |-
+        En als $\lambda = 1$ het gemiddelde van de 100 minuten zelf is?
+      antwoord: |-
+        2
+      uitwerking: |-
+        Eén geschatte parameter: $\vg = 4 - 1 - 1 = 2$.
+
+- id: h4-verwacht
+  soort: kort
+  opgave: |-
+    Een school vraagt aan 200 leerlingen uit drie richtingen of ze in een sportclub zitten.
+
+    \begin{center}\small\renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{|l|c|c|c|}\hline
+     & sportclub & geen sportclub & totaal \\\hline
+    Wetenschappen & 34 & 16 & 50 \\\hline
+    Economie & 40 & 30 & 70 \\\hline
+    Latijn & 46 & 34 & 80 \\\hline
+    totaal & 120 & 80 & 200 \\\hline
+    \end{tabular}
+    \end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen als richting en sportclub onafhankelijk zijn.
+      antwoord: |-
+        30, 20; 42, 28; 48, 32
+      uitwerking: |-
+        $E_{ij} = \frac{r_i c_j}{n}$: $\frac{50 \cdot 120}{200} = 30$ en $20$; $\frac{70 \cdot 120}{200} = 42$ en $28$; $\frac{80 \cdot 120}{200} = 48$ en $32$.
+    - opgave: |-
+        Hoeveel vrijheidsgraden heeft de tabel? Hoeveel verwachte aantallen moest je echt uitrekenen?
+      antwoord: |-
+        2; \ 2
+      uitwerking: |-
+        $(3 - 1)(2 - 1) = 2$. Ken je 30 en 42, dan volgt de rest uit de totalen: $48 = 120 - 30 - 42$, en de tweede kolom is telkens rijtotaal min de eerste.
+
+- id: h4-onafh
+  soort: kort
+  opgave: |-
+    Van 400 personen lieten er 240 zich vaccineren tegen griep. Van hen kregen er 18 griep; van de 160 anderen 22. Toets bij $\alpha = 0{,}05$ of griep en vaccinatie samenhangen.
+  antwoord: |-
+    $X^2 \approx 4{,}17$, p $\approx 0{,}041$: verwerpen
+  uitwerking: |-
+    Rijen: gevaccineerd (18 griep, 222 geen), niet gevaccineerd (22, 138). Kolomtotalen 40 en 360. $E = 24$, $216$, $16$, $144$, allemaal $\geqslant 5$. $X^2 = \frac{36}{24} + \frac{36}{216} + \frac{36}{16} + \frac{36}{144} = 1{,}5 + 0{,}167 + 2{,}25 + 0{,}25 \approx 4{,}17$, met $(2 - 1)(2 - 1) = 1$ vrijheidsgraad. p-waarde $\approx 0{,}041 \leqslant 0{,}05$: $H_0$ verwerpen. Bij gevaccineerden kreeg 7,5~\% griep, bij de anderen 13,75~\%.
+
+#----------------------------------------------------------------------------------------
+# Opdrachten
+#----------------------------------------------------------------------------------------
+
+- id: h4-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    $X^2$ berekenen
+  opgave: |-
+    Bereken $X^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waargenomen 12 en 18, model: twee even waarschijnlijke uitkomsten.
+      antwoord: |-
+        $1{,}2$
+      uitwerking: |-
+        $E = 15$ en $15$: $\frac{9 + 9}{15} = 1{,}2$.
+    - opgave: |-
+        Waargenomen 9, 15 en 6, model: drie even waarschijnlijke uitkomsten.
+      antwoord: |-
+        $4{,}2$
+      uitwerking: |-
+        $E = 10$: $\frac{1 + 25 + 16}{10} = 4{,}2$.
+    - opgave: |-
+        Waargenomen 45, 30 en 25, model: kansen 50~\%, 25~\% en 25~\%.
+      antwoord: |-
+        $1{,}5$
+      uitwerking: |-
+        $n = 100$, $E = 50$, $25$, $25$: $\frac{25}{50} + \frac{25}{25} + 0 = 1{,}5$.
+
+- id: h4-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vrijheidsgraden
+  opgave: |-
+    Hoeveel vrijheidsgraden heeft de toets?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Je toetst of de 37 vakken van een roulettewiel even waarschijnlijk zijn.
+      antwoord: |-
+        36
+      uitwerking: |-
+        $37 - 1 = 36$.
+    - opgave: |-
+        Je toetst of twee variabelen in een kruistabel met 3 rijen en 4 kolommen onafhankelijk zijn.
+      antwoord: |-
+        6
+      uitwerking: |-
+        $(3 - 1)(4 - 1) = 6$.
+    - opgave: |-
+        Je toetst een Poissonmodel waarvan je $\lambda$ uit de data schat. Na het samennemen blijven 6 categorieën over.
+      antwoord: |-
+        4
+      uitwerking: |-
+        $6 - 1 - 1 = 4$.
+    - opgave: |-
+        Je toetst het model $1 : 2 : 1$ voor drie bloemkleuren.
+      antwoord: |-
+        2
+      uitwerking: |-
+        Drie categorieën, geen geschatte parameter: $3 - 1 = 2$.
+
+- id: h4-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    p-waarde met $\chi^2$cdf
+  opgave: |-
+    Bereken de p-waarde en besluit bij $\alpha = 0{,}05$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $X^2 = 4{,}5$; 1 vrijheidsgraad
+      antwoord: |-
+        $\approx 0{,}034$; verwerpen
+      uitwerking: |-
+        $P(\chi^2_1 \geqslant 4{,}5) \approx 0{,}034 \leqslant 0{,}05$.
+    - opgave: |-
+        $X^2 = 9{,}0$; 3 vrijheidsgraden
+      antwoord: |-
+        $\approx 0{,}029$; verwerpen
+      uitwerking: |-
+        $P(\chi^2_3 \geqslant 9) \approx 0{,}029 \leqslant 0{,}05$.
+    - opgave: |-
+        $X^2 = 15{,}2$; 6 vrijheidsgraden
+      antwoord: |-
+        $\approx 0{,}019$; verwerpen
+      uitwerking: |-
+        $P(\chi^2_6 \geqslant 15{,}2) \approx 0{,}019 \leqslant 0{,}05$.
+    - opgave: |-
+        $X^2 = 2{,}1$; 2 vrijheidsgraden
+      antwoord: |-
+        $\approx 0{,}35$; niet verwerpen
+      uitwerking: |-
+        $P(\chi^2_2 \geqslant 2{,}1) \approx 0{,}35 > 0{,}05$.
+
+- id: h4-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    onafhankelijkheidstoets (2 bij 2)
+  opgave: |-
+    Een leerkracht maakt twee versies van een toets en verdeelt ze door loting over 120 leerlingen. Van de 60 leerlingen met versie A slagen er 42, van de 60 met versie B 28.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zet de gegevens in een kruistabel en bereken de verwachte aantallen als slagen en versie onafhankelijk zijn.
+      antwoord: |-
+        35, 25, 35, 25
+      uitwerking: |-
+        Rijen A (42 geslaagd, 18 niet) en B (28, 32), kolomtotalen 70 en 50. $E = \frac{60 \cdot 70}{120} = 35$ en $25$, voor beide rijen.
+    - opgave: |-
+        Bereken $X^2$ en het aantal vrijheidsgraden.
+      antwoord: |-
+        $6{,}72$; 1
+      uitwerking: |-
+        Alle $|O - E| = 7$: $X^2 = 49 \bigl(\frac{1}{35} + \frac{1}{25} + \frac{1}{35} + \frac{1}{25}\bigr) = 6{,}72$, met $(2 - 1)(2 - 1) = 1$ vrijheidsgraad.
+    - opgave: |-
+        Zijn de twee versies even moeilijk? Toets bij $\alpha = 0{,}05$.
+      antwoord: |-
+        p $\approx 0{,}0095$: nee
+      uitwerking: |-
+        p-waarde $= P(\chi^2_1 \geqslant 6{,}72) \approx 0{,}0095 \leqslant 0{,}05$: $H_0$ verwerpen. Versie B is waarschijnlijk moeilijker: 47~\% slaagt, tegen 70~\% bij versie A. Door de loting ligt dat aan de versie, niet aan de leerlingen.
+
+- id: h4-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Juist of fout? Verbeter wat fout is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een grote p-waarde bij een aanpassingstoets bewijst dat de dobbelsteen zuiver is.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout. Niet verwerpen betekent alleen dat de data het model niet tegenspreken. Een kleine afwijking kan onopgemerkt blijven, zeker bij weinig worpen.
+    - opgave: |-
+        Bij een ongelukkige steekproef kan $X^2$ negatief zijn.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout. $X^2$ is een som van kwadraten gedeeld door positieve getallen: altijd $\geqslant 0$.
+    - opgave: |-
+        Je mag de percentages van een enquête in de formule voor $X^2$ zetten in plaats van de aantallen.
+      antwoord: |-
+        fout
+      uitwerking: |-
+        Fout. $X^2$ hangt af van het aantal waarnemingen; met percentages doe je alsof er altijd 100 waren.
+    - opgave: |-
+        Een kruistabel met 2 rijen en 3 kolommen heeft $6 - 1 = 5$ vrijheidsgraden.
+      antwoord: |-
+        fout: 2
+      uitwerking: |-
+        Fout. Bij een kruistabel liggen zowel de rij- als de kolomtotalen vast: $(2 - 1)(3 - 1) = 2$.
+
+- id: h4-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    aanpassingstoets, uniform
+  opgave: |-
+    In de refter kunnen leerlingen kiezen uit vier menu's. Op een dag kiezen 120 leerlingen 38 keer menu 1, 25 keer menu 2, 31 keer menu 3 en 26 keer menu 4.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Formuleer $H_0$ en $H_1$ om na te gaan of de menu's even populair zijn.
+      antwoord: |-
+        $H_0\colon p_i = \tfrac14$; $H_1$: niet allemaal $\tfrac14$
+      uitwerking: |-
+        $H_0$: elk menu wordt gekozen met kans $\frac14$. $H_1$: minstens één menu heeft een andere kans.
+    - opgave: |-
+        Bereken $X^2$ en de p-waarde.
+      antwoord: |-
+        $\approx 3{,}53$; \ $\approx 0{,}32$
+      uitwerking: |-
+        $E = 30$: $X^2 = \frac{64 + 25 + 1 + 16}{30} = \frac{106}{30} \approx 3{,}53$, met 3 vrijheidsgraden. p-waarde $\approx 0{,}32$.
+    - opgave: |-
+        Wat besluit je bij $\alpha = 0{,}05$? Mag de kok besluiten dat menu 1 niet populairder is?
+      antwoord: |-
+        niet verwerpen; nee
+      uitwerking: |-
+        $0{,}32 > 0{,}05$: $H_0$ niet verwerpen. Dat bewijst niet dat de menu's even populair zijn: de gegevens van één dag zijn alleen niet sterk genoeg om een verschil aan te tonen.
+
+- id: h4-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    dichtheden van $\chi^2_k$
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.36cm,y=9cm,font=\scriptsize]
+        \draw[black!14,very thin] (0,0) grid[xstep=2,ystep=.1] (16,.4);
+        \foreach \k in {2,4,8}{\draw[accent,thick] plot[domain=0.001:16,samples=90,smooth] (\x,{chidich(\x,\k)});}
+        \draw[->,grijs] (0,0) -- (16.5,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,0) -- (0,.44);
+        \foreach \t in {0,4,8,12,16}{\node[below] at (\t,0) {\t};}
+        \foreach \t/\l in {.2/{0,2},.4/{0,4}}{\node[left] at (0,\t) {\l};}
+        \node[fill=white,inner sep=1pt] at (7.4,.13) {A};
+        \node[fill=white,inner sep=1pt] at (1,.42) {B};
+        \node[fill=white,inner sep=1pt] at (3.2,.21) {C};
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont de dichtheden van $\chi^2_2$, $\chi^2_4$ en $\chi^2_8$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke kromme hoort bij welke verdeling? Verklaar.
+      antwoord: |-
+        A: $\chi^2_8$, B: $\chi^2_2$, C: $\chi^2_4$
+      uitwerking: |-
+        De verwachtingswaarde is $k$: hoe meer vrijheidsgraden, hoe verder naar rechts en hoe breder. B heeft zijn grootste waarde bij 0, zoals $\chi^2_2$; C heeft een top rond 2 en A rond 6.
+    - opgave: |-
+        Bij welke verdeling is $P(\chi^2 \geqslant 8)$ het grootst? Schat die kans, en controleer met je rekentoestel.
+      antwoord: |-
+        $\chi^2_8$: $\approx 0{,}43$
+      uitwerking: |-
+        Bij $\chi^2_8$ ligt 8 bij de verwachtingswaarde, dus er ligt nog bijna de helft rechts van: \texttt{$\chi^2$cdf(8,1E99,8)} $\approx 0{,}43$. Ter vergelijking: bij $\chi^2_4$ is het $0{,}092$, bij $\chi^2_2$ maar $0{,}018$.
+
+- id: h4-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aanpassingstoets, gegeven verhoudingen
+  opgave: |-
+    Bij leeuwenbekjes geeft een kruising van een rode en een witte plant rode, roze en witte bloemen in de verhouding $1 : 2 : 1$. Een tuinier kweekt 200 planten: 41 rode, 108 roze en 51 witte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen en $X^2$.
+      antwoord: |-
+        50, 100, 50; \ $2{,}28$
+      uitwerking: |-
+        $E = 200 \cdot \frac14 = 50$, $200 \cdot \frac12 = 100$ en $50$. $X^2 = \frac{81}{50} + \frac{64}{100} + \frac{1}{50} = 1{,}62 + 0{,}64 + 0{,}02 = 2{,}28$.
+    - opgave: |-
+        Toets bij $\alpha = 0{,}05$ of de verhouding klopt.
+      antwoord: |-
+        p $\approx 0{,}32$: niet verwerpen
+      uitwerking: |-
+        2 vrijheidsgraden; p-waarde $= P(\chi^2_2 \geqslant 2{,}28) \approx 0{,}32 > 0{,}05$. $H_0$ niet verwerpen: de aantallen passen bij $1 : 2 : 1$.
+    - opgave: |-
+        Welke kleur draagt het meest bij tot $X^2$? Had je dat verwacht, als je naar de afwijkingen $O - E$ kijkt?
+      antwoord: |-
+        rood (1,62)
+      uitwerking: |-
+        Rood, met 1,62. De afwijking bij roze is bijna even groot (8 tegen 9), maar telt minder omdat je er 100 verwacht, en niet 50.
+
+- id: h4-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    onafhankelijkheidstoets, causaliteit
+  opgave: |-
+    250 leerlingen vullen een enquête in over hun smartphone in het uur voor het slapen en over hun slaap.
+
+    \begin{center}\small\renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{|l|c|c|c|c|}\hline
+     & slaapt goed & matig & slecht & totaal \\\hline
+    weinig smartphone & 60 & 45 & 20 & 125 \\\hline
+    veel smartphone & 35 & 50 & 40 & 125 \\\hline
+    totaal & 95 & 95 & 60 & 250 \\\hline
+    \end{tabular}
+    \end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen bij onafhankelijkheid.
+      antwoord: |-
+        47,5; 47,5; 30 in beide rijen
+      uitwerking: |-
+        $\frac{125 \cdot 95}{250} = 47{,}5$, $47{,}5$ en $\frac{125 \cdot 60}{250} = 30$. De twee rijen hebben hetzelfde totaal, dus dezelfde verwachte aantallen.
+    - opgave: |-
+        Bereken $X^2$, het aantal vrijheidsgraden en de p-waarde.
+      antwoord: |-
+        $\approx 13{,}5$; 2; \ $\approx 0{,}0012$
+      uitwerking: |-
+        Afwijkingen $\pm 12{,}5$, $\pm 2{,}5$ en $\pm 10$: $X^2 = 2\bigl(\frac{156{,}25}{47{,}5} + \frac{6{,}25}{47{,}5} + \frac{100}{30}\bigr) \approx 13{,}51$, met $(2 - 1)(3 - 1) = 2$ vrijheidsgraden. p-waarde $\approx 0{,}0012$.
+    - opgave: |-
+        Wat besluit je bij $\alpha = 0{,}01$? Beschrijf de samenhang met percentages per rij.
+      antwoord: |-
+        verwerpen; slecht slapen 16~\% tegen 32~\%
+      uitwerking: |-
+        $0{,}0012 \leqslant 0{,}01$: $H_0$ verwerpen, smartphonegebruik en slaap hangen samen. Bij weinig smartphone slaapt 48~\% goed en 16~\% slecht, bij veel smartphone 28~\% goed en 32~\% slecht.
+    - opgave: |-
+        Een krant schrijft: \textit{Smartphone voor het slapen veroorzaakt slapeloosheid.} Mag dat uit deze enquête volgen?
+      antwoord: |-
+        nee: samenhang is geen oorzaak
+      uitwerking: |-
+        Nee. Dit is observationeel onderzoek. Misschien grijpt wie slecht slaapt net vaker naar de smartphone (omgekeerde causaliteit), of zit er een verborgen variabele achter, zoals stress. Een experiment met loting kan het oorzakelijk verband wel aantonen.
+
+- id: h4-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    invloed van het aantal waarnemingen
+  opgave: |-
+    Lotte gooit haar dobbelsteen uit het probleem nog 120 keer, en krijgt precies dezelfde aantallen. Samen heeft ze nu 28, 34, 44, 32, 40 en 62 bij 240 worpen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $X^2$ voor de 240 worpen. Vergelijk met de 9,3 uit het probleem.
+      antwoord: |-
+        $18{,}6$: het dubbele
+      uitwerking: |-
+        $E = 40$: $X^2 = \frac{144 + 36 + 16 + 64 + 0 + 484}{40} = \frac{744}{40} = 18{,}6$, het dubbele van 9,3.
+    - opgave: |-
+        Toon aan: als je alle aantallen $O_i$ en $E_i$ met hetzelfde getal $c$ vermenigvuldigt, wordt $X^2$ ook $c$ keer zo groot.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        Elke term wordt $\frac{(cO_i - cE_i)^2}{cE_i} = \frac{c^2 (O_i - E_i)^2}{c E_i} = c \cdot \frac{(O_i - E_i)^2}{E_i}$, dus de som ook.
+    - opgave: |-
+        Toets opnieuw bij $\alpha = 0{,}05$. Wat leer je daaruit?
+      antwoord: |-
+        p $\approx 0{,}002$: verwerpen
+      uitwerking: |-
+        p-waarde $= P(\chi^2_5 \geqslant 18{,}6) \approx 0{,}002 \leqslant 0{,}05$: nu verwerp je $H_0$. Dezelfde \textit{verhoudingen} worden significant als ze bij meer worpen terugkomen. Met weinig waarnemingen kan een toets een echte afwijking missen.
+
+- id: h4-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aanpassingstoets, uniform, context
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.6cm,y=.06cm,font=\scriptsize]
+        \foreach \t in {10,20,...,60}{\draw[black!14,very thin] (.4,\t) -- (7.6,\t);}
+        \foreach \k/\h in {1/56,2/60,3/58,4/57,5/57,6/32,7/30}{\staaf{\k}{\h}{.6}}
+        \draw[fel!80!black,thick,dashed] (.4,50) -- (7.6,50);
+        \draw[->,grijs] (.4,0) -- (7.9,0);
+        \draw[->,grijs] (.4,0) -- (.4,64);
+        \foreach \k/\d in {1/ma,2/di,3/wo,4/do,5/vr,6/za,7/zo}{\node[below] at (\k,0) {\d};}
+        \foreach \t in {20,40,60}{\node[left] at (.4,\t) {\t};}
+      \end{tikzpicture}
+  opgave: |-
+    In een ziekenhuis worden op een jaar 350 baby's geboren: 56 op maandag, 60 op dinsdag, 58 op woensdag, 57 op donderdag, 57 op vrijdag, 32 op zaterdag en 30 op zondag.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $X^2$ voor het model \textit{elke dag even waarschijnlijk}.
+      antwoord: |-
+        $20{,}44$
+      uitwerking: |-
+        $E = 50$: $X^2 = \frac{36 + 100 + 64 + 49 + 49 + 324 + 400}{50} = \frac{1022}{50} = 20{,}44$.
+    - opgave: |-
+        Toets bij $\alpha = 0{,}01$.
+      antwoord: |-
+        p $\approx 0{,}002$: verwerpen
+      uitwerking: |-
+        6 vrijheidsgraden; p-waarde $= P(\chi^2_6 \geqslant 20{,}44) \approx 0{,}0023 \leqslant 0{,}01$: $H_0$ verwerpen.
+    - opgave: |-
+        Bedenk een verklaring.
+      antwoord: |-
+        geplande bevallingen
+      uitwerking: |-
+        Een deel van de bevallingen wordt gepland, zoals een keizersnede of een ingeleide bevalling, en die vallen meestal op weekdagen. Het weekend draagt dan ook het meest bij tot $X^2$: $6{,}48 + 8 = 14{,}48$ van de 20,44.
+
+- id: h4-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    welke toets?
+  opgave: |-
+    Welke toets gebruik je: een toets voor een proportie, een t-toets (hoofdstuk 3), een aanpassingstoets of een onafhankelijkheidstoets? Geef ook $H_0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Slapen leerlingen van de 3de graad gemiddeld 8 uur per nacht? Twaalf leerlingen houden hun slaapduur bij.
+      antwoord: |-
+        t-toets; $H_0\colon \mu = 8$
+      uitwerking: |-
+        Een gemiddelde van een numerieke variabele, met $\sigma$ onbekend en een kleine steekproef: een t-toets met $H_0\colon \mu = 8$ uur.
+    - opgave: |-
+        Kiezen leerlingen even vaak rood, blauw, groen en geel als lievelingskleur?
+      antwoord: |-
+        aanpassingstoets; $H_0\colon p_i = \tfrac14$
+      uitwerking: |-
+        Eén categorische variabele met vier categorieën: een aanpassingstoets met $H_0$: elke kleur heeft kans $\frac14$.
+    - opgave: |-
+        Is 10~\% van de leerlingen linkshandig?
+      antwoord: |-
+        proportie; $H_0\colon p = 0{,}1$
+      uitwerking: |-
+        Een proportie: de binomiale toets met $H_0\colon p = 0{,}1$. Een aanpassingstoets met twee categorieën kan ook, maar geeft bij een tweezijdige vraag hetzelfde (want $X^2 = z^2$) en kan niet eenzijdig toetsen.
+    - opgave: |-
+        Hangt de muziek die leerlingen het liefst horen af van hun jaar?
+      antwoord: |-
+        onafhankelijkheidstoets
+      uitwerking: |-
+        Twee categorische variabelen in een kruistabel: een onafhankelijkheidstoets, met $H_0$: muziekvoorkeur en jaar zijn onafhankelijk.
+
+- id: h4-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Poissonfit, klassen samennemen
+  opgave: |-
+    In een voetbalcompetitie telt een journalist het aantal doelpunten in 306 wedstrijden. Gemiddeld vielen er 2,8 doelpunten per wedstrijd.
+
+    \begin{center}\small\renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{|l|*{7}{c|}}\hline
+    doelpunten & 0 & 1 & 2 & 3 & 4 & 5 & 6 of meer \\\hline
+    wedstrijden & 20 & 48 & 72 & 70 & 50 & 26 & 20 \\\hline
+    \end{tabular}
+    \end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen als het aantal doelpunten $\Poi(2{,}8)$ is. Moet je klassen samennemen?
+      antwoord: |-
+        18,6; 52,1; 72,9; 68,1; 47,7; 26,7; 19,9; nee
+      uitwerking: |-
+        $306 \cdot P(X = k)$ met \texttt{poissonpdf(2.8,k)}: 18,6; 52,1; 72,9; 68,1; 47,7; 26,7, en voor 6 of meer $306 \cdot (1 - \texttt{poissoncdf(2.8,5)}) \approx 19{,}9$. Alle aantallen zijn minstens 5.
+    - opgave: |-
+        Bereken $X^2$.
+      antwoord: |-
+        $\approx 0{,}63$
+      uitwerking: |-
+        $\frac{1{,}4^2}{18{,}6} + \frac{4{,}1^2}{52{,}1} + \cdots \approx 0{,}104 + 0{,}323 + 0{,}012 + 0{,}054 + 0{,}115 + 0{,}018 + 0{,}000 \approx 0{,}63$ (met de onafgeronde $E$).
+    - opgave: |-
+        Hoeveel vrijheidsgraden heeft de toets? Waarom?
+      antwoord: |-
+        5
+      uitwerking: |-
+        7 categorieën, en $\lambda = 2{,}8$ is uit dezelfde wedstrijden geschat: $7 - 1 - 1 = 5$.
+    - opgave: |-
+        Past het Poissonmodel? Toets bij $\alpha = 0{,}05$.
+      antwoord: |-
+        p $\approx 0{,}99$: ja
+      uitwerking: |-
+        p-waarde $= P(\chi^2_5 \geqslant 0{,}63) \approx 0{,}99$: $H_0$ niet verwerpen. Het Poissonmodel past heel goed.
+
+- id: h4-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aantallen, geen percentages
+  opgave: |-
+    Een leerling bevraagt 40 klasgenoten over drie voorstellen voor de schoolreis: 30~\% kiest A, 45~\% B en 25~\% C. Ze wil weten of de voorstellen even populair zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ze zet de percentages in de formule, met verwacht $33{,}3$ voor elk voorstel. Welke $X^2$ en p-waarde vindt ze, en wat besluit ze bij $\alpha = 0{,}05$?
+      antwoord: |-
+        $6{,}5$; p $\approx 0{,}039$: verwerpen
+      uitwerking: |-
+        $X^2 = \frac{3{,}33^2 + 11{,}67^2 + 8{,}33^2}{33{,}33} \approx 6{,}5$, met 2 vrijheidsgraden: p $\approx 0{,}039$. Ze zou $H_0$ verwerpen.
+    - opgave: |-
+        Toets correct, met de aantallen. Leg uit wat er misliep.
+      antwoord: |-
+        $X^2 = 2{,}6$; p $\approx 0{,}27$: niet verwerpen
+      uitwerking: |-
+        De aantallen zijn 12, 18 en 10, met $E = 13{,}33$: $X^2 = \frac{1{,}33^2 + 4{,}67^2 + 3{,}33^2}{13{,}33} = 2{,}6$, p $\approx 0{,}27$: niet verwerpen. Met percentages deed ze alsof ze 100 personen bevraagde in plaats van 40, en $X^2$ is evenredig met het aantal waarnemingen: $6{,}5 = 2{,}5 \cdot 2{,}6$.
+
+- id: h4-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    vrijheidsgraden in een kruistabel
+  opgave: |-
+    Van een kruistabel met 2 rijen en 3 kolommen ken je de totalen en twee vakjes.
+
+    \begin{center}\small\renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{|l|c|c|c|c|}\hline
+     & $B_1$ & $B_2$ & $B_3$ & totaal \\\hline
+    $A_1$ & 20 & 28 & & 60 \\\hline
+    $A_2$ & & & & 40 \\\hline
+    totaal & 30 & 50 & 20 & 100 \\\hline
+    \end{tabular}
+    \end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vul de tabel aan.
+      antwoord: |-
+        $A_1$: 12; $A_2$: 10, 22, 8
+      uitwerking: |-
+        $60 - 20 - 28 = 12$; dan $30 - 20 = 10$, $50 - 28 = 22$ en $20 - 12 = 8$ (controle: $10 + 22 + 8 = 40$).
+    - opgave: |-
+        Wat zegt dit over het aantal vrijheidsgraden van de onafhankelijkheidstoets?
+      antwoord: |-
+        2 vrije vakjes: $\vg = 2$
+      uitwerking: |-
+        Met de totalen gegeven, kon je maar twee vakjes vrij kiezen: de rest lag vast. Dat zijn $(2 - 1)(3 - 1) = 2$ vrijheidsgraden.
+    - opgave: |-
+        Hoeveel vakjes moet je minstens kennen bij een tabel met 4 rijen en 5 kolommen, als de totalen gegeven zijn?
+      antwoord: |-
+        12
+      uitwerking: |-
+        $(4 - 1)(5 - 1) = 12$, bijvoorbeeld de vakjes van de eerste 3 rijen en de eerste 4 kolommen.
+
+- id: h4-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aanpassingstoets, gegeven kansen
+  opgave: |-
+    In een land heeft 43~\% van de bevolking bloedgroep O, 45~\% A, 9~\% B en 3~\% AB. Een bloedbank in één streek telt bij 300 donoren 118 keer O, 140 keer A, 30 keer B en 12 keer AB.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen. Is de voorwaarde voor de toets voldaan?
+      antwoord: |-
+        129, 135, 27, 9; ja
+      uitwerking: |-
+        $300 \cdot 0{,}43 = 129$, $135$, $27$ en $9$. Alle zijn minstens 5.
+    - opgave: |-
+        Bereken $X^2$ en de p-waarde.
+      antwoord: |-
+        $\approx 2{,}46$; \ $\approx 0{,}48$
+      uitwerking: |-
+        $X^2 = \frac{121}{129} + \frac{25}{135} + \frac{9}{27} + \frac{9}{9} \approx 0{,}938 + 0{,}185 + 0{,}333 + 1 = 2{,}46$, met 3 vrijheidsgraden: p $\approx 0{,}48$.
+    - opgave: |-
+        Wijkt de streek af van het land? Besluit bij $\alpha = 0{,}05$.
+      antwoord: |-
+        niet verwerpen
+      uitwerking: |-
+        $0{,}48 > 0{,}05$: $H_0$ niet verwerpen. Er is geen aanwijzing dat de bloedgroepen in deze streek anders verdeeld zijn.
+
+- id: h4-o24
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    onafhankelijkheidstoets, niet significant
+  opgave: |-
+    Een fabrikant beweert dat een energiedrank helpt bij examens. Van 80 vrijwilligers krijgen er 40 door loting de drank, de anderen water. Van de drinkers slagen er 22, van de anderen 19.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen en $X^2$.
+      antwoord: |-
+        20,5; 19,5 in beide rijen; \ $\approx 0{,}45$
+      uitwerking: |-
+        Kolomtotalen 41 geslaagd en 39 niet: $E = \frac{40 \cdot 41}{80} = 20{,}5$ en $19{,}5$ in beide rijen. Alle $|O - E| = 1{,}5$, dus $X^2 = 2{,}25\bigl(\frac{2}{20{,}5} + \frac{2}{19{,}5}\bigr) \approx 0{,}45$.
+    - opgave: |-
+        Toets bij $\alpha = 0{,}05$.
+      antwoord: |-
+        p $\approx 0{,}50$: niet verwerpen
+      uitwerking: |-
+        1 vrijheidsgraad; p-waarde $= P(\chi^2_1 \geqslant 0{,}45) \approx 0{,}50$: $H_0$ niet verwerpen.
+    - opgave: |-
+        De fabrikant zegt: \textit{Met onze drank slaagt 55~\% in plaats van 47,5~\%.} Wat antwoord je?
+      antwoord: |-
+        verschil past bij toeval
+      uitwerking: |-
+        Het verschil bestaat in deze steekproef, maar zo'n verschil ontstaat in de helft van de gevallen door toeval, ook als de drank niets doet. De proef toont geen effect aan.
+
+- id: h4-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    aanpassingstoets, wet van Benford
+  opgave: |-
+    In veel echte gegevens, zoals bedragen in een boekhouding, begint een getal vaker met een kleine dan met een grote eerste cijfer: volgens de wet van Benford is de kans op eerste cijfer $d$ gelijk aan $\log\bigl(1 + \frac1d\bigr)$. Een controleur bekijkt 200 bedragen van een bedrijf. De eerste cijfers 1 tot 9 komen 38, 27, 24, 22, 20, 19, 18, 17 en 15 keer voor.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachte aantallen volgens Benford (op één decimaal).
+      antwoord: |-
+        60,2; 35,2; 25,0; 19,4; 15,8; 13,4; 11,6; 10,2; 9,2
+      uitwerking: |-
+        $200 \cdot \log 2 \approx 60{,}2$, $200 \cdot \log 1{,}5 \approx 35{,}2$, $200 \cdot \log \frac43 \approx 25{,}0$, en zo verder tot $200 \cdot \log \frac{10}{9} \approx 9{,}2$. Alle zijn minstens 5.
+    - opgave: |-
+        Toets bij $\alpha = 0{,}01$ of de bedragen de wet van Benford volgen.
+      antwoord: |-
+        $X^2 \approx 25{,}7$, p $\approx 0{,}001$: verwerpen
+      uitwerking: |-
+        $X^2 \approx 8{,}19 + 1{,}92 + 0{,}04 + 0{,}35 + 1{,}09 + 2{,}35 + 3{,}53 + 4{,}48 + 3{,}74 \approx 25{,}7$, met 8 vrijheidsgraden: p $\approx 0{,}0012 \leqslant 0{,}01$. $H_0$ verwerpen.
+    - opgave: |-
+        Welke cijfers dragen het meest bij? Waarom kan dat wijzen op verzonnen bedragen?
+      antwoord: |-
+        te weinig 1, te veel 7, 8, 9
+      uitwerking: |-
+        Er zijn te weinig bedragen met eerste cijfer 1 (bijdrage 8,19) en te veel met 7, 8 en 9. Wie bedragen verzint, kiest de eerste cijfers vaak te gelijkmatig. Een significante afwijking is geen bewijs van fraude, wel een reden om beter te kijken.
+
+- id: h4-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    toevalsgenerator, te mooi
+  opgave: |-
+    Een computerprogramma maakt 500 willekeurige cijfers. Elk cijfer van 0 tot 9 komt zo vaak voor: 46, 55, 48, 52, 61, 44, 49, 50, 47, 48.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $X^2$ en de p-waarde voor het model \textit{elk cijfer even waarschijnlijk}.
+      antwoord: |-
+        $4{,}4$; \ $\approx 0{,}88$
+      uitwerking: |-
+        $E = 50$: $X^2 = \frac{16 + 25 + 4 + 4 + 121 + 36 + 1 + 0 + 9 + 4}{50} = \frac{220}{50} = 4{,}4$, met 9 vrijheidsgraden: p $\approx 0{,}88$.
+    - opgave: |-
+        Wat besluit je bij $\alpha = 0{,}05$?
+      antwoord: |-
+        niet verwerpen
+      uitwerking: |-
+        $0{,}88 > 0{,}05$: $H_0$ niet verwerpen. De cijfers passen bij een goede toevalsgenerator.
+    - opgave: |-
+        Een tweede programma geeft elk cijfer precies 50 keer. Bereken $X^2$. Waarom is ook dat verdacht?
+      antwoord: |-
+        0; te regelmatig
+      uitwerking: |-
+        $X^2 = 0$. Als de cijfers echt toevallig zijn, is $P(\chi^2_9 \leqslant 1)$ al maar ongeveer $0{,}0006$: zo'n perfecte verdeling komt bijna nooit voor. Het programma kiest de cijfers waarschijnlijk niet onafhankelijk.
+
+- id: h4-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    rekenformule bij gelijke kansen (bewijs)
+  opgave: |-
+    Bij $k$ even waarschijnlijke categorieën en $n$ waarnemingen is $E_i = \frac{n}{k}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat dan $X^2 = \dfrac{k}{n} \displaystyle\sum_{i=1}^{k} O_i^2 - n$.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        $X^2 = \frac{k}{n} \sum (O_i - \frac{n}{k})^2 = \frac{k}{n} \sum O_i^2 - \frac{k}{n} \cdot 2 \cdot \frac{n}{k} \sum O_i + \frac{k}{n} \cdot k \cdot \frac{n^2}{k^2}$. Met $\sum O_i = n$ is dat $\frac{k}{n} \sum O_i^2 - 2n + n = \frac{k}{n} \sum O_i^2 - n$.
+    - opgave: |-
+        Controleer met de dobbelsteen van Lotte.
+      antwoord: |-
+        $\tfrac{6}{120} \cdot 2586 - 120 = 9{,}3$
+      uitwerking: |-
+        $\sum O_i^2 = 196 + 289 + 484 + 256 + 400 + 961 = 2586$, en $\frac{6}{120} \cdot 2586 - 120 = 129{,}3 - 120 = 9{,}3$.
+
+- id: h4-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    te mooi om waar te zijn: Fisher over Mendel
+  opgave: |-
+    In voorbeeld \ref{vb:h4-mendel} vond je bij de erwten van Mendel $X^2 \approx 0{,}47$ met 3 vrijheidsgraden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $P(\chi^2_3 \leqslant 0{,}47)$. Wat betekent die kans?
+      antwoord: |-
+        $\approx 0{,}075$
+      uitwerking: |-
+        \texttt{$\chi^2$cdf(0,0.47,3)} $\approx 0{,}075$. Als het model klopt, liggen de aantallen maar in 7,5~\% van de herhalingen zo dicht bij de verwachting. Opvallend, maar niet uitzonderlijk.
+    - opgave: |-
+        In 1936 telde Ronald Fisher alle proeven van Mendel samen, en vond ongeveer $X^2 = 42$ bij 84 vrijheidsgraden. Bereken $\E(\chi^2_{84})$ en $P(\chi^2_{84} \leqslant 42)$.
+      antwoord: |-
+        84; \ $\approx 0{,}00004$
+      uitwerking: |-
+        $\E(\chi^2_{84}) = 84$: je verwacht een $X^2$ rond 84, niet rond 42. \texttt{$\chi^2$cdf(0,42,84)} $\approx 0{,}000\,04$.
+    - opgave: |-
+        Fisher besloot dat de resultaten te mooi waren om waar te zijn. Leg uit. Welke verklaringen kun je bedenken?
+      antwoord: |-
+        te weinig toevallige schommeling
+      uitwerking: |-
+        Echte toevallige aantallen schommelen rond de verwachting; een $X^2$ die zo klein is, komt bij toeval bijna nooit voor. Mogelijke verklaringen: een helper liet proeven weg die slecht pasten, stopte met tellen zodra de verhouding klopte, of twijfelgevallen werden in de verwachte richting ingedeeld. Of Mendel zelf iets bijstuurde, is tot vandaag onzeker.
+
+- id: h4-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    formule voor een 2 bij 2-tabel (bewijs)
+  opgave: |-
+    Een kruistabel heeft 2 rijen en 2 kolommen, met in de vakjes $a$, $b$ (eerste rij) en $c$, $d$ (tweede rij), en $n = a + b + c + d$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $O_{11} - E_{11} = \dfrac{ad - bc}{n}$, en dat de vier afwijkingen $O_{ij} - E_{ij}$ op het teken na gelijk zijn.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        $a - \frac{(a + b)(a + c)}{n} = \frac{a(a + b + c + d) - (a + b)(a + c)}{n} = \frac{ad - bc}{n}$. In elke rij en kolom tellen de afwijkingen op tot 0, dus de andere drie zijn $\mp \frac{ad - bc}{n}$.
+    - opgave: |-
+        Bewijs dat $X^2 = \dfrac{n(ad - bc)^2}{(a + b)(c + d)(a + c)(b + d)}$.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        Met $r_1 = a + b$, $r_2 = c + d$, $c_1 = a + c$, $c_2 = b + d$ is $\sum \frac{1}{E_{ij}} = n\bigl(\frac{1}{r_1c_1} + \frac{1}{r_1c_2} + \frac{1}{r_2c_1} + \frac{1}{r_2c_2}\bigr) = n \cdot \frac{(r_1 + r_2)(c_1 + c_2)}{r_1r_2c_1c_2} = \frac{n^3}{r_1r_2c_1c_2}$. Dus $X^2 = \frac{(ad - bc)^2}{n^2} \cdot \frac{n^3}{r_1r_2c_1c_2}$.
+    - opgave: |-
+        Controleer de formule met opdracht \ref{oef:h4-o5}. Wanneer is $X^2 = 0$?
+      antwoord: |-
+        $6{,}72$; als $ad = bc$
+      uitwerking: |-
+        $\frac{120 \cdot (42 \cdot 32 - 18 \cdot 28)^2}{60 \cdot 60 \cdot 70 \cdot 50} = \frac{120 \cdot 840^2}{12\,600\,000} = 6{,}72$. $X^2 = 0$ als $ad = bc$, dus als $\frac{a}{b} = \frac{c}{d}$: in beide rijen dezelfde verhouding.
+
+- id: h4-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    hoeveel worpen?
+  opgave: |-
+    Stel dat Lotte bij $n$ worpen telkens dezelfde \textit{relatieve} frequenties vindt als in het probleem: $\frac{14}{120}$, $\frac{17}{120}$, enzovoort.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat dan $X^2 = 9{,}3 \cdot \dfrac{n}{120}$.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        Alle $O_i$ en $E_i$ zijn $\frac{n}{120}$ keer die van het probleem. Een term $\frac{(cO - cE)^2}{cE}$ is $c$ keer $\frac{(O - E)^2}{E}$, dus $X^2 = \frac{n}{120} \cdot 9{,}3$.
+    - opgave: |-
+        Vanaf hoeveel worpen zou ze de zuiverheid verwerpen bij $\alpha = 0{,}05$?
+      antwoord: |-
+        vanaf ongeveer 143 worpen
+      uitwerking: |-
+        $9{,}3 \cdot \frac{n}{120} \geqslant 11{,}07 \iff n \geqslant 142{,}8$. Vanaf ongeveer 143 worpen, als de verhoudingen gelijk blijven (wat bij echte worpen natuurlijk niet exact gebeurt).
+
+- id: h4-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    normale benadering van $\chi^2_k$
+  opgave: |-
+    Voor grote $k$ lijkt $\chi^2_k$ op een normale verdeling met dezelfde verwachtingswaarde $k$ en standaardafwijking $\sqrt{2k}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de verwachtingswaarde en standaardafwijking van $\chi^2_{50}$.
+      antwoord: |-
+        50 en 10
+      uitwerking: |-
+        $\E = 50$ en $\sigma = \sqrt{100} = 10$.
+    - opgave: |-
+        Benader de kritieke waarde bij $\alpha = 0{,}05$ met de normale verdeling.
+      antwoord: |-
+        $\approx 66{,}4$
+      uitwerking: |-
+        Rechts van $\mu + 1{,}645\sigma$ ligt 5~\%: $50 + 1{,}645 \cdot 10 \approx 66{,}4$ (\texttt{invNorm(0.95,50,10)}).
+    - opgave: |-
+        De echte kritieke waarde is $67{,}5$. Waarom ligt de benadering te laag?
+      antwoord: |-
+        $\chi^2$ is scheef naar rechts
+      uitwerking: |-
+        De chi-kwadraatverdeling is scheef naar rechts: haar rechterstaart is langer dan die van de normale verdeling. Om er 5~\% af te snijden, moet de grens dus verder naar rechts liggen.
+
+#----------------------------------------------------------------------------------------
+# Koppel
+#----------------------------------------------------------------------------------------
+
+- id: h4-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: Matrices
+  thema: |-
+    verwachte aantallen als matrixproduct
+  opgave: |-
+    Neem de kruistabel van woonplaats en vervoer uit voorbeeld \ref{vb:h4-verwacht}, met rijtotalen 80 en 120 en kolomtotalen 90, 70 en 40.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\dfrac{1}{200} \km{80 \\ 120} \km{90 & 70 & 40}$. Wat vind je?
+      antwoord: |-
+        de verwachte aantallen
+      uitwerking: |-
+        Het product van een $2 \times 1$- en een $1 \times 3$-matrix is een $2 \times 3$-matrix met elementen $\frac{r_i c_j}{200}$: precies de verwachte aantallen $\km{36 & 28 & 16 \\ 54 & 42 & 24}$.
+    - opgave: |-
+        Leg uit waarom de rijen van een matrix met verwachte aantallen altijd veelvouden van elkaar zijn. Wat betekent dat voor de verdeling over de kolommen?
+      antwoord: |-
+        elke rij evenredig met de kolomtotalen
+      uitwerking: |-
+        Rij $i$ is $\frac{r_i}{n} \km{c_1 & c_2 & c_3}$: alle rijen zijn veelvouden van dezelfde rij. In elke rij is de verdeling over de kolommen dus dezelfde (hier 45~\%, 35~\% en 20~\%): dat is precies onafhankelijkheid.
+
+- id: h4-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Integralen
+  thema: |-
+    dichtheid van $\chi^2_2$
+  opgave: |-
+    De dichtheid van de chi-kwadraatverdeling met 2 vrijheidsgraden is $f(x) = \frac12 \e^{-x/2}$ voor $x \geqslant 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\displaystyle\int_0^{+\infty} f(x)\dx = 1$.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        $\int_0^b \frac12 \e^{-x/2}\dx = \bigl[-\e^{-x/2}\bigr]_0^b = 1 - \e^{-b/2} \to 1$ als $b \to +\infty$.
+    - opgave: |-
+        Toon aan dat $P(\chi^2_2 \geqslant a) = \e^{-a/2}$.
+      antwoord: |-
+        bewijs
+      uitwerking: |-
+        $\int_a^b \frac12 \e^{-x/2}\dx = \e^{-a/2} - \e^{-b/2} \to \e^{-a/2}$.
+    - opgave: |-
+        Bereken daarmee de kritieke waarde bij $\alpha = 0{,}05$ exact, en vergelijk met de tabel.
+      antwoord: |-
+        $2 \ln 20 \approx 5{,}99$
+      uitwerking: |-
+        $\e^{-a/2} = 0{,}05 \iff a = -2 \ln 0{,}05 = 2 \ln 20 \approx 5{,}99$, zoals in de tabel.
+    - opgave: |-
+        Bereken $\displaystyle\int_0^{+\infty} x f(x)\dx$ met partiële integratie. Klopt het met $\E(\chi^2_k) = k$?
+      antwoord: |-
+        2; ja
+      uitwerking: |-
+        $\int_0^b \frac{x}{2} \e^{-x/2}\dx = \bigl[-x\e^{-x/2}\bigr]_0^b + \int_0^b \e^{-x/2}\dx = -b\e^{-b/2} + 2 - 2\e^{-b/2} \to 2$. Dat is $k = 2$.
+
+- id: h4-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Statistiek
+  thema: |-
+    z-toets tegenover $\chi^2$-toets
+  opgave: |-
+    Een munt valt 220 keer op kop bij 400 worpen. Je toetst of ze eerlijk is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voer een tweezijdige toets voor een proportie uit met de normale benadering: bereken $z$ en de p-waarde.
+      antwoord: |-
+        $z = 2$; p $\approx 0{,}0455$
+      uitwerking: |-
+        Onder $H_0$: $\mu = 200$ en $\sigma = \sqrt{400 \cdot 0{,}25} = 10$. $z = \frac{220 - 200}{10} = 2$, p $= 2 \cdot P(Z \geqslant 2) \approx 0{,}0455$.
+    - opgave: |-
+        Voer de aanpassingstoets uit met kop en munt. Vergelijk.
+      antwoord: |-
+        $X^2 = 4$; p $\approx 0{,}0455$: hetzelfde
+      uitwerking: |-
+        $X^2 = \frac{400}{200} + \frac{400}{200} = 4 = z^2$, en $P(\chi^2_1 \geqslant 4) = P(|Z| \geqslant 2) \approx 0{,}0455$. Beide toetsen geven dezelfde p-waarde.
+    - opgave: |-
+        Je vermoedt vooraf dat de munt te vaak kop geeft. Waarom gebruik je dan beter de z-toets?
+      antwoord: |-
+        $X^2$ verliest de richting
+      uitwerking: |-
+        Door het kwadraat weet $X^2$ niet of er te veel of te weinig kop is: de toets is altijd tweezijdig. De eenzijdige z-toets geeft hier p $\approx 0{,}023$, de helft.
+
+- id: h4-koppel-4
+  soort: koppel
+  niveau: 1
+  koppel:
+    rubriek: data
+    onderwerp: Kansrekenen
+  thema: |-
+    onafhankelijkheid en voorwaardelijke kans
+  opgave: |-
+    Van 100 leerlingen dragen er 30 een bril, en 40 spelen een instrument. Van de 40 muzikanten dragen er 12 een bril.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Maak de kruistabel en bereken $X^2$ voor onafhankelijkheid.
+      antwoord: |-
+        $X^2 = 0$
+      uitwerking: |-
+        Muzikant: 12 met bril, 28 zonder; geen muzikant: 18 en 42. $E_{11} = \frac{30 \cdot 40}{100} = 12$, en zo ook de andere: alle $O = E$, dus $X^2 = 0$.
+    - opgave: |-
+        Vergelijk $P(\text{bril} \gegeven \text{muzikant})$ met $P(\text{bril})$. Leg het verband uit met $X^2 = 0$.
+      antwoord: |-
+        beide 0,3
+      uitwerking: |-
+        $P(\text{bril} \gegeven \text{muzikant}) = \frac{12}{40} = 0{,}3 = \frac{30}{100} = P(\text{bril})$. In de tabel zijn de gebeurtenissen precies onafhankelijk, en dan zijn de waargenomen aantallen gelijk aan de verwachte.
+
+#----------------------------------------------------------------------------------------
+# Test jezelf
+#----------------------------------------------------------------------------------------
+
+- id: h4-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Drie categorieën hebben de waargenomen aantallen 18, 52 en 30. Bereken $X^2$ voor het model met kansen $\frac14$, $\frac12$ en $\frac14$.
+  antwoord: |-
+    $3{,}04$
+  uitwerking: |-
+    $n = 100$, $E = 25$, $50$, $25$: $X^2 = \frac{49}{25} + \frac{4}{50} + \frac{25}{25} = 1{,}96 + 0{,}08 + 1 = 3{,}04$.
+
+- id: h4-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Hoeveel vrijheidsgraden heeft de toets?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Zijn de acht vakken van een rad even waarschijnlijk?
+      antwoord: |-
+        7
+      uitwerking: |-
+        $8 - 1 = 7$.
+    - opgave: |-
+        Een onafhankelijkheidstoets bij een tabel met 4 rijen en 3 kolommen.
+      antwoord: |-
+        6
+      uitwerking: |-
+        $(4 - 1)(3 - 1) = 6$.
+    - opgave: |-
+        Een Poissonmodel met $\lambda$ geschat uit de data, en 5 categorieën na het samennemen.
+      antwoord: |-
+        3
+      uitwerking: |-
+        $5 - 1 - 1 = 3$.
+
+- id: h4-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een aanpassingstoets geeft $X^2 = 8{,}4$ met 3 vrijheidsgraden. Bereken de p-waarde en besluit bij $\alpha = 0{,}05$.
+  antwoord: |-
+    p $\approx 0{,}038$: verwerpen
+  uitwerking: |-
+    \texttt{$\chi^2$cdf(8.4,1E99,3)} $\approx 0{,}038 \leqslant 0{,}05$: $H_0$ verwerpen. Ook $8{,}4 \geqslant 7{,}81$.
+
+- id: h4-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een kweker belooft een mengeling met 50~\% rode, 30~\% gele en 20~\% witte tulpen. Een klant plant 200 bollen en krijgt 88 rode, 72 gele en 40 witte. Toets bij $\alpha = 0{,}05$.
+  antwoord: |-
+    $X^2 = 3{,}84$, p $\approx 0{,}15$: niet verwerpen
+  uitwerking: |-
+    $E = 100$, $60$, $40$. $X^2 = \frac{144}{100} + \frac{144}{60} + 0 = 1{,}44 + 2{,}4 = 3{,}84$, met 2 vrijheidsgraden: p $\approx 0{,}15 > 0{,}05$. $H_0$ niet verwerpen: de klant kan niet aantonen dat de mengeling anders is.
+
+- id: h4-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Van 150 leerlingen bespelen er 60 een instrument. Van hen zitten er 22 in de toneelclub, van de 90 anderen 18. Bereken de verwachte aantallen als instrument en toneelclub onafhankelijk zijn.
+  antwoord: |-
+    16, 44, 24, 66
+  uitwerking: |-
+    Rijen: instrument (22 toneel, 38 niet), geen instrument (18, 72). Kolomtotalen 40 en 110. $E = \frac{60 \cdot 40}{150} = 16$, $\frac{60 \cdot 110}{150} = 44$, $\frac{90 \cdot 40}{150} = 24$ en $\frac{90 \cdot 110}{150} = 66$.
+
+- id: h4-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    200 leerlingen geven aan hoe vaak ze ontbijten. Van de 90 die elke dag ontbijten, slagen er 70 voor een wiskundetoets; van de 65 die soms ontbijten 40; van de 45 die nooit ontbijten 20. Toets bij $\alpha = 0{,}01$ of slagen en ontbijt samenhangen.
+  antwoord: |-
+    $X^2 \approx 15{,}2$, p $\approx 0{,}0005$: verwerpen
+  uitwerking: |-
+    Rijen geslaagd (70, 40, 20; totaal 130) en niet geslaagd (20, 25, 25; totaal 70). $E = 58{,}5$; $42{,}25$; $29{,}25$ en $31{,}5$; $22{,}75$; $15{,}75$, allemaal $\geqslant 5$. $X^2 \approx 2{,}26 + 0{,}12 + 2{,}93 + 4{,}20 + 0{,}22 + 5{,}43 \approx 15{,}2$, met $(2 - 1)(3 - 1) = 2$ vrijheidsgraden: p $\approx 0{,}0005 \leqslant 0{,}01$. $H_0$ verwerpen: slagen hangt samen met ontbijt (78~\%, 62~\% en 44~\% slaagt). Een oorzaak is daarmee niet aangetoond.
+
+- id: h4-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een munt valt 112 keer op kop bij 200 worpen. Bereken $z$ en $X^2$ voor het model van een eerlijke munt, en toon aan dat $X^2 = z^2$.
+  antwoord: |-
+    $z \approx 1{,}70$; $X^2 = 2{,}88 = z^2$
+  uitwerking: |-
+    $\mu = 100$, $\sigma = \sqrt{50}$: $z = \frac{12}{\sqrt{50}} \approx 1{,}70$ en $z^2 = \frac{144}{50} = 2{,}88$. $X^2 = \frac{144}{100} + \frac{144}{100} = 2{,}88$.

@@ -1,0 +1,600 @@
+%----------------------------------------------------------------------------------------
+% CYCLISCHE GROEPEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Cyclische groepen}
+
+\begin{probleem}
+\naast{Een goochelaar legt acht kaarten op een stapel, genummerd van 1 bovenaan tot 8 onderaan. Hij verdeelt de stapel in twee helften van vier kaarten en schuift ze perfect in elkaar, met kaart 1 bovenaan. De nieuwe volgorde is $1, 5, 2, 6, 3, 7, 4, 8$. Na drie keer zo schudden ligt de stapel weer zoals in het begin. Komt elke stapel terug in de beginvolgorde, als je telkens op dezelfde manier schudt? Na hoeveel keer schudden is een stapel van tien kaarten terug? En een stapel van acht, als de goochelaar de onderste helft bovenaan legt, zodat kaart 5 bovenaan komt?}{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \c in {1,...,8}{\kaart{.55*\c}{1.25}{\c}}
+  \foreach \c/\p in {1/1,2/3,3/5,4/7,5/2,6/4,7/6,8/8}{%
+    \draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=9pt,shorten >=9pt] (.55*\c,1.25) -- (.55*\p,0);}
+  \foreach \c [count=\p] in {1,5,2,6,3,7,4,8}{\kaart{.55*\p}{0}{\c}}
+  \node[anchor=east,text=grijs] at (.2,1.25) {voor};
+  \node[anchor=east,text=grijs] at (.2,0) {na};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 31 (de orde van elementen in groepen bepalen), met de wenken: de orde vooral in eindige groepen zoals $(\Zn{n}, \plusn)$ en symmetriegroepen, de begrippen cyclische groep en orde van een groep, en laten ondervinden dat de orde van een element de orde van de groep deelt (sectie 2; het bewijs volgt in hoofdstuk 2 met de stelling van Lagrange). Voorkennis uit pakket 4: de cursus Groepen (groep, $\Zn{n}$ met $\plusn$ en $\maaln$, symmetriegroepen, permutaties, de orde van een element en ``dezelfde structuur''), ggd en kgv, en de productregel uit Telproblemen. De cykelnotatie van sectie 3 is een uitbreiding: ze maakt de orde van een permutatie zichtbaar en lost het probleem op.}
+
+In de cursus Groepen leerde je wat een groep is, en je bekeek veel voorbeelden: de gehele getallen modulo $n$, de symmetrieën van een figuur, de permutaties. Je zag ook dat sommige elementen na een aantal stappen terugkeren naar het neutraal element: drie keer een draaiing over $120^\circ$ is niets doen. Dat aantal stappen was de orde van het element.
+
+In dit hoofdstuk bekijk je die orde van naderbij. Wanneer is $a^k$ het neutraal element, en hoe reken je snel een macht als $a^{2026}$ uit? Sommige groepen bestaan helemaal uit de machten van één element: ze heten \textit{cyclisch}. Je leert ze herkennen, en je vindt welke elementen van $\Zn{n}$ de hele groep maken. Daarmee kun je ook de muziek in: waarom kom je met kwinten langs alle tonen van het octaaf? Op het einde reken je de orde van een permutatie uit zonder alle machten te berekenen, en zo los je het probleem van de goochelaar op.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen vinden dat de wijzer na 3 sprongen terug op 0 staat, dat hij alleen na een veelvoud van 3 sprongen op 0 staat (sectie 1), en dat de uren die hij bezoekt zelf een groep vormen (sectie 2).}
+
+%========================================================================================
+\section{Machten en orde}
+
+\subsection{Machten met een geheel exponent}
+
+In een groep kun je een element met zichzelf samenstellen: $a^2 = a \ast a$, $a^3 = a \ast a \ast a$, en $a^0 = e$. Omdat de bewerking associatief is, maakt het niet uit waar je de haakjes zet. Maar elk element heeft ook een inverse. Wat betekent dan $a^{-3}$? Zoals bij getallen: drie keer de inverse.
+
+\begin{theorie}
+In een groep $(G, \ast)$ met neutraal element $e$ is voor elk natuurlijk getal $k$
+
+\vspace{1mm}
+\qquad $\formule{a^{-k} = (a')^k}$ \qquad met $a'$ de inverse van $a$.
+\end{theorie}
+
+Zo is $a^{-1} = a'$, en daarom schrijven we de inverse vanaf nu ook als $a^{-1}$. Is de bewerking een optelling, dan schrijf je geen machten maar veelvouden: $a \plusn a \plusn a$ noteer je $3a$, en de inverse $-a$. De regels blijven dezelfde, alleen de schrijfwijze verschilt.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\rowcolor{accent!14} schrijfwijze & neutraal element & inverse & $k$ keer $a$ & voorbeeld \\ \hline
+multiplicatief & $e$ of $1$ & $a^{-1}$ & $a^k$ & in $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$: $3^2 = 2$ \\ \hline
+additief & $0$ & $-a$ & $ka$ & in $(\Zn{7}, \plusn)$: $3 \cdot 3 = 2$ \\ \hline
+\end{tabular}
+\end{center}
+
+Met getallen ken je de rekenregels voor machten al. Ze gelden in elke groep, en ze volgen alleen uit de associativiteit en de inverse.
+
+\begin{theorie}
+\begin{stelling}{Product van machten}
+In een groep is \qquad $\formule{a^m \ast a^n = a^{m + n}}$ \qquad voor alle gehele getallen $m$ en $n$.
+\end{stelling}
+
+\begin{bewijs}
+Zijn $m, n \geqslant 0$, dan staan er links $m$ factoren $a$ en daarna $n$ factoren $a$: samen $m + n$ factoren. Zijn $m, n < 0$, dan is het net zo met de factor $a^{-1}$:
+\bewijsregel{a^m \ast a^n = (a^{-1})^{-m} \ast (a^{-1})^{-n} = (a^{-1})^{-m - n} = a^{m + n} .}
+Stel $m \geqslant 0 > n$, en neem $l = -n$. Links staan $m$ factoren $a$ en dan $l$ factoren $a^{-1}$. In het midden staat $a \ast a^{-1} = e$: schrap dat paar, en herhaal zolang er links een $a$ en rechts een $a^{-1}$ staat. Is $m \geqslant l$, dan blijven $m - l$ factoren $a$ over, en dat is $a^{m + n}$. Is $m < l$, dan blijven $l - m$ factoren $a^{-1}$ over, en dat is $a^{-(l - m)} = a^{m + n}$. Voor $n \geqslant 0 > m$ gaat het net zo.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Macht van een macht}
+In een groep is \qquad $\formule{(a^m)^n = a^{mn}}$ \qquad voor alle gehele getallen $m$ en $n$.
+\end{stelling}
+
+\begin{bewijs}
+Is $n \geqslant 0$, dan is $(a^m)^n$ het product van $n$ factoren $a^m$, en volgens de vorige stelling is dat $a^{m + m + \cdots + m} = a^{mn}$. Uit $a^m \ast a^{-m} = a^0 = e$ volgt dat $a^{-m}$ de inverse is van $a^m$. Is $n < 0$, dan is dus
+\bewijsregel{(a^m)^n = \bigl((a^m)^{-1}\bigr)^{-n} = (a^{-m})^{-n} = a^{(-m)(-n)} = a^{mn} .}
+\end{bewijs}
+\end{theorie}
+
+Eén regel van de getallen geldt niet in elke groep: $(a \ast b)^2 = a \ast b \ast a \ast b$ is meestal niet $a^2 \ast b^2$, want je mag de middelste $b$ en $a$ niet wisselen. In een commutatieve groep mag dat wel.
+
+\voorbeeld{}{Bereken in de symmetriegroep van de gelijkzijdige driehoek: \ $r^{-1}$, \ $r^{-4}$ \ en \ $r^5 \circ r^{-7}$.\label{vb:h1-machten}}{%
+\uitleg{De draaiing $r$ over $120^\circ$ heeft $r^3 = e$. Met de rekenregels brengen we elke exponent terug naar $0$, $1$ of $2$.}
+\begin{stappen}
+r^{-1} = r^2 & Want $r \circ r^2 = r^3 = e$: terugdraaien over $120^\circ$ is verder draaien over $240^\circ$. \\[1ex]
+r^{-4} = r^{-6} \circ r^2 = (r^3)^{-2} \circ r^2 = r^2 & Product van machten, en $r^3 = e$. \\[1ex]
+r^5 \circ r^{-7} = r^{-2} = r^{-3} \circ r = r & Eerst de exponenten optellen.
+\end{stappen}}
+
+\nujij{Bereken in $(\Zn{10}, \plusn)$: \ $4 \cdot 7$ \ en \ $(-3) \cdot 6$, dus zes keer de inverse van 3.}{$4 \cdot 7 = 28$ geeft $8$. De inverse van 3 is 7, en $6 \cdot 7 = 42$ geeft $2$.}
+
+\subsection{De orde van een element}
+
+Uit Groepen ken je de orde van een element: het kleinste natuurlijk getal $k \geqslant 1$ waarvoor $a^k = e$. In de Verken had 8 in $(\Zn{12}, \plusn)$ de orde 3. Maar heeft elk element wel een orde? In $(\Z, +)$ niet: hoe vaak je 1 ook bij zichzelf optelt, je komt nooit op 0.
+
+\begin{theorie}
+Is $n$ het kleinste natuurlijk getal $n \geqslant 1$ waarvoor $a^n = e$, dan noteren we de orde van $a$ als \quad $\formule{\ord(a) = n}$
+
+\vspace{1mm}
+Bestaat zo'n $n$ niet, dan heeft $a$ een \textbf{\textcolor{accent}{oneindige orde}}.
+
+\begin{stelling}{Orde in een eindige groep}
+In een eindige groep heeft elk element een (eindige) orde.
+\end{stelling}
+
+\begin{bewijs}
+Stel dat $G$ $m$ elementen heeft. De $m + 1$ machten $a^1, a^2, \ldots, a^{m + 1}$ liggen in $G$, dus twee ervan zijn gelijk: $a^i = a^j$ met $i < j$. Vermenigvuldig beide leden met $a^{-i}$:
+\bewijsregel{e = a^{i - i} = a^{j - i} ,}
+met $j - i \geqslant 1$. Er bestaat dus een $k \geqslant 1$ met $a^k = e$, en dan ook een kleinste.
+\end{bewijs}
+\end{theorie}
+
+Het idee is een kring: de machten $a, a^2, a^3, \ldots$ kunnen niet eindeloos nieuwe elementen geven, dus ergens begint de rij zich te herhalen. Het bewijs toont meer: de rij komt terug bij $e$, en niet bij een ander element zoals in de tweede figuur. Dat komt door de inverse: je kunt elke stap ongedaan maken.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \k/\t in {0/e,1/a,2/a^2,3/a^3,4/a^4,5/a^5}{%
+    \fill[accent] ({90-60*\k}:1) circle (1.6pt);
+    \node at ({90-60*\k}:1.32) {$\t$};}
+  \foreach \k in {0,...,5}{\draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] ({90-60*\k}:1) arc[start angle={90-60*\k},end angle={30-60*\k},radius=1];}
+  \node at (0,-1.75) {kan: $a^6 = e$};
+  \begin{scope}[xshift=5.2cm]
+  \coordinate (E) at (-2.75,0);\coordinate (A) at (-1.75,0);
+  \coordinate (A2) at (180:.75);\coordinate (A3) at (60:.75);\coordinate (A4) at (-60:.75);
+  \foreach \p/\t/\w in {E/e/above,A/a/above,A2/a^2/above left,A3/a^3/above right,A4/a^4/below right}{\fill[accent] (\p) circle (1.6pt); \node[\w=1pt,text=black] at (\p) {$\t$};}
+  \draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (E) -- (A);
+  \draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (A) -- (A2);
+  \draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (A2) arc[start angle=180,end angle=60,radius=.75];
+  \draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (A3) arc[start angle=60,end angle=-60,radius=.75];
+  \draw[-{Stealth[length=1.6mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (A4) arc[start angle=-60,end angle=-180,radius=.75];
+  \node at (-1,-1.75) {kan niet: $a^5 = a^2$ maar $a^3 \neq e$};
+  \end{scope}
+\end{tikzpicture}}
+
+Als je de orde kent, hoef je niet verder te rekenen dan die orde. Wanneer is een macht $a^k$ het neutraal element?
+
+\begin{theorie}
+\begin{stelling}{Wanneer is $a^k = e$?}
+Als $\ord(a) = n$, dan is \qquad $\formule{a^k = e \iff n \mid k}$ \qquad voor elk geheel getal $k$.
+\end{stelling}
+
+\begin{bewijs}
+Deel $k$ door $n$: $k = qn + r$ met $0 \leqslant r < n$. Dan is
+\bewijsregel{a^k = (a^n)^q \ast a^r = e^q \ast a^r = a^r .}
+Dus $a^k = e \iff a^r = e$. Omdat $n$ het kleinste getal $\geqslant 1$ is met $a^n = e$ en $r < n$, is $a^r = e$ alleen als $r = 0$, dus als $n \mid k$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Gelijke machten}
+Als $\ord(a) = n$, dan is \qquad $\formule{a^k = a^l \iff n \mid k - l}$ \qquad voor alle gehele getallen $k$ en $l$.
+\end{stelling}
+
+\begin{bewijs}
+Vermenigvuldig beide leden van $a^k = a^l$ met $a^{-l}$: $a^k = a^l \iff a^{k - l} = e$, en dat is zo als $n \mid k - l$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: met een element van orde $n$ rekenen de exponenten modulo $n$. Je mag de exponent vervangen door zijn rest bij deling door $n$.
+
+\voorbeeld{}{In $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$ is $3^3 = 1$. Bereken $3^{2026}$ en $3^{-1}$.\label{vb:h1-exponent}}{%
+\uitleg{Eerst bepalen we de orde van 3. Daarna vervangen we elke exponent door zijn rest bij deling door die orde.}
+\begin{stappen}
+3^1 = 3, \ 3^2 = 9, \ 3^3 = 27 = 2 \cdot 13 + 1 & De orde van 3 is 3: de kleinste exponent met uitkomst 1. \\[1ex]
+2026 = 3 \cdot 675 + 1 \ \Rightarrow \ 3^{2026} = 3^1 = 3 & De rest van de exponent bij deling door 3. \\[1ex]
+-1 = 3 \cdot (-1) + 2 \ \Rightarrow \ 3^{-1} = 3^2 = 9 & Ook een negatieve exponent mag je vervangen.
+\end{stappen}
+Controle: $3 \maaln 9 = 27$, met rest 1 bij deling door 13.}
+
+\voorbeeld{}{Van een element $a$ van een groep weet je dat $a^{20} = e$ en $a^{12} = e$. Welke orde kan $a$ hebben?\label{vb:h1-deler}}{%
+\uitleg{Volgens de stelling deelt de orde elke exponent $k$ met $a^k = e$. We zoeken dus de gemeenschappelijke delers van 20 en 12.}
+\begin{stappen}
+\ord(a) \mid 20 \text{ en } \ord(a) \mid 12 & Wanneer is $a^k = e$? \\[1ex]
+\ord(a) \mid \ggd(20, 12) = 4 & Een gemeenschappelijke deler deelt de ggd.
+\end{stappen}
+De orde is 1, 2 of 4. Ook zonder de orde te kennen, weet je zo dat $a^4 = e$.}
+
+\begin{werkwijze}
+Om de orde van $a$ te vinden, bereken je $a, a^2, a^3, \ldots$ tot je $e$ uitkomt. Om $a^k$ te berekenen als $\ord(a) = n$, deel je $k$ door $n$: met rest $r$ is $a^k = a^r$. Weet je dat $a^k = e$, dan is de orde een deler van $k$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-machten}
+
+\oef{h1-orde}
+\end{oefeningen}
+
+%========================================================================================
+\section{Cyclische groepen}
+
+\subsection{De machten van één element}
+
+In de Verken bezocht de wijzer alleen de uren 0, 8 en 4, wat er ook gebeurde. Telt hij een sprong vooruit of terug op bij een van die uren, dan komt hij opnieuw op een van die drie uit. Is dat toeval? Of vormen de machten van een element altijd zo'n kleine groep binnen de grote?
+
+\begin{theorie}
+De verzameling van alle machten van $a$ is \qquad $\formule{\vb{a} = \{a^k \mid k \in \Z\}}$
+
+\begin{stelling}{De machten vormen een groep}
+Voor elk element $a$ van een groep $(G, \ast)$ is $(\vb{a}, \ast)$ een commutatieve groep.
+\end{stelling}
+
+\begin{bewijs}
+Het product van twee machten is een macht: $a^m \ast a^n = a^{m + n} \in \vb{a}$, dus $\ast$ is een bewerking op $\vb{a}$. Ze is associatief, want dat is ze in $G$. Het neutraal element $e = a^0$ ligt in $\vb{a}$, en de inverse van $a^m$ is $a^{-m}$. Ten slotte is $a^m \ast a^n = a^{m + n} = a^n \ast a^m$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Aantal machten}
+Als $\ord(a) = n$, dan is \qquad $\formule{\vb{a} = \{e, a, a^2, \ldots, a^{n - 1}\}}$ \qquad met $n$ verschillende elementen.
+\end{stelling}
+
+\begin{bewijs}
+Elke macht $a^k$ is gelijk aan $a^r$, met $r$ de rest van $k$ bij deling door $n$, en $0 \leqslant r \leqslant n - 1$. De machten $e, a, \ldots, a^{n - 1}$ zijn onderling verschillend: uit $a^i = a^j$ met $0 \leqslant i < j \leqslant n - 1$ volgt $n \mid j - i$ (gelijke machten), en dat kan niet, want $0 < j - i < n$.
+\end{bewijs}
+\end{theorie}
+
+De orde van $a$ is dus ook het aantal elementen van de groep $\vb{a}$. Dat verklaart het woord: de orde van een element is de orde van de groep die het maakt. Heeft $a$ een oneindige orde, dan zijn alle machten verschillend, en is $\vb{a}$ oneindig.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \kring[1.1]{12}\sprongen{12}{8}{1.1}
+  \foreach \k in {0,4,8}{\fill[fel!85!black] \kpt{12}{\k}{1.1} circle (2.2pt);}
+  \node at (0,-1.8) {$\vb{8} = \{0, 8, 4\}$ in $\Zn{12}$};
+  \begin{scope}[xshift=4.2cm]
+  \kring[1.1]{12}\sprongen{12}{9}{1.1}
+  \foreach \k in {0,3,6,9}{\fill[fel!85!black] \kpt{12}{\k}{1.1} circle (2.2pt);}
+  \node at (0,-1.8) {$\vb{9} = \{0, 9, 6, 3\}$ in $\Zn{12}$};
+  \end{scope}
+  \begin{scope}[xshift=8.4cm]
+  \kring[1.1]{12}\sprongen{12}{10}{1.1}
+  \foreach \k in {0,2,4,6,8,10}{\fill[fel!85!black] \kpt{12}{\k}{1.1} circle (2.2pt);}
+  \node at (0,-1.8) {$\vb{10}$: zes elementen};
+  \end{scope}
+\end{tikzpicture}}
+
+\voorbeeld{}{Bepaal $\vb{4}$ in $(\Zn{10}, \plusn)$. Hoeveel elementen heeft die groep?\label{vb:h1-voortgebracht}}{%
+\uitleg{De bewerking is een optelling, dus de machten van 4 zijn de veelvouden $4, 2 \cdot 4, 3 \cdot 4, \ldots$ We tellen telkens 4 op tot we 0 uitkomen: dan kennen we de orde, en de volgende machten herhalen zich.}
+\begin{stappen}
+4, \ 8, \ 12 \to 2, \ 6, \ 10 \to 0 & Telkens 4 erbij, en de rest bij deling door 10. \\[1ex]
+\ord(4) = 5 & Na vijf stappen komen we op 0. \\[1ex]
+\vb{4} = \{0, 2, 4, 6, 8\} & Ook $-4 = 6$ en $-8 = 2$ zitten erin: de negatieve veelvouden geven niets nieuws.
+\end{stappen}
+De groep $\vb{4}$ heeft 5 elementen, de even getallen van $\Zn{10}$.}
+
+\nujij{Bepaal $\vb{4}$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$.}{$4, 16 \to 5, 20 \to 9, 36 \to 3, 12 \to 1$: de orde is 5 en $\vb{4} = \{1, 3, 4, 5, 9\}$.}
+
+\begin{oefeningen}
+\oef{h1-voortgebracht}
+\end{oefeningen}
+
+\subsection{Cyclische groepen}
+
+Soms maken de machten van één element de hele groep. In $(\Zn{12}, \plusn)$ geeft 1 alle uren van de klok. Zo'n groep is het eenvoudigste soort groep dat er bestaat: alles is een macht van één element.
+
+\begin{theorie}
+Een groep $G$ is \textbf{\textcolor{accent}{cyclisch}} als er een $a \in G$ is met \quad $\formule{\vb{a} = G}$
+
+\vspace{1mm}
+Zo'n element $a$ is een \textbf{\textcolor{accent}{voortbrenger}} van $G$.
+
+\begin{stelling}{Orde van een cyclische groep}
+Is $a$ een voortbrenger van een eindige groep $G$, dan is \qquad $\formule{|G| = \ord(a)}$
+\end{stelling}
+
+\begin{bewijs}
+$G = \vb{a}$, en $\vb{a}$ heeft $\ord(a)$ elementen (aantal machten).
+\end{bewijs}
+\end{theorie}
+
+Het aantal elementen $|G|$ heet ook hier de orde van de groep. Een eindige groep is dus cyclisch als ze een element heeft waarvan de orde gelijk is aan de orde van de groep. Een cyclische groep is altijd commutatief, want de machten van $a$ vormen een commutatieve groep. Een groep die niet commutatief is, zoals de symmetriegroep van de driehoek, kan dus nooit cyclisch zijn.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+\rowcolor{accent!14} groep & cyclisch? & reden \\ \hline
+$(\Zn{n}, \plusn)$ & ja & voortbrenger 1 \\ \hline
+$(\Z, +)$ & ja, oneindig & voortbrengers 1 en $-1$ \\ \hline
+de draaiingen van de regelmatige $n$-hoek & ja & de draaiing over $\frac{360^\circ}{n}$ \\ \hline
+$\bigl(\{1, i, -1, -i\}, \cdot\bigr)$ & ja & voortbrenger $i$, want $\ord(i) = 4$ \\ \hline
+de symmetriegroep van de rechthoek & nee & geen element van orde 4 \\ \hline
+de symmetriegroep van de gelijkzijdige driehoek & nee & niet commutatief \\ \hline
+$(\Q_0, \cdot)$ & nee & zie de opdrachten \\ \hline
+\end{tabular}
+\end{center}
+
+\voorbeeld{}{Is $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$ cyclisch? Geef alle voortbrengers.\label{vb:h1-cyclisch}}{%
+\uitleg{De groep heeft 6 elementen. We zoeken de orde van elk element: de voortbrengers zijn de elementen van orde 6.}
+\begin{stappenbreed}
+2^1 = 2, \ 2^2 = 4, \ 2^3 = 8 \to 1 & $\ord(2) = 3$. \\[1ex]
+3, \ 9 \to 2, \ 6, \ 18 \to 4, \ 12 \to 5, \ 15 \to 1 & $\ord(3) = 6$: de groep is cyclisch, met voortbrenger 3. \\[1ex]
+\ord(4) = 3, \ \ord(5) = 6, \ \ord(6) = 2 & Op dezelfde manier; $6 = -1$ en $6^2 = 36 \to 1$.
+\end{stappenbreed}
+De groep is cyclisch, met de voortbrengers 3 en 5. Merk op: $5 = 3^5 = 3^{-1}$, en de inverse van een voortbrenger is altijd ook een voortbrenger.}
+
+\begin{werkwijze}
+Om na te gaan of een eindige groep $G$ cyclisch is, zoek je een element waarvan de orde gelijk is aan $|G|$. Om te tonen dat $G$ niet cyclisch is, toon je dat geen enkel element die orde heeft, of dat $G$ niet commutatief is.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-cyclisch}
+\end{oefeningen}
+
+\subsection{Voortbrengers van \texorpdfstring{$\Zn{n}$}{Zn}}
+
+In Groepen sprong een wijzer op een klok van twaalf uren telkens even ver. Met sprongen van 5 uur kwam hij op elk uur, met sprongen van 4 uur niet. Welke elementen van $\Zn{n}$ zijn voortbrengers, en wat is de orde van de andere? Die vraag kunnen we nu volledig beantwoorden.
+
+\begin{theorie}
+\begin{stelling}{Orde in $\Zn{n}$}
+In $(\Zn{n}, \plusn)$ is \qquad $\formule{\ord(k) = \dfrac{n}{\ggd(k, n)}}$ \qquad voor $k = 1, 2, \ldots, n - 1$.
+\end{stelling}
+
+\begin{bewijs}
+Neem $d = \ggd(k, n)$, en schrijf $k = dk'$ en $n = dn'$. Dan hebben $k'$ en $n'$ geen gemeenschappelijke priemfactor. We zoeken de kleinste $m \geqslant 1$ waarvoor $mk$ een veelvoud is van $n$:
+\bewijsregel{n \mid mk \iff dn' \mid mdk' \iff n' \mid mk' \iff n' \mid m .}
+In de laatste stap: alle priemfactoren van $n'$ zitten in $mk'$ maar niet in $k'$, dus in $m$. De kleinste $m \geqslant 1$ is $m = n' = \tfrac{n}{d}$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Voortbrengers van $\Zn{n}$}
+Het element $k$ is een voortbrenger van $(\Zn{n}, \plusn)$ \qquad $\formule{\iff \ggd(k, n) = 1}$
+\end{stelling}
+
+\begin{bewijs}
+$k$ is een voortbrenger als zijn orde gelijk is aan $|\Zn{n}| = n$, dus als $n : \ggd(k, n) = n$, dus als $\ggd(k, n) = 1$.
+\end{bewijs}
+\end{theorie}
+
+Hoe meer $k$ en $n$ gemeen hebben, hoe kleiner de groep die $k$ maakt. Het aantal voortbrengers van $\Zn{n}$ is het aantal getallen van 1 tot $n$ die met $n$ geen deler groter dan 1 gemeen hebben. Dat aantal noteert men $\varphi(n)$, de \textit{indicator van Euler}. Zo is $\varphi(12) = 4$, want alleen 1, 5, 7 en 11 zijn voortbrengers van $\Zn{12}$.
+
+\voorbeeld{}{Bepaal alle voortbrengers van $(\Zn{20}, \plusn)$, en de orde van 8 en van 15.\label{vb:h1-voortbrengers}}{%
+\uitleg{Met de stelling hoeven we niets op te tellen: alleen de ggd met 20 telt.}
+\begin{stappenbreed}
+20 = 2^2 \cdot 5 & Een voortbrenger is niet deelbaar door 2 en niet door 5. \\[1ex]
+1, \ 3, \ 7, \ 9, \ 11, \ 13, \ 17, \ 19 & De acht voortbrengers: $\varphi(20) = 8$. \\[1ex]
+\ord(8) = \frac{20}{\ggd(8, 20)} = \frac{20}{4} = 5 & Controle: $5 \cdot 8 = 40$ is een veelvoud van 20, en $8, 16, 24, 32$ niet. \\[2ex]
+\ord(15) = \frac{20}{\ggd(15, 20)} = \frac{20}{5} = 4 & $15, 30, 45, 60$: pas 60 is een veelvoud van 20.
+\end{stappenbreed}}
+
+\voorbeeld{}{Een octaaf telt twaalf halve tonen: do, do$\sharp$, re, re$\sharp$, mi, fa, fa$\sharp$, sol, sol$\sharp$, la, la$\sharp$, si. Een muzikant vertrekt van do en gaat telkens een kwint hoger, dat zijn 7 halve tonen. Valt hij buiten het octaaf, dan neemt hij dezelfde toon een octaaf lager. Komt hij zo langs alle twaalf tonen? En als hij telkens een grote terts hoger gaat (4 halve tonen), of een kleine terts (3 halve tonen)?\label{vb:h1-kwinten}}{%
+\uitleg{Nummer de tonen van 0 (do) tot 11 (si). Een octaaf lager gaan is 12 aftrekken, dus de muzikant rekent in $(\Zn{12}, \plusn)$. De vraag is of 7, 4 en 3 voortbrengers zijn.}
+\naast{\begin{minipage}{\linewidth}
+\begin{stappenvrij}{3.4cm}{5.6cm}
+\ggd(7, 12) = 1 & De kwint is een voortbrenger: $\ord(7) = 12$, de muzikant komt langs alle tonen. \\[1ex]
+\ord(4) = \frac{12}{4} = 3 & Grote tertsen: do, mi, sol$\sharp$ en terug naar do. \\[2ex]
+\ord(3) = \frac{12}{3} = 4 & Kleine tertsen: do, re$\sharp$, fa$\sharp$, la.
+\end{stappenvrij}
+
+\vspace{1mm}
+De kwinten geven de \textit{kwintencirkel}: do, sol, re, la, mi, si, fa$\sharp$, \ldots, fa en terug naar do. De ster in de figuur toont de sprongen. Muzikanten kennen de drie tonen van de grote tertsen als het \textit{overmatig akkoord} en de vier van de kleine tertsen als het \textit{verminderd septiemakkoord}: het zijn de groepen $\vb{4}$ en $\vb{3}$.
+\end{minipage}}{\begin{tikzpicture}[font=\scriptsize,scale=.95]
+  \draw[lijngrijs,thick] (0,0) circle (1.45);
+  \sprongen[accent!60,thin]{12}{7}{1.45}
+  \sprongen[fel!85!black,very thick]{12}{4}{1.45}
+  \foreach \k/\t in {0/do,1/do$\sharp$,2/re,3/re$\sharp$,4/mi,5/fa,6/fa$\sharp$,7/sol,8/sol$\sharp$,9/la,10/la$\sharp$,11/si}{%
+    \fill[accent] \kpt{12}{\k}{1.45} circle (1.5pt);
+    \node[inner sep=1pt] at \kpt{12}{\k}{1.82} {\t};}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+De orde van $k$ in $(\Zn{n}, \plusn)$ is $n$ gedeeld door $\ggd(k, n)$. De voortbrengers van $\Zn{n}$ zijn de getallen $k$ met $\ggd(k, n) = 1$: ontbind $n$ in priemfactoren en schrap de veelvouden van elke priemfactor.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-voortbrengers}
+\end{oefeningen}
+
+\subsection{Een vermoeden}
+
+Zet de orde van alle elementen van enkele groepen naast elkaar. Valt je iets op aan de getallen in de laatste kolom?
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+\rowcolor{accent!14} groep & $|G|$ & orde van de elementen \\ \hline
+$(\Zn{12}, \plusn)$ & $12$ & $1, 12, 6, 4, 3, 12, 2, 12, 3, 4, 6, 12$ \\ \hline
+symmetrieën van de gelijkzijdige driehoek & $6$ & $1, 3, 3, 2, 2, 2$ \\ \hline
+$\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$ & $6$ & $1, 3, 6, 3, 6, 2$ \\ \hline
+$\bigl(\{1, 3, 5, 7\}, \maaln\bigr)$ in $\Zn{8}$ & $4$ & $1, 2, 2, 2$ \\ \hline
+\end{tabular}
+\end{center}
+
+De orde van elk element is een deler van de orde van de groep. In $\Zn{12}$ is dat geen verrassing: $12 : \ggd(k, 12)$ deelt 12. Maar in de andere groepen weten we nog niet waarom. In een groep met 6 elementen vind je nooit een element van orde 4 of 5. In hoofdstuk 2 bewijs je dat dit in elke eindige groep zo is: het is een gevolg van de stelling van Lagrange.
+
+\begin{oefeningen}
+\oef{h1-vermoeden}
+\end{oefeningen}
+
+%========================================================================================
+\section{De orde van een permutatie}
+
+\subsection{Cykels}
+
+Wat is de orde van de permutatie van de goochelaar? Je kunt $\sigma^2$, $\sigma^3$, \ldots{} uitrekenen tot je $e$ vindt. Bij 52 kaarten is dat veel werk. Het kan sneller als je de pijlen van de permutatie volgt: dan loop je in kringen rond.
+
+\naast{Neem $\sigma = \perm{1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ 3 & 5 & 4 & 1 & 2 & 8 & 7 & 6}$. Vertrek bij 1 en volg de pijlen: $1 \to 3 \to 4 \to 1$. Je bent terug, na drie stappen. Neem het kleinste getal dat je nog niet tegenkwam: $2 \to 5 \to 2$. Dan $6 \to 8 \to 6$, en 7 blijft op zijn plaats. De permutatie bestaat uit drie kringen, die niets met elkaar te maken hebben.}{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \k/\t in {0/1,1/3,2/4}{\fill[accent] ({90-120*\k}:.6) circle (1.5pt); \node at ({90-120*\k}:.88) {$\t$};}
+  \foreach \k in {0,1,2}{\draw[-{Stealth[length=1.5mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] ({90-120*\k}:.6) arc[start angle={90-120*\k},end angle={-30-120*\k},radius=.6];}
+  \begin{scope}[xshift=1.8cm]
+  \fill[accent] (90:.45) circle (1.5pt) node[above=1pt] {$2$};\fill[accent] (270:.45) circle (1.5pt) node[below=1pt] {$5$};
+  \draw[-{Stealth[length=1.5mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (90:.45) arc[start angle=90,end angle=-90,radius=.45];
+  \draw[-{Stealth[length=1.5mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (270:.45) arc[start angle=270,end angle=90,radius=.45];
+  \end{scope}
+  \begin{scope}[xshift=3.2cm]
+  \fill[accent] (90:.45) circle (1.5pt) node[above=1pt] {$6$};\fill[accent] (270:.45) circle (1.5pt) node[below=1pt] {$8$};
+  \draw[-{Stealth[length=1.5mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (90:.45) arc[start angle=90,end angle=-90,radius=.45];
+  \draw[-{Stealth[length=1.5mm]},fel!85!black,thick,shorten <=3pt,shorten >=3pt] (270:.45) arc[start angle=270,end angle=90,radius=.45];
+  \end{scope}
+  \begin{scope}[xshift=4.3cm]
+  \fill[accent] (0,0) circle (1.5pt) node[above=1pt] {$7$};
+  \end{scope}
+\end{tikzpicture}}
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{cykel}} van lengte $k$ is een permutatie die $a_1 \to a_2 \to \cdots \to a_k \to a_1$ stuurt en de andere getallen op hun plaats laat. We noteren haar
+
+\vspace{1mm}
+\qquad $\formule{\cyc{a_1 & a_2 & \cdots & a_k}}$
+
+\vspace{1mm}
+Twee cykels zijn \textbf{\textcolor{accent}{disjunct}} als ze geen getal gemeen hebben.
+
+\begin{stelling}{Ontbinding in cykels}
+Elke permutatie is een samenstelling van disjuncte cykels.
+\end{stelling}
+
+\begin{bewijs}
+Vertrek bij een getal $a$ en volg de pijlen: $a, \sigma(a), \sigma^2(a), \ldots$ De permutatie $\sigma$ heeft een eindige orde $n$, dus $\sigma^n(a) = a$: je komt terug bij $a$, en de getallen onderweg vormen een cykel. Neem dan een getal dat nog in geen cykel zit, en herhaal. Twee cykels die zo ontstaan, zijn disjunct: komt een getal in twee cykels voor, dan volg je vanaf dat getal in beide dezelfde pijlen, en zijn het dezelfde cykels.
+\end{bewijs}
+\end{theorie}
+
+Zo is $\sigma = \cyc{1 & 3 & 4} \circ \cyc{2 & 5} \circ \cyc{6 & 8}$. Een cykel van lengte 1 laten we weg: zo'n getal blijft op zijn plaats. Disjuncte cykels mag je van plaats wisselen, want ze verplaatsen elk andere getallen. Een cykel mag ook bij een ander getal beginnen: $\cyc{1 & 3 & 4} = \cyc{3 & 4 & 1}$. De inverse van een cykel loopt in de andere richting: $\cyc{1 & 3 & 4}^{-1} = \cyc{1 & 4 & 3}$.
+
+\voorbeeld{}{Schrijf $\tau = \perm{1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 6 & 4 & 7 & 2 & 1 & 5 & 3}$ als samenstelling van disjuncte cykels.\label{vb:h1-cykels}}{%
+\uitleg{We vertrekken bij 1 en volgen de pijlen tot we terug zijn. Daarna beginnen we bij het kleinste getal dat nog niet gebruikt is.}
+\begin{stappen}
+1 \to 6 \to 5 \to 1 & De eerste cykel: $\cyc{1 & 6 & 5}$. \\[1ex]
+2 \to 4 \to 2 & De tweede: $\cyc{2 & 4}$. \\[1ex]
+3 \to 7 \to 3 & De derde: $\cyc{3 & 7}$.
+\end{stappen}
+Dus $\tau = \cyc{1 & 6 & 5} \circ \cyc{2 & 4} \circ \cyc{3 & 7}$.}
+
+\begin{oefeningen}
+\oef{h1-cykelsschrijven}
+\end{oefeningen}
+
+\subsection{De orde van een permutatie}
+
+Een cykel van lengte $k$ schuift elk van zijn getallen telkens één plaats op in de kring: na $k$ stappen is alles terug, en eerder niet. Bestaat een permutatie uit meerdere disjuncte cykels, dan moet elke kring tegelijk rond zijn.
+
+\begin{theorie}
+\begin{stelling}{Orde van een permutatie}
+Is $\sigma$ een samenstelling van disjuncte cykels met lengtes $k_1, k_2, \ldots, k_r$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\ord(\sigma) = \kgv(k_1, k_2, \ldots, k_r)}$
+\end{stelling}
+
+\begin{bewijs}
+Een cykel $\gamma = \cyc{a_1 & \cdots & a_k}$ stuurt $a_1$ na $j$ stappen naar $a_{1 + j}$ zolang $j < k$, en na $k$ stappen is elk getal terug: $\ord(\gamma) = k$. Schrijf $\sigma = \gamma_1 \circ \cdots \circ \gamma_r$. Disjuncte cykels mag je wisselen, dus
+\bewijsregel{\sigma^m = \gamma_1^m \circ \gamma_2^m \circ \cdots \circ \gamma_r^m .}
+Elke $\gamma_i^m$ verplaatst alleen getallen van zijn eigen cykel. Dus $\sigma^m = e$ als en slechts als elke $\gamma_i^m = e$, dus als $k_i \mid m$ voor elke $i$. Het kleinste zo'n $m \geqslant 1$ is het kgv.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bepaal de orde van $\tau = \perm{1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 6 & 4 & 7 & 2 & 1 & 5 & 3}$.\label{vb:h1-ordeperm}}{%
+\uitleg{In voorbeeld \ref{vb:h1-cykels} schreven we $\tau$ als disjuncte cykels. De orde is het kgv van hun lengtes.}
+\begin{stappen}
+\tau = \cyc{1 & 6 & 5} \circ \cyc{2 & 4} \circ \cyc{3 & 7} & Lengtes 3, 2 en 2. \\[1ex]
+\ord(\tau) = \kgv(3, 2, 2) = 6 & Na 6 stappen is elke kring rond.
+\end{stappen}
+Na 2 stappen zijn 2, 4, 3 en 7 al terug, maar 1, 6 en 5 nog niet. Na 3 stappen is het omgekeerd.}
+
+\begin{werkwijze}
+Schrijf de permutatie als samenstelling van disjuncte cykels, en neem het kgv van hun lengtes. Let op: de cykels moeten disjunct zijn. Zo is $\cyc{1 & 2} \circ \cyc{2 & 3} = \cyc{1 & 2 & 3}$, met orde 3 en niet $\kgv(2, 2) = 2$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-cykels}
+\end{oefeningen}
+
+Nu kun je het probleem van de goochelaar oplossen. Schudden is een permutatie van de plaatsen in de stapel, en telkens op dezelfde manier schudden is die permutatie samenstellen met zichzelf.
+
+\voorbeeld{}{Terug naar het probleem. Komt een stapel altijd terug in de beginvolgorde als je telkens op dezelfde manier schudt? Na hoeveel keer is een stapel van tien kaarten terug, en een stapel van acht als de onderste helft bovenaan komt?\label{vb:h1-terug}}{%
+\uitleg{De permutatie $\sigma$ stuurt elke plaats naar de plaats waar die kaart na het schudden ligt. Het aantal keer schudden tot de beginvolgorde is de orde van $\sigma$. We schrijven $\sigma$ telkens in disjuncte cykels.}
+\begin{stappenbreed}
+\text{acht kaarten: } \sigma = \cyc{2 & 3 & 5} \circ \cyc{4 & 7 & 6} & Na het schudden ligt de kaart van plaats 2 op plaats 3, die van 3 op 5, die van 5 op 2. Kaart 1 en 8 blijven liggen. Orde $\kgv(3, 3) = 3$. \\[2ex]
+\text{tien kaarten: } 1, 6, 2, 7, 3, 8, 4, 9, 5, 10 & De nieuwe volgorde, met de helften $1$--$5$ en $6$--$10$. \\[1ex]
+\sigma = \cyc{2 & 3 & 5 & 9 & 8 & 6} \circ \cyc{4 & 7} & De orde is $\kgv(6, 2) = 6$. \\[2ex]
+\text{acht kaarten, onderste helft boven: } 5, 1, 6, 2, 7, 3, 8, 4 & Nu ligt kaart 5 bovenaan. \\[1ex]
+\sigma = \cyc{1 & 2 & 4 & 8 & 7 & 5} \circ \cyc{3 & 6} & De orde is $\kgv(6, 2) = 6$.
+\end{stappenbreed}
+Elke stapel komt terug: de permutaties van $n$ plaatsen vormen de eindige groep $S_n$, en in een eindige groep heeft elk element een orde. Een stapel van tien kaarten is terug na 6 keer schudden, en de acht kaarten met de onderste helft bovenaan ook na 6 keer. Bij een spel van 52 kaarten bestaat de permutatie met kaart 1 bovenaan uit zes cykels van lengte 8 en één van lengte 2: na 8 keer is het spel terug. Met de onderste helft bovenaan is het één cykel van lengte 52.}
+
+Goochelaars gebruiken dit echt. Wie acht keer perfect schudt met kaart 1 bovenaan, lijkt het spel grondig te mengen, maar legt het in de beginvolgorde terug. Een perfecte schudbeurt vraagt wel veel oefening.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Goniometrische functies zitten in het 5de jaar van pakket 4, Telproblemen in het 6de. Getaltheorie is een module van Complementair; de oefening over decimale ontwikkelingen gebruikt alleen deling met rest, dus ze kan ook zonder die module.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-machten}{oef:h1-machten}%
+  \fv{oef:h1-t2}{vb:h1-exponent}{oef:h1-orde}%
+  \fv{oef:h1-t3}{vb:h1-voortgebracht}{oef:h1-voortgebracht}%
+  \fv{oef:h1-t4}{vb:h1-cyclisch}{oef:h1-cyclisch}%
+  \fv{oef:h1-t5}{vb:h1-voortbrengers}{oef:h1-voortbrengers}%
+  \fv{oef:h1-t6}{vb:h1-ordeperm}{oef:h1-cykels}%
+  \fv{oef:h1-t7}{vb:h1-deler}{oef:h1-o10}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat $a^{-k}$ betekent, de rekenregels voor machten (met een voorbeeld waarin $(ab)^2 \neq a^2 b^2$), waarom elk element van een eindige groep een orde heeft, wanneer $a^k = e$ en hoe je zo grote machten berekent, wat $\vb{a}$ is en hoeveel elementen het heeft, wat een cyclische groep en een voortbrenger zijn, de orde van $k$ in $\Zn{n}$ en de voortbrengers van $\Zn{n}$, wat een cykel is, en hoe je de orde van een permutatie vindt. Vergelijk daarna met de kaders.
+\fi

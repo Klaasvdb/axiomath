@@ -1,0 +1,93 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS KANSVERDELINGEN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+% De basis komt uit Statistiek en Kansrekenen; nieuw zijn de verdelingen en hun dichtheden.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+\usetikzlibrary{positioning}
+
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\Comb}[2]{C_{#1}^{#2}}                         % combinaties, zoals in Telproblemen
+\newcommand{\sominf}[1]{\sum_{#1}^{+\infty}}              % som tot oneindig, zoals in Reeksen
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Gebeurtenissen, kansen en verdelingen
+\newcommand{\compl}[1]{\overline{#1}}                    % complement van een gebeurtenis
+\newcommand{\gegeven}{\,|\,}                              % voorwaardelijke kans: P(A \gegeven B)
+\newcommand{\E}{\operatorname{E}}                         % verwachtingswaarde
+\newcommand{\Var}{\operatorname{Var}}                     % variantie
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\Geo}{\operatorname{Geo}}                     % X \sim \Geo(p): aantal pogingen tot het eerste succes
+\newcommand{\NB}{\operatorname{NB}}                       % X \sim \NB(r, p): aantal pogingen tot het r-de succes
+\newcommand{\Hyp}{\operatorname{Hyp}}                     % X \sim \Hyp(N, M, n): N elementen, M successen, n getrokken
+\newcommand{\Poi}{\operatorname{Poi}}                     % X \sim \Poi(\lambda)
+\newcommand{\chik}{\chi^2}                                % chi-kwadraat
+\newcommand{\vg}{\mathrm{vg}}                             % vrijheidsgraden, als index
+
+% Boomdiagram, venndiagram en staafdiagram in de kleur van het hoofdstuk
+\tikzset{
+  tak/.style={accent,thick},
+  blad/.style={font=\small,inner sep=1.5pt},
+  kanslabel/.style={fill=white,inner sep=1pt,font=\small,text=black},
+  verz/.style={draw=accent,thick,fill=accent,fill opacity=.10,text opacity=1},
+}
+% Staaf in een staafdiagram: \staaf{x}{hoogte}{breedte}; \staaffel kleurt een staaf fel (een gevraagde kans)
+\newcommand{\staaf}[3]{\fill[accent!55] ({#1-#3/2},0) rectangle ({#1+#3/2},#2); \draw[accent] ({#1-#3/2},0) rectangle ({#1+#3/2},#2);}
+\newcommand{\staaffel}[3]{\fill[fel!80!black] ({#1-#3/2},0) rectangle ({#1+#3/2},#2);}
+% Compacte matrix in lopende tekst (zoals in Matrices): \km{1 & 2 \\ 3 & 4}
+\newcommand{\km}[1]{{\setlength{\arraycolsep}{2.4pt}\renewcommand{\arraystretch}{.82}\left[\begin{array}{*{10}{c}}#1\end{array}\right]}}
+
+% Dichtheden en kansen voor plots (in TikZ is \x de veranderlijke):
+%   gauss(x, mu, sigma)  normale dichtheid
+%   tdich(x, nu)         t-verdeling met nu vrijheidsgraden (nu geheel; exact tot 12, daarboven op 0,05 % na)
+%   chidich(x, k)        chi-kwadraatverdeling met k vrijheidsgraden, voor x > 0 (k geheel; exact tot 12)
+%   poisson(k, lambda)   Poissonkans, k geheel van 0 tot 20 en lambda > 0 (via ln k!, zonder overloop)
+\tikzset{declare function={
+  gauss(\x,\m,\s)=exp(-((\x-\m)^2)/(2*\s^2))/(\s*sqrt(2*pi));
+  tcon(\n)=(\n==1)*0.318310+(\n==2)*0.353553+(\n==3)*0.367553+(\n==4)*0.375+(\n==5)*0.379607+(\n==6)*0.382733
+    +(\n==7)*0.384991+(\n==8)*0.386699+(\n==9)*0.388035+(\n==10)*0.389108+(\n==11)*0.389990+(\n==12)*0.390726
+    +(\n>12)*0.398942*(1-1/(4*\n)+1/(32*\n*\n));
+  tdich(\x,\n)=tcon(\n)*exp(-(\n+1)/2*ln(1+\x*\x/\n));
+  chil(\k)=(\k==1)*0.91894+(\k==2)*0.69315+(\k==3)*0.91894+(\k==4)*1.38629+(\k==5)*2.01755+(\k==6)*2.77259
+    +(\k==7)*3.62699+(\k==8)*4.56435+(\k==9)*5.57290+(\k==10)*6.64379+(\k==11)*7.77012+(\k==12)*8.94637
+    +(\k>12)*(\k/2*ln(2)+(\k/2-.5)*ln(\k/2)-\k/2+.918939+1/(6*\k));
+  chidich(\x,\k)=exp((\k/2-1)*ln(\x)-\x/2-chil(\k));
+  lnfac(\k)=(\k==2)*0.69315+(\k==3)*1.79176+(\k==4)*3.17805+(\k==5)*4.78749+(\k==6)*6.57925+(\k==7)*8.52516+(\k==8)*10.60460+(\k==9)*12.80183+(\k==10)*15.10441+(\k==11)*17.50231+(\k==12)*19.98721+(\k==13)*22.55216+(\k==14)*25.19122+(\k==15)*27.89927+(\k==16)*30.67186+(\k==17)*33.50507+(\k==18)*36.39545+(\k==19)*39.33988+(\k==20)*42.33562;
+  poisson(\k,\l)=exp(-\l+\k*ln(\l)-lnfac(\k));
+}}
+% Assen voor een dichtheid of staafdiagram: \kansassen{xmin}{xmax}{ymax}{label x}
+\newcommand{\kansassen}[4]{%
+  \draw[->,grijs] (#1,0) -- (#2,0) node[right,text=black] {#4};
+  \draw[->,grijs] (#1,0) -- (#1,#3);}

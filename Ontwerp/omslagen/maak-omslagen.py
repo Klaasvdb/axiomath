@@ -56,6 +56,24 @@ SCHILDERIJEN = {
     "staalmeesters": ("File:Rembrandt - De Staalmeesters- het college van staalmeesters (waardijns) van het Amsterdamse lakenbereidersgilde - Google Art Project.jpg", 0.5, 0.5),
     "geograaf": ("File:Johannes Vermeer - The Geographer - Google Art Project.jpg", 0.5, 0.3),
     "planetarium": ("File:Wright of Derby, The Orrery.jpg", 0.5, 0.45),  # Wright of Derby, kegelsneden
+    "thee": ("File:Jean-Baptiste Siméon Chardin 018.jpg", 0.7, 0.5),  # Chardin, Dame die thee drinkt (differentiaalvergelijkingen)
+    "ambassadeurs": ("File:Hans Holbein the Younger - The Ambassadors - Google Art Project.jpg", 0.5, 0.5),  # Holbein, getaltheorie
+    "deuren": ("File:Vilhelm Hammershøi- Weiße Türen, offene Türen, 1905.jpg", 0.5, 0.5),  # Hammershøi, reeksen
+    "newton": ("File:Newton-WilliamBlake.jpg", 0.5, 0.5),  # Blake, Newton (numerieke methodes)
+    "siphonophoren": ("File:Haeckel Siphonophorae.jpg", 0.5, 0.5),  # Haeckel, Kunstformen der Natur (iteraties en fractalen)
+    "regendag": ("File:Gustave Caillebotte - Paris Street; Rainy Day - Google Art Project.jpg", 0.62, 0.5),  # Caillebotte, kansverdelingen
+    "kazen": ("File:Clara Peeters - Still Life with Cheeses, Almonds and Pretzels - 1203 - Mauritshuis.jpg", 0.5, 0.5),  # Clara Peeters, lineair programmeren
+    "geldwisselaar": ("File:Quentin Massys 001.jpg", 0.5, 0.5),  # Quinten Massys, De geldwisselaar en zijn vrouw (financiële algebra)
+    "sterrenkundige": ("File:Astronomer in a window, by Gerard Dou.jpg", 0.5, 0.62),  # Gerrit Dou, lineaire regressie
+    "irissen": ("File:KORIN-Irises-R.jpg", 0.42, 0.5),  # Ogata Korin, Irissen (rechterscherm), multivariate statistiek
+    "melencolia": ("File:Albrecht Dürer, Melencolia I, 1514, NGA 6640.jpg", 0.5, 0.2),  # Dürer, Melencolia I met het magische vierkant (vectorruimten)
+    "bolle-spiegel": ("File:Francesco Mazzola, called Parmigianino - Self-Portrait in a Convex Mirror - Google Art Project.jpg", 0.5, 0.5),  # Parmigianino, Zelfportret in een bolle spiegel (oppervlakken)
+    "theekransje": ("File:John Tenniel - Illustration from The Nursery Alice (1890) - c03757 07.jpg", 0.45, 0.5),  # Tenniel, predicatenlogica
+    "hooiwagen": ("File:John Constable - The Hay Wain (1821).jpg", 0.25, 0.5),  # Constable, De hooiwagen: een rollend wiel (krommen en meetkundige plaatsen)
+    "spinsters": ("File:Velázquez - La Fábula de Aracne o Las Hilanderas (Museo del Prado, 1657-58).jpg", 0.15, 0.5),  # Velázquez, De spinsters: het spinnewiel draait om een vaste as (eigenwaarden en eigenvectoren)
+    "pacioli": ("File:Jacopo de' Barbari (attributed to) Portrait of Luca Pacioli (1445 1517) with a student (Guidobaldo da Montefeltro) (2).jpg", 0.35, 0.5),  # Jacopo de' Barbari, Luca Pacioli met veelvlakken en hun draaiingsgroepen (groepentheorie)
+    "vaten": ("File:Francisco de Zurbarán - Still Life with Four Vessels - Google Art Project.jpg", 0.5, 0.5),  # Zurbarán, Stilleven met vier vaten: omwentelingslichamen (integratiemethodes)
+    "piazza": ("File:Canaletto - The Piazza San Marco in Venice - Google Art Project.jpg", 0.5, 0.5),  # Canaletto, Het San Marcoplein: evenwijdige lijnen naar een verdwijnpunt (affiene en projectieve meetkunde)
     # 2de graad: frissere, lichtere werken, één per reeks handboeken (zie Handboeken/2de graad/README.md)
     "contracompositie": ("File:Theo van Doesburg 022.jpg", 0.5, 0.5),                    # Van Doesburg
     "goudweegster": ("File:Pieter de Hooch - Die Goldwägerin - 001.jpg", 0.5, 0.5),
@@ -75,9 +93,11 @@ SCHILDERIJEN = {
 }
 # deel dat rondom wegvalt: Seurat schilderde een stippelrand mee, de andere foto's tonen de lijst of de stofrand.
 # Eén getal voor alle kanten, of (links, boven, rechts, onder): bij de zeilwagen vallen de titel en de witte rand weg.
-RAND = {"grande-jatte": 0.015, "broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
+RAND = {"grande-jatte": 0.015, "melencolia": 0.016, "bolle-spiegel": 0.245,"broadway": 0.01, "aardbeiendief": 0.05, "ideale-stad": 0.03,
         "zeilwagen": (0.01, 0.07, 0.01, 0.03), "goudweegster": (0.03, 0.01, 0.03, 0.01),
-        "bui": (0.056, 0, 0.026, 0)}  # Hiroshige: de papierrand en het kaderlijntje, links breder dan rechts
+        "bui": (0.056, 0, 0.026, 0),
+        "theekransje": (0.11, 0.09, 0.09, 0.07),  # Tenniel: het witte papier rond de prent
+        "sterrenkundige": (0.035, 0, 0.035, 0.01)}  # Dou: de witte achtergrond naast de boog; Hiroshige: de papierrand en het kaderlijntje, links breder dan rechts
 
 
 def haal(url):

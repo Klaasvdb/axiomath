@@ -1,0 +1,106 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS AFFIENE EN PROJECTIEVE MEETKUNDE
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\providecommand{\R}{\mathbb{R}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\e}{\mathrm{e}}
+% Afstand van een punt tot een punt of een rechte: \afst{P}{l} geeft d(P, l)
+\newcommand{\afst}[2]{d(#1, #2)}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+% De solution komt na \end{metgrafiek}, zoals bij metprent.
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster met assen: \rooster{xmin}{xstap}{xmax}{ymin}{ystap}{ymax}, met getallen op de assen (gehele waarden).
+% \roosterleeg doet hetzelfde zonder getallen, voor eigen labels.
+\newcommand{\roosterleeg}[6]{%
+  \draw[black!14,very thin,xstep=#2,ystep=#5] (#1,#4) grid (#3,#6);
+  \draw[->,grijs] (#1,0) -- ({#3+.4*#2},0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,#4) -- (0,{#6+.4*#5}) node[above,text=black] {$y$};}
+\newcommand{\rooster}[6]{%
+  \roosterleeg{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathtruncatemacro{\rtweex}{#1+#2}\pgfmathtruncatemacro{\rtweey}{#4+#5}
+  \foreach \t in {#1,\rtweex,...,#3}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#4,\rtweey,...,#6}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+
+% In de functievoorschriften is \x de veranderlijke; schrijf (\x)^2 en sin(\x r).
+\newcommand{\assen}[4]{%
+  \draw[->,lijngrijs] (#1,0) -- (#2,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,#3) -- (0,#4) node[above,text=black] {$y$};}
+\newcommand{\kromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=90,smooth] (\x,{#4});}
+% \gebiedtussen: tussen twee grafieken (voor oppervlaktes, zoals in Integralen)
+\newcommand{\gebiedtussen}[5][accent!30]{\fill[#1] plot[domain=#2:#3,samples=70] (\x,{#4}) -- plot[domain=#3:#2,samples=70] (\x,{#5}) -- cycle;}
+
+% KEGELSNEDEN. Optioneel argument: extra opties voor de lijn (dashed, very thick, een kleur ...).
+% \ellips{x0}{y0}{a}{b}: middelpunt (x0, y0), halve assen a (horizontaal) en b (verticaal)
+\newcommand{\ellips}[5][]{\draw[accent,thick,#1] (#2,#3) ellipse ({#4} and {#5});}
+% \hyperbool{x0}{y0}{a}{b}{tmax}: brandpunten op een horizontale lijn, beide takken, parameter t van -tmax tot tmax
+\newcommand{\hyperbool}[6][]{%
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2+(#4)*cosh(\x)},{#3+(#5)*sinh(\x)});
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2-(#4)*cosh(\x)},{#3+(#5)*sinh(\x)});}
+% \hyperboolv{x0}{y0}{a}{b}{tmax}: brandpunten op een verticale lijn; a is de halve afstand tussen de toppen
+\newcommand{\hyperboolv}[6][]{%
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2+(#5)*sinh(\x)},{#3+(#4)*cosh(\x)});
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2+(#5)*sinh(\x)},{#3-(#4)*cosh(\x)});}
+% \parabool{x0}{y0}{p}{ymin}{ymax}: (y - y0)^2 = 2p(x - x0), opening naar rechts als p > 0; y loopt van ymin tot ymax
+\newcommand{\parabool}[6][]{\draw[accent,thick,#1] plot[domain=#5:#6,samples=60,smooth] ({#2+((\x)-(#3))^2/(2*(#4))},{\x});}
+% \paraboolv{x0}{y0}{p}{xmin}{xmax}: (x - x0)^2 = 2p(y - y0), opening naar boven als p > 0
+\newcommand{\paraboolv}[6][]{\draw[accent,thick,#1] plot[domain=#5:#6,samples=60,smooth] ({\x},{#3+((\x)-(#2))^2/(2*(#4))});}
+% Een punt als stip, en een brandpunt (iets groter) met een label: \stip{x}{y}, \brandpunt[positie]{x}{y}{label}
+\newcommand{\stip}[2]{\fill (#1,#2) circle (1.5pt);}
+\newcommand{\brandpunt}[4][below]{\fill[accent] (#2,#3) circle (1.9pt) node[#1,text=black,inner sep=2pt] {$#4$};}
+% Een rechte als lijn door twee punten, verlengd: \rechte[opties]{x1}{y1}{x2}{y2}
+\newcommand{\rechte}[5][]{\draw[lijngrijs,thick,shorten <=-2mm,shorten >=-2mm,#1] (#2,#3) -- (#4,#5);}
+
+% Uit Vectorruimten en Matrices: een vector als pijl, het rooster van een basis, matrices en kolommen
+% \vpijl[opties]{(x1,y1)}{(x2,y2)}
+\newcommand{\vpijl}[3][]{\draw[accent,very thick,-{Stealth[length=2.2mm]},#1] #2 -- #3;}
+% \scheefrooster{e1x}{e1y}{e2x}{e2y}{imin}{imax}{jmin}{jmax}: de lijnen i e1 + t e2 en j e2 + t e1
+\newcommand{\scheefrooster}[8]{%
+  \foreach \i in {#5,...,#6}{\draw[accent!30,thin] ({\i*(#1)+(#7)*(#3)},{\i*(#2)+(#7)*(#4)}) -- ({\i*(#1)+(#8)*(#3)},{\i*(#2)+(#8)*(#4)});}
+  \foreach \j in {#7,...,#8}{\draw[accent!30,thin] ({(#5)*(#1)+\j*(#3)},{(#5)*(#2)+\j*(#4)}) -- ({(#6)*(#1)+\j*(#3)},{(#6)*(#2)+\j*(#4)});}}
+\newcommand{\kol}[1]{{\setlength{\arraycolsep}{3pt}\begin{bmatrix} #1 \end{bmatrix}}}
+\newcommand{\um}[2]{{\setlength{\arraycolsep}{4pt}\left[\begin{array}{#1}#2\end{array}\right]}}
+\newcommand{\tr}{^{\mkern-1.5mu\mathsf{T}}}
+
+% AFFIENE EN PROJECTIEVE MEETKUNDE
+% De deelverhouding: \dv{A}{B}{P} geeft (A, B; P), het getal lambda met AP = lambda PB (als vectoren)
+\newcommand{\dv}[3]{(#1, #2; #3)}
+% Homogene coördinaten van een punt: \hc{x}{y}{z} geeft (x : y : z); van een rechte: \rc{a}{b}{c} geeft [a : b : c]
+\newcommand{\hc}[3]{(#1 : #2 : #3)}
+\newcommand{\rc}[3]{[#1 : #2 : #3]}
+% Een punt als stip met een label: \punt[positie]{x}{y}{label}
+\newcommand{\punt}[4][above]{\fill (#2,#3) circle (1.6pt) node[#1,inner sep=2pt] {$#4$};}
+% Een punt in de kleur van het hoofdstuk: \fpunt[positie]{x}{y}{label}
+\newcommand{\fpunt}[4][above]{\fill[accent] (#2,#3) circle (1.8pt) node[#1,text=black,inner sep=2pt] {$#4$};}

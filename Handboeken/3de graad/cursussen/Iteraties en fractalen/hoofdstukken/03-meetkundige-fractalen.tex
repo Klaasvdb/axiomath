@@ -1,0 +1,457 @@
+%----------------------------------------------------------------------------------------
+% MEETKUNDIGE FRACTALEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Meetkundige fractalen}
+
+\begin{probleem}
+Teken een gelijkzijdige driehoek met zijde 9 cm. Verdeel elke zijde in drie gelijke stukken, en zet op elk middelste stuk een kleinere gelijkzijdige driehoek, naar buiten. Je krijgt een ster met twaalf zijden. Doe met elke zijde van de ster hetzelfde, en herhaal dat steeds opnieuw. Zo ontstaat de \textit{sneeuwvlok van Koch}.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \fill[accent!15,draw=accent,thick] (0,0) [lindenmayer system={Kochvlok, axiom=F++F++F, order=0, step={2.4cm}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.75) {$n = 0$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \fill[accent!15,draw=accent,thick] (0,0) [lindenmayer system={Kochvlok, axiom=F++F++F, order=1, step={.8cm}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.75) {$n = 1$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \fill[accent!15,draw=accent,thick] (0,0) [lindenmayer system={Kochvlok, axiom=F++F++F, order=2, step={2.4cm/9}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.75) {$n = 2$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \fill[accent!15,draw=accent,thin] (0,0) [lindenmayer system={Kochvlok, axiom=F++F++F, order=3, step={2.4cm/27}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.75) {$n = 3$};
+\end{tikzpicture}}
+
+Hoe vaak je ook herhaalt, de sneeuwvlok past altijd op een blad papier: ze blijft binnen de cirkel door de hoekpunten van de eerste driehoek. Hoe lang is haar rand na tien stappen? En wat gebeurt er met de omtrek en met de oppervlakte als je oneindig lang doorgaat?
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 47, met de wenk over de Koch-kromme en de driehoek van Sierpiński als meetkundige iteraties. De Cantorverzameling, de gelijkvormigheidsdimensie, de kustlijn van Richardson en Mandelbrot, en het chaosspel zijn extra's: ze tonen wat een fractaal is en sluiten aan bij hoofdstuk 1 (een figuur als dekpunt van een iteratie). Voorkennis uit pakket 4: de meetkundige reeks (Rijen, hoofdstuk 4), logaritmen, gelijkvormigheid (2de graad). Het probleem komt van Helge von Koch (1904). Laat leerlingen de eerste twee stappen van de sneeuwvlok zelf tekenen op ruitjespapier of isometrisch papier.}
+
+In de vorige hoofdstukken itereerden we getallen. Maar je kunt ook een figuur itereren: pas steeds opnieuw dezelfde bewerking toe op het resultaat. Na enkele stappen ontstaan figuren met een rand die op elke schaal even grillig blijft, zoals de sneeuwvlok van het probleem. Zulke figuren heten \emph{fractalen}, een woord dat Benoît Mandelbrot in 1975 bedacht, naar het Latijnse \textit{fractus}: gebroken. In dit hoofdstuk bereken je de lengte en de oppervlakte van zulke figuren, en ontdek je dat ze een dimensie hebben die geen geheel getal is. Op het einde zie je dat zo'n fractaal zelf een dekpunt is: van een iteratie op figuren.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Meetkundige iteraties}
+
+\subsection{De Koch-kromme}
+
+Hoe lang wordt een lijnstuk als je het steeds opnieuw breekt? Vertrek van een lijnstuk. Verdeel het in drie gelijke stukken, en vervang het middelste stuk door de twee andere zijden van een gelijkzijdige driehoek. Je krijgt vier lijnstukken, elk een derde zo lang. Doe met elk van die vier lijnstukken hetzelfde, en zo verder.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thick] (0,0) -- (2.4,0);
+  \node[below] at (1.2,-.15) {$n = 0$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thick] (0,0) [lindenmayer system={Kochkromme, axiom=F, order=1, step={.8cm}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.15) {$n = 1$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thick] (0,0) [lindenmayer system={Kochkromme, axiom=F, order=2, step={.8cm/3}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.15) {$n = 2$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent] (0,0) [lindenmayer system={Kochkromme, axiom=F, order=3, step={.8cm/9}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.15) {$n = 3$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thin] (0,0) [lindenmayer system={Kochkromme, axiom=F, order=4, step={.8cm/27}, angle=60}] lindenmayer system;
+  \node[below] at (1.2,-.15) {$n = 4$};
+\end{tikzpicture}}
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{Koch-kromme}} ontstaat door een lijnstuk steeds opnieuw te vervangen: elk lijnstuk wordt in drie gelijke delen verdeeld, en het middelste deel wordt vervangen door de twee andere zijden van een gelijkzijdige driehoek. De Koch-kromme is de figuur waar die stappen naartoe gaan.
+
+\begin{stelling}{Lengte van de Koch-kromme}
+Is $L_0$ de lengte van het lijnstuk, dan bestaat de figuur na $n$ stappen uit $4^n$ lijnstukken met lengte $\tfrac{L_0}{3^n}$, en is haar lengte
+\[
+\formule{L_n = \Bigl(\frac43\Bigr)^{\!n} L_0}
+\]
+Die lengte gaat naar $+\infty$.
+\end{stelling}
+
+\begin{bewijs}
+Elke stap vervangt elk lijnstuk door 4 lijnstukken die 3 keer korter zijn: het aantal lijnstukken wordt met 4 vermenigvuldigd, hun lengte met $\tfrac13$, dus de totale lengte met $\tfrac43$. Na $n$ stappen is $L_n = \bigl(\tfrac43\bigr)^n L_0$, een meetkundige rij met quotiënt $\tfrac43 > 1$: ze gaat naar $+\infty$.
+\end{bewijs}
+\end{theorie}
+
+De Koch-kromme is dus oneindig lang, hoewel ze in een begrensd stuk van het vlak ligt. Ze heeft nog een vreemde eigenschap: ze heeft nergens een raaklijn, want elk stukje heeft weer hoeken, hoe ver je ook inzoomt. Helge von Koch bedacht ze in 1904 juist om dat te tonen.
+
+\voorbeeld{}{Een Koch-kromme vertrekt van een lijnstuk van 27 cm. Na hoeveel stappen is ze langer dan 1 km? Hoe lang is een lijnstukje dan?\label{vb:h3-koch}}{%
+\uitleg{We lossen een ongelijkheid op met een meetkundige rij, zoals bij een spaarrekening: met een logaritme.}
+\begin{stappen}
+27 \cdot \Bigl(\dfrac43\Bigr)^{\!n} > 100\,000 & 1 km is 100\,000 cm. \\[2ex]
+n > \dfrac{\ln(100\,000/27)}{\ln(4/3)} \approx 28{,}6 & Delen door $\ln\frac43 > 0$. \\[2ex]
+\dfrac{27}{3^{29}} \approx 3{,}9 \cdot 10^{-13} \text{ cm} & De lengte van een lijnstukje na 29 stappen.
+\end{stappen}
+Na 29 stappen is de kromme langer dan een kilometer, terwijl ze in een rechthoek van 27 cm op 8 cm past. Haar lijnstukjes zijn dan kleiner dan een atoom: geen tekening kan dat tonen.}
+
+\begin{oefeningen}
+\oef{h3-koch}
+\end{oefeningen}
+
+\subsection{De sneeuwvlok van Koch}
+
+De sneeuwvlok van het probleem bestaat uit drie Koch-krommen, op de zijden van een gelijkzijdige driehoek. Haar omtrek is dus drie keer de lengte van één Koch-kromme: $27 \cdot \bigl(\tfrac43\bigr)^n$ cm, en dat gaat naar oneindig. Maar de figuur blijft binnen een cirkel. Kan de oppervlakte dan ook oneindig groot worden? Kijk wat er bij elke stap bijkomt.
+
+\begin{theorie}
+\begin{stelling}{Oppervlakte van de sneeuwvlok van Koch}
+Heeft de eerste driehoek oppervlakte $A_0$, dan heeft de sneeuwvlok na $n$ stappen oppervlakte
+\[
+\formule{A_n = A_0\Bigl(1 + \frac13 \sum_{k=1}^{n} \Bigl(\frac49\Bigr)^{\!k-1}\Bigr)}
+\]
+en die nadert $\formule{\dfrac85\,A_0}$.
+\end{stelling}
+
+\begin{bewijs}
+De driehoek heeft 3 zijden. Elke stap zet op elke zijde een driehoekje, en vervangt elke zijde door 4 zijden: na $k - 1$ stappen zijn er $3 \cdot 4^{k-1}$ zijden met lengte $\tfrac{1}{3^{k-1}}$ keer de oorspronkelijke. In stap $k$ komt op elke zijde een gelijkzijdige driehoek met zijde $\tfrac{1}{3^k}$ keer de oorspronkelijke, dus met oppervlakte $\tfrac{1}{9^k} A_0$. Er komt dus
+\bewijsregel{3 \cdot 4^{k-1} \cdot \frac{A_0}{9^k} = \frac{A_0}{3} \Bigl(\frac49\Bigr)^{\!k-1}}
+bij. Optellen geeft $A_n$. De som is een meetkundige reeks met reden $\tfrac49$, met som $\tfrac{1}{1 - 4/9} = \tfrac95$, zodat $A_n \to A_0\bigl(1 + \tfrac13 \cdot \tfrac95\bigr) = \tfrac85 A_0$.
+\end{bewijs}
+\end{theorie}
+
+Er komen dus steeds meer driehoekjes bij, maar ze worden zo snel kleiner dat hun totale oppervlakte eindig blijft: de sneeuwvlok is 60\,\% groter dan de driehoek waarmee ze begon. Een figuur kan dus een eindige oppervlakte hebben en een oneindige omtrek.
+
+\voorbeeld{}{Terug naar het probleem. Hoe lang is de rand van de sneeuwvlok na tien stappen, als de eerste driehoek zijde 9 cm heeft? Wat gebeurt er met de omtrek en de oppervlakte als je oneindig lang doorgaat?\label{vb:h3-terug}}{%
+\uitleg{De omtrek is drie Koch-krommen met beginlengte 9 cm, de oppervlakte volgt uit de stelling.}
+\begin{stappen}
+P_{10} = 27 \cdot \Bigl(\dfrac43\Bigr)^{\!10} \approx 479{,}5 \text{ cm} & Bijna vijf meter rand. \\[2ex]
+A_0 = \dfrac{\sqrt3}{4} \cdot 9^2 \approx 35{,}07 \text{ cm}^2 & De oppervlakte van de driehoek. \\[2ex]
+A_n \to \dfrac85 \cdot 35{,}07 \approx 56{,}12 \text{ cm}^2 & De oppervlakte van de sneeuwvlok.
+\end{stappen}
+Na tien stappen is de rand bijna vijf meter lang, en ze groeit zonder grens: bij elke stap komt er een derde bij. De oppervlakte blijft kleiner dan 56,12 cm\textsuperscript{2}, en nadert die waarde. Dat de sneeuwvlok binnen de cirkel blijft, zie je ook aan de oppervlakte: die van de cirkel met straal $\tfrac{9}{\sqrt3} \approx 5{,}2$ cm is ongeveer 84,8 cm\textsuperscript{2}.}
+
+\begin{oefeningen}
+\oef{h3-sneeuwvlok}
+\end{oefeningen}
+
+\subsection{De driehoek van Sierpiński}
+
+Bij de sneeuwvlok komt er bij elke stap iets bij. Wat als je juist iets weghaalt? Vertrek van een gevulde gelijkzijdige driehoek. Verbind de middens van de zijden: dat verdeelt de driehoek in vier kleinere, en je haalt de middelste weg. Doe met elk van de drie overblijvende driehoeken hetzelfde, en zo verder. De Poolse wiskundige Wacław Sierpiński beschreef die figuur in 1915.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski{0}{0}{0}{2.6}\end{scope}
+  \node[below] at (1.3,-.1) {$n = 0$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski{1}{0}{0}{2.6}\end{scope}
+  \node[below] at (1.3,-.1) {$n = 1$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski{2}{0}{0}{2.6}\end{scope}
+  \node[below] at (1.3,-.1) {$n = 2$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski{3}{0}{0}{2.6}\end{scope}
+  \node[below] at (1.3,-.1) {$n = 3$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski{5}{0}{0}{2.6}\end{scope}
+  \node[below] at (1.3,-.1) {$n = 5$};
+\end{tikzpicture}}
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{driehoek van Sierpiński}} is wat overblijft van een gevulde gelijkzijdige driehoek als je steeds opnieuw uit elke driehoek de middelste van de vier driehoeken tussen de middens van de zijden weghaalt.
+
+\begin{stelling}{Oppervlakte van de driehoek van Sierpiński}
+Na $n$ stappen zijn er $3^n$ driehoeken met zijde $\tfrac{1}{2^n}$ keer de oorspronkelijke, met samen oppervlakte
+\[
+\formule{A_n = \Bigl(\frac34\Bigr)^{\!n} A_0}
+\]
+en die gaat naar 0.
+\end{stelling}
+
+\begin{bewijs}
+Elke stap vervangt elke driehoek door 3 driehoeken met halve zijde, dus met een vierde van de oppervlakte: de totale oppervlakte wordt met $\tfrac34$ vermenigvuldigd. Omdat $0 < \tfrac34 < 1$, gaat $\bigl(\tfrac34\bigr)^n$ naar 0.
+\end{bewijs}
+\end{theorie}
+
+Toch blijft er iets over: de hoekpunten van alle driehoekjes worden nooit weggehaald, en ook de zijden van alle driehoekjes niet. De totale lengte van die zijden is na $n$ stappen $3^n \cdot 3 \cdot \tfrac{z}{2^n} = 3z\bigl(\tfrac32\bigr)^n$, met $z$ de zijde van de eerste driehoek, en dat gaat naar oneindig. De driehoek van Sierpiński heeft dus oppervlakte 0, maar een oneindig lange rand: ze is meer dan een kromme, en minder dan een vlak stuk.
+
+\voorbeeld{}{Een driehoek met zijde 8 cm wordt vijf stappen lang uitgehold tot een driehoek van Sierpiński. Hoeveel driehoekjes zijn er, hoe groot is hun zijde, en welk deel van de oppervlakte is weggehaald?\label{vb:h3-sierpinski}}{%
+\uitleg{We gebruiken de stelling met $n = 5$.}
+\begin{stappen}
+3^5 = 243 & Het aantal driehoekjes. \\
+\dfrac{8}{2^5} = 0{,}25 \text{ cm} & Hun zijde. \\[1.5ex]
+\Bigl(\dfrac34\Bigr)^{\!5} \approx 0{,}237 & Het deel van de oppervlakte dat overblijft.
+\end{stappen}
+Er is dus al ongeveer 76\,\% van de oppervlakte weggehaald, na maar vijf stappen. De oorspronkelijke oppervlakte was $\tfrac{\sqrt3}{4} \cdot 64 \approx 27{,}7$ cm\textsuperscript{2}, er blijft ongeveer 6,6 cm\textsuperscript{2} over.}
+
+\begin{werkwijze}
+Zoek wat één stap doet: in hoeveel stukken wordt elk stuk vervangen, en met welke factor worden de lengtes vermenigvuldigd? Oppervlaktes worden dan met het kwadraat van die factor vermenigvuldigd. Na $n$ stappen krijg je een meetkundige rij. Komt er bij elke stap iets bij, tel dan op met de meetkundige reeks.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-sierpinski}
+\end{oefeningen}
+
+\subsection{De Cantorverzameling}
+
+Wat gebeurt er als je hetzelfde doet met een lijnstuk? Neem het interval $[0, 1]$, en haal het middelste derde $\left]\tfrac13, \tfrac23\right[$ weg. Haal uit elk van de twee overblijvende stukken weer het middelste derde weg, en zo verder. Wat overblijft, beschreef Georg Cantor in 1883: de \textit{Cantorverzameling}.
+
+\naast{Na $n$ stappen blijven er $2^n$ intervallen over met lengte $\tfrac{1}{3^n}$, samen $\bigl(\tfrac23\bigr)^n$ lang. Dat gaat naar 0. Toch blijven er punten over: 0 en 1, $\tfrac13$ en $\tfrac23$, $\tfrac19$, \ldots{}, elk eindpunt van een interval wordt nooit weggehaald. Er blijven zelfs punten over die nooit een eindpunt zijn (opdracht~\ref{oef:h3-o17}).}{\begin{tikzpicture}[x=5.4cm,y=.42cm,font=\scriptsize]
+  \foreach \n in {0,...,4}{\begin{scope}[accent]\cantor{\n}{0}{-\n}{1}\end{scope}\node[left] at (0,-\n) {$\n$};}
+  \node[below] at (0,-4.2) {$0$};\node[below] at (1,-4.2) {$1$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Toon aan dat de stukken die je uit $[0, 1]$ weghaalt om de Cantorverzameling te maken, samen lengte 1 hebben.\label{vb:h3-cantor}}{%
+\uitleg{In stap $k$ haal je uit elk van de $2^{k-1}$ intervallen het middelste derde weg. We tellen die lengtes op met de meetkundige reeks.}
+\begin{stappen}
+2^{k-1} \cdot \dfrac{1}{3^k} = \dfrac13\Bigl(\dfrac23\Bigr)^{\!k-1} & Wat in stap $k$ weggaat: $2^{k-1}$ stukken met lengte $\frac{1}{3^k}$. \\[2ex]
+\dfrac13 \sum_{k=1}^{+\infty} \Bigl(\dfrac23\Bigr)^{\!k-1} = \dfrac13 \cdot \dfrac{1}{1 - 2/3} = 1 & De meetkundige reeks met reden $\frac23$.
+\end{stappen}
+Alles samen is evenveel weggehaald als er was. Toch is de Cantorverzameling niet leeg: lengte 0 betekent niet dat er niets overblijft.}
+
+\nujij{Hoeveel intervallen blijven er na 6 stappen over, en hoe lang zijn ze samen?}{$2^6 = 64$ intervallen met lengte $\tfrac{1}{729}$, samen $\bigl(\tfrac23\bigr)^6 \approx 0{,}088$.}
+
+\begin{oefeningen}
+\oef{h3-cantor}
+\end{oefeningen}
+
+%========================================================================================
+\section{Dimensie}
+
+\subsection{Kopieën tellen}
+
+De driehoek van Sierpiński is minder dan een vlak stuk, maar meer dan een kromme. Kun je dat in een getal vatten? Kijk eerst naar gewone figuren. Verklein een lijnstuk met factor 3: je hebt 3 kopieën nodig om het lijnstuk terug te vullen. Bij een vierkant zijn dat er $3^2 = 9$, bij een kubus $3^3 = 27$. De exponent is de dimensie.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \i in {0,1,2}{\draw[accent,line width=1.5pt] ({\i*.9+.04},0) -- ({\i*.9+.86},0);}
+  \node[below,align=center] at (1.35,-.3) {$3 = 3^1$ kopieën};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[font=\scriptsize]
+  \fill[accent!20] (0,0) rectangle (1.8,1.8);
+  \draw[accent,step=.6] (0,0) grid (1.8,1.8);
+  \draw[accent,thick] (0,0) rectangle (1.8,1.8);
+  \node[below] at (.9,-.15) {$9 = 3^2$ kopieën};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[font=\scriptsize,x={(1cm,0)},y={(0,1cm)},z={(.45cm,.3cm)}]
+  \fill[accent!20] (0,0,0) -- (1.8,0,0) -- (1.8,1.8,0) -- (0,1.8,0) -- cycle;
+  \fill[accent!35] (1.8,0,0) -- (1.8,0,1.8) -- (1.8,1.8,1.8) -- (1.8,1.8,0) -- cycle;
+  \fill[accent!10] (0,1.8,0) -- (1.8,1.8,0) -- (1.8,1.8,1.8) -- (0,1.8,1.8) -- cycle;
+  \foreach \t in {0,.6,1.2,1.8}{
+    \draw[accent] (\t,0,0) -- (\t,1.8,0) -- (\t,1.8,1.8);
+    \draw[accent] (0,\t,0) -- (1.8,\t,0) -- (1.8,\t,1.8);
+    \draw[accent] (1.8,0,\t) -- (1.8,1.8,\t) -- (0,1.8,\t);}
+  \node[below] at (.9,-.15,0) {$27 = 3^3$ kopieën};
+\end{tikzpicture}}
+
+Doe hetzelfde met de Koch-kromme: ze bestaat uit 4 kopieën van zichzelf, elk 3 keer kleiner. Is $4 = 3^D$, dan is $D = \tfrac{\log 4}{\log 3} \approx 1{,}26$. Dat is geen geheel getal: de Koch-kromme is meer dan een lijn, maar minder dan een vlak.
+
+\begin{theorie}
+Een figuur is \textbf{\textcolor{accent}{zelfgelijkvormig}} als ze bestaat uit $N$ kopieën van zichzelf, elk verkleind met dezelfde factor $s$ (de lengtes worden $s$ keer kleiner). Haar \textbf{\textcolor{accent}{gelijkvormigheidsdimensie}} is het getal $D$ met $N = s^D$, dus
+\[
+\formule{D = \frac{\log N}{\log s}}
+\]
+Een \textbf{\textcolor{accent}{fractaal}} is een figuur met details op elke schaal, zoals een zelfgelijkvormige figuur waarvan de dimensie geen geheel getal is.
+\end{theorie}
+
+Voor een lijnstuk, een vierkant en een kubus geeft de formule 1, 2 en 3, zoals het hoort, en dat voor elke verkleiningsfactor $s$: een vierkant bestaat ook uit $4 = 2^2$ kopieën met halve zijde. Het grondtal van de logaritme speelt geen rol, want $\tfrac{\log N}{\log s} = \tfrac{\ln N}{\ln s}$. De definitie van een fractaal is bewust ruim: wiskundigen zijn het niet eens over één precieze definitie.
+
+\voorbeeld{}{Bepaal de gelijkvormigheidsdimensie van de driehoek van Sierpiński en van de Cantorverzameling.\label{vb:h3-dimensie}}{%
+\uitleg{We zoeken het aantal kopieën $N$ en de verkleiningsfactor $s$, en vullen in.}
+\begin{stappen}
+N = 3, \ s = 2: \ D = \dfrac{\log 3}{\log 2} \approx 1{,}585 & Drie kopieën met halve zijde: tussen een kromme en een vlak. \\[2ex]
+N = 2, \ s = 3: \ D = \dfrac{\log 2}{\log 3} \approx 0{,}631 & Twee kopieën met een derde van de lengte: tussen een punt en een lijn.
+\end{stappen}
+De driehoek van Sierpiński vult het vlak meer dan de Koch-kromme ($1{,}585 > 1{,}262$). De Cantorverzameling is meer dan een eindig aantal punten, maar minder dan een lijnstuk.}
+
+\begin{werkwijze}
+Zoek in de figuur de kleinere kopieën van de hele figuur. Tel ze ($N$) en bepaal hoeveel keer kleiner ze zijn ($s$). Bereken $D = \tfrac{\log N}{\log s}$.
+\end{werkwijze}
+
+\nujij{Het \textit{tapijt van Sierpiński} ontstaat uit een vierkant, dat je in negen gelijke vierkanten verdeelt; je haalt het middelste weg, en herhaalt. Bepaal de dimensie.}{$N = 8$, $s = 3$: $D = \tfrac{\log 8}{\log 3} \approx 1{,}893$.}
+
+\begin{oefeningen}
+\oef{h3-dimensie}
+\end{oefeningen}
+
+\subsection{Hoe lang is een kust?}
+
+De Britse wetenschapper Lewis Fry Richardson merkte rond 1950 op dat de lengte van een kustlijn afhangt van de lat waarmee je meet: hoe korter de lat, hoe meer bochtjes je meetelt, en hoe langer de kust. Benoît Mandelbrot verklaarde dat in 1967 met de dimensie. Meet de Koch-kromme met beginlengte 1 met een lat van lengte $\varepsilon = \tfrac{1}{3^n}$. Dan leg je de lat $4^n$ keer, en meet je
+\[
+L(\varepsilon) = 4^n \cdot \frac{1}{3^n} = \frac{(3^n)^D}{3^n} = \varepsilon^{\,1 - D} ,
+\]
+want $4^n = (3^D)^n = (3^n)^D = \varepsilon^{-D}$. Is $D > 1$, dan is de exponent $1 - D$ negatief, en wordt de gemeten lengte onbeperkt groot als de lat korter wordt. Bij een gewone kromme ($D = 1$) hangt de gemeten lengte op den duur niet meer af van de lat.
+
+\voorbeeld{}{Een landmeter meet een rotsachtige kust. Met een lat van 1 km vindt hij 640 km, met een lat van 100 m vindt hij 1140 km. Neem aan dat $L(\varepsilon) = C\,\varepsilon^{\,1 - D}$. Bepaal $D$, en voorspel wat hij met een lat van 10 m zou meten.\label{vb:h3-kust}}{%
+\uitleg{Het quotiënt van twee metingen elimineert $C$, en de lat wordt 10 keer korter.}
+\begin{stappen}
+\dfrac{L(0{,}1)}{L(1)} = 0{,}1^{\,1 - D} = 10^{D - 1} & Het quotiënt van de twee metingen (lat in km). \\[2ex]
+10^{D - 1} = \dfrac{1140}{640} \ \Rightarrow \ D = 1 + \log\dfrac{1140}{640} \approx 1{,}25 & Met de logaritme met grondtal 10. \\[2ex]
+L(0{,}01) \approx 1140 \cdot \dfrac{1140}{640} \approx 2031 \text{ km} & Weer een lat 10 keer korter: weer een factor $10^{D - 1}$.
+\end{stappen}
+Met een lat van 10 m zou hij dus ongeveer 2000 km meten. De getallen zijn verzonnen, maar de dimensie ligt in de buurt van wat Richardson voor de westkust van Groot-Brittannië vond.}
+
+\begin{oefeningen}
+\oef{h3-meten}
+\end{oefeningen}
+
+%========================================================================================
+\section{Fractalen als dekpunt}
+
+\subsection{Een figuur itereren}
+
+De driehoek van Sierpiński bestaat uit drie kopieën van zichzelf met halve zijde. Elke kopie ontstaat door een \textit{homothetie}: noem de hoekpunten $A_1$, $A_2$ en $A_3$, en neem
+\[
+T_i(P) = \tfrac12\,(P + A_i) ,
+\]
+het midden van het lijnstuk van $P$ naar $A_i$. Is $S$ de driehoek van Sierpiński, dan is
+\[
+S = T_1(S) \cup T_2(S) \cup T_3(S) .
+\]
+Dat lijkt op $f(p) = p$: de driehoek van Sierpiński is een \textit{dekpunt}, niet van een functie op getallen, maar van de bewerking die een figuur $F$ vervangt door $T_1(F) \cup T_2(F) \cup T_3(F)$. En net als bij een aantrekkend dekpunt maakt de startwaarde niet uit. Begin met een vierkant in plaats van een driehoek:
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski[\sierpvierkant]{0}{0}{0}{2.6}\end{scope}
+  \draw[grijs,thick] (0,0) -- (2.6,0) -- (1.3,2.2517) -- cycle;
+  \node[below] at (1.3,-.1) {$F_0$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski[\sierpvierkant]{1}{0}{0}{2.6}\end{scope}
+  \draw[grijs,thick] (0,0) -- (2.6,0) -- (1.3,2.2517) -- cycle;
+  \node[below] at (1.3,-.1) {$F_1$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski[\sierpvierkant]{2}{0}{0}{2.6}\end{scope}
+  \draw[grijs,thick] (0,0) -- (2.6,0) -- (1.3,2.2517) -- cycle;
+  \node[below] at (1.3,-.1) {$F_2$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski[\sierpvierkant]{3}{0}{0}{2.6}\end{scope}
+  \draw[grijs,thick] (0,0) -- (2.6,0) -- (1.3,2.2517) -- cycle;
+  \node[below] at (1.3,-.1) {$F_3$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[font=\scriptsize]
+  \begin{scope}[fill=accent]\sierpinski[\sierpvierkant]{5}{0}{0}{2.6}\end{scope}
+  \draw[grijs,thick] (0,0) -- (2.6,0) -- (1.3,2.2517) -- cycle;
+  \node[below] at (1.3,-.1) {$F_5$};
+\end{tikzpicture}}
+
+Na elke stap zijn er drie keer zoveel vierkantjes, met halve zijde, en de figuur lijkt steeds meer op de driehoek van Sierpiński. Het grijze kader is de driehoek met hoekpunten $A_1$, $A_2$, $A_3$. John Hutchinson bewees in 1981 dat dit altijd lukt: neem een eindig aantal gelijkvormigheden die alle lengtes verkleinen, en de iteratie gaat vanuit elke begrensde figuur naar dezelfde fractaal. Het bewijs valt buiten deze cursus, maar het idee is dat van hoofdstuk 1: de transformaties verkleinen afstanden met een factor kleiner dan 1, zoals een functie met $|f'| < 1$ rond een aantrekkend dekpunt.
+
+\voorbeeld{}{Neem $A_1(0, 0)$, $A_2(4, 0)$ en $A_3(2, 4)$, en het punt $P(1, 3)$. Bereken $T_1(P)$, $T_2(P)$ en $T_3(P)$, en daarna $T_2(T_3(P))$.\label{vb:h3-transformaties}}{%
+\uitleg{Telkens het midden van $P$ en een hoekpunt: de coördinaten optellen en halveren.}
+\begin{stappenbreed}
+T_1(P) = \tfrac12\bigl((1, 3) + (0, 0)\bigr) = (0{,}5;\ 1{,}5) & Halfweg naar $A_1$. \\
+T_2(P) = \tfrac12\bigl((1, 3) + (4, 0)\bigr) = (2{,}5;\ 1{,}5) & Halfweg naar $A_2$. \\
+T_3(P) = \tfrac12\bigl((1, 3) + (2, 4)\bigr) = (1{,}5;\ 3{,}5) & Halfweg naar $A_3$. \\
+T_2(T_3(P)) = \tfrac12\bigl((1{,}5;\ 3{,}5) + (4, 0)\bigr) = (2{,}75;\ 1{,}75) & Eerst $T_3$, dan $T_2$.
+\end{stappenbreed}
+Elke transformatie halveert de afstand tot haar hoekpunt. Twee punten $P$ en $Q$ komen ook dichter bij elkaar: $|T_i(P) - T_i(Q)| = \tfrac12\,|P - Q|$.}
+
+\begin{oefeningen}
+\oef{h3-transformaties}
+\end{oefeningen}
+
+\subsection{Het chaosspel}
+
+Je kunt de driehoek van Sierpiński ook met één punt tekenen. Kies een startpunt in de driehoek. Gooi een dobbelsteen: bij 1 of 2 pas je $T_1$ toe, bij 3 of 4 $T_2$, bij 5 of 6 $T_3$. Teken het nieuwe punt, en herhaal. Na een paar stappen liggen alle punten zo dicht bij de driehoek van Sierpiński dat je het verschil niet ziet, en na enkele duizenden stappen verschijnt de hele figuur. Michael Barnsley noemde dat in 1988 het \textit{chaosspel}: elke baan is toevallig, maar het resultaat is altijd dezelfde figuur.
+
+\naast{Waarom werkt dat? Elk punt van $S$ blijft in $S$, want $S$ is de unie van de drie beelden. En een punt buiten $S$ komt bij elke stap dichter bij $S$: de afstand halveert. Na tien stappen is ze al 1024 keer kleiner. Met vier transformaties in plaats van drie, die ook draaien en scheeftrekken, tekende Barnsley zo een varen (rechts): een plant als dekpunt van vier transformaties. Die transformaties schrijf je met matrices (zie Koppel).}{\includegraphics[width=3.6cm]{chaosspel.png}\quad\includegraphics[height=4cm]{varen.png}}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Telproblemen (binomiaalcoëfficiënten), Matrices en Ruimtemeetkunde staan in pakket 4: Matrices in het 5de jaar, Telproblemen en Ruimtemeetkunde in het 6de jaar. Kijk na of ze gezien zijn.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-koch}{oef:h3-koch}%
+  \fv{oef:h3-t2}{vb:h3-terug}{oef:h3-sneeuwvlok}%
+  \fv{oef:h3-t3}{vb:h3-sierpinski}{oef:h3-sierpinski}%
+  \fv{oef:h3-t4}{vb:h3-cantor}{oef:h3-cantor}%
+  \fv{oef:h3-t5}{vb:h3-dimensie}{oef:h3-dimensie}%
+  \fv{oef:h3-t6}{vb:h3-kust}{oef:h3-meten}%
+  \fv{oef:h3-t7}{vb:h3-transformaties}{oef:h3-transformaties}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: hoe de Koch-kromme, de sneeuwvlok van Koch, de driehoek van Sierpiński en de Cantorverzameling ontstaan, hoe je hun lengte, omtrek of oppervlakte na $n$ stappen berekent (en waarom de oppervlakte van de sneeuwvlok eindig blijft), wat zelfgelijkvormig is, de formule voor de gelijkvormigheidsdimensie, wat de dimensie zegt over het meten van een kust, en waarom een fractaal een dekpunt is van een iteratie op figuren. Vergelijk daarna met de kaders.
+\fi

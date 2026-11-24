@@ -1,0 +1,23 @@
+% Lineair programmeren. Clara Peeters: kazen, brood, amandelen en krakelingen. Het dieetprobleem (welke
+% voeding geeft genoeg voedingsstoffen voor de laagste prijs?) was een van de eerste problemen van lineair programmeren.
+% Motief: het toegestane gebied van het probleem van hoofdstuk 2 (kaarsen x en zeepdozen y:
+% 20x + 30y <= 3600, 10x + 5y <= 1500, y <= 100, x, y >= 0), met hoekpunten (0,0), (150,0), (135,30),
+% (30,100) en (0,100). Drie niveaulijnen 4x + 5y = 300, 500 en 690; de laatste raakt het gebied in het
+% optimum (135, 30), in fel. Schaal: 0,04 cm per stuk. De bovenrand van de band daalt zoals een niveaulijn.
+\def\omslagbestand{omslag-kazen.jpg}
+\def\omslagbron{Clara Peeters, \textit{Stilleven met kazen, amandelen en krakelingen}, ca. 1615 (publiek domein)}
+\def\omslagrand{10.35 + 0.6*(21-\x)/21}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[shift={(14.2,4.6)},x=.04cm,y=.04cm]
+    \fill[white,fill opacity=.14] (0,0) -- (150,0) -- (135,30) -- (30,100) -- (0,100) -- cycle;
+    \begin{scope}
+      \clip (-5,-5) rectangle (165,118);
+      \foreach \k in {300,500}{\draw[white,line width=.8pt,dash pattern=on 4pt off 3pt] ({\k/4},0) -- (0,{\k/5});}
+      \draw[fel,line width=1.2pt,dash pattern=on 5pt off 3pt] (172.5,0) -- (0,138);
+    \end{scope}
+    \draw[omslaglijn=1.2pt] (0,0) -- (150,0) -- (135,30) -- (30,100) -- (0,100) -- cycle;
+    \fill[fel,draw=white,line width=.8pt] (135,30) circle (4.5pt);
+  \end{scope}
+  \node[omslaglabel,anchor=north west] at (19.75,5.55) {max};
+}

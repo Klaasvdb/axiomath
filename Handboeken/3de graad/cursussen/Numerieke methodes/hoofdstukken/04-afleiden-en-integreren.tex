@@ -1,0 +1,482 @@
+%----------------------------------------------------------------------------------------
+% NUMERIEK AFLEIDEN EN INTEGREREN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h4-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{Afleiden en integreren met getallen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een elektrische auto trekt op aan een verkeerslicht. De app van de auto toont om de 2 seconden de snelheid $v$ (in m/s):
+
+\vspace{1mm}
+{\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|ccccccc}
+$t$ (s) & 0 & 2 & 4 & 6 & 8 & 10 & 12 \\ \hline
+$v$ (m/s) & 0 & 8,5 & 14,6 & 19,0 & 22,1 & 24,3 & 25,9
+\end{tabular}}
+
+\vspace{1mm}
+Hoe groot was de versnelling na 6 seconden? Hoeveel meter legde de auto af in die 12 seconden? Een voorschrift voor $v(t)$ heb je niet, dus afleiden en integreren zoals in de cursussen Limieten en afgeleiden en Integralen lukt niet.}{\begin{tikzpicture}[x=.3cm,y=.12cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=2,ystep=5] (0,0) grid (12,30);
+  \draw[->,grijs] (0,0) -- (13,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,32) node[above,text=black] {$v$};
+  \foreach \t in {4,8,12}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \foreach \x/\y in {0/0,2/8.5,4/14.6,6/19.0,8/22.1,10/24.3,12/25.9}{\fill[accent] (\x,\y) circle (2.2pt);}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 28 (numeriek afleiden, met de wenk over discrete data) en LPD 29 (numeriek integreren: middelpuntsregel, trapeziumregel en regel van Simpson). Voorkennis uit pakket 4: de afgeleide als limiet van het differentiequotiënt (Limieten en afgeleiden, hoofdstuk 2), Riemannsommen en de bepaalde integraal (Integralen, hoofdstuk 1 en 2). De methode van Euler voor differentiaalvergelijkingen staat in de cursus Differentiaalvergelijkingen (hoofdstuk 2); ze gebruikt dezelfde voorwaartse differentie als sectie 1 hier. Het probleem: de snelheden komen uit $v(t) = 30\,(1 - \e^{-t/6})$, afgerond op 0,1. De exacte versnelling na 6 s is $5\,\e^{-1} \approx 1{,}84$ m/s² en de exacte afstand $204{,}4$ m; dat mag je achteraf verklappen.}
+
+Een afgeleide en een integraal zijn allebei limieten: van een differentiequotiënt en van een som. In de cursussen Limieten en afgeleiden en Integralen leerde je ze exact berekenen met rekenregels, als je een voorschrift hebt. Maar vaak heb je dat niet: je hebt meetwaarden, een tabel, of een functie waarvan geen primitieve bestaat in een formule, zoals $\e^{-x^2}$. Dan neem je de limiet niet, maar stop je net ervoor: een differentiequotiënt met een kleine $h$, een som met een klein $\Delta x$. In dit hoofdstuk leer je hoe je dat slim doet, zodat de fout zo klein mogelijk is, en hoe je die fout inschat.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+\lkr{In oefening \ref{oef:h4-verken} vergelijken de leerlingen het gewone differentiequotiënt met het symmetrische. Ze zien dat het symmetrische veel beter is, en bij een parabool zelfs exact. Dat is de kern van sectie 1.}
+
+%========================================================================================
+\section{Numeriek afleiden}
+
+\subsection{Het differentiequotiënt}
+
+In de cursus Limieten en afgeleiden zag je dat $f'(a)$ de limiet is voor $h \to 0$ van het differentiequotiënt $\tfrac{f(a + h) - f(a)}{h}$. Neem je $h$ klein maar niet 0, dan krijg je een benadering. De koorde door $(a, f(a))$ en $(a + h, f(a + h))$ is dan bijna de raaklijn. Je kunt ook naar links kijken, met $a - h$.
+
+\begin{theorie}
+Voor een functie $f$, een getal $a$ en een stap $h > 0$ is
+\[
+\formule{\frac{f(a + h) - f(a)}{h}} \quad \text{de \textbf{\textcolor{accent}{voorwaartse differentie}}}
+\]
+en
+\[
+\formule{\frac{f(a) - f(a - h)}{h}} \quad \text{de \textbf{\textcolor{accent}{achterwaartse differentie}}.}
+\]
+\end{theorie}
+
+Hoe goed zijn die benaderingen? Bekijk $f(x) = x^2$. Dan is
+\[
+\frac{(a + h)^2 - a^2}{h} = \frac{2ah + h^2}{h} = 2a + h ,
+\]
+terwijl $f'(a) = 2a$. De fout is precies $h$: halveer je $h$, dan halveert de fout. Bij een parabool die holler is, $f(x) = px^2$, is de fout $ph$. De fout hangt dus af van de kromming van de grafiek. In het algemeen is de fout van de voorwaartse differentie ongeveer $\frac{h}{2}\,f''(a)$: evenredig met $h$.
+
+\voorbeeld{}{Benader $f'(4)$ voor $f(x) = \sqrt x$ met de voorwaartse differentie, met $h = 0{,}1$ en $h = 0{,}01$. Vergelijk met de exacte waarde.\label{vb:h4-voorwaarts}}{%
+\uitleg{De exacte waarde is $f'(4) = \frac{1}{2\sqrt4} = 0{,}25$. We vullen de formule in en berekenen de fout.}
+\begin{stappen}
+\frac{\sqrt{4{,}1} - 2}{0{,}1} \approx 0{,}248\,457 & Fout $-0{,}001\,54$. \\[2ex]
+\frac{\sqrt{4{,}01} - 2}{0{,}01} \approx 0{,}249\,844 & Fout $-0{,}000\,156$: tien keer kleiner.
+\end{stappen}
+Een tien keer kleinere stap geeft een tien keer kleinere fout: de fout is evenredig met $h$. Ze is negatief, want de grafiek van $\sqrt x$ is bol, en de koorde naar rechts is dan minder steil dan de raaklijn. Inderdaad is $\frac h2 f''(4) = \frac{0{,}1}{2} \cdot \bigl(-\frac{1}{32}\bigr) \approx -0{,}001\,56$.}
+
+\begin{oefeningen}
+\oef{h4-voorwaarts}
+\end{oefeningen}
+
+\subsection{De centrale differentie}
+
+Bij een holle grafiek is de voorwaartse differentie te groot en de achterwaartse te klein. Neem dan het gemiddelde van de twee: de koorde door $(a - h, f(a - h))$ en $(a + h, f(a + h))$. De figuur toont dat die koorde bijna evenwijdig is met de raaklijn, ook als ze er niet dichtbij ligt.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{centrale differentie}} van $f$ in $a$ met stap $h$ is
+\[
+\formule{\frac{f(a + h) - f(a - h)}{2h}}
+\]
+\end{theorie}
+
+\naast{Ze is het gemiddelde van de voorwaartse en de achterwaartse differentie: tel ze op en deel door 2. Meetkundig is ze de richtingscoëfficiënt van de koorde door de punten met $x = a - h$ en $x = a + h$. In de figuur is die koorde (grijs) evenwijdig met de raaklijn in $a$, terwijl de koorde van de voorwaartse differentie (gestippeld) steiler is.}{\begin{tikzpicture}[x=1.4cm,y=.9cm,font=\scriptsize]
+  \draw[->,grijs] (-.2,0) -- (3.2,0) node[right,text=black] {$x$};
+  \kromme{.2}{3}{.35*(\x)^2+.3}
+  \draw[grijs,thick] (.8,.524) -- (2.6,2.666);
+  \draw[fel!80!black,thick] (.9,.3595) -- (2.5,2.2635);
+  \draw[accent!50,dashed] (1.7,1.3115) -- (2.6,2.666);
+  \foreach \x/\y in {.8/.524,1.7/1.3115,2.6/2.666}{\fill (\x,\y) circle (1.4pt);}
+  \node[below] at (.8,0) {$a - h$}; \node[below] at (1.7,0) {$a$}; \node[below] at (2.6,0) {$a + h$};
+  \draw[grijs,dashed] (.8,0) -- (.8,.524) (1.7,0) -- (1.7,1.3115) (2.6,0) -- (2.6,2.666);
+  \node[fel!80!black,below right,inner sep=1pt] at (2.1,1.8) {raaklijn};
+\end{tikzpicture}}
+
+Bij een parabool is de koorde door $a - h$ en $a + h$ zelfs precies evenwijdig met de raaklijn in $a$. Dat maakt de centrale differentie veel nauwkeuriger.
+
+\begin{theorie}
+\begin{stelling}{Centrale differentie bij een tweedegraadsfunctie}
+Is $f(x) = px^2 + qx + r$, dan is voor elke $a$ en elke $h > 0$
+
+\vspace{1mm}
+\qquad $\formule{\frac{f(a + h) - f(a - h)}{2h} = f'(a)}$
+\end{stelling}
+
+\begin{bewijs}
+Werk de teller uit. De termen $r$ vallen weg, en
+\bewijsregel{p(a + h)^2 - p(a - h)^2 = p \cdot 4ah , \qquad q(a + h) - q(a - h) = 2qh .}
+Dus is de centrale differentie $\frac{4pah + 2qh}{2h} = 2pa + q = f'(a)$.
+\end{bewijs}
+\end{theorie}
+
+Bij een parabool is de centrale differentie dus exact, welke $h$ je ook neemt. Bij een derdegraadsfunctie is ze dat niet meer: voor $f(x) = x^3$ is $\frac{(a + h)^3 - (a - h)^3}{2h} = 3a^2 + h^2$, met een fout van precies $h^2$. In het algemeen is de fout ongeveer $\frac{h^2}{6}\,f'''(a)$: evenredig met $h^2$. Halveer je $h$, dan wordt de fout vier keer kleiner. Een verklaring van die formules vraagt de veeltermbenaderingen van Taylor (cursus Reeksen).
+
+\voorbeeld{}{Benader $f'(1)$ voor $f(x) = \e^x$ met de voorwaartse en met de centrale differentie, met $h = 0{,}1$ en $h = 0{,}05$. Hoe verandert de fout als je $h$ halveert?\label{vb:h4-centraal}}{%
+\uitleg{De exacte waarde is $\e \approx 2{,}718\,282$. We berekenen telkens de benadering en de fout, en vergelijken de fouten bij $h$ en $\frac h2$.}
+\naast{{\renewcommand{\arraystretch}{1.25}\begin{tabular}{@{}c|cc|cc@{}}
+ & \multicolumn{2}{c|}{voorwaarts} & \multicolumn{2}{c}{centraal} \\
+$h$ & benadering & fout & benadering & fout \\ \hline
+0,1 & 2,858\,842 & 0,1406 & 2,722\,815 & 0,004\,53 \\
+0,05 & 2,787\,386 & 0,0691 & 2,719\,415 & 0,001\,13 \\
+\end{tabular}}}{}
+Bij de voorwaartse differentie halveert de fout ongeveer ($0{,}1406 \to 0{,}0691$). Bij de centrale differentie wordt ze vier keer kleiner ($0{,}004\,53 \to 0{,}001\,13$), en ze was al dertig keer kleiner. Met evenveel functiewaarden (twee) is de centrale differentie veel beter.}
+
+\begin{werkwijze}
+Gebruik de centrale differentie $\frac{f(a + h) - f(a - h)}{2h}$ als je links en rechts van $a$ een functiewaarde kunt berekenen. Wil je de fout schatten, bereken dan de benadering met $h$ en met $\frac h2$: de fout van de beste benadering is ongeveer een derde van hun verschil (want de fout wordt vier keer kleiner).
+\end{werkwijze}
+
+\nujij{Benader $f'(2)$ voor $f(x) = \frac1x$ met de centrale differentie met $h = 0{,}1$. Wat is de fout?}{$\frac{1/2{,}1 - 1/1{,}9}{0{,}2} \approx -0{,}250\,627$; exact $-0{,}25$, fout $-0{,}000\,63$.}
+
+\begin{oefeningen}
+\oef{h4-differentie}
+\end{oefeningen}
+
+\subsection{Te kleine stappen}
+
+Als een kleinere $h$ een kleinere fout geeft, waarom neem je dan niet $h = 10^{-12}$? Omdat een rekentoestel afrondt. Bij een heel kleine $h$ liggen $f(a + h)$ en $f(a)$ zo dicht bij elkaar dat de meeste cijfers van het verschil wegvallen: alleen de afrondingsfout blijft over, en die deel je dan nog door een heel kleine $h$.
+
+\voorbeeld{}{Een rekentoestel bewaart 10 beduidende cijfers. Bereken $\frac{\e^{1 + h} - \e}{h}$ voor $h = 10^{-3}$, $10^{-5}$, $10^{-7}$ en $10^{-9}$.\label{vb:h4-afronden}}{%
+\uitleg{Elke functiewaarde wordt afgerond op 10 cijfers. We volgen wat er bij het aftrekken overblijft.}
+\naast{{\renewcommand{\arraystretch}{1.25}\begin{tabular}{@{}c|cc@{}}
+$h$ & benadering & fout \\ \hline
+$10^{-3}$ & 2,719\,642 & 0,001\,36 \\
+$10^{-5}$ & 2,7183 & 0,000\,018 \\
+$10^{-7}$ & 2,72 & 0,0017 \\
+$10^{-9}$ & 3 & 0,28 \\
+\end{tabular}}}{\begin{tikzpicture}[x=.55cm,y=.5cm,font=\scriptsize]
+  \draw[black!14,very thin] (1,0) grid (9,5);
+  \draw[->,grijs] (1,0) -- (9.5,0) node[right,text=black] {$k$};
+  \draw[->,grijs] (1,0) -- (1,5.5) node[above,text=black] {$-\log(\text{fout})$};
+  \foreach \t in {1,3,5,7,9}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {1,3,5}{\node[left,inner sep=1.5pt] at (1,\t) {$\t$};}
+  \draw[accent,thick] plot coordinates {(1,.85) (2,1.87) (3,2.87) (4,3.86) (5,4.74) (6,3.14) (7,2.76) (8,1.09) (9,.55)};
+  \foreach \x/\y in {1/.85,2/1.87,3/2.87,4/3.86,5/4.74,6/3.14,7/2.76,8/1.09,9/.55}{\fill[accent] (\x,\y) circle (1.6pt);}
+\end{tikzpicture}}
+Bij $h = 10^{-9}$ zijn $\e^{1 + h} = 2{,}718\,281\,831$ en $\e = 2{,}718\,281\,828$ op 10 cijfers. Hun verschil $3 \cdot 10^{-9}$ heeft nog maar één juist cijfer. De figuur toont het aantal juiste decimalen bij $h = 10^{-k}$: het stijgt tot $k = 5$, en daalt daarna.}
+
+De totale fout bestaat uit twee delen. De \textit{afbreekfout} komt doordat je de limiet niet neemt, en wordt kleiner met $h$. De \textit{afrondingsfout} komt van het rekentoestel, en wordt groter als $h$ kleiner wordt. De beste $h$ ligt ertussen. Met 10 cijfers is dat bij de voorwaartse differentie ongeveer $10^{-5}$, bij de centrale ongeveer $10^{-3}$.
+
+\begin{werkwijze}
+Kies $h$ niet kleiner dan nodig: op een rekentoestel ongeveer $10^{-3}$ voor de centrale differentie. Twijfel je, vergelijk dan de resultaten voor een paar waarden van $h$. Veranderen ze grillig als $h$ kleiner wordt, dan overheerst de afrondingsfout.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-afronden}
+\end{oefeningen}
+
+\subsection{Uit meetwaarden}
+
+Bij meetwaarden kies je $h$ niet zelf: het is de tijd tussen twee metingen. In een punt binnenin de tabel gebruik je de centrale differentie met de buren links en rechts. Aan de rand heb je alleen de voorwaartse of de achterwaartse.
+
+\voorbeeld{}{Terug naar het probleem (deel 1). Schat de versnelling van de auto na 6 seconden. Vergelijk de drie differenties.\label{vb:h4-terug1}}{%
+\uitleg{De versnelling is de afgeleide van de snelheid: $a(6) = v'(6)$. In de tabel staan de buren 4 en 8 op 2 seconden afstand, dus $h = 2$.}
+\begin{stappen}
+\frac{v(8) - v(4)}{4} = \frac{22{,}1 - 14{,}6}{4} \approx 1{,}88 & Centraal, met $h = 2$. \\[2ex]
+\frac{v(8) - v(6)}{2} = 1{,}55, \quad \frac{v(6) - v(4)}{2} = 2{,}2 & Voorwaarts en achterwaarts.
+\end{stappen}
+De versnelling na 6 s is ongeveer 1,9 m/s². De voorwaartse en de achterwaartse differentie verschillen veel, omdat de auto steeds minder versnelt: de grafiek van $v$ is bol. De centrale differentie ligt ertussen en is de betrouwbaarste.}
+
+Hoe nauwkeurig is dat? De snelheden zijn afgerond op 0,1 m/s, dus elk kan 0,05 afwijken. In de centrale differentie kan de teller daardoor 0,1 fout zijn, en na deling door 4 de versnelling 0,025. Daarnaast is er de afbreekfout, want $h = 2$ is niet klein. Uit metingen haal je een afgeleide dus nooit erg nauwkeurig: afleiden versterkt de meetfouten.
+
+\begin{oefeningen}
+\oef{h4-meting}
+\end{oefeningen}
+
+%========================================================================================
+\section{Numeriek integreren}
+
+\subsection{De middelpuntsregel}
+
+Voor de afstand moet je de snelheid integreren: $\int_0^{12} v(t)\dt$. In de cursus Integralen benaderde je een integraal met rechthoeken: een Riemannsom. De hoogte kon je links, rechts of in het midden van elk deelinterval nemen. In het midden werkt het meestal het best, want wat links te veel is, compenseert rechts wat te weinig is.
+
+\begin{theorie}
+Verdeel $[a, b]$ in $n$ deelintervallen met breedte $h = \frac{b - a}{n}$, met middens $m_1, \ldots, m_n$. De \textbf{\textcolor{accent}{middelpuntsregel}} benadert de integraal door
+\[
+\formule{M_n = h\,\bigl(f(m_1) + f(m_2) + \cdots + f(m_n)\bigr)}
+\]
+\end{theorie}
+
+\subsection{De trapeziumregel}
+
+Een ander idee: vervang de grafiek op elk deelinterval door het lijnstuk tussen de eindpunten. Onder elk lijnstuk ligt een trapezium met oppervlakte $h \cdot \frac{f(x_{i-1}) + f(x_i)}{2}$. Tel je die op, dan komt elk tussenpunt twee keer voor, en elk eindpunt één keer.
+
+\begin{theorie}
+Verdeel $[a, b]$ in $n$ deelintervallen met breedte $h = \frac{b - a}{n}$, met deelpunten $x_0 = a, x_1, \ldots, x_n = b$. De \textbf{\textcolor{accent}{trapeziumregel}} benadert de integraal door
+\[
+\formule{T_n = h\,\Bigl(\tfrac12 f(x_0) + f(x_1) + f(x_2) + \cdots + f(x_{n-1}) + \tfrac12 f(x_n)\Bigr)}
+\]
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[x=1.6cm,y=1.6cm,font=\scriptsize]
+  \draw[->,grijs] (.85,0) -- (2.2,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (.9,0) -- (.9,1.15);
+  \riemann{4}{1}{2}{1/\x}{.5}
+  \kromme{1}{2}{1/\x}
+  \foreach \t in {1,1.5,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \node at (1.5,-.35) {$M_4$};
+\end{tikzpicture}\hspace{10mm}
+\begin{tikzpicture}[x=1.6cm,y=1.6cm,font=\scriptsize]
+  \draw[->,grijs] (.85,0) -- (2.2,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (.9,0) -- (.9,1.15);
+  \trapezia{4}{1}{2}{1/\x}
+  \kromme{1}{2}{1/\x}
+  \foreach \t in {1,1.5,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \node at (1.5,-.35) {$T_4$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Benader $\ig_1^2 \frac1x\dx$ met $M_4$ en met $T_4$. Vergelijk met de exacte waarde $\ln 2 \approx 0{,}693\,147$.\label{vb:h4-mt}}{%
+\uitleg{Met $n = 4$ is $h = 0{,}25$. De middens zijn 1,125; 1,375; 1,625; 1,875. De deelpunten zijn 1; 1,25; 1,5; 1,75; 2.}
+\begin{stappenbreed}
+M_4 = 0{,}25\,\Bigl(\tfrac{1}{1{,}125} + \tfrac{1}{1{,}375} + \tfrac{1}{1{,}625} + \tfrac{1}{1{,}875}\Bigr) \approx 0{,}691\,220 & Fout $-0{,}001\,93$: te klein. \\[2ex]
+T_4 = 0{,}25\,\Bigl(\tfrac12 + \tfrac{1}{1{,}25} + \tfrac{1}{1{,}5} + \tfrac{1}{1{,}75} + \tfrac14\Bigr) \approx 0{,}697\,024 & Fout $0{,}003\,88$: te groot.
+\end{stappenbreed}
+De figuur verklaart de tekens: de grafiek van $\frac1x$ is hol, dus de lijnstukken van de trapezia liggen erboven, en de raaklijn in het midden (met dezelfde oppervlakte eronder als de rechthoek) ligt eronder. De fout van $T_4$ is ongeveer $-2$ keer die van $M_4$.}
+
+\begin{werkwijze}
+Bereken $h = \frac{b - a}{n}$. Voor de middelpuntsregel: tel de functiewaarden in de middens op en vermenigvuldig met $h$. Voor de trapeziumregel: tel de functiewaarden in de deelpunten op, de twee eindpunten maar half, en vermenigvuldig met $h$. Maak een tabel met de punten en hun functiewaarden.
+\end{werkwijze}
+
+\nujij{Benader $\ig_0^2 x^3\dx$ met $M_2$ en $T_2$. Vergelijk met de exacte waarde 4.}{$M_2 = 1 \cdot (0{,}125 + 3{,}375) = 3{,}5$; $T_2 = 1 \cdot (0 + 1 + 4) = 5$. Fouten $-0{,}5$ en $1$.}
+
+\begin{oefeningen}
+\oef{h4-mt}
+\end{oefeningen}
+
+\subsection{De fout bij een parabool}
+
+In het voorbeeld was de fout van de trapeziumregel ongeveer $-2$ keer die van de middelpuntsregel. Is dat toeval? Beide regels zijn exact voor een rechte: de rechthoek in het midden en het trapezium hebben dan dezelfde oppervlakte als het gebied eronder. De eerste fout ontstaat dus bij een parabool, en die kunnen we exact berekenen.
+
+\begin{theorie}
+\begin{stelling}{Middelpunt en trapezium bij een parabool}
+Is $f$ een tweedegraadsfunctie, $I = \ig_a^b f(x)\dx$ en $h = b - a$, dan is
+
+\vspace{1mm}
+\qquad $\formule{I - T_1 = -2\,(I - M_1)}$
+\end{stelling}
+
+\begin{bewijs}
+Neem het midden $c = \frac{a + b}{2}$ en $k = \frac h2$, en schrijf $f(x) = p(x - c)^2 + q(x - c) + r$. Voor het deel $q(x - c) + r$ (een rechte) zijn beide regels exact. Voor $g(x) = p(x - c)^2$ is
+\bewijsregel{\ig_{c-k}^{c+k} p(x - c)^2\dx = \tfrac23 p k^3 , \quad M_1 = 2k \cdot g(c) = 0 , \quad T_1 = 2k \cdot \tfrac{pk^2 + pk^2}{2} = 2pk^3 .}
+Dus $I - M_1 = \frac23 pk^3$ en $I - T_1 = -\frac43 pk^3 = -2(I - M_1)$. Ook voor $f$ zelf, want het rechte deel draagt aan geen van beide fouten bij.
+\end{bewijs}
+\end{theorie}
+
+Op een klein interval lijkt elke gladde functie op een parabool. Daarom geldt voor kleine $h$ in het algemeen: \textit{de fout van de trapeziumregel is ongeveer $-2$ keer die van de middelpuntsregel}. Twee gevolgen. Ten eerste liggen $M_n$ en $T_n$ aan weerskanten van de integraal: bij een holle grafiek is $M_n \leqslant I \leqslant T_n$, bij een bolle omgekeerd. Ten tweede is de middelpuntsregel ongeveer twee keer zo nauwkeurig. En de fout van beide is evenredig met $h^2$, want bij een parabool is ze evenredig met $k^3$ per deelinterval, en er zijn $\frac{b - a}{h}$ deelintervallen.
+
+\figuren{\begin{tikzpicture}[x=1.3cm,y=1.3cm,font=\scriptsize]
+  \draw[->,grijs] (-.2,0) -- (2.3,0) node[right,text=black] {$x$};
+  \gebied[accent!15]{0}{2}{.35*(\x-1)^2+.4}
+  \draw[accent,fill=accent!30] (0,0) rectangle (2,.4);
+  \kromme{0}{2}{.35*(\x-1)^2+.4}
+  \node[below] at (1,0) {$c$};
+  \node[text width=3.2cm,align=center] at (1,-.45) {$M_1$: te klein met $\frac23 pk^3$};
+\end{tikzpicture}\hspace{8mm}
+\begin{tikzpicture}[x=1.3cm,y=1.3cm,font=\scriptsize]
+  \draw[->,grijs] (-.2,0) -- (2.3,0) node[right,text=black] {$x$};
+  \draw[accent,fill=accent!30] (0,0) -- (0,.75) -- (2,.75) -- (2,0) -- cycle;
+  \gebied[accent!15]{0}{2}{.35*(\x-1)^2+.4}
+  \kromme{0}{2}{.35*(\x-1)^2+.4}
+  \node[below] at (1,0) {$c$};
+  \node[text width=3.2cm,align=center] at (1,-.45) {$T_1$: te groot met $\frac43 pk^3$};
+\end{tikzpicture}}
+
+\begin{rastertabel}{|c|c|c|c|c|}
+\hline
+$n$ & $M_n$ & fout & $T_n$ & fout \\ \hline
+2 & 0,685\,714 & $-0{,}007\,43$ & 0,708\,333 & 0,015\,19 \\ \hline
+4 & 0,691\,220 & $-0{,}001\,93$ & 0,697\,024 & 0,003\,88 \\ \hline
+8 & 0,692\,661 & $-0{,}000\,49$ & 0,694\,122 & 0,000\,97 \\ \hline
+\end{rastertabel}
+
+De tabel voor $\int_1^2 \frac1x\dx$ bevestigt dat: bij een dubbel zo grote $n$ (een halve $h$) wordt elke fout vier keer kleiner, en de fout van $T_n$ is telkens ongeveer $-2$ keer die van $M_n$. Wie een foutgrens wil: is $|f''(x)| \leqslant K$ op $[a, b]$, dan is de fout van $T_n$ hoogstens $\frac{(b - a)\,h^2}{12}\,K$ en die van $M_n$ de helft daarvan. Het bewijs daarvan laten we weg, omdat het meer vraagt dan de stelling van Lagrange.
+
+\begin{oefeningen}
+\oef{h4-parabool}
+\end{oefeningen}
+
+\subsection{De regel van Simpson}
+
+Als de fout van $T$ ongeveer $-2$ keer die van $M$ is, dan heffen de fouten elkaar op in het gewogen gemiddelde $\frac{2M + T}{3}$: daar is de fout $\frac{2 \cdot E_M + (-2E_M)}{3} = 0$, tenminste bij een parabool. Neem je voor één interval $[x_0, x_2]$ met midden $x_1$ en $h = x_1 - x_0$, dan is $M_1 = 2h\,f(x_1)$ en $T_1 = 2h\,\frac{f(x_0) + f(x_2)}{2}$, en
+\[
+\frac{2M_1 + T_1}{3} = \frac{h}{3}\,\bigl(f(x_0) + 4f(x_1) + f(x_2)\bigr) .
+\]
+Dat is de oppervlakte onder de parabool door de drie punten. Pas je dat toe op elk paar deelintervallen, dan krijg je de regel die Thomas Simpson in 1743 publiceerde (al gebruikten Cavalieri en Kepler hem eerder voor de inhoud van wijnvaten).
+
+\begin{theorie}
+Verdeel $[a, b]$ in een \textit{even} aantal $n$ deelintervallen met breedte $h = \frac{b - a}{n}$ en deelpunten $x_0, \ldots, x_n$. De \textbf{\textcolor{accent}{regel van Simpson}} benadert de integraal door
+\[
+\formule{S_n = \frac h3\,\bigl(f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + \cdots + 2f(x_{n-2}) + 4f(x_{n-1}) + f(x_n)\bigr)}
+\]
+\begin{stelling}{Simpson bij een derdegraadsfunctie}
+Is $f$ een veeltermfunctie van hoogstens de derde graad, dan is $\formule{S_n = \ig_a^b f(x)\dx}$ voor elke even $n$.
+\end{stelling}
+
+\begin{bewijs}
+Het volstaat één paar deelintervallen $[c - h, c + h]$ te bekijken. Schrijf $f(x) = s(x - c)^3 + g(x)$ met $g$ van hoogstens de tweede graad. Voor $g$ is de regel exact, want hij is $\frac{2M_1 + T_1}{3}$ en de fouten heffen elkaar op (vorige stelling). Voor $s(x - c)^3$ is de integraal 0, omdat de functie oneven is rond $c$, en
+\bewijsregel{\frac h3\,\bigl(s(-h)^3 + 4 \cdot 0 + s\,h^3\bigr) = 0 .}
+Beide zijn exact, dus ook hun som.
+\end{bewijs}
+\end{theorie}
+
+Dat Simpson exact is voor derdegraadsveeltermen, is een geschenk: de regel is opgebouwd uit parabolen, maar de symmetrie geeft er een graad bij. De fout van Simpson is daardoor evenredig met $h^4$: halveer je $h$, dan wordt ze ongeveer zestien keer kleiner.
+
+\naast{\voorbeeld{}{Benader $\ig_1^2 \frac1x\dx$ met $S_4$, en vergelijk met $T_4$ en $M_4$.\label{vb:h4-simpson}}{%
+\uitleg{Met $n = 4$ en $h = 0{,}25$ zijn de gewichten $1, 4, 2, 4, 1$.}
+$S_4 = \frac{0{,}25}{3}\bigl(1 + \frac{4}{1{,}25} + \frac{2}{1{,}5} + \frac{4}{1{,}75} + \frac12\bigr) \approx 0{,}693\,254$, met fout $0{,}000\,107$: 36 keer kleiner dan die van $T_4$, met dezelfde vijf functiewaarden. Met $S_8 \approx 0{,}693\,155$ is de fout $7{,}4 \cdot 10^{-6}$: ongeveer 15 keer kleiner.}}{\begin{tikzpicture}[x=2.2cm,y=2.2cm,font=\scriptsize]
+  \draw[->,grijs] (.9,0) -- (2.15,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (.95,0) -- (.95,1.1);
+  \fill[accent!25] plot[domain=1:1.5,samples=30] (\x,{1-0.8*(\x-1)+0.5333333*(\x-1)*(\x-1.25)}) -- (1.5,0) -- (1,0) -- cycle;
+  \fill[accent!40] plot[domain=1.5:2,samples=30] (\x,{0.6666667-0.3809524*(\x-1.5)+0.1904762*(\x-1.5)*(\x-1.75)}) -- (2,0) -- (1.5,0) -- cycle;
+  \kromme{1}{2}{1/\x}
+  \foreach \x in {1,1.25,1.5,1.75,2}{\fill (\x,{1/\x}) circle (1.2pt); \draw[grijs,dashed] (\x,0) -- (\x,{1/\x});}
+  \foreach \t in {1,1.5,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+\end{tikzpicture}}
+
+\begin{werkwijze}
+Neem een even aantal deelintervallen. Zet de functiewaarden in een tabel met de gewichten $1, 4, 2, 4, \ldots, 2, 4, 1$: 4 bij de oneven deelpunten, 2 bij de even deelpunten binnenin, 1 aan de randen. Tel de gewogen waarden op en vermenigvuldig met $\frac h3$.
+\end{werkwijze}
+
+\nujij{Benader $\ig_0^2 x^4\dx$ met $S_2$. Wat is de fout? Waarom is $S_2$ niet exact?}{$S_2 = \frac13(0 + 4 + 16) = \frac{20}{3} \approx 6{,}667$; exact $6{,}4$; fout $0{,}267$. $x^4$ is van de vierde graad.}
+
+\begin{oefeningen}
+\oef{h4-simpson}
+\end{oefeningen}
+
+\subsection{Uit meetwaarden}
+
+Nu kunnen we het tweede deel van het probleem oplossen. De metingen liggen om de 2 seconden: $h = 2$ ligt vast, en we gebruiken de punten die er zijn.
+
+\voorbeeld{}{Terug naar het probleem (deel 2). Schat de afstand die de auto aflegt in de eerste 12 seconden, met de trapeziumregel en met de regel van Simpson.\label{vb:h4-terug2}}{%
+\uitleg{De afstand is $\int_0^{12} v(t)\dt$. Er zijn zes deelintervallen van 2 s, een even aantal, dus Simpson kan.}
+\begin{stappenbreed}
+T_6 = 2\,\bigl(0 + 8{,}5 + 14{,}6 + 19{,}0 + 22{,}1 + 24{,}3 + \tfrac12 \cdot 25{,}9\bigr) = 202{,}9 & De eerste waarde telt half, maar is 0. \\[2ex]
+S_6 = \tfrac23\,\bigl(0 + 4 \cdot 8{,}5 + 2 \cdot 14{,}6 + 4 \cdot 19{,}0 + 2 \cdot 22{,}1 + 4 \cdot 24{,}3 + 25{,}9\bigr) & Gewichten 1, 4, 2, 4, 2, 4, 1. \\[1ex]
+\phantom{S_6} = \tfrac23 \cdot 306{,}5 \approx 204{,}3 &
+\end{stappenbreed}
+De auto legde ongeveer 204 m af. De trapeziumregel geeft iets minder, omdat de grafiek van $v$ bol is: de trapezia liggen eronder. Simpson houdt rekening met die kromming.}
+
+Vergelijk ook met de versnelling uit deel 1: daar versterkten de meetfouten zich, hier middelen ze uit. Een fout van 0,05 m/s in elke meting verandert $S_6$ hoogstens met $\frac23 \cdot 18 \cdot 0{,}05 = 0{,}6$ m, op 204 m. Integreren is numeriek veel betrouwbaarder dan afleiden.
+
+\lkr{De snelheden komen uit $v(t) = 30(1 - \e^{-t/6})$, met als exacte afstand $30(12 - 6 + 6\e^{-2}) \approx 204{,}36$ m. Simpson zit er 0,03 m naast, de trapeziumregel 1,5 m.}
+
+\subsection{Met de computer}
+
+Thuis rekent een programma de regels in een oogwenk uit, ook met duizenden deelintervallen. Zo kun je zien hoe de fout daalt.
+
+\begin{python}
+from math import exp
+
+def simpson(f, a, b, n):          # n moet even zijn
+    h = (b - a) / n
+    som = f(a) + f(b)
+    for i in range(1, n):
+        som += (4 if i % 2 == 1 else 2) * f(a + i * h)
+    return h / 3 * som
+
+for n in [2, 4, 8, 16]:
+    print(n, simpson(lambda x: exp(-x**2), 0, 1, n))
+\end{python}
+
+Het programma benadert $\int_0^1 \e^{-x^2}\dx$, een integraal zonder primitieve in een formule. Met $n = 16$ krijg je $0{,}746\,824\,3$, en de waarden voor $n = 8$ en $n = 16$ verschillen al minder dan $2 \cdot 10^{-6}$.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h4-o1}
+
+\oef{h4-o2}
+
+\oef{h4-o3}
+
+\oef{h4-o4}
+
+\oef{h4-o5}
+
+\oef{h4-o6}
+
+\oef{h4-o7}
+
+\oef{h4-o8}
+
+\oef{h4-o9}
+
+\oef{h4-o10}
+
+\oef{h4-o11}
+
+\oef{h4-o12}
+
+\oef{h4-o13}
+
+\oef{h4-o14}
+
+\oef{h4-o15}
+
+\oef{h4-o16}
+
+\oef{h4-o17}
+
+\oef{h4-o18}
+
+\oef{h4-o19}
+
+\oef{h4-o20}
+
+\oef{h4-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over de normale verdeling gebruikt Statistiek (de dichtheidsfunctie en de regel van 68\,\%). De oefening over het binomium gebruikt de somformules uit Rijen. De oefening over matrices lost een stelsel op met Gauss-Jordan.}
+
+\begin{oefeningen}
+\oef{h4-koppel-1}
+
+\oef{h4-koppel-2}
+
+\oef{h4-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+
+\oef{h4-t6}
+
+\oef{h4-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-centraal}{oef:h4-differentie}%
+  \fv{oef:h4-t2}{vb:h4-afronden}{oef:h4-afronden}%
+  \fv{oef:h4-t3}{vb:h4-terug1}{oef:h4-meting}%
+  \fv{oef:h4-t4}{vb:h4-mt}{oef:h4-mt}%
+  \fv{oef:h4-t5}{vb:h4-simpson}{oef:h4-simpson}%
+  \fv{oef:h4-t6}{vb:h4-mt}{oef:h4-parabool}%
+  \fv{oef:h4-t7}{vb:h4-terug2}{oef:h4-simpson}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de voorwaartse, achterwaartse en centrale differentie, waarom de centrale exact is bij een parabool (met bewijs), hoe de fout verandert als je $h$ halveert, waarom een te kleine $h$ slecht is, hoe je een afgeleide uit meetwaarden schat, de middelpuntsregel, de trapeziumregel, het verband tussen hun fouten bij een parabool (met bewijs), de regel van Simpson en waarom hij exact is voor derdegraadsveeltermen, en waarom integreren uit meetwaarden betrouwbaarder is dan afleiden. Vergelijk daarna met de kaders.
+\fi

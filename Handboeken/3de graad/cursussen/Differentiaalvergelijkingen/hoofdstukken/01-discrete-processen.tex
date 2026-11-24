@@ -1,0 +1,493 @@
+%----------------------------------------------------------------------------------------
+% DISCRETE VERANDERINGSPROCESSEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Discrete veranderingsprocessen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Je leent 12\,000 euro voor een auto. De bank rekent 0,5\,\% rente per maand op wat je nog schuldig bent, en je betaalt elke maand 250 euro terug. Na hoeveel maanden is je schuld afgelost? Een vriendin leent 60\,000 euro onder dezelfde voorwaarden, en betaalt ook 250 euro per maand. Zij merkt na een jaar dat haar schuld groter is geworden. Hoe kan dat, en welk bedrag kun je met 250 euro per maand hoogstens lenen?}{\begin{tikzpicture}[x=.07cm,y=.045cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=10,ystep=10] (0,0) grid (60,70);
+  \draw[->,grijs] (0,0) -- (64,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,74) node[above,text=black] {schuld};
+  \foreach \t in {20,40,60}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {20,40,60}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,line width=1.2pt] plot[domain=0:55.02,samples=40] (\x,{50-38*1.005^\x});
+  \draw[accent,line width=1.2pt] plot[domain=0:60,samples=40] (\x,{50+10*1.005^\x});
+  \node[right] at (60,64) {?};
+  \node[above right,inner sep=1pt] at (2,13) {?};
+\end{tikzpicture}}
+\vspace{-2mm}{\small De schuld in duizenden euro, na $n$ maanden.}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 21, met de wenk over de vorm $t_n = c \cdot a^n + \tfrac{b}{1 - a}$ en die over differentievergelijkingen. Voorkennis uit pakket 4: Rijen (recursief en expliciet voorschrift, meetkundige rijen, en in hoofdstuk 4 het evenwicht van een discreet dynamisch proces met $|a| < 1$, met de hulprij) en logaritmen. Nieuw is dat we elke $a$ toelaten: ook $a > 1$, zoals bij de lening, en $a < 0$. Het spinnenwebdiagram en de overgang naar continue tijd zijn extra's die het volgende hoofdstuk voorbereiden.}
+
+Veel processen verlopen in stappen: elke maand komt er rente bij, elke ochtend neemt iemand een pil, elk jaar wordt er gevist. Wat er na een stap is, hangt af van wat er vóór die stap was. In de cursus Rijen heb je zo'n proces al gezien, met een evenwicht waar het naartoe gaat. Maar bij de lening van het probleem gaat het helemaal anders: de schuld kan dalen of stijgen, en het evenwicht wijst de grens aan in plaats van het einde. In dit hoofdstuk lossen we zulke processen volledig op, voor elke groeifactor. Dat is het discrete begin van een groter verhaal: in de volgende hoofdstukken maken we de stappen oneindig klein, en dan worden het differentiaalvergelijkingen.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Recursievergelijkingen}
+
+\subsection{Een proces in stappen}
+
+Hoe beschrijf je een proces dat in stappen verloopt? Kijk naar wat er in één stap gebeurt. Een patiënt neemt elke 12 uur een tablet van 400 mg. Tegen de volgende inname heeft het lichaam 70\,\% van het geneesmiddel afgebroken, en is er dus nog 30\,\% over. Noem $t_n$ de hoeveelheid in het lichaam vlak na de $n$-de inname na de eerste. Dan is $t_0 = 400$, en elke stap doet twee dingen: wat er is, wordt vermenigvuldigd met 0,3, en er komt 400 bij:
+\[
+t_n = 0{,}3\, t_{n-1} + 400 .
+\]
+Zo'n gelijkheid heet een recursievergelijking: ze legt geen getal vast, maar een verband tussen twee opeenvolgende termen. Samen met $t_0$ bepaalt ze de hele rij.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{lineaire recursievergelijking van de eerste orde}} is een vergelijking van de vorm
+\[
+\formule{t_n = a\, t_{n-1} + b} \qquad (n \geqslant 1)
+\]
+met constanten $a \neq 0$ en $b$. Het getal $a$ is de \textbf{\textcolor{accent}{groeifactor}}, $t_0$ de \textbf{\textcolor{accent}{beginwaarde}}. Een \textbf{\textcolor{accent}{oplossing}} is een rij $(t_n)$ die voor elke $n \geqslant 1$ aan de vergelijking voldoet.
+\end{theorie}
+
+\textit{Eerste orde}, want $t_n$ hangt alleen af van de vorige term, niet van $t_{n-2}$. \textit{Lineair}, want $t_{n-1}$ komt er alleen in de eerste macht in voor. Twee gevallen ken je al uit de cursus Rijen: met $a = 1$ krijg je een rekenkundige rij met verschil $b$, en met $b = 0$ een meetkundige rij met quotiënt $a$. Het interessante gebeurt als beide meespelen.
+
+\voorbeeld{}{Bereken bij het geneesmiddel $t_1$ tot $t_5$. Hoeveel zit er na een week in het lichaam, vlak na een inname?\label{vb:h1-medicijn}}{%
+\uitleg{We passen de vergelijking stap voor stap toe. Na een week zijn er 14 innames geweest, dus zoeken we $t_{13}$; zo ver rekenen we niet met de hand, maar de getallen tonen al iets.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+t_1 = 0{,}3 \cdot 400 + 400 = 520 & Na de tweede inname. \\
+t_2 = 0{,}3 \cdot 520 + 400 = 556 & Telkens 30\,\% van de vorige, plus 400. \\
+t_3 = 566{,}8, \ t_4 \approx 570{,}0 & De stijging wordt kleiner. \\
+t_5 \approx 571{,}0 & Na een week: ook ongeveer 571 mg.
+\end{stappenvrij}
+De hoeveelheid stapelt zich op, maar niet eindeloos: ze lijkt een grens te naderen, iets boven 571 mg.}{\begin{tikzpicture}[x=.55cm,y=.0075cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=100] (0,0) grid (6.4,600);
+  \draw[->,grijs] (0,0) -- (6.8,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,650) node[above,text=black] {$t_n$};
+  \foreach \t in {1,...,6}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {200,400,600}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,571.4) -- (6.4,571.4);
+  \foreach \x/\y in {0/400,1/520,2/556,3/566.8,4/570.04,5/571.01,6/571.3}{\fill[accent] (\x,\y) circle (1.8pt);}
+\end{tikzpicture}}}
+
+Een recursievergelijking opstellen is vooral goed lezen: wat wordt er per stap vermenigvuldigd, en wat wordt er opgeteld of afgetrokken? Een vast percentage dat verdwijnt of bijkomt, geeft de groeifactor. Een vaste hoeveelheid die erbij komt of weggaat, geeft $b$.
+
+\voorbeeld{}{In een natuurgebied leven 1200 herten. Zonder ingrijpen groeit de populatie met 2\,\% per jaar, maar elk jaar wordt er een vast aantal van 30 dieren afgeschoten. Stel een recursievergelijking op voor het aantal herten $t_n$ na $n$ jaar, en bereken $t_1$ en $t_2$.\label{vb:h1-herten}}{%
+\uitleg{Groeien met 2\,\% is vermenigvuldigen met 1,02. Het afschot is een vast aantal dat ervan afgaat.}
+\begin{stappen}
+t_n = 1{,}02\, t_{n-1} - 30, \quad t_0 = 1200 & Groeifactor $a = 1{,}02$ en $b = -30$. \\
+t_1 = 1224 - 30 = 1194 & Er komen 24 herten bij, en er gaan er 30 af. \\
+t_2 = 1217{,}88 - 30 \approx 1188 & De populatie daalt, al groeit ze vanzelf.
+\end{stappen}
+Een aantal dieren is een geheel getal: het model geeft een gemiddelde, en we ronden pas af als we het antwoord geven.}
+
+\begin{werkwijze}
+Kies wat $t_n$ voorstelt en wanneer je meet (vlak voor of vlak na een stap), en zet de beginwaarde $t_0$ vast. Zoek wat er per stap met de hoeveelheid gebeurt: het percentage dat overblijft of bijkomt geeft $a$, een vaste hoeveelheid erbij of eraf geeft $b$.
+\end{werkwijze}
+
+\nujij{Een vijver bevat 900 vissen. Elk jaar sterft of verdwijnt 25\,\% van de vissen, en in het voorjaar zet de hengelclub er 200 uit. Stel een recursievergelijking op en bereken $t_1$.}{$t_n = 0{,}75\, t_{n-1} + 200$, $t_0 = 900$, $t_1 = 875$.}
+
+\begin{oefeningen}
+\oef{h1-opstellen}
+\end{oefeningen}
+
+%========================================================================================
+\section{De oplossing}
+
+\subsection{Het evenwicht}
+
+Bij het geneesmiddel leek de hoeveelheid naar een grens te gaan. Is er een hoeveelheid die niet meer verandert? Als $t_{n-1} = E$ en ook $t_n = E$, dan is $E = 0{,}3\,E + 400$, dus $0{,}7\,E = 400$ en~$E \approx 571{,}4$. Neemt het lichaam ooit precies die hoeveelheid op, dan blijft ze gelijk: er wordt tussen twee innames precies 400 mg afgebroken, en er komt 400 mg bij.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{evenwicht}} van de recursievergelijking $t_n = a\, t_{n-1} + b$ is een getal $E$ met $E = aE + b$. Voor $a \neq 1$ is er precies één evenwicht:
+\[
+\formule{E = \frac{b}{1 - a}}
+\]
+De constante rij $t_n = E$ is dan een oplossing.
+\end{theorie}
+
+Voor $a = 1$ en $b \neq 0$ is er geen evenwicht, want $E = E + b$ kan niet: de rij stijgt of daalt elke stap met hetzelfde bedrag $b$. Een evenwicht hoeft niet positief te zijn, en het hoeft ook niet bereikt te worden: het is gewoon een waarde waar het proces zou blijven staan, als het er ooit was.
+
+\voorbeeld{}{Bepaal het evenwicht van de herten uit voorbeeld~\ref{vb:h1-herten}, en zeg wat het betekent.\label{vb:h1-evenwicht}}{%
+\uitleg{We lossen $E = 1{,}02\,E - 30$ op. Daarna vertalen we terug naar de herten.}
+\begin{stappen}
+E = \dfrac{-30}{1 - 1{,}02} = \dfrac{-30}{-0{,}02} = 1500 & De formule met $a = 1{,}02$ en $b = -30$. \\
+0{,}02 \cdot 1500 = 30 & Controle: bij 1500 herten is de natuurlijke groei precies 30.
+\end{stappen}
+Met 1500 herten zou het afschot de groei precies opvangen. Er zijn er maar 1200, zodat de groei kleiner is dan het afschot: de populatie daalt.}
+
+\nujij{Bepaal het evenwicht van $t_n = 0{,}75\, t_{n-1} + 200$ (de vijver).}{$E = \tfrac{200}{0{,}25} = 800$.}
+
+\begin{oefeningen}
+\oef{h1-evenwicht}
+\end{oefeningen}
+
+\subsection{Een expliciet voorschrift}
+
+Om $t_{13}$ van het geneesmiddel te kennen, moet je nu dertien keer rekenen. Kan het rechtstreeks? Kijk naar het verschil met het evenwicht. Bij het geneesmiddel is $t_n - E$ achtereenvolgens ongeveer $-171{,}4$, $-51{,}4$, $-15{,}4$ en $-4{,}6$: telkens 0,3 keer het vorige. Het verschil met het evenwicht is een meetkundige rij. In de cursus Rijen heette dat verschil de hulprij. Dat werkt voor elke groeifactor $a \neq 1$.
+
+\begin{theorie}
+\begin{stelling}{Oplossing van een lineaire recursievergelijking}
+Is $a \neq 1$ en $E = \tfrac{b}{1 - a}$, dan is de oplossing van $t_n = a\, t_{n-1} + b$ met beginwaarde $t_0$
+\[
+\formule{t_n = E + (t_0 - E)\, a^n}
+\]
+Met $c = t_0 - E$ is dat $\formule{t_n = c\, a^n + \dfrac{b}{1 - a}}$.
+\end{stelling}
+
+\begin{bewijs}
+Neem de hulprij $v_n = t_n - E$. Omdat $E = aE + b$, is
+\bewijsregel{v_n = t_n - E = (a\, t_{n-1} + b) - (aE + b) = a\,(t_{n-1} - E) = a\, v_{n-1} .}
+Dus $(v_n)$ is meetkundig met quotiënt $a$ en eerste term $v_0 = t_0 - E$, zodat $v_n = (t_0 - E)\,a^n$ en $t_n = E + v_n$.
+\end{bewijs}
+\end{theorie}
+
+Wat zegt die formule? Het proces bestaat uit twee delen: het evenwicht $E$, dat niet verandert, en een afwijking $(t_0 - E)\,a^n$, die elke stap met $a$ vermenigvuldigd wordt. Alles hangt dus af van $a^n$. Voor $a = 1$ geldt de formule niet, maar dan is de rij rekenkundig: $t_n = t_0 + n\,b$.
+
+\voorbeeld{}{Geef een expliciet voorschrift voor het geneesmiddel uit voorbeeld~\ref{vb:h1-medicijn}, en bereken de hoeveelheid na een week.\label{vb:h1-expliciet}}{%
+\uitleg{We hebben $a = 0{,}3$, $b = 400$ en $t_0 = 400$. Eerst het evenwicht, dan de constante $c$.}
+\begin{stappen}
+E = \dfrac{400}{0{,}7} = \dfrac{4000}{7} \approx 571{,}43 & Exact rekenen, en pas op het einde afronden. \\[1.5ex]
+c = t_0 - E = 400 - \dfrac{4000}{7} = -\dfrac{1200}{7} & De beginafwijking: we starten onder het evenwicht. \\[1.5ex]
+t_n = \dfrac{4000}{7} - \dfrac{1200}{7} \cdot 0{,}3^{\,n} & Controle: $t_1 = \tfrac{4000 - 360}{7} = 520$. \\[1ex]
+t_{13} \approx 571{,}43 & Want $0{,}3^{13} \approx 1{,}6 \cdot 10^{-7}$: het verschil met $E$ is verwaarloosbaar.
+\end{stappen}}
+
+\begin{werkwijze}
+Bereken het evenwicht $E = \tfrac{b}{1 - a}$ en de beginafwijking $c = t_0 - E$. Schrijf $t_n = E + c\, a^n$, en controleer met $t_1$.
+\end{werkwijze}
+
+\nujij{Geef een expliciet voorschrift voor de vijver: $t_n = 0{,}75\, t_{n-1} + 200$ met $t_0 = 900$.}{$t_n = 800 + 100 \cdot 0{,}75^{\,n}$.}
+
+\begin{oefeningen}
+\oef{h1-expliciet}
+\end{oefeningen}
+
+Het expliciete voorschrift is vooral handig om iets terug te rekenen: wanneer is de hoeveelheid ergens? Dan los je een exponentiële vergelijking op met een logaritme.
+
+\voorbeeld{}{Na hoeveel jaar zijn er bij de herten uit voorbeeld~\ref{vb:h1-herten} geen 1000 meer, en wanneer zou de populatie volgens het model uitsterven?\label{vb:h1-terugrekenen}}{%
+\uitleg{Met $E = 1500$ en $t_0 = 1200$ is $c = -300$. We lossen $t_n < 1000$ en $t_n \leqslant 0$ op.}
+\naast{\begin{stappenvrij}{5cm}{3.9cm}
+t_n = 1500 - 300 \cdot 1{,}02^{\,n} & Het voorschrift. \\
+300 \cdot 1{,}02^{\,n} > 500 & Uit $t_n < 1000$. \\
+n > \dfrac{\ln(5/3)}{\ln 1{,}02} \approx 25{,}8 & Delen door $\ln 1{,}02 > 0$: het teken blijft. \\
+n \geqslant \dfrac{\ln 5}{\ln 1{,}02} \approx 81{,}3 & Uit $1{,}02^{\,n} \geqslant 5$.
+\end{stappenvrij}
+Na 26 jaar zijn er minder dan 1000 herten, en na 82 jaar zijn ze volgens het model verdwenen. Wie dat wil vermijden, moet minder dan $0{,}02 \cdot 1200 = 24$ dieren per jaar afschieten.}{\begin{tikzpicture}[x=.042cm,y=.0018cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=20,ystep=500] (0,0) grid (90,1600);
+  \draw[->,grijs] (0,0) -- (95,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,1700) node[above,text=black] {$t_n$};
+  \foreach \t in {20,40,60,80}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {500,1000,1500}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,1500) -- (90,1500);
+  \draw[accent,thick] plot[domain=0:81.3,samples=40] (\x,{1500-300*1.02^\x});
+  \fill[accent] (25.8,1000) circle (1.8pt);
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-terugrekenen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Gedrag op lange termijn}
+
+\subsection{Stabiel of onstabiel}
+
+Het geneesmiddel gaat naar zijn evenwicht, de herten lopen er steeds verder van weg. Waar hangt dat van af? Uit $t_n = E + c\,a^n$ volgt het meteen: van wat $a^n$ doet als $n$ groot wordt. De vier figuren hieronder hebben hetzelfde evenwicht $E = 2$ en dezelfde beginwaarde 3, maar een andere groeifactor.
+
+\figuren{\begin{tikzpicture}[x=.36cm,y=.32cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid (8,5);
+  \draw[->,grijs] (0,0) -- (8.5,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,5.4);
+  \draw[grijs,dashed] (0,2) -- (8,2) node[right,text=black] {$E$};
+  \foreach \x/\y in {0/3,1/2.6,2/2.36,3/2.216,4/2.13,5/2.078,6/2.047,7/2.028,8/2.017}{\fill[accent] (\x,\y) circle (1.6pt);}
+  \node[above] at (4,5) {$a = 0{,}6$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=.36cm,y=.32cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid (8,5);
+  \draw[->,grijs] (0,0) -- (8.5,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,5.4);
+  \draw[grijs,dashed] (0,2) -- (8,2) node[right,text=black] {$E$};
+  \draw[accent!50] (0,3) -- (1,1.4) -- (2,2.36) -- (3,1.784) -- (4,2.13) -- (5,1.922) -- (6,2.047) -- (7,1.972) -- (8,2.017);
+  \foreach \x/\y in {0/3,1/1.4,2/2.36,3/1.784,4/2.13,5/1.922,6/2.047,7/1.972,8/2.017}{\fill[accent] (\x,\y) circle (1.6pt);}
+  \node[above] at (4,5) {$a = -0{,}6$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=.36cm,y=.32cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid (8,5);
+  \draw[->,grijs] (0,0) -- (8.5,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,5.4);
+  \draw[grijs,dashed] (0,2) -- (8,2) node[right,text=black] {$E$};
+  \foreach \x/\y in {0/3,1/3.3,2/3.69,3/4.197,4/4.856}{\fill[accent] (\x,\y) circle (1.6pt);}
+  \draw[->,accent] (4.3,4.95) -- (5,5.3);
+  \node[above] at (4,5) {$a = 1{,}3$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=.36cm,y=.32cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid (8,5);
+  \draw[->,grijs] (0,0) -- (8.5,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,5.4);
+  \draw[grijs,dashed] (0,2) -- (8,2) node[right,text=black] {$E$};
+  \draw[accent!50] (0,3) -- (1,.7) -- (2,3.69) -- (3,-.197) -- (4,4.856);
+  \foreach \x/\y in {0/3,1/0.7,2/3.69,3/-.197,4/4.856}{\fill[accent] (\x,\y) circle (1.6pt);}
+  \node[above] at (4,5) {$a = -1{,}3$};
+\end{tikzpicture}}
+
+Bij $|a| < 1$ krimpt de afwijking, en het proces gaat naar $E$. Bij $|a| > 1$ groeit ze, en het proces loopt weg van $E$ (in de laatste figuur valt $t_3$ zelfs net onder de as, en vanaf $t_5$ vallen de termen buiten de figuur). Een negatieve $a$ doet de afwijking elke stap van teken wisselen: het proces springt om het evenwicht heen.
+
+\begin{theorie}
+Het evenwicht $E$ is \textbf{\textcolor{accent}{stabiel}} als elke oplossing naar $E$ gaat, en \textbf{\textcolor{accent}{onstabiel}} als elke oplossing met $t_0 \neq E$ er steeds verder van wegloopt.
+
+\begin{stelling}{Stabiliteit van het evenwicht}
+Voor $t_n = a\, t_{n-1} + b$ met $a \neq 1$ geldt:
+\begin{itemize}
+\item is $\formule{|a| < 1}$, dan is het evenwicht stabiel: $\displaystyle\lim_{n \to +\infty} t_n = E$;
+\item is $\formule{|a| > 1}$, dan is het evenwicht onstabiel: $|t_n - E| \to +\infty$ als $t_0 \neq E$.
+\end{itemize}
+Is $a > 0$, dan nadert of verlaat de rij het evenwicht aan één kant. Is $a < 0$, dan wisselt $t_n - E$ elke stap van teken.
+\end{stelling}
+
+\begin{bewijs}
+Uit de vorige stelling is $|t_n - E| = |t_0 - E| \cdot |a|^n$. Voor $|a| < 1$ is $\lim |a|^n = 0$, en voor $|a| > 1$ is $\lim |a|^n = +\infty$ (cursus Rijen). Het teken van $t_n - E$ is dat van $(t_0 - E)\,a^n$, en $a^n$ wisselt van teken als $a < 0$.
+\end{bewijs}
+\end{theorie}
+
+Wat overblijft, is $a = -1$: dan springt de rij heen en weer tussen twee waarden, symmetrisch rond $E$, en is het evenwicht stabiel noch onstabiel (zie opdracht~\ref{oef:h1-o13}).
+
+\voorbeeld{}{Beschrijf het verloop van $t_n = -0{,}5\, t_{n-1} + 9$ met $t_0 = 1$, zonder veel termen te berekenen.\label{vb:h1-stabiel}}{%
+\uitleg{We zoeken het evenwicht en kijken naar $a$. Het expliciete voorschrift bevestigt wat we vinden.}
+\begin{stappen}
+E = \dfrac{9}{1 + 0{,}5} = 6 & Het evenwicht. \\
+|a| = 0{,}5 < 1, \ a < 0 & Stabiel, met een rij die afwisselend boven en onder 6 ligt. \\
+t_n = 6 - 5 \cdot (-0{,}5)^n & De afwijking halveert en wisselt van teken: $t_1 = 8{,}5$, $t_2 = 4{,}75$.
+\end{stappen}}
+
+\begin{werkwijze}
+Bereken het evenwicht. Is $|a| < 1$, dan gaat het proces ernaar toe, is $|a| > 1$, dan loopt het ervan weg. Het teken van $a$ zegt of dat aan één kant gebeurt ($a > 0$) of springend ($a < 0$).
+\end{werkwijze}
+
+\nujij{Beschrijf het verloop van $t_n = 2\, t_{n-1} - 3$ voor $t_0 = 3$, $t_0 = 3{,}1$ en $t_0 = 2{,}9$.}{$E = 3$, onstabiel. Bij $t_0 = 3$ blijft de rij 3; bij $3{,}1$ stijgt ze ($t_n = 3 + 0{,}1 \cdot 2^n$); bij $2{,}9$ daalt ze.}
+
+\begin{oefeningen}
+\oef{h1-stabiel}
+\end{oefeningen}
+
+\subsection{Het spinnenwebdiagram}
+
+Kun je het verloop ook zien zonder te rekenen? Teken de rechte $y = ax + b$ en de rechte $y = x$. Een stap van het proces is: vertrek bij $t_{n-1}$ op de $x$-as, ga verticaal naar de rechte $y = ax + b$, en je staat op hoogte $t_n$. Om die waarde opnieuw als $x$ te gebruiken, ga je horizontaal naar $y = x$. Zo ontstaat een trap of een spinnenweb. Het evenwicht is het snijpunt van de twee rechten, want daar is $x = ax + b$.
+
+\voorbeeld{}{Teken het spinnenwebdiagram van $t_n = 0{,}5\, t_{n-1} + 3$ met $t_0 = 1$, en van $t_n = -0{,}5\, t_{n-1} + 9$ met $t_0 = 1$.\label{vb:h1-spinnenweb}}{%
+\uitleg{Hier draait het net om het verschil tussen een positieve en een negatieve groeifactor, dus staan de twee naast elkaar. Beide hebben het evenwicht $E = 6$: daar snijdt $y = ax + b$ de rechte $y = x$.}
+\figuren{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{0}{2}{8}{0}{2}{8}
+  \draw[lijngrijs,thick] (0,0) -- (8.4,8.4) node[above,text=black] {$y = x$};
+  \draw[accent,thick] (0,3) -- (8.4,7.2) node[below right,text=black,inner sep=1pt] {$y = 0{,}5x + 3$};
+  \draw[grijs] (1,0) -- (1,3.5) -- (3.5,3.5) -- (3.5,4.75) -- (4.75,4.75) -- (4.75,5.375) -- (5.375,5.375) -- (5.375,5.6875) -- (5.6875,5.6875);
+  \fill[accent] (6,6) circle (3pt);
+  \node[below] at (1,-.5) {$t_0$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=.35,font=\scriptsize]
+  \rooster{0}{2}{10}{0}{2}{10}
+  \draw[lijngrijs,thick] (0,0) -- (10.4,10.4) node[above,text=black] {$y = x$};
+  \draw[accent,thick] (0,9) -- (10.4,3.8) node[below right,text=black,inner sep=1pt] {$y = -0{,}5x + 9$};
+  \draw[grijs] (1,0) -- (1,8.5) -- (8.5,8.5) -- (8.5,4.75) -- (4.75,4.75) -- (4.75,6.625) -- (6.625,6.625) -- (6.625,5.6875) -- (5.6875,5.6875) -- (5.6875,6.156);
+  \fill[accent] (6,6) circle (3pt);
+  \node[below] at (1,-.5) {$t_0$};
+\end{tikzpicture}}
+Links ontstaat een trap: de rij stijgt naar 6 aan één kant. Rechts ontstaat een spinnenweb dat zich rond $(6, 6)$ toesnoert: de rij springt afwisselend boven en onder 6. In beide gevallen is de rechte minder steil dan $y = x$, want $|a| < 1$, en dat maakt het web kleiner bij elke ronde.}
+
+\begin{werkwijze}
+Teken $y = ax + b$ en $y = x$. Vertrek in $t_0$ op de $x$-as. Herhaal: verticaal naar $y = ax + b$, dan horizontaal naar $y = x$. Het snijpunt van de rechten is het evenwicht.
+\end{werkwijze}
+
+\nujij{Teken het spinnenwebdiagram van $t_n = 2\, t_{n-1} - 3$ met $t_0 = 3{,}5$. Wat zie je?}{Het snijpunt is $(3, 3)$. De trap loopt naar boven weg: de rechte $y = 2x - 3$ is steiler dan $y = x$, het evenwicht is onstabiel.}
+
+\begin{oefeningen}
+\oef{h1-spinnenweb}
+\end{oefeningen}
+
+Nu kunnen we het probleem oplossen. De schuld groeit elke maand met de rente, en de afbetaling gaat ervan af: een recursievergelijking met $a > 1$. Het evenwicht blijkt de grens tussen aflossen en vastzitten.
+
+\voorbeeld{}{Terug naar het probleem. Je leent 12\,000 euro aan 0,5\,\% per maand en betaalt elke maand 250 euro terug. Na hoeveel maanden is de schuld afgelost? Waarom groeit de schuld van 60\,000 euro, en welk bedrag kun je met 250 euro per maand hoogstens lenen?\label{vb:h1-terug}}{%
+\uitleg{De schuld $t_n$ na $n$ maanden voldoet aan $t_n = 1{,}005\, t_{n-1} - 250$. We zoeken het evenwicht, het voorschrift, en lossen $t_n = 0$ op.}
+\begin{stappenbreed}
+E = \dfrac{-250}{1 - 1{,}005} = 50\,000 & Bij een schuld van 50\,000 euro is de rente per maand precies 250 euro. \\[1ex]
+t_n = 50\,000 - 38\,000 \cdot 1{,}005^{\,n} & Met $c = 12\,000 - 50\,000 = -38\,000$. \\[1ex]
+1{,}005^{\,n} = \dfrac{50\,000}{38\,000} \ \Rightarrow \ n = \dfrac{\ln(25/19)}{\ln 1{,}005} \approx 55{,}02 & Uit $t_n = 0$. \\[1ex]
+t_{55} \approx 6{,}10 & Na 55 betalingen blijft er nog 6,10 euro over.
+\end{stappenbreed}
+De schuld is dus afgelost na 56 maanden, met een laatste betaling van $1{,}005 \cdot 6{,}10 \approx 6{,}13$ euro. Het evenwicht is onstabiel, want $a = 1{,}005 > 1$. Onder 50\,000 euro loopt de schuld ervan weg naar beneden, tot ze afgelost is. Boven 50\,000 euro loopt ze ervan weg naar boven: bij 60\,000 euro is de rente 300 euro per maand, meer dan je afbetaalt, en is $t_n = 50\,000 + 10\,000 \cdot 1{,}005^{\,n}$. Met 250 euro per maand kun je dus minder dan 50\,000 euro lenen. Precies 50\,000 euro lenen betekent eeuwig 250 euro rente betalen.}
+
+%========================================================================================
+\section{Differentievergelijkingen}
+
+\subsection{De verandering per stap}
+
+Vaak beschrijft iemand een proces niet met de nieuwe waarde, maar met de verandering: \textit{elke week komt er 15\,\% bij van wie de app nog niet heeft}. Dan is het natuurlijk om met het verschil $\Delta t_n = t_n - t_{n-1}$ te werken. Trek $t_{n-1}$ af van beide leden van de recursievergelijking:
+\[
+\Delta t_n = t_n - t_{n-1} = (a - 1)\, t_{n-1} + b .
+\]
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{differentievergelijking}} bij de recursievergelijking $t_n = a\, t_{n-1} + b$ is
+\[
+\formule{\Delta t_n = (a - 1)\, t_{n-1} + b} \qquad \text{met } \formule{\Delta t_n = t_n - t_{n-1}}
+\]
+\begin{stelling}{Verandering en evenwicht}
+Is $a \neq 1$ en $E = \tfrac{b}{1 - a}$, dan is
+\[
+\formule{\Delta t_n = (a - 1)\,(t_{n-1} - E)}
+\]
+\end{stelling}
+
+\begin{bewijs}
+Uit $E = \tfrac{b}{1 - a}$ volgt $b = (1 - a)\,E = -(a - 1)\,E$. Vul in:
+\bewijsregel{\Delta t_n = (a - 1)\, t_{n-1} - (a - 1)\,E = (a - 1)\,(t_{n-1} - E) .}
+\end{bewijs}
+\end{theorie}
+
+Dat is een mooie manier om naar een proces te kijken: de verandering per stap is evenredig met de afstand tot het evenwicht. Bij $0 < a < 1$ is $a - 1 < 0$: onder het evenwicht stijgt het proces, erboven daalt het, en hoe verder weg, hoe sneller. Zo kun je een model ook opstellen vanuit de verandering.
+
+\voorbeeld{}{Een nieuwe app richt zich op 20\,000 mogelijke gebruikers. Elke week installeert 15\,\% van wie de app nog niet heeft ze. Stel de differentievergelijking en de recursievergelijking op, en bepaal na hoeveel weken 90\,\% van de doelgroep de app heeft. Bij de start zijn er nog geen gebruikers.\label{vb:h1-app}}{%
+\uitleg{De verandering is 15\,\% van wie de app nog niet heeft, dus van $20\,000 - t_{n-1}$. Dat is een differentievergelijking met evenwicht 20\,000.}
+\naast{\begin{stappenvrij}{5cm}{3.9cm}
+\Delta t_n = 0{,}15\,(20\,000 - t_{n-1}) & De verandering per week. \\
+t_n = 0{,}85\, t_{n-1} + 3000 & Tel $t_{n-1}$ op bij beide leden. \\
+t_n = 20\,000\,(1 - 0{,}85^{\,n}) & $E = 20\,000$ en $c = 0 - 20\,000$. \\
+0{,}85^{\,n} < 0{,}1 \ \Rightarrow \ n > 14{,}2 & Uit $t_n > 18\,000$, met een logaritme.
+\end{stappenvrij}
+Na 15 weken heeft meer dan 90\,\% de app. In de vorm $\Delta t_n = (a - 1)(t_{n-1} - E)$ is hier $a - 1 = -0{,}15$ en $E = 20\,000$.}{\begin{tikzpicture}[x=.2cm,y=.13cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=5] (0,0) grid (20,20);
+  \draw[->,grijs] (0,0) -- (21.5,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,22.5) node[above,text=black] {$t_n$};
+  \foreach \t in {5,10,15,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20}{\node[left,inner sep=1.5pt] at (0,\t) {$\t\,000$};}
+  \draw[grijs,dashed] (0,20) -- (20,20);
+  \foreach \x in {0,...,20}{\fill[accent] (\x,{20*(1-0.85^\x)}) circle (1.5pt);}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Beschrijft de tekst de verandering, schrijf dan eerst $\Delta t_n = \ldots$, en tel $t_{n-1}$ op om de recursievergelijking te krijgen. Omgekeerd trek je $t_{n-1}$ af. Herken de vorm $\Delta t_n = (a - 1)(t_{n-1} - E)$: de verandering is evenredig met de afstand tot het evenwicht.
+\end{werkwijze}
+
+\nujij{Geef de differentievergelijking bij $t_n = 1{,}005\, t_{n-1} - 250$ (de lening) in beide vormen.}{$\Delta t_n = 0{,}005\, t_{n-1} - 250 = 0{,}005\,(t_{n-1} - 50\,000)$.}
+
+\begin{oefeningen}
+\oef{h1-differentie}
+\end{oefeningen}
+
+\subsection{Van stappen naar continue tijd}
+
+Een tas koffie koelt af: elke minuut daalt het verschil met de kamertemperatuur van 20\,°C met 10\,\%. Per minuut is dat $\Delta T_n = -0{,}1\,(T_{n-1} - 20)$. Maar de koffie koelt niet in sprongen af, ze koelt voortdurend af. Wat als je elke halve minuut kijkt? Dan daalt het verschil per stap ongeveer met de helft van 10\,\%, en in het algemeen bij een stap van $h$ minuten met ongeveer $0{,}1 \cdot h$ keer het verschil:
+\[
+\frac{\Delta T}{h} \approx -0{,}1\,(T - 20) .
+\]
+Links staat een differentiequotiënt: de gemiddelde verandering per minuut. Laat je $h$ naar 0 gaan, dan wordt dat de afgeleide:
+\[
+T'(t) = -0{,}1\,\bigl(T(t) - 20\bigr) .
+\]
+Dat is geen recursievergelijking meer, maar een vergelijking met een onbekende functie en haar afgeleide: een \textit{differentiaalvergelijking}. Ze zegt precies hetzelfde als de differentievergelijking, maar dan voor elk ogenblik. In het volgende hoofdstuk lossen we ze op, en zien we dat de evenwichten en de stabiliteit van dit hoofdstuk een continue tegenhanger hebben.
+
+\naast{De figuur toont het verschil: de stippen zijn de waarden per minuut volgens $T_n = 0{,}9\,T_{n-1} + 2$ vanaf 90\,°C, de kromme is de oplossing van de differentiaalvergelijking (hoofdstuk 2). Ze liggen dicht bij elkaar, maar niet op elkaar: per minuut 10\,\% en voortdurend 10\,\% per minuut is niet hetzelfde, net zoals bij rente die per maand of per dag wordt bijgeschreven.}{\begin{tikzpicture}[x=.16cm,y=.03cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=20] (0,0) grid (30,100);
+  \draw[->,grijs] (0,0) -- (31.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,108) node[above,text=black] {$T$};
+  \foreach \t in {10,20,30}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {20,60,100}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,20) -- (30,20);
+  \draw[accent!60,thick] plot[domain=0:30,samples=50] (\x,{20+70*exp(-0.1*\x)});
+  \foreach \x in {0,2,...,30}{\fill[accent] (\x,{20+70*0.9^\x}) circle (1.4pt);}
+\end{tikzpicture}}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Kansrekenen en Matrices staan in pakket 4 (Kansrekenen in het 6de jaar, Matrices in het 5de jaar). De oefening met de Fibonaccirij hoort bij de cursus Rijen.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-herten}{oef:h1-opstellen}%
+  \fv{oef:h1-t2}{vb:h1-expliciet}{oef:h1-expliciet}%
+  \fv{oef:h1-t3}{vb:h1-stabiel}{oef:h1-stabiel}%
+  \fv{oef:h1-t4}{vb:h1-spinnenweb}{oef:h1-spinnenweb}%
+  \fv{oef:h1-t5}{vb:h1-app}{oef:h1-differentie}%
+  \fv{oef:h1-t6}{vb:h1-terug}{oef:h1-o12}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een lineaire recursievergelijking van de eerste orde is, hoe je het evenwicht vindt, het expliciete voorschrift met het evenwicht en de beginafwijking (en waarom het klopt), wanneer het evenwicht stabiel is en wat een negatieve groeifactor doet, hoe je een spinnenwebdiagram tekent, en wat de differentievergelijking zegt over de verandering per stap. Vergelijk daarna met de kaders.
+\fi

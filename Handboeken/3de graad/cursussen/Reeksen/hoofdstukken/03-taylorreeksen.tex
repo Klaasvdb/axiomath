@@ -1,0 +1,542 @@
+%----------------------------------------------------------------------------------------
+% TAYLORREEKSEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Taylorreeksen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een eenvoudig rekentoestel uit de jaren 1970 kon alleen optellen, aftrekken, vermenigvuldigen en delen. Geen knop voor $\e^x$, $\sin x$ of $\ln x$. Hoe bereken je daarmee $\sqrt{\e} = \e^{0{,}5}$ tot op zes decimalen? En hoe weet je zeker dat al die zes decimalen juist zijn? Ook een modern rekentoestel kan in de grond alleen optellen en vermenigvuldigen. Hoe vindt het dan $\e^{0{,}5}$?}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \draw[accent,thick,rounded corners=3pt,fill=accent!8] (0,0) rectangle (3.2,4.6);
+  \draw[grijs,fill=white] (.3,3.5) rectangle (2.9,4.3);
+  \node[anchor=east] at (2.85,3.9) {$1{,}64872\,?$};
+  \foreach \r/\a/\b/\c/\d in {0/7/8/9/{\div},1/4/5/6/{\times},2/1/2/3/{-},3/0/{,}/{=}/{+}}{%
+    \foreach \k/\t in {0/\a,1/\b,2/\c,3/\d}{%
+      \draw[grijs,fill=white,rounded corners=1pt] ({.3+.68*\k},{2.75-.75*\r}) rectangle ({.82+.68*\k},{3.2-.75*\r});
+      \node at ({.56+.68*\k},{2.975-.75*\r}) {$\t$};}}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 25, met alle wenken: de Maclaurinreeksen van $\e^x$, $\sin x$, $\cos x$, $\ln(1+x)$ en de binomiaalreeks met hun convergentie-interval, grafieken van opeenvolgende benaderingen, benaderingen van $\e$ en $\pi$, en de restterm met het verband met de stelling van Lagrange. De afschatting van de restterm wordt hier bewezen door herhaald te integreren, zodat de stelling van Lagrange (die in pakket 4 niet bewezen wordt) niet nodig is; ze komt als uitleg. De reeks voor $\bgtan x$ is een extra, nodig voor de benadering van $\pi$. Voorkennis uit pakket 4: afgeleiden van hogere orde, de basisprimitieven en de rekenregels van integralen (Integralen, hoofdstuk 1 en 2), de faculteit (Telproblemen) en hoofdstuk 2 van deze cursus. Een rekenblad of grafisch rekentoestel kan thuis de grafieken van de benaderingen tonen; in de les volstaan de figuren.}
+
+Een veelterm kun je uitrekenen met alleen optellen en vermenigvuldigen. Functies als $\e^x$, $\sin x$ en $\ln x$ niet. In dit hoofdstuk benader je zulke functies met veeltermen die steeds beter worden. Het idee: een veelterm die in een punt dezelfde waarde, dezelfde afgeleide, dezelfde tweede afgeleide, \ldots\ heeft als de functie, moet er in de buurt sterk op lijken. Hoe meer afgeleiden overeenkomen, hoe beter. Laat je de graad naar oneindig gaan, dan krijg je een reeks: een \textit{Taylorreeks}. Dan is het belangrijk om te weten hoe groot de fout is. Dat is precies wat het probleem vraagt.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h3-verken} maken vóór de uitleg. De leerlingen vinden zelf de coëfficiënten $1$, $1$ en $\tfrac12$ van de beste parabool bij $\e^x$, door de afgeleiden in 0 gelijk te stellen. Zo wordt de definitie van de Maclaurinveelterm een antwoord, geen vertrekpunt.}
+
+%========================================================================================
+\section{Veeltermbenaderingen}
+
+\subsection{De Maclaurinveelterm}
+
+De raaklijn aan de grafiek van $f$ in $x = 0$ is $y = f(0) + f'(0)\,x$. Ze is de beste rechte bij $f$ in de buurt van 0: ze heeft dezelfde waarde en dezelfde helling. Maar een rechte kan niet buigen. In de Verken zocht je een parabool met dezelfde waarde, dezelfde helling en dezelfde tweede afgeleide als $\e^x$ in 0. Dat kan met elke graad: kies de coëfficiënten zo dat alle afgeleiden tot de orde $n$ in 0 overeenkomen. Om die coëfficiënten te vinden, kijken we eerst naar de afgeleiden van een veelterm zelf.
+
+\begin{theorie}
+\begin{stelling}{Afgeleiden van een veelterm in 0}
+Als $p(x) = c_0 + c_1 x + c_2 x^2 + \cdots + c_n x^n$, dan is voor $k = 0, 1, \ldots, n$
+
+\vspace{1mm}
+\qquad $\formule{p^{(k)}(0) = k!\, c_k}$ \qquad dus \qquad $\formule{c_k = \frac{p^{(k)}(0)}{k!}}$
+\end{stelling}
+
+\begin{bewijs}
+Leid de term $c_j x^j$ $k$ keer af. Als $j < k$, krijg je 0. Als $j > k$, krijg je een veelvoud van $x^{j-k}$, en dat is 0 in $x = 0$. Als $j = k$, krijg je
+\bewijsregel{c_k \cdot k \cdot (k-1) \cdots 1 = k!\,c_k ,}
+een constante. Dus blijft in $x = 0$ alleen $k!\,c_k$ over. (Met $0! = 1$ en $p^{(0)} = p$ klopt het ook voor $k = 0$.)
+\end{bewijs}
+\end{theorie}
+
+Wil je dus een veelterm met dezelfde afgeleiden als $f$ in 0, dan moet $c_k = \tfrac{f^{(k)}(0)}{k!}$. Daarmee ligt de veelterm vast.
+
+\begin{theorie}
+Is $f$ $n$ keer afleidbaar in 0, dan is de \emph{Maclaurinveelterm} van orde $n$
+
+\vspace{1mm}
+\qquad $\formule{T_n(x) = f(0) + f'(0)\,x + \frac{f''(0)}{2!}\,x^2 + \cdots + \frac{f^{(n)}(0)}{n!}\,x^n = \sum_{k=0}^{n} \frac{f^{(k)}(0)}{k!}\,x^k}$
+
+\vspace{1mm}
+Het is de enige veelterm van graad hoogstens $n$ met $T_n^{(k)}(0) = f^{(k)}(0)$ voor $k = 0, \ldots, n$.
+\end{theorie}
+
+$T_1$ is de raaklijn, $T_2$ de beste parabool. De naam komt van de Schotse wiskundige Colin Maclaurin, die deze veeltermen in 1742 gebruikte. Ze heten ook Taylorveeltermen in 0.
+
+\voorbeeld{}{Bepaal de Maclaurinveelterm van orde $n$ van $f(x) = \e^x$.\label{vb:h3-exp}}{%
+\uitleg{We hebben alle afgeleiden in 0 nodig. Bij $\e^x$ is dat eenvoudig, want de functie is haar eigen afgeleide.}
+\naast{\begin{stappenvrij}{4.7cm}{4.3cm}
+f^{(k)}(x) = \e^x, \quad f^{(k)}(0) = 1 & Voor elke $k$. \\[1.5ex]
+T_n(x) = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!} & Elke coëfficiënt is $\tfrac{1}{k!}$. \\[2.5ex]
+T_3(0{,}5) \approx 1{,}6458 & Tegenover $\e^{0{,}5} \approx 1{,}6487$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.62cm,y=.5cm,font=\scriptsize]
+  \rooster{-3}{1}{2}{-1}{1}{6}
+  \kromme[line width=1.3pt]{-3}{1.79}{exp(\x)}
+  \kromme[grijs,thin]{-3}{2}{1+\x}
+  \kromme[grijs,dashed]{-3}{2}{1+\x+(\x)^2/2}
+  \kromme[grijs,densely dotted,thick]{-3}{2}{1+\x+(\x)^2/2+(\x)^3/6}
+  \node[accent,left] at (1.75,5.6) {$\e^x$};
+  \node[grijs,right] at (2,3) {$T_1$};
+  \node[grijs,right] at (2,5) {$T_2$};
+\end{tikzpicture}}}
+
+De figuur toont $T_1$ (de raaklijn), $T_2$ (gestreept) en $T_3$ (gestippeld). Elke volgende veelterm volgt $\e^x$ over een groter stuk. Dicht bij 0 zijn ze allemaal goed, verder weg wordt de fout groot. Dat zullen we in sectie 2 precies maken.
+
+\voorbeeld{}{Bepaal de Maclaurinveeltermen van $f(x) = \sin x$.\label{vb:h3-sin}}{%
+\uitleg{De afgeleiden van $\sin x$ herhalen zich na vier stappen. In 0 geeft dat een vast patroon.}
+\begin{stappen}
+\sin x, \ \cos x, \ -\sin x, \ -\cos x, \ \sin x, \ \ldots & De afgeleiden. \\[1ex]
+0, \ 1, \ 0, \ -1, \ 0, \ 1, \ \ldots & Hun waarden in 0. \\[1ex]
+T_5(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} & Alleen oneven machten, met wisselende tekens.
+\end{stappen}
+De figuur toont $T_1$, $T_3$ (gestreept), $T_5$ (gestippeld) en $T_7$ bij $\sin x$. Elke veelterm buigt uiteindelijk weg naar $\pm\infty$, maar het stuk waar hij $\sin x$ goed volgt, wordt steeds groter. Merk op: $T_4 = T_3$, want de coëfficiënt van $x^4$ is 0.
+\figuren{\begin{tikzpicture}[x=.72cm,y=.8cm,font=\scriptsize]
+  \draw[->,lijngrijs] (-6.3,0) -- (6.5,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-2.3) -- (0,2.5) node[above,text=black] {$y$};
+  \foreach \t/\l in {-3.1416/-\pi,3.1416/\pi}{\draw[lijngrijs] (\t,.1) -- (\t,-.1) node[below,text=grijs] {$\l$};}
+  \begin{scope}
+  \clip (-6.3,-2.3) rectangle (6.3,2.3);
+  \kromme[line width=1.3pt]{-6.3}{6.3}{sin(\x r)}
+  \kromme[grijs,thin]{-2.3}{2.3}{\x}
+  \kromme[grijs,dashed]{-3.5}{3.5}{\x-(\x)^3/6}
+  \kromme[grijs,densely dotted,thick]{-4.6}{4.6}{\x-(\x)^3/6+(\x)^5/120}
+  \kromme[grijs,dashdotted]{-5.4}{5.4}{\x*(1-(\x)^2/6*(1-(\x)^2/20*(1-(\x)^2/42)))}
+  \end{scope}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bereken de afgeleiden van $f$ tot de orde $n$, en hun waarden in 0. Deel de $k$-de afgeleide door $k!$: dat is de coëfficiënt van $x^k$.
+\end{werkwijze}
+
+\nujij{Bepaal $T_4$ van $\cos x$ en van $\ln(1 + x)$.}{$1 - \tfrac{x^2}{2} + \tfrac{x^4}{24}$ en $x - \tfrac{x^2}{2} + \tfrac{x^3}{3} - \tfrac{x^4}{4}$.}
+
+\begin{oefeningen}
+\oef{h3-mac}
+\end{oefeningen}
+
+\subsection{De Taylorveelterm rond een ander punt}
+
+Wil je $\sqrt{4{,}1}$ benaderen, dan helpt een veelterm rond 0 niet: $\sqrt x$ is in 0 niet eens afleidbaar. Je wilt een veelterm die $\sqrt x$ goed benadert in de buurt van 4, waar je de waarde kent. Schrijf de veelterm dan in machten van $x - 4$: dan werkt dezelfde redenering met het punt 4 in plaats van 0.
+
+\begin{theorie}
+Is $f$ $n$ keer afleidbaar in $a$, dan is de \emph{Taylorveelterm} van orde $n$ rond $a$
+
+\vspace{1mm}
+\qquad $\formule{T_n(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}\,(x - a)^k = f(a) + f'(a)(x - a) + \cdots + \frac{f^{(n)}(a)}{n!}(x - a)^n}$
+\end{theorie}
+
+Voor $a = 0$ is dat de Maclaurinveelterm. De Engelse wiskundige Brook Taylor publiceerde de algemene vorm in 1715.
+
+\voorbeeld{}{Bepaal de Taylorveelterm van orde 2 van $f(x) = \sqrt x$ rond 4, en benader $\sqrt{4{,}1}$.\label{vb:h3-taylor}}{%
+\uitleg{We berekenen de afgeleiden in 4, en schrijven de veelterm in machten van $x - 4$.}
+\naast{\begin{stappenvrij}{5cm}{3.7cm}
+f(4) = 2, \ f'(4) = \frac{1}{2\sqrt4} = \frac14 & $f'(x) = \tfrac12 x^{-1/2}$. \\[2ex]
+f''(4) = -\frac{1}{4 \cdot 8} = -\frac{1}{32} & $f''(x) = -\tfrac14 x^{-3/2}$, en $4^{3/2} = 8$. \\[2ex]
+T_2(x) = 2 + \frac{x - 4}{4} - \frac{(x - 4)^2}{64} & Deel $f''(4)$ door $2! = 2$. \\[2.5ex]
+T_2(4{,}1) = 2{,}024\,844 & Tegenover $\sqrt{4{,}1} \approx 2{,}024\,846$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.58cm,y=.95cm,font=\scriptsize]
+  \rooster{0}{1}{8}{0}{1}{3}
+  \kromme[line width=1.3pt]{0}{8}{sqrt(\x)}
+  \kromme[grijs,dashed]{0}{8}{2+(\x-4)/4-(\x-4)^2/64}
+  \fill[accent] (4,2) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bereken de afgeleiden in $a$, deel de $k$-de door $k!$, en vermenigvuldig met $(x - a)^k$. Werk de haakjes niet uit: in machten van $x - a$ zie je meteen hoe klein de termen zijn als $x$ dicht bij $a$ ligt.
+\end{werkwijze}
+
+\nujij{Bepaal de Taylorveelterm van orde 3 van $\ln x$ rond 1.}{$(x - 1) - \tfrac{(x-1)^2}{2} + \tfrac{(x-1)^3}{3}$.}
+
+\begin{oefeningen}
+\oef{h3-taylor}
+\end{oefeningen}
+
+%========================================================================================
+\section{De restterm}
+
+\subsection{Hoe groot is de fout?}
+
+Een benadering is pas bruikbaar als je weet hoe goed ze is. Het verschil $R_n(x) = f(x) - T_n(x)$ heet de \textit{restterm}. Voor het probleem moet $|R_n(0{,}5)|$ kleiner zijn dan $0{,}000\,000\,5$, en dat moeten we kunnen garanderen zonder $\e^{0{,}5}$ te kennen. Wat weten we over $R_n$? Omdat $T_n$ dezelfde afgeleiden heeft als $f$ tot de orde $n$, zijn $R_n(0)$, $R_n'(0)$, \ldots, $R_n^{(n)}(0)$ allemaal 0. En omdat $T_n$ een veelterm van graad $n$ is, is $T_n^{(n+1)} = 0$, zodat $R_n^{(n+1)} = f^{(n+1)}$. Zo krijgt de fout een bovengrens die alleen van de $(n+1)$-ste afgeleide afhangt.
+
+\begin{theorie}
+\begin{stelling}{Afschatting van de restterm}
+Als $\bigl|f^{(n+1)}(t)\bigr| \leqslant M$ voor elke $t$ tussen 0 en $x$, dan is
+
+\vspace{1mm}
+\qquad $\formule{|R_n(x)| = |f(x) - T_n(x)| \leqslant \frac{M\,|x|^{n+1}}{(n+1)!}}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $x > 0$ en $t \in [0, x]$. Dan is $-M \leqslant R_n^{(n+1)}(t) \leqslant M$. Integreer van 0 tot $t$. Volgens de hoofdstelling is $\int_0^t R_n^{(n+1)}(s)\,\mathrm{d}s = R_n^{(n)}(t) - R_n^{(n)}(0) = R_n^{(n)}(t)$, dus
+\bewijsregel{-Mt \leqslant R_n^{(n)}(t) \leqslant Mt .}
+Integreer opnieuw van 0 tot $t$, met $R_n^{(n-1)}(0) = 0$:
+\bewijsregel{-M\frac{t^2}{2} \leqslant R_n^{(n-1)}(t) \leqslant M\frac{t^2}{2} .}
+Na $n + 1$ keer integreren staat er $|R_n(t)| \leqslant M \tfrac{t^{n+1}}{(n+1)!}$; neem $t = x$. Voor $x < 0$ integreer je telkens van $t$ tot 0, en dezelfde redenering geeft $|R_n(x)| \leqslant M \tfrac{|x|^{n+1}}{(n+1)!}$.
+\end{bewijs}
+\end{theorie}
+
+De fout hangt dus af van drie dingen: hoe wild de $(n+1)$-ste afgeleide is ($M$), hoe ver je van 0 zit ($|x|^{n+1}$), en de faculteit $(n+1)!$, die alles uiteindelijk klein maakt.
+
+\subsection{Het verband met de stelling van Lagrange}
+
+Voor $n = 0$ is $T_0(x) = f(0)$, en zegt de afschatting: $|f(x) - f(0)| \leqslant M\,|x|$ als $|f'| \leqslant M$. Dat volgt ook uit de \textit{stelling van Lagrange} voor afgeleiden: is $f$ afleidbaar, dan is er een $c$ tussen 0 en $x$ met
+\[ \frac{f(x) - f(0)}{x - 0} = f'(c) . \]
+Meetkundig: ergens tussen 0 en $x$ is de raaklijn evenwijdig met de koorde. Lagrange bewees in 1797 dat dat ook voor elke orde geldt, in een vorm die je kunt onthouden als \textit{de volgende term, maar met de afgeleide in een onbekend punt $c$}:
+\[ R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}\,x^{n+1} \quad\text{voor een } c \text{ tussen } 0 \text{ en } x . \]
+
+\naast{Dat is de \textit{restterm van Lagrange}. Het bewijs valt buiten deze cursus, maar onze afschatting volgt er meteen uit: vervang $|f^{(n+1)}(c)|$ door de bovengrens $M$. De figuur toont het geval $n = 0$: de koorde van $(0, f(0))$ naar $(x, f(x))$, en in $c$ een raaklijn met dezelfde helling.}{\begin{tikzpicture}[x=1.1cm,y=1cm,font=\scriptsize]
+  \assen{-.3}{3.4}{-.2}{2.6}
+  \kromme[line width=1.2pt]{0}{3.1}{.4+.9*\x-.18*(\x)^2+.02*(\x)^3}
+  \draw[grijs] (0,.4) -- (3,1.6);
+  \draw[grijs,dashed] (.4,{.4+.9*1.62-.18*1.62^2+.02*1.62^3-.4*1.22}) -- (2.85,{.4+.9*1.62-.18*1.62^2+.02*1.62^3+.4*1.23});
+  \fill[accent] (1.62,{.4+.9*1.62-.18*1.62^2+.02*1.62^3}) circle (2pt);
+  \draw[lijngrijs,dotted] (1.62,0) -- (1.62,{.4+.9*1.62-.18*1.62^2+.02*1.62^3});
+  \node[below] at (1.62,0) {$c$};
+  \node[below] at (3,0) {$x$};
+  \draw[lijngrijs,dotted] (3,0) -- (3,1.6);
+\end{tikzpicture}}
+
+\voorbeeld{}{Terug naar het probleem. Bereken $\sqrt\e = \e^{0{,}5}$ tot op zes decimalen, met alleen de vier hoofdbewerkingen.\label{vb:h3-terug}}{%
+\uitleg{We gebruiken $T_n(0{,}5)$ van $\e^x$. Alle afgeleiden zijn $\e^t$, en op $[0; 0{,}5]$ is $\e^t \leqslant \e^{0{,}5} < \sqrt4 = 2$. Zo vinden we $M = 2$ zonder $\e^{0{,}5}$ te kennen. We zoeken de kleinste $n$ met een fout onder $0{,}000\,000\,5$.}
+\begin{stappen}
+|R_n(0{,}5)| \leqslant \frac{2 \cdot 0{,}5^{n+1}}{(n+1)!} & De afschatting met $M = 2$. \\[2.5ex]
+n = 6: \ 3{,}1 \cdot 10^{-6}, \qquad n = 7: \ 1{,}9 \cdot 10^{-7} & Pas bij $n = 7$ is de grens klein genoeg. \\[1.5ex]
+1 + 0{,}5 + 0{,}125 + 0{,}020\,833 + 0{,}002\,604 & De termen $\tfrac{0{,}5^k}{k!}$ voor $k = 0, \ldots, 4$, \\
+\quad + 0{,}000\,260 + 0{,}000\,022 + 0{,}000\,002 & en voor $k = 5, 6, 7$. Elke term volgt uit de vorige door te vermenigvuldigen met $\tfrac{0{,}5}{k}$. \\[1ex]
+T_7(0{,}5) \approx 1{,}648\,721\,2 & De som, met een fout van hoogstens $1{,}9 \cdot 10^{-7}$.
+\end{stappen}
+Dus is $\sqrt\e = 1{,}648\,721\ldots$, met zes juiste decimalen (de echte waarde is $1{,}648\,721\,27\ldots$). Acht termen, met alleen vermenigvuldigen, delen en optellen: zo werkt in de grond ook een rekentoestel, al gebruikt het slimmere varianten.}
+
+\begin{werkwijze}
+Zoek een bovengrens $M$ voor $|f^{(n+1)}|$ tussen 0 en $x$, zonder de gezochte waarde zelf te gebruiken. Bereken $\tfrac{M|x|^{n+1}}{(n+1)!}$ voor stijgende $n$, tot de grens klein genoeg is. Bereken dan $T_n(x)$.
+\end{werkwijze}
+
+Soms kun je slim winnen. Bij $\sin x$ is de coëfficiënt van $x^4$ nul, dus $T_3 = T_4$. Dan mag je de restterm van orde 4 gebruiken, en die is kleiner.
+
+\voorbeeld{}{Hoe groot is de fout hoogstens als je $\sin x$ vervangt door $x - \tfrac{x^3}{6}$, voor $|x| \leqslant 0{,}5$?\label{vb:h3-sinfout}}{%
+\uitleg{$x - \tfrac{x^3}{6}$ is $T_3$, maar ook $T_4$. Alle afgeleiden van $\sin x$ zijn $\pm\sin$ of $\pm\cos$, dus $M = 1$.}
+\begin{stappen}
+|R_4(x)| \leqslant \frac{1 \cdot |x|^5}{5!} \leqslant \frac{0{,}5^5}{120} & Met $T_4 = T_3$. \\[2.5ex]
+\frac{0{,}5^5}{120} \approx 0{,}000\,26 & In $x = 0{,}5$ is de echte fout $0{,}479\,426 - 0{,}479\,167 \approx 0{,}000\,26$: de grens is scherp.
+\end{stappen}}
+
+\nujij{Hoeveel termen van $1 + 1 + \tfrac1{2!} + \tfrac1{3!} + \cdots$ heb je nodig om $\e$ tot op $0{,}001$ te kennen? Gebruik $M = 3$.}{$\tfrac{3}{(n+1)!} \leqslant 0{,}001 \iff (n+1)! \geqslant 3000$, dus $n + 1 = 7$: $T_6(1) \approx 2{,}7181$.}
+
+\begin{oefeningen}
+\oef{h3-rest}
+\end{oefeningen}
+
+%========================================================================================
+\section{Taylorreeksen}
+
+\subsection{Van veelterm naar reeks}
+
+Wat gebeurt er als je de orde $n$ naar oneindig laat gaan? De Maclaurinveeltermen $T_n(x)$ zijn dan de partieelsommen van een reeks. Convergeert die reeks naar $f(x)$? Dat gebeurt precies als de restterm naar 0 gaat.
+
+\begin{theorie}
+De \emph{Maclaurinreeks} van $f$ is \quad $\formule{\sominf{k=0} \frac{f^{(k)}(0)}{k!}\,x^k}$
+
+\vspace{1mm}
+Het \emph{convergentie-interval} is de verzameling van de $x$ waarvoor die reeks convergeert. Rond een punt $a$ heet $\sum \tfrac{f^{(k)}(a)}{k!}(x - a)^k$ de \emph{Taylorreeks} van $f$.
+\end{theorie}
+
+Voor elke $x$ is $f(x) = T_n(x) + R_n(x)$. Gaat $R_n(x)$ naar 0, dan gaan de partieelsommen $T_n(x)$ naar $f(x)$: de reeks convergeert, met som $f(x)$. Voor de exponentiële functie lukt dat voor elke $x$.
+
+\begin{theorie}
+\begin{stelling}{Reeks van de exponentiële functie}
+Voor elke $x \in \mathbb{R}$ is \quad $\formule{\e^x = \sominf{n=0} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots}$
+\end{stelling}
+
+\begin{bewijs}
+Alle afgeleiden zijn $\e^t$, en tussen 0 en $x$ is $\e^t \leqslant \e^{|x|}$. Neem dus $M = \e^{|x|}$:
+\bewijsregel{|R_n(x)| \leqslant \e^{|x|} \cdot \frac{|x|^{n+1}}{(n+1)!} .}
+De reeks $\sum \tfrac{|x|^m}{m!}$ convergeert volgens het quotiëntkenmerk, want $\tfrac{|x|}{m+1} \to 0$. Haar termen gaan dus naar 0, en daarmee ook $R_n(x)$.
+\end{bewijs}
+\end{theorie}
+
+Voor $x = 1$ geeft dat een reeks voor het getal $\e$:
+\[ \e = 1 + 1 + \frac12 + \frac16 + \frac1{24} + \cdots = \sominf{n=0} \frac{1}{n!} . \]
+Dat is de reeks uit opdracht \ref{oef:h2-o21}, waarvan je al wist dat ze tussen 2 en 3 ligt.
+
+\begin{theorie}
+\begin{stelling}{Reeks van de sinus}
+Voor elke $x \in \mathbb{R}$ is \quad $\formule{\sin x = \sominf{n=0} \frac{(-1)^n\,x^{2n+1}}{(2n+1)!} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots}$
+\end{stelling}
+
+\begin{bewijs}
+Alle afgeleiden van $\sin$ zijn $\pm\sin$ of $\pm\cos$, dus $M = 1$ en $|R_n(x)| \leqslant \tfrac{|x|^{n+1}}{(n+1)!}$. Dat gaat naar 0, zoals in het vorige bewijs.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Reeks van de cosinus}
+Voor elke $x \in \mathbb{R}$ is \quad $\formule{\cos x = \sominf{n=0} \frac{(-1)^n\,x^{2n}}{(2n)!} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots}$
+\end{stelling}
+
+\begin{bewijs}
+De afgeleiden van $\cos x$ in 0 zijn $1, 0, -1, 0, 1, \ldots$, wat de coëfficiënten geeft. De restterm gaat naar 0 met $M = 1$, net zoals bij de sinus.
+\end{bewijs}
+\end{theorie}
+
+De drie convergentie-intervallen zijn dus heel $\mathbb{R}$. Uit een gekende reeks maak je nieuwe door te substitueren: omdat $\e^u = \sum \tfrac{u^n}{n!}$ voor \textit{elke} $u$, mag je $u$ vervangen door $-x^2$, $2x$ of $\mathrm{i}x$.
+
+\voorbeeld{}{Schrijf $\e^{-x^2}$ als een reeks, en geef de eerste vier termen.\label{vb:h3-subst}}{%
+\uitleg{De afgeleiden van $\e^{-x^2}$ uitrekenen is veel werk. Substitueren in de gekende reeks is sneller.}
+\begin{stappen}
+\e^{u} = \sominf{n=0} \frac{u^n}{n!} \text{ met } u = -x^2 & Geldt voor elke $u$, dus ook voor $u = -x^2$. \\[2.5ex]
+\e^{-x^2} = \sominf{n=0} \frac{(-1)^n x^{2n}}{n!} = 1 - x^2 + \frac{x^4}{2} - \frac{x^6}{6} + \cdots & Voor elke $x \in \mathbb{R}$.
+\end{stappen}}
+
+\begin{werkwijze}
+Zoek een gekende reeks ($\e^u$, $\sin u$, $\cos u$, $\tfrac{1}{1-u}$, \ldots) en vervang $u$ door de uitdrukking in $x$. Het convergentie-interval volgt uit dat van de gekende reeks: de reeks van $\tfrac{1}{1-u}$ geldt voor $|u| < 1$, dus die van $\tfrac{1}{1-2x}$ voor $|2x| < 1$. Vermenigvuldigen met een macht van $x$ mag ook.
+\end{werkwijze}
+
+\nujij{Schrijf $\sin(2x)$ en $x\,\e^x$ als een reeks.}{$\sum \tfrac{(-1)^n 2^{2n+1} x^{2n+1}}{(2n+1)!} = 2x - \tfrac{4x^3}{3} + \cdots$ en $\sum \tfrac{x^{n+1}}{n!} = x + x^2 + \tfrac{x^3}{2} + \cdots$}
+
+\begin{oefeningen}
+\oef{h3-subst}
+\end{oefeningen}
+
+\subsection{Het convergentie-interval bepalen}
+
+Niet elke reeks in machten van $x$ convergeert overal. De meetkundige reeks $\sum x^n$ convergeert alleen voor $|x| < 1$. Hoe vind je het convergentie-interval van een reeks $\sum a_n x^n$ zonder de functie te kennen? Met het quotiëntkenmerk, toegepast op de absolute waarden.
+
+\voorbeeld{}{Bepaal het convergentie-interval van $\displaystyle\sominf{n=1} \frac{x^n}{n \cdot 3^n}$.\label{vb:h3-interval}}{%
+\uitleg{De quotiënten bevatten $|x|$: het kenmerk geeft een voorwaarde op $|x|$. In de randpunten zegt het kenmerk niets ($L = 1$), dus die onderzoeken we apart.}
+\begin{stappen}
+\frac{|x|^{n+1}}{(n+1)3^{n+1}} \cdot \frac{n \cdot 3^n}{|x|^n} = \frac{|x|}{3} \cdot \frac{n}{n+1} \to \frac{|x|}{3} & Quotiëntkenmerk op $\sum \bigl|\tfrac{x^n}{n 3^n}\bigr|$. \\[2.5ex]
+\frac{|x|}{3} < 1 \iff -3 < x < 3 & Daar convergeert de reeks absoluut. Voor $|x| > 3$ gaan de termen niet naar 0: divergent. \\[2ex]
+x = 3: \ \sominf{n=1} \frac1n & De harmonische reeks: divergent. \\[2.5ex]
+x = -3: \ \sominf{n=1} \frac{(-1)^n}{n} & Alternerend: convergent volgens Leibniz. \\[2ex]
+[-3, 3[ & Het convergentie-interval.
+\end{stappen}
+\figuren{\begin{tikzpicture}[x=.9cm,font=\scriptsize]
+  \draw[->,lijngrijs] (-4.5,0) -- (4.5,0) node[right,text=black] {$x$};
+  \draw[accent,line width=2.5pt] (-3,0) -- (3,0);
+  \fill[accent] (-3,0) circle (3pt);
+  \draw[accent,fill=white,thick] (3,0) circle (3pt);
+  \foreach \t in {-3,0,3}{\node[below=3pt] at (\t,0) {$\t$};}
+  \node[above,grijs] at (-3.9,0) {divergent};
+  \node[above,grijs] at (3.9,0) {divergent};
+  \node[above,accent] at (0,.05) {convergent};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Pas het quotiëntkenmerk toe op $|a_n x^n|$. De voorwaarde $L < 1$ geeft een interval $|x| < r$, of $|x - a| < r$ bij een reeks in machten van $x - a$. Onderzoek de twee randpunten apart, met de kenmerken uit hoofdstuk 2. Een convergentie-interval is altijd een interval rond het middelpunt van de reeks, met of zonder de randpunten.
+\end{werkwijze}
+
+\nujij{Bepaal het convergentie-interval van $\displaystyle\sominf{n=1} \frac{x^n}{n^2}$.}{$L = |x|$, en in $x = \pm1$ convergeert $\sum \tfrac{(\pm1)^n}{n^2}$ absoluut: $[-1, 1]$.}
+
+\begin{oefeningen}
+\oef{h3-interval}
+\end{oefeningen}
+
+%========================================================================================
+\section{Meer reeksontwikkelingen}
+
+\subsection{De logaritme}
+
+Voor $\ln(1 + x)$ vond je de Maclaurinveelterm $x - \tfrac{x^2}{2} + \tfrac{x^3}{3} - \cdots$ De afgeleiden groeien hier zoals faculteiten, en dan geeft de afschatting met $M$ geen bruikbare grens. Er is een slimmere weg: $\ln(1 + x)$ is een primitieve van $\tfrac{1}{1+x}$, en dat is de som van een meetkundige reeks.
+
+\begin{theorie}
+\begin{stelling}{Reeks van de logaritme}
+Voor $-1 < x \leqslant 1$ is \quad $\formule{\ln(1 + x) = \sominf{n=1} \frac{(-1)^{n+1}\,x^n}{n} = x - \frac{x^2}{2} + \frac{x^3}{3} - \cdots}$
+
+\vspace{1mm}
+Voor de andere $x$ divergeert de reeks.
+\end{stelling}
+
+\begin{bewijs}
+Voor $t \neq -1$ geeft de somformule van een meetkundige rij met $q = -t$
+\bewijsregel{\frac{1}{1 + t} = 1 - t + t^2 - \cdots + (-1)^{n-1} t^{n-1} + \frac{(-1)^n\,t^n}{1 + t} .}
+Integreer van 0 tot $x$, met $x > -1$:
+\bewijsregel{\ln(1 + x) = x - \frac{x^2}{2} + \cdots + \frac{(-1)^{n-1} x^n}{n} + (-1)^n \int_0^x \frac{t^n}{1 + t}\,\mathrm{d}t .}
+Als $0 \leqslant x \leqslant 1$, is $1 + t \geqslant 1$, dus de laatste integraal is hoogstens $\int_0^x t^n\,\mathrm{d}t = \tfrac{x^{n+1}}{n+1} \leqslant \tfrac{1}{n+1}$, en dat gaat naar 0. Als $-1 < x < 0$, is $1 + t \geqslant 1 + x > 0$ tussen $x$ en 0, dus de absolute waarde van de integraal is hoogstens $\tfrac{1}{1+x} \cdot \tfrac{|x|^{n+1}}{n+1}$, en ook dat gaat naar 0. Als $|x| > 1$ gaan de termen $\tfrac{x^n}{n}$ niet naar 0, en in $x = -1$ staat er min de harmonische reeks.
+\end{bewijs}
+\end{theorie}
+
+Voor $x = 1$ vind je eindelijk de som uit hoofdstuk 2: $1 - \tfrac12 + \tfrac13 - \tfrac14 + \cdots = \ln 2$. Merk op dat de functie $\ln(1 + x)$ ook voor $x > 1$ bestaat, maar de reeks daar niet convergeert (opdracht \ref{oef:h3-o16}).
+
+\voorbeeld{}{Benader $\ln(1{,}2)$ met drie termen van de reeks, en schat de fout af.\label{vb:h3-ln}}{%
+\uitleg{Met $x = 0{,}2$ is de reeks alternerend, en de termen $\tfrac{0{,}2^n}{n}$ dalen naar 0. Dan geeft het kenmerk van Leibniz meteen een foutgrens: de eerste term die je weglaat.}
+\begin{stappen}
+0{,}2 - \frac{0{,}04}{2} + \frac{0{,}008}{3} \approx 0{,}182\,667 & De eerste drie termen. \\[2ex]
+\text{fout} \leqslant \frac{0{,}2^4}{4} = 0{,}000\,4 & De vierde term. Echte waarde: $\ln 1{,}2 \approx 0{,}182\,322$.
+\end{stappen}}
+
+\nujij{Benader $\ln(0{,}9)$ met drie termen.}{$-0{,}1 - 0{,}005 - 0{,}000\,333 \approx -0{,}105\,333$ (echte waarde $-0{,}105\,361$).}
+
+\begin{oefeningen}
+\oef{h3-ln}
+\end{oefeningen}
+
+\subsection{De binomiaalreeks}
+
+Uit de cursus Telproblemen ken je het binomium van Newton: $(1 + x)^n = \sum_k \binom{n}{k} x^k$, voor een natuurlijk getal $n$. Newton ontdekte in 1665 dat het ook werkt met een gebroken of negatieve exponent, als je de binomiaalcoëfficiënt uitbreidt. Dan stopt de som niet meer: je krijgt een reeks.
+
+\begin{theorie}
+Voor een reëel getal $\alpha$ is de \emph{binomiaalcoëfficiënt}
+
+\vspace{1mm}
+\qquad $\formule{\binom{\alpha}{k} = \frac{\alpha(\alpha - 1)(\alpha - 2) \cdots (\alpha - k + 1)}{k!}}$ \qquad met $\binom{\alpha}{0} = 1$.
+
+\begin{stelling}{Binomiaalreeks}
+Voor $-1 < x < 1$ is \quad $\formule{(1 + x)^\alpha = \sominf{k=0} \binom{\alpha}{k} x^k = 1 + \alpha x + \frac{\alpha(\alpha-1)}{2!}x^2 + \cdots}$
+\end{stelling}
+\end{theorie}
+
+De coëfficiënten zijn de Maclaurincoëfficiënten van $(1+x)^\alpha$: de $k$-de afgeleide is $\alpha(\alpha-1)\cdots(\alpha-k+1)(1+x)^{\alpha-k}$, en die geeft in 0 precies de teller. Het quotiëntkenmerk geeft $\bigl|\tfrac{\alpha - k}{k+1}\bigr|\,|x| \to |x|$, dus de reeks convergeert voor $|x| < 1$. Dat haar som daar echt $(1+x)^\alpha$ is, nemen we aan: het bewijs met de restterm is lastig. Is $\alpha$ een natuurlijk getal, dan worden de coëfficiënten vanaf $k = \alpha + 1$ nul, en vind je het binomium van Newton terug. Met $\alpha = -1$ vind je de meetkundige reeks $1 - x + x^2 - \cdots$
+
+\voorbeeld{}{Geef de eerste vier termen van de reeks van $\sqrt{1 + x}$, en benader $\sqrt{1{,}1}$.\label{vb:h3-bin}}{%
+\uitleg{Een vierkantswortel is de macht met $\alpha = \tfrac12$. We berekenen de binomiaalcoëfficiënten één voor één.}
+\begin{stappen}
+\tbinom{1/2}{1} = \tfrac12, \ \ \tbinom{1/2}{2} = \tfrac{\frac12 \cdot (-\frac12)}{2} = -\tfrac18, \ \ \tbinom{1/2}{3} = \tfrac{\frac12 \cdot (-\frac12)(-\frac32)}{6} = \tfrac1{16} & Met de definitie. \\[2.5ex]
+\sqrt{1 + x} \approx 1 + \frac x2 - \frac{x^2}{8} + \frac{x^3}{16} & Voor $|x| < 1$. \\[2ex]
+\sqrt{1{,}1} \approx 1 + 0{,}05 - 0{,}001\,25 + 0{,}000\,062\,5 = 1{,}048\,812\,5 & Met $x = 0{,}1$. Echte waarde: $1{,}048\,809$.
+\end{stappen}}
+
+\nujij{Geef de eerste drie termen van de reeks van $\dfrac{1}{\sqrt{1 - x}}$.}{$\alpha = -\tfrac12$, met $-x$: $1 + \tfrac x2 + \tfrac{3x^2}{8}$.}
+
+\begin{oefeningen}
+\oef{h3-bin}
+\end{oefeningen}
+
+\subsection{Een reeks voor \texorpdfstring{$\pi$}{π}}
+
+Hoe vind je de decimalen van $\pi$? Je hebt een functie nodig met $\pi$ in een eenvoudige waarde. Dat is de boogtangens: $\bgtan 1 = \tfrac\pi4$. En $\bgtan x$ is een primitieve van $\tfrac{1}{1 + x^2}$, opnieuw de som van een meetkundige reeks.
+
+\begin{theorie}
+\begin{stelling}{Reeks van de boogtangens}
+Voor $-1 \leqslant x \leqslant 1$ is \quad $\formule{\bgtan x = \sominf{n=0} \frac{(-1)^n\,x^{2n+1}}{2n+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \cdots}$
+\end{stelling}
+
+\begin{bewijs}
+Zoals bij de logaritme, met $q = -t^2$:
+\bewijsregel{\frac{1}{1 + t^2} = 1 - t^2 + t^4 - \cdots + (-1)^{n-1} t^{2n-2} + \frac{(-1)^n\,t^{2n}}{1 + t^2} .}
+Integreer van 0 tot $x$. De rest is in absolute waarde hoogstens $\bigl|\int_0^x t^{2n}\,\mathrm{d}t\bigr| = \tfrac{|x|^{2n+1}}{2n+1} \leqslant \tfrac{1}{2n+1}$, want $1 + t^2 \geqslant 1$. Dat gaat naar 0.
+\end{bewijs}
+\end{theorie}
+
+Met $x = 1$ krijg je de reeks van Leibniz (1674): $\tfrac\pi4 = 1 - \tfrac13 + \tfrac15 - \cdots$ Mooi, maar onbruikbaar: voor zes decimalen van $\pi$ heb je volgens de foutafschatting ongeveer een miljoen termen nodig. Het trucje is een kleinere $x$ te gebruiken, waar de machten snel klein worden.
+
+\voorbeeld{}{Toon aan dat $\bgtan\tfrac12 + \bgtan\tfrac13 = \tfrac\pi4$, en benader $\pi$ met vijf termen van elke reeks.\label{vb:h3-pi}}{%
+\uitleg{Voor de som van twee boogtangensen gebruiken we de somformule van de tangens. Daarna vullen we $x = \tfrac12$ en $x = \tfrac13$ in de reeks in.}
+\begin{stappen}
+\tan(\alpha + \beta) = \frac{\frac12 + \frac13}{1 - \frac12 \cdot \frac13} = \frac{5/6}{5/6} = 1 & Met $\alpha = \bgtan\tfrac12$ en $\beta = \bgtan\tfrac13$. Beide liggen tussen 0 en $\tfrac\pi4$, dus $\alpha + \beta = \tfrac\pi4$. \\[3ex]
+\pi \approx 4\Bigl(\tfrac12 - \tfrac{1}{24} + \cdots + \tfrac{1}{9 \cdot 2^9} + \tfrac13 - \tfrac{1}{81} + \cdots + \tfrac{1}{9 \cdot 3^9}\Bigr) & Vijf termen van elke reeks, tot de macht 9. \\[2ex]
+\pi \approx 3{,}141\,74 & Fout volgens Leibniz: hoogstens $4\bigl(\tfrac{1}{11 \cdot 2^{11}} + \tfrac{1}{11 \cdot 3^{11}}\bigr) \approx 0{,}000\,18$.
+\end{stappen}}
+
+Met nog kleinere getallen gaat het sneller. John Machin berekende in 1706 honderd decimalen met $\tfrac\pi4 = 4\bgtan\tfrac15 - \bgtan\tfrac1{239}$, zie opdracht \ref{oef:h3-o18}. Tot in de jaren 1970 werkten bijna alle recordberekeningen van $\pi$ zo.
+
+\begin{oefeningen}
+\oef{h3-pi}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\lkr{De opdrachten staan bewust door elkaar, met stijgende moeilijkheid. Opdrachten \ref{oef:h3-o13} en \ref{oef:h3-o14} gebruiken reeksen in een context (relativiteit en een integraal die je niet exact kunt uitrekenen); in opdracht \ref{oef:h3-o14} integreer je een reeks term per term, wat we aannemen zonder bewijs.}
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen staan in het 5de jaar; Statistiek, Telproblemen en Logica en bewijzen in het 6de jaar: kijk na wat er al gezien is. Bij de oefening over Statistiek integreer je een reeks term per term, wat we aannemen.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+
+\oef{h3-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{40\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+
+\oef{h3-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-exp}{oef:h3-mac}%
+  \fv{oef:h3-t2}{vb:h3-taylor}{oef:h3-taylor}%
+  \fv{oef:h3-t3}{vb:h3-terug}{oef:h3-rest}%
+  \fv{oef:h3-t4}{vb:h3-sinfout}{oef:h3-o17}%
+  \fv{oef:h3-t5}{vb:h3-subst}{oef:h3-subst}%
+  \fv{oef:h3-t6}{vb:h3-interval}{oef:h3-interval}%
+  \fv{oef:h3-t7}{vb:h3-ln}{oef:h3-ln}%
+  \fzv{oef:h3-t8}{oef:h3-o12}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom $c_k = \tfrac{f^{(k)}(0)}{k!}$, de Maclaurin- en de Taylorveelterm, de afschatting van de restterm en het idee van het bewijs, de restterm van Lagrange, de reeksen van $\e^x$, $\sin x$, $\cos x$, $\ln(1+x)$, $(1+x)^\alpha$ en $\bgtan x$ met hun convergentie-interval, hoe je een reeks maakt door te substitueren, hoe je een convergentie-interval bepaalt, en hoe je $\e$ en $\pi$ benadert. Vergelijk daarna met de kaders.
+\fi

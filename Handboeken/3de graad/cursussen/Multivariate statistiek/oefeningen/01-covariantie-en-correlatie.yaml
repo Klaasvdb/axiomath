@@ -1,0 +1,1087 @@
+# Oefeningen van hoofdstuk 1 (Covariantie en correlatie). Zie oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen.
+# Alle getallen nagerekend met Python en sympy.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde en de standaardafwijking $s$ (met $n - 1$) van 2, 4, 4 en 6.
+      antwoord: |-
+        $\xbar = 4$; \ $s = \sqrt{\tfrac83} \approx 1{,}63$
+      uitwerking: |-
+        Afwijkingen $-2, 0, 0, 2$, kwadraten samen 8, dus $s^2 = \frac83$ en $s \approx 1{,}63$.
+    - opgave: |-
+        Bereken het scalair product van $\vec a = (1, 0, 1)$ en $\vec b = (1, 1, 0)$, en de hoek tussen beide vectoren.
+      antwoord: |-
+        $1$; \ $60^\circ$
+      uitwerking: |-
+        $\vec a \cdot \vec b = 1$ en $\abs{\vec a} = \abs{\vec b} = \sqrt2$, dus $\cos\theta = \frac12$ en $\theta = 60^\circ$.
+    - opgave: |-
+        Voor welke $k$ is $t^2 + 2kt + 4 \geqslant 0$ voor alle $t \in \R$?
+      antwoord: |-
+        $-2 \leqslant k \leqslant 2$
+      uitwerking: |-
+        De discriminant $4k^2 - 16$ mag niet positief zijn: $k^2 \leqslant 4$.
+    - opgave: |-
+        Bereken met ICT de correlatiecoëfficiënt van $(1, 2)$, $(2, 3)$, $(3, 5)$ en $(4, 6)$.
+      antwoord: |-
+        $r \approx 0{,}990$
+      uitwerking: |-
+        \texttt{LinReg(ax+b)} met \texttt{DiagnosticOn}: $r \approx 0{,}990$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Gegeven zijn de punten $(1, 2)$, $(2, 4)$, $(5, 3)$ en $(6, 7)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde punt $(\xbar, \ybar)$ en teken de punten, met door $(\xbar, \ybar)$ een horizontale en een verticale lijn.
+      antwoord: |-
+        $(3{,}5;\ 4)$
+      uitwerking: |-
+        $\xbar = \frac{14}{4} = 3{,}5$ en $\ybar = \frac{16}{4} = 4$.
+    - opgave: |-
+        Bereken bij elk punt $(x_i - \xbar)(y_i - \ybar)$. Teken de rechthoek met als hoekpunten $(\xbar, \ybar)$ en het punt. Welke producten zijn negatief, en waar liggen die punten?
+      antwoord: |-
+        $5$; $0$; $-1{,}5$; $7{,}5$
+      uitwerking: |-
+        $(-2{,}5)(-2) = 5$, $(-1{,}5) \cdot 0 = 0$, $1{,}5 \cdot (-1) = -1{,}5$ en $2{,}5 \cdot 3 = 7{,}5$. Alleen $(5, 3)$ geeft een negatief product: het ligt rechtsonder het gemiddelde punt.
+    - opgave: |-
+        Tel de producten op. Wat zegt het teken van de som over de wolk?
+      antwoord: |-
+        $11$: de wolk stijgt
+      uitwerking: |-
+        $5 + 0 - 1{,}5 + 7{,}5 = 11 > 0$: de punten rechtsboven en linksonder wegen het zwaarst, de wolk stijgt.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h1-cov
+  soort: kort
+  opgave: |-
+    Gegeven zijn de punten $(2, 8)$, $(4, 6)$, $(5, 6)$, $(7, 3)$ en $(7, 2)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de covariantie met de afwijkingen.
+      antwoord: |-
+        $s_{xy} = -5$
+      uitwerking: |-
+        $\xbar = \ybar = 5$. Afwijkingen $-3, -1, 0, 2, 2$ en $3, 1, 1, -2, -3$, producten $-9, -1, 0, -4, -6$, som $-20$, en $\frac{-20}{4} = -5$.
+    - opgave: |-
+        Teken de punten. Past het teken bij de wolk?
+      antwoord: |-
+        ja, de wolk daalt
+      uitwerking: |-
+        De punten liggen linksboven en rechtsonder het gemiddelde punt $(5, 5)$: de wolk daalt, en de covariantie is negatief.
+
+- id: h1-rekenformule
+  soort: kort
+  opgave: |-
+    Bereken met de rekenformule de covariantie van $(1, 4)$, $(3, 3)$, $(4, 7)$ en $(7, 8)$.
+  antwoord: |-
+    $s_{xy} = \tfrac{29}{6} \approx 4{,}83$
+  uitwerking: |-
+    $\xbar = 3{,}75$, $\ybar = 5{,}5$ en $\sum x_i y_i = 4 + 9 + 28 + 56 = 97$. Dan is $s_{xy} = \frac13(97 - 4 \cdot 3{,}75 \cdot 5{,}5) = \frac{14{,}5}{3} \approx 4{,}83$.
+
+- id: h1-eenheden
+  soort: kort
+  opgave: |-
+    Bij een groep sporters is de covariantie tussen de lengte $x$ (in cm) en de massa $y$ (in kg) gelijk aan $s_{xy} = 42$. Bereken de covariantie als je
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de lengte in meter uitdrukt;
+      antwoord: |-
+        $0{,}42$
+      uitwerking: |-
+        $a = 0{,}01$: $0{,}01 \cdot 42 = 0{,}42$.
+    - opgave: |-
+        de lengte in meter en de massa in gram uitdrukt;
+      antwoord: |-
+        $420$
+      uitwerking: |-
+        $a = 0{,}01$ en $c = 1000$: $10 \cdot 42 = 420$.
+    - opgave: |-
+        in plaats van de lengte het verschil met 2 meter neemt, $u = 200 - x$ (in cm).
+      antwoord: |-
+        $-42$
+      uitwerking: |-
+        $a = -1$ en $b = 200$: $s_{uy} = -42$. De verschuiving speelt geen rol, het teken wel.
+
+- id: h1-r
+  soort: kort
+  opgave: |-
+    Neem de punten $(2, 8)$, $(4, 6)$, $(5, 6)$, $(7, 3)$ en $(7, 2)$ van oefening \ref{oef:h1-cov}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $s_x$, $s_y$ en de correlatiecoëfficiënt.
+      antwoord: |-
+        $s_x \approx 2{,}121$; \ $s_y \approx 2{,}449$; \ $r \approx -0{,}962$
+      uitwerking: |-
+        $s_x^2 = \frac{18}{4} = 4{,}5$ en $s_y^2 = \frac{24}{4} = 6$, dus $r = \frac{-5}{\sqrt{4{,}5}\sqrt{6}} = \frac{-5}{\sqrt{27}} \approx -0{,}962$.
+    - opgave: |-
+        Wat wordt $r$ als je bij alle $y$-waarden 10 optelt en ze daarna halveert? En als je alle $x$-waarden met $-3$ vermenigvuldigt?
+      antwoord: |-
+        $-0{,}962$; \ $0{,}962$
+      uitwerking: |-
+        $v = \frac12 y + 5$ met $c = \frac12 > 0$: $r$ blijft. Met $a = -3 < 0$ wisselt het teken: $r \approx 0{,}962$.
+
+- id: h1-cs
+  soort: kort
+  opgave: |-
+    Ongelijkheid van Cauchy-Schwarz.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Controleer de ongelijkheid voor $\vec u = (2, 1, -1)$ en $\vec v = (1, 3, 2)$.
+      antwoord: |-
+        $9 \leqslant 84$
+      uitwerking: |-
+        $(2 + 3 - 2)^2 = 9$ en $(4 + 1 + 1)(1 + 9 + 4) = 6 \cdot 14 = 84$.
+    - opgave: |-
+        Voor welke $a$ geldt de gelijkheid voor $\vec u = (1, 2, -1)$ en $\vec v = (-2, -4, a)$?
+      antwoord: |-
+        $a = 2$
+      uitwerking: |-
+        Gelijkheid als en slechts als $\vec v = -t\vec u$: uit de eerste twee componenten is $t = 2$, dus $a = -2 \cdot (-1) = 2$. Controle: $(-2 - 8 - 2)^2 = 144 = 6 \cdot 24$.
+
+- id: h1-hoek
+  soort: kort
+  opgave: |-
+    Bereken $r$ als de cosinus van de hoek tussen de vectoren van de afwijkingen, en geef die hoek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $(0, 1)$, $(1, 3)$, $(2, 2)$
+      antwoord: |-
+        $r = \tfrac12$; \ $60^\circ$
+      uitwerking: |-
+        $\vec u = (-1, 0, 1)$ en $\vec v = (-1, 1, 0)$ met $\ybar = 2$. $r = \frac{1}{\sqrt2\sqrt2} = \frac12$, dus $\theta = 60^\circ$.
+    - opgave: |-
+        $(0, 3)$, $(1, 0)$, $(2, 3)$
+      antwoord: |-
+        $r = 0$; \ $90^\circ$
+      uitwerking: |-
+        $\vec u = (-1, 0, 1)$ en $\vec v = (1, -2, 1)$ met $\ybar = 2$. $\vec u \cdot \vec v = -1 + 0 + 1 = 0$: de vectoren staan loodrecht op elkaar, $r = 0$.
+
+- id: h1-r2
+  soort: kort
+  opgave: |-
+    Vul aan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij $r = -0{,}8$ verklaart de regressierechte \ldots\ van de variantie van $y$.
+      antwoord: |-
+        $64~\%$
+      uitwerking: |-
+        $r^2 = 0{,}64$.
+    - opgave: |-
+        Een dalend verband verklaart $25~\%$ van de variantie. Dan is $r = \ldots$
+      antwoord: |-
+        $-0{,}5$
+      uitwerking: |-
+        $r^2 = 0{,}25$ en $r < 0$, dus $r = -0{,}5$.
+    - opgave: |-
+        Om de helft van de variantie te verklaren, is $\abs{r}$ minstens \ldots
+      antwoord: |-
+        $\approx 0{,}707$
+      uitwerking: |-
+        $r^2 \geqslant 0{,}5$ geeft $\abs{r} \geqslant \sqrt{0{,}5} \approx 0{,}707$.
+
+- id: h1-beperking
+  soort: kort
+  opgave: |-
+    Gegeven zijn de punten $(1, 5)$, $(2, 3)$, $(3, 4)$, $(4, 2)$ en $(5, 3)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ met ICT. Bereken $r$ opnieuw als het punt $(10, 10)$ erbij komt.
+      antwoord: |-
+        $r \approx -0{,}69$; \ $r \approx 0{,}73$
+      uitwerking: |-
+        Zonder het punt: $r \approx -0{,}693$. Met het punt: $r \approx 0{,}729$. Eén punt keert het teken om.
+    - opgave: |-
+        Leg met de rechthoeken rond het gemiddelde punt uit wat er gebeurt.
+      antwoord: |-
+        één grote positieve rechthoek
+      uitwerking: |-
+        Met het nieuwe punt is het gemiddelde punt $(4{,}17;\ 4{,}5)$. Het punt $(10, 10)$ ligt ver rechtsboven en geeft een rechthoek van $5{,}83 \cdot 5{,}5 \approx 32$, meer dan alle andere samen: $\Sxy = 33{,}5$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    covariantie met de afwijkingen
+  opgave: |-
+    Bereken de covariantie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $(1, 5)$, $(2, 3)$, $(3, 4)$, $(4, 1)$, $(5, 2)$
+      antwoord: |-
+        $-2$
+      uitwerking: |-
+        $\xbar = \ybar = 3$. Producten $(-2)(2) + (-1) \cdot 0 + 0 \cdot 1 + 1 \cdot (-2) + 2 \cdot (-1) = -8$, en $\frac{-8}{4} = -2$.
+    - opgave: |-
+        $(0, 1)$, $(2, 2)$, $(4, 6)$, $(6, 7)$
+      antwoord: |-
+        $\tfrac{22}{3} \approx 7{,}33$
+      uitwerking: |-
+        $\xbar = 3$, $\ybar = 4$. Producten $9 + 2 + 2 + 9 = 22$, en $\frac{22}{3} \approx 7{,}33$.
+    - opgave: |-
+        $(10, 4)$, $(12, 4)$, $(14, 4)$
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        Alle $y_i = \ybar = 4$, dus elk product is 0.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    correlatie aflezen uit een spreidingsdiagram
+  opgave: |-
+    De correlatiecoëfficiënten van de vier wolken zijn, in een andere volgorde, $0{,}98$; $0{,}62$; $0{,}07$ en $-0{,}82$. Welke hoort bij welke wolk?
+
+    \smallskip
+    {\centering\begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram{0}{1}{9}{0}{1}{9}
+      \punten[inkt]{(1,2) (2,3) (3,3) (4,5) (5,5) (6,7) (7,7) (8,8)}
+      \node[below] at (4.5,-.4) {A};
+    \end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram{0}{1}{9}{0}{1}{9}
+      \punten[inkt]{(1,8) (2,6) (3,7) (4,4) (5,6) (6,3) (7,5) (8,2)}
+      \node[below] at (4.5,-.4) {B};
+    \end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram{0}{1}{9}{0}{1}{9}
+      \punten[inkt]{(1,5) (2,2) (3,7) (4,4) (5,8) (6,3) (7,6) (8,4)}
+      \node[below] at (4.5,-.4) {C};
+    \end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.27cm,y=.27cm,font=\scriptsize]
+      \diagram{0}{1}{9}{0}{1}{9}
+      \punten[inkt]{(1,2) (2,5) (3,3) (4,4) (5,7) (6,4) (7,8) (8,5)}
+      \node[below] at (4.5,-.4) {D};
+    \end{tikzpicture}\par}
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        A
+      antwoord: |-
+        $0{,}98$
+      uitwerking: |-
+        Bijna op een stijgende rechte.
+    - opgave: |-
+        B
+      antwoord: |-
+        $-0{,}82$
+      uitwerking: |-
+        De enige dalende wolk.
+    - opgave: |-
+        C
+      antwoord: |-
+        $0{,}07$
+      uitwerking: |-
+        Geen stijgende of dalende tendens.
+    - opgave: |-
+        D
+      antwoord: |-
+        $0{,}62$
+      uitwerking: |-
+        Stijgend, maar met veel spreiding rond een rechte.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rekenformule uit sommen
+  opgave: |-
+    Het rekentoestel geeft de volgende sommen. Bereken de covariantie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $n = 5$, \ $\sum x_i = 20$, \ $\sum y_i = 35$, \ $\sum x_i y_i = 152$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $\xbar = 4$, $\ybar = 7$: $\frac{152 - 5 \cdot 4 \cdot 7}{4} = \frac{12}{4} = 3$.
+    - opgave: |-
+        $n = 8$, \ $\sum x_i = 48$, \ $\sum y_i = 120$, \ $\sum x_i y_i = 690$
+      antwoord: |-
+        $-\tfrac{30}{7} \approx -4{,}29$
+      uitwerking: |-
+        $\xbar = 6$, $\ybar = 15$: $\frac{690 - 720}{7} \approx -4{,}29$.
+    - opgave: |-
+        $n = 10$, \ $\xbar = 2{,}5$, \ $\ybar = 40$, \ $\sum x_i y_i = 1040$
+      antwoord: |-
+        $\tfrac{40}{9} \approx 4{,}44$
+      uitwerking: |-
+        $\frac{1040 - 10 \cdot 2{,}5 \cdot 40}{9} = \frac{40}{9} \approx 4{,}44$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    covariantie bij andere eenheden
+  opgave: |-
+    Bij een groep bomen is de covariantie tussen de stamomtrek $x$ (in cm) en de hoogte $y$ (in m) gelijk aan $s_{xy} = 6$. Bereken de covariantie als
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de omtrek in meter staat;
+      antwoord: |-
+        $0{,}06$
+      uitwerking: |-
+        $a = 0{,}01$.
+    - opgave: |-
+        de hoogte in centimeter staat;
+      antwoord: |-
+        $600$
+      uitwerking: |-
+        $c = 100$.
+    - opgave: |-
+        je van elke omtrek 150 cm aftrekt;
+      antwoord: |-
+        $6$
+      uitwerking: |-
+        Een verschuiving verandert de covariantie niet.
+    - opgave: |-
+        je in plaats van de hoogte het verschil $30 - y$ met een boom van 30 m neemt.
+      antwoord: |-
+        $-6$
+      uitwerking: |-
+        $c = -1$: het teken wisselt.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    correlatie uit covariantie en standaardafwijkingen
+  opgave: |-
+    Bereken $r$, of leg uit waarom de gegevens niet kunnen kloppen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $s_{xy} = 12$, \ $s_x = 4$, \ $s_y = 5$
+      antwoord: |-
+        $0{,}6$
+      uitwerking: |-
+        $\frac{12}{4 \cdot 5} = 0{,}6$.
+    - opgave: |-
+        $s_{xy} = -3$, \ $s_x^2 = 4$, \ $s_y^2 = 9$
+      antwoord: |-
+        $-0{,}5$
+      uitwerking: |-
+        Opgelet, dit zijn varianties: $s_x = 2$ en $s_y = 3$, dus $r = \frac{-3}{6} = -0{,}5$.
+    - opgave: |-
+        $s_{xy} = 10$, \ $s_x = 2$, \ $s_y = 4$
+      antwoord: |-
+        kan niet: $r = 1{,}25 > 1$
+      uitwerking: |-
+        $\frac{10}{8} = 1{,}25$, maar door Cauchy-Schwarz is $\abs{s_{xy}} \leqslant s_x s_y = 8$.
+    - opgave: |-
+        $s_{xy} = 0{,}9$, \ $s_x = 0{,}3$, \ $s_y = 3$
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        $\frac{0{,}9}{0{,}9} = 1$: alle punten liggen op een stijgende rechte.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Cauchy-Schwarz controleren
+  opgave: |-
+    Controleer de ongelijkheid van Cauchy-Schwarz. Is er een gelijkheid? Waarom?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\vec u = (3, 4)$, \ $\vec v = (4, -3)$
+      antwoord: |-
+        $0 \leqslant 625$
+      uitwerking: |-
+        $(12 - 12)^2 = 0$ en $25 \cdot 25 = 625$. Geen gelijkheid: de vectoren staan zelfs loodrecht op elkaar.
+    - opgave: |-
+        $\vec u = (1, 1, 1, 1)$, \ $\vec v = (1, 2, 3, 4)$
+      antwoord: |-
+        $100 \leqslant 120$
+      uitwerking: |-
+        $(1 + 2 + 3 + 4)^2 = 100$ en $4 \cdot 30 = 120$. Geen gelijkheid: $\vec v$ is geen veelvoud van $\vec u$.
+    - opgave: |-
+        $\vec u = (2, -1, 3)$, \ $\vec v = (-4, 2, -6)$
+      antwoord: |-
+        $784 = 784$
+      uitwerking: |-
+        $(-8 - 2 - 18)^2 = 784$ en $14 \cdot 56 = 784$. Gelijkheid, want $\vec v = -2\vec u$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    $r^2$ interpreteren
+  opgave: |-
+    Welk deel van de variantie van $y$ verklaart de regressierechte? Of omgekeerd: hoe groot is $r$?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tussen de lengte van een broer en een zus is $r = 0{,}45$.
+      antwoord: |-
+        $\approx 20~\%$
+      uitwerking: |-
+        $0{,}45^2 = 0{,}2025$: ongeveer een vijfde.
+    - opgave: |-
+        Tussen de prijs van een product en het aantal verkochte stuks is $r = -0{,}9$.
+      antwoord: |-
+        $81~\%$
+      uitwerking: |-
+        $(-0{,}9)^2 = 0{,}81$. Het teken zegt alleen dat het verband dalend is.
+    - opgave: |-
+        De buitentemperatuur verklaart $64~\%$ van de variantie in het gasverbruik van een woning; bij warmer weer daalt het verbruik.
+      antwoord: |-
+        $r = -0{,}8$
+      uitwerking: |-
+        $r^2 = 0{,}64$ en het verband is dalend.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    covariantie en correlatie in een context
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.42cm,y=.18cm,font=\scriptsize]
+        \diagram[$x$ (uur)][$y$ (kWh)]{0}{2}{11}{0}{4}{20}
+        \xas{0,2,...,10}\yas{0,4,...,20}
+        \punten[inkt]{(2,5) (4,10) (5,9) (7,14) (8,16) (10,18)}
+      \end{tikzpicture}
+  opgave: |-
+    Een gezin noteert op zes dagen het aantal uren zon $x$ en de opbrengst $y$ (in kWh) van de zonnepanelen.
+
+    \smallskip
+    \kleinetabel[$x$][$y$]{6}{2 & 4 & 5 & 7 & 8 & 10}{5 & 10 & 9 & 14 & 16 & 18}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde punt en de covariantie.
+      antwoord: |-
+        $(6, 12)$; \ $s_{xy} = 13{,}8$
+      uitwerking: |-
+        Afwijkingen $-4, -2, -1, 1, 2, 4$ en $-7, -2, -3, 2, 4, 6$. Producten $28 + 4 + 3 + 2 + 8 + 24 = 69$, dus $s_{xy} = \frac{69}{5} = 13{,}8$.
+    - opgave: |-
+        Bereken de correlatiecoëfficiënt.
+      antwoord: |-
+        $r \approx 0{,}980$
+      uitwerking: |-
+        $\Sxx = 42$ en $\Syy = 49 + 4 + 9 + 4 + 16 + 36 = 118$, dus $r = \frac{69}{\sqrt{42 \cdot 118}} \approx 0{,}980$.
+    - opgave: |-
+        De opbrengst wordt in Wh genoteerd. Wat worden de covariantie en $r$?
+      antwoord: |-
+        $13\,800$; \ $0{,}980$
+      uitwerking: |-
+        $c = 1000$: de covariantie wordt $13\,800$, en $r$ verandert niet.
+    - opgave: |-
+        Welk deel van de verschillen in opbrengst hangt samen met het aantal uren zon?
+      antwoord: |-
+        $\approx 96~\%$
+      uitwerking: |-
+        $r^2 \approx 0{,}961$. De rest komt van iets anders, zoals de stand van de zon of de temperatuur van de panelen.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rekenformule met de uitvoer van het rekentoestel
+  opgave: |-
+    Van acht appartementen kent een makelaar de oppervlakte $x$ (in m$^2$) en de vraagprijs $y$ (in duizend euro). \texttt{2-Var Stats} geeft $n = 8$, $\sum x = 720$, $\sum y = 2160$, $\sum xy = 201\,600$, $s_x = 20$ en $s_y = 60$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de covariantie. Wat is haar eenheid?
+      antwoord: |-
+        $\tfrac{7200}{7} \approx 1029$ m$^2$ maal duizend euro
+      uitwerking: |-
+        $\xbar = 90$ en $\ybar = 270$: $s_{xy} = \frac{201\,600 - 8 \cdot 90 \cdot 270}{7} = \frac{7200}{7} \approx 1029$.
+    - opgave: |-
+        Bereken de correlatiecoëfficiënt.
+      antwoord: |-
+        $r \approx 0{,}857$
+      uitwerking: |-
+        $r = \frac{1029}{20 \cdot 60} \approx 0{,}857$.
+    - opgave: |-
+        Welk deel van de verschillen in prijs hangt samen met de oppervlakte? Noem twee andere factoren die de rest kunnen verklaren.
+      antwoord: |-
+        $\approx 73~\%$
+      uitwerking: |-
+        $r^2 \approx 0{,}735$. Andere factoren: de ligging, de staat, de verdieping, een terras.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    correlatie als cosinus van een hoek
+  opgave: |-
+    Drie punten geven vectoren van afwijkingen in de ruimte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ en de hoek tussen de vectoren van de afwijkingen voor $(0, 6)$, $(1, 1)$ en $(2, 2)$.
+      antwoord: |-
+        $r \approx -0{,}756$; \ $\theta \approx 139{,}1^\circ$
+      uitwerking: |-
+        $\vec u = (-1, 0, 1)$ en $\vec v = (3, -2, -1)$ met $\ybar = 3$. $r = \frac{-3 - 1}{\sqrt2\sqrt{14}} = \frac{-4}{\sqrt{28}} \approx -0{,}756$, dus $\theta \approx 139{,}1^\circ$.
+    - opgave: |-
+        Neem de punten $(0, 2)$, $(1, a)$ en $(2, 4)$. Toon aan dat $\vec u \cdot \vec v = 2$, wat $a$ ook is. Wat besluit je over het teken van $r$?
+      antwoord: |-
+        $r > 0$ voor elke $a$
+      uitwerking: |-
+        $\vec u = (-1, 0, 1)$, dus $\vec u \cdot \vec v = -(2 - \ybar) + 0 + (4 - \ybar) = 2$. De noemer is positief, dus $r > 0$.
+    - opgave: |-
+        Voor welke $a$ is $r$ het grootst? Hoe groot is $r$ dan?
+      antwoord: |-
+        $a = 3$; \ $r = 1$
+      uitwerking: |-
+        $r = \frac{2}{\sqrt2\,\abs{\vec v}}$ is het grootst als $\abs{\vec v}^2 = \frac23(a^2 - 6a + 12)$ het kleinst is, dus bij $a = 3$. Dan liggen de punten op de rechte $y = x + 2$, en $r = \frac{2}{\sqrt2 \cdot \sqrt2} = 1$.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een onbekende zodat de covariantie 0 is
+  opgave: |-
+    Gegeven zijn de punten $(1, 2)$, $(2, a)$, $(3, 4)$ en $(4, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\som (x_i - \xbar)(y_i - \ybar) = \som (x_i - \xbar)\,y_i$. Gebruik dat $\som (x_i - \xbar) = 0$.
+      antwoord: |-
+        de term met $\ybar$ valt weg
+      uitwerking: |-
+        $\som (x_i - \xbar)(y_i - \ybar) = \som (x_i - \xbar)y_i - \ybar\som (x_i - \xbar)$, en de laatste som is $n\xbar - n\xbar = 0$.
+    - opgave: |-
+        Bepaal $a$ zodat de covariantie 0 is.
+      antwoord: |-
+        $a = 1$
+      uitwerking: |-
+        $\xbar = 2{,}5$: $-1{,}5 \cdot 2 - 0{,}5a + 0{,}5 \cdot 4 + 1{,}5 \cdot 1 = 0{,}5 - 0{,}5a = 0$, dus $a = 1$.
+    - opgave: |-
+        Voor welke $a$ is de covariantie negatief? Bereken $r$ voor $a = 5$ met ICT.
+      antwoord: |-
+        $a > 1$; \ $r \approx -0{,}283$
+      uitwerking: |-
+        $\frac{0{,}5 - 0{,}5a}{3} < 0$ als $a > 1$. Bij $a = 5$ is $s_{xy} = -\frac23$, $s_x^2 = \frac53$, $s_y^2 = \frac{10}{3}$ en $r \approx -0{,}283$.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een tikfout als uitschieter
+  opgave: |-
+    Zes leerlingen noteren hoeveel uur ze sliepen voor een toets ($x$) en hun score op 10 ($y$).
+
+    \smallskip
+    \kleinetabel[$x$][$y$]{6}{6 & 6{,}5 & 7 & 7{,}5 & 8 & 9}{5{,}5 & 6 & 6{,}5 & 6 & 7 & 7{,}5}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ met ICT.
+      antwoord: |-
+        $r \approx 0{,}922$
+      uitwerking: |-
+        \texttt{LinReg(ax+b)}: $r \approx 0{,}922$.
+    - opgave: |-
+        Bij het invoeren tikt iemand 75 in plaats van 7,5. Bereken $r$ opnieuw.
+      antwoord: |-
+        $r \approx 0{,}766$
+      uitwerking: |-
+        Met 75: $r \approx 0{,}766$.
+    - opgave: |-
+        Waarom verandert $r$ zo weinig, terwijl één $y$-waarde tien keer zo groot is? Bekijk $s_y$ en $s_{xy}$.
+      antwoord: |-
+        $s_{xy}$ en $s_y$ groeien allebei
+      uitwerking: |-
+        De tikfout ligt bij de grootste $x$, dus in de richting van de wolk: $s_{xy}$ wordt veel groter ($0{,}73$ naar $23{,}2$), maar $s_y$ ook ($0{,}74$ naar $28{,}1$). Het quotiënt blijft groot. Aan $r$ alleen zie je de fout dus niet: een spreidingsdiagram toont ze meteen.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten over covariantie en correlatie
+  opgave: |-
+    Waar of niet waar? Verklaar of geef een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Als de covariantie 0 is, hangen $x$ en $y$ niet samen.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Bij punten op een parabool zoals $(-1, 1)$, $(0, 0)$, $(1, 1)$ is $s_{xy} = 0$, maar $y = x^2$.
+    - opgave: |-
+        Vermenigvuldig je alle $y$-waarden met $-2$, dan verandert $r$ niet.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $c = -2 < 0$: $r$ verandert van teken.
+    - opgave: |-
+        De covariantie van $x$ en $y$ kan groter zijn dan de variantie van $x$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Neem $y = 2x$: dan is $s_{xy} = 2s_x^2$.
+    - opgave: |-
+        Liggen alle punten op een horizontale rechte, dan is $r = 0$.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Dan is $s_y = 0$ en bestaat $r$ niet (de covariantie is wel 0).
+    - opgave: |-
+        Bij $r = 0{,}9$ ligt $90~\%$ van de punten op de regressierechte.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        $r$ zegt niets over het aantal punten op de rechte; meestal ligt er geen enkel punt precies op. Wel verklaart de rechte $81~\%$ van de variantie van $y$.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    correlatie met z-scores
+  opgave: |-
+    De z-score van $x_i$ is $z_i = \frac{x_i - \xbar}{s_x}$, die van $y_i$ is $w_i = \frac{y_i - \ybar}{s_y}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $r = \frac{1}{n - 1}\som z_i w_i$. De correlatiecoëfficiënt is dus de covariantie van de z-scores.
+      antwoord: |-
+        zet $s_x$ en $s_y$ in de som
+      uitwerking: |-
+        $\frac{1}{n - 1}\som \frac{x_i - \xbar}{s_x} \cdot \frac{y_i - \ybar}{s_y} = \frac{s_{xy}}{s_x s_y} = r$.
+    - opgave: |-
+        Wat zijn de standaardafwijkingen van de $z_i$ en van de $w_i$?
+      antwoord: |-
+        allebei 1
+      uitwerking: |-
+        $z = \frac{1}{s_x}x - \frac{\xbar}{s_x}$ is een lineaire transformatie met $a = \frac{1}{s_x}$, dus $s_z = \frac{s_x}{s_x} = 1$. Net zo voor $w$.
+    - opgave: |-
+        Bereken $r$ op die manier voor $(1, 2)$, $(2, 3)$, $(3, 5)$ en $(4, 6)$.
+      antwoord: |-
+        $r \approx 0{,}990$
+      uitwerking: |-
+        $s_x = \sqrt{\frac53}$ en $s_y = \sqrt{\frac{10}{3}}$. De som van de producten van de afwijkingen is $3 + 0{,}5 + 0{,}5 + 3 = 7$, dus $r = \frac13 \cdot \frac{7}{\sqrt{50/9}} = \frac{7}{\sqrt{50}} \approx 0{,}990$.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de variantie van een som
+  opgave: |-
+    Bij elke leerling tel je de punten van twee toetsen op: $t_i = x_i + y_i$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $s_t^2 = s_x^2 + s_y^2 + 2s_{xy}$.
+      antwoord: |-
+        werk $(t_i - \overline t)^2$ uit
+      uitwerking: |-
+        $t_i - \overline t = (x_i - \xbar) + (y_i - \ybar)$. Kwadrateer, tel op en deel door $n - 1$: $s_t^2 = s_x^2 + 2s_{xy} + s_y^2$.
+    - opgave: |-
+        Bereken $s_t$ als $s_x = 4$, $s_y = 3$ en $r = 0{,}5$.
+      antwoord: |-
+        $\sqrt{37} \approx 6{,}08$
+      uitwerking: |-
+        $s_{xy} = r s_x s_y = 6$, dus $s_t^2 = 16 + 9 + 12 = 37$.
+    - opgave: |-
+        Wanneer is $s_t = s_x + s_y$? En wanneer is $s_t^2 = s_x^2 + s_y^2$?
+      antwoord: |-
+        bij $r = 1$; \ bij $r = 0$
+      uitwerking: |-
+        $(s_x + s_y)^2 = s_x^2 + s_y^2 + 2s_xs_y$, dus $s_{xy} = s_x s_y$, of $r = 1$. De tweede gelijkheid geldt als $s_{xy} = 0$. In alle andere gevallen ligt $s_t$ ertussen (bij $r > 0$).
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    samengevoegde groepen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+        \diagram{0}{2}{13}{0}{2}{13}
+        \xas{0,4,...,12}\yas{0,4,...,12}
+        \punten[inkt]{(2,3) (3,5) (4,2) (5,4) (6,3)}
+        \punten[fel!80!black]{(8,10) (9,12) (10,9) (11,11) (12,10)}
+      \end{tikzpicture}
+  opgave: |-
+    In een basisschool meet men bij vijf kinderen van het eerste leerjaar (donker) en vijf van het zesde (fel) de lengte van de voet $x$ en de score op een rekentest $y$ (in punten).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $r$ per groep met ICT: eerst $(2, 3)$, $(3, 5)$, $(4, 2)$, $(5, 4)$, $(6, 3)$, dan $(8, 10)$, $(9, 12)$, $(10, 9)$, $(11, 11)$, $(12, 10)$.
+      antwoord: |-
+        $r \approx -0{,}139$ in beide groepen
+      uitwerking: |-
+        In beide groepen is $\Sxx = 10$, $\Syy = 5{,}2$ en $\Sxy = -1$, dus $r \approx -0{,}139$.
+    - opgave: |-
+        Bereken $r$ voor de tien kinderen samen.
+      antwoord: |-
+        $r \approx 0{,}852$
+      uitwerking: |-
+        Met alle tien punten: $r \approx 0{,}852$.
+    - opgave: |-
+        Een krant schrijft: \textit{Grote voeten, knappe rekenaars.} Wat is er mis?
+      antwoord: |-
+        de leeftijd is een verborgen variabele
+      uitwerking: |-
+        Binnen een leerjaar is er geen samenhang. De sterke correlatie komt van het verschil tussen de groepen: oudere kinderen hebben grotere voeten en rekenen beter. De leeftijd stuurt beide.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    Cauchy-Schwarz met de identiteit van Lagrange
+  opgave: |-
+    Een tweede bewijs van de ongelijkheid van Cauchy-Schwarz, zonder discriminant.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $(u_1^2 + u_2^2)(v_1^2 + v_2^2) - (u_1v_1 + u_2v_2)^2 = (u_1v_2 - u_2v_1)^2$.
+      antwoord: |-
+        werk beide leden uit
+      uitwerking: |-
+        Links: $u_1^2v_1^2 + u_1^2v_2^2 + u_2^2v_1^2 + u_2^2v_2^2 - u_1^2v_1^2 - 2u_1v_1u_2v_2 - u_2^2v_2^2 = u_1^2v_2^2 - 2u_1v_2u_2v_1 + u_2^2v_1^2$, en dat is het kwadraat rechts.
+    - opgave: |-
+        Leid daaruit de ongelijkheid af voor $n = 2$, en het geval van de gelijkheid.
+      antwoord: |-
+        gelijk als $u_1v_2 = u_2v_1$
+      uitwerking: |-
+        Het verschil is een kwadraat, dus niet negatief. Gelijkheid als $u_1v_2 - u_2v_1 = 0$: de vectoren $(u_1, u_2)$ en $(v_1, v_2)$ zijn evenwijdig (de determinant is 0).
+    - opgave: |-
+        Bij $n = 3$ is het verschil de som van drie zulke kwadraten. Controleer dat voor $\vec u = (1, 2, 3)$ en $\vec v = (2, -1, 4)$ uit voorbeeld \ref{vb:h1-cs}.
+      antwoord: |-
+        $294 - 144 = 150 = 121 + 4 + 25$
+      uitwerking: |-
+        $(u_1v_2 - u_2v_1)^2 + (u_1v_3 - u_3v_1)^2 + (u_2v_3 - u_3v_2)^2 = (-5)^2 + (-2)^2 + 11^2 = 150$, en $294 - 144 = 150$. (Wie het vectorproduct kent: dat is $\abs{\vec u \times \vec v}^2$.)
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    som en verschil zijn ongecorreleerd
+  opgave: |-
+    Twee juryleden geven elk een score aan dezelfde dansers: $x_i$ en $y_i$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de covariantie van $x + y$ en $x - y$ gelijk is aan $s_x^2 - s_y^2$.
+      antwoord: |-
+        werk het product uit
+      uitwerking: |-
+        Met $u_i = x_i - \xbar$ en $v_i = y_i - \ybar$ is $\frac{1}{n - 1}\som (u_i + v_i)(u_i - v_i) = \frac{1}{n - 1}\som (u_i^2 - v_i^2) = s_x^2 - s_y^2$.
+    - opgave: |-
+        Besluit: als beide juryleden even sterk spreiden, dan hangt het verschil van hun scores niet lineair samen met het totaal. Geldt ook het omgekeerde?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De covariantie is 0 als en slechts als $s_x^2 = s_y^2$, dus als $s_x = s_y$.
+    - opgave: |-
+        Controleer met de scores $(6, 7)$, $(8, 6)$, $(5, 8)$ en $(9, 7)$.
+      antwoord: |-
+        $s_x^2 = \tfrac{10}{3}$, $s_y^2 = \tfrac23$, covariantie $\tfrac83$
+      uitwerking: |-
+        Sommen $13, 14, 13, 16$ en verschillen $-1, 2, -3, 2$, met gemiddelden $14$ en $0$. Producten $1 + 0 + 3 + 4 = 8$, dus covariantie $\frac83$. En $s_x^2 - s_y^2 = \frac{10}{3} - \frac23 = \frac83$.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    nog een bewijs van $r^2 \leqslant 1$, via een minimum
+  opgave: |-
+    Neem de afwijkingen $u_i = x_i - \xbar$ en $v_i = y_i - \ybar$, en voor elk getal $t$ de som $g(t) = \som (v_i - t u_i)^2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $g(t) = \Sxx t^2 - 2\Sxy t + \Syy$.
+      antwoord: |-
+        werk het kwadraat uit
+      uitwerking: |-
+        $\som (v_i^2 - 2t u_iv_i + t^2u_i^2) = \Syy - 2t\Sxy + t^2\Sxx$.
+    - opgave: |-
+        Bepaal het minimum van $g$, en toon aan dat het gelijk is aan $\Syy(1 - r^2)$.
+      antwoord: |-
+        bij $t = \frac{\Sxy}{\Sxx}$; \ $\Syy(1 - r^2)$
+      uitwerking: |-
+        De top van de parabool ligt bij $t = \frac{\Sxy}{\Sxx}$. Invullen: $\frac{\Sxy^2}{\Sxx} - \frac{2\Sxy^2}{\Sxx} + \Syy = \Syy - \frac{\Sxy^2}{\Sxx} = \Syy\Bigl(1 - \frac{\Sxy^2}{\Sxx\Syy}\Bigr) = \Syy(1 - r^2)$.
+    - opgave: |-
+        Waarom volgt daaruit $r^2 \leqslant 1$? Wat is de betekenis van $t$ en van $g(t)$ voor wie Lineaire regressie zag?
+      antwoord: |-
+        $g \geqslant 0$; $t$ is de helling van de regressierechte
+      uitwerking: |-
+        $g(t)$ is een som van kwadraten, dus ook het minimum is niet negatief: $1 - r^2 \geqslant 0$. Het minimum is de kwadratensom van de regressierechte, met helling $\frac{\Sxy}{\Sxx}$, door het gemiddelde punt: $\Qf = \Syy(1 - r^2)$, zodat $R^2 = r^2$.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    correlatie bij weinig punten
+  opgave: |-
+    Met weinig punten is een correlatiecoëfficiënt weinig waard.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat twee punten met $x_1 \neq x_2$ en $y_1 \neq y_2$ altijd $r = 1$ of $r = -1$ geven.
+      antwoord: |-
+        twee punten liggen op een rechte
+      uitwerking: |-
+        Door twee punten gaat altijd een rechte, en omdat $y_1 \neq y_2$ is ze niet horizontaal. Door de stelling over perfecte correlatie is $r = \pm 1$.
+    - opgave: |-
+        Bepaal $a$ zodat $(0, 0)$, $(1, 1)$ en $(2, a)$ een correlatiecoëfficiënt $r = \frac12$ hebben.
+      antwoord: |-
+        $a = \tfrac12$
+      uitwerking: |-
+        $\vec u = (-1, 0, 1)$ en $\vec u \cdot \vec v = a$; $\Syy = \frac23(a^2 - a + 1)$. Uit $r = \frac{a}{\sqrt2\sqrt{\Syy}} = \frac12$ volgt $a > 0$ en $4a^2 = 2\Syy$, dus $3a^2 = a^2 - a + 1$, of $2a^2 + a - 1 = 0$: $a = \frac12$ of $a = -1$. Alleen $a = \frac12$ is positief.
+    - opgave: |-
+        Bij drie punten kan een kleine verschuiving van één punt $r$ sterk veranderen. Bereken $r$ voor $a = 2$ en voor $a = 0$, en besluit.
+      antwoord: |-
+        $1$; \ $0$
+      uitwerking: |-
+        Bij $a = 2$ liggen de punten op $y = x$: $r = 1$. Bij $a = 0$ is $\vec v = (-\frac13, \frac23, -\frac13)$ en $\vec u \cdot \vec v = 0$: $r = 0$. Een verschuiving van één punt over 2 eenheden laat $r$ dalen van 1 naar 0. Met weinig punten zegt $r$ weinig; in Lineaire regressie zie je hoe je toetst of een correlatie toeval kan zijn.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    drie correlaties en de hoeken ertussen
+  opgave: |-
+    Drie variabelen $x$, $y$ en $z$ zijn gemeten bij dezelfde $n$ personen. Hun vectoren van afwijkingen zijn $\vec u$, $\vec v$ en $\vec w$. Neem aan dat ook in $\R^n$ de hoek tussen $\vec u$ en $\vec w$ hoogstens de som is van de hoek tussen $\vec u$ en $\vec v$ en die tussen $\vec v$ en $\vec w$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Stel $r_{xy} = r_{yz} = 0{,}9$. Bereken de hoeken.
+      antwoord: |-
+        $\approx 25{,}8^\circ$
+      uitwerking: |-
+        $\cos\theta = 0{,}9$ geeft $\theta \approx 25{,}84^\circ$ voor beide paren.
+    - opgave: |-
+        Hoe klein kan $r_{xz}$ dan hoogstens zijn?
+      antwoord: |-
+        $r_{xz} \geqslant 0{,}62$
+      uitwerking: |-
+        De hoek tussen $\vec u$ en $\vec w$ is hoogstens $51{,}68^\circ$, dus $r_{xz} \geqslant \cos 51{,}68^\circ \approx 0{,}62$. (Exact: $\cos 2\theta = 2 \cdot 0{,}81 - 1 = 0{,}62$.)
+    - opgave: |-
+        Een onderzoeker meldt $r_{xy} = 0{,}8$, $r_{yz} = 0{,}8$ en $r_{xz} = -0{,}2$. Kan dat?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\cos\theta = 0{,}8$ geeft $\theta \approx 36{,}87^\circ$. Dan is de hoek tussen $\vec u$ en $\vec w$ hoogstens $73{,}74^\circ$, en $r_{xz} \geqslant \cos 73{,}74^\circ = 2 \cdot 0{,}64 - 1 = 0{,}28$. Een correlatie van $-0{,}2$ kan dus niet. In hoofdstuk 2 zie je dat de covariantiematrix dat verbiedt.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: meetkunde
+    onderwerp: Ruimtemeetkunde
+  thema: |-
+    ongecorreleerd is loodrecht
+  opgave: |-
+    Neem de punten $(1, a)$, $(2, 3)$ en $(3, 1)$, met de vectoren van afwijkingen $\vec u$ en $\vec v$ in de ruimte.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\vec u \cdot \vec v = 1 - a$.
+      antwoord: |-
+        $\vec u = (-1, 0, 1)$
+      uitwerking: |-
+        $\vec u \cdot \vec v = -(a - \ybar) + 0 + (1 - \ybar) = 1 - a$.
+    - opgave: |-
+        Voor welke $a$ staan de vectoren loodrecht op elkaar? Wat is $r$ dan?
+      antwoord: |-
+        $a = 1$; \ $r = 0$
+      uitwerking: |-
+        Loodrecht als het scalair product 0 is: $a = 1$. Dan is $r = \cos 90^\circ = 0$.
+    - opgave: |-
+        Bereken voor $a = 2$ en voor $a = 5$ de hoek tussen $\vec u$ en $\vec v$.
+      antwoord: |-
+        $120^\circ$; \ $180^\circ$
+      uitwerking: |-
+        $a = 2$: $\ybar = 2$, $\vec v = (0, 1, -1)$, $\cos\theta = \frac{-1}{\sqrt2\sqrt2} = -\frac12$, dus $\theta = 120^\circ$. $a = 5$: $\ybar = 3$, $\vec v = (2, 0, -2) = -2\vec u$, dus $\theta = 180^\circ$ en $r = -1$: de punten $(1, 5)$, $(2, 3)$, $(3, 1)$ liggen op een dalende rechte.
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Lineaire regressie
+  thema: |-
+    helling en correlatie
+  opgave: |-
+    In Lineaire regressie zag je dat de regressierechte van $y$ op $x$ de helling $a = \frac{\Sxy}{\Sxx}$ heeft.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $a = \frac{s_{xy}}{s_x^2} = r\,\frac{s_y}{s_x}$.
+      antwoord: |-
+        deel teller en noemer door $n - 1$
+      uitwerking: |-
+        $\frac{\Sxy}{\Sxx} = \frac{s_{xy}}{s_x^2} = \frac{r s_x s_y}{s_x^2} = r\frac{s_y}{s_x}$.
+    - opgave: |-
+        Bereken de regressierechte voor de sporters uit het probleem ($\xbar = 4$, $\ybar = 66$, $s_{xy} = -17$, $s_x^2 = 8{,}4$).
+      antwoord: |-
+        $\hat y \approx -2{,}02x + 74{,}1$
+      uitwerking: |-
+        $a = \frac{-17}{8{,}4} \approx -2{,}024$ en $b = 66 + 2{,}024 \cdot 4 \approx 74{,}10$. Per uur sport per week is de rusthartslag gemiddeld 2 slagen per minuut lager.
+    - opgave: |-
+        Wat wordt de helling als Bram in minuten rekent? En $R^2$?
+      antwoord: |-
+        $\approx -0{,}0337$; \ $R^2$ blijft $\approx 0{,}966$
+      uitwerking: |-
+        $a = \frac{-1020}{30\,240} \approx -0{,}0337$ slag per minuut per minuut sport: 60 keer kleiner. $R^2 = r^2$ hangt niet van de eenheden af.
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: meetkunde
+    onderwerp: Cosinusregel
+  thema: |-
+    de variantie van een verschil is de cosinusregel
+  opgave: |-
+    Neem de vectoren van afwijkingen $\vec u$ van $x$ en $\vec v$ van $y$. Het verschil $d_i = x_i - y_i$ heeft als vector van afwijkingen $\vec u - \vec v$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $s_d^2 = s_x^2 + s_y^2 - 2r\,s_xs_y$.
+      antwoord: |-
+        $s_{xy} = r s_x s_y$
+      uitwerking: |-
+        Zoals bij de variantie van een som is $s_d^2 = s_x^2 + s_y^2 - 2s_{xy}$, en $s_{xy} = r s_x s_y$.
+    - opgave: |-
+        Vermenigvuldig met $n - 1$ en vergelijk met de cosinusregel in de driehoek met zijden $\vec u$, $\vec v$ en $\vec u - \vec v$.
+      antwoord: |-
+        $\abs{\vec u - \vec v}^2 = \abs{\vec u}^2 + \abs{\vec v}^2 - 2\abs{\vec u}\abs{\vec v}\cos\theta$
+      uitwerking: |-
+        $(n - 1)s_d^2 = \abs{\vec u - \vec v}^2$, $(n - 1)s_x^2 = \abs{\vec u}^2$, $(n - 1)s_y^2 = \abs{\vec v}^2$, en $r = \cos\theta$. Dat is de cosinusregel.
+    - opgave: |-
+        Bereken $s_d$ als $s_x = 5$, $s_y = 12$ en $r = 0$. Welke stelling herken je?
+      antwoord: |-
+        $13$; Pythagoras
+      uitwerking: |-
+        $s_d^2 = 25 + 144 = 169$: een rechte hoek tussen $\vec u$ en $\vec v$, en de stelling van Pythagoras.
+
+- id: h1-koppel-4
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Statistiek
+  thema: |-
+    correlatie en een verborgen variabele
+  opgave: |-
+    In 30 gemeenten is de correlatie tussen het aantal bibliotheken en het aantal verkeersongevallen per jaar $r = 0{,}85$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een gemeenteraadslid stelt voor om bibliotheken te sluiten. Wat is er mis?
+      antwoord: |-
+        samenhang is geen oorzaak
+      uitwerking: |-
+        Een correlatie zegt niet welke variabele de andere beïnvloedt, of dat er überhaupt een oorzaak is.
+    - opgave: |-
+        Welke verborgen variabele verklaart de samenhang?
+      antwoord: |-
+        het aantal inwoners
+      uitwerking: |-
+        Grote gemeenten hebben meer bibliotheken én meer verkeer en dus meer ongevallen.
+    - opgave: |-
+        Welke twee variabelen zou je beter met elkaar vergelijken?
+      antwoord: |-
+        beide per 1000 inwoners
+      uitwerking: |-
+        Het aantal bibliotheken en het aantal ongevallen per 1000 inwoners. Dan valt het effect van de grootte weg.
+
+# ---------------------------------------------------------------- test
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken met de afwijkingen de covariantie van $(2, 1)$, $(3, 4)$, $(5, 3)$, $(6, 6)$ en $(9, 6)$.
+  antwoord: |-
+    $4{,}75$
+  uitwerking: |-
+    $\xbar = 5$, $\ybar = 4$. Afwijkingen $-3, -2, 0, 1, 4$ en $-3, 0, -1, 2, 2$, producten $9 + 0 + 0 + 2 + 8 = 19$, en $\frac{19}{4} = 4{,}75$.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de covariantie als $n = 6$, $\sum x_i = 30$, $\sum y_i = 48$ en $\sum x_i y_i = 270$.
+  antwoord: |-
+    $6$
+  uitwerking: |-
+    $\xbar = 5$, $\ybar = 8$: $\frac{270 - 6 \cdot 5 \cdot 8}{5} = \frac{30}{5} = 6$.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    De covariantie tussen de buitentemperatuur (in °C) en de dagelijkse stookkost (in euro) is $-4{,}2$. Hoe groot is ze als de temperatuur in °F ($1{,}8x + 32$) en de kost in cent staat?
+  antwoord: |-
+    $-756$
+  uitwerking: |-
+    $a = 1{,}8$ en $c = 100$: $1{,}8 \cdot 100 \cdot (-4{,}2) = -756$.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de correlatiecoëfficiënt van de punten uit testvraag \ref{oef:h1-t1}.
+  antwoord: |-
+    $r \approx 0{,}818$
+  uitwerking: |-
+    $s_x^2 = \frac{30}{4} = 7{,}5$ en $s_y^2 = \frac{18}{4} = 4{,}5$, dus $r = \frac{4{,}75}{\sqrt{7{,}5 \cdot 4{,}5}} \approx 0{,}818$.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Controleer de ongelijkheid van Cauchy-Schwarz voor $\vec u = (1, -2, 2)$ en $\vec v = (3, 0, 4)$. Geef een vector $\vec v$ waarvoor de gelijkheid geldt.
+  antwoord: |-
+    $121 \leqslant 225$; \ bv.\ $(2, -4, 4)$
+  uitwerking: |-
+    $(3 + 0 + 8)^2 = 121$ en $9 \cdot 25 = 225$. Gelijkheid voor elk veelvoud van $\vec u$, zoals $(2, -4, 4)$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken $r$ voor $(0, 4)$, $(1, 0)$ en $(2, 2)$ als cosinus van de hoek tussen de vectoren van de afwijkingen. Hoe groot is die hoek?
+  antwoord: |-
+    $r = -\tfrac12$; \ $120^\circ$
+  uitwerking: |-
+    $\vec u = (-1, 0, 1)$ en $\vec v = (2, -2, 0)$ met $\ybar = 2$. $r = \frac{-2}{\sqrt2\sqrt8} = -\frac12$, dus $\theta = 120^\circ$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bereken de covariantie van $(0, 0)$, $(1, 3)$, $(2, 4)$, $(3, 3)$ en $(4, 0)$. Iemand besluit: \textit{er is geen verband tussen $x$ en $y$.} Klopt dat?
+  antwoord: |-
+    $s_{xy} = 0$; \ nee
+  uitwerking: |-
+    $\xbar = \ybar = 2$, producten $4 - 1 + 0 + 1 - 4 = 0$. Toch liggen de punten op een bergparabool: $r$ meet alleen lineaire samenhang.

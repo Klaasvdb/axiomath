@@ -1,0 +1,1261 @@
+# Oefeningen van hoofdstuk 1 (De kleinste-kwadratenmethode). Zie oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen. Alle getallen nagerekend met Python en sympy.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het gemiddelde punt $(\xbar, \ybar)$ van $(2, 5)$, $(4, 9)$, $(6, 10)$ en $(8, 12)$.
+      antwoord: |-
+        $(5, 9)$
+      uitwerking: |-
+        $\xbar = \frac{2 + 4 + 6 + 8}{4} = 5$ en $\ybar = \frac{5 + 9 + 10 + 12}{4} = 9$.
+    - opgave: |-
+        Bereken het residu van het punt $(4, 9)$ tegenover de rechte $y = 1{,}2x + 3$. Ligt het punt boven of onder de rechte?
+      antwoord: |-
+        $1{,}2$; erboven
+      uitwerking: |-
+        De rechte voorspelt $1{,}2 \cdot 4 + 3 = 7{,}8$. Het residu is $9 - 7{,}8 = 1{,}2 > 0$: het punt ligt boven de rechte.
+    - opgave: |-
+        Bereken $\sum_{i=1}^{4} i^2$ en $\sum_{i=1}^{4} (2i - 1)$.
+      antwoord: |-
+        $30$ en $16$
+      uitwerking: |-
+        $1 + 4 + 9 + 16 = 30$ en $1 + 3 + 5 + 7 = 16$.
+    - opgave: |-
+        Bereken de afgeleide van $g(t) = (5 - t)^2 + (9 - t)^2$. Voor welke $t$ is $g(t)$ het kleinst?
+      antwoord: |-
+        $g'(t) = 4t - 28$; $t = 7$
+      uitwerking: |-
+        Met de kettingregel: $g'(t) = -2(5 - t) - 2(9 - t) = 4t - 28$. Dat is 0 voor $t = 7$, en $g$ is een dalparabool: het minimum is $g(7) = 4 + 4 = 8$.
+    - opgave: |-
+        Los op: $6a + 3b = 15$ en $14a + 6b = 33$.
+      antwoord: |-
+        $a = 1{,}5$ en $b = 2$
+      uitwerking: |-
+        Trek twee keer de eerste af van de tweede: $2a = 3$, dus $a = 1{,}5$. Dan is $3b = 15 - 9 = 6$, dus $b = 2$.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem de metingen van de veer uit het probleem.
+
+    \smallskip
+    {\centering\kleinetabel[$x$ (g)][$y$ (cm)]{6}{0 & 50 & 100 & 150 & 200 & 250}{15{,}2 & 17{,}6 & 19{,}8 & 22{,}5 & 24{,}3 & 26{,}9}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de zes residuen tegenover de rechte van Lien, $y = 0{,}046x + 15{,}3$. Bereken hun som en de som van hun kwadraten.
+      antwoord: |-
+        ${-0{,}1}$; $0$; ${-0{,}1}$; $0{,}3$; ${-0{,}2}$; $0{,}1$; som $0$; kwadraten $0{,}16$
+      uitwerking: |-
+        De rechte voorspelt $15{,}3$; $17{,}6$; $19{,}9$; $22{,}2$; $24{,}5$; $26{,}8$. De residuen zijn $-0{,}1$; $0$; $-0{,}1$; $0{,}3$; $-0{,}2$; $0{,}1$, samen $0$. De kwadraten: $0{,}01 + 0 + 0{,}01 + 0{,}09 + 0{,}04 + 0{,}01 = 0{,}16$.
+    - opgave: |-
+        Doe hetzelfde voor de rechte van Arne, $y = 0{,}048x + 15{,}0$.
+      antwoord: |-
+        $0{,}2$; $0{,}2$; $0$; $0{,}3$; ${-0{,}3}$; ${-0{,}1}$; som $0{,}3$; kwadraten $0{,}27$
+      uitwerking: |-
+        De rechte voorspelt $15$; $17{,}4$; $19{,}8$; $22{,}2$; $24{,}6$; $27$. De residuen zijn $0{,}2$; $0{,}2$; $0$; $0{,}3$; $-0{,}3$; $-0{,}1$, samen $0{,}3$. De kwadraten: $0{,}04 + 0{,}04 + 0 + 0{,}09 + 0{,}09 + 0{,}01 = 0{,}27$.
+    - opgave: |-
+        Waarom is de som van de residuen geen goede maat om de twee rechten te vergelijken?
+      antwoord: |-
+        positieve en negatieve residuen heffen elkaar op
+      uitwerking: |-
+        Bij Lien is de som 0, terwijl de rechte niet door de punten gaat. Een rechte die de helft van de punten ver boven en de helft ver onder laat liggen, kan ook som 0 hebben. Kwadraten zijn nooit negatief, dus die heffen elkaar niet op.
+    - opgave: |-
+        Een derde leerling probeert $y = 0{,}0465x + 15{,}24$. Bereken de som van de kwadraten van de residuen. Is dat de beste rechte? Hoe zou je dat kunnen weten?
+      antwoord: |-
+        $\approx 0{,}151$; met proberen weet je dat nooit zeker
+      uitwerking: |-
+        De residuen zijn $-0{,}04$; $0{,}035$; $-0{,}09$; $0{,}285$; $-0{,}24$; $0{,}035$, met kwadraten samen $\approx 0{,}151$: beter dan Lien en Arne. Of het nog beter kan, weet je niet door te proberen, want er zijn oneindig veel rechten. Daarvoor heb je een methode nodig die het minimum berekent.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h1-kwadratensom
+  soort: kort
+  opgave: |-
+    Gegeven zijn de punten $(0, 1)$, $(2, 2)$ en $(4, 6)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de kwadratensom $K(a, b)$ uit als een som van drie kwadraten.
+      antwoord: |-
+        $(1 - b)^2 + (2 - 2a - b)^2 + (6 - 4a - b)^2$
+      uitwerking: |-
+        Per punt het residu $y_i - (a x_i + b)$: $1 - b$, $2 - 2a - b$ en $6 - 4a - b$. Samen $K(a, b) = (1 - b)^2 + (2 - 2a - b)^2 + (6 - 4a - b)^2$.
+    - opgave: |-
+        Bereken $K(1, 1)$ en $K(1{,}25;\ 0{,}5)$. Welke rechte past het best?
+      antwoord: |-
+        $2$ en $1{,}5$; de tweede
+      uitwerking: |-
+        $K(1, 1) = 0^2 + (-1)^2 + 1^2 = 2$ en $K(1{,}25;\ 0{,}5) = 0{,}5^2 + (-1)^2 + 0{,}5^2 = 1{,}5$. De rechte $y = 1{,}25x + 0{,}5$ past het best.
+    - opgave: |-
+        Teken de punten, de twee rechten en de vierkanten van de residuen bij de beste.
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        De vierkanten bij $y = 1{,}25x + 0{,}5$ hebben zijden $0{,}5$; $1$ en $0{,}5$, samen oppervlakte $1{,}5$.
+
+        \smallskip
+        \begin{tikzpicture}[x=.6cm,y=.6cm,font=\scriptsize]
+          \diagram{0}{1}{5}{0}{1}{7}
+          \xas{0,1,...,5}\yas{0,1,...,7}
+          \kwadraat{1}{0}{1}{1.25}{0.5}\kwadraat{1}{2}{2}{1.25}{0.5}\kwadraat{1}{4}{6}{1.25}{0.5}
+          \rechte{0}{5}{1.25}{0.5}
+          \rechte[tweede]{0}{5}{1}{1}
+          \punten[inkt]{(0,1) (2,2) (4,6)}
+        \end{tikzpicture}
+
+- id: h1-constante
+  soort: kort
+  opgave: |-
+    Iemand meet vier keer dezelfde tijd, in seconden: 4, 7, 5, 8.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke constante $c$ maakt $K(c) = \sum (y_i - c)^2$ het kleinst? Hoe groot is $K$ daar?
+      antwoord: |-
+        $c = 6$; $K(6) = 10$
+      uitwerking: |-
+        De beste constante is het gemiddelde $\frac{24}{4} = 6$. $K(6) = 4 + 1 + 1 + 4 = 10$.
+    - opgave: |-
+        Bereken $K(5)$, en ga na dat $K(5) = K(6) + 4 \cdot (6 - 5)^2$.
+      antwoord: |-
+        $14 = 10 + 4$
+      uitwerking: |-
+        $K(5) = 1 + 4 + 0 + 9 = 14$, en $10 + 4 \cdot 1^2 = 14$. Algemeen is $K(c) = K(\ybar) + n(c - \ybar)^2$: de parabool heeft haar top in $\ybar$.
+
+- id: h1-oorsprong
+  soort: kort
+  opgave: |-
+    Bepaal met de kleinste kwadraten de rechte $y = ax$ door de oorsprong voor de punten $(1;\ 2{,}2)$, $(2;\ 3{,}8)$, $(3;\ 6{,}3)$ en $(4;\ 7{,}9)$. Is $a$ gelijk aan het gemiddelde van de quotiënten $\frac{y_i}{x_i}$?
+  antwoord: |-
+    $a = \frac{60{,}3}{30} = 2{,}01$; nee, dat gemiddelde is $\approx 2{,}04$
+  uitwerking: |-
+    $\sum x_i y_i = 2{,}2 + 7{,}6 + 18{,}9 + 31{,}6 = 60{,}3$ en $\sum x_i^2 = 1 + 4 + 9 + 16 = 30$, dus $a = 2{,}01$. De quotiënten zijn $2{,}2$; $1{,}9$; $2{,}1$; $1{,}975$, met gemiddelde $\approx 2{,}04$. Dat is iets anders: in de formule wegen de punten met een grote $x$ zwaarder.
+
+- id: h1-model
+  soort: kort
+  opgave: |-
+    De remweg $d$ van een auto is volgens de fysica evenredig met het kwadraat van de snelheid $v$: $d = a v^2$. Een test geeft:
+
+    \smallskip
+    {\centering\kleinetabel[$v$ (m/s)][$d$ (m)]{4}{10 & 15 & 20 & 25}{6 & 14 & 25 & 38}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de kwadratensom $K(a) = \sum (d_i - a v_i^2)^2$ als een tweedegraadsfunctie van $a$.
+      antwoord: |-
+        $K(a) = \bigl(\sum v_i^4\bigr) a^2 - 2\bigl(\sum v_i^2 d_i\bigr) a + \sum d_i^2$
+      uitwerking: |-
+        Werk het kwadraat uit: $(d_i - a v_i^2)^2 = d_i^2 - 2a v_i^2 d_i + a^2 v_i^4$, en tel op.
+    - opgave: |-
+        Toon aan dat $K$ het kleinst is voor $a = \dfrac{\sum v_i^2 d_i}{\sum v_i^4}$, en bereken $a$.
+      antwoord: |-
+        $a = \frac{37\,500}{611\,250} \approx 0{,}0614$
+      uitwerking: |-
+        $K'(a) = 2\bigl(\sum v_i^4\bigr) a - 2\sum v_i^2 d_i = 0$ geeft de formule, en $\sum v_i^4 > 0$ maakt van $K$ een dalparabool. $\sum v_i^2 d_i = 600 + 3150 + 10\,000 + 23\,750 = 37\,500$ en $\sum v_i^4 = 10\,000 + 50\,625 + 160\,000 + 390\,625 = 611\,250$, dus $a \approx 0{,}0614$.
+    - opgave: |-
+        Voorspel de remweg bij 30 m/s (108 km/u).
+      antwoord: |-
+        $\approx 55$ m
+      uitwerking: |-
+        $0{,}0614 \cdot 900 \approx 55$ m. Dat is een extrapolatie: de grootste gemeten snelheid was 25 m/s.
+
+- id: h1-partieel
+  soort: kort
+  opgave: |-
+    Bereken $\partafg{f}{a}$ en $\partafg{f}{b}$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(a, b) = 3a^2 - ab + 2b$
+      antwoord: |-
+        $6a - b$; \ $-a + 2$
+      uitwerking: |-
+        Naar $a$: $6a - b$ ($2b$ is een constante). Naar $b$: $-a + 2$ ($3a^2$ is een constante).
+    - opgave: |-
+        $f(a, b) = a^2 b^3 + 5a$
+      antwoord: |-
+        $2ab^3 + 5$; \ $3a^2 b^2$
+      uitwerking: |-
+        Naar $a$ is $b^3$ een constante factor: $2ab^3 + 5$. Naar $b$ is $a^2$ een constante factor: $3a^2 b^2$.
+    - opgave: |-
+        $f(a, b) = (2 - a - 3b)^2$
+      antwoord: |-
+        $-2(2 - a - 3b)$; \ $-6(2 - a - 3b)$
+      uitwerking: |-
+        Kettingregel: de afgeleide van de binnenkant naar $a$ is $-1$, naar $b$ is $-3$.
+    - opgave: |-
+        $f(a, b) = (4 - 2a - b)^2 + (1 - a - b)^2$
+      antwoord: |-
+        $10a + 6b - 18$; \ $6a + 4b - 10$
+      uitwerking: |-
+        Naar $a$: $-4(4 - 2a - b) - 2(1 - a - b) = 10a + 6b - 18$. Naar $b$: $-2(4 - 2a - b) - 2(1 - a - b) = 6a + 4b - 10$.
+
+- id: h1-minimum
+  soort: kort
+  opgave: |-
+    Zoek de kandidaat voor een minimum met de partiële afgeleiden. Ga met de gegeven schrijfwijze na dat het een minimum is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(a, b) = a^2 + b^2 - 2a + 4b + 1 = (a - 1)^2 + (b + 2)^2 - 4$
+      antwoord: |-
+        minimum $-4$ in $(1, -2)$
+      uitwerking: |-
+        $\partafg{f}{a} = 2a - 2 = 0$ en $\partafg{f}{b} = 2b + 4 = 0$ geven $(1, -2)$, met $f(1, -2) = 1 + 4 - 2 - 8 + 1 = -4$. Uit de schrijfwijze: $f \geqslant -4$, met gelijkheid alleen in $(1, -2)$.
+    - opgave: |-
+        $g(a, b) = 2a^2 + 2ab + b^2 - 6a - 4b = (a + b - 2)^2 + (a - 1)^2 - 5$
+      antwoord: |-
+        minimum $-5$ in $(1, 1)$
+      uitwerking: |-
+        $\partafg{g}{a} = 4a + 2b - 6 = 0$ en $\partafg{g}{b} = 2a + 2b - 4 = 0$. Aftrekken: $2a - 2 = 0$, dus $a = 1$ en $b = 1$. $g(1, 1) = 2 + 2 + 1 - 6 - 4 = -5$. Beide kwadraten zijn 0 alleen als $a = 1$ en $a + b = 2$, dus in $(1, 1)$.
+
+- id: h1-normaal
+  soort: kort
+  opgave: |-
+    Bepaal met de normaalvergelijkingen de regressierechte door $(0, 1)$, $(1, 1)$, $(2, 3)$ en $(3, 4)$. Controleer met \texttt{LinReg(ax+b)}.
+  antwoord: |-
+    $y = 1{,}1x + 0{,}6$
+  uitwerking: |-
+    $\sum x_i = 6$, $\sum y_i = 9$, $\sum x_i^2 = 14$, $\sum x_i y_i = 0 + 1 + 6 + 12 = 19$. De normaalvergelijkingen: $9 = 6a + 4b$ en $19 = 14a + 6b$. Drie keer de eerste min twee keer de tweede: $27 - 38 = 18a - 28a$, dus $a = 1{,}1$. Dan $4b = 9 - 6{,}6 = 2{,}4$, dus $b = 0{,}6$.
+
+- id: h1-hand
+  soort: kort
+  opgave: |-
+    Een gezin noteert zes dagen het aantal uren zon $x$ en de opbrengst $y$ van de zonnepanelen (in kWh).
+
+    \smallskip
+    {\centering\kleinetabel[$x$ (uur)][$y$ (kWh)]{6}{2 & 4 & 5 & 7 & 9 & 3}{6{,}0 & 11{,}2 & 12{,}9 & 18{,}3 & 22{,}1 & 8{,}9}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de regressierechte met de hand, met de rekenformules. Controleer met ICT.
+      antwoord: |-
+        $y \approx 2{,}294x + 1{,}763$
+      uitwerking: |-
+        $\xbar = 5$, $\ybar = \frac{79{,}4}{6} \approx 13{,}233$, $\sum x_i^2 = 184$, $\sum x_i y_i = 475$. $\Sxx = 184 - 6 \cdot 25 = 34$ en $\Sxy = 475 - 6 \cdot 5 \cdot 13{,}233 = 78$. $a = \frac{78}{34} \approx 2{,}294$ en $b = 13{,}233 - 2{,}294 \cdot 5 \approx 1{,}763$.
+    - opgave: |-
+        Wat betekent de helling? Voorspel de opbrengst op een dag met 6 uur zon.
+      antwoord: |-
+        per uur zon $\approx 2{,}3$ kWh meer; $\approx 15{,}5$ kWh
+      uitwerking: |-
+        Elk extra uur zon levert volgens het model ongeveer 2,3 kWh meer op. Bij 6 uur: $2{,}294 \cdot 6 + 1{,}763 \approx 15{,}5$ kWh.
+
+- id: h1-ict
+  soort: kort
+  opgave: |-
+    Acht lopers geven op hoeveel kilometer ze per week trainen ($x$), en hun tijd op 10 km ($y$, in minuten).
+
+    \smallskip
+    {\centering\kleinetabel[$x$ (km)][$y$ (min)]{8}{20 & 25 & 30 & 35 & 40 & 45 & 50 & 60}{58{,}5 & 56{,}0 & 55{,}2 & 52{,}1 & 51{,}5 & 49{,}0 & 48{,}2 & 45{,}6}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte met \texttt{LinReg(ax+b)}. Wat betekenen $a$ en $b$?
+      antwoord: |-
+        $y \approx -0{,}323x + 64{,}3$
+      uitwerking: |-
+        $a \approx -0{,}323$: per extra kilometer training per week loopt men gemiddeld ongeveer 0,32 minuut (19 seconden) sneller. $b \approx 64{,}3$ zou de tijd zijn zonder training, maar zo'n loper zat niet in de groep: dat getal heeft weinig betekenis.
+    - opgave: |-
+        Controleer dat de rechte door het gemiddelde punt gaat.
+      antwoord: |-
+        $(38{,}125;\ 52{,}01)$ ligt erop
+      uitwerking: |-
+        $\xbar = 38{,}125$ en $\ybar \approx 52{,}01$; $-0{,}3235 \cdot 38{,}125 + 64{,}344 \approx 52{,}01$.
+    - opgave: |-
+        Mag je besluiten dat meer trainen je sneller maakt?
+      antwoord: |-
+        niet zomaar: observationeel onderzoek
+      uitwerking: |-
+        Het is observationeel onderzoek. Wie veel traint, is misschien ook jonger of al langer loper (verborgen variabelen). Een regressierechte beschrijft een samenhang; een oorzaak toon je alleen met een experiment aan.
+
+- id: h1-correlatie
+  soort: kort
+  opgave: |-
+    Bij een groep leerlingen is de lengte $x$ gemiddeld 165~cm met $s_x = 8$~cm, de massa $y$ gemiddeld 62~kg met $s_y = 9$~kg, en $r = 0{,}6$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte van $y$ op $x$.
+      antwoord: |-
+        $y = 0{,}675x - 49{,}4$
+      uitwerking: |-
+        $a = 0{,}6 \cdot \frac98 = 0{,}675$ en $b = 62 - 0{,}675 \cdot 165 \approx -49{,}4$.
+    - opgave: |-
+        Voorspel de massa van een leerling van 181~cm. Hoeveel standaardafwijkingen ligt die boven het gemiddelde, en hoeveel de lengte?
+      antwoord: |-
+        $\approx 72{,}8$ kg; $1{,}2$ en $2$
+      uitwerking: |-
+        $62 + 0{,}675 \cdot 16 = 72{,}8$ kg. De lengte ligt $\frac{16}{8} = 2$ standaardafwijkingen boven het gemiddelde, de voorspelde massa $\frac{10{,}8}{9} = 1{,}2 = 0{,}6 \cdot 2$: regressie naar het gemiddelde.
+
+- id: h1-andersom
+  soort: kort
+  opgave: |-
+    Gegeven zijn de punten $(1, 1)$, $(2, 3)$, $(3, 2)$ en $(4, 4)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte van $y$ op $x$ en die van $x$ op $y$.
+      antwoord: |-
+        $y = 0{,}8x + 0{,}5$ en $x = 0{,}8y + 0{,}5$
+      uitwerking: |-
+        $\xbar = \ybar = 2{,}5$, $\Sxx = \Syy = 5$, $\Sxy = 4$. Dus $a = \frac45 = 0{,}8$ en $b = 2{,}5 - 2 = 0{,}5$. Door de symmetrie van de gegevens is de tweede rechte $x = 0{,}8y + 0{,}5$.
+    - opgave: |-
+        Schrijf de tweede rechte als $y = \ldots$ Snijden de twee rechten elkaar? Waar?
+      antwoord: |-
+        $y = 1{,}25x - 0{,}625$; in $(2{,}5;\ 2{,}5)$
+      uitwerking: |-
+        $y = \frac{x - 0{,}5}{0{,}8} = 1{,}25x - 0{,}625$. Beide gaan door het gemiddelde punt $(2{,}5;\ 2{,}5)$, en hun hellingen verschillen: dat is het snijpunt.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    regressierechte met de hand
+  opgave: |-
+    Bereken de regressierechte met de hand. Controleer met ICT.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $(1, 3)$, $(2, 5)$, $(3, 6)$, $(4, 10)$
+      antwoord: |-
+        $y = 2{,}2x + 0{,}5$
+      uitwerking: |-
+        $\xbar = 2{,}5$, $\ybar = 6$, $\Sxx = 5$, $\Sxy = (-1{,}5)(-3) + (-0{,}5)(-1) + 0{,}5 \cdot 0 + 1{,}5 \cdot 4 = 11$. $a = 2{,}2$ en $b = 6 - 5{,}5 = 0{,}5$.
+    - opgave: |-
+        $(-2, 4)$, $(0, 3)$, $(2, 1)$, $(4, 0)$
+      antwoord: |-
+        $y = -0{,}7x + 2{,}7$
+      uitwerking: |-
+        $\xbar = 1$, $\ybar = 2$, $\Sxx = 9 + 1 + 1 + 9 = 20$, $\Sxy = (-3)(2) + (-1)(1) + 1 \cdot (-1) + 3 \cdot (-2) = -14$. $a = -0{,}7$ en $b = 2 + 0{,}7 = 2{,}7$.
+    - opgave: |-
+        $(10, 52)$, $(20, 47)$, $(30, 45)$, $(40, 36)$, $(50, 30)$
+      antwoord: |-
+        $y = -0{,}55x + 58{,}5$
+      uitwerking: |-
+        $\xbar = 30$, $\ybar = 42$, $\Sxx = 400 + 100 + 0 + 100 + 400 = 1000$, $\Sxy = (-20)(10) + (-10)(5) + 0 + 10 \cdot (-6) + 20 \cdot (-12) = -550$. $a = -0{,}55$ en $b = 42 + 16{,}5 = 58{,}5$.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    partiële afgeleiden
+  opgave: |-
+    Bereken $\partafg{f}{a}$ en $\partafg{f}{b}$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(a, b) = 5a^3 - 2b^2 + 7$
+      antwoord: |-
+        $15a^2$; \ $-4b$
+      uitwerking: |-
+        Elke term hangt maar van één veranderlijke af.
+    - opgave: |-
+        $f(a, b) = 4ab - a^2 + 3b$
+      antwoord: |-
+        $4b - 2a$; \ $4a + 3$
+      uitwerking: |-
+        Naar $a$: $4b - 2a$. Naar $b$: $4a + 3$.
+    - opgave: |-
+        $f(a, b) = \dfrac{a}{b}$
+      antwoord: |-
+        $\dfrac1b$; \ $-\dfrac{a}{b^2}$
+      uitwerking: |-
+        Naar $a$ is $\frac1b$ een constante factor. Naar $b$: $a \cdot (-\frac{1}{b^2})$.
+    - opgave: |-
+        $f(a, b) = \e^{2a - b}$
+      antwoord: |-
+        $2\e^{2a - b}$; \ $-\e^{2a - b}$
+      uitwerking: |-
+        Kettingregel, met afgeleide van de exponent $2$ naar $a$ en $-1$ naar $b$.
+    - opgave: |-
+        $f(a, b) = (7 - 3a - b)^2$
+      antwoord: |-
+        $-6(7 - 3a - b)$; \ $-2(7 - 3a - b)$
+      uitwerking: |-
+        Kettingregel met de binnenafgeleiden $-3$ en $-1$.
+    - opgave: |-
+        $f(a, b) = a \ln b + b^2$
+      antwoord: |-
+        $\ln b$; \ $\dfrac{a}{b} + 2b$
+      uitwerking: |-
+        Naar $a$: $\ln b$. Naar $b$: $a \cdot \frac1b + 2b$.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kwadratensom vergelijken
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.62cm,y=.5cm,font=\scriptsize]
+        \diagram{0}{1}{6}{0}{1}{9}
+        \xas{0,1,...,6}\yas{0,2,...,8}
+        \punten[inkt]{(1,1) (2,4) (4,5) (5,8)}
+      \end{tikzpicture}
+  opgave: |-
+    Gegeven zijn de punten $(1, 1)$, $(2, 4)$, $(4, 5)$ en $(5, 8)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de kwadratensom van $y = x + 1$, van $y = 1{,}6x$ en van $y = 1{,}5x$.
+      antwoord: |-
+        $6$; \ $2{,}96$; \ $2{,}5$
+      uitwerking: |-
+        $y = x + 1$: residuen $-1$; $1$; $0$; $2$, samen in het kwadraat $6$. $y = 1{,}6x$: residuen $-0{,}6$; $0{,}8$; $-1{,}4$; $0$, samen $0{,}36 + 0{,}64 + 1{,}96 + 0 = 2{,}96$. $y = 1{,}5x$: residuen $-0{,}5$; $1$; $-1$; $0{,}5$, samen $2{,}5$.
+    - opgave: |-
+        Bereken de regressierechte. Welke van de drie rechten is het?
+      antwoord: |-
+        $y = 1{,}5x$
+      uitwerking: |-
+        $\xbar = 3$, $\ybar = 4{,}5$, $\Sxx = 10$, $\Sxy = 15$: $a = 1{,}5$ en $b = 4{,}5 - 4{,}5 = 0$. Het is de derde rechte, met de kleinste kwadratensom $2{,}5$.
+    - opgave: |-
+        Ga na dat de som van de residuen bij de regressierechte 0 is, en bij de eerste rechte niet.
+      antwoord: |-
+        $0$ en $2$
+      uitwerking: |-
+        $-0{,}5 + 1 - 1 + 0{,}5 = 0$, en bij $y = x + 1$: $-1 + 1 + 0 + 2 = 2$.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    rechte door de oorsprong in een context
+  opgave: |-
+    Een kaasboer weegt vier stukken van dezelfde kaas en noteert de prijs.
+
+    \smallskip
+    {\centering\kleinetabel[massa (g)][prijs (euro)]{4}{120 & 250 & 310 & 480}{2{,}35 & 4{,}80 & 6{,}05 & 9{,}30}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is een rechte door de oorsprong hier een goed model?
+      antwoord: |-
+        geen kaas, geen prijs; de prijs is evenredig met de massa
+      uitwerking: |-
+        De prijs is de kiloprijs maal de massa: 0~g kost niets. Het model is $y = ax$, met $a$ de prijs per gram.
+    - opgave: |-
+        Bereken de kiloprijs met de kleinste kwadraten.
+      antwoord: |-
+        $\approx 19{,}39$ euro per kg
+      uitwerking: |-
+        $\sum x_i y_i = 282 + 1200 + 1875{,}5 + 4464 = 7821{,}5$ en $\sum x_i^2 = 14\,400 + 62\,500 + 96\,100 + 230\,400 = 403\,400$. $a = \frac{7821{,}5}{403\,400} \approx 0{,}01939$ euro per gram, dus ongeveer 19,39 euro per kg.
+    - opgave: |-
+        Bepaal ook de gewone regressierechte met ICT. Is het snijpunt met de $y$-as zinvol?
+      antwoord: |-
+        $y \approx 0{,}01935x + 0{,}013$; bijna 0
+      uitwerking: |-
+        \texttt{LinReg(ax+b)} geeft $a \approx 0{,}01935$ en $b \approx 0{,}013$: ongeveer 1 cent bij 0~g. Dat bevestigt het model door de oorsprong; de afwijking komt van het afronden van de prijzen.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    gemiddelde punt
+  opgave: |-
+    Gebruik dat de regressierechte door het gemiddelde punt gaat.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De regressierechte is $y = 2{,}4x + b$, met $\xbar = 5$ en $\ybar = 20$. Bereken $b$.
+      antwoord: |-
+        $b = 8$
+      uitwerking: |-
+        $20 = 2{,}4 \cdot 5 + b$, dus $b = 8$.
+    - opgave: |-
+        De regressierechte is $y = -0{,}8x + 31$, met $\xbar = 12$. Bereken $\ybar$.
+      antwoord: |-
+        $\ybar = 21{,}4$
+      uitwerking: |-
+        $\ybar = -0{,}8 \cdot 12 + 31 = 21{,}4$.
+    - opgave: |-
+        Het gemiddelde punt is $(3, 7)$. Welke rechten kunnen de regressierechte zijn: $y = 2x + 1$, \ $y = -x + 10$, \ $y = 0{,}5x + 6$?
+      antwoord: |-
+        de eerste twee
+      uitwerking: |-
+        $2 \cdot 3 + 1 = 7$ en $-3 + 10 = 7$: de eerste twee gaan door $(3, 7)$. De derde geeft $7{,}5$. Welke van de eerste twee het is, hangt af van de punten.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    helling uit r en de standaardafwijkingen
+  opgave: |-
+    Bereken de helling $a$ van de regressierechte van $y$ op $x$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $r = 0{,}8$, \ $s_x = 2{,}5$, \ $s_y = 4$
+      antwoord: |-
+        $1{,}28$
+      uitwerking: |-
+        $0{,}8 \cdot \frac{4}{2{,}5} = 1{,}28$.
+    - opgave: |-
+        $r = -0{,}6$, \ $s_x = 10$, \ $s_y = 3$
+      antwoord: |-
+        ${-0{,}18}$
+      uitwerking: |-
+        $-0{,}6 \cdot \frac{3}{10} = -0{,}18$.
+    - opgave: |-
+        $r = 0{,}95$, \ $s_x = 1{,}2$, \ $s_y = 30$
+      antwoord: |-
+        $23{,}75$
+      uitwerking: |-
+        $0{,}95 \cdot \frac{30}{1{,}2} = 23{,}75$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    a en b interpreteren
+  opgave: |-
+    Wat betekenen de helling en het snijpunt met de $y$-as? Heeft het snijpunt een zinvolle betekenis?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het aantal verkochte ijsjes $y$ per dag tegenover de maximumtemperatuur $x$ (in °C): $y = 11{,}5x - 120$.
+      antwoord: |-
+        per graad 11,5 ijsjes meer; $b$ niet zinvol
+      uitwerking: |-
+        Per graad warmer verkoopt men gemiddeld 11,5 ijsjes meer. Bij 0~°C zou het $-120$ zijn: onmogelijk. Het model geldt alleen in het gebied van de metingen.
+    - opgave: |-
+        De huurprijs $y$ (in euro per maand) van appartementen tegenover de oppervlakte $x$ (in m$^2$): $y = 9{,}2x + 210$.
+      antwoord: |-
+        9,20 euro per m$^2$ extra; vaste kost 210 euro
+      uitwerking: |-
+        Per extra m$^2$ is de huur gemiddeld 9,20 euro hoger. Het getal 210 kun je lezen als een vast deel van de huur, maar een appartement van 0~m$^2$ bestaat niet: het is een extrapolatie.
+    - opgave: |-
+        De lengte $y$ van een kaars (in cm) tegenover de brandtijd $x$ (in uur): $y = -1{,}6x + 24{,}5$.
+      antwoord: |-
+        1,6 cm per uur korter; beginlengte 24,5 cm
+      uitwerking: |-
+        Per uur brandt er gemiddeld 1,6 cm op. Hier is $b$ wel zinvol: de lengte voor het aansteken, ongeveer 24,5 cm. Na $\frac{24{,}5}{1{,}6} \approx 15$ uur is de kaars op.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    regressie met ICT, interpoleren en extrapoleren
+  opgave: |-
+    Een boswachter meet bij acht eiken van verschillende leeftijd de omtrek van de stam op borsthoogte.
+
+    \smallskip
+    {\centering\kleinetabel[leeftijd (jaar)][omtrek (cm)]{8}{5 & 8 & 12 & 15 & 20 & 24 & 30 & 35}{6{,}1 & 9{,}8 & 14{,}2 & 17{,}5 & 23{,}9 & 27{,}1 & 33{,}6 & 39{,}8}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte met ICT, en zeg wat de helling betekent.
+      antwoord: |-
+        $y \approx 1{,}107x + 0{,}88$; per jaar ongeveer 1,1 cm
+      uitwerking: |-
+        \texttt{LinReg(ax+b)}: $a \approx 1{,}107$ en $b \approx 0{,}88$. De omtrek groeit volgens het model ongeveer 1,1 cm per jaar.
+    - opgave: |-
+        Schat de omtrek van een eik van 18 jaar. Is dat interpoleren of extrapoleren?
+      antwoord: |-
+        $\approx 20{,}8$ cm; interpoleren
+      uitwerking: |-
+        $1{,}107 \cdot 18 + 0{,}88 \approx 20{,}8$ cm. 18 ligt tussen de kleinste en de grootste gemeten leeftijd: interpoleren.
+    - opgave: |-
+        Een eik in het park heeft een omtrek van 3,3 m. Hoe oud is hij volgens het model? Waarom vertrouw je dat niet?
+      antwoord: |-
+        $\approx 297$ jaar; ver buiten de metingen
+      uitwerking: |-
+        $\frac{330 - 0{,}88}{1{,}107} \approx 297$ jaar. Dat is een sterke extrapolatie: de metingen gingen tot 35 jaar, en oude bomen groeien niet noodzakelijk even snel als jonge. Bovendien voorspel je hier $x$ uit $y$, terwijl de rechte $y$ uit $x$ voorspelt.
+    - opgave: |-
+        Bereken de residuen met ICT (lijst \texttt{RESID}). Welke eik groeide het snelst in vergelijking met het model?
+      antwoord: |-
+        de eik van 20 jaar (residu $\approx 0{,}88$)
+      uitwerking: |-
+        Het grootste positieve residu is $\approx 0{,}88$ cm, bij de eik van 20 jaar: die is dikker dan het model voorspelt.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kandidaat voor een minimum
+  opgave: |-
+    Zoek de punten waar beide partiële afgeleiden 0 zijn. Is het een minimum?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(a, b) = a^2 - 2ab + 2b^2 - 2b + 3$. Toon aan dat $f(a, b) = (a - b)^2 + (b - 1)^2 + 2$.
+      antwoord: |-
+        $(1, 1)$; minimum 2
+      uitwerking: |-
+        $\partafg{f}{a} = 2a - 2b = 0$ en $\partafg{f}{b} = -2a + 4b - 2 = 0$ geven $a = b = 1$. Uitwerken: $(a - b)^2 + (b - 1)^2 + 2 = a^2 - 2ab + b^2 + b^2 - 2b + 1 + 2 = f(a, b)$. Dus $f \geqslant 2 = f(1, 1)$.
+    - opgave: |-
+        $g(a, b) = a^2 - b^2$. Bereken $g(t, 0)$ en $g(0, t)$ voor $t \neq 0$. Is $(0, 0)$ een minimum?
+      antwoord: |-
+        $(0, 0)$; geen minimum en geen maximum
+      uitwerking: |-
+        $\partafg{g}{a} = 2a$ en $\partafg{g}{b} = -2b$ zijn 0 in $(0, 0)$. Maar $g(t, 0) = t^2 > 0$ en $g(0, t) = -t^2 < 0$: in elke omgeving van $(0, 0)$ is $g$ groter en kleiner dan $g(0, 0) = 0$. Een kandidaat hoeft dus geen extremum te zijn. De grafiek is een zadel.
+    - opgave: |-
+        $h(a, b) = 3 - (a - 2)^2 - (b + 1)^2$
+      antwoord: |-
+        $(2, -1)$; een maximum
+      uitwerking: |-
+        $\partafg{h}{a} = -2(a - 2)$ en $\partafg{h}{b} = -2(b + 1)$ zijn 0 in $(2, -1)$. Daar is $h = 3$, en elders is $h < 3$: een maximum.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    andere eenheden en verschuivingen
+  opgave: |-
+    Een vereniging telt het aantal leden in zes opeenvolgende jaren.
+
+    \smallskip
+    {\centering\kleinetabel[jaar][leden]{6}{2018 & 2019 & 2020 & 2021 & 2022 & 2023}{412 & 425 & 431 & 446 & 452 & 468}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte met $x$ het jaartal. Waarom is $b$ zo vreemd?
+      antwoord: |-
+        $y \approx 10{,}74x - 21\,267$; $b$ hoort bij het jaar 0
+      uitwerking: |-
+        $\xbar = 2020{,}5$, $\ybar = 439$, $\Sxx = 17{,}5$, $\Sxy = 188$: $a \approx 10{,}74$ en $b = 439 - 10{,}74 \cdot 2020{,}5 \approx -21\,267$. Dat is de voorspelling voor het jaar 0: zinloos.
+    - opgave: |-
+        Neem nu $t = x - 2020$ als verklarende variabele. Bepaal de regressierechte. Wat verandert er, en wat niet?
+      antwoord: |-
+        $y \approx 10{,}74t + 433{,}6$; $a$ blijft, $b$ verandert
+      uitwerking: |-
+        Alle $x$ verschuiven over 2020: $\Sxx$ en $\Sxy$ veranderen niet, want ze gebruiken alleen afwijkingen tot het gemiddelde. Dus $a \approx 10{,}74$, en $b = 439 - 10{,}74 \cdot 0{,}5 \approx 433{,}6$: het voorspelde aantal in 2020.
+    - opgave: |-
+        Wat gebeurt er met $a$ en $b$ als je het aantal leden in honderdtallen uitdrukt?
+      antwoord: |-
+        beide 100 keer kleiner
+      uitwerking: |-
+        Alle $y_i$ worden gedeeld door 100: $\Sxy$ en $\ybar$ ook, dus $a$ en $b$ worden 100 keer kleiner.
+    - opgave: |-
+        Toon in het algemeen aan: vervang je elke $x_i$ door $x_i + c$, dan blijft $a$ hetzelfde.
+      antwoord: |-
+        $\Sxx$ en $\Sxy$ veranderen niet
+      uitwerking: |-
+        Het gemiddelde wordt $\xbar + c$, dus elke afwijking $(x_i + c) - (\xbar + c) = x_i - \xbar$ blijft gelijk. $\Sxx$ en $\Sxy$ blijven dus gelijk, en $a = \frac{\Sxy}{\Sxx}$ ook.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    regressie van x op y
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.55cm,y=.55cm,font=\scriptsize]
+        \diagram{0}{1}{5}{0}{1}{5}
+        \xas{0,1,...,5}\yas{0,1,...,5}
+        \punten[inkt]{(1,2) (2,1) (3,4) (4,3) (5,5)}
+      \end{tikzpicture}
+  opgave: |-
+    Gegeven zijn de punten $(1, 2)$, $(2, 1)$, $(3, 4)$, $(4, 3)$ en $(5, 5)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\Sxx$, $\Syy$, $\Sxy$ en $r$.
+      antwoord: |-
+        $10$; $10$; $8$; $0{,}8$
+      uitwerking: |-
+        $\xbar = \ybar = 3$. Afwijkingen in $x$: $-2, -1, 0, 1, 2$; in $y$: $-1, -2, 1, 0, 2$. $\Sxx = \Syy = 10$, $\Sxy = 2 + 2 + 0 + 0 + 4 = 8$, $r = \frac{8}{10} = 0{,}8$.
+    - opgave: |-
+        Bepaal de regressierechte van $y$ op $x$ en die van $x$ op $y$. Schrijf beide als $y = \ldots$
+      antwoord: |-
+        $y = 0{,}8x + 0{,}6$ en $y = 1{,}25x - 0{,}75$
+      uitwerking: |-
+        $a = 0{,}8$, $b = 3 - 2{,}4 = 0{,}6$. Van $x$ op $y$: $x = 0{,}8y + 0{,}6$, dus $y = \frac{x - 0{,}6}{0{,}8} = 1{,}25x - 0{,}75$.
+    - opgave: |-
+        Bereken het product van de helling $a$ en de helling $a'$ van $x = a'y + b'$. Toon algemeen aan dat $a a' = r^2$.
+      antwoord: |-
+        $0{,}64 = r^2$
+      uitwerking: |-
+        $0{,}8 \cdot 0{,}8 = 0{,}64 = 0{,}8^2$. Algemeen: $a a' = \frac{\Sxy}{\Sxx} \cdot \frac{\Sxy}{\Syy} = \frac{\Sxy^2}{\Sxx\Syy} = r^2$.
+    - opgave: |-
+        Wanneer vallen de twee rechten samen?
+      antwoord: |-
+        als $r^2 = 1$
+      uitwerking: |-
+        Beide gaan door het gemiddelde punt. Ze vallen samen als de helling $a$ gelijk is aan $\frac{1}{a'}$, dus als $a a' = r^2 = 1$: als alle punten op één rechte liggen.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    regressie naar het gemiddelde
+  opgave: |-
+    Een klas maakt twee toetsen. Op de eerste is het gemiddelde 60 met standaardafwijking 12, op de tweede 64 met standaardafwijking 10. De correlatiecoëfficiënt is $0{,}7$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voorspel de score op de tweede toets van een leerling die 84 haalde op de eerste, en van een leerling die 36 haalde.
+      antwoord: |-
+        $78$ en $50$
+      uitwerking: |-
+        $a = 0{,}7 \cdot \frac{10}{12} = \frac{7}{12}$. Bij 84: $64 + \frac{7}{12} \cdot 24 = 78$. Bij 36: $64 - \frac{7}{12} \cdot 24 = 50$.
+    - opgave: |-
+        Druk telkens uit in standaardafwijkingen boven of onder het gemiddelde. Wat merk je?
+      antwoord: |-
+        $\pm 2$ wordt $\pm 1{,}4$
+      uitwerking: |-
+        84 is 2 standaardafwijkingen boven het gemiddelde, de voorspelling 78 is $\frac{14}{10} = 1{,}4$ erboven. 36 is 2 eronder, 50 is 1,4 eronder. Beide liggen dichter bij het gemiddelde: regressie naar het gemiddelde.
+    - opgave: |-
+        De leerkracht besluit: \textit{de beste leerlingen zijn na de eerste toets lui geworden, en de zwakste hebben hard gewerkt}. Is dat een goede verklaring?
+      antwoord: |-
+        nee: regressie naar het gemiddelde verwacht je altijd als $\abs{r} < 1$
+      uitwerking: |-
+        Niet noodzakelijk. Een score is deels vaardigheid en deels toeval. Wie op de eerste toets uitzonderlijk hoog scoorde, had gemiddeld ook wat geluk, en dat herhaalt zich niet. Ook zonder verandering in inzet verwacht je dat de uitschieters dichter bij het gemiddelde komen.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    temperatuur en hoogte
+  opgave: |-
+    Een wandelaar meet in de bergen de temperatuur op verschillende hoogtes, op hetzelfde moment van de dag.
+
+    \smallskip
+    {\centering\kleinetabel[hoogte (m)][temperatuur (°C)]{5}{200 & 600 & 1000 & 1500 & 2100}{18{,}1 & 15{,}6 & 13{,}3 & 9{,}8 & 6{,}2}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte. Hoeveel daalt de temperatuur per 1000 m?
+      antwoord: |-
+        $y \approx -0{,}00630x + 19{,}41$; $\approx 6{,}3$ °C
+      uitwerking: |-
+        $\xbar = 1080$, $\ybar = 12{,}6$, $\Sxx = 2\,228\,000$, $\Sxy = -14\,040$. $a \approx -0{,}006302$ en $b \approx 19{,}41$. Per 1000 m daalt de temperatuur ongeveer 6,3~°C.
+    - opgave: |-
+        Hoe warm is het volgens het model op de top, op 2800 m? En aan de voet, op 0 m?
+      antwoord: |-
+        $\approx 1{,}8$ °C en $\approx 19{,}4$ °C
+      uitwerking: |-
+        $19{,}41 - 0{,}006302 \cdot 2800 \approx 1{,}8$~°C, en op 0~m $\approx 19{,}4$~°C. Beide zijn extrapolaties, maar in de natuurkunde daalt de temperatuur inderdaad ongeveer lineair met de hoogte.
+    - opgave: |-
+        Op welke hoogte vriest het volgens het model?
+      antwoord: |-
+        $\approx 3080$ m
+      uitwerking: |-
+        $-0{,}006302x + 19{,}41 = 0$ geeft $x \approx 3080$ m.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    met of zonder de oorsprong
+  opgave: |-
+    Een leerling meet opnieuw stroom en spanning, maar haar voltmeter is verkeerd afgesteld.
+
+    \smallskip
+    {\centering\kleinetabel[$I$ (mA)][$U$ (V)]{5}{10 & 20 & 30 & 40 & 50}{2{,}6 & 4{,}3 & 6{,}5 & 8{,}4 & 10{,}4}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de rechte $U = aI$ door de oorsprong en haar kwadratensom.
+      antwoord: |-
+        $a \approx 0{,}2115$; $K \approx 0{,}298$
+      uitwerking: |-
+        $\sum x_i y_i = 1163$ en $\sum x_i^2 = 5500$: $a = \frac{1163}{5500} \approx 0{,}2115$. De residuen zijn ongeveer $0{,}49$; $0{,}07$; $0{,}16$; $-0{,}06$; $-0{,}17$, met kwadratensom $\approx 0{,}298$.
+    - opgave: |-
+        Bereken de regressierechte $U = aI + b$ en haar kwadratensom.
+      antwoord: |-
+        $U = 0{,}197I + 0{,}53$; $K = 0{,}043$
+      uitwerking: |-
+        $\xbar = 30$, $\ybar = 6{,}44$, $\Sxx = 1000$, $\Sxy = 197$: $a = 0{,}197$ en $b = 0{,}53$. De residuen zijn $0{,}1$; $-0{,}17$; $0{,}06$; $-0{,}01$; $0{,}02$, met kwadratensom $0{,}043$.
+    - opgave: |-
+        Waarom is de kwadratensom van de regressierechte altijd hoogstens die van de rechte door de oorsprong?
+      antwoord: |-
+        de rechte door de oorsprong is ook een rechte $y = ax + b$
+      uitwerking: |-
+        De regressierechte is de beste van \textit{alle} rechten $y = ax + b$, en $y = ax$ is daar één van, met $b = 0$.
+    - opgave: |-
+        Welk model kies je, en wat zegt $b$ over de voltmeter?
+      antwoord: |-
+        $U = aI + b$; de meter wijst ongeveer 0,5 V te veel aan
+      uitwerking: |-
+        Hier past het model met $b$ veel beter: de meter geeft ongeveer $0{,}53$~V aan zonder stroom. De weerstand schat je dan met de helling, $\approx 197~\Omega$. Het model door de oorsprong zou de fout van de meter in de helling stoppen.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gemiddelde en mediaan als beste constante
+  opgave: |-
+    Vijf vrienden geven op hoeveel uur ze vorige week sportten: 3, 4, 4, 5, 14.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke constante geeft de kleinste kwadratensom? Bereken die som, en vergelijk met de som bij de mediaan.
+      antwoord: |-
+        $6$, met $K = 82$; bij de mediaan $102$
+      uitwerking: |-
+        Het gemiddelde is 6, met $K(6) = 9 + 4 + 4 + 1 + 64 = 82$. De mediaan is 4, met $K(4) = 1 + 0 + 0 + 1 + 100 = 102$.
+    - opgave: |-
+        Bereken ook de som van de absolute afwijkingen $\sum \abs{y_i - c}$ voor $c = 6$ en voor $c = 4$. Wat merk je?
+      antwoord: |-
+        $16$ en $12$: nu wint de mediaan
+      uitwerking: |-
+        Bij $c = 6$: $3 + 2 + 2 + 1 + 8 = 16$. Bij $c = 4$: $1 + 0 + 0 + 1 + 10 = 12$. Met absolute afwijkingen is de mediaan beter.
+    - opgave: |-
+        Welke constante beschrijft de groep volgens jou het best? Wat doet de 14 met het gemiddelde?
+      antwoord: |-
+        de mediaan; één uitschieter trekt het gemiddelde omhoog
+      uitwerking: |-
+        Vier van de vijf sportten 3 tot 5 uur; het gemiddelde 6 ligt boven al die vier, door de ene 14. Kwadraten laten grote afwijkingen zwaar doorwegen: zo trekt één uitschieter de kleinste-kwadratenoplossing naar zich toe. Dat geldt ook voor de regressierechte.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de kleinste kwadratensom
+  opgave: |-
+    Gegeven zijn de punten $(1, 2)$, $(3, 3)$, $(4, 6)$, $(6, 7)$ en $(6, 9)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte met de hand.
+      antwoord: |-
+        $y = \frac{23}{18}x + \frac{13}{45} \approx 1{,}278x + 0{,}289$
+      uitwerking: |-
+        $\xbar = 4$, $\ybar = 5{,}4$. Afwijkingen in $x$: $-3, -1, 0, 2, 2$; in $y$: $-3{,}4$; $-2{,}4$; $0{,}6$; $1{,}6$; $3{,}6$. $\Sxx = 18$, $\Sxy = 10{,}2 + 2{,}4 + 0 + 3{,}2 + 7{,}2 = 23$. $a = \frac{23}{18} \approx 1{,}278$ en $b = 5{,}4 - \frac{23}{18} \cdot 4 = \frac{13}{45} \approx 0{,}289$.
+    - opgave: |-
+        Bereken de kleinste kwadratensom met $K_{\min} = \Syy - \frac{\Sxy^2}{\Sxx}$.
+      antwoord: |-
+        $\approx 3{,}81$
+      uitwerking: |-
+        $\Syy = 11{,}56 + 5{,}76 + 0{,}36 + 2{,}56 + 12{,}96 = 33{,}2$, dus $K_{\min} = 33{,}2 - \frac{529}{18} \approx 3{,}81$.
+    - opgave: |-
+        Controleer met de residuen.
+      antwoord: |-
+        ze geven ook $\approx 3{,}81$
+      uitwerking: |-
+        De residuen zijn ongeveer $0{,}433$; $-1{,}122$; $0{,}600$; $-0{,}956$; $1{,}044$. Hun kwadraten samen: $\approx 0{,}188 + 1{,}259 + 0{,}360 + 0{,}913 + 1{,}091 \approx 3{,}81$.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    invloed van een uitschieter
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.5cm,y=.1cm,font=\scriptsize]
+        \diagram{0}{1}{7}{0}{5}{30}
+        \xas{0,2,...,6}\yas{0,10,...,30}
+        \punten[inkt]{(1,3.1) (2,4.9) (3,7.2) (4,8.8) (5,11.1)}
+        \punten[fel!80!black]{(6,30)}
+      \end{tikzpicture}
+  opgave: |-
+    Bij een proef worden zes meetpunten genoteerd: $(1;\ 3{,}1)$, $(2;\ 4{,}9)$, $(3;\ 7{,}2)$, $(4;\ 8{,}8)$, $(5;\ 11{,}1)$ en $(6, 30)$. Bij het laatste punt had de leerling 13,0 moeten noteren.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de regressierechte met alle zes punten, en met de verbeterde waarde.
+      antwoord: |-
+        $y = 4{,}42x - 4{,}62$ en $y \approx 1{,}991x + 1{,}047$
+      uitwerking: |-
+        Met ICT. Met de fout: $a = 4{,}42$, $b = -4{,}62$. Verbeterd: $a \approx 1{,}991$, $b \approx 1{,}047$.
+    - opgave: |-
+        Hoeveel keer zo groot wordt de helling door die ene fout?
+      antwoord: |-
+        ongeveer 2,2 keer
+      uitwerking: |-
+        $\frac{4{,}42}{1{,}991} \approx 2{,}2$.
+    - opgave: |-
+        Waarom trekt dat ene punt zo hard aan de rechte? Gebruik de vierkanten van de residuen.
+      antwoord: |-
+        een groot residu geeft een zeer groot vierkant
+      uitwerking: |-
+        Tegenover de goede rechte heeft het foute punt een residu van ongeveer $30 - 13 = 17$, dus een vierkant van bijna 290. De methode verkleint de totale oppervlakte, en draait de rechte daarom naar dat punt, ook al worden de andere vierkanten groter. Bovendien ligt het punt aan de rand ($x = 6$), waar een draaiing het meest uitmaakt.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    eigenschappen van de residuen
+  opgave: |-
+    Neem de regressierechte $\yhat = ax + b$, met residuen $e_i = y_i - \yhat_i$. Toon aan:
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\som e_i = 0$.
+      antwoord: |-
+        eerste normaalvergelijking
+      uitwerking: |-
+        $\som e_i = \som y_i - a\som x_i - nb$, en dat is 0 door de eerste normaalvergelijking (of omdat $\partafg{K}{b} = -2\som e_i = 0$).
+    - opgave: |-
+        $\som x_i e_i = 0$.
+      antwoord: |-
+        tweede normaalvergelijking
+      uitwerking: |-
+        $\som x_i e_i = \som x_i y_i - a\som x_i^2 - b\som x_i = 0$ door de tweede normaalvergelijking (of $\partafg{K}{a} = -2\som x_i e_i = 0$).
+    - opgave: |-
+        $\som \yhat_i e_i = 0$: de voorspellingen en de residuen hangen niet lineair samen.
+      antwoord: |-
+        combineer de vorige twee
+      uitwerking: |-
+        $\som \yhat_i e_i = \som (a x_i + b) e_i = a\som x_i e_i + b\som e_i = 0 + 0 = 0$.
+    - opgave: |-
+        Ga de drie eigenschappen na voor de punten van voorbeeld \ref{vb:h1-kwadratensom}.
+      antwoord: |-
+        residuen $-\frac16$, $\frac13$, $-\frac16$
+      uitwerking: |-
+        Bij $y = 1{,}5x + \frac23$ zijn de residuen $-\frac16$, $\frac13$, $-\frac16$. Som: 0. Met $x_i$: $-\frac16 + \frac23 - \frac12 = 0$. Met $\yhat_i = \frac{13}{6}, \frac{11}{3}, \frac{31}{6}$: $-\frac{13}{36} + \frac{11}{9} - \frac{31}{36} = \frac{-13 + 44 - 31}{36} = 0$.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    r ligt tussen -1 en 1
+  opgave: |-
+    In de 2de graad zag je dat $-1 \leqslant r \leqslant 1$, zonder bewijs. Nu kan het. Neem $n$ punten, niet allemaal met dezelfde $x$ en niet allemaal met dezelfde $y$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Gebruik $K_{\min} = \Syy - \frac{\Sxy^2}{\Sxx} \geqslant 0$ om aan te tonen dat $\Sxy^2 \leqslant \Sxx\Syy$.
+      antwoord: |-
+        vermenigvuldig met $\Sxx > 0$
+      uitwerking: |-
+        $K_{\min}$ is een som van kwadraten, dus niet negatief. Vermenigvuldig $\Syy - \frac{\Sxy^2}{\Sxx} \geqslant 0$ met $\Sxx > 0$: $\Sxx\Syy - \Sxy^2 \geqslant 0$.
+    - opgave: |-
+        Leid af dat $-1 \leqslant r \leqslant 1$.
+      antwoord: |-
+        $r^2 = \frac{\Sxy^2}{\Sxx\Syy} \leqslant 1$
+      uitwerking: |-
+        $r^2 = \frac{\Sxy^2}{\Sxx\Syy} \leqslant 1$, dus $\abs{r} \leqslant 1$.
+    - opgave: |-
+        Toon aan: $r = 1$ of $r = -1$ als en slechts als alle punten op één rechte liggen.
+      antwoord: |-
+        $r^2 = 1 \iff K_{\min} = 0$
+      uitwerking: |-
+        $r^2 = 1 \iff \Sxy^2 = \Sxx\Syy \iff K_{\min} = 0$. Een som van kwadraten is 0 als en slechts als elk residu 0 is: alle punten liggen op de regressierechte. Omgekeerd: liggen ze op een rechte (niet verticaal, want niet alle $x$ gelijk; niet horizontaal, want niet alle $y$ gelijk), dan is die rechte de beste, met $K_{\min} = 0$.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een strijdig stelsel (Legendre)
+  prent:
+    naam: komeet
+  opgave: |-
+    Legendre stelde de methode in 1805 voor als een manier om een stelsel op te lossen dat meer vergelijkingen dan onbekenden heeft. Neem het stelsel
+    \[ a + b = 3, \qquad a - b = 1, \qquad 2a + b = 5{,}2 . \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat het stelsel strijdig is.
+      antwoord: |-
+        de eerste twee geven $(2, 1)$, en $2 \cdot 2 + 1 = 5 \neq 5{,}2$
+      uitwerking: |-
+        Optellen van de eerste twee: $2a = 4$, dus $a = 2$ en $b = 1$. Maar dan is $2a + b = 5$, niet $5{,}2$.
+    - opgave: |-
+        Zoek de $a$ en $b$ die de som van de kwadraten van de fouten, $(a + b - 3)^2 + (a - b - 1)^2 + (2a + b - 5{,}2)^2$, zo klein mogelijk maken.
+      antwoord: |-
+        $a = \frac{72}{35} \approx 2{,}057$; \ $b = \frac{36}{35} \approx 1{,}029$
+      uitwerking: |-
+        Naar $a$: $2(a + b - 3) + 2(a - b - 1) + 4(2a + b - 5{,}2) = 0$, dus $6a + 2b = 14{,}4$. Naar $b$: $2(a + b - 3) - 2(a - b - 1) + 2(2a + b - 5{,}2) = 0$, dus $2a + 3b = 7{,}2$. Uit de tweede: $a = 3{,}6 - 1{,}5b$; invullen: $21{,}6 - 9b + 2b = 14{,}4$, dus $b = \frac{7{,}2}{7} = \frac{36}{35}$ en $a = 3{,}6 - \frac{54}{35} = \frac{72}{35}$.
+    - opgave: |-
+        Bereken de drie fouten. Waarom is dat een redelijk compromis?
+      antwoord: |-
+        $\approx 0{,}086$; \ $0{,}029$; \ ${-0{,}057}$
+      uitwerking: |-
+        $a + b - 3 = \frac{108}{35} - 3 \approx 0{,}086$, $a - b - 1 = \frac{36}{35} - 1 \approx 0{,}029$, $2a + b - 5{,}2 = \frac{180}{35} - 5{,}2 \approx -0{,}057$. De fout van $0{,}2$ wordt over de drie vergelijkingen verdeeld, in plaats van ze helemaal in één vergelijking te laten.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een andere afleiding
+  opgave: |-
+    Je kunt de regressierechte ook vinden zonder partiële afgeleiden, in twee stappen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Houd $a$ vast. Toon aan dat $K(a, b) = \som \bigl((y_i - a x_i) - b\bigr)^2$ het kleinst is voor $b = \ybar - a\xbar$.
+      antwoord: |-
+        de beste constante voor de getallen $y_i - a x_i$
+      uitwerking: |-
+        Voor vaste $a$ zoek je de beste constante $b$ voor de getallen $z_i = y_i - a x_i$. Dat is hun gemiddelde: $\overline{z} = \ybar - a\xbar$.
+    - opgave: |-
+        Vul $b = \ybar - a\xbar$ in, en toon aan dat $K(a, \ybar - a\xbar) = \Syy - 2a\Sxy + a^2\Sxx$.
+      antwoord: |-
+        $y_i - a x_i - \ybar + a\xbar = v_i - a u_i$
+      uitwerking: |-
+        Met $u_i = x_i - \xbar$ en $v_i = y_i - \ybar$ wordt elk residu $v_i - a u_i$, en $\som (v_i - a u_i)^2 = \som v_i^2 - 2a\som u_i v_i + a^2\som u_i^2$.
+    - opgave: |-
+        Zoek het minimum van die functie van $a$. Vind je dezelfde rechte?
+      antwoord: |-
+        $a = \frac{\Sxy}{\Sxx}$, ja
+      uitwerking: |-
+        Een dalparabool in $a$ (want $\Sxx > 0$), met afgeleide $-2\Sxy + 2a\Sxx = 0$ voor $a = \frac{\Sxy}{\Sxx}$. Samen met $b = \ybar - a\xbar$ is dat de regressierechte.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    absolute afwijkingen en de mediaan
+  opgave: |-
+    Neem de vijf getallen $1 < 2 < 4 < 7 < 11$ en de functie $A(c) = \sum \abs{y_i - c}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $A(c)$ zonder absolute waarden voor $4 < c < 7$. Is $A$ daar stijgend of dalend?
+      antwoord: |-
+        $A(c) = c + 11$; stijgend
+      uitwerking: |-
+        Voor $4 < c < 7$ is $A(c) = (c - 1) + (c - 2) + (c - 4) + (7 - c) + (11 - c) = c + 11$: stijgend, met richtingscoëfficiënt $3 - 2 = 1$.
+    - opgave: |-
+        Wat is de richtingscoëfficiënt van $A$ op elk van de zes intervallen? Waar ligt het minimum?
+      antwoord: |-
+        $-5, -3, -1, 1, 3, 5$; in $c = 4$
+      uitwerking: |-
+        Liggen er $k$ getallen links van $c$, dan is de richtingscoëfficiënt $k - (5 - k) = 2k - 5$: $-5, -3, -1, 1, 3, 5$. $A$ daalt tot $c = 4$ en stijgt daarna: het minimum ligt bij de mediaan 4, met $A(4) = 3 + 2 + 0 + 3 + 7 = 15$.
+    - opgave: |-
+        Waarom kun je hier niet zoals bij de kwadraten de afgeleide gelijkstellen aan 0?
+      antwoord: |-
+        $A$ is niet afleidbaar in de knikpunten, en $A'$ is nergens 0
+      uitwerking: |-
+        $A$ is een gebroken lijn: in elk gegeven getal heeft ze een knik, en daar bestaat de afgeleide niet. Elders is $A'$ een oneven getal, dus nooit 0. Het minimum zit in een knik. Dat is een reden waarom men kwadraten verkiest: die geven een afleidbare functie en een formule.
+
+- id: h1-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    model met twee termen door de oorsprong
+  opgave: |-
+    Een bal wordt verticaal omhoog gegooid. Een camera meet de hoogte $h$ (in m) boven het startpunt na $t$ seconden. Het model is $h = vt - ct^2$.
+
+    \smallskip
+    {\centering\kleinetabel[$t$ (s)][$h$ (m)]{4}{0{,}5 & 1 & 1{,}5 & 2}{4{,}8 & 7{,}1 & 7{,}0 & 4{,}4}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de kwadratensom $K(v, c)$ en stel de twee partiële afgeleiden gelijk aan 0. Toon aan dat je het stelsel $v\sum t_i^2 - c\sum t_i^3 = \sum t_i h_i$ en $v\sum t_i^3 - c\sum t_i^4 = \sum t_i^2 h_i$ krijgt.
+      antwoord: |-
+        zie de uitwerking
+      uitwerking: |-
+        $K(v, c) = \sum (h_i - v t_i + c t_i^2)^2$. $\partafg{K}{v} = -2\sum t_i(h_i - v t_i + c t_i^2) = 0$ geeft $\sum t_i h_i = v\sum t_i^2 - c\sum t_i^3$. $\partafg{K}{c} = 2\sum t_i^2(h_i - v t_i + c t_i^2) = 0$ geeft $\sum t_i^2 h_i = v\sum t_i^3 - c\sum t_i^4$.
+    - opgave: |-
+        Bereken de sommen en los het stelsel op.
+      antwoord: |-
+        $v \approx 12{,}0$ m/s, \ $c \approx 4{,}92$ m/s$^2$
+      uitwerking: |-
+        $\sum t_i^2 = 7{,}5$, $\sum t_i^3 = 12{,}5$, $\sum t_i^4 = 22{,}125$, $\sum t_i h_i = 2{,}4 + 7{,}1 + 10{,}5 + 8{,}8 = 28{,}8$, $\sum t_i^2 h_i = 1{,}2 + 7{,}1 + 15{,}75 + 17{,}6 = 41{,}65$. Het stelsel $7{,}5v - 12{,}5c = 28{,}8$ en $12{,}5v - 22{,}125c = 41{,}65$ geeft $c = \frac{12{,}5 \cdot 28{,}8 - 7{,}5 \cdot 41{,}65}{7{,}5 \cdot 22{,}125 - 12{,}5^2} = \frac{47{,}625}{9{,}6875} \approx 4{,}916$ en $v = \frac{28{,}8 + 12{,}5c}{7{,}5} \approx 12{,}03$.
+    - opgave: |-
+        De valversnelling is $g = 2c$. Vergelijk met $9{,}81$ m/s$^2$.
+      antwoord: |-
+        $g \approx 9{,}83$ m/s$^2$
+      uitwerking: |-
+        $2 \cdot 4{,}916 \approx 9{,}83$ m/s$^2$: dicht bij $9{,}81$.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: Matrices
+  thema: |-
+    normaalvergelijkingen als matrixvergelijking
+  opgave: |-
+    Neem de punten $(1, 2)$, $(2, 4)$ en $(3, 5)$. Stel $A = \km{1 & 1 \\ 2 & 1 \\ 3 & 1}$ (de $x_i$ en een kolom enen), $Y = \km{2 \\ 4 \\ 5}$ en $P = \km{a \\ b}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $AP$. Wat stellen de elementen van $Y - AP$ voor?
+      antwoord: |-
+        $\km{a + b \\ 2a + b \\ 3a + b}$; de residuen
+      uitwerking: |-
+        $AP$ bevat de voorspellingen $a x_i + b$, en $Y - AP$ de residuen $y_i - a x_i - b$.
+    - opgave: |-
+        Bereken $A^T A$ en $A^T Y$. Toon aan dat $A^T A \, P = A^T Y$ precies de normaalvergelijkingen zijn.
+      antwoord: |-
+        $\km{14 & 6 \\ 6 & 3}$ en $\km{25 \\ 11}$
+      uitwerking: |-
+        $A^T A = \km{\sum x_i^2 & \sum x_i \\ \sum x_i & n} = \km{14 & 6 \\ 6 & 3}$ en $A^T Y = \km{\sum x_i y_i \\ \sum y_i} = \km{25 \\ 11}$. De twee rijen van $A^T A \, P = A^T Y$ zijn $14a + 6b = 25$ en $6a + 3b = 11$: de normaalvergelijkingen.
+    - opgave: |-
+        Los op met de inverse matrix.
+      antwoord: |-
+        $a = 1{,}5$, \ $b = \frac23$
+      uitwerking: |-
+        $\det(A^T A) = 42 - 36 = 6$, dus $(A^T A)^{-1} = \frac16\km{3 & -6 \\ -6 & 14}$ en $P = \frac16\km{75 - 66 \\ -150 + 154} = \km{1{,}5 \\ \frac23}$.
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: meetkunde
+    onderwerp: Ruimtemeetkunde
+  thema: |-
+    normaalvergelijkingen en loodrechte stand
+  opgave: |-
+    Met drie punten kun je de gegevens als vectoren in de ruimte zien. Neem weer $(1, 2)$, $(2, 4)$ en $(3, 5)$, en de vectoren $\vec u = (1, 1, 1)$, $\vec x = (1, 2, 3)$ en $\vec y = (2, 4, 5)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij een rechte $y = ax + b$ hoort de residuvector $\vec e = \vec y - a\vec x - b\vec u$. Toon aan dat $K(a, b) = \abs{\vec e}^2$.
+      antwoord: |-
+        de coördinaten van $\vec e$ zijn de residuen
+      uitwerking: |-
+        De $i$-de coördinaat van $\vec e$ is $y_i - a x_i - b$, en $\abs{\vec e}^2$ is de som van de kwadraten van de coördinaten.
+    - opgave: |-
+        Toon aan dat de normaalvergelijkingen zeggen: $\vec e \cdot \vec u = 0$ en $\vec e \cdot \vec x = 0$.
+      antwoord: |-
+        $\vec e \cdot \vec u = \sum e_i$ en $\vec e \cdot \vec x = \sum x_i e_i$
+      uitwerking: |-
+        $\vec e \cdot \vec u = \sum e_i$ en $\vec e \cdot \vec x = \sum x_i e_i$. Beide zijn 0 in het minimum, door de twee normaalvergelijkingen: de residuvector staat loodrecht op $\vec u$ en $\vec x$, dus op het vlak dat ze opspannen. Vandaar de naam \textit{normaal}vergelijkingen.
+    - opgave: |-
+        Bereken $\vec e$ voor de regressierechte $y = 1{,}5x + \frac23$ en controleer beide scalaire producten. Wat is $a\vec x + b\vec u$ meetkundig?
+      antwoord: |-
+        $\vec e = \bigl(-\frac16, \frac13, -\frac16\bigr)$; de loodrechte projectie van $\vec y$
+      uitwerking: |-
+        $\vec e = (2 - \frac{13}{6},\ 4 - \frac{11}{3},\ 5 - \frac{31}{6}) = (-\frac16, \frac13, -\frac16)$. $\vec e \cdot \vec u = 0$ en $\vec e \cdot \vec x = -\frac16 + \frac23 - \frac12 = 0$. De vector $a\vec x + b\vec u$ ligt in het vlak door $\vec u$ en $\vec x$, en $\vec y$ min die vector staat loodrecht op dat vlak: het is de loodrechte projectie van $\vec y$ op het vlak, het punt van het vlak dat het dichtst bij $\vec y$ ligt.
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: analyse
+    onderwerp: Integralen
+  thema: |-
+    kleinste kwadraten met een integraal
+  opgave: |-
+    In plaats van punten kun je ook een functie benaderen. Neem $f(x) = x^2$ op $[0, 1]$, en vervang de som van de kwadraten door een integraal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\int_0^1 (x^2 - c)^2\dx$ als functie van $c$. Voor welke $c$ is ze het kleinst? Vergelijk met de gemiddelde waarde van $f$ op $[0, 1]$.
+      antwoord: |-
+        $\frac15 - \frac23 c + c^2$; $c = \frac13$, de gemiddelde waarde
+      uitwerking: |-
+        $\int_0^1 (x^4 - 2cx^2 + c^2)\dx = \frac15 - \frac23 c + c^2$. De afgeleide $-\frac23 + 2c$ is 0 voor $c = \frac13 = \int_0^1 x^2\dx$: zoals bij punten is de beste constante het gemiddelde.
+    - opgave: |-
+        Zoek de rechte $y = ax$ waarvoor $\int_0^1 (x^2 - ax)^2\dx$ het kleinst is.
+      antwoord: |-
+        $a = \frac34$
+      uitwerking: |-
+        $\int_0^1 (x^4 - 2ax^3 + a^2x^2)\dx = \frac15 - \frac{a}{2} + \frac{a^2}{3}$, met afgeleide $-\frac12 + \frac{2a}{3} = 0$ voor $a = \frac34$.
+    - opgave: |-
+        Neem nu de punten $(x_i, x_i^2)$ met $x_i = \frac14, \frac24, \frac34, 1$ en bereken de rechte door de oorsprong met de formule $a = \frac{\sum x_i y_i}{\sum x_i^2}$. Waarom ligt het antwoord dicht bij $\frac34$, en wat gebeurt er als je de punten dichter kiest?
+      antwoord: |-
+        $\frac56 \approx 0{,}833$; het gaat naar $\frac34$
+      uitwerking: |-
+        $a = \frac{\sum x_i^3}{\sum x_i^2} = \frac{100/64}{30/16} = \frac56$. Teller en noemer, vermenigvuldigd met de stap $\frac14$, zijn Riemannsommen van $\int_0^1 x^3\dx = \frac14$ en $\int_0^1 x^2\dx = \frac13$. Bij steeds dichtere punten gaat het quotiënt naar $\frac{1/4}{1/3} = \frac34$.
+
+- id: h1-koppel-4
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: discreet
+    onderwerp: Rijen
+  thema: |-
+    gelijke stappen in x
+  opgave: |-
+    Vaak zijn de $x$-waarden $1, 2, \ldots, n$: opeenvolgende jaren of metingen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\xbar = \frac{n + 1}{2}$.
+      antwoord: |-
+        $\sum i = \frac{n(n + 1)}{2}$
+      uitwerking: |-
+        De som van een rekenkundige rij: $1 + 2 + \cdots + n = \frac{n(n + 1)}{2}$, gedeeld door $n$.
+    - opgave: |-
+        Gebruik $\sum_{i=1}^n i^2 = \frac{n(n + 1)(2n + 1)}{6}$ om aan te tonen dat $\Sxx = \frac{n(n^2 - 1)}{12}$.
+      antwoord: |-
+        rekenformule voor $\Sxx$
+      uitwerking: |-
+        $\Sxx = \frac{n(n + 1)(2n + 1)}{6} - n\frac{(n + 1)^2}{4} = \frac{n(n + 1)}{12}\bigl(2(2n + 1) - 3(n + 1)\bigr) = \frac{n(n + 1)(n - 1)}{12}$.
+    - opgave: |-
+        Controleer voor $n = 6$ met opdracht \ref{oef:h1-o10}, waar de jaren 2018 tot 2023 zijn.
+      antwoord: |-
+        $\Sxx = 17{,}5$
+      uitwerking: |-
+        $\frac{6 \cdot 35}{12} = 17{,}5$. Verschuiven verandert $\Sxx$ niet, dus voor 2018 tot 2023 is het ook 17,5.
+
+# ---------------------------------------------------------------- test
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Gegeven zijn de punten $(0, 3)$, $(1, 4)$ en $(3, 4)$. Schrijf $K(a, b)$ uit. Welke rechte past het best: $y = 0{,}5x + 3$ of de horizontale rechte $y = \frac{11}{3}$?
+  antwoord: |-
+    $K(0{,}5;\ 3) = 0{,}5$ en $K(0, \frac{11}{3}) = \frac23$: de eerste
+  uitwerking: |-
+    $K(a, b) = (3 - b)^2 + (4 - a - b)^2 + (4 - 3a - b)^2$. $K(0{,}5;\ 3) = 0 + 0{,}25 + 0{,}25 = 0{,}5$ en $K(0, \frac{11}{3}) = \frac49 + \frac19 + \frac19 = \frac23$. De eerste rechte past beter.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken $\partafg{f}{a}$ en $\partafg{f}{b}$ voor $f(a, b) = a^3 - 2ab^2 + 5b$ en voor $g(a, b) = (6 - 2a - b)^2$.
+  antwoord: |-
+    $3a^2 - 2b^2$, $-4ab + 5$; \ $-4(6 - 2a - b)$, $-2(6 - 2a - b)$
+  uitwerking: |-
+    Bij $f$: naar $a$ is $b$ constant, naar $b$ is $a$ constant. Bij $g$: kettingregel met binnenafgeleiden $-2$ en $-1$.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Het model is $y = ax$. Bepaal $a$ met de kleinste kwadraten voor $(2;\ 5{,}1)$, $(4;\ 9{,}8)$, $(6;\ 15{,}3)$ en $(8;\ 19{,}6)$, en leid de formule die je gebruikt af.
+  antwoord: |-
+    $a = \frac{298}{120} \approx 2{,}48$
+  uitwerking: |-
+    $K(a) = \sum (y_i - a x_i)^2$ is een dalparabool in $a$, met $K'(a) = -2\sum x_i(y_i - a x_i) = 0$ voor $a = \frac{\sum x_i y_i}{\sum x_i^2}$. Hier $\sum x_i y_i = 10{,}2 + 39{,}2 + 91{,}8 + 156{,}8 = 298$ en $\sum x_i^2 = 120$, dus $a \approx 2{,}48$.
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Stel de normaalvergelijkingen op voor de punten $(1, 5)$, $(2, 4)$, $(4, 3)$ en $(5, 0)$, en bepaal zo de regressierechte. Waar snijdt ze de rechte $x = \xbar$?
+  antwoord: |-
+    $y = -1{,}1x + 6{,}3$; in $(3, 3)$
+  uitwerking: |-
+    $\sum x_i = 12$, $\sum y_i = 12$, $\sum x_i^2 = 46$, $\sum x_i y_i = 5 + 8 + 12 + 0 = 25$. $12 = 12a + 4b$ en $25 = 46a + 12b$. Drie keer de eerste: $36 = 36a + 12b$; aftrekken: $-11 = 10a$, dus $a = -1{,}1$ en $b = 3 + 3{,}3 = 6{,}3$. Ze gaat door het gemiddelde punt $(3, 3)$.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een zwembad noteert op zes dagen de maximumtemperatuur $x$ (in °C) en het aantal bezoekers $y$.
+
+    \smallskip
+    {\centering\kleinetabel[$x$ (°C)][$y$]{6}{12 & 15 & 18 & 22 & 25 & 28}{310 & 380 & 450 & 520 & 610 & 640}\par}
+
+    \smallskip
+    Bereken de regressierechte met de rekenformules, zeg wat de helling betekent, en controleer met ICT.
+  antwoord: |-
+    $y \approx 21{,}13x + 62{,}4$
+  uitwerking: |-
+    $\xbar = 20$, $\ybar = 485$, $\sum x_i^2 = 2586$, $\sum x_i y_i = 62\,130$. $\Sxx = 2586 - 6 \cdot 400 = 186$ en $\Sxy = 62\,130 - 6 \cdot 20 \cdot 485 = 3930$. $a = \frac{3930}{186} \approx 21{,}13$ en $b = 485 - 21{,}13 \cdot 20 \approx 62{,}4$. Per graad warmer komen er gemiddeld ongeveer 21 bezoekers meer.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Van een groep leerlingen is de wekelijkse studietijd $x$ gemiddeld 30 uur met $s_x = 5$, de score $y$ gemiddeld 70 met $s_y = 8$, en $r = 0{,}75$. Bepaal de regressierechte van $y$ op $x$. Voorspel de score bij 40 uur, en leg uit waarom die voorspelling minder uitzonderlijk is dan de studietijd.
+  antwoord: |-
+    $y = 1{,}2x + 34$; $82$
+  uitwerking: |-
+    $a = 0{,}75 \cdot \frac85 = 1{,}2$ en $b = 70 - 1{,}2 \cdot 30 = 34$. Bij 40 uur: $82$. De studietijd ligt 2 standaardafwijkingen boven het gemiddelde, de voorspelde score $\frac{12}{8} = 1{,}5 = 0{,}75 \cdot 2$: regressie naar het gemiddelde, omdat $\abs{r} < 1$.
+
+- id: h1-t7
+  soort: test
+  niveau: 3
+  opgave: |-
+    Zoek met de partiële afgeleiden het minimum van $f(a, b) = a^2 + 2b^2 - 2ab - 2b + 3$, en toon met een kwadraat afsplitsen aan dat het echt een minimum is.
+  antwoord: |-
+    minimum $2$ in $(1, 1)$
+  uitwerking: |-
+    $\partafg{f}{a} = 2a - 2b = 0$ en $\partafg{f}{b} = 4b - 2a - 2 = 0$ geven $a = b$ en $2b - 2 = 0$: $(1, 1)$, met $f(1, 1) = 2$. En $f(a, b) = (a - b)^2 + (b - 1)^2 + 2 \geqslant 2$.

@@ -1,0 +1,464 @@
+%----------------------------------------------------------------------------------------
+% PERIODIEK GEDRAG EN CHAOS. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Periodiek gedrag en chaos}
+
+\begin{probleem}
+Een bioloog volgt een populatie kevers die zich eenmaal per jaar voortplant. Hij noteert de grootte $x_n$ na $n$ jaar als deel van het grootste aantal dat het gebied kan dragen, zodat $0 \leqslant x_n \leqslant 1$, en gebruikt het model
+\[
+x_n = r\,x_{n-1}\,(1 - x_{n-1}) .
+\]
+Is de populatie klein, dan wordt ze ongeveer met $r$ vermenigvuldigd; is ze groot, dan remt de factor $1 - x_{n-1}$ de groei. Voor drie soorten met een andere $r$ geeft het model, telkens vanaf $x_0 = 0{,}2$:
+
+\figuren{\begin{tikzpicture}[x=.21cm,y=2.4cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=.25] (0,0) grid (20,1);
+  \draw[->,grijs] (0,0) -- (21,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,1.1);
+  \foreach \t in {10,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {.5,1}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent!45] plot coordinates {(0,.2) (1,.448) (2,.692) (3,.596) (4,.674) (5,.615) (6,.663) (7,.626) (8,.656) (9,.632) (10,.651) (11,.636) (12,.648) (13,.639) (14,.646) (15,.640) (16,.645) (17,.641) (18,.644) (19,.642) (20,.644)};
+  \foreach \x/\y in {0/.2,1/.448,2/.692,3/.596,4/.674,5/.615,6/.663,7/.626,8/.656,9/.632,10/.651,11/.636,12/.648,13/.639,14/.646,15/.640,16/.645,17/.641,18/.644,19/.642,20/.644}{\fill[accent] (\x,\y) circle (1.3pt);}
+  \node[above] at (10,1.05) {$r = 2{,}8$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=.21cm,y=2.4cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=.25] (0,0) grid (20,1);
+  \draw[->,grijs] (0,0) -- (21,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,1.1);
+  \foreach \t in {10,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \draw[accent!45] plot coordinates {(0,.2) (1,.528) (2,.822) (3,.482) (4,.824) (5,.479) (6,.824) (7,.480) (8,.824) (9,.479) (10,.824) (11,.479) (12,.824) (13,.479) (14,.824) (15,.479) (16,.824) (17,.479) (18,.824) (19,.479) (20,.824)};
+  \foreach \x/\y in {0/.2,1/.528,2/.822,3/.482,4/.824,5/.479,6/.824,7/.480,8/.824,9/.479,10/.824,11/.479,12/.824,13/.479,14/.824,15/.479,16/.824,17/.479,18/.824,19/.479,20/.824}{\fill[accent] (\x,\y) circle (1.3pt);}
+  \node[above] at (10,1.05) {$r = 3{,}3$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[x=.21cm,y=2.4cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=5,ystep=.25] (0,0) grid (20,1);
+  \draw[->,grijs] (0,0) -- (21,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,1.1);
+  \foreach \t in {10,20}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \draw[accent!45] plot coordinates {(0,.2) (1,.624) (2,.915) (3,.303) (4,.824) (5,.566) (6,.958) (7,.156) (8,.514) (9,.974) (10,.098) (11,.345) (12,.881) (13,.409) (14,.943) (15,.210) (16,.647) (17,.891) (18,.379) (19,.918) (20,.293)};
+  \foreach \x/\y in {0/.2,1/.624,2/.915,3/.303,4/.824,5/.566,6/.958,7/.156,8/.514,9/.974,10/.098,11/.345,12/.881,13/.409,14/.943,15/.210,16/.647,17/.891,18/.379,19/.918,20/.293}{\fill[accent] (\x,\y) circle (1.3pt);}
+  \node[above] at (10,1.05) {$r = 3{,}9$};
+\end{tikzpicture}}
+
+Bij $r = 2{,}8$ komt de populatie tot rust, bij $r = 3{,}3$ wisselen goede en slechte jaren elkaar af, en bij $r = 3{,}9$ lijkt het aantal willekeurig te springen. Hoe kan één eenvoudige formule zo verschillend gedrag geven? Vanaf welke $r$ beginnen de goede en slechte jaren elkaar af te wisselen? En is het gedrag bij $r = 3{,}9$ echt onvoorspelbaar?
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 46, met de wenken over functies met periodieke iteraties (zoals $f(x) = -x$) en startwaarden die tot cyclisch gedrag leiden; ook LPD 44 en 45 komen terug, nu voor cycli. Voorkennis: hoofdstuk 1, de kettingregel (Limieten en afgeleiden), euclidische deling van veeltermen en de formules van Vieta (2de graad), en de verdubbelingsformule $\sin 2\theta = 2\sin\theta\cos\theta$ (Goniometrische functies). Het bifurcatiediagram, de constante van Feigenbaum en het begrip chaos zijn extra's die het leerplan niet vraagt, maar die het probleem beantwoorden. Het model gaat terug op het onderzoek van Robert May naar insectenpopulaties (1976). Laat de leerlingen in de Verken zelf ontdekken dat $f(x) = -x$ en $f(x) = \tfrac{1}{1-x}$ banen geven die terugkeren.}
+
+In hoofdstuk 1 kwam een baan tot rust in een dekpunt, of liep ze weg naar oneindig. Maar de baan van 0,5 onder $x^2 - 1$ deed iets anders: ze sprong heen en weer tussen twee waarden. In dit hoofdstuk bestuderen we banen die zich herhalen. We berekenen ze met dezelfde middelen als dekpunten: een vergelijking voor de punten, en de afgeleide voor de stabiliteit. Daarna passen we alles toe op het model van het probleem, en zien we hoe een herhaling met periode 2 overgaat in periode 4, 8, 16, \ldots{} en uiteindelijk in chaos.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Periodieke punten}
+
+\subsection{Banen die terugkeren}
+
+Kan een baan terugkeren naar haar startwaarde zonder stil te staan? Neem $f(x) = -x$. De baan van 3 is $3, -3, 3, -3, \ldots$: na twee stappen ben je terug. Dat geldt voor elke startwaarde behalve 0, want $f(f(x)) = -(-x) = x$.
+
+\begin{theorie}
+Een getal $p$ is een \textbf{\textcolor{accent}{periodiek punt}} van $f$ met \textbf{\textcolor{accent}{periode}} $k$ als
+\[
+\formule{\iter{f}{k}(p) = p} \qquad \text{en} \qquad \iter{f}{j}(p) \neq p \text{ voor } 1 \leqslant j < k .
+\]
+De baan $p, f(p), \ldots, \iter{f}{k-1}(p)$ heet dan een \textbf{\textcolor{accent}{cyclus}} van lengte $k$, of een $k$-cyclus.
+\end{theorie}
+
+De periode is de kleinste $k$ waarna de baan terugkeert: een punt met periode 2 keert ook na 4 en 6 stappen terug, maar heeft periode 2. Een dekpunt is een periodiek punt met periode 1. Een cyclus bestaat uit $k$ verschillende getallen, en elk ervan is een periodiek punt met dezelfde periode.
+
+\voorbeeld{}{Toon aan dat elke $x$ waarvoor de baan bestaat, een periodiek punt met periode 3 is van $f(x) = \dfrac{1}{1 - x}$. Geef de cyclus van 2.\label{vb:h2-periode3}}{%
+\uitleg{We berekenen de iteraties als formule. Om te tonen dat de periode echt 3 is en niet 1, kijken we ook of $f$ dekpunten heeft.}
+\begin{stappen}
+\iter{f}{2}(x) = \dfrac{1}{1 - \frac{1}{1 - x}} = \dfrac{1 - x}{-x} = \dfrac{x - 1}{x} & Vermenigvuldig teller en noemer met $1 - x$. \\[2ex]
+\iter{f}{3}(x) = \dfrac{1}{1 - \frac{x - 1}{x}} = \dfrac{x}{x - (x - 1)} = x & Na drie stappen ben je terug. \\[1.5ex]
+\dfrac{1}{1 - x} = x \iff x^2 - x + 1 = 0 & Discriminant $-3 < 0$: geen dekpunten. \\
+2 \to -1 \to \tfrac12 \to 2 & De cyclus van 2.
+\end{stappen}
+Elke $x$ (behalve 0 en 1, waar de baan na een of twee stappen een noemer 0 geeft) keert dus na drie stappen terug, en niet na één. Periode 2 kan ook niet: was $\iter f2(x) = x$, dan was $x = \iter f3(x) = f\bigl(\iter f2(x)\bigr) = f(x)$, een dekpunt.}
+
+\begin{werkwijze}
+Bereken $\iter{f}{2}(p)$, $\iter{f}{3}(p)$, \ldots{} tot je terug bij $p$ bent. De eerste $k$ waarbij dat gebeurt, is de periode. Wil je aantonen dat elke $x$ periodiek is, bereken $\iter{f}{k}(x)$ dan als formule.
+\end{werkwijze}
+
+\nujij{Toon aan dat $f(x) = 6 - x$ geen andere periodieke punten heeft dan een dekpunt en punten met periode 2.}{$f(f(x)) = 6 - (6 - x) = x$, dus elke $x$ keert na twee stappen terug. Het dekpunt is 3; elke andere $x$ heeft periode 2, met de cyclus $\{x, 6 - x\}$.}
+
+\begin{oefeningen}
+\oef{h2-periode}
+\end{oefeningen}
+
+\subsection{Een cyclus van lengte 2 berekenen}
+
+Bij $f(x) = -x$ en $f(x) = \tfrac1{1-x}$ is elk punt periodiek. Meestal zijn er maar enkele periodieke punten. Hoe vind je ze? Een punt met periode 2 is een dekpunt van $\iter{f}{2}$: je lost $f(f(x)) = x$ op. Maar ook de dekpunten van $f$ voldoen daaraan. Die kun je er bij een veelterm eerst uit delen.
+
+\begin{theorie}
+\begin{stelling}{Dekpunten van $f$ en van $\iter f2$}
+Elk dekpunt van $f$ is een dekpunt van $\iter f2$. Is $f$ een veelterm, dan is $\formule{f(f(x)) - x}$ deelbaar door $\formule{f(x) - x}$.
+\end{stelling}
+
+\begin{bewijs}
+Is $f(p) = p$, dan is $f(f(p)) = f(p) = p$. Voor een veelterm $f(x) = \sum a_k x^k$ is
+\bewijsregel{f(u) - f(v) = \sum a_k\,(u^k - v^k) ,}
+en elke $u^k - v^k = (u - v)(u^{k-1} + u^{k-2}v + \cdots + v^{k-1})$ is deelbaar door $u - v$. Neem $u = f(x)$ en $v = x$: dan is $f(f(x)) - f(x)$ deelbaar door $f(x) - x$, en dus ook
+\bewijsregel{f(f(x)) - x = \bigl(f(f(x)) - f(x)\bigr) + \bigl(f(x) - x\bigr) .}
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bepaal de punten met periode 2 van $f(x) = x^2 - 1$.\label{vb:h2-cyclus}}{%
+\uitleg{We stellen $f(f(x)) - x$ op, en delen de veelterm $f(x) - x = x^2 - x - 1$ eruit. Wat overblijft, geeft de cyclus.}
+\begin{stappenbreed}
+f(f(x)) - x = (x^2 - 1)^2 - 1 - x = x^4 - 2x^2 - x & Uitwerken. \\
+x^4 - 2x^2 - x = (x^2 - x - 1)(x^2 + x) & Euclidische deling door $x^2 - x - 1$. \\
+x^2 + x = x(x + 1) = 0 & De twee punten met periode 2: $0$ en $-1$. \\
+f(0) = -1, \ f(-1) = 0 & Controle: ze vormen een cyclus.
+\end{stappenbreed}
+Dat verklaart de baan van 0,5 uit hoofdstuk 1: ze kwam steeds dichter bij de cyclus $\{0, -1\}$.}
+
+\begin{werkwijze}
+Stel $f(f(x)) - x$ op en deel door $f(x) - x$ (als $f$ een veelterm is). De nulwaarden van het quotiënt die geen dekpunt zijn, zijn de punten met periode 2. Controleer met $f(p) = q$ en $f(q) = p$.
+\end{werkwijze}
+
+\nujij{Bepaal de punten met periode 2 van $f(x) = x^2 - 3$.}{$f(f(x)) - x = (x^2 - x - 3)(x^2 + x - 2)$, en $x^2 + x - 2 = (x - 1)(x + 2)$: de cyclus $\{1, -2\}$.}
+
+\begin{oefeningen}
+\oef{h2-cyclus}
+\end{oefeningen}
+
+\subsection{Uiteindelijk periodiek}
+
+Sommige banen worden pas na een paar stappen periodiek. Bij $f(x) = x^2 - 1$ is de baan van 1: $1, 0, -1, 0, -1, \ldots$ Het getal 1 zelf ligt niet op de cyclus, maar na één stap zit de baan erin.
+
+\begin{theorie}
+Een startwaarde $x_0$ is \textbf{\textcolor{accent}{uiteindelijk periodiek}} als haar baan na een aantal stappen een periodiek punt bereikt, zonder dat $x_0$ zelf periodiek is.
+\end{theorie}
+
+Zo'n startwaarde vind je door terug te rekenen: welke $x$ heeft als beeld een punt van de cyclus? En welke $x$ heeft als beeld zo'n $x$? Elke stap terug is een vergelijking $f(x) = y$.
+
+\voorbeeld{}{Bepaal alle startwaarden die na één of twee stappen op de cyclus $\{0, -1\}$ van $f(x) = x^2 - 1$ terechtkomen, zonder er zelf op te liggen.\label{vb:h2-uiteindelijk}}{%
+\uitleg{We rekenen terug: eerst de oplossingen van $f(x) = 0$ en $f(x) = -1$, dan de oplossingen van $f(x) = y$ voor elke nieuwe $y$.}
+\begin{stappen}
+x^2 - 1 = 0 \iff x = \pm 1 & $-1$ ligt al op de cyclus, 1 is nieuw. \\
+x^2 - 1 = -1 \iff x = 0 & Ligt al op de cyclus. \\
+x^2 - 1 = 1 \iff x = \pm\sqrt2 & Na één stap in 1, na twee op de cyclus.
+\end{stappen}
+Na één stap: $x_0 = 1$. Na twee stappen: $x_0 = \sqrt 2$ en $x_0 = -\sqrt 2$, met de baan $\pm\sqrt2, 1, 0, -1, 0, \ldots$ Zo kun je verder terugrekenen: na drie stappen komen ook $\pm\sqrt{1 + \sqrt2}$ op de cyclus.}
+
+\nujij{Welke startwaarden komen bij $f(x) = x^2 - 1$ na precies één stap in het dekpunt $\tfrac{1 + \sqrt5}{2}$?}{$x^2 - 1 = \tfrac{1 + \sqrt5}{2}$ geeft $x^2 = \tfrac{3 + \sqrt5}{2} = \bigl(\tfrac{1 + \sqrt5}{2}\bigr)^2$, dus $x = -\tfrac{1 + \sqrt5}{2}$ (de andere oplossing is het dekpunt zelf).}
+
+\begin{oefeningen}
+\oef{h2-uiteindelijk}
+\end{oefeningen}
+
+%========================================================================================
+\section{Stabiliteit van een cyclus}
+
+\subsection{Het criterium voor een cyclus}
+
+De baan van 0,5 onder $x^2 - 1$ kwam bij de cyclus $\{0, -1\}$ uit. Trekt een cyclus dus aan, zoals een dekpunt? Kijk naar $g = \iter f2$: voor $g$ zijn 0 en $-1$ dekpunten, en het criterium van hoofdstuk 1 zegt dat het om $g'$ gaat. Met de kettingregel is
+\[
+g'(x) = \bigl(f(f(x))\bigr)' = f'\bigl(f(x)\bigr) \cdot f'(x) .
+\]
+Voor een punt $p$ van een cyclus $\{p, q\}$ is dat $f'(q)\,f'(p)$: het product van de afgeleiden in de twee punten. Dat is hetzelfde getal in $p$ en in $q$.
+
+\begin{theorie}
+\begin{stelling}{Afgeleide langs een cyclus}
+Is $\{p_1, p_2, \ldots, p_k\}$ een $k$-cyclus van een afleidbare functie $f$, dan is in elk punt van de cyclus
+\[
+\formule{(\iter{f}{k})'(p_i) = f'(p_1) \cdot f'(p_2) \cdots f'(p_k)}
+\]
+\end{stelling}
+
+\begin{bewijs}
+Neem $p_1$, met $p_2 = f(p_1)$, \ldots, $p_k = \iter f{k-1}(p_1)$. De kettingregel geeft $(\iter{f}{j})'(x) = f'\bigl(\iter f{j-1}(x)\bigr) \cdot (\iter{f}{j-1})'(x)$, dus elke stap zet er een factor $f'$ in het volgende punt van de baan bij:
+\bewijsregel{(\iter{f}{k})'(p_1) = f'(p_k) \cdot f'(p_{k-1}) \cdots f'(p_1) .}
+Begin je in een ander punt $p_i$, dan doorloop je dezelfde $k$ punten in een andere volgorde: het product blijft hetzelfde.
+\end{bewijs}
+\end{theorie}
+
+Een $k$-cyclus heet \textit{aantrekkend} als haar punten aantrekkende dekpunten van $\iter{f}{k}$ zijn, en \textit{afstotend} als ze afstotende dekpunten van $\iter fk$ zijn. Volgens hoofdstuk 1 hangt dat af van het product hierboven: is de absolute waarde kleiner dan 1, dan trekt de cyclus aan, is ze groter dan 1, dan stoot ze af. Een baan die vlak bij $p_1$ start, komt dan om de $k$ stappen dichter bij $p_1$, en dus ook dichter bij elk ander punt van de cyclus.
+
+\voorbeeld{}{Is de cyclus $\{0, -1\}$ van $f(x) = x^2 - 1$ aantrekkend? Teken het spinnenwebdiagram van de baan van $0{,}5$.\label{vb:h2-stabiel}}{%
+\uitleg{We berekenen het product van de afgeleiden in de twee punten van de cyclus, en vergelijken met 1.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+f'(x) = 2x & De afgeleide. \\
+f'(0) \cdot f'(-1) = 0 \cdot (-2) = 0 & Het product langs de cyclus. \\
+|0| < 1 & De cyclus is aantrekkend.
+\end{stappenvrij}
+In het spinnenwebdiagram ontstaat een vierkant met hoekpunten op de grafiek en op $y = x$: de baan draait er steeds dichter omheen. Omdat het product 0 is, gaat dat erg snel, net zoals bij de wortel van de Babyloniërs uit hoofdstuk 1.}{\begin{tikzpicture}[scale=1.7,font=\scriptsize]
+  \draw[black!14,very thin,step=.5] (-1.2,-1.2) grid (1.2,1.2);
+  \draw[->,grijs] (-1.2,0) -- (1.35,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1.2) -- (0,1.35) node[above,text=black] {$y$};
+  \foreach \t in {-1,1}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[lijngrijs,thick] (-1.2,-1.2) -- (1.2,1.2);
+  \kromme{-1.2}{1.2}{\x*\x-1}
+  \spinnenweb{\x*\x-1}{.5}{12}
+  \draw[accent,dashed] (0,0) -- (0,-1) -- (-1,-1) -- (-1,0) -- cycle;
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bereken voor een $k$-cyclus $\{p_1, \ldots, p_k\}$ het product $f'(p_1) \cdots f'(p_k)$. Is de absolute waarde kleiner dan 1, dan is de cyclus aantrekkend; is ze groter dan 1, dan afstotend. Bij een 2-cyclus van een tweedegraadsveelterm kun je het product vaak berekenen met de som en het product van $p$ en $q$ (Vieta), zonder de punten zelf.
+\end{werkwijze}
+
+\nujij{Bepaal de 2-cyclus van $f(x) = x^2 - 1{,}2$ en zeg of ze aantrekkend is.}{$f(f(x)) - x = (x^2 - x - 1{,}2)(x^2 + x - 0{,}2)$: $p, q = \tfrac{-1 \pm \sqrt{1{,}8}}{2}$, ongeveer $0{,}171$ en $-1{,}171$. Met $pq = -0{,}2$ is $f'(p)f'(q) = 4pq = -0{,}8$: aantrekkend.}
+
+\begin{oefeningen}
+\oef{h2-stabiel}
+\end{oefeningen}
+
+%========================================================================================
+\section{De logistische afbeelding}
+
+\subsection{Dekpunten en een grens bij \texorpdfstring{$r = 3$}{r = 3}}
+
+Nu kunnen we het model van het probleem onderzoeken. De functie
+\[
+f(x) = r\,x\,(1 - x) \qquad (0 < r \leqslant 4)
+\]
+heet de \emph{logistische afbeelding}. Haar grafiek is een bergparabool door $(0, 0)$ en $(1, 0)$ met top $\bigl(\tfrac12, \tfrac r4\bigr)$. Omdat $r \leqslant 4$, ligt die top niet hoger dan 1: een baan die in $[0, 1]$ start, blijft in $[0, 1]$. Waar gaat ze heen? Eerst de dekpunten.
+
+\begin{theorie}
+\begin{stelling}{Dekpunten van de logistische afbeelding}
+De dekpunten van $f(x) = r\,x\,(1 - x)$ zijn $0$ en $\formule{p = 1 - \dfrac1r}$, met $\formule{f'(0) = r}$ en $\formule{f'(p) = 2 - r}$. Dus:
+\begin{itemize}
+\item voor $0 < r < 1$ is 0 aantrekkend;
+\item voor $1 < r < 3$ is 0 afstotend en $p$ aantrekkend;
+\item voor $r > 3$ zijn beide afstotend.
+\end{itemize}
+\end{stelling}
+
+\begin{bewijs}
+$r\,x\,(1 - x) = x$ geeft $x = 0$ of $r(1 - x) = 1$, dus $x = 1 - \tfrac1r$. De afgeleide is $f'(x) = r(1 - 2x)$, zodat $f'(0) = r$ en
+\bewijsregel{f'(p) = r\Bigl(1 - 2 + \frac2r\Bigr) = 2 - r .}
+Het criterium van hoofdstuk 1: $|r| < 1$ geeft $0 < r < 1$, en $|2 - r| < 1$ geeft $1 < r < 3$.
+\end{bewijs}
+\end{theorie}
+
+Voor $1 < r < 2$ is $f'(p) > 0$: de populatie groeit als een trap naar haar evenwicht. Voor $2 < r < 3$ is $f'(p) < 0$: ze schiet over het evenwicht heen en springt er steeds dichter omheen. Voorbij $r = 3$ trekt geen enkel dekpunt nog aan. Waar gaat de baan dan heen?
+
+\voorbeeld{}{Beschrijf de baan van $x_0 = 0{,}2$ onder $f(x) = 2{,}8\,x(1 - x)$, zonder veel termen te berekenen.\label{vb:h2-logistisch}}{%
+\uitleg{We bepalen het dekpunt $p = 1 - \tfrac1r$ en de afgeleide $2 - r$ erin.}
+\begin{stappen}
+p = 1 - \dfrac{1}{2{,}8} = \dfrac{9}{14} \approx 0{,}643 & Het evenwicht van de populatie. \\[1.5ex]
+f'(p) = 2 - 2{,}8 = -0{,}8 & $|{-0{,}8}| < 1$: aantrekkend, en negatief: springend.
+\end{stappen}
+De baan gaat dus naar 0,643, afwisselend boven en onder het evenwicht. Omdat $|f'(p)| = 0{,}8$ dicht bij 1 ligt, gaat dat traag: de afstand krimpt maar met 20\,\% per jaar. Dat is de eerste grafiek van het probleem.}
+
+\nujij{Voor welke $r$ groeit de populatie als een trap naar haar evenwicht, zonder eroverheen te schieten?}{$0 < f'(p) < 1$, dus $0 < 2 - r < 1$: $1 < r < 2$ (en bij $r = 2$ is $f'(p) = 0$).}
+
+\begin{oefeningen}
+\oef{h2-logistisch}
+\end{oefeningen}
+
+\subsection{Periodeverdubbeling}
+
+Voorbij $r = 3$ is er een 2-cyclus, en die neemt de rol van het dekpunt over. Om ze te vinden, delen we de twee dekpunten uit $f(f(x)) - x$, zoals in sectie 1. Wat overblijft, is een vergelijking van de tweede graad.
+
+\begin{theorie}
+\begin{stelling}{De 2-cyclus van de logistische afbeelding}
+De punten met periode 2 van $f(x) = r\,x\,(1 - x)$ zijn de oplossingen van
+\[
+\formule{r^2 x^2 - r(r + 1)\,x + (r + 1) = 0}
+\]
+Er is een 2-cyclus als $\formule{r > 3}$, en ze is aantrekkend als $\formule{3 < r < 1 + \sqrt6}$.
+\end{stelling}
+
+\begin{bewijs}
+Uitwerken en delen door $x$ en door $f(x) - x$ geeft
+\bewijsregel{f(f(x)) - x = -x\,\bigl(r x - (r - 1)\bigr)\bigl(r^2 x^2 - r(r + 1)x + (r + 1)\bigr) .}
+De discriminant van de laatste factor is $r^2(r + 1)^2 - 4r^2(r + 1) = r^2(r + 1)(r - 3)$: positief voor $r > 3$. Voor de stabiliteit geven de formules van Vieta $p + q = \tfrac{r + 1}{r}$ en $pq = \tfrac{r + 1}{r^2}$, zodat
+\bewijsregel{f'(p)\,f'(q) = r^2(1 - 2p)(1 - 2q) = r^2\bigl(1 - 2(p + q) + 4pq\bigr) = -r^2 + 2r + 4 .}
+Voor $r > 3$ is dat kleiner dan 1, en groter dan $-1$ als $r^2 - 2r - 5 < 0$, dus als $r < 1 + \sqrt6 \approx 3{,}449$.
+\end{bewijs}
+\end{theorie}
+
+Bij $r = 3$ is het product precies 1, en vallen de twee punten van de cyclus samen met het dekpunt $p = \tfrac23$: de cyclus wordt daar uit het dekpunt geboren. Bij $r = 1 + \sqrt6$ verliest de 2-cyclus op haar beurt haar stabiliteit, en neemt een 4-cyclus het over. Dat herhaalt zich: bij $r \approx 3{,}544$ ontstaat een aantrekkende 8-cyclus, bij $r \approx 3{,}564$ een 16-cyclus, en zo verder, steeds sneller. Die \textit{periodeverdubbelingen} hopen zich op bij $r \approx 3{,}5699$. De natuurkundige Mitchell Feigenbaum ontdekte in 1975 dat de afstanden tussen opeenvolgende verdubbelingen telkens ongeveer met de factor $4{,}669$ krimpen, en dat diezelfde factor opduikt bij heel andere functies en zelfs in experimenten met vloeistoffen.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=12cm,height=6cm]{bifurcatie.png}};
+  \draw[grijs] (0,0) rectangle (12,6);
+  \foreach \r/\l in {0/{2{,}8},2/3,4/{3{,}2},6/{3{,}4},8/{3{,}6},10/{3{,}8},12/4}{\draw[grijs] (\r,0) -- (\r,-.1) node[below,text=black] {$\l$};}
+  \foreach \y/\l in {0/0,3/{0{,}5},6/1}{\draw[grijs] (0,\y) -- (-.1,\y) node[left,text=black] {$\l$};}
+  \node[below] at (12.4,-.05) {$r$};
+  \node[left] at (-.3,5.7) {$x$};
+  \draw[accent,dashed] (6.495,0) -- (6.495,6);
+  \node[accent,above,fill=white,inner sep=1pt] at (6.495,6) {$1 + \sqrt6$};
+  \draw[accent,dashed] (7.699,0) -- (7.699,6);
+  \node[accent,above,fill=white,inner sep=1pt] at (8.4,6) {$3{,}5699$};
+\end{tikzpicture}}
+
+Het \emph{bifurcatiediagram} hierboven toont voor elke $r$ tussen 2,8 en 4 waar de baan na lange tijd zit: voor elke $r$ zijn de termen $x_{601}$ tot $x_{850}$ van veertig banen als punten uitgezet. Links één tak (het dekpunt), dan twee (de 2-cyclus), vier, acht, \ldots{} Voorbij 3,57 is het diagram bijna zwart: de baan komt nergens tot rust. Toch zijn er witte vensters, zoals rond $r = 3{,}83$, waar een aantrekkende 3-cyclus zit.
+
+\voorbeeld{}{Bepaal de 2-cyclus van $f(x) = 3{,}2\,x(1 - x)$ en toon aan dat ze aantrekkend is.\label{vb:h2-verdubbeling}}{%
+\uitleg{We vullen $r = 3{,}2$ in de vergelijking van de stelling in, en berekenen het product van de afgeleiden met $-r^2 + 2r + 4$.}
+\begin{stappen}
+10{,}24\,x^2 - 13{,}44\,x + 4{,}2 = 0 & Met $r^2 = 10{,}24$, $r(r + 1) = 13{,}44$ en $r + 1 = 4{,}2$. \\
+x = \dfrac{13{,}44 \pm \sqrt{8{,}6016}}{20{,}48} & Discriminant $180{,}6336 - 172{,}032 = 8{,}6016$. \\[1.5ex]
+p \approx 0{,}7995, \ q \approx 0{,}5130 & De twee jaren van de cyclus. \\
+f'(p)f'(q) = -10{,}24 + 6{,}4 + 4 = 0{,}16 & $|0{,}16| < 1$: aantrekkend.
+\end{stappen}
+Een populatie met $r = 3{,}2$ wisselt dus op den duur af tussen ongeveer 80\,\% en 51\,\% van het maximum.}
+
+\nujij{Bestaat er voor $r = 3{,}5$ een aantrekkende 2-cyclus?}{Nee: $-r^2 + 2r + 4 = -12{,}25 + 7 + 4 = -1{,}25$, en $|{-1{,}25}| > 1$. De 2-cyclus bestaat wel, maar stoot af ($3{,}5 > 1 + \sqrt 6$).}
+
+\begin{oefeningen}
+\oef{h2-verdubbeling}
+\end{oefeningen}
+
+\subsection{Chaos bij \texorpdfstring{$r = 4$}{r = 4}}
+
+Wat gebeurt er in het zwarte deel van het diagram? Bij $r = 4$ kunnen we de baan exact opschrijven, met een goniometrische substitutie.
+
+\begin{theorie}
+\begin{stelling}{Baan van de logistische afbeelding met $r = 4$}
+Is $x_0 = \sin^2\theta$, dan is de baan van $x_0$ onder $f(x) = 4x(1 - x)$
+\[
+\formule{x_n = \sin^2(2^n\,\theta)}
+\]
+\end{stelling}
+
+\begin{bewijs}
+Elke $x_0$ in $[0, 1]$ is te schrijven als $\sin^2\theta$. Voor elke hoek $\alpha$ is
+\bewijsregel{f(\sin^2\alpha) = 4\sin^2\alpha\,(1 - \sin^2\alpha) = 4\sin^2\alpha\cos^2\alpha = (2\sin\alpha\cos\alpha)^2 = \sin^2 2\alpha .}
+Elke stap verdubbelt dus de hoek: $x_1 = \sin^2 2\theta$, $x_2 = \sin^2 4\theta$, en zo verder.
+\end{bewijs}
+\end{theorie}
+
+Wat betekent dat? Een kleine fout op de hoek $\theta$ verdubbelt bij elke stap: na 10 stappen is ze 1024 keer zo groot, na 20 stappen een miljoen keer. Twee startwaarden die op een miljoenste na gelijk zijn, geven na een twintigtal stappen banen die niets meer met elkaar te maken hebben. Dat heet \emph{gevoelige afhankelijkheid van de startwaarde}, of het \textit{vlindereffect}: de meteoroloog Edward Lorenz stelde in 1972 de vraag of de vleugelslag van een vlinder in Brazilië een tornado in Texas kan veroorzaken. Een iteratie met dat gedrag, die bovendien niet naar een cyclus gaat, noemen we \emph{chaotisch}. Chaos is geen toeval: elke term ligt vast. Maar wie de startwaarde niet exact kent, kan de baan op lange termijn niet voorspellen.
+
+\voorbeeld{}{Vergelijk de banen van $x_0 = 0{,}3$ en $x_0 = 0{,}3001$ onder $f(x) = 4x(1 - x)$.\label{vb:h2-chaos}}{%
+\uitleg{We itereren beide startwaarden met het rekentoestel en kijken naar het verschil.}
+\naast{\begin{stappenvrij}{4.6cm}{4.2cm}
+x_4 \approx 0{,}0225 \text{ en } 0{,}0220 & Het verschil is 0,0005. \\
+x_8 \approx 0{,}448 \text{ en } 0{,}476 & Het verschil is 0,03. \\
+x_{12} \approx 0{,}554 \text{ en } 0{,}147 & Het verschil is 0,41. \\
+x_{14} \approx 0{,}046 \text{ en } 1{,}000 & Geen verband meer.
+\end{stappenvrij}
+Een verschil van 0,0001 is na 14 stappen uitgegroeid tot bijna de hele breedte van $[0, 1]$. Een rekentoestel dat op tien decimalen rekent, haalt het ook niet: na een veertigtal stappen is ook een fout van $10^{-10}$ opgeblazen.}{\begin{tikzpicture}[x=.3cm,y=2.4cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=2,ystep=.25] (0,0) grid (14,1);
+  \draw[->,grijs] (0,0) -- (14.8,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,1.12) node[above,text=black] {$x_n$};
+  \foreach \t in {4,8,12}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {.5,1}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent] plot coordinates {(0,.3) (1,.84) (2,.5376) (3,.9943) (4,.0225) (5,.0879) (6,.3208) (7,.8716) (8,.4476) (9,.989) (10,.0434) (11,.1661) (12,.5542) (13,.9883) (14,.0464)};
+  \draw[grijs,dashed,thick] plot coordinates {(0,.3001) (1,.8402) (2,.5372) (3,.9945) (4,.022) (5,.086) (6,.3143) (7,.8621) (8,.4755) (9,.9976) (10,.0096) (11,.0381) (12,.1465) (13,.5002) (14,1)};
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h2-chaos}
+\end{oefeningen}
+
+Nu kunnen we het probleem oplossen. Het gedrag hangt af van de vraag welke cyclus aantrekkend is, en dat lezen we af aan de afgeleide.
+
+\voorbeeld{}{Terug naar het probleem. Verklaar het gedrag van de kevers bij $r = 2{,}8$, $r = 3{,}3$ en $r = 3{,}9$. Vanaf welke $r$ wisselen goede en slechte jaren elkaar af?\label{vb:h2-terug}}{%
+\uitleg{We gebruiken de twee stellingen over de dekpunten en de 2-cyclus van de logistische afbeelding, en het bifurcatiediagram.}
+\begin{stappenvrij}{5.6cm}{8.8cm}
+r = 2{,}8: \ f'(p) = -0{,}8 & Het dekpunt $p \approx 0{,}643$ trekt aan: de populatie komt springend tot rust (voorbeeld~\ref{vb:h2-logistisch}). \\
+r = 3{,}3: \ f'(p) = -1{,}3 & Het dekpunt stoot af. Er is een 2-cyclus, met $f'(p)f'(q) = -10{,}89 + 6{,}6 + 4 = -0{,}29$: aantrekkend. \\
+p, q = \dfrac{4{,}3 \pm \sqrt{1{,}29}}{6{,}6} & Ongeveer $0{,}824$ en $0{,}479$: de goede en de slechte jaren. \\[1.5ex]
+r = 3{,}9 & Voorbij 3,57 en buiten een venster: geen aantrekkende cyclus, en gevoelige afhankelijkheid van de startwaarde.
+\end{stappenvrij}
+De goede en slechte jaren beginnen bij $r = 3$, waar het evenwicht zijn stabiliteit verliest. Bij $r = 3{,}9$ is het gedrag chaotisch: de formule ligt vast, maar een kleine fout op de telling maakt een voorspelling voor meer dan enkele jaren waardeloos. Een bioloog die zulke grillige aantallen ziet, mag dus niet meteen besluiten dat er toeval of meetfouten in het spel zijn.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\needspace{14\baselineskip}
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o15}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Differentiaalvergelijkingen en Getaltheorie zijn, net als deze cursus, modules van het leerplan Complementair: kijk na of ze gezien zijn. De methode van Euler staat in Differentiaalvergelijkingen, hoofdstuk 2; modulorekenen in Getaltheorie, hoofdstuk 3. Matrices staat in pakket 4 (5de jaar).}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-periode3}{oef:h2-periode}%
+  \fv{oef:h2-t2}{vb:h2-cyclus}{oef:h2-cyclus}%
+  \fv{oef:h2-t3}{vb:h2-stabiel}{oef:h2-stabiel}%
+  \fv{oef:h2-t4}{vb:h2-uiteindelijk}{oef:h2-uiteindelijk}%
+  \fv{oef:h2-t5}{vb:h2-logistisch}{oef:h2-logistisch}%
+  \fv{oef:h2-t6}{vb:h2-verdubbeling}{oef:h2-verdubbeling}%
+  \fv{oef:h2-t7}{vb:h2-chaos}{oef:h2-chaos}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een periodiek punt, een periode en een cyclus zijn, hoe je de punten met periode 2 vindt (en waarom je door $f(x) - x$ mag delen), wat uiteindelijk periodiek betekent en hoe je terugrekent, het criterium voor een aantrekkende cyclus met het product van de afgeleiden, de dekpunten en de 2-cyclus van de logistische afbeelding met hun stabiliteit, wat periodeverdubbeling is, en wat chaos betekent bij $r = 4$. Vergelijk daarna met de kaders.
+\fi

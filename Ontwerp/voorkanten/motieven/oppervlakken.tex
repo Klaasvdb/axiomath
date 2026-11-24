@@ -1,0 +1,22 @@
+% Oppervlakken. Parmigianino, Zelfportret in een bolle spiegel (ca. 1524): hij schilderde wat hij zag in een
+% bolle spiegel, op een houten halve bol. Een bolle spiegel is een stuk van een bol (hoofdstuk 1).
+% Motief: de eenbladige hyperboloïde x^2 + y^2 - z^2/1,9^2 = 1 als regeloppervlak (hoofdstuk 3): de twee families
+% rechten (cos u -+ v sin u, sin u +- v cos u, 1,9 v) voor v van -1,3 tot 1,3 en u om de 22,5 graden, de boven- en
+% onderrand (straal sqrt(1 + 1,3^2)) en de keelcirkel (straal 1) in fel. Loodrechte projectie zoals in de cursus
+% (azimut 30 graden, hoogte 20 graden). De bovenrand van de band is een tak van een hyperbool, de meridiaan
+% van een hyperboloïde: y = 10,3 + 0,6 (sqrt(1 + ((x - 10,5)/5)^2) - 1), tussen 10,3 en 11,1 cm.
+\def\omslagbestand{omslag-bolle-spiegel.jpg}
+\def\omslagbron{Parmigianino, \textit{Zelfportret in een bolle spiegel}, ca. 1524 (publiek domein)}
+\def\omslagsamples{120}
+\def\omslagrand{10.3 + 0.6*(sqrt(1 + ((\x - 10.5)/5)^2) - 1)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[shift={(17.95,6.75)},x={(-.5cm,-.2962cm)},y={(.866cm,-.171cm)},z={(0cm,.9397cm)}]
+    \foreach \u in {0,22.5,...,337.5}{%
+      \draw[white,line width=.6pt,opacity=.6] ({cos(\u)+1.3*sin(\u)},{sin(\u)-1.3*cos(\u)},-2.47) -- ({cos(\u)-1.3*sin(\u)},{sin(\u)+1.3*cos(\u)},2.47);
+      \draw[white,line width=.6pt,opacity=.6] ({cos(\u)-1.3*sin(\u)},{sin(\u)+1.3*cos(\u)},-2.47) -- ({cos(\u)+1.3*sin(\u)},{sin(\u)-1.3*cos(\u)},2.47);}
+    \draw[omslaglijn=1.1pt] plot[domain=0:360,samples=80,smooth,variable=\t] ({1.64*cos(\t)},{1.64*sin(\t)},2.47);
+    \draw[omslaglijn=1.1pt] plot[domain=0:360,samples=80,smooth,variable=\t] ({1.64*cos(\t)},{1.64*sin(\t)},-2.47);
+    \draw[fel,line width=1.8pt] plot[domain=0:360,samples=80,smooth,variable=\t] ({cos(\t)},{sin(\t)},0);
+  \end{scope}
+}

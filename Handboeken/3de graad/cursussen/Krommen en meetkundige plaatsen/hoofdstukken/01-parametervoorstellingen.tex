@@ -1,0 +1,603 @@
+%----------------------------------------------------------------------------------------
+% PARAMETERVOORSTELLINGEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Parametervoorstellingen}
+
+\begin{probleem}
+\naast{In het profiel van een fietsband zit een steentje vast. De fiets rijdt rechtdoor, met een constante snelheid van 18~km/h. Het steentje draait mee met het wiel en schuift tegelijk mee met de fiets. Welke baan beschrijft het? Gaat het steentje ook altijd 18~km/h? Even raakt het de grond: staat het daar stil? En hoe snel gaat het als het bovenaan is?}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[grijs,line width=1.6pt] (-1.4,0) -- (6.6,0);
+  \foreach \m/\h in {0/0,2.094/120,4.189/240}{%
+    \draw[lijngrijs,thick] (\m,1) circle (1);
+    \draw[lijngrijs] (\m,1) -- ++({-90-\h}:1);
+    \fill[lijngrijs] (\m,1) circle (1.5pt);
+    \fill[accent] ($(\m,1)+({-90-\h}:1)$) circle (2.6pt);}
+  \draw[->,grijs] (-1,2.45) -- (.9,2.45) node[right,text=black] {18 km/h};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 8, met de twee wenken: de parameter als tijd, en de cycloïde en de Lissajousfiguren. Snelheid en raaklijn (sectie 4) zijn een uitbreiding: ze lossen het probleem op en zijn met de afgeleiden uit pakket 4 eenvoudig. Voorkennis uit pakket 4: sinus en cosinus op de eenheidscirkel en de algemene sinusfunctie (Goniometrische functies), afgeleiden met de kettingregel (Limieten en afgeleiden), de parametervergelijking van een ellips (Kegelsneden, hoofdstuk 3), en een vector als richting van een rechte (2de graad, Ruimtemeetkunde). Geef het probleem als vraag aan de klas: veel leerlingen denken dat het steentje een cirkel of een golflijn beschrijft, en bijna niemand verwacht dat het stilstaat.}
+
+Tot nu toe beschreef je een kromme met een vergelijking in $x$ en $y$, zoals $y = x^2$ of $x^2 + y^2 = 25$. Zo'n vergelijking zegt welke punten op de kromme liggen, maar niet hoe je erlangs beweegt. Bij een bal, een planeet of een steentje in een fietsband wil je meer weten: waar is het punt op elk ogenblik? Daarvoor schrijf je $x$ en $y$ allebei als functie van de tijd. Dat is een parametervoorstelling.
+
+In dit hoofdstuk leer je krommen tekenen en herkennen die zo gegeven zijn. Daarna bekijken we twee families met een eigen naam: de Lissajousfiguren, die ontstaan uit twee trillingen, en de cycloïde, de baan van het steentje. Op het einde berekenen we met afgeleiden de snelheid en de raaklijn, en lossen we het probleem op.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen vinden een parabool die op haar zij ligt: geen grafiek van een functie, maar wel een mooie kromme. Dat is het argument voor parametervoorstellingen.}
+
+%========================================================================================
+\section{Banen beschrijven}
+
+\subsection{Een punt dat beweegt}
+
+In de Verken-opgave vond je een kromme die geen grafiek van een functie is: bij één $x$ horen twee punten. Toch was ze heel eenvoudig te beschrijven, omdat je $x$ en $y$ allebei uitrekende uit een derde getal $t$. Zo kun je elke beweging in het vlak vastleggen: noteer op elk ogenblik $t$ de twee coördinaten.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{parametervoorstelling}} van een kromme $k$ is een koppel functies van een veranderlijke $t$ op een interval $I$:
+
+\vspace{1mm}
+\qquad $\formule{k \leftrightarrow \begin{cases} x = f(t) \\ y = g(t) \end{cases} \quad t \in I}$
+
+\vspace{1mm}
+De kromme is de verzameling van de punten $\bigl(f(t), g(t)\bigr)$ met $t \in I$. De veranderlijke $t$ heet de \textbf{\textcolor{accent}{parameter}}.
+\end{theorie}
+
+Denk bij $t$ aan de tijd: dan geeft de parametervoorstelling op elk ogenblik de plaats van een bewegend punt, en de kromme is zijn \textit{baan}. Je kent al enkele voorbeelden. De rechte door $A(a_1, a_2)$ met richtingsvector $\vec v(v_1, v_2)$ is $x = a_1 + t v_1$, $y = a_2 + t v_2$ met $t \in \R$. De ellips $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1$ is $x = a\cos t$, $y = b\sin t$ met $t \in [0, 2\pi[$. En elke grafiek $y = f(x)$ is ook een kromme met parameter: $x = t$, $y = f(t)$.
+
+\voorbeeld{}{Een bal wordt weggeschopt. Na $t$ seconden is hij op $x = 8t$ meter van de plaats van de trap, en op een hoogte van $y = 1 + 6t - 5t^2$ meter. Waar is de bal na een halve seconde? Wanneer en waar komt hij op de grond?\label{vb:h1-bal}}{%
+\uitleg{De parameter is de tijd. Een plaats vind je door $t$ in te vullen; een moment vind je door een vergelijking in $t$ op te lossen.}
+\naast{\begin{stappenvrij}{5.2cm}{3.6cm}
+x = 8 \cdot 0{,}5 = 4 & Vul $t = 0{,}5$ in. \\[1ex]
+y = 1 + 3 - 1{,}25 = 2{,}75 & Na een halve seconde: $(4;\ 2{,}75)$. \\[1ex]
+5t^2 - 6t - 1 = 0 & Op de grond is $y = 0$. \\[1ex]
+t = \dfrac{6 + \sqrt{56}}{10} \approx 1{,}35 & De negatieve oplossing valt weg: de bal vertrekt bij $t = 0$. \\[2ex]
+x \approx 8 \cdot 1{,}35 \approx 10{,}8 & De bal landt op ongeveer 10,8~m.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.6cm,font=\scriptsize]
+  \draw[black!14,very thin] (0,0) grid[xstep=2,ystep=1] (12,3);
+  \draw[->,grijs] (0,0) -- (12.8,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,3.5) node[above,text=black] {$y$};
+  \foreach \t in {4,8,12}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {1,2,3}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \pkromme{0}{1.3483}{8*\t}{1+6*\t-5*\t*\t}
+  \foreach \t in {0,.25,...,1.25}{\fill[accent] ({8*\t},{1+6*\t-5*\t*\t}) circle (1.6pt);}
+  \node[above,inner sep=2pt] at (4,2.75) {$t = 0{,}5$};
+\end{tikzpicture}}
+De stippen liggen telkens een kwart seconde uit elkaar. Horizontaal liggen ze even ver uit elkaar, want $x$ stijgt gelijkmatig. Verticaal niet: de bal remt af tot in het hoogste punt, en versnelt dan naar beneden.}
+
+\nujij{Waar is de bal van het voorbeeld na 1 seconde? Is hij dan al aan het dalen?}{$(8, 2)$. Ja: het hoogste punt is bij $t = 0{,}6$.}
+
+\begin{oefeningen}
+\oef{h1-bal}
+\end{oefeningen}
+
+\subsection{Een kromme tekenen}
+
+Hoe teken je een kromme die met een parameter gegeven is? Een rekentoestel tekent ze voor je in de parametermodus, maar je kunt het ook met de hand: maak een tabel met drie rijen in plaats van twee.
+
+\voorbeeld{}{Teken de kromme $x = t^3 - 3t$, $y = t^2$ voor $t \in [-2, 2]$. Door welk punt gaat ze twee keer?\label{vb:h1-tekenen}}{%
+\uitleg{We rekenen punten uit voor $t$ van $-2$ tot $2$, en verbinden ze in de volgorde van $t$. Een pijl toont in welke zin de kromme doorlopen wordt.}
+\naast{{\small\renewcommand{\arraystretch}{1.3}%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$t$ & $-2$ & $-1{,}5$ & $-1$ & $-0{,}5$ & $0$ & $0{,}5$ & $1$ & $1{,}5$ & $2$ \\ \hline
+$x$ & $-2$ & $1{,}13$ & $2$ & $1{,}38$ & $0$ & $-1{,}38$ & $-2$ & $-1{,}13$ & $2$ \\ \hline
+$y$ & $4$ & $2{,}25$ & $1$ & $0{,}25$ & $0$ & $0{,}25$ & $1$ & $2{,}25$ & $4$ \\ \hline
+\end{tabular}}
+
+\medskip
+\begin{stappenvrij}{4.6cm}{4.5cm}
+t_1^2 = t_2^2 \ \Rightarrow\ t_2 = -t_1 & Twee waarden met dezelfde $y$, met $t_1 \neq t_2$. \\[1ex]
+t_1^3 - 3t_1 = -t_1^3 + 3t_1 & Dezelfde $x$. \\[1ex]
+t_1^3 = 3t_1 \ \Rightarrow\ t_1 = \pm\sqrt3 & $t_1 = 0$ valt weg, want dan is $t_2 = t_1$. \\[1ex]
+(0, 3) & Het dubbelpunt, bij $t = -\sqrt3$ en bij $t = \sqrt3$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \rooster{-2}{1}{2}{0}{1}{4}
+  \pkromme{-2}{2}{\t*\t*\t-3*\t}{\t*\t}
+  \foreach \t in {-2,-1.5,...,2}{\fill[accent] ({\t*\t*\t-3*\t},{\t*\t}) circle (1.6pt);}
+  \draw[accent,thick,-{Stealth[length=2.2mm]}] (-1.375,.25) -- (-1.5,.3);
+  \draw[accent,thick,-{Stealth[length=2.2mm]}] (1.5,2.71) -- (1.6,2.85);
+  \node[left,inner sep=2pt] at (-2,4) {$t = -2$};
+  \node[right,inner sep=2pt] at (2,4) {$t = 2$};
+  \fill (0,3) circle (2pt);
+\end{tikzpicture}}}
+
+Zo'n dubbelpunt kan bij de grafiek van een functie nooit voorkomen. Hier passeert het bewegende punt twee keer door $(0, 3)$, op twee verschillende ogenblikken.
+
+\begin{werkwijze}
+Maak een tabel met $t$, $x$ en $y$. Kies de waarden van $t$ dicht genoeg bij elkaar, vooral waar de kromme snel van richting verandert. Zet de punten in het assenstelsel, verbind ze in de volgorde van $t$, en zet een pijl in de zin van stijgende $t$.
+\end{werkwijze}
+
+\nujij{Teken de kromme $x = t^2$, $y = t^3$ voor $t \in [-1{,}5;\ 1{,}5]$. Wat gebeurt er in de oorsprong?}{Een kromme met een spits in $(0, 0)$, symmetrisch ten opzichte van de $x$-as.}
+
+\begin{oefeningen}
+\oef{h1-tekenen}
+\end{oefeningen}
+
+\subsection{Dezelfde baan, een andere beweging}
+
+Kijk naar deze vier parametervoorstellingen, telkens met $t \in [0, 2\pi]$:
+\[ \begin{cases} x = \cos t \\ y = \sin t \end{cases} \qquad \begin{cases} x = \cos 2t \\ y = \sin 2t \end{cases} \qquad \begin{cases} x = \cos t \\ y = -\sin t \end{cases} \qquad \begin{cases} x = \sin t \\ y = \cos t \end{cases} \]
+In alle vier geldt $x^2 + y^2 = 1$: de baan is telkens de eenheidscirkel. Toch zijn het vier verschillende bewegingen. De eerste start in $(1, 0)$ en draait één keer tegen de klok in. De tweede draait twee keer zo snel, dus twee keer rond. De derde draait met de klok mee. De vierde start bovenaan, in $(0, 1)$, en draait ook met de klok mee. Een parametervoorstelling legt dus meer vast dan de kromme: ook het beginpunt, de zin en de snelheid.
+
+Voor een cirkel met een ander middelpunt en een andere straal vergroot en verschuif je de eenheidscirkel.
+
+\begin{theorie}
+\begin{stelling}{Parametervoorstelling van een cirkel}
+De cirkel met middelpunt $M(a, b)$ en straal $r$ heeft als parametervoorstelling
+
+\vspace{1mm}
+\qquad $\formule{\begin{cases} x = a + r\cos t \\ y = b + r\sin t \end{cases}}$ \quad met $t \in [0, 2\pi[$.
+\end{stelling}
+
+\begin{bewijs}
+Elk punt van de parametervoorstelling ligt op de cirkel: $(x - a)^2 + (y - b)^2 = r^2\cos^2 t + r^2\sin^2 t = r^2$. Omgekeerd: ligt $P(x, y)$ op de cirkel, dan ligt $\bigl(\tfrac{x - a}{r}, \tfrac{y - b}{r}\bigr)$ op de eenheidscirkel, en is het dus $(\cos t, \sin t)$ voor een $t \in [0, 2\pi[$.
+\end{bewijs}
+\end{theorie}
+
+De parameter $t$ is de hoek van $\overrightarrow{MP}$ met de positieve $x$-richting. Wil je een andere start of een andere snelheid, dan vervang je $t$ door een andere hoek, zoals in het volgende voorbeeld.
+
+\voorbeeld{}{Een punt draait tegen de klok in over de cirkel met middelpunt $(2, 1)$ en straal 3. Het start in het hoogste punt en doet één toer in 4 seconden. Geef een parametervoorstelling met $t$ in seconden.\label{vb:h1-cirkel}}{%
+\uitleg{De hoek van $\overrightarrow{MP}$ begint bij $\tfrac{\pi}{2}$ (bovenaan) en neemt per seconde een kwart toer toe, dus $\tfrac{2\pi}{4} = \tfrac{\pi}{2}$ radialen.}
+\naast{\begin{stappenvrij}{5.6cm}{4.2cm}
+\alpha(t) = \dfrac{\pi}{2} + \dfrac{\pi}{2}\,t & De hoek op tijdstip $t$. \\[2ex]
+\begin{cases} x = 2 + 3\cos\bigl(\tfrac{\pi}{2} + \tfrac{\pi}{2}t\bigr) \\ y = 1 + 3\sin\bigl(\tfrac{\pi}{2} + \tfrac{\pi}{2}t\bigr) \end{cases} & Vul in, met $t \in [0, 4]$. \\[3ex]
+\begin{cases} x = 2 - 3\sin\tfrac{\pi t}{2} \\ y = 1 + 3\cos\tfrac{\pi t}{2} \end{cases} & Vereenvoudig met de verwante hoeken. \\[3ex]
+t = 1:\ (-1, 1) & Controle: na een kwart toer is het punt helemaal links.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{-2}{1}{6}{-3}{1}{5}
+  \draw[accent,thick] (2,1) circle (3);
+  \fill (2,1) circle (2pt) node[below right,inner sep=1pt] {$M$};
+  \fill[accent] (2,4) circle (3pt) node[above right,text=black,inner sep=1pt] {$t = 0$};
+  \fill[accent] (-1,1) circle (3pt) node[left,text=black,inner sep=1pt] {$t = 1$};
+  \draw[accent,thick,-{Stealth[length=2.4mm]}] ({2+3*cos(120)},{1+3*sin(120)}) -- ({2+3*cos(126)},{1+3*sin(126)});
+\end{tikzpicture}}}
+
+\nujij{Geef een parametervoorstelling van de cirkel met middelpunt $(0, -2)$ en straal 5, met de klok mee doorlopen.}{Bijvoorbeeld $x = 5\cos t$, $y = -2 - 5\sin t$.}
+
+\begin{oefeningen}
+\oef{h1-cirkel}
+\end{oefeningen}
+
+\subsection{De parameter elimineren}
+
+Welke kromme beschreef de bal van voorbeeld~\ref{vb:h1-bal}? Haar vorm doet denken aan een parabool, maar dat zie je niet zomaar aan de parametervoorstelling. Om het te herkennen, zoek je een vergelijking in $x$ en $y$ alleen: je \textit{elimineert} de parameter. Dat kan op twee manieren.
+
+\voorbeeld{}{Zoek een vergelijking in $x$ en $y$ van de baan van de bal: $x = 8t$, $y = 1 + 6t - 5t^2$ met $t \in [0;\ 1{,}35]$.\label{vb:h1-elim}}{%
+\uitleg{De eerste vergelijking is eenvoudig op te lossen naar $t$. Dat vullen we in in de tweede.}
+\begin{stappen}
+t = \dfrac{x}{8} & Los de eerste vergelijking op naar $t$. \\[2ex]
+y = 1 + \dfrac{6x}{8} - \dfrac{5x^2}{64} & Vul in. \\[2ex]
+y = -\dfrac{5}{64}x^2 + \dfrac34 x + 1, \quad 0 \leqslant x \leqslant 10{,}8 & Een stuk van een bergparabool. Het interval van $t$ wordt een interval van $x$.
+\end{stappen}}
+
+Lukt het oplossen naar $t$ niet, omdat $t$ in een sinus en een cosinus staat? Gebruik dan de grondformule $\cos^2 t + \sin^2 t = 1$.
+
+\voorbeeld{}{Welke kromme is $x = 1 + 2\cos t$, $y = -1 + \sin t$ met $t \in [0, 2\pi[$?\label{vb:h1-elimgonio}}{%
+\uitleg{Zet $\cos t$ en $\sin t$ alleen, en vul ze in in de grondformule.}
+\naast{\begin{stappenvrij}{5.4cm}{4.4cm}
+\cos t = \dfrac{x - 1}{2}, \quad \sin t = y + 1 & Zet de goniometrische getallen alleen. \\[2ex]
+\dfrac{(x - 1)^2}{4} + (y + 1)^2 = 1 & Uit $\cos^2 t + \sin^2 t = 1$. \\[2ex]
+& Een ellips met middelpunt $(1, -1)$, $a = 2$ en $b = 1$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-2}{1}{4}{-3}{1}{1}
+  \draw[accent,thick] (1,-1) ellipse (2 and 1);
+  \fill (1,-1) circle (2pt);
+\end{tikzpicture}}}
+
+Pas op: een vergelijking in $x$ en $y$ kan meer punten bevatten dan de kromme. Neem $x = \sin t$, $y = \cos 2t$. Met $\cos 2t = 1 - 2\sin^2 t$ vind je $y = 1 - 2x^2$, een parabool. Maar $x = \sin t$ ligt altijd tussen $-1$ en $1$: de kromme is alleen het stuk van de parabool boven $[-1, 1]$, en het punt loopt er heen en weer over.
+
+\begin{werkwijze}
+Los een van de vergelijkingen op naar $t$ en vul in in de andere. Staat $t$ in een sinus en een cosinus, zet die dan alleen en gebruik $\cos^2 t + \sin^2 t = 1$ (of een verdubbelingsformule). Kijk tot slot welke waarden $x$ en $y$ echt aannemen: dat beperkt de kromme misschien tot een deel van de figuur.
+\end{werkwijze}
+
+\nujij{Elimineer de parameter: $x = t + 1$, $y = t^2 - 2t$.}{$t = x - 1$, dus $y = (x - 1)^2 - 2(x - 1) = x^2 - 4x + 3$.}
+
+\begin{oefeningen}
+\oef{h1-elim}
+
+\oef{h1-bereik}
+\end{oefeningen}
+
+%========================================================================================
+\section{Trillingen en Lissajousfiguren}
+
+\subsection{Twee trillingen samen}
+
+In 1857 liet de Franse natuurkundige Jules Lissajous een lichtstraal weerkaatsen op twee spiegeltjes, elk vastgemaakt aan een trillende stemvork. De ene stemvork trilde horizontaal, de andere verticaal. Op het scherm verscheen een sierlijke kromme, en die vertelde hem hoe de toonhoogtes van de stemvorken zich verhielden. Vandaag zie je dezelfde figuren op een oscilloscoop. Elke trilling is een sinusfunctie van de tijd, dus de lichtvlek beweegt volgens een parametervoorstelling.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{Lissajousfiguur}} is een kromme met een parametervoorstelling
+
+\vspace{1mm}
+\qquad $\formule{\begin{cases} x = \sin(at) \\ y = \sin(bt + \varphi) \end{cases}}$ \quad met $a, b > 0$ en $t \in \R$.
+\end{theorie}
+
+De frequenties $a$ en $b$ zeggen hoe snel elke trilling gaat, de faseverschuiving $\varphi$ hoe ver de tweede trilling voorloopt op de eerste. De hele figuur ligt in het vierkant $[-1, 1] \times [-1, 1]$, want een sinus komt nooit buiten $[-1, 1]$. Zijn $a$ en $b$ gehele getallen, dan staan $x$ en $y$ na $t = 2\pi$ weer op dezelfde plaats: de figuur sluit.
+
+\figuren{\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \draw[lijngrijs] (-1,-1) rectangle (1,1);
+  \pkromme{0}{360}{sin(\t)}{sin(\t+45)}
+  \node at (0,-1.4) {$a = 1$, $b = 1$, $\varphi = \tfrac{\pi}{4}$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \draw[lijngrijs] (-1,-1) rectangle (1,1);
+  \pkromme{0}{360}{sin(\t)}{sin(2*\t)}
+  \node at (0,-1.4) {$a = 1$, $b = 2$, $\varphi = 0$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \draw[lijngrijs] (-1,-1) rectangle (1,1);
+  \pkromme{0}{360}{sin(3*\t)}{sin(2*\t)}
+  \node at (0,-1.4) {$a = 3$, $b = 2$, $\varphi = 0$};
+\end{tikzpicture}\quad
+\begin{tikzpicture}[scale=.75,font=\scriptsize]
+  \draw[lijngrijs] (-1,-1) rectangle (1,1);
+  \draw[accent,thick] plot[domain=0:360,samples=300,smooth,variable=\t] ({sin(3*\t)},{sin(4*\t+30)});
+  \node at (0,-1.4) {$a = 3$, $b = 4$, $\varphi = \tfrac{\pi}{6}$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Teken de Lissajousfiguur $x = \sin t$, $y = \sin 2t$.\label{vb:h1-lissa}}{%
+\uitleg{De figuur sluit na $t = 2\pi$. We rekenen punten uit om de $\tfrac{\pi}{4}$, en kijken waar $x$ en $y$ hun uiterste waarden bereiken.}
+\naast{{\small\renewcommand{\arraystretch}{1.3}%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+$t$ & $0$ & $\tfrac{\pi}{4}$ & $\tfrac{\pi}{2}$ & $\tfrac{3\pi}{4}$ & $\pi$ & $\tfrac{5\pi}{4}$ & $\tfrac{3\pi}{2}$ & $\tfrac{7\pi}{4}$ \\ \hline
+$x$ & $0$ & $0{,}71$ & $1$ & $0{,}71$ & $0$ & $-0{,}71$ & $-1$ & $-0{,}71$ \\ \hline
+$y$ & $0$ & $1$ & $0$ & $-1$ & $0$ & $1$ & $0$ & $-1$ \\ \hline
+\end{tabular}}
+
+\medskip
+Het punt start in de oorsprong, gaat naar rechtsboven, raakt de rechterzijde van het vierkant in $(1, 0)$, gaat naar onder en komt bij $t = \pi$ terug in de oorsprong. Daarna doet het hetzelfde links. Het resultaat is een liggende acht. De bovenzijde $y = 1$ raakt de figuur twee keer, de rechterzijde $x = 1$ één keer.}{\begin{tikzpicture}[scale=1.25,font=\scriptsize]
+  \draw[black!14,very thin] (-1,-1) grid[step=.5] (1,1);
+  \draw[->,grijs] (-1.1,0) -- (1.25,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-1.1) -- (0,1.25) node[above,text=black] {$y$};
+  \node[below left,inner sep=1pt] at (1,0) {$1$};
+  \node[below left,inner sep=1pt] at (0,1) {$1$};
+  \pkromme{0}{360}{sin(\t)}{sin(2*\t)}
+  \foreach \t in {0,45,...,315}{\fill[accent] ({sin(\t)},{sin(2*\t)}) circle (1.1pt);}
+  \draw[accent,thick,-{Stealth[length=2.2mm]}] ({sin(20)},{sin(40)}) -- ({sin(22)},{sin(44)});
+\end{tikzpicture}}}
+
+Dat tellen van raakpunten is geen toeval. Het verband tussen de frequenties en de figuur is de reden waarom Lissajous toonhoogtes kon vergelijken.
+
+\begin{theorie}
+\begin{stelling}{Frequenties van een Lissajousfiguur}
+Zijn $a$ en $b$ natuurlijke getallen, dan neemt $x = \sin(at)$ op $[0, 2\pi[$ precies $a$ keer de waarde 1 aan, en $y = \sin(bt + \varphi)$ precies $b$ keer.
+\end{stelling}
+
+\begin{bewijs}
+$\sin(at) = 1 \iff at = \tfrac{\pi}{2} + k \cdot 2\pi \iff t = \tfrac{\pi}{2a} + k \cdot \tfrac{2\pi}{a}$, met $k \in \Z$. Die waarden liggen $\tfrac{2\pi}{a}$ uit elkaar, dus in een interval met lengte $2\pi$ liggen er precies $a$. Voor $y$ net zo, met $bt + \varphi$.
+\end{bewijs}
+\end{theorie}
+
+Meestal zijn dat ook $a$ verschillende punten op de rechterzijde van het vierkant en $b$ op de bovenzijde. Op een oscilloscoop lees je zo de verhouding van de frequenties af: tel de raakpunten bovenaan en opzij. Alleen bij een figuur die over zichzelf heen en weer loopt, zoals $x = \sin t$, $y = \cos 2t$ hierboven, vallen raakpunten samen.
+
+\begin{werkwijze}
+Om de frequenties af te lezen: tel de raakpunten van de figuur met de bovenzijde (dat is $b$) en met een verticale zijde (dat is $a$). Om een Lissajousfiguur te tekenen: maak een tabel over één periode, met stappen die klein genoeg zijn voor de snelste trilling.
+\end{werkwijze}
+
+\nujij{Hoeveel raakpunten met de bovenzijde en met de rechterzijde heeft de derde figuur hierboven?}{Twee bovenaan en drie rechts: $a = 3$, $b = 2$.}
+
+\begin{oefeningen}
+\oef{h1-lissa}
+\end{oefeningen}
+
+%========================================================================================
+\section{De cycloïde}
+
+\subsection{Een rollende cirkel}
+
+Terug naar het steentje. Het zit op de rand van een wiel dat over de weg rolt. Waar is het als het wiel over een hoek $t$ gedraaid is? Daarvoor moet je twee bewegingen samenvoegen: het middelpunt schuift naar rechts, en het steentje draait rond het middelpunt.
+
+Het sleutelwoord is \textit{rollen zonder glijden}. Het wiel slipt niet: elk stukje van de omtrek dat de weg raakt, legt de fiets ook af. Na een draaiing over $t$ radialen heeft het wiel een boog met lengte $Rt$ over de weg gerold, en is het middelpunt dus $Rt$ opgeschoven.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{cycloïde}} is de baan van een punt op een cirkel die zonder glijden over een rechte rolt.
+
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+\begin{stelling}{Parametervoorstelling van de cycloïde}
+Rolt een cirkel met straal $R$ over de $x$-as, en vertrekt het punt $P$ in de oorsprong, dan is
+
+\vspace{1mm}
+\qquad $\formule{\begin{cases} x = R(t - \sin t) \\ y = R(1 - \cos t) \end{cases}}$ \quad $t \in \R$,
+
+\vspace{1mm}
+met $t$ de hoek waarover de cirkel gedraaid is.
+\end{stelling}
+
+\begin{bewijs}
+Na een draaiing over $t$ raakt de cirkel de $x$-as in $C(Rt, 0)$, want de boog $PC$ is over $[OC]$ gerold. Het middelpunt is $M(Rt, R)$. De straal $[MP]$ is vanuit $[MC]$, die recht naar onder wijst, over $t$ met de klok mee gedraaid, want het wiel rolt naar rechts. Dus
+\bewijsregel{\overrightarrow{MP} = (-R\sin t,\ -R\cos t),}
+en $P = M + \overrightarrow{MP} = \bigl(Rt - R\sin t,\ R - R\cos t\bigr)$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{4mm}
+\centering
+\begin{tikzpicture}[scale=.95,font=\scriptsize]
+  \draw[->,lijngrijs] (-.3,0) -- (3.6,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-.2) -- (0,2.4) node[above,text=black] {$y$};
+  \pkromme[thin,dashed]{0}{3.4}{\t-sin(\t r)}{1-cos(\t r)}
+  \draw[grijs] (2,1) circle (1);
+  \draw[accent,very thick] (2,0) arc[start angle=-90,end angle=-90-114.6,radius=1];
+  \draw[accent,very thick] (0,-.06) -- (2,-.06);
+  \draw[grijs] (2,1) -- (2,0) (2,1) -- (1.091,1.416);
+  \draw[grijs] (2,.65) arc[start angle=-90,end angle=-204.6,radius=.35];
+  \node at (1.6,.72) {$t$};
+  \fill (2,1) circle (1.4pt) node[right] {$M$};
+  \fill (2,0) circle (1.4pt) node[below] {$C$};
+  \fill (0,0) circle (1.4pt) node[below left] {$O$};
+  \fill[accent] (1.091,1.416) circle (1.8pt) node[above left,text=black] {$P$};
+  \node[below,text=accent] at (1,-.06) {$Rt$};
+  \node[text=accent] at (.72,.38) {$Rt$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Wat betekent dat? Het steentje beschrijft geen golflijn, maar een rij bogen. Na een volle draaiing, $t = 2\pi$, is $y = 0$ en $x = 2\pi R$: het steentje raakt de weg opnieuw, een omtrek verder. Bij $t = \pi$ is het bovenaan, op hoogte $2R$. Waar het de weg raakt, heeft de baan een scherpe punt: een \textit{spits}.
+
+\figuren{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[grijs,line width=1.2pt] (-.5,0) -- (19.6,0);
+  \pkromme{0}{18.85}{\t-sin(\t r)}{1-cos(\t r)}
+  \foreach \k in {0,1,2,3}{\fill[accent] ({2*pi*\k},0) circle (2.5pt);}
+  \draw[grijs,thin] (pi,1) circle (1);
+  \fill[grijs] (pi,1) circle (1.5pt);
+  \draw[|<->|,grijs] (0,-.55) -- node[below,text=black] {$2\pi R$} ({2*pi},-.55);
+  \draw[|<->|,grijs] (-.6,0) -- node[left,text=black] {$2R$} (-.6,2);
+\end{tikzpicture}}
+
+\voorbeeld{}{Een fietswiel heeft een straal van 35~cm. Waar is het steentje, ten opzichte van zijn beginpunt, als het wiel een derde toer gedraaid is? Hoe ver is de fiets dan gereden?\label{vb:h1-cycl}}{%
+\uitleg{Een derde toer is $t = \tfrac{2\pi}{3}$. Vul in in de parametervoorstelling, met $R = 0{,}35$~m.}
+\begin{stappen}
+x = 0{,}35\Bigl(\dfrac{2\pi}{3} - \dfrac{\sqrt3}{2}\Bigr) \approx 0{,}43 & Horizontaal: 43~cm verder. \\[2ex]
+y = 0{,}35\Bigl(1 + \dfrac12\Bigr) = 0{,}525 & Verticaal: 52,5~cm boven de grond. \\[2ex]
+Rt = 0{,}35 \cdot \dfrac{2\pi}{3} \approx 0{,}73 & De fiets reed 73~cm: het steentje blijft achter op de fiets.
+\end{stappen}}
+
+\begin{werkwijze}
+Bepaal de straal $R$ en de draaihoek $t$ in radialen. Vul in in $x = R(t - \sin t)$ en $y = R(1 - \cos t)$. Het middelpunt van het wiel is dan in $(Rt, R)$.
+\end{werkwijze}
+
+\nujij{Waar is het steentje na een halve toer? En na een volle toer?}{$(0{,}35\pi;\ 0{,}7) \approx (1{,}10;\ 0{,}70)$, bovenaan. Na een volle toer $(0{,}7\pi;\ 0) \approx (2{,}20;\ 0)$, weer op de grond.}
+
+\begin{oefeningen}
+\oef{h1-cycl}
+\end{oefeningen}
+
+Rolt een cirkel niet over een rechte maar over of in een andere cirkel, dan krijg je verwante krommen: epicycloïden en hypocycloïden. Je ontmoet er een paar in de opdrachten, en in hoofdstuk 3 komt er een terug met een verrassend eenvoudige vergelijking.
+
+%========================================================================================
+\section{Snelheid en raaklijn}
+
+\subsection{De snelheidsvector}
+
+Hoe snel gaat het steentje? Bij een beweging op een rechte is de snelheid de afgeleide van de plaats. Nu verandert de plaats in twee richtingen tegelijk. Neem een kleine tijdsstap $h$: het punt gaat van $P(t)$ naar $P(t + h)$, en de gemiddelde snelheid is die verplaatsing gedeeld door $h$. Dat is een vector:
+\[ \frac{1}{h}\,\overrightarrow{P(t)P(t+h)} = \Bigl(\frac{x(t + h) - x(t)}{h},\ \frac{y(t + h) - y(t)}{h}\Bigr) . \]
+Laat je $h$ naar 0 gaan, dan worden beide coördinaten een afgeleide.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{snelheidsvector}} van $x = x(t)$, $y = y(t)$ op tijdstip $t$ is \quad $\formule{\vec v(t) = \bigl(x'(t),\ y'(t)\bigr)}$
+
+\vspace{1mm}
+en de \textbf{\textcolor{accent}{snelheid}} is zijn lengte \quad $\formule{|\vec v(t)| = \sqrt{x'(t)^2 + y'(t)^2}}$
+\end{theorie}
+
+Is $t$ geen tijd maar een hoek, dan blijft de vector even nuttig: hij wijst in de richting waarin de kromme doorlopen wordt.
+
+\voorbeeld{}{Met welke snelheid en onder welke hoek vertrekt de bal van voorbeeld~\ref{vb:h1-bal}? Hoe snel gaat hij in zijn hoogste punt?\label{vb:h1-snel}}{%
+\uitleg{Leid $x = 8t$ en $y = 1 + 6t - 5t^2$ af naar $t$.}
+\naast{\begin{stappenvrij}{4.6cm}{3.8cm}
+\vec v(t) = (8,\ 6 - 10t) & De snelheidsvector. \\[1ex]
+|\vec v(0)| = \sqrt{64 + 36} = 10 & De bal vertrekt met 10~m/s. \\[1ex]
+\tan\alpha = \tfrac68 \ \Rightarrow\ \alpha \approx 36{,}9^\circ & De hoek met de grond. \\[1ex]
+\vec v(0{,}6) = (8, 0) & In het hoogste punt: 8~m/s, horizontaal.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.6cm,font=\scriptsize]
+  \draw[->,grijs] (0,0) -- (12.8,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,0) -- (0,3.2) node[above,text=black] {$y$};
+  \pkromme{0}{1.3483}{8*\t}{1+6*\t-5*\t*\t}
+  \draw[fel!80!black,very thick,-{Stealth[length=2.4mm]}] (0,1) -- (4,2.5) node[above left,text=black,inner sep=1pt] {$\vec v(0)$};
+  \draw[fel!80!black,very thick,-{Stealth[length=2.4mm]}] (4.8,2.8) -- (8.8,2.8) node[right,text=black,inner sep=1pt] {$\vec v(0{,}6)$};
+\end{tikzpicture}}}
+
+\nujij{Hoe snel gaat de bal als hij de grond raakt, bij $t \approx 1{,}35$?}{$\vec v \approx (8;\ -7{,}5)$, dus ongeveer $\sqrt{64 + 56} \approx 11$~m/s.}
+
+\begin{oefeningen}
+\oef{h1-snel}
+\end{oefeningen}
+
+\subsection{De raaklijn}
+
+De snelheidsvector wijst langs de baan. Dat maakt hem tot een richtingsvector van de raaklijn. Waarom? De raaklijn in een punt is de limietstand van de koorden door dat punt, en dat zie je ook hier.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Raaklijn aan een kromme met parameter}
+Zijn $x(t)$ en $y(t)$ afleidbaar en is $\vec v(t_0) \neq \vec 0$, dan is $\vec v(t_0)$ een richtingsvector van de raaklijn in $P(t_0)$. Is $x'(t_0) \neq 0$, dan is haar richtingscoëfficiënt
+
+\vspace{1mm}
+\qquad $\formule{m = \dfrac{y'(t_0)}{x'(t_0)}}$
+\end{stelling}
+
+\begin{bewijs}
+De koorde door $P(t_0)$ en $P(t_0 + h)$ heeft als richtingsvector $\tfrac1h\overrightarrow{P(t_0)P(t_0+h)}$. Voor $h \to 0$ gaat die vector naar $\vec v(t_0)$, en de koorde naar de raaklijn. De richtingscoëfficiënt van de koorde is
+\bewijsregel{\frac{y(t_0 + h) - y(t_0)}{x(t_0 + h) - x(t_0)} = \frac{\bigl(y(t_0 + h) - y(t_0)\bigr)/h}{\bigl(x(t_0 + h) - x(t_0)\bigr)/h} ,}
+en voor $h \to 0$ gaat dat naar $\dfrac{y'(t_0)}{x'(t_0)}$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{5mm}
+\centering
+\begin{tikzpicture}[scale=.72,font=\scriptsize]
+  \pkromme{-1.1}{1.5}{1.3*\t+.6*\t*\t*\t}{1.2*\t*\t-.5*\t*\t*\t}
+  \draw[grijs,dashed] ($(0,0)!-.35!(1.9,.7)$) -- ($(0,0)!1.3!(1.9,.7)$);
+  \draw[grijs] (-1,0) -- (2.7,0);
+  \fill (0,0) circle (1.5pt) node[above left,inner sep=2pt] {$P(t_0)$};
+  \fill (1.9,.7) circle (1.5pt) node[above left,inner sep=2pt] {$P(t_0 + h)$};
+  \draw[fel!80!black,very thick,-{Stealth[length=2.2mm]}] (0,0) -- (1.5,0) node[below,text=black] {$\vec v(t_0)$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Je kent de formule voor $m$ ook als $\dfrac{\mathrm{d}y}{\mathrm{d}x} = \dfrac{\mathrm{d}y/\mathrm{d}t}{\mathrm{d}x/\mathrm{d}t}$: in de notatie van Leibniz lijkt het of $\mathrm{d}t$ wegvalt. Ze geeft meteen waar de raaklijn horizontaal of verticaal is. Is $y'(t_0) = 0$ en $x'(t_0) \neq 0$, dan is de raaklijn horizontaal. Is $x'(t_0) = 0$ en $y'(t_0) \neq 0$, dan is ze verticaal. Zijn beide 0, dan staat het punt even stil, en kan de kromme daar een spits hebben, zoals de cycloïde op de grond.
+
+\voorbeeld{}{Geef een vergelijking van de raaklijn aan $x = t^3 - 3t$, $y = t^2$ in het punt met $t = 2$. Waar is de raaklijn horizontaal, en waar verticaal?\label{vb:h1-raak}}{%
+\uitleg{Dat is de kromme van voorbeeld~\ref{vb:h1-tekenen}. We leiden af en gebruiken de stelling.}
+\naast{\begin{stappenvrij}{5.6cm}{4cm}
+\vec v(t) = (3t^2 - 3,\ 2t) & Afleiden naar $t$. \\[1ex]
+P(2, 4),\ \vec v(2) = (9, 4) & Bij $t = 2$. \\[1ex]
+y - 4 = \tfrac49(x - 2) & De raaklijn, met $m = \tfrac49$. \\[1ex]
+2t = 0 \ \Rightarrow\ t = 0:\ (0, 0) & Horizontaal, want $x'(0) = -3 \neq 0$. \\[1ex]
+3t^2 - 3 = 0 \ \Rightarrow\ t = \pm1 & Verticaal in $(-2, 1)$ en $(2, 1)$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \rooster{-2}{1}{2}{0}{1}{4}
+  \pkromme{-2}{2.05}{\t*\t*\t-3*\t}{\t*\t}
+  \draw[grijs] (-.5,2.89) -- (3,4.44);
+  \draw[grijs,dashed] (2,.2) -- (2,1.8) (-2,.2) -- (-2,1.8) (-.8,0) -- (.8,0);
+  \fill (2,4) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Leid $x(t)$ en $y(t)$ af. Bereken het punt en de snelheidsvector bij $t_0$: dat zijn een punt en een richtingsvector van de raaklijn, met $m = \tfrac{y'(t_0)}{x'(t_0)}$. Voor horizontale raaklijnen los je $y'(t) = 0$ op, voor verticale $x'(t) = 0$, en controleer je telkens dat de andere afgeleide niet 0 is.
+\end{werkwijze}
+
+\nujij{Welke twee raaklijnen heeft de kromme van het voorbeeld in het dubbelpunt $(0, 3)$?}{Bij $t = \pm\sqrt3$ is $\vec v = (6, \pm2\sqrt3)$: $y = 3 \pm \tfrac{\sqrt3}{3}x$.}
+
+\begin{oefeningen}
+\oef{h1-raak}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{Een fiets rijdt aan 18~km/h, dat is 5~m/s. Het wiel heeft een straal van 35~cm. Hoe snel gaat een steentje in de band, op elk ogenblik? Staat het ooit stil, en hoe snel gaat het bovenaan?\label{vb:h1-terug}}{%
+\uitleg{Het steentje beschrijft een cycloïde. Om de snelheid in m/s te vinden, moet de parameter de tijd zijn. Het middelpunt legt 5~m per seconde af, en dat is $Rt$: de draaihoek na $\tau$ seconden is dus $t = \tfrac{5\tau}{R}$, of $t = \omega\tau$ met $\omega = \tfrac{5}{0{,}35}$.}
+\naast{\begin{stappenvrij}{5.3cm}{3.6cm}
+\begin{cases} x = R(\omega\tau - \sin\omega\tau) \\ y = R(1 - \cos\omega\tau) \end{cases} & De baan, met $\tau$ de tijd en $R\omega = 5$. \\[3ex]
+\vec v = \bigl(5(1 - \cos\omega\tau),\ 5\sin\omega\tau\bigr) & Kettingregel: $R\omega = 5$ komt naar voren. \\[1ex]
+|\vec v|^2 = 25(2 - 2\cos\omega\tau) & Uitwerken met $\cos^2 + \sin^2 = 1$. \\[1ex]
+|\vec v| = 10\,\Bigl|\sin\dfrac{\omega\tau}{2}\Bigr| & Want $1 - \cos\alpha = 2\sin^2\tfrac{\alpha}{2}$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \draw[grijs,line width=1.2pt] (-.3,0) -- (6.7,0);
+  \pkromme{0}{6.2832}{\t-sin(\t r)}{1-cos(\t r)}
+  \foreach \tt in {.8,1.6,2.4,3.1416,3.9,4.7,5.5}{%
+    \pgfmathsetmacro{\vx}{.5*(1-cos(\tt r))}\pgfmathsetmacro{\vy}{.5*sin(\tt r)}
+    \draw[fel!80!black,thick,-{Stealth[length=1.6mm]}] ({\tt-sin(\tt r)},{1-cos(\tt r)}) -- ++(\vx,\vy);}
+  \fill[accent] (0,0) circle (2pt) node[below,text=black] {stil};
+  \node[above,inner sep=4pt] at (pi,2.64) {36~km/h};
+\end{tikzpicture}}
+Op de grond is $\omega\tau$ een veelvoud van $2\pi$: dan is $|\vec v| = 0$. Het steentje staat daar echt even stil, en daarom heeft de baan er een spits. Bovenaan is $\omega\tau = \pi$ en $|\vec v| = 10$~m/s: het steentje gaat dubbel zo snel als de fiets, 36~km/h.}
+
+Het antwoord op het probleem is dus verrassend. Het steentje beschrijft een rij bogen, cycloïden, met een spits telkens als het de grond raakt. Zijn snelheid schommelt tussen 0 en 36~km/h. Dat geldt voor elk punt op de rand van een rollend wiel: het deel van de band dat de weg raakt, staat even stil. Daarom slijt een band die rolt nauwelijks, en een band die slipt des te meer. Je ziet het ook op een foto van een fiets in beweging: de spaken bovenaan zijn wazig, die onderaan scherp.
+
+\begin{oefeningen}
+\oef{h1-terug}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o10}
+
+\oef{h1-o13}
+
+\oef{h1-o9}
+
+\oef{h1-o11}
+
+\oef{h1-o16}
+
+\oef{h1-o14}
+
+\oef{h1-o12}
+
+\oef{h1-o23}
+
+\oef{h1-o15}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Goniometrische functies, Kegelsneden en Integralen komen uit pakket 4. De oppervlakte onder een cycloïde gebruikt substitutie in de vorm $\mathrm{d}x = x'(t)\,\mathrm{d}t$; dat het zo mag, is de substitutieregel van Integralen, van rechts naar links gelezen.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-tekenen}{oef:h1-tekenen}%
+  \fv{oef:h1-t2}{vb:h1-cirkel}{oef:h1-cirkel}%
+  \fv{oef:h1-t3}{vb:h1-elimgonio}{oef:h1-elim}%
+  \fv{oef:h1-t4}{vb:h1-lissa}{oef:h1-lissa}%
+  \fv{oef:h1-t5}{vb:h1-cycl}{oef:h1-cycl}%
+  \fv{oef:h1-t6}{vb:h1-raak}{oef:h1-raak}%
+  \fv{oef:h1-t7}{vb:h1-snel}{oef:h1-snel}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een parametervoorstelling is en waarom ze meer zegt dan een vergelijking, hoe je een kromme tekent met een tabel, de parametervoorstelling van een cirkel met een eigen start en snelheid, twee manieren om de parameter te elimineren (met de valkuil), wat een Lissajousfiguur is en hoe je de frequenties afleest, de parametervoorstelling van de cycloïde met het idee van het bewijs, de snelheidsvector en de raaklijn, en waarom het steentje stilstaat op de grond. Vergelijk daarna met de kaders.
+\fi

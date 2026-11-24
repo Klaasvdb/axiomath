@@ -1,0 +1,677 @@
+%----------------------------------------------------------------------------------------
+% AFFIENE MEETKUNDE: affiene coördinaten, deelverhouding, affiene transformaties, Ceva en Menelaos.
+% Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Affiene meetkunde}
+
+\begin{probleem}
+\naast{Verdeel elke zijde van een driehoek $ABC$ in drie gelijke stukken. Neem $P$ op $[BC]$ op een derde van $B$, $Q$ op $[CA]$ op een derde van $C$ en $R$ op $[AB]$ op een derde van $A$. De rechten $AP$, $BQ$ en $CR$ gaan niet door één punt: in het midden sluiten ze een kleine driehoek in. Welk deel van de oppervlakte van $ABC$ is dat? Hangt het antwoord af van de vorm van de driehoek? En hoe zie je zonder tekening of drie zulke rechten door één punt gaan?}{\begin{tikzpicture}[scale=.78,font=\scriptsize]
+  \fill[accent!25] (2.943,.914) -- (1.386,1.829) -- (1.471,.457) -- cycle;
+  \draw[thick] (0,0) -- (4.5,0) -- (1.3,3.2) -- cycle;
+  \draw[accent] (0,0) -- (3.433,1.067) (4.5,0) -- (.867,2.133) (1.3,3.2) -- (1.5,0);
+  \punt[below left]{0}{0}{A}
+  \punt[below right]{4.5}{0}{B}
+  \punt[above]{1.3}{3.2}{C}
+  \punt[above right]{3.433}{1.067}{P}
+  \punt[left]{.867}{2.133}{Q}
+  \punt[below]{1.5}{0}{R}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 14 (affiene coördinaten), met de wenken over affiene coördinatentransformaties en de stellingen van Ceva en Menelaos. Voorkennis uit pakket 4: Matrices (product, inverse, determinant van $2 \times 2$ en $3 \times 3$). Uit de 2de graad: vectoren, analytische meetkunde (vergelijking van een rechte, oppervlakte van een driehoek met coördinaten). Coördinaten ten opzichte van een basis staan in Vectorruimten (hoofdstuk 2); wie die cursus niet zag, heeft genoeg aan de uitleg hier.}
+
+In de analytische meetkunde van de 2de graad stonden de assen altijd loodrecht op elkaar, met dezelfde eenheid op beide assen. Dat is nodig om afstanden en hoeken te berekenen. Maar veel eigenschappen hebben niets met afstanden of hoeken te maken: drie punten op één rechte, evenwijdige rechten, het midden van een lijnstuk, drie rechten door één punt. Voor zulke eigenschappen mag je de assen kiezen zoals het de figuur past, ook scheef. Dat is het idee van de \emph{affiene meetkunde}. Het levert snelle bewijzen op, en het antwoord op het probleem: één berekening in een handig gekozen driehoek geldt voor alle driehoeken.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Affiene coördinaten}
+
+\subsection{Een scheef assenstelsel}
+
+Waarom zouden de assen loodrecht op elkaar moeten staan? Bij een parallellogram liggen twee zijden voor de hand als assen, bij een driehoek twee zijden vanuit één hoekpunt. Je vertrekt dan uit één punt, de oorsprong, en twee vectoren die niet evenwijdig zijn. Elk punt bereik je met een aantal stappen langs de eerste vector en een aantal langs de tweede: die twee getallen zijn de coördinaten. In de Verken zag je zo'n scheef rooster.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{affien assenstelsel}} $(O; \vec e_1, \vec e_2)$ bestaat uit een punt $O$, de \textbf{\textcolor{accent}{oorsprong}}, en twee vectoren $\vec e_1$ en $\vec e_2$ die niet evenwijdig zijn, de \textbf{\textcolor{accent}{basisvectoren}}. De \textbf{\textcolor{accent}{affiene coördinaten}} $(x, y)$ van een punt $P$ zijn de getallen met
+
+\vspace{1mm}
+\qquad $\formule{\vec{OP} = x\,\vec e_1 + y\,\vec e_2}$
+\end{theorie}
+
+Elk punt heeft precies één paar coördinaten: $(x, y)$ zijn de coördinaten van de vector $\vec{OP}$ ten opzichte van de basis $(\vec e_1, \vec e_2)$, en die zijn uniek (Vectorruimten, hoofdstuk 2). De $x$-as is de rechte door $O$ met richting $\vec e_1$, de $y$-as die met richting $\vec e_2$. Staan de basisvectoren loodrecht op elkaar en hebben ze lengte 1, dan heb je het gewone assenstelsel: een \emph{cartesisch} of \emph{orthonormaal} assenstelsel. Elk cartesisch assenstelsel is dus ook affien, maar niet omgekeerd.
+
+\voorbeeld{}{In een cartesisch assenstelsel kies je de oorsprong $O(1, 1)$ en de basisvectoren $\vec e_1 = (2, 1)$ en $\vec e_2 = (1, 2)$. Bepaal de affiene coördinaten van het punt $P(5, 6)$.\label{vb:h1-coord}}{%
+\uitleg{Schrijf $\vec{OP}$ als combinatie van $\vec e_1$ en $\vec e_2$: dat geeft een stelsel met twee onbekenden.}
+\naast{\begin{stappenvrij}{4.6cm}{4.4cm}
+\vec{OP} = (5 - 1, 6 - 1) = (4, 5) & De vector van $O$ naar $P$. \\[1ex]
+x\,(2, 1) + y\,(1, 2) = (4, 5) & Zoek $x$ en $y$. \\[1ex]
+\begin{cases} 2x + y = 4 \\ x + 2y = 5 \end{cases} & Per component. \\[3ex]
+x = 1, \quad y = 2 & $P$ heeft de affiene coördinaten $(1, 2)$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{0}{1}{7}{0}{1}{7}
+  \begin{scope}[shift={(1,1)}]
+    \scheefrooster{2}{1}{1}{2}{0}{2}{0}{2}
+  \end{scope}
+  \vpijl{(1,1)}{(3,2)}
+  \vpijl{(1,1)}{(2,3)}
+  \draw[accent,thick,dashed] (3,2) -- (4,4) -- (5,6);
+  \punt[below right]{1}{1}{O}
+  \node[below right,text=accent] at (2.4,1.7) {$\vec e_1$};
+  \node[left,text=accent] at (1.5,2.3) {$\vec e_2$};
+  \punt[right]{5}{6}{P}
+\end{tikzpicture}}
+Op het scheve rooster lees je hetzelfde af: één stap $\vec e_1$ en twee stappen $\vec e_2$ brengen je van $O$ naar $P$.}
+
+Dat stelsel kun je in één keer voor alle punten oplossen, met een matrix. Zet de basisvectoren als kolommen in een matrix $M$. De voorwaarde $\vec e_1$ en $\vec e_2$ niet evenwijdig betekent dan $\det M \neq 0$, zodat $M$ een inverse heeft.
+
+\begin{theorie}
+\begin{stelling}{Affiene en cartesische coördinaten}
+Heeft $O$ de cartesische coördinaten $(o_1, o_2)$, en is $M$ de matrix met de basisvectoren $\vec e_1$ en $\vec e_2$ als kolommen, dan hangen de cartesische coördinaten $(X, Y)$ en de affiene coördinaten $(x, y)$ van een punt zo samen:
+
+\vspace{1mm}
+\qquad $\formule{\kol{X \\ Y} = \kol{o_1 \\ o_2} + M\kol{x \\ y}}$ \qquad en \qquad $\formule{\kol{x \\ y} = M^{-1}\kol{X - o_1 \\ Y - o_2}}$
+\end{stelling}
+
+\begin{bewijs}
+Uit $\vec{OP} = x\,\vec e_1 + y\,\vec e_2$ volgt per component
+\bewijsregel{\kol{X - o_1 \\ Y - o_2} = x\,\vec e_1 + y\,\vec e_2 = M\kol{x \\ y} .}
+Omdat $\vec e_1$ en $\vec e_2$ niet evenwijdig zijn, is $\det M \neq 0$. Vermenigvuldig links met $M^{-1}$, en je krijgt de tweede formule.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Neem het assenstelsel van voorbeeld~\ref{vb:h1-coord}. Bepaal de affiene coördinaten van $Q(0, -2)$, en de cartesische coördinaten van het punt met affiene coördinaten $(3, -1)$.\label{vb:h1-omreken}}{%
+\uitleg{Voor de eerste vraag heb je $M^{-1}$ nodig, voor de tweede alleen $M$.}
+\begin{stappen}
+M = \um{rr}{2 & 1 \\ 1 & 2}, \quad M^{-1} = \dfrac13\um{rr}{2 & -1 \\ -1 & 2} & $\det M = 3$. \\[3ex]
+\kol{x \\ y} = \dfrac13\um{rr}{2 & -1 \\ -1 & 2}\kol{-1 \\ -3} = \kol{\tfrac13 \\ -\tfrac53} & $\vec{OQ} = (-1, -3)$. \\[4ex]
+\kol{X \\ Y} = \kol{1 \\ 1} + \um{rr}{2 & 1 \\ 1 & 2}\kol{3 \\ -1} = \kol{6 \\ 2} & Het punt $(6, 2)$.
+\end{stappen}
+Controle: $\tfrac13(2, 1) - \tfrac53(1, 2) = (-1, -3)$. Klopt.}
+
+\begin{werkwijze}
+Zet de basisvectoren als kolommen in $M$. Van affien naar cartesisch: tel $M\kol{x \\ y}$ op bij de oorsprong. Van cartesisch naar affien: vermenigvuldig $\vec{OP}$ met $M^{-1}$, of los het stelsel op.
+\end{werkwijze}
+
+\nujij{Neem $O(0, 2)$, $\vec e_1 = (1, 1)$ en $\vec e_2 = (-1, 1)$. Bepaal de affiene coördinaten van $P(4, 4)$.}{$\vec{OP} = (4, 2) = 3\vec e_1 - \vec e_2$: $(3, -1)$.}
+
+\begin{oefeningen}
+\oef{h1-coord}
+\end{oefeningen}
+
+\subsection{Midden en deelverhouding}
+
+Welke formules uit de 2de graad blijven gelden in een scheef assenstelsel? De coördinaten van de vector $\vec{AB}$ zijn nog altijd $(x_B - x_A,\ y_B - y_A)$, want $\vec{AB} = \vec{OB} - \vec{OA}$, en optellen en vermenigvuldigen met een getal gaat per coördinaat. Daarom blijft ook de formule voor het midden gelden, zoals je in de Verken zag. Algemener kun je een punt op een lijnstuk aanduiden met de verhouding waarin het dat lijnstuk verdeelt.
+
+\begin{theorie}
+Liggen $A$, $B$ en $P$ op één rechte, met $A \neq B$ en $P \neq B$, dan is de \textbf{\textcolor{accent}{deelverhouding}} $\dv ABP$ het getal $\lambda$ met
+
+\vspace{1mm}
+\qquad $\formule{\vec{AP} = \lambda\,\vec{PB}}$
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[scale=1.15,font=\scriptsize]
+  \draw[lijngrijs,thick] (-2,0) -- (5.2,0);
+  \foreach \p/\l in {-1.5/{-\tfrac13},1/{\tfrac12},1.5/1,2/2,4.5/{-3}}{%
+    \fill[accent] (\p,0) circle (1.6pt);
+    \node[above,text=accent] at (\p,.08) {$\l$};}
+  \punt[below]{0}{0}{A}
+  \punt[below]{3}{0}{B}
+\end{tikzpicture}}
+\begin{center}\small De deelverhouding $\dv ABP$ voor vijf punten $P$ op de rechte $AB$.\end{center}
+
+Ligt $P$ tussen $A$ en $B$, dan wijzen $\vec{AP}$ en $\vec{PB}$ dezelfde kant op, en is $\lambda > 0$: het midden heeft $\lambda = 1$, het punt op een derde van $A$ heeft $\lambda = \tfrac12$. Ligt $P$ buiten het lijnstuk, dan is $\lambda < 0$. De waarde $-1$ komt nooit voor, want $\vec{AP} = -\vec{PB}$ zou $\vec{AB} = \vec 0$ geven. Je kunt $\lambda$ ook lezen als $\tfrac{|AP|}{|PB|}$, met een minteken als $P$ buiten $[AB]$ ligt. Maar voor de definitie heb je geen afstanden nodig: alleen vectoren op dezelfde rechte. (Sommige boeken gebruiken $\tfrac{PA}{PB}$; dan verandert het teken.)
+
+\begin{theorie}
+\begin{stelling}{Punt met een gegeven deelverhouding}
+In elk affien assenstelsel heeft het punt $P$ met $\dv ABP = \lambda$ de coördinaten
+
+\vspace{1mm}
+\qquad $\formule{P = \dfrac{A + \lambda B}{1 + \lambda}}$
+\end{stelling}
+
+\begin{bewijs}
+Schrijf de punten als hun coördinaten. Dan is
+\bewijsregel{\vec{AP} = \lambda\,\vec{PB} \iff P - A = \lambda\,(B - P) \iff (1 + \lambda)\,P = A + \lambda B ,}
+en omdat $\lambda \neq -1$ mag je delen door $1 + \lambda$.
+\end{bewijs}
+\end{theorie}
+
+Voor $\lambda = 1$ vind je het midden $\tfrac12(A + B)$. De formule is een gewogen gemiddelde van $A$ en $B$: hoe groter $\lambda$, hoe meer $B$ weegt, en hoe dichter $P$ bij $B$ ligt.
+
+\voorbeeld{}{In een affien assenstelsel is $A(1, 4)$ en $B(7, -2)$. Bepaal $P$ met $\dv ABP = 2$ en $Q$ met $\dv ABQ = -3$.\label{vb:h1-dv}}{%
+\uitleg{Vul de formule in. Bij $Q$ verwacht je een punt buiten $[AB]$, aan de kant van $B$, want $|AQ| = 3\,|QB|$.}
+\begin{stappen}
+P = \dfrac{(1, 4) + 2\,(7, -2)}{3} = \dfrac{(15, 0)}{3} = (5, 0) & Op twee derde van $A$ naar $B$. \\[2ex]
+Q = \dfrac{(1, 4) - 3\,(7, -2)}{-2} = \dfrac{(-20, 10)}{-2} = (10, -5) & Voorbij $B$. \\[2ex]
+\vec{AQ} = (9, -9), \quad \vec{QB} = (-3, 3) & Controle: $\vec{AQ} = -3\,\vec{QB}$.
+\end{stappen}}
+
+\begin{werkwijze}
+Een punt met een gegeven deelverhouding: vul $\lambda$ in $\dfrac{A + \lambda B}{1 + \lambda}$ in. Omgekeerd, de deelverhouding van een gegeven punt: bereken $\vec{AP}$ en $\vec{PB}$, en zoek het getal $\lambda$ met $\vec{AP} = \lambda\,\vec{PB}$. Bestaat dat getal niet, dan ligt $P$ niet op $AB$.
+\end{werkwijze}
+
+\nujij{Is $C(3, 2)$ een punt van de rechte $AB$ uit het voorbeeld? Zo ja, wat is $\dv ABC$?}{$\vec{AC} = (2, -2)$, $\vec{CB} = (4, -4)$: ja, $\lambda = \tfrac12$.}
+
+\begin{oefeningen}
+\oef{h1-dv}
+\end{oefeningen}
+
+Wat blijft \textit{niet} gelden? De afstandsformule. Neem $\vec e_1 = (1, 0)$ en $\vec e_2 = (1, 1)$, en het punt met affiene coördinaten $(0, 1)$. Dat is het punt $(1, 1)$ in het cartesische assenstelsel, op afstand $\sqrt2$ van $O$, en niet op afstand $\sqrt{0^2 + 1^2} = 1$. Ook hoeken kun je niet aflezen: de assen zelf staan hier onder $45^\circ$. In een affien assenstelsel spreek je dus alleen over wat zonder afstanden en hoeken kan: rechten, evenwijdigheid, midden en deelverhouding.
+
+\subsection{Rechten}
+
+Blijft een rechte een rechte vergelijking houden als de assen scheef staan? Ja, en het bewijs is hetzelfde als in de 2de graad, want het gebruikt alleen vectoren.
+
+\begin{theorie}
+\begin{stelling}{Vergelijking van een rechte}
+In een affien assenstelsel heeft elke rechte een vergelijking
+
+\vspace{1mm}
+\qquad $\formule{ax + by + c = 0}$ \qquad met $(a, b) \neq (0, 0)$,
+
+\vspace{1mm}
+en elke zulke vergelijking stelt een rechte voor, met richtingsvector $(-b, a)$.
+\end{stelling}
+
+\begin{bewijs}
+De rechte door $A(x_A, y_A)$ met richtingsvector $\vec v = (v_1, v_2) \neq \vec 0$ bestaat uit de punten $A + t\,\vec v$, dus
+\bewijsregel{x = x_A + t\,v_1, \quad y = y_A + t\,v_2 .}
+Elimineer $t$: $v_2(x - x_A) - v_1(y - y_A) = 0$. Dat is $ax + by + c = 0$ met $(a, b) = (v_2, -v_1) \neq (0, 0)$. Omgekeerd: neem een oplossing $(x_A, y_A)$ van $ax + by + c = 0$. Dan is $(x, y)$ een oplossing als en slechts als $a(x - x_A) + b(y - y_A) = 0$, dus als $(x - x_A, y - y_A)$ een veelvoud is van $(-b, a)$. Dat zijn precies de punten van de rechte door $A$ met richtingsvector $(-b, a)$.
+\end{bewijs}
+\end{theorie}
+
+Twee rechten zijn dus evenwijdig als hun richtingsvectoren $(-b, a)$ en $(-b', a')$ evenwijdig zijn, of $ab' - a'b = 0$, net als in de 2de graad. Nieuw is een handige test met een determinant: liggen drie punten op één rechte?
+
+\begin{theorie}
+\begin{stelling}{Drie punten op één rechte}
+De punten $(x_1, y_1)$, $(x_2, y_2)$ en $(x_3, y_3)$ liggen op één rechte als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\begin{vmatrix} x_1 & y_1 & 1 \\ x_2 & y_2 & 1 \\ x_3 & y_3 & 1 \end{vmatrix} = 0}$
+\end{stelling}
+
+\begin{bewijs}
+Trek de eerste rij af van de tweede en de derde. Dat verandert de determinant niet, en ontwikkelen naar de derde kolom geeft
+\bewijsregel{\begin{vmatrix} x_1 & y_1 & 1 \\ x_2 - x_1 & y_2 - y_1 & 0 \\ x_3 - x_1 & y_3 - y_1 & 0 \end{vmatrix} = \begin{vmatrix} x_2 - x_1 & y_2 - y_1 \\ x_3 - x_1 & y_3 - y_1 \end{vmatrix} .}
+Die is 0 als en slechts als de rijen $\vec{P_1P_2}$ en $\vec{P_1P_3}$ evenwijdig zijn (of een ervan $\vec 0$ is), dus als de drie punten op één rechte liggen.
+\end{bewijs}
+\end{theorie}
+
+Ook voor drie rechten bestaat zo'n test. Hier duikt iets vreemds op: de determinant is ook 0 als de drie rechten evenwijdig zijn. Waarom, zie je in het bewijs.
+
+\begin{theorie}
+\begin{stelling}{Drie rechten door één punt}
+De rechten $a_ix + b_iy + c_i = 0$, voor $i = 1, 2, 3$, gaan door één punt of zijn evenwijdig als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\begin{vmatrix} a_1 & b_1 & c_1 \\ a_2 & b_2 & c_2 \\ a_3 & b_3 & c_3 \end{vmatrix} = 0}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $N$ de matrix. Gaan de rechten door het punt $(x, y)$, dan is $N\kol{x \\ y \\ 1} = \kol{0 \\ 0 \\ 0}$ met een kolom die niet nul is, en dus is $\det N = 0$. Zijn ze evenwijdig, met een gemeenschappelijke richtingsvector $(u, v)$, dan is $a_iu + b_iv = 0$ voor elke $i$, dus $N\kol{u \\ v \\ 0} = \kol{0 \\ 0 \\ 0}$, en weer is $\det N = 0$. Omgekeerd: is $\det N = 0$, dan heeft $N\kol{x \\ y \\ z} = \kol{0 \\ 0 \\ 0}$ een oplossing die niet nul is.
+Is $z \neq 0$, dan gaan alle rechten door $\bigl(\tfrac xz, \tfrac yz\bigr)$. Is $z = 0$, dan is
+\bewijsregel{a_ix + b_iy = 0 \quad \text{voor } i = 1, 2, 3 ,}
+dus is $(x, y)$ een richtingsvector van elke rechte: ze zijn evenwijdig.
+\end{bewijs}
+\end{theorie}
+
+Het geval $z = 0$, waarin de drie rechten evenwijdig zijn, lijkt een vervelende uitzondering. In hoofdstuk 2 wordt het een gewoon geval: daar snijden evenwijdige rechten elkaar in een punt op oneindig, met derde coördinaat 0.
+
+Het voordeel van affiene coördinaten is dat je ze kiest bij de figuur. In een driehoek $ABC$ neem je $A$ als oorsprong en $\vec{AB}$ en $\vec{AC}$ als basisvectoren. Dan is $A(0, 0)$, $B(1, 0)$ en $C(0, 1)$, voor elke driehoek, en dat rekent veel makkelijker.
+
+\voorbeeld{}{Toon met affiene coördinaten aan dat de drie zwaartelijnen van een driehoek door één punt gaan, en bereken de deelverhouding waarin dat punt elke zwaartelijn verdeelt.\label{vb:h1-zwaarte}}{%
+\uitleg{Kies het assenstelsel $(A; \vec{AB}, \vec{AC})$. Een zwaartelijn verbindt een hoekpunt met het midden van de overstaande zijde.}
+\begin{stappenbreed}
+M_a\bigl(\tfrac12, \tfrac12\bigr),\ M_b\bigl(0, \tfrac12\bigr),\ M_c\bigl(\tfrac12, 0\bigr) & De middens van $[BC]$, $[CA]$ en $[AB]$. \\[1ex]
+AM_a: x - y = 0, \quad BM_b: x + 2y - 1 = 0, \quad CM_c: 2x + y - 1 = 0 & De drie zwaartelijnen. \\[1ex]
+\begin{vmatrix} 1 & -1 & 0 \\ 1 & 2 & -1 \\ 2 & 1 & -1 \end{vmatrix} = 1 \cdot (-1) + 1 \cdot 1 + 0 = 0 & Ontwikkel naar de eerste rij. Ze zijn niet evenwijdig, dus gaan ze door één punt. \\[4ex]
+Z\bigl(\tfrac13, \tfrac13\bigr) & Uit $x = y$ en $3x = 1$. \\[1ex]
+Z = \dfrac{A + 2M_a}{3}, \text{ dus } \dv{A}{M_a}{Z} = 2 & $Z$ ligt op twee derde van $A$ naar $M_a$.
+\end{stappenbreed}
+Voor de andere zwaartelijnen net zo: $Z = \tfrac13(B + 2M_b) = \tfrac13(C + 2M_c)$. De berekening gebruikt niets van de vorm van de driehoek, dus het geldt voor elke driehoek.}
+
+\begin{werkwijze}
+Gaat een eigenschap alleen over rechten, evenwijdigheid en deelverhoudingen, kies dan een affien assenstelsel bij de figuur: een hoekpunt als oorsprong en twee zijden als basisvectoren. Gebruik de determinanten om te testen of punten op één rechte liggen of rechten door één punt gaan.
+\end{werkwijze}
+
+\nujij{Liggen de punten $(1, 2)$, $(3, -2)$ en $(-1, 6)$ op één rechte?}{$\begin{vmatrix} 1 & 2 & 1 \\ 3 & -2 & 1 \\ -1 & 6 & 1 \end{vmatrix} = 0$: ja.}
+
+\begin{oefeningen}
+\oef{h1-collin}
+\end{oefeningen}
+
+%========================================================================================
+\section{Affiene transformaties}
+
+\subsection{Van assenstelsel wisselen}
+
+Twee mensen kiezen elk een ander affien assenstelsel in hetzelfde vlak. Hoe reken je de coördinaten van de ene om naar die van de andere? Je deed het al met een cartesisch en een affien assenstelsel. Het gaat net zo met twee affiene: de nieuwe oorsprong en de nieuwe basisvectoren, uitgedrukt in het oude assenstelsel, geven de formule.
+
+\begin{theorie}
+\begin{stelling}{Coördinatentransformatie}
+Heeft een punt de coördinaten $(x, y)$ in $(O; \vec e_1, \vec e_2)$ en $(x', y')$ in $(O'; \vec e_1\!', \vec e_2\!')$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\kol{x \\ y} = A\kol{x' \\ y'} + \kol{p \\ q}}$ \qquad met $\det A \neq 0$.
+
+\vspace{1mm}
+Daarin is $(p, q)$ de oorsprong $O'$ en zijn de kolommen van $A$ de vectoren $\vec e_1\!'$ en $\vec e_2\!'$, allemaal in de coördinaten van het eerste assenstelsel.
+\end{stelling}
+
+\begin{bewijs}
+Schrijf $\vec e_1\!' = a_{11}\vec e_1 + a_{21}\vec e_2$ en $\vec e_2\!' = a_{12}\vec e_1 + a_{22}\vec e_2$. Dan is
+\bewijsregel{\vec{OP} = \vec{OO'} + \vec{O'P} = (p\,\vec e_1 + q\,\vec e_2) + x'\vec e_1\!' + y'\vec e_2\!' = (p + a_{11}x' + a_{12}y')\,\vec e_1 + (q + a_{21}x' + a_{22}y')\,\vec e_2 .}
+De coördinaten zijn uniek, dus $x = p + a_{11}x' + a_{12}y'$ en $y = q + a_{21}x' + a_{22}y'$. Omdat $\vec e_1\!'$ en $\vec e_2\!'$ niet evenwijdig zijn, is $\det A \neq 0$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Een driehoek heeft de cartesische hoekpunten $A(1, 1)$, $B(5, 2)$ en $C(2, 4)$. Geef het verband tussen de cartesische coördinaten en de coördinaten in $(A; \vec{AB}, \vec{AC})$. Gebruik het om het zwaartepunt te vinden.\label{vb:h1-wissel}}{%
+\uitleg{In het assenstelsel van de driehoek ken je het zwaartepunt al: $\bigl(\tfrac13, \tfrac13\bigr)$, uit voorbeeld~\ref{vb:h1-zwaarte}.}
+\begin{stappen}
+\vec{AB} = (4, 1), \quad \vec{AC} = (1, 3) & De nieuwe basisvectoren. \\[1ex]
+\kol{X \\ Y} = \um{rr}{4 & 1 \\ 1 & 3}\kol{x \\ y} + \kol{1 \\ 1} & Het verband. \\[3ex]
+\kol{X \\ Y} = \um{rr}{4 & 1 \\ 1 & 3}\kol{\tfrac13 \\ \tfrac13} + \kol{1 \\ 1} = \kol{\tfrac83 \\ \tfrac73} & Het zwaartepunt.
+\end{stappen}
+Controle met de bekende formule: $\bigl(\tfrac{1 + 5 + 2}{3}, \tfrac{1 + 2 + 4}{3}\bigr) = \bigl(\tfrac83, \tfrac73\bigr)$.}
+
+\begin{oefeningen}
+\oef{h1-wissel}
+\end{oefeningen}
+
+\subsection{Affiene transformaties}
+
+Lees dezelfde formule nu anders. In plaats van één punt met twee namen, neem je één assenstelsel en laat je elk punt $X$ verhuizen naar $AX + b$. Het vlak wordt zo vervormd: uitgerekt, scheefgetrokken, gedraaid. Wat je in de figuur ziet, wordt een afbeelding.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{affiene transformatie}} van het vlak is een afbeelding
+
+\vspace{1mm}
+\qquad $\formule{f(X) = AX + b}$ \qquad met $A$ een $2 \times 2$-matrix met $\det A \neq 0$ en $b$ een kolom.
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[lijngrijs] (-1.4,0) -- (1.4,0) (0,-1.4) -- (0,1.4);
+  \draw[accent,thick] (0,0) circle (1);
+  \draw[thick] (-.707,-.707) rectangle (.707,.707);
+  \node at (0,-1.8) {origineel};
+\end{tikzpicture}\hspace{8mm}
+\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[lijngrijs] (-1.4,0) -- (1.4,0) (0,-1.4) -- (0,1.4);
+  \begin{scope}[cm={1,0,0,.5,(0,0)}]
+    \draw[accent,thick] (0,0) circle (1);
+    \draw[thick] (-.707,-.707) rectangle (.707,.707);
+  \end{scope}
+  \node at (0,-1.8) {$(x, y) \mapsto (x, \tfrac12 y)$};
+\end{tikzpicture}\hspace{8mm}
+\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[lijngrijs] (-1.4,0) -- (1.4,0) (0,-1.4) -- (0,1.4);
+  \begin{scope}[cm={1,0,.8,1,(0,0)}]
+    \draw[accent,thick] (0,0) circle (1);
+    \draw[thick] (-.707,-.707) rectangle (.707,.707);
+  \end{scope}
+  \node at (0,-1.8) {$(x, y) \mapsto (x + 0{,}8y, y)$};
+\end{tikzpicture}\hspace{8mm}
+\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[lijngrijs] (-1.4,0) -- (1.4,0) (0,-1.4) -- (0,1.4);
+  \begin{scope}[rotate=30]
+    \draw[accent,thick] (0,0) circle (1);
+    \draw[thick] (-.707,-.707) rectangle (.707,.707);
+  \end{scope}
+  \node at (0,-1.8) {draaiing over $30^\circ$};
+\end{tikzpicture}}
+\begin{center}\small Een cirkel met een vierkant erin, na een uitrekking, een afschuiving en een draaiing.\end{center}
+
+De figuur toont drie soorten. Een \emph{uitrekking} vermenigvuldigt de afstand tot een as met een vast getal: zo wordt een cirkel een ellips, zoals in Kegelsneden. Een \emph{afschuiving} schuift elk punt evenwijdig met een as op, des te verder naarmate het verder van die as ligt: het vierkant wordt een parallellogram. Een draaiing, een spiegeling en een verschuiving zijn ook affien. Zij bewaren bovendien afstanden en hoeken: dat zijn de \emph{euclidische} transformaties, met een matrix waarvan de kolommen loodrecht op elkaar staan en lengte 1 hebben.
+
+\voorbeeld{}{Bepaal het beeld van het vierkant met hoekpunten $(0, 0)$, $(1, 0)$, $(1, 1)$ en $(0, 1)$ onder $f(x, y) = (2x + y - 1,\ x + 2y)$. Wat blijft er van het vierkant over?\label{vb:h1-trans}}{%
+\uitleg{Bereken het beeld van de hoekpunten. De zijden zijn lijnstukken, en (zie verder) hun beelden ook.}
+\naast{\begin{stappenvrij}{6.2cm}{3.2cm}
+f(0, 0) = (-1, 0), \quad f(1, 0) = (1, 1) & \\[1ex]
+f(1, 1) = (2, 3), \quad f(0, 1) = (0, 2) & De vier beelden. \\[1ex]
+(1, 1) - (-1, 0) = (2, 1) = (2, 3) - (0, 2) & Overstaande zijden blijven evenwijdig en even lang. \\[1ex]
+\det\um{rr}{2 & 1 \\ 1 & 2} = 3 & De oppervlakte wordt 3.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.45,font=\scriptsize]
+  \rooster{-2}{1}{3}{-1}{1}{4}
+  \fill[black!10] (0,0) rectangle (1,1);
+  \draw[thick] (0,0) rectangle (1,1);
+  \fill[accent!25] (-1,0) -- (1,1) -- (2,3) -- (0,2) -- cycle;
+  \draw[accent,thick] (-1,0) -- (1,1) -- (2,3) -- (0,2) -- cycle;
+  \draw[accent,dashed] (-1,0) -- (2,3) (1,1) -- (0,2);
+  \draw[dashed] (0,0) -- (1,1) (1,0) -- (0,1);
+\end{tikzpicture}}
+Het vierkant wordt een parallellogram. De rechte hoeken en de gelijke zijden zijn weg, maar de evenwijdige zijden blijven evenwijdig, en de diagonalen delen elkaar nog altijd middendoor: het snijpunt $\bigl(\tfrac12, \tfrac12\bigr)$ gaat naar $\bigl(\tfrac12, \tfrac32\bigr)$, het midden van beide beelddiagonalen.}
+
+\nujij{Wat is het beeld van de cirkel $x^2 + y^2 = 1$ onder $f(x, y) = (3x, 2y)$?}{$\Bigl(\dfrac{x}{3}\Bigr)^2 + \Bigl(\dfrac{y}{2}\Bigr)^2 = 1$: een ellips.}
+
+\begin{oefeningen}
+\oef{h1-trans}
+\end{oefeningen}
+
+\subsection{Wat een affiene transformatie bewaart}
+
+In het voorbeeld bleef er iets over van het vierkant, al leek het er niet meer op. Wat precies? Dat zijn de eigenschappen die in elk affien assenstelsel dezelfde formule hebben: rechten, evenwijdigheid, deelverhoudingen. We bewijzen ze één voor één. Stel $f(X) = AX + b$; voor een vector $\vec v = Q - P$ is dan $f(Q) - f(P) = A\,\vec v$: vectoren worden met $A$ vermenigvuldigd, de verschuiving $b$ valt weg.
+
+\begin{theorie}
+\begin{stelling}{Rechten en evenwijdigheid}
+Een affiene transformatie beeldt een rechte af op een rechte, en evenwijdige rechten op evenwijdige rechten.
+\end{stelling}
+
+\begin{bewijs}
+De rechte door $P$ met richtingsvector $\vec v$ bestaat uit de punten $P + t\,\vec v$. Hun beelden zijn
+\bewijsregel{f(P + t\,\vec v) = A(P + t\,\vec v) + b = f(P) + t\,A\vec v ,}
+de rechte door $f(P)$ met richtingsvector $A\vec v$. Die is niet $\vec 0$, want $\det A \neq 0$. Evenwijdige rechten hebben dezelfde $\vec v$, dus hun beelden dezelfde $A\vec v$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Deelverhouding}
+Een affiene transformatie bewaart de deelverhouding: \qquad $\formule{\dv{f(A)}{f(B)}{f(P)} = \dv ABP}$
+\end{stelling}
+
+\begin{bewijs}
+Uit $\vec{AP} = \lambda\,\vec{PB}$ volgt
+\bewijsregel{f(P) - f(A) = A\,\vec{AP} = \lambda\,A\,\vec{PB} = \lambda\,\bigl(f(B) - f(P)\bigr) .}
+\end{bewijs}
+\end{theorie}
+
+In het bijzonder gaat het midden van een lijnstuk naar het midden van het beeld, en het zwaartepunt van een driehoek naar het zwaartepunt van de beelddriehoek. Lengtes en hoeken blijven niet: het vierkant uit het voorbeeld kreeg andere zijden en andere hoeken. Wel blijft de verhouding van twee lijnstukken op dezelfde rechte, of op evenwijdige rechten. En oppervlaktes?
+
+\begin{theorie}
+\begin{stelling}{Oppervlakte}
+Een affiene transformatie $f(X) = AX + b$ vermenigvuldigt elke oppervlakte met $|\det A|$:
+
+\vspace{1mm}
+\qquad $\formule{\text{opp}\bigl(f(F)\bigr) = |\det A| \cdot \text{opp}(F)}$
+
+\vspace{1mm}
+Ze bewaart dus de verhouding van oppervlaktes.
+\end{stelling}
+
+\begin{bewijs}
+Uit de 2de graad: de driehoek met hoekpunten $P$, $P + \vec u$ en $P + \vec v$ heeft oppervlakte $\tfrac12\,|\det(\vec u\ \vec v)|$, met $\vec u$ en $\vec v$ als kolommen van een matrix. De beelddriehoek heeft de zijvectoren $A\vec u$ en $A\vec v$, dus oppervlakte
+\bewijsregel{\tfrac12\,\bigl|\det(A\vec u\ \ A\vec v)\bigr| = \tfrac12\,\bigl|\det\bigl(A\,(\vec u\ \vec v)\bigr)\bigr| = |\det A| \cdot \tfrac12\,|\det(\vec u\ \vec v)| .}
+Een veelhoek verdeel je in driehoeken. Een gebogen figuur benader je met veelhoeken, zoals bij een integraal.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bereken de oppervlakte van de ellips $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$ als beeld van de eenheidscirkel.\label{vb:h1-ellips}}{%
+\uitleg{Zoek een affiene transformatie die de eenheidscirkel op de ellips afbeeldt, en vermenigvuldig $\pi$ met $|\det A|$.}
+\begin{stappen}
+f(x, y) = (ax, by), \quad A = \um{cc}{a & 0 \\ 0 & b} & Een uitrekking in twee richtingen. \\[3ex]
+(u, v) = f(x, y) \text{ met } x^2 + y^2 = 1 \iff \dfrac{u^2}{a^2} + \dfrac{v^2}{b^2} = 1 & Het beeld van de cirkel is de ellips. \\[3ex]
+\text{opp} = |\det A| \cdot \pi = \pi ab & Voor $a = b$ de cirkel, $\pi a^2$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-opp}
+\end{oefeningen}
+
+\subsection{Elke driehoek is een standaarddriehoek}
+
+Elke cirkel is een uitgerekte cirkel, en elk vierkant kan elk parallellogram worden. Hoe ver gaat dat? Voor driehoeken zo ver als het kan: elke driehoek kan elke andere driehoek worden.
+
+\begin{theorie}
+\begin{stelling}{Driehoeken}
+Voor twee driehoeken $ABC$ en $A'B'C'$ is er precies één affiene transformatie $f$ met $f(A) = A'$, $f(B) = B'$ en $f(C) = C'$.
+\end{stelling}
+
+\begin{bewijs}
+\textit{Bestaan.} Neem voor elk punt $X$ zijn coördinaten $(x, y)$ in $(A; \vec{AB}, \vec{AC})$, en zet het op het punt met dezelfde coördinaten in $(A'; \vec{A'B'}, \vec{A'C'})$. Met $M$ en $M'$ de matrices met die basisvectoren als kolommen is dat
+\bewijsregel{f(X) = A' + M'\kol{x \\ y} = A' + M'M^{-1}(X - A) ,}
+een affiene transformatie, want $\det(M'M^{-1}) \neq 0$. Ze stuurt $(0, 0)$, $(1, 0)$ en $(0, 1)$, dus $A$, $B$ en $C$, naar $A'$, $B'$ en $C'$.
+
+\textit{Uniek.} Voor elke affiene $g$ met die eigenschap is $g(A + x\,\vec{AB} + y\,\vec{AC}) = g(A) + x\,\bigl(g(B) - g(A)\bigr) + y\,\bigl(g(C) - g(A)\bigr) = A' + x\,\vec{A'B'} + y\,\vec{A'C'}$: dat ligt vast.
+\end{bewijs}
+\end{theorie}
+
+Wat betekent dat? In de affiene meetkunde zijn alle driehoeken gelijk: er is geen verschil tussen een gelijkzijdige driehoek en een lange, platte. Een eigenschap die alleen over rechten, evenwijdigheid, deelverhoudingen en verhoudingen van oppervlaktes gaat, hoef je dus maar in één driehoek te bewijzen: de \emph{standaarddriehoek} $A(0, 0)$, $B(1, 0)$, $C(0, 1)$. Dat is wat we bij de zwaartelijnen al deden.
+
+\voorbeeld{}{In een driehoek $ABC$ is $Q$ het midden van $[AC]$, en ligt $P$ op $[BC]$ met $\dv BCP = \tfrac12$. De rechten $AP$ en $BQ$ snijden elkaar in $S$. Bereken $\dv APS$.\label{vb:h1-std}}{%
+\uitleg{De vraag gaat alleen over deelverhoudingen: werk in de standaarddriehoek.}
+\begin{stappenbreed}
+P = \dfrac{B + \tfrac12C}{\tfrac32} = \bigl(\tfrac23, \tfrac13\bigr), \quad Q = \bigl(0, \tfrac12\bigr) & Met de formule voor de deelverhouding. \\[2ex]
+AP:\ (x, y) = t\,\bigl(\tfrac23, \tfrac13\bigr), \quad BQ:\ (x, y) = (1, 0) + s\,\bigl(-1, \tfrac12\bigr) & Parametervoorstellingen. \\[2ex]
+\tfrac23t = 1 - s, \ \ \tfrac13t = \tfrac12s \ \Rightarrow \ t = \tfrac34 & Gelijkstellen. \\[1ex]
+\vec{AS} = \tfrac34\,\vec{AP}, \ \vec{SP} = \tfrac14\,\vec{AP}, \text{ dus } \dv APS = 3 & $S$ ligt op drie vierde van $A$ naar $P$.
+\end{stappenbreed}
+Dat geldt voor elke driehoek, want een affiene transformatie van de standaarddriehoek naar $ABC$ bewaart de deelverhoudingen.}
+
+\begin{werkwijze}
+Gaat een eigenschap van een willekeurige driehoek alleen over rechten, evenwijdigheid, deelverhoudingen of verhoudingen van oppervlaktes, bewijs ze dan in de standaarddriehoek $A(0, 0)$, $B(1, 0)$, $C(0, 1)$. Een eigenschap met lengtes, hoeken of loodrechte stand kan zo niet: die is niet affien.
+\end{werkwijze}
+
+\nujij{Geldt de eigenschap \textit{de hoogtelijnen van een driehoek gaan door één punt} voor elke driehoek als je ze nagaat in de standaarddriehoek?}{Nee: loodrecht staan is geen affiene eigenschap. De eigenschap is wel waar, maar het bewijs moet anders.}
+
+\begin{oefeningen}
+\oef{h1-std}
+\end{oefeningen}
+
+%========================================================================================
+\section{Ceva en Menelaos}
+
+\subsection{De stelling van Menelaos}
+
+Een rechte die geen hoekpunt bevat, snijdt de drie zijden van een driehoek (of hun verlengden) in drie punten. Zijn de drie deelverhoudingen dan willekeurig? Menelaos van Alexandrië, een sterrenkundige rond het jaar 100, ontdekte dat hun product altijd hetzelfde is. Gebruik de afspraak: $P$ ligt op $BC$, $Q$ op $CA$ en $R$ op $AB$, en de deelverhoudingen lees je in de volgorde $A \to B \to C \to A$.
+
+\begin{theorie}
+\begin{stelling}{Menelaos}
+Neem een driehoek $ABC$ en punten $P$, $Q$ en $R$ op de rechten $BC$, $CA$ en $AB$, verschillend van de hoekpunten. Dan liggen $P$, $Q$ en $R$ op één rechte als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\dv BCP \cdot \dv CAQ \cdot \dv ABR = -1}$
+\end{stelling}
+
+\begin{bewijs}
+De eigenschap is affien: werk in de standaarddriehoek. Noem de drie deelverhoudingen $p$, $q$ en $r$. Dan is
+\bewijsregel{P = \dfrac{B + pC}{1 + p} = \dfrac{(1, p)}{1 + p}, \quad Q = \dfrac{C + qA}{1 + q} = \dfrac{(0, 1)}{1 + q}, \quad R = \dfrac{A + rB}{1 + r} = \dfrac{(r, 0)}{1 + r} .}
+Zet ze in de determinant van drie punten op één rechte, en vermenigvuldig de rijen met $1 + p$, $1 + q$ en $1 + r$ (dat verandert niets aan \textit{gelijk aan 0}):
+\bewijsregel{\begin{vmatrix} 1 & p & 1 + p \\ 0 & 1 & 1 + q \\ r & 0 & 1 + r \end{vmatrix} = (1 + r) + p\,r\,(1 + q) - r\,(1 + p) = 1 + pqr .}
+Die is 0 als en slechts als $pqr = -1$.
+\end{bewijs}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \draw[thick] (0,0) -- (4,0) -- (1.5,3) -- cycle;
+  \draw[lijngrijs,dashed] (4,0) -- (6.5,-3);
+  \draw[accent,thick] (-.6,1.733) -- (7.1,-3.4);
+  \punt[below left]{0}{0}{A}
+  \punt[above right]{4}{0}{B}
+  \punt[above]{1.5}{3}{C}
+  \fpunt[below]{2}{0}{R}
+  \fpunt[above left]{.5}{1}{Q}
+  \fpunt[below left]{6.5}{-3}{P}
+\end{tikzpicture}}
+\begin{center}\small Een rechte snijdt $[AB]$ en $[CA]$, en het verlengde van $[BC]$: twee deelverhoudingen zijn positief, één is negatief.\end{center}
+
+Het minteken verklaart ook de figuur. Een rechte die een driehoek snijdt, gaat door twee zijden en mist de derde, of mist ze alle drie: er zijn dus altijd één of drie negatieve deelverhoudingen. En wat als $pqr = -1$ niet lukt omdat een van de punten niet bestaat? Neem $R$ en $Q$ de middens van $[AB]$ en $[CA]$. Dan is $qr = 1$, dus zou $p = -1$ moeten zijn, en die deelverhouding bestaat niet: de rechte $QR$ snijdt $BC$ niet. Ze is evenwijdig met $BC$, de middenparallel uit de 2de graad.
+
+\voorbeeld{}{In een driehoek $ABC$ is $R$ het midden van $[AB]$ en ligt $Q$ op $[CA]$ met $|CQ| = 2\,|QA|$. De rechte $QR$ snijdt $BC$ in $P$. Bepaal $\dv BCP$ en beschrijf waar $P$ ligt.\label{vb:h1-menelaos}}{%
+\uitleg{Twee deelverhoudingen zijn gegeven en de drie punten liggen op één rechte: Menelaos geeft de derde.}
+\begin{stappen}
+\dv ABR = 1, \quad \dv CAQ = 2 & $R$ is het midden, $Q$ ligt tussen $C$ en $A$. \\[1ex]
+\dv BCP \cdot 2 \cdot 1 = -1 \ \Rightarrow \ \dv BCP = -\tfrac12 & Menelaos. \\[1ex]
+P = \dfrac{B - \tfrac12C}{\tfrac12} = 2B - C & De formule voor de deelverhouding.
+\end{stappen}
+Dus $B = \tfrac12(P + C)$: $P$ ligt op het verlengde van $[CB]$, zo ver voorbij $B$ als $C$ ervoor ligt. Het is het punt van de figuur hierboven.}
+
+\begin{oefeningen}
+\oef{h1-menelaos}
+\end{oefeningen}
+
+\subsection{De stelling van Ceva}
+
+En als de drie rechten niet de punten verbinden, maar elk hoekpunt met een punt op de overstaande zijde? De zwaartelijnen gaan door één punt, maar in het probleem gingen $AP$, $BQ$ en $CR$ dat niet. Giovanni Ceva bewees in 1678 welke voorwaarde beslist.
+
+\begin{theorie}
+\begin{stelling}{Ceva}
+Neem een driehoek $ABC$ en punten $P$, $Q$ en $R$ op de rechten $BC$, $CA$ en $AB$, verschillend van de hoekpunten. Dan gaan $AP$, $BQ$ en $CR$ door één punt of zijn ze evenwijdig als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\dv BCP \cdot \dv CAQ \cdot \dv ABR = 1}$
+\end{stelling}
+
+\begin{bewijs}
+Werk weer in de standaarddriehoek, met $P$, $Q$ en $R$ zoals in het bewijs van Menelaos. De drie rechten zijn
+\bewijsregel{AP:\ px - y = 0, \qquad BQ:\ x + (1 + q)\,y - 1 = 0, \qquad CR:\ (1 + r)\,x + ry - r = 0 .}
+Ga na dat $P$, $Q$ en $R$ op de juiste rechte liggen: bijvoorbeeld $R$ op $CR$, want $(1 + r)\tfrac{r}{1 + r} - r = 0$. Met de determinant van drie rechten:
+\bewijsregel{\begin{vmatrix} p & -1 & 0 \\ 1 & 1 + q & -1 \\ 1 + r & r & -r \end{vmatrix} = p\,\bigl(-r(1 + q) + r\bigr) + \bigl(-r + (1 + r)\bigr) = 1 - pqr .}
+Die is 0 als en slechts als $pqr = 1$.
+\end{bewijs}
+\end{theorie}
+
+Liggen $P$, $Q$ en $R$ op de zijden zelf, dan zijn de drie deelverhoudingen positief, en gaan de rechten altijd door één punt binnen de driehoek als het product 1 is. Evenwijdig kan dan niet. Ceva en Menelaos lijken sterk op elkaar: hetzelfde product, met 1 voor drie rechten door één punt en $-1$ voor drie punten op één rechte.
+
+\voorbeeld{}{Neem in een driehoek $ABC$ de punten $P$ op $[BC]$ en $Q$ op $[CA]$, met $\dv BCP = \tfrac23$ en $\dv CAQ = \tfrac34$. Waar moet $R$ op $[AB]$ liggen opdat $AP$, $BQ$ en $CR$ door één punt gaan?\label{vb:h1-ceva}}{%
+\uitleg{Ceva geeft de ontbrekende deelverhouding.}
+\naast{\begin{stappenvrij}{4.8cm}{3.6cm}
+\tfrac23 \cdot \tfrac34 \cdot \dv ABR = 1 & Ceva. \\[1ex]
+\dv ABR = 2 & Dus $|AR| = 2\,|RB|$. \\[1ex]
+R = \tfrac13 A + \tfrac23 B & $R$ ligt op twee derde van $A$ naar $B$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[thick] (0,0) -- (5,0) -- (1.6,3.4) -- cycle;
+  \draw[accent] (0,0) -- (3.64,1.36) (5,0) -- (.914,1.943) (1.6,3.4) -- (3.333,0);
+  \fpunt[above]{2.8}{1.046}{}
+  \punt[below left]{0}{0}{A}
+  \punt[below right]{5}{0}{B}
+  \punt[above]{1.6}{3.4}{C}
+  \punt[above right]{3.64}{1.36}{P}
+  \punt[left]{.914}{1.943}{Q}
+  \punt[below]{3.333}{0}{R}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Benoem de punten zo dat $P$ op $BC$, $Q$ op $CA$ en $R$ op $AB$ ligt, en schrijf de deelverhoudingen in de volgorde $A \to B \to C \to A$: $\dv BCP$, $\dv CAQ$, $\dv ABR$. Is hun product 1, dan gaan $AP$, $BQ$ en $CR$ door één punt (Ceva). Is het $-1$, dan liggen $P$, $Q$ en $R$ op één rechte (Menelaos).
+\end{werkwijze}
+
+\nujij{Ga met Ceva na dat de zwaartelijnen door één punt gaan.}{Elk punt is een midden: $1 \cdot 1 \cdot 1 = 1$.}
+
+\begin{oefeningen}
+\oef{h1-ceva}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{Bereken welk deel van de oppervlakte van $ABC$ de driehoek uit het probleem inneemt.\label{vb:h1-terug}}{%
+\uitleg{Ceva zegt meteen dat $AP$, $BQ$ en $CR$ niet door één punt gaan: elke deelverhouding is $\tfrac12$, en $\tfrac12 \cdot \tfrac12 \cdot \tfrac12 \neq 1$. Voor de oppervlakte werk je in de standaarddriehoek, want een verhouding van oppervlaktes is affien.}
+\begin{stappenbreed}
+P\bigl(\tfrac23, \tfrac13\bigr), \ Q\bigl(0, \tfrac23\bigr), \ R\bigl(\tfrac13, 0\bigr) & Elk punt op een derde van zijn zijde. \\[1ex]
+AP: x - 2y = 0, \ \ BQ: 2x + 3y = 2, \ \ CR: 3x + y = 1 & De drie rechten. \\[1ex]
+K\bigl(\tfrac47, \tfrac27\bigr), \ L\bigl(\tfrac17, \tfrac47\bigr), \ M\bigl(\tfrac27, \tfrac17\bigr) & De snijpunten, twee aan twee. \\[1ex]
+\vec{KL} = \bigl(-\tfrac37, \tfrac27\bigr), \ \vec{KM} = \bigl(-\tfrac27, -\tfrac17\bigr) & Twee zijvectoren. \\[1ex]
+\text{opp}(KLM) = \tfrac12 \left|\tfrac{3}{49} + \tfrac{4}{49}\right| = \tfrac{1}{14} & Met de determinant. \\[1ex]
+\dfrac{\text{opp}(KLM)}{\text{opp}(ABC)} = \dfrac{1/14}{1/2} = \dfrac17 & De driehoek $ABC$ heeft oppervlakte $\tfrac12$.
+\end{stappenbreed}
+Een affiene transformatie stuurt de standaarddriehoek naar elke andere driehoek, en bewaart deelverhoudingen en verhoudingen van oppervlaktes. De kleine driehoek is dus altijd precies een zevende van de grote, welke vorm de driehoek ook heeft.}
+
+Dit probleem toont waar de affiene meetkunde om draait. Je kijkt alleen naar wat een affiene transformatie bewaart, en kiest daarom de handigste driehoek. Zo deelt Felix Klein in 1872 de meetkunde in: de euclidische meetkunde bestudeert wat euclidische transformaties bewaren (afstanden, hoeken), de affiene meetkunde wat affiene transformaties bewaren (rechten, evenwijdigheid, deelverhoudingen). Hoe minder een transformatie bewaart, hoe ruimer de meetkunde, en hoe meer figuren gelijk worden. In het volgende hoofdstuk gaan we nog een stap verder: daar verdwijnt zelfs de evenwijdigheid.
+
+\begin{oefeningen}
+\oef{h1-terug}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Matrices zijn gezien in het 5de jaar. Groepen en Eigenwaarden en eigenvectoren zijn modules van het 6de jaar: kijk na of ze al gezien zijn.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{40\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-omreken}{oef:h1-coord}%
+  \fv{oef:h1-t2}{vb:h1-dv}{oef:h1-dv}%
+  \fv{oef:h1-t3}{vb:h1-zwaarte}{oef:h1-collin}%
+  \fv{oef:h1-t4}{vb:h1-trans}{oef:h1-trans}%
+  \fv{oef:h1-t5}{vb:h1-menelaos}{oef:h1-menelaos}%
+  \fv{oef:h1-t6}{vb:h1-ceva}{oef:h1-ceva}%
+  \fv{oef:h1-t7}{vb:h1-std}{oef:h1-std}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een affien assenstelsel is, hoe je omrekent tussen affiene en cartesische coördinaten, de definitie van de deelverhouding met de formule voor het punt, de tests met een determinant voor drie punten en drie rechten, de definitie van een affiene transformatie en de vier dingen die ze bewaart of vermenigvuldigt, waarom je in de standaarddriehoek mag werken, en de stellingen van Ceva en Menelaos. Vergelijk daarna met de kaders.
+\fi

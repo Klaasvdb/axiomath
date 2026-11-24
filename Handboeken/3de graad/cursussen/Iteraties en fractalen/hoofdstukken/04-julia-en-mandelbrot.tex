@@ -1,0 +1,398 @@
+%----------------------------------------------------------------------------------------
+% JULIA- EN MANDELBROTVERZAMELINGEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h4-.
+% De afbeeldingen mandelbrot.png en julia-*.png maakt afbeeldingen/maak-afbeeldingen.py.
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{Julia- en Mandelbrotverzamelingen}
+
+\begin{probleem}
+\naast{Itereer $z \mapsto z^2 + c$ in het complexe vlak, telkens vanaf $z_0 = 0$. Voor $c = 1$ krijg je $0, 1, 2, 5, 26, \ldots$: de baan loopt weg. Voor $c = -1$ krijg je $0, -1, 0, -1, \ldots$, en voor $c = i$ krijg je $0, i, -1 + i, -i, -1 + i, -i, \ldots$: die banen blijven begrensd.
+
+De \textit{Mandelbrotverzameling} bestaat uit alle $c$ waarvoor de baan van 0 begrensd blijft. Een computer tekent ze door voor elk pixel een paar honderd stappen te itereren. Maar hoe kan hij na een eindig aantal stappen weten dat een baan nooit meer terugkomt? En waarom bestaat de figuur uit een hartvorm met een cirkel ertegen, en daarrond steeds kleinere bolletjes?}{\begin{tikzpicture}[x=2cm,y=2cm,font=\scriptsize]
+  \node[anchor=south west,inner sep=0] at (-2.2,-1.25) {\includegraphics[width=6cm,height=5cm]{mandelbrot.png}};
+  \draw[grijs] (-2.2,-1.25) rectangle (.8,1.25);
+  \foreach \t in {-2,-1,0}{\draw[grijs] (\t,-1.25) -- (\t,-1.3) node[below,text=black] {$\t$};}
+  \foreach \t in {-1,0,1}{\draw[grijs] (-2.2,\t) -- (-2.25,\t) node[left,text=black] {$\t$};}
+  \node[below] at (.75,-1.28) {Re};
+  \node[left] at (-2.25,1.2) {Im};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 47, met de wenk over iteraties van $z^2 + c$ in $\C$, verschillende waarden van $c$, en hoe de Julia-verzamelingen en de Mandelbrotverzameling ontstaan. Ook LPD 44 tot 46 komen terug, nu in het complexe vlak: startwaarden, dekpunten en cycli. Voorkennis uit pakket 4: Complexe getallen (rekenen in cartesische vorm, vierkantswortels, modulus, de goniometrische vorm en de formule van De Moivre), en hoofdstuk 1 en 2 van deze cursus. De ontsnappingsstraal 2 en de vorm van de hoofdcardioïde en de schijf met periode 2 worden bewezen; de stellingen van Fatou en Julia (samenhang, de baan van 0) staan als uitleg, zonder bewijs. De figuren zijn met een kort programma berekend (\texttt{afbeeldingen/maak-afbeeldingen.py} in de bron van de cursus); thuis kunnen leerlingen inzoomen met een van de vele gratis programma's.}
+
+Tot nu toe itereerden we reële getallen en figuren. Nu nemen we complexe getallen. De formule is de eenvoudigste die je kunt bedenken, $z^2 + c$, maar de figuren die eruit komen zijn de beroemdste uit de wiskunde. Pierre Fatou en Gaston Julia bestudeerden ze al in 1918, zonder computer. Pas in 1980 liet Benoît Mandelbrot een computer de figuur tekenen die nu zijn naam draagt. In dit hoofdstuk leer je hoe zo'n figuur ontstaat, waarom de computer na een eindig aantal stappen mag stoppen, en waarom de grote vormen in de figuur een hart en een cirkel zijn: dat volgt uit de dekpunten en cycli van hoofdstuk 1 en 2.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Itereren in het complexe vlak}
+
+\subsection{Kwadrateren}
+
+Wat doet kwadrateren met een punt van het complexe vlak? Schrijf $z = r(\cos\theta + i\sin\theta)$. Volgens De Moivre is $z^2 = r^2(\cos 2\theta + i\sin 2\theta)$: de modulus wordt gekwadrateerd en het argument verdubbelt. Na $n$ stappen is de modulus $r^{2^n}$ en het argument $2^n\theta$.
+
+\begin{theorie}
+\begin{stelling}{Banen van $z \mapsto z^2$}
+De baan van $z_0$ onder $f(z) = z^2$ is $\formule{z_n = z_0^{\,2^n}}$, met $\formule{|z_n| = |z_0|^{2^n}}$. Dus:
+\begin{itemize}
+\item is $|z_0| < 1$, dan gaat de baan naar 0;
+\item is $|z_0| > 1$, dan gaat $|z_n|$ naar $+\infty$;
+\item is $|z_0| = 1$, dan blijft de baan op de eenheidscirkel, en verdubbelt het argument bij elke stap.
+\end{itemize}
+\end{stelling}
+
+\begin{bewijs}
+Elke stap kwadrateert, dus de exponent verdubbelt: $z_n = z_0^{\,2^n}$. Omdat $|z^2| = |z|^2$, is $|z_n| = |z_0|^{2^n}$, en dat gaat naar 0 als $|z_0| < 1$, naar $+\infty$ als $|z_0| > 1$, en blijft 1 als $|z_0| = 1$.
+\end{bewijs}
+\end{theorie}
+
+Dat is hetzelfde verhaal als bij de toets $x^2$ in hoofdstuk 1, maar nu met een cirkel als grens in plaats van de twee punten $\pm 1$. Op de cirkel zelf gebeurt iets bijzonders: het argument verdubbelt, net zoals de hoek bij de logistische afbeelding met $r = 4$. Een kleine fout op het argument wordt bij elke stap verdubbeld: op de cirkel is de iteratie chaotisch.
+
+\voorbeeld{}{Bereken de baan van $z_0 = 0{,}6 + 0{,}6i$ onder $f(z) = z^2$ tot $z_4$, en teken ze.\label{vb:h4-kwadraat}}{%
+\uitleg{De modulus is $0{,}6\sqrt2 \approx 0{,}85 < 1$ en het argument is $45^\circ$. We verwachten een baan die draait en naar 0 gaat.}
+\naast{\begin{stappenvrij}{5.4cm}{3.4cm}
+z_1 = 0{,}36 + 0{,}72i - 0{,}36 = 0{,}72i & $(a + bi)^2 = a^2 - b^2 + 2abi$. \\
+z_2 = (0{,}72i)^2 = -0{,}5184 & Argument $180^\circ$. \\
+z_3 \approx 0{,}2687, \ z_4 \approx 0{,}0722 & Argument $360^\circ$, dan $720^\circ$.
+\end{stappenvrij}
+Het argument verdubbelt telkens ($45^\circ$, $90^\circ$, $180^\circ$, $360^\circ$), en de modulus wordt gekwadrateerd: $0{,}85$, $0{,}72$, $0{,}52$, $0{,}27$, $0{,}07$. De baan draait en valt snel naar 0.}{\begin{tikzpicture}[scale=2.2,font=\scriptsize]
+  \draw[black!14,very thin,step=.25] (-.75,-.25) grid (.75,1);
+  \draw[->,grijs] (-.8,0) -- (.85,0) node[right,text=black] {Re};
+  \draw[->,grijs] (0,-.3) -- (0,1.05) node[above,text=black] {Im};
+  \draw[lijngrijs,dashed] (1,0) arc (0:180:1) ;
+  \draw[accent!50] (.6,.6) -- (0,.72) -- (-.5184,0) -- (.2687,0) -- (.0722,0);
+  \foreach \x/\y/\l/\p in {.6/.6/{z_0}/right,0/.72/{z_1}/above left,-.5184/0/{z_2}/below,.2687/0/{z_3}/below,.0722/0/{z_4}/above}{\fill[accent] (\x,\y) circle (.9pt) node[\p,inner sep=1.5pt,text=black] {$\l$};}
+  \node[below,inner sep=1.5pt] at (-.75,-.02) {$-1$};
+\end{tikzpicture}}}
+
+\nujij{Bereken de baan van $z_0 = i$ onder $f(z) = z^2$. En die van $z_0 = \cos 120^\circ + i \sin 120^\circ$?}{$i, -1, 1, 1, \ldots$: na twee stappen in het dekpunt 1. De tweede baan heeft argumenten $120^\circ$, $240^\circ$, $480^\circ = 120^\circ$: een 2-cyclus op de eenheidscirkel.}
+
+\begin{oefeningen}
+\oef{h4-kwadraat}
+\end{oefeningen}
+
+\subsection{Dekpunten en cycli van \texorpdfstring{$z^2 + c$}{z² + c}}
+
+Voeg je een constante $c$ toe, dan kun je de baan niet meer exact opschrijven. Maar wat we in hoofdstuk 1 en 2 deden, werkt ook hier: dekpunten zijn oplossingen van $z^2 + c = z$, en die bestaan altijd in $\C$. Trekken ze aan? In hoofdstuk 1 hing dat af van $|f'(p)|$. Hier kunnen we het rechtstreeks nagaan, zonder afgeleide van een complexe functie.
+
+\begin{theorie}
+\begin{stelling}{Aantrekkend dekpunt van $z^2 + c$}
+Is $p$ een dekpunt van $f(z) = z^2 + c$ met $\formule{|2p| < 1}$, dan is $p$ aantrekkend: er is een $\delta > 0$ zodat de baan van elke $z_0$ met $|z_0 - p| < \delta$ naar $p$ convergeert.
+\end{stelling}
+
+\begin{bewijs}
+Omdat $p^2 + c = p$, is
+\bewijsregel{f(z) - p = z^2 - p^2 = (z + p)(z - p) , \quad\text{dus}\quad |f(z) - p| = |z + p| \cdot |z - p| .}
+Kies $k$ met $|2p| < k < 1$, en neem $\delta = k - |2p|$. Is $|z - p| < \delta$, dan is $|z + p| = |(z - p) + 2p| \leqslant |z - p| + |2p| < k$, zodat $|f(z) - p| < k\,|z - p|$. Zoals in hoofdstuk 1 blijft de baan dan in de schijf, en is $|z_n - p| < k^n\,|z_0 - p| \to 0$.
+\end{bewijs}
+\end{theorie}
+
+Dat is het criterium van hoofdstuk 1 met $f'(z) = 2z$, maar nu met de modulus. Op dezelfde manier stoot een dekpunt met $|2p| > 1$ af. De afstand tot $p$ wordt bij elke stap ongeveer met $2p$ vermenigvuldigd: met $|2p|$ geschaald en over het argument van $2p$ gedraaid. Daarom draait een baan vaak in een spiraal naar een aantrekkend dekpunt.
+
+\voorbeeld{}{Bepaal de dekpunten van $f(z) = z^2 + \tfrac14 i$, en zeg of ze aantrekkend zijn.\label{vb:h4-dekpunt}}{%
+\uitleg{We lossen $z^2 - z + \tfrac14 i = 0$ op met de discriminant, en berekenen de vierkantswortel in cartesische vorm, zoals in de cursus Complexe getallen.}
+\begin{stappenbreed}
+z = \dfrac{1 \pm \sqrt{1 - i}}{2} & De discriminant is $1 - 4 \cdot \tfrac14 i = 1 - i$. \\[2ex]
+\sqrt{1 - i} = a + bi: \ a^2 - b^2 = 1, \ 2ab = -1 & Kwadrateren en gelijkstellen. \\
+a^2 + b^2 = |1 - i| = \sqrt2 & De modulus geeft de derde vergelijking. \\
+a \approx 1{,}0987, \ b \approx -0{,}4551 & $a^2 = \tfrac{1 + \sqrt2}{2}$, en $b = -\tfrac{1}{2a}$. \\
+p_1 \approx 1{,}0493 - 0{,}2275i, \ p_2 \approx -0{,}0493 + 0{,}2275i & De twee dekpunten. \\
+|2p_1| \approx 2{,}15, \ |2p_2| \approx 0{,}47 & $p_1$ stoot af, $p_2$ trekt aan.
+\end{stappenbreed}
+Een baan die dicht bij $p_2$ begint, draait er dus naartoe. De baan van 0 ook: $0$, $0{,}25i$, $-0{,}0625 + 0{,}25i$, $-0{,}0586 + 0{,}2188i$, \ldots{}}
+
+\begin{werkwijze}
+Los $z^2 - z + c = 0$ op: $p = \tfrac{1 \pm \sqrt{1 - 4c}}{2}$, met de vierkantswortel van een complex getal. Bereken $|2p|$ voor elk dekpunt: kleiner dan 1 is aantrekkend, groter dan 1 afstotend. Voor een 2-cyclus gebruik je, zoals in hoofdstuk 2, $f'(p)f'(q) = 4pq = 4(c + 1)$.
+\end{werkwijze}
+
+\nujij{Is de 2-cyclus van $f(z) = z^2 - 1 + 0{,}1i$ aantrekkend?}{$|4(c + 1)| = |0{,}4i| = 0{,}4 < 1$: ja. De cyclus is ongeveer $\{0{,}0095 - 0{,}0981i;\ -1{,}0095 + 0{,}0981i\}$.}
+
+\begin{oefeningen}
+\oef{h4-dekpunt}
+
+\oef{h4-cyclus}
+\end{oefeningen}
+
+%========================================================================================
+\section{Julia-verzamelingen}
+
+\subsection{Ontsnappen}
+
+Bij $z^2$ liep een baan buiten de eenheidscirkel weg naar oneindig. Bij $z^2 + c$ is er ook zo'n grens: eens een baan ver genoeg is, kan $c$ haar niet meer terughalen. Dat lost de vraag van het probleem op: een computer mag stoppen zodra de baan buiten een cirkel komt.
+
+\begin{theorie}
+\begin{stelling}{Ontsnappingsstraal}
+Is $|z| > 2$ en $|z| \geqslant |c|$, dan gaat de baan van $z$ onder $f(z) = z^2 + c$ naar oneindig: met $\lambda = |z| - 1 > 1$ is $\formule{|z_n| \geqslant \lambda^n\,|z|}$.
+\end{stelling}
+
+\begin{bewijs}
+Volgens de driehoeksongelijkheid is $|z^2| = |(z^2 + c) - c| \leqslant |z^2 + c| + |c|$, dus
+\bewijsregel{|f(z)| \geqslant |z|^2 - |c| \geqslant |z|^2 - |z| = (|z| - 1)\,|z| = \lambda\,|z| .}
+Dan is $|z_1| \geqslant \lambda|z| > |z|$, zodat ook $|z_1| > 2$ en $|z_1| \geqslant |c|$, met $|z_1| - 1 \geqslant \lambda$. Dezelfde redenering geeft $|z_2| \geqslant \lambda|z_1| \geqslant \lambda^2|z|$, en zo verder. Omdat $\lambda > 1$, gaat $\lambda^n|z|$ naar $+\infty$.
+\end{bewijs}
+\end{theorie}
+
+De driehoeksongelijkheid $|u + v| \leqslant |u| + |v|$ zegt in het complexe vlak dat een zijde van een driehoek niet langer is dan de som van de twee andere. Voor $|c| \leqslant 2$ zegt de stelling: zodra een baan buiten de cirkel met straal 2 komt, loopt ze weg. De computer itereert dus tot $|z_n| > 2$ (dan ontsnapt de baan zeker) of tot een vast aantal stappen (dan beschouwt hij de baan als begrensd).
+
+\subsection{Gevulde Julia-verzamelingen}
+
+Voor $c = 0$ blijven precies de punten van de gesloten eenheidsschijf begrensd. Voor andere $c$ ontstaan veel grilligere figuren.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{gevulde Julia-verzameling}} $K_c$ is de verzameling van alle startwaarden $z_0$ waarvan de baan onder $f(z) = z^2 + c$ begrensd blijft. Haar rand heet de \textbf{\textcolor{accent}{Julia-verzameling}} $J_c$.
+\end{theorie}
+
+Voor $c = 0$ is $K_0$ de schijf $|z| \leqslant 1$ en $J_0$ de eenheidscirkel. Hieronder staan vier andere gevulde Julia-verzamelingen, berekend met de ontsnappingsstraal: zwart is $K_c$, in het grijs de punten die pas na veel stappen ontsnappen. Elk kader loopt van $-1{,}8$ tot $1{,}8$ in beide richtingen.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \node[inner sep=0,draw=lijngrijs] at (0,0) {\includegraphics[width=3.4cm]{julia-basiliek.png}};
+  \node[below] at (0,-1.75) {$c = -1$};
+\end{tikzpicture}\ \
+\begin{tikzpicture}[font=\scriptsize]
+  \node[inner sep=0,draw=lijngrijs] at (0,0) {\includegraphics[width=3.4cm]{julia-konijn.png}};
+  \node[below] at (0,-1.75) {$c = -0{,}12 + 0{,}75i$};
+\end{tikzpicture}\ \
+\begin{tikzpicture}[font=\scriptsize]
+  \node[inner sep=0,draw=lijngrijs] at (0,0) {\includegraphics[width=3.4cm]{julia-dendriet.png}};
+  \node[below] at (0,-1.75) {$c = i$};
+\end{tikzpicture}\ \
+\begin{tikzpicture}[font=\scriptsize]
+  \node[inner sep=0,draw=lijngrijs] at (0,0) {\includegraphics[width=3.4cm]{julia-stof.png}};
+  \node[below] at (0,-1.75) {$c = 0{,}4 + 0{,}3i$};
+\end{tikzpicture}}
+
+Bij $c = -1$ (de \textit{basiliek}) en $c = -0{,}12 + 0{,}75i$ (het \textit{konijn}) heeft $K_c$ een binnenste: daar trekt een cyclus aan, met periode 2 en 3. Bij $c = i$ (een \textit{dendriet}) is $K_c$ een boom van dunne takken zonder binnenste. Bij $c = 0{,}4 + 0{,}3i$ valt $K_c$ uiteen in stof: oneindig veel losse punten, zoals de Cantorverzameling. Fatou en Julia bewezen in 1919 dat er maar twee mogelijkheden zijn: $K_c$ is uit één stuk, of het is stof. Welke van de twee, hangt alleen af van de baan van 0: blijft die begrensd, dan is $K_c$ uit één stuk.
+
+\voorbeeld{}{Ligt $z_0 = i$ in de gevulde Julia-verzameling van $c = -1$? En $z_0 = 1{,}5$?\label{vb:h4-julia}}{%
+\uitleg{We itereren tot de baan buiten de cirkel met straal 2 komt (dan ontsnapt ze, want $|c| = 1 \leqslant 2$), of tot we een begrensde baan herkennen.}
+\begin{stappen}
+i \to i^2 - 1 = -2 \to 3 & $|3| > 2$: de baan van $i$ ontsnapt. \\
+1{,}5 \to 1{,}25 \to 0{,}5625 \to -0{,}684 \to -0{,}533 & Reëel, en binnen $[-1{,}62;\ 1{,}62]$.
+\end{stappen}
+Het getal $i$ ligt dus niet in $K_{-1}$. Voor reële $z$ is $z^2 - 1$ de functie van hoofdstuk 1. Met $\varphi = \tfrac{1 + \sqrt5}{2}$ is $\varphi^2 - 1 = \varphi$, dus voor $|x| \leqslant \varphi$ ligt $x^2 - 1$ tussen $-1$ en $\varphi$: de baan blijft in $[-\varphi, \varphi]$. Dus $1{,}5$ ligt in $K_{-1}$.}
+
+\begin{werkwijze}
+Itereer $z_n = z_{n-1}^2 + c$. Is ooit $|z_n| > 2$ en $|z_n| \geqslant |c|$, dan ontsnapt de baan, en ligt $z_0$ niet in $K_c$. Herken je een cyclus of een begrensd patroon, dan ligt $z_0$ in $K_c$.
+\end{werkwijze}
+
+\nujij{Ligt $z_0 = 1$ in de gevulde Julia-verzameling van $c = i$?}{$1 \to 1 + i \to 3i$, en $|3i| = 3 > 2$: nee.}
+
+\begin{oefeningen}
+\oef{h4-ontsnappen}
+
+\oef{h4-julia}
+\end{oefeningen}
+
+%========================================================================================
+\section{De Mandelbrotverzameling}
+
+\subsection{De baan van 0}
+
+Fatou en Julia lieten zien dat de baan van 0 beslist of $K_c$ uit één stuk is. Dat maakt de volgende verzameling van parameters $c$ interessant: ze zegt voor elke $c$ welke soort Julia-verzameling je krijgt.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{Mandelbrotverzameling}} $M$ is de verzameling van alle complexe getallen $c$ waarvoor de baan van 0 onder $f(z) = z^2 + c$ begrensd blijft.
+
+\begin{stelling}{$M$ ligt in de schijf met straal 2}
+$c$ ligt in $M$ als en slechts als $\formule{|z_n| \leqslant 2}$ voor elke term van de baan van 0. In het bijzonder is $|c| \leqslant 2$ voor elke $c$ in $M$.
+\end{stelling}
+
+\begin{bewijs}
+Blijft $|z_n| \leqslant 2$, dan is de baan begrensd. Omgekeerd: is $|c| > 2$, dan is $z_1 = c$ met $|z_1| > 2$ en $|z_1| \geqslant |c|$, en ontsnapt de baan (ontsnappingsstraal). Is $|c| \leqslant 2$ en ooit $|z_n| > 2$, dan is ook $|z_n| \geqslant |c|$, en ontsnapt de baan ook.
+\end{bewijs}
+\end{theorie}
+
+Je kunt dus voor elke $c$ itereren tot $|z_n| > 2$: dan ligt $c$ niet in $M$. Blijft de baan na een paar honderd stappen binnen de cirkel, dan kleurt de computer het punt zwart. Dat is een benadering: een punt dat heel dicht bij de rand ligt, kan pas na duizenden stappen ontsnappen. Daarom worden de figuren nauwkeuriger als je meer stappen neemt.
+
+\voorbeeld{}{Ligt $c = -1{,}5$ in $M$? En $c = -1 + i$?\label{vb:h4-mandelbrot}}{%
+\uitleg{We itereren vanaf 0 en kijken of de baan binnen de cirkel met straal 2 blijft.}
+\begin{stappenbreed}
+c = -1{,}5: \ 0 \to -1{,}5 \to 0{,}75 \to -0{,}9375 \to -0{,}621 \to \ldots & De baan blijft in $[-2, 2]$: voor reële $c$ in $[-2, \tfrac14]$ is dat altijd zo (opdracht~\ref{oef:h4-o15}). \\
+c = -1 + i: \ 0 \to -1 + i \to -1 - i \to -1 + 3i & $|-1 + 3i| = \sqrt{10} > 2$: de baan ontsnapt.
+\end{stappenbreed}
+Dus $-1{,}5$ ligt in $M$, en $-1 + i$ niet, hoewel $|-1 + i| = \sqrt 2 < 2$.}
+
+\begin{oefeningen}
+\oef{h4-mandelbrot}
+\end{oefeningen}
+
+\subsection{De hoofdcardioïde}
+
+Waar komt de hartvorm vandaan? Heeft $z^2 + c$ een aantrekkend dekpunt, dan gaat de baan van 0 ernaartoe (dat bewees Fatou, voor elke aantrekkende cyclus), dus ligt $c$ in $M$. Welke $c$ geven een aantrekkend dekpunt?
+
+\begin{theorie}
+\begin{stelling}{Hoofdcardioïde}
+$f(z) = z^2 + c$ heeft een dekpunt $p$ met $|2p| < 1$ als en slechts als
+\[
+\formule{c = \frac{w}{2} - \frac{w^2}{4}} \qquad \text{voor een } w \text{ met } |w| < 1 .
+\]
+De rand, met $w = \cos t + i \sin t$, is een cardioïde:
+\[
+\formule{c = \frac{\cos t + i\sin t}{2} - \frac{\cos 2t + i\sin 2t}{4}}
+\]
+\end{stelling}
+
+\begin{bewijs}
+$p$ is een dekpunt als $p^2 + c = p$, dus als $c = p - p^2$. Stel $w = 2p$: dan is $c = \tfrac w2 - \tfrac{w^2}{4}$, en $|2p| < 1$ betekent $|w| < 1$. Op de rand is $|w| = 1$, dus $w = \cos t + i\sin t$, en volgens De Moivre is $w^2 = \cos 2t + i\sin 2t$.
+\end{bewijs}
+\end{theorie}
+
+Een cardioïde (\textit{hartlijn}) is de kromme die een punt van een cirkel beschrijft als die cirkel rolt rond een even grote cirkel. Voor $t = 0$ is $c = \tfrac12 - \tfrac14 = \tfrac14$: de inkeping rechts. Voor $t = \pi$ is $c = -\tfrac12 - \tfrac14 = -\tfrac34$: daar raakt de cirkel van de volgende stelling.
+
+\begin{theorie}
+\begin{stelling}{Schijf met periode 2}
+$f(z) = z^2 + c$ heeft een aantrekkende 2-cyclus als en slechts als $\formule{|c + 1| < \tfrac14}$: $c$ ligt in de schijf met middelpunt $-1$ en straal $\tfrac14$.
+\end{stelling}
+
+\begin{bewijs}
+Zoals in hoofdstuk 2 is $f(f(z)) - z = (z^2 - z + c)(z^2 + z + c + 1)$, ook voor complexe $z$ en $c$. De 2-cyclus $\{p, q\}$ bestaat uit de oplossingen van $z^2 + z + c + 1 = 0$, met $pq = c + 1$ (Vieta). Het product van de afgeleiden is $2p \cdot 2q = 4(c + 1)$, en de cyclus trekt aan als $|4(c + 1)| < 1$.
+\end{bewijs}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[x=3cm,y=3cm,font=\scriptsize]
+  \node[anchor=south west,inner sep=0] at (-2.2,-1.25) {\includegraphics[width=9cm,height=7.5cm]{mandelbrot.png}};
+  \draw[grijs] (-2.2,-1.25) rectangle (.8,1.25);
+  \draw[grijs,thin] (-2.2,0) -- (.8,0) (0,-1.25) -- (0,1.25);
+  \foreach \t in {-2,-1.5,-1,-.5,.5}{\draw[grijs] (\t,-1.25) -- (\t,-1.29) node[below,text=black] {$\pgfmathprintnumber{\t}$};}
+  \foreach \t in {-1,-.5,.5,1}{\draw[grijs] (-2.2,\t) -- (-2.24,\t) node[left,text=black] {$\pgfmathprintnumber{\t}$};}
+  \draw[fel,line width=1.2pt] plot[domain=0:360,samples=150,smooth] ({cos(\x)/2-cos(2*\x)/4},{sin(\x)/2-sin(2*\x)/4});
+  \draw[fel,line width=1.2pt] (-1,0) circle (.25);
+  \fill[fel] (.25,0) circle (1.2pt) node[right,text=black,fill=white,inner sep=1pt] {$\tfrac14$};
+  \fill[fel] (-.75,0) circle (1.2pt);
+  \node[fill=white,inner sep=1pt,anchor=north] at (-.75,-.06) {$-\tfrac34$};
+  \fill[fel] (-1.7549,0) circle (1.2pt);
+  \node[fill=white,inner sep=1pt,anchor=south] at (-1.7549,.08) {$-1{,}7549$};
+\end{tikzpicture}}
+
+De figuur toont de Mandelbrotverzameling met de hoofdcardioïde en de schijf met periode 2 in het fel. Rond de cardioïde hangen nog veel kleinere bolletjes: daarin trekt een cyclus met periode 3, 4, 5, \ldots{} aan. En links op de reële as zit bij $c \approx -1{,}7549$ een klein kopietje van de hele figuur: daar ligt 0 op een 3-cyclus (hoofdstuk 2). Wie inzoomt, vindt overal zulke kopieën, nooit helemaal gelijk aan het origineel. Toch is $M$ uit één stuk: dat bewezen Adrien Douady en John Hubbard in 1982.
+
+\voorbeeld{}{Welke $c$ geeft een aantrekkend dekpunt $p = \tfrac14 i$? Ligt $c = -1{,}1 + 0{,}1i$ in de schijf met periode 2?\label{vb:h4-cardioide}}{%
+\uitleg{Bij een gegeven dekpunt is $c = p - p^2$. Voor de schijf berekenen we $|c + 1|$.}
+\begin{stappen}
+c = \tfrac14 i - \bigl(\tfrac14 i\bigr)^2 = \tfrac1{16} + \tfrac14 i & Want $(\tfrac14 i)^2 = -\tfrac{1}{16}$; en $|2p| = \tfrac12 < 1$. \\
+|c + 1| = |-0{,}1 + 0{,}1i| \approx 0{,}141 & Kleiner dan $\tfrac14$: in de schijf.
+\end{stappen}
+Voor $c = \tfrac1{16} + \tfrac14 i$ gaat de baan van 0 naar het dekpunt $\tfrac14 i$, en voor $c = -1{,}1 + 0{,}1i$ naar een aantrekkende 2-cyclus: de baan van 0 springt op den duur tussen ongeveer $-1{,}10 + 0{,}08i$ en $0{,}10 - 0{,}08i$.}
+
+\begin{werkwijze}
+Ligt $c$ in de hoofdcardioïde? Los $p^2 - p + c = 0$ op en kijk of een dekpunt $|2p| < 1$ heeft. Ligt $c$ in de schijf met periode 2? Kijk of $|c + 1| < \tfrac14$. In beide gevallen ligt $c$ in $M$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-cardioide}
+\end{oefeningen}
+
+Nu kunnen we het probleem oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Hoe weet een computer na een eindig aantal stappen dat de baan van 0 nooit meer terugkomt? En waarom bestaat de Mandelbrotverzameling uit een hartvorm met een cirkel ertegen?\label{vb:h4-terug}}{%
+\uitleg{De ontsnappingsstraal beantwoordt de eerste vraag, de dekpunten en cycli de tweede.}
+\begin{stappenvrij}{4.4cm}{10cm}
+|z_n| > 2 & Komt de baan ooit buiten de cirkel met straal 2, dan loopt ze naar oneindig (ontsnappingsstraal), en ligt $c$ niet in $M$. Ze kan nooit meer terugkomen. \\
+c = \dfrac w2 - \dfrac{w^2}{4}, \ |w| < 1 & Voor die $c$ heeft $z^2 + c$ een aantrekkend dekpunt: de hartvorm (hoofdcardioïde). \\[1.5ex]
+|c + 1| < \tfrac14 & Voor die $c$ trekt een 2-cyclus aan: de cirkel links ertegen.
+\end{stappenvrij}
+De computer mag dus stoppen zodra $|z_n| > 2$: dan is het antwoord zeker. Blijft de baan binnen de cirkel, dan is het antwoord na een paar honderd stappen \textit{waarschijnlijk} ja: dat is de enige benadering in de figuur. De grote vormen zijn de gebieden waar een dekpunt of een cyclus aantrekt. De kleinere bolletjes horen bij cycli met een langere periode, en zo ontstaat een figuur met details op elke schaal: een fractaal.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h4-o1}
+
+\oef{h4-o2}
+
+\oef{h4-o3}
+
+\oef{h4-o4}
+
+\oef{h4-o5}
+
+\oef{h4-o6}
+
+\oef{h4-o7}
+
+\oef{h4-o8}
+
+\oef{h4-o9}
+
+\oef{h4-o10}
+
+\oef{h4-o11}
+
+\oef{h4-o12}
+
+\oef{h4-o13}
+
+\oef{h4-o14}
+
+\oef{h4-o16}
+
+\oef{h4-o15}
+
+\oef{h4-o17}
+
+\oef{h4-o18}
+
+\oef{h4-o19}
+
+\oef{h4-o20}
+
+\oef{h4-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Matrices staan in pakket 4 (5de jaar), Logica en bewijzen (volledige inductie) in het 6de jaar.}
+
+\begin{oefeningen}
+\oef{h4-koppel-1}
+
+\oef{h4-koppel-2}
+
+\oef{h4-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+
+\oef{h4-t6}
+
+\oef{h4-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-kwadraat}{oef:h4-kwadraat}%
+  \fv{oef:h4-t2}{vb:h4-dekpunt}{oef:h4-dekpunt}%
+  \fv{oef:h4-t3}{vb:h4-mandelbrot}{oef:h4-ontsnappen}%
+  \fv{oef:h4-t4}{vb:h4-julia}{oef:h4-julia}%
+  \fv{oef:h4-t5}{vb:h4-cardioide}{oef:h4-cardioide}%
+  \fv{oef:h4-t6}{vb:h4-cardioide}{oef:h4-o11}%
+  \fv{oef:h4-t7}{vb:h4-cardioide}{oef:h4-o12}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat kwadrateren doet met de modulus en het argument, hoe je de dekpunten van $z^2 + c$ vindt en wanneer ze aantrekken (met het bewijs), de ontsnappingsstraal en waarom ze klopt, wat een (gevulde) Julia-verzameling is, wat de Mandelbrotverzameling is en waarom ze in de schijf met straal 2 ligt, en waar de hoofdcardioïde en de schijf met periode 2 vandaan komen. Vergelijk daarna met de kaders.
+\fi

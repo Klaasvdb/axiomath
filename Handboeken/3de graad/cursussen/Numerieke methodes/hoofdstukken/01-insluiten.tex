@@ -1,0 +1,547 @@
+%----------------------------------------------------------------------------------------
+% VERGELIJKINGEN: INSLUITEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Een nulwaarde insluiten}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een houten bal met een straal van 10 cm drijft in water. Het hout heeft een dichtheid van 0,6 g/cm³: de bal weegt dus 60\,\% van het water dat in een even grote bol past. Volgens Archimedes zinkt de bal tot hij precies zijn eigen massa aan water verplaatst. Hoe diep zinkt hij, tot op een millimeter?
+
+\vspace{1mm}
+Het ondergedompelde deel is een bolkap met hoogte $h$. Uit de cursus Integralen ken je haar volume: $V = \tfrac13 \pi h^2 (3r - h)$.}{\begin{tikzpicture}[scale=.95,font=\scriptsize]
+  \fill[accent!14] (-2,-1.2) rectangle (2,.2268);
+  \draw[accent!70,thick] (-2,.2268) -- (2,.2268);
+  \draw[accent,thick,fill=white,fill opacity=.6] (0,0) circle (1.2);
+  \begin{scope}
+    \clip (-1.3,-1.3) rectangle (1.3,.2268);
+    \fill[accent!30] (0,0) circle (1.2);
+  \end{scope}
+  \draw[accent,thick] (0,0) circle (1.2);
+  \draw[<->,grijs] (1.45,-1.2) -- (1.45,.2268) node[midway,right] {$h$};
+  \draw[grijs,dashed] (0,-1.2) -- (1.45,-1.2);
+  \draw[grijs] (0,0) -- (-.85,.85) node[midway,above right,inner sep=1pt] {10};
+  \fill (0,0) circle (1pt);
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 26, het deel over insluitmethodes, met de wenken over de methode van de intervalmiddens en de regula falsi, het vergelijken van de snelheid en de beperkingen van de methodes. De methode van de dekpunten en de methode van Newton volgen in hoofdstuk 2. Voorkennis uit pakket 4: de tussenwaardestelling en het verband tussen het teken van $f'$ en stijgen of dalen (Limieten en afgeleiden, hoofdstuk 1 en 4), het volume van een omwentelingslichaam (Integralen, hoofdstuk 4), logaritmen (Exponentiële en logaritmische functies) en meetkundige rijen (Rijen). In Limieten en afgeleiden zochten de leerlingen al eens een nulwaarde op één decimaal door te halveren; hier wordt dat een methode met een foutgrens. Het probleem is een klassieker die teruggaat op Archimedes. Een rekentoestel volstaat overal; een programma is alleen voor thuis.}
+
+Een vergelijking als $x^2 - 5x + 6 = 0$ los je op met een formule. Ook voor de derde en de vierde graad bestaan er formules, maar die zijn zo omslachtig dat niemand ze gebruikt. Vanaf de vijfde graad bestaat er zelfs bewijsbaar geen algemene formule meer, en een vergelijking als $\cos x = x$ of $2^x = 3x$ kun je met geen enkele formule exact oplossen. Toch heeft zo'n vergelijking een oplossing, en die wil je kennen: niet exact, maar wel zo nauwkeurig als nodig.
+
+Daarvoor zijn er \textit{numerieke methodes}: rekenrecepten die stap voor stap een betere benadering geven. In dit hoofdstuk leer je twee methodes die de oplossing \textit{insluiten} tussen twee grenzen die steeds dichter bij elkaar komen. Je leert ook hoe snel ze werken, hoe nauwkeurig het resultaat is, en wanneer ze je in de steek laten.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} spelen in duo's vóór de uitleg. De leerlingen ontdekken dat de beste vraag het aantal mogelijkheden telkens halveert, zodat tien vragen volstaan voor 1000 getallen. Dat is het idee van de methode van de intervalmiddens, en het verklaart waarom de logaritme met grondtal 2 in de foutgrens verschijnt.}
+
+%========================================================================================
+\section{De methode van de intervalmiddens}
+
+\subsection{Een startinterval}
+
+Hoe diep zinkt de bal? De massa van de bal is $0{,}6 \cdot \tfrac43 \pi \cdot 10^3 = 800\pi$ gram. Een kubieke centimeter water weegt 1 gram, dus de bolkap onder water moet een volume van $800\pi$ cm³ hebben:
+\[
+\tfrac13 \pi h^2 (30 - h) = 800 \pi \quad \Longleftrightarrow \quad h^3 - 30h^2 + 2400 = 0 .
+\]
+Een derdegraadsvergelijking. Een gehele oplossing is er niet tussen 0 en 20, en de formule van Cardano helpt hier niet: ze geeft de oplossingen alleen via vierkantswortels uit negatieve getallen. We gaan dus benaderen.
+
+De eerste stap is altijd dezelfde: schrijf de vergelijking als $f(x) = 0$, en zoek een interval waarin precies één oplossing ligt. In de cursus Limieten en afgeleiden zag je daarvoor de \textit{tussenwaardestelling}: is $f$ continu op $[a, b]$ en hebben $f(a)$ en $f(b)$ een verschillend teken, dan heeft $f$ een nulwaarde in $\left]a, b\right[$. Dat noemen we een \emph{tekenwissel}. Er kunnen er wel meerdere zijn. Om er zeker van te zijn dat er maar één is, kijk je naar de afgeleide: is $f' > 0$ op het interval (of $f' < 0$), dan stijgt (of daalt) $f$ er strikt, en dan snijdt de grafiek de $x$-as hoogstens één keer.
+
+\voorbeeld{}{Toon aan dat $f(h) = h^3 - 30h^2 + 2400$ precies één nulwaarde heeft in $[10, 20]$, en dat het de enige is die bij de bal past.\label{vb:h1-start}}{%
+\naast{\uitleg{De diepte ligt tussen 0 en 20 cm, de diameter. We zoeken een tekenwissel met een paar functiewaarden, en tonen met de afgeleide aan dat er maar één nulwaarde is.}
+\begin{stappenvrij}{3.1cm}{4.2cm}
+f(0) = 2400 > 0 & De bal hangt nog boven het water. \\
+f(10) = 400 > 0 & Nog geen tekenwissel tussen 0 en 10. \\
+f(20) = -1600 < 0 & Tekenwissel in $[10, 20]$. \\
+f'(h) = 3h(h - 20) & Negatief voor $0 < h < 20$: $f$ daalt strikt.
+\end{stappenvrij}
+Op $[0, 20]$ daalt $f$ van 2400 naar $-1600$: er is precies één nulwaarde, en ze ligt in $\left]10, 20\right[$. De twee andere oplossingen van de derdegraadsvergelijking liggen buiten $[0, 20]$ en hebben geen betekenis voor de bal.}{\begin{tikzpicture}[x=.13cm,y=.0009cm,font=\scriptsize]
+  \fill[accent!15] (0,-2000) rectangle (20,2500);
+  \draw[black!14,very thin,xstep=5,ystep=500] (-10,-2000) grid (30,2500);
+  \draw[->,grijs] (-10,0) -- (31.5,0) node[right,text=black] {$h$};
+  \draw[->,grijs] (0,-2000) -- (0,2800) node[above,text=black] {$y$};
+  \foreach \t in {-10,10,20,30}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-2000,-1000,1000,2000}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \kromme[samples=120]{-9.2}{28.6}{(\x)^2*(\x-30)+2400}
+  \fill[fel!80!black] (11.341,0) circle (2.2pt);
+  \foreach \r in {-7.952,26.611}{\fill[black] (\r,0) circle (1.6pt);}
+\end{tikzpicture}}}
+
+Wat betekent het teken van $f$? Er geldt $f(h) = \tfrac{3}{\pi}\bigl(800\pi - V(h)\bigr)$, dus $f(h) > 0$ als het verplaatste water lichter is dan de bal: dan zakt de bal verder. Bij $h = 10$ is de bal half ondergedompeld, en verplaatst hij $\tfrac23 \pi \cdot 1000 \approx 2094$ g water, minder dan zijn massa $800\pi \approx 2513$ g. Hij zinkt dus meer dan half: de diepte ligt tussen 10 en 20 cm.
+
+\begin{werkwijze}
+Schrijf de vergelijking als $f(x) = 0$, met $f$ continu. Bereken $f$ in een paar punten, of schets de grafiek, tot je een tekenwissel vindt. Wil je zeker zijn dat er in dat interval maar één nulwaarde is, toon dan aan dat $f'$ er overal hetzelfde teken heeft.
+\end{werkwijze}
+
+\nujij{Zoek een interval met lengte 1 waarin $x^3 + 2x - 5 = 0$ een oplossing heeft, en toon aan dat het de enige oplossing is.}{$f(1) = -2$ en $f(2) = 7$: een tekenwissel in $[1, 2]$. $f'(x) = 3x^2 + 2 > 0$, dus $f$ stijgt strikt en er is maar één nulwaarde.}
+
+\begin{oefeningen}
+\oef{h1-interval}
+\end{oefeningen}
+
+\subsection{Halveren}
+
+Een tekenwissel in $[10, 20]$ zegt dat de diepte tussen 10 en 20 cm ligt. Dat is nog vaag. Kies het midden, 15, en bereken $f(15)$. Is $f(15)$ negatief, dan ligt de tekenwissel in $[10, 15]$; is het positief, dan in $[15, 20]$. Zo weet je met één berekening de helft van het interval weg te gooien. Herhaal dat, en de oplossing zit gevangen in een interval dat bij elke stap half zo lang wordt. Dat is precies de beste strategie bij het raadspel uit oefening \ref{oef:h1-verken}.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{methode van de intervalmiddens}} (of \textit{bisectiemethode}) vertrekt van een continue functie $f$ met een tekenwissel in $[a_0, b_0]$. Bij elke stap bereken je het midden
+\[
+\formule{m_n = \frac{a_n + b_n}{2}}
+\]
+en houd je de helft met de tekenwissel:
+\[
+\formule{[a_{n+1}, b_{n+1}] = [a_n, m_n]} \ \text{ als } f(a_n) \cdot f(m_n) < 0, \qquad \formule{[a_{n+1}, b_{n+1}] = [m_n, b_n]} \ \text{ anders.}
+\]
+Is $f(m_n) = 0$, dan heb je de nulwaarde exact gevonden.
+\end{theorie}
+
+Elk interval $[a_n, b_n]$ heeft een tekenwissel, want dat geldt voor het eerste, en de methode houdt telkens de helft met de tekenwissel. Volgens de tussenwaardestelling bevat elk interval dus een nulwaarde. Het midden van het laatste interval is de beste schatting.
+
+\voorbeeld{}{Pas vijf stappen van de methode van de intervalmiddens toe op $f(h) = h^3 - 30h^2 + 2400$ op $[10, 20]$.\label{vb:h1-bisectie}}{%
+\uitleg{We houden een tabel bij met de grenzen, het midden en het teken van $f$ in het midden. Omdat $f(a_0) > 0$ en $f(b_0) < 0$, houden we $a$ altijd op een plaats met $f > 0$ en $b$ op een plaats met $f < 0$.}
+\naast{{\renewcommand{\arraystretch}{1.25}\begin{tabular}{@{}cccrc@{}}
+$n$ & $a_n$ & $b_n$ & $m_n$ \quad & $f(m_n)$ \\ \hline
+0 & 10 & 20 & 15 & $-975$ \\
+1 & 10 & 15 & 12,5 & $-334{,}4$ \\
+2 & 10 & 12,5 & 11,25 & $27{,}0$ \\
+3 & 11,25 & 12,5 & 11,875 & $-155{,}9$ \\
+4 & 11,25 & 11,875 & 11,5625 & $-64{,}9$ \\
+5 & 11,25 & 11,5625 & 11,40625 & \\
+\end{tabular}}
+
+\vspace{1ex}
+Na vijf stappen ligt de nulwaarde in $[11{,}25;\ 11{,}5625]$, een interval met lengte $\tfrac{10}{2^5} = 0{,}3125$. Het midden $m_5 = 11{,}40625$ ligt hoogstens de helft daarvan, 0,156, van de nulwaarde.}{\begin{tikzpicture}[x=.52cm,font=\scriptsize]
+  \foreach \n/\a/\b in {0/10/20,1/10/15,2/10/12.5,3/11.25/12.5,4/11.25/11.875,5/11.25/11.5625}{%
+    \draw[accent,thick,|-|] (\a,-.55*\n) -- (\b,-.55*\n);
+    \node[left,text=grijs] at (9.7,-.55*\n) {$n = \n$};}
+  \draw[fel!80!black,dashed] (11.341,.3) -- (11.341,-3) node[below] {$c$};
+  \foreach \t in {10,15,20}{\node[above] at (\t,.05) {$\t$};}
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Maak een tabel met $n$, $a_n$, $b_n$, het midden $m_n$ en het teken van $f(m_n)$. Vervang de grens met hetzelfde teken als $f(m_n)$ door $m_n$. Het teken volstaat: de waarde van $f(m_n)$ heb je verder niet nodig.
+\end{werkwijze}
+
+\nujij{Pas drie stappen van de methode toe op $x^3 + 2x - 5 = 0$ op $[1, 2]$. Tussen welke grenzen ligt de oplossing dan?}{$m_0 = 1{,}5$ ($f > 0$), $m_1 = 1{,}25$ ($f < 0$), $m_2 = 1{,}375$ ($f > 0$): de oplossing ligt in $[1{,}25;\ 1{,}375]$.}
+
+\begin{oefeningen}
+\oef{h1-bisectie}
+\end{oefeningen}
+
+\subsection{Hoe nauwkeurig?}
+
+Een benadering heeft alleen waarde als je weet hoe goed ze is. Daarvoor spreken we af hoe we de fout meten.
+
+\begin{theorie}
+Is $\tilde c$ een benadering van het getal $c$, dan is $\formule{|\tilde c - c|}$ de \textbf{\textcolor{accent}{absolute fout}}. Een getal $\varepsilon > 0$ met $\formule{|\tilde c - c| \leqslant \varepsilon}$ is een \textbf{\textcolor{accent}{foutgrens}}: $c$ ligt dan in $[\tilde c - \varepsilon,\ \tilde c + \varepsilon]$.
+\end{theorie}
+
+De echte fout ken je bijna nooit: dan zou je $c$ al kennen. Een foutgrens wel. Bij de methode van de intervalmiddens volgt ze uit de lengte van het interval, en die wordt bij elke stap gehalveerd.
+
+\begin{theorie}
+\begin{stelling}{Foutgrens van de intervalmiddens}
+Na $n$ stappen van de methode van de intervalmiddens op $[a, b]$ ligt een nulwaarde $c$ van $f$ in $[a_n, b_n]$, en geldt
+
+\vspace{1mm}
+\qquad $\formule{b_n - a_n = \frac{b - a}{2^n}}$ \qquad en \qquad $\formule{|m_n - c| \leqslant \frac{b - a}{2^{n+1}}}$
+\end{stelling}
+
+\begin{bewijs}
+De eerste formule bewijzen we met volledige inductie. Voor $n = 0$ is $b_0 - a_0 = b - a$. Stel dat ze geldt voor $n$. Het nieuwe interval is $[a_n, m_n]$ of $[m_n, b_n]$, en in beide gevallen is
+\bewijsregel{b_{n+1} - a_{n+1} = \frac{b_n - a_n}{2} = \frac{b - a}{2^{n+1}} .}
+De nulwaarde $c$ ligt in $[a_n, b_n]$, en $m_n$ is het midden van dat interval. De afstand van het midden tot een punt van het interval is hoogstens de halve lengte:
+\bewijsregel{|m_n - c| \leqslant \frac{b_n - a_n}{2} = \frac{b - a}{2^{n+1}} .}
+\end{bewijs}
+\end{theorie}
+
+In woorden: elke stap halveert de foutgrens. Tien stappen maken haar $2^{10} = 1024$ keer kleiner, dus ongeveer duizend keer. Per tien stappen win je zo ongeveer drie decimalen, wat de functie ook is. Omgekeerd kun je vooraf uitrekenen hoeveel stappen je nodig hebt.
+
+\begin{theorie}
+\begin{stelling}{Aantal stappen}
+Met de methode van de intervalmiddens op $[a, b]$ is de foutgrens van $m_n$ hoogstens $\varepsilon$ zodra
+
+\vspace{1mm}
+\qquad $\formule{n \geqslant \log_2 \frac{b - a}{\varepsilon} - 1}$
+\end{stelling}
+
+\begin{bewijs}
+Volgens de vorige stelling volstaat $\frac{b - a}{2^{n+1}} \leqslant \varepsilon$, of $2^{n+1} \geqslant \frac{b - a}{\varepsilon}$. Omdat $\log_2$ stijgt, is dat
+\bewijsregel{n + 1 \geqslant \log_2 \frac{b - a}{\varepsilon} .}
+\end{bewijs}
+\end{theorie}
+
+Op een rekentoestel bereken je $\log_2 y$ als $\frac{\log y}{\log 2}$ of $\frac{\ln y}{\ln 2}$.
+
+\voorbeeld{}{Hoeveel stappen van de methode van de intervalmiddens op $[10, 20]$ zijn nodig om de diepte van de bal tot op een millimeter te kennen? Geef die benadering.\label{vb:h1-aantal}}{%
+\uitleg{Een millimeter is 0,1 cm, dus $\varepsilon = 0{,}1$. We vullen de formule voor het aantal stappen in en ronden af naar boven, want $n$ is een natuurlijk getal.}
+\begin{stappen}
+n \geqslant \log_2 \frac{10}{0{,}1} - 1 = \log_2 100 - 1 \approx 5{,}64 & Met $\log_2 100 = \frac{\log 100}{\log 2} \approx 6{,}64$. \\[1ex]
+n = 6 & Het kleinste natuurlijke getal dat voldoet. \\[1ex]
+[a_6, b_6] = [11{,}25;\ 11{,}40625] & Eén stap verder dan in voorbeeld \ref{vb:h1-bisectie}: $f(11{,}40625) \approx -19{,}1 < 0$. \\[1ex]
+m_6 = 11{,}328\ldots & Foutgrens $\frac{10}{2^7} \approx 0{,}078 \leqslant 0{,}1$.
+\end{stappen}
+De bal zinkt dus ongeveer 11,3 cm diep, met een fout van hoogstens 0,08 cm. De echte nulwaarde is $11{,}341\ldots$: de echte fout is maar 0,013. De foutgrens is een garantie, geen voorspelling.}
+
+\begin{werkwijze}
+Bereken vooraf het aantal stappen met $n \geqslant \log_2 \frac{b - a}{\varepsilon} - 1$, en rond af naar boven. Na die stappen is het midden van het laatste interval de benadering, met foutgrens $\frac{b - a}{2^{n+1}}$.
+\end{werkwijze}
+
+Let op het verschil tussen een foutgrens en een aantal juiste decimalen. Een fout van hoogstens 0,005 betekent niet altijd dat de afgeronde waarde op twee decimalen juist is: ligt $c$ in $[1{,}2448;\ 1{,}2548]$, dan kan de afronding 1,24 of 1,25 zijn. Wil je zeker zijn van een afgerond getal, controleer dan het teken van $f$ op de grens tussen de twee afrondingen.
+
+\nujij{Hoeveel stappen zijn nodig om de oplossing van $x^3 + 2x - 5 = 0$ in $[1, 2]$ te kennen met een foutgrens van $10^{-6}$?}{$n \geqslant \log_2 10^6 - 1 \approx 18{,}9$, dus 19 stappen.}
+
+\begin{oefeningen}
+\oef{h1-foutgrens}
+\end{oefeningen}
+
+\subsection{Wat kan er mislopen?}
+
+De methode van de intervalmiddens werkt altijd als de voorwaarden kloppen: $f$ is continu, en er is een tekenwissel. Juist daarom moet je die voorwaarden controleren. De figuren tonen drie gevallen waarin de methode je bedriegt.
+
+\figuren{\begin{tikzpicture}[x=.7cm,y=.6cm,font=\scriptsize]
+  \draw[->,grijs] (-.3,0) -- (4.3,0) node[right,text=black] {$x$};
+  \kromme{0}{4}{.6*(\x-2.5)^2*(\x-0.3)}
+  \fill[fel!80!black] (2.5,0) circle (2pt);
+  \fill (0.3,0) circle (1.6pt);
+  \node[text width=3.6cm,align=center] at (2,-1.6) {Een dubbele nulwaarde in 2,5: geen tekenwissel, dus de methode vindt ze niet.};
+\end{tikzpicture}\hspace{5mm}
+\begin{tikzpicture}[x=.7cm,y=.6cm,font=\scriptsize]
+  \draw[->,grijs] (-.3,0) -- (4.3,0) node[right,text=black] {$x$};
+  \kromme{0.2}{1.75}{.4/(\x-2)+.5}
+  \kromme{2.25}{4}{.4/(\x-2)+.5}
+  \draw[grijs,dashed] (2,-1.6) -- (2,2.2);
+  \fill (1.2,0) circle (1.6pt);
+  \node[text width=3.6cm,align=center] at (2,-2.2) {Een sprong in 2: een tekenwissel op $[1{,}5;\ 3]$ zonder nulwaarde.};
+\end{tikzpicture}\hspace{5mm}
+\begin{tikzpicture}[x=.7cm,y=.6cm,font=\scriptsize]
+  \draw[->,grijs] (-.3,0) -- (4.3,0) node[right,text=black] {$x$};
+  \kromme{0}{4}{.5*(\x-.5)*(\x-1.8)*(\x-3.3)}
+  \foreach \r in {.5,1.8,3.3}{\fill[fel!80!black] (\r,0) circle (2pt);}
+  \node[text width=3.6cm,align=center] at (2,-1.6) {Drie nulwaarden in $[0, 4]$: de methode vindt er maar één.};
+\end{tikzpicture}}
+
+Een numerieke methode vindt dus alleen wat je haar laat zoeken. Schets eerst de grafiek, of maak een tabel, zodat je weet hoeveel nulwaarden er zijn en waar ze ongeveer liggen. Zoek daarna elke nulwaarde in een eigen interval.
+
+\voorbeeld{}{Pas de methode van de intervalmiddens toe op $f(x) = \tan x$ op $[1, 2]$ ($x$ in radialen). Wat vind je?\label{vb:h1-tan}}{%
+\uitleg{Er is een tekenwissel: $\tan 1 \approx 1{,}56$ en $\tan 2 \approx -2{,}19$. We voeren de methode uit en kijken ook naar de waarden van $f$.}
+\naast{\begin{stappenvrij}{3.9cm}{3.9cm}
+f(1{,}5) \approx 14{,}1 & Positief: $[1{,}5;\ 2]$. \\
+f(1{,}75) \approx -5{,}5 & Negatief: $[1{,}5;\ 1{,}75]$. \\
+f(1{,}625) \approx -18{,}4 & $[1{,}5;\ 1{,}625]$. \\
+f(1{,}5625) \approx 120{,}5 & $[1{,}5625;\ 1{,}625]$. \\
+\ldots & \\
+f(1{,}5703) \approx 2067 & De waarden worden steeds groter.
+\end{stappenvrij}
+De intervallen krimpen naar $\frac{\pi}{2} \approx 1{,}5708$. Maar daar is geen nulwaarde: $\tan x$ is daar niet gedefinieerd, en de functie is niet continu op $[1, 2]$. Dat de functiewaarden in de middens niet kleiner worden, is het alarmsignaal.}{\begin{tikzpicture}[x=1.6cm,y=.2cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.25,ystep=2] (1,-8) grid (2,8);
+  \draw[->,grijs] (1,0) -- (2.15,0) node[right,text=black] {$x$};
+  \foreach \t in {1,1.5,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-8,-4,4,8}{\node[left,inner sep=1.5pt] at (1,\t) {$\t$};}
+  \draw[grijs] (1,-8) -- (1,8.5);
+  \kromme{1}{1.446}{tan(\x r)}
+  \kromme{1.696}{2}{tan(\x r)}
+  \draw[grijs,dashed] (1.5708,-8) -- (1.5708,8.5) node[above] {$\frac{\pi}{2}$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Controleer vooraf dat $f$ continu is op het interval, en schets de grafiek om te zien hoeveel nulwaarden er zijn. Neem voor elke nulwaarde een eigen startinterval. Worden de waarden $|f(m_n)|$ niet kleiner, wantrouw dan het resultaat.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-mislopen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Regula falsi}
+
+\subsection{Een koorde in plaats van een midden}
+
+De methode van de intervalmiddens kijkt alleen naar het teken van $f$. Dat is jammer. In het voorbeeld van de bal is $f(10) = 400$ en $f(20) = -1600$: de functiewaarde in 10 ligt veel dichter bij 0 dan die in 20, dus je verwacht de nulwaarde dichter bij 10 dan bij 20. Kun je die informatie gebruiken?
+
+Het idee: vervang de grafiek tussen $(a, f(a))$ en $(b, f(b))$ door de rechte erdoor, de \textit{koorde}, en neem het snijpunt van die koorde met de $x$-as als nieuwe schatting. Is de grafiek bijna recht, dan ligt dat snijpunt dicht bij de nulwaarde. Daarna gaat het zoals bij de intervalmiddens: je houdt het deel met de tekenwissel. Omdat je de grafiek vervangt door een rechte die er niet echt is, heet de methode \textit{regula falsi}, Latijn voor \textit{regel van de valse positie}. Ze is heel oud: Chinese en Egyptische rekenaars gebruikten ze al om vergelijkingen op te lossen.
+
+\naast{\begin{theorie}
+\begin{stelling}{Nulwaarde van de koorde}
+De koorde door $(a, f(a))$ en $(b, f(b))$, met $f(a) \neq f(b)$, snijdt de $x$-as in
+
+\vspace{1mm}
+$\formule{c = a - f(a) \cdot \frac{b - a}{f(b) - f(a)}}$
+
+\vspace{1mm}
+of ook \quad $\formule{c = \frac{a\,f(b) - b\,f(a)}{f(b) - f(a)}}$
+\end{stelling}
+
+\begin{bewijs}
+De koorde heeft richtingscoëfficiënt $\frac{f(b) - f(a)}{b - a}$ en gaat door $(a, f(a))$:
+\bewijsregel{y = f(a) + \frac{f(b) - f(a)}{b - a}\,(x - a) .}
+Stel $y = 0$ en los op naar $x$: dat geeft de eerste vorm. Zet alles op één noemer voor de tweede.
+\end{bewijs}
+\end{theorie}}{\begin{tikzpicture}[x=.95cm,y=.9cm,font=\scriptsize]
+  \draw[->,grijs] (-.2,0) -- (4.6,0) node[right,text=black] {$x$};
+  \kromme{.4}{4.2}{.32*(\x)^2+.05*(\x)-1.2}
+  \draw[fel!80!black,thick] (.5,-1.095) -- (4,4.12);
+  \fill[accent] (.5,-1.095) circle (1.8pt) node[below right] {$(a, f(a))$};
+  \fill[accent] (4,4.12) circle (1.8pt) node[left] {$(b, f(b))$};
+  \draw[grijs,dashed] (.5,0) -- (.5,-1.095) (4,0) -- (4,4.12);
+  \node[above] at (.5,0) {$a$};
+  \node[below] at (4,0) {$b$};
+  \pgfmathsetmacro{\cc}{.5-(-1.095)*3.5/(4.12+1.095)}
+  \fill (\cc,0) circle (1.8pt) node[above left] {$c$};
+  \fill[fel!80!black] (1.86,0) circle (1.8pt);
+  \node[below,text=fel!80!black] at (1.95,-.05) {nulwaarde};
+\end{tikzpicture}}
+
+De tweede vorm is symmetrisch in $a$ en $b$, de eerste is handiger op een rekentoestel: je start in $a$ en schuift op met een correctie. De breuk $\frac{b - a}{f(b) - f(a)}$ is het omgekeerde van de richtingscoëfficiënt van de koorde.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{regula falsi}} vertrekt van een continue functie $f$ met een tekenwissel in $[a_0, b_0]$. Bij elke stap bereken je
+\[
+\formule{c_n = a_n - f(a_n) \cdot \frac{b_n - a_n}{f(b_n) - f(a_n)}}
+\]
+en houd je zoals bij de intervalmiddens het deel $[a_n, c_n]$ of $[c_n, b_n]$ met de tekenwissel.
+\end{theorie}
+
+\voorbeeld{}{Pas twee stappen van de regula falsi toe op $f(h) = h^3 - 30h^2 + 2400$ op $[10, 20]$.\label{vb:h1-regula}}{%
+\uitleg{De formule is dezelfde bij elke stap, alleen de grenzen veranderen. We rekenen de functiewaarden in de grenzen eerst uit, en houden daarna de helft met de tekenwissel.}
+\begin{stappen}
+c_0 = 10 - 400 \cdot \frac{20 - 10}{-1600 - 400} = 12 & $f(10) = 400$ en $f(20) = -1600$: de koorde snijdt de as op een vijfde van het interval. \\[2ex]
+f(12) = -192 < 0 & Tekenwissel in $[10, 12]$. \\[1ex]
+c_1 = 10 - 400 \cdot \frac{12 - 10}{-192 - 400} \approx 11{,}3514 & De nieuwe koorde loopt van $(10, 400)$ naar $(12, -192)$. \\[2ex]
+f(11{,}3514) \approx -2{,}94 < 0 & Tekenwissel in $[10;\ 11{,}3514]$.
+\end{stappen}
+Na twee stappen is de schatting 11,3514, terwijl de methode van de intervalmiddens na twee stappen pas bij 11,25 stond. De echte nulwaarde is 11,3414.}
+
+\begin{werkwijze}
+Maak een tabel met $a_n$, $b_n$, $f(a_n)$, $f(b_n)$, $c_n$ en $f(c_n)$. Bereken $c_n$ met de formule, en vervang de grens met hetzelfde teken als $f(c_n)$ door $c_n$. Bewaar de functiewaarden: je hebt ze bij de volgende stap opnieuw nodig.
+\end{werkwijze}
+
+\nujij{Bereken $c_0$ en $c_1$ van de regula falsi voor $x^3 + 2x - 5 = 0$ op $[1, 2]$.}{$c_0 = 1 - (-2) \cdot \frac{1}{9} \approx 1{,}2222$ met $f(c_0) \approx -0{,}730$; dan op $[1{,}2222;\ 2]$: $c_1 \approx 1{,}2957$.}
+
+\begin{oefeningen}
+\oef{h1-regula}
+\end{oefeningen}
+
+\subsection{Altijd ingesloten}
+
+Blijft de nieuwe schatting wel tussen $a$ en $b$? Bij de intervalmiddens is dat duidelijk: het midden ligt altijd binnen het interval. Bij de regula falsi moet je het nagaan, want een koorde zou de as ook buiten het interval kunnen snijden. Dat gebeurt niet, zolang er een tekenwissel is.
+
+\begin{theorie}
+\begin{stelling}{Insluiting bij de regula falsi}
+Hebben $f(a)$ en $f(b)$ een verschillend teken, dan ligt de nulwaarde $c$ van de koorde strikt tussen $a$ en $b$:
+
+\vspace{1mm}
+\qquad $\formule{a < c < b}$
+\end{stelling}
+
+\begin{bewijs}
+Uit de tweede vorm van $c$ volgt, met $w = \frac{f(b)}{f(b) - f(a)}$,
+\bewijsregel{c = \frac{a\,f(b) - b\,f(a)}{f(b) - f(a)} = w\,a + (1 - w)\,b , \quad \text{want } 1 - w = \frac{-f(a)}{f(b) - f(a)} .}
+Omdat $f(b)$ en $-f(a)$ hetzelfde teken hebben, liggen $w$ en $1 - w$ allebei strikt tussen 0 en 1. Dus is $c$ een gewogen gemiddelde van $a$ en $b$ met positieve gewichten, en $c - a = (1 - w)(b - a) > 0$ en $b - c = w\,(b - a) > 0$.
+\end{bewijs}
+\end{theorie}
+
+De gewichten zeggen ook waar $c$ ligt: dicht bij het eindpunt waar $|f|$ klein is. Bij de bal is $w = \frac{-1600}{-2000} = 0{,}8$, dus $c = 0{,}8 \cdot 10 + 0{,}2 \cdot 20 = 12$. Zo blijft de nulwaarde altijd ingesloten, en net als bij de intervalmiddens geeft de regula falsi gegarandeerd een rij schattingen die naar een nulwaarde van $f$ gaat. Het bewijs daarvan laten we weg: het is lang en voegt weinig toe aan wat je nodig hebt.
+
+\begin{oefeningen}
+\oef{h1-insluiting}
+\end{oefeningen}
+
+\subsection{Een eindpunt dat blijft staan}
+
+Is de regula falsi dan altijd sneller? Nee. Kijk naar de tabel van voorbeeld \ref{vb:h1-regula}: de linkergrens bleef 10, en alleen de rechtergrens schoof op. Dat gebeurt telkens als de grafiek op het hele interval hol of bol is. Dan ligt de koorde aan één kant van de grafiek, en valt elke nieuwe schatting aan dezelfde kant van de nulwaarde. Het interval $[a_n, b_n]$ wordt dan niet klein: één eindpunt blijft staan.
+
+\voorbeeld{}{Vergelijk vijf stappen van de regula falsi en van de methode van de intervalmiddens voor $x^2 - 2 = 0$ op $[0, 2]$.\label{vb:h1-vast}}{%
+\uitleg{De oplossing is $\sqrt 2 = 1{,}41421\ldots$, zodat we de echte fout kunnen berekenen. De grafiek is een dalparabool: overal hol.}
+\naast{{\renewcommand{\arraystretch}{1.25}\begin{tabular}{@{}c|cc|cc@{}}
+ & \multicolumn{2}{c|}{regula falsi} & \multicolumn{2}{c}{intervalmiddens} \\
+$n$ & $c_n$ & fout & $m_n$ & fout \\ \hline
+0 & 1 & 0,414 & 1 & 0,414 \\
+1 & 1,3333 & 0,081 & 1,5 & 0,086 \\
+2 & 1,4 & 0,014 & 1,25 & 0,164 \\
+3 & 1,4118 & 0,0024 & 1,375 & 0,039 \\
+4 & 1,4138 & 0,0004 & 1,4375 & 0,023 \\
+\end{tabular}}
+
+\vspace{1ex}
+De regula falsi wint hier ruim. Maar de rechtergrens blijft 2: het interval $[c_n, 2]$ wordt nooit korter dan $2 - \sqrt 2 \approx 0{,}59$. De foutgrens uit de intervallengte is dus waardeloos. Wel wordt de fout telkens ongeveer 6 keer kleiner. Bij de intervalmiddens daalt de fout grillig, maar de foutgrens halveert gegarandeerd.}{\begin{tikzpicture}[x=1.5cm,y=.8cm,font=\scriptsize]
+  \draw[black!14,very thin,step=.5] (0,-2) grid (2,2);
+  \draw[->,grijs] (0,0) -- (2.2,0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,-2) -- (0,2.3) node[above,text=black] {$y$};
+  \foreach \t in {1,2}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {-2,-1,1,2}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \kromme{0}{2}{(\x)^2-2}
+  \foreach \a/\fa in {0/-2,1/-1,1.3333/-0.2222}{\draw[fel!80!black,thick] (\a,\fa) -- (2,2);}
+  \fill[accent] (2,2) circle (1.8pt) node[left] {vast};
+  \foreach \c in {1,1.3333,1.4}{\fill (\c,0) circle (1.5pt);}
+\end{tikzpicture}}}
+
+Er zijn ook functies waarbij de regula falsi veel trager is dan de intervalmiddens, zoals $x^{10} - 1$ op $[0;\ 1{,}5]$: de koorde ligt daar bijna plat, en de schattingen kruipen vooruit (opdracht \ref{oef:h1-o17}). Omdat het interval niet krimpt, kun je bij de regula falsi ook geen aantal stappen vooraf berekenen. Je stopt wanneer twee opeenvolgende schattingen weinig verschillen, en je controleert het resultaat met een tekenwissel.
+
+\begin{werkwijze}
+Stop met de regula falsi als $|c_n - c_{n-1}| < \varepsilon$. Controleer dan of $f(c_n - \varepsilon)$ en $f(c_n + \varepsilon)$ een verschillend teken hebben. Zo ja, dan ligt een nulwaarde in $[c_n - \varepsilon,\ c_n + \varepsilon]$, en is $\varepsilon$ een foutgrens van $c_n$.
+\end{werkwijze}
+
+\nujij{Bij welke grens blijft de regula falsi staan voor $x^3 + 2x - 5 = 0$ op $[1, 2]$? Waarom?}{Bij 2: de grafiek is hol op $[1, 2]$ ($f''(x) = 6x > 0$), dus de koorde ligt boven de grafiek en elke $c_n$ valt links van de nulwaarde.}
+
+\begin{oefeningen}
+\oef{h1-vast}
+\end{oefeningen}
+
+%========================================================================================
+\section{Vergelijken en kiezen}
+
+\subsection{Snelheid en zekerheid}
+
+We hebben nu twee methodes die een nulwaarde insluiten. Welke is beter? Dat hangt af van wat je belangrijk vindt.
+
+\begin{rastertabel}{|c|c|c|}
+\hline
+ & \textbf{intervalmiddens} & \textbf{regula falsi} \\ \hline
+gebruikt van $f$ & alleen het teken & de waarden \\ \hline
+foutgrens & $\frac{b - a}{2^{n+1}}$, vooraf gekend & geen, alleen achteraf \\ \hline
+snelheid & 3 decimalen per 10 stappen & meestal sneller, soms trager \\ \hline
+stopt na & een vooraf berekend aantal stappen & twee bijna gelijke schattingen \\ \hline
+\end{rastertabel}
+
+Beide methodes hebben een tekenwissel nodig, en daarom ook een startinterval. Ze vinden één nulwaarde per interval. In ruil zijn ze betrouwbaar: als de voorwaarden kloppen, komen ze altijd bij een nulwaarde uit. In hoofdstuk 2 zie je methodes die veel sneller zijn, maar die je die zekerheid niet geven.
+
+\begin{oefeningen}
+\oef{h1-kiezen}
+\end{oefeningen}
+
+\needspace{20\baselineskip}
+Nu kunnen we het probleem van de bal volledig oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Hoe diep zinkt de houten bal, tot op een millimeter? Hoeveel steekt hij boven het water uit?\label{vb:h1-terug}}{%
+\uitleg{De diepte $h$ is de nulwaarde van $f(h) = h^3 - 30h^2 + 2400$ in $[10, 20]$ (voorbeeld \ref{vb:h1-start}). We gebruiken de regula falsi, die hier snel gaat, en controleren het resultaat met een tekenwissel zoals in de werkwijze.}
+\begin{stappen}
+c_0 = 12, \quad c_1 \approx 11{,}3514 & Voorbeeld \ref{vb:h1-regula}. \\[1ex]
+c_2 = 10 - 400 \cdot \frac{11{,}3514 - 10}{-2{,}94 - 400} \approx 11{,}3415 & De linkergrens blijft 10. \\[2ex]
+|c_2 - c_1| \approx 0{,}01 < 0{,}1 & Twee schattingen verschillen minder dan een millimeter. \\[1ex]
+f(11{,}2415) \approx 29{,}5 > 0, \quad f(11{,}4415) \approx -29{,}5 < 0 & Tekenwissel in $[c_2 - 0{,}1;\ c_2 + 0{,}1]$: de foutgrens 0,1 is gegarandeerd.
+\end{stappen}
+De bal zinkt $h \approx 11{,}34$ cm diep, met een fout van minder dan een millimeter, en steekt dus ongeveer $20 - 11{,}34 = 8{,}66$ cm boven het water uit. De methode van de intervalmiddens vond in voorbeeld \ref{vb:h1-aantal} hetzelfde, maar had er zes stappen voor nodig in plaats van drie.}
+
+\lkr{Wie de tekenwissel strenger wil, neemt $\varepsilon = 0{,}005$: $f(11{,}3365) > 0$ en $f(11{,}3465) < 0$, dus $h = 11{,}34$ op een halve tiende millimeter. In opdracht \ref{oef:h1-o9} rekenen de leerlingen hetzelfde uit voor andere houtsoorten.}
+
+\subsection{Met de computer}
+
+Met de hand worden twintig stappen saai, maar een computer doet ze in een oogwenk. Thuis kun je de methode van de intervalmiddens in een paar regels Python schrijven. De functie krijgt $f$, de grenzen en het aantal stappen, en geeft het laatste midden terug.
+
+\begin{python}
+def intervalmiddens(f, a, b, n):
+    for stap in range(n):
+        m = (a + b) / 2
+        if f(a) * f(m) <= 0:     # tekenwissel in [a, m]
+            b = m
+        else:                    # tekenwissel in [m, b]
+            a = m
+    return (a + b) / 2
+
+print(intervalmiddens(lambda h: h**3 - 30*h**2 + 2400, 10, 20, 30))
+\end{python}
+
+Met 30 stappen is de foutgrens $\frac{10}{2^{31}} \approx 5 \cdot 10^{-9}$, en het programma geeft $11{,}341378\ldots$. Pas het programma zelf aan tot een regula falsi: alleen de regel met het midden verandert. Of maak in een rekenblad een tabel zoals in de voorbeelden, met een formule die het teken nagaat.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De oefening over rijen gebruikt dat een stijgende, naar boven begrensde rij convergeert (Rijen, hoofdstuk 4): ze bewijst eigenlijk de tussenwaardestelling. De oefening over de normale verdeling veronderstelt Statistiek (normalcdf op het rekentoestel).}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-start}{oef:h1-interval}%
+  \fv{oef:h1-t2}{vb:h1-bisectie}{oef:h1-bisectie}%
+  \fv{oef:h1-t3}{vb:h1-aantal}{oef:h1-foutgrens}%
+  \fv{oef:h1-t4}{vb:h1-regula}{oef:h1-regula}%
+  \fv{oef:h1-t5}{vb:h1-tan}{oef:h1-mislopen}%
+  \fv{oef:h1-t6}{vb:h1-vast}{oef:h1-vast}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-regula}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: hoe je een startinterval zoekt en aantoont dat er maar één nulwaarde in ligt, de methode van de intervalmiddens, wat een foutgrens is, de foutgrens van de intervalmiddens met haar bewijs, het aantal stappen, drie gevallen waarin de methode je bedriegt, de formule van de regula falsi en hoe je ze afleidt, waarom de schatting tussen $a$ en $b$ blijft, wanneer een eindpunt blijft staan, en hoe je de twee methodes vergelijkt. Vergelijk daarna met de kaders.
+\fi

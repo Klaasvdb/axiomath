@@ -1,0 +1,1081 @@
+# Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken of beantwoord.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $f(0)$, $f(1)$ en $f(2)$ voor $f(x) = x^3 - 4x + 1$. Tussen welke gehele getallen heeft $f$ zeker een nulwaarde?
+      antwoord: |-
+        $1$, $-2$, $1$; tussen 0 en 1 en tussen 1 en 2
+      uitwerking: |-
+        $f(0) = 1$, $f(1) = 1 - 4 + 1 = -2$ en $f(2) = 8 - 8 + 1 = 1$. Een veelterm is continu, dus de tussenwaardestelling geeft een nulwaarde in $\left]0, 1\right[$ en een in $\left]1, 2\right[$.
+    - opgave: |-
+        Wat is het kleinste natuurlijke getal $n$ met $2^n \geqslant 1000$?
+      antwoord: |-
+        $n = 10$
+      uitwerking: |-
+        $2^9 = 512 < 1000$ en $2^{10} = 1024 \geqslant 1000$. Of: $n \geqslant \log_2 1000 = \frac{\log 1000}{\log 2} \approx 9{,}97$.
+    - opgave: |-
+        Bepaal een vergelijking van de rechte door $(1, -2)$ en $(2, 7)$, en het snijpunt met de $x$-as.
+      antwoord: |-
+        $y = 9x - 11$; $\bigl(\tfrac{11}{9}, 0\bigr)$
+      uitwerking: |-
+        De richtingscoëfficiënt is $\frac{7 - (-2)}{2 - 1} = 9$, dus $y = -2 + 9(x - 1) = 9x - 11$. Stel $y = 0$: $x = \frac{11}{9} \approx 1{,}22$.
+    - opgave: |-
+        Is $f(x) = \dfrac{1}{x - 1}$ continu op $[0, 2]$? Heeft $f$ er een tekenwissel? Heeft $f$ er een nulwaarde?
+      antwoord: |-
+        niet continu; wel een tekenwissel; geen nulwaarde
+      uitwerking: |-
+        $f$ bestaat niet in 1, dus ze is niet continu op $[0, 2]$. $f(0) = -1$ en $f(2) = 1$: een tekenwissel. Maar $\frac{1}{x - 1}$ is nooit 0. De tussenwaardestelling geldt hier niet, omdat $f$ niet continu is.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Speel in duo. Eén van jullie denkt aan een geheel getal van 1 tot en met 1000. De ander mag vragen stellen als \textit{Is het groter dan 600?}, waarop alleen ja of nee geantwoord wordt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke vraag stel je best eerst? Waarom?
+      antwoord: |-
+        \textit{Is het groter dan 500?}
+      uitwerking: |-
+        Die vraag deelt de 1000 mogelijkheden in twee helften. Wat het antwoord ook is, er blijven er hoogstens 500 over. Een andere vraag kan je met pech meer laten overhouden.
+    - opgave: |-
+        Hoeveel vragen heb je met die strategie hoogstens nodig? En voor een getal tot en met 1\,000\,000?
+      antwoord: |-
+        10; 20
+      uitwerking: |-
+        Na elke vraag blijft hoogstens de helft over (naar boven afgerond): 1000, 500, 250, 125, 63, 32, 16, 8, 4, 2, 1. Dat zijn 10 vragen, want $2^{10} = 1024 \geqslant 1000$. Voor een miljoen: $2^{20} = 1\,048\,576 \geqslant 10^6$, dus 20 vragen.
+    - opgave: |-
+        Nu zoek je de oplossing van $x^3 + 2x = 5$, die tussen 1 en 2 ligt. Je mag telkens vragen: \textit{is $x^3 + 2x - 5$ positief in dit getal?} Hoeveel vragen heb je nodig om de oplossing te kennen tot op 0,001?
+      antwoord: |-
+        ongeveer 10
+      uitwerking: |-
+        Elke vraag halveert het interval waarin de oplossing ligt: na $n$ vragen heeft het lengte $\frac{1}{2^n}$. Na 10 vragen is dat $\frac{1}{1024} < 0{,}001$. (Neem je het midden van het laatste interval, dan volstaan er zelfs 9.)
+
+- id: h1-interval
+  soort: kort
+  opgave: |-
+    Los op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $x^3 - x - 4 = 0$ precies één oplossing heeft in $[1, 2]$.
+      antwoord: |-
+        $f(1) = -4$, $f(2) = 2$, $f' > 0$ op $[1, 2]$
+      uitwerking: |-
+        Neem $f(x) = x^3 - x - 4$, een veelterm, dus continu. $f(1) = -4 < 0$ en $f(2) = 2 > 0$: een tekenwissel. $f'(x) = 3x^2 - 1 \geqslant 2 > 0$ op $[1, 2]$, dus $f$ stijgt strikt: precies één nulwaarde (ongeveer 1,796).
+    - opgave: |-
+        Hoeveel oplossingen heeft $x^3 - 6x + 2 = 0$? Geef voor elke oplossing een interval met lengte 1 waarin ze ligt.
+      antwoord: |-
+        drie: in $[-3, -2]$, $[0, 1]$ en $[2, 3]$
+      uitwerking: |-
+        $f(-3) = -7$, $f(-2) = 6$, $f(0) = 2$, $f(1) = -3$, $f(2) = -2$, $f(3) = 11$: drie tekenwissels. Een derdegraadsvergelijking heeft hoogstens drie oplossingen, dus dat zijn ze allemaal (ongeveer $-2{,}602$; $0{,}340$ en $2{,}262$).
+    - opgave: |-
+        Toon aan dat $\e^{-x} = x$ precies één oplossing heeft, en geef een interval met lengte 1 waarin ze ligt.
+      antwoord: |-
+        in $[0, 1]$
+      uitwerking: |-
+        Neem $f(x) = \e^{-x} - x$. $f(0) = 1 > 0$ en $f(1) = \e^{-1} - 1 < 0$: een tekenwissel. $f'(x) = -\e^{-x} - 1 < 0$ voor elke $x$, dus $f$ daalt strikt op heel $\R$ en heeft maar één nulwaarde (ongeveer 0,567).
+
+- id: h1-bisectie
+  soort: kort
+  opgave: |-
+    Pas de methode van de intervalmiddens toe. Geef telkens het laatste interval, het midden ervan en de foutgrens.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Vier stappen voor $x^3 = 7$ op $[1, 2]$.
+      antwoord: |-
+        $[1{,}875;\ 1{,}9375]$; $1{,}90625$; $0{,}03125$
+      uitwerking: |-
+        $f(x) = x^3 - 7$, met $f(1) < 0 < f(2)$. $f(1{,}5) < 0$: $[1{,}5;\ 2]$. $f(1{,}75) < 0$: $[1{,}75;\ 2]$. $f(1{,}875) \approx -0{,}41 < 0$: $[1{,}875;\ 2]$. $f(1{,}9375) \approx 0{,}27 > 0$: $[1{,}875;\ 1{,}9375]$. Het midden is 1,90625, met foutgrens $\frac{1}{2^5} = 0{,}03125$. (Echte waarde: $\sqrt[3]7 \approx 1{,}9129$.)
+    - opgave: |-
+        Drie stappen voor $\cos x = x$ op $[0, 1]$ ($x$ in radialen).
+      antwoord: |-
+        $[0{,}625;\ 0{,}75]$; $0{,}6875$; $0{,}0625$
+      uitwerking: |-
+        $f(x) = \cos x - x$, met $f(0) = 1 > 0$ en $f(1) \approx -0{,}46 < 0$. $f(0{,}5) \approx 0{,}38 > 0$: $[0{,}5;\ 1]$. $f(0{,}75) \approx -0{,}018 < 0$: $[0{,}5;\ 0{,}75]$. $f(0{,}625) \approx 0{,}19 > 0$: $[0{,}625;\ 0{,}75]$. Midden 0,6875, foutgrens $\frac{1}{2^4} = 0{,}0625$. (Echte waarde: 0,7391.)
+
+- id: h1-foutgrens
+  soort: kort
+  opgave: |-
+    Methode van de intervalmiddens. Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het aantal stappen op $[1, 2]$ voor een foutgrens van 0,0005.
+      antwoord: |-
+        10
+      uitwerking: |-
+        $n \geqslant \log_2 \frac{1}{0{,}0005} - 1 = \log_2 2000 - 1 \approx 9{,}97$, dus $n = 10$.
+    - opgave: |-
+        Het aantal stappen op $[0, 10]$ voor een foutgrens van $10^{-3}$.
+      antwoord: |-
+        13
+      uitwerking: |-
+        $n \geqslant \log_2 10\,000 - 1 \approx 12{,}29$, dus $n = 13$.
+    - opgave: |-
+        De foutgrens na 15 stappen op $[-1, 3]$.
+      antwoord: |-
+        $\frac{4}{2^{16}} \approx 6{,}1 \cdot 10^{-5}$
+      uitwerking: |-
+        $\frac{b - a}{2^{n+1}} = \frac{4}{2^{16}} = \frac{1}{16\,384} \approx 6{,}1 \cdot 10^{-5}$.
+
+- id: h1-mislopen
+  soort: kort
+  opgave: |-
+    Werkt de methode van de intervalmiddens op het gegeven interval? Zo niet, wat loopt er mis?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = \dfrac1x - 1$ op $[0{,}5;\ 3]$
+      antwoord: |-
+        ja, ze vindt 1
+      uitwerking: |-
+        $f$ is continu op $[0{,}5;\ 3]$ (0 ligt er niet in), en $f(0{,}5) = 1 > 0$, $f(3) = -\tfrac23 < 0$. De methode vindt de nulwaarde 1.
+    - opgave: |-
+        $f(x) = (x - 1)^2$ op $[0, 3]$
+      antwoord: |-
+        nee, geen tekenwissel
+      uitwerking: |-
+        $f(0) = 1$ en $f(3) = 4$ zijn allebei positief. De nulwaarde 1 is een dubbele nulwaarde: de grafiek raakt de as zonder ze te snijden, en de methode kan niet starten.
+    - opgave: |-
+        $f(x) = \dfrac{x}{x^2 - 1}$ op $[-2, 3]$
+      antwoord: |-
+        nee, ze gaat naar 1
+      uitwerking: |-
+        $f(-2) = -\tfrac23$ en $f(3) = \tfrac38$: een tekenwissel. Maar $f$ is niet continu in $-1$ en 1. De middens: 0,5 ($f < 0$), 1,75 ($f > 0$), 1,125 ($f > 0$), 0,8125 ($f < 0$), 0,96875 ($f < 0$), \ldots: de intervallen krimpen naar de pool 1, en $|f(m_n)|$ wordt steeds groter. De nulwaarde 0 vindt ze niet.
+    - opgave: |-
+        $f(x) = \sin x$ op $[3, 7]$
+      antwoord: |-
+        nee, geen tekenwissel
+      uitwerking: |-
+        $\sin 3 \approx 0{,}14$ en $\sin 7 \approx 0{,}66$ zijn allebei positief, terwijl er twee nulwaarden in liggen: $\pi$ en $2\pi$. Een even aantal nulwaarden geeft geen tekenwissel.
+
+- id: h1-regula
+  soort: kort
+  opgave: |-
+    Pas twee stappen van de regula falsi toe. Geef $c_0$ en $c_1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^3 = 7$ op $[1, 2]$
+      antwoord: |-
+        $c_0 \approx 1{,}8571$; $c_1 \approx 1{,}9104$
+      uitwerking: |-
+        $f(1) = -6$, $f(2) = 1$: $c_0 = 1 - (-6) \cdot \frac{1}{7} = \frac{13}{7} \approx 1{,}8571$, met $f(c_0) \approx -0{,}595 < 0$. Op $[1{,}8571;\ 2]$: $c_1 = 1{,}8571 + 0{,}595 \cdot \frac{0{,}1429}{1{,}595} \approx 1{,}9104$. (Echte waarde: 1,9129.)
+    - opgave: |-
+        $\cos x = x$ op $[0, 1]$
+      antwoord: |-
+        $c_0 \approx 0{,}6851$; $c_1 \approx 0{,}7363$
+      uitwerking: |-
+        $f(x) = \cos x - x$: $f(0) = 1$, $f(1) \approx -0{,}4597$. $c_0 = 0 - 1 \cdot \frac{1}{-1{,}4597} \approx 0{,}6851$, met $f(c_0) \approx 0{,}0893 > 0$. Op $[0{,}6851;\ 1]$: $c_1 = 0{,}6851 - 0{,}0893 \cdot \frac{0{,}3149}{-0{,}4597 - 0{,}0893} \approx 0{,}7363$. (Echte waarde: 0,7391.)
+
+- id: h1-insluiting
+  soort: kort
+  opgave: |-
+    Los op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een continue functie heeft $f(2) = -3$ en $f(6) = 1$. Schrijf de schatting $c$ van de regula falsi als gewogen gemiddelde van 2 en 6, en bereken ze.
+      antwoord: |-
+        $c = \tfrac14 \cdot 2 + \tfrac34 \cdot 6 = 5$
+      uitwerking: |-
+        $w = \frac{f(b)}{f(b) - f(a)} = \frac{1}{4}$, dus $c = \tfrac14 \cdot 2 + \tfrac34 \cdot 6 = 5$. Controle met de formule: $c = 2 - (-3) \cdot \frac{4}{4} = 5$. Het gewicht van 6 is groter, want $|f(6)| < |f(2)|$.
+    - opgave: |-
+        Bereken dezelfde formule met $f(0) = 1$ en $f(1) = 3$. Waarom is het resultaat geen goede schatting?
+      antwoord: |-
+        $c = -0{,}5$, buiten $[0, 1]$
+      uitwerking: |-
+        $c = 0 - 1 \cdot \frac{1}{3 - 1} = -0{,}5$. Er is geen tekenwissel, dus $w = \frac{3}{2}$ ligt niet tussen 0 en 1, en $c$ valt buiten het interval. De koorde snijdt de as links van 0.
+
+- id: h1-vast
+  soort: kort
+  opgave: |-
+    Welk eindpunt blijft staan bij de regula falsi? Verklaar met de vorm van de grafiek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = x^3 - 7$ op $[1, 2]$
+      antwoord: |-
+        2
+      uitwerking: |-
+        $f''(x) = 6x > 0$: de grafiek is hol, en de koorde ligt erboven. Waar de koorde 0 is, is $f$ dus negatief: elke $c_n$ ligt links van de nulwaarde en vervangt de linkergrens. De rechtergrens 2 blijft staan, zoals je ziet bij twee stappen regula falsi op dit interval.
+    - opgave: |-
+        $f(x) = \ln x - 0{,}5$ op $[1, 2]$
+      antwoord: |-
+        1
+      uitwerking: |-
+        $f''(x) = -\frac{1}{x^2} < 0$: de grafiek is bol, en de koorde ligt eronder. Waar de koorde 0 is, is $f$ positief, en $f$ stijgt: $c_n$ ligt rechts van de nulwaarde en vervangt de rechtergrens. De linkergrens 1 blijft staan. Inderdaad: $c_0 \approx 1{,}7213$, $c_1 \approx 1{,}6641$, $c_2 \approx 1{,}6520$, naar $\sqrt{\e} \approx 1{,}6487$.
+
+- id: h1-kiezen
+  soort: kort
+  opgave: |-
+    De vergelijking $x^3 + x - 1 = 0$ heeft één oplossing, $0{,}6823\ldots$, in $[0, 1]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $m_2$ van de methode van de intervalmiddens en $c_2$ van de regula falsi. Welke ligt het dichtst bij de oplossing?
+      antwoord: |-
+        $m_2 = 0{,}625$; $c_2 \approx 0{,}6712$; $c_2$
+      uitwerking: |-
+        Intervalmiddens: $f(0{,}5) < 0$, $f(0{,}75) > 0$, dus $m_2 = 0{,}625$ (fout 0,057). Regula falsi: $c_0 = 0{,}5$, $f(c_0) = -0{,}375$; $c_1 \approx 0{,}6364$, $f(c_1) \approx -0{,}106$; $c_2 \approx 0{,}6712$ (fout 0,011).
+    - opgave: |-
+        Je wilt zeker zijn van een foutgrens van $10^{-5}$, zonder achteraf te controleren. Welke methode kies je, en hoeveel stappen zijn nodig?
+      antwoord: |-
+        intervalmiddens, 16 stappen
+      uitwerking: |-
+        Alleen bij de intervalmiddens ken je de foutgrens vooraf: $n \geqslant \log_2 10^5 - 1 \approx 15{,}6$, dus 16 stappen.
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    intervalmiddens uitvoeren
+  opgave: |-
+    Pas drie stappen van de methode van de intervalmiddens toe. Geef het laatste interval en het midden ervan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^3 + x - 3 = 0$ op $[1, 2]$
+      antwoord: |-
+        $[1{,}125;\ 1{,}25]$; $1{,}1875$
+      uitwerking: |-
+        $f(1) = -1$, $f(2) = 7$. $f(1{,}5) \approx 1{,}88 > 0$: $[1;\ 1{,}5]$. $f(1{,}25) \approx 0{,}20 > 0$: $[1;\ 1{,}25]$. $f(1{,}125) \approx -0{,}45 < 0$: $[1{,}125;\ 1{,}25]$, midden 1,1875. (Echte waarde: 1,2134.)
+    - opgave: |-
+        $\sqrt x = 3 - x$ op $[1, 3]$
+      antwoord: |-
+        $[1{,}5;\ 1{,}75]$; $1{,}625$
+      uitwerking: |-
+        $f(x) = \sqrt x - 3 + x$: $f(1) = -1$, $f(3) \approx 1{,}73$. $f(2) \approx 0{,}41 > 0$: $[1, 2]$. $f(1{,}5) \approx -0{,}28 < 0$: $[1{,}5;\ 2]$. $f(1{,}75) \approx 0{,}07 > 0$: $[1{,}5;\ 1{,}75]$, midden 1,625. (Echte waarde: $\frac{7 - \sqrt{13}}{2} \approx 1{,}6972$.)
+    - opgave: |-
+        $2^x = 5$ op $[2, 3]$
+      antwoord: |-
+        $[2{,}25;\ 2{,}375]$; $2{,}3125$
+      uitwerking: |-
+        $f(x) = 2^x - 5$: $f(2) = -1$, $f(3) = 3$. $f(2{,}5) \approx 0{,}66 > 0$: $[2;\ 2{,}5]$. $f(2{,}25) \approx -0{,}24 < 0$: $[2{,}25;\ 2{,}5]$. $f(2{,}375) \approx 0{,}19 > 0$: $[2{,}25;\ 2{,}375]$, midden 2,3125. (Echte waarde: $\log_2 5 \approx 2{,}3219$.)
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    grafiek lezen: tekenwissel, sprong, dubbele nulwaarde
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.5cm,y=.42cm,font=\scriptsize]
+        \draw[black!14,very thin] (-3,-4) grid (5,4);
+        \draw[->,grijs] (-3,0) -- (5.6,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,-4) -- (0,4.5) node[above,text=black] {$y$};
+        \foreach \t in {-2,2,4}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+        \foreach \t in {-4,-2,2,4}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+        \kromme{-3}{3}{.2*(\x+2)*(\x-1)^2}
+        \kromme{3}{5}{\x-4.5}
+        \fill[accent] (3,4) circle (2pt);
+        \draw[accent,fill=white] (3,-1.5) circle (2pt);
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont de grafiek van een functie $f$ op $[-3, 5]$, met een sprong in 3.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Op welke van deze intervallen heeft $f$ een tekenwissel: $[-3, 0]$, $[0, 2]$, $[2, 5]$, $[2, 4]$?
+      antwoord: |-
+        $[-3, 0]$ en $[2, 4]$
+      uitwerking: |-
+        $f(-3) < 0 < f(0)$ en $f(2) > 0 > f(4)$. Op $[0, 2]$ en $[2, 5]$ zijn beide eindwaarden positief.
+    - opgave: |-
+        Welke nulwaarden van $f$ kan de methode van de intervalmiddens vinden? Welke niet, en waarom?
+      antwoord: |-
+        $-2$ en $4{,}5$ wel, 1 niet
+      uitwerking: |-
+        In $-2$ en $4{,}5$ snijdt de grafiek de as: daar is een tekenwissel in een interval rond de nulwaarde. In 1 raakt de grafiek de as (een dubbele nulwaarde): links en rechts is $f$ positief, dus geen enkel interval rond 1 heeft een tekenwissel.
+    - opgave: |-
+        Wat vindt de methode op $[2, 4]$?
+      antwoord: |-
+        de sprong in 3, geen nulwaarde
+      uitwerking: |-
+        Er is een tekenwissel, maar $f$ is niet continu in 3. De intervallen krimpen naar 3, waar $f$ van 4 naar $-1{,}5$ springt. Er is geen nulwaarde in $[2, 4]$.
+    - opgave: |-
+        Wat gebeurt er bij de eerste stap op $[-3, 5]$?
+      antwoord: |-
+        $m_0 = 1$ is exact een nulwaarde
+      uitwerking: |-
+        $f(-3) < 0 < f(5)$, en het midden is $m_0 = 1$, met $f(1) = 0$. De methode vindt bij toeval meteen de dubbele nulwaarde, die ze anders nooit vindt.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    regula falsi: één stap
+  opgave: |-
+    Bereken $c_0$ van de regula falsi en het teken van $f(c_0)$. Welk interval houd je over?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^2 = 5$ op $[2, 3]$
+      antwoord: |-
+        $c_0 = 2{,}2$; $f(c_0) < 0$; $[2{,}2;\ 3]$
+      uitwerking: |-
+        $f(x) = x^2 - 5$: $f(2) = -1$, $f(3) = 4$. $c_0 = 2 - (-1) \cdot \frac{1}{5} = 2{,}2$, $f(2{,}2) = -0{,}16 < 0$: $[2{,}2;\ 3]$. ($\sqrt 5 \approx 2{,}2361$.)
+    - opgave: |-
+        $x^3 - 2x - 1 = 0$ op $[1, 2]$
+      antwoord: |-
+        $c_0 = 1{,}4$; $f(c_0) < 0$; $[1{,}4;\ 2]$
+      uitwerking: |-
+        $f(1) = -2$, $f(2) = 3$. $c_0 = 1 - (-2) \cdot \frac{1}{5} = 1{,}4$, $f(1{,}4) = 2{,}744 - 2{,}8 - 1 = -1{,}056 < 0$: $[1{,}4;\ 2]$. (De oplossing is $\frac{1 + \sqrt 5}{2} \approx 1{,}618$.)
+    - opgave: |-
+        $\e^x = 3$ op $[1, 2]$
+      antwoord: |-
+        $c_0 \approx 1{,}0603$; $f(c_0) < 0$; $[1{,}0603;\ 2]$
+      uitwerking: |-
+        $f(x) = \e^x - 3$: $f(1) \approx -0{,}2817$, $f(2) \approx 4{,}3891$. $c_0 = 1 + 0{,}2817 \cdot \frac{1}{4{,}6708} \approx 1{,}0603$, $f(c_0) \approx -0{,}113 < 0$. ($\ln 3 \approx 1{,}0986$.)
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    aantal stappen en foutgrens
+  opgave: |-
+    Methode van de intervalmiddens. Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Het aantal stappen op $[0, 1]$ voor een foutgrens van 0,01.
+      antwoord: |-
+        6
+      uitwerking: |-
+        $n \geqslant \log_2 100 - 1 \approx 5{,}64$, dus $n = 6$.
+    - opgave: |-
+        Het aantal stappen op $[2, 5]$ voor een foutgrens van 0,001.
+      antwoord: |-
+        11
+      uitwerking: |-
+        $n \geqslant \log_2 3000 - 1 \approx 10{,}55$, dus $n = 11$.
+    - opgave: |-
+        Het aantal stappen op $[-10, 10]$ voor een foutgrens van $10^{-6}$.
+      antwoord: |-
+        24
+      uitwerking: |-
+        $n \geqslant \log_2 (2 \cdot 10^7) - 1 \approx 23{,}25$, dus $n = 24$.
+    - opgave: |-
+        De foutgrens na 12 stappen op $[0, 4]$. Hoeveel juiste decimalen mag je dan ongeveer verwachten?
+      antwoord: |-
+        $\frac{4}{2^{13}} \approx 0{,}00049$; ongeveer 3
+      uitwerking: |-
+        $\frac{4}{2^{13}} = \frac{1}{2048} \approx 0{,}00049 < 0{,}0005$: meestal drie juiste decimalen na afronding. Zeker ben je pas na een controle van het teken (zie de opmerking bij de werkwijze).
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    startinterval en uniciteit
+  opgave: |-
+    Geef een interval met lengte 1 en gehele grenzen waarin de vergelijking precies één oplossing heeft. Toon aan dat het er maar één is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $x^3 - 3x - 3 = 0$
+      antwoord: |-
+        $[2, 3]$
+      uitwerking: |-
+        $f(2) = -1$, $f(3) = 15$. $f'(x) = 3x^2 - 3 > 0$ voor $x > 1$, dus $f$ stijgt strikt op $[2, 3]$. (Op $]-\infty, 1]$ is $f$ hoogstens $f(-1) = -1 < 0$, dus dit is de enige oplossing: ongeveer 2,104.)
+    - opgave: |-
+        $\e^x = 4 - x$
+      antwoord: |-
+        $[1, 2]$
+      uitwerking: |-
+        $f(x) = \e^x + x - 4$: $f(1) \approx -0{,}28$, $f(2) \approx 5{,}39$. $f'(x) = \e^x + 1 > 0$ overal: één oplossing, ongeveer 1,074.
+    - opgave: |-
+        $x \ln x = 2$
+      antwoord: |-
+        $[2, 3]$
+      uitwerking: |-
+        $f(x) = x \ln x - 2$: $f(2) \approx -0{,}61$, $f(3) \approx 1{,}30$. $f'(x) = \ln x + 1 > 0$ voor $x > \e^{-1}$, en voor $0 < x \leqslant 1$ is $x \ln x \leqslant 0 < 2$: één oplossing, ongeveer 2,346.
+    - opgave: |-
+        $\cos x = \dfrac x2$
+      antwoord: |-
+        $[1, 2]$
+      uitwerking: |-
+        $f(x) = \cos x - \frac x2$: $f(1) \approx 0{,}04$, $f(2) \approx -1{,}42$. $f'(x) = -\sin x - \frac12 < 0$ op $[1, 2]$, want daar is $\sin x > 0$. Voor $|x| > 2$ is $\bigl|\frac x2\bigr| > 1 \geqslant |\cos x|$, en op $[-2, 1]$ is $f > 0$: één oplossing, ongeveer 1,030.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    fouten opsporen in een tabel
+  opgave: |-
+    Lena past de methode van de intervalmiddens toe op $f(x) = x^3 - 10$ op $[2, 3]$. Haar tabel:
+    \begin{center}\renewcommand{\arraystretch}{1.2}\begin{tabular}{cccc}
+    $n$ & $a_n$ & $b_n$ & $m_n$ \\ \hline
+    0 & 2 & 3 & 2,5 \\
+    1 & 2 & 2,5 & 2,25 \\
+    2 & 2 & 2,25 & 2,125 \\
+    3 & 2 & 2,125 & 2,0625 \\
+    \end{tabular}\end{center}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In welke stap zit een fout? Wat deed Lena verkeerd?
+      antwoord: |-
+        van $n = 2$ naar $n = 3$
+      uitwerking: |-
+        $f(2) = -2 < 0$, $f(2{,}5) \approx 5{,}63 > 0$ en $f(2{,}25) \approx 1{,}39 > 0$: de intervallen bij $n = 1$ en $n = 2$ kloppen. Maar $f(2{,}125) \approx -0{,}40 < 0$, hetzelfde teken als $f(2)$. Dan moet de linkergrens vervangen worden: $[2{,}125;\ 2{,}25]$. Lena verving de rechtergrens.
+    - opgave: |-
+        Hoe had Lena haar fout zelf kunnen opmerken?
+      antwoord: |-
+        $f(2)$ en $f(2{,}125)$ zijn allebei negatief
+      uitwerking: |-
+        In haar laatste interval $[2;\ 2{,}125]$ hebben $f(2) = -2$ en $f(2{,}125) \approx -0{,}40$ hetzelfde teken: er is geen tekenwissel meer. Controleer bij elke stap dat de grenzen een verschillend teken houden.
+    - opgave: |-
+        Verbeter de laatste rij. Lena besluit daarna: \textit{na drie stappen is de oplossing $m_3$, dus op twee decimalen 2,19.} Wat is er mis met dat besluit?
+      antwoord: |-
+        $[2{,}125;\ 2{,}25]$, $m_3 = 2{,}1875$; de foutgrens 0,0625 is te groot
+      uitwerking: |-
+        De juiste rij is $a_3 = 2{,}125$, $b_3 = 2{,}25$, $m_3 = 2{,}1875$, met foutgrens $\frac{1}{2^4} = 0{,}0625$. De oplossing kan dus overal in $[2{,}125;\ 2{,}25]$ liggen, en op twee decimalen kan dat 2,13 tot 2,25 zijn. Voor een foutgrens van 0,005 zijn $n \geqslant \log_2 200 - 1 \approx 6{,}6$, dus zeven stappen nodig. (De echte waarde is $\sqrt[3]{10} \approx 2{,}1544$.)
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    waar of vals: voorwaarden en eigenschappen
+  opgave: |-
+    Waar of vals? Verklaar, of geef een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Als $f(a)$ en $f(b)$ een verschillend teken hebben, dan heeft $f$ een nulwaarde in $\left]a, b\right[$.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Alleen als $f$ continu is. Tegenvoorbeeld: $f(x) = \frac1x$ op $[-1, 1]$.
+    - opgave: |-
+        Als $f(a)$ en $f(b)$ hetzelfde teken hebben, dan heeft $f$ geen nulwaarde in $[a, b]$.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Tegenvoorbeeld: $f(x) = x^2 - 1$ op $[-2, 2]$ heeft twee nulwaarden, en $f(-2) = f(2) = 3$.
+    - opgave: |-
+        Tien stappen van de methode van de intervalmiddens maken de foutgrens ongeveer duizend keer kleiner.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Elke stap halveert de foutgrens, en $2^{10} = 1024 \approx 1000$.
+    - opgave: |-
+        De regula falsi heeft altijd minder stappen nodig dan de methode van de intervalmiddens.
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Bij $x^{10} - 1$ op $[0;\ 1{,}5]$ is ze veel trager, omdat één eindpunt blijft staan en de koorde bijna plat ligt (zie de opdracht over $x^{10} - 1$).
+    - opgave: |-
+        Bij een tekenwissel ligt de schatting van de regula falsi altijd strikt tussen $a$ en $b$.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Ze is een gewogen gemiddelde van $a$ en $b$ met gewichten strikt tussen 0 en 1 (stelling over de insluiting).
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een pool vermijden door te herschrijven
+  opgave: |-
+    De vergelijking $\tan x = x$ heeft een oplossing tussen $\pi$ en $\frac{3\pi}{2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is $[4, 5]$ geen goed startinterval voor $f(x) = \tan x - x$?
+      antwoord: |-
+        $f$ is niet continu op $[4, 5]$, en er is geen tekenwissel
+      uitwerking: |-
+        $\frac{3\pi}{2} \approx 4{,}712$ ligt in $[4, 5]$, en daar bestaat $\tan x$ niet. Bovendien zijn $f(4) \approx -2{,}84$ en $f(5) \approx -8{,}38$ allebei negatief.
+    - opgave: |-
+        Toon aan dat $g(x) = \sin x - x \cos x$ dezelfde nulwaarden heeft in $\left]\pi, \frac{3\pi}{2}\right[$, en dat $g$ daar continu is.
+      antwoord: |-
+        $g(x) = \cos x \cdot f(x)$ en $\cos x \neq 0$
+      uitwerking: |-
+        $g(x) = \cos x \,(\tan x - x)$ als $\cos x \neq 0$, en op $\left]\pi, \frac{3\pi}{2}\right[$ is $\cos x < 0$. Dus $g(x) = 0 \Leftrightarrow \tan x = x$. $g$ is een combinatie van sinus, cosinus en een veelterm: overal continu.
+    - opgave: |-
+        Hoeveel stappen van de intervalmiddens op $[4;\ 4{,}7]$ heb je nodig voor een foutgrens van 0,001? Geef de oplossing op drie decimalen (rekentoestel).
+      antwoord: |-
+        9 stappen; $x \approx 4{,}493$
+      uitwerking: |-
+        $g(4) \approx 1{,}86 > 0$ en $g(4{,}7) \approx -0{,}94 < 0$. $n \geqslant \log_2 700 - 1 \approx 8{,}45$, dus 9 stappen. De oplossing is $4{,}4934\ldots$, op drie decimalen 4,493.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    drijvende bollen (context)
+  opgave: |-
+    Een bol met straal 10 cm en dichtheid $\rho$ (in g/cm³, met $0 < \rho < 1$) drijft in water. Zoals in het probleem zinkt hij tot een diepte $h$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $h^3 - 30h^2 + 4000\rho = 0$.
+      antwoord: |-
+        $\tfrac13 \pi h^2(30 - h) = \rho \cdot \tfrac43 \pi \cdot 1000$
+      uitwerking: |-
+        De massa van de bol is $\rho \cdot \tfrac43\pi \cdot 10^3$ gram, het verplaatste water $\tfrac13\pi h^2(30 - h)$ gram. Gelijkstellen en vermenigvuldigen met $\frac{3}{\pi}$: $h^2(30 - h) = 4000\rho$, of $h^3 - 30h^2 + 4000\rho = 0$.
+    - opgave: |-
+        Een bol van kurk heeft $\rho = 0{,}25$. Bereken $h$ tot op een millimeter met de regula falsi op $[0, 20]$.
+      antwoord: |-
+        $h \approx 6{,}53$ cm
+      uitwerking: |-
+        $f(h) = h^3 - 30h^2 + 1000$: $f(0) = 1000$, $f(20) = -3000$. $c_0 = 5$ ($f = 375$), $c_1 \approx 6{,}6667$ ($f \approx -37$), $c_2 \approx 6{,}5169$ ($f \approx 2{,}7$), $c_3 \approx 6{,}5270$. Controle: $f(6{,}43) > 0$ en $f(6{,}63) < 0$. Dus $h \approx 6{,}53$ cm.
+    - opgave: |-
+        Een bol van ijs heeft $\rho = 0{,}92$. Hoe diep zinkt hij? Welke methode gaat hier sneller? Verklaar met de grafiek.
+      antwoord: |-
+        $h \approx 16{,}53$ cm; de intervalmiddens
+      uitwerking: |-
+        $f(h) = h^3 - 30h^2 + 3680$ met $f(10) = 1680$ en $f(20) = -320$. De regula falsi geeft 18,4; 17,32; 16,82; 16,63; \ldots: de linkergrens 10 blijft staan, en de grafiek is sterk gebogen, dus ze kruipt naar 16,53. Met de intervalmiddens is de foutgrens na 6 stappen al $\frac{10}{2^7} < 0{,}1$. De nulwaarde is $16{,}527\ldots$: er steekt maar $3{,}5$ cm boven water.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rentevoet van een lening (context, meetkundige reeks)
+  opgave: |-
+    Je leent 12\,000 euro en betaalt dat terug in 48 maandelijkse aflossingen van 270 euro. Is $i$ de rente per maand, dan geldt
+    \[ 12\,000 = 270 \cdot \frac{1 - (1 + i)^{-48}}{i} . \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom kun je deze vergelijking niet algebraïsch oplossen naar $i$?
+      antwoord: |-
+        $i$ staat in een macht met exponent $-48$ én in de noemer
+      uitwerking: |-
+        Na vermenigvuldigen met $i$ krijg je een veeltermvergelijking van graad 49 in $1 + i$. Daar bestaat geen formule voor.
+    - opgave: |-
+        Neem $f(i) = 270 \cdot \frac{1 - (1 + i)^{-48}}{i} - 12\,000$. Toon aan dat $f$ een tekenwissel heeft op $[0{,}001;\ 0{,}01]$.
+      antwoord: |-
+        $f(0{,}001) \approx 648 > 0$, $f(0{,}01) \approx -1747 < 0$
+      uitwerking: |-
+        Met het rekentoestel: $f(0{,}001) \approx 647{,}7$ en $f(0{,}01) \approx -1747{,}0$.
+    - opgave: |-
+        Hoeveel stappen van de methode van de intervalmiddens zijn nodig voor een foutgrens van 0,0001? Voer ze uit.
+      antwoord: |-
+        6; $i \approx 0{,}00318$
+      uitwerking: |-
+        $n \geqslant \log_2 \frac{0{,}009}{0{,}0001} - 1 \approx 5{,}49$, dus 6. De middens: 0,0055 ($-$), 0,00325 ($-$), 0,002125 ($+$), 0,0026875 ($+$), 0,00296875 ($+$), 0,00310938 ($+$). Laatste interval $[0{,}0031094;\ 0{,}00325]$, midden $0{,}00318$. (Echte waarde: 0,003186.)
+    - opgave: |-
+        Welk jaarlijks rentepercentage komt daarmee overeen?
+      antwoord: |-
+        ongeveer 3,9\,\%
+      uitwerking: |-
+        $(1 + i)^{12} - 1 = 1{,}003186^{12} - 1 \approx 0{,}0389$: ongeveer 3,9\,\% per jaar.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    dubbele nulwaarde
+  opgave: |-
+    Gegeven is $f(x) = x^3 - 3x + 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ontbind $f(x)$ in factoren. Wat zijn de nulwaarden?
+      antwoord: |-
+        $(x - 1)^2(x + 2)$; 1 en $-2$
+      uitwerking: |-
+        $f(1) = 0$, dus deel door $x - 1$ (Horner): $x^2 + x - 2 = (x - 1)(x + 2)$. Dus $f(x) = (x - 1)^2(x + 2)$.
+    - opgave: |-
+        Heeft $f$ een tekenwissel rond 1? Wat betekent dat voor de methodes van dit hoofdstuk?
+      antwoord: |-
+        nee; ze vinden 1 niet
+      uitwerking: |-
+        $(x - 1)^2 \geqslant 0$ en $x + 2 > 0$ rond 1: $f \geqslant 0$ aan beide kanten. Zonder tekenwissel kunnen de intervalmiddens en de regula falsi niet starten.
+    - opgave: |-
+        Toon aan: een dubbele nulwaarde van $f$ is ook een nulwaarde van $f'$. Gebruik dat om 1 toch numeriek te vinden.
+      antwoord: |-
+        $f'(x) = (x - 1)(3x + 3)$; zoek een tekenwissel van $f'$
+      uitwerking: |-
+        Is $f(x) = (x - c)^2 q(x)$, dan is $f'(x) = 2(x - c)q(x) + (x - c)^2 q'(x)$, en $f'(c) = 0$. Hier is $f'(x) = 3x^2 - 3$, met een tekenwissel op $[0, 2]$: $f'(0) = -3$, $f'(2) = 9$. De intervalmiddens op $f'$ vinden 1 (al bij de eerste stap). Controleer daarna dat ook $f(1) = 0$.
+    - opgave: |-
+        Pas de methode van de intervalmiddens toe op $[-3, 0]$. Hoeveel stappen zijn nodig voor een foutgrens van 0,01, en wat vind je?
+      antwoord: |-
+        8 stappen; $-2$
+      uitwerking: |-
+        $f(-3) = -16$, $f(0) = 2$. $n \geqslant \log_2 300 - 1 \approx 7{,}2$, dus 8. De middens: $-1{,}5$ ($f > 0$), $-2{,}25$ ($f < 0$), $-1{,}875$ ($f > 0$), \ldots: de intervallen krimpen naar $-2$, de enkelvoudige nulwaarde.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    medicijn in het bloed (context)
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.36cm,y=.25cm,font=\scriptsize]
+        \draw[black!14,very thin,xstep=1,ystep=2] (0,0) grid (12,12);
+        \draw[->,grijs] (0,0) -- (12.8,0) node[right,text=black] {$t$};
+        \draw[->,grijs] (0,0) -- (0,13) node[above,text=black] {$C$};
+        \foreach \t in {2,4,...,12}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+        \foreach \t in {4,8,12}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+        \kromme{0}{12}{20*(exp(-0.2*\x)-exp(-1.1*\x))}
+        \draw[grijs,dashed] (0,5) -- (12,5);
+      \end{tikzpicture}
+  opgave: |-
+    De concentratie van een medicijn in het bloed is $C(t) = 20\,(\e^{-0{,}2t} - \e^{-1{,}1t})$ mg/l, $t$ uur na de inname. Het medicijn werkt zolang $C \geqslant 5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal het tijdstip van de grootste concentratie exact, en die concentratie op 0,1 mg/l.
+      antwoord: |-
+        $t = \frac{\ln 5{,}5}{0{,}9} \approx 1{,}894$ h; $11{,}2$ mg/l
+      uitwerking: |-
+        $C'(t) = 20(-0{,}2\,\e^{-0{,}2t} + 1{,}1\,\e^{-1{,}1t}) = 0 \Leftrightarrow \e^{0{,}9t} = 5{,}5 \Leftrightarrow t = \frac{\ln 5{,}5}{0{,}9} \approx 1{,}894$. $C(1{,}894) \approx 11{,}2$.
+    - opgave: |-
+        Waarom kun je $C(t) = 5$ niet algebraïsch oplossen? Hoeveel oplossingen zijn er?
+      antwoord: |-
+        twee exponentiële functies met een ander grondtal; twee
+      uitwerking: |-
+        De vergelijking $\e^{-0{,}2t} - \e^{-1{,}1t} = 0{,}25$ bevat twee machten van $\e$ die je niet tot één macht kunt herleiden. Volgens de grafiek: één oplossing voor het maximum (stijgend deel) en één erna (dalend deel).
+    - opgave: |-
+        Bepaal het eerste tijdstip met de methode van de intervalmiddens tot op 0,01 h.
+      antwoord: |-
+        $t \approx 0{,}35$ h
+      uitwerking: |-
+        Neem $f(t) = C(t) - 5$ op $[0, 1]$: $f(0) = -5$, $f(1) \approx 4{,}72$. $n \geqslant \log_2 100 - 1 \approx 5{,}6$: 6 stappen. Resultaat $0{,}3466\ldots$: ongeveer 0,35 h, of 21 minuten.
+    - opgave: |-
+        Bepaal het tweede tijdstip met de regula falsi tot op 0,01 h. Hoe lang werkt het medicijn?
+      antwoord: |-
+        $t \approx 6{,}92$ h; ongeveer 6,6 uur
+      uitwerking: |-
+        Op $[6, 8]$: $f(6) \approx 1{,}00$, $f(8) \approx -0{,}97$. De regula falsi geeft 7,02; 6,93; 6,92. Controle: $f(6{,}91) > 0$ en $f(6{,}93) < 0$. Het werkt van 0,35 h tot 6,92 h: ongeveer 6,6 uur.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    regula falsi exact bij een rechte
+  opgave: |-
+    Los op.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan: is $f(x) = px + q$ met $p \neq 0$, dan is $c_0$ van de regula falsi op elk interval met tekenwissel de exacte nulwaarde.
+      antwoord: |-
+        $c_0 = -\frac qp$
+      uitwerking: |-
+        $f(b) - f(a) = p(b - a)$, dus $c_0 = a - (pa + q) \cdot \frac{b - a}{p(b - a)} = a - a - \frac qp = -\frac qp$: de nulwaarde. Logisch: de koorde valt samen met de grafiek.
+    - opgave: |-
+        Is de methode van de intervalmiddens bij een rechte ook exact na één stap? Bereken voor $f(x) = 2x - 0{,}6$ op $[0, 2]$ de middens $m_0$ tot $m_3$, de echte fout van $m_3$ en de foutgrens.
+      antwoord: |-
+        nee; $m_3 = 0{,}375$; fout 0,075; foutgrens 0,125
+      uitwerking: |-
+        De nulwaarde is 0,3. $m_0 = 1$ ($f > 0$), $m_1 = 0{,}5$ ($f > 0$), $m_2 = 0{,}25$ ($f < 0$), $m_3 = 0{,}375$. De fout is 0,075, de foutgrens $\frac{2}{2^4} = 0{,}125$. De intervalmiddens kijken alleen naar het teken, en zien dus niet dat de grafiek recht is.
+    - opgave: |-
+        Is de regula falsi exact na één stap voor $f(x) = x^2 - 4$ op $[0, 3]$? Verklaar.
+      antwoord: |-
+        nee: $c_0 = \frac43$
+      uitwerking: |-
+        $f(0) = -4$, $f(3) = 5$: $c_0 = 0 + 4 \cdot \frac{3}{9} = \frac43 \neq 2$. Een parabool is geen rechte: de koorde wijkt af van de grafiek.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    afmetingen van een blik (context)
+  opgave: |-
+    Een cilindervormig blik heeft een inhoud van 330 cm³ en een totale oppervlakte (met deksel en bodem) van 300 cm².
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de straal $r$ (in cm) voldoet aan $2\pi r^2 + \dfrac{660}{r} = 300$.
+      antwoord: |-
+        $h = \frac{330}{\pi r^2}$ in $2\pi r^2 + 2\pi r h$
+      uitwerking: |-
+        Uit $\pi r^2 h = 330$ volgt $h = \frac{330}{\pi r^2}$. De oppervlakte is $2\pi r^2 + 2\pi r h = 2\pi r^2 + \frac{660}{r}$.
+    - opgave: |-
+        Neem $f(r) = 2\pi r^2 + \frac{660}{r} - 300$. Bereken $f(1), f(2), \ldots, f(7)$. Hoeveel blikken voldoen?
+      antwoord: |-
+        twee: een tekenwissel in $[2, 3]$ en in $[5, 6]$
+      uitwerking: |-
+        $f(1) \approx 366$, $f(2) \approx 55$, $f(3) \approx -23$, $f(4) \approx -34$, $f(5) \approx -11$, $f(6) \approx 36$, $f(7) \approx 102$. Twee tekenwissels. Voor $r \to 0$ en $r \to +\infty$ wordt $f$ groot, en $f$ heeft maar één minimum, dus er zijn er precies twee.
+    - opgave: |-
+        Bereken beide stralen op 0,01 cm en de bijhorende hoogtes. Welk blik lijkt op een gewoon blik frisdrank?
+      antwoord: |-
+        $r \approx 2{,}55$ cm, $h \approx 16{,}2$ cm; $r \approx 5{,}28$ cm, $h \approx 3{,}77$ cm
+      uitwerking: |-
+        Met de intervalmiddens of de regula falsi: $r \approx 2{,}545$ en $r \approx 5{,}276$. Hoogte $h = \frac{330}{\pi r^2}$: 16,2 cm en 3,77 cm. Het eerste is een hoog, smal blik zoals een blik frisdrank; het tweede is een plat blik zoals voor vis.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    twee methodes op een vergelijking met twee oplossingen
+  opgave: |-
+    Gegeven is de vergelijking $\e^x = 3x$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat er precies twee oplossingen zijn, en geef voor elk een interval met lengte 1.
+      antwoord: |-
+        in $[0, 1]$ en $[1, 2]$
+      uitwerking: |-
+        $f(x) = \e^x - 3x$: $f(0) = 1$, $f(1) \approx -0{,}28$, $f(2) \approx 1{,}39$. $f'(x) = \e^x - 3$ is 0 in $\ln 3$: $f$ daalt op $]-\infty, \ln 3]$ en stijgt daarna. Een dalend en een stijgend stuk snijden de as elk hoogstens één keer.
+    - opgave: |-
+        Bereken de kleinste oplossing met vier stappen van de intervalmiddens.
+      antwoord: |-
+        $m_4 = 0{,}59375$
+      uitwerking: |-
+        $f(0{,}5) \approx 0{,}149 > 0$: $[0{,}5;\ 1]$. $f(0{,}75) \approx -0{,}133$: $[0{,}5;\ 0{,}75]$. $f(0{,}625) \approx -0{,}007$: $[0{,}5;\ 0{,}625]$. $f(0{,}5625) \approx 0{,}068$: $[0{,}5625;\ 0{,}625]$, midden 0,59375. (Echte waarde: 0,6191.)
+    - opgave: |-
+        Bereken de grootste oplossing met drie stappen van de regula falsi.
+      antwoord: |-
+        $c_2 \approx 1{,}4067$
+      uitwerking: |-
+        Op $[1, 2]$: $c_0 \approx 1{,}1686$, $c_1 \approx 1{,}3115$, $c_2 \approx 1{,}4067$, telkens met $f(c_n) < 0$. De rechtergrens 2 blijft staan.
+    - opgave: |-
+        Vergelijk met de echte waarden 0,6191 en 1,5121. Welke methode deed het hier beter? Waarom?
+      antwoord: |-
+        de intervalmiddens
+      uitwerking: |-
+        De fouten zijn 0,025 (intervalmiddens, na 4 stappen) en 0,105 (regula falsi, na 3 stappen). De grafiek is sterk hol op $[1, 2]$, en de koorde ligt ver boven de grafiek: het eindpunt 2 blijft staan, en de schattingen schuiven traag op.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een maximum zoeken via de afgeleide
+  opgave: |-
+    Een balk met een rechthoekige doorsnede wordt uit een boomstam gezaagd. De sterkte hangt af van een functie die we vereenvoudigen tot $f(x) = x \cos x$, met $0 \leqslant x \leqslant \frac{\pi}{2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat het maximum van $f$ ligt waar $\cos x - x \sin x = 0$.
+      antwoord: |-
+        $f'(x) = \cos x - x \sin x$
+      uitwerking: |-
+        Productregel: $f'(x) = \cos x - x \sin x$. In een maximum binnen het interval is $f'(x) = 0$. Aan de randen is $f(0) = 0$ en $f(\frac{\pi}{2}) = 0$, dus het maximum ligt binnenin.
+    - opgave: |-
+        Pas vier stappen van de methode van de intervalmiddens toe op $f'$ op $[0{,}5;\ 1]$.
+      antwoord: |-
+        $[0{,}84375;\ 0{,}875]$, midden $0{,}859375$
+      uitwerking: |-
+        $f'(0{,}5) > 0$ en $f'(1) \approx -0{,}30 < 0$. $f'(0{,}75) \approx 0{,}22 > 0$, $f'(0{,}875) \approx -0{,}03 < 0$, $f'(0{,}8125) \approx 0{,}10 > 0$, $f'(0{,}84375) \approx 0{,}034 > 0$. Laatste interval $[0{,}84375;\ 0{,}875]$, midden 0,859375. (Echte waarde: 0,8603.)
+    - opgave: |-
+        Bereken het maximum van $f$. Waarom is een kleine fout op $x$ hier niet erg?
+      antwoord: |-
+        $f(0{,}8603) \approx 0{,}5611$
+      uitwerking: |-
+        $f(0{,}8603) \approx 0{,}5611$, en ook $f(0{,}8594) \approx 0{,}5611$. In een maximum is de raaklijn horizontaal: een kleine fout op $x$ geeft een nog veel kleinere fout op $f(x)$.
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    regula falsi trager dan intervalmiddens
+  opgave: |-
+    Gegeven is $f(x) = x^{10} - 1$ op $[0;\ 1{,}5]$, met nulwaarde 1.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $c_0$ en $c_1$ van de regula falsi.
+      antwoord: |-
+        $c_0 \approx 0{,}0260$; $c_1 \approx 0{,}0516$
+      uitwerking: |-
+        $f(0) = -1$, $f(1{,}5) \approx 56{,}665$. $c_0 = 0 + 1 \cdot \frac{1{,}5}{57{,}665} \approx 0{,}0260$, met $f(c_0) \approx -1$. Op $[0{,}0260;\ 1{,}5]$: $c_1 \approx 0{,}0260 + 1 \cdot \frac{1{,}474}{57{,}665} \approx 0{,}0516$.
+    - opgave: |-
+        Verklaar met een schets waarom de schattingen zo traag vooruitgaan.
+      antwoord: |-
+        de koorde naar $(1{,}5;\ 56{,}7)$ ligt bijna plat
+      uitwerking: |-
+        Zolang $x$ ver onder 1 ligt, is $f(x) \approx -1$. De koorde gaat van $(c_n, -1)$ naar $(1{,}5;\ 56{,}7)$ en snijdt de as maar $\frac{1{,}5 - c_n}{57{,}7}$ verder dan $c_n$: een stapje van ongeveer 0,025. Het eindpunt 1,5 blijft staan, omdat de grafiek hol is.
+    - opgave: |-
+        Hoeveel stappen heeft de methode van de intervalmiddens nodig voor een foutgrens van 0,001?
+      antwoord: |-
+        10
+      uitwerking: |-
+        $n \geqslant \log_2 1500 - 1 \approx 9{,}55$, dus 10 stappen.
+    - opgave: |-
+        Een computer heeft 109 stappen van de regula falsi nodig om op 0,001 bij 1 te komen. Verzin een aanpassing van de regula falsi die het vastblijven van een eindpunt tegengaat.
+      antwoord: |-
+        bv.\ de functiewaarde van het vaste eindpunt halveren
+      uitwerking: |-
+        Een bekende aanpassing: blijft een eindpunt twee keer na elkaar staan, gebruik dan in de formule de helft van zijn functiewaarde. Dan kantelt de koorde naar de as, en schuift de schatting verder op. (Dat is de \textit{Illinois-methode}.) Ook goed: na elke stap regula falsi één stap intervalmiddens.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    in drie delen in plaats van twee
+  opgave: |-
+    Iemand stelt voor om het interval niet te halveren maar in drie gelijke delen te verdelen: dan houd je telkens maar een derde over. Daarvoor moet je wel $f$ berekenen in twee nieuwe punten per stap.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de foutgrens van het midden van het laatste interval na $k$ stappen op $[a, b]$?
+      antwoord: |-
+        $\frac{b - a}{2 \cdot 3^k}$
+      uitwerking: |-
+        Na $k$ stappen heeft het interval lengte $\frac{b - a}{3^k}$, en het midden ligt hoogstens de helft daarvan van de nulwaarde.
+    - opgave: |-
+        Vergelijk per berekende functiewaarde. Met hoeveel wordt de foutgrens bij beide methodes gedeeld per functiewaarde?
+      antwoord: |-
+        2 tegen $\sqrt 3 \approx 1{,}73$
+      uitwerking: |-
+        Intervalmiddens: één functiewaarde per stap, foutgrens gedeeld door 2. In drie delen: twee functiewaarden per stap, foutgrens gedeeld door 3, dus per functiewaarde door $\sqrt 3 \approx 1{,}73$.
+    - opgave: |-
+        Welke methode is dus efficiënter? Hoeveel functiewaarden vraagt elke methode op $[0, 1]$ voor een foutgrens van $10^{-6}$?
+      antwoord: |-
+        halveren; 19 tegen 24
+      uitwerking: |-
+        Halveren: $2^{n+1} \geqslant 10^6$ geeft $n = 19$ functiewaarden. In drie delen: $2 \cdot 3^k \geqslant 10^6$ geeft $k \geqslant \log_3 (5 \cdot 10^5) \approx 11{,}94$, dus 12 stappen of 24 functiewaarden. Halveren wint.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: welk eindpunt blijft staan
+  opgave: |-
+    Neem $f$ stijgend en hol op $[a, b]$, met $f(a) < 0 < f(b)$. Een holle grafiek ligt op $[a, b]$ onder elke koorde tussen twee punten ervan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $f(c_0) \leqslant 0$, met $c_0$ de schatting van de regula falsi.
+      antwoord: |-
+        de koorde is 0 in $c_0$, en $f$ ligt eronder
+      uitwerking: |-
+        In $c_0$ is de koorde 0. De grafiek ligt onder de koorde, dus $f(c_0) \leqslant 0$.
+    - opgave: |-
+        Besluit dat $b$ bij elke stap blijft staan, en dat de schattingen een stijgende rij vormen.
+      antwoord: |-
+        de nieuwe linkergrens is telkens $c_n$
+      uitwerking: |-
+        Is $f(c_0) < 0$, dan heeft $[c_0, b]$ de tekenwissel: het nieuwe interval is $[c_0, b]$. Op dat interval geldt hetzelfde (de grafiek is daar nog altijd hol en stijgend), dus $f(c_1) \leqslant 0$ en het volgende interval is $[c_1, b]$, enzovoort. Elke $c_{n+1}$ ligt strikt tussen $c_n$ en $b$ (insluiting), dus $c_0 < c_1 < c_2 < \cdots$. (Is ooit $f(c_n) = 0$, dan is de nulwaarde exact gevonden.)
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    intervalmiddens en binaire cijfers
+  opgave: |-
+    Pas de methode van de intervalmiddens toe op $f(x) = x - 0{,}7$ op $[0, 1]$. Noteer na elke stap een 0 als je de linkerhelft houdt, en een 1 als je de rechterhelft houdt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke rij van vijf cijfers krijg je?
+      antwoord: |-
+        1, 0, 1, 1, 0
+      uitwerking: |-
+        $m_0 = 0{,}5$ ($f < 0$, rechts: 1), $m_1 = 0{,}75$ ($f > 0$, links: 0), $m_2 = 0{,}625$ (rechts: 1), $m_3 = 0{,}6875$ (rechts: 1), $m_4 = 0{,}71875$ (links: 0).
+    - opgave: |-
+        Toon aan dat $a_5 = 0{,}10110_2$, het getal $\frac12 + \frac18 + \frac1{16}$ in het tweetallig stelsel. Verklaar waarom de methode van de intervalmiddens de binaire cijfers van de nulwaarde een voor een vindt.
+      antwoord: |-
+        $a_5 = 0{,}6875$
+      uitwerking: |-
+        $a_5 = 0{,}6875 = \frac12 + \frac18 + \frac1{16}$. Na $n$ stappen is $[a_n, b_n]$ een interval $\bigl[\frac{k}{2^n}, \frac{k + 1}{2^n}\bigr]$. De rechterhelft kiezen telt $\frac{1}{2^{n+1}}$ op bij $a_n$: dat is een 1 op de $(n + 1)$-de plaats na de komma in het tweetallig stelsel. (Inderdaad is $0{,}7 = 0{,}1011001100\ldots_2$.)
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een kleine functiewaarde is geen kleine fout
+  opgave: |-
+    Iemand stopt met zoeken zodra $|f(m_n)| < 0{,}01$, en denkt dat $m_n$ dan dicht bij de nulwaarde ligt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $f(x) = 0{,}001\,(x - 2)$. Voor welke $x$ is $|f(x)| < 0{,}01$? Wat zegt dat over het stopcriterium?
+      antwoord: |-
+        $|x - 2| < 10$; het zegt bijna niets
+      uitwerking: |-
+        $|0{,}001(x - 2)| < 0{,}01 \Leftrightarrow |x - 2| < 10$. Een schatting kan dus 9 eenheden naast de nulwaarde liggen. Bij een vlakke grafiek is $|f|$ klein ver van de nulwaarde.
+    - opgave: |-
+        Neem $g(x) = 1000\,(x - 2)$. Voor welke $x$ is $|g(x)| < 0{,}01$?
+      antwoord: |-
+        $|x - 2| < 10^{-5}$
+      uitwerking: |-
+        $|1000(x - 2)| < 0{,}01 \Leftrightarrow |x - 2| < 0{,}000\,01$. Bij een steile grafiek is het criterium veel strenger dan nodig.
+    - opgave: |-
+        Toon aan: is $|f'(x)| \geqslant m > 0$ tussen $\tilde c$ en de nulwaarde $c$, dan is $|\tilde c - c| \leqslant \frac{|f(\tilde c)|}{m}$. Gebruik de middelwaardestelling van Lagrange: er is een $\xi$ tussen $\tilde c$ en $c$ met $f(\tilde c) - f(c) = f'(\xi)(\tilde c - c)$.
+      antwoord: |-
+        $|f(\tilde c)| = |f'(\xi)|\,|\tilde c - c| \geqslant m\,|\tilde c - c|$
+      uitwerking: |-
+        Omdat $f(c) = 0$, is $f(\tilde c) = f'(\xi)(\tilde c - c)$, dus $|f(\tilde c)| = |f'(\xi)| \cdot |\tilde c - c| \geqslant m\,|\tilde c - c|$. Deel door $m$. Een klein $|f(\tilde c)|$ zegt dus pas iets als je weet hoe steil $f$ is.
+
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: discreet
+    onderwerp: |-
+      Rijen
+  opgave: |-
+    De methode van de intervalmiddens op een continue $f$ met $f(a) < 0 < f(b)$ geeft rijen $(a_n)$ en $(b_n)$ met $f(a_n) \leqslant 0 \leqslant f(b_n)$. We tonen aan dat ze naar een nulwaarde gaan, zonder de tussenwaardestelling te gebruiken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $(a_n)$ stijgend is en naar boven begrensd door $b$, en $(b_n)$ dalend en naar onder begrensd door $a$.
+      antwoord: |-
+        $a_{n+1} \in \{a_n, m_n\}$ en $m_n > a_n$
+      uitwerking: |-
+        Bij elke stap is $a_{n+1} = a_n$ of $a_{n+1} = m_n > a_n$: dus $a_{n+1} \geqslant a_n$. Evenzo $b_{n+1} \leqslant b_n$. Alle intervallen liggen in $[a, b]$, dus $a \leqslant a_n \leqslant b_n \leqslant b$.
+    - opgave: |-
+        Een stijgende, naar boven begrensde rij is convergent (cursus Rijen). Toon aan dat $(a_n)$ en $(b_n)$ dezelfde limiet $L$ hebben.
+      antwoord: |-
+        $b_n - a_n = \frac{b - a}{2^n} \to 0$
+      uitwerking: |-
+        Beide rijen convergeren, naar $L_1$ en $L_2$. Dan is $L_2 - L_1 = \lim (b_n - a_n) = \lim \frac{b - a}{2^n} = 0$, want $\frac{b-a}{2^n}$ is een meetkundige rij met quotiënt $\frac12$.
+    - opgave: |-
+        Gebruik de continuïteit van $f$ om aan te tonen dat $f(L) = 0$. Welke stelling heb je zo bewezen, op de eigenschap over stijgende rijen na?
+      antwoord: |-
+        $f(L) \leqslant 0$ en $f(L) \geqslant 0$; de tussenwaardestelling
+      uitwerking: |-
+        Omdat $f$ continu is, is $f(L) = \lim f(a_n) \leqslant 0$ en $f(L) = \lim f(b_n) \geqslant 0$. Dus $f(L) = 0$, met $L \in [a, b]$, en zelfs in $\left]a, b\right[$ omdat $f(a) \neq 0 \neq f(b)$. Dat is de tussenwaardestelling: de methode van de intervalmiddens is eigenlijk haar bewijs.
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: |-
+      Exponentiële en logaritmische functies
+  opgave: |-
+    Elke stap van de methode van de intervalmiddens deelt de foutgrens door 2.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel decimalen win je per stap? Gebruik dat een factor 10 kleiner één decimaal is.
+      antwoord: |-
+        $\log 2 \approx 0{,}30$
+      uitwerking: |-
+        Na $n$ stappen is de foutgrens $2^n = 10^{n \log 2}$ keer kleiner: $n \log 2 \approx 0{,}30\,n$ decimalen.
+    - opgave: |-
+        Hoeveel stappen kost één extra juiste decimaal?
+      antwoord: |-
+        $\frac{1}{\log 2} = \log_2 10 \approx 3{,}32$
+      uitwerking: |-
+        Een factor 10 vraagt $n$ stappen met $2^n = 10$, dus $n = \log_2 10 = \frac{1}{\log 2} \approx 3{,}32$.
+    - opgave: |-
+        Een rekentoestel rekent met ongeveer 12 decimalen. Hoeveel stappen op $[0, 1]$ hebben zin? Wat gebeurt er als je verder rekent?
+      antwoord: |-
+        ongeveer 39
+      uitwerking: |-
+        $n \geqslant \log_2 10^{12} - 1 \approx 38{,}9$: na 39 stappen is de foutgrens kleiner dan de afrondingsfout van het toestel. Verder rekenen helpt niet: het midden van twee getallen die even groot afgerond zijn, is weer datzelfde getal, of het teken van $f$ wordt door afronding onbetrouwbaar.
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: |-
+      Statistiek
+  opgave: |-
+    Voor een standaardnormale verdeling geeft het rekentoestel $P(Z \leqslant z)$ met \textit{normalcdf}. We zoeken het getal $z$ met $P(Z \leqslant z) = 0{,}975$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $f(z) = P(Z \leqslant z) - 0{,}975$. Waarom heeft $f$ precies één nulwaarde?
+      antwoord: |-
+        $f$ is continu en strikt stijgend, van $-0{,}975$ naar $0{,}025$
+      uitwerking: |-
+        $P(Z \leqslant z)$ is de oppervlakte onder de klokcurve links van $z$: continu en strikt stijgend in $z$, van 0 (voor $z \to -\infty$) naar 1 (voor $z \to +\infty$). Dus $f$ stijgt strikt van $-0{,}975$ naar $0{,}025$ en wordt precies één keer 0.
+    - opgave: |-
+        Voer vijf stappen van de methode van de intervalmiddens uit op $[1, 3]$.
+      antwoord: |-
+        $[1{,}9375;\ 2]$, midden $1{,}96875$
+      uitwerking: |-
+        $f(2) \approx 0{,}0022 > 0$: $[1, 2]$. $f(1{,}5) \approx -0{,}042$: $[1{,}5;\ 2]$. $f(1{,}75) \approx -0{,}015$: $[1{,}75;\ 2]$. $f(1{,}875) \approx -0{,}005$: $[1{,}875;\ 2]$. $f(1{,}9375) \approx -0{,}0013$: $[1{,}9375;\ 2]$, midden 1,96875.
+    - opgave: |-
+        Vergelijk met \textit{invNorm(0.975)}. Waarom vind je dat getal in de formule van een 95\,\%-betrouwbaarheidsinterval?
+      antwoord: |-
+        $1{,}96$; tussen $-1{,}96$ en $1{,}96$ ligt 95\,\%
+      uitwerking: |-
+        invNorm geeft 1,95996. Door de symmetrie ligt 2,5\,\% rechts van 1,96 en 2,5\,\% links van $-1{,}96$, dus 95\,\% ertussen. Het rekentoestel doet bij invNorm zelf zoiets als deze methode, maar sneller.
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Toon aan dat $x^3 + 4x - 7 = 0$ precies één oplossing heeft, en geef een interval met lengte 1 en gehele grenzen waarin ze ligt.
+  antwoord: |-
+    $[1, 2]$
+  uitwerking: |-
+    $f(x) = x^3 + 4x - 7$: $f(1) = -2 < 0$ en $f(2) = 9 > 0$, dus een nulwaarde in $\left]1, 2\right[$. $f'(x) = 3x^2 + 4 > 0$ overal: $f$ stijgt strikt, dus er is maar één nulwaarde (ongeveer 1,255).
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Pas drie stappen van de methode van de intervalmiddens toe op $\e^x + x - 3 = 0$ op $[0, 1]$. Geef het laatste interval, het midden en de foutgrens.
+  antwoord: |-
+    $[0{,}75;\ 0{,}875]$; $0{,}8125$; $0{,}0625$
+  uitwerking: |-
+    $f(0) = -2$, $f(1) \approx 0{,}72$. $f(0{,}5) \approx -0{,}85$: $[0{,}5;\ 1]$. $f(0{,}75) \approx -0{,}13$: $[0{,}75;\ 1]$. $f(0{,}875) \approx 0{,}27$: $[0{,}75;\ 0{,}875]$. Midden 0,8125, foutgrens $\frac{1}{16} = 0{,}0625$. (Echte waarde: 0,7921.)
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Methode van de intervalmiddens.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel stappen op $[0, 3]$ zijn nodig voor een foutgrens van $10^{-4}$?
+      antwoord: |-
+        14
+      uitwerking: |-
+        $n \geqslant \log_2 30\,000 - 1 \approx 13{,}87$, dus 14.
+    - opgave: |-
+        Wat is de foutgrens na 8 stappen op $[2, 4]$?
+      antwoord: |-
+        $\frac{2}{2^9} \approx 0{,}0039$
+      uitwerking: |-
+        $\frac{b - a}{2^{n+1}} = \frac{2}{512} \approx 0{,}0039$.
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Pas twee stappen van de regula falsi toe op $x^3 = 5$ op $[1, 2]$. Welk eindpunt blijft staan, en waarom?
+  antwoord: |-
+    $c_0 \approx 1{,}5714$; $c_1 \approx 1{,}6879$; 2 blijft staan
+  uitwerking: |-
+    $f(x) = x^3 - 5$: $f(1) = -4$, $f(2) = 3$. $c_0 = 1 + 4 \cdot \frac17 \approx 1{,}5714$, $f(c_0) \approx -1{,}120$. Op $[1{,}5714;\ 2]$: $c_1 = 1{,}5714 + 1{,}120 \cdot \frac{0{,}4286}{4{,}120} \approx 1{,}6879$. De grafiek is hol ($f''(x) = 6x > 0$), dus de koorde ligt erboven en elke schatting valt links van $\sqrt[3]5 \approx 1{,}7100$: de rechtergrens 2 blijft staan.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Wat loopt er mis als je de methode van de intervalmiddens toepast? Hoe merk je dat tijdens het rekenen?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = \dfrac{1}{x - 2}$ op $[1, 3]$
+      antwoord: |-
+        ze gaat naar de pool 2
+      uitwerking: |-
+        $f(1) = -1$ en $f(3) = 1$: een tekenwissel, maar $f$ is niet continu in 2 en heeft geen nulwaarde. Het eerste midden is al 2, waar $f$ niet bestaat; met een ander interval krimpen de intervallen naar 2, en $|f(m_n)|$ wordt steeds groter.
+    - opgave: |-
+        $f(x) = (x - 3)^2$ op $[2, 5]$
+      antwoord: |-
+        geen tekenwissel
+      uitwerking: |-
+        $f(2) = 1$ en $f(5) = 4$: de methode kan niet starten, al is 3 een (dubbele) nulwaarde.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Voor $x^2 = 3$ op $[1, 2]$ geeft de methode van de intervalmiddens $m_1 = 1{,}75$, en de regula falsi $c_1 \approx 1{,}7273$. Bereken $c_0$ en controleer $c_1$. Welke schatting is na twee stappen het best? Welke foutgrens kun je bij elk zonder extra rekenwerk geven?
+  antwoord: |-
+    $c_0 = \tfrac53$; $c_1$ is beter; $0{,}25$ bij $m_1$, geen bij $c_1$
+  uitwerking: |-
+    $f(1) = -2$, $f(2) = 1$: $c_0 = 1 + 2 \cdot \frac13 = \frac53$, met $f(\frac53) = -\frac29$. Op $[\frac53, 2]$: $c_1 = \frac53 + \frac29 \cdot \frac{1/3}{11/9} = \frac{19}{11} \approx 1{,}7273$. $\sqrt 3 \approx 1{,}7321$: de fout van $c_1$ is 0,005, die van $m_1$ is 0,018. Bij $m_1$ is $\frac{1}{2^2} = 0{,}25$ een foutgrens. Bij $c_1$ is er geen: het interval $[c_1, 2]$ is 0,27 lang en wordt niet korter, want 2 blijft staan.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een bolvormige tank met straal 1 m bevat 1 m³ water. De hoogte $h$ van het water voldoet aan $\tfrac13 \pi h^2 (3 - h) = 1$. Bepaal $h$ tot op een centimeter. Kies zelf een methode, en toon aan dat je resultaat die nauwkeurigheid heeft.
+  antwoord: |-
+    $h \approx 0{,}64$ m
+  uitwerking: |-
+    $f(h) = h^3 - 3h^2 + \frac{3}{\pi}$ op $[0, 1]$: $f(0) \approx 0{,}955$, $f(1) \approx -1{,}045$. Regula falsi: $c_0 \approx 0{,}4775$, $c_1 \approx 0{,}6168$, $c_2 \approx 0{,}6337$, $c_3 \approx 0{,}6353$. Controle: $f(0{,}6253) > 0$ en $f(0{,}6453) < 0$, dus $h \approx 0{,}635$ m met een fout van hoogstens 1 cm. (Met de intervalmiddens: $n \geqslant \log_2 100 - 1$, dus 6 stappen; $m_6 \approx 0{,}6328$.)

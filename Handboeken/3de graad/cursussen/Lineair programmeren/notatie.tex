@@ -1,0 +1,112 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS LINEAIR PROGRAMMEREN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\providecommand{\R}{\mathbb{R}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\e}{\mathrm{e}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+% De solution komt na \end{metgrafiek}, zoals bij metprent.
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster met assen: \rooster{xmin}{xstap}{xmax}{ymin}{ystap}{ymax}, met getallen op de assen (gehele waarden).
+% \roosterleeg doet hetzelfde zonder getallen, voor eigen labels.
+\newcommand{\roosterleeg}[6]{%
+  \draw[black!14,very thin,xstep=#2,ystep=#5] (#1,#4) grid (#3,#6);
+  \draw[->,grijs] (#1,0) -- ({#3+.4*#2},0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,#4) -- (0,{#6+.4*#5}) node[above,text=black] {$y$};}
+\newcommand{\rooster}[6]{%
+  \roosterleeg{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathtruncatemacro{\rtweex}{#1+#2}\pgfmathtruncatemacro{\rtweey}{#4+#5}
+  \foreach \t in {#1,\rtweex,...,#3}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#4,\rtweey,...,#6}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+
+% In de functievoorschriften is \x de veranderlijke; schrijf (\x)^2 en sin(\x r).
+\newcommand{\assen}[4]{%
+  \draw[->,lijngrijs] (#1,0) -- (#2,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,#3) -- (0,#4) node[above,text=black] {$y$};}
+\newcommand{\kromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=90,smooth] (\x,{#4});}
+
+% Rooster met getallen om de zoveel lijnen: \roosterom{xmin}{xstap}{xlabel}{xmax}{ymin}{ystap}{ylabel}{ymax}
+% (lijnen om de xstap, getallen om de xlabel). Voor grote getallen, zoals aantallen stuks.
+\newcommand{\roosterom}[8]{%
+  \roosterleeg{#1}{#2}{#4}{#5}{#6}{#8}
+  \pgfmathtruncatemacro{\rtweex}{#1+#3}\pgfmathtruncatemacro{\rtweey}{#5+#7}
+  \foreach \t in {#1,\rtweex,...,#4}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#5,\rtweey,...,#8}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+
+%----------------------------------------------------------------------------------------
+% LINEAIR PROGRAMMEREN
+%----------------------------------------------------------------------------------------
+\usetikzlibrary{patterns}
+% Stijlen: een grensrechte (vol), een open grens (stippellijn), een niveaulijn van de doelfunctie,
+% de kleur van een oplossingsgebied en van een halfvlak.
+\tikzset{grens/.style={grijs,thick},
+  opengrens/.style={grijs,thick,densely dashed},
+  niveau/.style={accent,densely dash dot,thick},
+  gebied/.style={fill=accent!22},
+  weg/.style={pattern=north east lines,pattern color=grijs!70}}
+% Een venster voor grensrechten en halfvlakken, binnen een scope: \venster{xmin}{xmax}{ymin}{ymax}.
+% Knipt alles wat volgt in de scope af tot die rechthoek.
+\newcommand{\venster}[4]{\def\vxmin{#1}\def\vxmax{#2}\def\vymin{#3}\def\vymax{#4}\clip (#1,#3) rectangle (#2,#4);}
+% De rechte ax + by = c over het hele venster: \grenslijn[opties]{a}{b}{c}
+\newcommand{\grenslijn}[4][]{%
+  \pgfmathsetmacro{\gla}{abs(#3)}%
+  \ifdim\gla pt<0.0001pt
+    \draw[grens,#1] ({(#4)/(#2)},\vymin-1) -- ({(#4)/(#2)},\vymax+1);
+  \else
+    \draw[grens,#1] (\vxmin-1,{(#4-(#2)*(\vxmin-1))/(#3)}) -- (\vxmax+1,{(#4-(#2)*(\vxmax+1))/(#3)});
+  \fi}
+% Het halfvlak ax + by <= c in het venster: \halfvlak[stijl]{a}{b}{c}. Voor >= keer je alle tekens om.
+\newcommand{\halfvlak}[4][gebied]{%
+  \pgfmathsetmacro{\gla}{abs(#3)}%
+  \ifdim\gla pt<0.0001pt
+    \pgfmathsetmacro{\hvx}{(#4)/(#2)}\pgfmathsetmacro{\hvd}{(#2)>0 ? \vxmin-1 : \vxmax+1}%
+    \path[#1] (\hvx,\vymin-1) -- (\hvx,\vymax+1) -- (\hvd,\vymax+1) -- (\hvd,\vymin-1) -- cycle;
+  \else
+    \pgfmathsetmacro{\hvd}{(#3)>0 ? \vymin-1 : \vymax+1}%
+    \path[#1] (\vxmin-1,{(#4-(#2)*(\vxmin-1))/(#3)}) -- (\vxmax+1,{(#4-(#2)*(\vxmax+1))/(#3)})
+      -- (\vxmax+1,\hvd) -- (\vxmin-1,\hvd) -- cycle;
+  \fi}
+% Een hoekpunt (zwarte stip) en het optimum (grotere stip in de kleur van het hoofdstuk), met een label.
+\newcommand{\hoekpunt}[4][above right]{\fill (#2,#3) circle (1.6pt) node[#1,inner sep=1.5pt,font=\scriptsize] {#4};}
+\newcommand{\optimum}[4][above right]{\fill[accent] (#2,#3) circle (2.4pt) node[#1,inner sep=1.5pt,text=black,font=\scriptsize] {#4};}
+% Een klein halfvlak ax + by <= c met rooster (getallen om de 2), in één keer:
+% \halfvlakfig[lijnstijl]{a}{b}{c}{xmin}{xmax}{ymin}{ymax}. Voor >= geef je -a, -b en -c. Lijnstijl grens of opengrens.
+\newcommand{\halfvlakfig}[8][grens]{%
+  \begin{tikzpicture}[scale=.27,font=\tiny]
+    \begin{scope}\venster{#5}{#6}{#7}{#8}\halfvlak{#2}{#3}{#4}\end{scope}
+    \roosterom{#5}{1}{2}{#6}{#7}{1}{2}{#8}
+    \begin{scope}\venster{#5}{#6}{#7}{#8}\grenslijn[#1]{#2}{#3}{#4}\end{scope}
+  \end{tikzpicture}}

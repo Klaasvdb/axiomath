@@ -1,0 +1,941 @@
+# Oefeningen van hoofdstuk 2 (De covariantiematrix). Zie oefeningenbank.py voor de velden.
+# Alle gegevens zijn verzonnen.
+# Alle getallen nagerekend met Python, sympy en numpy.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $AB$ en $A\tr$ voor $A = \km{1 & 2 \\ 3 & -1}$ en $B = \km{2 \\ 1}$.
+      antwoord: |-
+        $AB = \km{4 \\ 5}$; \ $A\tr = \km{1 & 3 \\ 2 & -1}$
+      uitwerking: |-
+        Rij 1 maal $B$: $2 + 2 = 4$; rij 2 maal $B$: $6 - 1 = 5$. De rijen van $A$ worden de kolommen van $A\tr$.
+    - opgave: |-
+        Bereken de determinant en de inverse van $\km{4 & 2 \\ 2 & 3}$.
+      antwoord: |-
+        $8$; \ $\frac18\km{3 & -2 \\ -2 & 4}$
+      uitwerking: |-
+        $\det = 12 - 4 = 8$. De inverse: wissel de diagonaal, verander het teken van de andere elementen, en deel door 8.
+    - opgave: |-
+        Is $\km{1 & 2 & 3 \\ 2 & 5 & 0 \\ 3 & 0 & 4}$ symmetrisch?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Gespiegeld over de diagonaal blijft ze dezelfde: $a_{12} = a_{21} = 2$, $a_{13} = a_{31} = 3$, $a_{23} = a_{32} = 0$.
+    - opgave: |-
+        Bereken de covariantie van $(1, 2)$, $(3, 3)$ en $(5, 7)$.
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $\xbar = 3$, $\ybar = 4$, producten $(-2)(-2) + 0 \cdot (-1) + 2 \cdot 3 = 10$, en $\frac{10}{2} = 5$.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Vier leerlingen halen op twee toetsen de punten $(x, y)$: $(6, 5)$, $(8, 9)$, $(10, 8)$ en $(12, 10)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $s_x^2$, $s_y^2$ en $s_{xy}$.
+      antwoord: |-
+        $\tfrac{20}{3}$; \ $\tfrac{14}{3}$; \ $\tfrac{14}{3}$
+      uitwerking: |-
+        $\xbar = 9$, $\ybar = 8$. Afwijkingen $-3, -1, 1, 3$ en $-3, 1, 0, 2$. Kwadratensommen 20 en 14, som van de producten $9 - 1 + 0 + 6 = 14$. Delen door 3.
+    - opgave: |-
+        Bereken bij elke leerling het totaal $t = x + y$, en de variantie $s_t^2$.
+      antwoord: |-
+        $11, 17, 18, 22$; \ $s_t^2 = \tfrac{62}{3}$
+      uitwerking: |-
+        $\overline t = 17$, afwijkingen $-6, 0, 1, 5$, kwadraten samen 62, dus $s_t^2 = \frac{62}{3}$.
+    - opgave: |-
+        Zoek een formule voor $s_t^2$ met $s_x^2$, $s_y^2$ en $s_{xy}$. Is $s_t^2 = s_x^2 + s_y^2$?
+      antwoord: |-
+        $s_t^2 = s_x^2 + s_y^2 + 2s_{xy}$
+      uitwerking: |-
+        $\frac{20}{3} + \frac{14}{3} = \frac{34}{3}$ is te weinig. Er ontbreekt $\frac{28}{3} = 2 \cdot \frac{14}{3} = 2s_{xy}$.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h2-gegevens
+  soort: kort
+  opgave: |-
+    Bij vier proefpersonen meet men drie variabelen.
+
+    \smallskip
+    \drietabel[$x_1$][$x_2$][$x_3$]{4}{2 & 4 & 6 & 8}{1 & 3 & 2 & 6}{7 & 5 & 4 & 4}
+
+    \smallskip
+    Schrijf de gegevensmatrix $X$, de gemiddeldevector en de gecentreerde gegevensmatrix $X_c$.
+  antwoord: |-
+    $\overline{\vec x} = (5, 3, 5)$; \ $X_c = \km{-3 & -2 & 2 \\ -1 & 0 & 0 \\ 1 & -1 & -1 \\ 3 & 3 & -1}$
+  uitwerking: |-
+    $X = \km{2 & 1 & 7 \\ 4 & 3 & 5 \\ 6 & 2 & 4 \\ 8 & 6 & 4}$, een rij per proefpersoon. De gemiddelden van de kolommen zijn 5, 3 en 5; die trek je af van elke kolom.
+
+- id: h2-matrix
+  soort: kort
+  opgave: |-
+    Bereken de covariantiematrix van de gegevens uit oefening \ref{oef:h2-gegevens}.
+  antwoord: |-
+    $S = \frac13\km{20 & 14 & -10 \\ 14 & 14 & -6 \\ -10 & -6 & 6}$
+  uitwerking: |-
+    Met de kolommen van $X_c$: $(X_c\tr X_c)_{11} = 9 + 1 + 1 + 9 = 20$, $(X_c\tr X_c)_{22} = 4 + 0 + 1 + 9 = 14$, $(X_c\tr X_c)_{33} = 4 + 0 + 1 + 1 = 6$, $(X_c\tr X_c)_{12} = 6 + 0 - 1 + 9 = 14$, $(X_c\tr X_c)_{13} = -6 + 0 - 1 - 3 = -10$, $(X_c\tr X_c)_{23} = -4 + 0 + 1 - 3 = -6$. Delen door $n - 1 = 3$.
+
+- id: h2-correlatie
+  soort: kort
+  opgave: |-
+    Bereken de correlatiematrix bij $S = \km{4 & 3 & -1 \\ 3 & 9 & 1{,}5 \\ -1 & 1{,}5 & 4}$.
+  antwoord: |-
+    $R = \km{1 & 0{,}5 & -0{,}25 \\ 0{,}5 & 1 & 0{,}25 \\ -0{,}25 & 0{,}25 & 1}$
+  uitwerking: |-
+    $s_1 = 2$, $s_2 = 3$, $s_3 = 2$. $r_{12} = \frac{3}{6} = 0{,}5$, $r_{13} = \frac{-1}{4} = -0{,}25$, $r_{23} = \frac{1{,}5}{6} = 0{,}25$.
+
+- id: h2-aanvullen
+  soort: kort
+  opgave: |-
+    Vul de covariantiematrix aan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $S = \km{\ldots & \ldots \\ -3 & \ldots}$ met $s_1 = 2$ en $s_2 = 5$.
+      antwoord: |-
+        $\km{4 & -3 \\ -3 & 25}$
+      uitwerking: |-
+        Varianties $4$ en $25$ op de diagonaal, en $s_{12} = s_{21} = -3$.
+    - opgave: |-
+        Drie variabelen met $s_1^2 = 1$, $s_2 = 4$, $s_3 = 3$, $r_{12} = 0{,}5$, $s_{13} = 0$ en $r_{23} = -0{,}25$.
+      antwoord: |-
+        $\km{1 & 2 & 0 \\ 2 & 16 & -3 \\ 0 & -3 & 9}$
+      uitwerking: |-
+        $s_{12} = 0{,}5 \cdot 1 \cdot 4 = 2$ en $s_{23} = -0{,}25 \cdot 4 \cdot 3 = -3$. Varianties $1$, $16$ en $9$.
+
+- id: h2-combinatie
+  soort: kort
+  opgave: |-
+    Twee variabelen hebben covariantiematrix $S = \km{9 & 2 \\ 2 & 4}$. Bereken de standaardafwijking van
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $z = x + y$
+      antwoord: |-
+        $\sqrt{17} \approx 4{,}12$
+      uitwerking: |-
+        $9 + 4 + 2 \cdot 2 = 17$.
+    - opgave: |-
+        $z = 2x - 3y$
+      antwoord: |-
+        $\sqrt{48} \approx 6{,}93$
+      uitwerking: |-
+        $4 \cdot 9 + 9 \cdot 4 + 2 \cdot 2 \cdot (-3) \cdot 2 = 36 + 36 - 24 = 48$.
+
+- id: h2-semidefiniet
+  soort: kort
+  opgave: |-
+    Kan dit een covariantiematrix zijn? Geef een kolom $\vec a$ met $\vec a\tr S\vec a < 0$ als het niet kan.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\km{4 & 5 \\ 5 & 4}$
+      antwoord: |-
+        nee, $\vec a = (1, -1)$
+      uitwerking: |-
+        $4 + 4 - 2 \cdot 5 = -2 < 0$. Ook: $r = \frac54 > 1$.
+    - opgave: |-
+        $\km{4 & -2 \\ -2 & 1}$
+      antwoord: |-
+        ja (ontaard)
+      uitwerking: |-
+        $\vec a\tr S\vec a = 4a_1^2 - 4a_1a_2 + a_2^2 = (2a_1 - a_2)^2 \geqslant 0$. De determinant is 0: $r = -1$, de punten liggen op een dalende rechte.
+
+- id: h2-transformatie
+  soort: kort
+  opgave: |-
+    Twee variabelen hebben covariantiematrix $S = \km{9 & 2 \\ 2 & 4}$. Bereken de covariantiematrix van $u = x + y$ en $v = x - 2y$. Zijn $u$ en $v$ gecorreleerd?
+  antwoord: |-
+    $\km{17 & -1 \\ -1 & 17}$; \ zwak, $r = -\tfrac{1}{17}$
+  uitwerking: |-
+    $A = \km{1 & 1 \\ 1 & -2}$, $AS = \km{11 & 6 \\ 5 & -6}$ en $ASA\tr = \km{17 & -1 \\ -1 & 17}$. De correlatie is $\frac{-1}{17} \approx -0{,}06$.
+
+- id: h2-singulier
+  soort: kort
+  opgave: |-
+    Neem de vijf leerlingen van voorbeeld \ref{vb:h2-gegevens}, maar met als derde variabele het totaal $T = W + F$ in plaats van $N$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Leg zonder te rekenen uit waarom $\det S = 0$, en geef een kolom $\vec a \neq \vec 0$ met $X_c\vec a = \vec 0$.
+      antwoord: |-
+        $\vec a = (1, 1, -1)$
+      uitwerking: |-
+        $W + F - T = 0$ bij elke leerling, dus ook bij de afwijkingen: $X_c\vec a = \vec 0$ met $\vec a = (1, 1, -1)$. Door de stelling is $\det S = 0$.
+    - opgave: |-
+        Bereken $S$ met de regels van dit hoofdstuk en controleer dat $S\vec a = \vec 0$.
+      antwoord: |-
+        $S = \km{10 & 6{,}5 & 16{,}5 \\ 6{,}5 & 5 & 11{,}5 \\ 16{,}5 & 11{,}5 & 28}$
+      uitwerking: |-
+        $s_{WT} = s_W^2 + s_{WF} = 16{,}5$, $s_{FT} = s_{WF} + s_F^2 = 11{,}5$, $s_T^2 = 28$. Dan $S\vec a = (10 + 6{,}5 - 16{,}5;\ 6{,}5 + 5 - 11{,}5;\ 16{,}5 + 11{,}5 - 28) = (0, 0, 0)$.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    covariantiematrix met de hand
+  opgave: |-
+    Gegeven zijn de punten $(3, 7)$, $(5, 4)$, $(6, 6)$ en $(10, 3)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de gecentreerde gegevensmatrix $X_c$.
+      antwoord: |-
+        $\km{-3 & 2 \\ -1 & -1 \\ 0 & 1 \\ 4 & -2}$
+      uitwerking: |-
+        De gemiddeldevector is $(6, 5)$.
+    - opgave: |-
+        Bereken $S = \frac{1}{n - 1}X_c\tr X_c$.
+      antwoord: |-
+        $\frac13\km{26 & -13 \\ -13 & 10}$
+      uitwerking: |-
+        $9 + 1 + 0 + 16 = 26$, $4 + 1 + 1 + 4 = 10$ en $-6 + 1 + 0 - 8 = -13$. Delen door 3.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een covariantiematrix lezen
+  opgave: |-
+    Bij een groep zwemmers is de covariantiematrix van de lengte $L$ (cm), de armspanwijdte $A$ (cm) en de tijd $T$ op 100 m (s) gelijk aan
+    \[ S = \um{rrr}{25 & 12 & -6 \\ 12 & 16 & 2 \\ -6 & 2 & 4} . \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de standaardafwijking van elke variabele.
+      antwoord: |-
+        $5$ cm; \ $4$ cm; \ $2$ s
+      uitwerking: |-
+        De wortels van de diagonaalelementen.
+    - opgave: |-
+        Bereken de correlatiematrix.
+      antwoord: |-
+        $r_{LA} = 0{,}6$; \ $r_{LT} = -0{,}6$; \ $r_{AT} = 0{,}25$
+      uitwerking: |-
+        $\frac{12}{5 \cdot 4} = 0{,}6$, $\frac{-6}{5 \cdot 2} = -0{,}6$ en $\frac{2}{4 \cdot 2} = 0{,}25$.
+    - opgave: |-
+        Wat betekent het teken van $s_{LT}$ voor de zwemmers?
+      antwoord: |-
+        grotere zwemmers zijn meestal sneller
+      uitwerking: |-
+        Een negatieve covariantie: bij een grotere lengte hoort meestal een kortere tijd.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de variantie van een lineaire combinatie
+  opgave: |-
+    Drie variabelen hebben covariantiematrix $S = \km{4 & 1 & 0 \\ 1 & 9 & -3 \\ 0 & -3 & 2}$. Bereken de variantie van
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $x_1 + x_2 + x_3$
+      antwoord: |-
+        $11$
+      uitwerking: |-
+        De som van alle elementen: $15 + 2(1 + 0 - 3) = 11$.
+    - opgave: |-
+        $x_1 - 2x_3$
+      antwoord: |-
+        $12$
+      uitwerking: |-
+        $4 + 4 \cdot 2 + 2 \cdot 1 \cdot (-2) \cdot 0 = 12$.
+    - opgave: |-
+        $x_2 + 3x_3$
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $9 + 9 \cdot 2 + 2 \cdot 3 \cdot (-3) = 9 + 18 - 18 = 9$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kan dit een covariantiematrix zijn?
+  opgave: |-
+    Welke matrices kunnen een covariantiematrix zijn? Verklaar.
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\km{2 & 1 \\ 1 & -3}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een variantie van $-3$ kan niet.
+    - opgave: |-
+        $\km{5 & 3 \\ 2 & 5}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Niet symmetrisch.
+    - opgave: |-
+        $\km{4 & 7 \\ 7 & 9}$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\det = 36 - 49 < 0$: $r = \frac76 > 1$.
+    - opgave: |-
+        $\km{4 & -3 \\ -3 & 9}$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Symmetrisch, positieve varianties en $\det = 27 > 0$: $r = -0{,}5$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de getransponeerde van een product
+  opgave: |-
+    Neem $A = \km{1 & 2 & 0 \\ -1 & 1 & 3}$ en $B = \km{2 & 1 \\ 0 & 1 \\ 1 & -1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $(AB)\tr$ en $B\tr A\tr$.
+      antwoord: |-
+        beide $\km{2 & 1 \\ 3 & -3}$
+      uitwerking: |-
+        $AB = \km{2 & 3 \\ 1 & -3}$, dus $(AB)\tr = \km{2 & 1 \\ 3 & -3}$. Met $B\tr = \km{2 & 0 & 1 \\ 1 & 1 & -1}$ en $A\tr = \km{1 & -1 \\ 2 & 1 \\ 0 & 3}$ is $B\tr A\tr = \km{2 & 1 \\ 3 & -3}$.
+    - opgave: |-
+        Bestaat $A\tr B\tr$? Welk formaat heeft het?
+      antwoord: |-
+        ja, $3 \times 3$
+      uitwerking: |-
+        $A\tr$ is $3 \times 2$ en $B\tr$ is $2 \times 3$: het product is een $3 \times 3$-matrix, en dus zeker niet gelijk aan $(AB)\tr$.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    correlatiematrix
+  opgave: |-
+    Bereken de correlatiematrix. Welke twee variabelen hangen het sterkst samen?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $S = \km{16 & -6 & 2 \\ -6 & 9 & 0 \\ 2 & 0 & 1}$
+      antwoord: |-
+        $r_{12} = -0{,}5$; \ $r_{13} = 0{,}5$; \ $r_{23} = 0$
+      uitwerking: |-
+        $s = 4, 3, 1$: $\frac{-6}{12}$, $\frac{2}{4}$, $0$. Het eerste paar en het tweede paar zijn even sterk, met een tegengesteld teken.
+    - opgave: |-
+        $S = \km{100 & 30 \\ 30 & 25}$
+      antwoord: |-
+        $r = 0{,}6$
+      uitwerking: |-
+        $\frac{30}{10 \cdot 5} = 0{,}6$.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    andere eenheden
+  opgave: |-
+    Bij jonge bomen is de covariantiematrix van de hoogte (in m) en de massa (in kg) gelijk aan $S = \km{0{,}0036 & 0{,}3 \\ 0{,}3 & 100}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de covariantiematrix met de hoogte in cm, als $DSD$ met $D = \km{100 & 0 \\ 0 & 1}$.
+      antwoord: |-
+        $\km{36 & 30 \\ 30 & 100}$
+      uitwerking: |-
+        De eerste rij en de eerste kolom worden 100 keer groter, het element linksboven dus $10\,000$ keer.
+    - opgave: |-
+        Bereken de correlatiematrix in beide eenheden.
+      antwoord: |-
+        beide $\km{1 & 0{,}5 \\ 0{,}5 & 1}$
+      uitwerking: |-
+        $\frac{0{,}3}{0{,}06 \cdot 10} = 0{,}5$ en $\frac{30}{6 \cdot 10} = 0{,}5$: de correlatiematrix hangt niet af van de eenheden.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    het risico van een portefeuille
+  opgave: |-
+    Een belegger verdeelt zijn geld over twee fondsen. Het jaarlijkse rendement (in procent) van fonds A heeft standaardafwijking 20, dat van fonds B standaardafwijking 10, met correlatie $-0{,}2$. Het risico van een portefeuille is de standaardafwijking van haar rendement $z = w_Ax_A + w_Bx_B$, met $w_A + w_B = 1$ de delen van het geld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de covariantiematrix van de twee rendementen.
+      antwoord: |-
+        $\km{400 & -40 \\ -40 & 100}$
+      uitwerking: |-
+        $s_{AB} = -0{,}2 \cdot 20 \cdot 10 = -40$.
+    - opgave: |-
+        Bereken het risico als hij de helft in elk fonds steekt.
+      antwoord: |-
+        $\approx 10{,}25$
+      uitwerking: |-
+        $0{,}25 \cdot 400 + 0{,}25 \cdot 100 + 2 \cdot 0{,}25 \cdot (-40) = 105$, en $\sqrt{105} \approx 10{,}25$.
+    - opgave: |-
+        Bereken het risico met $20~\%$ in A en $80~\%$ in B. Vergelijk met alles in B. Wat is opvallend?
+      antwoord: |-
+        $\approx 8{,}20 < 10$
+      uitwerking: |-
+        $0{,}04 \cdot 400 + 0{,}64 \cdot 100 + 2 \cdot 0{,}16 \cdot (-40) = 67{,}2$, en $\sqrt{67{,}2} \approx 8{,}20$. Wie een deel van het geld in het riskantere fonds A steekt, verlaagt het risico: door de negatieve correlatie compenseren de fondsen elkaar.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    covariantie- en correlatiematrix met ICT
+  opgave: |-
+    Van acht wagens kent men de massa (kg), het vermogen (kW) en het verbruik (l/100 km).
+
+    \smallskip
+    {\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.3}%
+    \begin{tabular}{|>{\columncolor{accent!12}}c|*{8}{c|}}\hline
+    massa & 1050 & 1200 & 1300 & 1400 & 1500 & 1650 & 1800 & 2000 \\ \hline
+    vermogen & 55 & 70 & 85 & 80 & 100 & 110 & 140 & 160 \\ \hline
+    verbruik & 5{,}2 & 5{,}6 & 6{,}1 & 6{,}0 & 6{,}8 & 7{,}1 & 8{,}0 & 8{,}9 \\ \hline
+    \end{tabular}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de covariantiematrix met ICT.
+      antwoord: |-
+        $\approx \km{100\,536 & 11\,107 & 392{,}3 \\ 11\,107 & 1264{,}3 & 44{,}5 \\ 392{,}3 & 44{,}5 & 1{,}573}$
+      uitwerking: |-
+        Bijvoorbeeld met \texttt{numpy.cov(X, rowvar=False)}.
+    - opgave: |-
+        Bereken de correlatiematrix.
+      antwoord: |-
+        $r_{12} \approx 0{,}985$; \ $r_{13} \approx 0{,}987$; \ $r_{23} \approx 0{,}998$
+      uitwerking: |-
+        Bijvoorbeeld $r_{23} = \frac{44{,}5}{\sqrt{1264{,}3 \cdot 1{,}573}} \approx 0{,}998$.
+    - opgave: |-
+        Kan je uit de covariantiematrix besluiten dat de massa het meest varieert? Waarom is de correlatiematrix hier nuttiger?
+      antwoord: |-
+        nee, andere eenheden
+      uitwerking: |-
+        De variantie van de massa is groot omdat ze in kg staat; in ton was ze een miljoen keer kleiner. De correlaties hebben geen eenheid en zijn vergelijkbaar: vermogen en verbruik hangen het sterkst samen.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de portefeuille met het kleinste risico
+  opgave: |-
+    Neem de fondsen uit opdracht \ref{oef:h2-o8}, met een deel $w$ in A en $1 - w$ in B.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de variantie van het rendement $V(w) = 580w^2 - 280w + 100$ is.
+      antwoord: |-
+        werk $\vec a\tr S\vec a$ uit
+      uitwerking: |-
+        $400w^2 + 100(1 - w)^2 - 80w(1 - w) = 400w^2 + 100 - 200w + 100w^2 - 80w + 80w^2 = 580w^2 - 280w + 100$.
+    - opgave: |-
+        Voor welke $w$ is het risico het kleinst? Hoe groot is het dan?
+      antwoord: |-
+        $w = \tfrac{7}{29} \approx 0{,}24$; \ $\approx 8{,}14$
+      uitwerking: |-
+        De top van de parabool: $w = \frac{280}{1160} = \frac{7}{29}$. $V = 100 - \frac{280^2}{4 \cdot 580} = \frac{1920}{29} \approx 66{,}2$, dus een risico van ongeveer $8{,}14$.
+    - opgave: |-
+        Toon algemeen aan dat het kleinste risico optreedt bij $w = \dfrac{s_B^2 - s_{AB}}{s_A^2 + s_B^2 - 2s_{AB}}$.
+      antwoord: |-
+        nulwaarde van $V'(w)$
+      uitwerking: |-
+        $V(w) = w^2 s_A^2 + (1 - w)^2 s_B^2 + 2w(1 - w)s_{AB}$, dus $V'(w) = 2ws_A^2 - 2(1 - w)s_B^2 + (2 - 4w)s_{AB} = 0$ geeft $w(s_A^2 + s_B^2 - 2s_{AB}) = s_B^2 - s_{AB}$. De noemer is de variantie van $x_A - x_B$, dus positief. Hier: $\frac{100 + 40}{400 + 100 + 80} = \frac{7}{29}$.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de covariantie van twee lineaire combinaties
+  opgave: |-
+    Neem twee lineaire combinaties $z = \vec a\tr\vec x$ en $u = \vec b\tr\vec x$ van dezelfde variabelen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat hun covariantie $s_{zu} = \vec a\tr S\,\vec b$ is.
+      antwoord: |-
+        zoals het bewijs van $\vec a\tr S\vec a$
+      uitwerking: |-
+        De afwijkingen van $z$ en $u$ vormen de kolommen $X_c\vec a$ en $X_c\vec b$. Dan is $(n - 1)s_{zu} = (X_c\vec a)\tr(X_c\vec b) = \vec a\tr X_c\tr X_c\vec b = (n - 1)\,\vec a\tr S\vec b$.
+    - opgave: |-
+        Bereken bij de proefexamens uit het probleem de covariantie van het totaal $T = W + F + N$ en het verschil $W - F$.
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $S\vec b$ met $\vec b = (1, -1, 0)$ is $(10, -3, 1)$, en $\vec a\tr(S\vec b) = 10 - 3 + 1 = 8$.
+    - opgave: |-
+        Bereken de correlatie van $T$ en $W - F$, met $s_T^2 = 55$ en $s_{W-F}^2 = 13$.
+      antwoord: |-
+        $\approx 0{,}30$
+      uitwerking: |-
+        $\frac{8}{\sqrt{55 \cdot 13}} \approx 0{,}299$.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    $ASA\tr$ nagaan met de gegevens
+  opgave: |-
+    Neem de vijf leerlingen van voorbeeld \ref{vb:h2-gegevens} met $S$ uit voorbeeld \ref{vb:h2-matrix}, en de nieuwe variabelen $U = W + N$ en $V = F - N$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $U$ en $V$ voor elke leerling, en hun covariantiematrix rechtstreeks.
+      antwoord: |-
+        $\km{13{,}5 & 4 \\ 4 & 6{,}5}$
+      uitwerking: |-
+        $U = 23, 22, 28, 26, 31$ en $V = -5, 0, -2, 1, 1$, met gemiddelden 26 en $-1$. Afwijkingen $-3, -4, 2, 0, 5$ en $-4, 1, -1, 2, 2$: kwadratensommen 54 en 26, som van de producten 16. Delen door 4.
+    - opgave: |-
+        Bereken $ASA\tr$ met de juiste $A$ en vergelijk.
+      antwoord: |-
+        $A = \km{1 & 0 & 1 \\ 0 & 1 & -1}$; zelfde matrix
+      uitwerking: |-
+        $AS = \km{10 & 7{,}5 & 3{,}5 \\ 6{,}5 & 4 & -2{,}5}$ en $ASA\tr = \km{13{,}5 & 4 \\ 4 & 6{,}5}$.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten over de covariantiematrix
+  opgave: |-
+    Waar of niet waar? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Als alle variabelen twee aan twee ongecorreleerd zijn, is $S$ een diagonaalmatrix.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Alle covarianties buiten de diagonaal zijn 0.
+    - opgave: |-
+        Een covariantiematrix bevat nooit een negatief getal.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Op de diagonaal niet, daarbuiten wel: een negatieve covariantie.
+    - opgave: |-
+        Vermenigvuldig je één variabele met 2, dan verdubbelt elk element van haar rij en haar kolom.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        De covarianties verdubbelen, maar de variantie op de diagonaal (in de rij én de kolom) wordt 4 keer zo groot: $DSD$ met een 2 in $D$.
+    - opgave: |-
+        Met 10 individuen en 12 variabelen is $S$ inverteerbaar.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Bij $n \leqslant p$ is $\det S = 0$.
+    - opgave: |-
+        Bij drie variabelen betekent $\det S = 0$ dat alle punten op één rechte liggen.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Het betekent dat een lineaire combinatie constant is: de punten liggen in een vlak (of op een rechte, als er meer zulke combinaties zijn).
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    covariantiematrix met een parameter
+  opgave: |-
+    Neem aan: een symmetrische matrix is positief semidefiniet als de diagonaal, de determinanten van de $2 \times 2$-matrices op de diagonaal en de determinant van de hele matrix niet negatief zijn.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke $c$ is $\km{4 & c \\ c & 9}$ een covariantiematrix?
+      antwoord: |-
+        $-6 \leqslant c \leqslant 6$
+      uitwerking: |-
+        $36 - c^2 \geqslant 0$. Dat is $r^2 \leqslant 1$ met $r = \frac{c}{6}$.
+    - opgave: |-
+        Voor welke $c$ is $\km{1 & 0{,}5 & c \\ 0{,}5 & 1 & 0{,}5 \\ c & 0{,}5 & 1}$ een correlatiematrix?
+      antwoord: |-
+        $-0{,}5 \leqslant c \leqslant 1$
+      uitwerking: |-
+        $\det = 1 + 0{,}5c - 0{,}25 - c^2 - 0{,}25 = -\frac12(c - 1)(2c + 1) \geqslant 0$ als $-\frac12 \leqslant c \leqslant 1$. De $2 \times 2$-determinanten $0{,}75$, $1 - c^2$ en $0{,}75$ zijn dan ook niet negatief.
+    - opgave: |-
+        Wat betekent $c = 1$? Waarom kan $c$ niet $-0{,}8$ zijn, al is elk paar afzonderlijk mogelijk?
+      antwoord: |-
+        $x_1 = x_3$ (gestandaardiseerd); te veel tegenstrijdigheid
+      uitwerking: |-
+        Bij $c = 1$ zijn de z-scores van $x_1$ en $x_3$ gelijk, en is $\det = 0$. Als $x_1$ en $x_3$ allebei positief samenhangen met $x_2$, kunnen ze niet sterk negatief met elkaar samenhangen: dat zag je ook met de hoeken tussen de vectoren van afwijkingen in hoofdstuk 1.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    te weinig individuen
+  opgave: |-
+    Drie proefpersonen geven voor drie variabelen de rijen $(1, 2, 4)$, $(3, 1, 2)$ en $(5, 3, 3)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $X_c$ en $S$.
+      antwoord: |-
+        $S = \km{4 & 1 & -1 \\ 1 & 1 & 0{,}5 \\ -1 & 0{,}5 & 1}$
+      uitwerking: |-
+        Gemiddelden $(3, 2, 3)$, $X_c = \km{-2 & 0 & 1 \\ 0 & -1 & -1 \\ 2 & 1 & 0}$. Dan $X_c\tr X_c = \km{8 & 2 & -2 \\ 2 & 2 & 1 \\ -2 & 1 & 2}$, gedeeld door 2.
+    - opgave: |-
+        Bereken $\det S$. Verklaar het resultaat met de stelling.
+      antwoord: |-
+        $0$
+      uitwerking: |-
+        $\det S = 4(1 - 0{,}25) - 1(1 + 0{,}5) - 1(0{,}5 + 1) = 3 - 1{,}5 - 1{,}5 = 0$. Er zijn niet meer individuen dan variabelen ($n = p = 3$).
+    - opgave: |-
+        Zoek een kolom $\vec a \neq \vec 0$ met $X_c\vec a = \vec 0$, en controleer dat $S\vec a = \vec 0$.
+      antwoord: |-
+        $\vec a = (1, -2, 2)$
+      uitwerking: |-
+        Uit $-2a_1 + a_3 = 0$ en $-a_2 - a_3 = 0$: $a_3 = 2a_1$, $a_2 = -2a_1$. De derde rij volgt vanzelf. Met $a_1 = 1$: $S\vec a = (4 - 2 - 2;\ 1 - 2 + 1;\ -1 - 1 + 2) = (0, 0, 0)$.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hoeveel getallen schat je?
+  opgave: |-
+    Een onderzoeker meet $p$ variabelen bij $n$ personen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de covariantiematrix $\frac{p(p + 1)}{2}$ verschillende getallen bevat.
+      antwoord: |-
+        $p$ varianties en $\frac{p(p - 1)}{2}$ covarianties
+      uitwerking: |-
+        De diagonaal heeft $p$ elementen, en er zijn $\binom{p}{2} = \frac{p(p - 1)}{2}$ paren boven de diagonaal. Samen $\frac{p(p + 1)}{2}$.
+    - opgave: |-
+        Hoeveel getallen zijn het bij $p = 5$, bij $p = 20$ en bij $p = 100$?
+      antwoord: |-
+        $15$; \ $210$; \ $5050$
+      uitwerking: |-
+        $\frac{5 \cdot 6}{2}$, $\frac{20 \cdot 21}{2}$ en $\frac{100 \cdot 101}{2}$.
+    - opgave: |-
+        Een ziekenhuis meet 100 bloedwaarden bij 60 patiënten. Wat weet je zeker over $S$? Waarom is dat een probleem in hoofdstuk 3?
+      antwoord: |-
+        $\det S = 0$; \ $S^{-1}$ bestaat niet
+      uitwerking: |-
+        $n = 60 \leqslant p = 100$, dus $S$ is ontaard. De afstand van Mahalanobis gebruikt $S^{-1}$, en die bestaat dan niet.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gevolgen van positief semidefiniet
+  opgave: |-
+    Een symmetrische matrix $S$ is positief semidefiniet. Kies telkens een geschikte kolom $\vec a$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat elk diagonaalelement $s_{jj} \geqslant 0$.
+      antwoord: |-
+        $\vec a$ met een 1 op plaats $j$
+      uitwerking: |-
+        Met $a_j = 1$ en alle andere 0 is $\vec a\tr S\vec a = s_{jj}$.
+    - opgave: |-
+        Toon aan dat $s_{jk}^2 \leqslant s_{jj}s_{kk}$. Neem $a_j = t$, $a_k = 1$ en de rest 0.
+      antwoord: |-
+        discriminant
+      uitwerking: |-
+        $\vec a\tr S\vec a = s_{jj}t^2 + 2s_{jk}t + s_{kk} \geqslant 0$ voor alle $t$. Is $s_{jj} > 0$, dan is de discriminant $4s_{jk}^2 - 4s_{jj}s_{kk} \leqslant 0$. Is $s_{jj} = 0$, dan is $2s_{jk}t + s_{kk} \geqslant 0$ voor alle $t$ alleen mogelijk als $s_{jk} = 0$.
+    - opgave: |-
+        Toon aan: schrap je bij een covariantiematrix de rij en de kolom van een variabele, dan blijft een positief semidefiniete matrix over. Wat is de betekenis?
+      antwoord: |-
+        neem $a_j = 0$ voor die variabele
+      uitwerking: |-
+        Een $\vec a$ met een 0 op de plaats van de geschrapte variabele geeft dezelfde $\vec a\tr S\vec a$ als de kleinere matrix met de andere componenten. Betekenis: de kleinere matrix is de covariantiematrix van de overige variabelen.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    wanneer is een $2 \times 2$-matrix een covariantiematrix?
+  opgave: |-
+    Neem $S = \km{p & q \\ q & r}$ met $p > 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\vec a\tr S\vec a = p\Bigl(a_1 + \frac qp a_2\Bigr)^2 + \frac{\det S}{p}\,a_2^2$.
+      antwoord: |-
+        kwadraat afsplitsen
+      uitwerking: |-
+        $pa_1^2 + 2qa_1a_2 + ra_2^2 = p\bigl(a_1^2 + \frac{2q}{p}a_1a_2 + \frac{q^2}{p^2}a_2^2\bigr) + \bigl(r - \frac{q^2}{p}\bigr)a_2^2$, en $r - \frac{q^2}{p} = \frac{pr - q^2}{p}$.
+    - opgave: |-
+        Besluit: $S$ is positief semidefiniet als en slechts als $\det S \geqslant 0$.
+      antwoord: |-
+        kies $a_2 = 1$, $a_1 = -\frac qp$
+      uitwerking: |-
+        Is $\det S \geqslant 0$, dan zijn beide termen niet negatief. Is $\det S < 0$, dan geeft $a_2 = 1$ en $a_1 = -\frac qp$ de waarde $\frac{\det S}{p} < 0$.
+    - opgave: |-
+        Pas toe op $\km{2 & 3 \\ 3 & 4}$ en geef een combinatie met een negatieve variantie.
+      antwoord: |-
+        $\vec a = (-1{,}5;\ 1)$: $-0{,}5$
+      uitwerking: |-
+        $\det = 8 - 9 = -1 < 0$. Met $a_1 = -\frac32$ en $a_2 = 1$: $2 \cdot 2{,}25 - 9 + 4 = -0{,}5$.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een rekenformule in matrixvorm
+  opgave: |-
+    Zoals bij de covariantie bestaat er een rekenformule zonder centreren, met de gemiddeldevector $\overline{\vec x}$ als rij.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $X_c = X - \vec 1\,\overline{\vec x}$, met $\vec 1$ een kolom met $n$ enen, en dat $\vec 1\tr X = n\,\overline{\vec x}$.
+      antwoord: |-
+        rij per rij
+      uitwerking: |-
+        $\vec 1\,\overline{\vec x}$ is de $n \times p$-matrix met in elke rij de gemiddeldevector. $\vec 1\tr X$ telt de rijen van $X$ op: dat zijn de kolomsommen, $n$ keer de gemiddelden.
+    - opgave: |-
+        Leid af: $S = \frac{1}{n - 1}\bigl(X\tr X - n\,\overline{\vec x}\tr\,\overline{\vec x}\bigr)$.
+      antwoord: |-
+        werk $X_c\tr X_c$ uit
+      uitwerking: |-
+        $X_c\tr X_c = X\tr X - X\tr\vec 1\,\overline{\vec x} - \overline{\vec x}\tr\vec 1\tr X + \overline{\vec x}\tr\vec 1\tr\vec 1\,\overline{\vec x}$. Met $\vec 1\tr X = n\overline{\vec x}$, $X\tr\vec 1 = n\overline{\vec x}\tr$ en $\vec 1\tr\vec 1 = n$ is dat $X\tr X - n\overline{\vec x}\tr\overline{\vec x} - n\overline{\vec x}\tr\overline{\vec x} + n\overline{\vec x}\tr\overline{\vec x}$.
+    - opgave: |-
+        Bereken zo $S$ voor $(1, 2)$, $(3, 6)$ en $(5, 4)$.
+      antwoord: |-
+        $\km{4 & 2 \\ 2 & 4}$
+      uitwerking: |-
+        $X\tr X = \km{35 & 40 \\ 40 & 56}$, $\overline{\vec x} = (3, 4)$ en $3\,\overline{\vec x}\tr\overline{\vec x} = \km{27 & 36 \\ 36 & 48}$. Het verschil $\km{8 & 4 \\ 4 & 8}$ gedeeld door 2.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de correlatiematrix als product
+  opgave: |-
+    Neem de diagonaalmatrix $D = \diag(s_1, \ldots, s_p)$ van de standaardafwijkingen, alle verschillend van 0.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat het element $(j, k)$ van $D^{-1}SD^{-1}$ gelijk is aan $r_{jk}$.
+      antwoord: |-
+        $\frac{1}{s_j}\,s_{jk}\,\frac{1}{s_k}$
+      uitwerking: |-
+        $D^{-1} = \diag(\frac{1}{s_1}, \ldots, \frac{1}{s_p})$. Links vermenigvuldigen deelt rij $j$ door $s_j$, rechts vermenigvuldigen deelt kolom $k$ door $s_k$.
+    - opgave: |-
+        Leid af dat ook $R$ positief semidefiniet is.
+      antwoord: |-
+        $\vec a\tr R\vec a = \vec b\tr S\vec b$
+      uitwerking: |-
+        Met $\vec b = D^{-1}\vec a$ is $\vec a\tr R\vec a = \vec a\tr D^{-1}SD^{-1}\vec a = \vec b\tr S\vec b \geqslant 0$, want $(D^{-1})\tr = D^{-1}$.
+    - opgave: |-
+        Drie variabelen hebben twee aan twee dezelfde correlatie $\rho$. Toon aan dat $\rho \geqslant -\frac12$.
+      antwoord: |-
+        $\vec a = (1, 1, 1)$
+      uitwerking: |-
+        $\vec a\tr R\vec a = 3 + 6\rho \geqslant 0$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    spreiden over veel fondsen
+  opgave: |-
+    Een belegger verdeelt zijn geld gelijk over $n$ fondsen. Elk rendement heeft variantie $\sigma^2$, en elk paar heeft correlatie $\rho$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de variantie van het gemiddelde rendement $\dfrac{\sigma^2}{n}\bigl(1 + (n - 1)\rho\bigr)$ is.
+      antwoord: |-
+        $\vec a = (\frac1n, \ldots, \frac1n)$
+      uitwerking: |-
+        $\vec a\tr S\vec a = \frac{1}{n^2}$ maal de som van alle elementen: $n\sigma^2$ op de diagonaal en $n(n - 1)\rho\sigma^2$ erbuiten. Dus $\frac{1}{n^2}\bigl(n\sigma^2 + n(n - 1)\rho\sigma^2\bigr)$.
+    - opgave: |-
+        Wat gebeurt er als $n$ heel groot wordt? Wat betekent dat voor het risico als $\rho = 0{,}3$ en $\sigma = 20$?
+      antwoord: |-
+        naar $\rho\sigma^2$; \ risico naar $\approx 11$
+      uitwerking: |-
+        $\frac{\sigma^2}{n} + \frac{n - 1}{n}\rho\sigma^2 \to \rho\sigma^2 = 120$, dus het risico daalt naar $\sqrt{120} \approx 11$, niet naar 0: de gemeenschappelijke schommelingen van de markt kun je niet wegspreiden.
+    - opgave: |-
+        Leid af dat bij $n$ variabelen met dezelfde correlatie altijd $\rho \geqslant -\dfrac{1}{n - 1}$.
+      antwoord: |-
+        de variantie is niet negatief
+      uitwerking: |-
+        $1 + (n - 1)\rho \geqslant 0$. Bij veel variabelen kunnen ze dus niet allemaal onderling sterk negatief samenhangen.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h2-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Kansrekenen
+  thema: |-
+    onafhankelijke toevalsvariabelen en de binomiale verdeling
+  opgave: |-
+    Ook voor toevalsvariabelen $X_1, \ldots, X_p$ bestaat een covariantiematrix $\Sigma$, en de variantie van $a_1X_1 + \cdots + a_pX_p$ is $\vec a\tr\Sigma\,\vec a$. Onafhankelijke toevalsvariabelen hebben covariantie 0.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoe ziet $\Sigma$ eruit als $X_1, \ldots, X_p$ onafhankelijk zijn? Leid af dat dan $\mathrm{Var}(X_1 + \cdots + X_p) = \mathrm{Var}(X_1) + \cdots + \mathrm{Var}(X_p)$.
+      antwoord: |-
+        een diagonaalmatrix
+      uitwerking: |-
+        Alle covarianties zijn 0. Met $\vec a = (1, \ldots, 1)$ is $\vec a\tr\Sigma\vec a$ de som van de diagonaal.
+    - opgave: |-
+        Een worp met een muntstuk geeft $X_i = 1$ (kop) met kans $p$ en $X_i = 0$ anders. Toon aan dat $\mathrm{Var}(X_i) = p(1 - p)$.
+      antwoord: |-
+        $E(X_i^2) - E(X_i)^2$
+      uitwerking: |-
+        $E(X_i) = p$ en $E(X_i^2) = p$, dus $\mathrm{Var}(X_i) = p - p^2$.
+    - opgave: |-
+        Leid de variantie van de binomiale verdeling af.
+      antwoord: |-
+        $np(1 - p)$
+      uitwerking: |-
+        Het aantal keer kop bij $n$ onafhankelijke worpen is $X_1 + \cdots + X_n$, met variantie $n \cdot p(1 - p)$.
+
+- id: h2-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: meetkunde
+    onderwerp: Ruimtemeetkunde
+  thema: |-
+    punten in een vlak
+  opgave: |-
+    Vier punten in de ruimte zijn $(1, 2, 3)$, $(2, 0, 2)$, $(4, 1, 5)$ en $(3, 3, 6)$: drie variabelen bij vier individuen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de punten in het vlak $x + y - z = 0$ liggen. Wat is een normaalvector?
+      antwoord: |-
+        $\vec n = (1, 1, -1)$
+      uitwerking: |-
+        $1 + 2 - 3 = 0$, $2 + 0 - 2 = 0$, $4 + 1 - 5 = 0$ en $3 + 3 - 6 = 0$.
+    - opgave: |-
+        Bereken de covariantiematrix en controleer dat $S\vec n = \vec 0$.
+      antwoord: |-
+        $S = \frac53\km{1 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 1 & 2}$
+      uitwerking: |-
+        Gemiddelden $(2{,}5;\ 1{,}5;\ 4)$. $S\vec n = \frac53(1 + 0 - 1;\ 0 + 1 - 1;\ 1 + 1 - 2) = \vec 0$.
+    - opgave: |-
+        Leg uit: liggen de punten in een vlak, dan is $\det S = 0$, en de normaalvector geeft de richting zonder spreiding.
+      antwoord: |-
+        $\vec n\tr S\vec n = 0$
+      uitwerking: |-
+        De combinatie $x + y - z$ is constant (0) voor alle punten, dus haar variantie $\vec n\tr S\vec n$ is 0, en $X_c\vec n = \vec 0$. Door de stelling is $\det S = 0$. In de richting van $\vec n$ heeft de wolk geen dikte.
+
+- id: h2-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: data
+    onderwerp: Lineaire regressie
+  thema: |-
+    de regressierechte uit de covariantiematrix
+  opgave: |-
+    De covariantiematrix van $x$ en $y$ is $S = \km{s_x^2 & s_{xy} \\ s_{xy} & s_y^2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de helling van de regressierechte van $y$ op $x$ gelijk is aan $\frac{s_{xy}}{s_x^2}$, het quotiënt van twee elementen van $S$.
+      antwoord: |-
+        $\frac{\Sxy}{\Sxx}$
+      uitwerking: |-
+        In Lineaire regressie is $a = \frac{\Sxy}{\Sxx}$; deel teller en noemer door $n - 1$.
+    - opgave: |-
+        Toon aan dat $\frac{\det S}{s_x^2} = s_y^2(1 - r^2)$.
+      antwoord: |-
+        $\det S = s_x^2s_y^2 - s_{xy}^2$
+      uitwerking: |-
+        $\frac{s_x^2s_y^2 - s_{xy}^2}{s_x^2} = s_y^2 - \frac{s_{xy}^2}{s_x^2} = s_y^2\Bigl(1 - \frac{s_{xy}^2}{s_x^2s_y^2}\Bigr) = s_y^2(1 - r^2)$.
+    - opgave: |-
+        In Lineaire regressie is $\Qf = \Syy(1 - r^2)$. Wat is dus de betekenis van $\frac{\det S}{s_x^2}$? Bereken ze voor $S = \km{4 & 6 \\ 6 & 25}$.
+      antwoord: |-
+        $\frac{\Qf}{n - 1}$; \ $16$
+      uitwerking: |-
+        $\frac{\det S}{s_x^2} = \frac{\Syy(1 - r^2)}{n - 1} = \frac{\Qf}{n - 1}$: de variantie die de regressierechte niet verklaart. Hier $\frac{100 - 36}{4} = 16$, tegenover $s_y^2 = 25$: de rechte verklaart $r^2 = 0{,}36$ van de variantie.
+
+# ---------------------------------------------------------------- test
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Drie individuen hebben de waarden $(2, 7)$, $(4, 3)$ en $(9, 5)$. Schrijf de gegevensmatrix, de gemiddeldevector en de gecentreerde gegevensmatrix.
+  antwoord: |-
+    $\overline{\vec x} = (5, 5)$; \ $X_c = \km{-3 & 2 \\ -1 & -2 \\ 4 & 0}$
+  uitwerking: |-
+    $X = \km{2 & 7 \\ 4 & 3 \\ 9 & 5}$. Trek van elke kolom 5 af.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de covariantiematrix van de gegevens uit testvraag \ref{oef:h2-t1}.
+  antwoord: |-
+    $\km{13 & -2 \\ -2 & 4}$
+  uitwerking: |-
+    $X_c\tr X_c = \km{26 & -4 \\ -4 & 8}$, gedeeld door $n - 1 = 2$.
+
+- id: h2-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken de correlatiematrix bij $S = \km{9 & 3 & -4 \\ 3 & 4 & 0 \\ -4 & 0 & 16}$.
+  antwoord: |-
+    $\km{1 & 0{,}5 & -\frac13 \\ 0{,}5 & 1 & 0 \\ -\frac13 & 0 & 1}$
+  uitwerking: |-
+    $s = 3, 2, 4$: $\frac{3}{6} = 0{,}5$, $\frac{-4}{12} = -\frac13$ en $0$.
+
+- id: h2-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Drie variabelen hebben covariantiematrix $S = \km{4 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 3}$. Bereken de standaardafwijking van $z = 3x_1 - x_2 + 2x_3$.
+  antwoord: |-
+    $\sqrt{40} \approx 6{,}32$
+  uitwerking: |-
+    $\vec a = (3, -1, 2)$, $S\vec a = (11, 3, 5)$ en $\vec a\tr S\vec a = 33 - 3 + 10 = 40$.
+
+- id: h2-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een verslag geeft de correlatiematrix $\km{1 & 0{,}9 & 0{,}9 \\ 0{,}9 & 1 & 0 \\ 0{,}9 & 0 & 1}$. Toon met een geschikte kolom $\vec a$ aan dat dat niet kan.
+  antwoord: |-
+    $\vec a = (1, -1, -1)$: $-0{,}6$
+  uitwerking: |-
+    $\vec a\tr R\vec a = 3 + 2(-0{,}9 - 0{,}9 + 0) = -0{,}6 < 0$.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Twee variabelen hebben covariantiematrix $\km{4 & 1 \\ 1 & 1}$. Bereken de covariantiematrix van $u = x + 2y$ en $v = x - y$.
+  antwoord: |-
+    $\km{12 & 3 \\ 3 & 3}$
+  uitwerking: |-
+    $A = \km{1 & 2 \\ 1 & -1}$, $AS = \km{6 & 3 \\ 3 & 0}$ en $ASA\tr = \km{12 & 3 \\ 3 & 3}$.
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Twee individuen hebben voor drie variabelen de waarden $(1, 4, 2)$ en $(3, 0, 5)$. Waarom is $\det S = 0$? Geef een kolom $\vec a \neq \vec 0$ met $X_c\vec a = \vec 0$.
+  antwoord: |-
+    $n \leqslant p$; \ bv.\ $\vec a = (2, 1, 0)$
+  uitwerking: |-
+    Er zijn minder individuen dan variabelen. $X_c = \km{-1 & 2 & -1{,}5 \\ 1 & -2 & 1{,}5}$, en $\vec a = (2, 1, 0)$ geeft $-2 + 2 = 0$ in beide rijen.

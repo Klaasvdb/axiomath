@@ -1,0 +1,567 @@
+%----------------------------------------------------------------------------------------
+% KWADRIEKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-. De berekende figuren (PNG) komen uit afbeeldingen/maak-afbeeldingen.py.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Kwadrieken}
+
+\begin{probleem}
+\vspace{-1mm}\naast{In 1896 bouwde de Russische ingenieur Vladimir Sjoechov een watertoren uit rechte stalen staven, met toch een gebogen silhouet. Neem een eenvoudig model: twee horizontale ringen met een straal van 3~m, op 0~m en op 12~m hoogte. Je verbindt elk punt van de onderste ring met een rechte staaf met het punt van de bovenste ring dat $120^\circ$ verder ligt. Hoe smal wordt de toren in het midden? En welke vorm heeft de wand, als alle staven recht zijn?}{\begin{tikzpicture}[zicht=.24,font=\scriptsize]
+  \foreach \t in {0,20,...,340}{%
+    \draw[accent!75] ({3*cos(\t)},{3*sin(\t)},0) -- ({3*cos(\t+120)},{3*sin(\t+120)},12);
+    \draw[grijs!70] ({3*cos(\t)},{3*sin(\t)},0) -- ({3*cos(\t-120)},{3*sin(\t-120)},12);}
+  \cirkelzicht[thick]{.24}{0}{0}{0}{3}
+  \cirkelzicht[thick]{.24}{0}{0}{12}{3}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 13, met de wenken over de vormen en eigenschappen van ellipsoïden, hyperboloïden en paraboloïden, en over de regeloppervlakken (kegel, cilinder, hyperbolische paraboloïde en eenbladige hyperboloïde). Voorkennis uit pakket 4: Kegelsneden (de standaardvergelijkingen van ellips, hyperbool en parabool, het kwadraat afsplitsen en de soort herkennen, hoofdstuk 5), Ruimtemeetkunde (rechten, de ligging van twee rechten), en de hoofdstukken 1 en 2 (doorsneden, omwentelingsoppervlakken, parametervoorstellingen). We beperken ons tot vergelijkingen zonder termen in $xy$, $xz$ of $yz$; dat die altijd weg te werken zijn met een draaiing, staat alleen in de uitleg en in Koppel. Extra's: het raakvlak door te ontdubbelen en de cirkels op een ellipsoïde (opdrachten van niveau 3).}
+
+In hoofdstuk 1 en 2 kwam je oppervlakken tegen met een vergelijking van de tweede graad: de bol, de kegel, de cilinder en de kom $z = x^2 + y^2$. In het vlak zijn de krommen van de tweede graad de kegelsneden, en die ken je goed. In de ruimte zijn er meer soorten. In dit hoofdstuk leer je ze allemaal kennen, herkennen aan hun vergelijking en beschrijven met parameters. En je ontdekt dat sommige ervan, ondanks hun kromming, volledig uit rechten bestaan.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De ellipsoïde}
+
+\subsection{Kwadrieken}
+
+Een rugbybal is geen bol: hij is langer dan breed. Welke vergelijking heeft zo'n vorm? Begin bij een bol $x^2 + y^2 + z^2 = 1$ en rek hem uit: met een factor $a$ in de richting van de $x$-as, $b$ in die van de $y$-as en $c$ in die van de $z$-as. Het punt $(x, y, z)$ van de bol komt dan in $(ax, by, cz)$. Een punt $(X, Y, Z)$ van het uitgerekte oppervlak komt dus van $\bigl(\tfrac Xa, \tfrac Yb, \tfrac Zc\bigr)$ op de bol, en voldoet aan $\tfrac{X^2}{a^2} + \tfrac{Y^2}{b^2} + \tfrac{Z^2}{c^2} = 1$. Dat is weer een vergelijking van de tweede graad.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{kwadriek}} is een oppervlak met een vergelijking van de tweede graad in $x$, $y$ en $z$.
+
+\begin{minipage}[t]{.68\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{ellipsoïde}} met halve assen $a$, $b$, $c > 0$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} + \dfrac{z^2}{c^2} = 1}$
+
+\vspace{1mm}
+Zijn twee halve assen gelijk, dan heet ze een \textbf{\textcolor{accent}{omwentelingsellipsoïde}}. Zijn ze alle drie gelijk, dan is ze een bol.
+\end{minipage}\hfill
+\begin{minipage}[t]{.28\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.42,font=\scriptsize]
+  \draw[lijngrijs] (0,0,1.5) -- (0,0,2.6) node[above,text=black] {$z$};
+  \draw[lijngrijs] (0,3,0) -- (0,4,0) node[right,text=black] {$y$};
+  \draw[lijngrijs] (2,0,0) -- (3.2,0,0) node[below left=-1pt,text=black] {$x$};
+  \beeld{ellipsoide.png}{-1.219}{-.727}{2.438}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+De figuur toont de ellipsoïde met $a = 2$, $b = 3$ en $c = 1{,}5$. Ze snijdt de assen in $(\pm a, 0, 0)$, $(0, \pm b, 0)$ en $(0, 0, \pm c)$, en ze is symmetrisch ten opzichte van de drie coördinaatvlakken: vervang je $x$ door $-x$, dan verandert de vergelijking niet. Ze is begrensd: elk punt heeft $|x| \leqslant a$, $|y| \leqslant b$ en $|z| \leqslant c$, want elke term van de som is positief.
+
+\subsection{Doorsneden}
+
+Hoe ziet een ellipsoïde eruit in een horizontaal vlak $z = k$? Vul in: $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1 - \tfrac{k^2}{c^2}$. Is het rechterlid positief, dan is dat een ellips, die kleiner wordt naarmate $|k|$ groter is. Zo vind je in alle doorsneden met coördinaatvlakken en evenwijdige vlakken een kegelsnede: daarom de naam ellipsoïde.
+
+\voorbeeld{}{Bepaal de doorsnede van de ellipsoïde $\dfrac{x^2}{4} + \dfrac{y^2}{9} + \dfrac{4z^2}{9} = 1$ met het vlak $z = 1{,}2$, en met het $yz$-vlak.\label{vb:h3-ellipsoide}}{%
+\uitleg{We vullen $z = 1{,}2$ in, brengen het getal naar rechts en delen, zodat we de standaardvorm van een ellips uit Kegelsneden herkennen.}
+\begin{stappenbreed}
+\dfrac{x^2}{4} + \dfrac{y^2}{9} = 1 - \dfrac{4 \cdot 1{,}44}{9} = 0{,}36 & Ingevuld. \\[2ex]
+\dfrac{x^2}{1{,}44} + \dfrac{y^2}{3{,}24} = 1 & Gedeeld door $0{,}36$: een ellips met halve assen $1{,}2$ en $1{,}8$. \\[2ex]
+x = 0\colon\ \dfrac{y^2}{9} + \dfrac{z^2}{2{,}25} = 1 & Het $yz$-vlak: een ellips met halve assen 3 en 1,5.
+\end{stappenbreed}
+De ellips op hoogte $1{,}2$ is $0{,}6$ keer zo groot als die op hoogte 0, want $\sqrt{0{,}36} = 0{,}6$.}
+
+\nujij{Snijdt het vlak $z = 2$ de ellipsoïde van het voorbeeld?}{$\tfrac{4 \cdot 4}{9} > 1$: het rechterlid is negatief. Nee: de ellipsoïde komt niet hoger dan $z = 1{,}5$.}
+
+\begin{oefeningen}
+\oef{h3-ellipsoide}
+\end{oefeningen}
+
+\subsection{Een parametervoorstelling}
+
+De bol met lengte en breedte uit hoofdstuk 2 kun je op dezelfde manier uitrekken. Vervang $R$ door $a$, $b$ en $c$ in de drie coördinaten.
+
+\begin{theorie}
+\begin{stelling}{Parametervoorstelling van een ellipsoïde}
+De ellipsoïde $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} + \dfrac{z^2}{c^2} = 1$ heeft de parametervoorstelling
+
+\vspace{1mm}
+\qquad $\formule{x = a\cos\varphi\cos\lambda, \quad y = b\cos\varphi\sin\lambda, \quad z = c\sin\varphi}$
+
+\vspace{1mm}
+met $\varphi \in \bigl[-\tfrac\pi2, \tfrac\pi2\bigr]$ en $\lambda \in \left]-\pi, \pi\right]$.
+\end{stelling}
+
+\begin{bewijs}
+Het punt $\bigl(\tfrac xa, \tfrac yb, \tfrac zc\bigr)$ is $(\cos\varphi\cos\lambda, \cos\varphi\sin\lambda, \sin\varphi)$: een punt van de bol met straal 1. Dus is $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} + \tfrac{z^2}{c^2} = 1$. Omgekeerd hoort bij elk punt van de ellipsoïde een punt van die bol, en dat heeft een breedte en een lengte.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{De aarde is een afgeplatte omwentelingsellipsoïde: de straal aan de evenaar is $a = 6378{,}137$~km, die naar de polen $c = 6356{,}752$~km. Geef een vergelijking en een parametervoorstelling. Hoeveel ligt een pool dichter bij het middelpunt dan de evenaar?\label{vb:h3-aarde}}{%
+\uitleg{De as door de polen is de $z$-as; de twee halve assen in het vlak van de evenaar zijn gelijk.}
+\begin{stappenbreed}
+\dfrac{x^2 + y^2}{6378{,}137^2} + \dfrac{z^2}{6356{,}752^2} = 1 & Met $a = b$. \\[2ex]
+(a\cos\varphi\cos\lambda,\ a\cos\varphi\sin\lambda,\ c\sin\varphi) & De parametervoorstelling, met de getallen voor $a$ en $c$. \\[1ex]
+a - c \approx 21{,}4 \text{ km} & Ongeveer $\tfrac{1}{298}$ van $a$.
+\end{stappenbreed}
+Het verschil is zo klein dat een tekening op schaal er als een bol uitziet. Toch is het belangrijk voor gps: de hoogte boven zee meet je ten opzichte van zo'n ellipsoïde. De hoek $\varphi$ in de parametervoorstelling is niet precies de breedte op een kaart; dat verschil laten we hier weg.}
+
+\begin{oefeningen}
+\oef{h3-ellpar}
+\end{oefeningen}
+
+%========================================================================================
+\section{Hyperboloïden en de kegel}
+
+\subsection{De eenbladige hyperboloïde}
+
+Wat gebeurt er als je in de vergelijking van een ellipsoïde één teken omkeert? Neem $x^2 + y^2 - \tfrac{z^2}{c^2} = 1$. Het is een omwentelingsoppervlak om de $z$-as: in hoofdstuk 2 zag je dat het profiel de hyperbool $y^2 - \tfrac{z^2}{c^2} = 1$ is. Een horizontaal vlak $z = k$ snijdt het altijd, in de cirkel met straal $\sqrt{1 + \tfrac{k^2}{c^2}}$: op hoogte 0 het kleinst, en hoe hoger of lager, hoe groter. Het is één samenhangend oppervlak, zoals een koeltoren.
+
+\begin{theorie}
+\begin{minipage}[t]{.7\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{eenbladige hyperboloïde}} heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = 1}$
+
+\vspace{1mm}
+De ellips in het vlak $z = 0$ heet de \textbf{\textcolor{accent}{keelellips}}.
+\end{minipage}\hfill
+\begin{minipage}[t]{.26\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.45,font=\scriptsize]
+  \draw[lijngrijs] (0,0,1.81) -- (0,0,2.6) node[above,text=black] {$z$};
+  \beeld{hyperboloide-1.png}{-.900}{-1.154}{1.800}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Ook hier zijn de doorsneden kegelsneden: horizontaal ellipsen, en in de verticale coördinaatvlakken hyperbolen. Hoe zie je dat de as van de hyperboloïde de $z$-as is? Het minteken staat bij $z$: dat is de richting waarin het oppervlak eindeloos doorloopt.
+
+\voorbeeld{}{Bepaal de doorsneden van $x^2 + y^2 - \dfrac{z^2}{4} = 1$ met de vlakken $z = 4$, $x = 0$ en $x = 1$.\label{vb:h3-hyperboloide}}{%
+\uitleg{We vullen telkens de vergelijking van het vlak in, en herkennen de kegelsnede in de twee overige letters.}
+\begin{stappenbreed}
+z = 4\colon\ x^2 + y^2 = 1 + 4 = 5 & Een cirkel met straal $\sqrt5$. \\[1ex]
+x = 0\colon\ y^2 - \dfrac{z^2}{4} = 1 & Een hyperbool met toppen $(0, \pm1, 0)$, het profiel. \\[2ex]
+x = 1\colon\ y^2 = \dfrac{z^2}{4} \iff y = \pm\dfrac z2 & Twee rechten door $(1, 0, 0)$!
+\end{stappenbreed}
+Het vlak $x = 1$ raakt de keelcirkel in $(1, 0, 0)$, en de doorsnede is geen hyperbool maar een paar snijdende rechten: een ontaarde kegelsnede. Er liggen dus rechten op dit gebogen oppervlak. In sectie 5 komen we daarop terug.}
+
+\subsection{De tweebladige hyperboloïde en de kegel}
+
+Keer je nog een teken om, dan krijg je $x^2 + y^2 - \tfrac{z^2}{c^2} = -1$, of $\tfrac{z^2}{c^2} - x^2 - y^2 = 1$. Nu snijdt het vlak $z = k$ alleen als $\tfrac{k^2}{c^2} \geqslant 1$: tussen $z = -c$ en $z = c$ ligt er niets. Het oppervlak bestaat uit twee delen, twee \textit{bladen}. Tussen de twee hyperboloïden ligt het geval met rechterlid 0: de kegel.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{tweebladige hyperboloïde}} heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = -1}$
+
+\vspace{1mm}
+De \textbf{\textcolor{accent}{kegel}} met top $O$ en as de $z$-as heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = 0}$
+\end{minipage}\hfill
+\begin{minipage}[t]{.38\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.45,font=\scriptsize]
+  \beeld{hyperboloide-2.png}{-.729}{-1.201}{1.459}
+  \node at (canvas cs:x=0cm,y=-1.55cm) {$-1$};
+\end{tikzpicture}\ \begin{tikzpicture}[zicht=.45,font=\scriptsize]
+  \beeld{kegel.png}{-.860}{-1.240}{1.720}
+  \node at (canvas cs:x=0cm,y=-1.55cm) {$0$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\naast{De drie oppervlakken met $x^2 + y^2 - \tfrac{z^2}{1{,}44}$ gelijk aan $1$, $0$ en $-1$ vormen één familie (de figuren hiernaast en hierboven, op dezelfde schaal). De kegel ligt tussen de twee hyperboloïden in: de eenbladige ligt erbuiten, de tweebladige erbinnen. Ver van de oorsprong kruipen ze naar de kegel toe, zoals een hyperbool naar haar asymptoten. Daarom heet de kegel de \textit{asymptotische kegel} van beide hyperboloïden. De doorsnede van een kegel met een vlak is een kegelsnede: dat was het vertrekpunt van de cursus Kegelsneden.}{\begin{tikzpicture}[zicht=.45,font=\scriptsize]
+  \beeld{hyperboloide-1.png}{-.900}{-1.154}{1.800}
+  \node at (canvas cs:x=0cm,y=-1.5cm) {$1$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Toon aan dat het oppervlak $z^2 - x^2 - y^2 = 1$ uit twee bladen bestaat, en bepaal de toppen.\label{vb:h3-tweebladig}}{%
+\uitleg{Het is de tweebladige hyperboloïde met $a = b = c = 1$. We kijken welke horizontale vlakken haar snijden.}
+\begin{stappen}
+z = k\colon\ x^2 + y^2 = k^2 - 1 & Een cirkel als $|k| > 1$, een punt als $|k| = 1$. \\[1ex]
+-1 < z < 1 & Daar ligt geen enkel punt. \\[1ex]
+(0, 0, 1),\ (0, 0, -1) & De toppen, de laagste en de hoogste plaats van de twee bladen.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-hyperboloide}
+\end{oefeningen}
+
+%========================================================================================
+\section{Paraboloïden}
+
+\subsection{De elliptische paraboloïde}
+
+De kom $z = x^2 + y^2$ uit hoofdstuk 2 heeft geen constante term in het rechterlid zoals de ellipsoïde en de hyperboloïden: $z$ staat er in de eerste graad. Ze ontstaat door de parabool $z = y^2$ om de $z$-as te wentelen. Een schotelantenne heeft die vorm: in Kegelsneden zag je dat elke doorsnede door de as een parabool is met hetzelfde brandpunt, en dat het signaal daarom in één punt samenkomt.
+
+\begin{theorie}
+\begin{minipage}[t]{.68\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{elliptische paraboloïde}} heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{z = \dfrac{x^2}{a^2} + \dfrac{y^2}{b^2}}$
+
+\vspace{1mm}
+Met $a = b$ heet ze een \textbf{\textcolor{accent}{omwentelingsparaboloïde}}. De oorsprong is de \textbf{\textcolor{accent}{top}}.
+\end{minipage}\hfill
+\begin{minipage}[t]{.28\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.55,font=\scriptsize]
+  \draw[lijngrijs] (0,0,0) -- (0,0,2.6) node[above,text=black] {$z$};
+  \beeld{paraboloide.png}{-1.150}{-.084}{2.300}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Horizontale doorsneden met $z = k > 0$ zijn ellipsen, verticale doorsneden door de $z$-as zijn dalparabolen. In tegenstelling tot de ellipsoïde en de hyperboloïden heeft de paraboloïde geen middelpunt: ze is maar langs één kant open.
+
+\subsection{De hyperbolische paraboloïde}
+
+Wat als er een minteken staat: $z = \tfrac{x^2}{a^2} - \tfrac{y^2}{b^2}$? Ga je langs de $x$-as ($y = 0$), dan stijgt $z = \tfrac{x^2}{a^2}$ aan beide kanten: een dalparabool. Langs de $y$-as ($x = 0$) daalt $z = -\tfrac{y^2}{b^2}$: een bergparabool. De oorsprong is dus in de ene richting een laagste en in de andere een hoogste punt. Zo'n oppervlak heet een zadel, naar het zadel van een paard.
+
+\begin{theorie}
+\begin{minipage}[t]{.68\linewidth}
+\vspace{0pt}
+De \textbf{\textcolor{accent}{hyperbolische paraboloïde}} heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{z = \dfrac{x^2}{a^2} - \dfrac{y^2}{b^2}}$
+
+\vspace{1mm}
+De oorsprong heet het \textbf{\textcolor{accent}{zadelpunt}}.
+\end{minipage}\hfill
+\begin{minipage}[t]{.28\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.6,font=\scriptsize]
+  \beeld{zadel.png}{-1.361}{-.964}{2.723}
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+\voorbeeld{}{Bepaal de niveaukrommen van $z = \dfrac{x^2}{4} - \dfrac{y^2}{9}$ voor $z = 1$, $z = 0$ en $z = -1$.\label{vb:h3-zadel}}{%
+\uitleg{We vullen $z = k$ in en herkennen een hyperbool, met de toppen op de as waar het plusteken staat.}
+\naast{\begin{stappenvrij}{4.3cm}{4.2cm}
+\dfrac{x^2}{4} - \dfrac{y^2}{9} = 1 & Een hyperbool met toppen $(\pm2, 0)$. \\[2ex]
+\dfrac{x^2}{4} = \dfrac{y^2}{9} \iff y = \pm\dfrac32 x & Twee rechten door de oorsprong. \\[2ex]
+\dfrac{y^2}{9} - \dfrac{x^2}{4} = 1 & Een hyperbool met toppen $(0, \pm3)$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \draw[->,lijngrijs] (-5,0) -- (5.2,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-5) -- (0,5.2) node[above,text=black] {$y$};
+  \draw[grijs,thick] (-3.33,-5) -- (3.33,5) (-3.33,5) -- (3.33,-5);
+  \hyperbool{0}{0}{2}{3}{1.2}
+  \hyperboolv[dashed]{0}{0}{3}{2}{1.2}
+  \node[right] at (3.6,3.6) {$z = 1$};
+  \node[above right] at (.3,4.4) {$z = -1$};
+\end{tikzpicture}}
+Rechts: de niveaukrommen voor $z = 1$ (vol), $z = 0$ (de twee rechten, grijs) en $z = -1$ (gestreept). Boven de rechten, in de sectoren rond de $x$-as, ligt het zadel hoger dan het zadelpunt; in de sectoren rond de $y$-as lager.}
+
+Met de twee paraboloïden is de lijst van de belangrijkste kwadrieken compleet. Daarbij komen nog de cilinders met een kegelsnede als richtkromme: een vergelijking van de tweede graad zonder $z$, zoals $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1$ (elliptische cilinder), $\tfrac{x^2}{a^2} - \tfrac{y^2}{b^2} = 1$ (hyperbolische cilinder) of $y = ax^2$ (paraboolcilinder).
+
+\begin{theorie}
+{\centering\arrayrulecolor{accent}\renewcommand{\arraystretch}{1.5}%
+\begin{tabular}{|>{\centering\arraybackslash}m{3.3cm}|>{\centering\arraybackslash}m{3.9cm}|>{\centering\arraybackslash}m{5cm}|}
+\hline
+\textbf{kwadriek} & \textbf{vergelijking} & \textbf{doorsneden $z = k$ en $x = k$} \\ \hline
+ellipsoïde & $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} + \dfrac{z^2}{c^2} = 1}$ & ellipsen (of punt, of leeg); ellipsen \\ \hline
+eenbladige hyperboloïde & $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = 1}$ & ellipsen; hyperbolen (of twee rechten) \\ \hline
+tweebladige hyperboloïde & $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = -1}$ & ellipsen (of punt, of leeg); hyperbolen \\ \hline
+kegel & $\formule{\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = 0}$ & ellipsen (of de top); hyperbolen (of twee rechten) \\ \hline
+elliptische paraboloïde & $\formule{z = \dfrac{x^2}{a^2} + \dfrac{y^2}{b^2}}$ & ellipsen (of punt, of leeg); parabolen \\ \hline
+hyperbolische paraboloïde & $\formule{z = \dfrac{x^2}{a^2} - \dfrac{y^2}{b^2}}$ & hyperbolen (of twee rechten); parabolen \\ \hline
+\end{tabular}\par}
+\end{theorie}
+
+Je hoeft de laatste kolom niet van buiten te kennen: je vindt ze telkens door in te vullen. Wat je wel moet zien: een plus- of minteken, en een rechterlid $1$, $0$ of $-1$, beslissen over de soort.
+
+\begin{oefeningen}
+\oef{h3-paraboloide}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kwadrieken herkennen}
+
+\subsection{Verschuiven en de rollen van de assen}
+
+De vergelijking $4x^2 - y^2 - 4z^2 - 8x - 4y - 4 = 0$ staat niet in de tabel. Is het toch een van de kwadrieken? Zoals bij de bol en bij de kegelsneden splits je de kwadraten af: dan zie je een verschoven kwadriek, met een ander middelpunt of een andere top. Daarna moet je nog nagaan welke letter de rol van $z$ speelt: de as van een hyperboloïde of een paraboloïde hoeft niet de $z$-as te zijn.
+
+\voorbeeld{}{Welke kwadriek is $x^2 + 4y^2 + z^2 - 2x + 8y - 4z + 5 = 0$?\label{vb:h3-herken1}}{%
+\uitleg{Er zijn geen termen in $xy$, $xz$ of $yz$, en de drie kwadraten hebben een positieve coëfficiënt: we verwachten een ellipsoïde. We splitsen de kwadraten af per letter.}
+\begin{stappenbreed}
+(x - 1)^2 - 1 + 4(y + 1)^2 - 4 + (z - 2)^2 - 4 + 5 = 0 & Bij $y$ eerst de 4 voorop: $4(y^2 + 2y)$. \\[1ex]
+(x - 1)^2 + 4(y + 1)^2 + (z - 2)^2 = 4 & De constanten naar rechts. \\[1ex]
+\dfrac{(x - 1)^2}{4} + (y + 1)^2 + \dfrac{(z - 2)^2}{4} = 1 & Gedeeld door 4.
+\end{stappenbreed}
+Een omwentelingsellipsoïde met middelpunt $(1, -1, 2)$ en halve assen 2, 1 en 2. Haar as is evenwijdig met de $y$-as: de halve as die verschilt, hoort bij $y$. Ze is afgeplat, zoals een schijf.}
+
+\voorbeeld{}{Welke kwadriek is $4x^2 - y^2 - 4z^2 - 8x - 4y - 4 = 0$?\label{vb:h3-herken2}}{%
+\uitleg{Eén plusteken en twee mintekens: een hyperboloïde of een kegel. We splitsen af en kijken naar het rechterlid.}
+\begin{stappenbreed}
+4(x - 1)^2 - 4 - (y + 2)^2 + 4 - 4z^2 - 4 = 0 & $-(y^2 + 4y) = -(y + 2)^2 + 4$. \\[1ex]
+4(x - 1)^2 - (y + 2)^2 - 4z^2 = 4 & \\[1ex]
+-(x - 1)^2 + \dfrac{(y + 2)^2}{4} + z^2 = -1 & Gedeeld door $-4$, zodat het lijkt op de tabel.
+\end{stappenbreed}
+Rechterlid $-1$, met het minteken bij $x$: een tweebladige hyperboloïde met middelpunt $(1, -2, 0)$ en as evenwijdig met de $x$-as. De toppen liggen op die as op afstand 1: $(0, -2, 0)$ en $(2, -2, 0)$.}
+
+\voorbeeld{}{Welke kwadriek is $y = x^2 + z^2 - 2x + 3$?\label{vb:h3-herken3}}{%
+\uitleg{Er staat één letter in de eerste graad, $y$: een paraboloïde of een paraboolcilinder, met een as evenwijdig met de $y$-as.}
+\begin{stappen}
+y = (x - 1)^2 + z^2 + 2 & Kwadraat afgesplitst. \\[1ex]
+y - 2 = (x - 1)^2 + z^2 & Zoals $z = x^2 + y^2$, met de rollen gewisseld.
+\end{stappen}
+Een omwentelingsparaboloïde met top $(1, 2, 0)$, as evenwijdig met de $y$-as, open in de zin van de positieve $y$-as.}
+
+\begin{werkwijze}
+Controleer dat er geen termen in $xy$, $xz$ of $yz$ staan. Splits de kwadraten af en breng de constante naar rechts. Staan er drie kwadraten, deel dan door de constante zodat het rechterlid $1$, $0$ of $-1$ wordt, en tel de mintekens. Staat er een letter in de eerste graad, dan is het een paraboloïde met de as in de richting van die letter. Ontbreekt een letter helemaal, dan is het een cilinder.
+\end{werkwijze}
+
+Een vergelijking met een term in $xy$, zoals $z = xy$, is ook een kwadriek. Draai je de assen over $45^\circ$ rond de $z$-as, dan verdwijnt die term (Koppel): $z = xy$ is een hyperbolische paraboloïde, gedraaid ten opzichte van de tabel.
+
+\begin{oefeningen}
+\oef{h3-herken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Regeloppervlakken}
+
+\subsection{Rechten op een gebogen oppervlak}
+
+In voorbeeld~\ref{vb:h3-hyperboloide} sneed het vlak $x = 1$ de hyperboloïde $x^2 + y^2 - \tfrac{z^2}{4} = 1$ volgens twee rechten. Dat is geen toeval. Een cilinder en een kegel bestaan uit rechten, dat zie je meteen. Maar ook sommige kwadrieken die er gebogen uitzien, zijn volledig opgebouwd uit rechten. Daarom kon Sjoechov een gebogen toren bouwen uit rechte staven.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{regeloppervlak}} is een oppervlak waarbij door elk punt een rechte gaat die volledig op het oppervlak ligt.
+\end{theorie}
+
+Een ellipsoïde en een tweebladige hyperboloïde zijn geen regeloppervlakken: de eerste is begrensd en een rechte niet, en op de tweede is er tussen de bladen een strook zonder punten, die elke niet-horizontale rechte moet oversteken. Voor de eenbladige hyperboloïde ligt het anders.
+
+\begin{theorie}
+\begin{minipage}[t]{.7\linewidth}
+\vspace{0pt}
+\begin{stelling}{De eenbladige hyperboloïde is dubbel geregeerd}
+Door elk punt van $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} - \dfrac{z^2}{c^2} = 1$ gaan twee rechten op het oppervlak: een van elk van de families
+\bewijsregel{\formule{\bigl(a(\cos u - v\sin u),\ b(\sin u + v\cos u),\ cv\bigr)}}
+\bewijsregel{\formule{\bigl(a(\cos u + v\sin u),\ b(\sin u - v\cos u),\ cv\bigr)}}
+met $u$ vast en $v \in \R$.
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.26\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.55,font=\scriptsize]
+  \beeld{regels-hyperboloide.png}{-.952}{-1.702}{1.904}
+\end{tikzpicture}
+\end{minipage}
+
+\begin{bewijs}
+Neem de eerste familie. Voor een vaste $u$ is dat een rechte: het punt $(a\cos u, b\sin u, 0)$ plus $v$ keer de vector $(-a\sin u, b\cos u, c)$. Ze ligt op het oppervlak, want
+\bewijsregel{(\cos u - v\sin u)^2 + (\sin u + v\cos u)^2 = \cos^2 u + \sin^2 u + v^2(\sin^2 u + \cos^2 u) = 1 + v^2 = 1 + \dfrac{z^2}{c^2} .}
+Door elk punt $(x_0, y_0, z_0)$ van het oppervlak gaat zo'n rechte. Neem $v = \tfrac{z_0}{c}$. Dan ligt $\bigl(\tfrac{x_0}{a}, \tfrac{y_0}{b}\bigr)$ op de cirkel met straal $\rho = \sqrt{1 + v^2}$. Neem de hoek $\beta$ met $\cos\beta = \tfrac1\rho$ en $\sin\beta = \tfrac v\rho$. Met de somformules is
+\bewijsregel{(\cos u - v\sin u,\ \sin u + v\cos u) = \rho\,\bigl(\cos(u + \beta),\ \sin(u + \beta)\bigr) .}
+Als $u$ varieert, doorloopt dat punt de hele cirkel met straal $\rho$, en voor een $u$ valt het samen met $\bigl(\tfrac{x_0}{a}, \tfrac{y_0}{b}\bigr)$. Voor de tweede familie neem je $\sin\beta = -\tfrac v\rho$.
+\end{bewijs}
+\end{theorie}
+
+Wat zeggen die rechten? Elke rechte vertrekt in een punt van de keelellips en loopt schuin omhoog, zoals een staaf van de toren. De figuur toont één familie; de andere is haar spiegelbeeld. Sjoechov gebruikte beide, zodat de staven elkaar kruisen en een stevig net vormen.
+
+\voorbeeld{}{Geef de twee rechten op $x^2 + y^2 - z^2 = 1$ door het punt $(1, 1, 1)$.\label{vb:h3-rechten}}{%
+\uitleg{Hier is $a = b = c = 1$. Het punt ligt op het oppervlak, want $1 + 1 - 1 = 1$. Met $v = z = 1$ zoeken we $u$ in elke familie.}
+\begin{stappenbreed}
+\cos u - \sin u = 1,\ \ \sin u + \cos u = 1 \iff u = 0 & Eerste familie: tel op en trek af, dan is $\cos u = 1$ en $\sin u = 0$. \\[1ex]
+(1, v, v) & De rechte met $u = 0$. \\[1ex]
+\cos u + \sin u = 1,\ \ \sin u - \cos u = 1 \iff u = \tfrac\pi2 & Tweede familie: $\sin u = 1$ en $\cos u = 0$. \\[1ex]
+(v, 1, v) & De rechte met $u = \tfrac\pi2$.
+\end{stappenbreed}
+Controle: $1 + v^2 - v^2 = 1$ en $v^2 + 1 - v^2 = 1$, voor elke $v$.}
+
+\begin{oefeningen}
+\oef{h3-rechten}
+\end{oefeningen}
+
+\subsection{Het zadel uit rechten}
+
+Ook de hyperbolische paraboloïde bestaat uit rechten, en daar is het nog eenvoudiger te zien. Neem $z = xy$, het zadel uit de vorige sectie, gedraaid over $45^\circ$. Houd je $x$ vast, $x = k$, dan is $z = ky$: dat is een rechte in het vlak $x = k$. Zo ook met $y$ vast. Het zadel is dus een net van twee families rechten, en dat geldt voor elke hyperbolische paraboloïde.
+
+\begin{theorie}
+\begin{minipage}[t]{.7\linewidth}
+\vspace{0pt}
+\begin{stelling}{De hyperbolische paraboloïde is dubbel geregeerd}
+Door elk punt van $z = \dfrac{x^2}{a^2} - \dfrac{y^2}{b^2}$ gaan twee rechten op het oppervlak, een van elk van de families
+\bewijsregel{\formule{\dfrac xa - \dfrac yb = \lambda,\ \ z = \lambda\Bigl(\dfrac xa + \dfrac yb\Bigr)}}
+\bewijsregel{\formule{\dfrac xa + \dfrac yb = \lambda,\ \ z = \lambda\Bigl(\dfrac xa - \dfrac yb\Bigr)}}
+met $\lambda \in \R$.
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.26\linewidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[zicht=.6,font=\scriptsize]
+  \beeld{regels-zadel.png}{-1.089}{-1.383}{2.178}
+\end{tikzpicture}
+\end{minipage}
+
+\begin{bewijs}
+Ontbind het rechterlid als een verschil van kwadraten:
+\bewijsregel{z = \Bigl(\dfrac xa - \dfrac yb\Bigr)\Bigl(\dfrac xa + \dfrac yb\Bigr) .}
+Elk stel twee vergelijkingen hierboven beschrijft twee vlakken die niet evenwijdig zijn, dus een rechte. Een punt dat aan beide voldoet, voldoet aan de ontbinding, en ligt dus op het oppervlak. Omgekeerd: een punt $(x_0, y_0, z_0)$ van het oppervlak ligt op de rechte van de eerste familie met $\lambda = \tfrac{x_0}{a} - \tfrac{y_0}{b}$, en op die van de tweede met $\lambda = \tfrac{x_0}{a} + \tfrac{y_0}{b}$.
+\end{bewijs}
+\end{theorie}
+
+Architecten gebruiken dat: een dak in de vorm van een zadel kun je bekisten met rechte planken in twee richtingen (opdracht~\ref{oef:h3-o16}). Ook de bekende chips in een koker hebben die vorm, zodat ze netjes op elkaar passen.
+
+\voorbeeld{}{Geef de twee rechten op $z = xy$ door het punt $(2, 3, 6)$.\label{vb:h3-zadelrechten}}{%
+\uitleg{Het punt ligt op het oppervlak, want $2 \cdot 3 = 6$. Houd $x = 2$ vast, of $y = 3$.}
+\begin{stappen}
+x = 2\colon\ (2,\ t,\ 2t) & Een rechte in het vlak $x = 2$; voor $t = 3$ het punt zelf. \\[1ex]
+y = 3\colon\ (t,\ 3,\ 3t) & Een rechte in het vlak $y = 3$; voor $t = 2$ het punt zelf.
+\end{stappen}
+Controle: $2 \cdot t = 2t$ en $t \cdot 3 = 3t$. De twee rechten liggen samen in het vlak $3x + 2y - z = 6$: dat is het raakvlak in $(2, 3, 6)$ (zie opdracht~\ref{oef:h3-o18}).}
+
+\begin{oefeningen}
+\oef{h3-zadelrechten}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Nu kunnen we de toren van Sjoechov beschrijven. Elke staaf is een rechte die een punt van de onderste ring verbindt met een punt $120^\circ$ verder op de bovenste ring. Alle staven samen vormen een oppervlak met een draaisymmetrie om de as, dus een omwentelingsoppervlak.
+
+\voorbeeld{}{Terug naar het probleem. Hoe smal is de toren in het midden, en welk oppervlak vormen de staven?\label{vb:h3-terug}}{%
+\uitleg{Leg de oorsprong op de as, op 6~m hoogte, in het midden van de toren. Door de symmetrie volstaat één staaf: die van $(3, 0, -6)$ naar $(3\cos120^\circ, 3\sin120^\circ, 6) = \bigl(-\tfrac32, \tfrac{3\sqrt3}2, 6\bigr)$. Het smalste punt ligt in het midden van de staaf.}
+\begin{stappenbreed}
+M\Bigl(\dfrac34,\ \dfrac{3\sqrt3}{4},\ 0\Bigr), \quad \sqrt{\dfrac{9}{16} + \dfrac{27}{16}} = \dfrac32 & Het midden van de staaf, op afstand 1,5~m van de as. \\[2ex]
+\bigl(3 - \tfrac92 s,\ \tfrac{3\sqrt3}{2}s,\ -6 + 12s\bigr) & De staaf, met $s \in [0, 1]$. \\[1ex]
+x^2 + y^2 = 9 - 27s + 27s^2 & De afstand tot de as, in het kwadraat. \\[1ex]
+\dfrac{x^2 + y^2}{2{,}25} - \dfrac{z^2}{12} = 4 - 12s + 12s^2 - (12s^2 - 12s + 3) = 1 & Met $z^2 = 144s^2 - 144s + 36$.
+\end{stappenbreed}
+In het midden is de toren 1,5~m breed in straal, de helft van de ringen. Alle staven liggen op de eenbladige hyperboloïde
+\[\frac{x^2 + y^2}{1{,}5^2} - \frac{z^2}{12} = 1 .\]
+Ze vormen er de rechten van één familie; de staven die je $120^\circ$ de andere kant op draait, vormen de tweede familie.}
+
+\naast{Het smalste punt volgt ook zonder rekenwerk. Bekijk de toren van boven: elke staaf wordt een koorde van de cirkel met straal 3, tussen twee punten die $120^\circ$ uit elkaar liggen. Het midden van de staaf is het midden van die koorde, en dat ligt op $3\cos60^\circ = 1{,}5$ van de as. Alle koorden samen omhullen de keelcirkel. Sjoechovs torens staan nog altijd, onder meer in Polibino en in Moskou. Koeltorens van centrales hebben om dezelfde reden die vorm: stevig, licht, en te bouwen met rechte wapening.}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \foreach \t in {0,30,...,330}{\draw[accent!35] (\t:3) -- (\t+120:3);}
+  \draw[accent,thick] (0,0) circle (3);
+  \draw[accent,thick,dashed] (0,0) circle (1.5);
+  \draw[accent!80!black,very thick] (0:3) -- (120:3);
+  \draw[grijs] (0,0) -- (60:1.5) node[midway,above left=-2pt] {$1{,}5$};
+  \draw[grijs] (0,0) -- (0:3) node[midway,below] {3};
+  \fill (60:1.5) circle (1.6pt);
+  \draw[grijs] (.7,0) arc[start angle=0,end angle=60,radius=.7];
+  \node at (30:1) {$60^\circ$};
+\end{tikzpicture}}
+
+\begin{oefeningen}
+\oef{h3-toren}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Matrices zag je in het 5de jaar; de eerste oefening gebruikt alleen het product van matrices en de getransponeerde. Integralen staat in het 6de jaar: geef de tweede oefening pas na de toepassingen (volume met doorsneden). De derde oefening keert terug naar het begin van Kegelsneden.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-ellipsoide}{oef:h3-ellipsoide}%
+  \fv{oef:h3-t2}{vb:h3-hyperboloide}{oef:h3-hyperboloide}%
+  \fv{oef:h3-t3}{vb:h3-tweebladig}{oef:h3-hyperboloide}%
+  \fv{oef:h3-t4}{vb:h3-herken1}{oef:h3-herken}%
+  \fv{oef:h3-t5}{vb:h3-zadel}{oef:h3-paraboloide}%
+  \fv{oef:h3-t6}{vb:h3-zadelrechten}{oef:h3-zadelrechten}%
+  \fv{oef:h3-t7}{vb:h3-aarde}{oef:h3-ellpar}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een kwadriek is, de vergelijkingen van de ellipsoïde, de twee hyperboloïden, de kegel en de twee paraboloïden, met hun doorsneden, de parametervoorstelling van een ellipsoïde, hoe je een kwadriek herkent door kwadraten af te splitsen, wat een regeloppervlak is, en de twee families rechten op de eenbladige hyperboloïde en op het zadel. Vergelijk daarna met de kaders.
+\fi

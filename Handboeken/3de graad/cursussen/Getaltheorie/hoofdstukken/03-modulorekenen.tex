@@ -1,0 +1,488 @@
+%----------------------------------------------------------------------------------------
+% MODULOREKENEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Modulorekenen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een Belgisch rekeningnummer heeft 12 cijfers, zoals \texttt{735-0123456-60}. Ze staan ook in je IBAN, na \texttt{BE} en twee andere cijfers. De laatste twee cijfers zijn een controlegetal: de rest bij deling van het getal uit de eerste tien cijfers door 97 (en 97 als die rest 0 is). Klopt het controlegetal 60? Ontdekt de bank elke tikfout in één cijfer? En elke wissel van twee cijfers naast elkaar? En als één cijfer onleesbaar is, zoals in \texttt{735-01?3456-60}, kun je het dan terugvinden?}{\begin{tikzpicture}[font=\small]
+  \draw[accent,thick,rounded corners=2pt,fill=accent!8] (0,0) rectangle (4.4,1.5);
+  \node[anchor=west,font=\scriptsize] at (.2,1.15) {Rekeningnummer};
+  \node[anchor=west,font=\ttfamily\small] at (.2,.6) {735-01\textcolor{fel!85!black}{?}3456-\textcolor{accent}{60}};
+  \draw[decorate,decoration={brace,amplitude=3pt,mirror}] (3.3,.25) -- (3.95,.25) node[midway,below=3pt,font=\scriptsize] {controle};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 35, het deel over modulorekenen, met de wenk over de Chinese reststelling. De kleine stelling van Fermat en de stelling van Wilson staan in hoofdstuk 4. Voorkennis: hoofdstuk 1 (deling met rest, Bachet-Bézout, product van delers) en hoofdstuk 2 (lemma van Euclides). Het controlegetal modulo 97 is echt: het zit in het Belgische rekeningnummer (het BBAN-deel van de IBAN), en de IBAN zelf gebruikt ook een controle modulo 97. Het voorbeeldnummer is verzonnen.}
+
+Op een klok is 15 uur hetzelfde als 3 uur, en 9 uur plus 5 uur is 2 uur. Wie zo rekent, kijkt alleen naar de rest bij deling door 12. Dat idee werkt voor elke deler $n$, en het maakt rekenen met enorme getallen eenvoudig: wat is het laatste cijfer van $7^{2026}$?
+
+In dit hoofdstuk leer je rekenen \textit{modulo} $n$: optellen, vermenigvuldigen, machten nemen en, als het kan, delen. Je lost vergelijkingen op waarin alleen de rest telt, en stelsels zoals ``bij deling door 5 is de rest 2, en bij deling door 7 is de rest 3''. Met die middelen los je het probleem van het rekeningnummer op. Dat is ook de basis voor het geheimschrift van hoofdstuk 4.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{In de Verken (oefening \ref{oef:h3-verken}) ontdekken de leerlingen dat ze bij het laatste cijfer van een product of een macht alleen met laatste cijfers hoeven te rekenen. Dat is de rekenregel van sectie 2, modulo 10.}
+
+%========================================================================================
+\section{Congruenties}
+
+\subsection{Gelijk op een veelvoud na}
+
+Op een klok met 12 uren valt 3 samen met 15, 27 en $-9$: ze verschillen een veelvoud van 12. Voor het rekeningnummer tellen alleen veelvouden van 97. We geven dat ``gelijk op een veelvoud van $n$ na'' een eigen naam en teken.
+
+\begin{theorie}
+Neem $n \in \N$ met $n \geqslant 2$. Twee gehele getallen $a$ en $b$ zijn \textbf{\textcolor{accent}{congruent modulo $n$}} als $n$ hun verschil deelt:
+
+\vspace{1mm}
+\qquad $\formule{a \equiv b \md{n} \ \iff \ n \deelt a - b}$
+\end{theorie}
+
+Zo is $27 \equiv 3 \md{12}$, want $12 \deelt 24$, en $-9 \equiv 3 \md{12}$, want $12 \deelt -12$. Maar $7 \not\equiv 3 \md{12}$. Het getal $n$ heet de \emph{modulus}. De notatie komt van Gauss (1801). Let op het verschil met de rest: $27 \equiv 15 \md{12}$ is een uitspraak, waar of vals, en de rest $27 \bmod 12 = 3$ is een getal.
+
+\naast{Op de klok rechts staan de getallen modulo 5. Je kunt de gehele getallen erop ``oprollen'': 0, 5, 10, $-5$, \ldots\ vallen op 0, de getallen 1, 6, 11, $-4$, \ldots\ op 1, enzovoort. Getallen die op dezelfde plaats vallen, zijn congruent modulo 5, en ze hebben dezelfde rest bij deling door 5. Dat laatste geldt altijd.}{\begin{tikzpicture}[font=\scriptsize]
+  \klokmod[1]{5}
+  \foreach \k/\t in {0/{5, 10},1/{6, 11},2/{7, 12},3/{8, 13},4/{9, 14}}{%
+    \node[text=accent,font=\tiny] at ({90-72*\k}:1.75) {$\t$};}
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Congruent en rest}
+Voor gehele getallen $a$ en $b$ geldt
+
+\vspace{1mm}
+\qquad $\formule{a \equiv b \md{n}}$ \quad $\iff$ \quad $a$ en $b$ hebben dezelfde rest bij deling door $n$.
+\end{stelling}
+
+\begin{bewijs}
+Stel $a = nq + r$ en $b = nq' + r'$ met $0 \leqslant r, r' < n$. Dan is
+\bewijsregel{a - b = n(q - q') + (r - r') .}
+Dus $n \deelt a - b$ als en slechts als $n \deelt r - r'$. Maar $-n < r - r' < n$, en het enige veelvoud van $n$ daartussen is 0. Dus $n \deelt a - b \iff r = r'$.
+\end{bewijs}
+\end{theorie}
+
+Elk geheel getal is dus congruent met precies één van de getallen $0, 1, \ldots, n - 1$: zijn rest. De getallen met dezelfde rest vormen een \emph{restklasse}. Modulo 5 zijn er vijf: de veelvouden van 5, de getallen met rest 1, \ldots, met rest 4. De verzameling $\Zn{n} = \{0, 1, \ldots, n - 1\}$ bevat van elke restklasse één vertegenwoordiger. Een congruentie gedraagt zich als een gelijkheid: $a \equiv a$, uit $a \equiv b$ volgt $b \equiv a$, en uit $a \equiv b$ en $b \equiv c$ volgt $a \equiv c$ (want $a - c = (a - b) + (b - c)$).
+
+\voorbeeld{}{Is $-23 \equiv 61 \md{7}$? Bepaal de rest van $-23$ bij deling door 7.\label{vb:h3-congr}}{%
+\uitleg{We gaan na of 7 het verschil deelt, en daarna zoeken we het getal tussen 0 en 6 in dezelfde restklasse.}
+\begin{stappen}
+-23 - 61 = -84 = 7 \cdot (-12) & Dus $-23 \equiv 61 \md{7}$. \\[1ex]
+-23 = 7 \cdot (-4) + 5 & De rest is 5.
+\end{stappen}
+Controle: $61 = 7 \cdot 8 + 5$ heeft dezelfde rest, zoals de stelling zegt.}
+
+\nujij{Welke van deze congruenties zijn waar: $100 \equiv 1 \md{9}$, $-1 \equiv 12 \md{13}$, $50 \equiv 2 \md{6}$?}{Alle drie: $9 \deelt 99$, $13 \deelt -13$ en $6 \deelt 48$.}
+
+\begin{oefeningen}
+\oef{h3-congr}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenen met congruenties}
+
+\subsection{Optellen en vermenigvuldigen}
+
+In de Verken zag je dat het laatste cijfer van een product alleen afhangt van de laatste cijfers van de factoren. Het laatste cijfer is de rest modulo 10. Mag je in een som of een product dus elk getal vervangen door een congruent getal? Ja, en dat is de kracht van modulorekenen.
+
+\begin{theorie}
+\begin{stelling}{Optellen}
+Als $a \equiv b \md{n}$ en $c \equiv d \md{n}$, dan
+
+\vspace{1mm}
+\qquad $\formule{a + c \equiv b + d \md{n}}$
+\end{stelling}
+
+\begin{bewijs}
+$(a + c) - (b + d) = (a - b) + (c - d)$ is een som van twee veelvouden van $n$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Vermenigvuldigen}
+Als $a \equiv b \md{n}$ en $c \equiv d \md{n}$, dan
+
+\vspace{1mm}
+\qquad $\formule{ac \equiv bd \md{n}}$
+\end{stelling}
+
+\begin{bewijs}
+Tel $bc$ op en trek het af:
+\bewijsregel{ac - bd = (ac - bc) + (bc - bd) = (a - b)c + b(c - d) .}
+Dat is een lineaire combinatie van twee veelvouden van $n$, dus een veelvoud van $n$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Machten}
+Als $a \equiv b \md{n}$, dan
+
+\vspace{1mm}
+\qquad $\formule{a^k \equiv b^k \md{n}}$ \qquad voor elk $k \in \N$.
+\end{stelling}
+
+\begin{bewijs}
+Met inductie op $k$. Voor $k = 0$ staat er $1 \equiv 1$. Stel $a^k \equiv b^k$. Vermenigvuldig met $a \equiv b$: de vorige stelling geeft $a^{k + 1} \equiv b^{k + 1}$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: in een uitdrukking met $+$, $-$, $\cdot$ en machten mag je elk getal vervangen door een getal dat ermee congruent is. Zo houd je de getallen klein. De exponent mag je niet zomaar vervangen: $2 \equiv 7 \md{5}$, maar $2^2 = 4$ en $2^7 = 128 \equiv 3$.
+
+\voorbeeld{}{Wat is het laatste cijfer van $7^{2026}$?\label{vb:h3-macht}}{%
+\uitleg{Het laatste cijfer is de rest modulo 10. We zoeken een macht van 7 die congruent is met 1. Daarna splitsen we de exponent.}
+\begin{stappen}
+7^2 = 49 \equiv 9, \ 7^4 \equiv 9^2 = 81 \equiv 1 & Modulo 10, met de regel voor machten. \\[1ex]
+2026 = 4 \cdot 506 + 2 & Deel de exponent door 4. \\[1ex]
+7^{2026} = (7^4)^{506} \cdot 7^2 \equiv 1^{506} \cdot 9 = 9 & Vervang $7^4$ door 1 en $7^2$ door 9.
+\end{stappen}
+Het laatste cijfer is 9. De laatste cijfers van $7^1, 7^2, 7^3, 7^4, 7^5, \ldots$ zijn $7, 9, 3, 1, 7, \ldots$: ze herhalen zich met periode 4.}
+
+\voorbeeld{}{Bereken de rest van $7\,350\,123\,456$ bij deling door 97, zonder rekentoestel met veel cijfers. Klopt het controlegetal van het rekeningnummer uit het probleem?\label{vb:h3-rekening}}{%
+\uitleg{Te veel cijfers voor één deling. We schrijven het getal als $7350 \cdot 10^6 + 1234 \cdot 10^2 + 56$, vervangen telkens het eerste stuk door zijn rest, en schuiven de volgende cijfers erachter.}
+\begin{stappen}
+7350 = 97 \cdot 75 + 75 \equiv 75 & Want $97 \cdot 75 = 7275$. \\[1ex]
+7350 \cdot 10^4 + 1234 \equiv 75 \cdot 10^4 + 1234 & Vervang 7350 door 75. Dat is $751\,234$. \\[1ex]
+751\,234 = 97 \cdot 7744 + 66 \equiv 66 & \\[1ex]
+7\,350\,123\,456 \equiv 66 \cdot 10^2 + 56 = 6656 & Opnieuw: vervang $751\,234$ door 66. \\[1ex]
+6656 = 97 \cdot 68 + 60 & De rest is 60.
+\end{stappen}
+Het controlegetal 60 klopt. Elke tussenstap is een deling van hoogstens zes cijfers.}
+
+\begin{werkwijze}
+Om een grote macht of een groot getal modulo $n$ te berekenen: vervang elk getal door een kleine rest. Bij een macht zoek je een exponent $k$ met $a^k \equiv 1$ of $a^k \equiv -1$, je deelt de exponent door $k$ met rest, en je rekent alleen de rest-macht uit.
+\end{werkwijze}
+
+\nujij{Bereken de rest van $2^{100}$ bij deling door 7.}{$2^3 = 8 \equiv 1$, en $100 = 3 \cdot 33 + 1$: $2^{100} \equiv 1^{33} \cdot 2 = 2$.}
+
+\begin{oefeningen}
+\oef{h3-macht}
+\end{oefeningen}
+
+\subsection{Kenmerken van deelbaarheid}
+
+Waarom is een getal deelbaar door 9 als de som van zijn cijfers het is? Modulo 9 is $10 \equiv 1$, dus ook elke macht van 10 is congruent met 1.
+
+\begin{theorie}
+\begin{stelling}{Kenmerk van 9}
+Een getal is congruent met de som van zijn cijfers modulo 9:
+
+\vspace{1mm}
+\qquad $\formule{c_k 10^k + \cdots + c_1 10 + c_0 \equiv c_k + \cdots + c_1 + c_0 \md{9}}$
+\end{stelling}
+
+\begin{bewijs}
+$10 \equiv 1 \md{9}$, dus $10^i \equiv 1^i = 1$ (machten), en $c_i 10^i \equiv c_i$ (vermenigvuldigen). Tel alles op (optellen).
+\end{bewijs}
+\end{theorie}
+
+Het kenmerk zegt dus meer dan ``deelbaar of niet'': het geeft de rest. Zo is $2026 \equiv 2 + 0 + 2 + 6 = 10 \equiv 1 \md{9}$. Ook voor 3 werkt het, want $10 \equiv 1 \md{3}$.
+
+\voorbeeld{}{Toon aan dat een getal deelbaar is door 11 als en slechts als de alternerende som van zijn cijfers, van rechts naar links $c_0 - c_1 + c_2 - \cdots$, deelbaar is door 11. Is 918\,082 deelbaar door 11?\label{vb:h3-elf}}{%
+\uitleg{Modulo 11 is 10 niet congruent met 1, maar wel met $-1$. De machten van 10 zijn dan om beurten $1$ en $-1$.}
+\begin{stappen}
+10 \equiv -1 \md{11} & Want $11 \deelt 10 - (-1)$. \\[1ex]
+10^i \equiv (-1)^i & Machten. \\[1ex]
+\textstyle\sum c_i 10^i \equiv c_0 - c_1 + c_2 - \cdots & Vermenigvuldigen en optellen. \\[1ex]
+2 - 8 + 0 - 8 + 1 - 9 = -22 & Voor 918\,082, van rechts naar links.
+\end{stappen}
+Een getal en zijn alternerende cijfersom zijn congruent modulo 11, dus het ene is deelbaar door 11 als en slechts als het andere het is. Omdat $11 \deelt -22$, is 918\,082 deelbaar door 11: $918\,082 = 11 \cdot 83\,462$.}
+
+\begin{oefeningen}
+\oef{h3-kenmerk}
+\end{oefeningen}
+
+%========================================================================================
+\section{Delen modulo \texorpdfstring{$n$}{n}}
+
+\subsection{Het omgekeerde modulo \texorpdfstring{$n$}{n}}
+
+Optellen, aftrekken en vermenigvuldigen gaan modulo $n$ als gewoon. Maar delen? Bekijk de tafels van vermenigvuldiging modulo 6 en modulo 7. Modulo 7 staat in elke rij behalve die van 0 precies één keer een 1: bij elk getal $a \not\equiv 0$ is er een $x$ met $ax \equiv 1$. Modulo 6 niet: in de rijen van 2, 3 en 4 staat geen 1. Bovendien is $2 \cdot 3 \equiv 0 \md{6}$, hoewel geen van beide 0 is.
+
+\figuren{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \node at (3.5,7.6) {$\cdot \bmod 6$};
+  \foreach \i in {0,...,5}{\node at ({\i+1.5},6.5) {$\i$}; \node at (.5,{5.5-\i}) {$\i$};}
+  \foreach \i in {0,...,5}{\foreach \j in {0,...,5}{%
+    \pgfmathtruncatemacro{\g}{mod(\i*\j,6)}%
+    \ifnum\g=1 \def\kl{accent!30}\else\ifnum\g=0 \def\kl{black!8}\else\def\kl{white}\fi\fi
+    \getalvak[\kl]{\j+1}{5-\i}{\g}}}
+\end{tikzpicture}\hspace{1.2cm}\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \node at (4,8.6) {$\cdot \bmod 7$};
+  \foreach \i in {0,...,6}{\node at ({\i+1.5},7.5) {$\i$}; \node at (.5,{6.5-\i}) {$\i$};}
+  \foreach \i in {0,...,6}{\foreach \j in {0,...,6}{%
+    \pgfmathtruncatemacro{\g}{mod(\i*\j,7)}%
+    \ifnum\g=1 \def\kl{accent!30}\else\ifnum\g=0 \def\kl{black!8}\else\def\kl{white}\fi\fi
+    \getalvak[\kl]{\j+1}{6-\i}{\g}}}
+\end{tikzpicture}}
+
+\begin{theorie}
+Een geheel getal $x$ is een \textbf{\textcolor{accent}{omgekeerde}} (of \textbf{\textcolor{accent}{inverse}}) van $a$ modulo $n$ als $\formule{ax \equiv 1 \md{n}}$.
+
+\begin{stelling}{Omgekeerde}
+\qquad $a$ heeft een omgekeerde modulo $n$ \quad $\formule{\iff \ \ggd(a, n) = 1}$
+\end{stelling}
+
+\begin{bewijs}
+$ax \equiv 1 \md{n}$ betekent $n \deelt ax - 1$, dus $ax - 1 = -ny$ voor een $y \in \Z$, dus $ax + ny = 1$. Zo'n $x$ en $y$ bestaan als en slechts als $\ggd(a, n) = 1$ (kenmerk van relatief priem, hoofdstuk 1).
+\end{bewijs}
+\end{theorie}
+
+Modulo 6 hebben 1 en 5 een omgekeerde, maar 2, 3 en 4 niet: ze hebben een factor gemeen met 6. Is de modulus een priemgetal, dan is de situatie het eenvoudigst.
+
+\begin{theorie}
+\begin{stelling}{Modulo een priemgetal}
+Is $p$ een priemgetal, dan heeft elk geheel getal $a$ met $\formule{a \not\equiv 0 \md{p}}$ een omgekeerde modulo $p$.
+\end{stelling}
+
+\begin{bewijs}
+Uit $p \ndeelt a$ volgt $\ggd(a, p) = 1$, want de enige positieve delers van $p$ zijn 1 en $p$.
+\end{bewijs}
+\end{theorie}
+
+Het bewijs van de stelling van de omgekeerde zegt ook hoe je ze vindt: schrijf 1 als combinatie $ax + ny$ met Bachet-Bézout. Dan is $x$ de omgekeerde.
+
+\voorbeeld{}{Bepaal de omgekeerde van 17 modulo 43.\label{vb:h3-inverse}}{%
+\uitleg{We schrijven $1 = \ggd(17, 43)$ als combinatie van 17 en 43, zoals in hoofdstuk 1. De coëfficiënt van 17 is de omgekeerde.}
+\begin{stappen}
+43 = 2 \cdot 17 + 9, \ 17 = 9 + 8, \ 9 = 8 + 1 & Euclides. \\[1ex]
+1 = 9 - 8 = 2 \cdot 9 - 17 = 2 \cdot 43 - 5 \cdot 17 & Achterstevoren. \\[1ex]
+17 \cdot (-5) \equiv 1 \md{43} & Want $2 \cdot 43 \equiv 0$. \\[1ex]
+-5 \equiv 38 \md{43} & De omgekeerde tussen 0 en 42.
+\end{stappen}
+Controle: $17 \cdot 38 = 646 = 15 \cdot 43 + 1$.}
+
+\begin{werkwijze}
+Controleer dat $\ggd(a, n) = 1$. Schrijf $1 = ax + ny$ met het algoritme van Euclides achterstevoren. De omgekeerde van $a$ is $x$, of $x + n$ als $x$ negatief is. Voor kleine $n$ mag je ook proberen.
+\end{werkwijze}
+
+\nujij{Bepaal de omgekeerde van 7 modulo 40.}{$40 = 5 \cdot 7 + 5$, $7 = 5 + 2$, $5 = 2 \cdot 2 + 1$. $1 = 5 - 2 \cdot 2 = 3 \cdot 5 - 2 \cdot 7 = 3 \cdot 40 - 17 \cdot 7$. Dus $-17 \equiv 23$. Controle: $7 \cdot 23 = 161 = 4 \cdot 40 + 1$.}
+
+\begin{oefeningen}
+\oef{h3-inverse}
+\end{oefeningen}
+
+\subsection{Lineaire congruenties}
+
+Een vergelijking als $17x \equiv 5 \md{43}$ is een \emph{lineaire congruentie}. Met de omgekeerde los je ze op zoals $17x = 5$: vermenigvuldig beide leden met de omgekeerde van 17.
+
+\begin{theorie}
+\begin{stelling}{Lineaire congruentie}
+Als $\ggd(a, n) = 1$ en $a'$ een omgekeerde is van $a$ modulo $n$, dan heeft $ax \equiv b \md{n}$ precies één oplossing modulo $n$:
+
+\vspace{1mm}
+\qquad $\formule{x \equiv a' b \md{n}}$
+\end{stelling}
+
+\begin{bewijs}
+Dit is een oplossing: $a(a'b) = (aa')b \equiv 1 \cdot b = b$. Is omgekeerd $ax \equiv b$, vermenigvuldig dan met $a'$: $x \equiv a'ax \equiv a'b$. Elke oplossing is dus congruent met $a'b$.
+\end{bewijs}
+\end{theorie}
+
+Uit het bewijs volgt ook dat je mag \textit{schrappen}: als $ac \equiv bc \md{n}$ en $\ggd(c, n) = 1$, dan $a \equiv b \md{n}$. Vermenigvuldig met de omgekeerde van $c$. Zonder die voorwaarde mag het niet: $2 \cdot 3 \equiv 2 \cdot 0 \md{6}$, maar $3 \not\equiv 0 \md{6}$.
+
+\voorbeeld{}{Los op: $17x \equiv 5 \md{43}$.\label{vb:h3-lincongr}}{%
+\uitleg{In voorbeeld~\ref{vb:h3-inverse} vonden we dat 38 de omgekeerde van 17 is. We vermenigvuldigen beide leden ermee.}
+\begin{stappen}
+x \equiv 38 \cdot 5 = 190 & Vermenigvuldig met 38. \\[1ex]
+190 = 4 \cdot 43 + 18 & Dus $x \equiv 18 \md{43}$.
+\end{stappen}
+De oplossingen zijn $x = 18 + 43k$ met $k \in \Z$. Controle: $17 \cdot 18 = 306 = 7 \cdot 43 + 5$.}
+
+Is $d = \ggd(a, n) > 1$, dan is $ax \equiv b \md{n}$ hetzelfde als $ax + ny = b$, en dat is oplosbaar als en slechts als $d \deelt b$ (hoofdstuk 1). Deel dan alles door $d$. Zo wordt $6x \equiv 4 \md{10}$ eerst $3x \equiv 2 \md{5}$, met de oplossing $x \equiv 4 \md{5}$, of modulo 10: $x \equiv 4$ of $x \equiv 9$. En $6x \equiv 5 \md{10}$ heeft geen oplossing, want $2 \ndeelt 5$.
+
+\voorbeeld{}{Terug naar het probleem. Ontdekt het controlegetal elke tikfout in één cijfer, en elke wissel van twee cijfers naast elkaar? Vind het onleesbare cijfer in \texttt{735-01?3456-60}.\label{vb:h3-terug}}{%
+\uitleg{Een fout verandert het getal $N$ uit de eerste tien cijfers in $N'$. De bank merkt niets als $N' \equiv N \md{97}$, dus als $97 \deelt N' - N$. We bekijken dat verschil, en gebruiken dat 97 een priemgetal is.}
+\begin{stappen}
+N' - N = d \cdot 10^k, \ 1 \leqslant |d| \leqslant 9 & Eén cijfer op plaats $k$ verandert met $d$. \\[1ex]
+97 \ndeelt d, \ 97 \ndeelt 10 \ \Rightarrow \ 97 \ndeelt d \cdot 10^k & Lemma van Euclides: 97 is priem. \\[1ex]
+N' - N = (b - a)10^{k + 1} + (a - b)10^k & Wissel van de cijfers $a$ en $b$, met $a \neq b$. \\[1ex]
+\phantom{N' - N} = -9(a - b) \cdot 10^k & Ook dit is geen veelvoud van 97.
+\end{stappen}
+Elke fout van die soorten verandert de rest, dus de bank merkt ze allemaal. Nu het onleesbare cijfer $x$, op de plaats van $10^4$.
+\begin{stappen}
+N = 7\,350\,103\,456 + x \cdot 10^4 & Het getal met $x = 0$, plus $x$ keer $10^4$. \\[1ex]
+7\,350\,103\,456 \equiv 42, \ 10^4 \equiv 9 & Zoals in voorbeeld~\ref{vb:h3-rekening}, modulo 97. \\[1ex]
+42 + 9x \equiv 60 \ \Rightarrow \ 9x \equiv 18 = 9 \cdot 2 & Het controlegetal moet 60 zijn. \\[1ex]
+x \equiv 2 \md{97} & Schrappen: $\ggd(9, 97) = 1$.
+\end{stappen}
+Omdat $x$ een cijfer is van 0 tot 9, is $x = 2$: het nummer is \texttt{735-0123456-60}. Er is maar één mogelijkheid, omdat je mag schrappen.}
+
+\nujij{Los op: $6x \equiv 9 \md{15}$.}{$\ggd(6, 15) = 3 \deelt 9$. Deel door 3: $2x \equiv 3 \md{5}$, en $2 \cdot 3 = 6 \equiv 1$, dus $x \equiv 9 \equiv 4 \md{5}$. Modulo 15: $x \equiv 4$, 9 of 14.}
+
+\begin{oefeningen}
+\oef{h3-lincongr}
+\end{oefeningen}
+
+%========================================================================================
+\section{De Chinese reststelling}
+
+\subsection{Twee resten tegelijk}
+
+Een getal heeft rest 2 bij deling door 5, en rest 3 bij deling door 7. Welk getal is het? Proberen lukt: de getallen met rest 2 modulo 5 zijn 2, 7, 12, 17, 22, \ldots, en 17 heeft rest 3 modulo 7. Maar is er altijd een oplossing, en zijn er andere?
+
+\naast{De tabel rechts zet elk getal van 0 tot 34 in de rij van zijn rest modulo 5 en de kolom van zijn rest modulo 7. Elk vakje krijgt precies één getal: 17 staat in rij 2 en kolom 3. Er zijn 35 vakjes en 35 getallen, en geen twee getallen botsen. Het volgende getal, 35, valt weer in het vakje van 0. Dat dit werkt, ligt eraan dat 5 en 7 relatief priem zijn. Modulo 4 en 6 kan het niet: een getal met rest 1 modulo 4 is oneven, en kan geen rest 2 hebben modulo 6.}{\begin{tikzpicture}[scale=.47,font=\scriptsize]
+  \node at (4.5,6.75) {rest mod 7};
+  \node[rotate=90] at (-.75,2.5) {rest mod 5};
+  \foreach \s in {0,...,6}{\node at ({\s+1.5},5.85) {$\s$};}
+  \foreach \r in {0,...,4}{\node at (.45,{4.5-\r}) {$\r$};}
+  \foreach \r/\rij in {0/{0,15,30,10,25,5,20},1/{21,1,16,31,11,26,6},2/{7,22,2,17,32,12,27},3/{28,8,23,3,18,33,13},4/{14,29,9,24,4,19,34}}{%
+    \foreach \g [count=\s from 1] in \rij {%
+      \ifnum\g=17 \def\kl{accent!30}\else\def\kl{white}\fi
+      \getalvak[\kl]{\s}{4-\r}{\g}}}
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Chinese reststelling}
+Neem $m, n \geqslant 2$ met $\ggd(m, n) = 1$, en $a, b \in \Z$. Het stelsel
+
+\vspace{1mm}
+\qquad $\formule{x \equiv a \md{m}}$ \qquad en \qquad $\formule{x \equiv b \md{n}}$
+
+\vspace{1mm}
+heeft een oplossing $x_0$, en de oplossingen zijn precies de getallen $\formule{x \equiv x_0 \md{mn}}$.
+\end{stelling}
+
+\begin{bewijs}
+\textit{Bestaan.} Bachet-Bézout geeft $u, v \in \Z$ met $mu + nv = 1$. Neem
+\bewijsregel{x_0 = a \cdot nv + b \cdot mu .}
+Modulo $m$ is $mu \equiv 0$ en $nv = 1 - mu \equiv 1$, dus $x_0 \equiv a$. Net zo is $x_0 \equiv b \md{n}$.
+
+\textit{Alle oplossingen.} Is $x \equiv x_0 \md{mn}$, dan ook modulo $m$ en modulo $n$, dus $x$ is een oplossing. Is omgekeerd $x$ een oplossing, dan is $m \deelt x - x_0$ en $n \deelt x - x_0$. Omdat $\ggd(m, n) = 1$, is $mn \deelt x - x_0$ (product van delers, hoofdstuk 1).
+\end{bewijs}
+\end{theorie}
+
+De stelling heet zo naar het Chinese boek \textit{Sunzi Suanjing} (ergens tussen de 3de en de 5de eeuw), dat een getal zoekt met gegeven resten modulo 3, 5 en 7. In de praktijk gebruik je het bewijs zelden: substitueren gaat sneller.
+
+\voorbeeld{}{Los op: $x \equiv 2 \md{5}$ en $x \equiv 3 \md{7}$.\label{vb:h3-crt}}{%
+\uitleg{Uit de eerste congruentie volgt $x = 2 + 5k$. We vullen dat in in de tweede, en krijgen een lineaire congruentie voor $k$.}
+\begin{stappen}
+x = 2 + 5k & Alle oplossingen van de eerste. \\[1ex]
+2 + 5k \equiv 3 \ \Rightarrow \ 5k \equiv 1 \md{7} & Invullen in de tweede. \\[1ex]
+k \equiv 3 \md{7} & De omgekeerde van 5 is 3: $5 \cdot 3 = 15 \equiv 1$. \\[1ex]
+x = 2 + 5(3 + 7t) = 17 + 35t & Met $k = 3 + 7t$.
+\end{stappen}
+De oplossingen zijn $x \equiv 17 \md{35}$, zoals in de tabel.}
+
+\begin{werkwijze}
+Schrijf de eerste congruentie als $x = a + mk$. Vul in in de tweede en los de lineaire congruentie op voor $k$. Vul $k$ terug in. Bij drie congruenties los je eerst twee op, en combineer je het resultaat met de derde.
+\end{werkwijze}
+
+\voorbeeld{}{Een fanfare telt tussen 80 en 160 muzikanten. Stellen ze zich op in rijen van 4, dan blijft er 1 over. In rijen van 5 blijven er 2 over, in rijen van 7 blijven er 3 over. Hoeveel muzikanten zijn het?\label{vb:h3-fanfare}}{%
+\uitleg{Het aantal $x$ voldoet aan $x \equiv 1 \md{4}$, $x \equiv 2 \md{5}$ en $x \equiv 3 \md{7}$. De laatste twee gaven in het vorige voorbeeld $x \equiv 17 \md{35}$. Dat combineren we met de eerste.}
+\begin{stappen}
+x = 17 + 35t & Uit voorbeeld~\ref{vb:h3-crt}. \\[1ex]
+17 + 35t \equiv 1 + 3t \equiv 1 \md{4} & Want $17 \equiv 1$ en $35 \equiv 3$. \\[1ex]
+3t \equiv 0 \ \Rightarrow \ t \equiv 0 \md{4} & Schrappen: $\ggd(3, 4) = 1$. \\[1ex]
+x = 17 + 140u & Met $t = 4u$: $x \equiv 17 \md{140}$.
+\end{stappen}
+Tussen 80 en 160 ligt alleen $17 + 140 = 157$. Controle: $157 = 4 \cdot 39 + 1 = 5 \cdot 31 + 2 = 7 \cdot 22 + 3$.}
+
+\nujij{Los op: $x \equiv 3 \md{4}$ en $x \equiv 5 \md{9}$.}{$x = 3 + 4k$, $3 + 4k \equiv 5$, dus $4k \equiv 2 \md{9}$. De omgekeerde van 4 is 7 ($28 \equiv 1$), dus $k \equiv 14 \equiv 5$. Dan $x = 23 + 36t$.}
+
+\begin{oefeningen}
+\oef{h3-crt}
+
+\oef{h3-crt-context}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Goniometrische functies en Matrices zagen de leerlingen in het 5de jaar. Groepen staat in het 6de jaar, net als deze cursus: geef die oefening pas na het hoofdstuk over groepen.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-congr}{oef:h3-congr}%
+  \fv{oef:h3-t2}{vb:h3-macht}{oef:h3-macht}%
+  \fv{oef:h3-t3}{vb:h3-elf}{oef:h3-kenmerk}%
+  \fv{oef:h3-t4}{vb:h3-inverse}{oef:h3-inverse}%
+  \fv{oef:h3-t5}{vb:h3-lincongr}{oef:h3-lincongr}%
+  \fv{oef:h3-t6}{vb:h3-crt}{oef:h3-crt}%
+  \fv{oef:h3-t7}{vb:h3-fanfare}{oef:h3-crt-context}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van congruent modulo $n$, het verband met de rest, de rekenregels voor optellen, vermenigvuldigen en machten (en waarom je de exponent niet mag vervangen), het kenmerk van 9 en van 11, wanneer een getal een omgekeerde heeft modulo $n$ en hoe je ze vindt, hoe je een lineaire congruentie oplost en wanneer je mag schrappen, en de Chinese reststelling met de methode van substitutie. Vergelijk daarna met de kaders.
+\fi

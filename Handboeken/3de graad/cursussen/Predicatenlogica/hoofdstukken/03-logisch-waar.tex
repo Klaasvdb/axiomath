@@ -1,0 +1,476 @@
+%----------------------------------------------------------------------------------------
+% LOGISCH WARE UITSPRAKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof (theorie, werkwijze of uitleg, voorbeeld, korte oefening), en op een
+% nieuwe pagina de Opdrachten (door elkaar, stijgende moeilijkheid), Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Logisch ware uitspraken}
+
+\begin{probleem}
+Op het theekransje uit \textit{De avonturen van Alice in Wonderland} (Lewis Carroll, 1865) zegt Alice: \textit{Ik meen wat ik zeg, en dat is toch hetzelfde als: ik zeg wat ik meen.}
+
+\textit{Helemaal niet hetzelfde!} roept de Hoedenmaker. \textit{Dan zou je ook kunnen zeggen dat \textup{ik zie wat ik eet} hetzelfde is als \textup{ik eet wat ik zie}!} De Slaapmuis mompelt in zijn slaap: \textit{Of dat \textup{ik adem als ik slaap} hetzelfde is als \textup{ik slaap als ik adem}.} \textit{Voor jou is dat ook hetzelfde,} zegt de Hoedenmaker, want de Slaapmuis slaapt altijd.
+
+\vspace{1mm}
+\textbf{1.}~Zeggen \textit{ik zie wat ik eet} en \textit{ik eet wat ik zie} hetzelfde?
+
+\textbf{2.}~Hoe kunnen de twee zinnen van de Slaapmuis voor hem hetzelfde zijn, als zulke zinnen in het algemeen iets anders zeggen?
+
+\textbf{3.}~Wat betekent \textit{hetzelfde zeggen} dan precies?
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 3, nagaan of uitspraken logisch waar zijn en logisch ware uitspraken toepassen, met de vergelijking met tautologieën, de negatiestellingen, de verwisselstellingen, en wanneer kwantoren en connectieven van plaats mogen wisselen (ook in een gegeven interpretatie). Voorkennis: hoofdstuk 1 en 2, uit Logica en bewijzen de ontkenning van kwantoren en de bewijstechnieken, uit de 2de graad de tautologieën. Lewis Carroll (Charles Dodgson, 1832-1898) was wiskundige in Oxford en schreef ook boeken over logica. De dialoog is een vrije vertaling. De oplossing staat in voorbeeld~\ref{vb:h3-terug}.}
+
+De Hoedenmaker heeft een punt: \textit{ik zie wat ik eet} zegt dat alles wat je eet, ook iets is wat je ziet. Dat is een implicatie met een kwantor, en \textit{ik eet wat ik zie} is haar omgekeerde. In hoofdstuk 2 zag je dat een zin waar kan zijn in de ene interpretatie en vals in de andere. Sommige zinnen zijn echter waar in \textit{elke} interpretatie, wat de predicaten ook betekenen: hun waarheid zit in hun vorm. Zulke zinnen zijn de regels van het redeneren zelf. In dit hoofdstuk leer je ze herkennen, bewijzen en gebruiken: om te zien of twee formules hetzelfde zeggen, of een redenering klopt, en wanneer je kwantoren mag verwisselen.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h3-verken} maken vóór de uitleg. Bij a en c vinden leerlingen geen interpretatie waarin de zin vals is, hoe ze ook zoeken: dat is het begrip \textit{logisch waar}. Bespreek dat \textit{ik vind geen tegenvoorbeeld} nog geen bewijs is.}
+
+%========================================================================================
+\section{Logisch waar en logisch gevolg}\label{sec:h3-logischwaar}
+
+\subsection{Waar in elke interpretatie}
+
+In de Verken-opgave vond je geen interpretatie waarin $\forall x\, P(x) \dan \exists x\, P(x)$ vals is. Dat ligt niet aan de betekenis van $P$: als iets voor alle objecten geldt, dan geldt het zeker voor minstens één, omdat het universum niet leeg is. Zo'n zin is waar door haar vorm alleen.
+
+\begin{theorie}
+Een formule is \textbf{\textcolor{accent}{logisch waar}} als ze waar is in elke interpretatie.
+\end{theorie}
+
+Je vergelijkt dat best met een tautologie uit de propositielogica: die is waar in elke rij van haar waarheidstabel, wat $p$ en $q$ ook betekenen. Een interpretatie speelt de rol van een rij, maar er zijn er oneindig veel: je kunt ze niet allemaal nagaan. Om te bewijzen dat een formule logisch waar is, redeneer je daarom over een \textit{willekeurige} interpretatie.
+
+\voorbeeld{}{Toon aan dat $\forall x\, P(x) \dan \exists x\, P(x)$ logisch waar is.\label{vb:h3-logischwaar}}{%
+\uitleg{We nemen een willekeurige interpretatie, en tonen aan dat de implicatie er niet vals kan zijn. Een implicatie is alleen vals als het eerste deel waar is en het tweede vals, dus we nemen aan dat het eerste deel waar is.}
+\begin{stappenbreed}
+\text{neem een interpretatie met } \forall x\, P(x) \text{ waar} & Is $\forall x\, P(x)$ vals, dan is de implicatie toch waar. \\[1ex]
+\text{neem } a \in U & Het universum is niet leeg. \\[1ex]
+P(a) \text{ waar, dus } \exists x\, P(x) \text{ waar} & $P$ geldt voor elk element, dus ook voor $a$, en $a$ is een element waarvoor $P$ geldt.
+\end{stappenbreed}
+In elke interpretatie is de implicatie dus waar: ze is logisch waar.}
+
+Een formule die niet logisch waar is, weerleg je met één interpretatie waarin ze vals is. Dat is het tegenvoorbeeld van de predicatenlogica.
+
+\voorbeeld{}{Is $\exists x\, P(x) \dan \forall x\, P(x)$ logisch waar?\label{vb:h3-tegenmodel}}{%
+\uitleg{De zin zegt: \textit{als één object de eigenschap heeft, hebben ze ze allemaal}. Dat lijkt vals. We zoeken een interpretatie met het eerste deel waar en het tweede vals.}
+\begin{stappenbreed}
+U = \N,\ P(x)\colon x \text{ is even} & Een eenvoudige keuze met even en oneven getallen. \\[1ex]
+\exists x\, P(x) \text{ waar},\ \forall x\, P(x) \text{ vals} & 2 is even, 3 niet. De implicatie is vals.
+\end{stappenbreed}
+De formule is niet logisch waar. Ze is wel waar in sommige interpretaties, bijvoorbeeld als $U$ maar één element heeft.}
+
+\begin{werkwijze}
+Om aan te tonen dat een formule logisch waar is: neem een willekeurige interpretatie en redeneer met de regels voor de kwantoren en de connectieven. Bij een implicatie neem je aan dat het eerste deel waar is, en toon je aan dat het tweede deel waar is. Om aan te tonen dat ze niet logisch waar is: geef één interpretatie waarin ze vals is.
+\end{werkwijze}
+
+Elke tautologie levert meteen logisch ware formules op. In $p \of \niet p$ mag je voor $p$ elke formule invullen: $\forall x\, P(x) \of \niet\forall x\, P(x)$ is logisch waar, want in elke interpretatie is $\forall x\, P(x)$ waar of vals.
+
+\begin{theorie}
+\begin{stelling}{Tautologieën invullen}
+Vervang je in een tautologie elke letter door een formule, met dezelfde formule voor dezelfde letter, dan krijg je een logisch ware formule.
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie. Elke ingevulde formule is daarin waar of vals: dat geeft een rij van de waarheidstabel van de tautologie. De nieuwe formule heeft in die interpretatie de waarheidswaarde van die rij, want de connectieven volgen hun waarheidstabel. In elke rij is de tautologie waar, dus de nieuwe formule is waar in elke interpretatie.
+\end{bewijs}
+\end{theorie}
+
+Zo is $\bigl(\forall x\, P(x) \dan \exists y\, Q(y)\bigr) \asa \bigl(\niet\exists y\, Q(y) \dan \niet\forall x\, P(x)\bigr)$ logisch waar: het is de contrapositie. Maar niet elke logisch ware formule komt uit een tautologie. In $\forall x\, P(x) \dan \exists x\, P(x)$ zijn $\forall x\, P(x)$ en $\exists x\, P(x)$ twee verschillende formules, $p \dan q$ is geen tautologie, en toch is de formule logisch waar. Daarvoor heb je de betekenis van de kwantoren nodig.
+
+\begin{oefeningen}
+\oef{h3-logischwaar}
+\end{oefeningen}
+
+\subsection{Logisch gelijkwaardig}
+
+Wanneer zeggen twee formules hetzelfde? Niet als ze toevallig allebei waar zijn: dat hangt van de interpretatie af. Ze zeggen hetzelfde als ze in \textit{elke} interpretatie dezelfde waarheidswaarde hebben.
+
+\begin{theorie}
+Twee formules $\varphi$ en $\psi$ zijn \textbf{\textcolor{accent}{logisch gelijkwaardig}} als ze in elke interpretatie dezelfde waarheidswaarde hebben, dus als $\formule{\varphi \asa \psi}$ logisch waar is.
+\end{theorie}
+
+Logisch gelijkwaardige formules mag je overal door elkaar vervangen, ook als deel van een grotere formule: de waarheidswaarde van het geheel verandert dan in geen enkele interpretatie. Dat gebruik je bij elke herschrijving. We bewijzen die regel niet in het algemeen, omdat je daarvoor alle manieren moet nagaan waarop een formule opgebouwd kan zijn. Zo zijn $\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ en $\forall x\, \bigl(\niet Q(x) \dan \niet P(x)\bigr)$ logisch gelijkwaardig: je vervangt de implicatie achter de kwantor door haar contrapositie.
+
+\voorbeeld{}{Zijn $\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ en $\forall x\, \bigl(Q(x) \dan P(x)\bigr)$ logisch gelijkwaardig?\label{vb:h3-omgekeerde}}{%
+\uitleg{Het zijn een implicatie en haar omgekeerde, met een kwantor ervoor. We zoeken een interpretatie waarin de ene waar is en de andere vals.}
+\begin{stappenbreed}
+U = \N,\ P(x)\colon 4 \deelt x,\ Q(x)\colon 2 \deelt x & Elk veelvoud van 4 is even: de eerste formule is waar. \\[1ex]
+x = 2\colon \ Q(2) \text{ waar},\ P(2) \text{ vals} & Niet elk even getal is een veelvoud van 4: de tweede is vals.
+\end{stappenbreed}
+Ze zijn niet logisch gelijkwaardig. In een interpretatie met $P$ en $Q$ allebei overal waar, zijn ze wel allebei waar.}
+
+\begin{oefeningen}
+\oef{h3-gelijkwaardig}
+\end{oefeningen}
+
+\subsection{Logisch gevolg}
+
+Een redenering vertrekt van premissen en komt tot een besluit. Ze is correct als het besluit waar moet zijn zodra alle premissen waar zijn, wat de woorden ook betekenen. Zo hangt de juistheid van een redenering niet af van wat je over Socrates weet.
+
+\begin{theorie}
+Een formule $\psi$ is een \textbf{\textcolor{accent}{logisch gevolg}} van $\varphi_1$, \ldots, $\varphi_n$ als $\psi$ waar is in elke interpretatie waarin $\varphi_1$, \ldots, $\varphi_n$ allemaal waar zijn, dus als $\formule{\varphi_1 \en \cdots \en \varphi_n \dan \psi}$ logisch waar is.
+
+\vspace{1mm}
+De redenering \textit{$\varphi_1$, \ldots, $\varphi_n$, dus $\psi$} is dan \textbf{\textcolor{accent}{geldig}}.
+\end{theorie}
+
+\voorbeeld{}{Toon aan dat de sluitrede over Socrates geldig is: \quad $\forall x\, \bigl(M(x) \dan S(x)\bigr)$, \ $M(s)$, \ dus $S(s)$.\label{vb:h3-socrates}}{%
+\uitleg{We nemen een willekeurige interpretatie waarin beide premissen waar zijn, en tonen aan dat het besluit er waar is.}
+\begin{stappenbreed}
+M(a) \dan S(a) \text{ voor elke } a \in U & De eerste premisse is waar. \\[1ex]
+a = s\colon \ M(s) \dan S(s) & Ook voor het element dat $s$ voorstelt. \\[1ex]
+M(s) \text{ waar, dus } S(s) \text{ waar} & De tweede premisse is waar, en een ware implicatie met een waar eerste deel heeft een waar tweede deel.
+\end{stappenbreed}
+Wat $M$, $S$ en $s$ ook betekenen: de redenering is geldig.}
+
+\voorbeeld{}{Is deze redenering geldig? \textit{Alle katten zijn dieren. Sommige dieren zijn zwart. Dus sommige katten zijn zwart.}\label{vb:h3-ongeldig}}{%
+\naast{\begin{minipage}{10.6cm}
+\uitleg{Het besluit is waar, maar dat zegt niets over de redenering. We zoeken een interpretatie met ware premissen en een vals besluit.}
+\begin{stappenvrij}{4.9cm}{5.4cm}
+\forall x\, \bigl(K(x) \dan D(x)\bigr) & De eerste premisse. \\[1ex]
+\exists x\, \bigl(D(x) \en Z(x)\bigr) & De tweede premisse. \\[1ex]
+\exists x\, \bigl(K(x) \en Z(x)\bigr) & Het besluit. \\[1ex]
+U = \N,\ K(x)\colon 4 \deelt x & De katten zijn de veelvouden van 4, \\[.3ex]
+D(x)\colon 2 \deelt x,\ Z(x)\colon x = 2 & de dieren de even getallen, en alleen 2 is zwart. Elk veelvoud van 4 is even, en 2 is even. Maar 2 is geen veelvoud van 4: het besluit is vals.
+\end{stappenvrij}
+\vspace{1mm}
+De redenering is ongeldig. De zwarte dieren kunnen allemaal buiten de katten liggen, zoals rechts.
+\end{minipage}}{\begin{tikzpicture}[font=\small]
+  \draw[verz] (0,0) ellipse (1.55 and 1.05);
+  \draw[verz,fill opacity=.22] (-.55,0) ellipse (.7 and .5);
+  \draw[thick,fel!85!black] (1.05,-.1) circle (.42);
+  \node at (-.55,0) {$K$};
+  \node[text=accent] at (.6,.75) {$D$};
+  \node[text=fel!85!black] at (1.05,-.1) {$Z$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Schrijf de premissen en het besluit als formules. Om te tonen dat de redenering geldig is: neem een willekeurige interpretatie waarin alle premissen waar zijn, en leid af dat het besluit waar is. Om te tonen dat ze ongeldig is: geef een interpretatie waarin alle premissen waar zijn en het besluit vals.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-gevolg}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kwantoren ontkennen en verwisselen}\label{sec:h3-verwisselen}
+
+\subsection{Negatiestellingen}
+
+In Logica en bewijzen leerde je een kwantor ontkennen: $\niet\forall x\, \varphi \asa \exists x\, \niet\varphi$ en $\niet\exists x\, \varphi \asa \forall x\, \niet\varphi$. Nu kun je zeggen wat die regels zijn: logisch ware equivalenties, de \textbf{negatiestellingen}. Ze gelden voor elke formule $\varphi$, ook als er andere kwantoren in staan. Daaruit volgt iets wat je misschien niet verwacht: je hebt maar één kwantor nodig.
+
+\begin{theorie}
+\begin{stelling}{Een kwantor uitdrukken met de andere}
+\qquad $\formule{\forall x\, \varphi \asa \niet\exists x\, \niet\varphi}$ \qquad en \qquad $\formule{\exists x\, \varphi \asa \niet\forall x\, \niet\varphi}$
+\end{stelling}
+
+\begin{bewijs}
+De negatiestelling voor $\exists$, toegepast op $\niet\varphi$, geeft
+\bewijsregel{\niet\exists x\, \niet\varphi \asa \forall x\, \niet\niet\varphi \asa \forall x\, \varphi,}
+want $\niet\niet\varphi \asa \varphi$ is een ingevulde tautologie, en die vervang je achter de kwantor. Zo volgt ook $\niet\forall x\, \niet\varphi \asa \exists x\, \niet\niet\varphi \asa \exists x\, \varphi$.
+\end{bewijs}
+\end{theorie}
+
+In woorden: \textit{iedereen is aanwezig} betekent \textit{er is niemand die niet aanwezig is}. Bij een formule met meer kwantoren pas je de negatiestellingen toe van buiten naar binnen. De ontkenning schuift telkens één plaats op, tot ze bij een atomaire formule staat.
+
+\voorbeeld{}{Schrijf $\niet\forall x\, \exists y\, \bigl(R(x, y) \en \forall z\, (R(y, z) \dan z = x)\bigr)$ zonder $\niet$ voor een kwantor of een haakje.\label{vb:h3-negatie}}{%
+\uitleg{We passen bij elke kwantor een negatiestelling toe, en daarna De Morgan en de ontkenning van een implicatie: $\niet(p \dan q) \asa p \en \niet q$.}
+\begin{stappenbreed}
+\exists x\, \niet\exists y\, \bigl(R(x, y) \en \forall z\, (R(y, z) \dan z = x)\bigr) & Negatiestelling voor $\forall x$. \\[1ex]
+\exists x\, \forall y\, \niet\bigl(R(x, y) \en \forall z\, (R(y, z) \dan z = x)\bigr) & Negatiestelling voor $\exists y$. \\[1ex]
+\exists x\, \forall y\, \bigl(\niet R(x, y) \of \niet\forall z\, (R(y, z) \dan z = x)\bigr) & De Morgan. \\[1ex]
+\exists x\, \forall y\, \bigl(\niet R(x, y) \of \exists z\, (R(y, z) \en z \neq x)\bigr) & Negatiestelling voor $\forall z$, en de ontkenning van de implicatie.
+\end{stappenbreed}
+Met $\niet R(x, y) \of \ldots \asa R(x, y) \dan \ldots$ wordt het ook: $\exists x\, \forall y\, \bigl(R(x, y) \dan \exists z\, (R(y, z) \en z \neq x)\bigr)$.}
+
+\begin{oefeningen}
+\oef{h3-negatie}
+\end{oefeningen}
+
+\subsection{Verwisselstellingen}
+
+Twee kwantoren van dezelfde soort mag je altijd verwisselen. \textit{Voor alle $x$ en voor alle $y$} is hetzelfde als \textit{voor alle $y$ en voor alle $x$}: in beide gevallen moet de formule gelden voor elk paar. Dat zijn de eerste twee verwisselstellingen.
+
+\begin{theorie}
+\begin{stelling}{Twee keer voor alle}
+\qquad $\formule{\forall x\, \forall y\, \varphi \asa \forall y\, \forall x\, \varphi}$
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie. $\forall x\, \forall y\, \varphi$ is waar als voor elke $a \in U$ de formule $\forall y\, \varphi$ waar is met $x = a$, dus als $\varphi$ waar is met $x = a$ en $y = b$, voor elke $a \in U$ en elke $b \in U$. Dat is: voor elk paar $(a, b)$. Precies hetzelfde krijg je voor $\forall y\, \forall x\, \varphi$.
+\end{bewijs}
+
+\begin{stelling}{Twee keer er bestaat}
+\qquad $\formule{\exists x\, \exists y\, \varphi \asa \exists y\, \exists x\, \varphi}$
+\end{stelling}
+
+\begin{bewijs}
+Beide zijn waar in een interpretatie als er minstens één paar $(a, b)$ in $U$ is waarvoor $\varphi$ waar is met $x = a$ en $y = b$.
+\end{bewijs}
+\end{theorie}
+
+Bij een $\forall$ en een $\exists$ ligt het anders. In Logica en bewijzen zag je al dat $\forall n\, \exists m\, (m > n)$ waar is in $\N$, en $\exists m\, \forall n\, (m > n)$ vals. Toch is er één richting die altijd klopt: als één $y$ werkt voor alle $x$, dan is er zeker bij elke $x$ een $y$ die werkt.
+
+\begin{theorie}
+\begin{stelling}{Er bestaat voor alle}
+\qquad $\formule{\exists y\, \forall x\, \varphi \dan \forall x\, \exists y\, \varphi}$ \qquad is logisch waar.
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie waarin $\exists y\, \forall x\, \varphi$ waar is. Dan is er een $b \in U$ zodat $\varphi$ waar is met $y = b$, voor elke waarde van $x$. Neem een $a \in U$. Dan is $\varphi$ waar met $x = a$ en $y = b$, dus $\exists y\, \varphi$ is waar met $x = a$. Dat geldt voor elke $a$, dus $\forall x\, \exists y\, \varphi$ is waar.
+\end{bewijs}
+\end{theorie}
+
+De omgekeerde implicatie $\forall x\, \exists y\, \varphi \dan \exists y\, \forall x\, \varphi$ is niet logisch waar: in $\N$ met $\varphi\colon x < y$ is het eerste deel waar en het tweede vals. Bij $\forall x\, \exists y$ mag $y$ afhangen van $x$, bij $\exists y\, \forall x$ niet. Toch kan het verwisselen in een bepaalde interpretatie wel kloppen. Dat ga je na door te kijken of er één $y$ is die voor alle $x$ werkt.
+
+\voorbeeld{}{Het universum is $\R$. Mag je in $\forall x\, \exists y\, (x \cdot y = y)$ de kwantoren van plaats wisselen, zonder dat de waarheidswaarde verandert? En in $\forall x\, \exists y\, (x + y = 0)$?\label{vb:h3-verwissel}}{%
+\uitleg{Een $\forall x\, \exists y$-zin die waar is, blijft waar na het verwisselen als één $y$ voor elke $x$ werkt. We bepalen eerst de waarheid van beide versies.}
+\begin{stappenbreed}
+\forall x\, \exists y\, (x \cdot y = y)\colon \ \text{waar} & Bij elke $x$ werkt $y = 0$. \\[1ex]
+\exists y\, \forall x\, (x \cdot y = y)\colon \ \text{waar} & Dezelfde $y = 0$ werkt voor alle $x$: hier mag je wisselen. \\[1ex]
+\forall x\, \exists y\, (x + y = 0)\colon \ \text{waar} & Bij elke $x$ werkt $y = -x$, en die hangt van $x$ af. \\[1ex]
+\exists y\, \forall x\, (x + y = 0)\colon \ \text{vals} & Met $x = 0$ moet $y = 0$ zijn, en met $x = 1$ moet $y = -1$ zijn: geen enkele $y$ werkt voor alle $x$.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Twee keer $\forall$ of twee keer $\exists$ mag je altijd verwisselen. Van $\exists y\, \forall x$ mag je altijd overgaan naar $\forall x\, \exists y$, maar niet omgekeerd. In een gegeven interpretatie mag dat omgekeerd alleen als er één $y$ is die voor elke $x$ werkt: zoek die, of toon aan dat de $y$ van $x$ moet afhangen.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-verwissel}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kwantoren en connectieven}\label{sec:h3-connectieven}
+
+\subsection{Voor alle en en, er bestaat en of}
+
+Een kwantor is een lange \textit{en} of een lange \textit{of}. Mag je hem dan verdelen over de delen van een formule? Neem $\forall x\, \bigl(P(x) \en Q(x)\bigr)$: als elk object $P$ en $Q$ heeft, dan heeft elk object $P$, en heeft elk object $Q$. Ook omgekeerd. Bij \textit{voor alle} en \textit{en} mag het verdelen dus.
+
+\begin{theorie}
+\begin{stelling}{Voor alle verdelen over en}
+\qquad $\formule{\forall x\, (\varphi \en \psi) \asa \forall x\, \varphi \en \forall x\, \psi}$
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie. $\forall x\, (\varphi \en \psi)$ is waar als $\varphi$ en $\psi$ allebei waar zijn voor elke waarde van $x$. Dat is precies: $\varphi$ is waar voor elke waarde van $x$, en $\psi$ is waar voor elke waarde van $x$. Dat zegt $\forall x\, \varphi \en \forall x\, \psi$.
+\end{bewijs}
+
+\begin{stelling}{Er bestaat verdelen over of}
+\qquad $\formule{\exists x\, (\varphi \of \psi) \asa \exists x\, \varphi \of \exists x\, \psi}$
+\end{stelling}
+
+\begin{bewijs}
+Ontken beide leden met de negatiestellingen en De Morgan:
+\bewijsregel{\niet\exists x\, (\varphi \of \psi) \asa \forall x\, (\niet\varphi \en \niet\psi) \qquad \text{en} \qquad \niet(\exists x\, \varphi \of \exists x\, \psi) \asa \forall x\, \niet\varphi \en \forall x\, \niet\psi.}
+Die zijn logisch gelijkwaardig volgens de vorige stelling. Twee formules met gelijkwaardige ontkenningen zijn zelf gelijkwaardig.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Het universum zijn de leerlingen van een klas. Schrijf \textit{iedereen heeft een agenda en een rekenmachine} op twee manieren, en ontken het.\label{vb:h3-verdelen}}{%
+\uitleg{Met $A(x)$: \textit{$x$ heeft een agenda} en $B(x)$: \textit{$x$ heeft een rekenmachine} verdelen we $\forall$ over $\en$. De ontkenning wordt een $\exists$ met een $\of$, en die mogen we ook verdelen.}
+\begin{stappenbreed}
+\forall x\, \bigl(A(x) \en B(x)\bigr) \asa \forall x\, A(x) \en \forall x\, B(x) & \textit{Iedereen heeft beide}, of \textit{iedereen heeft een agenda en iedereen heeft een rekenmachine}. \\[1ex]
+\exists x\, \bigl(\niet A(x) \of \niet B(x)\bigr) \asa \exists x\, \niet A(x) \of \exists x\, \niet B(x) & \textit{Iemand mist een agenda of een rekenmachine}, of \textit{iemand mist een agenda, of iemand mist een rekenmachine}.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h3-verdelen}
+\end{oefeningen}
+
+\subsection{Voor alle en of, er bestaat en en}
+
+Elk natuurlijk getal is even of oneven. Mag je daaruit besluiten dat elk getal even is, of dat elk getal oneven is? Natuurlijk niet. Bij \textit{voor alle} en \textit{of} mag het verdelen dus niet: één richting klopt wel, de andere niet. Bij \textit{er bestaat} en \textit{en} is het net zo.
+
+\begin{theorie}
+\begin{stelling}{Voor alle en of}
+\qquad $\formule{\forall x\, \varphi \of \forall x\, \psi \dan \forall x\, (\varphi \of \psi)}$ \qquad is logisch waar.
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie waarin $\forall x\, \varphi \of \forall x\, \psi$ waar is, en neem een waarde $a$ van $x$. Is $\forall x\, \varphi$ waar, dan is $\varphi$ waar met $x = a$. Anders is $\forall x\, \psi$ waar, en is $\psi$ waar met $x = a$. In beide gevallen is $\varphi \of \psi$ waar met $x = a$. Dat geldt voor elke $a$.
+\end{bewijs}
+
+\begin{stelling}{Er bestaat en en}
+\qquad $\formule{\exists x\, (\varphi \en \psi) \dan \exists x\, \varphi \en \exists x\, \psi}$ \qquad is logisch waar.
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie waarin $\exists x\, (\varphi \en \psi)$ waar is. Dan is er een $a$ waarvoor $\varphi$ en $\psi$ allebei waar zijn met $x = a$. Die $a$ maakt $\exists x\, \varphi$ waar, en ook $\exists x\, \psi$.
+\end{bewijs}
+\end{theorie}
+
+\naast{\begin{minipage}{11.4cm}
+De omgekeerde implicaties zijn niet logisch waar. Neem $U = \N$, $\varphi\colon x$ is even, en $\psi\colon x$ is oneven. Dan is $\forall x\, (\varphi \of \psi)$ waar, maar $\forall x\, \varphi \of \forall x\, \psi$ vals. En $\exists x\, \varphi \en \exists x\, \psi$ is waar, maar $\exists x\, (\varphi \en \psi)$ vals: geen getal is even en oneven. In de figuur: de twee delen vullen samen $U$, maar geen van beide doet het alleen, en ze hebben geen gemeenschappelijk element.
+\end{minipage}}{\begin{tikzpicture}[font=\small]
+  \draw[verz] (-1.5,-.75) rectangle (1.5,.75);
+  \fill[accent,opacity=.18] (-1.5,-.75) rectangle (0,.75);
+  \draw[accent,thick] (0,-.75) -- (0,.75);
+  \node at (-.75,0) {even};
+  \node at (.75,0) {oneven};
+  \node[text=accent,anchor=south west] at (-1.5,.75) {$U = \N$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Wat is er mis met deze redenering? \textit{Elke leerling van de klas doet Latijn of Economie. Dus alle leerlingen doen Latijn, of alle leerlingen doen Economie.}\label{vb:h3-of}}{%
+\uitleg{We schrijven het als formules, en zoeken welke stelling de leerling denkt te gebruiken.}
+\begin{stappenbreed}
+\forall x\, \bigl(L(x) \of E(x)\bigr) \ \text{dus} \ \forall x\, L(x) \of \forall x\, E(x) & De leerling verdeelt $\forall$ over $\of$. \\[1ex]
+\text{ongeldig} & Alleen de omgekeerde richting is logisch waar. Een klas met twee leerlingen, één in Latijn en één in Economie, is een tegenvoorbeeld.
+\end{stappenbreed}}
+
+\begin{werkwijze}
+Een $\forall$ mag je verdelen over $\en$, een $\exists$ over $\of$, in beide richtingen. Een $\forall$ over $\of$ en een $\exists$ over $\en$: alleen samenvoegen is altijd juist ($\forall x\, \varphi \of \forall x\, \psi \dan \forall x\, (\varphi \of \psi)$ en $\exists x\, (\varphi \en \psi) \dan \exists x\, \varphi \en \exists x\, \psi$), splitsen niet.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-connectief}
+\end{oefeningen}
+
+\subsection{Een deel zonder de variabele}
+
+\textit{Als er iemand ziek is, gaat de les niet door.} De zin begint met \textit{er is iemand}, maar betekent: \textit{voor iedereen geldt: als die persoon ziek is, gaat de les niet door}. Hoe wordt een $\exists$ zomaar een $\forall$? Het tweede deel, \textit{de les gaat niet door}, gaat over niemand in het bijzonder: de variabele staat er niet in.
+
+\begin{theorie}
+\begin{stelling}{Een kwantor buiten een implicatie}
+Staat $x$ niet vrij in $\psi$, dan is
+\qquad $\formule{\forall x\, (\varphi \dan \psi) \asa (\exists x\, \varphi \dan \psi)}$
+\end{stelling}
+
+\begin{bewijs}
+Neem een interpretatie. De waarheidswaarde van $\psi$ hangt niet af van $x$. Is $\psi$ waar, dan zijn beide leden waar: elke implicatie met een waar tweede deel is waar. Is $\psi$ vals, dan is $\varphi \dan \psi$ gelijkwaardig met $\niet\varphi$, dus het linkerlid met $\forall x\, \niet\varphi$, en het rechterlid met $\niet\exists x\, \varphi$. Die zijn gelijkwaardig volgens de negatiestelling.
+\end{bewijs}
+\end{theorie}
+
+Op dezelfde manier toon je aan dat $\forall x\, (\psi \dan \varphi) \asa \bigl(\psi \dan \forall x\, \varphi\bigr)$ en $\forall x\, (\varphi \of \psi) \asa \forall x\, \varphi \of \psi$, als $x$ niet vrij staat in $\psi$. Dan mag je de kwantor wel over $\of$ verdelen, in tegenstelling tot de vorige stelling: $\psi$ hangt niet van $x$ af.
+
+\voorbeeld{}{Met $Z(x)$: \textit{$x$ is ziek} en de uitspraak $d$: \textit{de les gaat door}, schrijf \textit{als er iemand ziek is, gaat de les niet door} op twee manieren. Wat betekent $\exists x\, \bigl(Z(x) \dan \niet d\bigr)$?\label{vb:h3-buiten}}{%
+\uitleg{$d$ bevat geen variabele, dus we passen de stelling toe met $\varphi\colon Z(x)$ en $\psi\colon \niet d$.}
+\begin{stappenbreed}
+\exists x\, Z(x) \dan \niet d \ \asa \ \forall x\, \bigl(Z(x) \dan \niet d\bigr) & \textit{Is er iemand ziek, dan gaat de les niet door}, of \textit{voor iedereen: is die ziek, dan gaat de les niet door}. \\[1ex]
+\exists x\, \bigl(Z(x) \dan \niet d\bigr) \asa \exists x\, \niet Z(x) \of \niet d & \textit{Iemand is niet ziek, of de les gaat niet door}: bijna altijd waar, en iets heel anders.
+\end{stappenbreed}
+De tweede regel volgt uit $p \dan q \asa \niet p \of q$ en het verdelen van $\exists$ over $\of$, met $\exists x\, \niet d \asa \niet d$, omdat $x$ niet in $d$ staat.}
+
+\begin{oefeningen}
+\oef{h3-buiten}
+\end{oefeningen}
+
+\needspace{16\baselineskip}
+\subsection{Terug naar het probleem}
+
+Nu kun je de Hoedenmaker en de Slaapmuis precies beantwoorden. Het verschil tussen \textit{hetzelfde zeggen} en \textit{toevallig allebei waar zijn} is het verschil tussen logisch gelijkwaardig en gelijkwaardig in één interpretatie.
+
+\voorbeeld{}{Terug naar het probleem. Zeggen \textit{ik zie wat ik eet} en \textit{ik eet wat ik zie} hetzelfde? Hoe zijn \textit{ik adem als ik slaap} en \textit{ik slaap als ik adem} voor de Slaapmuis hetzelfde?\label{vb:h3-terug}}{%
+\uitleg{Het universum van de eerste zinnen zijn de dingen, met $Z(x)$: \textit{ik zie $x$} en $E(x)$: \textit{ik eet $x$}. Voor de Slaapmuis zijn het de ogenblikken $t$, met $S(t)$: \textit{ik slaap op $t$} en $A(t)$: \textit{ik adem op $t$}.}
+\begin{stappenbreed}
+\forall x\, \bigl(E(x) \dan Z(x)\bigr) \ \text{en} \ \forall x\, \bigl(Z(x) \dan E(x)\bigr) & \textit{Alles wat ik eet, zie ik} en \textit{alles wat ik zie, eet ik}: een implicatie en haar omgekeerde, met $\forall$. \\[1ex]
+\text{niet logisch gelijkwaardig} & Wie een appel en een peer ziet en alleen de appel eet, maakt de eerste zin waar en de tweede vals (voorbeeld~\ref{vb:h3-omgekeerde}). De Hoedenmaker heeft gelijk. \\[1ex]
+\forall t\, \bigl(S(t) \dan A(t)\bigr) \ \text{en} \ \forall t\, \bigl(A(t) \dan S(t)\bigr) & De zinnen van de Slaapmuis hebben dezelfde vorm, dus ook zij zijn niet logisch gelijkwaardig. \\[1ex]
+S(t) \text{ en } A(t) \text{ waar voor elke } t & De Slaapmuis slaapt en ademt altijd. In die interpretatie hebben alle implicaties een waar tweede deel: beide zinnen zijn waar.
+\end{stappenbreed}
+Voor de Slaapmuis zijn de twee zinnen dus gelijkwaardig in één interpretatie: de zijne. Hetzelfde zeggen, in de taal van de logica, betekent: logisch gelijkwaardig zijn, in elke interpretatie dezelfde waarheidswaarde. Ook Alice vergist zich: \textit{ik meen wat ik zeg} en \textit{ik zeg wat ik meen} hebben dezelfde vorm.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\needspace{14\baselineskip}
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+
+\oef{h3-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{De eerste oefening gebruikt de definitie van een convergente reeks uit Reeksen, de tweede de bewerkingen met gebeurtenissen uit Kansrekenen, de derde het neutraal element uit Groepen.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-logischwaar}{oef:h3-logischwaar}%
+  \fv{oef:h3-t2}{vb:h3-omgekeerde}{oef:h3-gelijkwaardig}%
+  \fv{oef:h3-t3}{vb:h3-ongeldig}{oef:h3-gevolg}%
+  \fv{oef:h3-t4}{vb:h3-negatie}{oef:h3-negatie}%
+  \fv{oef:h3-t5}{vb:h3-verwissel}{oef:h3-verwissel}%
+  \fv{oef:h3-t6}{vb:h3-of}{oef:h3-connectief}%
+  \fv{oef:h3-t7}{vb:h3-buiten}{oef:h3-buiten}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat logisch waar, logisch gelijkwaardig en logisch gevolg betekenen, hoe je ze aantoont of weerlegt, hoe tautologieën logisch ware formules geven, de negatiestellingen en hoe je een kwantor met de andere uitdrukt, de verwisselstellingen (welke richting altijd klopt), welke kwantoren je over welke connectieven mag verdelen, en wat er gebeurt als een deel de variabele niet bevat. Vergelijk daarna met de kaders.
+\fi

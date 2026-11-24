@@ -1,0 +1,1147 @@
+# Oefeningen van hoofdstuk 3. Zie oefeningenbank.py voor de velden.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is $(p \dan q) \asa (\niet q \dan \niet p)$ een tautologie?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Het is de contrapositie: beide kanten zijn alleen vals als $p$ waar is en $q$ vals.
+    - opgave: |-
+        Is $(p \dan q) \dan (q \dan p)$ een tautologie?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Met $p$ vals en $q$ waar is $p \dan q$ waar en $q \dan p$ vals.
+    - opgave: |-
+        Ontken $\forall x\, \exists y\, R(x, y)$ zonder $\niet$ voor een kwantor.
+      antwoord: |-
+        $\exists x\, \forall y\, \niet R(x, y)$
+    - opgave: |-
+        Is $\forall x\, \exists y\, (x < y)$ waar in $\N$? En $\exists y\, \forall x\, (x < y)$?
+      antwoord: |-
+        waar; vals
+      uitwerking: |-
+        Bij elke $x$ werkt $y = x + 1$. Maar geen getal $y$ is groter dan alle getallen, ook niet dan zichzelf.
+    - opgave: |-
+        Geef een model van $\exists x\, P(x) \en \exists x\, \niet P(x)$.
+      antwoord: |-
+        $U = \N$, $P(x)$: \textit{$x$ is even}
+      uitwerking: |-
+        2 is even en 3 niet.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Zoek een interpretatie waarin de formule vals is. Lukt dat niet, leg dan uit waarom.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, P(x) \dan \exists x\, P(x)$
+      antwoord: |-
+        lukt niet
+      uitwerking: |-
+        Is $P$ waar voor alle elementen, dan ook voor één, want het universum is niet leeg.
+    - opgave: |-
+        $\exists x\, P(x) \dan \forall x\, P(x)$
+      antwoord: |-
+        $U = \N$, $P(x)$: \textit{$x$ is even}
+      uitwerking: |-
+        2 is even, maar niet alle getallen zijn even.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \en Q(x)\bigr) \dan \forall x\, P(x)$
+      antwoord: |-
+        lukt niet
+      uitwerking: |-
+        Heeft elk element $P$ en $Q$, dan heeft elk element zeker $P$.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \of Q(x)\bigr) \dan \forall x\, P(x) \of \forall x\, Q(x)$
+      antwoord: |-
+        $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        Elk getal is even of oneven, maar niet alle getallen zijn even, en ook niet alle oneven.
+    - opgave: |-
+        Wat hebben de formules van a en c gemeen?
+      antwoord: |-
+        ze zijn waar in elke interpretatie
+      uitwerking: |-
+        Hun waarheid hangt niet af van wat $P$, $Q$ en het universum betekenen, alleen van hun vorm.
+
+- id: h3-logischwaar
+  soort: kort
+  opgave: |-
+    Is de formule logisch waar? Bewijs het, of geef een interpretatie waarin ze vals is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $P(c) \dan \exists x\, P(x)$
+      antwoord: |-
+        logisch waar
+      uitwerking: |-
+        Neem een interpretatie met $P(c)$ waar. Het element dat $c$ voorstelt, heeft de eigenschap, dus $\exists x\, P(x)$ is waar.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \dan Q(x)\bigr) \dan \bigl(\forall x\, P(x) \dan \forall x\, Q(x)\bigr)$
+      antwoord: |-
+        logisch waar
+      uitwerking: |-
+        Neem een interpretatie met $\forall x\, (P(x) \dan Q(x))$ en $\forall x\, P(x)$ waar, en neem $a \in U$. Dan zijn $P(a) \dan Q(a)$ en $P(a)$ waar, dus $Q(a)$. Dat geldt voor elke $a$.
+    - opgave: |-
+        $\bigl(\forall x\, P(x) \dan \forall x\, Q(x)\bigr) \dan \forall x\, \bigl(P(x) \dan Q(x)\bigr)$
+      antwoord: |-
+        niet logisch waar: $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        $\forall x\, P(x)$ is vals, dus het eerste deel is waar. Maar $P(2) \dan Q(2)$ is vals, dus het tweede deel ook.
+    - opgave: |-
+        $\exists x\, P(x) \of \forall x\, \niet P(x)$
+      antwoord: |-
+        logisch waar
+      uitwerking: |-
+        Volgens de negatiestelling is $\forall x\, \niet P(x)$ gelijkwaardig met $\niet\exists x\, P(x)$. De formule is dus $q \of \niet q$ met $q\colon \exists x\, P(x)$, een ingevulde tautologie.
+
+- id: h3-gelijkwaardig
+  soort: kort
+  opgave: |-
+    Zijn de twee formules logisch gelijkwaardig? Verklaar, of geef een interpretatie waarin ze verschillen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\niet\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ \ en \ $\exists x\, \bigl(P(x) \en \niet Q(x)\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Negatiestelling, en $\niet(p \dan q) \asa p \en \niet q$ achter de kwantor.
+    - opgave: |-
+        $\forall x\, \niet P(x)$ \ en \ $\niet\forall x\, P(x)$
+      antwoord: |-
+        nee: $U = \N$, $P$: even
+      uitwerking: |-
+        \textit{Geen enkel getal is even} is vals, \textit{niet alle getallen zijn even} is waar.
+    - opgave: |-
+        $\exists x\, \bigl(P(x) \dan Q(x)\bigr)$ \ en \ $\exists x\, P(x) \dan \exists x\, Q(x)$
+      antwoord: |-
+        nee: $U = \N$, $P$: even, $Q(x)$: $x < 0$
+      uitwerking: |-
+        $Q$ is overal vals. Links: $x = 1$ maakt $P(1) \dan Q(1)$ waar. Rechts: $\exists x\, P(x)$ is waar en $\exists x\, Q(x)$ vals.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ \ en \ $\forall x\, \bigl(\niet P(x) \of Q(x)\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $p \dan q \asa \niet p \of q$ is een tautologie, en je vervangt achter de kwantor.
+
+- id: h3-gevolg
+  soort: kort
+  opgave: |-
+    Is de redenering geldig? Schrijf ze eerst met formules.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geen enkele vis kan vliegen. Sommige dieren die kunnen vliegen, zijn vogels. Dus sommige vogels zijn geen vissen.
+      antwoord: |-
+        geldig
+      uitwerking: |-
+        Premissen: $\forall x\, (V(x) \dan \niet F(x))$ en $\exists x\, (F(x) \en B(x))$. Besluit: $\exists x\, (B(x) \en \niet V(x))$. Neem een interpretatie met ware premissen, en $a$ met $F(a)$ en $B(a)$. De contrapositie van $V(a) \dan \niet F(a)$ is $F(a) \dan \niet V(a)$, dus $\niet V(a)$. Dan is $B(a) \en \niet V(a)$ waar.
+    - opgave: |-
+        Alle priemgetallen groter dan 2 zijn oneven. 9 is oneven. Dus 9 is een priemgetal groter dan 2.
+      antwoord: |-
+        ongeldig
+      uitwerking: |-
+        $\forall x\, (P(x) \en x > 2 \dan O(x))$ en $O(9)$, dus $P(9) \en 9 > 2$. De gewone interpretatie in $\N$ maakt de premissen waar en het besluit vals: $9 = 3 \cdot 3$. De redenering gebruikt de omgekeerde implicatie.
+    - opgave: |-
+        Iedereen die de bus mist, komt te laat. Niemand kwam te laat. Dus niemand miste de bus.
+      antwoord: |-
+        geldig
+      uitwerking: |-
+        $\forall x\, (B(x) \dan L(x))$ en $\forall x\, \niet L(x)$, dus $\forall x\, \niet B(x)$. Neem $a$: $\niet L(a)$, en met de contrapositie van $B(a) \dan L(a)$ volgt $\niet B(a)$.
+
+- id: h3-negatie
+  soort: kort
+  opgave: |-
+    Schrijf de ontkenning zonder $\niet$ voor een kwantor of een haakje.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \exists y\, \bigl(R(x, y) \en P(y)\bigr)$
+      antwoord: |-
+        $\exists x\, \forall y\, \bigl(\niet R(x, y) \of \niet P(y)\bigr)$
+      uitwerking: |-
+        Ook goed: $\exists x\, \forall y\, \bigl(R(x, y) \dan \niet P(y)\bigr)$.
+    - opgave: |-
+        $\exists x\, \forall y\, \bigl(P(y) \dan R(x, y)\bigr)$
+      antwoord: |-
+        $\forall x\, \exists y\, \bigl(P(y) \en \niet R(x, y)\bigr)$
+    - opgave: |-
+        $\forall x\, \Bigl(P(x) \dan \exists y\, \bigl(R(x, y) \en \forall z\, R(y, z)\bigr)\Bigr)$
+      antwoord: |-
+        $\exists x\, \Bigl(P(x) \en \forall y\, \bigl(\niet R(x, y) \of \exists z\, \niet R(y, z)\bigr)\Bigr)$
+      uitwerking: |-
+        De ontkenning van de implicatie geeft $P(x) \en \niet\exists y\, (\ldots)$, daarna de negatiestelling voor $\exists y$, De Morgan, en de negatiestelling voor $\forall z$.
+
+- id: h3-verwissel
+  soort: kort
+  opgave: |-
+    Het universum is $\N$. Bepaal de waarheidswaarde van de zin, en van de zin met de kwantoren verwisseld. Mag je hier verwisselen?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \exists y\, (x \cdot y = 0)$
+      antwoord: |-
+        waar, waar; ja
+      uitwerking: |-
+        $y = 0$ werkt voor elke $x$.
+    - opgave: |-
+        $\forall x\, \exists y\, (x \leqslant y)$
+      antwoord: |-
+        waar, vals; nee
+      uitwerking: |-
+        Er is geen grootste natuurlijk getal.
+    - opgave: |-
+        $\forall x\, \exists y\, (y \leqslant x)$
+      antwoord: |-
+        waar, waar; ja
+      uitwerking: |-
+        $y = 0$ is kleiner dan of gelijk aan elk natuurlijk getal.
+    - opgave: |-
+        $\forall x\, \exists y\, (x + y \text{ is even})$
+      antwoord: |-
+        waar, vals; nee
+      uitwerking: |-
+        Bij elke $x$ werkt $y = x$. Maar voor een vaste $y$ hebben $y + 0$ en $y + 1$ een verschillende pariteit.
+
+- id: h3-verdelen
+  soort: kort
+  opgave: |-
+    Schrijf op een andere manier met de stellingen van deze sectie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\exists x\, \bigl(Z(x) \of A(x)\bigr)$, met $Z(x)$: \textit{$x$ is ziek} en $A(x)$: \textit{$x$ is afwezig}. Zeg beide versies in woorden.
+      antwoord: |-
+        $\exists x\, Z(x) \of \exists x\, A(x)$
+      uitwerking: |-
+        \textit{Iemand is ziek of afwezig} en \textit{iemand is ziek, of iemand is afwezig}.
+    - opgave: |-
+        $\forall x\, \bigl(x^2 \geqslant 0 \en x^2 + 1 > 0\bigr)$ in $\R$. Is de zin waar?
+      antwoord: |-
+        $\forall x\, (x^2 \geqslant 0) \en \forall x\, (x^2 + 1 > 0)$; waar
+    - opgave: |-
+        Ontken $\forall x\, \bigl(A(x) \en B(x)\bigr)$ en schrijf het resultaat met twee kwantoren.
+      antwoord: |-
+        $\exists x\, \niet A(x) \of \exists x\, \niet B(x)$
+      uitwerking: |-
+        De ontkenning is $\exists x\, (\niet A(x) \of \niet B(x))$, en $\exists$ mag je verdelen over $\of$.
+
+- id: h3-connectief
+  soort: kort
+  opgave: |-
+    Zijn de twee formules logisch gelijkwaardig? Zo niet, geef een interpretatie die het toont.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\exists x\, \bigl(P(x) \en Q(x)\bigr)$ \ en \ $\exists x\, P(x) \en \exists x\, Q(x)$
+      antwoord: |-
+        nee: $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        Rechts is waar, links vals.
+    - opgave: |-
+        $\exists x\, \bigl(P(x) \of Q(x)\bigr)$ \ en \ $\exists x\, P(x) \of \exists x\, Q(x)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\exists$ mag je verdelen over $\of$.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ \ en \ $\forall x\, P(x) \dan \forall x\, Q(x)$
+      antwoord: |-
+        nee: $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        Rechts is waar, want $\forall x\, P(x)$ is vals. Links is vals: $P(2) \dan Q(2)$ is vals. Alleen links $\dan$ rechts is logisch waar.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \of Q(x)\bigr)$ \ en \ $\forall x\, P(x) \of \forall x\, Q(x)$
+      antwoord: |-
+        nee: $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        Links is waar, rechts vals.
+
+- id: h3-buiten
+  soort: kort
+  opgave: |-
+    De letters $c$ en $t$ zijn uitspraken zonder variabelen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $\exists x\, F(x) \dan c$ met een $\forall$ vooraan. Lees beide met $F(x)$: \textit{regel $x$ van het programma bevat een fout} en $c$: \textit{het programma crasht}.
+      antwoord: |-
+        $\forall x\, \bigl(F(x) \dan c\bigr)$
+      uitwerking: |-
+        \textit{Als er een regel met een fout is, crasht het programma} en \textit{voor elke regel: bevat ze een fout, dan crasht het programma}.
+    - opgave: |-
+        Schrijf $\forall x\, \bigl(t \dan N(x)\bigr)$ zonder kwantor vooraan. Lees beide met $t$: \textit{het regent} en $N(x)$: \textit{$x$ wordt nat}.
+      antwoord: |-
+        $t \dan \forall x\, N(x)$
+      uitwerking: |-
+        \textit{Voor iedereen: als het regent, wordt die nat} en \textit{als het regent, wordt iedereen nat}.
+    - opgave: |-
+        Is $\forall x\, \bigl(P(x) \dan t\bigr)$ logisch gelijkwaardig met $\forall x\, P(x) \dan t$?
+      antwoord: |-
+        nee: $U = \N$, $P$: even, $t$ vals
+      uitwerking: |-
+        Links staat $\forall x\, \niet P(x)$: vals. Rechts is $\forall x\, P(x)$ vals, dus de implicatie waar. Volgens de stelling hoort er $\exists x\, P(x)$ te staan.
+
+#----------------------------------------------------------------------------------------
+# OPDRACHTEN: niveau 1 (o1-o8), niveau 2 (o9-o19), niveau 3 (o20-o24)
+#----------------------------------------------------------------------------------------
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    logisch waar of niet
+  opgave: |-
+    Is de formule logisch waar? Bewijs het, of geef een interpretatie waarin ze vals is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, P(x) \dan P(c)$
+      antwoord: |-
+        logisch waar
+      uitwerking: |-
+        Is $P$ waar voor elk element, dan ook voor het element dat $c$ voorstelt.
+    - opgave: |-
+        $\exists x\, \forall y\, R(x, y) \dan \exists x\, R(x, x)$
+      antwoord: |-
+        logisch waar
+      uitwerking: |-
+        Neem $a$ met $R(a, y)$ voor elke $y$. Met $y = a$ is $R(a, a)$ waar.
+    - opgave: |-
+        $\forall x\, \exists y\, R(x, y) \dan \exists x\, R(x, x)$
+      antwoord: |-
+        niet logisch waar: $U = \N$, $R$: $<$
+      uitwerking: |-
+        Elk getal heeft een groter, maar geen getal is kleiner dan zichzelf.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \of \niet P(x)\bigr)$
+      antwoord: |-
+        logisch waar
+      uitwerking: |-
+        Voor elke waarde van $x$ is $P(x)$ waar of vals, dus $P(x) \of \niet P(x)$ is waar.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    ontkennen in een context
+  opgave: |-
+    \textit{In elke klas is er een leerling die voor alle vakken geslaagd is.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de zin met $L(l, k)$: \textit{$l$ zit in klas $k$} en $G(l, v)$: \textit{$l$ is geslaagd voor vak $v$}.
+      antwoord: |-
+        $\forall k\, \exists l\, \bigl(L(l, k) \en \forall v\, G(l, v)\bigr)$
+    - opgave: |-
+        Ontken de formule met de negatiestellingen.
+      antwoord: |-
+        $\exists k\, \forall l\, \bigl(\niet L(l, k) \of \exists v\, \niet G(l, v)\bigr)$
+      uitwerking: |-
+        Ook: $\exists k\, \forall l\, \bigl(L(l, k) \dan \exists v\, \niet G(l, v)\bigr)$.
+    - opgave: |-
+        Zeg de ontkenning in woorden.
+      antwoord: |-
+        Er is een klas waarin elke leerling voor minstens één vak niet geslaagd is.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tautologieën herkennen
+  opgave: |-
+    De formule is logisch waar omdat ze een ingevulde tautologie is. Welke tautologie?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\bigl(\forall x\, P(x) \dan \exists y\, Q(y)\bigr) \asa \bigl(\niet\exists y\, Q(y) \dan \niet\forall x\, P(x)\bigr)$
+      antwoord: |-
+        $(p \dan q) \asa (\niet q \dan \niet p)$
+    - opgave: |-
+        $\niet\bigl(\forall x\, P(x) \en \exists y\, Q(y)\bigr) \asa \niet\forall x\, P(x) \of \niet\exists y\, Q(y)$
+      antwoord: |-
+        $\niet(p \en q) \asa \niet p \of \niet q$
+    - opgave: |-
+        $\exists x\, R(x, x) \dan \bigl(\forall y\, P(y) \dan \exists x\, R(x, x)\bigr)$
+      antwoord: |-
+        $p \dan (q \dan p)$
+      uitwerking: |-
+        Is $p$ waar, dan is $q \dan p$ waar.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kwantoren verwisselen in R
+  opgave: |-
+    Het universum is $\R$. Bepaal de waarheidswaarde van de zin, en van de zin met de kwantoren verwisseld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \exists y\, (y > x)$
+      antwoord: |-
+        waar; $\exists y\, \forall x\, (y > x)$ vals
+    - opgave: |-
+        $\forall x\, \exists y\, (x + y = x)$
+      antwoord: |-
+        waar; $\exists y\, \forall x\, (x + y = x)$ waar
+      uitwerking: |-
+        $y = 0$ werkt voor elke $x$.
+    - opgave: |-
+        $\forall x\, \exists y\, (y^2 = x^2)$
+      antwoord: |-
+        waar; $\exists y\, \forall x\, (y^2 = x^2)$ vals
+      uitwerking: |-
+        Bij elke $x$ werkt $y = x$. Een vaste $y$ geeft $y^2 = 0$ voor $x = 0$ en $y^2 = 1$ voor $x = 1$.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    sluitredes
+  opgave: |-
+    Is de sluitrede geldig? Bewijs het, of geef een interpretatie met ware premissen en een vals besluit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Alle $A$ zijn $B$. Alle $B$ zijn $C$. Dus alle $A$ zijn $C$.
+      antwoord: |-
+        geldig
+      uitwerking: |-
+        Neem $a$ met $A(a)$. Uit de eerste premisse volgt $B(a)$, uit de tweede $C(a)$.
+    - opgave: |-
+        Alle $A$ zijn $B$. Geen enkele $C$ is $B$. Dus geen enkele $C$ is $A$.
+      antwoord: |-
+        geldig
+      uitwerking: |-
+        Neem $a$ met $C(a)$. Dan is $\niet B(a)$, en de contrapositie van $A(a) \dan B(a)$ geeft $\niet A(a)$.
+    - opgave: |-
+        Sommige $A$ zijn $B$. Sommige $B$ zijn $C$. Dus sommige $A$ zijn $C$.
+      antwoord: |-
+        ongeldig: $U = \N$, $A$: veelvoud van 4, $B$: even, $C(x)$: $x = 2$
+      uitwerking: |-
+        4 is een even veelvoud van 4, en 2 is even. Maar 2 is geen veelvoud van 4.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    verwisselen met een pijlenfiguur
+  opgave: |-
+    Het universum is $\{a, b\}$. Teken een relatie $R$ met pijlen zodat
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \exists y\, R(x, y)$ waar is en $\exists y\, \forall x\, R(x, y)$ vals;
+      antwoord: |-
+        $a \to b$ en $b \to a$
+      uitwerking: |-
+        Uit elk punt vertrekt een pijl, maar in geen punt komen pijlen uit beide punten aan. Ook twee lussen werken.
+    - opgave: |-
+        beide zinnen waar zijn.
+      antwoord: |-
+        bijvoorbeeld $a \to a$ en $b \to a$
+      uitwerking: |-
+        In $a$ komen pijlen uit $a$ en $b$ aan.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    voor alle en of
+  opgave: |-
+    Het universum zijn de leerlingen van een klas, met $V(x)$: \textit{$x$ speelt voetbal} en $B(x)$: \textit{$x$ speelt basketbal}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf \textit{iedereen speelt voetbal of basketbal} en \textit{iedereen speelt voetbal, of iedereen speelt basketbal}.
+      antwoord: |-
+        $\forall x\, \bigl(V(x) \of B(x)\bigr)$ en $\forall x\, V(x) \of \forall x\, B(x)$
+    - opgave: |-
+        Welke zin volgt uit de andere?
+      antwoord: |-
+        de eerste volgt uit de tweede
+      uitwerking: |-
+        $\forall x\, V(x) \of \forall x\, B(x) \dan \forall x\, (V(x) \of B(x))$ is logisch waar.
+    - opgave: |-
+        Beschrijf een klas waarin de eerste zin waar is en de tweede vals.
+      antwoord: |-
+        Lies speelt alleen voetbal, Jonas alleen basketbal
+      uitwerking: |-
+        Iedereen speelt een van beide, maar niet iedereen voetbal (Jonas) en niet iedereen basketbal (Lies).
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    logisch waar met het gelijkheidsteken
+  opgave: |-
+    Is de formule logisch waar? Denk aan universums met één of twee elementen.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \dan P(x)\bigr)$
+      antwoord: |-
+        ja
+    - opgave: |-
+        $\exists x\, P(x) \dan P(c)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $U = \N$, $P$: even, $c = 1$.
+    - opgave: |-
+        $\forall x\, \forall y\, (x = y)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Vals in elk universum met twee elementen.
+    - opgave: |-
+        $\forall x\, (x = x)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Elk object is zichzelf.
+    - opgave: |-
+        $\exists x\, \exists y\, (x \neq y)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Vals als het universum maar één element heeft.
+    - opgave: |-
+        $\forall x\, \exists y\, (x = y)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Neem $y = x$.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    begrensd en niet begrensd
+  opgave: |-
+    Een functie $f\colon \R \to \R$ is begrensd als $\exists M\, \forall x\, \bigl(|f(x)| \leqslant M\bigr)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf \textit{$f$ is niet begrensd} zonder $\niet$ voor een kwantor.
+      antwoord: |-
+        $\forall M\, \exists x\, \bigl(|f(x)| > M\bigr)$
+    - opgave: |-
+        Toon daarmee aan dat $f(x) = x^2$ niet begrensd is.
+      antwoord: |-
+        bij elke $M$ werkt $x = \sqrt{|M|} + 1$
+      uitwerking: |-
+        Neem $M$. Met $x = \sqrt{|M|} + 1$ is $x^2 > |M| \geqslant M$.
+    - opgave: |-
+        Iemand verwisselt de kwantoren: $\forall x\, \exists M\, \bigl(|f(x)| \leqslant M\bigr)$. Voor welke functies is dat waar?
+      antwoord: |-
+        voor elke functie
+      uitwerking: |-
+        Bij elke $x$ werkt $M = |f(x)|$. De zin zegt alleen dat elke functiewaarde een getal is. De volgorde van de kwantoren maakt het verschil.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    logisch gelijkwaardig of niet
+  opgave: |-
+    De letter $q$ is een uitspraak zonder $x$. Zijn de formules logisch gelijkwaardig? Verklaar, of geef een interpretatie waarin ze verschillen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\exists x\, \bigl(P(x) \dan q\bigr)$ \ en \ $\forall x\, P(x) \dan q$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\exists x\, (\niet P(x) \of q) \asa \exists x\, \niet P(x) \of q \asa \niet\forall x\, P(x) \of q \asa (\forall x\, P(x) \dan q)$.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \of q\bigr)$ \ en \ $\forall x\, P(x) \of q$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Is $q$ waar, dan zijn beide waar. Is $q$ vals, dan zijn beide gelijkwaardig met $\forall x\, P(x)$.
+    - opgave: |-
+        $\exists x\, \bigl(P(x) \en q\bigr)$ \ en \ $\exists x\, P(x) \en q$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Is $q$ vals, dan zijn beide vals. Is $q$ waar, dan zijn beide gelijkwaardig met $\exists x\, P(x)$.
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ \ en \ $\exists x\, P(x) \dan \forall x\, Q(x)$
+      antwoord: |-
+        nee: $U = \N$, $P$ en $Q$: even
+      uitwerking: |-
+        Links is waar. Rechts is $\exists x\, P(x)$ waar en $\forall x\, Q(x)$ vals. Hier staat $x$ vrij in $Q(x)$, dus de stelling geldt niet.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    redeneringen in de wiskunde
+  opgave: |-
+    Is de redenering geldig? Geef de vorm, en bij een ongeldige redenering een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Elk kwadraat van een reëel getal is positief of nul. $-4$ is negatief. Dus $-4$ is geen kwadraat van een reëel getal.
+      antwoord: |-
+        geldig
+      uitwerking: |-
+        $\forall x\, (K(x) \dan x \geqslant 0)$ en $-4 < 0$, dus $\niet K(-4)$: de contrapositie, met $x = -4$.
+    - opgave: |-
+        Elke afleidbare functie is continu. $f$ is continu. Dus $f$ is afleidbaar.
+      antwoord: |-
+        ongeldig: $f(x) = |x|$
+      uitwerking: |-
+        De vorm is $\forall x\, (A(x) \dan C(x))$, $C(f)$, dus $A(f)$: de omgekeerde implicatie. De functie $|x|$ is continu maar niet afleidbaar in 0.
+    - opgave: |-
+        Als alle termen van een convergente rij positief zijn, is haar limiet niet negatief. De rij $(u_n)$ convergeert naar $-1$. Dus minstens één term van $(u_n)$ is niet positief.
+      antwoord: |-
+        geldig
+      uitwerking: |-
+        De vorm is $\forall n\, (u_n > 0) \dan L \geqslant 0$ en $L = -1 < 0$, dus $\niet\forall n\, (u_n > 0)$: de contrapositie, en de negatiestelling geeft $\exists n\, (u_n \leqslant 0)$.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    verwisselen in een gegeven interpretatie
+  opgave: |-
+    De figuren tonen drie relaties $R$. Mag je in $\forall x\, \exists y\, R(x, y)$ de kwantoren verwisselen zonder dat de waarheidswaarde verandert?
+
+    \figuren{\begin{tikzpicture}[font=\small]
+      \node[font=\bfseries] at (-.9,1.2) {a};
+      \node[elt] (a) at (0,1) {$a$}; \node[elt] (b) at (-.6,0) {$b$}; \node[elt] (c) at (.6,0) {$c$};
+      \draw[pijl] (a) -- (c); \draw[pijl] (b) -- (c); \draw[pijl] (c) to[lusrechts] (c);
+      \begin{scope}[xshift=4cm]
+        \node[font=\bfseries] at (-.9,1.2) {b};
+        \node[elt] (a) at (0,1) {$a$}; \node[elt] (b) at (-.6,0) {$b$}; \node[elt] (c) at (.6,0) {$c$};
+        \draw[pijl] (a) -- (b); \draw[pijl] (b) -- (c); \draw[pijl] (c) -- (a);
+      \end{scope}
+      \begin{scope}[xshift=8cm]
+        \node[font=\bfseries] at (-.9,1.2) {c};
+        \node[elt] (a) at (0,1) {$a$}; \node[elt] (b) at (-.6,0) {$b$}; \node[elt] (c) at (.6,0) {$c$};
+        \draw[pijl] (a) -- (c); \draw[pijl] (b) -- (c);
+      \end{scope}
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        figuur a
+      antwoord: |-
+        ja: beide waar
+      uitwerking: |-
+        In $c$ komt een pijl aan uit elk punt: $y = c$ werkt voor alle $x$.
+    - opgave: |-
+        figuur b
+      antwoord: |-
+        nee: $\forall x\, \exists y$ waar, $\exists y\, \forall x$ vals
+      uitwerking: |-
+        Uit elk punt vertrekt een pijl, maar in elk punt komt maar één pijl aan.
+    - opgave: |-
+        figuur c
+      antwoord: |-
+        ja: beide vals
+      uitwerking: |-
+        Uit $c$ vertrekt geen pijl, dus $\forall x\, \exists y\, R(x, y)$ is vals. Dan is ook $\exists y\, \forall x\, R(x, y)$ vals: dat volgt uit de verwisselstelling, en hier ook omdat $c$ geen lus heeft.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een logisch gevolg bewijzen
+  opgave: |-
+    Bekijk de formule \quad $\forall x\, \bigl(P(x) \dan Q(x)\bigr) \dan \bigl(\exists x\, P(x) \dan \exists x\, Q(x)\bigr)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat ze logisch waar is.
+      antwoord: |-
+        neem $a$ met $P(a)$; dan $Q(a)$
+      uitwerking: |-
+        Neem een interpretatie met $\forall x\, (P(x) \dan Q(x))$ en $\exists x\, P(x)$ waar. Neem $a$ met $P(a)$. Dan is $P(a) \dan Q(a)$ waar, dus $Q(a)$, en $\exists x\, Q(x)$ is waar.
+    - opgave: |-
+        Is de omgekeerde implicatie logisch waar?
+      antwoord: |-
+        nee: $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        $\exists x\, P(x) \dan \exists x\, Q(x)$ is waar (er zijn oneven getallen), maar $\forall x\, (P(x) \dan Q(x))$ is vals.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    kwantoren naar voren brengen
+  opgave: |-
+    Schrijf de formule met alle kwantoren vooraan. Gebruik de stellingen over een deel zonder de variabele.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\exists x\, P(x) \dan \exists y\, Q(y)$
+      antwoord: |-
+        $\forall x\, \exists y\, \bigl(P(x) \dan Q(y)\bigr)$
+      uitwerking: |-
+        Eerst $\forall x\, \bigl(P(x) \dan \exists y\, Q(y)\bigr)$, want $x$ staat niet in $\exists y\, Q(y)$. Daarna $P(x) \dan \exists y\, Q(y) \asa \niet P(x) \of \exists y\, Q(y) \asa \exists y\, \bigl(\niet P(x) \of Q(y)\bigr)$: $\exists$ verdelen over $\of$, met $\exists y\, \niet P(x) \asa \niet P(x)$ omdat $y$ niet in $P(x)$ staat.
+    - opgave: |-
+        $\forall x\, P(x) \en \exists y\, Q(y)$
+      antwoord: |-
+        $\forall x\, \exists y\, \bigl(P(x) \en Q(y)\bigr)$
+      uitwerking: |-
+        $\forall x\, (P(x) \en \exists y\, Q(y))$ en daarna $P(x) \en \exists y\, Q(y) \asa \exists y\, (P(x) \en Q(y))$, net als $\exists x\, (P(x) \en q) \asa \exists x\, P(x) \en q$ met $q$ zonder $x$.
+    - opgave: |-
+        $\forall x\, P(x) \of \forall y\, Q(y)$
+      antwoord: |-
+        $\forall x\, \forall y\, \bigl(P(x) \of Q(y)\bigr)$
+      uitwerking: |-
+        $y$ staat niet in $P(x)$ en $x$ niet in $Q(y)$, dus beide kwantoren mogen naar voren. Met dezelfde letter $x$ voor beide zou het niet mogen.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de Maartse Haas
+  opgave: |-
+    Op het theekransje zegt de Maartse Haas: \textit{Dan zou je ook kunnen zeggen dat \textup{ik hou van wat ik krijg} hetzelfde is als \textup{ik krijg waar ik van hou}.} Het universum zijn de dingen, met $H(x)$: \textit{ik hou van $x$} en $K(x)$: \textit{ik krijg $x$}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf beide zinnen als formule.
+      antwoord: |-
+        $\forall x\, \bigl(K(x) \dan H(x)\bigr)$ en $\forall x\, \bigl(H(x) \dan K(x)\bigr)$
+    - opgave: |-
+        Toon met een interpretatie aan dat ze niet logisch gelijkwaardig zijn.
+      antwoord: |-
+        iemand die alleen chocolade krijgt, maar van chocolade en taart houdt
+      uitwerking: |-
+        Alles wat hij krijgt, lust hij: de eerste zin is waar. Hij houdt van taart, maar krijgt geen taart: de tweede is vals.
+    - opgave: |-
+        In welke interpretaties zijn beide zinnen waar?
+      antwoord: |-
+        als $H$ en $K$ voor dezelfde dingen waar zijn
+      uitwerking: |-
+        Samen zeggen ze $\forall x\, (K(x) \asa H(x))$: je krijgt precies datgene waarvan je houdt.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    met één kwantor
+  opgave: |-
+    Schrijf de formule met alleen $\exists$ als kwantor (en $\niet$).
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \exists y\, R(x, y)$
+      antwoord: |-
+        $\niet\exists x\, \niet\exists y\, R(x, y)$
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \dan \exists y\, R(x, y)\bigr)$
+      antwoord: |-
+        $\niet\exists x\, \bigl(P(x) \en \niet\exists y\, R(x, y)\bigr)$
+      uitwerking: |-
+        $\forall x\, \varphi \asa \niet\exists x\, \niet\varphi$, en $\niet(p \dan q) \asa p \en \niet q$.
+    - opgave: |-
+        $\exists x\, \forall y\, R(x, y)$
+      antwoord: |-
+        $\exists x\, \niet\exists y\, \niet R(x, y)$
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    fouten bij het ontkennen
+  opgave: |-
+    Een leerling schrijft de ontkenning zoals hieronder. Verbeter, en geef een interpretatie waarin zijn formule en de juiste ontkenning een andere waarheidswaarde hebben.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\niet\forall x\, \exists y\, R(x, y) \asa \forall x\, \exists y\, \niet R(x, y)$
+      antwoord: |-
+        $\exists x\, \forall y\, \niet R(x, y)$; $U = \N$, $R$: $<$
+      uitwerking: |-
+        In $\N$ is $\forall x\, \exists y\, (x \not< y)$ waar (neem $y = x$), en $\exists x\, \forall y\, (x \not< y)$ vals.
+    - opgave: |-
+        $\niet\exists x\, \bigl(P(x) \en Q(x)\bigr) \asa \forall x\, \bigl(\niet P(x) \en \niet Q(x)\bigr)$
+      antwoord: |-
+        $\forall x\, \bigl(\niet P(x) \of \niet Q(x)\bigr)$; $U = \N$, $P$: even, $Q$: oneven
+      uitwerking: |-
+        Geen getal is even en oneven: de juiste ontkenning is waar. Maar niet elk getal is oneven en even tegelijk niet: de formule van de leerling is vals.
+    - opgave: |-
+        $\niet\forall x\, \bigl(P(x) \dan Q(x)\bigr) \asa \forall x\, \bigl(P(x) \en \niet Q(x)\bigr)$
+      antwoord: |-
+        $\exists x\, \bigl(P(x) \en \niet Q(x)\bigr)$; $U = \N$, $P$: even, $Q$: veelvoud van 4
+      uitwerking: |-
+        2 is even en geen veelvoud van 4: de juiste ontkenning is waar. De formule van de leerling zegt dat elk getal even is en geen veelvoud van 4: vals.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    sleutels en sloten
+  opgave: |-
+    Het universum bestaat uit de sleutels en de sloten van een school, met $S(x)$: \textit{$x$ is een sleutel}, $L(y)$: \textit{$y$ is een slot} en $P(x, y)$: \textit{$x$ past op $y$}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf \textit{op elk slot past een sleutel} en \textit{er is een sleutel die op elk slot past} (een loper).
+      antwoord: |-
+        $\forall y\, \bigl(L(y) \dan \exists x\, (S(x) \en P(x, y))\bigr)$ en $\exists x\, \bigl(S(x) \en \forall y\, (L(y) \dan P(x, y))\bigr)$
+    - opgave: |-
+        Welke zin volgt uit de andere? Toon het aan.
+      antwoord: |-
+        de eerste volgt uit de tweede
+      uitwerking: |-
+        Neem een loper $a$. Bij elk slot $y$ past $a$, en $a$ is een sleutel: $x = a$ werkt voor elke $y$.
+    - opgave: |-
+        Beschrijf een school waarin de eerste zin waar is en de tweede vals.
+      antwoord: |-
+        twee sloten, elk met een eigen sleutel die niet op het andere past
+      uitwerking: |-
+        Op elk slot past een sleutel, maar geen sleutel past op beide.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    waarom het universum niet leeg is
+  opgave: |-
+    In dit boek is een universum nooit leeg. Stel dat we een leeg universum toch zouden toelaten.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is dan de waarheidswaarde van $\forall x\, P(x)$ en van $\exists x\, P(x)$?
+      antwoord: |-
+        waar; vals
+      uitwerking: |-
+        $\exists x\, P(x)$ vraagt een element, en er is geen. $\forall x\, P(x)$ heeft geen tegenvoorbeeld, want er is geen element. Ook met de negatiestelling: $\forall x\, P(x) \asa \niet\exists x\, \niet P(x)$, en $\exists x\, \niet P(x)$ is vals.
+    - opgave: |-
+        Welke logisch ware formule uit dit hoofdstuk zou dan niet meer logisch waar zijn?
+      antwoord: |-
+        $\forall x\, P(x) \dan \exists x\, P(x)$
+      uitwerking: |-
+        In het lege universum is het eerste deel waar en het tweede vals. Ook $\exists x\, (x = x)$ zou niet meer logisch waar zijn.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de paradox van de drinker
+  opgave: |-
+    Bekijk de zin \quad $\exists x\, \bigl(D(x) \dan \forall y\, D(y)\bigr)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de zin voor in een café, met $D(x)$: \textit{$x$ drinkt}.
+      antwoord: |-
+        Er is iemand in het café zodat: als die drinkt, drinkt iedereen.
+    - opgave: |-
+        Toon aan dat de zin logisch waar is.
+      antwoord: |-
+        twee gevallen: iedereen drinkt, of iemand drinkt niet
+      uitwerking: |-
+        Neem een interpretatie. Is $\forall y\, D(y)$ waar, neem dan een willekeurige $a$: de implicatie $D(a) \dan \forall y\, D(y)$ heeft een waar tweede deel. Anders is er een $a$ met $\niet D(a)$, en dan heeft $D(a) \dan \forall y\, D(y)$ een vals eerste deel. In beide gevallen is er een $x$ die werkt.
+    - opgave: |-
+        Waarom klinkt de zin toch vreemd? Gebruik de stelling over een deel zonder de variabele.
+      antwoord: |-
+        ze is gelijkwaardig met $\forall x\, D(x) \dan \forall y\, D(y)$
+      uitwerking: |-
+        $\forall y\, D(y)$ bevat geen vrije $x$, en $\exists x\, (\varphi \dan \psi) \asa (\forall x\, \varphi \dan \psi)$ (net als bij een uitspraak $q$ zonder $x$). De zin zegt dus: \textit{als iedereen drinkt, drinkt iedereen}. In woorden klinkt de implicatie als een oorzaak, maar ze is het niet.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    twee kwantoren en en
+  opgave: |-
+    Bekijk de formules $\forall x\, \exists y\, (\varphi \en \psi)$ en $\forall x\, \exists y\, \varphi \en \forall x\, \exists y\, \psi$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de tweede logisch volgt uit de eerste.
+      antwoord: |-
+        dezelfde $y$ werkt voor $\varphi$ en voor $\psi$
+      uitwerking: |-
+        Neem een interpretatie waarin de eerste waar is, en een waarde $a$ van $x$. Er is een $b$ met $\varphi$ en $\psi$ waar voor $x = a$ en $y = b$. Dan is $\exists y\, \varphi$ waar met $x = a$, en ook $\exists y\, \psi$. Dat geldt voor elke $a$.
+    - opgave: |-
+        Toon aan dat de eerste niet logisch volgt uit de tweede.
+      antwoord: |-
+        $U = \N$, $\varphi\colon y$ even, $\psi\colon y$ oneven
+      uitwerking: |-
+        Bij elke $x$ is er een even $y$ en een oneven $y$, maar geen $y$ die beide is.
+    - opgave: |-
+        Waar zit het verschil met $\forall x\, (\varphi \en \psi) \asa \forall x\, \varphi \en \forall x\, \psi$, die wel in beide richtingen klopt?
+      antwoord: |-
+        $\exists y$ mag je niet over $\en$ verdelen
+      uitwerking: |-
+        $\forall x$ mag je over $\en$ verdelen, maar daarachter staat $\exists y\, (\varphi \en \psi)$, en die volgt niet uit $\exists y\, \varphi \en \exists y\, \psi$.
+
+- id: h3-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    redeneren met het gelijkheidsteken
+  opgave: |-
+    Neem een interpretatie met een functie $f$ waarin $\forall x\, \bigl(f(f(x)) = x\bigr)$ waar is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $f$ injectief is: $\forall x\, \forall y\, \bigl(f(x) = f(y) \dan x = y\bigr)$.
+      antwoord: |-
+        pas $f$ toe op beide leden
+      uitwerking: |-
+        Neem $a$ en $b$ met $f(a) = f(b)$. Dan is $f(f(a)) = f(f(b))$, dus $a = b$.
+    - opgave: |-
+        Toon aan dat $f$ surjectief is: $\forall y\, \exists x\, \bigl(f(x) = y\bigr)$.
+      antwoord: |-
+        neem $x = f(y)$
+      uitwerking: |-
+        Neem $b$. Dan is $f(f(b)) = b$, dus $x = f(b)$ werkt.
+    - opgave: |-
+        Volgt $\forall x\, \bigl(f(f(x)) = x\bigr)$ omgekeerd uit \textit{$f$ is injectief en surjectief}?
+      antwoord: |-
+        nee: $U = \Z$, $f(x) = x + 1$
+      uitwerking: |-
+        $x + 1$ is injectief en surjectief op $\Z$, maar $f(f(x)) = x + 2 \neq x$.
+
+- id: h3-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    drie kwantoren
+  opgave: |-
+    Bekijk de implicatie \quad $\forall x\, \exists y\, \forall z\, R(x, y, z) \dan \forall x\, \forall z\, \exists y\, R(x, y, z)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat ze logisch waar is.
+      antwoord: |-
+        pas de verwisselstelling toe achter $\forall x$
+      uitwerking: |-
+        Voor elke waarde van $x$ geldt $\exists y\, \forall z\, R \dan \forall z\, \exists y\, R$ (verwisselstelling). Dus volgt uit $\forall x\, \exists y\, \forall z\, R$ dat $\forall x\, \forall z\, \exists y\, R$.
+    - opgave: |-
+        Toon aan dat de omgekeerde implicatie niet logisch waar is.
+      antwoord: |-
+        $U = \N$, $R(x, y, z)\colon z < y$
+      uitwerking: |-
+        Bij elke $x$ en $z$ is er een $y > z$. Maar er is geen $y$ die groter is dan alle $z$.
+
+- id: h3-o24
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    interpretaties tellen
+  opgave: |-
+    Het universum is $\{a, b\}$, en $R$ is een relatie op dat universum. Er zijn 16 mogelijke relaties.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        In hoeveel daarvan is $\forall x\, \exists y\, R(x, y)$ waar? En $\exists y\, \forall x\, R(x, y)$?
+      antwoord: |-
+        $9$; $7$
+      uitwerking: |-
+        Uit $a$ en uit $b$ moet een van twee pijlen vertrekken: $3 \cdot 3 = 9$. In $a$ komen beide pijlen aan (4 relaties) of in $b$ (4), en in 1 relatie allebei: $4 + 4 - 1 = 7$.
+    - opgave: |-
+        In hoeveel relaties is $\forall x\, \exists y\, R(x, y) \dan \exists y\, \forall x\, R(x, y)$ vals? Teken ze.
+      antwoord: |-
+        $2$: \ $a \to b,\ b \to a$ \ en \ twee lussen
+      uitwerking: |-
+        Elke relatie waarin de tweede zin waar is, maakt ook de eerste waar (verwisselstelling). De implicatie is dus vals in $9 - 7 = 2$ relaties: die waarin uit elk punt een pijl vertrekt, maar geen punt alle pijlen ontvangt.
+    - opgave: |-
+        Wat zegt dat over de vraag of een formule logisch waar is?
+      antwoord: |-
+        één interpretatie volstaat om te weerleggen
+      uitwerking: |-
+        De implicatie is waar in 14 van de 16 relaties, en toch niet logisch waar. Veel voorbeelden waarin een formule klopt, bewijzen niets.
+
+#----------------------------------------------------------------------------------------
+# KOPPEL
+#----------------------------------------------------------------------------------------
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Reeksen
+  thema: |-
+    een reeks die niet convergeert
+  opgave: |-
+    In Reeksen convergeert een reeks met partieelsommen $S_n$ naar $S$ als
+    \[\forall \varepsilon\, \Bigl(\varepsilon > 0 \dan \exists N\, \forall n\, \bigl(n > N \dan |S_n - S| < \varepsilon\bigr)\Bigr).\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de ontkenning zonder $\niet$ voor een kwantor of een haakje.
+      antwoord: |-
+        $\exists \varepsilon\, \Bigl(\varepsilon > 0 \en \forall N\, \exists n\, \bigl(n > N \en |S_n - S| \geqslant \varepsilon\bigr)\Bigr)$
+    - opgave: |-
+        De reeks $1 - 1 + 1 - 1 + \cdots$ heeft partieelsommen $1, 0, 1, 0, \ldots$ Toon met a aan dat ze niet naar $\tfrac12$ convergeert.
+      antwoord: |-
+        neem $\varepsilon = \tfrac12$
+      uitwerking: |-
+        Voor elke $n$ is $|S_n - \tfrac12| = \tfrac12 \geqslant \varepsilon$. Bij elke $N$ werkt dus $n = N + 1$.
+    - opgave: |-
+        Waarom mag je $\forall \varepsilon$ en $\exists N$ niet verwisselen?
+      antwoord: |-
+        dan zou $S_n = S$ zijn vanaf een index
+      uitwerking: |-
+        Met $\exists N$ vooraan werkt één $N$ voor alle $\varepsilon > 0$: dan is $|S_n - S|$ kleiner dan elk positief getal, dus 0, voor alle $n > N$. De reeks $\tfrac12 + \tfrac14 + \tfrac18 + \cdots$ convergeert naar 1 zonder dat ooit $S_n = 1$.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Kansrekenen
+  thema: |-
+    gebeurtenissen en kwantoren
+  opgave: |-
+    Een gebeurtenis is een deel van de uitkomstenruimte. Voor een uitkomst $x$ geldt:
+    \[x \in A \cup B \asa x \in A \of x \in B, \qquad x \in A \cap B \asa x \in A \en x \in B, \qquad x \in \overline{A} \asa \niet(x \in A).\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met De Morgan aan dat $\overline{A \cup B} = \overline{A} \cap \overline{B}$. Twee verzamelingen zijn gelijk als ze dezelfde elementen hebben.
+      antwoord: |-
+        $x \in \overline{A \cup B} \asa \niet(x \in A \of x \in B) \asa \niet(x \in A) \en \niet(x \in B) \asa x \in \overline{A} \cap \overline{B}$
+      uitwerking: |-
+        Dat geldt voor elke uitkomst $x$, dus de verzamelingen zijn gelijk.
+    - opgave: |-
+        Je werpt vier keer met een dobbelsteen. Schrijf \textit{minstens één worp is een zes} met een kwantor over $i \in \{1, 2, 3, 4\}$, en ontken.
+      antwoord: |-
+        $\exists i\, Z_i$; de ontkenning is $\forall i\, \niet Z_i$: geen enkele zes
+      uitwerking: |-
+        $Z_i$: \textit{worp $i$ is een zes}.
+    - opgave: |-
+        Bereken de kans op minstens één zes met de ontkenning.
+      antwoord: |-
+        $1 - \left(\tfrac56\right)^4 = \tfrac{671}{1296} \approx 0{,}518$
+      uitwerking: |-
+        De worpen zijn onafhankelijk, en de kans op geen zes in één worp is $\tfrac56$.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: algebra
+    onderwerp: Groepen
+  thema: |-
+    het neutraal element
+  opgave: |-
+    In Groepen heeft een bewerking $\ast$ een neutraal element $e$ als
+    \[\forall x\, (x \ast e = x \en e \ast x = x).\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $U = \Z$ met $x \ast y = y$. Is $\forall x\, \exists e\, (x \ast e = x)$ waar? En $\exists e\, \forall x\, (x \ast e = x)$?
+      antwoord: |-
+        waar; vals
+      uitwerking: |-
+        $x \ast e = e$, dus bij elke $x$ werkt $e = x$. Eén $e$ voor alle $x$ zou gelijk moeten zijn aan elke $x$.
+    - opgave: |-
+        Toon aan: zijn $e$ en $e'$ allebei neutraal, dan is $e = e'$.
+      antwoord: |-
+        $e = e \ast e' = e'$
+      uitwerking: |-
+        Omdat $e'$ neutraal is, is $e \ast e' = e$. Omdat $e$ neutraal is, is $e \ast e' = e'$. Dus $e = e'$.
+    - opgave: |-
+        Schrijf het resultaat van b als één zin, en zeg waarom hij een logisch gevolg is van de definitie, zonder iets over $\ast$ te weten.
+      antwoord: |-
+        $\forall e\, \forall e'\, \bigl(N(e) \en N(e') \dan e = e'\bigr)$, met $N(e)$ de definitie
+      uitwerking: |-
+        Het bewijs van b gebruikt alleen de definitie van neutraal element en de eigenschappen van $=$. Het werkt dus in elke interpretatie van $\ast$: het is een logisch gevolg.
+
+#----------------------------------------------------------------------------------------
+# TEST JEZELF
+#----------------------------------------------------------------------------------------
+- id: h3-t1
+  soort: test
+  niveau: 2
+  thema: |-
+    logisch waar
+  opgave: |-
+    Toon aan dat \quad $\forall x\, P(x) \en \exists x\, Q(x) \dan \exists x\, \bigl(P(x) \en Q(x)\bigr)$ \quad logisch waar is.
+  antwoord: |-
+    neem $a$ met $Q(a)$; dan ook $P(a)$
+  uitwerking: |-
+    Neem een interpretatie waarin het eerste deel waar is, en $a$ met $Q(a)$. Uit $\forall x\, P(x)$ volgt $P(a)$, dus $P(a) \en Q(a)$ is waar, en $\exists x\, (P(x) \en Q(x))$ ook.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    logisch gelijkwaardig
+  opgave: |-
+    Zijn $\forall x\, \bigl(P(x) \dan Q(x)\bigr)$ en $\forall x\, \bigl(\niet P(x) \dan \niet Q(x)\bigr)$ logisch gelijkwaardig?
+  antwoord: |-
+    nee: $U = \N$, $P$: veelvoud van 4, $Q$: even
+  uitwerking: |-
+    Elk veelvoud van 4 is even: de eerste is waar. Maar 2 is geen veelvoud van 4 en wel even: de tweede is vals. De tweede is gelijkwaardig met de omgekeerde, $\forall x\, (Q(x) \dan P(x))$.
+
+- id: h3-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    een redenering
+  opgave: |-
+    Is de redenering geldig? \textit{Alle leraren zijn streng. Sommige strenge mensen zijn rechtvaardig. Dus sommige leraren zijn rechtvaardig.}
+  antwoord: |-
+    ongeldig
+  uitwerking: |-
+    $\forall x\, (L(x) \dan S(x))$, $\exists x\, (S(x) \en R(x))$, dus $\exists x\, (L(x) \en R(x))$. Met $U = \N$, $L$: veelvoud van 4, $S$: even, $R(x)$: $x = 6$ zijn de premissen waar en is het besluit vals.
+
+- id: h3-t4
+  soort: test
+  niveau: 1
+  thema: |-
+    de negatiestellingen
+  opgave: |-
+    Schrijf de ontkenning van $\exists x\, \forall y\, \bigl(R(x, y) \dan P(y)\bigr)$ zonder $\niet$ voor een kwantor of een haakje.
+  antwoord: |-
+    $\forall x\, \exists y\, \bigl(R(x, y) \en \niet P(y)\bigr)$
+
+- id: h3-t5
+  soort: test
+  niveau: 1
+  thema: |-
+    kwantoren verwisselen
+  opgave: |-
+    Het universum is $\Z$. Mag je in de zin de kwantoren verwisselen zonder dat de waarheidswaarde verandert? \quad a.~$\forall x\, \exists y\, (x \cdot y = x)$ \qquad b.~$\forall x\, \exists y\, (x < y)$
+  antwoord: |-
+    a: ja, beide waar; b: nee
+  uitwerking: |-
+    a: $y = 1$ werkt voor elke $x$. b: bij elke $x$ werkt $y = x + 1$, maar geen $y$ is groter dan alle gehele getallen.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    kwantoren en connectieven
+  opgave: |-
+    Welke implicatie tussen $\exists x\, \bigl(P(x) \en Q(x)\bigr)$ en $\exists x\, P(x) \en \exists x\, Q(x)$ is logisch waar? Geef een interpretatie die toont dat de andere het niet is.
+  antwoord: |-
+    $\exists x\, (P(x) \en Q(x)) \dan \exists x\, P(x) \en \exists x\, Q(x)$; $U = \N$, $P$: even, $Q$: oneven
+  uitwerking: |-
+    Een element met $P$ en $Q$ maakt beide delen rechts waar. Omgekeerd: er is een even en een oneven getal, maar geen getal dat beide is.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    een deel zonder de variabele
+  opgave: |-
+    Schrijf met $A(x)$: \textit{$x$ is afwezig} en $u$: \textit{de toets wordt uitgesteld} de zin \textit{als er iemand afwezig is, wordt de toets uitgesteld} op twee manieren: met $\exists$ en met $\forall$ vooraan.
+  antwoord: |-
+    $\exists x\, A(x) \dan u$ \ en \ $\forall x\, \bigl(A(x) \dan u\bigr)$
+  uitwerking: |-
+    $u$ bevat geen $x$, dus de stelling over een kwantor buiten een implicatie geldt.

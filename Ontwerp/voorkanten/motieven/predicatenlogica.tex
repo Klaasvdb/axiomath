@@ -1,0 +1,21 @@
+% Predicatenlogica. Tenniel: het theekransje uit Alice in Wonderland van Lewis Carroll, zelf logicus.
+% Aan die tafel zegt de Hoedenmaker dat "ik zie wat ik eet" niet hetzelfde is als "ik eet wat ik zie":
+% een implicatie met een kwantor en haar omgekeerde (het probleem van hoofdstuk 3).
+% Motief: een interpretatie met vier elementen en een relatie R als pijlen in een kring (hoofdstuk 2).
+% Elk element heeft een pijl naar een ander, dus "voor alle x bestaat er een y met R(x, y)" is waar;
+% geen element krijgt een pijl van alle elementen, dus met de kwantoren omgewisseld is de zin vals.
+\def\omslagbestand{omslag-theekransje.jpg}
+\def\omslagbron{John Tenniel, \textit{Het theekransje}, uit \textit{The Nursery Alice}, 1890 (publiek domein)}
+\def\omslagrand{10.75 + 0.4*sin(\x*180/7)}
+\def\omslagmotief{%
+  \randlijn
+  \coordinate (M) at (16.75,7.55);
+  \foreach \h/\n in {90/a,0/b,-90/c,180/d}{%
+    \coordinate (\n) at ($(M)+(\h:1.55)$);}
+  \foreach \v/\w in {a/b,b/c,c/d,d/a}{%
+    \draw[fel,line width=1.6pt,shorten >=3.2mm,shorten <=3.2mm,-{Stealth[length=3mm]}] (\v) to[bend left=22] (\w);}
+  \foreach \n in {a,b,c,d}{%
+    \draw[white,line width=1.2pt,fill=white,fill opacity=.17] (\n) circle (2.6mm);
+    \node[text=white,font=\small] at (\n) {$\n$};}
+  \node[omslaglabel] at ($(M)+(0,-2.55)$) {$\forall x\ \exists y\colon R(x, y)$};
+}

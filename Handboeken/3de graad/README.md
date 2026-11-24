@@ -108,17 +108,35 @@ Een nieuwe cursus begint met een kopie van de cursus [Integralen](<4 Economie-, 
 | Statistiek | [Pakket 3 / Data en onzekerheid](<3 Latijn-Wet., Moderne talen-Wet., Sportwetenschappen (B+S')/Data en onzekerheid/Statistiek/README.md>) | eerste versie, nog na te lezen |
 | Onderzoekscompetentie | [Pakket 4](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Onderzoekscompetentie/README.md>) | eerste versie, nog na te lezen |
 | Complexe getallen | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Complexe getallen/README.md>) | eerste versie, nog na te lezen |
+| Getaltheorie | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Getaltheorie/README.md>) | eerste versie, nog na te lezen |
+| Lineair programmeren | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Lineair programmeren/README.md>) | eerste versie, nog na te lezen |
+| Vectorruimten | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Vectorruimten/README.md>) | eerste versie, nog na te lezen |
+| Groepentheorie | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Groepentheorie/README.md>) | eerste versie, nog na te lezen |
+| Eigenwaarden en eigenvectoren | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Eigenwaarden en eigenvectoren/README.md>) | eerste versie, nog na te lezen |
+| Financiële algebra | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Financiële algebra/README.md>) | eerste versie, nog na te lezen |
 | Matrices | [Pakket 4 / Algebra](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Algebra/Matrices/README.md>) | eerste versie, nog na te lezen |
 | Algemene functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Algemene functies/README.md>) | eerste versie, nog na te lezen |
+| Differentiaalvergelijkingen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Differentiaalvergelijkingen/README.md>) | eerste versie, nog na te lezen |
 | Exponentiële en logaritmische functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Exponentiële en logaritmische functies/README.md>) | eerste versie, nog na te lezen |
 | Goniometrische functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Goniometrische functies/README.md>) | eerste versie, nog na te lezen |
 | Integralen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integralen/README.md>) | eerste versie, nog na te lezen |
+| Integratiemethodes | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Integratiemethodes/README.md>) | eerste versie, nog na te lezen |
 | Limieten en afgeleiden | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Limieten en afgeleiden/README.md>) | eerste versie, nog na te lezen |
+| Numerieke methodes | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Numerieke methodes/README.md>) | eerste versie, nog na te lezen |
 | Rationale functies | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Rationale functies/README.md>) | eerste versie, nog na te lezen |
+| Reeksen | [Pakket 4 / Analyse](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Analyse/Reeksen/README.md>) | eerste versie, nog na te lezen |
 | Kansrekenen | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansrekenen/README.md>) | eerste versie, nog na te lezen |
+| Lineaire regressie | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Lineaire regressie/README.md>) | eerste versie, nog na te lezen |
 | Statistiek | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Statistiek/README.md>) | eerste versie, nog na te lezen |
+| Kansverdelingen | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Kansverdelingen/README.md>) | eerste versie, nog na te lezen |
+| Multivariate statistiek | [Pakket 4 / Data en onzekerheid](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Data en onzekerheid/Multivariate statistiek/README.md>) | eerste versie, nog na te lezen |
 | Logica en bewijzen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Logica en bewijzen/README.md>) | eerste versie, nog na te lezen |
 | Rijen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Rijen/README.md>) | eerste versie, nog na te lezen |
 | Telproblemen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Telproblemen/README.md>) | eerste versie, nog na te lezen |
+| Iteraties en fractalen | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Iteraties en fractalen/README.md>) | eerste versie, nog na te lezen |
+| Predicatenlogica | [Pakket 4 / Discrete wiskunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Discrete wiskunde/Predicatenlogica/README.md>) | eerste versie, nog na te lezen |
 | Ruimtemeetkunde | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Ruimtemeetkunde/README.md>) | eerste versie, nog na te lezen |
+| Krommen en meetkundige plaatsen | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Krommen en meetkundige plaatsen/README.md>) | eerste versie, nog na te lezen |
+| Oppervlakken | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Oppervlakken/README.md>) | eerste versie, nog na te lezen |
+| Affiene en projectieve meetkunde | [Pakket 4 / Meetkunde](<4 Economie-, Grieks-, Latijn-, Wetenschappen-Wiskunde (B+S'')/Meetkunde/Affiene en projectieve meetkunde/README.md>) | eerste versie, nog na te lezen |
 | alle overige | per pakket | nog te maken |

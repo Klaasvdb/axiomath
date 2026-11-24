@@ -1,0 +1,22 @@
+% Differentiaalvergelijkingen. Chardin: een dampende kop thee die afkoelt, volgens de afkoelingswet van Newton.
+% Motief: het richtingsveld van y' = -k (y - A) met k = 0,9 en de kamertemperatuur A als stippellijn, en drie
+% integraalkrommen y = A + C e^(-k(x - x0)) die van boven en van onder naar A gaan. De bovenrand van de band is
+% zelf zo'n afkoelingskromme, met de kamertemperatuur op hoogte 10,5.
+\def\omslagbestand{omslag-thee.jpg}
+\def\omslagbron{Jean Siméon Chardin, \textit{Dame die thee drinkt}, 1735 (publiek domein)}
+\def\omslagrand{10.5 + 1.7*exp(-\x/4.5)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}
+    \clip (15.1,3.75) rectangle (20.6,10.25);
+    % het richtingsveld: helling -0,9 (y - 6,9), lijnstukjes van 4 mm
+    \foreach \x in {15.5,16.3,...,20.4}{\foreach \y in {4.2,4.95,...,10}{%
+      \pgfmathsetmacro{\hoek}{atan(-0.9*(\y-6.9))}%
+      \draw[white,line width=.6pt,draw opacity=.75] (\x,\y) ++(\hoek+180:2mm) -- ++(\hoek:4mm);}}
+    \draw[white,line width=.8pt,dashed] (15.1,6.9) -- (20.6,6.9);
+    \foreach \c in {1.5,-2.5}{%
+      \draw[omslaglijn=1pt] plot[domain=15.1:20.6,samples=60,smooth] (\x,{6.9+\c*exp(-0.9*(\x-15.1))});}
+    \draw[fel,line width=1.8pt] plot[domain=15.1:20.6,samples=60,smooth] (\x,{6.9+2.9*exp(-0.9*(\x-15.1))});
+  \end{scope}
+  \fill[omslagstip] (15.1,9.8) circle (1.2mm);
+}
