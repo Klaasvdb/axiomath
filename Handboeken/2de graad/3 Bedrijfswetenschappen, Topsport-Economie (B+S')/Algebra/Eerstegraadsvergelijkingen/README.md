@@ -1,16 +1,16 @@
 # Eerstegraadsvergelijkingen: handboek
 
-Handboek voor pakket 3 (B+S') van de 2de graad, leerplandoelen 14-16, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Pieter de Hooch (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 3 (B+S') van de 2de graad, leerplan II-WisS'-d (versie juni 2024, D/2024/13.758/066), LPD 14-16, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Pieter de Hooch (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Eerstegraadsvergelijkingen/](<../../../cursussen/Eerstegraadsvergelijkingen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Pakket 1, 2 en 3 hebben dezelfde inhoud. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Eerstegraadsvergelijkingen/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Eerstegraadsvergelijkingen/](<../../../cursussen/Eerstegraadsvergelijkingen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Pakket 1, 2 en 3 hebben dezelfde inhoud: de doelen en wenken zijn in hun leerplannen gelijk. De volledige tabel met verschillen, wat het leerplan besliste en wat nog open is, staat in de [README van de bron](<../../../cursussen/Eerstegraadsvergelijkingen/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Vergelijkingen en vraagstukken | `hoofdstukken/01-vergelijkingen.tex` | LPD 14 | eerste versie, nog na te lezen |
-| 2. Ongelijkheden en intervallen | `hoofdstukken/02-ongelijkheden.tex` | LPD 15 | eerste versie, nog na te lezen |
-| 3. Formules omvormen | `hoofdstukken/03-formules-omvormen.tex` | LPD 16 | eerste versie, nog na te lezen |
+| 1. Vergelijkingen en vraagstukken | `hoofdstukken/01-vergelijkingen.tex` | LPD 14 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Ongelijkheden en intervallen | `hoofdstukken/02-ongelijkheden.tex` | LPD 15 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 3. Formules omvormen | `hoofdstukken/03-formules-omvormen.tex` | LPD 16 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-De verdeling van LPD 14-16 over de drie hoofdstukken is nog na te kijken in het leerplan.
+Elk hoofdstuk hoort bij één leerplandoel van de rubriek Eerstegraadsvergelijkingen, -ongelijkheden en omvormen van formules (getoetst op 24 november 2026).
 
 ## PDF's
 
