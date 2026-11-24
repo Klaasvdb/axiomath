@@ -1,13 +1,13 @@
 # Logica: handboek
 
-Handboek voor pakket 3 (B+S') van de 2de graad, leerplandoel 32, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Sophie Taeuber-Arp (publiek domein in de EU). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 3 (B+S') van de 2de graad, leerplan II-WisS'-d, versie juni 2024: LPD 32, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Sophie Taeuber-Arp (publiek domein in de EU). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Logica/](<../../../cursussen/Logica/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 2. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Logica/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Logica/](<../../../cursussen/Logica/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 2. De volledige tabel met verschillen, wat het leerplan besliste en wat open blijft, staat in de [README van de bron](<../../../cursussen/Logica/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Uitspraken en waarheidstabellen | `hoofdstukken/01-uitspraken.tex` | LPD 32 | eerste versie, nog na te lezen |
-| 2. Implicatie en equivalentie | `hoofdstukken/02-implicatie-en-equivalentie.tex` | LPD 32 | eerste versie, nog na te lezen |
+| 1. Uitspraken en waarheidstabellen | `hoofdstukken/01-uitspraken.tex` | LPD 32 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Implicatie en equivalentie | `hoofdstukken/02-implicatie-en-equivalentie.tex` | LPD 32, LPD 4 (tegenvoorbeeld) | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
 ## PDF's
 
