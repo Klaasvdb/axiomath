@@ -8,7 +8,7 @@ Stand op 17 november 2026: alle 18 onderwerpen hebben een eerste versie (72 hand
 
 ## Pakketten en richtingen
 
-De leerplannen wiskunde 2de graad D van Katholiek Onderwijs Vlaanderen (versie oktober 2024) zijn uitbreidingen van elkaar: **Basis ⊂ B+ ⊂ B+S' ⊂ B+S ⊂ B+S''**. Elk leerplan nummert zijn leerplandoelen (LPD) opnieuw: LPD 24 in Basis is dus niet LPD 24 in B+S. De tabellen hieronder geven altijd het nummer in het leerplan van dat pakket.
+De leerplannen wiskunde 2de graad D van Katholiek Onderwijs Vlaanderen (versie oktober 2024; II-WisS'-d versie juni 2024) zijn uitbreidingen van elkaar: **Basis ⊂ B+ ⊂ B+S' ⊂ B+S ⊂ B+S''**. Elk leerplan nummert zijn leerplandoelen (LPD) opnieuw: LPD 24 in Basis is dus niet LPD 24 in B+S. De tabellen hieronder geven altijd het nummer in het leerplan van dat pakket.
 
 | Pakket | Leerplan | Richtingen | Graaduren | LPD |
 |---|---|---|---|---|
@@ -39,7 +39,7 @@ Kleine handboeken, zodat een school modulair kan werken. Hoofdstukken die op elk
 | 3 | Data en onzekerheid/Statistiek | 27-29 | 31-33 | 33-35 | 37-39 | 37-39 |
 | 3 | Data en onzekerheid/Spreidingsdiagrammen | – | 34 | 36 | 40 | 40 |
 | 4 | Analyse/Tweedegraadsfuncties | 24 | 24-28, K2 | 25-30 | 29-34 | 29-34 |
-| 4 | Algebra/Veeltermen | – | – | – | – | B6 |
+| 4 | Algebra/Veeltermen | – | – | – | – | B6, B1 |
 | 4 | Meetkunde/Goniometrie | – | – | – | 15-17 | 15-17 |
 | 4 | Meetkunde/Ruimtemeetkunde | 12 | 12 | 12 | 12 | 12 |
 | 4 | Meetkunde/Vectoren | 13 | 13 | 13 | 13-14 | 13-14 |
@@ -69,17 +69,17 @@ Het jaar is een voorstel: de leerplannen zijn graadleerplannen en de verdeling o
 
 Een voorstel van hoofdstukken. Tussen haakjes de pakketten waarin een hoofdstuk staat, als dat niet alle pakketten zijn.
 
-**Algebra/Reële getallen.** 1 Van rationale naar reële getallen: decimale vormen, de getallenas vervolledigen, ordenen. 2 Machten met gehele exponenten: rekenregels, wetenschappelijke notatie, grootteorde en afronden. 3 Vierkantswortels: definitie, rekenregels, vereenvoudigen.
+**Algebra/Reële getallen.** 1 Van rationale naar reële getallen: decimale vormen, de getallenas vervolledigen, ordenen. 2 Machten met gehele exponenten: rekenregels, wetenschappelijke notatie, grootteorde en afronden. 3 Vierkantswortels: definitie, schatten, rekenregels, vereenvoudigen (pakket 5 ook derdemachtswortels, als extra).
 
-**Algebra/Eerstegraadsvergelijkingen.** 1 Eerstegraadsvergelijkingen en vraagstukken. 2 Eerstegraadsongelijkheden, met intervallen. 3 Formules omvormen.
+**Algebra/Eerstegraadsvergelijkingen.** 1 Eerstegraadsvergelijkingen en vraagstukken. 2 Eerstegraadsongelijkheden, met intervallen. 3 Formules omvormen. Pakket 4-5 ook ongelijkheden met een parameter, pakket 5 een stelsel van ongelijkheden en een derde macht.
 
 **Analyse/Functies.** 1 Wat is een functie: verwoording, tabel, grafiek en voorschrift. 2 Eerstegraadsfuncties: richtingscoëfficiënt, voorschrift, grafiek en tabel. 3 Kenmerken en vergelijkingen en ongelijkheden grafisch oplossen. 4 De functie *f(x) = c/x* (pakket 2 als keuzehoofdstuk, 3-5).
 
 **Algebra/Stelsels.** 1 Grafisch oplossen: twee rechten. 2 Algebraïsch oplossen: substitutie en combinatie. 3 Vraagstukken.
 
-**Meetkunde/Gelijkvormigheid.** 1 Schaal: het effect op lengte, oppervlakte en volume. 2 Gelijkvormige driehoeken: de kenmerken en meetkundige problemen. 3 Constructies (pakket 4 en 5, voor GO!): met passer en liniaal een lijnstuk verdelen, de vierde evenredige en de middelevenredige construeren, en construeren met een homothetie.
+**Meetkunde/Gelijkvormigheid.** 1 Schaal: het effect op lengte, oppervlakte en volume. 2 Gelijkvormige driehoeken: de kenmerken en meetkundige problemen (pakket 5 ook Thales, middenparallel en zwaartelijnen, metrische betrekkingen). 3 Constructies (pakket 4 en 5, voor GO!; KOV vraagt ze niet): met passer en liniaal een lijnstuk verdelen, de vierde evenredige en de middelevenredige construeren, en construeren met een homothetie.
 
-**Meetkunde/Driehoeksmeting.** 1 De stelling van Pythagoras in het vlak en in de ruimte. 2 Sinus, cosinus en tangens in een rechthoekige driehoek, de grondformule, hoogtes en afstanden.
+**Meetkunde/Driehoeksmeting.** 1 De stelling van Pythagoras in het vlak en in de ruimte, de afstand tussen twee punten. 2 Sinus, cosinus en tangens in een rechthoekige driehoek, de grondformule, hoogtes en afstanden.
 
 **Discrete wiskunde/Logica.** 1 Uitspraken, voegwoorden en waarheidstabellen. 2 Tautologie en contradictie, implicatie en equivalentie. 3 Bewijzen: rechtstreeks en uit het ongerijmde (pakket 5).
 
@@ -89,15 +89,15 @@ Een voorstel van hoofdstukken. Tussen haakjes de pakketten waarin een hoofdstuk 
 
 **Analyse/Tweedegraadsfuncties.** Pakket 1: één hoofdstuk over *f(x) = ax²*. Pakket 2-5: 1 De parabool *y = a(x − p)² + q*: tekenen en het voorschrift aflezen. 2 De vorm *ax² + bx + c* en de kenmerken. 3 Tweedegraadsvergelijkingen: ontbinden in factoren, discriminant, grafisch oplossen. 4 Tweedegraadsongelijkheden (keuze in pakket 2).
 
-**Algebra/Veeltermen** (pakket 5). 1 Rekenen met veeltermen en de Euclidische deling. 2 De reststelling, deelbaarheid en ontbinden.
+**Algebra/Veeltermen** (pakket 5). 1 Rekenen met veeltermen en de Euclidische deling. 2 De reststelling, deelbaarheid en ontbinden. 3 Rationale vormen (servicedocument 5 uur, weg te laten).
 
-**Meetkunde/Goniometrie** (pakket 4-5). 1 De goniometrische cirkel en verwante hoeken. 2 De sinusregel en de cosinusregel.
+**Meetkunde/Goniometrie** (pakket 4-5). 1 De goniometrische cirkel (ook hoeken groter dan 360°, cotangens, hellingshoek) en verwante hoeken. 2 De sinusregel en de cosinusregel.
 
-**Meetkunde/Ruimtemeetkunde.** 1 Onderlinge ligging van twee rechten. 2 Onderlinge ligging van twee vlakken en van een rechte en een vlak.
+**Meetkunde/Ruimtemeetkunde.** 1 Onderlinge ligging van twee rechten, met de loodrechte stand. 2 Onderlinge ligging van twee vlakken en van een rechte en een vlak, met de loodrechte stand; doorsneden (pakket 5).
 
-**Meetkunde/Vectoren.** 1 Vectoren tekenen: som en veelvoud. 2 Rekenen met vectoren: componenten, norm, ontbinden (pakket 4-5).
+**Meetkunde/Vectoren.** 1 Vectoren tekenen: som en veelvoud. 2 Rekenen met vectoren: componenten, norm, ontbinden (pakket 4-5; het zwaartepunt in pakket 5).
 
-**Meetkunde/Analytische meetkunde** (pakket 5). 1 Vergelijkingen van een rechte en hun onderlinge ligging. 2 Het inproduct, de afstand van een punt tot een rechte en de hoek tussen twee rechten.
+**Meetkunde/Analytische meetkunde** (pakket 5). 1 Vergelijkingen van een rechte en hun onderlinge ligging. 2 Het inproduct, de afstand van een punt tot een rechte, de hoek tussen twee rechten en de bissectrices. 3 De cirkel: vergelijkingen en raaklijnen (servicedocument 5 uur, weg te laten).
 
 **Meetkunde/De cirkel** (keuze, pakket 4-5). Eigenschappen van de cirkel: middelpuntshoek, omtrekshoek, raaklijn.
 
