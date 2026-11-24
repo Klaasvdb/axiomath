@@ -1,0 +1,616 @@
+%----------------------------------------------------------------------------------------
+% VECTORRUIMTEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Vectorruimten}
+
+\begin{probleem}
+\naast{De rij van Fibonacci begint met 0 en 1, en elke volgende term is de som van de twee vorige:
+\[ 0,\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ 21,\ 34,\ \ldots \qquad u_{n+2} = u_{n+1} + u_n . \]
+Wil je $u_{100}$ kennen, dan moet je zo alle 99 termen ervoor uitrekenen. Bij een meetkundige rij gaat het sneller: daar is $u_n = u_0 \cdot q^n$. De punten in de figuur liggen bijna op zo'n exponentiële kromme. Is er ook voor de rij van Fibonacci een formule voor $u_n$? Geen enkele meetkundige rij begint met 0 en 1, dus je zult iets anders moeten bedenken.}{\begin{tikzpicture}[x=.48cm,y=.075cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=5] (0,0) grid (9.4,36);
+  \draw[->,grijs] (0,0) -- (9.8,0) node[right,text=black] {$n$};
+  \draw[->,grijs] (0,0) -- (0,38) node[above,text=black] {$u_n$};
+  \foreach \t in {2,4,6,8}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {10,20,30}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[fel!80!black,thick,dashed] plot[domain=0:9.3,samples=60,smooth] (\x,{1.6180339887^\x/2.2360679775});
+  \foreach \n/\u in {0/0,1/1,2/1,3/2,4/3,5/5,6/8,7/13,8/21,9/34}{\fill[accent] (\n,\u) circle (2.2pt);}
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 34, het deel over lineaire deelruimtes, met de wenk om na te gaan of een deelverzameling een deelruimte is. Lineaire combinaties en voortbrengen (sectie 3) bereiden LPD 33 voor, dat in hoofdstuk 2 volgt. Voorkennis uit pakket 4: de groep als algebraïsche structuur (Groepen, hoofdstuk 1 en 2: bewerking, commutatieve groep, schrappen, uniciteit van neutraal element en inverse), vectoren in de ruimte met collineaire en coplanaire vectoren (Ruimtemeetkunde, hoofdstuk 1), rekenen met matrices en stelsels met de methode van Gauss-Jordan (Matrices, hoofdstuk 1 en 2), en rijen (Rijen). De rekenregels met bewijs (sectie 1) zijn een uitbreiding: ze tonen hoe je uit axioma's redeneert, zoals bij groepen.}
+
+Je kent vectoren als pijlen in het vlak en in de ruimte: je telt ze op met de parallellogramregel en je vermenigvuldigt ze met een getal. Maar je telt ook matrices op, en veeltermen, en functies. Telkens mag je met een getal vermenigvuldigen, en telkens gelden dezelfde rekenregels.
+
+In dit hoofdstuk geven we al die verzamelingen één naam: een \textit{vectorruimte}. Net als bij groepen leggen we vast welke eigenschappen een vectorruimte heeft, en bewijzen we daaruit wat in elke vectorruimte geldt. Daarna kijken we naar vectorruimten binnen een grotere vectorruimte, en naar wat je allemaal kunt maken door vectoren te combineren. Zo vind je ook de formule voor de rij van Fibonacci: een rij is een vector, en de rij van Fibonacci is een combinatie van twee meetkundige rijen.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen zien dat de som van twee rijen met de recursie van Fibonacci weer zo'n rij is, net als een veelvoud. Dat is het kenmerk van een deelruimte (sectie 2). Vraag d geeft de vergelijking $q^2 = q + 1$, die het probleem op het einde van het hoofdstuk oplost.}
+
+%========================================================================================
+\section{Wat is een vectorruimte?}
+
+\subsection{Optellen en vermenigvuldigen met een getal}
+
+Wat hebben pijlen, matrices en functies met elkaar gemeen? Bij elk van die soorten kun je twee elementen optellen, en een element met een reëel getal vermenigvuldigen. Bij pijlen doe je dat met de parallellogramregel en door de pijl uit te rekken. Bij functies doe je het punt per punt: de functie $f + g$ heeft in elk getal $x$ de waarde $f(x) + g(x)$, en $3f$ heeft de waarde $3 \cdot f(x)$. De grafiek van $f + g$ krijg je door de hoogtes op te tellen.
+
+\figuren{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \draw[->,lijngrijs] (-.3,0) -- (4.3,0);
+  \draw[->,lijngrijs] (0,-.3) -- (0,3.4);
+  \draw[grijs,dashed] (2,.5) -- (3,2.5) -- (1,2);
+  \vpijl{(0,0)}{(2,.5)}
+  \vpijl{(0,0)}{(1,2)}
+  \vpijl[fel!80!black]{(0,0)}{(3,2.5)}
+  \draw[accent!60,thick,-{Stealth[length=2mm]}] (0,0) -- (4,1);
+  \node[below] at (2,.5) {$\vec u$};
+  \node[left] at (1,2) {$\vec v$};
+  \node[above] at (3,2.5) {$\vec u + \vec v$};
+  \node[below] at (4,1) {$2\vec u$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[x=.55cm,y=.55cm,font=\scriptsize]
+  \assen{-.4}{6.6}{-1.4}{4.2}
+  \foreach \t in {2,4,6}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \kromme[grijs]{0}{6.3}{.4*\x}
+  \kromme[accent!60]{0}{6.3}{cos(\x r)}
+  \kromme[fel!80!black]{0}{6.3}{.4*\x+cos(\x r)}
+  \draw[grijs,densely dotted] (4.5,0) -- (4.5,{.4*4.5+cos(4.5 r)});
+  \node[right] at (6.3,2.52) {$f$};
+  \node[right] at (6.3,1) {$g$};
+  \node[above left] at (6.3,3.4) {$f + g$};
+\end{tikzpicture}}
+
+\noindent Hieronder staan vijf soorten, met een voorbeeld van een som en van een veelvoud. Bij veeltermen noteren we $\Rx{n}$ voor de veeltermen in $x$ van graad hoogstens $n$, met reële coëfficiënten.
+
+\begin{center}\small
+\arrayrulecolor{grijs}\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{accent!14} verzameling & een som & een veelvoud & nul \\ \hline
+$\R^3$ & $(1, 2, 0) + (3, -1, 4) = (4, 1, 4)$ & $3\,(1, 2, 0) = (3, 6, 0)$ & $(0, 0, 0)$ \\ \hline
+$\Rmn{2}{2}$ & $\km{1 & 2 \\ 0 & 1} + \km{0 & 1 \\ 3 & 0} = \km{1 & 3 \\ 3 & 1}$ & $2\km{1 & 2 \\ 0 & 1} = \km{2 & 4 \\ 0 & 2}$ & $\km{0 & 0 \\ 0 & 0}$ \\ \hline
+$\Rx{2}$ & $(x^2 + 1) + (2x - 3) = x^2 + 2x - 2$ & $5\,(x^2 + 1) = 5x^2 + 5$ & $0$ \\ \hline
+functies $\R \to \R$ & $(f + g)(x) = 0{,}4x + \cos x$ & $(3f)(x) = 1{,}2x$ & $x \mapsto 0$ \\ \hline
+rijen & $(1, 2, 4, \ldots) + (1, 1, 1, \ldots) = (2, 3, 5, \ldots)$ & $2\,(1, 2, 4, \ldots) = (2, 4, 8, \ldots)$ & $(0, 0, 0, \ldots)$ \\ \hline
+\end{tabular}
+\end{center}
+
+Rijen tel je term per term op. Een rij is dus een soort vector met oneindig veel coördinaten. Bij een functie zijn het er nog meer: een coördinaat voor elk reëel getal $x$.
+
+\subsection{De definitie}
+
+Welke eigenschappen hebben al die voorbeelden gemeen? Uit Groepen ken je de eerste: de optelling is een bewerking, ze is associatief en commutatief, er is een neutraal element (de nul) en elk element heeft een tegengestelde. Met de optelling vormt elk van de vijf verzamelingen dus een commutatieve groep. Voor de vermenigvuldiging met een getal gelden de rekenregels die je bij matrices bewees (Matrices, hoofdstuk 1): je mag haakjes uitwerken, twee getallen na elkaar vervangen door hun product, en $1 \cdot A = A$. Die eigenschappen samen maken een vectorruimte.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{vectorruimte}} is een verzameling $V$ met een optelling en een vermenigvuldiging met reële getallen, zodat
+
+\vspace{1mm}
+\begin{itemize}[leftmargin=8mm,itemsep=1mm]
+\item $(V, +)$ een commutatieve groep is: het neutraal element is de \textbf{\textcolor{accent}{nulvector}} $\formule{\nulv}$, en de inverse van $\vec v$ is het \textbf{\textcolor{accent}{tegengestelde}} $\formule{-\vec v}$;
+\item voor elk getal $r$ en elke $\vec v \in V$ ook $r\vec v$ in $V$ ligt;
+\item voor alle getallen $r, s$ en alle $\vec u, \vec v \in V$ geldt:
+\end{itemize}
+
+\vspace{1mm}
+\qquad 1.\ \ $\formule{r(\vec u + \vec v) = r\vec u + r\vec v}$ \qquad\qquad 3.\ \ $\formule{r(s\vec v) = (rs)\vec v}$
+
+\vspace{1mm}
+\qquad 2.\ \ $\formule{(r + s)\vec v = r\vec v + s\vec v}$ \qquad\qquad\ \,4.\ \ $\formule{1\vec v = \vec v}$
+
+\vspace{1mm}
+De elementen van $V$ heten \textbf{\textcolor{accent}{vectoren}}, de reële getallen \textbf{\textcolor{accent}{scalairen}}.
+\end{theorie}
+
+Een vector is nu dus elk element van een vectorruimte: een veelterm, een functie of een rij is ook een vector. In algemene uitspraken schrijven we een pijl, $\vec u$ en $\vec v$. In een concrete vectorruimte schrijven we de elementen zoals gewoonlijk: $(1, 2, 0)$, $A$, $p(x)$ of $f$.
+
+Let op: in regel 2 staan twee verschillende optellingen. Links tel je getallen op, rechts vectoren. Ook in regel 3 staan twee soorten producten. En regel 4 lijkt vanzelfsprekend, maar is nodig: zonder die regel zou een vermenigvuldiging die alles nul maakt, ook voldoen.
+
+\voorbeeld{}{Toon aan dat de functies van $\R$ naar $\R$ een vectorruimte vormen, met $(f + g)(x) = f(x) + g(x)$ en $(rf)(x) = r \cdot f(x)$.\label{vb:h1-functies}}{%
+\uitleg{Twee functies zijn gelijk als ze in elk getal $x$ dezelfde waarde hebben. We vullen dus telkens een willekeurige $x$ in, en gebruiken dan de rekenregels van de reële getallen.}
+\begin{stappenbreed}
+f + g \text{ en } rf \text{ zijn functies van } \R \text{ naar } \R & In elke $x$ is $f(x) + g(x)$ een reëel getal: een bewerking. \\[1ex]
+\bigl((f + g) + h\bigr)(x) = f(x) + g(x) + h(x) = \bigl(f + (g + h)\bigr)(x) & Associatief, omdat de optelling van getallen associatief is. Commutatief gaat net zo. \\[1ex]
+(f + 0)(x) = f(x) + 0 = f(x) & De nulvector is de nulfunctie $x \mapsto 0$. \\[1ex]
+\bigl(f + (-f)\bigr)(x) = f(x) - f(x) = 0 & Het tegengestelde is $-f \colon x \mapsto -f(x)$. \\[1ex]
+\bigl(r(f + g)\bigr)(x) = r\,f(x) + r\,g(x) = (rf + rg)(x) & Regel 1. \\[1ex]
+\bigl((r + s)f\bigr)(x) = r\,f(x) + s\,f(x) = (rf + sf)(x) & Regel 2. \\[1ex]
+\bigl(r(sf)\bigr)(x) = r\,s\,f(x) = \bigl((rs)f\bigr)(x), \quad (1f)(x) = f(x) & Regels 3 en 4.
+\end{stappenbreed}
+Alle voorwaarden zijn voldaan. Hetzelfde bewijs werkt voor rijen: vervang $f(x)$ door de term $u_n$.}
+
+Of iets een vectorruimte is, hangt ook af van de bewerkingen. Met de gewone optelling en een vreemde vermenigvuldiging kan het mislopen.
+
+\voorbeeld{}{Op $\R^2$ nemen we de gewone optelling, maar we vermenigvuldigen met een getal als $r \odot (x, y) = (rx, 0)$. Is $\R^2$ zo een vectorruimte?\label{vb:h1-geen}}{%
+\uitleg{De optelling is de gewone, dus $(\R^2, +)$ is een commutatieve groep. We testen de vier regels, eerst de eenvoudigste.}
+\begin{stappen}
+1 \odot (2, 5) = (2, 0) \neq (2, 5) & Regel 4 geldt niet.
+\end{stappen}
+Het is geen vectorruimte. Eén tegenvoorbeeld volstaat. De regels 1, 2 en 3 gelden hier wel: reken maar na.}
+
+\begin{werkwijze}
+Ga na of de optelling een bewerking is en een commutatieve groep geeft: zoek de nulvector en het tegengestelde. Ga na of $r\vec v$ in $V$ ligt. Bewijs de vier regels met willekeurige vectoren en getallen. Faalt een voorwaarde, geef dan een tegenvoorbeeld met getallen.
+\end{werkwijze}
+
+\nujij{Is $\R^2$ een vectorruimte met de gewone optelling en $r \odot (x, y) = (r^2 x, r^2 y)$?}{Nee. Regel 2 geldt niet: $(1 + 1) \odot (1, 0) = (4, 0)$, maar $1 \odot (1, 0) + 1 \odot (1, 0) = (2, 0)$.}
+
+\begin{oefeningen}
+\oef{h1-axioma}
+\end{oefeningen}
+
+\subsection{Rekenregels}
+
+In $\R^3$ weet je dat $0 \cdot (2, 5, 1) = (0, 0, 0)$: dat zie je aan de coördinaten. Maar geldt $0\vec v = \nulv$ in elke vectorruimte, ook in een die we nog niet kennen? In de definitie staat het niet. We kunnen het wel bewijzen, met alleen de regels uit de definitie. Dat is het voordeel van zo'n definitie, zoals bij groepen: wat je één keer bewijst, geldt in elke vectorruimte.
+
+Uit Groepen weet je al dat er maar één nulvector is, dat elke vector maar één tegengestelde heeft, en dat je in een groep mag schrappen: uit $\vec a + \vec x = \vec a + \vec y$ volgt $\vec x = \vec y$.
+
+\begin{theorie}
+\begin{stelling}{Nul maal een vector}
+In een vectorruimte geldt voor elke vector $\vec v$ \quad $\formule{0\vec v = \nulv}$
+\end{stelling}
+
+\begin{bewijs}
+Omdat $0 = 0 + 0$, geeft regel 2
+\bewijsregel{0\vec v = (0 + 0)\vec v = 0\vec v + 0\vec v .}
+Dus is $0\vec v + \nulv = 0\vec v + 0\vec v$. Schrap $0\vec v$ links: $\nulv = 0\vec v$.
+\end{bewijs}
+\end{theorie}
+
+Let op de twee nullen: links het getal 0, rechts de nulvector. Bij functies zegt de stelling dat 0 keer een functie de nulfunctie is; dat is eenvoudig. Maar het bewijs zegt meer: de stelling volgt al uit regel 2 en het schrappen. Op dezelfde manier vind je wat een getal maal de nulvector is.
+
+\begin{theorie}
+\begin{stelling}{Een getal maal de nulvector}
+In een vectorruimte geldt voor elk getal $r$ \quad $\formule{r\nulv = \nulv}$
+\end{stelling}
+
+\begin{bewijs}
+Omdat $\nulv = \nulv + \nulv$, geeft regel 1
+\bewijsregel{r\nulv = r(\nulv + \nulv) = r\nulv + r\nulv .}
+Schrap $r\nulv$, zoals in het vorige bewijs: $\nulv = r\nulv$.
+\end{bewijs}
+\end{theorie}
+
+Het tegengestelde $-\vec v$ is volgens de definitie de inverse in de groep $(V, +)$: de vector die opgeteld bij $\vec v$ de nulvector geeft. Dat is iets anders dan $(-1)\vec v$, het getal $-1$ maal $\vec v$. Toch zijn ze gelijk.
+
+\begin{theorie}
+\begin{stelling}{Het tegengestelde}
+In een vectorruimte geldt voor elke vector $\vec v$ \quad $\formule{(-1)\vec v = -\vec v}$
+\end{stelling}
+
+\begin{bewijs}
+Met regel 4, regel 2 en de stelling over nul maal een vector is
+\bewijsregel{\vec v + (-1)\vec v = 1\vec v + (-1)\vec v = \bigl(1 + (-1)\bigr)\vec v = 0\vec v = \nulv .}
+Dus is $(-1)\vec v$ een tegengestelde van $\vec v$. In een groep heeft elk element maar één inverse, dus $(-1)\vec v = -\vec v$.
+\end{bewijs}
+\end{theorie}
+
+Daarom schrijven we $\vec u - \vec v$ voor $\vec u + (-\vec v)$, en mag je bij vectoren haakjes uitwerken met mintekens zoals bij getallen. Tot slot: bij getallen is een product alleen 0 als een van de factoren 0 is. Dat geldt ook voor een getal maal een vector.
+
+\begin{theorie}
+\begin{stelling}{Product nul}
+In een vectorruimte geldt \quad $\formule{r\vec v = \nulv \ \Rightarrow \ r = 0 \text{ of } \vec v = \nulv}$
+\end{stelling}
+
+\begin{bewijs}
+Stel $r\vec v = \nulv$. Is $r = 0$, dan zijn we klaar. Is $r \neq 0$, dan bestaat $\frac1r$, en met de regels 4 en 3 en de vorige stelling is
+\bewijsregel{\vec v = 1\vec v = \Bigl(\frac1r \cdot r\Bigr)\vec v = \frac1r\,(r\vec v) = \frac1r\,\nulv = \nulv .}
+\end{bewijs}
+\end{theorie}
+
+Met deze regels los je vergelijkingen met vectoren op zoals vergelijkingen met getallen. Je mag een vector naar de andere kant brengen (tel het tegengestelde op bij beide leden), en door een getal verschillend van 0 delen (vermenigvuldig met het omgekeerde).
+
+\voorbeeld{}{In een vectorruimte $V$ zijn $\vec u$ en $\vec v$ gegeven. Los op naar $\vec x$: \ $3\vec x + \vec u = \vec x + 5\vec v$.\label{vb:h1-vergelijking}}{%
+\uitleg{We brengen de termen met $\vec x$ naar links en de rest naar rechts, en delen door het getal voor $\vec x$. Bij elke stap zeggen we welke regel we gebruiken.}
+\begin{stappenbreed}
+3\vec x + \vec u - \vec x - \vec u = \vec x + 5\vec v - \vec x - \vec u & Tel $-\vec x - \vec u$ op bij beide leden. \\[1ex]
+3\vec x - 1\vec x = 5\vec v - \vec u & Commutatief en associatief, $\vec u - \vec u = \nulv$; links $\vec x = 1\vec x$ (regel 4). \\[1ex]
+2\vec x = 5\vec v - \vec u & Regel 2: $3\vec x + (-1)\vec x = (3 - 1)\vec x$. \\[1ex]
+\vec x = \tfrac52\,\vec v - \tfrac12\,\vec u & Vermenigvuldig met $\frac12$: regels 3 en 4 links, regel 1 rechts.
+\end{stappenbreed}
+Controle: $3\vec x + \vec u = \frac{15}{2}\vec v - \frac32\vec u + \vec u = \frac{15}{2}\vec v - \frac12\vec u$, en $\vec x + 5\vec v = \frac52\vec v - \frac12\vec u + 5\vec v$ geeft hetzelfde.}
+
+\nujij{Los op naar $\vec x$: \ $2(\vec x - \vec u) = 5\vec x + \vec v$.}{$2\vec x - 2\vec u = 5\vec x + \vec v$, dus $-3\vec x = 2\vec u + \vec v$ en $\vec x = -\frac23\vec u - \frac13\vec v$.}
+
+\begin{oefeningen}
+\oef{h1-vergelijking}
+\end{oefeningen}
+
+%========================================================================================
+\section{Deelruimten}
+
+\subsection{Wanneer is een deel een vectorruimte?}
+
+In $\R^3$ liggen de punten met $x - 2y + z = 0$ in een vlak door de oorsprong. Tel je twee zulke vectoren op, dan krijg je weer een vector van dat vlak: $(1, 1, 1) + (2, 1, 0) = (3, 2, 1)$, en $3 - 4 + 1 = 0$. Met het vlak $x - 2y + z = 1$ loopt het mis: $(1, 0, 0)$ en $(0, 0, 1)$ liggen erin, maar hun som $(1, 0, 1)$ niet, want $1 + 1 = 2$. Het eerste vlak is binnen $\R^3$ zelf een vectorruimte, het tweede niet.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{deelruimte}} (of lineaire deelruimte) van een vectorruimte $V$ is een deelverzameling $W$ van $V$ die met dezelfde optelling en vermenigvuldiging zelf een vectorruimte is.
+
+\begin{stelling}{Kenmerk van een deelruimte}
+Een deelverzameling $W$ van een vectorruimte $V$ is een deelruimte als en slechts als
+
+\vspace{1mm}
+\qquad 1.\ \ $\formule{\nulv \in W}$
+
+\qquad 2.\ \ $\formule{\vec u, \vec v \in W \ \Rightarrow \ \vec u + \vec v \in W}$ \hfill (gesloten voor de optelling)
+
+\qquad 3.\ \ $\formule{r \in \R,\ \vec v \in W \ \Rightarrow \ r\vec v \in W}$ \hfill (gesloten voor de vermenigvuldiging)
+\end{stelling}
+
+\begin{bewijs}
+Stel eerst dat $W$ een deelruimte is. Dan zijn de optelling en de vermenigvuldiging met een getal bewerkingen in $W$: dat zijn de voorwaarden 2 en 3. Noem $\vec n$ de nulvector van $W$. Dan is $\vec n + \vec n = \vec n = \vec n + \nulv$ in $V$, en schrappen geeft $\vec n = \nulv$. Dus $\nulv \in W$.
+
+Stel omgekeerd dat $W$ aan de drie voorwaarden voldoet. Door 2 en 3 zijn de optelling en de vermenigvuldiging bewerkingen in $W$. De associativiteit, de commutativiteit en de regels 1 tot 4 gelden voor alle vectoren van $V$, dus zeker voor die van $W$. De nulvector ligt in $W$ door voorwaarde 1. Is $\vec v \in W$, dan is ook
+\bewijsregel{-\vec v = (-1)\vec v \in W}
+door voorwaarde 3 en de stelling over het tegengestelde. Dus is $W$ een vectorruimte.
+\end{bewijs}
+\end{theorie}
+
+In plaats van tien voorwaarden ga je er dus maar drie na: de rest erft $W$ van $V$. Ligt de nulvector niet in $W$, dan ben je meteen klaar: geen deelruimte. Zo is een rechte die niet door de oorsprong gaat, nooit een deelruimte van $\R^2$. Maar ook als de nulvector erin ligt, kan het mislopen.
+
+\figuren{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \assen{-2.5}{2.8}{-2.5}{2.8}
+  \draw[accent,very thick] (-2.2,-1.1) -- (2.4,1.2);
+  \node[font=\footnotesize] at (0,-3.4) {rechte door $O$: ja};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \assen{-2.5}{2.8}{-2.5}{2.8}
+  \draw[accent,very thick] (-2.4,-.2) -- (1.6,2.2);
+  \fill[white,draw=black] (0,0) circle (3pt);
+  \node[font=\footnotesize] at (0,-3.4) {niet door $O$: nee};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \assen{-2.5}{2.8}{-2.5}{2.8}
+  \draw[accent,very thick] (-2.2,0) -- (2.4,0) (0,-2.2) -- (0,2.4);
+  \fill[accent] (1.5,0) circle (3pt) (0,1.5) circle (3pt);
+  \fill[white,draw=black] (1.5,1.5) circle (3pt);
+  \node[font=\footnotesize] at (0,-3.4) {twee assen: nee};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \fill[accent!22] (0,0) rectangle (2.6,2.6);
+  \assen{-2.5}{2.8}{-2.5}{2.8}
+  \fill[accent] (1.2,.8) circle (3pt);
+  \fill[white,draw=black] (-1.2,-.8) circle (3pt);
+  \node[font=\footnotesize] at (0,-3.4) {kwadrant: nee};
+\end{tikzpicture}}
+
+Een rechte door de oorsprong is een deelruimte van $\R^2$: een som en een veelvoud van vectoren in de richting van de rechte blijven in die richting. De twee assen samen bevatten $(1, 0)$ en $(0, 1)$, maar niet hun som $(1, 1)$: niet gesloten voor de optelling. Het eerste kwadrant is wel gesloten voor de optelling, maar $(-1)(3, 2) = (-3, -2)$ ligt er niet in. In hoofdstuk 2 bewijzen we dat $\R^2$ geen andere deelruimten heeft dan $\{\nulv\}$, de rechten door de oorsprong en $\R^2$ zelf.
+
+\voorbeeld{}{Toon aan dat $W = \bigl\{(x, y, z) \in \R^3 \bigm| x - 2y + z = 0\bigr\}$ een deelruimte is van $\R^3$.\label{vb:h1-vlak}}{%
+\uitleg{We gaan de drie voorwaarden na. Voor 2 en 3 nemen we willekeurige vectoren van $W$: ze voldoen aan de vergelijking, en we tonen dat hun som en hun veelvouden er ook aan voldoen.}
+\begin{stappenbreed}
+0 - 2 \cdot 0 + 0 = 0 & Voorwaarde 1: $(0, 0, 0) \in W$. \\[1ex]
+(x_1 + x_2) - 2(y_1 + y_2) + (z_1 + z_2) = 0 + 0 = 0 & Voorwaarde 2, met $(x_1, y_1, z_1)$ en $(x_2, y_2, z_2)$ in $W$: herschik de termen. \\[1ex]
+rx - 2ry + rz = r(x - 2y + z) = r \cdot 0 = 0 & Voorwaarde 3, met $(x, y, z) \in W$.
+\end{stappenbreed}
+$W$ is een deelruimte van $\R^3$. Meetkundig is $W$ een vlak door de oorsprong.}
+
+\voorbeeld{}{Is $W = \bigl\{p \in \Rx{2} \bigm| p(0) = 1\bigr\}$ een deelruimte van $\Rx{2}$?\label{vb:h1-geendeel}}{%
+\uitleg{We kijken eerst of de nulvector erin ligt. Hier is dat de nulveelterm, die in elk getal de waarde 0 heeft.}
+\begin{stappen}
+p(x) = 0 \ \Rightarrow \ p(0) = 0 \neq 1 & De nulveelterm ligt niet in $W$.
+\end{stappen}
+$W$ is geen deelruimte. Ook de optelling loopt mis: $p(x) = x + 1$ en $q(x) = x^2 + 1$ liggen in $W$, maar $(p + q)(0) = 2$.}
+
+\voorbeeld{}{Toon aan dat de symmetrische $2 \times 2$-matrices $\km{a & b \\ b & c}$ een deelruimte vormen van $\Rmn{2}{2}$.\label{vb:h1-symmetrisch}}{%
+\uitleg{Een matrix ligt in $W$ als de twee getallen buiten de diagonaal gelijk zijn. We kijken of dat zo blijft na optellen en vermenigvuldigen.}
+\begin{stappenbreed}
+\km{0 & 0 \\ 0 & 0} \in W & De nulmatrix: $b = 0$ staat op beide plaatsen. \\[1.5ex]
+\km{a & b \\ b & c} + \km{a' & b' \\ b' & c'} = \km{a + a' & b + b' \\ b + b' & c + c'} & Op beide plaatsen buiten de diagonaal staat $b + b'$. \\[1.5ex]
+r\km{a & b \\ b & c} = \km{ra & rb \\ rb & rc} & Op beide plaatsen staat $rb$.
+\end{stappenbreed}
+De symmetrische matrices vormen een deelruimte van $\Rmn{2}{2}$.}
+
+\begin{werkwijze}
+Ga eerst na of de nulvector in $W$ ligt. Is dat niet zo, dan is $W$ geen deelruimte. Neem anders twee willekeurige vectoren van $W$ en een willekeurig getal $r$, en ga na of de som en $r$ maal een vector aan de voorwaarde van $W$ voldoen. Lukt dat niet, zoek dan een tegenvoorbeeld met getallen.
+\end{werkwijze}
+
+\nujij{Is $W = \bigl\{(x, y) \in \R^2 \bigm| y = x^2\bigr\}$ een deelruimte van $\R^2$?}{Nee. $(0, 0) \in W$, maar $(1, 1) \in W$ en $2\,(1, 1) = (2, 2) \notin W$, want $2 \neq 4$.}
+
+\begin{oefeningen}
+\oef{h1-deel}
+
+\oef{h1-deelander}
+\end{oefeningen}
+
+\subsection{Oplossingen van een homogeen stelsel}
+
+Het vlak $x - 2y + z = 0$ is de oplossingsverzameling van één homogene vergelijking: een vergelijking zonder constante term. Geldt het ook voor een stelsel? Schrijf het stelsel als $AX = O$, met $A$ de coëfficiëntenmatrix en $X$ de kolom met de onbekenden. Dan helpen de rekenregels voor het matrixproduct uit Matrices.
+
+\begin{theorie}
+\begin{stelling}{Oplossingen van een homogeen stelsel}
+Is $A$ een $m \times n$-matrix, dan vormen de oplossingen van het homogene stelsel $\formule{AX = O}$ een deelruimte van $\R^n$.
+\end{stelling}
+
+\begin{bewijs}
+Er is de oplossing $X = O$, want $AO = O$. Zijn $X$ en $Y$ oplossingen, dan is door de distributiviteit
+\bewijsregel{A(X + Y) = AX + AY = O + O = O ,}
+en voor een getal $r$ is $A(rX) = r(AX) = rO = O$.
+\end{bewijs}
+\end{theorie}
+
+Voor een stelsel $AX = B$ met $B \neq O$ geldt dat niet: $X = O$ is dan geen oplossing. De oplossingen van zo'n stelsel vormen geen deelruimte. Wel is het verschil van twee oplossingen een oplossing van $AX = O$, want $A(X - Y) = B - B = O$. Daarop komen we in hoofdstuk 3 terug.
+
+\voorbeeld{}{Los op: $\begin{cases} x + y - z = 0 \\ 2x - y + 4z = 0 \end{cases}$ \ Welke deelruimte van $\R^3$ vormen de oplossingen?\label{vb:h1-homogeen}}{%
+\uitleg{We rijherleiden de coëfficiëntenmatrix. De kolom met nullen rechts verandert bij rijbewerkingen niet, dus die laten we weg.}
+\begin{stappenbreed}
+\km{1 & 1 & -1 \\ 0 & -3 & 6} \ \begin{array}{l} \\ \rb{R_2 - 2R_1} \end{array} & Een nul onder de eerste spil. \\[2ex]
+\km{1 & 0 & 1 \\ 0 & 1 & -2} \ \begin{array}{l} \rb{R_1 - R_2} \\ \rb{-\frac13 R_2} \end{array} & Rijgereduceerd: $z$ heeft geen spil, dus is $z = t$ een parameter. \\[2ex]
+(x, y, z) = (-t, 2t, t) = t\,(-1, 2, 1) & Uit $x + z = 0$ en $y - 2z = 0$.
+\end{stappenbreed}
+De oplossingen vormen de rechte door de oorsprong met richtingsvector $(-1, 2, 1)$. Controle: $-1 + 2 - 1 = 0$ en $-2 - 2 + 4 = 0$.}
+
+\begin{oefeningen}
+\oef{h1-homogeen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Lineaire combinaties}
+
+\subsection{Combineren}
+
+Kun je de vector $(4, 7, 5)$ maken met $(1, 2, 1)$ en $(1, 1, 2)$, als je ze alleen mag vermenigvuldigen met getallen en optellen? Dat is de vraag of er getallen $c_1$ en $c_2$ zijn met $c_1(1, 2, 1) + c_2(1, 1, 2) = (4, 7, 5)$. In Ruimtemeetkunde stelde je dezelfde vraag om te weten of drie vectoren coplanair zijn.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{lineaire combinatie}} van de vectoren $\vec v_1, \vec v_2, \ldots, \vec v_k$ is een vector van de vorm
+\[ \formule{c_1\vec v_1 + c_2\vec v_2 + \cdots + c_k\vec v_k} \qquad \text{met } c_1, c_2, \ldots, c_k \in \R . \]
+De getallen $c_1, \ldots, c_k$ zijn de \textbf{\textcolor{accent}{coëfficiënten}}.
+\end{theorie}
+
+\voorbeeld{}{Is $(4, 7, 5)$ een lineaire combinatie van $(1, 2, 1)$ en $(1, 1, 2)$?\label{vb:h1-combinatie}}{%
+\uitleg{We schrijven de combinatie uit met onbekende coëfficiënten. Elke coördinaat geeft een vergelijking: drie vergelijkingen met twee onbekenden.}
+\begin{stappenbreed}
+c_1(1, 2, 1) + c_2(1, 1, 2) = (c_1 + c_2,\ 2c_1 + c_2,\ c_1 + 2c_2) & Reken de combinatie uit. \\[1ex]
+\begin{cases} c_1 + c_2 = 4 \\ 2c_1 + c_2 = 7 \\ c_1 + 2c_2 = 5 \end{cases} & Gelijk aan $(4, 7, 5)$, coördinaat per coördinaat. \\[4ex]
+c_1 = 3, \quad c_2 = 1 & Trek de eerste vergelijking af van de tweede: $c_1 = 3$. \\[1ex]
+3 + 2 \cdot 1 = 5 & De derde vergelijking klopt ook.
+\end{stappenbreed}
+Ja: $(4, 7, 5) = 3\,(1, 2, 1) + (1, 1, 2)$.}
+
+In een andere vectorruimte gaat het net zo. Bij veeltermen vergelijk je de coëfficiënten van gelijke machten van $x$.
+
+\voorbeeld{}{Is $x^2 + x$ een lineaire combinatie van $x^2 + 1$ en $x - 1$ in $\Rx{2}$?\label{vb:h1-combveelterm}}{%
+\uitleg{We zoeken $a$ en $b$ met $a(x^2 + 1) + b(x - 1) = x^2 + x$. Twee veeltermen zijn gelijk als hun coëfficiënten gelijk zijn.}
+\begin{stappen}
+ax^2 + bx + (a - b) = x^2 + x & Werk het linkerlid uit. \\[1ex]
+a = 1, \quad b = 1, \quad a - b = 0 & De coëfficiënten van $x^2$, $x$ en de constante. \\[1ex]
+1 - 1 = 0 & Ook de constante klopt.
+\end{stappen}
+Ja: $x^2 + x = (x^2 + 1) + (x - 1)$. Neem je $x^2 + x + 1$, dan krijg je $a - b = 1$ met $a = b = 1$: dat is strijdig, en dan is het geen lineaire combinatie.}
+
+\begin{werkwijze}
+Schrijf de lineaire combinatie met onbekende coëfficiënten. Stel ze gelijk aan de gegeven vector, coördinaat per coördinaat (bij veeltermen: per macht van $x$, bij matrices: per plaats). Los het stelsel op. Heeft het een oplossing, dan is de vector een lineaire combinatie; is het strijdig, dan niet.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-combinatie}
+\end{oefeningen}
+
+\subsection{De voortgebrachte deelruimte}
+
+Neem nu niet één combinatie, maar alle combinaties tegelijk. Met één vector $\vec v \neq \nulv$ in $\R^3$ krijg je alle veelvouden $c\vec v$: een rechte door de oorsprong. Met twee vectoren die niet collineair zijn, krijg je alle $c_1\vec v_1 + c_2\vec v_2$: een vlak door de oorsprong. Dat zijn deelruimten. Dat is altijd zo.
+
+\figuren{\begin{tikzpicture}[ruimte,scale=.8,font=\scriptsize]
+  \assendrie{2.6}
+  \draw[accent!60,thick] (-1.2,-1.5,-1.2) -- (1.6,2.0,1.6);
+  \vpijl{(0,0,0)}{(.8,1,.8)}
+  \node[left] at (.8,1,.8) {$\vec v$};
+  \node[font=\footnotesize] at (0,1.2,-1.9) {$\vb{\vec v}$: een rechte};
+\end{tikzpicture}
+\qquad\qquad
+\begin{tikzpicture}[ruimte,scale=.8,font=\scriptsize]
+  \fill[accent!14] (2.2,-1,-.69) -- (2.2,2.3,.135) -- (-1.4,2.3,.855) -- (-1.4,-1,.03) -- cycle;
+  \assendrie{2.6}
+  \vpijl{(0,0,0)}{(1.5,0,-.3)}
+  \vpijl{(0,0,0)}{(0,1.6,.4)}
+  \node[below] at (1.5,0,-.3) {$\vec v_1$};
+  \node[above] at (0,1.6,.4) {$\vec v_2$};
+  \node[font=\footnotesize] at (0,1.2,-1.9) {$\vb{\vec v_1, \vec v_2}$: een vlak};
+\end{tikzpicture}}
+
+\begin{theorie}
+De verzameling van alle lineaire combinaties van $\vec v_1, \ldots, \vec v_k$ noteer je
+\[ \formule{\vb{\vec v_1, \ldots, \vec v_k} = \bigl\{c_1\vec v_1 + \cdots + c_k\vec v_k \bigm| c_1, \ldots, c_k \in \R\bigr\}} \]
+
+\begin{stelling}{Voortgebrachte deelruimte}
+$\vb{\vec v_1, \ldots, \vec v_k}$ is een deelruimte van $V$. Elke deelruimte die $\vec v_1, \ldots, \vec v_k$ bevat, bevat ook $\vb{\vec v_1, \ldots, \vec v_k}$.
+\end{stelling}
+
+\begin{bewijs}
+Neem alle coëfficiënten 0: dan is $0\vec v_1 + \cdots + 0\vec v_k = \nulv$ een combinatie. Tel je twee combinaties op, dan krijg je met regel 2
+\bewijsregel{(c_1\vec v_1 + \cdots + c_k\vec v_k) + (d_1\vec v_1 + \cdots + d_k\vec v_k) = (c_1 + d_1)\vec v_1 + \cdots + (c_k + d_k)\vec v_k ,}
+weer een combinatie. Met de regels 1 en 3 is $r(c_1\vec v_1 + \cdots + c_k\vec v_k) = (rc_1)\vec v_1 + \cdots + (rc_k)\vec v_k$. Dat zijn de drie voorwaarden.
+
+Bevat een deelruimte $W$ de vectoren $\vec v_1, \ldots, \vec v_k$, dan bevat ze door voorwaarde 3 ook elke $c_i\vec v_i$, en door voorwaarde 2 de som van die vectoren.
+\end{bewijs}
+\end{theorie}
+
+We zeggen dat $\vec v_1, \ldots, \vec v_k$ de deelruimte $\vb{\vec v_1, \ldots, \vec v_k}$ \textbf{voortbrengen}. In andere boeken staat er soms $\operatorname{span}(\vec u, \vec v)$ in plaats van $\vb{\vec u, \vec v}$. De stelling zegt dat het de kleinste deelruimte is waarin de vectoren liggen. Met de definitie kun je een deelruimte kort beschrijven, maar vaak wil je weten welke vergelijking haar vectoren voldoen. Zo zie je meteen of een vector erin ligt.
+
+\voorbeeld{}{Geef een vergelijking van $\vb{(1, 0, 2), (0, 1, -1)}$ in $\R^3$.\label{vb:h1-spanvgl}}{%
+\uitleg{Een vector $(x, y, z)$ ligt in de deelruimte als hij een lineaire combinatie is. We schrijven de combinatie uit en elimineren de coëfficiënten.}
+\begin{stappenbreed}
+(x, y, z) = a(1, 0, 2) + b(0, 1, -1) = (a,\ b,\ 2a - b) & Een parametervoorstelling met parameters $a$ en $b$. \\[1ex]
+a = x, \quad b = y & De eerste twee coördinaten geven de coëfficiënten. \\[1ex]
+z = 2x - y \iff 2x - y - z = 0 & Vul ze in in de derde coördinaat.
+\end{stappenbreed}
+De deelruimte is het vlak $2x - y - z = 0$ door de oorsprong. Controle: $(1, 0, 2)$ geeft $2 - 0 - 2 = 0$, en $(0, 1, -1)$ geeft $0 - 1 + 1 = 0$.}
+
+\begin{werkwijze}
+Schrijf een willekeurige vector als lineaire combinatie met coëfficiënten als parameters. Elimineer de parameters, bijvoorbeeld door ze uit een paar coördinaten te halen en in de andere in te vullen. Wat overblijft, zijn de vergelijkingen van de deelruimte. Controleer met de gegeven vectoren.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-span}
+\end{oefeningen}
+
+\subsection{Voortbrengend}
+
+Soms brengen een paar vectoren de hele vectorruimte voort: elke vector is een combinatie van die paar. Dat is handig, want dan ken je de hele vectorruimte uit een klein aantal vectoren.
+
+\begin{theorie}
+De vectoren $\vec v_1, \ldots, \vec v_k$ zijn \textbf{\textcolor{accent}{voortbrengend}} voor $V$ (of brengen $V$ voort) als $\formule{\vb{\vec v_1, \ldots, \vec v_k} = V}$, dus als elke vector van $V$ een lineaire combinatie is van $\vec v_1, \ldots, \vec v_k$.
+\end{theorie}
+
+\naast{\begin{minipage}{10.4cm}
+Bekende voorbeelden: $(1, 0, 0)$, $(0, 1, 0)$ en $(0, 0, 1)$ brengen $\R^3$ voort, want $(x, y, z) = x(1, 0, 0) + y(0, 1, 0) + z(0, 0, 1)$. De veeltermen $1$, $x$ en $x^2$ brengen $\Rx{2}$ voort, want $a + bx + cx^2$ is een combinatie van die drie. Maar ook schuine vectoren kunnen het, zoals $(1, 1)$ en $(1, -1)$ in het vlak. In de figuur zie je hoe $(3, 1)$ ontstaat: twee keer $(1, 1)$ en één keer $(1, -1)$.
+\end{minipage}}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \begin{scope}\clip (-1.4,-1.4) rectangle (3.8,2.6);\scheefrooster{1}{1}{1}{-1}{-3}{4}{-3}{4}\end{scope}
+  \assen{-1.4}{3.8}{-1.4}{2.6}
+  \draw[grijs,dashed] (2,2) -- (3,1);
+  \vpijl{(0,0)}{(1,1)}
+  \vpijl{(0,0)}{(1,-1)}
+  \vpijl[fel!80!black]{(0,0)}{(3,1)}
+  \node[left] at (1,1.15) {$\vec v_1$};
+  \node[below] at (1,-1) {$\vec v_2$};
+  \node[right] at (3,1) {$(3, 1)$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Toon aan dat $(1, 1)$ en $(1, -1)$ voortbrengend zijn voor $\R^2$.\label{vb:h1-voortbrengend}}{%
+\uitleg{We nemen een willekeurige vector $(x, y)$ en zoeken coëfficiënten $a$ en $b$ in functie van $x$ en $y$.}
+\begin{stappenbreed}
+a(1, 1) + b(1, -1) = (x, y) \iff \begin{cases} a + b = x \\ a - b = y \end{cases} & Per coördinaat. \\[3ex]
+a = \tfrac{x + y}{2}, \quad b = \tfrac{x - y}{2} & Tel op en trek af. \\[1ex]
+(x, y) = \tfrac{x + y}{2}\,(1, 1) + \tfrac{x - y}{2}\,(1, -1) & Voor elke $(x, y)$ is er een oplossing.
+\end{stappenbreed}
+Ze zijn voortbrengend. Met $(x, y) = (3, 1)$ vind je $a = 2$ en $b = 1$, zoals in de figuur.}
+
+In hoofdstuk 2 leer je dit sneller nagaan met de rang van een matrix.
+
+\begin{oefeningen}
+\oef{h1-voortbrengend}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+Nu hebben we alles om de formule voor de rij van Fibonacci te vinden. De rijen $(u_0, u_1, u_2, \ldots)$ vormen een vectorruimte. Het idee: de rijen met de recursie van Fibonacci vormen daarin een deelruimte. Vinden we een paar eenvoudige rijen in die deelruimte, dan liggen ook al hun lineaire combinaties erin, en misschien is de rij van Fibonacci er een van.
+
+\voorbeeld{}{Terug naar het probleem. Zoek een formule voor de $n$-de term van de rij van Fibonacci: $u_0 = 0$, $u_1 = 1$ en $u_{n+2} = u_{n+1} + u_n$.\label{vb:h1-terug}}{%
+\uitleg{We noemen $F$ de verzameling van alle rijen met $u_{n+2} = u_{n+1} + u_n$ voor elke $n$. We tonen dat $F$ een deelruimte is, zoeken meetkundige rijen in $F$, en combineren ze.}
+\begin{stappenbreed}
+u_{n+2} + v_{n+2} = (u_{n+1} + v_{n+1}) + (u_n + v_n) & De som van twee rijen van $F$ ligt in $F$. Net zo voor $r$ maal een rij, en de nulrij ligt in $F$: een deelruimte. \\[1ex]
+q^{n+2} = q^{n+1} + q^n \iff q^2 = q + 1 & De meetkundige rij $(1, q, q^2, \ldots)$ ligt in $F$: deel door $q^n$, met $q \neq 0$. \\[1ex]
+\varphi = \tfrac{1 + \sqrt5}{2}, \quad \psi = \tfrac{1 - \sqrt5}{2} & De wortels van $q^2 - q - 1 = 0$. \\[1ex]
+u_n = a\,\varphi^n + b\,\psi^n & Een lineaire combinatie ligt ook in de deelruimte $F$. \\[1ex]
+a + b = 0, \quad a\varphi + b\psi = 1 & De startwaarden $u_0 = 0$ en $u_1 = 1$. \\[1ex]
+a(\varphi - \psi) = 1, \quad \varphi - \psi = \sqrt5 & Vul $b = -a$ in. \\[1ex]
+u_n = \frac{1}{\sqrt5}\left(\varphi^n - \psi^n\right) & Met $a = \frac{1}{\sqrt5}$ en $b = -\frac{1}{\sqrt5}$.
+\end{stappenbreed}
+Deze rij ligt in $F$ en begint met 0 en 1, net als de rij van Fibonacci. Twee rijen van $F$ met dezelfde eerste twee termen zijn gelijk: elke volgende term ligt vast door de twee vorige. Dus is dit de rij van Fibonacci. Controle: $u_2 = \frac{1}{\sqrt5}(\varphi^2 - \psi^2) = \frac{1}{\sqrt5}(\varphi + \psi)(\varphi - \psi) = 1 \cdot 1 = 1$.}
+
+Dit is de formule van Binet (1843), al eerder gekend door De Moivre. Ze verklaart ook de figuur van het probleem. Omdat $|\psi| \approx 0{,}618 < 1$, wordt $\psi^n$ snel heel klein: $u_n$ ligt dicht bij $\frac{1}{\sqrt5}\varphi^n$, de gestippelde kromme. Zo is $u_{100}$ het gehele getal het dichtst bij $\frac{1}{\sqrt5}\varphi^{100} \approx 3{,}54 \cdot 10^{20}$. Het getal $\varphi \approx 1{,}618$ is de gulden snede.
+
+Waarom lukte het met twee meetkundige rijen? Een rij van $F$ ligt vast door twee getallen, $u_0$ en $u_1$, en met twee coëfficiënten $a$ en $b$ kon je die twee getallen kiezen. In hoofdstuk 2 maken we dat precies: $F$ heeft \textit{dimensie} 2.
+
+\begin{oefeningen}
+\oef{h1-recursie}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\needspace{12\baselineskip}
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Differentiaalvergelijkingen is ook een cursus van het complementair gedeelte: geef de eerste oefening alleen als de lineaire vergelijkingen van de tweede orde gezien zijn. Complexe getallen en Ruimtemeetkunde komen uit pakket 4.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-geen}{oef:h1-axioma}%
+  \fv{oef:h1-t2}{vb:h1-vergelijking}{oef:h1-vergelijking}%
+  \fv{oef:h1-t3}{vb:h1-vlak}{oef:h1-deel}%
+  \fv{oef:h1-t4}{vb:h1-geendeel}{oef:h1-deelander}%
+  \fv{oef:h1-t5}{vb:h1-combinatie}{oef:h1-combinatie}%
+  \fv{oef:h1-t6}{vb:h1-spanvgl}{oef:h1-span}%
+  \fv{oef:h1-t7}{vb:h1-terug}{oef:h1-recursie}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de definitie van een vectorruimte, vijf voorbeelden met hun nulvector, de vier rekenregels met hun bewijs, wat een deelruimte is en hoe je dat nagaat (met een voorbeeld en een tegenvoorbeeld), waarom de oplossingen van $AX = O$ een deelruimte vormen, wat een lineaire combinatie is, wat $\vb{\vec v_1, \ldots, \vec v_k}$ betekent en waarom het een deelruimte is, wanneer vectoren voortbrengend zijn, en hoe je zo de formule voor de rij van Fibonacci vindt. Vergelijk daarna met de kaders.
+\fi

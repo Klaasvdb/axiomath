@@ -1,0 +1,482 @@
+%----------------------------------------------------------------------------------------
+% VERGELIJKINGEN VAN DE TWEEDE ORDE. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h4-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{Vergelijkingen van de tweede orde}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een auto rijdt over een verkeersdrempel. Elk wiel hangt aan een veer en een schokdemper. Na de drempel duwt de veer de carrosserie terug naar haar rustpositie, en de schokdemper remt die beweging af. Is de demper te zwak, dan wipt de auto nog een tijd op en neer. Is hij te sterk, dan komt de carrosserie maar heel traag terug. Per wiel draagt de veer 400 kg, met een veerconstante van 40\,000 N/m. Hoe sterk moet de schokdemper zijn opdat de auto niet nawipt, maar toch zo snel mogelijk tot rust komt?}{\begin{tikzpicture}[x=2.4cm,y=22cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.25,ystep=.025] (0,-.05) grid (1.5,.05);
+  \draw[->,grijs] (0,0) -- (1.6,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-.055) -- (0,.06) node[above,text=black] {$x$};
+  \foreach \t/\n in {0.5/0{,}5,1/1,1.5/1{,}5}{\node[below,inner sep=1.5pt] at (\t,-.05) {$\n$};}
+  \draw[accent!50,thick] plot[domain=0:1.5,samples=120,smooth] (\x,{-exp(-3*\x)*(0.05*cos(9.539*\x r)+0.01572*sin(9.539*\x r))});
+  \draw[grijs,thick,dashed] plot[domain=0:1.5,samples=60,smooth] (\x,{-0.052277*exp(-2.0871*\x)+0.002277*exp(-47.913*\x)});
+  \node[right] at (.55,.035) {?};
+\end{tikzpicture}}
+\vspace{-2mm}{\small Twee schokdempers: $x$ is de uitwijking van de carrosserie ten opzichte van haar rustpositie (in m, naar boven positief), $t$ in seconden.}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 23, met de wenk over lineaire differentiaalvergelijkingen van de tweede orde met constante coëfficiënten. Het prooi-roofdiermodel uit de wenk bij LPD 22 staat als opdracht van niveau 3. Voorkennis uit pakket 4: complexe getallen (de wortels van een vierkantsvergelijking met een negatieve discriminant), de afgeleiden van $\sin$ en $\cos$, en de hoofdstukken 2 en 3 (de bewijzen steunen op $y' = ky$ en op de integrerende factor). De niet-homogene vergelijkingen beperken zich tot een constante, een veelterm of een exponentiële functie in het rechterlid.}
+
+Tot nu toe ging het over de snelheid waarmee iets verandert. Maar de natuurkunde zegt vaak iets over de versnelling: volgens Newton is massa keer versnelling gelijk aan de kracht. En de versnelling is de tweede afgeleide van de plaats. Zo ontstaan vergelijkingen van de tweede orde. In dit hoofdstuk lossen we de belangrijkste soort op, de lineaire met constante coëfficiënten, en zien we waarom de complexe getallen erin opduiken: als een trilling.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Trillingen}
+
+\subsection{Een massa aan een veer}
+
+Hang een blokje aan een veer, trek het wat naar beneden en laat los. Het gaat op en neer. Waarom? Volgens de wet van Hooke trekt een veer die over $x$ is uitgerekt terug met een kracht $-kx$. Is $x$ de afwijking van de rustpositie, dan zegt de wet van Newton $m\,x'' = -k\,x$, of
+\[
+x'' = -\omega^2\,x \qquad \text{met } \omega = \sqrt{k/m} .
+\]
+Welke functies zijn, op een factor na, het tegengestelde van hun tweede afgeleide? Je kent ze: $(\cos \omega t)'' = -\omega^2 \cos \omega t$, en zo ook $\sin \omega t$. Een vergelijking van de tweede orde heeft twee constanten nodig, en twee beginvoorwaarden: waar het blokje start, en hoe snel.
+
+\begin{theorie}
+\begin{stelling}{Harmonische trilling}
+Is $\omega > 0$, dan is de algemene oplossing van $\formule{y'' = -\omega^2\,y}$
+\[
+\formule{y = C_1 \cos \omega t + C_2 \sin \omega t}
+\]
+Er is precies één oplossing met gegeven $y(0)$ en $y'(0)$: die met $C_1 = y(0)$ en $C_2 = \tfrac{y'(0)}{\omega}$.
+\end{stelling}
+
+\begin{bewijs}
+Elke zulke functie is een oplossing: $y'' = -\omega^2 C_1\cos \omega t - \omega^2 C_2 \sin \omega t = -\omega^2 y$. Neem nu een oplossing $y$, en $z = y - y(0)\cos\omega t - \tfrac{y'(0)}{\omega}\sin\omega t$. Dan is $z'' = -\omega^2 z$ met $z(0) = 0$ en $z'(0) = 0$. Bekijk $E = (z')^2 + \omega^2 z^2$:
+\bewijsregel{E' = 2z'\,z'' + 2\omega^2 z\,z' = 2z'\,(z'' + \omega^2 z) = 0 .}
+Dus $E$ is constant, en gelijk aan $E(0) = 0$. Een som van twee kwadraten is alleen 0 als beide 0 zijn: $z = 0$, en $y$ heeft de gegeven vorm.
+\end{bewijs}
+\end{theorie}
+
+Het bewijs heeft een natuurkundige betekenis: $E$ is, op een factor na, de energie van het blokje (bewegingsenergie plus veerenergie), en die blijft behouden. De beweging is periodiek met periode $T = \tfrac{2\pi}{\omega}$. Een stijvere veer (grotere $k$) of een lichter blokje (kleinere $m$) geeft een grotere $\omega$, en dus een snellere trilling.
+
+\voorbeeld{}{Een blokje van 0,5 kg hangt aan een veer met $k = 50$ N/m. Het wordt 3 cm naar beneden getrokken en losgelaten. Geef $x(t)$ en de periode.\label{vb:h4-trilling}}{%
+\uitleg{De vergelijking is $x'' = -\tfrac{50}{0{,}5}\,x = -100\,x$, dus $\omega = 10$. Neem $x$ positief naar beneden, in meter: dan is $x(0) = 0{,}03$ en, omdat het blokje losgelaten wordt, $x'(0) = 0$.}
+\naast{\begin{stappenvrij}{4.6cm}{4.4cm}
+x = C_1 \cos 10t + C_2 \sin 10t & De algemene oplossing. \\[1ex]
+C_1 = 0{,}03, \quad C_2 = \dfrac{0}{10} = 0 & De beginvoorwaarden. \\[2ex]
+x = 0{,}03\cos 10t & De oplossing. \\[1ex]
+T = \dfrac{2\pi}{10} \approx 0{,}63 \text{ s} & De periode.
+\end{stappenvrij}}{\begin{tikzpicture}[x=2.6cm,y=40cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.25,ystep=.01] (0,-.03) grid (1.3,.03);
+  \draw[->,grijs] (0,0) -- (1.4,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-.035) -- (0,.04) node[above,text=black] {$x$};
+  \foreach \t/\n in {0.5/0{,}5,1/1}{\node[below,inner sep=1.5pt] at (\t,-.03) {$\n$};}
+  \foreach \t/\n in {.03/0{,}03,-.03/-0{,}03}{\node[left,inner sep=1.5pt] at (0,\t) {$\n$};}
+  \draw[accent,thick] plot[domain=0:1.3,samples=100,smooth] (\x,{0.03*cos(10*\x r)});
+  \draw[grijs,<->] (0,.034) -- (.6283,.034) node[midway,above,inner sep=1pt] {$T$};
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Breng de vergelijking in de vorm $y'' = -\omega^2 y$. Schrijf $y = C_1 \cos \omega t + C_2 \sin \omega t$, en bepaal $C_1$ uit $y(0)$ en $C_2$ uit $y'(0) = \omega\,C_2$.
+\end{werkwijze}
+
+\nujij{Hetzelfde blokje start in de rustpositie, met een snelheid van 0,4 m/s naar beneden. Geef $x(t)$.}{$C_1 = 0$ en $C_2 = \tfrac{0{,}4}{10}$: $x = 0{,}04\sin 10t$.}
+
+\begin{oefeningen}
+\oef{h4-trilling}
+\end{oefeningen}
+
+%========================================================================================
+\section{Lineaire vergelijkingen met constante coëfficiënten}
+
+\subsection{Oplossingen optellen}
+
+Een echte veer trilt niet eeuwig: er is wrijving, die de beweging afremt met een kracht evenredig met de snelheid. Dan komt er een term met $y'$ bij. We bekijken dus vergelijkingen van de vorm
+\[
+y'' + a\,y' + b\,y = 0
+\]
+met reële constanten $a$ en $b$. Ze heten \textit{lineair} en \textit{homogeen}: $y$ en zijn afgeleiden komen alleen in de eerste macht voor, en er staat geen term zonder $y$. Bij de trilling zagen we al dat je twee oplossingen mag combineren. Dat geldt in het algemeen.
+
+\begin{theorie}
+\begin{stelling}{Superpositie}
+Zijn $y_1$ en $y_2$ oplossingen van $y'' + a\,y' + b\,y = 0$, dan is ook
+\[
+\formule{C_1\,y_1 + C_2\,y_2}
+\]
+een oplossing, voor alle constanten $C_1$ en $C_2$.
+\end{stelling}
+
+\begin{bewijs}
+Neem $y = C_1 y_1 + C_2 y_2$. Afleiden is lineair, dus
+\bewijsregel{y'' + a\,y' + b\,y = C_1\,(y_1'' + a\,y_1' + b\,y_1) + C_2\,(y_2'' + a\,y_2' + b\,y_2) = C_1 \cdot 0 + C_2 \cdot 0 = 0 .}
+\end{bewijs}
+\end{theorie}
+
+Waar zoek je die oplossingen? Bij $y' = ky$ was het antwoord $\e^{kt}$. Probeer dus $y = \e^{rt}$. Dan is $y' = r\,\e^{rt}$ en $y'' = r^2\,\e^{rt}$, en
+\[
+y'' + a\,y' + b\,y = (r^2 + a\,r + b)\,\e^{rt} .
+\]
+Omdat $\e^{rt}$ nooit 0 is, is $\e^{rt}$ een oplossing als en slechts als $r^2 + ar + b = 0$. Een differentiaalvergelijking wordt zo een vierkantsvergelijking.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{karakteristieke vergelijking}} van $y'' + a\,y' + b\,y = 0$ is
+\[
+\formule{r^2 + a\,r + b = 0}
+\]
+\end{theorie}
+
+\begin{oefeningen}
+\oef{h4-karakteristiek}
+\end{oefeningen}
+
+Een vierkantsvergelijking heeft twee reële wortels, één dubbele wortel, of twee complexe wortels. Elk geval geeft een eigen vorm van de oplossingen.
+
+\subsection{Twee reële wortels}
+
+\begin{theorie}
+\begin{stelling}{Twee reële wortels}
+Heeft de karakteristieke vergelijking twee verschillende reële wortels $r_1$ en $r_2$, dan is de algemene oplossing van $y'' + a\,y' + b\,y = 0$
+\[
+\formule{y = C_1\,\e^{r_1 t} + C_2\,\e^{r_2 t}}
+\]
+\end{stelling}
+
+\begin{bewijs}
+Dat het oplossingen zijn, volgt uit de superpositie. Omgekeerd, neem een oplossing $y$. Omdat $r_1 + r_2 = -a$ en $r_1 r_2 = b$, is $y'' + a\,y' + b\,y = y'' - (r_1 + r_2)\,y' + r_1 r_2\,y$. Stel $u = y' - r_2\,y$. Dan is
+\bewijsregel{u' - r_1 u = y'' - r_2\,y' - r_1\,y' + r_1 r_2\,y = 0 .}
+Volgens hoofdstuk 2 is $u = K\,\e^{r_1 t}$. Dan is $y' - r_2\,y = K\,\e^{r_1 t}$ een lineaire vergelijking van de eerste orde. Met de integrerende factor $\e^{-r_2 t}$ uit hoofdstuk 3:
+\bewijsregel{\bigl(\e^{-r_2 t}\,y\bigr)' = K\,\e^{(r_1 - r_2)t} \ \Rightarrow \ \e^{-r_2 t}\,y = \frac{K}{r_1 - r_2}\,\e^{(r_1 - r_2)t} + C_2 .}
+Vermenigvuldig met $\e^{r_2 t}$, en noem $C_1 = \tfrac{K}{r_1 - r_2}$.
+\end{bewijs}
+\end{theorie}
+
+Het idee van het bewijs: de vergelijking van de tweede orde valt uiteen in twee vergelijkingen van de eerste orde na elkaar, net zoals $r^2 + ar + b = (r - r_1)(r - r_2)$ uiteenvalt in twee factoren. Twee constanten, twee beginvoorwaarden: met $y(0)$ en $y'(0)$ vind je $C_1$ en $C_2$ uit een stelsel.
+
+\voorbeeld{}{Los op: $y'' - y' - 6y = 0$ met $y(0) = 1$ en $y'(0) = 8$.\label{vb:h4-reeel}}{%
+\uitleg{Eerst de karakteristieke vergelijking, dan de algemene oplossing, en ten slotte een stelsel voor de constanten.}
+\naast{\begin{stappenvrij}{5.8cm}{4.4cm}
+r^2 - r - 6 = 0 \ \Rightarrow \ r = 3 \text{ of } r = -2 & Ontbinden: $(r - 3)(r + 2)$. \\[1ex]
+y = C_1\,\e^{3t} + C_2\,\e^{-2t} & De algemene oplossing. \\[1ex]
+C_1 + C_2 = 1, \quad 3C_1 - 2C_2 = 8 & Uit $y(0)$ en $y'(0)$. \\[1ex]
+C_1 = 2, \ C_2 = -1 & Optellen na $\times 2$: $5C_1 = 10$. \\[1ex]
+y = 2\,\e^{3t} - \e^{-2t} & De oplossing.
+\end{stappenvrij}}{\begin{tikzpicture}[x=2.2cm,y=.5cm,font=\scriptsize]
+  \def\asx{t}
+  \draw[black!14,very thin,xstep=.25,ystep=1] (-.5,-1) grid (1,5);
+  \draw[->,grijs] (-.5,0) -- (1.1,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-1) -- (0,5.4) node[above,text=black] {$y$};
+  \foreach \t/\n in {-0.5/-0{,}5,0.5/0{,}5,1/1}{\node[below,inner sep=1.5pt] at (\t,0) {$\n$};}
+  \foreach \t in {1,3,5}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[accent,thick] plot[domain=-.5:.46,samples=60,smooth] (\x,{2*exp(3*\x)-exp(-2*\x)});
+  \fill[accent] (0,1) circle (1.6pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Schrijf de karakteristieke vergelijking $r^2 + ar + b = 0$ en los ze op. Zijn er twee reële wortels, dan is $y = C_1\,\e^{r_1 t} + C_2\,\e^{r_2 t}$. Bepaal $C_1$ en $C_2$ met $y(0)$ en $y'(0)$.
+\end{werkwijze}
+
+\nujij{Bepaal de algemene oplossing van $y'' - 9y = 0$.}{$r^2 = 9$: $y = C_1\,\e^{3t} + C_2\,\e^{-3t}$.}
+
+\begin{oefeningen}
+\oef{h4-reeel}
+\end{oefeningen}
+
+\subsection{Een dubbele wortel}
+
+Is de discriminant 0, dan is er maar één wortel $r$, en dus maar één exponentiële functie. Toch hebben we twee onafhankelijke oplossingen nodig. Het bewijs van de vorige stelling werkt nog steeds, maar met $r_1 = r_2$ geeft de integraal iets anders: een factor $t$.
+
+\begin{theorie}
+\begin{stelling}{Dubbele wortel}
+Heeft de karakteristieke vergelijking een dubbele wortel $r$, dan is de algemene oplossing
+\[
+\formule{y = (C_1 + C_2\,t)\,\e^{rt}}
+\]
+\end{stelling}
+
+\begin{bewijs}
+Volg het vorige bewijs met $r_1 = r_2 = r$. Dan is $u = y' - r\,y = K\,\e^{rt}$, en
+\bewijsregel{\bigl(\e^{-rt}\,y\bigr)' = K \ \Rightarrow \ \e^{-rt}\,y = K\,t + C_1 .}
+Dat is de formule met $C_2 = K$. Omgekeerd is elke zulke functie een oplossing, want dezelfde stappen werken terug.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Los op: $y'' + 4y' + 4y = 0$ met $y(0) = 1$ en $y'(0) = 0$.\label{vb:h4-dubbel}}{%
+\uitleg{De karakteristieke vergelijking is een volkomen kwadraat. Voor $y'(0)$ gebruiken we de productregel.}
+\naast{\begin{stappenvrij}{5cm}{4cm}
+r^2 + 4r + 4 = (r + 2)^2 = 0 & Dubbele wortel $r = -2$. \\[1ex]
+y = (C_1 + C_2\,t)\,\e^{-2t} & De algemene oplossing. \\[1ex]
+y' = (C_2 - 2C_1 - 2C_2\,t)\,\e^{-2t} & Productregel. \\[1ex]
+C_1 = 1, \ C_2 - 2 = 0 & Uit $y(0) = 1$ en $y'(0) = 0$. \\[1ex]
+y = (1 + 2t)\,\e^{-2t} & De oplossing.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.1cm,y=1.8cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.5,ystep=.25] (0,0) grid (3,1);
+  \draw[->,grijs] (0,0) -- (3.2,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,1.2) node[above,text=black] {$y$};
+  \foreach \t in {1,2,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \node[left,inner sep=1.5pt] at (0,1) {$1$};
+  \draw[accent,thick] plot[domain=0:3,samples=60,smooth] (\x,{(1+2*\x)*exp(-2*\x)});
+\end{tikzpicture}}
+De oplossing start horizontaal, daalt, en nadert 0 zonder ooit van teken te wisselen.}
+
+\nujij{Bepaal de algemene oplossing van $y'' - 6y' + 9y = 0$.}{$(r - 3)^2 = 0$: $y = (C_1 + C_2\,t)\,\e^{3t}$.}
+
+\begin{oefeningen}
+\oef{h4-dubbel}
+\end{oefeningen}
+
+\subsection{Complexe wortels}
+
+Wat als de discriminant negatief is, zoals bij $y'' = -\omega^2 y$, met $r^2 + \omega^2 = 0$ en $r = \pm\omega i$? Daar vonden we geen exponentiële functies, maar een cosinus en een sinus. In het algemeen zijn de wortels $\alpha \pm \beta i$ met $\alpha = -\tfrac a2$ en $\beta > 0$. Het reële deel $\alpha$ zal een exponentiële factor geven, het imaginaire deel $\beta$ een trilling.
+
+\begin{theorie}
+\begin{stelling}{Complexe wortels}
+Heeft de karakteristieke vergelijking de complexe wortels $\alpha \pm \beta i$ (met $\beta > 0$), dan is de algemene oplossing
+\[
+\formule{y = \e^{\alpha t}\,\bigl(C_1 \cos \beta t + C_2 \sin \beta t\bigr)}
+\]
+\end{stelling}
+
+\begin{bewijs}
+De wortels zijn $-\tfrac a2 \pm \tfrac12\sqrt{4b - a^2}\;i$, dus $\alpha = -\tfrac a2$ en $\beta^2 = b - \tfrac{a^2}{4}$. Schrijf een functie $y$ als $y = \e^{\alpha t} z$. Dan is $y' = \e^{\alpha t}(z' + \alpha z)$ en $y'' = \e^{\alpha t}(z'' + 2\alpha z' + \alpha^2 z)$, zodat
+\bewijsregel{y'' + a\,y' + b\,y = \e^{\alpha t}\bigl(z'' + (2\alpha + a)\,z' + (\alpha^2 + a\alpha + b)\,z\bigr) = \e^{\alpha t}\bigl(z'' + \beta^2 z\bigr) ,}
+want $2\alpha + a = 0$ en $\alpha^2 + a\alpha + b = \tfrac{a^2}{4} - \tfrac{a^2}{2} + b = \beta^2$. Dus is $y$ een oplossing als en slechts als $z'' = -\beta^2 z$, en volgens de stelling van de harmonische trilling is dat zo als en slechts als $z = C_1\cos\beta t + C_2\sin\beta t$.
+\end{bewijs}
+\end{theorie}
+
+De factor $\e^{\alpha t}$ bepaalt of de trilling uitdooft ($\alpha < 0$), groeit ($\alpha > 0$) of blijft ($\alpha = 0$). De periode van de trilling is $\tfrac{2\pi}{\beta}$.
+
+\voorbeeld{}{Los op: $y'' + 2y' + 5y = 0$ met $y(0) = 0$ en $y'(0) = 2$.\label{vb:h4-complex}}{%
+\uitleg{De discriminant is negatief: we rekenen de complexe wortels uit, en lezen $\alpha$ en $\beta$ af.}
+\naast{\begin{stappenvrij}{6.2cm}{3.9cm}
+r = \dfrac{-2 \pm \sqrt{4 - 20}}{2} = -1 \pm 2i & $\alpha = -1$ en $\beta = 2$. \\[2ex]
+y = \e^{-t}\,(C_1\cos 2t + C_2\sin 2t) & De algemene oplossing. \\[1ex]
+C_1 = 0 & Uit $y(0) = 0$. \\[1ex]
+y' = 2C_2\,\e^{-t}\cos 2t - C_2\,\e^{-t}\sin 2t & Met $C_1 = 0$, productregel. \\[1ex]
+2C_2 = 2 \ \Rightarrow \ y = \e^{-t}\sin 2t & Uit $y'(0) = 2$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=1.05cm,y=2.2cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.5,ystep=.25] (0,-.5) grid (3.2,.75);
+  \draw[->,grijs] (0,0) -- (3.4,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-.5) -- (0,.85) node[above,text=black] {$y$};
+  \foreach \t in {1,2,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \node[left,inner sep=1.5pt] at (0,.5) {$0{,}5$};
+  \draw[grijs,dashed] plot[domain=0:3.2,samples=40,smooth] (\x,{exp(-\x)});
+  \draw[grijs,dashed] plot[domain=0:3.2,samples=40,smooth] (\x,{-exp(-\x)});
+  \draw[accent,thick] plot[domain=0:3.2,samples=100,smooth] (\x,{exp(-\x)*sin(2*\x r)});
+\end{tikzpicture}}
+Een uitdovende trilling: de grafiek schommelt tussen $\e^{-t}$ en $-\e^{-t}$, met periode $\pi$.}
+
+\begin{werkwijze}
+Los de karakteristieke vergelijking op. Twee reële wortels: $C_1\,\e^{r_1 t} + C_2\,\e^{r_2 t}$. Een dubbele wortel: $(C_1 + C_2 t)\,\e^{rt}$. Complexe wortels $\alpha \pm \beta i$: $\e^{\alpha t}(C_1\cos\beta t + C_2\sin\beta t)$. Bepaal de constanten met $y(0)$ en $y'(0)$.
+\end{werkwijze}
+
+\nujij{Bepaal de algemene oplossing van $y'' + 4y' + 13y = 0$.}{$r = -2 \pm 3i$: $y = \e^{-2t}(C_1\cos 3t + C_2\sin 3t)$.}
+
+\begin{oefeningen}
+\oef{h4-complex}
+
+\oef{h4-homogeen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Gedempte trillingen}
+
+\subsection{Onderkritisch, kritisch, overkritisch}
+
+Een massa $m$ aan een veer met veerconstante $k$, afgeremd door een demper met een kracht $-c\,x'$, voldoet aan
+\[
+m\,x'' + c\,x' + k\,x = 0 , \qquad \text{of} \qquad x'' + \frac cm\,x' + \frac km\,x = 0 .
+\]
+De karakteristieke vergelijking $r^2 + \tfrac cm\,r + \tfrac km = 0$ heeft discriminant $\tfrac{c^2}{m^2} - \tfrac{4k}{m} = \tfrac{c^2 - 4km}{m^2}$. Het teken van $c^2 - 4km$ beslist dus welk van de drie gevallen optreedt. Omdat $c > 0$, gaat elke oplossing naar 0: alle wortels of hun reële delen zijn negatief.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{kritische demping}} van een massa $m$ aan een veer met veerconstante $k$ is $\formule{c_k = 2\sqrt{km}}$. Een gedempte trilling is
+\begin{itemize}
+\item \textbf{\textcolor{accent}{onderkritisch}} als $c < c_k$: twee complexe wortels, de massa schommelt met uitdovende uitwijking;
+\item \textbf{\textcolor{accent}{kritisch}} als $c = c_k$: een dubbele wortel, geen schommeling;
+\item \textbf{\textcolor{accent}{overkritisch}} als $c > c_k$: twee negatieve reële wortels, geen schommeling, maar een trage terugkeer.
+\end{itemize}
+\end{theorie}
+
+Waarom is de kritische demping de beste keuze om snel tot rust te komen? Bij een overkritische demping is één wortel heel dicht bij 0, en een factor zoals $\e^{-2t}$ dooft maar traag uit. Bij kritische demping zijn beide wortels gelijk aan $-\sqrt{k/m}$: zo negatief als het kan zonder te schommelen. Opdracht~\ref{oef:h4-o21} vergelijkt het op een voorbeeld.
+
+\voorbeeld{}{Terug naar het probleem. Een wiel draagt 400 kg, met $k = 40\,000$ N/m. Na de drempel zit de carrosserie 5 cm onder haar rustpositie, in rust. Welke demping is kritisch? Hoe beweegt de carrosserie dan, en hoe bij $c = 2400$ Ns/m?\label{vb:h4-terug}}{%
+\uitleg{We berekenen $c_k$, en lossen de vergelijking op in beide gevallen, met $x(0) = -0{,}05$ en $x'(0) = 0$.}
+\begin{stappenbreed}
+c_k = 2\sqrt{40\,000 \cdot 400} = 8000 & De kritische demping, in Ns/m. \\[1ex]
+x'' + 20\,x' + 100\,x = 0, \quad (r + 10)^2 = 0 & Met $c = 8000$: delen door 400. \\[1ex]
+x = -(0{,}05 + 0{,}5\,t)\,\e^{-10t} & $C_1 = -0{,}05$ en $C_2 - 10\,C_1 = 0$. \\[1ex]
+x'' + 6\,x' + 100\,x = 0, \quad r = -3 \pm \sqrt{91}\,i & Met $c = 2400$. \\[1ex]
+x = -\e^{-3t}\,(0{,}05\cos 9{,}54\,t + 0{,}0157\sin 9{,}54\,t) & $C_1 = -0{,}05$ en $9{,}54\,C_2 - 3\,C_1 = 0$.
+\end{stappenbreed}
+\naast{Met de kritische demper is de carrosserie na 0,6 s al op minder dan 1 mm van haar rustpositie, zonder door te schieten. Een te sterke demper, zoals $c = 20\,000$ Ns/m (de stippellijn in het probleem), schiet ook niet door, maar na 1 s zit de carrosserie nog 6,5 mm te laag. Met de zwakke demper schiet ze door, schommelt ze met een periode van $\tfrac{2\pi}{\sqrt{91}} \approx 0{,}66$ s, en is de uitwijking pas na ongeveer 1,3 s kleiner dan 1 mm. De ontwerper kiest dus een demper van ongeveer 8000 Ns/m. In de praktijk neemt men hem iets zwakker, omdat een kleine schommeling het comfort niet schaadt en een overkritische demper elke schok hard doorgeeft.}{\begin{tikzpicture}[x=3.4cm,y=40cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.25,ystep=.01] (0,-.05) grid (1.25,.02);
+  \draw[->,grijs] (0,0) -- (1.35,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,-.055) -- (0,.03) node[above,text=black] {$x$};
+  \foreach \t/\n in {0.5/0{,}5,1/1}{\node[above,inner sep=1.5pt] at (\t,0) {$\n$};}
+  \node[left,inner sep=1.5pt] at (0,-.05) {$-0{,}05$};
+  \draw[accent!50,thick] plot[domain=0:1.25,samples=120,smooth] (\x,{-exp(-3*\x)*(0.05*cos(9.539*\x r)+0.01572*sin(9.539*\x r))});
+  \draw[accent,very thick] plot[domain=0:1.25,samples=60,smooth] (\x,{-(0.05+0.5*\x)*exp(-10*\x)});
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h4-demping}
+\end{oefeningen}
+
+%========================================================================================
+\section{Niet-homogene vergelijkingen}
+
+\subsection{Een kracht van buitenaf}
+
+Hangt een blokje aan een verticale veer, dan werkt ook de zwaartekracht: $m\,x'' = -k\,x + mg$, met $x$ naar beneden gemeten vanaf de stand waarin de veer niet uitgerekt is. Rechts staat nu een term zonder $x$: de vergelijking is niet meer homogeen. Ze heeft één eenvoudige oplossing: de constante $x = \tfrac{mg}{k}$, waar de veer het gewicht precies draagt. Hoe vind je de andere? Het verschil van twee oplossingen voldoet aan de homogene vergelijking. Dat is de sleutel.
+
+\begin{theorie}
+\begin{stelling}{Niet-homogene vergelijking}
+Is $y_p$ een oplossing van $y'' + a\,y' + b\,y = f(t)$, dan is de algemene oplossing
+\[
+\formule{y = y_p + y_h}
+\]
+met $y_h$ de algemene oplossing van de homogene vergelijking $y'' + a\,y' + b\,y = 0$.
+\end{stelling}
+
+\begin{bewijs}
+Is $y_h$ een oplossing van de homogene vergelijking, dan is
+\bewijsregel{(y_p + y_h)'' + a\,(y_p + y_h)' + b\,(y_p + y_h) = f(t) + 0 = f(t) .}
+Omgekeerd: is $y$ een oplossing, dan geeft hetzelfde rekenwerk voor $y - y_p$ het rechterlid $f(t) - f(t) = 0$. Dus $y - y_p$ is een oplossing $y_h$ van de homogene vergelijking.
+\end{bewijs}
+\end{theorie}
+
+De particuliere oplossing $y_p$ vind je door een vorm te proberen die lijkt op het rechterlid: een constante bij een constante, een veelterm van dezelfde graad bij een veelterm, en $A\,\e^{kt}$ bij $\e^{kt}$. Vul in, en bepaal de onbekende coëfficiënten.
+
+\voorbeeld{}{Bepaal de algemene oplossing van $y'' - 3y' + 2y = 4t$.\label{vb:h4-nh}}{%
+\uitleg{Het rechterlid is een veelterm van de eerste graad. We proberen $y_p = At + B$, en tellen er de homogene oplossingen bij.}
+\begin{stappen}
+y_p = At + B, \quad y_p' = A, \quad y_p'' = 0 & Een veelterm van dezelfde graad. \\[1ex]
+-3A + 2(At + B) = 4t & Invullen. \\[1ex]
+2A = 4, \quad 2B - 3A = 0 \ \Rightarrow \ y_p = 2t + 3 & Coëfficiënten van $t$ en constanten gelijkstellen. \\[1ex]
+r^2 - 3r + 2 = 0 \ \Rightarrow \ r = 1 \text{ of } r = 2 & De homogene vergelijking. \\[1ex]
+y = 2t + 3 + C_1\,\e^{t} + C_2\,\e^{2t} & De algemene oplossing.
+\end{stappen}}
+
+\voorbeeld{}{Een blokje van 0,5 kg hangt aan een veer met $k = 50$ N/m. Het wordt vastgehouden waar de veer niet uitgerekt is, en losgelaten. Neem $g = 9{,}8$ m/s\textsuperscript{2}. Beschrijf de beweging.\label{vb:h4-hangen}}{%
+\uitleg{Met $x$ naar beneden vanaf de onbelaste stand is $0{,}5\,x'' = -50\,x + 0{,}5 \cdot 9{,}8$. De constante particuliere oplossing is de rustpositie.}
+\naast{\begin{stappenvrij}{6cm}{3.9cm}
+x'' + 100\,x = 9{,}8 & Delen door 0,5. \\[1ex]
+x_p = 0{,}098 & Een constante: $100\,x_p = 9{,}8$. \\[1ex]
+x = 0{,}098 + C_1\cos 10t + C_2\sin 10t & Met de homogene oplossingen. \\[1ex]
+x = 0{,}098\,(1 - \cos 10t) & Uit $x(0) = 0$ en $x'(0) = 0$.
+\end{stappenvrij}
+Het blokje trilt rond zijn rustpositie 9,8 cm lager, en zakt tot 19,6 cm onder het beginpunt.}{\begin{tikzpicture}[x=2.4cm,y=-14cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.25,ystep=.05] (0,0) grid (1.3,.2);
+  \draw[->,grijs] (0,0) -- (1.4,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,.23) node[below,text=black] {$x$};
+  \foreach \t/\n in {0.5/0{,}5,1/1}{\node[above,inner sep=1.5pt] at (\t,0) {$\n$};}
+  \foreach \t/\n in {.1/0{,}1,.2/0{,}2}{\node[left,inner sep=1.5pt] at (0,\t) {$\n$};}
+  \draw[grijs,dashed] (0,.098) -- (1.3,.098);
+  \draw[accent,thick] plot[domain=0:1.3,samples=100,smooth] (\x,{0.098*(1-cos(10*\x r))});
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Zoek een particuliere oplossing met een vorm zoals het rechterlid: $A$, $At + B$, $At^2 + Bt + C$ of $A\,\e^{kt}$. Vul in en stel de coëfficiënten gelijk. Tel de algemene oplossing van de homogene vergelijking erbij, en bepaal pas dan de constanten met de beginvoorwaarden.
+\end{werkwijze}
+
+Let op: de constanten bepaal je pas op het einde. Wie ze eerst uit de homogene oplossing haalt, en daarna $y_p$ optelt, voldoet niet meer aan de beginvoorwaarden. En soms werkt de vorm niet: is $\e^{kt}$ zelf een oplossing van de homogene vergelijking, dan geeft $A\,\e^{kt}$ links 0 (opdracht~\ref{oef:h4-o14}).
+
+\nujij{Bepaal de algemene oplossing van $y'' + y' - 2y = 10\,\e^{3t}$.}{$y_p = A\,\e^{3t}$: $(9 + 3 - 2)A = 10$, dus $A = 1$. $y = \e^{3t} + C_1\,\e^{t} + C_2\,\e^{-2t}$.}
+
+\begin{oefeningen}
+\oef{h4-nh}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h4-o1}
+
+\oef{h4-o2}
+
+\oef{h4-o3}
+
+\oef{h4-o4}
+
+\oef{h4-o5}
+
+\oef{h4-o6}
+
+\oef{h4-o7}
+
+\oef{h4-o8}
+
+\oef{h4-o9}
+
+\oef{h4-o10}
+
+\oef{h4-o11}
+
+\oef{h4-o12}
+
+\oef{h4-o13}
+
+\oef{h4-o14}
+
+\oef{h4-o15}
+
+\oef{h4-o16}
+
+\oef{h4-o17}
+
+\oef{h4-o18}
+
+\oef{h4-o19}
+
+\oef{h4-o20}
+
+\oef{h4-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Goniometrische functies zijn gezien in het 5de jaar, Rijen (met de rij van Fibonacci) in het 6de jaar van pakket 4.}
+
+\begin{oefeningen}
+\oef{h4-koppel-1}
+
+\oef{h4-koppel-2}
+
+\oef{h4-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+
+\oef{h4-t6}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-reeel}{oef:h4-reeel}%
+  \fv{oef:h4-t2}{vb:h4-dubbel}{oef:h4-dubbel}%
+  \fv{oef:h4-t3}{vb:h4-complex}{oef:h4-homogeen}%
+  \fv{oef:h4-t4}{vb:h4-trilling}{oef:h4-trilling}%
+  \fv{oef:h4-t5}{vb:h4-nh}{oef:h4-nh}%
+  \fv{oef:h4-t6}{vb:h4-terug}{oef:h4-demping}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de oplossing van $y'' = -\omega^2 y$ met het idee van het bewijs, de superpositie, de karakteristieke vergelijking en de drie vormen van de oplossing (met het idee van elk bewijs), wat onderkritisch, kritisch en overkritisch betekent, en hoe je een niet-homogene vergelijking oplost. Vergelijk daarna met de kaders.
+\fi

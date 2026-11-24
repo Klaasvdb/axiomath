@@ -1,0 +1,592 @@
+%----------------------------------------------------------------------------------------
+% CONVERGENTIEKENMERKEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Convergentiekenmerken}
+
+\begin{probleem}
+\vspace{-1mm}\naast{In 1644 vroeg de Italiaanse wiskundige Pietro Mengoli hoeveel $1 + \tfrac14 + \tfrac19 + \tfrac1{16} + \cdots$ is, de som van de omgekeerden van de kwadraten. Niemand kon het zeggen, ook Mengoli zelf niet. Bestaat die som wel? De harmonische reeks divergeert, en de termen hier zijn kleiner, maar is dat genoeg? En als de som bestaat: hoeveel termen moet je optellen om ze tot op $0{,}001$ nauwkeurig te kennen?}{\begin{tikzpicture}[x=.42cm,y=1.05cm,font=\scriptsize]
+  \draw[->,lijngrijs] (0,0) -- (10.8,0) node[right,text=black] {$n$};
+  \draw[->,lijngrijs] (0,0) -- (0,3.2) node[above,text=black] {$s_n$};
+  \foreach \y in {1,2,3} \draw[lijngrijs] (0,\y) ++(1.2pt,0) -- ++(-2.4pt,0) node[left=-1pt,text=grijs] {\y};
+  \foreach \x in {2,4,...,10} \draw[lijngrijs] (\x,0) ++(0,1.2pt) -- ++(0,-2.4pt) node[below=-1pt,text=grijs] {\x};
+  \foreach \x/\y in {1/1,2/1.5,3/1.833,4/2.083,5/2.283,6/2.45,7/2.593,8/2.718,9/2.829,10/2.929}
+    \fill[grijs] (\x,\y) circle (1.5pt);
+  \foreach \x/\y in {1/1,2/1.25,3/1.361,4/1.424,5/1.464,6/1.491,7/1.512,8/1.527,9/1.540,10/1.550}
+    \fill[accent] (\x,\y) circle (1.7pt);
+  \node[grijs,right] at (8.2,3.15) {$\sum \frac1n$};
+  \node[accent,right] at (8.2,1.05) {$\sum \frac1{n^2}$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 24, het deel over convergentiekenmerken (d'Alembert, Leibniz en Cauchy) en de hyperharmonische reeksen. Het vergelijkingskenmerk, het limietvergelijkingskenmerk en het integraalkenmerk staan niet in de wenken. Het vergelijkingskenmerk is nodig om d'Alembert en Cauchy te bewijzen, het integraalkenmerk om de hyperharmonische reeksen te behandelen en het probleem op te lossen. Voorkennis uit pakket 4: de stelling \textit{stijgend en begrensd} (Rijen, hoofdstuk 4) en oneigenlijke integralen (Integralen, hoofdstuk 4). De figuur bij het probleem toont dat de partieelsommen van $\sum \tfrac1{n^2}$ veel trager stijgen dan die van de harmonische reeks: laat leerlingen raden of ze een plafond hebben.}
+
+In hoofdstuk 1 kon je de som van een reeks uitrekenen omdat je een formule voor $s_n$ had: bij een meetkundige of een telescoperende reeks. Bij de meeste reeksen lukt dat niet. Toch wil je weten of ze convergeren, en hoe dicht een partieelsom bij de som ligt. Daarvoor bestaan \textit{convergentiekenmerken}: tests die zeggen of een reeks convergeert, zonder dat je de som kent. De meeste vergelijken de reeks met een reeks die je al kent: een meetkundige reeks, de harmonische reeks, of een integraal.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. De leerlingen vinden zelf dat de partieelsommen van $\sum \tfrac1{n^2}$ onder 2 blijven, door elke term te vergelijken met een telescoperende reeks. Dat is het idee van het vergelijkingskenmerk.}
+
+%========================================================================================
+\section{Reeksen met positieve termen}
+
+\subsection{Begrensde partieelsommen}
+
+Zijn alle termen positief, dan kunnen de partieelsommen alleen stijgen. Een stijgende rij heeft maar twee mogelijkheden: ze groeit boven elke grens, of ze stoot tegen een plafond en convergeert. Dat zegt de stelling \textit{stijgend en begrensd} uit de cursus Rijen. Ze geldt ook als de rij af en toe gelijk blijft, met hetzelfde bewijs. Bij een reeks met positieve termen hoef je dus alleen te weten of de partieelsommen een plafond hebben.
+
+\begin{theorie}
+\begin{stelling}{Reeks met positieve termen}
+Als $u_n \geqslant 0$ voor elke $n$, dan geldt:
+
+\vspace{1mm}
+\qquad $\formule{\sum u_n \text{ convergeert} \iff \text{de partieelsommen } s_n \text{ zijn naar boven begrensd}}$
+\end{stelling}
+
+\begin{bewijs}
+Omdat $s_{n+1} = s_n + u_{n+1} \geqslant s_n$, stijgen de partieelsommen (of blijven ze gelijk). Zijn ze naar boven begrensd, dan convergeren ze volgens \textit{stijgend en begrensd}. Omgekeerd: convergeert de reeks naar $S$, dan is $s_n \leqslant s_m$ voor elke $m > n$, en in de limiet $s_n \leqslant S$. Dan is $S$ een bovengrens.
+\end{bewijs}
+\end{theorie}
+
+Zo'n plafond vind je meestal door te vergelijken met een reeks die je kent, zoals in de Verken.
+
+\subsection{Het vergelijkingskenmerk}
+
+\begin{theorie}
+\begin{stelling}{Vergelijkingskenmerk}
+Als $0 \leqslant u_n \leqslant w_n$ voor elke $n$, dan geldt:
+
+\vspace{1mm}
+\qquad $\formule{\sum w_n \text{ convergeert} \ \Rightarrow \ \sum u_n \text{ convergeert}}$
+
+\vspace{1mm}
+\qquad $\formule{\sum u_n \text{ divergeert} \ \Rightarrow \ \sum w_n \text{ divergeert}}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $s_n$ en $t_n$ de partieelsommen van $\sum u_n$ en $\sum w_n$. Uit $u_k \leqslant w_k$ volgt $s_n \leqslant t_n$. Convergeert $\sum w_n$ naar $T$, dan is $s_n \leqslant t_n \leqslant T$: de partieelsommen van $\sum u_n$ zijn begrensd, dus $\sum u_n$ convergeert. De tweede uitspraak is de contrapositie van de eerste.
+\end{bewijs}
+\end{theorie}
+
+In woorden: \textit{kleiner dan een convergente reeks is convergent, groter dan een divergente reeks is divergent.} Omdat de eerste termen de convergentie niet beïnvloeden, volstaat het dat de ongelijkheid geldt vanaf een zekere $n$. Let op de richting: kleiner dan een divergente reeks zegt niets, en groter dan een convergente reeks ook niet.
+
+\voorbeeld{}{Toon aan dat $\displaystyle\sominf{n=1} \frac{1}{n \cdot 2^n}$ convergeert, en dat de som hoogstens 1 is.\label{vb:h2-verg}}{%
+\uitleg{De factor $n$ in de noemer maakt de term alleen maar kleiner dan $\tfrac{1}{2^n}$, en $\sum \tfrac{1}{2^n}$ is een convergente meetkundige reeks.}
+\begin{stappen}
+0 < \frac{1}{n \cdot 2^n} \leqslant \frac{1}{2^n} & Want $n \geqslant 1$: een grotere noemer geeft een kleinere breuk. \\[2.5ex]
+\sominf{n=1} \frac{1}{2^n} = \frac{\frac12}{1 - \frac12} = 1 & Meetkundig, met $q = \tfrac12$. \\[3ex]
+\sominf{n=1} \frac{1}{n \cdot 2^n} \leqslant 1 & Volgens het vergelijkingskenmerk convergeert de reeks, en haar partieelsommen blijven onder 1.
+\end{stappen}}
+
+Zo ging je ook te werk in de Verken: daar vergeleek je $\tfrac1{n^2}$ met de telescoperende reeks $\sum \tfrac{1}{n(n-1)}$. Zo weten we al dat de som van Mengoli bestaat, en dat ze tussen $s_{10} \approx 1{,}55$ en 2 ligt. Om ze nauwkeuriger te kennen, hebben we in sectie 2 een betere vergelijking nodig.
+
+\voorbeeld{}{Toon aan dat $\displaystyle\sominf{n=1} \frac{1}{\sqrt n}$ divergeert.\label{vb:h2-verg2}}{%
+\uitleg{De termen gaan naar 0, dus de test met de termen zegt niets. Maar ze zijn groter dan die van de harmonische reeks, en die divergeert.}
+\begin{stappen}
+\sqrt n \leqslant n \ \Rightarrow \ \frac{1}{\sqrt n} \geqslant \frac1n & Voor elke $n \geqslant 1$. \\[2ex]
+\sum \frac1n \text{ divergeert} \ \Rightarrow \ \sum \frac{1}{\sqrt n} \text{ divergeert} & Groter dan een divergente reeks.
+\end{stappen}}
+
+\begin{werkwijze}
+Vermoed eerst of de reeks convergeert. Zoek dan een gekende reeks om mee te vergelijken: een grotere convergente reeks om convergentie aan te tonen, een kleinere divergente om divergentie aan te tonen. Vergroot of verklein de term door een stuk van de teller of de noemer weg te laten.
+\end{werkwijze}
+
+\nujij{Convergeert $\displaystyle\sominf{n=1} \frac{1}{3^n + n}$?}{Ja: $\tfrac{1}{3^n + n} \leqslant \tfrac{1}{3^n}$, en $\sum \tfrac{1}{3^n}$ is een convergente meetkundige reeks.}
+
+\begin{oefeningen}
+\oef{h2-verg}
+\end{oefeningen}
+
+\subsection{Vergelijken met een limiet}
+
+Neem $\sominf{n=1} \dfrac{n + 3}{2n^3 + 1}$. Voor grote $n$ is de term ongeveer $\dfrac{n}{2n^3} = \dfrac{1}{2n^2}$, dus je vermoedt dat de reeks convergeert. Maar een ongelijkheid vinden die voor elke $n$ klopt, is lastig: de term is groter dan $\tfrac{1}{2n^2}$. Gelukkig volstaat het dat de termen ongeveer evenredig zijn.
+
+\begin{theorie}
+\begin{stelling}{Limietvergelijkingskenmerk}
+Als $u_n > 0$, $w_n > 0$ en
+
+\vspace{1mm}
+\qquad $\formule{\lim_{n\to+\infty} \frac{u_n}{w_n} = L \quad \text{met } 0 < L < +\infty}$
+
+\vspace{1mm}
+dan convergeren $\sum u_n$ en $\sum w_n$ allebei, of divergeren ze allebei.
+\end{stelling}
+
+\begin{bewijs}
+Omdat $\tfrac{u_n}{w_n} \to L$, is vanaf een zekere $n$
+\bewijsregel{\frac L2 < \frac{u_n}{w_n} < 2L, \quad\text{dus}\quad u_n < 2L \cdot w_n \quad\text{en}\quad w_n < \frac2L \cdot u_n .}
+Convergeert $\sum w_n$, dan ook $\sum 2L\,w_n$, en volgens het vergelijkingskenmerk $\sum u_n$. Convergeert $\sum u_n$, dan op dezelfde manier $\sum w_n$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Convergeert $\displaystyle\sominf{n=1} \frac{n + 3}{2n^3 + 1}$?\label{vb:h2-limverg}}{%
+\uitleg{We houden in teller en noemer alleen de hoogste macht: dat geeft $\tfrac{1}{2n^2}$. We vergelijken met $w_n = \tfrac{1}{n^2}$, een reeks waarvan we weten dat ze convergeert.}
+\begin{stappen}
+\frac{u_n}{w_n} = \frac{n + 3}{2n^3 + 1} \cdot n^2 = \frac{n^3 + 3n^2}{2n^3 + 1} & Delen door $\tfrac1{n^2}$ is vermenigvuldigen met $n^2$. \\[2.5ex]
+\lim_{n\to+\infty} \frac{u_n}{w_n} = \frac12 & Zelfde graad: $0 < \tfrac12 < +\infty$. \\[2ex]
+\text{convergent} & $\sum \tfrac1{n^2}$ convergeert, dus ook de gegeven reeks.
+\end{stappen}}
+
+\begin{werkwijze}
+Is de term een breuk met machten van $n$, houd dan in teller en noemer alleen de hoogste macht. Dat geeft een vermoeden $w_n = \tfrac{1}{n^p}$. Controleer dat $\lim \tfrac{u_n}{w_n}$ een strikt positief getal is.
+\end{werkwijze}
+
+\nujij{Convergeert $\displaystyle\sominf{n=1} \frac{2n}{n^2 + 7}$?}{Nee: vergelijk met $\tfrac1n$, de limiet van het quotiënt is 2.}
+
+\begin{oefeningen}
+\oef{h2-limverg}
+\end{oefeningen}
+
+%========================================================================================
+\section{Reeksen en integralen}
+
+\subsection{Het integraalkenmerk}
+
+Een reeks is een som van oppervlaktes van rechthoekjes met breedte 1: de term $u_n$ is de oppervlakte van een rechthoekje met hoogte $u_n$. Is $u_n = f(n)$ voor een dalende functie $f$, dan liggen die rechthoekjes net boven of net onder de grafiek van $f$. Dan lijkt de reeks sterk op de integraal $\int_1^{+\infty} f(x)\dx$, en die kun je soms uitrekenen.
+
+\figuren{\begin{tikzpicture}[x=.85cm,y=2.2cm,font=\scriptsize]
+  \foreach \k in {1,...,6}{\draw[accent,fill=accent!22] (\k,0) rectangle (\k+1,{1/\k});}
+  \assen{-.2}{7.6}{-.1}{1.25}
+  \kromme{.85}{7.3}{1/\x}
+  \foreach \k in {1,...,7}{\node[below] at (\k,0) {$\k$};}
+  \node[accent] at (1.5,.5) {$u_1$};
+  \node[accent] at (2.5,.27) {$u_2$};
+  \node[below,font=\sffamily\bfseries\footnotesize] at (4,-.2) {$u_1 + \cdots + u_6 \geqslant \int_1^7 f(x)\dx$};
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[x=.85cm,y=2.2cm,font=\scriptsize]
+  \foreach \k in {2,...,7}{\draw[accent,fill=accent!22] (\k-1,0) rectangle (\k,{1/\k});}
+  \assen{-.2}{7.6}{-.1}{1.25}
+  \kromme{.85}{7.3}{1/\x}
+  \foreach \k in {1,...,7}{\node[below] at (\k,0) {$\k$};}
+  \node[accent] at (1.5,.25) {$u_2$};
+  \node[below,font=\sffamily\bfseries\footnotesize] at (4,-.2) {$u_2 + \cdots + u_7 \leqslant \int_1^7 f(x)\dx$};
+\end{tikzpicture}}
+
+Links liggen de rechthoekjes boven de grafiek, rechts eronder. Elke partieelsom zit dus ingeklemd tussen twee integralen.
+
+\begin{theorie}
+\begin{stelling}{Integraalkenmerk}
+Is $f$ continu, positief en dalend op $[1, +\infty[$, en is $u_n = f(n)$, dan geldt:
+
+\vspace{1mm}
+\qquad $\formule{\sominf{n=1} u_n \text{ convergeert} \iff \int_1^{+\infty} f(x)\dx \text{ convergeert}}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $x \in [k, k+1]$. Omdat $f$ daalt, is $f(k+1) \leqslant f(x) \leqslant f(k)$. Integreer van $k$ tot $k+1$, over een interval met lengte 1:
+\bewijsregel{u_{k+1} \leqslant \int_k^{k+1} f(x)\dx \leqslant u_k .}
+Tel de rechterongelijkheden op voor $k = 1, \ldots, n$, en de linkerongelijkheden voor $k = 1, \ldots, n-1$:
+\bewijsregel{\int_1^{n+1} f(x)\dx \leqslant s_n \leqslant u_1 + \int_1^{n} f(x)\dx .}
+Convergeert de integraal naar $I$, dan is $s_n \leqslant u_1 + I$: de partieelsommen zijn begrensd, en de reeks convergeert. Divergeert de integraal, dan groeit $\int_1^{n+1} f(x)\dx$ boven elke grens, want $f$ is positief. Dan doet $s_n$ dat ook.
+\end{bewijs}
+\end{theorie}
+
+De integraal is dus niet de som van de reeks, maar ze beslist wel of de reeks convergeert. De ongelijkheden uit het bewijs zeggen bovendien hoe groot de partieelsommen zijn.
+
+\voorbeeld{}{Toon aan dat voor de harmonische reeks $\ln(n+1) \leqslant s_n \leqslant 1 + \ln n$.\label{vb:h2-ln}}{%
+\uitleg{De functie $f(x) = \tfrac1x$ is positief en dalend, met $f(n) = \tfrac1n$. We vullen ze in de ongelijkheden uit het bewijs in.}
+\begin{stappen}
+\int_1^{n+1} \frac1x\dx = \ln(n+1) & De linkergrens. \\[2.5ex]
+1 + \int_1^{n} \frac1x\dx = 1 + \ln n & De rechtergrens. \\[2ex]
+s_{1000}: \ 6{,}909 \leqslant s_{1000} \leqslant 7{,}908 & Bijvoorbeeld voor $n = 1000$. In werkelijkheid is $s_{1000} \approx 7{,}485$.
+\end{stappen}}
+
+Dat verklaart waarom de harmonische reeks zo traag divergeert: ze groeit zoals $\ln n$. Om boven 100 te komen, heb je meer dan $\e^{99}$ termen nodig, een getal met 43 cijfers.
+
+\voorbeeld{}{Convergeert $\displaystyle\sominf{n=1} \frac{1}{n^2 + 1}$?\label{vb:h2-int}}{%
+\uitleg{Een primitieve van $\tfrac{1}{x^2 + 1}$ ken je: $\bgtan x$. De functie is continu, positief en dalend op $[1, +\infty[$, dus het integraalkenmerk mag.}
+\begin{stappen}
+\int_1^{b} \frac{1}{x^2 + 1}\dx = \bgtan b - \frac\pi4 & Met de basisprimitieve. \\[2.5ex]
+\lim_{b\to+\infty} \Bigl(\bgtan b - \frac\pi4\Bigr) = \frac\pi2 - \frac\pi4 = \frac\pi4 & De integraal convergeert. \\[2.5ex]
+\text{convergent} & Volgens het integraalkenmerk. De som is niet $\tfrac\pi4$: volgens het bewijs ligt ze tussen $\tfrac\pi4$ en $\tfrac12 + \tfrac\pi4$.
+\end{stappen}}
+
+\begin{werkwijze}
+Schrijf de term als $f(n)$, en controleer dat $f$ continu, positief en dalend is (vanaf een zekere $x$). Bereken $\int_1^{+\infty} f(x)\dx$ als limiet. Convergeert de integraal, dan ook de reeks; divergeert ze, dan ook de reeks.
+\end{werkwijze}
+
+\nujij{Convergeert $\displaystyle\sominf{n=1} \frac{1}{(n+1)^3}$? Gebruik het integraalkenmerk.}{Ja: $\int_1^{+\infty} \tfrac{1}{(x+1)^3}\dx = \lim_{b\to+\infty} \bigl(\tfrac18 - \tfrac{1}{2(b+1)^2}\bigr) = \tfrac18$.}
+
+\begin{oefeningen}
+\oef{h2-int}
+\end{oefeningen}
+
+\subsection{De hyperharmonische reeksen}
+
+Hoe snel moeten de termen dalen opdat de reeks convergeert? De harmonische reeks $\sum \tfrac1n$ divergeert, $\sum \tfrac1{n^2}$ convergeert. Wat met $\sum \tfrac1{n^{1{,}5}}$, of $\sum \tfrac{1}{n^{0{,}9}}$? Het integraalkenmerk geeft het antwoord voor elke exponent.
+
+\begin{theorie}
+Een \emph{hyperharmonische reeks} is een reeks van de vorm \quad $\formule{\sominf{n=1} \frac{1}{n^p}}$ \quad met $p \in \mathbb{R}$.
+
+\begin{stelling}{Convergentie van de hyperharmonische reeks}
+\qquad $\formule{\sominf{n=1} \frac{1}{n^p} \text{ convergeert} \iff p > 1}$
+\end{stelling}
+
+\begin{bewijs}
+Als $p \leqslant 0$, dan is $\tfrac1{n^p} = n^{-p} \geqslant 1$: de termen gaan niet naar 0, en de reeks divergeert. Als $p > 0$, dan is $f(x) = x^{-p}$ continu, positief en dalend op $[1, +\infty[$. Voor $p \neq 1$ is
+\bewijsregel{\int_1^{b} x^{-p}\dx = \frac{b^{1-p} - 1}{1 - p} .}
+Als $p > 1$, dan is de exponent $1 - p$ negatief, dus $b^{1-p} \to 0$ en de integraal convergeert naar $\tfrac{1}{p-1}$. Als $0 < p < 1$, dan gaat $b^{1-p}$ naar $+\infty$. Als $p = 1$, dan is $\int_1^b \tfrac1x\dx = \ln b \to +\infty$. Het integraalkenmerk geeft het besluit.
+\end{bewijs}
+\end{theorie}
+
+De grens ligt dus precies bij de harmonische reeks: elke macht van $n$ boven 1 is snel genoeg, hoe klein het verschil ook is. Zo convergeert $\sum \tfrac1{n^{1{,}01}}$, terwijl $\sum \tfrac1{n^{0{,}99}}$ divergeert, ook al lijken de termen sterk op elkaar. De hyperharmonische reeksen zijn de standaardreeksen om mee te vergelijken.
+
+\voorbeeld{}{Convergeert $\displaystyle\sominf{n=1} \frac{1}{n\sqrt[3]{n}}$?\label{vb:h2-hyper}}{%
+\uitleg{Schrijf de noemer als één macht van $n$.}
+\begin{stappen}
+n\sqrt[3]{n} = n^1 \cdot n^{1/3} = n^{4/3} & Rekenregels voor machten. \\[1ex]
+p = \tfrac43 > 1 & De reeks is hyperharmonisch en convergeert.
+\end{stappen}}
+
+\nujij{Convergeert $\displaystyle\sominf{n=1} \frac{\sqrt n}{n}$? En $\displaystyle\sominf{n=1} \frac{1}{n^{\pi}}$?}{De eerste is $\sum \tfrac{1}{n^{1/2}}$: divergent. De tweede convergeert, want $\pi > 1$.}
+
+\begin{oefeningen}
+\oef{h2-hyper}
+\end{oefeningen}
+
+\subsection{De rest afschatten}
+
+Convergeert de reeks, dan is de fout die je maakt als je stopt na $N$ termen, de \textit{rest} $R_N = S - s_N = u_{N+1} + u_{N+2} + \cdots$ Dezelfde rechthoekjes als in het integraalkenmerk, nu vanaf $N$, zetten die rest tussen twee integralen.
+
+\begin{theorie}
+\begin{stelling}{Afschatting van de rest}
+Onder de voorwaarden van het integraalkenmerk, en als de reeks convergeert naar $S$, is
+
+\vspace{1mm}
+\qquad $\formule{\int_{N+1}^{+\infty} f(x)\dx \leqslant S - s_N \leqslant \int_{N}^{+\infty} f(x)\dx}$
+\end{stelling}
+
+\begin{bewijs}
+Tel de ongelijkheden $\int_k^{k+1} f(x)\dx \leqslant u_k$ op voor $k = N+1, \ldots, M$, en de ongelijkheden $u_{k} \leqslant \int_{k-1}^{k} f(x)\dx$ ook:
+\bewijsregel{\int_{N+1}^{M+1} f(x)\dx \leqslant u_{N+1} + \cdots + u_M \leqslant \int_{N}^{M} f(x)\dx .}
+Het midden is $s_M - s_N$. Neem de limiet voor $M \to +\infty$.
+\end{bewijs}
+\end{theorie}
+
+Nu kunnen we het probleem oplossen.
+
+\voorbeeld{}{Terug naar het probleem. Hoeveel termen van $1 + \tfrac14 + \tfrac19 + \cdots$ moet je optellen om de som tot op $0{,}001$ nauwkeurig te kennen?\label{vb:h2-terug}}{%
+\uitleg{De reeks is hyperharmonisch met $p = 2$, dus ze convergeert: de som bestaat. Met $f(x) = \tfrac{1}{x^2}$ schatten we de rest af.}
+\begin{stappen}
+\int_N^{+\infty} \frac{1}{x^2}\dx = \lim_{b\to+\infty} \Bigl(\frac1N - \frac1b\Bigr) = \frac1N & Dus $\tfrac{1}{N+1} \leqslant S - s_N \leqslant \tfrac1N$. \\[2.5ex]
+\frac1N \leqslant 0{,}001 \iff N \geqslant 1000 & Met 1000 termen is de fout hoogstens $0{,}001$. \\[2ex]
+s_{1000} \approx 1{,}643\,935 & Met een computer. \\[1ex]
+1{,}644\,933 \leqslant S \leqslant 1{,}644\,935 & Tel $\tfrac{1}{1001}$ en $\tfrac{1}{1000}$ bij $s_{1000}$: de rest kennen we bijna exact.
+\end{stappen}}
+
+Het laatste resultaat is een mooie bonus: je kent niet alleen een bovengrens voor de fout, je kunt de fout ook bijna volledig verbeteren. Zo vind je zes decimalen met 1000 termen in plaats van met een miljoen. Euler vond in 1734 de exacte som van Mengoli: $\tfrac{\pi^2}{6} \approx 1{,}644\,934$. Dat bewijs valt buiten deze cursus.
+
+\begin{oefeningen}
+\oef{h2-rest}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het quotiënt- en het wortelkenmerk}
+
+\subsection{Het quotiëntkenmerk van d'Alembert}
+
+Neem $\sominf{n=1} \dfrac{n^2}{3^n}$. De teller groeit, maar de noemer groeit veel sneller. Hoe vergelijk je dat met een reeks die je kent? Kijk naar het quotiënt van twee opeenvolgende termen:
+\[ \frac{u_{n+1}}{u_n} = \frac{(n+1)^2}{3^{n+1}} \cdot \frac{3^n}{n^2} = \frac13\Bigl(\frac{n+1}{n}\Bigr)^2 \to \frac13 . \]
+Voor grote $n$ wordt elke term dus ongeveer $\tfrac13$ keer de vorige: de reeks gedraagt zich zoals een meetkundige reeks met $q = \tfrac13$. De Franse wiskundige Jean le Rond d'Alembert maakte daar in 1768 een test van.
+
+\begin{theorie}
+\begin{stelling}{Quotiëntkenmerk van d'Alembert}
+Als $u_n > 0$ en \quad $\formule{\lim_{n\to+\infty} \frac{u_{n+1}}{u_n} = L}$, \quad dan geldt:
+
+\vspace{1mm}
+\qquad $\formule{L < 1}$: de reeks convergeert; \qquad $\formule{L > 1}$ (of $L = +\infty$): de reeks divergeert.
+
+\vspace{1mm}
+Als $L = 1$, zegt het kenmerk niets.
+\end{stelling}
+
+\begin{bewijs}
+Stel $L < 1$, en neem een getal $r$ met $L < r < 1$, bijvoorbeeld $r = \tfrac{L+1}{2}$. Omdat de quotiënten naar $L$ gaan, is vanaf een zekere index $N$
+\bewijsregel{u_{n+1} \leqslant r\,u_n, \quad\text{dus}\quad u_{N+m} \leqslant u_N\,r^m \quad (m \geqslant 0) .}
+De reeks $\sum_m u_N\,r^m$ is meetkundig met $0 < r < 1$, dus convergent. Volgens het vergelijkingskenmerk convergeert $\sum_{n \geqslant N} u_n$, en dus de hele reeks.
+
+Stel $L > 1$. Dan is vanaf een zekere $N$ het quotiënt groter dan 1, dus $u_{n+1} > u_n$: de termen stijgen vanaf $u_N > 0$ en gaan niet naar 0. De reeks divergeert.
+\end{bewijs}
+\end{theorie}
+
+Waarom zegt $L = 1$ niets? Bij $\sum \tfrac1n$ is $\tfrac{u_{n+1}}{u_n} = \tfrac{n}{n+1} \to 1$, en bij $\sum \tfrac1{n^2}$ is $\tfrac{u_{n+1}}{u_n} = \tfrac{n^2}{(n+1)^2} \to 1$. De eerste reeks divergeert, de tweede convergeert. Bij machten van $n$ is het quotiëntkenmerk dus nutteloos. Het werkt goed bij exponentiële functies en faculteiten.
+
+\voorbeeld{}{Convergeert $\displaystyle\sominf{n=1} \frac{5^n}{n!}$?\label{vb:h2-quot}}{%
+\uitleg{Er staat een faculteit: het quotiënt van twee opeenvolgende termen vereenvoudigt goed, want $(n+1)! = (n+1) \cdot n!$.}
+\begin{stappen}
+\frac{u_{n+1}}{u_n} = \frac{5^{n+1}}{(n+1)!} \cdot \frac{n!}{5^n} = \frac{5}{n+1} & Bijna alles valt weg. \\[2.5ex]
+L = \lim_{n\to+\infty} \frac{5}{n+1} = 0 < 1 & De reeks convergeert.
+\end{stappen}
+\naast{De termen stijgen eerst ($5$, $12{,}5$, $20{,}8$, $26$, $26$), zolang $\tfrac{5}{n+1} > 1$, en dalen daarna steeds sneller. De eerste termen spelen voor de convergentie geen rol. In hoofdstuk 3 vind je de som: $\e^5 - 1$.}{\begin{tikzpicture}[x=.36cm,y=.075cm,font=\scriptsize]
+  \draw[->,lijngrijs] (0,0) -- (12.8,0) node[right,text=black] {$n$};
+  \draw[->,lijngrijs] (0,0) -- (0,30) node[above,text=black] {$u_n$};
+  \foreach \x in {2,4,...,12} \draw[lijngrijs] (\x,0) ++(0,1.2pt) -- ++(0,-2.4pt) node[below=-1pt,text=grijs] {\x};
+  \foreach \y in {10,20} \draw[lijngrijs] (0,\y) ++(1.2pt,0) -- ++(-2.4pt,0) node[left=-1pt,text=grijs] {\y};
+  \foreach \x/\y in {1/5,2/12.5,3/20.83,4/26.04,5/26.04,6/21.70,7/15.50,8/9.69,9/5.38,10/2.69,11/1.22,12/0.51}
+    \fill[accent] (\x,\y) circle (1.6pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Bereken $\dfrac{u_{n+1}}{u_n}$ en vereenvoudig: schrijf $\tfrac{a^{n+1}}{a^n} = a$ en $\tfrac{(n+1)!}{n!} = n + 1$. Neem de limiet $L$. Bij $L < 1$ convergeert de reeks, bij $L > 1$ divergeert ze, bij $L = 1$ heb je een ander kenmerk nodig.
+\end{werkwijze}
+
+\nujij{Onderzoek $\displaystyle\sominf{n=1} \frac{n^2}{3^n}$ en $\displaystyle\sominf{n=1} \frac{n!}{2^n}$.}{De eerste convergeert ($L = \tfrac13$). Bij de tweede is $\tfrac{u_{n+1}}{u_n} = \tfrac{n+1}{2} \to +\infty$: divergent.}
+
+\begin{oefeningen}
+\oef{h2-quot}
+\end{oefeningen}
+
+\subsection{Het wortelkenmerk van Cauchy}
+
+Bij $\sominf{n=1} \Bigl(\dfrac{n}{2n+1}\Bigr)^n$ is de term zelf een $n$-de macht. Het quotiënt van twee termen is dan een rommelige uitdrukking, maar de $n$-de wortel is eenvoudig: $\sqrt[n]{u_n} = \tfrac{n}{2n+1}$. Is die wortel kleiner dan een getal $r < 1$, dan is $u_n < r^n$, en dan vergelijk je weer met een meetkundige reeks. Augustin-Louis Cauchy maakte daar in 1821 een kenmerk van.
+
+\begin{theorie}
+\begin{stelling}{Wortelkenmerk van Cauchy}
+Als $u_n \geqslant 0$ en \quad $\formule{\lim_{n\to+\infty} \sqrt[n]{u_n} = L}$, \quad dan geldt:
+
+\vspace{1mm}
+\qquad $\formule{L < 1}$: de reeks convergeert; \qquad $\formule{L > 1}$ (of $L = +\infty$): de reeks divergeert.
+
+\vspace{1mm}
+Als $L = 1$, zegt het kenmerk niets.
+\end{stelling}
+
+\begin{bewijs}
+Stel $L < 1$ en neem $r$ met $L < r < 1$. Vanaf een zekere $N$ is $\sqrt[n]{u_n} < r$, dus
+\bewijsregel{0 \leqslant u_n < r^n \quad (n \geqslant N) .}
+Omdat $\sum r^n$ convergeert, convergeert $\sum u_n$ volgens het vergelijkingskenmerk. Stel $L > 1$. Vanaf een zekere $N$ is $\sqrt[n]{u_n} > 1$, dus $u_n > 1$: de termen gaan niet naar 0.
+\end{bewijs}
+\end{theorie}
+
+Ook hier zegt $L = 1$ niets: bij $\sum \tfrac1{n^p}$ is $\sqrt[n]{u_n} = \bigl(\tfrac{1}{\sqrt[n]{n}}\bigr)^p \to 1$ voor elke $p$, want $\sqrt[n]{n} = \e^{\ln n / n} \to \e^0 = 1$.
+
+\voorbeeld{}{Convergeert $\displaystyle\sominf{n=1} \Bigl(\frac{n}{2n+1}\Bigr)^n$?\label{vb:h2-wortel}}{%
+\uitleg{De hele term staat tot de macht $n$: het wortelkenmerk ligt voor de hand.}
+\begin{stappen}
+\sqrt[n]{u_n} = \frac{n}{2n+1} & De $n$-de wortel heft de $n$-de macht op. \\[2ex]
+L = \lim_{n\to+\infty} \frac{n}{2n+1} = \frac12 < 1 & De reeks convergeert.
+\end{stappen}}
+
+\begin{werkwijze}
+Gebruik het wortelkenmerk als de term (bijna) een $n$-de macht is. Bereken $\sqrt[n]{u_n}$ met $\sqrt[n]{a^n} = a$, en neem de limiet $L$. Besluit zoals bij het quotiëntkenmerk.
+\end{werkwijze}
+
+\nujij{Convergeert $\displaystyle\sominf{n=1} \frac{3^n}{n^n}$?}{Ja: $\sqrt[n]{u_n} = \tfrac3n \to 0 < 1$.}
+
+\begin{oefeningen}
+\oef{h2-wortel}
+\end{oefeningen}
+
+%========================================================================================
+\section{Reeksen met wisselende tekens}
+
+\subsection{Alternerende reeksen}
+
+Alle kenmerken tot nu toe gingen over positieve termen. Wat gebeurt er met de harmonische reeks als je om de beurt optelt en aftrekt: $1 - \tfrac12 + \tfrac13 - \tfrac14 + \cdots$? De figuur toont de partieelsommen. Ze springen op en neer, maar de sprongen worden steeds kleiner: de oneven partieelsommen dalen, de even stijgen, en ze komen van twee kanten op hetzelfde getal af.
+
+\figuren{\begin{tikzpicture}[x=.55cm,y=3.4cm,font=\scriptsize]
+  \draw[->,lijngrijs] (0,0) -- (14.8,0) node[right,text=black] {$n$};
+  \draw[->,lijngrijs] (0,0) -- (0,1.15) node[above,text=black] {$s_n$};
+  \foreach \x in {2,4,...,14} \draw[lijngrijs] (\x,0) ++(0,1.2pt) -- ++(0,-2.4pt) node[below=-1pt,text=grijs] {\x};
+  \foreach \y/\t in {0.5/{0{,}5},1/1} \draw[lijngrijs] (0,\y) ++(1.2pt,0) -- ++(-2.4pt,0) node[left=-1pt,text=grijs] {$\t$};
+  \draw[grijs,dashed] (0,.6931) -- (14.4,.6931) node[right,text=black] {$S$};
+  \draw[accent!50] (1,1) -- (2,.5) -- (3,.8333) -- (4,.5833) -- (5,.7833) -- (6,.6167) -- (7,.7595) -- (8,.6345) -- (9,.7456) -- (10,.6456) -- (11,.7365) -- (12,.6532) -- (13,.7301) -- (14,.6587);
+  \foreach \x/\y in {1/1,2/.5,3/.8333,4/.5833,5/.7833,6/.6167,7/.7595,8/.6345,9/.7456,10/.6456,11/.7365,12/.6532,13/.7301,14/.6587}
+    \fill[accent] (\x,\y) circle (1.7pt);
+\end{tikzpicture}}
+
+\begin{theorie}
+Een \emph{alternerende reeks} is een reeks waarvan de termen om de beurt positief en negatief zijn: \quad $\formule{\sominf{n=1} (-1)^{n+1} u_n = u_1 - u_2 + u_3 - \cdots}$ \quad met $u_n > 0$.
+
+\begin{stelling}{Kenmerk van Leibniz}
+Als de rij $u_n$ dalend is en $\lim u_n = 0$, dan convergeert de alternerende reeks $\sum (-1)^{n+1} u_n$, en voor de som $S$ geldt
+
+\vspace{1mm}
+\qquad $\formule{|S - s_n| \leqslant u_{n+1}}$
+\end{stelling}
+
+\begin{bewijs}
+Bekijk de even en de oneven partieelsommen apart. Omdat $u_n$ daalt, is
+\bewijsregel{s_{2m+2} = s_{2m} + (u_{2m+1} - u_{2m+2}) > s_{2m} \quad\text{en}\quad s_{2m+1} = s_{2m-1} - (u_{2m} - u_{2m+1}) < s_{2m-1} .}
+De even partieelsommen stijgen, de oneven dalen. Bovendien is $s_{2m} = s_{2m+1} - u_{2m+1} < s_{2m+1} \leqslant s_1$, dus de even partieelsommen zijn begrensd door $s_1$, en op dezelfde manier zijn de oneven begrensd door $s_2$. Beide rijen convergeren dus. Hun verschil $s_{2m+1} - s_{2m} = u_{2m+1}$ gaat naar 0, dus ze hebben dezelfde limiet $S$, en dan gaan alle $s_n$ naar $S$.
+
+Elke even partieelsom ligt onder $S$, elke oneven erboven. Dus ligt $S$ tussen twee opeenvolgende partieelsommen $s_n$ en $s_{n+1}$, en is $|S - s_n| \leqslant |s_{n+1} - s_n| = u_{n+1}$.
+\end{bewijs}
+\end{theorie}
+
+Het kenmerk werd in 1682 gevonden door Gottfried Wilhelm Leibniz, die ook de afgeleide uitvond. De foutafschatting is opvallend eenvoudig: \textit{de fout is hoogstens de eerste term die je weglaat}.
+
+\voorbeeld{}{Toon aan dat $1 - \tfrac12 + \tfrac13 - \tfrac14 + \cdots$ convergeert. Hoeveel termen heb je nodig voor een fout kleiner dan $0{,}01$?\label{vb:h2-leib}}{%
+\uitleg{De reeks is alternerend met $u_n = \tfrac1n$. We gaan de drie voorwaarden van Leibniz na, en gebruiken daarna de foutafschatting.}
+\begin{stappen}
+u_n = \tfrac1n > 0, \ \ \tfrac{1}{n+1} < \tfrac1n, \ \ \tfrac1n \to 0 & Positief, dalend en met limiet 0: de reeks convergeert. \\[1.5ex]
+|S - s_n| \leqslant \frac{1}{n+1} \leqslant 0{,}01 \iff n \geqslant 99 & De eerste weggelaten term is $\tfrac{1}{n+1}$. \\[2ex]
+s_{99} \approx 0{,}6982 & In hoofdstuk 3 blijkt $S = \ln 2 \approx 0{,}6931$: de fout is $0{,}005$.
+\end{stappen}}
+
+\begin{werkwijze}
+Herken de wisselende tekens, en schrijf de term als $(-1)^{n+1} u_n$ of $(-1)^n u_n$ met $u_n > 0$. Ga na dat $u_n$ daalt en naar 0 gaat. Voor de fout: de eerste weggelaten term $u_{n+1}$ is een bovengrens.
+\end{werkwijze}
+
+\nujij{Convergeert $\displaystyle\sominf{n=1} \frac{(-1)^n}{\sqrt n}$? Hoeveel termen geven een fout kleiner dan $0{,}1$?}{Ja, volgens Leibniz. $\tfrac{1}{\sqrt{n+1}} \leqslant 0{,}1 \iff n \geqslant 99$.}
+
+\begin{oefeningen}
+\oef{h2-leib}
+\end{oefeningen}
+
+\subsection{Absolute convergentie}
+
+De alternerende harmonische reeks convergeert, maar de reeks van haar absolute waarden, de harmonische reeks, niet. Ze convergeert dus alleen dankzij de tekens. Bij $1 - \tfrac14 + \tfrac19 - \cdots$ is het anders: die convergeert ook zonder de mintekens. Dat verschil krijgt een naam.
+
+\begin{theorie}
+Een reeks $\sum u_n$ is \emph{absoluut convergent} als $\formule{\sum |u_n|}$ convergeert. Een reeks die convergeert maar niet absoluut, is \emph{voorwaardelijk convergent}.
+
+\begin{stelling}{Absoluut convergent is convergent}
+\qquad $\formule{\sum |u_n| \text{ convergeert} \ \Rightarrow \ \sum u_n \text{ convergeert}}$
+\end{stelling}
+
+\begin{bewijs}
+Voor elke $n$ is $u_n + |u_n|$ gelijk aan 0 of aan $2|u_n|$, dus
+\bewijsregel{0 \leqslant u_n + |u_n| \leqslant 2\,|u_n| .}
+Omdat $\sum 2|u_n|$ convergeert, convergeert $\sum (u_n + |u_n|)$ volgens het vergelijkingskenmerk. Dan convergeert ook het verschil $\sum \bigl((u_n + |u_n|) - |u_n|\bigr) = \sum u_n$.
+\end{bewijs}
+\end{theorie}
+
+Met deze stelling werken alle kenmerken voor positieve reeksen ook voor reeksen met willekeurige tekens: pas ze toe op $|u_n|$. De tekens hoeven dan niet eens regelmatig te wisselen. Het onderscheid is niet alleen een naam: bij een voorwaardelijk convergente reeks hangt de som af van de volgorde van de termen (opdracht \ref{oef:h2-o16}). Bij een absoluut convergente reeks mag je de termen herschikken zoals je wilt.
+
+\voorbeeld{}{Convergeert $\displaystyle\sominf{n=1} \frac{\sin n}{n^2}$?\label{vb:h2-abs}}{%
+\uitleg{De tekens van $\sin n$ wisselen onregelmatig: $\sin 1 > 0$, $\sin 4 < 0$, $\sin 7 > 0$, \ldots\ De reeks is dus niet alternerend, en Leibniz helpt niet. We bekijken de absolute waarden.}
+\begin{stappen}
+\Bigl|\frac{\sin n}{n^2}\Bigr| \leqslant \frac{1}{n^2} & Want $|\sin n| \leqslant 1$. \\[2.5ex]
+\sum \Bigl|\frac{\sin n}{n^2}\Bigr| \text{ convergeert} & Vergelijkingskenmerk met de hyperharmonische reeks, $p = 2$. \\[2ex]
+\text{convergent} & Absoluut convergent, dus convergent.
+\end{stappen}}
+
+Om een reeks te onderzoeken heb je nu een hele gereedschapskist. De volgende werkwijze helpt je kiezen.
+
+\begin{werkwijze}
+\begin{enumerate}[nosep,leftmargin=*]
+\item Gaan de termen niet naar 0? Dan divergeert de reeks.
+\item Meetkundig, telescoperend of hyperharmonisch? Dan ken je het antwoord.
+\item Faculteiten of $a^n$: quotiëntkenmerk. Alles tot de macht $n$: wortelkenmerk.
+\item Breuken met machten van $n$: (limiet)vergelijking met $\tfrac1{n^p}$. Een functie met een gekende primitieve: integraalkenmerk.
+\item Wisselende tekens: eerst absolute convergentie; lukt dat niet, dan Leibniz.
+\end{enumerate}
+\end{werkwijze}
+
+\nujij{Is $\displaystyle\sominf{n=1} \frac{(-1)^n}{n^3}$ absoluut of voorwaardelijk convergent? En $\displaystyle\sominf{n=1} \frac{(-1)^n}{\sqrt n}$?}{De eerste is absoluut convergent ($p = 3$), de tweede voorwaardelijk convergent: Leibniz, maar $\sum \tfrac1{\sqrt n}$ divergeert.}
+
+\begin{oefeningen}
+\oef{h2-abs}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\lkr{De opdrachten staan bewust door elkaar, met stijgende moeilijkheid. In deze versie staat bij elke opdracht het kenmerk dat het snelst werkt. Laat leerlingen bij elke reeks eerst zeggen welk kenmerk ze kiezen en waarom, met de werkwijze van sectie 4.}
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\needspace{9\baselineskip}
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o9}
+
+\oef{h2-o10}
+
+\oef{h2-o11}
+
+\oef{h2-o12}
+
+\oef{h2-o13}
+
+\oef{h2-o14}
+
+\oef{h2-o15}
+
+\oef{h2-o16}
+
+\oef{h2-o17}
+
+\oef{h2-o18}
+
+\oef{h2-o19}
+
+\oef{h2-o20}
+
+\oef{h2-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Kansrekenen en Telproblemen staan in het 6de jaar, de exponentiële en goniometrische functies in het 5de jaar: kijk na wat er al gezien is.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+
+\oef{h2-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{40\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+
+\oef{h2-t8}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-hyper}{oef:h2-hyper}%
+  \fv{oef:h2-t2}{vb:h2-verg}{oef:h2-verg}%
+  \fv{oef:h2-t3}{vb:h2-limverg}{oef:h2-limverg}%
+  \fv{oef:h2-t4}{vb:h2-quot}{oef:h2-quot}%
+  \fv{oef:h2-t5}{vb:h2-wortel}{oef:h2-wortel}%
+  \fv{oef:h2-t6}{vb:h2-leib}{oef:h2-leib}%
+  \fv{oef:h2-t7}{vb:h2-abs}{oef:h2-abs}%
+  \fv{oef:h2-t8}{vb:h2-terug}{oef:h2-rest}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: waarom bij positieve termen begrensde partieelsommen volstaan, het vergelijkingskenmerk en het limietvergelijkingskenmerk, het integraalkenmerk met de figuur van de rechthoekjes, wanneer een hyperharmonische reeks convergeert, hoe je de rest afschat, het quotiëntkenmerk en het wortelkenmerk (en waarom $L = 1$ niets zegt), het kenmerk van Leibniz met de foutafschatting, en het verschil tussen absoluut en voorwaardelijk convergent. Vergelijk daarna met de kaders.
+\fi

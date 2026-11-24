@@ -1,0 +1,463 @@
+%----------------------------------------------------------------------------------------
+% DIFFERENTIAALVERGELIJKINGEN VAN DE EERSTE ORDE. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Vergelijkingen van de eerste orde}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een kogel dringt met 400 m/s een dikke houten balk binnen. Het hout remt hem af, en hoe sneller de kogel gaat, hoe harder: zijn snelheid $v$ (in m/s) voldoet aan
+\[
+v' = -20\,000\,\sqrt{v} .
+\]
+Komt de kogel ooit tot stilstand, of kruipt hij eindeloos verder, zoals een oplossing van $v' = -cv$ die nooit 0 wordt? En hoe diep dringt hij in het hout?}{\begin{tikzpicture}[x=1.6cm,y=.0058cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=.5,ystep=100] (0,0) grid (3,400);
+  \draw[->,grijs] (0,0) -- (3.2,0) node[right,text=black] {$t$ (ms)};
+  \draw[->,grijs] (0,0) -- (0,440) node[above,text=black] {$v$};
+  \foreach \t in {1,2,3}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {200,400}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] plot[domain=0:3,samples=40,smooth] (\x,{400*exp(-1.5*\x)});
+  \draw[accent,thick] plot[domain=0:.6,samples=20,smooth] (\x,{(20-10*\x)^2});
+  \node[right] at (.6,170) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 23 (eenvoudige differentiaalvergelijkingen oplossen), met de wenken over de soorten oplossingen (algemene, particuliere en singuliere oplossingen, singulier punt), scheiden van veranderlijken en de integrerende factor. Uit LPD 22 komen de logistische groei en de kogel ($v' = -\sqrt{v}$ in de wenk, hier met een constante). Voorkennis uit pakket 4: de integratiemethoden van de cursus Integralen (substitutie, partiële integratie, de standaardvormen met $\ln|g(x)|$ en $\bgtan$). Splitsen in partieelbreuken staat niet in pakket 4: bij de logistische groei controleren leerlingen de splitsing door op gelijke noemer te zetten. De omhullende als singuliere kromme is een extra.}
+
+In hoofdstuk 2 losten we twee soorten vergelijkingen op: $y' = ky$ en $y' = k(y - A)$. Het idee was telkens een slimme vermenigvuldiging of verschuiving. Maar de kogel uit het probleem gehoorzaamt aan geen van beide, en de logistische groei uit het richtingsveld van hoofdstuk 2 evenmin. In dit hoofdstuk leer je twee algemene methodes voor vergelijkingen van de eerste orde: scheiden van veranderlijken en de integrerende factor. Onderweg vinden we oplossingen die in geen enkele formule met een constante passen.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Scheiden van veranderlijken}
+
+\subsection{De methode}
+
+Hoe los je $y' = -2t\,y$ op? Het rechterlid is een product van iets met alleen $t$ en iets met alleen $y$. In de notatie van Leibniz staat er $\afg{y}{t} = -2t\,y$. Doe alsof $\afg{y}{t}$ een breuk is, en breng alles met $y$ naar links en alles met $t$ naar rechts:
+\[
+\frac{1}{y}\dy = -2t\dt .
+\]
+Integreer nu beide leden: $\ln|y| = -t^2 + C$. Mag dat zomaar? Een afgeleide is geen breuk. Maar de kettingregel zegt dat het klopt: dat bewijzen we in de stelling.
+
+\begin{theorie}
+Een differentiaalvergelijking van de vorm $\formule{y' = g(t)\, h(y)}$ heet \textbf{\textcolor{accent}{scheidbaar}}.
+
+\begin{stelling}{Scheiden van veranderlijken}
+Is $H$ een primitieve van $\tfrac1h$ en $G$ een primitieve van $g$, dan is een functie $y$ met $h(y(t)) \neq 0$ een oplossing van $y' = g(t)\,h(y)$ op een interval als en slechts als
+\[
+\formule{H(y(t)) = G(t) + C}
+\]
+voor een constante $C$. Kort: $\formule{\displaystyle\int \frac{1}{h(y)}\dy = \int g(t)\dt}$.
+\end{stelling}
+
+\begin{bewijs}
+Volgens de kettingregel is
+\bewijsregel{\bigl(H(y(t))\bigr)' = H'(y(t)) \cdot y'(t) = \dfrac{y'(t)}{h(y(t))} .}
+Is $y$ een oplossing, dan is dat $g(t) = G'(t)$: de functies $H(y(t))$ en $G(t)$ hebben dezelfde afgeleide, en verschillen dus een constante. Omgekeerd: is $H(y(t)) = G(t) + C$, dan geeft afleiden $\tfrac{y'(t)}{h(y(t))} = g(t)$, dus $y' = g(t)\,h(y)$.
+\end{bewijs}
+\end{theorie}
+
+De stelling zegt wat de schrijfwijze met $\mathrm{d}y$ en $\mathrm{d}t$ betekent: je zoekt een verband $H(y) = G(t) + C$ tussen $y$ en $t$, en dat los je daarna op naar $y$ als het kan. Zoals bij een substitutie volgt $\mathrm{d}y = y'\dt$ informeel uit $y' = \afg{y}{t}$.
+
+\voorbeeld{}{Los op: $y' = -2t\,y$ met $y(0) = 3$.\label{vb:h3-scheiden}}{%
+\uitleg{De vergelijking is scheidbaar met $g(t) = -2t$ en $h(y) = y$. We scheiden, integreren, en lossen op naar $y$. Let op de absolute waarde bij de logaritme.}
+\naast{\begin{stappenvrij}{5cm}{5.4cm}
+\ig \frac{1}{y}\dy = \ig -2t\dt & Scheiden, met $y \neq 0$. \\[2ex]
+\ln|y| = -t^2 + C & Beide leden integreren. \\[1ex]
+|y| = \e^{C}\,\e^{-t^2} & Neem $\e^{\ldots}$ van beide leden. \\[1ex]
+y = D\,\e^{-t^2} & Met $D = \pm\e^{C}$. \\[1ex]
+y = 3\,\e^{-t^2} & Uit $y(0) = 3$: $D = 3$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.8cm,y=.6cm,font=\scriptsize]
+  \def\asx{t}
+  \rooster{-2}{1}{2}{-1}{1}{3}
+  \kromme[very thick]{-2.1}{2.1}{3*exp(-(\x)^2)}
+  \kromme[accent!45]{-2.1}{2.1}{1.5*exp(-(\x)^2)}
+  \kromme[accent!45]{-2.1}{2.1}{-exp(-(\x)^2)}
+  \draw[accent!45,thick] (-2.1,0) -- (2.1,0);
+  \fill[accent] (0,3) circle (2pt);
+\end{tikzpicture}}
+Een klokvormige kromme. De constante $D = \pm\e^C$ is nooit 0, maar ook $y = 0$ is een oplossing: die verloren we bij het delen door $y$. Met $D \in \R$ zit ze er weer bij.}
+
+\begin{werkwijze}
+Schrijf $y' = g(t)\,h(y)$. Scheid: $\tfrac{1}{h(y)}\dy = g(t)\dt$, integreer beide leden en zet één constante rechts. Bepaal de constante met de beginvoorwaarde, en los op naar $y$ als dat kan. Ga na of $h(y) = 0$ nog constante oplossingen geeft.
+\end{werkwijze}
+
+\nujij{Los op: $y' = 3t^2\,y$ met $y(0) = 2$.}{$\ln|y| = t^3 + C$, dus $y = 2\,\e^{t^3}$.}
+
+Niet altijd kun je naar $y$ oplossen, en niet altijd bestaat de oplossing voor elke $t$.
+
+\voorbeeld{}{Los op: $y' = \dfrac{t}{y}$ met $y(0) = 2$. Op welk interval bestaat de oplossing?\label{vb:h3-hyperbool}}{%
+\uitleg{Hier is $h(y) = \tfrac1y$, dus $\tfrac{1}{h(y)} = y$. De beginwaarde is positief, dus kiezen we bij de wortel het plusteken.}
+\naast{\begin{stappenvrij}{4.6cm}{5.2cm}
+\ig y\dy = \ig t\dt & Scheiden. \\[2ex]
+\dfrac{y^2}{2} = \dfrac{t^2}{2} + C & Integreren. \\[2ex]
+y^2 = t^2 + 4 & Uit $y(0) = 2$: $C = 2$. \\[1ex]
+y = \sqrt{t^2 + 4} & Want $y(0) > 0$.
+\end{stappenvrij}
+De oplossing bestaat voor elke $t$. De integraalkrommen $y^2 - t^2 = 2C$ zijn hyperbolen, en voor $C = 0$ de rechten $y = \pm t$. Die gaan door de oorsprong, waar de vergelijking niet bestaat: een kromme door $(t_0, 0)$ met $t_0 \neq 0$ staat daar verticaal.}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \def\asx{t}
+  \rooster{-3}{1}{3}{-3}{1}{3}
+  \foreach \c in {1,4}{\draw[accent!45,thick] plot[domain=-3:3,samples=50,smooth] (\x,{sqrt((\x)^2+\c)});
+    \draw[accent!45,thick] plot[domain=-3:3,samples=50,smooth] (\x,{-sqrt((\x)^2+\c)});}
+  \draw[accent!45,thick] plot[domain=-1.2:1.2,samples=40,smooth] ({sqrt(1+(\x)^2)},\x);
+  \draw[accent!45,thick] plot[domain=-1.2:1.2,samples=40,smooth] ({-sqrt(1+(\x)^2)},\x);
+  \draw[accent!45,dashed] (-3,-3) -- (3,3) (-3,3) -- (3,-3);
+  \kromme[very thick]{-3}{3}{sqrt((\x)^2+4)}
+  \fill[accent] (0,2) circle (3pt);
+\end{tikzpicture}}}
+
+\nujij{Los op: $y' = 1 + y^2$ met $y(0) = 0$.}{$\int \tfrac{1}{1 + y^2}\dy = \int 1\dt$ geeft $\bgtan y = t + C$ met $C = 0$, dus $y = \tan t$, op $\bigl]{-\tfrac\pi2}, \tfrac\pi2\bigr[$.}
+
+\begin{oefeningen}
+\oef{h3-scheiden}
+\end{oefeningen}
+
+\subsection{Constante oplossingen niet vergeten}
+
+Bij het scheiden deel je door $h(y)$. Is $h(c) = 0$ voor een getal $c$, dan is de constante functie $y = c$ een oplossing: haar afgeleide is 0, en het rechterlid ook. Die oplossing vind je niet door te scheiden, want daar mocht je niet delen. Soms komt ze toch terug voor een bijzondere waarde van de constante, zoals $D = 0$ in voorbeeld~\ref{vb:h3-scheiden}. Soms niet: dat zien we in sectie 3.3.
+
+\voorbeeld{}{Bepaal alle oplossingen van $y' = t\,(y - 2)$.\label{vb:h3-constant}}{%
+\uitleg{Eerst de constante oplossingen: $h(y) = y - 2$ is 0 voor $y = 2$. Daarna scheiden we voor $y \neq 2$.}
+\begin{stappenbreed}
+y = 2 & Een constante oplossing: $0 = t \cdot 0$. \\[1ex]
+\ig \frac{1}{y - 2}\dy = \ig t\dt \ \Rightarrow \ \ln|y - 2| = \dfrac{t^2}{2} + C & Scheiden voor $y \neq 2$. \\[2ex]
+y = 2 + D\,\e^{t^2/2} \quad (D \in \R) & Met $D = \pm\e^C$; $D = 0$ geeft de constante oplossing terug.
+\end{stappenbreed}}
+
+\begin{oefeningen}
+\oef{h3-constant}
+\end{oefeningen}
+
+%========================================================================================
+\section{Logistische groei}
+
+\subsection{Een rem op de groei}
+
+Volgens $y' = ky$ groeit een populatie onbeperkt. Maar een vijver kan maar zoveel vissen voeden. De Belgische wiskundige Pierre-François Verhulst stelde in 1838 een model voor met een rem: de groeisnelheid is evenredig met de populatie, maar ook met het deel van de \textit{draagkracht} $M$ dat nog vrij is:
+\[
+y' = k\,y \Bigl(1 - \frac{y}{M}\Bigr) .
+\]
+Is $y$ klein, dan staat er bijna $y' = ky$. Komt $y$ dicht bij $M$, dan gaat de groei naar 0. In hoofdstuk 2 tekenden we het richtingsveld van $y' = y(2 - y)$: dat is dit model, met $k = 2$ en $M = 2$. De constante oplossingen zijn $y = 0$ en $y = M$. Voor de andere scheiden we, en dan hebben we een splitsing nodig:
+\[
+\frac{1}{y\,(M - y)} = \frac{1}{M} \Bigl(\frac1y + \frac{1}{M - y}\Bigr) .
+\]
+Zet het rechterlid op gelijke noemer, en je ziet dat het klopt: $\tfrac1y + \tfrac{1}{M - y} = \tfrac{M}{y(M - y)}$.
+
+\begin{theorie}
+\begin{stelling}{Logistische groei}
+De oplossing van $\formule{y' = k\,y \Bigl(1 - \dfrac{y}{M}\Bigr)}$ (met $k > 0$) met $0 < y(0) = y_0 < M$ is
+\[
+\formule{y = \frac{M}{1 + C\,\e^{-kt}}} \qquad \text{met } C = \frac{M - y_0}{y_0}
+\]
+\end{stelling}
+
+\begin{bewijs}
+Zolang $0 < y < M$, mogen we scheiden. Schrijf $k\,y\,(1 - \tfrac yM) = \tfrac kM\,y\,(M - y)$ en gebruik de splitsing:
+\bewijsregel{\ig \Bigl(\frac1y + \frac{1}{M - y}\Bigr)\dy = \ig k\dt \iff \ln y - \ln(M - y) = kt + c .}
+Dus $\ln\dfrac{M - y}{y} = -kt - c$, of $\dfrac{M}{y} - 1 = C\,\e^{-kt}$ met $C = \e^{-c} > 0$. Daaruit volgt de formule. Voor $t = 0$ is $\tfrac{M}{y_0} - 1 = C$. Omgekeerd ligt deze functie voor elke $t$ tussen 0 en $M$, zodat het scheiden overal mocht.
+\end{bewijs}
+\end{theorie}
+
+De grafiek is een S-vormige kromme: ze stijgt eerst bijna exponentieel, buigt dan om, en nadert de draagkracht $M$. Waar buigt ze om?
+
+\begin{theorie}
+\begin{stelling}{Buigpunt van de logistische kromme}
+Een oplossing van $y' = k\,y\,(1 - \tfrac yM)$ met $0 < y_0 < \tfrac M2$ heeft een buigpunt waar $\formule{y = \dfrac M2}$, op het tijdstip $\formule{t = \dfrac{\ln C}{k}}$. Daar groeit ze het snelst.
+\end{stelling}
+
+\begin{bewijs}
+Leid $y' = k\,y - \tfrac kM\,y^2$ af naar $t$ met de kettingregel:
+\bewijsregel{y'' = k\,y' - \frac{2k}{M}\,y\,y' = k\,y' \Bigl(1 - \frac{2y}{M}\Bigr) .}
+Omdat $y' > 0$, is $y'' > 0$ voor $y < \tfrac M2$ en $y'' < 0$ voor $y > \tfrac M2$: de grafiek gaat van hol naar bol waar $y = \tfrac M2$, dus waar $C\,\e^{-kt} = 1$, of $t = \tfrac{\ln C}{k}$. Daar is $y'$ maximaal, want $y''$ wisselt er van plus naar min.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{In een vijver kunnen hoogstens 5000 vissen leven. Er worden 400 vissen uitgezet, die groeien volgens het logistische model met $k = 0{,}8$ per jaar. Wanneer zijn er 4000 vissen? Wanneer groeit de populatie het snelst?\label{vb:h3-logistisch}}{%
+\uitleg{We vullen de formule in met $M = 5000$ en $y_0 = 400$, en lossen dan twee exponentiële vergelijkingen op.}
+\begin{stappenbreed}
+C = \dfrac{5000 - 400}{400} = 11{,}5, \quad y = \dfrac{5000}{1 + 11{,}5\,\e^{-0{,}8t}} & De oplossing. \\[2ex]
+1 + 11{,}5\,\e^{-0{,}8t} = \dfrac{5000}{4000} \ \Rightarrow \ \e^{-0{,}8t} = \dfrac{0{,}25}{11{,}5} & Uit $y = 4000$. \\[2ex]
+t = \dfrac{\ln 46}{0{,}8} \approx 4{,}8 & Na bijna 5 jaar. \\[2ex]
+t = \dfrac{\ln 11{,}5}{0{,}8} \approx 3{,}05 & Het buigpunt, bij 2500 vissen.
+\end{stappenbreed}
+\naast{Na ongeveer 3 jaar groeit de populatie het snelst, met $y' = 0{,}8 \cdot 2500 \cdot 0{,}5 = 1000$ vissen per jaar. Daarna remt de draagkracht de groei af. Ter vergelijking: met $y' = 0{,}8\,y$, zonder rem, zouden er na 4,8 jaar al $400\,\e^{3{,}84} \approx 18\,600$ vissen zijn.}{\begin{tikzpicture}[x=.55cm,y=.0006cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=1,ystep=1000] (0,0) grid (8,5000);
+  \draw[->,grijs] (0,0) -- (8.5,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,5600) node[above,text=black] {$y$};
+  \foreach \t in {2,4,6,8}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {25,50}{\node[left,inner sep=1.5pt] at (0,\t*100) {$\t00$};}
+  \draw[grijs,dashed] (0,5000) -- (8,5000);
+  \draw[grijs,dashed] plot[domain=0:3.2,samples=30,smooth] (\x,{400*exp(0.8*\x)});
+  \draw[accent,thick] plot[domain=0:8,samples=60,smooth] (\x,{5000/(1+11.5*exp(-0.8*\x))});
+  \fill[accent] (3.05,2500) circle (2pt) (4.79,4000) circle (2pt);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Herken de vorm $y' = k\,y\,(1 - \tfrac yM)$, of breng hem in die vorm: $M$ is de constante oplossing naast 0. Bereken $C = \tfrac{M - y_0}{y_0}$ en schrijf $y = \tfrac{M}{1 + C\,\e^{-kt}}$. Het buigpunt ligt op halve hoogte.
+\end{werkwijze}
+
+\nujij{Schrijf $y' = 0{,}6\,y - 0{,}002\,y^2$ in de logistische vorm. Wat is de draagkracht?}{$y' = 0{,}6\,y\,(1 - \tfrac{y}{300})$: $M = 300$.}
+
+\begin{oefeningen}
+\oef{h3-logistisch}
+\end{oefeningen}
+
+%========================================================================================
+\section{Singuliere oplossingen}
+
+\subsection{Oplossingen buiten de familie}
+
+Kan een oplossing buiten de algemene oplossing vallen, ook als je alle waarden van de constante toelaat? Neem $y' = 2\sqrt{y}$, voor $y \geqslant 0$. Scheiden geeft $\int \tfrac{1}{2\sqrt y}\dy = \int 1\dt$, of $\sqrt{y} = t + C$. Omdat een wortel niet negatief is, geldt dat alleen voor $t \geqslant -C$, en dan is $y = (t + C)^2$: de rechterhelften van parabolen. Maar ook $y = 0$ is een oplossing, en die krijg je voor geen enkele $C$.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{singuliere oplossing}} is een oplossing die je niet krijgt door de constante in de algemene oplossing een waarde te geven. Haar grafiek heet een \textbf{\textcolor{accent}{singuliere kromme}}.
+\end{theorie}
+
+\naast{Kijk naar de figuur. De singuliere kromme $y = 0$ raakt elke halve parabool in haar top $(-C, 0)$: ze \textit{omhult} de familie. Daardoor gebeurt er iets vreemds. Door het punt $(1, 0)$ gaan oneindig veel oplossingen: je kunt een tijd op de as blijven en op elk ogenblik $a \geqslant 1$ vertrekken langs $y = (t - a)^2$. De beginvoorwaarde $y(1) = 0$ legt de oplossing dus niet vast. Dat kan alleen in punten waar het rechterlid zich slecht gedraagt: $2\sqrt{y}$ is niet afleidbaar naar $y$ in $y = 0$.}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \def\asx{t}
+  \rooster{-1}{1}{4}{0}{1}{4}
+  \foreach \a in {-1,0,1,2}{\draw[accent!45,thick] plot[domain=\a:\a+2,samples=30,smooth] (\x,{(\x-\a)^2});}
+  \draw[accent,line width=1.6pt] (-1,0) -- (2.5,0);
+  \draw[accent,line width=1.6pt] plot[domain=2.5:4.4,samples=30,smooth] (\x,{(\x-2.5)^2});
+  \fill[accent] (1,0) circle (3pt);
+\end{tikzpicture}}
+
+Een punt waar een beginvoorwaarde de oplossing niet vastlegt, of waar de vergelijking geen helling geeft, heet een \textit{singulier punt}. Bij $y' = \tfrac{y}{t}$ bijvoorbeeld bestaat het rechterlid niet in $(0, 0)$: alle rechten $y = Dt$ zijn integraalkrommen, en ze gaan allemaal door de oorsprong. Door elk ander punt van het vlak gaat er precies één.
+
+\voorbeeld{}{Bepaal de algemene en de singuliere oplossing van $y' = 3\,y^{2/3}$. Geef twee verschillende oplossingen met $y(0) = 0$.\label{vb:h3-singulier}}{%
+\uitleg{We scheiden voor $y \neq 0$. Het rechterlid is 0 voor $y = 0$: dat geeft een constante oplossing, en we kijken of ze in de familie zit.}
+\begin{stappen}
+\ig \tfrac13\,y^{-2/3}\dy = \ig 1\dt \ \Rightarrow \ y^{1/3} = t + C & Scheiden: $(y^{1/3})' = \tfrac13 y^{-2/3}$. \\[1.5ex]
+y = (t + C)^3 & De algemene oplossing, voor elke $t$. \\[1ex]
+y = 0 & Ook een oplossing, voor geen enkele $C$ in de familie: singulier. \\[1ex]
+y = 0 \ \text{en} \ y = t^3 & Twee oplossingen met $y(0) = 0$.
+\end{stappen}
+De kromme $y = t^3$ raakt de $t$-as in de oorsprong, en zo raakt elke kubische kromme $y = (t + C)^3$ de as in $(-C, 0)$: de singuliere kromme $y = 0$ omhult de familie.}
+
+\nujij{Toon aan dat $y = 0$ een singuliere oplossing is van $y' = \sqrt{y}$, met algemene oplossing $y = \tfrac14(t + C)^2$ voor $t \geqslant -C$.}{$y = 0$ voldoet ($0 = \sqrt0$), maar $\tfrac14(t + C)^2$ is voor geen enkele $C$ overal 0.}
+
+\begin{oefeningen}
+\oef{h3-singulier}
+\end{oefeningen}
+
+\subsection{Terug naar de kogel}
+
+Nu kunnen we het probleem oplossen. De vergelijking $v' = -k\sqrt{v}$ lijkt op $y' = 2\sqrt y$, maar dalend. Scheiden geeft een parabool, en zodra de snelheid 0 is, neemt de singuliere oplossing $v = 0$ het over: een kogel die stilstaat, blijft stilstaan.
+
+\voorbeeld{}{Terug naar het probleem. Los $v' = -20\,000\,\sqrt{v}$ op met $v(0) = 400$. Wanneer staat de kogel stil, en hoe diep dringt hij in?\label{vb:h3-terug}}{%
+\uitleg{We scheiden, zolang $v > 0$. De diepte is de afgelegde weg: de integraal van de snelheid.}
+\begin{stappenbreed}
+\ig \frac{1}{\sqrt v}\dv = \ig -20\,000\dt \ \Rightarrow \ 2\sqrt{v} = -20\,000\,t + C & Scheiden en integreren. \\[2ex]
+\sqrt{v} = 20 - 10\,000\,t, \quad v = (20 - 10\,000\,t)^2 & Uit $v(0) = 400$: $C = 40$. \\[1ex]
+\sqrt{v} = 0 \ \Rightarrow \ t = 0{,}002 & Na 2 milliseconden staat de kogel stil. Daarna is $v = 0$. \\[1ex]
+\ig_0^{0{,}002} (20 - 10\,000\,t)^2\dt = \Bigl[-\frac{(20 - 10\,000\,t)^3}{30\,000}\Bigr]_0^{0{,}002} & De afgelegde weg. \\[3ex]
+= \dfrac{8000}{30\,000} \approx 0{,}267 & Ongeveer 27 cm.
+\end{stappenbreed}
+De formule $v = (20 - 10\,000\,t)^2$ zou na $t = 0{,}002$ weer stijgen, maar dat is geen oplossing meer: daar is $\sqrt v = 10\,000\,t - 20$, en dan klopt het teken van $v'$ niet. De echte oplossing volgt de parabool tot de top, en dan de singuliere oplossing. Bij $v' = -cv$ zou de kogel nooit helemaal stilstaan, al is ook dan de afgelegde weg eindig (opdracht~\ref{oef:h3-o17}). Het verschil zit in de wortel: bij een kleine snelheid remt $\sqrt v$ veel harder dan $v$.}
+
+\begin{oefeningen}
+\oef{h3-kogel}
+\end{oefeningen}
+
+%========================================================================================
+\section{Lineaire vergelijkingen}
+
+\subsection{De integrerende factor}
+
+De vergelijking $y' = t - y$ uit hoofdstuk 2 is niet scheidbaar: $t - y$ is geen product. Wel heeft ze de vorm $y' + y = t$, en dat lijkt op wat we in het bewijs van $y' = ky$ deden: vermenigvuldigen met een exponentiële functie, zodat het linkerlid de afgeleide van een product wordt. Hier is $(\e^t y)' = \e^t y' + \e^t y = \e^t\,(y' + y)$. Vermenigvuldig dus met $\e^t$:
+\[
+(\e^t\,y)' = t\,\e^t ,
+\]
+en nu hoef je alleen nog te integreren. Dat werkt ook als de coëfficiënt van $y$ van $t$ afhangt.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{lineaire differentiaalvergelijking van de eerste orde}} heeft de vorm
+\[
+\formule{y' + p(t)\,y = q(t)}
+\]
+Is $P$ een primitieve van $p$, dan heet $\formule{\mu(t) = \e^{P(t)}}$ een \textbf{\textcolor{accent}{integrerende factor}}.
+
+\begin{stelling}{Integrerende factor}
+Een afleidbare functie $y$ is een oplossing van $y' + p(t)\,y = q(t)$ als en slechts als
+\[
+\formule{\bigl(\mu(t)\,y\bigr)' = \mu(t)\,q(t)}
+\]
+zodat $\mu(t)\,y = \int \mu(t)\,q(t)\dt$.
+\end{stelling}
+
+\begin{bewijs}
+Omdat $\mu' = P'\,\e^{P} = p\,\mu$, geeft de productregel
+\bewijsregel{(\mu\,y)' = \mu\,y' + p\,\mu\,y = \mu\,\bigl(y' + p\,y\bigr) .}
+Dat is gelijk aan $\mu\,q$ als en slechts als $y' + p\,y = q$, want $\mu = \e^{P}$ is nooit 0.
+\end{bewijs}
+\end{theorie}
+
+\textit{Lineair} betekent dat $y$ en $y'$ alleen in de eerste macht voorkomen, met coëfficiënten die van $t$ mogen afhangen. De integrerende factor maakt van het linkerlid één afgeleide. Elke primitieve $P$ is goed: een andere constante vermenigvuldigt $\mu$ met een getal, en dat valt aan beide kanten weg.
+
+\voorbeeld{}{Los op: $y' + y = t$ met $y(0) = 1$. (Dat is $y' = t - y$ uit hoofdstuk 2.)\label{vb:h3-lineair}}{%
+\uitleg{Hier is $p(t) = 1$, dus $P(t) = t$ en $\mu = \e^t$. De integraal van $t\,\e^t$ vraagt partiële integratie.}
+\begin{stappen}
+(\e^t\,y)' = t\,\e^t & Vermenigvuldig met $\mu = \e^t$. \\[1ex]
+\e^t\,y = (t - 1)\,\e^t + C & Partieel: $\int t\,\e^t\dt = t\,\e^t - \e^t + C$. \\[1ex]
+y = t - 1 + C\,\e^{-t} & Deel door $\e^t$. \\[1ex]
+y = t - 1 + 2\,\e^{-t} & Uit $y(0) = 1$: $-1 + C = 1$.
+\end{stappen}
+Zo vinden we de kromme uit het richtingsveld van hoofdstuk 2 terug. De algemene oplossing bestaat uit de rechte $y = t - 1$ plus $C\,\e^{-t}$, een term die uitsterft: daarom naderen alle krommen de rechte.}
+
+\voorbeeld{}{Bepaal de algemene oplossing van $y' + \dfrac{2}{t}\,y = 3$ voor $t > 0$.\label{vb:h3-lineair2}}{%
+\uitleg{Nu hangt de coëfficiënt van $y$ af van $t$. We zoeken eerst de integrerende factor.}
+\naast{\begin{stappenvrij}{5.8cm}{5.2cm}
+P(t) = 2\ln t, \quad \mu = \e^{2\ln t} = t^2 & Een primitieve van $\tfrac2t$ (met $t > 0$). \\[1ex]
+(t^2\,y)' = 3t^2 & Vermenigvuldig met $t^2$. \\[1ex]
+t^2\,y = t^3 + C & Integreren. \\[1ex]
+y = t + \dfrac{C}{t^2} & Deel door $t^2$.
+\end{stappenvrij}
+Controle voor $C = 1$: $y' = 1 - \tfrac{2}{t^3}$ en $\tfrac2t\,y = 2 + \tfrac{2}{t^3}$, samen 3.}{\begin{tikzpicture}[scale=.55,font=\scriptsize]
+  \def\asx{t}
+  \rooster{0}{1}{4}{-2}{1}{4}
+  \begin{scope}
+    \clip (0,-2) rectangle (4.2,4.2);
+    \foreach \c in {-1,-.3,.3,1,2}{\draw[accent!55,thick] plot[domain=.3:4,samples=70,smooth] (\x,{\x+\c/(\x)^2});}
+  \end{scope}
+  \draw[accent,very thick] (0,0) -- (4,4);
+\end{tikzpicture}}}
+
+\begin{werkwijze}
+Breng de vergelijking in de vorm $y' + p(t)\,y = q(t)$: de coëfficiënt van $y'$ moet 1 zijn. Zoek een primitieve $P$ van $p$ en vermenigvuldig met $\mu = \e^{P}$. Schrijf het linkerlid als $(\mu\,y)'$, integreer, en deel door $\mu$.
+\end{werkwijze}
+
+\nujij{Los op: $y' - 2y = 4$ met $y(0) = 1$, met een integrerende factor.}{$\mu = \e^{-2t}$: $(\e^{-2t}y)' = 4\,\e^{-2t}$, dus $\e^{-2t}y = -2\,\e^{-2t} + C$ en $y = -2 + 3\,\e^{2t}$.}
+
+\begin{oefeningen}
+\oef{h3-lineair}
+\end{oefeningen}
+
+\subsection{Een mengvat}
+
+Lineaire vergelijkingen komen vaak voor als iets in en uit een vat stroomt. In een vat zit 100 liter water met 5 kg opgelost zout. Er stroomt pekel in met 0,2 kg zout per liter, aan 4 liter per minuut, en het goed gemengde water stroomt er aan 4 liter per minuut uit. Hoeveel zout zit er in het vat?
+
+\voorbeeld{}{Stel een differentiaalvergelijking op voor de hoeveelheid zout $S(t)$ (in kg) na $t$ minuten, en los ze op.\label{vb:h3-meng}}{%
+\uitleg{De verandering is wat er per minuut binnenkomt min wat er buitengaat. Wat buitengaat, heeft de concentratie van het vat: $\tfrac{S}{100}$ kg per liter.}
+\naast{\begin{stappenvrij}{5cm}{4.3cm}
+S' = 0{,}2 \cdot 4 - \dfrac{S}{100} \cdot 4 & Binnen min buiten, per minuut. \\[2ex]
+S' + 0{,}04\,S = 0{,}8 & Lineair, met $\mu = \e^{0{,}04t}$. \\[1ex]
+\e^{0{,}04t}\,S = 20\,\e^{0{,}04t} + C & Integreren. \\[1ex]
+S = 20 - 15\,\e^{-0{,}04t} & Uit $S(0) = 5$: $C = -15$.
+\end{stappenvrij}
+Het zout nadert 20 kg: de concentratie van de pekel, 0,2 kg per liter in 100 liter.}{\begin{tikzpicture}[x=.042cm,y=.11cm,font=\scriptsize]
+  \draw[black!14,very thin,xstep=20,ystep=5] (0,0) grid (100,20);
+  \draw[->,grijs] (0,0) -- (106,0) node[right,text=black] {$t$};
+  \draw[->,grijs] (0,0) -- (0,23) node[above,text=black] {$S$};
+  \foreach \t in {50,100}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};}
+  \foreach \t in {5,10,20}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+  \draw[grijs,dashed] (0,20) -- (100,20);
+  \draw[accent,thick] plot[domain=0:100,samples=50,smooth] (\x,{20-15*exp(-0.04*\x)});
+\end{tikzpicture}}
+Deze vergelijking is ook van de vorm $S' = k(S - A)$ uit hoofdstuk 2. Stroomt er meer in dan uit, dan verandert het volume, en wordt de coëfficiënt van $S$ een functie van $t$: dan is de integrerende factor echt nodig (opdracht~\ref{oef:h3-o9}).}
+
+\begin{oefeningen}
+\oef{h3-meng}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Kegelsneden is een uitbreiding in het 6de jaar (complementair, zoals deze cursus): geef de eerste oefening alleen als de klas die cursus zag, of beperk je tot de cirkel. Goniometrische functies en Statistiek (de normale verdeling) zijn gezien in pakket 4.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-scheiden}{oef:h3-scheiden}%
+  \fv{oef:h3-t2}{vb:h3-constant}{oef:h3-constant}%
+  \fv{oef:h3-t3}{vb:h3-logistisch}{oef:h3-logistisch}%
+  \fv{oef:h3-t4}{vb:h3-singulier}{oef:h3-singulier}%
+  \fv{oef:h3-t5}{vb:h3-lineair}{oef:h3-lineair}%
+  \fv{oef:h3-t6}{vb:h3-lineair2}{oef:h3-o2}%
+  \fv{oef:h3-t7}{vb:h3-terug}{oef:h3-o10}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wanneer een vergelijking scheidbaar is, de methode met het bewijs, waarom je constante oplossingen apart zoekt, het logistische model met zijn oplossing en zijn buigpunt, wat een singuliere oplossing en een singulier punt zijn, en de methode van de integrerende factor met het bewijs. Vergelijk daarna met de kaders.
+\fi

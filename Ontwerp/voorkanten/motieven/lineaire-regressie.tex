@@ -1,0 +1,32 @@
+% Lineaire regressie. Gerrit Dou: een sterrenkundige met passer en globe. De kleinste-kwadratenmethode ontstond om
+% banen van hemellichamen te berekenen uit onnauwkeurige waarnemingen (Legendre 1805, Gauss en Ceres 1801).
+% Motief: de derde wet van Kepler (hoofdstuk 3). De bovenrand is de machtsfunctie y = 10,3 + 2,2 (x/21)^1,5, de vorm
+% van T = a^1,5 op gewone assen. In de band staan de zes klassieke planeten op dubbellogaritmisch papier
+% (2,4 cm per decade): log T tegenover log a, met a in AE en T in jaar (Mercurius 0,387 en 0,241; Venus 0,723 en 0,615;
+% Aarde 1 en 1; Mars 1,524 en 1,881; Jupiter 5,203 en 11,86; Saturnus 9,537 en 29,46). Ze liggen op de rechte
+% log T = 1,5 log a. Coördinaten: x = 12,6 + 2,4 (log a + 0,5), y = 4,2 + 2,4 (log T + 0,7).
+\def\omslagbestand{omslag-sterrenkundige.jpg}
+\def\omslagbron{Gerrit Dou, \textit{Sterrenkundige in een venster}, 1657 (publiek domein)}
+\def\omslagrand{10.3 + 2.2*(\x/21)^1.5}
+\def\omslagmotief{%
+  \randlijn
+  % logaritmisch papier: decades (log = 0 en 1) en de lijnen bij 2 tot 9
+  \foreach \d in {-1,0,1}{\foreach \m in {1,...,9}{%
+    \pgfmathsetmacro{\lg}{\d+log10(\m)}%
+    \pgfmathtruncatemacro{\inx}{(\lg>=-0.5)&&(\lg<=1.1)}%
+    \pgfmathtruncatemacro{\iny}{(\lg>=-0.7)&&(\lg<=1.55)}%
+    \ifnum\m=1 \def\dek{.75}\else\def\dek{.3}\fi
+    \ifnum\inx=1 \draw[white,opacity=\dek,line width=.4pt] ({12.6+2.4*(\lg+0.5)},4.2) -- ({12.6+2.4*(\lg+0.5)},9.6);\fi
+    \ifnum\iny=1 \draw[white,opacity=\dek,line width=.4pt] (12.6,{4.2+2.4*(\lg+0.7)}) -- (16.44,{4.2+2.4*(\lg+0.7)});\fi
+  }}
+  \draw[white,line width=.8pt,-{Stealth[length=2mm]}] (12.6,4.2) -- (16.9,4.2);
+  \draw[white,line width=.8pt,-{Stealth[length=2mm]}] (12.6,4.2) -- (12.6,10.05);
+  \foreach \t/\l in {13.8/1,16.2/10}{\node[text=white,font=\footnotesize,anchor=north,inner sep=1.5pt] at (\t,4.15) {\l};}
+  \foreach \t/\l in {5.88/1,8.28/10}{\node[text=white,font=\footnotesize,anchor=east,inner sep=1.5pt] at (12.55,\t) {\l};}
+  \node[text=white,font=\footnotesize,anchor=west] at (16.95,4.2) {$a$};
+  \node[text=white,font=\footnotesize,anchor=south] at (12.6,10.1) {$T$};
+  \draw[fel,line width=1.4pt] (12.6,4.08) -- (16.44,9.84);
+  \foreach \px/\py in {12.811/4.397,13.462/5.373,13.8/5.88,14.239/6.539,15.519/8.458,16.151/9.406}{%
+    \fill[omslagstip] (\px,\py) circle (1.3mm);}
+  \node[omslaglabel,anchor=west] at (16.8,7.2) {$T^2 = a^3$};
+}

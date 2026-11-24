@@ -1,0 +1,30 @@
+% Multivariate statistiek. Ogata Korin: velden irissen in groepjes, zoals puntenwolken. De bekendste multivariate
+% gegevens zijn vier maten van 150 irissen (Edgar Anderson 1935, Ronald Fisher 1936).
+% Motief: een puntenwolk van 34 punten (eigen, verzonnen gegevens) met haar gemiddelde punt, de twee hoofdassen
+% (eigenvectoren van de covariantiematrix) en de ellipsen met Mahalanobis-afstand 1 en 2 (hoofdstuk 3).
+% Covariantiematrix van de 34 punten (in cm^2, met n - 1): [[1,6029, 0,9167], [0,9167, 0,8831]], gemiddelde
+% (16,764; 7,159), eigenwaarden 2,2278 en 0,2582, eerste hoofdas onder 34,28 graden. Halve assen van de ellips
+% met afstand k: k*sqrt(2,2278) = k*1,4926 en k*sqrt(0,2582) = k*0,5081. Het felle punt (17,67; 5,84) ligt op de
+% tweede hoofdas, 1,6 cm van het centrum (dichter dan sommige punten binnen de ellips 2), maar met
+% Mahalanobis-afstand 3,15: het meest uitzonderlijke punt.
+% De bovenrand is de variantie in de richting phi = 180 * x / 21 graden: 2,2278 cos^2(phi - 34,28) +
+% 0,2582 sin^2(phi - 34,28), op 0,5 cm per cm^2, vanaf 10,3 cm. Ze is het grootst langs de eerste hoofdas.
+\def\omslagbestand{omslag-irissen.jpg}
+\def\omslagbron{Ogata Kōrin, \textit{Irissen} (rechterscherm), ca. 1701-1705 (publiek domein)}
+\def\omslagrand{10.3 + 0.5*(2.2278*cos(180*\x/21-34.28)^2 + 0.2582*sin(180*\x/21-34.28)^2 - 0.2582)}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[rotate around={34.28:(16.764,7.159)}]
+    \draw[white,line width=.6pt,opacity=.75] (16.764,7.159) ellipse (1.4926 and 0.5081);
+    \draw[white,line width=.9pt] (16.764,7.159) ellipse (2.9852 and 1.0162);
+    \draw[white,line width=.8pt,-{Stealth[length=2mm]}] (16.764,7.159) -- ++(3.5,0);
+    \draw[white,line width=.8pt,-{Stealth[length=2mm]}] (16.764,7.159) -- ++(0,1.6);
+  \end{scope}
+  \foreach \p in {(16.29,7.15),(17.08,6.80),(17.35,6.91),(15.84,7.63),(17.27,7.14),(15.63,6.73),(16.59,6.43),
+    (16.19,7.38),(18.32,8.00),(19.35,8.09),(18.90,8.57),(17.96,8.30),(16.26,6.76),(19.89,9.04),(16.42,7.10),
+    (18.58,8.16),(17.97,7.49),(15.30,5.62),(16.13,7.48),(17.20,7.48),(16.23,6.93),(17.98,8.16),(15.17,4.97),
+    (15.23,6.27),(16.53,8.60),(15.83,5.69),(16.10,7.22),(16.40,7.52),(16.25,7.40),(14.75,5.34),(16.30,6.58),
+    (16.66,6.28),(17.23,7.43),(14.81,6.76)}{\fill[omslagstip] \p circle (.9mm);}
+  \fill[fel,draw=white,line width=.7pt] (17.67,5.84) circle (1.3mm);
+  \node[omslaglabel,anchor=west] at (18.0,5.5) {$d_{\mathrm M} \approx 3{,}2$};
+}

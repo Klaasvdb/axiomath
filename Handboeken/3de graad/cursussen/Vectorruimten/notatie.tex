@@ -1,0 +1,106 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS VECTORRUIMTEN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\newcommand{\e}{\mathrm{e}}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster met assen: \rooster{xmin}{xstap}{xmax}{ymin}{ystap}{ymax}, met getallen op de assen (gehele waarden).
+% \roosterleeg doet hetzelfde zonder getallen.
+\newcommand{\roosterleeg}[6]{%
+  \draw[black!14,very thin,xstep=#2,ystep=#5] (#1,#4) grid (#3,#6);
+  \draw[->,grijs] (#1,0) -- ({#3+.4*#2},0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,#4) -- (0,{#6+.4*#5}) node[above,text=black] {$y$};}
+\newcommand{\rooster}[6]{%
+  \roosterleeg{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathtruncatemacro{\rtweex}{#1+#2}\pgfmathtruncatemacro{\rtweey}{#4+#5}
+  \foreach \t in {#1,\rtweex,...,#3}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#4,\rtweey,...,#6}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+% Assen zonder rooster: \assen{xmin}{xmax}{ymin}{ymax}, en een kromme: \kromme[opties]{van}{tot}{voorschrift in \x}
+\newcommand{\assen}[4]{%
+  \draw[->,lijngrijs] (#1,0) -- (#2,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,#3) -- (0,#4) node[above,text=black] {$y$};}
+\newcommand{\kromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=90,smooth] (\x,{#4});}
+
+% Ruimtelijk assenstelsel in schuine projectie: gebruik [ruimte] als optie van tikzpicture,
+% en \assendrie{lengte}. De x-as wijst schuin naar voren, y naar rechts, z naar boven.
+\tikzset{ruimte/.style={x={(-0.45cm,-0.38cm)},y={(1cm,0cm)},z={(0cm,1cm)}}}
+\newcommand{\assendrie}[1]{%
+  \draw[->,lijngrijs] (0,0,0) -- (#1,0,0) node[below left,text=black] {$x$};
+  \draw[->,lijngrijs] (0,0,0) -- (0,#1,0) node[right,text=black] {$y$};
+  \draw[->,lijngrijs] (0,0,0) -- (0,0,#1) node[above,text=black] {$z$};}
+
+% Uit de cursus Matrices: compacte matrix \km{1 & 2 \\ 3 & 4}, uitgebreide matrix \um{cc|c}{...},
+% en een rijbewerking naast een matrix \rb{R_2 - 2R_1}.
+\newcommand{\km}[1]{{\setlength{\arraycolsep}{2.4pt}\renewcommand{\arraystretch}{.82}\left[\begin{array}{*{10}{c}}#1\end{array}\right]}}
+\newcommand{\um}[2]{{\setlength{\arraycolsep}{4pt}\left[\begin{array}{#1}#2\end{array}\right]}}
+\newcommand{\rb}[1]{\text{\small\color{grijs}$#1$}}
+
+%----------------------------------------------------------------------------------------
+% VECTORRUIMTEN
+%----------------------------------------------------------------------------------------
+% De deelruimte voortgebracht door vectoren: \vb{\vec u, \vec v}
+\newcommand{\vb}[1]{\left\langle #1 \right\rangle}
+% Veeltermen van graad hoogstens n: \Rx{n}; alle veeltermen: \R[x]
+\newcommand{\Rx}[1]{\R_{#1}[x]}
+% De m x n-matrices: \Rmn{m}{n}
+\newcommand{\Rmn}[2]{\R^{#1 \times #2}}
+% Coördinaten van een vector ten opzichte van een basis: \coord{\vec v}{B}
+\newcommand{\coord}[2]{\left[#1\right]_{#2}}
+% Kolomvector: \kol{1 \\ 2 \\ 3}
+\newcommand{\kol}[1]{{\setlength{\arraycolsep}{3pt}\begin{bmatrix} #1 \end{bmatrix}}}
+\newcommand{\rang}{\operatorname{rang}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\Img}{\operatorname{Im}}
+\newcommand{\nulv}{\vec{0}}
+
+% FIGUREN, binnen een tikzpicture
+% Een vector als pijl vanuit de oorsprong of een ander punt: \vpijl[opties]{(van)}{(naar)}
+\newcommand{\vpijl}[3][]{\draw[accent,very thick,-{Stealth[length=2.2mm]},#1] #2 -- #3;}
+% Scheef rooster van een basis u, v in het vlak: \scheefrooster{u1}{u2}{v1}{v2}{imin}{imax}{jmin}{jmax}
+% tekent de lijnen i*u + t*v en t*u + j*v (dun, in de kleur van het hoofdstuk).
+\newcommand{\scheefrooster}[8]{%
+  \foreach \i in {#5,...,#6}{\draw[accent!30,thin] ({\i*(#1)+(#7)*(#3)},{\i*(#2)+(#7)*(#4)}) -- ({\i*(#1)+(#8)*(#3)},{\i*(#2)+(#8)*(#4)});}
+  \foreach \j in {#7,...,#8}{\draw[accent!30,thin] ({(#5)*(#1)+\j*(#3)},{(#5)*(#2)+\j*(#4)}) -- ({(#6)*(#1)+\j*(#3)},{(#6)*(#2)+\j*(#4)});}}
+% Een 3 x 3-vierkant met getallen: \vierkantdrie[breedte vakje]{a & b & c \\ \hline d & e & f \\ \hline g & h & i}
+\newcommand{\vierkantdrie}[2][6mm]{{\renewcommand{\arraystretch}{1.25}\setlength{\tabcolsep}{1pt}%
+  \begin{tabular}{|>{$}wc{#1}<{$}|>{$}wc{#1}<{$}|>{$}wc{#1}<{$}|}\hline #2 \\ \hline\end{tabular}}}
+% Getransponeerde: A\tr
+\newcommand{\tr}{^{\mkern-1.5mu\mathsf{T}}}

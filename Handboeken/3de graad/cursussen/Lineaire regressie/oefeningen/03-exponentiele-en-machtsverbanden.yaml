@@ -1,0 +1,1070 @@
+# Oefeningen van hoofdstuk 3 (Exponentiële en machtsverbanden). Zie oefeningenbank.py voor de velden.
+# De gegevens zijn verzonnen, behalve de planeten (afgeronde, algemeen bekende waarden), de transistors van
+# Intel (h3-o8) en de wereldbevolking (h3-o9): afgeronde, publiek bekende cijfers, na te kijken in een bron.
+# Alle getallen nagerekend met Python en sympy.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\ln 20$ en $\e^{1{,}2}$.
+      antwoord: |-
+        $\approx 2{,}996$; \ $\approx 3{,}320$
+      uitwerking: |-
+        Met het rekentoestel.
+    - opgave: |-
+        Schrijf $\ln(5 \cdot 3^x)$ en $\ln(4x^{2{,}5})$ als een som, met de rekenregels van logaritmen.
+      antwoord: |-
+        $\ln 5 + x\ln 3$; \ $\ln 4 + 2{,}5\ln x$
+      uitwerking: |-
+        $\ln(uv) = \ln u + \ln v$ en $\ln u^k = k\ln u$.
+    - opgave: |-
+        Een bevolking groeit met 4~\% per jaar. Wat is de groeifactor per jaar, en per tien jaar?
+      antwoord: |-
+        $1{,}04$; \ $\approx 1{,}480$
+      uitwerking: |-
+        Per jaar $1 + \frac{4}{100} = 1{,}04$, per tien jaar $1{,}04^{10} \approx 1{,}480$.
+    - opgave: |-
+        Bereken $\log 1000$ en $\log 0{,}01$. Welk getal ligt op een logaritmische schaal precies midden tussen 10 en 100?
+      antwoord: |-
+        $3$; \ ${-2}$; \ $\sqrt{1000} \approx 31{,}6$
+      uitwerking: |-
+        Het midden heeft logaritme $\frac{1 + 2}{2} = 1{,}5$, dus het getal is $10^{1{,}5} = \sqrt{1000} \approx 31{,}6$.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Neem de functies $f(x) = 3 \cdot 2^x$ en $h(x) = 3x^2$, voor $x = 1, 2, 3, 4, 5$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de functiewaarden, en hun natuurlijke logaritmen.
+      antwoord: |-
+        $f$: 6, 12, 24, 48, 96; \ $h$: 3, 12, 27, 48, 75
+      uitwerking: |-
+        $\ln f(x)$: $1{,}792$; $2{,}485$; $3{,}178$; $3{,}871$; $4{,}564$. \ $\ln h(x)$: $1{,}099$; $2{,}485$; $3{,}296$; $3{,}871$; $4{,}317$.
+    - opgave: |-
+        Teken de punten $(x, \ln f(x))$ en $(x, \ln h(x))$. Welke liggen op een rechte? Wat is haar helling?
+      antwoord: |-
+        die van $f$, helling $\ln 2 \approx 0{,}693$
+      uitwerking: |-
+        De verschillen van $\ln f(x)$ zijn telkens $0{,}693 = \ln 2$: een rechte. Bij $h$ dalen de verschillen ($1{,}386$; $0{,}811$; $0{,}575$; $0{,}446$): een kromme.
+    - opgave: |-
+        Bereken ook $\ln x$, en teken de punten $(\ln x, \ln h(x))$. Liggen ze op een rechte? Wat is haar helling?
+      antwoord: |-
+        ja, helling 2
+      uitwerking: |-
+        $\ln x$: $0$; $0{,}693$; $1{,}099$; $1{,}386$; $1{,}609$. Want $\ln h(x) = \ln 3 + 2\ln x$: een rechte met helling 2, de exponent.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h3-exp
+  soort: kort
+  opgave: |-
+    Een nieuwe app telt elke week het aantal gebruikers.
+
+    \smallskip
+    {\centering\kleinetabel[week $x$][gebruikers $y$]{6}{0 & 1 & 2 & 3 & 4 & 5}{820 & 1050 & 1390 & 1800 & 2350 & 3050}\par}
+
+    \smallskip
+    Bepaal een exponentieel model met de regressierechte van $\ln y$ op $x$. Met hoeveel procent groeit het aantal per week? Controleer met \texttt{ExpReg}.
+  antwoord: |-
+    $y \approx 815 \cdot 1{,}302^x$; ongeveer 30~\% per week
+  uitwerking: |-
+    $\ln y$: $6{,}709$; $6{,}957$; $7{,}237$; $7{,}496$; $7{,}762$; $8{,}023$. Regressierechte $Y \approx 0{,}2641x + 6{,}704$. $g = \e^{0{,}2641} \approx 1{,}302$ en $c = \e^{6{,}704} \approx 815$.
+
+- id: h3-verval
+  soort: kort
+  opgave: |-
+    Een kop thee koelt af in een kamer van 20~°C. Het verschil $y$ tussen de temperatuur van de thee en die van de kamer meet je om de 5 minuten.
+
+    \smallskip
+    {\centering\kleinetabel[$t$ (min)][$y$ (°C)]{5}{0 & 5 & 10 & 15 & 20}{70 & 52 & 39 & 29 & 21{,}5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal een exponentieel model voor $y$, en de halveringstijd van het verschil.
+      antwoord: |-
+        $y \approx 70{,}0 \cdot 0{,}943^t$; $\approx 11{,}8$ min
+      uitwerking: |-
+        Regressierechte van $\ln y$ op $t$: $Y \approx -0{,}0589t + 4{,}249$. $g = \e^{-0{,}0589} \approx 0{,}943$, $c \approx 70{,}0$. Halveringstijd $\frac{-\ln 2}{-0{,}0589} \approx 11{,}8$ min.
+    - opgave: |-
+        Wanneer is de thee 60~°C?
+      antwoord: |-
+        na $\approx 9{,}5$ min
+      uitwerking: |-
+        Het verschil is dan 40: $70{,}0 \cdot 0{,}943^t = 40$, dus $t = \frac{\ln(40/70{,}0)}{-0{,}0589} \approx 9{,}5$ min.
+
+- id: h3-papier
+  soort: kort
+  opgave: |-
+    Op enkellogaritmisch papier gaat een rechte door de gegeven punten. Bepaal het exponentiële verband.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $(0, 3)$ en $(5, 300)$
+      antwoord: |-
+        $y = 3 \cdot 10^{0{,}4x} \approx 3 \cdot 2{,}512^x$
+      uitwerking: |-
+        $c = 3$ en $g^5 = 100$, dus $g = 100^{1/5} = 10^{0{,}4} \approx 2{,}512$.
+    - opgave: |-
+        $(2, 400)$ en $(6, 25)$
+      antwoord: |-
+        $y = 1600 \cdot 0{,}5^x$
+      uitwerking: |-
+        $g^4 = \frac{25}{400} = \frac{1}{16}$, dus $g = \frac12$. Dan $c \cdot \frac14 = 400$, dus $c = 1600$.
+
+- id: h3-macht
+  soort: kort
+  opgave: |-
+    Een biologe meet bij zes bladeren van dezelfde plant de lengte $x$ (in cm) en de oppervlakte $y$ (in cm$^2$).
+
+    \smallskip
+    {\centering\kleinetabel[$x$ (cm)][$y$ (cm$^2$)]{6}{2 & 3 & 4 & 6 & 8 & 10}{1{,}6 & 3{,}5 & 6{,}4 & 14{,}1 & 25{,}3 & 39{,}5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal een machtsverband met de regressierechte van $\ln y$ op $\ln x$. Controleer met \texttt{PwrReg}.
+      antwoord: |-
+        $y \approx 0{,}398\,x^{1{,}996}$
+      uitwerking: |-
+        Regressierechte $Y \approx 1{,}996X - 0{,}922$, dus $p \approx 1{,}996$ en $c = \e^{-0{,}922} \approx 0{,}398$.
+    - opgave: |-
+        Waarom verwacht je een exponent van ongeveer 2?
+      antwoord: |-
+        de bladeren zijn gelijkvormig
+      uitwerking: |-
+        Bladeren van dezelfde plant hebben ongeveer dezelfde vorm. Bij gelijkvormige figuren is de oppervlakte evenredig met het kwadraat van een lengte.
+
+- id: h3-dubbel
+  soort: kort
+  opgave: |-
+    Op dubbellogaritmisch papier gaat een rechte door de gegeven punten. Bepaal het machtsverband.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $(1, 20)$ en $(10, 2000)$
+      antwoord: |-
+        $y = 20x^2$
+      uitwerking: |-
+        $c = 20$, en de rechte stijgt 2 decaden over 1 decade: $p = 2$.
+    - opgave: |-
+        $(2, 8)$ en $(32, 2)$
+      antwoord: |-
+        $y \approx 11{,}3\,x^{-0{,}5}$
+      uitwerking: |-
+        $p = \frac{\log(2/8)}{\log(32/2)} = \frac{\log 0{,}25}{\log 16} = -0{,}5$. Dan $8 = c \cdot 2^{-0{,}5}$, dus $c = 8\sqrt2 \approx 11{,}3$.
+
+- id: h3-kies
+  soort: kort
+  opgave: |-
+    Welk model past bij de punten $(1;\ 2{,}0)$, $(2;\ 3{,}9)$, $(3;\ 8{,}3)$, $(4;\ 15{,}8)$, $(5;\ 32{,}5)$, $(6;\ 63{,}0)$: lineair, exponentieel of een machtsverband? Bepaal het.
+  antwoord: |-
+    exponentieel: $y \approx 1{,}00 \cdot 2{,}00^x$
+  uitwerking: |-
+    Lineair: $r^2 \approx 0{,}83$ en een boog. Macht: de punten $(\ln x, \ln y)$ buigen af (residuen $0{,}35$; $-0{,}30$; $-0{,}31$; $-0{,}22$; $0{,}08$; $0{,}40$). Exponentieel: de punten $(x, \ln y)$ liggen op een rechte, $Y \approx 0{,}6930x + 0{,}0004$, dus $g \approx 2{,}00$ en $c \approx 1{,}00$: $y$ verdubbelt bij elke stap.
+
+- id: h3-lnreg
+  soort: kort
+  opgave: |-
+    Bij een proef met een plant meet een leerling de hoogte $y$ (in cm) na $x$ dagen: $(1;\ 2{,}1)$, $(3;\ 4{,}3)$, $(10;\ 6{,}8)$, $(30;\ 9{,}1)$, $(100;\ 11{,}5)$. Bij elke vertienvoudiging van $x$ groeit $y$ met ongeveer hetzelfde bedrag. Bepaal een logaritmisch model $y = A\ln x + B$, en voorspel wanneer de plant 8~cm is.
+  antwoord: |-
+    $y \approx 2{,}05\ln x + 2{,}08$; na $\approx 18$ dagen
+  uitwerking: |-
+    Regressierechte van $y$ op $\ln x$ (of \texttt{LnReg}): $A \approx 2{,}050$ en $B \approx 2{,}083$, met $r^2 \approx 0{,}9999$. Dan $2{,}050\ln x + 2{,}083 = 8 \iff x = \e^{(8 - 2{,}083)/2{,}050} \approx 18$ dagen.
+
+- id: h3-relatief
+  soort: kort
+  opgave: |-
+    Een model voorspelt $\yhat = 50$ en $\yhat = 5000$; de metingen zijn $46$ en $4600$. Bereken telkens het residu in $y$, het residu in $\ln y$ en de relatieve fout. Welk punt telt het zwaarst bij de kleinste kwadraten op $y$, en welk bij die op $\ln y$?
+  antwoord: |-
+    $-4$ en $-400$; telkens $\ln 0{,}92 \approx -0{,}083$ en $-8~\%$
+  uitwerking: |-
+    Residuen in $y$: $-4$ en $-400$ (kwadraten 16 en $160\,000$): bij $y$ bepaalt het grote punt alles. In $\ln y$: $\ln\frac{46}{50} = \ln\frac{4600}{5000} = \ln 0{,}92 \approx -0{,}083$, ongeveer de relatieve fout $-0{,}08$: beide punten tellen even zwaar.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een verband lineair maken
+  opgave: |-
+    Schrijf het verband als een lineair verband tussen twee nieuwe variabelen. Geef helling en snijpunt.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $y = 4 \cdot 1{,}2^x$
+      antwoord: |-
+        $\ln y = x\ln 1{,}2 + \ln 4$
+      uitwerking: |-
+        Tussen $x$ en $\ln y$: helling $\ln 1{,}2 \approx 0{,}182$, snijpunt $\ln 4 \approx 1{,}386$.
+    - opgave: |-
+        $y = 0{,}5x^3$
+      antwoord: |-
+        $\ln y = 3\ln x + \ln 0{,}5$
+      uitwerking: |-
+        Tussen $\ln x$ en $\ln y$: helling 3, snijpunt $\ln 0{,}5 \approx -0{,}693$.
+    - opgave: |-
+        $y = 7\e^{-0{,}3x}$
+      antwoord: |-
+        $\ln y = -0{,}3x + \ln 7$
+      uitwerking: |-
+        Tussen $x$ en $\ln y$: helling $-0{,}3$, snijpunt $\ln 7 \approx 1{,}946$.
+    - opgave: |-
+        $y = \dfrac{2}{\sqrt x}$
+      antwoord: |-
+        $\ln y = -0{,}5\ln x + \ln 2$
+      uitwerking: |-
+        $y = 2x^{-0{,}5}$: tussen $\ln x$ en $\ln y$, helling $-0{,}5$, snijpunt $\ln 2$.
+    - opgave: |-
+        $y = 3 \cdot 10^{2x}$
+      antwoord: |-
+        $\log y = 2x + \log 3$
+      uitwerking: |-
+        Met $\log$: helling 2, snijpunt $\log 3 \approx 0{,}477$. (Met $\ln$: helling $2\ln 10$.)
+    - opgave: |-
+        $y = 5\ln x + 1$
+      antwoord: |-
+        $y = 5X + 1$ met $X = \ln x$
+      uitwerking: |-
+        Tussen $\ln x$ en $y$: helling 5, snijpunt 1. Een logaritmisch model.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    terugrekenen naar het model
+  opgave: |-
+    Bepaal het model uit de regressierechte van de getransformeerde gegevens.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\ln y \approx 0{,}0953x + 2{,}303$
+      antwoord: |-
+        $y \approx 10{,}0 \cdot 1{,}10^x$
+      uitwerking: |-
+        $g = \e^{0{,}0953} \approx 1{,}100$ en $c = \e^{2{,}303} \approx 10{,}0$: 10~\% groei per stap.
+    - opgave: |-
+        $\ln y \approx -0{,}223x + 4{,}605$
+      antwoord: |-
+        $y \approx 100 \cdot 0{,}80^x$
+      uitwerking: |-
+        $g = \e^{-0{,}223} \approx 0{,}800$ en $c = \e^{4{,}605} \approx 100$: 20~\% verval per stap.
+    - opgave: |-
+        $\ln y \approx 0{,}75\ln x + 1{,}2$
+      antwoord: |-
+        $y \approx 3{,}32\,x^{0{,}75}$
+      uitwerking: |-
+        $p = 0{,}75$ en $c = \e^{1{,}2} \approx 3{,}32$.
+    - opgave: |-
+        $\log y \approx -2\log x + 3$
+      antwoord: |-
+        $y = 1000x^{-2}$
+      uitwerking: |-
+        $p = -2$ en $c = 10^3 = 1000$: met $\log$ reken je terug met machten van 10.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    enkellogaritmisch papier lezen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.55cm,y=1.6cm,font=\scriptsize]
+        \logy{0}{6}{0}{2}
+        \foreach \t in {1,...,6}{\draw[black!12,very thin] (\t,0) -- (\t,2);}
+        \draw[->,grijs] (0,0) -- (6.4,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,0) -- (0,2.15) node[above,text=black] {$y$};
+        \foreach \t in {0,2,4,6}{\node[below] at (\t,0) {$\t$};}
+        \foreach \v in {1,2,5,10,20,50,100}{\node[left] at (0,{log10(\v)}) {$\v$};}
+        \draw[accent,thick] (0,{log10(80)}) -- (6,{log10(80)-6*log10(2)});
+        \fill[inkt] (0,{log10(80)}) circle (1.8pt) (4,{log10(5)}) circle (1.8pt);
+      \end{tikzpicture}
+  opgave: |-
+    Rechts zie je een rechte op enkellogaritmisch papier.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees twee punten af en bepaal het exponentiële verband.
+      antwoord: |-
+        $y = 80 \cdot 0{,}5^x$
+      uitwerking: |-
+        De rechte gaat door $(0, 80)$ en $(4, 5)$. Dus $c = 80$ en $g^4 = \frac{5}{80} = \frac{1}{16}$, zodat $g = 0{,}5$.
+    - opgave: |-
+        Wat is de halveringstijd?
+      antwoord: |-
+        1
+      uitwerking: |-
+        $g = 0{,}5$: bij elke stap van 1 halveert $y$.
+    - opgave: |-
+        Voor welke $x$ is $y = 1$?
+      antwoord: |-
+        $x \approx 6{,}3$
+      uitwerking: |-
+        $80 \cdot 0{,}5^x = 1 \iff x = \frac{\ln 80}{\ln 2} \approx 6{,}32$: net rechts van het papier.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    dubbellogaritmisch papier lezen
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=1.4cm,y=1.05cm,font=\scriptsize]
+        \logy{0}{2}{-1}{2}
+        \logx{-1}{2}{0}{2}
+        \draw[->,grijs] (0,-1) -- (2.15,-1) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,-1) -- (0,2.15) node[above,text=black] {$y$};
+        \foreach \v/\l in {0/1,1/10,2/100}{\node[below] at (\v,-1) {$\l$};}
+        \foreach \v/\l in {-1/{0,1},0/1,1/10,2/100}{\node[left] at (0,\v) {$\l$};}
+        \draw[accent,thick] (0,{log10(40)}) -- (2,{log10(40)-1.5*2});
+        \fill[inkt] (0,{log10(40)}) circle (1.8pt) (2,{log10(40)-3}) circle (1.8pt);
+      \end{tikzpicture}
+  opgave: |-
+    Rechts zie je een rechte op dubbellogaritmisch papier.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees twee punten af en bepaal het machtsverband.
+      antwoord: |-
+        $y = 40x^{-1{,}5}$
+      uitwerking: |-
+        De rechte gaat door $(1, 40)$ en $(100;\ 0{,}04)$. $c = 40$ en $p = \frac{\log 0{,}04 - \log 40}{\log 100} = \frac{-3}{2} = -1{,}5$.
+    - opgave: |-
+        Hoe verandert $y$ als $x$ vier keer zo groot wordt?
+      antwoord: |-
+        $y$ wordt 8 keer kleiner
+      uitwerking: |-
+        $4^{-1{,}5} = \frac{1}{8}$.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    verdubbelings- en halveringstijd
+  opgave: |-
+    Bereken de verdubbelingstijd (bij groei) of de halveringstijd (bij verval).
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $g = 1{,}05$
+      antwoord: |-
+        $\approx 14{,}2$
+      uitwerking: |-
+        $\frac{\ln 2}{\ln 1{,}05} \approx 14{,}2$.
+    - opgave: |-
+        $g = 0{,}9$
+      antwoord: |-
+        $\approx 6{,}58$
+      uitwerking: |-
+        $\frac{\ln 0{,}5}{\ln 0{,}9} \approx 6{,}58$.
+    - opgave: |-
+        $A = 0{,}35$
+      antwoord: |-
+        $\approx 1{,}98$
+      uitwerking: |-
+        De helling van $\ln y$ op $x$: $\frac{\ln 2}{0{,}35} \approx 1{,}98$.
+    - opgave: |-
+        $A = -0{,}0123$
+      antwoord: |-
+        $\approx 56{,}4$
+      uitwerking: |-
+        $\frac{-\ln 2}{-0{,}0123} \approx 56{,}4$.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    welk papier, welk model
+  opgave: |-
+    Welk model past, en op welk papier liggen de punten op een rechte?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij elke stap van 1 in $x$ wordt $y$ drie keer zo groot.
+      antwoord: |-
+        exponentieel; enkellogaritmisch ($y$-as)
+      uitwerking: |-
+        Een vaste factor per stap: $y = c \cdot 3^x$.
+    - opgave: |-
+        Wordt $x$ twee keer zo groot, dan wordt $y$ vier keer zo groot.
+      antwoord: |-
+        macht ($p = 2$); dubbellogaritmisch
+      uitwerking: |-
+        Een vaste factor bij een vaste \textit{factor} in $x$: $y = c \cdot x^2$.
+    - opgave: |-
+        Bij elke stap van 1 in $x$ neemt $y$ met 3 toe.
+      antwoord: |-
+        lineair; gewoon papier
+      uitwerking: |-
+        Een vaste toename per stap: $y = 3x + b$.
+    - opgave: |-
+        Wordt $x$ tien keer zo groot, dan neemt $y$ met 3 toe.
+      antwoord: |-
+        logaritmisch; enkellogaritmisch ($x$-as)
+      uitwerking: |-
+        Een vaste toename bij een vaste factor in $x$: $y = 3\log x + B$.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de letters van het rekentoestel
+  opgave: |-
+    Het rekentoestel geeft na een regressie de uitvoer hieronder. Schrijf telkens het model op in de letters van dit boek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        \texttt{ExpReg}: \texttt{y=a*b\textasciicircum x}, \texttt{a=4.2}, \texttt{b=.87}
+      antwoord: |-
+        $y = 4{,}2 \cdot 0{,}87^x$
+      uitwerking: |-
+        $c = 4{,}2$ en $g = 0{,}87$: verval met 13~\% per stap.
+    - opgave: |-
+        \texttt{PwrReg}: \texttt{y=a*x\textasciicircum b}, \texttt{a=1.6}, \texttt{b=2.4}
+      antwoord: |-
+        $y = 1{,}6x^{2{,}4}$
+      uitwerking: |-
+        $c = 1{,}6$ en $p = 2{,}4$.
+    - opgave: |-
+        \texttt{LnReg}: \texttt{y=a+b*ln(x)}, \texttt{a=12}, \texttt{b=-3}
+      antwoord: |-
+        $y = -3\ln x + 12$
+      uitwerking: |-
+        Een logaritmisch model met $A = -3$ en $B = 12$. Let op: hier is $b$ de helling.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de wet van Moore
+  opgave: |-
+    In 1965 voorspelde Gordon Moore dat het aantal transistors op een chip ongeveer elke twee jaar verdubbelt. De tabel geeft afgeronde aantallen voor processors van Intel (bron: de specificaties van Intel).
+
+    \smallskip
+    {\centering\small\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.25}\begin{tabular}{|>{\columncolor{accent!12}}c|*{9}{c|}}\hline
+    jaar & 1971 & 1974 & 1978 & 1982 & 1985 & 1989 & 1993 & 1997 & 2000 \\\hline
+    transistors & 2300 & 4500 & 29\,000 & 134\,000 & 275\,000 & 1{,}18 mln & 3{,}1 mln & 7{,}5 mln & 42 mln \\\hline
+    \end{tabular}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $x$ = jaren na 1970. Bepaal een exponentieel model.
+      antwoord: |-
+        $y \approx 1784 \cdot 1{,}389^x$
+      uitwerking: |-
+        Regressierechte van $\ln y$ op $x$: $Y \approx 0{,}3287x + 7{,}487$, met $r^2 \approx 0{,}992$. $g = \e^{0{,}3287} \approx 1{,}389$ en $c = \e^{7{,}487} \approx 1784$.
+    - opgave: |-
+        Bereken de verdubbelingstijd. Klopt de voorspelling van Moore?
+      antwoord: |-
+        $\approx 2{,}1$ jaar; ja
+      uitwerking: |-
+        $\frac{\ln 2}{0{,}3287} \approx 2{,}1$ jaar: heel dicht bij twee jaar.
+    - opgave: |-
+        Teken de punten op enkellogaritmisch papier. Waarom is een gewone $y$-as hier onbruikbaar?
+      antwoord: |-
+        de aantallen lopen over vier machten van 10
+      uitwerking: |-
+        Van 2300 tot 42 miljoen: op een gewone as liggen alle punten tot 1990 op de $x$-as. Op enkellogaritmisch papier liggen ze rond een rechte.
+    - opgave: |-
+        Hoeveel transistors voorspelt het model voor 2020? Moderne chips hebben er tientallen miljarden. Wat besluit je?
+      antwoord: |-
+        $\approx 2{,}4 \cdot 10^{10}$
+      uitwerking: |-
+        $1784 \cdot 1{,}389^{50} \approx 2{,}4 \cdot 10^{10}$, ongeveer 24 miljard: verrassend goed voor een extrapolatie over twintig jaar. Toch blijft het een extrapolatie; de groei kan niet eeuwig doorgaan.
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    wereldbevolking: exponentieel of lineair?
+  opgave: |-
+    De wereldbevolking in miljard, afgerond (bron: Verenigde Naties, \textit{World Population Prospects}):
+
+    \smallskip
+    {\centering\kleinetabel[jaar][miljard]{8}{1950 & 1960 & 1970 & 1980 & 1990 & 2000 & 2010 & 2020}{2{,}5 & 3{,}0 & 3{,}7 & 4{,}4 & 5{,}3 & 6{,}1 & 6{,}9 & 7{,}8}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $x$ = jaren na 1950. Bepaal een exponentieel model. Met hoeveel procent per jaar groeit het?
+      antwoord: |-
+        $y \approx 2{,}61 \cdot 1{,}0166^x$; $\approx 1{,}66~\%$
+      uitwerking: |-
+        Regressierechte van $\ln y$ op $x$: $Y \approx 0{,}01645x + 0{,}9577$. $g \approx 1{,}0166$ en $c \approx 2{,}61$.
+    - opgave: |-
+        Bekijk de residuen van $\ln y$. Wat zie je?
+      antwoord: |-
+        een omgekeerde boog: de groei vertraagt
+      uitwerking: |-
+        De residuen zijn ongeveer $-0{,}041$; $-0{,}024$; $0{,}022$; $0{,}031$; $0{,}052$; $0{,}028$; $-0{,}013$; $-0{,}055$: eerst negatief, dan positief, dan weer negatief. Het groeipercentage is niet constant: het daalt sinds ongeveer 1970.
+    - opgave: |-
+        Bepaal ook een lineair model, en vergelijk de voorspellingen voor 2050.
+      antwoord: |-
+        $y \approx 0{,}0770x + 2{,}27$; 13,5 tegenover 10,0 miljard
+      uitwerking: |-
+        $y \approx 0{,}0770x + 2{,}267$, met kleine residuen zonder duidelijke boog. Voor 2050 ($x = 100$): exponentieel $2{,}61 \cdot 1{,}0166^{100} \approx 13{,}5$ miljard, lineair $\approx 10{,}0$ miljard. De VN verwachten rond 2050 ongeveer 9,7 miljard: het lineaire model zit dichter bij, maar ook dat is een extrapolatie.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    afkoelende koffie
+  opgave: |-
+    Een kop koffie staat in een kamer van 20~°C. Een leerling meet de temperatuur $T$.
+
+    \smallskip
+    {\centering\kleinetabel[$t$ (min)][$T$ (°C)]{6}{0 & 4 & 8 & 12 & 16 & 20}{88 & 75{,}4 & 65{,}1 & 56{,}7 & 50{,}0 & 44{,}4}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is $T$ zelf niet exponentieel? Welke grootheid wel?
+      antwoord: |-
+        $T$ gaat naar 20, niet naar 0; $y = T - 20$
+      uitwerking: |-
+        Bij exponentieel verval gaat de grootheid naar 0. De koffie koelt af tot de kamertemperatuur: het verschil $y = T - 20$ gaat naar 0.
+    - opgave: |-
+        Bepaal een exponentieel model voor $y = T - 20$, en schrijf $T$ als functie van $t$.
+      antwoord: |-
+        $T \approx 20 + 68{,}0 \cdot 0{,}950^t$
+      uitwerking: |-
+        $y$: 68; 55,4; 45,1; 36,7; 30,0; 24,4. Regressierechte van $\ln y$ op $t$: $Y \approx -0{,}0512t + 4{,}219$. $g = \e^{-0{,}0512} \approx 0{,}950$, $c = \e^{4{,}219} \approx 68{,}0$.
+    - opgave: |-
+        Koffie drink je liefst rond 55~°C. Wanneer is dat volgens het model?
+      antwoord: |-
+        na $\approx 13$ min
+      uitwerking: |-
+        $68{,}0 \cdot 0{,}950^t = 35 \iff t = \frac{\ln(35/68{,}0)}{-0{,}0512} \approx 13{,}0$ min.
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    pizza: prijs en diameter
+  opgave: |-
+    Een pizzeria verkoopt dezelfde pizza in vijf maten.
+
+    \smallskip
+    {\centering\kleinetabel[diameter (cm)][prijs (euro)]{5}{24 & 28 & 32 & 36 & 40}{7{,}50 & 9{,}80 & 12{,}50 & 15{,}90 & 19{,}50}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal een machtsverband tussen de diameter en de prijs.
+      antwoord: |-
+        $y \approx 0{,}019\,x^{1{,}88}$
+      uitwerking: |-
+        Regressierechte van $\ln y$ op $\ln x$: $Y \approx 1{,}877X - 3{,}963$, dus $p \approx 1{,}88$ en $c = \e^{-3{,}963} \approx 0{,}019$.
+    - opgave: |-
+        Hoe zou de exponent zijn als je per cm$^2$ pizza evenveel betaalt? Is de grote pizza voordeliger per cm$^2$?
+      antwoord: |-
+        $p = 2$; ja, iets
+      uitwerking: |-
+        De oppervlakte is evenredig met $x^2$. De exponent $1{,}88 < 2$: de prijs stijgt trager dan de oppervlakte, dus per cm$^2$ is een grote pizza goedkoper. Controle: $\frac{7{,}50}{\pi \cdot 12^2} \approx 0{,}0166$ en $\frac{19{,}50}{\pi \cdot 20^2} \approx 0{,}0155$ euro per cm$^2$.
+    - opgave: |-
+        Welke prijs voorspelt het model voor een pizza van 30~cm?
+      antwoord: |-
+        $\approx 11{,}3$ euro
+      uitwerking: |-
+        $\e^{-3{,}963} \cdot 30^{1{,}877} \approx 11{,}3$ euro.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    geluid en afstand
+  opgave: |-
+    Een leerling meet de intensiteit $I$ van het geluid van een luidspreker (in een eigen eenheid) op verschillende afstanden $d$ (in m), buiten, zonder muren.
+
+    \smallskip
+    {\centering\kleinetabel[$d$ (m)][$I$]{5}{1 & 2 & 4 & 8 & 16}{400 & 105 & 24 & 6{,}3 & 1{,}5}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal een machtsverband. Welke exponent verwacht je, als het geluid zich gelijkmatig over een bol verspreidt?
+      antwoord: |-
+        $I \approx 408\,d^{-2{,}02}$; $-2$
+      uitwerking: |-
+        Regressierechte van $\ln I$ op $\ln d$: $Y \approx -2{,}018X + 6{,}011$, dus $p \approx -2{,}02$ en $c \approx 408$. De energie verspreidt zich over een boloppervlak $4\pi d^2$: $I$ is evenredig met $d^{-2}$.
+    - opgave: |-
+        Waarom liggen de punten op dubbellogaritmisch papier op gelijke afstanden?
+      antwoord: |-
+        $d$ verdubbelt telkens
+      uitwerking: |-
+        De afstanden 1, 2, 4, 8, 16 zijn telkens een factor 2: op een logaritmische as gelijke stappen $\log 2$.
+    - opgave: |-
+        Hoeveel keer kleiner is de intensiteit op 10 m dan op 1 m, volgens het model en volgens de theorie?
+      antwoord: |-
+        $\approx 104$ en $100$ keer
+      uitwerking: |-
+        Model: $10^{2{,}018} \approx 104$. Theorie: $10^2 = 100$.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    radioactief verval
+  opgave: |-
+    Een geigerteller telt het aantal tikken per minuut bij een radioactieve bron, om de tien minuten.
+
+    \smallskip
+    {\centering\kleinetabel[$t$ (min)][tikken/min]{6}{0 & 10 & 20 & 30 & 40 & 50}{980 & 705 & 520 & 370 & 268 & 195}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal een exponentieel model en de halveringstijd van de bron.
+      antwoord: |-
+        $y \approx 980 \cdot 0{,}968^t$; $\approx 21{,}4$ min
+      uitwerking: |-
+        Regressierechte van $\ln y$ op $t$: $Y \approx -0{,}03233t + 6{,}888$. $g \approx 0{,}968$, $c \approx 980$. Halveringstijd $\frac{\ln 2}{0{,}03233} \approx 21{,}4$ min.
+    - opgave: |-
+        Na hoeveel tijd telt de teller minder dan 10 tikken per minuut?
+      antwoord: |-
+        na $\approx 142$ min
+      uitwerking: |-
+        $980 \cdot \e^{-0{,}03233t} < 10 \iff t > \frac{\ln 98}{0{,}03233} \approx 142$ min. In werkelijkheid telt de teller ook achtergrondstraling, dus dat wordt een ondergrens.
+    - opgave: |-
+        Teken de punten op enkellogaritmisch papier, en lees de halveringstijd af.
+      antwoord: |-
+        van 980 naar 490 duurt ongeveer 21 min
+      uitwerking: |-
+        Op het papier zijn alle halveringen even lang: van 980 naar 490 en van 490 naar 245 telkens ongeveer 21 minuten.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hartslag en lichaamsmassa
+  prent:
+    naam: bij
+  opgave: |-
+    Grote dieren hebben een tragere hartslag. De tabel geeft ronde waarden voor de hartslag in rust (slagen per minuut) bij een muis, een rat, een kat, een hond, een mens, een paard en een olifant, met hun massa $m$ (in kg). De waarden zijn verzonnen, maar realistisch.
+
+    \smallskip
+    {\centering\kleinetabel[$m$ (kg)][hartslag]{7}{0{,}02 & 0{,}3 & 4 & 25 & 70 & 500 & 4000}{620 & 300 & 150 & 90 & 72 & 42 & 25}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal een machtsverband.
+      antwoord: |-
+        $y \approx 218\,m^{-0{,}264}$
+      uitwerking: |-
+        Regressierechte van $\ln y$ op $\ln m$: $Y \approx -0{,}2636X + 5{,}384$. $p \approx -0{,}264$ en $c \approx 218$.
+    - opgave: |-
+        Biologen vinden een exponent van ongeveer $-\frac14$. Wat betekent dat bij een dier dat 16 keer zwaarder is?
+      antwoord: |-
+        de hartslag halveert
+      uitwerking: |-
+        $16^{-1/4} = \frac12$.
+    - opgave: |-
+        Een bij heeft een massa van ongeveer 0,1~g. Voorspel haar hartslag. Vertrouw je die voorspelling?
+      antwoord: |-
+        $\approx 2500$ per minuut; nee
+      uitwerking: |-
+        $218 \cdot 0{,}0001^{-0{,}264} \approx 2470$, ongeveer 2500 per minuut. Dat is een sterke extrapolatie, en een insect heeft een heel ander hart dan een zoogdier: het model geldt alleen voor zoogdieren.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    soorten op eilanden
+  opgave: |-
+    Op vijf eilanden van een archipel telt een bioloog het aantal soorten vogels $S$, bij een oppervlakte $A$ (in km$^2$).
+
+    \smallskip
+    {\centering\kleinetabel[$A$ (km$^2$)][$S$]{5}{1 & 10 & 100 & 1000 & 10\,000}{9 & 16 & 32 & 58 & 95}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is een exponentieel model hier onbruikbaar? Kijk naar de $x$-waarden.
+      antwoord: |-
+        $S$ groeit met een factor bij een factor 10 in $A$
+      uitwerking: |-
+        $A$ wordt telkens 10 keer zo groot, en $S$ wordt telkens ongeveer 1,8 keer zo groot: een vaste factor bij een vaste factor in $A$, typisch voor een machtsverband. Een exponentieel model geeft $r^2 \approx 0{,}53$.
+    - opgave: |-
+        Bepaal een machtsverband $S = cA^z$.
+      antwoord: |-
+        $S \approx 9{,}1A^{0{,}26}$
+      uitwerking: |-
+        Regressierechte van $\ln S$ op $\ln A$: $Y \approx 0{,}2606X + 2{,}210$. $z \approx 0{,}26$ en $c \approx 9{,}1$.
+    - opgave: |-
+        Hoeveel keer zo groot moet een eiland zijn voor dubbel zoveel soorten?
+      antwoord: |-
+        ongeveer 14 keer
+      uitwerking: |-
+        $k^{0{,}2606} = 2 \iff k = 2^{1/0{,}2606} \approx 14{,}3$.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een logaritmisch model
+  opgave: |-
+    Een leerling oefent een computerspel en noteert haar score na een aantal uren oefenen.
+
+    \smallskip
+    {\centering\kleinetabel[uren $x$][score $y$]{5}{1 & 2 & 4 & 8 & 16}{40 & 52 & 63 & 75 & 86}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat merk je op als het aantal uren verdubbelt? Welk model past?
+      antwoord: |-
+        de score stijgt telkens met ongeveer 11,5; logaritmisch
+      uitwerking: |-
+        Bij elke verdubbeling stijgt de score met 12, 11, 12, 11: een vaste toename bij een vaste factor in $x$. Dat is $y = A\ln x + B$.
+    - opgave: |-
+        Bepaal het model met de regressierechte van $y$ op $\ln x$. Controleer met \texttt{LnReg}.
+      antwoord: |-
+        $y \approx 16{,}6\ln x + 40{,}2$
+      uitwerking: |-
+        $\ln x$: $0$; $0{,}693$; $1{,}386$; $2{,}079$; $2{,}773$ (gelijke stappen). Regressierechte: $A \approx 16{,}59$ en $B = 40{,}2$, met $r^2 \approx 0{,}9998$.
+    - opgave: |-
+        Hoeveel uur moet ze oefenen voor een score van 100?
+      antwoord: |-
+        $\approx 37$ uur
+      uitwerking: |-
+        $16{,}59\ln x + 40{,}2 = 100 \iff \ln x = 3{,}60 \iff x \approx 36{,}7$ uur. Elke extra verbetering kost dus steeds meer oefening.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    residuen in y en in ln y
+  opgave: |-
+    Neem de bacteriën van voorbeeld \ref{vb:h3-exp}, met het model $\yhat \approx 100{,}5 \cdot 1{,}50^x$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de residuen $y_i - \yhat_i$ en de relatieve fouten $\frac{y_i - \yhat_i}{\yhat_i}$.
+      antwoord: |-
+        residuen tussen $-4{,}8$ en $3{,}6$; relatief tussen $-0{,}6~\%$ en $1{,}6~\%$
+      uitwerking: |-
+        Voorspellingen ongeveer $100{,}5$; $150{,}9$; $226{,}4$; $339{,}7$; $509{,}7$; $764{,}8$. Residuen $-0{,}5$; $-0{,}9$; $3{,}6$; $0{,}3$; $0{,}3$; $-4{,}8$. Relatief: $-0{,}5~\%$; $-0{,}6~\%$; $1{,}6~\%$; $0{,}1~\%$; $0{,}1~\%$; $-0{,}6~\%$.
+    - opgave: |-
+        Vergelijk de relatieve fouten met de residuen van $\ln y$ uit de regressie: $-0{,}0054$; $-0{,}0058$; $0{,}0159$; $0{,}0010$; $0{,}0006$; $-0{,}0063$.
+      antwoord: |-
+        bijna gelijk
+      uitwerking: |-
+        De residuen van $\ln y$ zijn bijna gelijk aan de relatieve fouten. De transformatie meet dus relatieve fouten.
+    - opgave: |-
+        Welk punt zou de grootste invloed hebben bij de kleinste kwadraten op $y$ zelf? Waarom is dat hier ongewenst?
+      antwoord: |-
+        het laatste
+      uitwerking: |-
+        Het grootste residu in $y$ hoort bij 760: met de kwadraten op $y$ trekt dat punt het hardst aan het model, alleen omdat het aantal groot is. Een telling van 760 heeft in absolute waarde ook een grotere meetfout dan een telling van 100.
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gelijke stappen en een vaste factor
+  opgave: |-
+    Neem $x$-waarden op gelijke afstanden: $x_k = x_0 + kh$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan: liggen de punten op $y = c \cdot g^x$, dan vormen de $y_k$ een meetkundige rij. Wat is de reden?
+      antwoord: |-
+        reden $g^h$
+      uitwerking: |-
+        $\frac{y_{k+1}}{y_k} = \frac{c\,g^{x_0 + (k+1)h}}{c\,g^{x_0 + kh}} = g^h$, voor elke $k$.
+    - opgave: |-
+        Toon omgekeerd aan: is $(y_k)$ een meetkundige rij met positieve termen, dan liggen de punten $(x_k, y_k)$ op een exponentiële kromme.
+      antwoord: |-
+        neem $g = q^{1/h}$
+      uitwerking: |-
+        Stel $y_k = y_0 q^k$ met $q > 0$. Neem $g = q^{1/h}$ en $c = y_0 g^{-x_0}$. Dan is $c \cdot g^{x_k} = y_0 g^{x_k - x_0} = y_0 g^{kh} = y_0 q^k = y_k$.
+    - opgave: |-
+        Gebruik dat om zonder regressie na te gaan of $2$; $3$; $4{,}5$; $6{,}75$ bij $x = 0, 2, 4, 6$ op een exponentiële kromme ligt, en bepaal ze.
+      antwoord: |-
+        ja: $y = 2 \cdot 1{,}5^{x/2} \approx 2 \cdot 1{,}225^x$
+      uitwerking: |-
+        De quotiënten zijn telkens $1{,}5$: een meetkundige rij met $h = 2$. Dus $g = 1{,}5^{1/2} \approx 1{,}225$ en $c = 2$.
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het grondtal van de logaritme
+  opgave: |-
+    Toon aan dat de keuze tussen $\ln$ en $\log$ het model niet verandert.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bij een machtsverband: toon aan dat de helling van de regressierechte van $\log y$ op $\log x$ dezelfde is als die van $\ln y$ op $\ln x$.
+      antwoord: |-
+        beide variabelen worden met $\ln 10$ vermenigvuldigd
+      uitwerking: |-
+        $\ln u = \ln 10 \cdot \log u$. Met $X' = \ln 10 \cdot X$ en $Y' = \ln 10 \cdot Y$ worden $\Sxy$ en $\Sxx$ allebei met $(\ln 10)^2$ vermenigvuldigd: het quotiënt verandert niet.
+    - opgave: |-
+        Bij een exponentieel model: hoe hangen de hellingen van $\log y$ op $x$ en van $\ln y$ op $x$ samen? Is $g$ dezelfde?
+      antwoord: |-
+        $A_{\ln} = \ln 10 \cdot A_{\log}$; ja
+      uitwerking: |-
+        Alleen $Y$ wordt met $\ln 10$ vermenigvuldigd, dus ook de helling en het snijpunt. Met $\log$ is $g = 10^{A_{\log}}$, met $\ln$ is $g = \e^{A_{\ln}} = \e^{\ln 10 \cdot A_{\log}} = 10^{A_{\log}}$: dezelfde.
+    - opgave: |-
+        En $c$?
+      antwoord: |-
+        ook dezelfde
+      uitwerking: |-
+        Op dezelfde manier: $c = 10^{B_{\log}} = \e^{B_{\ln}}$.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    door welk punt gaat het model?
+  opgave: |-
+    De regressierechte van $\ln y$ op $x$ gaat door het gemiddelde punt $(\xbar, \overline{Y})$, met $\overline{Y}$ het gemiddelde van de $\ln y_i$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de exponentiële kromme $y = \e^B \e^{Ax}$ door het punt $(\xbar, \e^{\overline{Y}})$ gaat.
+      antwoord: |-
+        $\e^{A\xbar + B} = \e^{\overline{Y}}$
+      uitwerking: |-
+        $A\xbar + B = \overline{Y}$, dus $\e^B\e^{A\xbar} = \e^{\overline{Y}}$.
+    - opgave: |-
+        Toon aan dat $\e^{\overline{Y}} = \sqrt[n]{y_1 y_2 \cdots y_n}$, het meetkundig gemiddelde van de $y_i$.
+      antwoord: |-
+        rekenregels van $\ln$
+      uitwerking: |-
+        $\overline{Y} = \frac1n(\ln y_1 + \cdots + \ln y_n) = \ln (y_1 \cdots y_n)^{1/n}$.
+    - opgave: |-
+        Bereken voor de bacteriën het meetkundig en het rekenkundig gemiddelde. Door welk van de twee gaat het model bij $\xbar = 2{,}5$?
+      antwoord: |-
+        $\approx 277$ en $\approx 348$; het meetkundige
+      uitwerking: |-
+        Meetkundig $\approx 277{,}3$, rekenkundig $\approx 348{,}3$. Het model geeft $100{,}54 \cdot 1{,}5005^{2{,}5} \approx 277{,}3$. Het model gaat dus niet door het gewone gemiddelde punt: dat ligt boven de kromme, die hol is.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een onbekende asymptoot
+  opgave: |-
+    Bij de koffie van opdracht \ref{oef:h3-o10} kende je de kamertemperatuur 20~°C. Stel dat je ze niet kent: het model is $T = K + c \cdot g^t$, met een onbekende $K$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom kun je $K$, $c$ en $g$ niet met één lineaire regressie vinden?
+      antwoord: |-
+        $\ln(T - K)$ hangt af van de onbekende $K$
+      uitwerking: |-
+        Je moet eerst $K$ aftrekken voor je de logaritme neemt. Zolang $K$ onbekend is, ken je de getransformeerde gegevens niet.
+    - opgave: |-
+        Probeer $K = 15$, $K = 20$ en $K = 25$: bereken telkens $r^2$ van de regressierechte van $\ln(T - K)$ op $t$. Welke $K$ past het best?
+      antwoord: |-
+        $K = 20$ geeft de hoogste $r^2$
+      uitwerking: |-
+        Met ICT: $K = 15$ geeft $r^2 \approx 0{,}99968$, $K = 20$ geeft $r^2 \approx 0{,}99999$, $K = 25$ geeft $r^2 \approx 0{,}99955$. Alle drie zijn hoog, maar bij $K = 20$ is de kwadratensom van de residuen 30 tot 70 keer kleiner. Bij $K = 15$ buigen de punten de ene kant op, bij $K = 25$ de andere.
+    - opgave: |-
+        Beschrijf een methode om $K$ nauwkeuriger te bepalen.
+      antwoord: |-
+        $K$ stap voor stap verfijnen
+      uitwerking: |-
+        Bereken $r^2$ (of de kwadratensom van de residuen) als functie van $K$, en zoek het maximum met steeds kleinere stappen, zoals bij een numerieke methode. Een rekenblad met een oplosser doet dat automatisch.
+
+- id: h3-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de wet van Kepler toetsen
+  opgave: |-
+    Na Kepler vond men nog planeten en dwergplaneten. Gebruik het model $T = a^{1{,}5}$ uit voorbeeld \ref{vb:h3-terug}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Uranus staat gemiddeld op 19,19 AE van de zon, Neptunus op 30,07 AE. Voorspel hun omlooptijd. (De gemeten waarden zijn ongeveer 84,0 en 164,8 jaar.)
+      antwoord: |-
+        $\approx 84{,}1$ en $\approx 164{,}9$ jaar
+      uitwerking: |-
+        $19{,}19^{1{,}5} \approx 84{,}1$ en $30{,}07^{1{,}5} \approx 164{,}9$ jaar: de wet geldt ook voor planeten die Kepler niet kende.
+    - opgave: |-
+        De komeet van Halley heeft een omlooptijd van ongeveer 76 jaar. Bereken de halve lange as van haar baan.
+      antwoord: |-
+        $\approx 17{,}9$ AE
+      uitwerking: |-
+        $a = T^{2/3} = 76^{2/3} \approx 17{,}9$ AE. De wet geldt voor elke baan rond de zon, ook voor een sterk uitgerekte ellips.
+    - opgave: |-
+        Waarom is het snijpunt van de regressierechte van $\ln T$ op $\ln a$ zo dicht bij 0? Wat wordt het als je $a$ in miljoen km uitdrukt (1 AE $\approx 149{,}6$ miljoen km)?
+      antwoord: |-
+        door de keuze van de eenheden; $B \approx -7{,}51$
+      uitwerking: |-
+        Voor de aarde is $a = 1$ en $T = 1$, dus $\ln T = 0$ bij $\ln a = 0$. In miljoen km is $a' = 149{,}6\,a$, en $T = a^{1{,}5} = (a'/149{,}6)^{1{,}5}$: het snijpunt wordt $-1{,}5\ln 149{,}6 \approx -7{,}51$; de helling blijft $1{,}5$.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 1
+  koppel:
+    rubriek: discreet
+    onderwerp: Rijen
+  thema: |-
+    meetkundige rij op logaritmisch papier
+  opgave: |-
+    Een meetkundige rij heeft eerste term $u_1 = 5$ en reden $q = 3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $u_n$ als een exponentieel verband in $n$.
+      antwoord: |-
+        $u_n = \frac53 \cdot 3^n$
+      uitwerking: |-
+        $u_n = 5 \cdot 3^{n - 1} = \frac53 \cdot 3^n$: $c = \frac53$ en $g = 3$.
+    - opgave: |-
+        Waarom liggen de punten $(n, u_n)$ op enkellogaritmisch papier op een rechte? Wat is de helling als je $\log u_n$ gebruikt?
+      antwoord: |-
+        $\log u_n = \log\frac53 + n\log 3$; helling $\log 3 \approx 0{,}477$
+      uitwerking: |-
+        $\log u_n$ is een eerstegraadsfunctie van $n$, met helling $\log 3$: de rij van de logaritmen is een rekenkundige rij met verschil $\log 3$.
+    - opgave: |-
+        En een rekenkundige rij: op welk papier is die een rechte?
+      antwoord: |-
+        op gewoon papier
+      uitwerking: |-
+        $u_n = u_1 + (n - 1)v$ is een eerstegraadsfunctie van $n$.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Limieten en afgeleiden
+  thema: |-
+    relatieve veranderingen
+  opgave: |-
+    Neem $f(x) = c \cdot x^p$ en $h(x) = c \cdot g^x$, met $c > 0$ en $x > 0$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\dfrac{f'(x)}{f(x)} = \dfrac{p}{x}$ en $\dfrac{h'(x)}{h(x)} = \ln g$.
+      antwoord: |-
+        afleiden
+      uitwerking: |-
+        $f'(x) = cpx^{p - 1}$, dus $\frac{f'(x)}{f(x)} = \frac{p}{x}$. $h'(x) = c\,g^x\ln g$, dus $\frac{h'(x)}{h(x)} = \ln g$.
+    - opgave: |-
+        Leg uit: bij een exponentieel verband is de relatieve groei per eenheid $x$ constant; bij een machtsverband is de relatieve verandering van $y$ gedeeld door de relatieve verandering van $x$ constant.
+      antwoord: |-
+        $\frac{h'}{h} = \ln g$ en $\frac{f'/f}{1/x} = p$
+      uitwerking: |-
+        $\frac{h'(x)}{h(x)}$ hangt niet van $x$ af. Bij $f$ is $\frac{f'(x)/f(x)}{1/x} = p$: een kleine verandering van 1~\% in $x$ geeft ongeveer $p$~\% in $y$.
+    - opgave: |-
+        Hoeveel procent stijgt de omlooptijd van een planeet ongeveer als haar afstand tot de zon met 2~\% toeneemt?
+      antwoord: |-
+        ongeveer 3~\%
+      uitwerking: |-
+        $T = a^{1{,}5}$: $p = 1{,}5$, dus ongeveer $1{,}5 \cdot 2~\% = 3~\%$. Exact: $1{,}02^{1{,}5} \approx 1{,}0301$.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Exponentiële en logaritmische functies
+  thema: |-
+    decibel en afstand
+  opgave: |-
+    Het geluidsniveau is $L = 10\log\frac{I}{I_0}$ (in dB). Neem de luidspreker van opdracht \ref{oef:h3-o12}, met $I = c\,d^{-2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $L = L_1 - 20\log d$, met $L_1$ het niveau op 1 m.
+      antwoord: |-
+        $\log d^{-2} = -2\log d$
+      uitwerking: |-
+        $L = 10\log\frac{c}{I_0} + 10\log d^{-2} = L_1 - 20\log d$.
+    - opgave: |-
+        Welk soort verband is er tussen $L$ en $d$, en op welk papier is het een rechte?
+      antwoord: |-
+        logaritmisch; enkellogaritmisch met de $x$-as logaritmisch
+      uitwerking: |-
+        $L$ is een eerstegraadsfunctie van $\log d$: een logaritmisch model.
+    - opgave: |-
+        Hoeveel dB daalt het niveau bij elke verdubbeling van de afstand?
+      antwoord: |-
+        $\approx 6$ dB
+      uitwerking: |-
+        $20\log 2 \approx 6{,}0$ dB.
+
+# ---------------------------------------------------------------- test
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal een exponentieel model voor $(0;\ 5{,}0)$, $(1;\ 7{,}4)$, $(2;\ 11{,}3)$, $(3;\ 16{,}8)$, $(4;\ 25{,}1)$ met de regressierechte van $\ln y$ op $x$. Met hoeveel procent groeit $y$ per stap?
+  antwoord: |-
+    $y \approx 4{,}99 \cdot 1{,}499^x$; ongeveer 50~\%
+  uitwerking: |-
+    $\ln y$: $1{,}609$; $2{,}001$; $2{,}425$; $2{,}821$; $3{,}223$. Regressierechte $Y \approx 0{,}4047x + 1{,}607$. $g = \e^{0{,}4047} \approx 1{,}499$ en $c = \e^{1{,}607} \approx 4{,}99$.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een regressie geeft $\ln y \approx -0{,}105t + 4{,}38$. Schrijf het exponentiële model, en bereken de halveringstijd.
+  antwoord: |-
+    $y \approx 79{,}8 \cdot 0{,}900^t$; $\approx 6{,}6$
+  uitwerking: |-
+    $g = \e^{-0{,}105} \approx 0{,}900$ en $c = \e^{4{,}38} \approx 79{,}8$. Halveringstijd $\frac{\ln 2}{0{,}105} \approx 6{,}6$.
+
+- id: h3-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Op enkellogaritmisch papier gaat een rechte door $(1, 6)$ en $(3, 54)$. Bepaal het exponentiële verband. Waarom is het een rechte?
+  antwoord: |-
+    $y = 2 \cdot 3^x$
+  uitwerking: |-
+    $g^2 = \frac{54}{6} = 9$, dus $g = 3$, en $c \cdot 3 = 6$, dus $c = 2$. Het is een rechte omdat $\log y = \log 2 + x\log 3$ een eerstegraadsfunctie van $x$ is.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepaal een machtsverband voor $(1;\ 3{,}0)$, $(2;\ 5{,}1)$, $(4;\ 9{,}0)$, $(8;\ 15{,}6)$. Wat gebeurt er met $y$ als $x$ verdubbelt?
+  antwoord: |-
+    $y \approx 2{,}98\,x^{0{,}80}$; $y$ wordt $\approx 1{,}74$ keer zo groot
+  uitwerking: |-
+    Regressierechte van $\ln y$ op $\ln x$: $Y \approx 0{,}7955X + 1{,}091$, dus $p \approx 0{,}80$ en $c = \e^{1{,}091} \approx 2{,}98$. Bij een verdubbeling van $x$: $2^{0{,}7955} \approx 1{,}74$.
+
+- id: h3-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Op dubbellogaritmisch papier gaat een rechte door $(1;\ 0{,}5)$ en $(100, 500)$. Bepaal het machtsverband.
+  antwoord: |-
+    $y = 0{,}5x^{1{,}5}$
+  uitwerking: |-
+    $c = 0{,}5$ en $p = \frac{\log 500 - \log 0{,}5}{\log 100} = \frac{3}{2}$.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een leerling tekent haar gegevens op drie manieren: $(x, y)$ is een kromme, $(x, \ln y)$ is een kromme die afbuigt, en $(\ln x, \ln y)$ ligt op een rechte met helling $-0{,}5$ en snijpunt $2$. Welk model past? Schrijf het op.
+  antwoord: |-
+    een machtsverband: $y \approx 7{,}39\,x^{-0{,}5}$
+  uitwerking: |-
+    Een rechte tussen $\ln x$ en $\ln y$ betekent een machtsverband $y = c \cdot x^p$ met $p = -0{,}5$ en $c = \e^2 \approx 7{,}39$.
+
+- id: h3-t7
+  soort: test
+  niveau: 3
+  opgave: |-
+    Toon aan: liggen de punten $(x_i, \ln y_i)$ op de rechte $Y = Ax + B$, dan liggen de punten $(x_i, y_i)$ op een exponentiële kromme. Druk $c$ en $g$ uit in $A$ en $B$.
+  antwoord: |-
+    $c = \e^B$, $g = \e^A$
+  uitwerking: |-
+    $\ln y_i = Ax_i + B \iff y_i = \e^{Ax_i + B} = \e^B(\e^A)^{x_i}$. Dus $y = c \cdot g^x$ met $c = \e^B > 0$ en $g = \e^A > 0$.

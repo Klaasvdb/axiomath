@@ -1,0 +1,89 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS KROMMEN EN MEETKUNDIGE PLAATSEN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\dt}{\,\mathrm{d}t}
+% Afstand van een punt tot een punt of een rechte: \afst{P}{l} geeft d(P, l)
+\newcommand{\afst}[2]{d(#1, #2)}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster met assen: \rooster{xmin}{xstap}{xmax}{ymin}{ystap}{ymax}, met getallen op de assen (gehele waarden).
+% \roosterleeg doet hetzelfde zonder getallen, voor eigen labels.
+\newcommand{\roosterleeg}[6]{%
+  \draw[black!14,very thin,xstep=#2,ystep=#5] (#1,#4) grid (#3,#6);
+  \draw[->,grijs] (#1,0) -- ({#3+.4*#2},0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,#4) -- (0,{#6+.4*#5}) node[above,text=black] {$y$};}
+\newcommand{\rooster}[6]{%
+  \roosterleeg{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathtruncatemacro{\rtweex}{#1+#2}\pgfmathtruncatemacro{\rtweey}{#4+#5}
+  \foreach \t in {#1,\rtweex,...,#3}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#4,\rtweey,...,#6}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+% Assen zonder rooster: \assen{xmin}{xmax}{ymin}{ymax}, en een grafiek: \kromme[opties]{van}{tot}{voorschrift in \x}
+\newcommand{\assen}[4]{%
+  \draw[->,lijngrijs] (#1,0) -- (#2,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,#3) -- (0,#4) node[above,text=black] {$y$};}
+\newcommand{\kromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=90,smooth] (\x,{#4});}
+
+%----------------------------------------------------------------------------------------
+% KROMMEN
+%----------------------------------------------------------------------------------------
+% Een kromme met een parametervoorstelling: \pkromme[opties]{tmin}{tmax}{x(\t)}{y(\t)}.
+% TikZ rekent sin en cos in graden: schrijf sin(\t r) als t in radialen loopt, of laat t in graden lopen.
+\newcommand{\pkromme}[5][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=150,smooth,variable=\t] ({#4},{#5});}
+% Een kromme met een poolvergelijking r = f(theta): \poolkromme[opties]{van}{tot}{r(\t)}, met \t in graden.
+\newcommand{\poolkromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=180,smooth,variable=\t] ({(#4)*cos(\t)},{(#4)*sin(\t)});}
+% Poolrooster: \poolrooster{rmax}{rstap}: cirkels om de rstap en halfrechten om de 30 graden, met de poolas.
+\newcommand{\poolrooster}[2]{%
+  \pgfmathtruncatemacro{\nring}{round(#1/#2)}%
+  \foreach \i in {1,...,\nring}{\draw[black!14,very thin] (0,0) circle ({\i*#2});}
+  \foreach \hk in {30,60,...,360}{\draw[black!14,very thin] (0,0) -- (\hk:#1);}
+  \draw[->,grijs] (0,0) -- ({#1+.45},0);
+  \fill (0,0) circle (1.3pt);}
+% Poolrooster met de hoeken erbij (in radialen): \poolroosterhoeken{rmax}{rstap}
+\newcommand{\poolroosterhoeken}[2]{%
+  \poolrooster{#1}{#2}
+  \foreach \hk/\nm in {30/\frac{\pi}{6},60/\frac{\pi}{3},90/\frac{\pi}{2},120/\frac{2\pi}{3},150/\frac{5\pi}{6},180/\pi,
+    210/\frac{7\pi}{6},240/\frac{4\pi}{3},270/\frac{3\pi}{2},300/\frac{5\pi}{3},330/\frac{11\pi}{6}}{%
+    \node[text=grijs,font=\tiny,inner sep=1pt] at (\hk:{#1+.32}) {$\nm$};}}
+% Een punt als stip met label: \stip[positie]{x}{y}{label}
+\newcommand{\stip}[4][above right]{\fill (#2,#3) circle (1.5pt) node[#1,inner sep=1.5pt] {#4};}
+% Een rechte als lijn door twee punten, verlengd: \rechte[opties]{x1}{y1}{x2}{y2}
+\newcommand{\rechte}[5][]{\draw[lijngrijs,thick,shorten <=-2mm,shorten >=-2mm,#1] (#2,#3) -- (#4,#5);}

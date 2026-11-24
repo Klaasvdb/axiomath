@@ -1,0 +1,512 @@
+%----------------------------------------------------------------------------------------
+% EIGENWAARDEN EN EIGENVECTOREN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Eigenwaarden en eigenvectoren}
+
+\begin{probleem}
+\naast{Een tekenprogramma vervormt een tekening met de afbeelding
+\[ f(x, y) = (3x - y,\ 2x) . \]
+Het grijze huisje wordt het gekleurde. Bijna elke rechte door de oorsprong draait daarbij weg: de onderkant van het huisje lag op de $x$-as, maar zijn beeld niet meer.
+
+Zijn er rechten door de oorsprong die op zichzelf terechtkomen? Hoeveel zijn het er, en wat gebeurt er met de punten erop?}{\begin{tikzpicture}[scale=.78,font=\scriptsize]
+  \rooster{-1}{1}{3}{-1}{1}{2}
+  \fill[black!12] (0,0) -- (1,0) -- (1,1) -- (.5,1.5) -- (0,1) -- cycle;
+  \draw[grijs,thick,line join=round] (0,0) -- (1,0) -- (1,1) -- (.5,1.5) -- (0,1) -- cycle;
+  \fill[accent,opacity=.18] (0,0) -- (3,2) -- (2,2) -- (0,1) -- (-1,0) -- cycle;
+  \draw[accent,very thick,line join=round] (0,0) -- (3,2) -- (2,2) -- (0,1) -- (-1,0) -- cycle;
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 30 (eigenwaarden en eigenvectoren van vierkante matrices berekenen), met de wenk over de karakteristieke veelterm $\det(A - \lambda I_n)$. Voorkennis uit pakket 4: Matrices (product, inverse, determinant van een $2 \times 2$- en $3 \times 3$-matrix, Gauss-Jordan, de stelling over rang, determinant en inverse) en Complexe getallen (hoofdstuk 2: tweedegraadsvergelijkingen met een negatieve discriminant, toegevoegde oplossingen). Vectorruimten (lineaire afbeelding, kern, deelruimte, basis) helpt, maar is niet nodig: wat we eruit gebruiken, staat er kort bij. Multivariate statistiek voert eigenwaarden in voor symmetrische $2 \times 2$-matrices, met dezelfde definitie en notatie. Extra's: complexe eigenwaarden en het verband met spoor en determinant.}
+
+In de cursus Matrices was een matrix een tabel om mee te rekenen. Maar een vierkante matrix doet ook iets: ze beeldt elke vector $X$ af op een vector $AX$. Zo'n afbeelding draait de meeste vectoren weg. In dit hoofdstuk zoeken we de uitzonderingen: de vectoren die alleen langer, korter of omgekeerd worden. Die \textit{eigenvectoren} vertellen het belangrijkste over een matrix, en in de volgende hoofdstukken voorspellen ze hoe een populatie groeit en waar een evolutie stopt.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat de Verken maken vóór de uitleg. Leerlingen ontdekken zelf dat sommige vectoren een veelvoud van zichzelf worden, en vinden zo de twee rechten uit het probleem. De laatste vraag mag een vermoeden blijven: het antwoord volgt in sectie 2.}
+
+%========================================================================================
+\section{Richtingen die niet draaien}
+
+\subsection{Een matrix als afbeelding}
+
+Schrijf een vector van het vlak als kolom $X = \km{x \\ y}$. De afbeelding van het probleem is dan een product met een matrix:
+\[ f(x, y) = \kol{3x - y \\ 2x} = \kol{3 & -1 \\ 2 & 0}\kol{x \\ y} = AX . \]
+De kolommen van $A$ zijn de beelden van $(1, 0)$ en $(0, 1)$. Zo'n afbeelding heet \textit{lineair}: ze beeldt een som af op de som van de beelden, en een veelvoud op hetzelfde veelvoud van het beeld (zie ook de cursus Vectorruimten). Een rechte door de oorsprong gaat dus naar een rechte door de oorsprong (of naar de oorsprong zelf), want het beeld van $t\vec v$ is $t \cdot A\vec v$. Maar meestal niet naar dezelfde rechte.
+
+Hoe vind je de rechten die blijven? Een eerste poging: neem een rechte $y = mx$, met richtingsvector $(1, m)$. Het beeld van die vector is $A\km{1 \\ m} = \km{3 - m \\ 2}$. Dat ligt op dezelfde rechte als de $y$-coördinaat $m$ keer de $x$-coördinaat is:
+\[ 2 = m(3 - m) \iff m^2 - 3m + 2 = 0 \iff m = 1 \ \text{of} \ m = 2 . \]
+De rechten $y = x$ en $y = 2x$ blijven dus op hun plaats. Maar de methode heeft gebreken. De verticale rechte $x = 0$ heeft geen richtingscoëfficiënt: die moet je apart nakijken. En in de ruimte heeft een rechte door de oorsprong twee getallen nodig in plaats van één $m$, zodat de vergelijking veel lastiger wordt. Beter is het om meteen te zeggen wat we zoeken: een vector $\vec v$ waarvan het beeld een veelvoud is van $\vec v$ zelf.
+
+\subsection{Eigenvector en eigenwaarde}
+
+\begin{theorie}
+Een vector $\vec v \neq \nulv$ is een \textbf{\textcolor{accent}{eigenvector}} van een vierkante matrix $A$ als er een getal $\lambda$ is met
+
+\vspace{1mm}
+\qquad $\formule{A\vec v = \lambda\vec v}$
+
+\vspace{1mm}
+Het getal $\lambda$ is dan een \textbf{\textcolor{accent}{eigenwaarde}} van $A$, en $\vec v$ is een eigenvector \textbf{\textcolor{accent}{bij}} $\lambda$.
+\end{theorie}
+
+Het woord komt uit het Duits: \textit{eigen} betekent hier \textit{kenmerkend}. De nulvector sluiten we uit, want $A\nulv = \lambda\nulv$ geldt voor elk getal $\lambda$: dan zou elk getal een eigenwaarde zijn. Een eigenwaarde zelf mag wel 0 zijn.
+
+De eigenwaarde zegt wat er met een eigenvector gebeurt. Is $\lambda > 1$, dan wordt $\vec v$ langer; is $0 < \lambda < 1$, dan korter. Een negatieve $\lambda$ keert de pijl om, en bij $\lambda = 0$ wordt $\vec v$ de nulvector. In alle gevallen blijft het beeld op de rechte door $\vec v$.
+
+\figuren{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \l/\t [count=\k from 0] in {2/{\lambda = 2},.5/{\lambda = \tfrac12},-1/{\lambda = -1}}{%
+    \begin{scope}[shift={(\k*4,0)}]
+      \richting{.8}{.4}{2.2}
+      \vpijl{(0,0)}{(.8,.4)}
+      \begin{scope}[shift={(.05,-.12)}]\bpijl{(0,0)}{({.8*\l},{.4*\l})}\end{scope}
+      \fill (0,0) circle (1.5pt);
+      \node at (0,-1.1) {$\t$};
+    \end{scope}}
+  \begin{scope}[shift={(12,0)}]
+    \richting{.8}{.4}{2.2}
+    \vpijl{(0,0)}{(.8,.4)}
+    \fill[fel!85!black] (.05,-.12) circle (2.5pt);
+    \node at (0,-1.1) {$\lambda = 0$};
+  \end{scope}
+\end{tikzpicture}}
+
+\noindent In elke figuur is de donkere pijl $\vec v$ en de felle pijl (er net onder getekend) $A\vec v$. Bij $\lambda = 0$ is $A\vec v$ het felle punt: de nulvector.
+
+\voorbeeld{}{Ga na of $(1, 1)$, $(1, 2)$ en $(1, 0)$ eigenvectoren zijn van $A = \km{3 & -1 \\ 2 & 0}$. Geef telkens de eigenwaarde.\label{vb:h1-check}}{%
+\uitleg{We berekenen het beeld en kijken of het een veelvoud is van de vector zelf, met hetzelfde getal voor beide coördinaten.}
+\begin{stappen}
+A\kol{1 \\ 1} = \kol{2 \\ 2} = 2\kol{1 \\ 1} & Een eigenvector, met eigenwaarde 2. \\[3ex]
+A\kol{1 \\ 2} = \kol{1 \\ 2} = 1\kol{1 \\ 2} & Een eigenvector, met eigenwaarde 1: de vector verandert niet. \\[3ex]
+A\kol{1 \\ 0} = \kol{3 \\ 2} & Geen veelvoud van $(1, 0)$, want de tweede coördinaat is niet 0. Geen eigenvector.
+\end{stappen}}
+
+De twee eigenvectoren liggen op de rechten $y = x$ en $y = 2x$ die we met de poging vonden. De eigenwaarde zegt nu ook wat er op die rechten gebeurt.
+
+\begin{werkwijze}
+Bereken $A\vec v$. Is het een veelvoud $\lambda\vec v$, dan is $\vec v$ een eigenvector bij $\lambda$. Controleer dat je voor elke coördinaat hetzelfde getal $\lambda$ vindt.
+\end{werkwijze}
+
+\nujij{Is $(1, -2)$ een eigenvector van $\km{1 & 1 \\ 4 & 1}$?}{$\km{1 & 1 \\ 4 & 1}\km{1 \\ -2} = \km{-1 \\ 2} = -1 \cdot \km{1 \\ -2}$: ja, met eigenwaarde $-1$.}
+
+\begin{oefeningen}
+\oef{h1-check}
+\end{oefeningen}
+
+\subsection{De eigenruimte}
+
+Is $(1, 1)$ een eigenvector, dan ook $(2, 2)$ en $(-5, -5)$: de hele rechte gaat met factor 2 mee. Dat geldt altijd, en er is meer. Hoe ziet de verzameling van alle eigenvectoren bij één eigenwaarde eruit?
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{eigenruimte}} van $A$ bij de eigenwaarde $\lambda$ is
+
+\vspace{1mm}
+\qquad $\formule{\Eig{\lambda} = \bigl\{\vec v \bigm| A\vec v = \lambda\vec v\bigr\}}$
+
+\vspace{1mm}
+Ze bevat alle eigenvectoren bij $\lambda$, en de nulvector.
+
+\begin{stelling}{De eigenruimte is een deelruimte}
+Liggen $\vec v$ en $\vec w$ in $\Eig{\lambda}$, dan ook $\vec v + \vec w$ en $c\,\vec v$, voor elk getal $c$.
+\end{stelling}
+
+\begin{bewijs}
+Neem $A\vec v = \lambda\vec v$ en $A\vec w = \lambda\vec w$. Met de rekenregels voor het matrixproduct is
+\bewijsregel{A(\vec v + \vec w) = A\vec v + A\vec w = \lambda\vec v + \lambda\vec w = \lambda(\vec v + \vec w) \quad \text{en} \quad A(c\,\vec v) = c\,A\vec v = \lambda(c\,\vec v) .}
+\end{bewijs}
+\end{theorie}
+
+Wie Vectorruimten kent: $\Eig{\lambda}$ is de kern van $A - \lambda I$, want $A\vec v = \lambda\vec v \iff (A - \lambda I)\vec v = \nulv$. Een eigenruimte is dus een rechte door de oorsprong, een vlak door de oorsprong, of nog groter. We zoeken daarom geen losse eigenvectoren, maar een eigenruimte, en daarin een vector met eenvoudige getallen. Soms zie je de eigenruimten zonder te rekenen, als je weet wat de afbeelding meetkundig doet.
+
+\voorbeeld{}{De matrix $S = \km{0 & 1 \\ 1 & 0}$ wisselt de coördinaten: $S(x, y) = (y, x)$. Dat is de spiegeling om de rechte $y = x$. Bepaal zonder te rekenen de eigenwaarden en eigenruimten.\label{vb:h1-meetk}}{%
+\uitleg{We zoeken de rechten door $O$ die de spiegeling op zichzelf afbeeldt, en kijken wat er met de punten erop gebeurt.}
+\naast{\begin{stappenvrij}{4.2cm}{5.2cm}
+\Eig{1} = \bigl\{(t, t)\bigr\} & De spiegelas blijft punt voor punt staan: eigenwaarde 1, met de rechte $y = x$. \\[1ex]
+\Eig{-1} = \bigl\{(t, -t)\bigr\} & De loodlijn op de as gaat naar zichzelf, maar elke vector keert om: eigenwaarde $-1$, met de rechte $y = -x$. \\[1ex]
+\text{geen andere} & Elke andere rechte door $O$ spiegelt naar een andere rechte.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.7,font=\scriptsize]
+  \rooster{-2}{1}{2}{-2}{1}{2}
+  \draw[accent!60,thick] (-2,-2) -- (2.2,2.2) node[right,text=accent] {$\Eig{1}$};
+  \draw[accent!60,thick,dashed] (-2,2) -- (2,-2) node[right,text=accent] {$\Eig{-1}$};
+  \vpijl{(0,0)}{(-1,1)}
+  \bpijl{(0,0)}{(1,-1)}
+  \vpijl{(0,0)}{(1.4,1.4)}
+\end{tikzpicture}}
+Controle: $S\km{1 \\ 1} = \km{1 \\ 1}$ en $S\km{-1 \\ 1} = \km{1 \\ -1} = -\km{-1 \\ 1}$.}
+
+\nujij{Geef zonder te rekenen de eigenwaarden en eigenruimten van $P = \km{1 & 0 \\ 0 & 0}$, de loodrechte projectie op de $x$-as.}{De $x$-as blijft staan: $\Eig{1}$ is de $x$-as. De $y$-as gaat naar de oorsprong: $\Eig{0}$ is de $y$-as.}
+
+\begin{oefeningen}
+\oef{h1-meetk}
+\end{oefeningen}
+
+%========================================================================================
+\section{De karakteristieke veelterm}
+
+\subsection{Eigenwaarden berekenen}
+
+Raden of meetkundig kijken lukt niet altijd. Hoe vind je de eigenwaarden van een willekeurige matrix? Het idee: breng alles naar één kant. Met de eenheidsmatrix $I$ is $\lambda\vec v = \lambda I\vec v$, en dus
+\[ A\vec v = \lambda\vec v \iff A\vec v - \lambda I\vec v = \nulv \iff (A - \lambda I)\vec v = \nulv . \]
+Dat is een homogeen stelsel. Het heeft altijd de oplossing $\vec v = \nulv$, maar die telt niet. We zoeken de getallen $\lambda$ waarvoor er nog andere oplossingen zijn. In de cursus Matrices zag je wanneer dat gebeurt: als de determinant 0 is.
+
+\begin{theorie}
+\begin{stelling}{Karakteristieke vergelijking}
+Het getal $\lambda$ is een eigenwaarde van de $n \times n$-matrix $A$ als en slechts als
+
+\vspace{1mm}
+\qquad $\formule{\det(A - \lambda I_n) = 0}$
+\end{stelling}
+
+\begin{bewijs}
+$\lambda$ is een eigenwaarde als en slechts als $(A - \lambda I_n)\vec v = \nulv$ een oplossing $\vec v \neq \nulv$ heeft, dus als dat stelsel niet bepaald is. Volgens de stelling over rang, determinant en inverse (Matrices, hoofdstuk 3) is een stelsel met een vierkante matrix $M$ bepaald voor elk rechterlid als en slechts als $\det M \neq 0$. Is $\det M \neq 0$, dan is $\vec v = \nulv$ de enige oplossing. Is $\det M = 0$, dan is $\operatorname{rang} M < n$ en heeft $M\vec v = \nulv$ minstens één parameter, dus ook oplossingen $\vec v \neq \nulv$. Neem $M = A - \lambda I_n$.
+\end{bewijs}
+
+\vspace{1mm}
+De \textbf{\textcolor{accent}{karakteristieke veelterm}} van $A$ is \quad $\formule{p_A(\lambda) = \det(A - \lambda I_n)}$
+\end{theorie}
+
+Waarom een veelterm? Op de hoofddiagonaal van $A - \lambda I_n$ staat telkens $a_{ii} - \lambda$, en elders gewoon getallen. De determinant is een som van producten van $n$ elementen, dus een veelterm in $\lambda$. De hoogste macht komt uit het product van de hoofddiagonaal, $(a_{11} - \lambda) \cdots (a_{nn} - \lambda)$: de graad is $n$. Een veelterm van graad $n$ heeft hoogstens $n$ nulwaarden, dus een $n \times n$-matrix heeft hoogstens $n$ eigenwaarden.
+
+\voorbeeld{}{Bereken de eigenwaarden van de matrix $A = \km{3 & -1 \\ 2 & 0}$ uit het probleem.\label{vb:h1-kar}}{%
+\uitleg{We trekken $\lambda$ af van de elementen op de hoofddiagonaal, berekenen de determinant en lossen de vergelijking op.}
+\begin{stappen}
+A - \lambda I = \km{3 - \lambda & -1 \\ 2 & -\lambda} & Alleen de hoofddiagonaal verandert. \\[3ex]
+p_A(\lambda) = (3 - \lambda)(-\lambda) - (-1) \cdot 2 = \lambda^2 - 3\lambda + 2 & De determinant: $ad - bc$. \\[1.5ex]
+\lambda^2 - 3\lambda + 2 = 0 \iff \lambda = 1 \ \text{of} \ \lambda = 2 & De eigenwaarden.
+\end{stappen}
+Dezelfde vergelijking als bij de poging met $y = mx$, maar nu met een betekenis: de oplossingen zijn de factoren waarmee de twee rechten worden vermenigvuldigd.}
+
+\nujij{Bereken de eigenwaarden van $\km{4 & 1 \\ 2 & 3}$.}{$(4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = 0$: $\lambda = 2$ of $\lambda = 5$.}
+
+\begin{oefeningen}
+\oef{h1-kar}
+\end{oefeningen}
+
+\subsection{Eigenvectoren berekenen}
+
+Ken je een eigenwaarde, dan vind je de eigenvectoren door het homogene stelsel $(A - \lambda I)\vec v = \nulv$ op te lossen. Het is altijd onbepaald, want we kozen $\lambda$ net zo dat de determinant 0 is. Bij een $2 \times 2$-matrix zijn de twee vergelijkingen dan veelvouden van elkaar, of allebei $0 = 0$.
+
+\voorbeeld{}{Bereken de eigenwaarden en eigenvectoren van $B = \km{4 & -2 \\ 1 & 1}$.\label{vb:h1-vec}}{%
+\uitleg{Eerst de karakteristieke vergelijking. Daarna lossen we voor elke eigenwaarde apart het stelsel $(B - \lambda I)\vec v = \nulv$ op, met $\vec v = (x, y)$.}
+\begin{stappenbreed}
+(4 - \lambda)(1 - \lambda) + 2 = \lambda^2 - 5\lambda + 6 = 0 \iff \lambda = 2 \ \text{of} \ \lambda = 3 & De eigenwaarden. \\[1.5ex]
+\lambda = 2\colon\ \km{2 & -2 \\ 1 & -1}\kol{x \\ y} = \kol{0 \\ 0} \iff x = y & De tweede rij is de helft van de eerste. \\[3ex]
+\Eig{2} = \bigl\{t(1, 1)\bigr\}, \quad \vec v_1 = (1, 1) & Kies $y = 1$. \\[1.5ex]
+\lambda = 3\colon\ \km{1 & -2 \\ 1 & -2}\kol{x \\ y} = \kol{0 \\ 0} \iff x = 2y & Twee keer dezelfde vergelijking. \\[3ex]
+\Eig{3} = \bigl\{t(2, 1)\bigr\}, \quad \vec v_2 = (2, 1) & Controle: $B\kol{2 \\ 1} = \kol{6 \\ 3} = 3\kol{2 \\ 1}$.
+\end{stappenbreed}}
+
+Er is een snelle manier om bij een $2 \times 2$-matrix een eigenvector af te lezen. Is $(a, b)$ een rij van $A - \lambda I$ die niet nul is, dan is $\vec v = (b, -a)$ een oplossing, want $ab + b(-a) = 0$. In het voorbeeld geeft de rij $(1, -2)$ bij $\lambda = 3$ meteen $\vec v = (-2, -1)$, een veelvoud van $(2, 1)$.
+
+\begin{werkwijze}
+Los $\det(A - \lambda I) = 0$ op. Vul elke eigenwaarde in $A - \lambda I$ in en los $(A - \lambda I)\vec v = \nulv$ op: de oplossingen vormen de eigenruimte. Kies daarin een vector met eenvoudige getallen, en controleer met $A\vec v = \lambda\vec v$. Vind je alleen $\vec v = \nulv$, dan heb je een rekenfout gemaakt.
+\end{werkwijze}
+
+\nujij{Bepaal een eigenvector van $\km{4 & 1 \\ 2 & 3}$ bij de eigenwaarde 5.}{$A - 5I = \km{-1 & 1 \\ 2 & -2}$, dus $x = y$: $\vec v = (1, 1)$.}
+
+\begin{oefeningen}
+\oef{h1-vec}
+\end{oefeningen}
+
+\subsection{Matrices van orde 3}
+
+Bij een $3 \times 3$-matrix is de karakteristieke veelterm van de derde graad. De determinant bereken je zoals in Matrices: door te ontwikkelen naar een rij of kolom, of met de regel van Sarrus. Kies een rij of kolom met veel nullen, dan valt de veelterm vaak al in factoren uiteen.
+
+\voorbeeld{}{Bereken de eigenwaarden en eigenvectoren van $C = \km{2 & 1 & -1 \\ 0 & 4 & 3 \\ 0 & -1 & 0}$.\label{vb:h1-drie}}{%
+\uitleg{De eerste kolom heeft twee nullen. Ontwikkelen naar die kolom geeft meteen een factor $(2 - \lambda)$. Voor de eigenvectoren rijherleiden we $C - \lambda I$.}
+\begin{stappenbreed}
+p_C(\lambda) = (2 - \lambda)\begin{vmatrix} 4 - \lambda & 3 \\ -1 & -\lambda \end{vmatrix} = (2 - \lambda)(\lambda^2 - 4\lambda + 3) & Ontwikkeld naar de eerste kolom. \\[3ex]
+p_C(\lambda) = (2 - \lambda)(\lambda - 1)(\lambda - 3) & De eigenwaarden zijn 1, 2 en 3. \\[1.5ex]
+\lambda = 3\colon\ \km{-1 & 1 & -1 \\ 0 & 1 & 3 \\ 0 & -1 & -3} \to \km{1 & 0 & 4 \\ 0 & 1 & 3 \\ 0 & 0 & 0} & Rijherleiden: $R_3 + R_2$, $R_1 - R_2$ en $-R_1$. \\[5ex]
+x = -4z, \ y = -3z\colon\ \vec v_3 = (-4, -3, 1) & Met $z = 1$. \\[1.5ex]
+\vec v_1 = (2, -1, 1), \quad \vec v_2 = (1, 0, 0) & Op dezelfde manier bij $\lambda = 1$ en $\lambda = 2$.
+\end{stappenbreed}
+Controle: $C\km{-4 \\ -3 \\ 1} = \km{-8 - 3 - 1 \\ -12 + 3 \\ 3} = \km{-12 \\ -9 \\ 3} = 3\km{-4 \\ -3 \\ 1}$.}
+
+Niet elke $3 \times 3$-matrix heeft drie verschillende eigenwaarden. Een eigenwaarde kan twee keer voorkomen als nulwaarde, en dan kan de eigenruimte een vlak zijn.
+
+\voorbeeld{}{Bereken de eigenwaarden en eigenruimten van $D = \km{3 & 0 & 1 \\ 2 & 2 & 2 \\ 1 & 0 & 3}$.\label{vb:h1-dubbel}}{%
+\uitleg{Nu heeft de tweede kolom twee nullen: we ontwikkelen naar die kolom. Het teken van het element op plaats $(2, 2)$ is $+$.}
+\begin{stappenbreed}
+p_D(\lambda) = (2 - \lambda)\begin{vmatrix} 3 - \lambda & 1 \\ 1 & 3 - \lambda \end{vmatrix} = (2 - \lambda)\bigl((3 - \lambda)^2 - 1\bigr) & Ontwikkeld naar de tweede kolom. \\[3ex]
+(3 - \lambda)^2 - 1 = (2 - \lambda)(4 - \lambda) & Een verschil van kwadraten. \\[1.5ex]
+p_D(\lambda) = (2 - \lambda)^2(4 - \lambda) & Eigenwaarden 2 (twee keer) en 4. \\[1.5ex]
+\lambda = 2\colon\ D - 2I = \km{1 & 0 & 1 \\ 2 & 0 & 2 \\ 1 & 0 & 1} \iff x + z = 0 & Drie keer dezelfde vergelijking: twee parameters. \\[5ex]
+\Eig{2} = \bigl\{s(1, 0, -1) + t(0, 1, 0)\bigr\} & Een vlak door $O$, met $y$ vrij. \\[1.5ex]
+\lambda = 4\colon\ \Eig{4} = \bigl\{t(1, 2, 1)\bigr\} & Rijherleid $D - 4I$; controle: $D\kol{1 \\ 2 \\ 1} = \kol{4 \\ 8 \\ 4}$.
+\end{stappenbreed}}
+
+Heeft geen enkele rij of kolom twee nullen, dan rekent de regel van Sarrus de veelterm uit, maar dan moet je zelf een nulwaarde vinden. Zijn alle elementen geheel, dan is $p_A(\lambda) = -\lambda^3 + \ldots + d$ met gehele coëfficiënten, en dan is elke gehele nulwaarde een deler van de constante term $d$. Probeer die delers, en deel de veelterm door $\lambda - r$ met de regel van Horner: er blijft een tweedegraadsveelterm over.
+
+\begin{werkwijze}
+Bereken $p_A(\lambda) = \det(A - \lambda I)$ door te ontwikkelen naar een rij of kolom met veel nullen, en zet factoren zo vroeg mogelijk apart. Lukt dat niet, gebruik dan Sarrus, zoek een nulwaarde tussen de delers van de constante term en deel met Horner. Rijherleid $A - \lambda I$ voor elke eigenwaarde. Het aantal parameters is de dimensie van de eigenruimte.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h1-drie}
+\end{oefeningen}
+
+\subsection{Complexe eigenwaarden}
+
+Heeft elke matrix eigenvectoren? Denk aan de draaiing over $90^\circ$ om de oorsprong, met matrix $R = \km{0 & -1 \\ 1 & 0}$. Elke vector draait een kwart: geen enkele rechte door $O$ komt op zichzelf terecht. De algebra zegt hetzelfde:
+\[ p_R(\lambda) = \lambda^2 + 1 , \]
+en die veelterm heeft geen reële nulwaarden. Toch geeft de vergelijking iets, als je de complexe getallen toelaat: $\lambda = \pm i$. En $R\km{1 \\ -i} = \km{i \\ 1} = i\km{1 \\ -i}$: met complexe coördinaten is er wel een eigenvector. Een draaiing heeft dus geen reële eigenvectoren, maar wel complexe.
+
+\begin{theorie}
+\begin{stelling}{Toegevoegde eigenwaarden}
+Is $A$ een matrix met reële elementen en is $\lambda$ een complexe eigenwaarde met eigenvector $\vec v$, dan is ook $\bar\lambda$ een eigenwaarde, met eigenvector $\bar{\vec v}$:
+
+\vspace{1mm}
+\qquad $\formule{A\vec v = \lambda\vec v \ \Rightarrow \ A\bar{\vec v} = \bar\lambda\bar{\vec v}}$
+\end{stelling}
+
+\begin{bewijs}
+$\bar{\vec v}$ is de vector met de toegevoegde coördinaten. De toegevoegde van een som en een product is de som en het product van de toegevoegden (Complexe getallen, hoofdstuk 1), en een reëel getal is zijn eigen toegevoegde. Neem in elke coördinaat van $A\vec v = \lambda\vec v$ de toegevoegde:
+\bewijsregel{\overline{A\vec v} = A\bar{\vec v} \quad \text{en} \quad \overline{\lambda\vec v} = \bar\lambda\bar{\vec v} , \quad \text{dus} \quad A\bar{\vec v} = \bar\lambda\bar{\vec v} .}
+Omdat $\vec v \neq \nulv$, is ook $\bar{\vec v} \neq \nulv$.
+\end{bewijs}
+\end{theorie}
+
+De complexe eigenwaarden van een reële matrix komen dus in paren, zoals de oplossingen van een vergelijking met reële coëfficiënten. Je hoeft maar één eigenvector te berekenen: de andere is de toegevoegde.
+
+\voorbeeld{}{Bereken de eigenwaarden en eigenvectoren van $A = \km{1 & -2 \\ 1 & 3}$.\label{vb:h1-complex}}{%
+\uitleg{De discriminant blijkt negatief. We rekenen verder in $\mathbb{C}$ en lossen het stelsel op zoals bij reële eigenwaarden, met de snelle manier: uit een rij $(a, b)$ volgt $\vec v = (b, -a)$.}
+\begin{stappenbreed}
+(1 - \lambda)(3 - \lambda) + 2 = \lambda^2 - 4\lambda + 5 = 0 & $D = 16 - 20 = -4$. \\[1.5ex]
+\lambda = \dfrac{4 \pm 2i}{2} = 2 \pm i & Twee toegevoegde eigenwaarden. \\[2.5ex]
+\lambda = 2 + i\colon\ A - \lambda I = \km{-1 - i & -2 \\ 1 & 1 - i} & De tweede rij is $(1, 1 - i)$. \\[3ex]
+\vec v = (1 - i, -1) & Uit $(a, b) = (1, 1 - i)$. \\[1.5ex]
+\lambda = 2 - i\colon\ \bar{\vec v} = (1 + i, -1) & De toegevoegde.
+\end{stappenbreed}
+Controle: $A\km{1 - i \\ -1} = \km{1 - i + 2 \\ 1 - i - 3} = \km{3 - i \\ -2 - i}$, en $(2 + i)(1 - i) = 3 - i$, $(2 + i)(-1) = -2 - i$.}
+
+\nujij{Bereken de eigenwaarden van $\km{2 & -1 \\ 1 & 2}$.}{$(2 - \lambda)^2 + 1 = 0$, dus $2 - \lambda = \pm i$: $\lambda = 2 \pm i$.}
+
+\begin{oefeningen}
+\oef{h1-complex}
+\end{oefeningen}
+
+%========================================================================================
+\section{Eigenschappen}
+
+\subsection{Spoor en determinant}
+
+In de vorige voorbeelden kon je iets opmerken. Bij $B = \km{4 & -2 \\ 1 & 1}$ waren de eigenwaarden 2 en 3: hun som 5 is $4 + 1$, de som van de hoofddiagonaal, en hun product 6 is $\det B = 4 + 2$. Is dat toeval?
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{spoor}} van een vierkante matrix is de som van de elementen op de hoofddiagonaal: \quad $\formule{\spoor A = a_{11} + a_{22} + \cdots + a_{nn}}$
+
+\begin{stelling}{Som en product van de eigenwaarden}
+Een $2 \times 2$-matrix $A$ heeft als karakteristieke veelterm \quad $\formule{p_A(\lambda) = \lambda^2 - \spoor A \cdot \lambda + \det A}$
+
+\vspace{1mm}
+Zijn $\lambda_1$ en $\lambda_2$ de eigenwaarden (eventueel gelijk of complex), dan is \quad $\formule{\lambda_1 + \lambda_2 = \spoor A}$ \quad en \quad $\formule{\lambda_1\lambda_2 = \det A}$
+\end{stelling}
+
+\begin{bewijs}
+Neem $A = \km{a & b \\ c & d}$. Dan is
+\bewijsregel{p_A(\lambda) = (a - \lambda)(d - \lambda) - bc = \lambda^2 - (a + d)\lambda + (ad - bc) .}
+Zijn $\lambda_1$ en $\lambda_2$ de nulwaarden, dan is $p_A(\lambda) = (\lambda - \lambda_1)(\lambda - \lambda_2) = \lambda^2 - (\lambda_1 + \lambda_2)\lambda + \lambda_1\lambda_2$. Vergelijk de coëfficiënten.
+\end{bewijs}
+\end{theorie}
+
+Voor grotere matrices geldt hetzelfde: de som van de $n$ eigenwaarden is het spoor, en hun product is de determinant, als je een eigenwaarde zo vaak meetelt als ze een nulwaarde is van $p_A$. Het bewijs voor het product is kort: vul $\lambda = 0$ in, dan is $p_A(0) = \det A$, en dat is ook het product van de nulwaarden. Voor de som is het bewijs voor $n \geqslant 3$ te zwaar voor deze cursus. Bij $C$ uit voorbeeld~\ref{vb:h1-drie} klopt het: $1 + 2 + 3 = 2 + 4 + 0$ en $1 \cdot 2 \cdot 3 = 6 = \det C$.
+
+\voorbeeld{}{De matrix $A = \km{5 & 3 \\ 2 & 4}$ heeft de eigenwaarde 2. Bepaal de andere eigenwaarde zonder de karakteristieke veelterm op te lossen.\label{vb:h1-spoor}}{%
+\uitleg{De som van de eigenwaarden is het spoor. Het product dient als controle.}
+\begin{stappen}
+2 + \lambda_2 = \spoor A = 9 & De som van de hoofddiagonaal. \\[1ex]
+\lambda_2 = 7 & De andere eigenwaarde. \\[1ex]
+2 \cdot 7 = 14 = 20 - 6 = \det A & Het product klopt.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-spoor}
+\end{oefeningen}
+
+\subsection{Driehoeksmatrices}
+
+Bij sommige matrices zie je de eigenwaarden zonder te rekenen. Staan onder (of boven) de hoofddiagonaal alleen nullen, dan heet de matrix een \textbf{bovendriehoeksmatrix} (of benedendriehoeksmatrix). Een \textbf{diagonaalmatrix} heeft buiten de hoofddiagonaal alleen nullen; ze is beide.
+
+\begin{theorie}
+\begin{stelling}{Eigenwaarden van een driehoeksmatrix}
+De eigenwaarden van een boven- of benedendriehoeksmatrix zijn de elementen op de hoofddiagonaal.
+\end{stelling}
+
+\begin{bewijs}
+Ook $A - \lambda I$ is een driehoeksmatrix. Ontwikkel de determinant naar de eerste kolom (bij een bovendriehoeksmatrix) of de eerste rij (bij een benedendriehoeksmatrix): daar staat alleen het element $a_{11} - \lambda$ dat niet nul is, en wat overblijft, is opnieuw een driehoeksmatrix. Herhaal dat, dan blijft
+\bewijsregel{p_A(\lambda) = (a_{11} - \lambda)(a_{22} - \lambda) \cdots (a_{nn} - \lambda) .}
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bepaal de eigenwaarden van $T = \km{2 & 5 & -1 \\ 0 & -3 & 4 \\ 0 & 0 & 2}$ en een eigenvector bij $-3$.\label{vb:h1-driehoek}}{%
+\uitleg{Onder de hoofddiagonaal staan nullen: de eigenwaarden staan op de hoofddiagonaal. Voor de eigenvector lossen we $(T + 3I)\vec v = \nulv$ op, van onder naar boven.}
+\begin{stappen}
+\lambda = 2, \ -3, \ 2 & De eigenwaarde 2 komt twee keer voor. \\[1ex]
+T + 3I = \km{5 & 5 & -1 \\ 0 & 0 & 4 \\ 0 & 0 & 5} & De laatste twee rijen geven $z = 0$. \\[3ex]
+5x + 5y = 0\colon\ \vec v = (1, -1, 0) & Uit de eerste rij, met $z = 0$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-driehoek}
+\end{oefeningen}
+
+\subsection{De eigenwaarde 0 en de inverse}
+
+Wanneer is 0 een eigenwaarde? Dan is er een $\vec v \neq \nulv$ met $A\vec v = \nulv$: de matrix beeldt een hele rechte af op de oorsprong. Zo'n afbeelding kun je niet ongedaan maken.
+
+\begin{theorie}
+\begin{stelling}{Inverteerbaar}
+Een vierkante matrix $A$ is inverteerbaar als en slechts als 0 geen eigenwaarde is. Is $\vec v$ dan een eigenvector bij $\lambda$, dan is
+
+\vspace{1mm}
+\qquad $\formule{A^{-1}\vec v = \dfrac{1}{\lambda}\vec v}$
+\end{stelling}
+
+\begin{bewijs}
+0 is een eigenwaarde als en slechts als $\det(A - 0I) = \det A = 0$, en dat is zo als en slechts als $A$ niet inverteerbaar is (Matrices, hoofdstuk 3). Is $A$ inverteerbaar en $A\vec v = \lambda\vec v$, dan is $\lambda \neq 0$. Vermenigvuldig links met $A^{-1}$:
+\bewijsregel{\vec v = \lambda A^{-1}\vec v , \quad \text{dus} \quad A^{-1}\vec v = \dfrac{1}{\lambda}\vec v .}
+\end{bewijs}
+\end{theorie}
+
+De inverse heeft dus dezelfde eigenvectoren, met de omgekeerde eigenwaarden. Dat is logisch: rekt $A$ een rechte uit met factor 2, dan moet $A^{-1}$ ze met factor $\tfrac12$ terugbrengen.
+
+\voorbeeld{}{Geef zonder $B^{-1}$ te berekenen de eigenwaarden en eigenvectoren van $B^{-1}$, met $B = \km{4 & -2 \\ 1 & 1}$ uit voorbeeld~\ref{vb:h1-vec}.\label{vb:h1-inv}}{%
+\uitleg{$B$ heeft de eigenwaarden 2 en 3, dus 0 is geen eigenwaarde en $B$ is inverteerbaar. We gebruiken de stelling.}
+\begin{stappen}
+\tfrac12 \ \text{bij} \ (1, 1), \quad \tfrac13 \ \text{bij} \ (2, 1) & Dezelfde eigenvectoren, omgekeerde eigenwaarden. \\[1ex]
+B^{-1} = \tfrac16\km{1 & 2 \\ -1 & 4}, \quad B^{-1}\kol{2 \\ 1} = \tfrac16\kol{4 \\ 2} = \tfrac13\kol{2 \\ 1} & Controle met de formule voor de inverse.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h1-inv}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{Terug naar het probleem. Welke rechten door de oorsprong komen bij $f(x, y) = (3x - y, 2x)$ op zichzelf terecht, en wat gebeurt er met de punten erop?\label{vb:h1-terug}}{%
+\uitleg{Een rechte door $O$ komt op zichzelf terecht als haar richtingsvector een eigenvector is. We hebben alle eigenwaarden nodig, en bij elk de eigenruimte.}
+\naast{\begin{stappenvrij}{4.6cm}{4.6cm}
+\lambda = 1 \ \text{of} \ \lambda = 2 & Voorbeeld~\ref{vb:h1-kar}: er zijn er hoogstens twee. \\[1ex]
+\Eig{1} = \bigl\{t(1, 2)\bigr\} & $A - I = \km{2 & -1 \\ 2 & -1}$: $y = 2x$. \\[2ex]
+\Eig{2} = \bigl\{t(1, 1)\bigr\} & $A - 2I = \km{1 & -1 \\ 2 & -2}$: $y = x$.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.78,font=\scriptsize]
+  \rooster{-1}{1}{3}{-1}{1}{2}
+  \draw[accent!60,thick] (-.5,-1) -- (1.25,2.5) node[above,text=accent] {$y = 2x$};
+  \draw[accent!60,thick,dashed] (-1,-1) -- (2.5,2.5) node[right,text=accent] {$y = x$};
+  \draw[grijs,thick,line join=round] (0,0) -- (1,0) -- (1,1) -- (.5,1.5) -- (0,1) -- cycle;
+  \draw[accent,very thick,line join=round] (0,0) -- (3,2) -- (2,2) -- (0,1) -- (-1,0) -- cycle;
+  \fill (1,1) circle (2pt) (2,2) circle (2pt);
+\end{tikzpicture}}
+Er zijn dus precies twee zulke rechten. Op $y = 2x$ blijft elk punt staan, want de eigenwaarde is 1. Op $y = x$ komt elk punt twee keer zo ver van de oorsprong: de hoek $(1, 1)$ van het huisje gaat naar $(2, 2)$. Elke andere rechte door $O$ draait weg, ook de verticale, want $(0, 1)$ gaat naar $(-1, 0)$.}
+
+Zo vertellen de eigenvectoren meer dan de matrix zelf: in de richting $(1, 2)$ doet $f$ niets, en in de richting $(1, 1)$ rekt ze met factor 2. Elke andere vector is een combinatie van die twee, en dus weet je meteen wat $f$ ermee doet. Dat idee werken we in de volgende hoofdstukken uit.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen en Ruimtemeetkunde zijn gezien in pakket 4. Vectorruimten en Multivariate statistiek zijn modules van Complementair: geef die oefeningen alleen als de leerlingen ze zagen.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+
+\oef{h1-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-check}{oef:h1-check}%
+  \fv{oef:h1-t2}{vb:h1-meetk}{oef:h1-meetk}%
+  \fv{oef:h1-t3}{vb:h1-vec}{oef:h1-vec}%
+  \fv{oef:h1-t4}{vb:h1-drie}{oef:h1-drie}%
+  \fv{oef:h1-t5}{vb:h1-complex}{oef:h1-complex}%
+  \fv{oef:h1-t6}{vb:h1-spoor}{oef:h1-spoor}%
+  \fv{oef:h1-t7}{vb:h1-inv}{oef:h1-inv}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een eigenvector en een eigenwaarde zijn en wat de eigenwaarde meetkundig betekent, waarom de nulvector geen eigenvector is, wat een eigenruimte is, de karakteristieke vergelijking met haar bewijs, hoe je eigenvectoren berekent (ook bij een $3 \times 3$-matrix), wat er gebeurt bij complexe eigenwaarden, het verband met spoor en determinant, de eigenwaarden van een driehoeksmatrix en van de inverse. Vergelijk daarna met de kaders.
+\fi

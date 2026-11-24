@@ -2,6 +2,10 @@
 
 Wat uit [TODO.md](TODO.md) af is, met de datum en waar het staat. Nieuwste bovenaan. Wat nog open is bij een afgewerkt punt (nalezen, na te kijken), blijft in `TODO.md`.
 
+## 23 nov 2026
+
+- **KOV Complementair (III-WiCo-d):** 18 nieuwe handboeken in pakket 4, één per module van het menu, elk als uitbreiding zoals Kegelsneden en Groepen (PR #50, één commit per handboek). Predicatenlogica (LPD 1-3), Krommen en meetkundige plaatsen (8-10), Oppervlakken (11-13), Affiene en projectieve meetkunde (14-16), Integratiemethodes (17-20), Differentiaalvergelijkingen (21-23), Reeksen (24-25), Numerieke methodes (26-29), Eigenwaarden en eigenvectoren (30), Groepentheorie (31-32), Vectorruimten (33-34), Getaltheorie (35), Lineair programmeren (36-39), Financiële algebra (40-43), Iteraties en fractalen (44-47), Kansverdelingen (48-50), Lineaire regressie (51-52), Multivariate statistiek (53-54). Kegelsneden (LPD 4-7) bestond al. Elk handboek heeft 3 of 4 hoofdstukken met blok Probleem, een eigen voorkant (kunstwerk uit het publiek domein en motief) en staat in `voortgang.yaml`, `koepels.yaml` en de README's. Wat na te kijken is, staat in de README van elk handboek en in TODO.md.
+
 ## 20 nov 2026
 
 - **Volledige bouw met het kenmerk:** alle 123 handboeken opnieuw gebouwd en online. De hosting zat vol, dus per handboek uitgerold: nieuwe versies erop, de site omzetten, dan de oude versies zonder feedback wissen (956 MB vrij).

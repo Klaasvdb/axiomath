@@ -1,0 +1,1071 @@
+# Oefeningen van hoofdstuk 2. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(f(x))$ als $f(x) = 3 - x$
+      antwoord: |-
+        $x$
+      uitwerking: |-
+        $f(3 - x) = 3 - (3 - x) = x$.
+    - opgave: |-
+        de ontbinding van $x^3 - 3x - 2$, als $-1$ een nulwaarde is
+      antwoord: |-
+        $(x + 1)^2(x - 2)$
+      uitwerking: |-
+        Deling door $x + 1$ geeft $x^2 - x - 2 = (x + 1)(x - 2)$.
+    - opgave: |-
+        de som en het product van de oplossingen van $2x^2 - 6x + 3 = 0$
+      antwoord: |-
+        som 3, product $\tfrac32$
+      uitwerking: |-
+        Vieta: som $-\tfrac{b}{a} = 3$, product $\tfrac{c}{a} = \tfrac32$.
+    - opgave: |-
+        $g'(1)$ als $g(x) = f(f(x))$ en $f(x) = x^2 + 1$
+      antwoord: |-
+        8
+      uitwerking: |-
+        Kettingregel: $g'(1) = f'(f(1)) \cdot f'(1) = f'(2) \cdot f'(1) = 4 \cdot 2 = 8$.
+    - opgave: |-
+        $\sin^2 2\theta$ uitgedrukt in $\sin\theta$ en $\cos\theta$
+      antwoord: |-
+        $4\sin^2\theta\cos^2\theta$
+      uitwerking: |-
+        $\sin 2\theta = 2\sin\theta\cos\theta$, dus $\sin^2 2\theta = 4\sin^2\theta\cos^2\theta$.
+    - opgave: |-
+        $2^{10}$ en $2^{20}$
+      antwoord: |-
+        1024 en 1\,048\,576
+      uitwerking: |-
+        $2^{20} = (2^{10})^2 = 1\,048\,576$, ongeveer een miljoen.
+
+- id: h2-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Itereer op je rekentoestel.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f(x) = -x$ vanaf $x_0 = 2$. Wat zie je?
+      antwoord: |-
+        $2, -2, 2, -2, \ldots$
+      uitwerking: |-
+        De baan keert na twee stappen terug.
+    - opgave: |-
+        $f(x) = \dfrac{1}{1 - x}$ vanaf $x_0 = 2$. Wat zie je? Probeer ook $x_0 = 5$.
+      antwoord: |-
+        $2, -1, \tfrac12, 2, \ldots$; ook 5 keert na drie stappen terug
+      uitwerking: |-
+        Vanuit 5: $-\tfrac14$, $\tfrac45$, $5$. Elke baan lijkt na drie stappen terug te keren.
+    - opgave: |-
+        $f(x) = 1 - x^2$ vanaf $x_0 = 0{,}5$, een tiental stappen. Wat zie je?
+      antwoord: |-
+        de baan springt steeds dichter bij 0 en 1
+      uitwerking: |-
+        $0{,}75$; $0{,}4375$; $0{,}8086$; $0{,}3462$; $0{,}8802$; \ldots: de oneven termen gaan naar 1, de even naar 0. En inderdaad: $f(0) = 1$ en $f(1) = 0$.
+    - opgave: |-
+        Heeft $f(x) = \dfrac{1}{1 - x}$ een dekpunt?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\tfrac{1}{1 - x} = x$ geeft $x^2 - x + 1 = 0$, met discriminant $-3$: geen reële oplossing.
+
+- id: h2-periode
+  soort: kort
+  opgave: |-
+    Toon aan dat $x_0$ een periodiek punt is, en geef de periode.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = 4 - x$, \ $x_0 = 1$
+      antwoord: |-
+        periode 2
+      uitwerking: |-
+        $1 \to 3 \to 1$.
+    - opgave: |-
+        $f(x) = -\dfrac{1}{x + 1}$, \ $x_0 = 1$
+      antwoord: |-
+        periode 3
+      uitwerking: |-
+        $1 \to -\tfrac12 \to -2 \to 1$.
+    - opgave: |-
+        $f(x) = x^2 - 2$, \ $x_0 = 2$
+      antwoord: |-
+        periode 1 (dekpunt)
+      uitwerking: |-
+        $f(2) = 2$.
+    - opgave: |-
+        $f(x) = x^2 - 2$, \ $x_0 = \tfrac{-1 + \sqrt5}{2}$
+      antwoord: |-
+        periode 2
+      uitwerking: |-
+        $x_0^2 = \tfrac{3 - \sqrt5}{2}$, dus $x_1 = \tfrac{-1 - \sqrt5}{2}$. En $x_1^2 = \tfrac{3 + \sqrt5}{2}$, dus $x_2 = \tfrac{-1 + \sqrt5}{2} = x_0$.
+
+- id: h2-cyclus
+  soort: kort
+  opgave: |-
+    Bepaal de punten met periode 2.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = 3 - x^2$
+      antwoord: |-
+        $-1$ en $2$
+      uitwerking: |-
+        $f(f(x)) - x = -(x^2 + x - 3)(x^2 - x - 2)$, en $x^2 - x - 2 = (x - 2)(x + 1)$. Controle: $f(-1) = 2$, $f(2) = -1$.
+    - opgave: |-
+        $f(x) = x^2 - 2$
+      antwoord: |-
+        $\tfrac{-1 \pm \sqrt5}{2}$
+      uitwerking: |-
+        $f(f(x)) - x = (x^2 - x - 2)(x^2 + x - 1)$: de dekpunten zijn 2 en $-1$, de 2-cyclus komt uit $x^2 + x - 1 = 0$.
+
+- id: h2-uiteindelijk
+  soort: kort
+  opgave: |-
+    Welke startwaarden komen bij $f(x) = x^2 - 2$ na één of twee stappen in het dekpunt 2, zonder zelf 2 te zijn?
+  antwoord: |-
+    $-2$ (na één stap) en $0$ (na twee stappen)
+  uitwerking: |-
+    $x^2 - 2 = 2$ geeft $x = \pm 2$: alleen $-2$ is nieuw. $x^2 - 2 = -2$ geeft $x = 0$. Dus $0 \to -2 \to 2 \to 2 \to \ldots$
+
+- id: h2-stabiel
+  soort: kort
+  opgave: |-
+    Is de 2-cyclus aantrekkend of afstotend?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\{-1, 2\}$ van $3 - x^2$
+      antwoord: |-
+        afstotend
+      uitwerking: |-
+        $f'(x) = -2x$: $f'(-1)\,f'(2) = 2 \cdot (-4) = -8$.
+    - opgave: |-
+        de 2-cyclus van $x^2 - 2$
+      antwoord: |-
+        afstotend
+      uitwerking: |-
+        $p$ en $q$ zijn de oplossingen van $x^2 + x - 1 = 0$, dus $pq = -1$ en $f'(p)f'(q) = 4pq = -4$.
+    - opgave: |-
+        de 2-cyclus van $x^2 - 1{,}1$
+      antwoord: |-
+        aantrekkend
+      uitwerking: |-
+        $f(f(x)) - x = (x^2 - x - 1{,}1)(x^2 + x - 0{,}1)$, dus $pq = -0{,}1$ en $4pq = -0{,}4$.
+
+- id: h2-logistisch
+  soort: kort
+  opgave: |-
+    Bepaal de dekpunten van $f(x) = r\,x(1 - x)$ in $[0, 1]$ en hun soort. Beschrijf hoe een baan uit $]0, 1[$ verloopt.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $r = 0{,}5$
+      antwoord: |-
+        0, aantrekkend: de populatie sterft uit
+      uitwerking: |-
+        $f'(0) = 0{,}5$. Het andere dekpunt $1 - \tfrac1{0{,}5} = -1$ ligt niet in $[0, 1]$.
+    - opgave: |-
+        $r = 1{,}5$
+      antwoord: |-
+        0 afstotend; $\tfrac13$ aantrekkend, als een trap
+      uitwerking: |-
+        $p = 1 - \tfrac23 = \tfrac13$ met $f'(p) = 2 - 1{,}5 = 0{,}5$.
+    - opgave: |-
+        $r = 2{,}5$
+      antwoord: |-
+        0 afstotend; $0{,}6$ aantrekkend, springend
+      uitwerking: |-
+        $p = 1 - 0{,}4 = 0{,}6$ met $f'(p) = -0{,}5$.
+    - opgave: |-
+        $r = 3{,}5$
+      antwoord: |-
+        0 en $\tfrac57$, beide afstotend
+      uitwerking: |-
+        $p = 1 - \tfrac{2}{7} = \tfrac57$ met $f'(p) = -1{,}5$. De baan gaat naar geen van beide (in feite naar een 4-cyclus).
+
+- id: h2-verdubbeling
+  soort: kort
+  opgave: |-
+    Bepaal de 2-cyclus van $f(x) = 3{,}1\,x(1 - x)$ op vier decimalen, en zeg of ze aantrekkend is.
+  antwoord: |-
+    $0{,}7646$ en $0{,}5580$; aantrekkend
+  uitwerking: |-
+    $9{,}61\,x^2 - 12{,}71\,x + 4{,}1 = 0$, met discriminant $161{,}5441 - 157{,}604 = 3{,}9401$. Dus $x = \tfrac{12{,}71 \pm \sqrt{3{,}9401}}{19{,}22}$: $0{,}7646$ en $0{,}5580$. Het product is $-3{,}1^2 + 6{,}2 + 4 = 0{,}59$: aantrekkend.
+
+- id: h2-chaos
+  soort: kort
+  opgave: |-
+    Neem $f(x) = 4x(1 - x)$ en $x_0 = \sin^2\tfrac{\pi}{9} \approx 0{,}1170$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met de formule $x_n = \sin^2(2^n\theta)$ aan dat $x_0$ periodiek is met periode 3.
+      antwoord: |-
+        $x_3 = \sin^2\tfrac{8\pi}{9} = \sin^2\tfrac{\pi}{9}$
+      uitwerking: |-
+        $x_1 = \sin^2\tfrac{2\pi}{9} \approx 0{,}4132$, $x_2 = \sin^2\tfrac{4\pi}{9} \approx 0{,}9698$ en $x_3 = \sin^2\tfrac{8\pi}{9} = \sin^2\bigl(\pi - \tfrac\pi9\bigr) = \sin^2\tfrac\pi9 = x_0$. De eerste twee zijn verschillend van $x_0$, dus de periode is 3.
+    - opgave: |-
+        Itereer met je rekentoestel vanaf $0{,}1170$. Zie je de 3-cyclus? Verklaar.
+      antwoord: |-
+        alleen de eerste stappen; de afwijking verdubbelt telkens
+      uitwerking: |-
+        Het rekentoestel start met een kleine afwijking van $\sin^2\tfrac\pi9$, en die wordt bij elke stap ongeveer verdubbeld (de hoek verdubbelt). Na een tiental stappen is de cyclus niet meer te herkennen: ze is afstotend.
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    periode bepalen
+  opgave: |-
+    Bepaal de periode van $x_0$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $f(x) = x^2 - 1$, \ $x_0 = -1$
+      antwoord: |-
+        2
+      uitwerking: |-
+        $-1 \to 0 \to -1$.
+    - opgave: |-
+        $f(x) = \dfrac{1}{1 - x}$, \ $x_0 = 3$
+      antwoord: |-
+        3
+      uitwerking: |-
+        $3 \to -\tfrac12 \to \tfrac23 \to 3$.
+    - opgave: |-
+        $f(x) = 5 - x$, \ $x_0 = 1$
+      antwoord: |-
+        2
+      uitwerking: |-
+        $1 \to 4 \to 1$.
+    - opgave: |-
+        $f(x) = 5 - x$, \ $x_0 = 2{,}5$
+      antwoord: |-
+        1
+      uitwerking: |-
+        $5 - 2{,}5 = 2{,}5$: een dekpunt.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    begrippen, klassieke fouten
+  opgave: |-
+    Waar of niet waar? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een punt met periode 4 heeft ook periode 2.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: periode 4 betekent dat de baan pas na 4 stappen terugkeert, en niet na 2. Omgekeerd keert een punt met periode 2 wel ook na 4 stappen terug.
+    - opgave: |-
+        Elke oplossing van $f(f(x)) = x$ is een punt met periode 2.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: ook de dekpunten van $f$ voldoen. Die heb je eerst weg te delen.
+    - opgave: |-
+        In de twee punten van een 2-cyclus is de afgeleide van $\iter f2$ dezelfde.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: in beide is ze $f'(p)\,f'(q)$.
+    - opgave: |-
+        Een chaotische iteratie geeft bij dezelfde startwaarde soms een andere baan.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: de baan ligt volledig vast. Alleen een heel kleine verandering van de startwaarde geeft op lange termijn een totaal andere baan.
+    - opgave: |-
+        Voor de logistische afbeelding met $r = 3{,}2$ convergeert bijna elke baan naar $p = 1 - \tfrac1r$.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: $f'(p) = 2 - 3{,}2 = -1{,}2$, dus $p$ stoot af. De banen gaan naar de 2-cyclus.
+    - opgave: |-
+        De baan van een uiteindelijk periodieke startwaarde keert nooit terug naar die startwaarde.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: keerde ze terug, dan was de startwaarde zelf periodiek.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    2-cyclus berekenen en stabiliteit
+  opgave: |-
+    Bepaal de 2-cyclus en zeg of ze aantrekkend of afstotend is.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $f(x) = 1 - x^2$
+      antwoord: |-
+        $\{0, 1\}$, aantrekkend
+      uitwerking: |-
+        $f(f(x)) - x = -x(x - 1)(x^2 + x - 1)$; de dekpunten komen uit $x^2 + x - 1$. $f'(0)f'(1) = 0 \cdot (-2) = 0$.
+    - opgave: |-
+        $f(x) = x^2 - 4$
+      antwoord: |-
+        $\tfrac{-1 \pm \sqrt{13}}{2}$, afstotend
+      uitwerking: |-
+        $f(f(x)) - x = (x^2 - x - 4)(x^2 + x - 3)$. Met $pq = -3$: $4pq = -12$.
+    - opgave: |-
+        $f(x) = -x^3$
+      antwoord: |-
+        $\{1, -1\}$, afstotend
+      uitwerking: |-
+        $f(1) = -1$ en $f(-1) = 1$. $f'(x) = -3x^2$, dus $f'(1)f'(-1) = 9$.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    spinnenwebdiagram van een cyclus aflezen
+  figuur:
+    opties: |-
+      5cm
+    code: |-
+      \begin{tikzpicture}[scale=4.6,font=\scriptsize]
+        \draw[black!14,very thin,step=.1] (0,0) grid (1,1);
+        \draw[->,grijs] (0,0) -- (1.08,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,0) -- (0,1.08) node[above,text=black] {$y$};
+        \foreach \t in {.5,1}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+        \draw[lijngrijs,thick] (0,0) -- (1,1);
+        \kromme{0}{1}{3.3*\x*(1-\x)}
+        \spinnenweb{3.3*\x*(1-\x)}{.3}{24}
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont de grafiek van $f(x) = 3{,}3\,x(1 - x)$, de rechte $y = x$ en het spinnenwebdiagram van de baan van $0{,}3$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de 2-cyclus af op één decimaal.
+      antwoord: |-
+        ongeveer $0{,}5$ en $0{,}8$
+      uitwerking: |-
+        De baan draait om een rechthoek met hoekpunten op $y = x$ bij ongeveer 0,48 en 0,82.
+    - opgave: |-
+        Lees het dekpunt af, en verklaar waarom de baan er niet naartoe gaat.
+      antwoord: |-
+        ongeveer $0{,}7$; afstotend, want de grafiek is daar steiler dan $-1$
+      uitwerking: |-
+        Het snijpunt met $y = x$ ligt bij $1 - \tfrac{1}{3{,}3} \approx 0{,}70$. Daar is $f'(p) = 2 - 3{,}3 = -1{,}3$: het dekpunt stoot af.
+    - opgave: |-
+        Controleer je aflezing van de cyclus met een berekening.
+      antwoord: |-
+        $\tfrac{4{,}3 \pm \sqrt{1{,}29}}{6{,}6}$, dus $0{,}824$ en $0{,}479$
+      uitwerking: |-
+        Met de stelling: $r^2x^2 - r(r + 1)x + (r + 1) = 0$, of $x = \tfrac{(r + 1) \pm \sqrt{(r + 1)(r - 3)}}{2r}$.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    grafiek van een baan herkennen
+  opgave: |-
+    De vier grafieken tonen de baan van $x_0 = 0{,}1$ onder $f(x) = r\,x(1 - x)$, voor $r = 1{,}5$, $r = 2{,}6$, $r = 3{,}3$ en $r = 3{,}5$. Welke grafiek hoort bij welke $r$? Verklaar met de dekpunten en de cycli.
+    \figuren{\begin{tikzpicture}[x=.17cm,y=2.2cm,font=\scriptsize]
+      \draw[black!14,very thin,xstep=4,ystep=.25] (0,0) grid (16,1);
+      \draw[->,grijs] (0,0) -- (16.8,0) node[right,text=black] {$n$};
+      \draw[->,grijs] (0,0) -- (0,1.1);
+      \foreach \t in {.5,1}{\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+      \foreach \x/\y in {0/.1,1/.315,2/.755,3/.647,4/.799,5/.561,6/.862,7/.417,8/.851,9/.444,10/.864,11/.411,12/.847,13/.453,14/.867,15/.403,16/.842}{\fill[accent] (\x,\y) circle (1.3pt);}
+      \node[above] at (8,1.05) {A};
+    \end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.17cm,y=2.2cm,font=\scriptsize]
+      \draw[black!14,very thin,xstep=4,ystep=.25] (0,0) grid (16,1);
+      \draw[->,grijs] (0,0) -- (16.8,0) node[right,text=black] {$n$};
+      \draw[->,grijs] (0,0) -- (0,1.1);
+      \foreach \x/\y in {0/.1,1/.135,2/.175,3/.217,4/.255,5/.285,6/.305,7/.318,8/.325,9/.329,10/.331,11/.332,12/.333,13/.333,14/.333,15/.333,16/.333}{\fill[accent] (\x,\y) circle (1.3pt);}
+      \node[above] at (8,1.05) {B};
+    \end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.17cm,y=2.2cm,font=\scriptsize]
+      \draw[black!14,very thin,xstep=4,ystep=.25] (0,0) grid (16,1);
+      \draw[->,grijs] (0,0) -- (16.8,0) node[right,text=black] {$n$};
+      \draw[->,grijs] (0,0) -- (0,1.1);
+      \foreach \x/\y in {0/.1,1/.297,2/.689,3/.707,4/.683,5/.714,6/.674,7/.725,8/.658,9/.743,10/.63,11/.769,12/.586,13/.8,14/.527,15/.823,16/.482}{\fill[accent] (\x,\y) circle (1.3pt);}
+      \node[above] at (8,1.05) {C};
+    \end{tikzpicture}\quad
+    \begin{tikzpicture}[x=.17cm,y=2.2cm,font=\scriptsize]
+      \draw[black!14,very thin,xstep=4,ystep=.25] (0,0) grid (16,1);
+      \draw[->,grijs] (0,0) -- (16.8,0) node[right,text=black] {$n$};
+      \draw[->,grijs] (0,0) -- (0,1.1);
+      \foreach \x/\y in {0/.1,1/.234,2/.466,3/.647,4/.594,5/.627,6/.608,7/.62,8/.613,9/.617,10/.614,11/.616,12/.615,13/.616,14/.615,15/.615,16/.615}{\fill[accent] (\x,\y) circle (1.3pt);}
+      \node[above] at (8,1.05) {D};
+    \end{tikzpicture}}
+  antwoord: |-
+    A: 3,5; B: 1,5; C: 3,3; D: 2,6
+  uitwerking: |-
+    B nadert $\tfrac13$ als een trap: $r = 1{,}5$ met $f'(p) = 0{,}5$. D nadert $0{,}615$ springend: $r = 2{,}6$ met $p = 1 - \tfrac{1}{2{,}6} \approx 0{,}615$ en $f'(p) = -0{,}6$. C springt eerst rond 0,7 met steeds grotere sprongen, en gaat naar een 2-cyclus: $r = 3{,}3$, waar het dekpunt afstoot ($f'(p) = -1{,}3$) en de 2-cyclus aantrekt. A gaat naar een cyclus van vier waarden: $r = 3{,}5 > 1 + \sqrt6$, waar ook de 2-cyclus afstoot.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    een functie waarvan elk punt periode 1 of 2 heeft
+  opgave: |-
+    Neem $f(x) = \dfrac{x + 1}{x - 1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $f(f(x)) = x$.
+      antwoord: |-
+        $\dfrac{\frac{x + 1}{x - 1} + 1}{\frac{x + 1}{x - 1} - 1} = \dfrac{2x}{2} = x$
+      uitwerking: |-
+        Vermenigvuldig teller en noemer met $x - 1$: $\dfrac{(x + 1) + (x - 1)}{(x + 1) - (x - 1)} = \dfrac{2x}{2} = x$.
+    - opgave: |-
+        Bepaal de dekpunten.
+      antwoord: |-
+        $1 \pm \sqrt2$
+      uitwerking: |-
+        $x + 1 = x^2 - x$ geeft $x^2 - 2x - 1 = 0$.
+    - opgave: |-
+        Welke periode heeft $x_0 = 3$? Geef de cyclus.
+      antwoord: |-
+        periode 2: $\{3, 2\}$
+      uitwerking: |-
+        $f(3) = 2$ en $f(2) = 3$. Elke $x \neq 1$ die geen dekpunt is, heeft periode 2.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een functie waarvan elk punt periode 3 heeft
+  opgave: |-
+    Neem $f(x) = \dfrac{x - 3}{x + 1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\iter f2(x)$ en $\iter f3(x)$.
+      antwoord: |-
+        $\iter f2(x) = -\dfrac{x + 3}{x - 1}$, $\iter f3(x) = x$
+      uitwerking: |-
+        $\iter f2(x) = \dfrac{\frac{x - 3}{x + 1} - 3}{\frac{x - 3}{x + 1} + 1} = \dfrac{-2x - 6}{2x - 2} = -\dfrac{x + 3}{x - 1}$. Dan $\iter f3(x) = \dfrac{-\frac{x + 3}{x - 1} - 3}{-\frac{x + 3}{x - 1} + 1} = \dfrac{-4x}{-4} = x$.
+    - opgave: |-
+        Toon aan dat $f$ geen dekpunten heeft. Welke periode hebben de punten dus?
+      antwoord: |-
+        $x^2 + 3 = 0$ heeft geen oplossing; periode 3
+      uitwerking: |-
+        $x - 3 = x^2 + x$ geeft $x^2 = -3$. Zonder dekpunten keert geen punt na één stap terug, en na drie stappen keren ze allemaal terug. Periode 2 kan niet: dan was $x = \iter f3(x) = f(x)$.
+    - opgave: |-
+        Geef de cyclus van 0.
+      antwoord: |-
+        $0 \to -3 \to 3 \to 0$
+      uitwerking: |-
+        $f(0) = -3$, $f(-3) = \tfrac{-6}{-2} = 3$, $f(3) = 0$.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de 2-cyclus van $x^2 + c$
+  opgave: |-
+    Neem $f(x) = x^2 + c$, met $c$ een reële parameter.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $f(f(x)) - x = (x^2 - x + c)(x^2 + x + c + 1)$.
+      antwoord: |-
+        beide leden zijn $x^4 + 2cx^2 - x + c^2 + c$
+      uitwerking: |-
+        Links: $(x^2 + c)^2 + c - x = x^4 + 2cx^2 + c^2 + c - x$. Rechts uitwerken geeft hetzelfde.
+    - opgave: |-
+        Voor welke $c$ is er een 2-cyclus?
+      antwoord: |-
+        $c < -\tfrac34$
+      uitwerking: |-
+        $x^2 + x + c + 1 = 0$ heeft twee verschillende reële oplossingen als $1 - 4(c + 1) > 0$, dus $c < -\tfrac34$. Bij $c = -\tfrac34$ valt de dubbele oplossing $-\tfrac12$ samen met een dekpunt.
+    - opgave: |-
+        Toon aan dat $f'(p)\,f'(q) = 4(c + 1)$, zonder $p$ en $q$ te berekenen.
+      antwoord: |-
+        $f'(p)f'(q) = 4pq$ en $pq = c + 1$
+      uitwerking: |-
+        $f'(x) = 2x$, dus $f'(p)f'(q) = 4pq$, en volgens Vieta is $pq = c + 1$.
+    - opgave: |-
+        Voor welke $c$ is de 2-cyclus aantrekkend?
+      antwoord: |-
+        $-\tfrac54 < c < -\tfrac34$
+      uitwerking: |-
+        $|4(c + 1)| < 1$ geeft $-\tfrac14 < c + 1 < \tfrac14$, en met $c < -\tfrac34$: $-\tfrac54 < c < -\tfrac34$.
+
+- id: h2-o9
+  soort: opdracht
+  prent:
+    naam: kever
+  niveau: 2
+  thema: |-
+    logistisch model in een context
+  opgave: |-
+    Een keversoort volgt het model $x_n = 3{,}4\,x_{n-1}(1 - x_{n-1})$, met $x_n$ de populatie als deel van het maximum. In het eerste jaar is $x_0 = 0{,}1$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $x_1$ tot $x_6$ op vier decimalen.
+      antwoord: |-
+        $0{,}306$; $0{,}7220$; $0{,}6824$; $0{,}7369$; $0{,}6592$; $0{,}7639$
+      uitwerking: |-
+        De populatie springt om ongeveer 0,7 heen, met steeds grotere sprongen.
+    - opgave: |-
+        Waarom komt de populatie niet tot rust bij het evenwicht $1 - \tfrac{1}{3{,}4}$?
+      antwoord: |-
+        $f'(p) = -1{,}4$: afstotend
+      uitwerking: |-
+        $p \approx 0{,}706$ met $f'(p) = 2 - 3{,}4 = -1{,}4$.
+    - opgave: |-
+        Bepaal de 2-cyclus op drie decimalen, en toon aan dat ze aantrekkend is.
+      antwoord: |-
+        $0{,}842$ en $0{,}452$; product $-0{,}76$
+      uitwerking: |-
+        $x = \tfrac{4{,}4 \pm \sqrt{4{,}4 \cdot 0{,}4}}{6{,}8}$, dus $0{,}842$ en $0{,}452$. Het product is $-3{,}4^2 + 6{,}8 + 4 = -0{,}76$.
+    - opgave: |-
+        Een onderzoeker neemt het gemiddelde van een goed en een slecht jaar als \textit{typische} populatie. Vergelijk met het evenwicht.
+      antwoord: |-
+        $0{,}647$, kleiner dan $0{,}706$
+      uitwerking: |-
+        $\tfrac{p + q}{2} = \tfrac{r + 1}{2r} = \tfrac{4{,}4}{6{,}8} \approx 0{,}647$. Het afstotende evenwicht $0{,}706$ is geen gemiddelde van wat je in de natuur ziet.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    uiteindelijk periodiek, terugrekenen
+  opgave: |-
+    Neem $f(x) = x^2 - 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de dekpunten.
+      antwoord: |-
+        2 en $-1$
+      uitwerking: |-
+        $x^2 - x - 2 = (x - 2)(x + 1)$.
+    - opgave: |-
+        Welke startwaarde komt na precies één stap in $-1$?
+      antwoord: |-
+        1
+      uitwerking: |-
+        $x^2 - 2 = -1$ geeft $x = \pm 1$, en $-1$ is het dekpunt zelf.
+    - opgave: |-
+        Welke startwaarden komen na precies twee stappen in $-1$?
+      antwoord: |-
+        $\pm\sqrt3$
+      uitwerking: |-
+        $x^2 - 2 = 1$ geeft $x = \pm\sqrt3$: $\sqrt3 \to 1 \to -1$.
+    - opgave: |-
+        Hoeveel startwaarden komen na precies drie stappen in $-1$? Geef ze.
+      antwoord: |-
+        vier: $\pm\sqrt{2 + \sqrt3}$ en $\pm\sqrt{2 - \sqrt3}$
+      uitwerking: |-
+        Na twee stappen komen zowel $\sqrt3$ als $-\sqrt3$ in $-1$. Dus $x^2 - 2 = \sqrt3$, met $x = \pm\sqrt{2 + \sqrt3}$, of $x^2 - 2 = -\sqrt3$, met $x = \pm\sqrt{2 - \sqrt3}$.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gevoeligheid voor de startwaarde
+  opgave: |-
+    Neem $f(x) = 4x(1 - x)$, en de startwaarden $0{,}6$ en $0{,}6001$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken beide banen tot $x_{12}$ op vier decimalen.
+      antwoord: |-
+        $x_{12} \approx 0{,}5469$ en $0{,}9008$
+      uitwerking: |-
+        $0{,}96$; $0{,}1536$; $0{,}5200$; $0{,}9984$; $0{,}0064$; $0{,}0255$; $0{,}0993$; $0{,}3577$; $0{,}9190$; $0{,}2979$; $0{,}8366$; $0{,}5469$ tegenover $0{,}9599$; $0{,}1539$; $0{,}5208$; $0{,}9983$; $0{,}0069$; $0{,}0276$; $0{,}1072$; $0{,}3829$; $0{,}9452$; $0{,}2074$; $0{,}6575$; $0{,}9008$.
+    - opgave: |-
+        Na hoeveel stappen is het verschil voor het eerst groter dan 0,1?
+      antwoord: |-
+        na 11 stappen
+      uitwerking: |-
+        $|x_{10} - y_{10}| \approx 0{,}091$ en $|x_{11} - y_{11}| \approx 0{,}179$.
+    - opgave: |-
+        Een weerman meet een startwaarde op vier decimalen nauwkeurig. Hoeveel stappen ver kan hij met dit model ongeveer voorspellen? En met acht decimalen?
+      antwoord: |-
+        ongeveer 10; ongeveer 23
+      uitwerking: |-
+        De afwijking verdubbelt ongeveer per stap. Van $10^{-4}$ tot 0,1 is een factor 1000, ongeveer $2^{10}$: tien stappen. Van $10^{-8}$ tot 0,1 is een factor $10^7 \approx 2^{23}$. Vier extra decimalen leveren dus maar een dertiental extra stappen op.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    periodieke punten bij $r = 4$ met de formule
+  opgave: |-
+    Gebruik $x_n = \sin^2(2^n\theta)$ voor $f(x) = 4x(1 - x)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\tfrac34 = \sin^2\tfrac\pi3$ een dekpunt is.
+      antwoord: |-
+        $\sin^2\tfrac{2\pi}{3} = \tfrac34$
+      uitwerking: |-
+        $x_1 = \sin^2\tfrac{2\pi}{3} = \bigl(\tfrac{\sqrt3}{2}\bigr)^2 = \tfrac34$. Ook rechtstreeks: $4 \cdot \tfrac34 \cdot \tfrac14 = \tfrac34$.
+    - opgave: |-
+        Toon aan dat $\sin^2\tfrac\pi5$ periode 2 heeft. Geef de cyclus exact, met $\cos\tfrac{2\pi}{5} = \tfrac{\sqrt5 - 1}{4}$ en $\cos\tfrac{\pi}{5} = \tfrac{\sqrt5 + 1}{4}$.
+      antwoord: |-
+        $\{\tfrac{5 - \sqrt5}{8}, \tfrac{5 + \sqrt5}{8}\}$
+      uitwerking: |-
+        $x_2 = \sin^2\tfrac{4\pi}{5} = \sin^2\tfrac{\pi}{5} = x_0$, en $x_1 = \sin^2\tfrac{2\pi}5 \neq x_0$. Met $\sin^2\alpha = \tfrac{1 - \cos 2\alpha}{2}$: $\sin^2\tfrac\pi5 = \tfrac{1 - \cos\frac{2\pi}{5}}{2} = \tfrac{5 - \sqrt5}{8}$, en $\sin^2\tfrac{2\pi}{5} = \tfrac{1 - \cos\frac{4\pi}{5}}{2} = \tfrac{1 + \cos\frac{\pi}{5}}{2} = \tfrac{5 + \sqrt5}{8}$.
+    - opgave: |-
+        Toon aan dat $\tfrac12$ uiteindelijk periodiek is.
+      antwoord: |-
+        $\tfrac12 \to 1 \to 0 \to 0$
+      uitwerking: |-
+        $f(\tfrac12) = 1$, $f(1) = 0$, $f(0) = 0$: na twee stappen in het dekpunt 0. Met de formule: $\theta = \tfrac\pi4$, en $\sin^2\tfrac\pi2 = 1$, $\sin^2\pi = 0$.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de tentafbeelding
+  figuur:
+    opties: |-
+      3.4cm
+    code: |-
+      \begin{tikzpicture}[scale=3,font=\scriptsize]
+        \draw[black!14,very thin,step=.25] (0,0) grid (1,1);
+        \draw[->,grijs] (0,0) -- (1.1,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,0) -- (0,1.1) node[above,text=black] {$y$};
+        \foreach \t in {.5,1}{\node[below,inner sep=1.5pt] at (\t,0) {$\t$};\node[left,inner sep=1.5pt] at (0,\t) {$\t$};}
+        \draw[lijngrijs,thick] (0,0) -- (1,1);
+        \draw[accent,thick] (0,0) -- (.5,1) -- (1,0);
+      \end{tikzpicture}
+  opgave: |-
+    De \textit{tentafbeelding} is $T(x) = 2x$ voor $0 \leqslant x \leqslant \tfrac12$ en $T(x) = 2 - 2x$ voor $\tfrac12 < x \leqslant 1$. Bepaal de baan en zeg of de startwaarde periodiek, uiteindelijk periodiek of geen van beide is.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $x_0 = \tfrac25$
+      antwoord: |-
+        periode 2
+      uitwerking: |-
+        $\tfrac25 \to \tfrac45 \to \tfrac25$.
+    - opgave: |-
+        $x_0 = \tfrac27$
+      antwoord: |-
+        periode 3
+      uitwerking: |-
+        $\tfrac27 \to \tfrac47 \to \tfrac67 \to \tfrac27$.
+    - opgave: |-
+        $x_0 = \tfrac13$
+      antwoord: |-
+        uiteindelijk periodiek
+      uitwerking: |-
+        $\tfrac13 \to \tfrac23 \to \tfrac23$: het dekpunt $\tfrac23$.
+    - opgave: |-
+        $x_0 = \tfrac1{10}$
+      antwoord: |-
+        uiteindelijk periodiek
+      uitwerking: |-
+        $\tfrac1{10} \to \tfrac15 \to \tfrac25 \to \tfrac45 \to \tfrac25$: na twee stappen in de 2-cyclus.
+  slot: |-
+    Waarom kan een breuk nooit een baan geven die naar oneindig veel verschillende waarden springt?
+  antwoord: |-
+    Is $x_0 = \tfrac{a}{q}$, dan zijn alle termen breuken met noemer $q$ in $[0, 1]$. Er zijn er maar $q + 1$, dus de baan moet ooit een waarde herhalen, en vanaf dan is ze periodiek.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een prijscyclus in de economie
+  opgave: |-
+    Een boer beslist hoeveel varkens hij kweekt op basis van de prijs van vorig jaar. Een eenvoudig model voor de prijs (in euro per kg) is $p_n = 24 - 2\,p_{n-1}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal het evenwicht, en zeg of het aantrekkend is.
+      antwoord: |-
+        8 euro, afstotend
+      uitwerking: |-
+        $p = 24 - 2p$ geeft $p = 8$. $f'(p) = -2$: afstotend, springend.
+    - opgave: |-
+        Bereken de prijzen voor vier jaar vanaf $p_0 = 7$. Beschrijf.
+      antwoord: |-
+        $10$; $4$; $16$; $-8$: steeds wildere sprongen
+      uitwerking: |-
+        Het verschil met 8 verdubbelt en wisselt van teken. Een negatieve prijs toont dat het model daar niet meer geldt.
+    - opgave: |-
+        Een ander model is $p_n = 16 - p_{n-1}$. Toon aan dat elke prijs behalve het evenwicht een 2-cyclus geeft.
+      antwoord: |-
+        $f(f(p)) = p$; evenwicht 8
+      uitwerking: |-
+        $16 - (16 - p) = p$: na twee jaar is de prijs terug. Dat is de bekende varkenscyclus: dure en goedkope jaren wisselen elkaar af.
+    - opgave: |-
+        Welk model $p_n = a - b\,p_{n-1}$ met $b > 0$ geeft een prijs die naar het evenwicht gaat?
+      antwoord: |-
+        $0 < b < 1$
+      uitwerking: |-
+        $f'(p) = -b$, dus het evenwicht trekt aan als $b < 1$. De boeren reageren dan zwakker op de prijs dan de kopers.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    het bifurcatiediagram lezen
+  opgave: |-
+    Gebruik het bifurcatiediagram van de logistische afbeelding in sectie 3.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel waarden neemt de populatie op lange termijn aan bij $r = 3{,}2$? En bij $r = 3{,}5$?
+      antwoord: |-
+        2; 4
+      uitwerking: |-
+        Bij 3,2 zijn er twee takken, bij 3,5 vier.
+    - opgave: |-
+        Welke vergelijking heeft de enkele tak tussen $r = 2{,}8$ en $r = 3$?
+      antwoord: |-
+        $x = 1 - \tfrac1r$
+      uitwerking: |-
+        Dat is het aantrekkende dekpunt.
+    - opgave: |-
+        Schat de waarde van $r$ waar de vier takken zich in acht splitsen.
+      antwoord: |-
+        ongeveer 3,54
+      uitwerking: |-
+        Tussen 3,5 en 3,57; de exacte waarde is ongeveer 3,544.
+    - opgave: |-
+        Hoeveel waarden zie je in het witte venster rond $r = 3{,}83$?
+      antwoord: |-
+        3
+      uitwerking: |-
+        Daar trekt een 3-cyclus aan.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een 3-cyclus van de logistische afbeelding
+  opgave: |-
+    Neem $f(x) = 3{,}83\,x(1 - x)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Itereer vanaf $x_0 = 0{,}5$ minstens vijftig keer, en noteer drie opeenvolgende termen op vier decimalen.
+      antwoord: |-
+        ongeveer $0{,}1561$; $0{,}5047$; $0{,}9574$
+      uitwerking: |-
+        De baan komt in een 3-cyclus, die op vier decimalen bestaat uit $0{,}1561$, $0{,}5047$ en $0{,}9574$ (in die volgorde).
+    - opgave: |-
+        Bereken het product van de afgeleiden langs de cyclus. Is ze aantrekkend?
+      antwoord: |-
+        ongeveer $0{,}33$; ja
+      uitwerking: |-
+        $f'(x) = 3{,}83(1 - 2x)$: ongeveer $2{,}634$, $-0{,}036$ en $-3{,}504$, met product ongeveer $0{,}33$.
+    - opgave: |-
+        Heeft de cyclus periode 3, en niet 1? Hoe zie je dat?
+      antwoord: |-
+        ja: drie verschillende waarden
+      uitwerking: |-
+        De drie termen zijn verschillend, dus de baan keert pas na drie stappen terug. (In 1975 bewezen Tien-Yien Li en James Yorke dat een continue functie met een punt van periode 3 ook punten met elke andere periode heeft: \textit{periode drie impliceert chaos}.)
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: 2-cyclus van een lineaire functie
+  opgave: |-
+    Neem $f(x) = ax + b$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $f(f(x)) - x = (a^2 - 1)\,x + (a + 1)\,b$.
+      antwoord: |-
+        $a(ax + b) + b - x$
+      uitwerking: |-
+        $f(f(x)) = a(ax + b) + b = a^2x + ab + b$.
+    - opgave: |-
+        Bewijs: $f$ heeft een punt met periode 2 als en slechts als $a = -1$.
+      antwoord: |-
+        anders heeft $f(f(x)) = x$ hoogstens één oplossing, het dekpunt
+      uitwerking: |-
+        Is $a^2 \neq 1$, dan heeft $f(f(x)) = x$ precies één oplossing, en dat is het dekpunt $\tfrac{b}{1 - a}$. Is $a = 1$, dan is $f(f(x)) = x + 2b$: alleen een oplossing als $b = 0$, en dan is elk punt een dekpunt. Is $a = -1$, dan is $f(f(x)) = x$ voor elke $x$: elk punt behalve het dekpunt $\tfrac b2$ heeft periode 2.
+    - opgave: |-
+        Toon aan dat een stijgende functie geen punt met periode 2 heeft.
+      antwoord: |-
+        uit $p < q$ volgt $f(p) \leqslant f(q)$, dus $q \leqslant p$
+      uitwerking: |-
+        Stel $f(p) = q$ en $f(q) = p$ met $p \neq q$, bijvoorbeeld $p < q$. Omdat $f$ stijgt, is $f(p) \leqslant f(q)$, dus $q \leqslant p$: strijdig.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    bewijs: $x^2 + c$ met $c > \tfrac14$ gaat naar oneindig
+  opgave: |-
+    Neem $f(x) = x^2 + c$ met $c > \tfrac14$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $f(x) - x \geqslant c - \tfrac14$ voor elke $x$.
+      antwoord: |-
+        $x^2 - x + c = (x - \tfrac12)^2 + c - \tfrac14$
+      uitwerking: |-
+        Kwadraat afsplitsen: $f(x) - x = \bigl(x - \tfrac12\bigr)^2 + c - \tfrac14 \geqslant c - \tfrac14$.
+    - opgave: |-
+        Leid af dat $x_n \geqslant x_0 + n\,\bigl(c - \tfrac14\bigr)$, en dus dat elke baan naar $+\infty$ gaat.
+      antwoord: |-
+        elke stap komt er minstens $c - \tfrac14 > 0$ bij
+      uitwerking: |-
+        $x_n - x_{n-1} = f(x_{n-1}) - x_{n-1} \geqslant c - \tfrac14$. Tel $n$ zulke stappen op: $x_n - x_0 \geqslant n(c - \tfrac14)$, en dat gaat naar $+\infty$.
+    - opgave: |-
+        Welke baan gaat naar oneindig bij $c = \tfrac14$, en welke niet?
+      antwoord: |-
+        naar $\tfrac12$ als $|x_0| \leqslant \tfrac12$, anders naar $+\infty$
+      uitwerking: |-
+        Dan is $\tfrac12$ het enige dekpunt, met $f'(\tfrac12) = 1$. Voor $|x_0| \leqslant \tfrac12$ blijft de baan in $[0, \tfrac12]$ en stijgt ze naar $\tfrac12$; voor $|x_0| > \tfrac12$ is $x_1 > \tfrac12$, en daarboven stijgt de baan zonder dekpunt: naar $+\infty$.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    superaantrekkende cycli van $x^2 + c$
+  opgave: |-
+    Een cyclus waarin 0 ligt, heeft bij $f(x) = x^2 + c$ een product van afgeleiden gelijk aan 0, want $f'(0) = 0$: ze trekt heel sterk aan.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Voor welke $c$ is 0 een dekpunt? Voor welke $c$ heeft 0 periode 2?
+      antwoord: |-
+        $c = 0$; $c = -1$
+      uitwerking: |-
+        $f(0) = c = 0$. Periode 2: $f(f(0)) = c^2 + c = 0$ en $c \neq 0$, dus $c = -1$ (de cyclus $\{0, -1\}$).
+    - opgave: |-
+        Toon aan dat 0 periode 3 heeft als $c^3 + 2c^2 + c + 1 = 0$, en benader de reële oplossing.
+      antwoord: |-
+        $c \approx -1{,}7549$
+      uitwerking: |-
+        $\iter f3(0) = (c^2 + c)^2 + c = c\,(c^3 + 2c^2 + c + 1)$. Voor $c \neq 0$ moet de tweede factor 0 zijn. De enige reële oplossing is $c \approx -1{,}7549$ (insluiten of het rekentoestel).
+    - opgave: |-
+        Controleer: is bij die $c$ de baan van 0 echt een 3-cyclus?
+      antwoord: |-
+        $0 \to -1{,}7549 \to 1{,}3247 \to 0$
+      uitwerking: |-
+        $c^2 + c \approx 3{,}0796 - 1{,}7549 = 1{,}3247$, en $1{,}3247^2 - 1{,}7549 \approx 0$. Je vindt deze waarde van $c$ terug in hoofdstuk 4.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het aantal periodieke punten bij $r = 4$
+  opgave: |-
+    Neem $f(x) = 4x(1 - x)$ op $[0, 1]$, met $x = \sin^2\theta$ en $\theta \in [0, \tfrac\pi2]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\iter fn(x) = x$ als $2^n\theta = \theta + k\pi$ of $2^n\theta = -\theta + k\pi$ voor een geheel getal $k$.
+      antwoord: |-
+        $\sin^2 \alpha = \sin^2\beta$ als $\alpha = \pm\beta + k\pi$
+      uitwerking: |-
+        $\iter fn(x) = \sin^2(2^n\theta)$, en $\sin^2\alpha = \sin^2\beta$ als $\sin\alpha = \pm\sin\beta$, dus als $\alpha = \pm\beta + k\pi$.
+    - opgave: |-
+        Hoeveel oplossingen heeft $\iter f2(x) = x$ in $[0, 1]$? Geef ze.
+      antwoord: |-
+        4: $0$, $\tfrac34$, $\tfrac{5 \pm \sqrt5}{8}$
+      uitwerking: |-
+        $3\theta = k\pi$ geeft $\theta = 0, \tfrac\pi3$; $5\theta = k\pi$ geeft $\theta = 0, \tfrac\pi5, \tfrac{2\pi}5$. Samen $\theta = 0, \tfrac\pi5, \tfrac\pi3, \tfrac{2\pi}{5}$: de dekpunten 0 en $\tfrac34$ en de 2-cyclus.
+    - opgave: |-
+        Toon aan dat $\iter fn(x) = x$ in $[0, 1]$ precies $2^n$ oplossingen heeft.
+      antwoord: |-
+        $2^{n-1}$ hoeken uit elke vergelijking, met $\theta = 0$ dubbel geteld
+      uitwerking: |-
+        $\theta = \tfrac{k\pi}{2^n - 1}$ in $[0, \tfrac\pi2]$ geeft $k = 0, \ldots, 2^{n-1} - 1$: $2^{n-1}$ hoeken (want $\tfrac{2^n - 1}{2}$ is geen geheel getal). $\theta = \tfrac{k\pi}{2^n + 1}$ geeft $k = 0, \ldots, 2^{n-1}$: $2^{n-1} + 1$ hoeken. $\theta = 0$ zit in beide: samen $2^n$. Dus heeft $\iter fn$ precies $2^n$ dekpunten: het aantal periodieke punten groeit exponentieel.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    stabiliteit van een cyclus onafhankelijk van de volgorde
+  opgave: |-
+    Neem $f(x) = x^2 - 1{,}76$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Itereer vanaf 0 tot je een cyclus ziet. Welke periode heeft ze?
+      antwoord: |-
+        periode 3, ongeveer $\{0{,}024;\ -1{,}759;\ 1{,}336\}$
+      uitwerking: |-
+        Na een twintigtal stappen herhalen de waarden zich om de drie stappen: ongeveer $0{,}0238$; $-1{,}7594$; $1{,}3356$. Ze liggen dicht bij de baan van 0 voor $c \approx -1{,}7549$, want $-1{,}76$ ligt daar dichtbij.
+    - opgave: |-
+        Bereken het product van de afgeleiden langs de cyclus. Maakt het uit in welk punt je begint?
+      antwoord: |-
+        ongeveer $-0{,}45$; nee
+      uitwerking: |-
+        $f'(x) = 2x$: ongeveer $0{,}048 \cdot (-3{,}519) \cdot 2{,}671 \approx -0{,}45$, en $|{-0{,}45}| < 1$: de cyclus trekt aan. Het is een product van dezelfde drie factoren, dus de volgorde speelt geen rol.
+    - opgave: |-
+        Waarom zou deze cyclus sterker aantrekken als $c$ nog dichter bij $-1{,}7549$ ligt?
+      antwoord: |-
+        dan ligt 0 bijna op de cyclus, en is één factor bijna 0
+      uitwerking: |-
+        De factor $f'(p) = 2p$ in het punt $p$ dicht bij 0 gaat naar 0, en dus ook het product.
+
+- id: h2-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: |-
+      Differentiaalvergelijkingen
+  opgave: |-
+    De logistische vergelijking $y' = y(1 - y)$ heeft oplossingen die rustig naar 1 gaan, zonder te schommelen. Benader ze met de methode van Euler met stap $h$: $y_n = y_{n-1} + h\,y_{n-1}(1 - y_{n-1})$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat 1 een dekpunt is van $g(y) = y + h\,y(1 - y)$, en dat $g'(1) = 1 - h$.
+      antwoord: |-
+        $g(1) = 1$; $g'(y) = 1 + h - 2hy$
+      uitwerking: |-
+        $g(1) = 1 + 0 = 1$, en $g'(1) = 1 + h - 2h = 1 - h$.
+    - opgave: |-
+        Voor welke stap $h$ geeft de methode een baan die naar 1 gaat? Wanneer zonder te schommelen?
+      antwoord: |-
+        $0 < h < 2$; zonder schommelen als $h \leqslant 1$
+      uitwerking: |-
+        $|1 - h| < 1$ geeft $0 < h < 2$. Voor $h < 1$ is $g'(1) > 0$: een trap, zoals de echte oplossing. Voor $1 < h < 2$ springt de benadering om 1 heen.
+    - opgave: |-
+        Bereken met $h = 2{,}5$ vijf stappen vanaf $y_0 = 0{,}1$. Wat leer je hieruit?
+      antwoord: |-
+        $0{,}325$; $0{,}873$; $1{,}150$; $0{,}719$; $1{,}224$
+      uitwerking: |-
+        De benadering springt heen en weer, terwijl de echte oplossing rustig stijgt. Een te grote stap maakt van een rustige differentiaalvergelijking een iteratie met periodiek of zelfs chaotisch gedrag.
+
+- id: h2-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Getaltheorie
+  opgave: |-
+    De \textit{verdubbelingsafbeelding} op $[0, 1[$ verdubbelt een getal en houdt alleen het deel na de komma: $D(x) = 2x - \lfloor 2x \rfloor$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de banen van $\tfrac17$, $\tfrac15$ en $\tfrac19$. Welke periode hebben ze?
+      antwoord: |-
+        3, 4 en 6
+      uitwerking: |-
+        $\tfrac17 \to \tfrac27 \to \tfrac47 \to \tfrac17$; $\tfrac15 \to \tfrac25 \to \tfrac45 \to \tfrac35 \to \tfrac15$; $\tfrac19 \to \tfrac29 \to \tfrac49 \to \tfrac89 \to \tfrac79 \to \tfrac59 \to \tfrac19$.
+    - opgave: |-
+        Toon aan dat de periode van $\tfrac1q$ (met $q$ oneven) het kleinste $k \geqslant 1$ is met $2^k \equiv 1 \pmod q$.
+      antwoord: |-
+        $\iter Dk(\tfrac1q) = \tfrac{2^k \bmod q}{q}$
+      uitwerking: |-
+        Na $k$ stappen is de teller $2^k$ modulo $q$, want het weggelaten gehele deel is een veelvoud van $q$ in de teller. Terug bij $\tfrac1q$ betekent dus $2^k \equiv 1 \pmod q$. Zo'n $k$ bestaat, omdat $2$ en $q$ onderling ondeelbaar zijn: er zijn maar eindig veel tellers, en elke teller heeft modulo $q$ maar één voorganger (2 heeft een inverse modulo $q$).
+    - opgave: |-
+        Waarom is $\tfrac16$ niet periodiek, maar wel uiteindelijk periodiek?
+      antwoord: |-
+        $\tfrac16 \to \tfrac13 \to \tfrac23 \to \tfrac13$
+      uitwerking: |-
+        Na één stap is de noemer 3 (oneven), en vanaf dan is de baan periodiek. Een even noemer verdwijnt bij het verdubbelen, dus $\tfrac16$ kan niet terugkeren.
+
+- id: h2-koppel-3
+  soort: koppel
+  niveau: 1
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Matrices
+  opgave: |-
+    Ook een matrix kun je itereren: $v_n = A\,v_{n-1}$. Neem $A = \begin{pmatrix} 0 & -1 \\ 1 & -1 \end{pmatrix}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $A^2$ en $A^3$.
+      antwoord: |-
+        $A^2 = \begin{pmatrix} -1 & 1 \\ -1 & 0 \end{pmatrix}$, $A^3 = I$
+      uitwerking: |-
+        $A^3 = A^2 A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$.
+    - opgave: |-
+        Bereken de baan van $v_0 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$. Welke periode heeft elke vector $v_0 \neq 0$?
+      antwoord: |-
+        $\begin{pmatrix} 0 \\ 1 \end{pmatrix}$, $\begin{pmatrix} -1 \\ -1 \end{pmatrix}$, $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$; periode 3
+      uitwerking: |-
+        Omdat $A^3 = I$, keert elke vector na drie stappen terug. Periode 1 kan alleen als $Av = v$, en dat geeft $v = 0$. Dus periode 3 voor elke $v_0 \neq 0$.
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Neem $f(x) = \dfrac{x + 2}{x - 1}$. Toon aan dat $f(f(x)) = x$, bepaal de dekpunten, en geef de periode van $x_0 = 4$.
+  antwoord: |-
+    dekpunten $1 \pm \sqrt3$; periode 2: $4 \to 2 \to 4$
+  uitwerking: |-
+    $f(f(x)) = \dfrac{(x + 2) + 2(x - 1)}{(x + 2) - (x - 1)} = \dfrac{3x}{3} = x$. Dekpunten: $x + 2 = x^2 - x$, dus $x^2 - 2x - 2 = 0$. $f(4) = 2$ en $f(2) = 4$.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bepaal de punten met periode 2 van $f(x) = x^2 - 5$.
+  antwoord: |-
+    $\tfrac{-1 \pm \sqrt{17}}{2}$
+  uitwerking: |-
+    $f(f(x)) - x = (x^2 - x - 5)(x^2 + x - 4)$, en de tweede factor geeft de 2-cyclus.
+
+- id: h2-t3
+  soort: test
+  niveau: 2
+  opgave: |-
+    Is de 2-cyclus van $f(x) = x^2 - 5$ aantrekkend? En die van $f(x) = 1 - x^2$?
+  antwoord: |-
+    nee ($-16$); ja ($0$)
+  uitwerking: |-
+    Bij $x^2 - 5$ is $pq = -4$, dus $f'(p)f'(q) = 4pq = -16$. Bij $1 - x^2$ is de cyclus $\{0, 1\}$, met $f'(0)f'(1) = 0$.
+
+- id: h2-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Welke startwaarden komen bij $f(x) = 1 - x^2$ na één of twee stappen op de cyclus $\{0, 1\}$, zonder er zelf op te liggen?
+  antwoord: |-
+    $-1$ (één stap); $\pm\sqrt2$ (twee stappen)
+  uitwerking: |-
+    $1 - x^2 = 0$ geeft $\pm 1$, en $1 - x^2 = 1$ geeft 0: nieuw is alleen $-1$. Dan $1 - x^2 = -1$ geeft $\pm\sqrt2$.
+
+- id: h2-t5
+  soort: test
+  niveau: 1
+  opgave: |-
+    Beschrijf de baan van $x_0 = 0{,}3$ onder $f(x) = 2{,}6\,x(1 - x)$, zonder veel termen te berekenen.
+  antwoord: |-
+    naar $p \approx 0{,}615$, springend
+  uitwerking: |-
+    $p = 1 - \tfrac{1}{2{,}6} \approx 0{,}615$ en $f'(p) = 2 - 2{,}6 = -0{,}6$: aantrekkend en springend.
+
+- id: h2-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Bepaal de 2-cyclus van $f(x) = 3{,}25\,x(1 - x)$ op drie decimalen, en zeg of ze aantrekkend is.
+  antwoord: |-
+    $0{,}812$ en $0{,}495$; aantrekkend
+  uitwerking: |-
+    $x = \tfrac{4{,}25 \pm \sqrt{4{,}25 \cdot 0{,}25}}{6{,}5}$, dus $0{,}812$ en $0{,}495$. Product: $-3{,}25^2 + 6{,}5 + 4 = -0{,}0625$.
+
+- id: h2-t7
+  soort: test
+  niveau: 3
+  opgave: |-
+    Toon aan dat $x_0 = \sin^2\tfrac\pi7$ onder $f(x) = 4x(1 - x)$ periode 3 heeft. Waarom zie je die cyclus niet als je met het rekentoestel itereert?
+  antwoord: |-
+    $x_3 = \sin^2\tfrac{8\pi}{7} = \sin^2\tfrac\pi7$; de afwijking verdubbelt per stap
+  uitwerking: |-
+    $x_n = \sin^2\tfrac{2^n\pi}{7}$: $x_1 = \sin^2\tfrac{2\pi}7$, $x_2 = \sin^2\tfrac{4\pi}{7}$ en $x_3 = \sin^2\bigl(\pi + \tfrac\pi7\bigr) = \sin^2\tfrac\pi7$. De drie waarden (0,188; 0,611; 0,950) zijn verschillend. Een afgeronde startwaarde wijkt een beetje af, en die afwijking verdubbelt ongeveer bij elke stap.

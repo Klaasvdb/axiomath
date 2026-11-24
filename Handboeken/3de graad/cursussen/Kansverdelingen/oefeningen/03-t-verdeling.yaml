@@ -1,0 +1,1260 @@
+# Oefeningen van hoofdstuk 3 (De t-verdeling). Zie oefeningenbank.py voor de velden.
+# Alle getallen nagerekend met mpmath (t-verdeling via de onvolledige bètafunctie) en sympy.
+
+- id: h3-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een aselecte steekproef van 25 waarnemingen uit een populatie met $\sigma = 5$ heeft gemiddelde 40. Bereken het 95~\%-betrouwbaarheidsinterval voor $\mu$.
+      antwoord: |-
+        $[38{,}04;\ 41{,}96]$
+      uitwerking: |-
+        $E = 1{,}96 \cdot \frac{5}{\sqrt{25}} = 1{,}96$, dus $[40 - 1{,}96;\ 40 + 1{,}96] = [38{,}04;\ 41{,}96]$.
+    - opgave: |-
+        Waar komt het getal 1,96 vandaan? Bereken het met \texttt{invNorm}.
+      antwoord: |-
+        \texttt{invNorm(0.975,0,1)} $\approx 1{,}96$
+      uitwerking: |-
+        Tussen $-1{,}96$ en $1{,}96$ ligt 95~\% van de oppervlakte onder de standaardnormale kromme, dus links van 1,96 ligt $0{,}975$: \texttt{invNorm(0.975,0,1)} $\approx 1{,}960$.
+    - opgave: |-
+        Een populatie heeft $\sigma = 12$. Wat is de standaardafwijking van het gemiddelde $\overline{X}$ van een steekproef van 16 waarnemingen?
+      antwoord: |-
+        3
+      uitwerking: |-
+        $\frac{\sigma}{\sqrt n} = \frac{12}{\sqrt{16}} = 3$.
+    - opgave: |-
+        Bij een eenzijdige toets met $H_1\colon \mu < \mu_0$ is $z = -2{,}1$. Bereken de p-waarde. Wat besluit je bij $\alpha = 0{,}05$?
+      antwoord: |-
+        $\approx 0{,}018$; $H_0$ verwerpen
+      uitwerking: |-
+        \texttt{normalcdf(-1E99,-2.1,0,1)} $\approx 0{,}018 \leqslant 0{,}05$: $H_0$ verwerpen.
+    - opgave: |-
+        Bereken de standaardafwijking van 2, 4, 4, 6 zoals in de 2de graad: de wortel uit het gemiddelde kwadraat van de afwijkingen.
+      antwoord: |-
+        $\sqrt2 \approx 1{,}41$
+      uitwerking: |-
+        $\xbar = 4$, afwijkingen $-2, 0, 0, 2$, kwadraten samen 8, gedeeld door 4 is 2: $\sigma x = \sqrt2 \approx 1{,}41$.
+
+- id: h3-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een computer trekt zes steekproeven van 4 waarden uit een normaal verdeelde populatie met $\mu = 50$ en $\sigma = 10$. Van elke steekproef geeft hij het gemiddelde $\xbar$ en de steekproefstandaardafwijking $s$.
+
+    \smallskip
+    {\centering\small\renewcommand{\arraystretch}{1.15}\begin{tabular}{|l|c|c|c|c|c|c|}\hline
+    steekproef & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+    $\xbar$ & 56 & 46,25 & 55,75 & 44,5 & 44,5 & 54 \\\hline
+    $s$ & 4,2 & 13,5 & 4,7 & 1,7 & 5,9 & 9,8 \\\hline
+    \end{tabular}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken voor elke steekproef $z = \dfrac{\xbar - 50}{10/\sqrt4}$.
+      antwoord: |-
+        $1{,}2$; \ ${-0{,}75}$; \ $1{,}15$; \ ${-1{,}1}$; \ ${-1{,}1}$; \ $0{,}8$
+      uitwerking: |-
+        $\frac{10}{\sqrt4} = 5$, dus $z = \frac{\xbar - 50}{5}$: $1{,}2$; $-0{,}75$; $1{,}15$; $-1{,}1$; $-1{,}1$; $0{,}8$.
+    - opgave: |-
+        Doe alsof je $\sigma$ niet kent, en vervang ze door $s$: bereken $t = \dfrac{\xbar - 50}{s/\sqrt4}$.
+      antwoord: |-
+        $2{,}86$; \ ${-0{,}56}$; \ $2{,}45$; \ ${-6{,}47}$; \ ${-1{,}86}$; \ $0{,}82$
+      uitwerking: |-
+        $t = \frac{\xbar - 50}{s/2}$, bijvoorbeeld $\frac{6}{2{,}1} \approx 2{,}86$ en $\frac{-5{,}5}{0{,}85} \approx -6{,}47$. Samen: $2{,}86$; $-0{,}56$; $2{,}45$; $-6{,}47$; $-1{,}86$; $0{,}82$.
+    - opgave: |-
+        Hoeveel waarden van $z$ liggen buiten $[-1{,}96;\ 1{,}96]$? Hoeveel van $t$? Hoeveel verwacht je bij $z$?
+      antwoord: |-
+        0 en 3; ongeveer 5~\%, dus 0
+      uitwerking: |-
+        Geen enkele $z$, maar drie $t$-waarden (steekproef 1, 3 en 4). Bij $z$ verwacht je 5~\% van 6, dus meestal 0.
+    - opgave: |-
+        Wat hebben de steekproeven met een grote $|t|$ gemeen?
+      antwoord: |-
+        een kleine $s$
+      uitwerking: |-
+        Steekproef 1, 3 en 4 hebben een kleine $s$ (4,2; 4,7 en 1,7). Delen door een klein getal maakt $t$ groot: $s$ onderschat dan $\sigma = 10$ sterk.
+
+# ---------------------------------------------------------------- korte oefeningen
+
+- id: h3-s
+  soort: kort
+  opgave: |-
+    Bereken $\xbar$, $s$ en $\sigma x$. Reken $s$ met de hand en controleer met \texttt{1-Var Stats}.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        12, 15, 11, 14, 13
+      antwoord: |-
+        $13$; \ $\approx 1{,}58$; \ $\approx 1{,}41$
+      uitwerking: |-
+        Afwijkingen $-1, 2, -2, 1, 0$, kwadraten samen 10. $s = \sqrt{\frac{10}{4}} \approx 1{,}58$ en $\sigma x = \sqrt{\frac{10}{5}} \approx 1{,}41$.
+    - opgave: |-
+        2,4; \ 3,1; \ 2,8; \ 3,5
+      antwoord: |-
+        $2{,}95$; \ $\approx 0{,}466$; \ $\approx 0{,}403$
+      uitwerking: |-
+        Afwijkingen $-0{,}55$; $0{,}15$; $-0{,}15$; $0{,}55$, kwadraten samen $0{,}65$. $s = \sqrt{\frac{0{,}65}{3}} \approx 0{,}466$ en $\sigma x = \sqrt{\frac{0{,}65}{4}} \approx 0{,}403$.
+
+- id: h3-tcdf
+  soort: kort
+  opgave: |-
+    Maak telkens een schets en bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $P(T < 1{,}5)$ voor $T \sim t_6$
+      antwoord: |-
+        $\approx 0{,}908$
+      uitwerking: |-
+        \texttt{tcdf(-1E99,1.5,6)} $\approx 0{,}908$.
+    - opgave: |-
+        $P(T > 2{,}5)$ voor $T \sim t_{12}$
+      antwoord: |-
+        $\approx 0{,}014$
+      uitwerking: |-
+        \texttt{tcdf(2.5,1E99,12)} $\approx 0{,}014$.
+    - opgave: |-
+        $P(-1 < T < 1)$ voor $T \sim t_2$
+      antwoord: |-
+        $\approx 0{,}577$
+      uitwerking: |-
+        \texttt{tcdf(-1,1,2)} $\approx 0{,}577$. Bij de normale verdeling is dat 0,683: bij $t_2$ ligt veel meer in de staarten.
+    - opgave: |-
+        $t^*$ bij 95~\% en $n = 20$
+      antwoord: |-
+        $\approx 2{,}093$
+      uitwerking: |-
+        $\nu = 19$: \texttt{invT(0.975,19)} $\approx 2{,}093$.
+    - opgave: |-
+        $t^*$ bij 90~\% en $n = 8$
+      antwoord: |-
+        $\approx 1{,}895$
+      uitwerking: |-
+        $\nu = 7$, en links van $t^*$ ligt $0{,}95$: \texttt{invT(0.95,7)} $\approx 1{,}895$.
+    - opgave: |-
+        $t^*$ bij 99~\% en $n = 31$
+      antwoord: |-
+        $\approx 2{,}750$
+      uitwerking: |-
+        $\nu = 30$: \texttt{invT(0.995,30)} $\approx 2{,}750$.
+
+- id: h3-interval
+  soort: kort
+  opgave: |-
+    Een tuinder meet de suikergraad van 14 aselect gekozen meloenen. Het gemiddelde is 4,36 (in een eigen eenheid), met $s = 0{,}52$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken een 95~\%-betrouwbaarheidsinterval voor de gemiddelde suikergraad van alle meloenen.
+      antwoord: |-
+        $[4{,}06;\ 4{,}66]$
+      uitwerking: |-
+        $\nu = 13$, $t^* = \texttt{invT(0.975,13)} \approx 2{,}160$, $E = 2{,}160 \cdot \frac{0{,}52}{\sqrt{14}} \approx 0{,}300$: $[4{,}06;\ 4{,}66]$.
+    - opgave: |-
+        Bereken ook een 90~\%-interval. Is het breder of smaller? Waarom?
+      antwoord: |-
+        $[4{,}11;\ 4{,}61]$; smaller
+      uitwerking: |-
+        $t^* = \texttt{invT(0.95,13)} \approx 1{,}771$, $E \approx 0{,}246$: $[4{,}11;\ 4{,}61]$. Smaller: met minder betrouwbaarheid mag het interval $\mu$ vaker missen.
+
+- id: h3-interval-data
+  soort: kort
+  opgave: |-
+    Een leerling meet negen keer hoeveel seconden het duurt voor een ijsblokje in een glas water smelt (in tientallen seconden): 61, 58, 66, 63, 59, 64, 60, 62, 65. Bereken met \texttt{TInterval} een 95~\%-betrouwbaarheidsinterval voor de gemiddelde smelttijd. Controleer met de formule.
+  antwoord: |-
+    $[59{,}9;\ 64{,}1]$
+  uitwerking: |-
+    $\xbar = 62$, $s \approx 2{,}739$, $\nu = 8$, $t^* \approx 2{,}306$, $E = 2{,}306 \cdot \frac{2{,}739}{3} \approx 2{,}11$: $[59{,}9;\ 64{,}1]$.
+
+- id: h3-marge
+  soort: kort
+  opgave: |-
+    Een onderzoekster wil de gemiddelde wachttijd aan een loket schatten tot op 4 minuten, met 95~\% betrouwbaarheid. Een proefsteekproef gaf $s = 12$ minuten. Hoeveel wachtenden moet ze ondervragen? Reken eerst met 1,96 en controleer met $t^*$.
+  antwoord: |-
+    38
+  uitwerking: |-
+    $n \geqslant \bigl(\frac{1{,}96 \cdot 12}{4}\bigr)^2 \approx 34{,}6$: eerste schatting 35. Controle: bij $n = 35$ is $E = \texttt{invT(0.975,34)} \cdot \frac{12}{\sqrt{35}} \approx 4{,}12$, bij $n = 37$ nog $4{,}001$, bij $n = 38$ is $E \approx 3{,}94$. Dus 38.
+
+- id: h3-toets
+  soort: kort
+  opgave: |-
+    Op een zak chips staat 250~g. Een consument weegt 12 zakken: gemiddeld 246,8~g, met $s = 4{,}9$~g. Toets bij $\alpha = 0{,}05$ of de zakken gemiddeld te licht zijn.
+  antwoord: |-
+    $t \approx -2{,}26$, p-waarde $\approx 0{,}022$: $H_0$ verwerpen
+  uitwerking: |-
+    $H_0\colon \mu = 250$, $H_1\colon \mu < 250$. $t = \frac{246{,}8 - 250}{4{,}9/\sqrt{12}} \approx -2{,}26$ met $\nu = 11$. p-waarde = \texttt{tcdf(-1E99,-2.26,11)} $\approx 0{,}022 \leqslant 0{,}05$: $H_0$ verwerpen, de zakken zijn waarschijnlijk gemiddeld te licht.
+
+- id: h3-toets-2
+  soort: kort
+  opgave: |-
+    Een fabrikant van verf belooft dat een laag gemiddeld 5,0 uur nodig heeft om te drogen. Een schilder meet tien keer: 5,3; 4,6; 5,8; 5,1; 4,9; 5,6; 5,4; 5,7; 5,2; 5,5 uur. Wijkt de droogtijd af van wat de fabrikant belooft? Toets tweezijdig bij $\alpha = 0{,}05$, met \texttt{T-Test} en Inpt: Data.
+  antwoord: |-
+    $t \approx 2{,}63$, p-waarde $\approx 0{,}027$: $H_0$ verwerpen
+  uitwerking: |-
+    $H_0\colon \mu = 5$, $H_1\colon \mu \neq 5$. $\xbar = 5{,}31$, $s \approx 0{,}373$, $t = \frac{0{,}31}{0{,}373/\sqrt{10}} \approx 2{,}63$ met $\nu = 9$. p-waarde $= 2 \cdot \texttt{tcdf(2.63,1E99,9)} \approx 0{,}027 \leqslant 0{,}05$: de droogtijd wijkt waarschijnlijk af, ze is langer.
+
+- id: h3-interval-toets
+  soort: kort
+  opgave: |-
+    Een 95~\%-betrouwbaarheidsinterval voor een gemiddelde is $[18{,}7;\ 23{,}5]$. Welke nulhypothesen verwerpt een tweezijdige t-toets bij $\alpha = 0{,}05$ met dezelfde gegevens?
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $\mu = 18$
+      antwoord: |-
+        verwerpen
+      uitwerking: |-
+        18 ligt niet in het interval: verwerpen.
+    - opgave: |-
+        $\mu = 20$
+      antwoord: |-
+        niet verwerpen
+      uitwerking: |-
+        20 ligt in het interval: niet verwerpen.
+    - opgave: |-
+        $\mu = 23{,}4$
+      antwoord: |-
+        niet verwerpen
+      uitwerking: |-
+        23,4 ligt (net) in het interval: niet verwerpen.
+    - opgave: |-
+        $\mu = 25$
+      antwoord: |-
+        verwerpen
+      uitwerking: |-
+        25 ligt niet in het interval: verwerpen.
+
+- id: h3-gepaard
+  soort: kort
+  opgave: |-
+    Zes metalen staafjes worden gemeten met een nieuwe schuifmaat A en een gekeurde schuifmaat B (in mm). Meet A gemiddeld meer dan B? Toets bij $\alpha = 0{,}05$.
+
+    \smallskip
+    {\centering\small\renewcommand{\arraystretch}{1.15}\begin{tabular}{|l|c|c|c|c|c|c|}\hline
+    staafje & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+    A & 24,1 & 25,3 & 22,8 & 26,0 & 23,5 & 24,7 \\\hline
+    B & 23,6 & 25,1 & 22,1 & 25,2 & 23,4 & 24,0 \\\hline
+    \end{tabular}\par}
+  antwoord: |-
+    $t \approx 4{,}23$, p-waarde $\approx 0{,}004$: $H_0$ verwerpen
+  uitwerking: |-
+    Verschillen $d = A - B$: $0{,}5$; $0{,}2$; $0{,}7$; $0{,}8$; $0{,}1$; $0{,}7$. $\overline{d} = 0{,}5$, $s_d \approx 0{,}290$. $H_0\colon \mu_d = 0$, $H_1\colon \mu_d > 0$. $t = \frac{0{,}5}{0{,}290/\sqrt6} \approx 4{,}23$ met $\nu = 5$, p-waarde $\approx 0{,}004$: schuifmaat A meet waarschijnlijk systematisch te veel.
+
+- id: h3-voorwaarden
+  soort: kort
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.32cm,font=\scriptsize]
+        \draw[->,grijs] (0,0) -- (21,0) node[right,text=black] {min};
+        \foreach \t in {0,5,10,15,20}{\draw[grijs] (\t,.08) -- (\t,-.08) node[below,text=black] {\t};}
+        \foreach \v/\h in {2/1,3/1,3/2,4/1,4/2,4/3,5/1,5/2,6/1,7/1,9/1,19/1}{\fill[accent] (\v,{.25*\h}) circle (2.2pt);}
+      \end{tikzpicture}
+  opgave: |-
+    Een leerling noteert twaalf dagen hoeveel minuten ze op de trein wacht. Rechts zie je de waarden. Mag ze met een t-interval het gemiddelde schatten? Leg uit wat ze best doet.
+  antwoord: |-
+    niet zomaar: scheef, met een uitschieter (19)
+  uitwerking: |-
+    Met $n = 12 < 15$ moeten de waarden ongeveer symmetrisch liggen, zonder uitschieters. Hier zijn ze scheef naar rechts, met een uitschieter bij 19 minuten. Ze zoekt uit wat er die dag gebeurde (een staking?), meldt het resultaat met en zonder die waarde, of verzamelt meer gegevens.
+
+# ---------------------------------------------------------------- opdrachten, niveau 1
+
+- id: h3-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    steekproefstandaardafwijking
+  opgave: |-
+    Bereken $\xbar$ en $s$ met de hand. Controleer met \texttt{1-Var Stats}.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        8, 10, 9, 13
+      antwoord: |-
+        $10$; \ $\approx 2{,}16$
+      uitwerking: |-
+        Afwijkingen $-2, 0, -1, 3$, kwadraten samen 14: $s = \sqrt{\frac{14}{3}} \approx 2{,}16$.
+    - opgave: |-
+        0,2; \ 0,5; \ 0,1; \ 0,4; \ 0,3
+      antwoord: |-
+        $0{,}3$; \ $\approx 0{,}158$
+      uitwerking: |-
+        Afwijkingen $-0{,}1$; $0{,}2$; $-0{,}2$; $0{,}1$; $0$, kwadraten samen $0{,}1$: $s = \sqrt{\frac{0{,}1}{4}} \approx 0{,}158$.
+    - opgave: |-
+        105, 98, 110, 101, 96, 102
+      antwoord: |-
+        $102$; \ $\approx 5{,}02$
+      uitwerking: |-
+        Afwijkingen $3, -4, 8, -1, -6, 0$, kwadraten samen 126: $s = \sqrt{\frac{126}{5}} \approx 5{,}02$.
+
+- id: h3-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kansen met tcdf
+  opgave: |-
+    Bereken met \texttt{tcdf}. Maak bij elke opgave een schets.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $P(T < 1{,}5)$ voor $T \sim t_4$
+      antwoord: |-
+        $\approx 0{,}896$
+      uitwerking: |-
+        \texttt{tcdf(-1E99,1.5,4)} $\approx 0{,}896$.
+    - opgave: |-
+        $P(T > 2{,}2)$ voor $T \sim t_{10}$
+      antwoord: |-
+        $\approx 0{,}026$
+      uitwerking: |-
+        \texttt{tcdf(2.2,1E99,10)} $\approx 0{,}026$.
+    - opgave: |-
+        $P(-2 < T < 2)$ voor $T \sim t_3$
+      antwoord: |-
+        $\approx 0{,}861$
+      uitwerking: |-
+        \texttt{tcdf(-2,2,3)} $\approx 0{,}861$.
+    - opgave: |-
+        $P(|T| > 2{,}5)$ voor $T \sim t_{20}$
+      antwoord: |-
+        $\approx 0{,}021$
+      uitwerking: |-
+        Beide staarten: $2 \cdot \texttt{tcdf(2.5,1E99,20)} \approx 0{,}021$.
+    - opgave: |-
+        $P(T < -1)$ voor $T \sim t_1$
+      antwoord: |-
+        $0{,}25$
+      uitwerking: |-
+        \texttt{tcdf(-1E99,-1,1)} $= 0{,}25$. (Bij $t_1$ is dat exact $\frac14$: zie de Koppel.)
+    - opgave: |-
+        $P(T > 3)$ voor $T \sim t_{30}$, en $P(Z > 3)$ voor $Z$ standaardnormaal
+      antwoord: |-
+        $\approx 0{,}0027$; \ $\approx 0{,}0013$
+      uitwerking: |-
+        \texttt{tcdf(3,1E99,30)} $\approx 0{,}0027$ en \texttt{normalcdf(3,1E99,0,1)} $\approx 0{,}0013$: ook bij $\nu = 30$ is de staart ver weg nog dubbel zo dik.
+
+- id: h3-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    kritieke waarden
+  opgave: |-
+    Bepaal de kritieke waarde $t^*$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        95~\% en $n = 6$
+      antwoord: |-
+        $\approx 2{,}571$
+      uitwerking: |-
+        \texttt{invT(0.975,5)} $\approx 2{,}571$.
+    - opgave: |-
+        90~\% en $n = 15$
+      antwoord: |-
+        $\approx 1{,}761$
+      uitwerking: |-
+        \texttt{invT(0.95,14)} $\approx 1{,}761$.
+    - opgave: |-
+        99~\% en $n = 25$
+      antwoord: |-
+        $\approx 2{,}797$
+      uitwerking: |-
+        \texttt{invT(0.995,24)} $\approx 2{,}797$.
+    - opgave: |-
+        95~\% en $n = 101$
+      antwoord: |-
+        $\approx 1{,}984$
+      uitwerking: |-
+        \texttt{invT(0.975,100)} $\approx 1{,}984$: al dicht bij 1,96.
+    - opgave: |-
+        80~\% en $n = 4$
+      antwoord: |-
+        $\approx 1{,}638$
+      uitwerking: |-
+        Links van $t^*$ ligt $0{,}9$: \texttt{invT(0.9,3)} $\approx 1{,}638$.
+    - opgave: |-
+        Vanaf welke $\nu$ is $t^*$ bij 95~\% kleiner dan 2,05?
+      antwoord: |-
+        $\nu = 28$
+      uitwerking: |-
+        \texttt{invT(0.975,27)} $\approx 2{,}052$ en \texttt{invT(0.975,28)} $\approx 2{,}048$. Omdat $t^*$ daalt als $\nu$ stijgt: vanaf $\nu = 28$.
+
+- id: h3-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    betrouwbaarheidsinterval
+  opgave: |-
+    Een kweker weegt 12 aselect geplukte tomaten van een nieuw ras: gemiddeld 86,3~g, met $s = 7{,}4$~g.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken een 95~\%-betrouwbaarheidsinterval voor de gemiddelde massa van alle tomaten van dat ras.
+      antwoord: |-
+        $[81{,}6;\ 91{,}0]$
+      uitwerking: |-
+        $\nu = 11$, $t^* \approx 2{,}201$, $E = 2{,}201 \cdot \frac{7{,}4}{\sqrt{12}} \approx 4{,}70$: $[81{,}6;\ 91{,}0]$.
+    - opgave: |-
+        Bereken ook een 90~\%-interval.
+      antwoord: |-
+        $[82{,}5;\ 90{,}1]$
+      uitwerking: |-
+        $t^* = \texttt{invT(0.95,11)} \approx 1{,}796$, $E \approx 3{,}84$: $[82{,}5;\ 90{,}1]$.
+    - opgave: |-
+        Een leerling zegt: \textit{95~\% van de tomaten weegt tussen 81,6 en 91,0~g}. Wat is er fout?
+      antwoord: |-
+        het interval gaat over het gemiddelde, niet over de tomaten
+      uitwerking: |-
+        Het interval schat het gemiddelde $\mu$ van alle tomaten. Afzonderlijke tomaten schommelen veel meer: met $s = 7{,}4$ weegt een flink deel buiten dat interval.
+
+- id: h3-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    t-verdeling en normale verdeling
+  opgave: |-
+    Waar of niet waar? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De t-verdeling is symmetrisch rond 0.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: de dichtheid hangt alleen af van $x^2$.
+    - opgave: |-
+        Hoe meer vrijheidsgraden, hoe hoger de top van de t-kromme.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: de top is $c_\nu$, en die stijgt van $\frac1\pi \approx 0{,}318$ bij $\nu = 1$ naar $\frac{1}{\sqrt{2\pi}} \approx 0{,}399$. De staarten worden dunner, dus komt er meer oppervlakte in het midden.
+    - opgave: |-
+        $P(T > 2) < P(Z > 2)$ voor $T \sim t_5$ en $Z$ standaardnormaal.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: de t-verdeling heeft dikkere staarten, $P(T > 2) \approx 0{,}051 > 0{,}023$.
+    - opgave: |-
+        Het aantal vrijheidsgraden is het aantal waarnemingen.
+      antwoord: |-
+        niet waar
+      uitwerking: |-
+        Niet waar: het is $n - 1$, omdat de afwijkingen tot $\xbar$ samen 0 zijn.
+    - opgave: |-
+        Bij een steekproef van 500 waarnemingen geven 1,96 en $t^*$ bijna hetzelfde interval.
+      antwoord: |-
+        waar
+      uitwerking: |-
+        Waar: \texttt{invT(0.975,499)} $\approx 1{,}965$, dus de marges verschillen maar 0,3~\%.
+
+- id: h3-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    t-toets eenzijdig
+  opgave: |-
+    Een fabrikant belooft dat een oplaadbare batterij in een fietslamp gemiddeld 20 uur brandt. Een fietsersbond test 16 batterijen: gemiddeld 19,1 uur, met $s = 1{,}9$ uur. De bond vermoedt dat de belofte te mooi is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Formuleer $H_0$ en $H_1$.
+      antwoord: |-
+        $H_0\colon \mu = 20$, $H_1\colon \mu < 20$
+      uitwerking: |-
+        $\mu$ is de gemiddelde brandduur van alle batterijen. $H_0\colon \mu = 20$ (de belofte), $H_1\colon \mu < 20$ (het vermoeden).
+    - opgave: |-
+        Bereken de toetsingsgrootheid $t$ en het aantal vrijheidsgraden.
+      antwoord: |-
+        $t \approx -1{,}89$; $\nu = 15$
+      uitwerking: |-
+        $t = \frac{19{,}1 - 20}{1{,}9/\sqrt{16}} = \frac{-0{,}9}{0{,}475} \approx -1{,}89$, met $\nu = 15$.
+    - opgave: |-
+        Bereken de p-waarde.
+      antwoord: |-
+        $\approx 0{,}039$
+      uitwerking: |-
+        \texttt{tcdf(-1E99,-1.89,15)} $\approx 0{,}039$.
+    - opgave: |-
+        Wat besluit je bij $\alpha = 0{,}05$? En bij $\alpha = 0{,}01$?
+      antwoord: |-
+        verwerpen; niet verwerpen
+      uitwerking: |-
+        $0{,}039 \leqslant 0{,}05$: bij 5~\% verwerp je $H_0$, de batterijen branden waarschijnlijk gemiddeld minder dan 20 uur. $0{,}039 > 0{,}01$: bij het strengere niveau verwerp je $H_0$ niet.
+
+- id: h3-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    interval uit ruwe gegevens
+  prent:
+    naam: koffie
+  opgave: |-
+    Een labo meet het cafeïnegehalte van zeven koppen koffie uit dezelfde automaat, in mg per kop: 92, 104, 87, 99, 95, 101, 98.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\xbar$ en $s$.
+      antwoord: |-
+        $\approx 96{,}6$; \ $\approx 5{,}74$
+      uitwerking: |-
+        Met \texttt{1-Var Stats}: $\xbar \approx 96{,}57$ en $Sx \approx 5{,}74$.
+    - opgave: |-
+        Bereken een 95~\%-betrouwbaarheidsinterval voor het gemiddelde cafeïnegehalte van alle koppen uit de automaat.
+      antwoord: |-
+        $[91{,}3;\ 101{,}9]$
+      uitwerking: |-
+        $\nu = 6$, $t^* \approx 2{,}447$, $E = 2{,}447 \cdot \frac{5{,}74}{\sqrt7} \approx 5{,}31$: $[91{,}3;\ 101{,}9]$. Met \texttt{TInterval} (Data): hetzelfde.
+    - opgave: |-
+        De automaat belooft 100~mg per kop. Is dat in strijd met het interval?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Nee: 100 ligt in het interval. Een tweezijdige toets bij 5~\% zou $\mu = 100$ niet verwerpen.
+
+- id: h3-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    grafieken van de t-verdeling
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.62cm,y=9cm,font=\scriptsize]
+        \kansassen{-4}{4.4}{.44}{$x$}
+        \foreach \t in {-4,-2,0,2,4}{\node[below] at (\t,0) {$\t$};}
+        \draw[accent,thick] plot[domain=-4:4,samples=80,smooth] (\x,{tdich(\x,1)});
+        \draw[accent,thick,dashed] plot[domain=-4:4,samples=80,smooth] (\x,{tdich(\x,5)});
+        \draw[fel!80!black,thick] plot[domain=-4:4,samples=80,smooth] (\x,{gauss(\x,0,1)});
+        \node at (.95,.395) {A}; \node at (.6,.25) {C}; \node at (-1.05,.355) {B};
+      \end{tikzpicture}
+  opgave: |-
+    De figuur toont de dichtheden van $t_1$, $t_5$ en de standaardnormale verdeling.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke kromme is welke? Verklaar.
+      antwoord: |-
+        A normaal, B $t_5$, C $t_1$
+      uitwerking: |-
+        De hoogste top hoort bij de normale verdeling (A), de laagste top en de dikste staarten bij $t_1$ (C). B is $t_5$.
+    - opgave: |-
+        Bij welke verdeling is $P(X > 2)$ het grootst? Bereken die kans.
+      antwoord: |-
+        $t_1$; \ $\approx 0{,}148$
+      uitwerking: |-
+        Bij $t_1$, met de dikste staart: \texttt{tcdf(2,1E99,1)} $\approx 0{,}148$.
+    - opgave: |-
+        Waarom hebben alle drie de krommen dezelfde oppervlakte?
+      antwoord: |-
+        het zijn dichtheden: oppervlakte 1
+      uitwerking: |-
+        Het zijn dichtheidsfuncties: de totale kans, en dus de totale oppervlakte, is telkens 1. Wat de t-krommen in het midden verliezen, zit in de staarten.
+
+# ---------------------------------------------------------------- opdrachten, niveau 2
+
+- id: h3-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    t-toets tweezijdig met gegevens
+  opgave: |-
+    Een brouwerij vult flesjes van 330~ml. Een controleur meet tien flesjes: 331,2; 329,4; 330,8; 328,9; 329,6; 330,1; 328,5; 329,8; 330,4; 329,3~ml.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De vulmachine moet bijgeregeld worden als ze gemiddeld te veel of te weinig vult. Formuleer $H_0$ en $H_1$.
+      antwoord: |-
+        $H_0\colon \mu = 330$, $H_1\colon \mu \neq 330$
+      uitwerking: |-
+        Te veel en te weinig zijn allebei een probleem: tweezijdig.
+    - opgave: |-
+        Bereken $t$ en de p-waarde.
+      antwoord: |-
+        $t \approx -0{,}75$; \ $\approx 0{,}47$
+      uitwerking: |-
+        $\xbar = 329{,}8$, $s \approx 0{,}841$, $t = \frac{-0{,}2}{0{,}841/\sqrt{10}} \approx -0{,}75$ met $\nu = 9$. p-waarde $= 2 \cdot \texttt{tcdf(-1E99,-0.75,9)} \approx 0{,}47$.
+    - opgave: |-
+        Wat besluit de controleur bij $\alpha = 0{,}05$?
+      antwoord: |-
+        $H_0$ niet verwerpen
+      uitwerking: |-
+        $0{,}47 > 0{,}05$: geen aanwijzing dat de machine ontregeld is. Dat bewijst niet dat ze precies 330~ml vult.
+    - opgave: |-
+        Bereken een 95~\%-interval en leg uit hoe je het besluit erin terugziet.
+      antwoord: |-
+        $[329{,}2;\ 330{,}4]$; 330 ligt erin
+      uitwerking: |-
+        $E = 2{,}262 \cdot \frac{0{,}841}{\sqrt{10}} \approx 0{,}60$: $[329{,}2;\ 330{,}4]$. 330 ligt in het interval, dus de tweezijdige toets verwerpt $\mu = 330$ niet.
+
+- id: h3-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    terugrekenen uit een interval
+  opgave: |-
+    Een artikel meldt het 95~\%-betrouwbaarheidsinterval $[41{,}2;\ 46{,}8]$ voor een gemiddelde, op basis van 16 waarnemingen met $\sigma$ onbekend.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat was het steekproefgemiddelde? En de foutenmarge?
+      antwoord: |-
+        $44$; \ $2{,}8$
+      uitwerking: |-
+        Het midden: $\xbar = \frac{41{,}2 + 46{,}8}{2} = 44$. De halve breedte: $E = 2{,}8$.
+    - opgave: |-
+        Bereken $s$.
+      antwoord: |-
+        $\approx 5{,}25$
+      uitwerking: |-
+        $t^* = \texttt{invT(0.975,15)} \approx 2{,}131$ en $2{,}131 \cdot \frac{s}{4} = 2{,}8$, dus $s \approx 5{,}25$.
+    - opgave: |-
+        Bereken het 99~\%-interval met dezelfde gegevens.
+      antwoord: |-
+        $[40{,}1;\ 47{,}9]$
+      uitwerking: |-
+        $t^* = \texttt{invT(0.995,15)} \approx 2{,}947$, $E = 2{,}947 \cdot \frac{5{,}25}{4} \approx 3{,}87$: $[40{,}1;\ 47{,}9]$.
+    - opgave: |-
+        Iemand rekent $s$ uit met 1,96 in plaats van $t^*$. Vindt hij een te grote of te kleine $s$?
+      antwoord: |-
+        te groot
+      uitwerking: |-
+        $s = \frac{4E}{1{,}96}$ in plaats van $\frac{4E}{2{,}131}$: hij deelt door een kleiner getal, dus vindt hij een te grote $s$ ($\approx 5{,}71$).
+
+- id: h3-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    steekproefgrootte
+  opgave: |-
+    Een gemeente wil weten hoeveel kilometer haar inwoners gemiddeld per week fietsen. Een proefsteekproef van 15 inwoners gaf $s = 9$~km.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel inwoners moet ze ondervragen voor een foutenmarge van hoogstens 2~km, met 95~\% betrouwbaarheid? Reken eerst met 1,96.
+      antwoord: |-
+        eerste schatting 78
+      uitwerking: |-
+        $n \geqslant \bigl(\frac{1{,}96 \cdot 9}{2}\bigr)^2 \approx 77{,}8$: 78.
+    - opgave: |-
+        Controleer met $t^*$, en zoek de kleinste $n$ die echt volstaat.
+      antwoord: |-
+        81
+      uitwerking: |-
+        Bij $n = 78$ is $E = \texttt{invT(0.975,77)} \cdot \frac{9}{\sqrt{78}} \approx 2{,}03$: te groot. Bij $n = 80$ nog $2{,}004$, bij $n = 81$ is $E \approx 1{,}99$. Dus 81.
+    - opgave: |-
+        Waarom is ook 81 geen garantie?
+      antwoord: |-
+        $s$ kan anders uitvallen
+      uitwerking: |-
+        In de echte steekproef is $s$ anders dan 9. Valt $s$ groter uit, dan is de marge groter dan 2~km. Wie zeker wil zijn, neemt een veiligheidsmarge.
+
+- id: h3-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gepaarde t-toets
+  opgave: |-
+    Een tuinder test of een nieuwe meststof de opbrengst verandert. Hij verdeelt zes bedden elk in twee helften, en kiest met een muntworp welke helft de meststof krijgt. Opbrengst in kg:
+
+    \smallskip
+    {\centering\small\renewcommand{\arraystretch}{1.15}\begin{tabular}{|l|c|c|c|c|c|c|}\hline
+    bed & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+    met & 7,42 & 6,85 & 8,10 & 7,66 & 6,93 & 7,25 \\\hline
+    zonder & 7,30 & 6,88 & 7,91 & 7,52 & 6,80 & 7,21 \\\hline
+    \end{tabular}\par}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom vergelijkt hij helften van hetzelfde bed, en niet zes bedden met en zes zonder?
+      antwoord: |-
+        de verschillen tussen bedden vallen weg
+      uitwerking: |-
+        Bedden verschillen in grond, zon en water. Vergelijk je binnen één bed, dan valt dat verschil weg, en meet je alleen het effect van de meststof.
+    - opgave: |-
+        Bereken de verschillen $d = \text{met} - \text{zonder}$, hun gemiddelde en $s_d$.
+      antwoord: |-
+        $\overline{d} \approx 0{,}098$; \ $s_d \approx 0{,}079$
+      uitwerking: |-
+        $d$: $0{,}12$; $-0{,}03$; $0{,}19$; $0{,}14$; $0{,}13$; $0{,}04$. $\overline{d} \approx 0{,}098$ en $s_d \approx 0{,}079$.
+    - opgave: |-
+        Toets tweezijdig bij $\alpha = 0{,}05$ of de meststof de opbrengst verandert.
+      antwoord: |-
+        $t \approx 3{,}04$, p-waarde $\approx 0{,}029$: verwerpen
+      uitwerking: |-
+        $H_0\colon \mu_d = 0$, $H_1\colon \mu_d \neq 0$. $t = \frac{0{,}098}{0{,}079/\sqrt6} \approx 3{,}04$ met $\nu = 5$, p-waarde $\approx 0{,}029 \leqslant 0{,}05$: de meststof verandert de opbrengst waarschijnlijk wel.
+    - opgave: |-
+        Geef een 95~\%-interval voor de gemiddelde meeropbrengst per bed. Is het effect groot?
+      antwoord: |-
+        $[0{,}015;\ 0{,}182]$ kg
+      uitwerking: |-
+        $E = 2{,}571 \cdot \frac{0{,}079}{\sqrt6} \approx 0{,}083$: $[0{,}015;\ 0{,}182]$~kg. Significant, maar klein: hoogstens ongeveer 2~\% van 7~kg. Of de meststof de kosten waard is, zegt de toets niet.
+
+- id: h3-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    interval en tweezijdige toets
+  opgave: |-
+    Uit een steekproef van 10 waarnemingen volgt het 95~\%-interval $[3{,}1;\ 4{,}5]$ voor $\mu$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verwerpt een tweezijdige t-toets bij $\alpha = 0{,}05$ de hypothese $\mu = 3$? En $\mu = 4$?
+      antwoord: |-
+        ja; nee
+      uitwerking: |-
+        3 ligt buiten het interval: verwerpen. 4 ligt erin: niet verwerpen.
+    - opgave: |-
+        Bereken $\xbar$ en $s$.
+      antwoord: |-
+        $3{,}8$; \ $\approx 0{,}979$
+      uitwerking: |-
+        $\xbar = 3{,}8$, $E = 0{,}7$, $t^* = \texttt{invT(0.975,9)} \approx 2{,}262$, dus $s = \frac{0{,}7\sqrt{10}}{2{,}262} \approx 0{,}979$.
+    - opgave: |-
+        Bereken de p-waarde van de tweezijdige toets voor $\mu = 3$, en controleer je antwoord van a.
+      antwoord: |-
+        $\approx 0{,}029$
+      uitwerking: |-
+        $t = \frac{3{,}8 - 3}{0{,}979/\sqrt{10}} \approx 2{,}58$, p-waarde $= 2 \cdot \texttt{tcdf(2.58,1E99,9)} \approx 0{,}029 \leqslant 0{,}05$: verwerpen, zoals in a.
+    - opgave: |-
+        Welke waarden van $\mu_0$ verwerpt een tweezijdige toets bij $\alpha = 0{,}05$?
+      antwoord: |-
+        $\mu_0 < 3{,}1$ of $\mu_0 > 4{,}5$
+      uitwerking: |-
+        Precies de waarden buiten het interval: $\mu_0 < 3{,}1$ of $\mu_0 > 4{,}5$.
+    - opgave: |-
+        Kun je uit het interval ook het besluit van een tweezijdige toets bij $\alpha = 0{,}01$ aflezen?
+      antwoord: |-
+        niet zonder meer
+      uitwerking: |-
+        Niet uit dit interval: daarvoor heb je het 99~\%-interval nodig. Wel weet je: wat bij 1~\% verworpen wordt, wordt zeker bij 5~\% verworpen, want het 99~\%-interval is breder.
+
+- id: h3-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    voorwaarden
+  opgave: |-
+    Drie onderzoekers hebben elk 10 waarnemingen. Bij wie mag de t-methode? Verklaar.
+
+    \smallskip
+    {\centering\begin{tikzpicture}[x=.27cm,font=\scriptsize]
+      \begin{scope}
+        \draw[->,grijs] (0,0) -- (16,0); \node[below] at (8,-.15) {A};
+        \foreach \v/\h in {4/1,6/1,7/1,7/2,8/1,8/2,9/1,9/2,10/1,12/1}{\fill[accent] (\v,{.25*\h}) circle (2pt);}
+      \end{scope}
+      \begin{scope}[xshift=4.9cm]
+        \draw[->,grijs] (0,0) -- (16,0); \node[below] at (8,-.15) {B};
+        \foreach \v/\h in {1/1,1/2,2/1,2/2,2/3,3/1,3/2,5/1,8/1,15/1}{\fill[accent] (\v,{.25*\h}) circle (2pt);}
+      \end{scope}
+      \begin{scope}[xshift=9.8cm]
+        \draw[->,grijs] (0,0) -- (16,0); \node[below] at (8,-.15) {C};
+        \foreach \v/\h in {5/1,6/1,6/2,7/1,7/2,7/3,8/1,8/2,9/1,15.5/1}{\fill[accent] (\v,{.25*\h}) circle (2pt);}
+      \end{scope}
+    \end{tikzpicture}\par}
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        A
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Ongeveer symmetrisch, zonder uitschieters: de t-methode mag.
+    - opgave: |-
+        B
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Sterk scheef naar rechts: met maar 10 waarnemingen is dat te riskant.
+    - opgave: |-
+        C
+      antwoord: |-
+        nee, eerst de uitschieter onderzoeken
+      uitwerking: |-
+        Symmetrisch, behalve één uitschieter. Onderzoek die eerst (meetfout?), en meld eventueel het resultaat met en zonder.
+
+- id: h3-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    z-interval of t-interval
+  opgave: |-
+    Een steekproef heeft $\xbar = 20$ en $s = 4$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken bij $n = 5$ het 95~\%-t-interval.
+      antwoord: |-
+        $[15{,}0;\ 25{,}0]$
+      uitwerking: |-
+        $t^* = \texttt{invT(0.975,4)} \approx 2{,}776$, $E = 2{,}776 \cdot \frac{4}{\sqrt5} \approx 4{,}97$: $[15{,}0;\ 25{,}0]$.
+    - opgave: |-
+        Bereken bij $n = 5$ ook het (foute) interval met 1,96. Hoeveel procent smaller is het?
+      antwoord: |-
+        $[16{,}5;\ 23{,}5]$; ongeveer 29~\% smaller
+      uitwerking: |-
+        $E = 1{,}96 \cdot \frac{4}{\sqrt5} \approx 3{,}51$: $[16{,}5;\ 23{,}5]$. Verhouding $\frac{1{,}96}{2{,}776} \approx 0{,}706$: ongeveer 29~\% smaller.
+    - opgave: |-
+        Doe hetzelfde bij $n = 100$.
+      antwoord: |-
+        $[19{,}21;\ 20{,}79]$ en $[19{,}22;\ 20{,}78]$; ongeveer 1~\%
+      uitwerking: |-
+        $t^* \approx 1{,}984$: $E \approx 0{,}794$, $[19{,}21;\ 20{,}79]$. Met 1,96: $E = 0{,}784$, $[19{,}22;\ 20{,}78]$. Verhouding $\frac{1{,}96}{1{,}984} \approx 0{,}988$: ongeveer 1~\% smaller.
+    - opgave: |-
+        Wat besluit je over het gebruik van 1,96 als je $\sigma$ niet kent?
+      antwoord: |-
+        bij kleine $n$ fout, bij grote $n$ bijna geen verschil
+      uitwerking: |-
+        Bij een kleine steekproef geeft 1,96 een veel te smal interval. Bij een grote steekproef is het verschil verwaarloosbaar: daarom gebruikte de cursus Statistiek bij grote steekproeven gewoon de normale verdeling.
+
+- id: h3-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Een steekproef van 6 waarnemingen heeft $\xbar = 12{,}4$ en $s = 1{,}5$. Het juiste 95~\%-interval is $[10{,}83;\ 13{,}97]$. Drie leerlingen vinden iets anders. Zoek telkens de fout.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Jonas vindt $E \approx 1{,}50$, met $t^* \approx 2{,}447$.
+      antwoord: |-
+        $\nu = n$ in plaats van $n - 1$
+      uitwerking: |-
+        $2{,}447 = \texttt{invT(0.975,6)}$: hij nam $\nu = 6$ in plaats van $5$. Juist: $t^* \approx 2{,}571$ en $E \approx 1{,}57$.
+    - opgave: |-
+        Lies vindt $E \approx 1{,}20$.
+      antwoord: |-
+        1,96 in plaats van $t^*$
+      uitwerking: |-
+        $1{,}96 \cdot \frac{1{,}5}{\sqrt6} \approx 1{,}20$: ze gebruikte de normale verdeling, alsof $s$ de echte $\sigma$ is.
+    - opgave: |-
+        Bram vindt $E \approx 1{,}44$, met de juiste $t^*$, maar zijn rekentoestel gaf hem $1{,}369$ als standaardafwijking.
+      antwoord: |-
+        $\sigma x$ in plaats van $Sx$
+      uitwerking: |-
+        $1{,}5 \cdot \sqrt{\frac56} \approx 1{,}369$ is $\sigma x$, die door $n$ deelt. Met $Sx = 1{,}5$ is $E \approx 1{,}57$.
+
+- id: h3-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    hypothesen kiezen
+  opgave: |-
+    Formuleer $H_0$ en $H_1$. Werk daarna d volledig uit.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een school wil weten of haar leerlingen gemiddeld anders scoren dan het Vlaamse gemiddelde van 62 op een toets.
+      antwoord: |-
+        $H_0\colon \mu = 62$, $H_1\colon \mu \neq 62$
+      uitwerking: |-
+        \textit{Anders} zonder richting: tweezijdig.
+    - opgave: |-
+        Een ziekenhuis hoopt dat een nieuwe werkwijze de gemiddelde wachttijd van 35 minuten verkort.
+      antwoord: |-
+        $H_0\colon \mu = 35$, $H_1\colon \mu < 35$
+      uitwerking: |-
+        Het vermoeden is \textit{korter}: eenzijdig naar links.
+    - opgave: |-
+        Een fietsenmaker vermoedt dat een nieuw soort band gemiddeld meer dan 4000~km meegaat.
+      antwoord: |-
+        $H_0\colon \mu = 4000$, $H_1\colon \mu > 4000$
+      uitwerking: |-
+        Eenzijdig naar rechts.
+    - opgave: |-
+        Een trainer meet bij 20 spelers de sprongkracht na een nieuw programma: gemiddeld 47,3~cm, met $s = 5{,}2$~cm. Vroeger was het gemiddelde 45~cm. Is het programma beter? Toets bij $\alpha = 0{,}05$.
+      antwoord: |-
+        $t \approx 1{,}98$, p-waarde $\approx 0{,}031$: verwerpen
+      uitwerking: |-
+        $H_0\colon \mu = 45$, $H_1\colon \mu > 45$. $t = \frac{2{,}3}{5{,}2/\sqrt{20}} \approx 1{,}98$ met $\nu = 19$, p-waarde $\approx 0{,}031 \leqslant 0{,}05$: significant. Maar zonder controlegroep weet je niet of het programma de oorzaak is.
+
+- id: h3-o18
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    p-waarde uit t
+  opgave: |-
+    Bereken de p-waarde voor elk van de drie alternatieven $H_1\colon \mu < \mu_0$, $\mu > \mu_0$ en $\mu \neq \mu_0$.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $t = 1{,}8$; \ $\nu = 9$
+      antwoord: |-
+        $0{,}947$; \ $0{,}053$; \ $0{,}105$
+      uitwerking: |-
+        Links $\approx 0{,}947$, rechts $\approx 0{,}053$, tweezijdig $2 \cdot 0{,}053 \approx 0{,}105$.
+    - opgave: |-
+        $t = -2{,}4$; \ $\nu = 15$
+      antwoord: |-
+        $0{,}015$; \ $0{,}985$; \ $0{,}030$
+      uitwerking: |-
+        Links $\approx 0{,}015$, rechts $\approx 0{,}985$, tweezijdig $\approx 0{,}030$.
+    - opgave: |-
+        $t = 0{,}9$; \ $\nu = 4$
+      antwoord: |-
+        $0{,}790$; \ $0{,}210$; \ $0{,}419$
+      uitwerking: |-
+        Links $\approx 0{,}790$, rechts $\approx 0{,}210$, tweezijdig $\approx 0{,}419$.
+  antwoord_voor: |-
+    (telkens links; rechts; tweezijdig)
+
+# ---------------------------------------------------------------- opdrachten, niveau 3
+
+- id: h3-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    betekenis van 95~\%
+  opgave: |-
+    Twintig onderzoeksgroepen trekken elk een eigen aselecte steekproef uit dezelfde normaal verdeelde populatie, en maken elk een 95~\%-t-interval voor $\mu$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel intervallen verwacht je die $\mu$ niet bevatten?
+      antwoord: |-
+        1
+      uitwerking: |-
+        Elk interval mist $\mu$ met kans 0,05: gemiddeld $20 \cdot 0{,}05 = 1$.
+    - opgave: |-
+        Wat is de kans dat alle twintig $\mu$ bevatten?
+      antwoord: |-
+        $\approx 0{,}358$
+      uitwerking: |-
+        De steekproeven zijn onafhankelijk: $0{,}95^{20} \approx 0{,}358$.
+    - opgave: |-
+        Wat is de kans dat minstens twee intervallen $\mu$ missen? Welke verdeling gebruik je?
+      antwoord: |-
+        $\approx 0{,}264$; binomiaal
+      uitwerking: |-
+        Het aantal missers is $B(20;\, 0{,}05)$: $1 - 0{,}95^{20} - 20 \cdot 0{,}05 \cdot 0{,}95^{19} \approx 0{,}264$.
+
+- id: h3-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    waarom n - 1
+  opgave: |-
+    Je gooit twee keer met een eerlijke dobbelsteen, en berekent van de twee ogen $a$ en $b$ zowel $s^2$ (met $n - 1$) als $(\sigma x)^2$ (met $n$). We vergelijken hun gemiddelde over alle 36 even waarschijnlijke uitkomsten met de variantie $\sigma^2$ van één worp.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\sigma^2 = \frac{35}{12}$ voor één worp.
+      antwoord: |-
+        $\frac{35}{12}$
+      uitwerking: |-
+        $\mu = 3{,}5$ en $\sigma^2 = \frac16\bigl(2{,}5^2 + 1{,}5^2 + 0{,}5^2 + 0{,}5^2 + 1{,}5^2 + 2{,}5^2\bigr) = \frac{17{,}5}{6} = \frac{35}{12}$.
+    - opgave: |-
+        Toon aan dat bij twee waarnemingen $s^2 = \frac{(a - b)^2}{2}$ en $(\sigma x)^2 = \frac{(a - b)^2}{4}$.
+      antwoord: |-
+        afwijkingen $\pm\frac{a - b}{2}$
+      uitwerking: |-
+        $\xbar = \frac{a + b}{2}$, dus de afwijkingen zijn $\frac{a - b}{2}$ en $-\frac{a - b}{2}$, met kwadraten samen $\frac{(a - b)^2}{2}$. Delen door $n - 1 = 1$ geeft $s^2$, door $n = 2$ geeft $(\sigma x)^2$.
+    - opgave: |-
+        Bereken het gemiddelde van $(a - b)^2$ over de 36 uitkomsten. (Tel hoe vaak elk verschil voorkomt.)
+      antwoord: |-
+        $\frac{35}{6}$
+      uitwerking: |-
+        $|a - b| = 0, 1, 2, 3, 4, 5$ komt $6, 10, 8, 6, 4, 2$ keer voor. Som: $0 + 10 + 32 + 54 + 64 + 50 = 210$, gemiddeld $\frac{210}{36} = \frac{35}{6}$.
+    - opgave: |-
+        Wat is het gemiddelde van $s^2$, en van $(\sigma x)^2$? Wat besluit je?
+      antwoord: |-
+        $\frac{35}{12} = \sigma^2$; \ $\frac{35}{24}$
+      uitwerking: |-
+        Gemiddeld is $s^2 = \frac{35}{12} = \sigma^2$: precies juist. $(\sigma x)^2$ is gemiddeld $\frac{35}{24}$, de helft: delen door $n$ onderschat de variantie systematisch, delen door $n - 1$ niet.
+
+- id: h3-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    foutenmarge en steekproefgrootte
+  opgave: |-
+    In de cursus Statistiek zag je: met $\sigma$ gekend maakt een vier keer zo grote steekproef de foutenmarge twee keer zo klein.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $\sigma$ onbekend en $s$ gelijk. Bereken de verhouding van de foutenmarges bij $n = 16$ en bij $n = 4$.
+      antwoord: |-
+        $\approx 0{,}335$
+      uitwerking: |-
+        $\frac{E_{16}}{E_4} = \frac{t^*_{15}}{t^*_3} \cdot \frac{\sqrt4}{\sqrt{16}} = \frac{2{,}131}{3{,}182} \cdot \frac12 \approx 0{,}335$.
+    - opgave: |-
+        Verklaar waarom de marge hier meer dan twee keer kleiner wordt.
+      antwoord: |-
+        ook $t^*$ daalt
+      uitwerking: |-
+        Een grotere steekproef verkleint niet alleen $\frac{s}{\sqrt n}$, maar ook $t^*$: je schat $\sigma$ beter, dus hoef je minder extra marge te nemen.
+    - opgave: |-
+        Toon aan dat de verhouding $\frac{E_{4n}}{E_n}$ naar $\frac12$ gaat als $n$ groot wordt.
+      antwoord: |-
+        $\frac{t^*_{4n-1}}{t^*_{n-1}} \to 1$
+      uitwerking: |-
+        $\frac{E_{4n}}{E_n} = \frac{t^*_{4n-1}}{t^*_{n-1}} \cdot \frac12$. Beide kritieke waarden gaan naar 1,96 als $n \to +\infty$, dus hun quotiënt naar 1, en de verhouding naar $\frac12$.
+
+- id: h3-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    gepaard of twee groepen
+  opgave: |-
+    Neem de rusthartslagen van de acht lopers uit voorbeeld \ref{vb:h3-gepaard}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken een 95~\%-interval voor de gemiddelde rusthartslag vóór de training, en een voor erna, alsof het twee aparte groepen zijn.
+      antwoord: |-
+        $[68{,}3;\ 76{,}2]$ en $[66{,}8;\ 72{,}4]$
+      uitwerking: |-
+        Vóór: $\xbar = 72{,}25$, $s \approx 4{,}77$, $E \approx 3{,}99$: $[68{,}3;\ 76{,}2]$. Na: $\xbar = 69{,}625$, $s \approx 3{,}34$, $E \approx 2{,}79$: $[66{,}8;\ 72{,}4]$.
+    - opgave: |-
+        De intervallen overlappen sterk. Waarom lijkt er zo geen duidelijk effect?
+      antwoord: |-
+        de spreiding tussen lopers is groot
+      uitwerking: |-
+        De lopers verschillen onderling veel ($s \approx 4{,}8$ en $3{,}3$). Die spreiding verbergt de kleine daling van ongeveer 2,6 slagen.
+    - opgave: |-
+        Bereken het 95~\%-interval voor de gemiddelde daling $\mu_d$. Wat besluit je?
+      antwoord: |-
+        $[1{,}1;\ 4{,}1]$: duidelijk positief
+      uitwerking: |-
+        $\overline{d} = 2{,}625$, $s_d \approx 1{,}77$, $E = 2{,}365 \cdot \frac{1{,}77}{\sqrt8} \approx 1{,}48$: $[1{,}1;\ 4{,}1]$. Daar ligt 0 niet in: de hartslag daalt.
+    - opgave: |-
+        Waarom is $s_d$ zoveel kleiner dan de standaardafwijkingen in a?
+      antwoord: |-
+        elke loper is zijn eigen controle
+      uitwerking: |-
+        Een loper met een hoge hartslag vóór heeft ook erna een hoge. In het verschil valt dat persoonlijke niveau weg: alleen de verandering per loper blijft over, en die verschilt weinig.
+
+- id: h3-o23
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    twee waarnemingen
+  opgave: |-
+    Een student meet twee keer de valtijd van een kogeltje, in honderdsten van een seconde: 10,2 en 11,0.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken het 95~\%-t-interval.
+      antwoord: |-
+        $[5{,}5;\ 15{,}7]$
+      uitwerking: |-
+        $\xbar = 10{,}6$, $s \approx 0{,}566$, $\nu = 1$, $t^* \approx 12{,}706$, $E = 12{,}706 \cdot \frac{0{,}566}{\sqrt2} \approx 5{,}08$: $[5{,}5;\ 15{,}7]$.
+    - opgave: |-
+        Toon aan dat bij twee waarnemingen $a$ en $b$ het interval $\xbar \pm 6{,}353\,|a - b|$ is.
+      antwoord: |-
+        $E = 12{,}706 \cdot \frac{|a - b|}{2}$
+      uitwerking: |-
+        $s = \frac{|a - b|}{\sqrt2}$, want de afwijkingen tot $\xbar$ zijn $\pm\frac{a - b}{2}$, dus $E = 12{,}706 \cdot \frac{|a - b|}{\sqrt2 \cdot \sqrt2} = 6{,}353\,|a - b|$.
+    - opgave: |-
+        Het interval is meer dan twaalf keer zo breed als de afstand tussen de metingen. Is dat redelijk? Wat raad je de student aan?
+      antwoord: |-
+        ja: uit twee metingen weet je bijna niets over $\sigma$
+      uitwerking: |-
+        Twee metingen die toevallig dicht bij elkaar liggen, zeggen weinig over de echte spreiding: $\sigma$ kan veel groter zijn. De t-verdeling met één vrijheidsgraad houdt daar rekening mee. Beter: meer metingen doen. Met 10 metingen is $t^* \approx 2{,}262$.
+
+# ---------------------------------------------------------------- koppel
+
+- id: h3-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: data
+    onderwerp: Statistiek
+  thema: |-
+    z en t bij grote n
+  opgave: |-
+    In de cursus Statistiek maakte je een interval voor een gemiddelde met $\sigma$ gekend.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een steekproef van 50 waarnemingen heeft $s = 6$. Bereken de foutenmarge met 1,96 en met $t^*$. Hoeveel procent verschillen ze?
+      antwoord: |-
+        $1{,}66$ en $1{,}71$; ongeveer 2,5~\%
+      uitwerking: |-
+        $1{,}96 \cdot \frac{6}{\sqrt{50}} \approx 1{,}66$ en $\texttt{invT(0.975,49)} \cdot \frac{6}{\sqrt{50}} \approx 2{,}010 \cdot 0{,}849 \approx 1{,}71$. $\frac{2{,}010}{1{,}96} \approx 1{,}025$: 2,5~\% verschil.
+    - opgave: |-
+        Vanaf hoeveel vrijheidsgraden ligt $t^*$ (95~\%) minder dan 1~\% boven 1,96?
+      antwoord: |-
+        $\nu = 122$
+      uitwerking: |-
+        $1{,}01 \cdot 1{,}96 = 1{,}9796$. \texttt{invT(0.975,121)} $\approx 1{,}97976$ en \texttt{invT(0.975,122)} $\approx 1{,}97960$: vanaf $\nu = 122$.
+
+- id: h3-koppel-2
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: analyse
+    onderwerp: Integralen
+  thema: |-
+    de t-verdeling met één vrijheidsgraad
+  opgave: |-
+    De t-verdeling met $\nu = 1$ heeft als dichtheid $f(x) = \dfrac{1}{\pi(1 + x^2)}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de totale oppervlakte onder de grafiek 1 is.
+      antwoord: |-
+        $\frac1\pi\bigl(\frac\pi2 - (-\frac\pi2)\bigr) = 1$
+      uitwerking: |-
+        $\int_{-\infty}^{+\infty} \frac{\mathrm{d}x}{\pi(1 + x^2)} = \frac1\pi \lim_{b \to +\infty} \bigl[\operatorname{bgtan} x\bigr]_{-b}^{b} = \frac1\pi \bigl(\frac\pi2 + \frac\pi2\bigr) = 1$.
+    - opgave: |-
+        Bereken exact $P(T > 1)$.
+      antwoord: |-
+        $\frac14$
+      uitwerking: |-
+        $\frac1\pi\bigl(\frac\pi2 - \operatorname{bgtan} 1\bigr) = \frac1\pi\bigl(\frac\pi2 - \frac\pi4\bigr) = \frac14$.
+    - opgave: |-
+        Toon aan dat de kritieke waarde $t^*$ bij 95~\% gelijk is aan $\tan(0{,}475\pi)$, en controleer met \texttt{invT}.
+      antwoord: |-
+        $\approx 12{,}706$
+      uitwerking: |-
+        $P(-c < T < c) = \frac2\pi \operatorname{bgtan} c = 0{,}95 \iff \operatorname{bgtan} c = 0{,}475\pi \iff c = \tan(0{,}475\pi) \approx 12{,}706$, zoals \texttt{invT(0.975,1)}.
+    - opgave: |-
+        Bereken $\int_0^b x f(x)\dx$ en toon aan dat $T$ geen verwachtingswaarde heeft.
+      antwoord: |-
+        $\frac{\ln(1 + b^2)}{2\pi} \to +\infty$
+      uitwerking: |-
+        Stel $u = 1 + x^2$: $\int_0^b \frac{x\dx}{\pi(1 + x^2)} = \frac{1}{2\pi}\ln(1 + b^2)$, en dat gaat naar $+\infty$. De integraal $\int_{-\infty}^{+\infty} x f(x)\dx$ bestaat dus niet: de staarten zijn zo dik dat er geen gemiddelde is.
+
+- id: h3-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: analyse
+    onderwerp: Afgeleiden
+  thema: |-
+    buigpunten van de t-dichtheid
+  opgave: |-
+    Neem $g(x) = \bigl(1 + \frac{x^2}{\nu}\bigr)^{-\frac{\nu + 1}{2}}$, de t-dichtheid zonder de constante.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $g'(x) = -\dfrac{(\nu + 1)x}{\nu + x^2}\, g(x)$.
+      antwoord: |-
+        kettingregel
+      uitwerking: |-
+        $g'(x) = -\frac{\nu + 1}{2}\bigl(1 + \frac{x^2}{\nu}\bigr)^{-\frac{\nu + 1}{2} - 1} \cdot \frac{2x}{\nu} = -\frac{(\nu + 1)x}{\nu(1 + \frac{x^2}{\nu})}\, g(x) = -\frac{(\nu + 1)x}{\nu + x^2}\, g(x)$.
+    - opgave: |-
+        Toon aan dat de buigpunten liggen bij $x = \pm\sqrt{\dfrac{\nu}{\nu + 2}}$.
+      antwoord: |-
+        $g''(x) = 0 \iff (\nu + 2)x^2 = \nu$
+      uitwerking: |-
+        Met de productregel: $g''(x) = (\nu + 1)\, g(x) \cdot \frac{(\nu + 2)x^2 - \nu}{(\nu + x^2)^2}$. Dat is 0 en wisselt van teken als $(\nu + 2)x^2 = \nu$, dus bij $x = \pm\sqrt{\frac{\nu}{\nu + 2}}$.
+    - opgave: |-
+        Bereken de buigpunten voor $\nu = 1$, $3$ en $30$. Waar liggen ze bij de standaardnormale kromme?
+      antwoord: |-
+        $\pm 0{,}577$; $\pm 0{,}775$; $\pm 0{,}968$; bij $\pm 1$
+      uitwerking: |-
+        $\sqrt{\frac13} \approx 0{,}577$, $\sqrt{\frac35} \approx 0{,}775$, $\sqrt{\frac{30}{32}} \approx 0{,}968$. Ze gaan naar 1, zoals bij de Gausskromme, met buigpunten bij $\mu \pm \sigma = \pm 1$.
+
+- id: h3-koppel-4
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Exponentiële functies
+  thema: |-
+    de limiet naar de Gausskromme
+  opgave: |-
+    Neem $x = 2$ in $\bigl(1 + \frac{x^2}{\nu}\bigr)^{-\frac{\nu + 1}{2}}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de waarde voor $\nu = 1$, $10$, $100$ en $1000$, en vergelijk met $\e^{-2}$.
+      antwoord: |-
+        $0{,}2$; \ $0{,}157$; \ $0{,}138$; \ $0{,}1356$; \ $\e^{-2} \approx 0{,}1353$
+      uitwerking: |-
+        $(1 + 4)^{-1} = 0{,}2$; $1{,}4^{-5{,}5} \approx 0{,}157$; $1{,}04^{-50{,}5} \approx 0{,}138$; $1{,}004^{-500{,}5} \approx 0{,}1356$. Ze naderen $\e^{-2} \approx 0{,}1353$.
+    - opgave: |-
+        Je kent $\lim_{n \to +\infty}\bigl(1 + \frac1n\bigr)^n = \e$. Neem $\nu = 4n$, een veelvoud van 4. Toon aan dat $\bigl(1 + \frac{4}{\nu}\bigr)^{\nu}$ dan naar $\e^4$ gaat.
+      antwoord: |-
+        stel $\nu = 4n$
+      uitwerking: |-
+        Voor $\nu = 4n$ is $\bigl(1 + \frac4\nu\bigr)^\nu = \Bigl(\bigl(1 + \frac1n\bigr)^n\Bigr)^4 \to \e^4$.
+    - opgave: |-
+        Leid daaruit af dat de getallen uit a, voor $\nu = 4n$, naar $\e^{-2}$ gaan. (Dat het voor elke $\nu$ geldt, toont de stelling \textit{Naar de normale verdeling}.)
+      antwoord: |-
+        $\e^{-2}$
+      uitwerking: |-
+        $\bigl(1 + \frac4\nu\bigr)^{-\frac{\nu + 1}{2}} = \Bigl(\bigl(1 + \frac4\nu\bigr)^{\nu}\Bigr)^{-\frac12} \cdot \bigl(1 + \frac4\nu\bigr)^{-\frac12} \to (\e^4)^{-\frac12} \cdot 1 = \e^{-2}$.
+
+# ---------------------------------------------------------------- test
+
+- id: h3-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    Bereken $s$ van 10, 14, 11, 15, 10. Waarom deel je door $n - 1$?
+  antwoord: |-
+    $\sqrt{5{,}5} \approx 2{,}35$
+  uitwerking: |-
+    $\xbar = 12$, afwijkingen $-2, 2, -1, 3, -2$, kwadraten samen 22: $s = \sqrt{\frac{22}{4}} \approx 2{,}35$. De afwijkingen tot $\xbar$ zijn kleiner dan die tot $\mu$; delen door $n$ zou $\sigma$ gemiddeld onderschatten.
+
+- id: h3-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    Een steekproef telt 9 waarnemingen. Bepaal $t^*$ bij 90~\% betrouwbaarheid, en bereken $P(T > 1{,}5)$ voor $T \sim t_8$.
+  antwoord: |-
+    $\approx 1{,}860$; \ $\approx 0{,}086$
+  uitwerking: |-
+    $\nu = 8$: \texttt{invT(0.95,8)} $\approx 1{,}860$ en \texttt{tcdf(1.5,1E99,8)} $\approx 0{,}086$.
+
+- id: h3-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Van 20 aselect gekozen pakken melk is het vetgehalte gemiddeld 3,42~\%, met $s = 0{,}65$. Bereken een 95~\%-betrouwbaarheidsinterval voor het gemiddelde vetgehalte, en zeg wat het betekent.
+  antwoord: |-
+    $[3{,}12;\ 3{,}72]$
+  uitwerking: |-
+    $\nu = 19$, $t^* \approx 2{,}093$, $E = 2{,}093 \cdot \frac{0{,}65}{\sqrt{20}} \approx 0{,}30$: $[3{,}12;\ 3{,}72]$. Van alle intervallen die je zo maakt, bevat 95~\% het echte gemiddelde.
+
+- id: h3-t4
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een leverancier belooft dat zijn kabels gemiddeld een kracht van 50~kN verdragen. Een klant test er 11: gemiddeld 52,6~kN, met $s = 4{,}1$~kN. De klant vermoedt dat de kabels sterker zijn dan beloofd. Toets bij $\alpha = 0{,}05$.
+  antwoord: |-
+    $t \approx 2{,}10$, p-waarde $\approx 0{,}031$: verwerpen
+  uitwerking: |-
+    $H_0\colon \mu = 50$, $H_1\colon \mu > 50$. $t = \frac{2{,}6}{4{,}1/\sqrt{11}} \approx 2{,}10$, $\nu = 10$, p-waarde $\approx 0{,}031 \leqslant 0{,}05$: de kabels zijn waarschijnlijk gemiddeld sterker dan 50~kN.
+
+- id: h3-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    Een laborant meet zes keer de temperatuur van een bad dat op 20,0~°C moet staan: 18,6; 19,4; 20,3; 19,1; 18,8; 19,6. Wijkt de gemiddelde temperatuur af van 20,0~°C? Toets tweezijdig bij $\alpha = 0{,}05$, en controleer met een 95~\%-interval.
+  antwoord: |-
+    $t \approx -2{,}80$, p-waarde $\approx 0{,}038$: verwerpen; $[18{,}66;\ 19{,}94]$
+  uitwerking: |-
+    $\xbar = 19{,}3$, $s \approx 0{,}613$, $t = \frac{-0{,}7}{0{,}613/\sqrt6} \approx -2{,}80$, $\nu = 5$, p-waarde $= 2 \cdot \texttt{tcdf(-1E99,-2.80,5)} \approx 0{,}038$: verwerpen. Het interval $[18{,}66;\ 19{,}94]$ bevat 20 niet: hetzelfde besluit.
+
+- id: h3-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    Vijf leerlingen maken vlak voor de zomervakantie een rekentoets, en na de vakantie een gelijkaardige toets. Scores op 20, in dezelfde volgorde: vóór 14, 11, 17, 12, 15; na 12, 11, 14, 9, 13. Toets bij $\alpha = 0{,}05$ of de scores na de vakantie gemiddeld lager zijn.
+  antwoord: |-
+    $t \approx 3{,}65$, p-waarde $\approx 0{,}011$: verwerpen
+  uitwerking: |-
+    Daling $d = \text{vóór} - \text{na}$: 2, 0, 3, 3, 2, met $\overline{d} = 2$ en $s_d \approx 1{,}22$. $H_0\colon \mu_d = 0$, $H_1\colon \mu_d > 0$. $t = \frac{2}{1{,}22/\sqrt5} \approx 3{,}65$, $\nu = 4$, p-waarde $\approx 0{,}011$: de scores dalen significant. Of de vakantie de oorzaak is, of een moeilijkere tweede toets, weet je zonder controlegroep niet.
+
+- id: h3-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    Iemand meet acht keer de tijd van een slinger, in seconden: 4,1; 3,8; 4,4; 4,0; 3,9; 4,2; 4,3; 9,6. Bereken het 95~\%-t-interval met en zonder de laatste meting. Welk interval meld je, en waarom?
+  antwoord: |-
+    $[3{,}15;\ 6{,}42]$ en $[3{,}90;\ 4{,}30]$
+  uitwerking: |-
+    Met: $\xbar \approx 4{,}79$, $s \approx 1{,}95$, $[3{,}15;\ 6{,}42]$. Zonder: $\xbar = 4{,}1$, $s \approx 0{,}216$, $[3{,}90;\ 4{,}30]$. 9,6 is een uitschieter, waarschijnlijk een meetfout (twee slingeringen geteld?). Het model van één normale populatie past niet met die waarde: onderzoek ze, meld beide resultaten en leg uit waarom je de tweede gebruikt.

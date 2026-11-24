@@ -1,0 +1,1196 @@
+# Oefeningen van hoofdstuk 2. Zie oefeningenbank.py voor de velden.
+# Afspraken zoals in Groepen: in de symmetriegroep van de gelijkzijdige driehoek is r de draaiing over 120 graden,
+# s1, s2, s3 de spiegelingen om de as door de hoek boven, linksonder en rechtsonder. Vierkant: r is een kwartdraai,
+# h en v de spiegelingen om de horizontale en verticale as, d1 en d2 die om de diagonalen.
+
+- id: h2-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        Bepaal $\vb{9}$ in $(\Zn{12}, \plusn)$.
+      antwoord: |-
+        $\{0, 3, 6, 9\}$
+      uitwerking: |-
+        $9, 18 \to 6, 15 \to 3, 12 \to 0$.
+    - opgave: |-
+        Wat is de orde van 5 in $(\Zn{8}, \plusn)$?
+      antwoord: |-
+        $8$
+      uitwerking: |-
+        $\ggd(5, 8) = 1$, dus $\ord(5) = 8$.
+    - opgave: |-
+        Geef alle delers van 24.
+      antwoord: |-
+        $1, 2, 3, 4, 6, 8, 12, 24$
+      uitwerking: |-
+        $24 = 2^3 \cdot 3$.
+    - opgave: |-
+        Is $\bigl(\{1, -1\}, \cdot\bigr)$ een groep?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De producten liggen in $\{1, -1\}$, 1 is het neutraal element, en elk element is zijn eigen inverse.
+    - opgave: |-
+        Bereken $r \circ s_1$ en $s_1 \circ r$ in de symmetriegroep van de gelijkzijdige driehoek.
+      antwoord: |-
+        $s_3$ en $s_2$
+      uitwerking: |-
+        Uit de tabel van Groepen, hoofdstuk 3.
+    - opgave: |-
+        Bereken $\ggd(14, 21)$ en $\varphi(10)$.
+      antwoord: |-
+        $7$ en $4$
+      uitwerking: |-
+        $14 = 2 \cdot 7$ en $21 = 3 \cdot 7$. Met 10 geen deler gemeen: 1, 3, 7, 9.
+
+- id: h2-verken
+  soort: start
+  figuur:
+    code: |-
+      \begin{tikzpicture}[font=\scriptsize]
+        \kring[1.1]{12}
+        \draw[fel!85!black,thick] \kpt{12}{0}{1.1} -- \kpt{12}{4}{1.1} -- \kpt{12}{8}{1.1} -- cycle;
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad In $(\Zn{12}, \plusn)$ is $H = \{0, 4, 8\}$ een groep. Verschuif $H$ over $a$: \ $a \plusn H = \{a \plusn 0, \ a \plusn 4, \ a \plusn 8\}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $1 \plusn H$, $2 \plusn H$, $3 \plusn H$ en $4 \plusn H$ uit. Teken ze als driehoeken op de klok.
+      antwoord: |-
+        $\{1, 5, 9\}$, $\{2, 6, 10\}$, $\{3, 7, 11\}$, $\{4, 8, 0\} = H$
+      uitwerking: |-
+        Telkens $a$ erbij, en de rest bij deling door 12.
+    - opgave: |-
+        Hoeveel verschillende verzamelingen $a \plusn H$ zijn er? Overlappen ze? Bedekken ze samen heel $\Zn{12}$?
+      antwoord: |-
+        $4$; nee; ja
+      uitwerking: |-
+        Vier driehoeken van 3 getallen, zonder overlap: $4 \cdot 3 = 12$.
+    - opgave: |-
+        Doe hetzelfde met de groep $K = \{0, 3, 6, 9\}$.
+      antwoord: |-
+        $3$ verzamelingen van 4: $12 = 3 \cdot 4$
+      uitwerking: |-
+        $K$, $\{1, 4, 7, 10\}$ en $\{2, 5, 8, 11\}$.
+    - opgave: |-
+        Zoek een groep binnen $(\Zn{12}, \plusn)$ met 5 elementen. Lukt het? Waarom denk je?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Zo'n groep zou $\Zn{12}$ verdelen in verschoven kopieën van 5 elementen, en 5 deelt 12 niet.
+
+- id: h2-deelgroep
+  soort: kort
+  opgave: |-
+    Is $H$ een deelgroep van $G$? Bewijs het, of geef een tegenvoorbeeld.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $H = 5\Z$ in $G = (\Z, +)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $5k + 5l = 5(k + l) \in 5\Z$ en $-(5k) = 5(-k) \in 5\Z$, en $0 \in 5\Z$.
+    - opgave: |-
+        $H = \{0, 2, 4\}$ in $G = (\Zn{6}, \plusn)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Alle sommen zijn even, dus liggen in $H$. De inversen: $0' = 0$, $2' = 4$, $4' = 2$.
+    - opgave: |-
+        $H = \{0, 1, 5\}$ in $G = (\Zn{6}, \plusn)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $1 \plusn 1 = 2 \notin H$.
+    - opgave: |-
+        $H = \Q^+_0$, de positieve rationale getallen, in $G = (\Q_0, \cdot)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Een product van positieve getallen is positief, en $\frac1a > 0$ als $a > 0$.
+    - opgave: |-
+        $H$ = de oneven getallen in $G = (\Z, +)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $0 \notin H$. (Ook: $1 + 1 = 2 \notin H$.)
+
+- id: h2-eindig
+  soort: kort
+  opgave: |-
+    Deelgroepen van kleine groepen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal alle deelgroepen van $\bigl(\{1, i, -1, -i\}, \cdot\bigr)$.
+      antwoord: |-
+        $\{1\}$, $\{1, -1\}$, de hele groep
+      uitwerking: |-
+        $\vb{-1} = \{1, -1\}$. Bevat een deelgroep $i$ of $-i$, dan ook al hun machten: de hele groep.
+    - opgave: |-
+        Bepaal alle deelgroepen van de symmetriegroep $\{e, d, h, v\}$ van de rechthoek, met $d$ de halve draai.
+      antwoord: |-
+        $\{e\}$, $\{e, d\}$, $\{e, h\}$, $\{e, v\}$, de hele groep
+      uitwerking: |-
+        Elk element is zijn eigen inverse. Bevat een deelgroep twee van de elementen $d$, $h$, $v$, dan ook hun samenstelling, het derde: de hele groep.
+    - opgave: |-
+        Is $\{1, 2, 4\}$ een deelgroep van $\bigl(\Zn{7} \setminus \{0\}, \maaln\bigr)$?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Eindig, dus geslotenheid volstaat: $2 \maaln 2 = 4$, $2 \maaln 4 = 1$, $4 \maaln 4 = 2$, en de producten met 1.
+
+- id: h2-cyclischdeel
+  soort: kort
+  opgave: |-
+    Deelgroepen van cyclische groepen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal alle deelgroepen van $(\Zn{8}, \plusn)$, en teken het deelgroepenschema.
+      antwoord: |-
+        $\{0\} \subseteq \{0, 4\} \subseteq \{0, 2, 4, 6\} \subseteq \Zn{8}$
+      uitwerking: |-
+        Eén deelgroep per deler 1, 2, 4, 8: $\vb{0}$, $\vb{4}$, $\vb{2}$, $\vb{1}$. Het schema is één verticale lijn, want elke deelgroep ligt in de volgende.
+    - opgave: |-
+        Bepaal alle deelgroepen van $(\Zn{18}, \plusn)$ met hun aantal elementen.
+      antwoord: |-
+        $\vb{0}$: 1, $\vb{9}$: 2, $\vb{6}$: 3, $\vb{3}$: 6, $\vb{2}$: 9, $\Zn{18}$: 18
+      uitwerking: |-
+        Voor elke deler $d$ van 18 de deelgroep $\vb{18 : d}$.
+    - opgave: |-
+        Welke deelgroepen van $(\Z, +)$ bevatten het getal 6?
+      antwoord: |-
+        $\Z$, $2\Z$, $3\Z$ en $6\Z$
+      uitwerking: |-
+        Elke deelgroep is $n\Z$, en $6 \in n\Z$ als $n \mid 6$.
+
+- id: h2-nevenklassen
+  soort: kort
+  opgave: |-
+    Bepaal alle nevenklassen van $H$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $H = \{0, 5, 10\}$ in $(\Zn{15}, \plusn)$
+      antwoord: |-
+        $\{0, 5, 10\}$, $\{1, 6, 11\}$, $\{2, 7, 12\}$, $\{3, 8, 13\}$, $\{4, 9, 14\}$
+      uitwerking: |-
+        Vijf nevenklassen van 3 elementen: $15 = 5 \cdot 3$.
+    - opgave: |-
+        $H = \vb{r} = \{e, r, r^2\}$ in de symmetriegroep van de gelijkzijdige driehoek
+      antwoord: |-
+        $\{e, r, r^2\}$ en $\{s_1, s_2, s_3\}$
+      uitwerking: |-
+        $s_1 \circ H = \{s_1, s_1 \circ r, s_1 \circ r^2\} = \{s_1, s_2, s_3\}$: de draaiingen en de spiegelingen.
+    - opgave: |-
+        $H = \{1, -1\}$ in $\bigl(\{1, i, -1, -i\}, \cdot\bigr)$
+      antwoord: |-
+        $\{1, -1\}$ en $\{i, -i\}$
+      uitwerking: |-
+        $i \cdot H = \{i, -i\}$.
+
+- id: h2-lagrange
+  soort: kort
+  opgave: |-
+    Gebruik de stelling van Lagrange.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een groep heeft 20 elementen. Hoeveel elementen kan een deelgroep hebben?
+      antwoord: |-
+        $1, 2, 4, 5, 10$ of $20$
+      uitwerking: |-
+        De delers van 20.
+    - opgave: |-
+        Kan een groep met 15 elementen een deelgroep met 6 elementen hebben?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        6 deelt 15 niet.
+    - opgave: |-
+        $H$ is een deelgroep van een groep met 36 elementen, en $[G : H] = 4$. Hoeveel elementen heeft $H$?
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $36 = 4 \cdot |H|$.
+    - opgave: |-
+        Een deelgroep $H$ van $S_4$ bevat een element van orde 3 en een element van orde 4. Hoeveel elementen kan $H$ hebben?
+      antwoord: |-
+        $12$ of $24$
+      uitwerking: |-
+        $H$ bevat een deelgroep met 3 en een met 4 elementen, dus 3 en 4 delen $|H|$, en $|H|$ deelt 24. Het kgv 12 deelt $|H|$: 12 of 24.
+
+- id: h2-gevolgen
+  soort: kort
+  opgave: |-
+    Gevolgen van de stelling van Lagrange.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een groep heeft 10 elementen. Welke orde kan een element hebben?
+      antwoord: |-
+        $1, 2, 5$ of $10$
+      uitwerking: |-
+        De orde van een element deelt 10.
+    - opgave: |-
+        Bereken $2^{100}$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$ zonder de orde van 2 te berekenen.
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        De groep heeft 10 elementen, dus $2^{10} = 1$, en $2^{100} = (2^{10})^{10} = 1$.
+    - opgave: |-
+        Waarom is elke groep met 13 elementen cyclisch? Hoeveel voortbrengers heeft ze?
+      antwoord: |-
+        13 is priem; 12 voortbrengers
+      uitwerking: |-
+        Groep van priemorde: elk element verschillend van $e$ is een voortbrenger.
+    - opgave: |-
+        In een groep met 9 elementen is $a^9 = e$. Is dan ook altijd $a^3 = e$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        In $(\Zn{9}, \plusn)$ is $3 \cdot 1 = 3 \neq 0$: het element 1 heeft orde 9.
+
+- id: h2-eenheden
+  soort: kort
+  opgave: |-
+    De groepen $\Zs{n}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $\Zs{10}$ en $\Zs{9}$, met hun aantal elementen.
+      antwoord: |-
+        $\{1, 3, 7, 9\}$, $\varphi(10) = 4$; \ $\{1, 2, 4, 5, 7, 8\}$, $\varphi(9) = 6$
+      uitwerking: |-
+        Schrap de veelvouden van 2 en 5, respectievelijk van 3.
+    - opgave: |-
+        Bepaal de inverse van 7 in $\Zs{10}$ en van 5 in $\Zs{9}$.
+      antwoord: |-
+        $3$ en $2$
+      uitwerking: |-
+        $7 \cdot 3 = 21$ en $5 \cdot 2 = 10$ hebben rest 1.
+    - opgave: |-
+        Bereken de rest van $3^{1000}$ bij deling door 10, en van $2^{2026}$ bij deling door 9.
+      antwoord: |-
+        $1$ en $7$
+      uitwerking: |-
+        $\varphi(10) = 4$ en $1000 = 250 \cdot 4$: rest 1. $\varphi(9) = 6$ en $2026 = 337 \cdot 6 + 4$: $2^4 = 16$, rest 7.
+
+- id: h2-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    deelgroep of niet
+  opgave: |-
+    Is $H$ een deelgroep? Verklaar kort.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $7\Z$ in $(\Z, +)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $7k + 7l = 7(k + l)$ en $-7k = 7(-k)$.
+    - opgave: |-
+        $\{0, 3, 6\}$ in $(\Zn{9}, \plusn)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Het is $\vb{3}$.
+    - opgave: |-
+        $\{0, 2, 4, 6\}$ in $(\Zn{8}, \plusn)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Het is $\vb{2}$.
+    - opgave: |-
+        $\{z \in \C \mid |z| = 1\}$ in $(\C_0, \cdot)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $|zw| = |z| \cdot |w| = 1$ en $\bigl|\frac1z\bigr| = \frac{1}{|z|} = 1$. De punten op de eenheidscirkel vormen een groep.
+    - opgave: |-
+        $\{z \in \C \mid |z| = 2\}$ in $(\C_0, \cdot)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $1$ ligt er niet in. (Ook: $|2 \cdot 2| = 4$.)
+    - opgave: |-
+        $\N_0$ in $(\Q_0, \cdot)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De inverse van 2 is $\frac12 \notin \N_0$.
+    - opgave: |-
+        $\{1, 3, 9\}$ in $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Het is $\vb{3}$, want $3^3 = 27 \to 1$.
+    - opgave: |-
+        de vier spiegelingen in de symmetriegroep van het vierkant
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $e$ ligt er niet in; twee spiegelingen na elkaar geven een draaiing.
+
+- id: h2-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    nevenklassen
+  opgave: |-
+    Bepaal alle nevenklassen van $H$ in $G$, en controleer de stelling van Lagrange.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $H = \{0, 6, 12\}$ in $(\Zn{18}, \plusn)$
+      antwoord: |-
+        $a \plusn H = \{a, a + 6, a + 12\}$ voor $a = 0, \ldots, 5$: zes nevenklassen
+      uitwerking: |-
+        $\{0, 6, 12\}$, $\{1, 7, 13\}$, \ldots, $\{5, 11, 17\}$: $18 = 6 \cdot 3$.
+    - opgave: |-
+        $H = \vb{r}$ in de symmetriegroep van het vierkant
+      antwoord: |-
+        de draaiingen en de spiegelingen
+      uitwerking: |-
+        $H = \{e, r, r^2, r^3\}$ en $h \circ H$ bevat vier symmetrieën die het vierkant omklappen: de vier spiegelingen. $8 = 2 \cdot 4$.
+    - opgave: |-
+        $H = 4\Z$ in $(\Z, +)$
+      antwoord: |-
+        $4\Z$, $1 + 4\Z$, $2 + 4\Z$, $3 + 4\Z$
+      uitwerking: |-
+        De gehele getallen met rest 0, 1, 2 en 3 bij deling door 4. Hier is $G$ oneindig, maar de index is 4.
+    - opgave: |-
+        $H = \{1, 4\}$ in $\bigl(\Zn{5} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        $\{1, 4\}$ en $\{2, 3\}$
+      uitwerking: |-
+        $2 \maaln H = \{2, 8 \to 3\}$. $4 = 2 \cdot 2$.
+
+- id: h2-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    mogelijke ordes van deelgroepen en elementen
+  opgave: |-
+    Wat zegt de stelling van Lagrange?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Een groep heeft 15 elementen. Welke ordes kunnen haar elementen hebben?
+      antwoord: |-
+        $1, 3, 5, 15$
+      uitwerking: |-
+        De delers van 15.
+    - opgave: |-
+        Een groep heeft 13 elementen. Welke deelgroepen heeft ze?
+      antwoord: |-
+        alleen $\{e\}$ en $G$
+      uitwerking: |-
+        Een deelgroep heeft 1 of 13 elementen.
+    - opgave: |-
+        Kan een groep met 20 elementen een element van orde 8 hebben? Van orde 4?
+      antwoord: |-
+        orde 8 niet; orde 4 mogelijk
+      uitwerking: |-
+        8 deelt 20 niet; 4 wel, bijvoorbeeld 5 in $(\Zn{20}, \plusn)$.
+    - opgave: |-
+        Hoeveel elementen kan een deelgroep van $S_4$ volgens Lagrange hebben?
+      antwoord: |-
+        $1, 2, 3, 4, 6, 8, 12, 24$
+      uitwerking: |-
+        De delers van $4! = 24$.
+    - opgave: |-
+        Een groep met 8 elementen is niet cyclisch. Welke ordes kunnen haar elementen hebben?
+      antwoord: |-
+        $1, 2, 4$
+      uitwerking: |-
+        Delers van 8, maar niet 8: dan was ze cyclisch.
+
+- id: h2-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    deelgroepenschema van Zn
+  opgave: |-
+    Bepaal alle deelgroepen van de groep, en teken het deelgroepenschema.
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $(\Zn{10}, \plusn)$
+      antwoord: |-
+        $\{0\}$, $\vb{5}$, $\vb{2}$, $\Zn{10}$
+      uitwerking: |-
+        Delers 1, 2, 5, 10: $\{0\}$, $\{0, 5\}$, $\{0, 2, 4, 6, 8\}$ en $\Zn{10}$. Een ruit in het schema: $\vb{5}$ en $\vb{2}$ liggen niet in elkaar.
+    - opgave: |-
+        $(\Zn{16}, \plusn)$
+      antwoord: |-
+        $\{0\}$, $\vb{8}$, $\vb{4}$, $\vb{2}$, $\Zn{16}$
+      uitwerking: |-
+        Delers 1, 2, 4, 8, 16. Elke deelgroep ligt in de volgende: het schema is één verticale lijn.
+    - opgave: |-
+        $(\Zn{7}, \plusn)$
+      antwoord: |-
+        $\{0\}$ en $\Zn{7}$
+      uitwerking: |-
+        7 is priem.
+
+- id: h2-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de eenheden modulo n
+  opgave: |-
+    Rekenen in $\Zs{n}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $\Zs{12}$, $\Zs{20}$ en $|\Zs{11}|$.
+      antwoord: |-
+        $\{1, 5, 7, 11\}$; \ $\{1, 3, 7, 9, 11, 13, 17, 19\}$; \ $10$
+      uitwerking: |-
+        Schrap de veelvouden van de priemfactoren van $n$. 11 is priem, dus $\varphi(11) = 10$.
+    - opgave: |-
+        Controleer dat $3^{\varphi(20)}$ rest 1 heeft bij deling door 20.
+      antwoord: |-
+        $3^8 = 6561 = 328 \cdot 20 + 1$
+      uitwerking: |-
+        $\varphi(20) = 8$. Sneller: $3^4 = 81 \to 1$, dus $3^8 \to 1$.
+    - opgave: |-
+        Stel de tabel op van $\maaln$ op $\Zs{12}$. Is de groep cyclisch?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $5 \maaln 5 = 25 \to 1$, $7 \maaln 7 = 49 \to 1$, $11 \maaln 11 = 121 \to 1$, $5 \maaln 7 = 35 \to 11$, $5 \maaln 11 = 55 \to 7$, $7 \maaln 11 = 77 \to 5$. Elk element heeft orde 1 of 2.
+
+- id: h2-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    grote machten met Lagrange en Euler
+  opgave: |-
+    Bereken de rest bij deling.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $2^{100}$ bij deling door 15
+      antwoord: |-
+        $1$
+      uitwerking: |-
+        $\varphi(15) = 8$, $100 = 12 \cdot 8 + 4$, $2^4 = 16 \to 1$.
+    - opgave: |-
+        $7^{222}$ bij deling door 10
+      antwoord: |-
+        $9$
+      uitwerking: |-
+        $\varphi(10) = 4$, $222 = 55 \cdot 4 + 2$, $7^2 = 49 \to 9$.
+    - opgave: |-
+        $3^{1000}$ bij deling door 14
+      antwoord: |-
+        $11$
+      uitwerking: |-
+        $\varphi(14) = 6$, $1000 = 166 \cdot 6 + 4$, $3^4 = 81 = 5 \cdot 14 + 11$.
+    - opgave: |-
+        $5^{-1}$ in $\Zs{12}$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        $5 \cdot 5 = 25 \to 1$.
+
+- id: h2-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de index van een deelgroep
+  opgave: |-
+    Bepaal de index $[G : H]$.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $H = 5\Z$ in $G = (\Z, +)$
+      antwoord: |-
+        $5$
+      uitwerking: |-
+        De nevenklassen zijn de getallen met rest 0, 1, 2, 3, 4 bij deling door 5.
+    - opgave: |-
+        $H = \vb{r}$ in de symmetriegroep van de regelmatige $n$-hoek
+      antwoord: |-
+        $2$
+      uitwerking: |-
+        $2n = [G : H] \cdot n$.
+    - opgave: |-
+        $H = \vb{\cyc{1 & 2}}$ in $S_3$
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $6 = [G : H] \cdot 2$.
+    - opgave: |-
+        $H = \vb{9}$ in $\Zs{20}$
+      antwoord: |-
+        $4$
+      uitwerking: |-
+        $9^2 = 81 \to 1$, dus $\vb{9} = \{1, 9\}$, en $8 = 4 \cdot 2$.
+
+- id: h2-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Wat is er fout? Verbeter.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        ``$\{0, 1, 2, 3\}$ heeft 4 elementen en 4 deelt 12, dus is het een deelgroep van $(\Zn{12}, \plusn)$.''
+      antwoord: |-
+        geen deelgroep: $2 \plusn 3 = 5$
+      uitwerking: |-
+        Lagrange geeft een voorwaarde die nodig is, niet voldoende. De deelgroep met 4 elementen is $\{0, 3, 6, 9\}$.
+    - opgave: |-
+        ``$2\Z$ en $3\Z$ zijn deelgroepen van $(\Z, +)$, dus is $2\Z \cup 3\Z$ er ook een.''
+      antwoord: |-
+        $2 + 3 = 5 \notin 2\Z \cup 3\Z$
+      uitwerking: |-
+        Een unie van deelgroepen is meestal geen deelgroep. Een doorsnede wel.
+    - opgave: |-
+        ``Voor elke deelgroep is $a \ast H = H \ast a$.''
+      antwoord: |-
+        fout, bijvoorbeeld $H = \{e, s_1\}$ en $a = r$
+      uitwerking: |-
+        $r \circ H = \{r, s_3\}$ en $H \circ r = \{r, s_2\}$ in de symmetriegroep van de driehoek.
+    - opgave: |-
+        ``Een groep met 6 elementen heeft een element van orde 6.''
+      antwoord: |-
+        fout: $S_3$
+      uitwerking: |-
+        Lagrange zegt alleen dat de orde 6 deelt. In $S_3$ zijn de ordes 1, 2 en 3.
+    - opgave: |-
+        ``In een groep met 8 elementen is $a^4 = e$ voor elke $a$.''
+      antwoord: |-
+        fout: $1$ in $\Zn{8}$
+      uitwerking: |-
+        Wel is $a^8 = e$. In $(\Zn{8}, \plusn)$ is $4 \cdot 1 = 4 \neq 0$.
+
+- id: h2-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de groep van de Rubiks kubus
+  opgave: |-
+    De standen die je met draaien aan een Rubiks kubus kunt bereiken, horen bij de groep van zettenreeksen. Die groep heeft
+    \[ 43\,252\,003\,274\,489\,856\,000 = 2^{27} \cdot 3^{14} \cdot 5^{3} \cdot 7^{2} \cdot 11 \]
+    elementen. Telkens dezelfde reeks zetten herhalen, brengt de kubus na een aantal keer terug in de beginstand: dat aantal is de orde van de reeks.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kan een reeks zetten orde 13 hebben? Orde 7? Orde 22?
+      antwoord: |-
+        13 niet; 7 en 22 sluit Lagrange niet uit
+      uitwerking: |-
+        13 deelt de orde van de groep niet. $7$ en $22 = 2 \cdot 11$ wel: Lagrange verbiedt ze niet (en ze komen echt voor).
+    - opgave: |-
+        Een computer vond dat de grootste orde van een reeks 1260 is. Is dat in strijd met Lagrange?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $1260 = 2^2 \cdot 3^2 \cdot 5 \cdot 7$ deelt de orde van de groep.
+    - opgave: |-
+        Eén kwartdraai $R$ van het rechtse vlak heeft orde 4. Wat is de index van $\vb{R}$?
+      antwoord: |-
+        $10\,813\,000\,818\,622\,464\,000$
+      uitwerking: |-
+        Het aantal elementen gedeeld door 4.
+    - opgave: |-
+        Kan de groep een deelgroep met 17 elementen hebben? Met 49?
+      antwoord: |-
+        17 niet; 49 sluit Lagrange niet uit
+      uitwerking: |-
+        17 is geen deler, $49 = 7^2$ wel.
+
+- id: h2-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    deelgroepen van de symmetriegroep van het vierkant
+  figuur:
+    code: |-
+      \begin{tikzpicture}[scale=.75]
+        \vierkant{1}{2}{3}{4}
+        \draw[grijs,dashed] (-1.15,0) -- (1.15,0) (0,-1.15) -- (0,1.15) (-.95,-.95) -- (.95,.95) (-.95,.95) -- (.95,-.95);
+        \node[font=\scriptsize] at (1.3,0) {$h$};
+        \node[font=\scriptsize] at (0,1.3) {$v$};
+        \node[font=\scriptsize] at (1.15,1.35) {$d_1$};
+        \node[font=\scriptsize] at (-1.15,1.35) {$d_2$};
+      \end{tikzpicture}
+  opgave: |-
+    De symmetriegroep van het vierkant heeft 8 elementen: $e$, de draaiingen $r$, $r^2$, $r^3$, en de spiegelingen $h$, $v$, $d_1$ en $d_2$ om de assen in de figuur.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\{e, r^2, h, v\}$ een deelgroep is.
+      antwoord: |-
+        gesloten onder $\circ$
+      uitwerking: |-
+        Een eindige deelverzameling: geslotenheid volstaat. $h \circ v = v \circ h = r^2$ (eerst om de ene as, dan om de loodrechte as: een halve draai), $r^2 \circ h = v$ en $r^2 \circ v = h$, en elk element is zijn eigen inverse.
+    - opgave: |-
+        Geef alle deelgroepen met 2 elementen.
+      antwoord: |-
+        $\vb{r^2}$, $\vb{h}$, $\vb{v}$, $\vb{d_1}$, $\vb{d_2}$
+      uitwerking: |-
+        Een deelgroep met 2 elementen is $\{e, a\}$ met $a^2 = e$: de halve draai en de vier spiegelingen.
+    - opgave: |-
+        Geef de drie deelgroepen met 4 elementen.
+      antwoord: |-
+        $\vb{r}$, $\{e, r^2, h, v\}$, $\{e, r^2, d_1, d_2\}$
+      uitwerking: |-
+        De draaiingen; de twee middenparallellen met de halve draai; de twee diagonalen met de halve draai.
+    - opgave: |-
+        Waarom heeft de groep geen deelgroep met 3 of met 6 elementen?
+      antwoord: |-
+        3 en 6 delen 8 niet
+      uitwerking: |-
+        Stelling van Lagrange.
+    - opgave: |-
+        Bepaal de nevenklassen van $\{e, r^2, h, v\}$.
+      antwoord: |-
+        $\{e, r^2, h, v\}$ en $\{r, r^3, d_1, d_2\}$
+      uitwerking: |-
+        De index is 2, dus de tweede nevenklasse bevat de vier andere elementen.
+
+- id: h2-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de draaiingen van een dobbelsteen
+  prent:
+    naam: dobbelstenen
+  opgave: |-
+    Een dobbelsteen is een kubus. We tellen de draaiingen die hem terug in zijn doosje leggen, en noemen die groep $G$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Tel de draaiingen: om de assen door de middens van twee overstaande zijvlakken, door twee overstaande hoekpunten, en door de middens van twee overstaande ribben. Vergeet $e$ niet.
+      antwoord: |-
+        $24$
+      uitwerking: |-
+        $1 + 3 \cdot 3 + 4 \cdot 2 + 6 \cdot 1 = 24$: drie assen door zijvlakken (over $90^\circ$, $180^\circ$, $270^\circ$), vier door hoekpunten (over $120^\circ$, $240^\circ$), zes door ribben (een halve draai).
+    - opgave: |-
+        Welke ordes hebben die draaiingen? Klopt Lagrange?
+      antwoord: |-
+        $1, 2, 3, 4$
+      uitwerking: |-
+        Kwartdraaien orde 4, halve draaien orde 2, draaiingen over $120^\circ$ orde 3. Ze delen allemaal 24.
+    - opgave: |-
+        De draaiingen om de verticale as vormen een deelgroep $H$. Hoeveel elementen heeft ze, en wat is de index?
+      antwoord: |-
+        $4$; index $6$
+      uitwerking: |-
+        $24 = 6 \cdot 4$.
+    - opgave: |-
+        Leg uit: de draaiingen in één nevenklasse van $H$ zijn precies de draaiingen die hetzelfde vlak bovenaan leggen. Waarom is de index dus 6?
+      antwoord: |-
+        er zijn 6 vlakken
+      uitwerking: |-
+        $H$ houdt het bovenste vlak boven. Brengen $a$ en $b$ hetzelfde vlak boven, dan houdt $a^{-1} \circ b$ het bovenste vlak boven, dus $b = a \circ h$ met $h \in H$: $b \in a \circ H$. Omgekeerd brengen alle $a \circ h$ hetzelfde vlak boven als $a$. Een nevenklasse per vlak bovenaan: 6.
+
+- id: h2-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    nevenklassen in het vlak
+  figuur:
+    code: |-
+      \begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+        \draw[black!14,very thin] (-2,-3) grid (3,4);
+        \draw[->,grijs] (-2,0) -- (3.4,0) node[right,text=black] {$x$};
+        \draw[->,grijs] (0,-3) -- (0,4.4) node[above,text=black] {$y$};
+        \draw[accent,thick] (-1.5,-3) -- (2,4) node[right] {$H$};
+        \fill[fel!85!black] (1,0) circle (2pt) node[below right=-1pt,text=black] {$(1, 0)$};
+      \end{tikzpicture}
+  opgave: |-
+    Nevenklassen van een oneindige deelgroep.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $H = \{(x, 2x) \mid x \in \R\}$ is de rechte $y = 2x$. Toon aan dat $H$ een deelgroep is van $(\R^2, +)$.
+      antwoord: |-
+        gesloten onder $+$ en tegengestelde
+      uitwerking: |-
+        $(x, 2x) + (u, 2u) = (x + u, 2(x + u)) \in H$ en $-(x, 2x) = (-x, 2(-x)) \in H$.
+    - opgave: |-
+        Beschrijf de nevenklasse $(1, 0) + H$ met een vergelijking en teken ze. Wat zijn alle nevenklassen?
+      antwoord: |-
+        de rechte $y = 2x - 2$; alle rechten evenwijdig met $H$
+      uitwerking: |-
+        De punten $(1 + x, 2x)$: met $X = 1 + x$ is $Y = 2X - 2$. Elke nevenklasse $(a, b) + H$ is de evenwijdige rechte door $(a, b)$. Ze overlappen niet en bedekken het vlak.
+    - opgave: |-
+        $K = \{z \in \C \mid |z| = 1\}$ is een deelgroep van $(\C_0, \cdot)$. Beschrijf de nevenklasse $2 \cdot K$ en alle nevenklassen.
+      antwoord: |-
+        de cirkel $|z| = 2$; alle cirkels met middelpunt 0
+      uitwerking: |-
+        $|2z| = 2$ voor $|z| = 1$, en elk getal met modulus 2 is $2z$ met $|z| = 1$. De nevenklasse van $w$ is de cirkel met straal $|w|$.
+
+- id: h2-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    doorsnede en unie van deelgroepen
+  opgave: |-
+    $H$ en $K$ zijn deelgroepen van een groep $G$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $4\Z \cap 6\Z$ in $(\Z, +)$.
+      antwoord: |-
+        $12\Z$
+      uitwerking: |-
+        De gemeenschappelijke veelvouden van 4 en 6 zijn de veelvouden van $\kgv(4, 6) = 12$.
+    - opgave: |-
+        Bewijs dat $H \cap K$ een deelgroep is van $G$.
+      antwoord: |-
+        met het kenmerk
+      uitwerking: |-
+        $e \in H \cap K$. Liggen $a$ en $b$ in $H$ en in $K$, dan liggen $a \ast b$ en $a^{-1}$ in $H$ (deelgroep) en in $K$, dus in $H \cap K$.
+    - opgave: |-
+        Bewijs: $H \cup K$ is alleen een deelgroep als $H \subseteq K$ of $K \subseteq H$.
+      antwoord: |-
+        neem $h \in H \setminus K$ en $k \in K \setminus H$
+      uitwerking: |-
+        Stel dat geen van beide in de andere ligt: neem $h \in H$, $h \notin K$ en $k \in K$, $k \notin H$. Ligt $h \ast k$ in $H$, dan is $k = h^{-1} \ast (h \ast k) \in H$; ligt het in $K$, dan is $h = (h \ast k) \ast k^{-1} \in K$. Allebei onmogelijk, dus $h \ast k \notin H \cup K$.
+
+- id: h2-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de kleinste deelgroep die twee elementen bevat
+  opgave: |-
+    De kleinste deelgroep die gegeven elementen bevat, bevat ook al hun sommen en tegengestelden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Wat is de kleinste deelgroep van $(\Z, +)$ die 4 en 6 bevat?
+      antwoord: |-
+        $2\Z$
+      uitwerking: |-
+        Ze bevat $6 - 4 = 2$, dus alle veelvouden van 2. En $2\Z$ bevat 4 en 6.
+    - opgave: |-
+        En die 9 en 15 bevat?
+      antwoord: |-
+        $3\Z$
+      uitwerking: |-
+        Ze bevat $15 - 9 = 6$, $9 - 6 = 3$, dus $3\Z$. En $3\Z$ bevat 9 en 15. Telkens krijg je de ggd, zoals in het algoritme van Euclides.
+    - opgave: |-
+        De wijzer van een klok met 12 uren mag telkens 8 uur vooruit of achteruit springen, of 18 uur. Op welke uren kan hij vanaf 0 terechtkomen?
+      antwoord: |-
+        op de even uren
+      uitwerking: |-
+        In $\Zn{12}$ is 18 hetzelfde als 6. De kleinste deelgroep die 8 en 6 bevat, bevat $8 - 6 = 2$: dat is $\vb{2}$, de even uren.
+
+- id: h2-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    nevenklassen links en rechts
+  opgave: |-
+    Naast $a \ast H$ kun je ook $H \ast a = \{h \ast a \mid h \in H\}$ bekijken. We werken in de symmetriegroep van de gelijkzijdige driehoek.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $H = \{e, s_2\}$. Bepaal $a \circ H$ en $H \circ a$ voor elk element $a$.
+      antwoord: |-
+        links: $\{e, s_2\}$, $\{r, s_1\}$, $\{r^2, s_3\}$; rechts: $\{e, s_2\}$, $\{r, s_3\}$, $\{r^2, s_1\}$
+      uitwerking: |-
+        $r \circ s_2 = s_1$, $r^2 \circ s_2 = s_3$, $s_2 \circ r = s_3$, $s_2 \circ r^2 = s_1$ (uit de tabel).
+    - opgave: |-
+        Neem $H = \vb{r}$. Toon aan dat $a \circ H = H \circ a$ voor elk element $a$.
+      antwoord: |-
+        beide zijn $H$ of de drie spiegelingen
+      uitwerking: |-
+        Voor een draaiing $a$ zijn beide $H$. Voor een spiegeling zijn beide de verzameling van de drie spiegelingen, want een draaiing en een spiegeling geven in elke volgorde een spiegeling.
+
+- id: h2-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    elke groep met 4 elementen is commutatief
+  opgave: |-
+    $G$ is een groep met 4 elementen. We bewijzen dat $G$ commutatief is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke ordes kunnen de elementen hebben?
+      antwoord: |-
+        $1, 2, 4$
+      uitwerking: |-
+        De delers van 4.
+    - opgave: |-
+        Heeft een element orde 4, waarom is $G$ dan commutatief?
+      antwoord: |-
+        $G$ is cyclisch
+      uitwerking: |-
+        Dan is $G = \vb{a}$, en een cyclische groep is commutatief.
+    - opgave: |-
+        Heeft geen enkel element orde 4, toon dan aan dat $a \ast b = b \ast a$. Gebruik dat elk element zijn eigen inverse is.
+      antwoord: |-
+        $a \ast b = (a \ast b)^{-1} = b^{-1} \ast a^{-1} = b \ast a$
+      uitwerking: |-
+        Dan is $x^2 = e$ voor elke $x$, dus $x^{-1} = x$. Pas dat toe op $a \ast b$, op $a$ en op $b$.
+
+- id: h2-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    alle deelgroepen van de eenheden modulo 15
+  opgave: |-
+    $\Zs{15} = \{1, 2, 4, 7, 8, 11, 13, 14\}$ heeft 8 elementen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de orde van elk element.
+      antwoord: |-
+        $1$: 1; \ $4, 11, 14$: 2; \ $2, 7, 8, 13$: 4
+      uitwerking: |-
+        $4^2 = 16$, $11^2 = 121$, $14^2 = 196$ hebben rest 1. $2, 4, 8, 1$ en $7, 4, 13, 1$; ook $8$ en $13$ hebben orde 4.
+    - opgave: |-
+        Geef alle deelgroepen met 2 elementen en alle cyclische deelgroepen met 4 elementen.
+      antwoord: |-
+        $\{1, 4\}$, $\{1, 11\}$, $\{1, 14\}$; \ $\{1, 2, 4, 8\}$, $\{1, 4, 7, 13\}$
+      uitwerking: |-
+        $\vb{2} = \vb{8}$ en $\vb{7} = \vb{13}$.
+    - opgave: |-
+        Er is nog één deelgroep met 4 elementen. Welke? Is ze cyclisch?
+      antwoord: |-
+        $\{1, 4, 11, 14\}$, niet cyclisch
+      uitwerking: |-
+        $4 \maaln 11 = 44 \to 14$, $4 \maaln 14 = 56 \to 11$, $11 \maaln 14 = 154 \to 4$: gesloten. Alle elementen hebben orde 1 of 2.
+    - opgave: |-
+        Is $\Zs{15}$ cyclisch?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Geen element van orde 8.
+
+- id: h2-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    één deelgroep per deler in Zn
+  opgave: |-
+    We bewijzen: is $d$ een deler van $n$, dan heeft $(\Zn{n}, \plusn)$ precies één deelgroep met $d$ elementen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $\vb{\tfrac{n}{d}}$ een deelgroep is met $d$ elementen.
+      antwoord: |-
+        $\ord\bigl(\tfrac nd\bigr) = d$
+      uitwerking: |-
+        $\ggd\bigl(\frac nd, n\bigr) = \frac nd$, dus $\ord\bigl(\frac nd\bigr) = n : \frac nd = d$.
+    - opgave: |-
+        Stel dat $H$ een deelgroep is met $d$ elementen. Waarom is $H = \vb{k}$ met $\ord(k) = d$? Leid af dat $\ggd(k, n) = \frac nd$.
+      antwoord: |-
+        $H$ is cyclisch
+      uitwerking: |-
+        Elke deelgroep van een cyclische groep is cyclisch, en $|\vb{k}| = \ord(k) = \frac{n}{\ggd(k, n)} = d$.
+    - opgave: |-
+        Besluit dat $H = \vb{\tfrac nd}$.
+      antwoord: |-
+        $\vb{k} \subseteq \vb{\tfrac nd}$, even groot
+      uitwerking: |-
+        $\frac nd$ deelt $k$, dus $k$ is een veelvoud van $\frac nd$ en $\vb{k} \subseteq \vb{\frac nd}$. Beide hebben $d$ elementen, dus ze zijn gelijk.
+
+- id: h2-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    een groep van even orde heeft een element van orde 2
+  opgave: |-
+    $G$ is een eindige groep met een even aantal elementen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Verdeel de elementen in paren $\{a, a^{-1}\}$ en enkelingen met $a = a^{-1}$. Welke elementen zijn enkelingen?
+      antwoord: |-
+        $e$ en de elementen van orde 2
+      uitwerking: |-
+        $a = a^{-1} \iff a^2 = e$.
+    - opgave: |-
+        Toon aan dat het aantal enkelingen even is, en leid af dat $G$ een element van orde 2 heeft.
+      antwoord: |-
+        $|G|$ min een even aantal elementen in paren
+      uitwerking: |-
+        De paren bevatten samen een even aantal elementen, dus het aantal enkelingen is $|G|$ min een even getal: even. Het is minstens 1 (het element $e$), dus minstens 2: er is een element van orde 2.
+    - opgave: |-
+        Controleer in $\Zs{15}$ en in $(\Zn{10}, \plusn)$.
+      antwoord: |-
+        $4, 11, 14$; \ $5$
+      uitwerking: |-
+        In $\Zs{15}$ hebben 4, 11 en 14 orde 2 (zie de opdracht over de deelgroepen van $\Zs{15}$). In $\Zn{10}$ heeft alleen 5 orde 2.
+
+- id: h2-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    deelgroepen met onderling ondeelbare ordes
+  opgave: |-
+    $H$ en $K$ zijn eindige deelgroepen van $G$, en $|H|$ en $|K|$ hebben geen deler groter dan 1 gemeen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat $H \cap K = \{e\}$.
+      antwoord: |-
+        $|H \cap K|$ deelt $|H|$ en $|K|$
+      uitwerking: |-
+        $H \cap K$ is een deelgroep van $H$ en van $K$ (zie de opdracht over doorsnede en unie). Volgens Lagrange deelt $|H \cap K|$ beide ordes, dus is het 1.
+    - opgave: |-
+        Een groep heeft 15 elementen, een deelgroep $H$ met 3 en een deelgroep $K$ met 5 elementen. Hoeveel elementen bevatten $H$ en $K$ samen?
+      antwoord: |-
+        $7$
+      uitwerking: |-
+        Ze hebben alleen $e$ gemeen: $3 + 5 - 1 = 7$.
+
+- id: h2-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    deelgroepen met index 2
+  opgave: |-
+    $H$ is een deelgroep van $G$ met $[G : H] = 2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bewijs dat $a \ast H = H \ast a$ voor elk element $a$. Gebruik dat ook de verzamelingen $H \ast a$ de groep in even grote, losse stukken verdelen.
+      antwoord: |-
+        beide zijn $H$ of $G \setminus H$
+      uitwerking: |-
+        Is $a \in H$, dan zijn beide $H$. Is $a \notin H$, dan is $a \ast H \neq H$, en met maar twee nevenklassen is $a \ast H = G \setminus H$. Net zo is $H \ast a = G \setminus H$.
+    - opgave: |-
+        Leid af dat $a \ast h \ast a^{-1} \in H$ voor alle $a \in G$ en $h \in H$. Controleer met $H = \vb{r}$ en $a = s_1$ in de symmetriegroep van de driehoek.
+      antwoord: |-
+        $s_1 \circ r \circ s_1 = r^2$
+      uitwerking: |-
+        $a \ast h \in a \ast H = H \ast a$, dus $a \ast h = h' \ast a$ met $h' \in H$, en $a \ast h \ast a^{-1} = h' \in H$. Controle: $s_1 \circ r = s_2$ en $s_2 \circ s_1 = r^2$.
+
+- id: h2-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    het kenmerk in één voorwaarde
+  opgave: |-
+    Bewijs: een niet-lege deelverzameling $H$ van een groep is een deelgroep als en slechts als $a \ast b^{-1} \in H$ voor alle $a, b \in H$.
+  antwoord: |-
+    neem eerst $a = b$, dan $a = e$
+  uitwerking: |-
+    Is $H$ een deelgroep, dan liggen $b^{-1}$ en $a \ast b^{-1}$ in $H$. Omgekeerd: neem $a \in H$; dan is $e = a \ast a^{-1} \in H$. Met $e$ en $b$ krijg je $e \ast b^{-1} = b^{-1} \in H$. Met $a$ en $b^{-1}$ krijg je $a \ast (b^{-1})^{-1} = a \ast b \in H$. Volgens het kenmerk is $H$ een deelgroep.
+
+- id: h2-koppel-1
+  soort: koppel
+  niveau: 2
+  thema: |-
+    de kleine stelling van Fermat met Lagrange
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Getaltheorie
+  opgave: |-
+    Neem een priemgetal $p$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is $\Zs{p} = \Zn{p} \setminus \{0\}$? Leid uit de stelling van Lagrange af dat $a^{p - 1}$ rest 1 heeft bij deling door $p$, als $p$ geen deler is van $a$.
+      antwoord: |-
+        $|\Zs{p}| = p - 1$
+      uitwerking: |-
+        Een priemgetal heeft met $1, \ldots, p - 1$ geen deler groter dan 1 gemeen. De rest van $a$ ligt in een groep met $p - 1$ elementen, dus $a^{p - 1} = 1$ in die groep.
+    - opgave: |-
+        Leid af dat $a^p$ en $a$ dezelfde rest hebben bij deling door $p$, voor elk geheel getal $a$.
+      antwoord: |-
+        vermenigvuldig met $a$; apart als $p \mid a$
+      uitwerking: |-
+        Is $p \nmid a$, vermenigvuldig dan met $a$. Is $p \mid a$, dan hebben beide rest 0.
+    - opgave: |-
+        Bereken de rest van $3^{2026}$ bij deling door 11.
+      antwoord: |-
+        $3$
+      uitwerking: |-
+        $3^{10}$ heeft rest 1 en $2026 = 202 \cdot 10 + 6$: $3^6 = 729 = 66 \cdot 11 + 3$.
+    - opgave: |-
+        $2^{14}$ heeft rest 4 bij deling door 15. Wat besluit je over 15, zonder een deler te zoeken?
+      antwoord: |-
+        15 is geen priemgetal
+      uitwerking: |-
+        Was 15 priem, dan had $2^{14}$ rest 1.
+
+- id: h2-koppel-2
+  soort: koppel
+  niveau: 3
+  thema: |-
+    waarom RSA werkt
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Getaltheorie
+  opgave: |-
+    Bij RSA versleutel je een getal $m$ als de rest van $m^e$ bij deling door $n$, en ontcijfer je met de exponent $d$. Neem $n = 33$, $e = 3$ en $d = 7$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken $\varphi(33)$, en controleer dat $ed = 1 + \varphi(33)$.
+      antwoord: |-
+        $\varphi(33) = 20$ en $3 \cdot 7 = 21$
+      uitwerking: |-
+        $33 = 3 \cdot 11$: $\varphi(33) = 2 \cdot 10 = 20$.
+    - opgave: |-
+        Versleutel $m = 4$, en ontcijfer het resultaat.
+      antwoord: |-
+        $31$, en terug $4$
+      uitwerking: |-
+        $4^3 = 64 = 33 + 31$. Ontcijferen: $31 \equiv -2$, dus $31^7$ heeft dezelfde rest als $(-2)^7 = -128$, en $-128 + 4 \cdot 33 = 4$.
+    - opgave: |-
+        Leg met de stelling van Euler uit waarom $m^{ed}$ dezelfde rest heeft als $m$, voor elke $m$ in $\Zs{33}$.
+      antwoord: |-
+        $m^{21} = m^{20} \cdot m$
+      uitwerking: |-
+        In de groep $\Zs{33}$ met 20 elementen is $m^{20} = 1$, dus $m^{21} = m$.
+
+- id: h2-koppel-3
+  soort: koppel
+  niveau: 2
+  thema: |-
+    deelgroepen van matrices
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Matrices
+  opgave: |-
+    De inverteerbare $2 \times 2$-matrices vormen een groep met het product. Je mag gebruiken dat $\det(AB) = \det A \cdot \det B$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de matrices met determinant 1 een deelgroep vormen.
+      antwoord: |-
+        met het kenmerk
+      uitwerking: |-
+        $\det(AB) = 1 \cdot 1 = 1$, en uit $A A^{-1} = I$ volgt $\det A \cdot \det A^{-1} = 1$, dus $\det A^{-1} = 1$.
+    - opgave: |-
+        Vormen de matrices met determinant 2 een deelgroep?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $I$ heeft determinant 1. (Ook: het product heeft determinant 4.)
+    - opgave: |-
+        Neem $R = \begin{bmatrix} \frac12 & -\frac{\sqrt3}{2} \\[2pt] \frac{\sqrt3}{2} & \frac12 \end{bmatrix}$, de draaiing over $60^\circ$. Bereken $R^3$, en bepaal $\vb{R}$.
+      antwoord: |-
+        $R^3 = -I$; $\vb{R}$ heeft 6 elementen
+      uitwerking: |-
+        $R^3$ is de draaiing over $180^\circ$, dus $-I$. Dan is $R^6 = I$, en $\vb{R}$ bevat de zes draaiingsmatrices over een veelvoud van $60^\circ$, met determinant 1.
+
+- id: h2-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    deelgroep of niet
+  opgave: |-
+    Is $H$ een deelgroep? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $4\Z$ in $(\Z, +)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $4k + 4l = 4(k + l)$ en $-4k = 4(-k)$.
+    - opgave: |-
+        $\{1, 3, 9\}$ in $\bigl(\Zn{13} \setminus \{0\}, \maaln\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Eindig en gesloten: $3 \cdot 3 = 9$, $3 \cdot 9 = 27 \to 1$, $9 \cdot 9 = 81 \to 3$.
+    - opgave: |-
+        $\{e, s_1, r\}$ in de symmetriegroep van de gelijkzijdige driehoek
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $r \circ r = r^2$ ligt er niet in.
+
+- id: h2-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    deelgroepen van een cyclische groep
+  opgave: |-
+    Geef alle deelgroepen van $(\Zn{20}, \plusn)$, met hun aantal elementen.
+  antwoord: |-
+    $\vb{0}$: 1, $\vb{10}$: 2, $\vb{5}$: 4, $\vb{4}$: 5, $\vb{2}$: 10, $\Zn{20}$: 20
+  uitwerking: |-
+    Eén deelgroep per deler $d$ van 20: $\vb{20 : d}$.
+
+- id: h2-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    nevenklassen
+  opgave: |-
+    Bepaal de nevenklassen van $H = \{0, 3, 6, 9\}$ in $(\Zn{12}, \plusn)$. Wat is de index?
+  antwoord: |-
+    $\{0, 3, 6, 9\}$, $\{1, 4, 7, 10\}$, $\{2, 5, 8, 11\}$; index 3
+  uitwerking: |-
+    $12 = 3 \cdot 4$.
+
+- id: h2-t4
+  soort: test
+  niveau: 1
+  thema: |-
+    de stelling van Lagrange
+  opgave: |-
+    Een groep heeft 35 elementen. Welke ordes kunnen haar elementen hebben? Kan ze een deelgroep met 10 elementen hebben?
+  antwoord: |-
+    $1, 5, 7, 35$; nee
+  uitwerking: |-
+    De delers van 35. 10 deelt 35 niet.
+
+- id: h2-t5
+  soort: test
+  niveau: 1
+  thema: |-
+    machten en de orde van de groep
+  opgave: |-
+    Bereken $4^{2026}$ in $\bigl(\Zn{11} \setminus \{0\}, \maaln\bigr)$.
+  antwoord: |-
+    $4$
+  uitwerking: |-
+    De groep heeft 10 elementen, dus $4^{10} = 1$. $2026 = 202 \cdot 10 + 6$, en $4^6 = 4096 = 372 \cdot 11 + 4$.
+
+- id: h2-t6
+  soort: test
+  niveau: 1
+  thema: |-
+    de eenheden modulo n
+  opgave: |-
+    Bepaal $\Zs{12}$ en $\varphi(12)$. Bereken de rest van $5^{99}$ bij deling door 12.
+  antwoord: |-
+    $\{1, 5, 7, 11\}$, $\varphi(12) = 4$; rest $5$
+  uitwerking: |-
+    $99 = 24 \cdot 4 + 3$, dus $5^{99}$ heeft de rest van $5^3 = 125 = 10 \cdot 12 + 5$. (Ook: $5^2 = 25 \to 1$.)
+
+- id: h2-t7
+  soort: test
+  niveau: 2
+  thema: |-
+    groepen van priemorde
+  opgave: |-
+    Een groep $G$ heeft 11 elementen. Waarom is ze cyclisch? Hoeveel deelgroepen en hoeveel voortbrengers heeft ze?
+  antwoord: |-
+    11 is priem; 2 deelgroepen; 10 voortbrengers
+  uitwerking: |-
+    Elk element verschillend van $e$ heeft orde 11. De deelgroepen hebben 1 of 11 elementen: $\{e\}$ en $G$.

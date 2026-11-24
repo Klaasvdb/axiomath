@@ -1,0 +1,25 @@
+% Affiene en projectieve meetkunde. Canaletto, Het San Marcoplein in Venetië (ca. 1723-1724): de evenwijdige
+% gevels en de voegen van de bestrating lopen op het doek samen in één verdwijnpunt op de horizon.
+% Motief: een betegelde vloer in perspectief, echt berekend (hoofdstuk 2). Het oog staat op hoogte h = 1,5
+% boven de vloer, het doek op afstand d = 2,4; het vloerpunt (X, Z) komt op het doek in
+% (17,85 + d X/Z, 9,9 - d h/Z). De voegen in de diepte gaan naar het verdwijnpunt V(17,85; 9,9), de
+% diagonalen van de tegels (fel) naar het afstandspunt (17,85 + d; 9,9): beide liggen op de horizon,
+% het beeld van de rechte op oneindig van de vloer. De bovenrand van de band is recht, evenwijdig met de horizon.
+\def\omslagbestand{omslag-piazza.jpg}
+\def\omslagbron{Canaletto, \textit{Het San Marcoplein in Venetië}, ca. 1723-1724 (publiek domein)}
+\def\omslagrand{10.6}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}
+    \clip (16.6,3.9) rectangle (20.6,9.9);
+    % voegen in de diepte: X = 0,3 k, van Z = 0,6 tot de horizon
+    \foreach \k in {-14,...,14}{\draw[white,line width=.6pt,opacity=.55] ({17.85+2.4*0.3*\k/0.6},{9.9-2.4*1.5/0.6}) -- (17.85,9.9);}
+    % dwarse voegen: Z = 0,6 + 0,3 m
+    \foreach \m in {0,...,24}{\pgfmathsetmacro{\yy}{9.9-3.6/(0.6+0.3*\m)}\draw[white,line width=.6pt,opacity=.55] (16.6,\yy) -- (20.6,\yy);}
+    % diagonalen X - Z = c: naar het afstandspunt
+    \foreach \c in {-12,...,4}{\draw[fel,line width=1.3pt] ({17.85+2.4+2.4*0.3*\c/0.6},{9.9-3.6/0.6}) -- (20.25,9.9);}
+  \end{scope}
+  \draw[omslaglijn=1pt] (16.6,9.9) -- (20.6,9.9);
+  \fill[omslagstip] (17.85,9.9) circle (1.1mm);
+  \fill[omslagstip] (20.25,9.9) circle (1.1mm);
+}

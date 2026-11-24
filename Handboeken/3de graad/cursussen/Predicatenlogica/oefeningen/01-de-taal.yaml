@@ -1,0 +1,1239 @@
+# Oefeningen van hoofdstuk 1. Zie oefeningenbank.py voor de velden.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ontken: \textit{elke leerling van de klas heeft een fiets}.
+      antwoord: |-
+        Er is een leerling van de klas zonder fiets.
+      uitwerking: |-
+        De ontkenning van $\forall$ is $\exists$ met de ontkenning erachter: er is minstens één leerling die geen fiets heeft.
+    - opgave: |-
+        Schrijf met een kwantor: \textit{voor elk natuurlijk getal $n$ is $n^2 + n$ even}. Is het waar?
+      antwoord: |-
+        $\forall n \in \N\colon 2 \deelt n^2 + n$; waar
+      uitwerking: |-
+        $n^2 + n = n(n + 1)$ is het product van twee opeenvolgende getallen, en een van beide is even.
+    - opgave: |-
+        Wanneer is $p \dan q$ vals?
+      antwoord: |-
+        alleen als $p$ waar is en $q$ vals
+      uitwerking: |-
+        In de drie andere rijen van de waarheidstabel is de implicatie waar.
+    - opgave: |-
+        Waar of vals: $\forall n \in \N\ \exists m \in \N\colon m < n$?
+      antwoord: |-
+        vals
+      uitwerking: |-
+        Voor $n = 0$ is er geen natuurlijk getal $m < 0$.
+    - opgave: |-
+        Is $\bigl(p \en (p \dan q)\bigr) \dan q$ een tautologie?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De implicatie kan alleen vals zijn als $q$ vals is en $p \en (p \dan q)$ waar. Dan is $p$ waar en $p \dan q$ waar, dus $q$ waar: een tegenspraak.
+
+- id: h1-verken
+  soort: start
+  opgave: |-
+    \blokkop{Verken}\quad Een bekende sluitrede: \textit{Alle mensen zijn sterfelijk. Socrates is een mens. Dus Socrates is sterfelijk.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Noem de drie uitspraken $p$, $q$ en $r$, en schrijf de redenering als één implicatie.
+      antwoord: |-
+        $(p \en q) \dan r$
+      uitwerking: |-
+        $p$: alle mensen zijn sterfelijk, $q$: Socrates is een mens, $r$: Socrates is sterfelijk. Uit de twee premissen volgt het besluit: $(p \en q) \dan r$.
+    - opgave: |-
+        Is die implicatie een tautologie? Geef zo nodig een rij van de waarheidstabel waarin ze vals is.
+      antwoord: |-
+        nee: $p$ en $q$ waar, $r$ vals
+      uitwerking: |-
+        Is $p$ waar, $q$ waar en $r$ vals, dan is $p \en q$ waar en $r$ vals, dus de implicatie vals.
+    - opgave: |-
+        Geef een redenering met dezelfde vorm $(p \en q) \dan r$ die niet correct is.
+      antwoord: |-
+        bijvoorbeeld: \textit{het regent, het is maandag, dus ik heb een paraplu bij}
+      uitwerking: |-
+        Elke drie uitspraken zonder verband hebben die vorm. De premissen kunnen waar zijn en het besluit vals.
+    - opgave: |-
+        Toch is de redenering over Socrates correct. Welke woorden komen in de premissen en het besluit terug? Waarom ziet de propositielogica dat niet?
+      antwoord: |-
+        \textit{mens}, \textit{sterfelijk} en \textit{Socrates}; $p$, $q$ en $r$ hebben geen binnenkant
+      uitwerking: |-
+        De redenering klopt omdat dezelfde eigenschappen (\textit{mens}, \textit{sterfelijk}) en hetzelfde object (Socrates) terugkomen. In de propositielogica is elke uitspraak één letter, en dat verband valt weg.
+
+- id: h1-predicaat
+  soort: kort
+  opgave: |-
+    Het universum bestaat uit steden en landen. Kies predicaten en constanten, en schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Brussel is een hoofdstad.
+      antwoord: |-
+        $H(b)$
+      uitwerking: |-
+        $H(x)$: \textit{$x$ is een hoofdstad}, $b$: Brussel.
+    - opgave: |-
+        Gent ligt in België en is geen hoofdstad.
+      antwoord: |-
+        $L(g, e) \en \niet H(g)$
+      uitwerking: |-
+        $L(x, y)$: \textit{$x$ ligt in $y$}, $g$: Gent, $e$: België.
+    - opgave: |-
+        Brussel ligt in België, maar België ligt niet in Brussel.
+      antwoord: |-
+        $L(b, e) \en \niet L(e, b)$
+      uitwerking: |-
+        Dezelfde relatie, met de argumenten in de andere volgorde. \textit{Maar} is in de logica een \textit{en}.
+    - opgave: |-
+        Brussel ligt tussen Gent en Luik.
+      antwoord: |-
+        $T(b, g, l)$
+      uitwerking: |-
+        Een predicaat met drie argumenten, $T(x, y, z)$: \textit{$x$ ligt tussen $y$ en $z$}, en $l$: Luik.
+
+- id: h1-term
+  soort: kort
+  opgave: |-
+    Het universum is $\R$, en $f$ en $g$ zijn functies met één argument. Is het een term, een formule of geen van beide?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $f(2) + g(x)$
+      antwoord: |-
+        term
+      uitwerking: |-
+        Een som van twee getallen is een getal.
+    - opgave: |-
+        $f(x) = 0$
+      antwoord: |-
+        formule
+      uitwerking: |-
+        Een gelijkheid van twee termen: een atomaire formule.
+    - opgave: |-
+        $f(x < 1)$
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        $x < 1$ is een formule, geen getal: $f$ kan er niet op werken.
+    - opgave: |-
+        $\forall x\, \bigl(f(x) \geqslant 0\bigr)$
+      antwoord: |-
+        formule
+      uitwerking: |-
+        Een kwantor voor een atomaire formule. Het is zelfs een zin.
+    - opgave: |-
+        $g\Bigl(f\bigl(g(x)\bigr)\Bigr)$
+      antwoord: |-
+        term
+      uitwerking: |-
+        Functies toegepast op termen geven een term.
+    - opgave: |-
+        $f(x) + (x > 0)$
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        Je kunt een getal niet optellen bij een bewering.
+
+- id: h1-formule
+  soort: kort
+  opgave: |-
+    Het universum zijn de dieren. \textit{Elke walvis is een zoogdier. Moby is een walvis. Dus Moby is een zoogdier.}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Kies predicaten en een constante, en schrijf de twee premissen en het besluit in symbolen.
+      antwoord: |-
+        $\forall x\, \bigl(W(x) \dan Z(x)\bigr)$, $W(m)$, $Z(m)$
+      uitwerking: |-
+        $W(x)$: \textit{$x$ is een walvis}, $Z(x)$: \textit{$x$ is een zoogdier}, $m$: Moby.
+    - opgave: |-
+        Iemand schrijft de eerste premisse als $\forall x\, W(x) \dan Z(x)$. Wat zegt die formule?
+      antwoord: |-
+        \textit{als alle dieren walvissen zijn, dan is $x$ een zoogdier}
+      uitwerking: |-
+        De kwantor werkt alleen op $W(x)$: het is $\bigl(\forall x\, W(x)\bigr) \dan Z(x)$. De laatste $x$ staat buiten het bereik, dus het is geen zin.
+    - opgave: |-
+        Welke formule zegt \textit{er is een walvis die geen zoogdier is}? Hoe hangt ze samen met de eerste premisse?
+      antwoord: |-
+        $\exists x\, \bigl(W(x) \en \niet Z(x)\bigr)$, de ontkenning van de eerste premisse
+      uitwerking: |-
+        Ontken $\forall x\, \bigl(W(x) \dan Z(x)\bigr)$: $\exists x\, \niet\bigl(W(x) \dan Z(x)\bigr)$, en een implicatie is alleen vals als het eerste deel waar is en het tweede vals.
+
+- id: h1-vertaal
+  soort: kort
+  opgave: |-
+    Het universum zijn de leerlingen van een school, met $S(x)$: \textit{$x$ sport} en $M(x)$: \textit{$x$ speelt muziek}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Alle muzikanten sporten.
+      antwoord: |-
+        $\forall x\, \bigl(M(x) \dan S(x)\bigr)$
+    - opgave: |-
+        Sommige sporters spelen geen muziek.
+      antwoord: |-
+        $\exists x\, \bigl(S(x) \en \niet M(x)\bigr)$
+    - opgave: |-
+        Geen enkele muzikant sport.
+      antwoord: |-
+        $\forall x\, \bigl(M(x) \dan \niet S(x)\bigr)$
+    - opgave: |-
+        Alleen sporters spelen muziek.
+      antwoord: |-
+        $\forall x\, \bigl(M(x) \dan S(x)\bigr)$
+      uitwerking: |-
+        Wie muziek speelt, is een sporter: dezelfde formule als bij a.
+    - opgave: |-
+        Niet alle sporters spelen muziek.
+      antwoord: |-
+        $\niet\forall x\, \bigl(S(x) \dan M(x)\bigr)$, of $\exists x\, \bigl(S(x) \en \niet M(x)\bigr)$
+      uitwerking: |-
+        De ontkenning van \textit{alle sporters spelen muziek}. Na het ontkennen van de kwantor is het dezelfde formule als bij b.
+
+- id: h1-meer
+  soort: kort
+  opgave: |-
+    Het universum zijn de mensen, met $B(x, y)$: \textit{$x$ bewondert $y$}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Iedereen bewondert iemand.
+      antwoord: |-
+        $\forall x\, \exists y\, B(x, y)$
+    - opgave: |-
+        Er is iemand die door iedereen bewonderd wordt.
+      antwoord: |-
+        $\exists y\, \forall x\, B(x, y)$
+      uitwerking: |-
+        De bewonderde is het tweede argument. Eén $y$ voor alle $x$, dus $\exists y$ staat voor $\forall x$.
+    - opgave: |-
+        Iedereen bewondert zichzelf.
+      antwoord: |-
+        $\forall x\, B(x, x)$
+    - opgave: |-
+        Er is iemand die niemand bewondert.
+      antwoord: |-
+        $\exists x\, \forall y\, \niet B(x, y)$
+      uitwerking: |-
+        \textit{Niemand} is \textit{voor alle $y$ niet}. Ook goed: $\exists x\, \niet\exists y\, B(x, y)$.
+
+- id: h1-gelijk
+  soort: kort
+  opgave: |-
+    Het universum is $\R$. Schrijf in symbolen, met het gelijkheidsteken. Is de zin waar?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        De vergelijking $x^3 = x$ heeft minstens twee oplossingen.
+      antwoord: |-
+        $\exists x\, \exists y\, (x \neq y \en x^3 = x \en y^3 = y)$; waar
+      uitwerking: |-
+        Neem $x = 0$ en $y = 1$. (Er zijn er zelfs drie: $-1$, $0$ en $1$.)
+    - opgave: |-
+        De vergelijking $x^3 = 8$ heeft hoogstens één oplossing.
+      antwoord: |-
+        $\forall x\, \forall y\, (x^3 = 8 \en y^3 = 8 \dan x = y)$; waar
+      uitwerking: |-
+        $x \mapsto x^3$ is strikt stijgend, dus uit $x^3 = y^3$ volgt $x = y$.
+    - opgave: |-
+        Er is precies één getal $x$ met $2x + 1 = 0$.
+      antwoord: |-
+        $\exists x\, \bigl(2x + 1 = 0 \en \forall y\, (2y + 1 = 0 \dan y = x)\bigr)$; waar
+      uitwerking: |-
+        De enige oplossing is $x = -\tfrac12$. Korter: $\exists! x\, (2x + 1 = 0)$.
+
+- id: h1-vrij
+  soort: kort
+  opgave: |-
+    Welke variabelen staan vrij? Is het een zin?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        $\exists x\, (x < y)$
+      antwoord: |-
+        $y$; geen zin
+    - opgave: |-
+        $\forall x\, \exists y\, (x < y)$
+      antwoord: |-
+        geen; een zin
+    - opgave: |-
+        $\forall x\, (x < y) \of \exists y\, (y < x)$
+      antwoord: |-
+        $y$ (links) en $x$ (rechts); geen zin
+      uitwerking: |-
+        Het bereik van $\forall x$ is alleen $x < y$, dat van $\exists y$ alleen $y < x$. Links staat $y$ vrij, rechts $x$.
+    - opgave: |-
+        $P(x) \en \forall x\, Q(x)$
+      antwoord: |-
+        $x$ (in $P(x)$); geen zin
+      uitwerking: |-
+        De $x$ in $P(x)$ staat buiten het bereik van $\forall x$.
+
+- id: h1-lees
+  soort: kort
+  opgave: |-
+    Het universum is $\N$, met $D(x, y)$: \textit{$x$ is een deler van $y$}. Zeg in een gewone zin wat de formule betekent.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $D(2, x) \en D(3, x)$
+      antwoord: |-
+        $x$ is een veelvoud van 6
+      uitwerking: |-
+        Deelbaar door 2 en door 3 is deelbaar door 6, omdat 2 en 3 geen gemeenschappelijke deler hebben.
+    - opgave: |-
+        $\exists y\, \bigl(D(y, x) \en 1 < y \en y < x\bigr)$
+      antwoord: |-
+        $x$ heeft een deler strikt tussen 1 en $x$: $x$ is samengesteld
+      uitwerking: |-
+        De vrije variabele is $x$. Zo'n deler bestaat precies als $x$ groter dan 1 is en geen priemgetal.
+    - opgave: |-
+        $\forall x\, D(x, x)$
+      antwoord: |-
+        elk natuurlijk getal is een deler van zichzelf (waar)
+      uitwerking: |-
+        Een zin: $x = x \cdot 1$ voor elke $x$.
+
+#----------------------------------------------------------------------------------------
+# OPDRACHTEN: niveau 1 (o1-o8), niveau 2 (o9-o17), niveau 3 (o18-o22)
+#----------------------------------------------------------------------------------------
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    de vier basiszinnen
+  opgave: |-
+    Het universum zijn de dieren, met $Z(x)$: \textit{$x$ is een zoogdier}, $B(x)$: \textit{$x$ is een vogel}, $V(x)$: \textit{$x$ kan vliegen} en $E(x)$: \textit{$x$ legt eieren}. Schrijf in symbolen, en zeg of het waar is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Sommige zoogdieren leggen eieren.
+      antwoord: |-
+        $\exists x\, \bigl(Z(x) \en E(x)\bigr)$; waar
+      uitwerking: |-
+        Het vogelbekdier is een zoogdier dat eieren legt.
+    - opgave: |-
+        Geen enkel zoogdier kan vliegen.
+      antwoord: |-
+        $\forall x\, \bigl(Z(x) \dan \niet V(x)\bigr)$; vals
+      uitwerking: |-
+        Een vleermuis is een zoogdier dat kan vliegen.
+    - opgave: |-
+        Elke vogel legt eieren.
+      antwoord: |-
+        $\forall x\, \bigl(B(x) \dan E(x)\bigr)$; waar
+    - opgave: |-
+        Niet elke vogel kan vliegen.
+      antwoord: |-
+        $\exists x\, \bigl(B(x) \en \niet V(x)\bigr)$; waar
+      uitwerking: |-
+        Een pinguïn en een struisvogel kunnen niet vliegen.
+    - opgave: |-
+        Alleen vogels kunnen vliegen.
+      antwoord: |-
+        $\forall x\, \bigl(V(x) \dan B(x)\bigr)$; vals
+      uitwerking: |-
+        Vleermuizen en insecten kunnen vliegen.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    term of formule
+  opgave: |-
+    Het universum is $\R$. Is het een term, een formule of geen van beide?
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $x^2 + 1$
+      antwoord: |-
+        term
+    - opgave: |-
+        $x^2 + 1 > 0$
+      antwoord: |-
+        formule
+    - opgave: |-
+        $\sin x = y$
+      antwoord: |-
+        formule
+    - opgave: |-
+        $\forall x\, (x + 0 = x)$
+      antwoord: |-
+        formule (een zin)
+    - opgave: |-
+        $|x - y|$
+      antwoord: |-
+        term
+    - opgave: |-
+        $(x < y) + 1$
+      antwoord: |-
+        geen van beide
+      uitwerking: |-
+        $x < y$ is een bewering, geen getal.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    vrije en gebonden variabelen
+  opgave: |-
+    Welke variabelen staan vrij? Is het een zin?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, R(x, y)$
+      antwoord: |-
+        $y$; geen zin
+    - opgave: |-
+        $\exists x\, \exists y\, R(x, y)$
+      antwoord: |-
+        geen; een zin
+    - opgave: |-
+        $\forall x\, P(x) \dan P(y)$
+      antwoord: |-
+        $y$; geen zin
+      uitwerking: |-
+        Het is $\bigl(\forall x\, P(x)\bigr) \dan P(y)$.
+    - opgave: |-
+        $\exists x\, P(x) \en R(x, y)$
+      antwoord: |-
+        $x$ en $y$ (in $R(x, y)$); geen zin
+      uitwerking: |-
+        Het bereik van $\exists x$ is alleen $P(x)$.
+    - opgave: |-
+        $\forall x\, \forall y\, (x + y = y + x)$
+      antwoord: |-
+        geen; een zin
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    formules voorlezen
+  opgave: |-
+    Het universum is $\N$, met $D(x, y)$: \textit{$x$ is een deler van $y$}. Zeg in een gewone zin wat de formule betekent, en of ze waar is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, D(1, x)$
+      antwoord: |-
+        1 is een deler van elk getal; waar
+      uitwerking: |-
+        $x = 1 \cdot x$.
+    - opgave: |-
+        $\forall x\, D(x, 0)$
+      antwoord: |-
+        elk getal is een deler van 0; waar
+      uitwerking: |-
+        $0 = x \cdot 0$ voor elke $x$.
+    - opgave: |-
+        $\exists x\, \forall y\, D(x, y)$
+      antwoord: |-
+        er is een getal dat een deler is van alle getallen; waar
+      uitwerking: |-
+        Dat getal is 1, zoals bij a.
+    - opgave: |-
+        $\forall x\, \forall y\, \bigl(D(x, y) \en D(y, x) \dan x = y\bigr)$
+      antwoord: |-
+        twee getallen die elkaars deler zijn, zijn gelijk; waar
+      uitwerking: |-
+        Is $y = ax$ en $x = by$, dan is $x = abx$. Voor $x \neq 0$ is $ab = 1$, dus $a = b = 1$ en $x = y$. Voor $x = 0$ is $y = a \cdot 0 = 0$.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    termen met functies
+  opgave: |-
+    Het universum zijn de mensen, met de functies $m(x)$: \textit{de moeder van $x$} en $v(x)$: \textit{de vader van $x$}, en de constanten $a$ en $b$. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        de grootmoeder van $a$ langs vaderskant
+      antwoord: |-
+        $m\bigl(v(a)\bigr)$
+      uitwerking: |-
+        Een term: de moeder van de vader van $a$.
+    - opgave: |-
+        $a$ is de moeder van $b$.
+      antwoord: |-
+        $a = m(b)$
+    - opgave: |-
+        $a$ en $b$ zijn broers of zussen, met dezelfde ouders.
+      antwoord: |-
+        $a \neq b \en m(a) = m(b) \en v(a) = v(b)$
+      uitwerking: |-
+        Zonder $a \neq b$ zou ook iedereen zijn eigen broer of zus zijn.
+    - opgave: |-
+        Niemand is zijn eigen moeder.
+      antwoord: |-
+        $\forall x\, \bigl(m(x) \neq x\bigr)$
+    - opgave: |-
+        Waarom hoef je \textit{iedereen heeft precies één moeder} niet op te schrijven?
+      antwoord: |-
+        een functie geeft bij elk object precies één object
+      uitwerking: |-
+        Door $m$ als functie te kiezen, leg je al vast dat $m(x)$ voor elke $x$ bestaat en uniek is. Met een predicaat $M(x, y)$: \textit{$x$ is de moeder van $y$} zou je het wel moeten opschrijven.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    meer kwantoren lezen
+  opgave: |-
+    Het universum zijn de leden van een chatgroep, met $S(x, y)$: \textit{$x$ stuurde een bericht naar $y$}. Zeg in een gewone zin wat de formule betekent.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \exists y\, S(x, y)$
+      antwoord: |-
+        iedereen stuurde een bericht naar iemand
+    - opgave: |-
+        $\exists y\, \forall x\, S(x, y)$
+      antwoord: |-
+        er is iemand die van iedereen een bericht kreeg
+    - opgave: |-
+        $\forall x\, \forall y\, \bigl(S(x, y) \dan S(y, x)\bigr)$
+      antwoord: |-
+        wie een bericht kreeg, stuurde er ook een terug naar de afzender
+    - opgave: |-
+        $\exists x\, \forall y\, \niet S(y, x)$
+      antwoord: |-
+        er is iemand die van niemand een bericht kreeg
+      uitwerking: |-
+        Let op de volgorde in $S(y, x)$: $x$ is de ontvanger.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    tellen met het gelijkheidsteken
+  opgave: |-
+    Het universum is $\N$, met $P(x)$: \textit{$x$ is priem}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Er zijn minstens drie priemgetallen.
+      antwoord: |-
+        $\exists x\, \exists y\, \exists z\, (x \neq y \en x \neq z \en y \neq z \en P(x) \en P(y) \en P(z))$
+      uitwerking: |-
+        Drie variabelen die twee aan twee verschillen: drie ongelijkheden.
+    - opgave: |-
+        Er is hoogstens één priemgetal tussen 24 en 28.
+      antwoord: |-
+        $\forall x\, \forall y\, (P(x) \en P(y) \en 24 < x < 28 \en 24 < y < 28 \dan x = y)$
+      uitwerking: |-
+        De zin is waar: tussen 24 en 28 liggen 25, 26 en 27, en geen ervan is priem. Ook \textit{geen enkel} voldoet aan \textit{hoogstens één}.
+    - opgave: |-
+        Er is precies één natuurlijk getal kleiner dan 1.
+      antwoord: |-
+        $\exists x\, \bigl(x < 1 \en \forall y\, (y < 1 \dan y = x)\bigr)$
+      uitwerking: |-
+        Waar: dat getal is 0.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    formules bij venndiagrammen
+  opgave: |-
+    Een grijs deel is leeg, een stip is een element dat zeker bestaat. Welke zin over $A(x)$ en $B(x)$ hoort bij het diagram? Schrijf hem in symbolen.
+
+    \figuren{\begin{tikzpicture}[font=\small]
+      \foreach \t [count=\i from 0] in {a,b,c}{%
+        \node at (4*\i-1.5,.8) {\textbf{\t}};
+        \node[font=\scriptsize,text=accent] at (4*\i-.95,.72) {$A$};
+        \node[font=\scriptsize,text=accent] at (4*\i+.95,.72) {$B$};}
+      \begin{scope}
+        \clip (.42,0) circle (.75); \fill[grijs!45] (.42,0) circle (.75);
+      \end{scope}
+      \begin{scope}
+        \clip (.42,0) circle (.75); \fill[white] (-.42,0) circle (.75);
+      \end{scope}
+      \draw[thick,accent] (-.42,0) circle (.75) (.42,0) circle (.75);
+      \fill[accent] (4-.7,0) circle (2pt);
+      \draw[thick,accent,xshift=4cm] (-.42,0) circle (.75) (.42,0) circle (.75);
+      \begin{scope}[xshift=8cm]
+        \begin{scope}
+          \clip (-.42,0) circle (.75); \fill[grijs!45] (.42,0) circle (.75);
+        \end{scope}
+        \fill[accent] (.7,0) circle (2pt);
+        \draw[thick,accent] (-.42,0) circle (.75) (.42,0) circle (.75);
+      \end{scope}
+    \end{tikzpicture}}
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        diagram a
+      antwoord: |-
+        alleen $A$ zijn $B$: $\forall x\, \bigl(B(x) \dan A(x)\bigr)$
+      uitwerking: |-
+        Het deel van $B$ buiten $A$ is leeg: elke $B$ is een $A$.
+    - opgave: |-
+        diagram b
+      antwoord: |-
+        sommige $A$ zijn geen $B$: $\exists x\, \bigl(A(x) \en \niet B(x)\bigr)$
+    - opgave: |-
+        diagram c
+      antwoord: |-
+        $\forall x\, \bigl(A(x) \dan \niet B(x)\bigr) \en \exists x\, \bigl(B(x) \en \niet A(x)\bigr)$
+      uitwerking: |-
+        Geen enkele $A$ is een $B$, en er is een $B$ die geen $A$ is. De stip ligt in $B$, buiten $A$.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een sociaal netwerk
+  opgave: |-
+    Het universum zijn de gebruikers van een sociaal netwerk, met $V(x, y)$: \textit{$x$ volgt $y$}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Niemand volgt zichzelf.
+      antwoord: |-
+        $\forall x\, \niet V(x, x)$
+    - opgave: |-
+        Iedereen volgt minstens één andere gebruiker.
+      antwoord: |-
+        $\forall x\, \exists y\, \bigl(y \neq x \en V(x, y)\bigr)$
+      uitwerking: |-
+        \textit{Andere} vraagt om $y \neq x$.
+    - opgave: |-
+        Er is een gebruiker die niemand volgt, maar die door iedereen anders gevolgd wordt.
+      antwoord: |-
+        $\exists x\, \bigl(\forall y\, \niet V(x, y) \en \forall y\, (y \neq x \dan V(y, x))\bigr)$
+    - opgave: |-
+        Volgt $x$ gebruiker $y$, en volgt $y$ gebruiker $z$, dan volgt $x$ ook $z$.
+      antwoord: |-
+        $\forall x\, \forall y\, \forall z\, \bigl(V(x, y) \en V(y, z) \dan V(x, z)\bigr)$
+    - opgave: |-
+        Kunnen de zinnen van a en d samen waar zijn als twee gebruikers elkaar volgen?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Volgen $x$ en $y$ elkaar, dan geeft d met $z = x$: $V(x, y) \en V(y, x) \dan V(x, x)$. Dus $x$ volgt zichzelf, in strijd met a.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    klassieke fouten
+  opgave: |-
+    Het universum zijn de dieren, met $K(x)$: \textit{$x$ is een kat} en $Z(x)$: \textit{$x$ is zwart}. Een leerling vertaalde de zinnen hieronder. Wat zegt zijn formule? Verbeter ze.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        \textit{Alle katten zijn zwart}: \ $\forall x\, \bigl(K(x) \en Z(x)\bigr)$
+      antwoord: |-
+        \textit{elk dier is een zwarte kat}; $\forall x\, \bigl(K(x) \dan Z(x)\bigr)$
+    - opgave: |-
+        \textit{Er is een zwarte kat}: \ $\exists x\, \bigl(K(x) \dan Z(x)\bigr)$
+      antwoord: |-
+        \textit{er is een dier dat geen kat is of zwart is}; $\exists x\, \bigl(K(x) \en Z(x)\bigr)$
+      uitwerking: |-
+        $K(x) \dan Z(x)$ is gelijkwaardig met $\niet K(x) \of Z(x)$. Elke hond maakt de formule waar.
+    - opgave: |-
+        \textit{Geen enkele kat is zwart}: \ $\niet\forall x\, \bigl(K(x) \dan Z(x)\bigr)$
+      antwoord: |-
+        \textit{niet alle katten zijn zwart}; $\forall x\, \bigl(K(x) \dan \niet Z(x)\bigr)$
+      uitwerking: |-
+        De formule van de leerling zegt dat er een kat is die niet zwart is.
+    - opgave: |-
+        \textit{Er is precies één zwarte kat}: \ $\exists x\, \bigl(K(x) \en Z(x)\bigr) \en \forall y\, \bigl(K(y) \en Z(y) \dan y = x\bigr)$
+      antwoord: |-
+        de laatste $x$ staat vrij; $\exists x\, \bigl(K(x) \en Z(x) \en \forall y\, (K(y) \en Z(y) \dan y = x)\bigr)$
+      uitwerking: |-
+        Het bereik van $\exists x$ stopt na de eerste haakjes. Het tweede deel zegt dan iets over een andere, vrije $x$: \textit{elke zwarte kat is $x$}. Het hele tweede deel moet in het bereik van $\exists x$ staan.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    eigenschappen van functies
+  opgave: |-
+    Het universum is $\R$, en $f$ is een functie. Schrijf in symbolen. Gebruik alleen $f$, $+$, $|\ |$, $=$, $\neq$, $\leqslant$, $>$ en getallen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $f$ heeft een nulpunt.
+      antwoord: |-
+        $\exists x\, \bigl(f(x) = 0\bigr)$
+    - opgave: |-
+        $f$ is constant.
+      antwoord: |-
+        $\forall x\, \forall y\, \bigl(f(x) = f(y)\bigr)$
+      uitwerking: |-
+        Ook goed: $\exists c\, \forall x\, \bigl(f(x) = c\bigr)$.
+    - opgave: |-
+        $f$ is begrensd.
+      antwoord: |-
+        $\exists M\, \forall x\, \bigl(|f(x)| \leqslant M\bigr)$
+      uitwerking: |-
+        Eén grens $M$ voor alle $x$: $\exists M$ staat voor $\forall x$. Met $\forall x\, \exists M$ is elke functie begrensd.
+    - opgave: |-
+        $f$ is periodiek.
+      antwoord: |-
+        $\exists p\, \bigl(p > 0 \en \forall x\, (f(x + p) = f(x))\bigr)$
+    - opgave: |-
+        $f$ bereikt een grootste waarde.
+      antwoord: |-
+        $\exists a\, \forall x\, \bigl(f(x) \leqslant f(a)\bigr)$
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een open formule onderzoeken
+  opgave: |-
+    Het universum is $\N$. Bekijk de formule \quad $\varphi(x)\colon \ \forall y\, \forall z\, (y \cdot z = x \dan y = 1 \of z = 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke variabelen staan vrij?
+      antwoord: |-
+        alleen $x$
+    - opgave: |-
+        Is $\varphi(x)$ waar voor $x = 6$, $x = 7$, $x = 1$ en $x = 0$?
+      antwoord: |-
+        vals, waar, waar, vals
+      uitwerking: |-
+        $6 = 2 \cdot 3$ met $2 \neq 1$ en $3 \neq 1$. Bij 7 is een product $1 \cdot 7$ of $7 \cdot 1$. Bij 1 is $y = z = 1$. Bij 0 is $0 = 0 \cdot 5$.
+    - opgave: |-
+        Zeg in woorden wat $\varphi(x)$ betekent.
+      antwoord: |-
+        $x$ is 1 of een priemgetal
+      uitwerking: |-
+        Elke ontbinding van $x$ in twee factoren bevat een factor 1: $x$ heeft geen delers buiten 1 en $x$. Dat geldt voor de priemgetallen en voor 1.
+    - opgave: |-
+        Pas de formule aan zodat ze precies zegt: \textit{$x$ is priem}.
+      antwoord: |-
+        $x \neq 1 \en \forall y\, \forall z\, (y \cdot z = x \dan y = 1 \of z = 1)$
+      uitwerking: |-
+        0 valt al weg, want $0 = 0 \cdot 2$.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een toernooi
+  opgave: |-
+    Bij een schaaktoernooi speelt iedereen één keer tegen iedereen. Het universum zijn de spelers, met $W(x, y)$: \textit{$x$ won van $y$}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Niemand won van zichzelf.
+      antwoord: |-
+        $\forall x\, \niet W(x, x)$
+    - opgave: |-
+        Als $x$ van $y$ won, dan won $y$ niet van $x$.
+      antwoord: |-
+        $\forall x\, \forall y\, \bigl(W(x, y) \dan \niet W(y, x)\bigr)$
+    - opgave: |-
+        Er is een speler die van alle andere spelers won.
+      antwoord: |-
+        $\exists x\, \forall y\, \bigl(y \neq x \dan W(x, y)\bigr)$
+    - opgave: |-
+        Er is hoogstens één speler die van alle andere spelers won. Volgt dat uit b?
+      antwoord: |-
+        $\forall x\, \forall x'\, \bigl(\forall y\, (y \neq x \dan W(x, y)) \en \forall y\, (y \neq x' \dan W(x', y)) \dan x = x'\bigr)$; ja
+      uitwerking: |-
+        Zijn $x \neq x'$ twee zulke spelers, dan won $x$ van $x'$ en $x'$ van $x$, in strijd met b.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    rekenkundige zinnen
+  opgave: |-
+    Het universum is $\R$. Schrijf in symbolen, met $+$, $\cdot$, $=$, $\neq$, $>$ en getallen. Is de zin waar?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Elk positief getal is een kwadraat.
+      antwoord: |-
+        $\forall x\, \bigl(x > 0 \dan \exists y\, (y \cdot y = x)\bigr)$; waar
+      uitwerking: |-
+        Neem $y = \sqrt{x}$.
+    - opgave: |-
+        Elk getal verschillend van 0 heeft een omgekeerde.
+      antwoord: |-
+        $\forall x\, \bigl(x \neq 0 \dan \exists y\, (x \cdot y = 1)\bigr)$; waar
+    - opgave: |-
+        De vergelijking $x^2 = 2$ heeft precies twee oplossingen.
+      antwoord: |-
+        $\exists x\, \exists y\, \bigl(x \neq y \en x \cdot x = 2 \en y \cdot y = 2 \en \forall z\, (z \cdot z = 2 \dan z = x \of z = y)\bigr)$; waar
+      uitwerking: |-
+        Minstens twee, en elke oplossing is een van die twee. De oplossingen zijn $\sqrt2$ en $-\sqrt2$.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    gebonden variabelen hernoemen
+  opgave: |-
+    Het universum is $\N$, met $P(x)$: \textit{$x$ is priem}. Zegt de formule hetzelfde als $\exists y\, \bigl(x < y \en P(y)\bigr)$? Verklaar.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\exists z\, \bigl(x < z \en P(z)\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De gebonden $y$ is overal vervangen door een nieuwe letter.
+    - opgave: |-
+        $\exists x\, \bigl(x < x \en P(x)\bigr)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        De vrije $x$ is mee gebonden. Dit is een zin, en ze is vals, want $x < x$ is nooit waar.
+    - opgave: |-
+        $\exists y\, \bigl(z < y \en P(y)\bigr)$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Dezelfde vorm, maar over een andere vrije variabele: deze formule gaat over $z$.
+    - opgave: |-
+        $\exists y\, \bigl(P(y) \en x < y\bigr)$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\en$ is commutatief. Beide zeggen: \textit{er is een priemgetal groter dan $x$}.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    een examenreglement
+  opgave: |-
+    Het universum zijn de leerlingen, met $G(x)$: \textit{$x$ is geslaagd}, $A(x)$: \textit{$x$ heeft alle examens afgelegd} en $T(x)$: \textit{$x$ heeft een tekort}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Alleen wie alle examens aflegde, kan slagen.
+      antwoord: |-
+        $\forall x\, \bigl(G(x) \dan A(x)\bigr)$
+      uitwerking: |-
+        Afleggen is nodig, dus het staat na de pijl.
+    - opgave: |-
+        Wie alle examens aflegde en geen tekort heeft, is geslaagd.
+      antwoord: |-
+        $\forall x\, \bigl(A(x) \en \niet T(x) \dan G(x)\bigr)$
+    - opgave: |-
+        Niemand met een tekort is geslaagd.
+      antwoord: |-
+        $\forall x\, \bigl(T(x) \dan \niet G(x)\bigr)$
+    - opgave: |-
+        Een leerling slaagt als en slechts als hij alle examens aflegde en geen tekort heeft.
+      antwoord: |-
+        $\forall x\, \bigl(G(x) \asa A(x) \en \niet T(x)\bigr)$
+    - opgave: |-
+        Volgt d uit a, b en c samen?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Van rechts naar links is het b. Van links naar rechts: slaagt $x$, dan heeft $x$ alles afgelegd (a) en geen tekort (de contrapositie van c).
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    de opbouw van een formule
+  opgave: |-
+    Teken de opbouw van de formule als een boom. Welke variabelen staan vrij?
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $\forall x\, \bigl(P(x) \of \exists y\, R(x, y)\bigr)$
+      antwoord: |-
+        boven $\forall x$, dan $\of$ met $P(x)$ en $\exists y$, dan $R(x, y)$; geen vrije variabelen
+      uitwerking: |-
+        \begin{tikzpicture}[font=\small,level distance=8mm,sibling distance=16mm,
+            every node/.style={draw=accent,rounded corners=2pt,fill=accent!8,inner sep=2pt},edge from parent/.style={draw=accent,thick}]
+          \node {$\forall x$} child {node {$\of$} child {node {$P(x)$}} child {node {$\exists y$} child {node {$R(x, y)$}}}};
+        \end{tikzpicture}
+
+        Elke variabele heeft boven zich een kwantor met dezelfde letter: een zin.
+    - opgave: |-
+        $\exists x\, P(x) \dan \forall y\, R(x, y)$
+      antwoord: |-
+        boven $\dan$, met $\exists x$ en $\forall y$; $x$ in $R(x, y)$ staat vrij
+      uitwerking: |-
+        \begin{tikzpicture}[font=\small,level distance=8mm,sibling distance=20mm,
+            every node/.style={draw=accent,rounded corners=2pt,fill=accent!8,inner sep=2pt},edge from parent/.style={draw=accent,thick}]
+          \node {$\dan$} child {node {$\exists x$} child {node {$P(x)$}}} child {node {$\forall y$} child {node {$R(x, y)$}}};
+        \end{tikzpicture}
+
+        Boven $R(x, y)$ staat geen $\exists x$: die $x$ staat vrij.
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    precies twee
+  opgave: |-
+    Het universum is $\R$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf met $P(x)$: \textit{er zijn precies twee $x$ met $P(x)$}.
+      antwoord: |-
+        $\exists x\, \exists y\, \bigl(x \neq y \en P(x) \en P(y) \en \forall z\, (P(z) \dan z = x \of z = y)\bigr)$
+    - opgave: |-
+        Schrijf \textit{er zijn hoogstens twee $x$ met $P(x)$}.
+      antwoord: |-
+        $\forall x\, \forall y\, \forall z\, \bigl(P(x) \en P(y) \en P(z) \dan x = y \of x = z \of y = z\bigr)$
+      uitwerking: |-
+        Van drie objecten met de eigenschap zijn er altijd twee gelijk.
+    - opgave: |-
+        Iemand schrijft voor \textit{precies twee}: $\exists x\, \exists y\, \bigl(P(x) \en P(y) \en \forall z\, (P(z) \dan z = x \of z = y)\bigr)$. Geef een eigenschap $P(x)$ waarvoor die formule waar is, terwijl er geen twee $x$ zijn met $P(x)$.
+      antwoord: |-
+        bijvoorbeeld $P(x)\colon \ x + 1 = 0$
+      uitwerking: |-
+        Neem $x = y = -1$. De formule is waar, maar er is maar één oplossing: $x \neq y$ ontbreekt.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    vermoedens over priemgetallen
+  opgave: |-
+    Het universum is $\N$. Gebruik alleen $+$, $\cdot$, $=$, $<$, de constanten $1$ en $2$, en de formule $P(x)$ voor \textit{$x$ is priem} uit opdracht~\ref{oef:h1-o12}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf een formule $E(x)$ voor \textit{$x$ is even}.
+      antwoord: |-
+        $\exists y\, (x = 2 \cdot y)$
+    - opgave: |-
+        Het vermoeden van Goldbach (1742): \textit{elk even getal groter dan 2 is de som van twee priemgetallen}. Schrijf het in symbolen.
+      antwoord: |-
+        $\forall x\, \Bigl(E(x) \en 2 < x \dan \exists p\, \exists q\, \bigl(P(p) \en P(q) \en x = p + q\bigr)\Bigr)$
+      uitwerking: |-
+        Controle voor de eerste gevallen: $4 = 2 + 2$, $6 = 3 + 3$, $8 = 3 + 5$, $10 = 5 + 5$. Of de zin waar is, weet niemand.
+    - opgave: |-
+        \textit{Er zijn oneindig veel priemtweelingen}: paren priemgetallen $p$ en $p + 2$. Schrijf het in symbolen, zonder het woord \textit{oneindig}.
+      antwoord: |-
+        $\forall x\, \exists p\, \bigl(x < p \en P(p) \en P(p + 2)\bigr)$
+      uitwerking: |-
+        Boven elk getal ligt nog een tweeling. Ook dit vermoeden is nog niet bewezen of weerlegd.
+    - opgave: |-
+        De zinnen van b en c zijn waar of vals, maar niemand weet welk van beide. Is dat in strijd met de definitie van een uitspraak?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een uitspraak is waar of vals. Dat wil niet zeggen dat we weten welk van beide.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    dubbelzinnige zinnen
+  opgave: |-
+    In gewone taal kan één zin twee formules betekenen. Geef telkens beide formules en zeg welke de spreker waarschijnlijk bedoelt.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        \textit{Alle leerlingen lazen een boek van Hugo Claus.} Met $L(x, y)$: \textit{$x$ las $y$} en $C(y)$: \textit{$y$ is een boek van Claus}.
+      antwoord: |-
+        $\forall x\, \exists y\, \bigl(C(y) \en L(x, y)\bigr)$ of $\exists y\, \bigl(C(y) \en \forall x\, L(x, y)\bigr)$
+      uitwerking: |-
+        In de eerste lezing mag elke leerling een ander boek lezen, in de tweede lazen ze allemaal hetzelfde boek. Zonder context is de eerste het waarschijnlijkst; na \textit{voor de les van dinsdag} wordt het de tweede.
+    - opgave: |-
+        \textit{Een bewaker staat bij elke deur.} Met $S(x, y)$: \textit{$x$ staat bij $y$}, $B(x)$: \textit{$x$ is een bewaker} en $D(y)$: \textit{$y$ is een deur}.
+      antwoord: |-
+        $\forall y\, \bigl(D(y) \dan \exists x\, (B(x) \en S(x, y))\bigr)$ of $\exists x\, \bigl(B(x) \en \forall y\, (D(y) \dan S(x, y))\bigr)$
+      uitwerking: |-
+        Eén bewaker kan niet bij alle deuren tegelijk staan, dus bedoelt men de eerste lezing.
+    - opgave: |-
+        \textit{Iedereen houdt van iemand.} Met $H(x, y)$: \textit{$x$ houdt van $y$}. Geef nu niet twee, maar vier formules die iemand ermee kan bedoelen.
+      antwoord: |-
+        $\forall x\, \exists y\, H(x, y)$, $\exists y\, \forall x\, H(x, y)$, $\forall y\, \exists x\, H(x, y)$, $\exists x\, \forall y\, H(x, y)$
+      uitwerking: |-
+        \textit{Iedereen} kan de minnaar zijn of de geliefde, en \textit{iemand} kan voor of na \textit{iedereen} komen. Meestal bedoelt men de eerste.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    precies één, op twee manieren
+  opgave: |-
+    Een tweede manier om \textit{er is precies één $x$ met $P(x)$} te schrijven is
+    \[\exists x\, \forall y\, \bigl(P(y) \asa y = x\bigr).\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de formule voor. Waarom zegt ze \textit{precies één}?
+      antwoord: |-
+        er is een $x$ zodat een object de eigenschap heeft als en slechts als het $x$ is
+      uitwerking: |-
+        Van rechts naar links: $x$ zelf heeft de eigenschap (neem $y = x$). Van links naar rechts: elk object met de eigenschap is $x$.
+    - opgave: |-
+        Toon aan dat ze waar is als de formule $\exists x\, \bigl(P(x) \en \forall y\, (P(y) \dan y = x)\bigr)$ uit het kader waar is, en omgekeerd.
+      antwoord: |-
+        beide zeggen: $x$ heeft de eigenschap, en elke $y$ met de eigenschap is $x$
+      uitwerking: |-
+        Stel dat $x$ voldoet aan $P(x) \en \forall y\, (P(y) \dan y = x)$. Neem $y$. Is $P(y)$ waar, dan is $y = x$. Is $y = x$, dan is $P(y)$ waar omdat $P(x)$ waar is. Dus $\forall y\, (P(y) \asa y = x)$. Omgekeerd: voldoet $x$ aan $\forall y\, (P(y) \asa y = x)$, neem dan $y = x$: $P(x)$ is waar, en de implicatie van links naar rechts is $\forall y\, (P(y) \dan y = x)$.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    injectief en surjectief
+  opgave: |-
+    Een functie $f\colon \R \to \R$ is \textit{injectief} als verschillende getallen een verschillend beeld hebben, en \textit{surjectief} als elk getal het beeld is van een getal.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf \textit{$f$ is injectief} in symbolen, zonder $\neq$.
+      antwoord: |-
+        $\forall x\, \forall y\, \bigl(f(x) = f(y) \dan x = y\bigr)$
+      uitwerking: |-
+        De contrapositie van $x \neq y \dan f(x) \neq f(y)$.
+    - opgave: |-
+        Schrijf \textit{$f$ is surjectief} in symbolen.
+      antwoord: |-
+        $\forall y\, \exists x\, \bigl(f(x) = y\bigr)$
+    - opgave: |-
+        Ga na voor $f(x) = x^3 - x$. Gebruik de grafiek.
+      antwoord: |-
+        niet injectief, wel surjectief
+      uitwerking: |-
+        $f(0) = f(1) = 0$ met $0 \neq 1$. Elke horizontale rechte snijdt de grafiek, want $f$ is continu en gaat van $-\infty$ naar $+\infty$.
+
+        \begin{tikzpicture}[x=.8cm,y=.6cm,font=\small]
+          \rooster{-2}{1}{2}{-3}{1}{3}
+          \draw[accent,thick,domain=-1.65:1.65,samples=60,smooth] plot (\x,{(\x)^3-\x});
+          \fill[fel!85!black] (0,0) circle (2pt) (1,0) circle (2pt) (-1,0) circle (2pt);
+        \end{tikzpicture}
+    - opgave: |-
+        Schrijf de ontkenning van \textit{$f$ is injectief} zonder $\niet$ voor een kwantor.
+      antwoord: |-
+        $\exists x\, \exists y\, \bigl(f(x) = f(y) \en x \neq y\bigr)$
+      uitwerking: |-
+        Beide kwantoren wisselen, en de ontkenning van een implicatie is \textit{het eerste deel en niet het tweede}.
+
+#----------------------------------------------------------------------------------------
+# KOPPEL
+#----------------------------------------------------------------------------------------
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: Getaltheorie
+  thema: |-
+    deelbaarheid in formules
+  opgave: |-
+    Het universum is $\N$. In Getaltheorie is $a \deelt b$ gedefinieerd als \textit{er is een natuurlijk getal $k$ met $b = ka$}.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $a \deelt b$ als formule met $\cdot$ en $=$. Welke variabelen staan vrij?
+      antwoord: |-
+        $\exists k\, (b = k \cdot a)$; $a$ en $b$
+    - opgave: |-
+        Schrijf met $\deelt$: \textit{$a$ en $b$ zijn relatief priem} (hun enige gemeenschappelijke deler is 1).
+      antwoord: |-
+        $\forall d\, (d \deelt a \en d \deelt b \dan d = 1)$
+    - opgave: |-
+        Schrijf met $\deelt$ en $P(x)$: \textit{$x$ is priem}: \textit{elk getal groter dan 1 heeft een priemdeler}. Is de zin waar?
+      antwoord: |-
+        $\forall x\, \bigl(1 < x \dan \exists p\, (P(p) \en p \deelt x)\bigr)$; waar
+      uitwerking: |-
+        De kleinste deler groter dan 1 van $x$ is priem (Getaltheorie, hoofdstuk 2).
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: analyse
+    onderwerp: Algemene functies
+  thema: |-
+    definities van functies
+  opgave: |-
+    In Algemene functies heet $f$ stijgend op $\R$ als
+    \[\forall x_1\, \forall x_2\, \bigl(x_1 < x_2 \dan f(x_1) < f(x_2)\bigr).\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf de ontkenning zonder $\niet$ voor een kwantor. Geef een functie die eraan voldoet.
+      antwoord: |-
+        $\exists x_1\, \exists x_2\, \bigl(x_1 < x_2 \en f(x_1) \geqslant f(x_2)\bigr)$; bijvoorbeeld $f(x) = x^2$
+      uitwerking: |-
+        Met $x_1 = -1$ en $x_2 = 0$ is $f(x_1) = 1 \geqslant 0 = f(x_2)$.
+    - opgave: |-
+        Schrijf in symbolen: \textit{$f$ is even} en \textit{$f$ is oneven}.
+      antwoord: |-
+        $\forall x\, \bigl(f(-x) = f(x)\bigr)$ en $\forall x\, \bigl(f(-x) = -f(x)\bigr)$
+    - opgave: |-
+        Schrijf in symbolen: \textit{$f$ is noch even, noch oneven}. Ga na voor $f(x) = x^2 + x$.
+      antwoord: |-
+        $\exists x\, \bigl(f(-x) \neq f(x)\bigr) \en \exists x\, \bigl(f(-x) \neq -f(x)\bigr)$; ja
+      uitwerking: |-
+        $f(-1) = 0$ en $f(1) = 2$: $0 \neq 2$ en $0 \neq -2$. Eén getal volstaat voor beide delen.
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: analyse
+    onderwerp: Rijen
+  thema: |-
+    de definitie van de limiet van een rij
+  opgave: |-
+    In Rijen is $\lim\limits_{n \to +\infty} u_n = L$ gedefinieerd als
+    \[\forall \varepsilon\, \Bigl(\varepsilon > 0 \dan \exists N\, \forall n\, \bigl(n > N \dan |u_n - L| < \varepsilon\bigr)\Bigr).\]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke letters staan vrij, en welke zijn gebonden?
+      antwoord: |-
+        vrij: $L$ (en de rij $u$); gebonden: $\varepsilon$, $N$, $n$
+      uitwerking: |-
+        De formule zegt iets over de rij en het getal $L$, niet over $\varepsilon$, $N$ of $n$.
+    - opgave: |-
+        Schrijf in symbolen: \textit{de rij $(u_n)$ is convergent}.
+      antwoord: |-
+        $\exists L\, \forall \varepsilon\, \Bigl(\varepsilon > 0 \dan \exists N\, \forall n\, \bigl(n > N \dan |u_n - L| < \varepsilon\bigr)\Bigr)$
+      uitwerking: |-
+        Convergent betekent: er is een limiet. Zet $\exists L$ ervoor, en $L$ wordt gebonden.
+    - opgave: |-
+        Wat zegt de formule als je $\exists N$ vooraan zet, vóór $\forall \varepsilon$? Welke rijen voldoen dan?
+      antwoord: |-
+        één $N$ voor alle $\varepsilon$: vanaf een index is $u_n = L$
+      uitwerking: |-
+        Is $|u_n - L| < \varepsilon$ voor alle $\varepsilon > 0$, dan is $u_n = L$. Alleen rijen die vanaf een index constant $L$ zijn, voldoen.
+
+#----------------------------------------------------------------------------------------
+# TEST JEZELF
+#----------------------------------------------------------------------------------------
+- id: h1-t1
+  soort: test
+  niveau: 1
+  thema: |-
+    term of formule
+  opgave: |-
+    Het universum zijn de mensen, met $v(x)$: \textit{de vader van $x$} en $K(x, y)$: \textit{$x$ kent $y$}. Is het een term, een formule of geen van beide?
+  lijst: reeks
+  kolommen: 4
+  delen:
+    - opgave: |-
+        $v\bigl(v(a)\bigr)$
+      antwoord: |-
+        term
+    - opgave: |-
+        $K\bigl(a, v(a)\bigr)$
+      antwoord: |-
+        formule
+    - opgave: |-
+        $v\bigl(K(a, b)\bigr)$
+      antwoord: |-
+        geen van beide
+    - opgave: |-
+        $v(a) = v(b)$
+      antwoord: |-
+        formule
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  thema: |-
+    de basiszinnen
+  opgave: |-
+    Het universum zijn de getallen van $\N$, met $V(x)$: \textit{$x$ is een veelvoud van 4} en $E(x)$: \textit{$x$ is even}. Schrijf in symbolen en zeg of het waar is.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Alle veelvouden van 4 zijn even.
+      antwoord: |-
+        $\forall x\, \bigl(V(x) \dan E(x)\bigr)$; waar
+    - opgave: |-
+        Sommige even getallen zijn geen veelvoud van 4.
+      antwoord: |-
+        $\exists x\, \bigl(E(x) \en \niet V(x)\bigr)$; waar ($x = 2$)
+    - opgave: |-
+        Alleen veelvouden van 4 zijn even.
+      antwoord: |-
+        $\forall x\, \bigl(E(x) \dan V(x)\bigr)$; vals ($x = 2$)
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  thema: |-
+    meer kwantoren
+  opgave: |-
+    Het universum zijn de leerlingen van een klas, met $H(x, y)$: \textit{$x$ helpt $y$}. Schrijf in symbolen.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Iedereen wordt door iemand geholpen.
+      antwoord: |-
+        $\forall y\, \exists x\, H(x, y)$
+    - opgave: |-
+        Er is iemand die iedereen helpt.
+      antwoord: |-
+        $\exists x\, \forall y\, H(x, y)$
+    - opgave: |-
+        Niemand helpt zichzelf.
+      antwoord: |-
+        $\forall x\, \niet H(x, x)$
+
+- id: h1-t4
+  soort: test
+  niveau: 2
+  thema: |-
+    tellen met het gelijkheidsteken
+  opgave: |-
+    Het universum is $\R$. Schrijf in symbolen: \textit{de vergelijking $x^2 = 4x$ heeft minstens twee oplossingen} en \textit{de vergelijking $x^3 = -1$ heeft precies één oplossing}.
+  antwoord: |-
+    $\exists x\, \exists y\, (x \neq y \en x^2 = 4x \en y^2 = 4y)$ en $\exists x\, \bigl(x^3 = -1 \en \forall y\, (y^3 = -1 \dan y = x)\bigr)$
+  uitwerking: |-
+    De eerste zin is waar met $x = 0$ en $y = 4$, de tweede met $x = -1$.
+
+- id: h1-t5
+  soort: test
+  niveau: 1
+  thema: |-
+    vrije variabelen
+  opgave: |-
+    Welke variabelen staan vrij in $\exists y\, \bigl(R(x, y) \en \forall x\, R(y, x)\bigr) \of R(y, z)$? Is het een zin?
+  antwoord: |-
+    $x$ (in het eerste $R(x, y)$), $y$ en $z$ (in het laatste $R(y, z)$); geen zin
+  uitwerking: |-
+    In $R(x, y)$ is $y$ gebonden door $\exists y$, maar $x$ niet. In $R(y, x)$ zijn beide gebonden. $R(y, z)$ staat buiten het bereik van $\exists y$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  thema: |-
+    een formule voorlezen
+  opgave: |-
+    Het universum is $\N$. Zeg in een gewone zin wat de formule betekent, en of ze waar is: \quad $\forall x\, \exists y\, \bigl(x < y \en \exists z\, (y = 2 \cdot z + 1)\bigr)$.
+  antwoord: |-
+    boven elk natuurlijk getal ligt een oneven getal (er zijn oneindig veel oneven getallen); waar
+  uitwerking: |-
+    $\exists z\, (y = 2z + 1)$ betekent \textit{$y$ is oneven}. Bij elke $x$ is $y = 2x + 1$ oneven en groter dan $x$.
+
+- id: h1-t7
+  soort: test
+  niveau: 1
+  thema: |-
+    predicaten kiezen
+  opgave: |-
+    Kies een universum, predicaten en constanten, en schrijf in symbolen: \textit{Lien is ouder dan Tom, maar Tom is langer dan Lien}.
+  antwoord: |-
+    $O(l, t) \en L(t, l)$
+  uitwerking: |-
+    Het universum zijn de mensen, $O(x, y)$: \textit{$x$ is ouder dan $y$}, $L(x, y)$: \textit{$x$ is langer dan $y$}, $l$: Lien, $t$: Tom.

@@ -1,0 +1,502 @@
+%----------------------------------------------------------------------------------------
+% KEGELSNEDEN IN HET PROJECTIEVE VLAK: homogene vergelijking en matrix, transformeren, ontaard,
+% het type uit de punten op oneindig, raaklijn en asymptoten, het perspectief van een cirkel.
+% Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h3-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Kegelsneden in het projectieve vlak}
+
+\begin{probleem}
+\naast{Op een plein is een cirkel met een straal van 5 m geschilderd. Een tekenaar staat op 3 m van het middelpunt, dus binnen de cirkel, en kijkt door een verticale glasplaat voor zich. Hij trekt op het glas de lijn over die hij ziet. Op het bovenaanzicht hiernaast is het glas de dikke streep voor het oog. Stond hij ver van de cirkel, dan tekende hij een ellips. Maar nu loopt de cirkel onder hem door, tot achter zijn rug. Welke kromme tekent hij nu? Kan het beeld van een cirkel een parabool of een hyperbool zijn? En hoe zie je aan een vergelijking welke soort kegelsnede je hebt?}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \draw[accent,thick] (0,3) circle (5);
+  \draw[grijs,dashed] (-6,0) -- (6,0) node[right,text=black] {$Z = 0$};
+  \draw[line width=1.6pt,accent!60] (-2,1) -- (2,1);
+  \node[above] at (2.6,1) {glas};
+  \fill (0,0) circle (5pt) node[below] {oog};
+  \fill (0,3) circle (3pt);
+  \fill[accent] (-4,0) circle (5pt) (4,0) circle (5pt);
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair: LPD 16 (kegelsneden in het projectieve vlak), met de wenken over homogene vergelijkingen van graad twee, ontaarde kegelsneden en het type uit de snijpunten met de rechte op oneindig. Voorkennis: de cursus Kegelsneden (vooral hoofdstuk 5, met de vergelijking $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$ en de regel met $B^2 - 4AC$ zonder bewijs), hoofdstuk 2 van deze cursus, en uit Matrices de getransponeerde, symmetrische matrices en de determinant.}
+
+In Kegelsneden had elke kromme een eigen definitie: een som, een verschil, een afstand tot een richtlijn. In hoofdstuk 5 daar zag je dat het teken van $B^2 - 4AC$ de soort bepaalt, maar het bewijs bleef achterwege. In het projectieve vlak wordt alles eenvoudiger. Er is maar één soort niet-ontaarde kegelsnede, en het verschil tussen ellips, parabool en hyperbool zit alleen in de manier waarop ze de rechte op oneindig ontmoeten: niet, rakend of in twee punten. Daaruit volgt de regel met $B^2 - 4AC$ vanzelf, en het antwoord op het probleem ook.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Kegelsneden in homogene coördinaten}
+
+\subsection{Homogeen maken}
+
+Een rechte kreeg in hoofdstuk 2 een homogene vergelijking door elke term aan te vullen tot graad 1 met een factor $z$. Bij een kegelsnede doe je hetzelfde, nu tot graad 2: vervang $x$ door $\tfrac xz$ en $y$ door $\tfrac yz$, en vermenigvuldig met $z^2$. Zo wordt $y = x^2$ de vergelijking $yz = x^2$. Elke term heeft dan graad 2, zodat de vergelijking geldt voor $\hc xyz$ als en slechts als ze geldt voor $\hc{kx}{ky}{kz}$: de factor $k^2$ valt weg.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{kegelsnede}} in het projectieve vlak is de verzameling punten $\hc xyz$ die voldoen aan een homogene vergelijking van graad 2:
+
+\vspace{1mm}
+\qquad $\formule{Ax^2 + Bxy + Cy^2 + Dxz + Eyz + Fz^2 = 0}$ \qquad met niet alle coëfficiënten 0.
+\end{theorie}
+
+Van de gewone vergelijking $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$ naar de homogene: geef de termen van graad 1 een factor $z$ en de constante een factor $z^2$. Terug: stel $z = 1$. Maar de homogene vergelijking zegt meer: met $z = 0$ vind je de punten op oneindig van de kegelsnede.
+
+\voorbeeld{}{Maak de vergelijking van de parabool $y = x^2 - 2x + 3$ homogeen, en zoek haar punten op oneindig.\label{vb:h3-homogeen}}{%
+\uitleg{Vul elke term aan tot graad 2, en stel dan $z = 0$.}
+\begin{stappen}
+yz = x^2 - 2xz + 3z^2 & $y$ en $2x$ krijgen een $z$, de 3 krijgt $z^2$. \\[1ex]
+z = 0: \ 0 = x^2 & Dus $x = 0$. \\[1ex]
+\hc010 & Eén punt op oneindig: de richting van de as.
+\end{stappen}
+De parabool gaat naar oneindig in de verticale richting, zoals de grafiek doet: beide takken stijgen. Dat ze maar één punt op oneindig heeft, terwijl ze twee takken heeft, is geen toeval: in sectie~\ref{sec:h3-type} zie je dat een parabool de rechte op oneindig raakt.}
+
+\begin{werkwijze}
+Homogeen maken: vul elke term aan tot graad 2 met factoren $z$. Gewoon maken: stel $z = 1$. Punten op oneindig: stel $z = 0$ en los op naar de verhouding $x : y$.
+\end{werkwijze}
+
+\nujij{Maak $xy = 1$ homogeen, en zoek de punten op oneindig.}{$xy = z^2$; $z = 0$ geeft $xy = 0$: $\hc100$ en $\hc010$, de richtingen van de asymptoten.}
+
+\begin{oefeningen}
+\oef{h3-homogeen}
+\end{oefeningen}
+
+\subsection{De matrix van een kegelsnede}
+
+Een rechte $ax + by + cz = 0$ schreef je als het scalair product $l \cdot X = 0$. Voor een vergelijking van graad 2 heb je een matrix nodig. Kijk naar het product $X\tr MX$ met $X = \kol{x \\ y \\ z}$ en een symmetrische matrix $M = (m_{ij})$: het is $\sum m_{ij}\,x_ix_j$, en omdat $m_{12} = m_{21}$ komt de term in $xy$ twee keer voor. Daarom staat de halve coëfficiënt naast de diagonaal.
+
+\begin{theorie}
+\begin{stelling}{Matrix van een kegelsnede}
+De vergelijking $Ax^2 + Bxy + Cy^2 + Dxz + Eyz + Fz^2 = 0$ is
+
+\vspace{1mm}
+\qquad $\formule{X\tr MX = 0}$ \qquad met \qquad $\formule{M = \um{ccc}{A & \tfrac B2 & \tfrac D2 \\[.5ex] \tfrac B2 & C & \tfrac E2 \\[.5ex] \tfrac D2 & \tfrac E2 & F}}$
+
+\vspace{1mm}
+en $M$ is de enige symmetrische matrix met die eigenschap.
+\end{stelling}
+
+\begin{bewijs}
+Werk uit: $X\tr MX = m_{11}x^2 + m_{22}y^2 + m_{33}z^2 + 2m_{12}xy + 2m_{13}xz + 2m_{23}yz$, want $m_{ij} = m_{ji}$. Dat is de vergelijking als en slechts als $m_{11} = A$, $2m_{12} = B$, en zo verder: $M$ ligt vast.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Geef de matrix van de kegelsnede $x^2 + 4xy + y^2 - 6x + 2 = 0$.\label{vb:h3-matrix}}{%
+\uitleg{Maak eerst homogeen, en zet dan de kwadraten op de diagonaal en de halve gemengde termen ernaast.}
+\begin{stappen}
+x^2 + 4xy + y^2 - 6xz + 2z^2 = 0 & Homogeen. \\[1ex]
+M = \um{rrr}{1 & 2 & -3 \\ 2 & 1 & 0 \\ -3 & 0 & 2} & $\tfrac42 = 2$ bij $xy$, $-\tfrac62 = -3$ bij $xz$, en geen $yz$.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-matrix}
+\end{oefeningen}
+
+\subsection{Een kegelsnede transformeren}
+
+Wat gebeurt er met een kegelsnede onder een projectieve transformatie $X \mapsto AX$? Een rechte werd weer een rechte. Een kegelsnede wordt weer een kegelsnede, en de matrix vertelt hoe.
+
+\begin{theorie}
+\begin{stelling}{Beeld van een kegelsnede}
+Een projectieve transformatie $X' = AX$ beeldt de kegelsnede $X\tr MX = 0$ af op de kegelsnede
+
+\vspace{1mm}
+\qquad $\formule{X'^{\mathsf T}M'X' = 0}$ \qquad met \qquad $\formule{M' = (A^{-1})\tr\,M\,A^{-1}}$
+\end{stelling}
+
+\begin{bewijs}
+Uit $X = A^{-1}X'$ volgt
+\bewijsregel{X\tr MX = (A^{-1}X')\tr\,M\,(A^{-1}X') = X'^{\mathsf T}\,(A^{-1})\tr MA^{-1}\,X' .}
+De matrix $M'$ is weer symmetrisch, want $(M')\tr = (A^{-1})\tr M\tr A^{-1} = M'$, en niet nul, want $M = A\tr M'A$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{In hoofdstuk 2 stuurde $A = \um{rrr}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 1 & -1}$ de rechte $x + y = 1$ naar oneindig. Wat wordt de cirkel $x^2 + y^2 = 1$?\label{vb:h3-transf}}{%
+\uitleg{Hier is $A^{-1} = A$, dus $M' = A\tr MA$ met $M = \um{ccc}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1}$.}
+\begin{stappenbreed}
+A\tr M = \um{rrr}{1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & -1}\um{rrr}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1} = \um{rrr}{1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1} & Eerst $A\tr M$. \\[5ex]
+M' = \um{rrr}{1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1}\um{rrr}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 1 & -1} = \um{rrr}{0 & -1 & 1 \\ -1 & 0 & 1 \\ 1 & 1 & -1} & Dan maal $A$. \\[5ex]
+-2xy + 2xz + 2yz - z^2 = 0 & De vergelijking van het beeld. \\[1ex]
+xy - x - y + \tfrac12 = 0, \text{ of } (x - 1)(y - 1) = \tfrac12 & Met $z = 1$: een hyperbool.
+\end{stappenbreed}
+De cirkel snijdt de rechte $x + y = 1$ in $(1, 0)$ en $(0, 1)$. Die twee punten gaan naar oneindig, en worden de richtingen van de asymptoten $x = 1$ en $y = 1$. Een cirkel kan dus een hyperbool worden.}
+
+\begin{oefeningen}
+\oef{h3-transf}
+\end{oefeningen}
+
+%========================================================================================
+\section{Ontaarde kegelsneden}
+
+\subsection{Twee rechten}
+
+Het product van twee vergelijkingen van graad 1 heeft graad 2. Zo is $(x - y)(x + y) = 0$, of $x^2 - y^2 = 0$, een kegelsnede: de twee rechten $y = x$ en $y = -x$ samen. In Kegelsneden heetten die gevallen ontaard. Ook $x^2 + y^2 = 0$ hoort erbij: het is $(x + \mathrm{i}y)(x - \mathrm{i}y) = 0$, twee complexe rechten, met maar één reëel punt, de oorsprong.
+
+\begin{theorie}
+Een kegelsnede is \textbf{\textcolor{accent}{ontaard}} als haar vergelijking het product is van twee vergelijkingen van graad 1 (twee rechten, eventueel samenvallend, eventueel met complexe coëfficiënten).
+\end{theorie}
+
+Hoe zie je aan een vergelijking dat ze zo ontbindt? Bij $x^2 - y^2$ meteen, bij $x^2 + xy - 2y^2 - x + 4y - 2$ niet. De matrix verraadt het.
+
+\begin{theorie}
+\begin{stelling}{Ontaard}
+De kegelsnede $X\tr MX = 0$ is ontaard als en slechts als \qquad $\formule{\det M = 0}$
+\end{stelling}
+
+\begin{bewijs}
+\textit{Ontaard $\Rightarrow$ $\det M = 0$.} Is de vergelijking $(l \cdot X)(m \cdot X) = 0$, dan is $M = \tfrac12(l\,m\tr + m\,l\tr)$, want $X\tr l\,m\tr X = (l \cdot X)(m \cdot X)$. Voor elke kolom $v$ is dan
+\bewijsregel{Mv = \tfrac12\bigl((m \cdot v)\,l + (l \cdot v)\,m\bigr) ,}
+een combinatie van $l$ en $m$. De kolommen van $M$ liggen dus in een ruimte van dimensie hoogstens 2, en $\det M = 0$.
+
+\textit{$\det M = 0$ $\Rightarrow$ ontaard.} Dan is er een punt $P$ met $MP = 0$. Neem een projectieve transformatie $A$ met $AP = \hc001$ (een inverteerbare matrix met $P$ als derde kolom heeft zo'n inverse). Het beeld heeft de matrix $M' = (A^{-1})\tr MA^{-1}$, met als derde kolom $M'\kol{0 \\ 0 \\ 1} = (A^{-1})\tr MP = 0$, en dus, omdat $M'$ symmetrisch is, ook als derde rij 0. De vergelijking van het beeld is
+\bewijsregel{A'x^2 + B'xy + C'y^2 = 0 ,}
+zonder $z$. Zo'n vergelijking ontbindt altijd in twee factoren van graad 1: is $A' \neq 0$, dan is ze $A'(x - r_1y)(x - r_2y)$ met $r_1$ en $r_2$ de (reële of complexe) wortels van $A'r^2 + B'r + C' = 0$; is $A' = 0$, dan is ze $y(B'x + C'y)$. Transformeer terug met $A^{-1}$: rechten blijven rechten, dus ook de oorspronkelijke vergelijking ontbindt.
+\end{bewijs}
+\end{theorie}
+
+Het punt $P$ met $MP = 0$ heeft een betekenis: elke rechte door $P$ en een punt van de kegelsnede ligt helemaal op de kegelsnede. Het is het snijpunt van de twee rechten, de \emph{top}, zoals de top van een kegel. Ligt $P$ op oneindig, dan zijn de twee rechten evenwijdig.
+
+\voorbeeld{}{Toon aan dat $x^2 - y^2 + 2y - 1 = 0$ ontaard is, en bepaal de rechten.\label{vb:h3-ontaard}}{%
+\uitleg{Bereken de determinant. Is die 0, zoek dan de top met $MP = 0$, en ontbind.}
+\begin{stappen}
+M = \um{rrr}{1 & 0 & 0 \\ 0 & -1 & 1 \\ 0 & 1 & -1}, \quad \det M = 1 \cdot (1 - 1) = 0 & Ontaard. \\[4ex]
+MP = 0 \ \Rightarrow \ P = \hc011 = (0, 1) & De top. \\[1ex]
+x^2 - (y - 1)^2 = 0 & Verschil van twee kwadraten. \\[1ex]
+y = 1 + x \ \text{ of } \ y = 1 - x & Twee rechten door $(0, 1)$.
+\end{stappen}}
+
+\voorbeeld{}{Toon aan dat $x^2 - 2xy + y^2 - 1 = 0$ ontaard is. Waar ligt de top?\label{vb:h3-ontaard2}}{%
+\uitleg{Dezelfde werkwijze. De top zal hier een verrassing zijn.}
+\begin{stappen}
+M = \um{rrr}{1 & -1 & 0 \\ -1 & 1 & 0 \\ 0 & 0 & -1}, \quad \det M = -1 \cdot (1 - 1) = 0 & Ontaard. \\[4ex]
+MP = 0 \ \Rightarrow \ P = \hc110 & Een punt op oneindig. \\[1ex]
+(x - y)^2 = 1 \ \Rightarrow \ y = x - 1 \ \text{ of } \ y = x + 1 & Twee evenwijdige rechten.
+\end{stappen}
+In het projectieve vlak zijn twee evenwijdige rechten ook twee rechten door één punt: hun punt op oneindig.}
+
+\begin{werkwijze}
+Bereken $\det M$. Is die niet 0, dan is de kegelsnede niet ontaard. Is ze 0, los dan $MP = 0$ op: dat geeft de top, het snijpunt van de twee rechten. Ontbind de vergelijking (kwadraat afsplitsen, of zoek twee factoren door de top).
+\end{werkwijze}
+
+\nujij{Is $x^2 + y^2 + 2x + 1 = 0$ ontaard? Welke punten heeft ze?}{$\det\um{rrr}{1 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 1} = 0$: ja. $(x + 1)^2 + y^2 = 0$: alleen het punt $(-1, 0)$, twee complexe rechten.}
+
+\begin{oefeningen}
+\oef{h3-ontaard}
+\end{oefeningen}
+
+%========================================================================================
+\section{Ellips, parabool of hyperbool}\label{sec:h3-type}
+
+\subsection{Punten op oneindig tellen}
+
+Een ellips is begrensd: ze heeft geen punten op oneindig. Een parabool gaat in één richting naar oneindig, een hyperbool in twee, die van haar asymptoten. Tellen we de snijpunten met de rechte op oneindig, dan kennen we de soort. In de Verken zag je het voor drie eenvoudige voorbeelden. Geldt het altijd?
+
+\begin{theorie}
+\begin{stelling}{Soort van een kegelsnede}
+Een niet-ontaarde kegelsnede met reële punten is een
+
+\vspace{1mm}
+\qquad \textbf{\textcolor{accent}{ellips}} als ze \textbf{\textcolor{accent}{geen}} punt op oneindig heeft,\\
+\qquad \textbf{\textcolor{accent}{parabool}} als ze \textbf{\textcolor{accent}{één}} punt op oneindig heeft,\\
+\qquad \textbf{\textcolor{accent}{hyperbool}} als ze \textbf{\textcolor{accent}{twee}} punten op oneindig heeft.
+\end{stelling}
+
+\begin{bewijs}
+Een draaiing en een verschuiving zijn affien: ze sturen punten op oneindig naar punten op oneindig, en gewone punten naar gewone. Ze veranderen het aantal punten op oneindig dus niet. Met een draaiing en een verschuiving breng je elke niet-ontaarde kegelsnede met reële punten in standaardvorm (Kegelsneden, hoofdstuk 5; dat aanvaarden we hier). Tel daar met $z = 0$:
+\bewijsregel{\text{ellips } \frac{x^2}{a^2} + \frac{y^2}{b^2} = z^2: \quad \frac{x^2}{a^2} + \frac{y^2}{b^2} = 0, \ \text{geen punt;}}
+\bewijsregel{\text{parabool } y^2 = 2pxz: \quad y^2 = 0, \ \text{alleen } \hc100;}
+\bewijsregel{\text{hyperbool } \frac{x^2}{a^2} - \frac{y^2}{b^2} = z^2: \quad \frac xa = \pm\frac yb, \ \text{de punten } \hc ab0 \text{ en } \hc a{-b}0 .}
+De drie aantallen verschillen, dus het aantal bepaalt de soort.
+\end{bewijs}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-2}{1}{2}{-3}{1}{3}
+  \draw[accent,thick] plot[domain=0:360,samples=120,smooth] ({2/sqrt(2*cos(\x)^2+cos(\x)*sin(\x)+sin(\x)^2)*cos(\x)},{2/sqrt(2*cos(\x)^2+cos(\x)*sin(\x)+sin(\x)^2)*sin(\x)});
+  \node at (0,-4.1) {geen punt op oneindig};
+\end{tikzpicture}\hspace{5mm}
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-3}{1}{3}{-3}{1}{3}
+  \begin{scope}\clip (-3.3,-3.3) rectangle (3.3,3.3);
+  \draw[accent,thick] plot[domain=-6:6,samples=100,smooth] ({((\x)+(4-(\x)^2)/4)/2},{((4-(\x)^2)/4-(\x))/2});
+  \end{scope}
+  \draw[grijs,dashed,->] (-1.5,-1.5) -- (-2.9,-2.9);
+  \node at (0,-4.1) {één punt: $\hc110$};
+\end{tikzpicture}\hspace{5mm}
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-3}{1}{3}{-3}{1}{3}
+  \begin{scope}\clip (-3.3,-3.3) rectangle (3.3,3.3);
+  \draw[grijs,dashed] (-4,-3) -- (3,4) (-1,4) -- (3,-4);
+  \draw[accent,thick] plot[domain=.45:9,samples=100,smooth] ({((\x)+4/(\x)+1)/3},{((\x)+4/(\x)+1)/3-(\x)+1});
+  \draw[accent,thick] plot[domain=-9:-.45,samples=100,smooth] ({((\x)+4/(\x)+1)/3},{((\x)+4/(\x)+1)/3-(\x)+1});
+  \end{scope}
+  \node at (0,-4.1) {twee punten: $\hc110$, $\hc1{-2}0$};
+\end{tikzpicture}}
+\begin{center}\small De ellips, parabool en hyperbool uit de voorbeelden hieronder, met hun punten op oneindig.\end{center}
+
+De punten op oneindig vind je met $z = 0$, uit $Ax^2 + Bxy + Cy^2 = 0$. Hoeveel oplossingen die heeft, beslist een bekende discriminant. Zo krijgt de regel uit Kegelsneden eindelijk een bewijs.
+
+\begin{theorie}
+\begin{stelling}{Het teken van \texorpdfstring{$B^2 - 4AC$}{B2 - 4AC}}
+Een niet-ontaarde kegelsnede $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$ met reële punten is een ellips als $\formule{B^2 - 4AC < 0}$, een parabool als $\formule{B^2 - 4AC = 0}$ en een hyperbool als $\formule{B^2 - 4AC > 0}$.
+\end{stelling}
+
+\begin{bewijs}
+Tel de oplossingen $\hc xy0$ van $Ax^2 + Bxy + Cy^2 = 0$. Is $A \neq 0$, dan is $y \neq 0$ (anders ook $x = 0$), en deel je door $y^2$: $At^2 + Bt + C = 0$ met $t = \tfrac xy$. Dat geeft 0, 1 of 2 waarden van $t$ naargelang $B^2 - 4AC < 0$, $= 0$ of $> 0$. Is $A = 0$, dan is de vergelijking $y(Bx + Cy) = 0$: twee punten $\hc100$ en $\hc{C}{-B}0$ als $B \neq 0$ (en dan is $B^2 - 4AC = B^2 > 0$), en één als $B = 0$ (en dan is $B^2 - 4AC = 0$).
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Welke kegelsnede is $2x^2 + xy + y^2 - 4 = 0$?\label{vb:h3-ellips}}{%
+\uitleg{Eerst nagaan of ze ontaard is, dan de punten op oneindig tellen.}
+\begin{stappen}
+\det\um{ccc}{2 & \tfrac12 & 0 \\ \tfrac12 & 1 & 0 \\ 0 & 0 & -4} = -4\bigl(2 - \tfrac14\bigr) = -7 & Niet ontaard. \\[4ex]
+2x^2 + xy + y^2 = 0, \quad B^2 - 4AC = 1 - 8 < 0 & Geen punten op oneindig. \\[1ex]
+\text{ellips} & Ze heeft reële punten, zoals $(0, 2)$.
+\end{stappen}}
+
+\voorbeeld{}{In Kegelsneden (hoofdstuk 2) vond je de gekantelde parabool $x^2 - 2xy + y^2 + 4x + 4y - 4 = 0$. Ga na dat het een parabool is, en bepaal de richting van haar as.\label{vb:h3-parabool}}{%
+\uitleg{Dezelfde werkwijze. Het punt op oneindig van een parabool is de richting van haar as.}
+\begin{stappen}
+\det\um{rrr}{1 & -1 & 2 \\ -1 & 1 & 2 \\ 2 & 2 & -4} = -8 + 0 - 8 = -16 & Niet ontaard. \\[4ex]
+x^2 - 2xy + y^2 = (x - y)^2 = 0 & Eén punt op oneindig: $\hc110$. \\[1ex]
+\text{parabool, as met richting } (1, 1) & $B^2 - 4AC = 4 - 4 = 0$.
+\end{stappen}}
+
+\begin{werkwijze}
+\begin{enumerate}
+\item Maak homogeen en stel de matrix $M$ op. Is $\det M = 0$, dan is de kegelsnede ontaard: zoek de top en de twee rechten.
+\item Stel anders $z = 0$ en tel de oplossingen van $Ax^2 + Bxy + Cy^2 = 0$ (of bekijk het teken van $B^2 - 4AC$): geen, één of twee punten op oneindig geven een ellips, een parabool of een hyperbool.
+\item Bij geen punt op oneindig: ga na of er reële punten zijn. Zo heeft $x^2 + y^2 + 1 = 0$ een determinant verschillend van 0, maar geen enkel reëel punt.
+\end{enumerate}
+\end{werkwijze}
+
+\nujij{Welke kegelsnede is $x^2 + 3xy + 2y^2 + x - 1 = 0$? De determinant van $M$ is $-\tfrac14$.}{$(x + y)(x + 2y) = 0$ met $z = 0$: twee punten op oneindig, een hyperbool.}
+
+\begin{oefeningen}
+\oef{h3-type}
+\end{oefeningen}
+
+\subsection{Raaklijnen en asymptoten}
+
+Een parabool en de rechte op oneindig hebben één punt gemeen, en dat punt telt dubbel: $(x - y)^2 = 0$ heeft een dubbele wortel. Dat klinkt als raken. In Kegelsneden vond je de raaklijn door te \emph{ontdubbelen}: de raaklijn in $(x_1, y_1)$ aan $x^2 + 2y^2 = 3$ is $x_1x + 2y_1y = 3$. In homogene coördinaten is dat de rechte met coördinaten $MP$.
+
+\begin{theorie}
+\begin{stelling}{Raaklijn}
+De raaklijn in het punt $P$ aan de niet-ontaarde kegelsnede $X\tr MX = 0$ is de rechte \qquad $\formule{(MP) \cdot X = 0}$
+\end{stelling}
+
+\begin{bewijs}
+Neem een punt $Q \neq P$. De punten van de rechte $PQ$ zijn $P + tQ$ (en $Q$ zelf). Invullen, met $P\tr MP = 0$ en $P\tr MQ = Q\tr MP$ omdat $M$ symmetrisch is:
+\bewijsregel{(P + tQ)\tr M(P + tQ) = 2t\,(MP) \cdot Q + t^2\,Q\tr MQ = 0 .}
+De wortel $t = 0$ (het punt $P$) is een dubbele wortel als en slechts als $(MP) \cdot Q = 0$. De rechte $PQ$ heeft dus alleen $P$ als dubbel snijpunt, ze raakt, als en slechts als $Q$ op de rechte $(MP) \cdot X = 0$ ligt. Die rechte bestaat, want $MP \neq 0$ omdat $\det M \neq 0$.
+\end{bewijs}
+\end{theorie}
+
+Voor $P = \hc{x_1}{y_1}1$ en $x^2 + 2y^2 - 3z^2 = 0$ is $MP = (x_1, 2y_1, -3)$: de raaklijn $x_1x + 2y_1y - 3 = 0$, wat ontdubbelen gaf. Maar de formule werkt ook voor een punt op oneindig. Voor een parabool $y^2 = 2pxz$ en haar punt op oneindig $\hc100$ geeft ze $MP = (0, 0, -p)$: de rechte $z = 0$. \textit{Een parabool raakt de rechte op oneindig.} En een hyperbool?
+
+\begin{theorie}
+\begin{stelling}{Asymptoten}
+De asymptoten van een hyperbool zijn de raaklijnen in haar twee punten op oneindig.
+\end{stelling}
+
+\begin{bewijs}
+Een draaiing en een verschuiving bewaren raaklijnen, asymptoten en punten op oneindig: werk in standaardvorm. Voor $\tfrac{x^2}{a^2} - \tfrac{y^2}{b^2} - z^2 = 0$ en $P = \hc ab0$ is
+\bewijsregel{MP = \Bigl(\frac{1}{a^2} \cdot a,\ -\frac{1}{b^2} \cdot b,\ 0\Bigr) = \Bigl(\frac1a, -\frac1b, 0\Bigr) ,}
+de rechte $\tfrac xa - \tfrac yb = 0$, of $y = \tfrac ba\,x$. Met $\hc a{-b}0$ vind je $y = -\tfrac ba\,x$. Dat zijn de asymptoten uit Kegelsneden.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Toon aan dat $2x^2 - xy - y^2 + 3y - 6 = 0$ een hyperbool is, en bepaal haar asymptoten.\label{vb:h3-asym}}{%
+\uitleg{Na de determinant zoek je de twee punten op oneindig. Daarin bereken je de raaklijnen met $MP$.}
+\begin{stappenbreed}
+M = \um{ccc}{2 & -\tfrac12 & 0 \\ -\tfrac12 & -1 & \tfrac32 \\ 0 & \tfrac32 & -6}, \quad \det M = 9 & Niet ontaard. \\[5ex]
+2x^2 - xy - y^2 = (2x + y)(x - y) = 0 & Twee punten op oneindig: $\hc110$ en $\hc1{-2}0$. \\[1ex]
+M\kol{1 \\ 1 \\ 0} = \kol{\tfrac32 \\ -\tfrac32 \\ \tfrac32} \sim \rc1{-1}1 & De asymptoot $x - y + 1 = 0$. \\[5ex]
+M\kol{1 \\ -2 \\ 0} = \kol{3 \\ \tfrac32 \\ -3} \sim \rc21{-2} & De asymptoot $2x + y - 2 = 0$.
+\end{stappenbreed}
+Controle: de vergelijking is $(x - y + 1)(2x + y - 2) = 4$. Ver weg is het rechterlid klein tegenover de factoren, zodat de kromme dicht bij een van de twee rechten blijft.}
+
+\nujij{Bepaal de asymptoten van $xy - x + 2y = 0$.}{$\hc100$ en $\hc010$; $M\hc100 = \bigl(0, \tfrac12, -\tfrac12\bigr)$ geeft $y = 1$, en $M\hc010 = \bigl(\tfrac12, 0, 1\bigr)$ geeft $x = -2$.}
+
+\begin{oefeningen}
+\oef{h3-raak}
+\end{oefeningen}
+
+%========================================================================================
+\section{Eén soort kegelsnede}
+
+\subsection{Projectief zijn ze allemaal gelijk}
+
+In voorbeeld~\ref{vb:h3-transf} werd een cirkel een hyperbool. Kan elke kegelsnede elke andere worden? Kijk naar de homogene vergelijking van de cirkel, $x^2 + y^2 = z^2$. Wissel $x$ en $z$, en er staat $z^2 + y^2 = x^2$, of $x^2 - y^2 = z^2$: een hyperbool. En omdat $z^2 - y^2 = (z - y)(z + y)$, geeft een slimme keuze van nieuwe coördinaten een parabool.
+
+\begin{theorie}
+\begin{stelling}{Eén soort}
+De cirkel $x^2 + y^2 = 1$ heeft als projectief beeld
+
+\vspace{1mm}
+\qquad de hyperbool $x^2 - y^2 = 1$ onder $\formule{\hc xyz \mapsto \hc zyx}$,\\
+\qquad de parabool $y = x^2$ onder $\formule{\hc xyz \mapsto \hc{x}{z + y}{z - y}}$.
+
+\vspace{1mm}
+Elke niet-ontaarde kegelsnede met reële punten is zo het projectief beeld van een cirkel.
+\end{stelling}
+
+\begin{bewijs}
+Voor de hyperbool: het beeld $\hc{x'}{y'}{z'} = \hc zyx$ van een punt van $x^2 + y^2 = z^2$ voldoet aan $z'^2 + y'^2 = x'^2$. Voor de parabool: met $x' = x$, $y' = z + y$ en $z' = z - y$ is $y'z' = z^2 - y^2 = x^2 = x'^2$, de homogene vergelijking van $y = x^2$. Beide matrices zijn inverteerbaar. Een ellips $\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1$ is het beeld van de cirkel onder $(x, y) \mapsto (ax, by)$, en zo ook elke parabool en hyperbool in standaardvorm uit $y = x^2$ en $x^2 - y^2 = 1$. Een draaiing en een verschuiving brengen ze in elke stand (Kegelsneden, hoofdstuk 5).
+\end{bewijs}
+\end{theorie}
+
+Wat zegt dat? Projectief bestaat er maar één soort niet-ontaarde kegelsnede. Ellips, parabool en hyperbool zijn dezelfde kromme, gezien vanuit een andere rechte op oneindig: blijft de rechte op oneindig buiten de kromme, dan zie je een ellips, raakt ze, dan een parabool, snijdt ze, dan een hyperbool. Dat verklaart ook de naam kegelsnede. In de ruimte is $x^2 + y^2 = z^2$ een dubbelkegel met top in de oorsprong, en een doek dat de kegel doorsnijdt, toont een cirkel, ellips, parabool of hyperbool, naargelang hoe het doek staat. De punten van het projectieve vlak zijn de rechten door het oog, en de kegelsnede is de kegel van lichtstralen.
+
+\voorbeeld{}{Welk punt van de cirkel $x^2 + y^2 = 1$ gaat onder $\hc xyz \mapsto \hc{x}{z + y}{z - y}$ naar oneindig? Wat wordt de raaklijn in dat punt?\label{vb:h3-gelijk}}{%
+\uitleg{Een punt gaat naar oneindig als de nieuwe derde coördinaat 0 is.}
+\begin{stappen}
+z - y = 0 \text{ en } x^2 + y^2 = z^2 \ \Rightarrow \ x = 0 & Het punt $\hc011 = (0, 1)$. \\[1ex]
+\hc011 \mapsto \hc020 = \hc010 & Het punt op oneindig van de parabool. \\[1ex]
+y = 1: \ \hc x11 \mapsto \hc x20 & De raaklijn $y = 1$ gaat naar de rechte op oneindig.
+\end{stappen}
+De cirkel raakt de rechte $y = 1$ in $(0, 1)$. Die rechte wordt de rechte op oneindig, en het beeld raakt haar: een parabool, zoals de stelling over de soort voorspelt.}
+
+\begin{oefeningen}
+\oef{h3-gelijk}
+\end{oefeningen}
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{Het oog staat op hoogte 1 boven de vloer en het glas op afstand 1. Op de vloer ligt een cirkel met straal $r$ en middelpunt $(0, c)$, met $c \geqslant 0$ de afstand van het middelpunt tot het punt onder het oog, recht vooruit. Welke kromme tekent de tekenaar? Los het probleem op, met $r = 5$ en $c = 3$.\label{vb:h3-terug}}{%
+\uitleg{In hoofdstuk 2 ging het vloerpunt $\hc XZW$ naar het punt $\hc{X}{-W}{Z}$ van het glas. Omgekeerd is dus $X = x$, $Z = w$ en $W = -y$ als het glaspunt $\hc xyw$ is. Vul dat in in de homogene vergelijking van de cirkel.}
+\begin{stappenbreed}
+X^2 + (Z - cW)^2 = r^2W^2 & De cirkel op de vloer, homogeen. \\[1ex]
+x^2 + (w + cy)^2 = r^2y^2 & Het beeld op het glas. \\[1ex]
+x^2 + (c^2 - r^2)\,y^2 + 2c\,yw + w^2 = 0 & Uitgewerkt. \\[1ex]
+w = 0: \ x^2 + (c^2 - r^2)\,y^2 = 0 & De punten op oneindig van het beeld. \\[1ex]
+c > r: \text{ geen}, \quad c = r: \text{ één}, \quad c < r: \text{ twee} & Ellips, parabool, hyperbool. \\[1ex]
+r = 5, \ c = 3: \ x^2 - 16y^2 + 6y + 1 = 0 & $16\bigl(y - \tfrac{3}{16}\bigr)^2 - x^2 = \tfrac{25}{16}$: een hyperbool.
+\end{stappenbreed}
+De determinant is $1 \cdot \bigl((c^2 - r^2) - c^2\bigr) = -r^2 \neq 0$: het beeld is nooit ontaard.}
+
+\figuren{\begin{tikzpicture}[xscale=.75,yscale=2.4,font=\scriptsize]
+  \draw[grijs] (-2.6,0) -- (2.6,0) node[right,text=black] {horizon};
+  \ellips{0}{-.205}{.8}{.128}
+  \node at (0,-.65) {$c = 8$};
+\end{tikzpicture}\hspace{6mm}
+\begin{tikzpicture}[xscale=.75,yscale=2.4,font=\scriptsize]
+  \draw[grijs] (-2.6,0) -- (2.6,0);
+  \kromme{-2.5}{2.5}{-((\x)^2+1)/10}
+  \node at (0,-.65) {$c = 5$};
+\end{tikzpicture}\hspace{6mm}
+\begin{tikzpicture}[xscale=.75,yscale=2.4,font=\scriptsize]
+  \draw[grijs] (-2.6,0) -- (2.6,0);
+  \kromme{-2.5}{2.5}{.1875-sqrt(.09766+(\x)^2/16)}
+  \draw[grijs,dashed] (-2.5,{.1875-2.5/4}) -- (2.5,{.1875+2.5/4}) (-2.5,{.1875+2.5/4}) -- (2.5,{.1875-2.5/4});
+  \node at (0,-.65) {$c = 3$};
+\end{tikzpicture}}
+\begin{center}\small Het beeld op het glas van de cirkel met straal 5, voor drie afstanden $c$: een ellips, een parabool en (het zichtbare deel van) een hyperbool, met haar asymptoten.\end{center}
+
+Wat gebeurt er? De punten van de vloer die naar oneindig gaan, zijn die met $Z = 0$: de rechte op de vloer recht onder het oog, evenwijdig met het glas, de stippellijn in de figuur bij het probleem. De lichtstraal naar zo'n punt loopt evenwijdig met het glas, en prikt het nooit door. Blijft de cirkel voor die rechte ($c > r$), dan tekent de tekenaar een ellips. Raakt de cirkel haar ($c = r$), dan wordt het een parabool. Snijdt de cirkel haar, zoals in het probleem in $(\pm4, 0)$, dan worden die twee punten de punten op oneindig van een hyperbool. De tekenaar ziet alleen het deel voor hem, met $Z > 0$: de onderste tak, die naar links en rechts tot aan de rand van het glas loopt. De andere tak is het beeld van het stuk achter zijn rug. Zo is de cirkel op het plein voor elke kijker dezelfde projectieve kegelsnede, en hangt de soort alleen af van waar de rechte op oneindig ligt.
+
+\begin{oefeningen}
+\oef{h3-terug}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o21}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Kegelsneden en Complexe getallen zijn voorkennis. Eigenwaarden en eigenvectoren is een module van het 6de jaar: kijk na of ze al gezien is.}
+
+\begin{oefeningen}
+\oef{h3-koppel-1}
+
+\oef{h3-koppel-2}
+
+\oef{h3-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{40\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-homogeen}{oef:h3-homogeen}%
+  \fv{oef:h3-t2}{vb:h3-matrix}{oef:h3-matrix}%
+  \fv{oef:h3-t3}{vb:h3-ontaard}{oef:h3-ontaard}%
+  \fv{oef:h3-t4}{vb:h3-ellips}{oef:h3-type}%
+  \fv{oef:h3-t5}{vb:h3-parabool}{oef:h3-type}%
+  \fv{oef:h3-t6}{vb:h3-asym}{oef:h3-raak}%
+  \fv{oef:h3-t7}{vb:h3-terug}{oef:h3-terug}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: hoe je een kegelsnede homogeen maakt en haar punten op oneindig vindt, de symmetrische matrix, het beeld onder een projectieve transformatie, wanneer een kegelsnede ontaard is en wat de top is, hoe het aantal punten op oneindig de soort bepaalt (met de regel van $B^2 - 4AC$), de raaklijn $MP$ en de asymptoten, en waarom er projectief maar één soort kegelsnede is. Vergelijk daarna met de kaders.
+\fi

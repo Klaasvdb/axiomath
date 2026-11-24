@@ -1,0 +1,545 @@
+%----------------------------------------------------------------------------------------
+% ONEINDIGE SOMMEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h1-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{1}{Oneindige sommen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Je legt vier gelijke boeken van 20 cm lang op elkaar, aan de rand van een tafel. Elk boek schuif je een stukje verder dan het boek eronder. Hoe ver kan het bovenste boek voorbij de rand van de tafel uitsteken zonder dat de stapel omvalt? Kan het bovenste boek helemaal naast de tafel liggen? En als je genoeg boeken hebt, kan het dan een meter uitsteken?}{\begin{tikzpicture}[x=1.15cm,y=1cm,font=\scriptsize]
+  \fill[black!12] (-1.6,-.9) rectangle (0,0);
+  \draw[grijs,thick] (-1.6,0) -- (0,0) -- (0,-.9);
+  \foreach \r/\k in {.125/0,.2917/1,.5417/2,1.0417/3}{%
+    \draw[accent,thick,fill=accent!15] ({\r-1},{.24*\k}) rectangle (\r,{.24*\k+.24});}
+  \draw[lijngrijs,dashed] (0,0) -- (0,1.25);
+  \draw[<->,accent] (0,1.12) -- (1.0417,1.12) node[midway,above] {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 24, het deel over het begrip reeks (als rij van partieelsommen), de rekenkundige, meetkundige en harmonische reeks, en oneindige processen in contexten (de wenken over de spiraal, de lijnstukken in een driehoek en het opvullen van een vierkant). De telescoperende reeksen en de rekenregels zijn niet genoemd in het leerplan, maar je hebt ze nodig om met reeksen te rekenen. Voorkennis uit pakket 4: het somteken, de somformules en de limiet van een rij (Rijen, hoofdstuk 3 en 4, met de meetkundige reeks als eerste kennismaking), en limieten van functies. Laat de leerlingen het probleem eerst met echte boeken of stapels kaarten proberen: dat vier boeken volstaan om er één volledig naast de tafel te krijgen, verrast bijna iedereen.}
+
+Kun je oneindig veel getallen optellen? Optellen doe je één term per keer, en dan raak je nooit klaar. Toch kwam je in de cursus Rijen al een som tegen die wel een waarde heeft: $1 + \tfrac12 + \tfrac14 + \cdots = 2$. Het idee was: tel de eerste $n$ termen op, en kijk wat er gebeurt als $n$ groter wordt. In dit hoofdstuk maak je dat idee precies, en ontdek je dat het niet altijd lukt. Sommige oneindige sommen groeien boven elke grens, ook al worden hun termen steeds kleiner. Precies zo'n som beantwoordt de vraag over de boeken.
+
+\begin{oefeningen}[Start]
+\oef{h1-start-1}
+
+\oef{h1-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg, met een rekentoestel. De meeste leerlingen vermoeden bij vraag d dat de tweede som ook onder een plafond blijft, omdat ze zo traag groeit. Hou die vraag open tot sectie 3.}
+
+%========================================================================================
+\section{Reeksen en partieelsommen}
+
+\subsection{De som van oneindig veel termen}
+
+Wat betekent $\tfrac12 + \tfrac14 + \tfrac18 + \cdots$? In de Verken vond je dat de som van de eerste $n$ termen gelijk is aan $1 - \tfrac{1}{2^n}$. Die sommen komen willekeurig dicht bij 1. Het ligt voor de hand om 1 de som van alle termen te noemen. Zo maken we van een oneindige som een limiet van gewone, eindige sommen.
+
+\begin{theorie}
+Neem een rij $u_1, u_2, u_3, \ldots$ De som van de eerste $n$ termen is de $n$-de \emph{partieelsom}
+
+\vspace{1mm}
+\qquad $\formule{s_n = u_1 + u_2 + \cdots + u_n = \sum_{k=1}^{n} u_k}$
+
+\vspace{1mm}
+De \emph{reeks} $\formule{\sominf{n=1} u_n = u_1 + u_2 + u_3 + \cdots}$ is \emph{convergent} als de rij van de partieelsommen convergeert. De limiet is de \emph{som} van de reeks:
+
+\vspace{1mm}
+\qquad $\formule{\sominf{n=1} u_n = \lim_{n\to+\infty} s_n}$
+
+\vspace{1mm}
+Een reeks die niet convergeert, is \emph{divergent}.
+\end{theorie}
+
+Bij een reeks horen dus twee rijen: de rij van de \textit{termen} $u_n$ en de rij van de \textit{partieelsommen} $s_n$. Verwar ze niet. In de figuren hieronder gaan de termen van $\sum \tfrac{1}{2^n}$ naar 0, en de partieelsommen naar 1: de som van de reeks is 1, niet 0. De index mag ook bij 0 of bij een ander getal beginnen, zoals bij $\sominf{n=0} \tfrac{1}{2^n} = 1 + \tfrac12 + \tfrac14 + \cdots$ Het symbool $\sominf{n=1} u_n$ staat zowel voor de reeks zelf als voor haar som, als die bestaat.
+
+\figuren{\minigrafiek[$u_n$]{termen $u_n = \tfrac{1}{2^n}$}{-.15}{1.25}{0.5,1}{1/.5,2/.25,3/.125,4/.0625,5/.03125,6/.015625}\qquad\qquad
+\begin{tikzpicture}[x=.38cm,y=1.643cm,>={Stealth[length=1.4mm]},font=\scriptsize]
+  \draw[->,lijngrijs] (-.2,0) -- (6.8,0) node[right,text=black] {$n$};
+  \draw[->,lijngrijs] (0,-.15) -- (0,1.25) node[above,text=black] {$s_n$};
+  \foreach \x in {1,...,6} \draw[lijngrijs] (\x,0) ++(0,1.2pt) -- ++(0,-2.4pt) node[below=-1pt,text=grijs] {\x};
+  \foreach \y in {0.5,1} \draw[lijngrijs] (0,\y) ++(1.2pt,0) -- ++(-2.4pt,0) node[left=-1pt,text=grijs] {$\pgfmathprintnumber[use comma]{\y}$};
+  \draw[grijs,dashed] (0,1) -- (6.6,1);
+  \foreach \x/\y in {1/.5,2/.75,3/.875,4/.9375,5/.96875,6/.984375} \fill[accent] (\x,\y) circle (1.6pt);
+  \node[anchor=north,font=\sffamily\bfseries\footnotesize,yshift=-4.5mm] at (3.4,0) {partieelsommen $s_n$};
+\end{tikzpicture}}
+
+\voorbeeld{}{Bereken de partieelsommen $s_1$ tot $s_4$ en $s_n$ van de reeks $\displaystyle\sominf{n=1} \frac{3}{4^n}$. Is de reeks convergent? Wat is haar som?\label{vb:h1-ps}}{%
+\uitleg{De termen $\tfrac34$, $\tfrac{3}{16}$, $\tfrac{3}{64}$, \ldots\ vormen een meetkundige rij met quotiënt $\tfrac14$. Voor $s_n$ gebruiken we dus de somformule uit de cursus Rijen, en daarna nemen we de limiet.}
+\begin{stappen}
+s_1 = \tfrac34, \ s_2 = \tfrac{15}{16}, \ s_3 = \tfrac{63}{64}, \ s_4 = \tfrac{255}{256} & Telkens tellen we de volgende term op. Er lijkt een patroon: $1$ min een macht van $\tfrac14$. \\[1.5ex]
+s_n = \frac34 \cdot \frac{1 - (\frac14)^n}{1 - \frac14} = 1 - \frac{1}{4^n} & De somformule met $u_1 = \tfrac34$ en $q = \tfrac14$. Het patroon klopt. \\[2.5ex]
+\lim_{n\to+\infty} s_n = 1 - 0 = 1 & De reeks is convergent, met som 1.
+\end{stappen}}
+
+Niet elke reeks heeft een som. Soms groeien de partieelsommen boven elke grens, zoals bij $1 + 2 + 3 + \cdots$. Soms blijven ze schommelen.
+
+\voorbeeld{}{Onderzoek of de reeks $\displaystyle\sominf{n=1} (-1)^{n+1} = 1 - 1 + 1 - 1 + \cdots$ convergeert.\label{vb:h1-grandi}}{%
+\uitleg{De termen springen tussen 1 en $-1$. We bekijken wat de partieelsommen doen.}
+\naast{\begin{stappenvrij}{4.3cm}{5.2cm}
+s_1 = 1, \ s_2 = 0, \ s_3 = 1, \ s_4 = 0 & Elke $-1$ maakt de vorige $+1$ ongedaan. \\[1ex]
+s_n = 1 \text{ of } s_n = 0 & 1 als $n$ oneven is, 0 als $n$ even is. \\[1ex]
+\lim_{n\to+\infty} s_n \text{ bestaat niet} & De partieelsommen blijven schommelen: de reeks is divergent.
+\end{stappenvrij}}{\minigrafiek{}{-.3}{1.3}{1}{1/1,2/0,3/1,4/0,5/1,6/0}}}
+
+Deze reeks heeft de wiskundigen eeuwenlang beziggehouden. Groepeer je ze als $(1 - 1) + (1 - 1) + \cdots$, dan lijkt de som 0. Groepeer je ze als $1 + (-1 + 1) + (-1 + 1) + \cdots$, dan lijkt ze 1. Met de definitie is de zaak beslecht: er is geen som, en daarom mag je ook niet zomaar haakjes zetten.
+
+\begin{werkwijze}
+Zoek een formule voor de partieelsom $s_n$, met een somformule of door een patroon te zien in $s_1$, $s_2$, $s_3$, \ldots\ Bereken daarna $\lim s_n$. Is die limiet een reëel getal, dan is dat de som. Anders is de reeks divergent.
+\end{werkwijze}
+
+\nujij{Bereken $s_n$ en de som van $\displaystyle\sominf{n=1} \frac{2}{3^n}$.}{$s_n = 1 - \tfrac{1}{3^n}$, de som is 1.}
+
+\begin{oefeningen}
+\oef{h1-ps}
+\end{oefeningen}
+
+\subsection{De meetkundige reeks}
+
+In de cursus Rijen vond je de som van een meetkundige reeks met de somformule. Nu we de definitie hebben, maken we het volledig: ook wat er gebeurt als $|q| \geqslant 1$. We schrijven de reeks met een index vanaf 0, want dan is de eerste term gewoon $a$.
+
+\begin{theorie}
+Een \emph{meetkundige reeks} is een reeks van de vorm $\formule{\sominf{n=0} a\,q^n = a + aq + aq^2 + \cdots}$ met $a \neq 0$.
+
+\begin{stelling}{Som van de meetkundige reeks}
+De meetkundige reeks is convergent als $|q| < 1$, met som
+
+\vspace{1mm}
+\qquad $\formule{\sominf{n=0} a\,q^n = \frac{a}{1-q}}$
+
+\vspace{1mm}
+Als $|q| \geqslant 1$, is ze divergent.
+\end{stelling}
+
+\begin{bewijs}
+Voor $q \neq 1$ is $s_n = a + aq + \cdots + aq^{n-1} = a \cdot \dfrac{1 - q^n}{1 - q}$.
+
+Als $|q| < 1$, dan is $\lim q^n = 0$, zodat
+\bewijsregel{\lim_{n\to+\infty} s_n = a \cdot \frac{1 - 0}{1 - q} = \frac{a}{1 - q} .}
+Als $q = 1$, dan is $s_n = na$, en dat gaat naar $+\infty$ of $-\infty$. Als $q = -1$, dan schommelt $s_n$ tussen $a$ en 0. Als $|q| > 1$, dan is $|q^n| = |q|^n \to +\infty$, dus $s_n$ heeft geen eindige limiet.
+\end{bewijs}
+\end{theorie}
+
+Onthoud de som in woorden: \textit{de eerste term, gedeeld door 1 min het quotiënt}. Dat werkt ook als de index niet bij 0 begint: je hebt alleen de eerste term nodig, en die reken je uit.
+
+\voorbeeld{}{Bereken $\displaystyle\sominf{n=2} 5 \cdot \Bigl(\frac23\Bigr)^n$.\label{vb:h1-mr}}{%
+\uitleg{Elke term is $\tfrac23$ keer de vorige, dus de reeks is meetkundig. De index begint bij 2: de eerste term is niet 5.}
+\begin{stappen}
+q = \tfrac23, \quad |q| < 1 & De reeks convergeert. \\[1ex]
+5 \cdot \bigl(\tfrac23\bigr)^2 = \tfrac{20}{9} & De eerste term, voor $n = 2$. \\[1.5ex]
+\dfrac{\frac{20}{9}}{1 - \frac23} = \dfrac{20}{9} \cdot 3 = \dfrac{20}{3} & Eerste term gedeeld door 1 min het quotiënt.
+\end{stappen}}
+
+Het quotiënt mag ook van een letter afhangen. Dan convergeert de reeks maar voor sommige waarden van die letter, en is de som een functie. Dat idee wordt belangrijk in hoofdstuk 3.
+
+\voorbeeld{}{Voor welke $x$ convergeert $\displaystyle\sominf{n=0} \Bigl(\frac{x}{3}\Bigr)^n$? Wat is dan de som?\label{vb:h1-mrx}}{%
+\uitleg{Een meetkundige reeks met eerste term 1 en quotiënt $\tfrac x3$. Ze convergeert precies als het quotiënt in absolute waarde kleiner is dan 1.}
+\naast{\begin{stappenvrij}{4.6cm}{4.3cm}
+\Bigl|\frac x3\Bigr| < 1 \iff -3 < x < 3 & Voorwaarde voor convergentie. \\[2ex]
+\sominf{n=0} \Bigl(\frac x3\Bigr)^n = \frac{1}{1 - \frac x3} = \frac{3}{3 - x} & De som, voor $-3 < x < 3$. \\[3ex]
+s_3 = 1 + \frac x3 + \frac{x^2}{9} & De figuur: partieelsommen zijn veeltermen, en ze benaderen $\tfrac{3}{3-x}$, het best bij 0.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \rooster{-3}{1}{3}{0}{1}{5}
+  \draw[grijs,dashed] (3,0) -- (3,5);
+  \kromme{-3}{2.4}{3/(3-\x)}
+  \kromme[dashed]{-3}{3}{1+\x/3}
+  \kromme[densely dotted,thick]{-3}{3}{1+\x/3+(\x)^2/9}
+  \node[accent,right] at (1.2,4.6) {$\tfrac{3}{3-x}$};
+\end{tikzpicture}}}
+
+De figuur toont nog iets. Buiten $]{-3}, 3[$ heeft $\tfrac{3}{3-x}$ wel een waarde, bijvoorbeeld $-3$ in $x = 4$, maar de reeks heeft daar geen som. De formule voor de som geldt alleen waar de reeks convergeert.
+
+\begin{werkwijze}
+Herken de meetkundige reeks: elke term is een vast getal $q$ keer de vorige. Controleer dat $|q| < 1$. Bereken de eerste term, en deel ze door $1 - q$.
+\end{werkwijze}
+
+\nujij{Bereken $\displaystyle\sominf{n=1} \Bigl(-\frac12\Bigr)^n$.}{De eerste term is $-\tfrac12$, dus de som is $\dfrac{-1/2}{3/2} = -\tfrac13$.}
+
+\begin{oefeningen}
+\oef{h1-mr}
+
+\oef{h1-mrx}
+\end{oefeningen}
+
+\subsection{Telescoperende reeksen}
+
+Voor de meeste reeksen bestaat er geen formule voor $s_n$. Een uitzondering zijn reeksen waarvan elke term een verschil is, zoals
+\[ \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + \cdots = \Bigl(1 - \frac12\Bigr) + \Bigl(\frac12 - \frac13\Bigr) + \Bigl(\frac13 - \frac14\Bigr) + \cdots \]
+In een partieelsom vallen dan bijna alle termen tegen elkaar weg, en blijven alleen het begin en het einde over. De reeks schuift in elkaar, zoals een telescoop.
+
+\begin{theorie}
+\begin{stelling}{Telescoperende reeks}
+Als $u_n = b_n - b_{n+1}$ voor elke $n$, dan is
+
+\vspace{1mm}
+\qquad $\formule{s_n = b_1 - b_{n+1}}$
+
+\vspace{1mm}
+De reeks $\sominf{n=1} u_n$ convergeert dus precies als $\lim b_n$ bestaat, en dan is ze gelijk aan $\formule{b_1 - \lim_{n\to+\infty} b_n}$.
+\end{stelling}
+
+\begin{bewijs}
+Schrijf de partieelsom uit:
+\bewijsregel{s_n = (b_1 - b_2) + (b_2 - b_3) + \cdots + (b_n - b_{n+1}) = b_1 - b_{n+1} ,}
+want elke $b_k$ met $2 \leqslant k \leqslant n$ staat er één keer met een plus en één keer met een min. Neem de limiet: $\lim s_n = b_1 - \lim b_{n+1}$, en $\lim b_{n+1} = \lim b_n$.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\displaystyle\sominf{n=1} \frac{1}{n(n+1)}$.\label{vb:h1-tel}}{%
+\uitleg{De noemer is een product van twee opeenvolgende factoren. We splitsen de breuk in een verschil van twee breuken, en hopen dat de reeks telescopeert.}
+\naast{\begin{stappenvrij}{5.2cm}{3.7cm}
+\frac{1}{n(n+1)} = \frac{(n+1) - n}{n(n+1)} = \frac1n - \frac{1}{n+1} & Schrijf $1 = (n+1) - n$ en splits. Zo is $b_n = \tfrac1n$. \\[2.5ex]
+s_n = 1 - \frac{1}{n+1} & Alleen de eerste en de laatste breuk blijven over. \\[2ex]
+\sominf{n=1} \frac{1}{n(n+1)} = 1 - 0 = 1 & Want $\tfrac{1}{n+1} \to 0$.
+\end{stappenvrij}}{\minigrafiek{}{-.15}{1.25}{0.5,1}{1/.5,2/.6667,3/.75,4/.8,5/.8333,6/.8571}}}
+
+Het splitsen in $\tfrac1n - \tfrac{1}{n+1}$ heet \textit{splitsen in partieelbreuken}. Soms valt niet elke tweede, maar elke derde breuk weg. Schrijf dan een paar termen uit om te zien welke breuken overblijven.
+
+\begin{werkwijze}
+Splits de term in een verschil $b_n - b_{n+1}$. Schrijf de eerste termen van $s_n$ uit en schrap wat tegen elkaar wegvalt. Neem de limiet van wat overblijft.
+\end{werkwijze}
+
+\nujij{Bereken $\displaystyle\sominf{n=1} \Bigl(\frac{1}{n+2} - \frac{1}{n+3}\Bigr)$.}{$s_n = \tfrac13 - \tfrac{1}{n+3}$, de som is $\tfrac13$.}
+
+\begin{oefeningen}
+\oef{h1-tel}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenen met reeksen}
+
+\subsection{Rekenregels}
+
+Hoeveel is $\sominf{n=1} \Bigl(\dfrac{1}{2^n} + \dfrac{3}{n(n+1)}\Bigr)$? Je kent de som van $\sum \tfrac{1}{2^n}$ en van $\sum \tfrac{1}{n(n+1)}$. Mag je ze gewoon optellen, met een factor 3 erbij? Voor een eindige som mag dat. Voor een reeks volgt het uit de rekenregels voor limieten, toegepast op de partieelsommen.
+
+\begin{theorie}
+\begin{stelling}{Som van twee reeksen}
+Als $\sominf{n=1} u_n = S$ en $\sominf{n=1} w_n = T$, dan is
+
+\vspace{1mm}
+\qquad $\formule{\sominf{n=1} (u_n + w_n) = S + T}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $s_n$ en $t_n$ de partieelsommen van beide reeksen. De partieelsom van de nieuwe reeks is
+\bewijsregel{(u_1 + w_1) + \cdots + (u_n + w_n) = s_n + t_n ,}
+want een eindige som mag je herschikken. Met de somregel voor limieten is $\lim (s_n + t_n) = S + T$.
+\end{bewijs}
+\end{theorie}
+
+\begin{theorie}
+\begin{stelling}{Veelvoud van een reeks}
+Als $\sominf{n=1} u_n = S$ en $c \in \mathbb{R}$, dan is \quad $\formule{\sominf{n=1} c\,u_n = c\,S}$
+\end{stelling}
+
+\begin{bewijs}
+De partieelsom is $c u_1 + \cdots + c u_n = c\,s_n$, en $\lim c\,s_n = c\,S$.
+\end{bewijs}
+\end{theorie}
+
+Uit beide regels samen volgt ook $\sum (u_n - w_n) = S - T$. Let op: de regels zeggen niets als een van de reeksen divergeert. Zo convergeert $\sum \bigl(\tfrac1n - \tfrac{1}{n+1}\bigr)$, maar de reeksen $\sum \tfrac1n$ en $\sum \tfrac{1}{n+1}$ apart divergeren, zoals je in sectie 3 ziet.
+
+\voorbeeld{}{Bereken $\displaystyle\sominf{n=1} \Bigl(\frac{1}{2^n} + \frac{3}{n(n+1)}\Bigr)$.\label{vb:h1-regels}}{%
+\uitleg{We splitsen in twee reeksen waarvan we de som kennen, en controleren dat elk van beide convergeert. Pas dan mogen we de rekenregels gebruiken.}
+\begin{stappen}
+\sominf{n=1} \frac{1}{2^n} = \frac{\frac12}{1 - \frac12} = 1 & Meetkundig, met $q = \tfrac12$. \\[3ex]
+\sominf{n=1} \frac{3}{n(n+1)} = 3 \cdot 1 = 3 & Veelvoud van de telescoperende reeks uit voorbeeld \ref{vb:h1-tel}. \\[3ex]
+\sominf{n=1} \Bigl(\frac{1}{2^n} + \frac{3}{n(n+1)}\Bigr) = 1 + 3 = 4 & Beide reeksen convergeren, dus de som van twee reeksen geldt.
+\end{stappen}}
+
+Nog een regel die je vaak gebruikt zonder erbij stil te staan: of een reeks convergeert, hangt niet af van de eerste termen. Laat je er een paar weg, of verander je er een paar, dan verandert de som wel, maar de convergentie niet.
+
+\begin{theorie}
+\begin{stelling}{Eerste termen weglaten}
+Neem een natuurlijk getal $N$. De reeks $\sum_{n=1}^{+\infty} u_n$ convergeert precies als $\sum_{n=N+1}^{+\infty} u_n$ convergeert, en dan is
+
+\vspace{1mm}
+\qquad $\formule{\sominf{n=1} u_n = (u_1 + \cdots + u_N) + \sominf{n=N+1} u_n}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $t_m = u_{N+1} + \cdots + u_{N+m}$ de partieelsommen van de tweede reeks. Dan is $t_m = s_{N+m} - s_N$, met $s_N$ een vast getal. Dus $\lim t_m$ bestaat precies als $\lim s_{N+m}$ bestaat, en dat is de limiet van $s_n$.
+\end{bewijs}
+\end{theorie}
+
+\nujij{Bereken $\displaystyle\sominf{n=1} \Bigl(\frac{4}{3^n} - \frac{1}{2^n}\Bigr)$.}{$4 \cdot \tfrac12 - 1 = 1$.}
+
+\begin{oefeningen}
+\oef{h1-reg}
+\end{oefeningen}
+
+\subsection{De termen gaan naar nul}
+
+Als oneindig veel termen samen een eindige som hebben, dan moeten ze wel klein worden: bleven ze allemaal groter dan $0{,}01$, dan zou de som boven elke grens groeien. Dat geeft een eerste, snelle test.
+
+\begin{theorie}
+\begin{stelling}{Termen van een convergente reeks}
+Als $\sominf{n=1} u_n$ convergeert, dan is \quad $\formule{\lim_{n\to+\infty} u_n = 0}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $S$ de som. Een term is het verschil van twee partieelsommen: $u_n = s_n - s_{n-1}$ voor $n \geqslant 2$. Omdat $s_n \to S$ en ook $s_{n-1} \to S$, is
+\bewijsregel{\lim_{n\to+\infty} u_n = S - S = 0 .}
+\end{bewijs}
+\end{theorie}
+
+Meestal gebruik je de stelling andersom, als test voor divergentie: \textit{gaan de termen niet naar 0, dan divergeert de reeks}. Zo divergeert elke rekenkundige reeks, behalve de reeks met alleen nullen, want haar termen gaan naar $\pm\infty$ of blijven gelijk aan $u_1$. Ook $1 - 1 + 1 - \cdots$ divergeert, want de termen gaan niet naar 0.
+
+\voorbeeld{}{Toon aan dat $\displaystyle\sominf{n=1} \frac{2n}{3n + 1}$ divergeert.\label{vb:h1-term}}{%
+\uitleg{De termen zijn breuken met teller en noemer van dezelfde graad: hun limiet is de verhouding van de hoogstegraadscoëfficiënten, en die is niet 0.}
+\begin{stappen}
+\lim_{n\to+\infty} \frac{2n}{3n + 1} = \frac23 \neq 0 & De termen gaan niet naar 0. \\[2ex]
+\text{divergent} & Na een tijd tel je telkens ongeveer $\tfrac23$ bij: de partieelsommen groeien boven elke grens.
+\end{stappen}}
+
+De omgekeerde redenering mag niet: als de termen naar 0 gaan, weet je nog niets. Het volgende voorbeeld toont dat. Het is een van de belangrijkste waarschuwingen van dit hoofdstuk.
+
+\voorbeeld{}{De termen van $\displaystyle\sominf{n=1} \ln\Bigl(1 + \frac1n\Bigr)$ gaan naar 0. Toon aan dat de reeks toch divergeert.\label{vb:h1-ln}}{%
+\uitleg{Een logaritme van een quotiënt is een verschil van logaritmen. Misschien telescopeert de reeks.}
+\naast{\begin{stappenvrij}{5.2cm}{3.7cm}
+\ln\Bigl(1 + \frac1n\Bigr) = \ln\frac{n+1}{n} = \ln(n+1) - \ln n & Een verschil van opeenvolgende termen, met $b_n = -\ln n$. \\[2ex]
+s_n = \ln(n+1) - \ln 1 = \ln(n+1) & De reeks telescopeert. \\[1ex]
+\lim_{n\to+\infty} s_n = +\infty & De reeks divergeert.
+\end{stappenvrij}}{\minigrafiek{}{-.2}{2.3}{1,2}{1/.693,2/1.099,3/1.386,4/1.609,5/1.792,6/1.946}}}
+
+Bij $\ln(1 + \tfrac1n)$ worden de termen wel kleiner, maar niet snel genoeg: de partieelsommen groeien even traag als $\ln n$, maar ze groeien wel boven elke grens.
+
+\begin{werkwijze}
+Bereken eerst $\lim u_n$. Is die niet 0 (of bestaat ze niet), dan divergeert de reeks. Is ze 0, dan weet je nog niets, en heb je een andere methode nodig.
+\end{werkwijze}
+
+\nujij{Divergeert $\displaystyle\sominf{n=1} \frac{n^2}{n^2 + 5}$? En wat zegt de test over $\displaystyle\sominf{n=1} \frac{1}{n^2}$?}{De eerste divergeert, want de termen gaan naar 1. Bij de tweede gaan de termen naar 0: de test zegt niets.}
+
+\begin{oefeningen}
+\oef{h1-term}
+\end{oefeningen}
+
+%========================================================================================
+\section{De harmonische reeks}
+
+\subsection{Een som die toch oneindig wordt}
+
+In de Verken telde je $\tfrac12 + \tfrac13 + \tfrac14 + \cdots$ op. De som groeit, maar steeds trager. Blijft ze onder een plafond? De termen gaan naar 0, dus de test van de vorige sectie zegt niets. Ook de rekentoestel helpt weinig. De tabel toont de partieelsommen van $1 + \tfrac12 + \tfrac13 + \cdots$ voor steeds grotere $n$.
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.4}\arrayrulecolor{accent}%
+\begin{tabular}{|>{\centering\arraybackslash}p{1.4cm}|*{5}{>{\centering\arraybackslash}p{1.6cm}|}}
+\hline
+$n$ & 10 & 100 & 1000 & $10^6$ & $10^9$ \\ \hline
+$s_n$ & $2{,}929$ & $5{,}187$ & $7{,}485$ & $14{,}393$ & $21{,}300$ \\ \hline
+\end{tabular}}
+\end{center}
+
+Een miljard termen geeft nog geen 22. Wie de rij bekijkt, zou denken dat ze ergens tot rust komt. Rond 1350 bewees de Franse bisschop Nicole Oresme dat dat niet zo is. Zijn idee: zet de termen in groepjes die elk minstens $\tfrac12$ opleveren.
+
+\begin{theorie}
+De \emph{harmonische reeks} is \quad $\formule{\sominf{n=1} \frac1n = 1 + \frac12 + \frac13 + \frac14 + \cdots}$
+
+\begin{stelling}{Divergentie van de harmonische reeks}
+De harmonische reeks divergeert: \quad $\formule{\lim_{n\to+\infty} s_n = +\infty}$
+\end{stelling}
+
+\begin{bewijs}
+\naast{Zet de termen in groepjes van 1, 2, 4, 8, \ldots\ termen, en vervang in elk groepje elke term door de kleinste:
+\bewijsregel{\frac13 + \frac14 \geqslant \frac14 + \frac14 = \frac12, \qquad \frac15 + \cdots + \frac18 \geqslant 4 \cdot \frac18 = \frac12 ,}
+en zo verder: het groepje van $\tfrac{1}{2^{k-1}+1}$ tot $\tfrac{1}{2^k}$ telt $2^{k-1}$ termen, elk minstens $\tfrac{1}{2^k}$, dus samen minstens $\tfrac12$. Zo is
+\bewijsregel{s_{2^k} \geqslant 1 + \frac12 + (k - 1) \cdot \frac12 = 1 + \frac k2 .}
+Omdat $1 + \tfrac k2$ boven elke grens groeit en de partieelsommen stijgen, gaat $s_n$ naar $+\infty$.}{\begin{tikzpicture}[x=.42cm,y=2.6cm,font=\scriptsize]
+  \foreach \n in {1,...,8}{%
+    \pgfmathsetmacro{\h}{1/\n}
+    \pgfmathtruncatemacro{\g}{\n<=1 ? 1 : (\n<=2 ? 2 : (\n<=4 ? 3 : 4))}
+    \ifodd\g\def\kl{accent!45}\else\def\kl{accent!20}\fi
+    \draw[accent,fill=\kl] ({\n-.9},0) rectangle ({\n-.1},\h);
+    \node[below,inner sep=1.5pt] at ({\n-.5},0) {$\tfrac1{\n}$};}
+  \draw[grijs,thick] (2.1,.25) -- (3.9,.25) (4.1,.125) -- (7.9,.125);
+  \draw[->,lijngrijs] (0,0) -- (8.4,0);
+  \draw[->,lijngrijs] (0,0) -- (0,1.12);
+  \node[left] at (0,1) {1};
+  \node[left] at (0,.5) {$\tfrac12$};
+\end{tikzpicture}}
+\end{bewijs}
+\end{theorie}
+
+De figuur toont de termen als staafjes, met de groepjes in afwisselende tinten. De grijze lijnen zijn de kleinste term van elk groepje: de oppervlakte eronder is telkens $\tfrac12$. De harmonische reeks is dus het bewijs dat de omgekeerde redenering van de vorige sectie echt fout is: de termen gaan naar 0, en toch divergeert de reeks. Ze divergeert wel uiterst traag. In hoofdstuk 2 vind je waarom $s_n$ ongeveer zo snel groeit als $\ln n$.
+
+\voorbeeld{}{Hoeveel termen van de harmonische reeks volstaan volgens het bewijs om boven 5 te komen?\label{vb:h1-harm}}{%
+\uitleg{Het bewijs geeft een ondergrens voor de partieelsommen met index $2^k$. We zoeken de kleinste $k$ waarvoor die ondergrens minstens 5 is.}
+\begin{stappen}
+1 + \frac k2 \geqslant 5 \iff k \geqslant 8 & Dan is $s_{2^k} \geqslant 5$. \\[1.5ex]
+2^8 = 256 & De eerste 256 termen leveren dus zeker meer dan 5 op. \\[1ex]
+s_{82} \approx 4{,}990, \quad s_{83} \approx 5{,}002 & Met een computer: in werkelijkheid volstaan er al 83.
+\end{stappen}}
+
+Het bewijs schat dus ruim af: het gooit veel weg. Dat geeft niet, want het moet alleen aantonen dat de som boven \textit{elke} grens komt, niet precies wanneer.
+
+\begin{oefeningen}
+\oef{h1-harm}
+\end{oefeningen}
+
+\subsection{Terug naar de boeken}
+
+Nu kunnen we het probleem oplossen. De natuurkunde zegt wanneer een stapel blijft liggen: het \textit{zwaartepunt} van de bovenste boeken samen moet boven het boek eronder liggen, of boven de tafel. Het zwaartepunt van één boek is zijn midden, en dat van een paar gelijke boeken is het gemiddelde van hun middens.
+
+\voorbeeld{}{Terug naar het probleem. Hoe ver kan een stapel van $n$ boeken van 20 cm uitsteken? Kan het bovenste boek helemaal naast de tafel liggen? Kan het een meter uitsteken?\label{vb:h1-terug}}{%
+\uitleg{We bouwen de stapel van boven naar onder. Leg telkens de rand van het volgende boek precies onder het zwaartepunt van de boeken erboven: verder kan niet. We meten in boeklengtes.}
+\begin{stappen}
+\text{1 boek: } \tfrac12 & De rand van boek 2 ligt onder het midden van boek 1: het bovenste boek steekt $\tfrac12$ uit. \\[1ex]
+\frac{k \cdot 0 + 1 \cdot (-\frac12)}{k + 1} = -\frac{1}{2(k+1)} & Liggen de bovenste $k$ boeken met hun zwaartepunt op de rand van boek $k+1$ (op plaats 0), dan ligt het midden van boek $k+1$ op $-\tfrac12$. Het gemiddelde van de $k+1$ middens schuift zoveel op. \\[3ex]
+\tfrac12, \ \tfrac14, \ \tfrac16, \ \tfrac18, \ \ldots & Zover steekt elk boek uit boven het volgende, of boven de tafel. \\[1.5ex]
+\frac12\Bigl(1 + \frac12 + \cdots + \frac1n\Bigr) & De totale overhang van $n$ boeken: de helft van de partieelsom van de harmonische reeks. \\[2.5ex]
+\text{4 boeken: } \tfrac12 \cdot \tfrac{25}{12} = \tfrac{25}{24} > 1 & Met 4 boeken ligt het bovenste boek al helemaal naast de tafel: het steekt $20{,}8$ cm uit. \\[1.5ex]
+\text{1 meter: } \tfrac12\, s_n \geqslant 5 \iff s_n \geqslant 10 & Een meter is 5 boeklengtes. Omdat de harmonische reeks divergeert, bestaat er zo'n $n$.
+\end{stappen}
+\naast{Met een computer vind je $s_{12\,366} \approx 9{,}99996$ en $s_{12\,367} \approx 10{,}00004$: met 12\,367 boeken steekt de stapel een meter uit. In principe kan de stapel dus willekeurig ver uitsteken, maar het kost enorm veel boeken. Voor een stapel met één boek per laag is dit ook de beste manier.}{\begin{tikzpicture}[x=3.4cm,y=1cm,font=\scriptsize]
+  \fill[black!12] (-.55,-1) rectangle (0,0);
+  \draw[grijs,thick] (-.55,0) -- (0,0) -- (0,-1);
+  \foreach \r/\k in {.125/0,.2917/1,.5417/2,1.0417/3}{%
+    \draw[accent,thick,fill=accent!15] ({max(\r-1,-.55)},{.3*\k}) -- ({\r},{.3*\k}) -- ({\r},{.3*\k+.3}) -- ({max(\r-1,-.55)},{.3*\k+.3});
+    \draw[lijngrijs,densely dashed] (\r,{.3*\k}) -- (\r,-.35);}
+  \foreach \a/\b/\t/\p in {0/.125/\tfrac18/below,.125/.2917/\tfrac16/above,.2917/.5417/\tfrac14/below,.5417/1.0417/\tfrac12/below}{%
+    \draw[<->,accent!70!black] (\a,-.35) -- (\b,-.35) node[midway,\p=-1pt] {$\t$};}
+\end{tikzpicture}}}
+
+\begin{oefeningen}
+\oef{h1-boek}
+\end{oefeningen}
+
+%========================================================================================
+\section{Oneindige processen}
+
+Een spin loopt een kantige spiraal: 4 cm naar rechts, dan een kwartslag naar links en 3 cm, dan weer een kwartslag en $\tfrac94$ cm, en zo verder, telkens $\tfrac34$ van het vorige stuk. Komt ze ooit aan? Hoe lang is haar weg? Zo'n oneindig proces met stukken die telkens met dezelfde factor krimpen, leidt altijd tot een meetkundige reeks.
+
+\voorbeeld{}{Hoe lang is de kantige spiraal van de spin?\label{vb:h1-spiraal}}{%
+\uitleg{De lengtes van de stukken vormen een meetkundige rij. De totale lengte is de som van de meetkundige reeks.}
+\naast{\begin{stappenvrij}{4.6cm}{4.4cm}
+4 + 3 + \tfrac94 + \cdots = \sominf{n=0} 4 \cdot \Bigl(\frac34\Bigr)^n & Eerste term 4, quotiënt $\tfrac34$. \\[3ex]
+\frac{4}{1 - \frac34} = 16 & De spiraal is 16 cm lang. \\[2ex]
+\text{eindpunt } \bigl(\tfrac{64}{25}, \tfrac{48}{25}\bigr) & Zie opdracht \ref{oef:h1-o9}: de spin komt aan in één punt.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.62,font=\scriptsize]
+  \draw[lijngrijs] (-.3,0) -- (4.4,0);
+  \draw[lijngrijs] (0,-.3) -- (0,3.4);
+  \draw[accent,thick] (0,0) \foreach \k in {0,...,24}{%
+    -- ++({90*\k}:{4*0.75^\k})};
+  \fill[accent] (2.56,1.92) circle (2pt);
+  \fill (0,0) circle (1.5pt) node[below left] {$O$};
+  \node[below] at (2,0) {4};
+  \node[right] at (4,1.5) {3};
+  \node[above] at (2.9,3) {$\tfrac94$};
+\end{tikzpicture}}}
+
+De spin legt dus oneindig veel stukken af, maar haar weg is maar 16 cm. Zo los je ook de paradox van Zeno op, die al 2400 jaar oud is: Achilles kan een schildpad inhalen, ook al moet hij eerst oneindig veel keer de plaats bereiken waar ze net was (opdracht \ref{oef:h1-o12}).
+
+\begin{werkwijze}
+Beschrijf de eerste stukken van het proces, en zoek de factor $q$ waarmee elk stuk uit het vorige volgt. Controleer $|q| < 1$, en tel alles op met $\dfrac{\text{eerste term}}{1 - q}$. Kijk na of het resultaat kan kloppen, bijvoorbeeld met de figuur.
+\end{werkwijze}
+
+\nujij{Een schommel zwaait eerst over een boog van 3 m, en daarna telkens over een boog die $5\,\%$ korter is. Welke afstand legt het zitje in totaal af?}{$\tfrac{3}{1 - 0{,}95} = 60$ m.}
+
+\begin{oefeningen}
+\oef{h1-proc}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\lkr{De opdrachten staan bewust door elkaar, met stijgende moeilijkheid. In deze versie staat bij elke opdracht het onderwerp. Vraag bij elke reeks eerst: gaan de termen naar 0? En is de reeks meetkundig of telescopeert ze?}
+
+\begin{oefeningen}
+\oef{h1-o1}
+
+\oef{h1-o2}
+
+\oef{h1-o3}
+
+\oef{h1-o4}
+
+\oef{h1-o5}
+
+\oef{h1-o6}
+
+\oef{h1-o7}
+
+\oef{h1-o8}
+
+\oef{h1-o9}
+
+\oef{h1-o10}
+
+\oef{h1-o11}
+
+\oef{h1-o12}
+
+\oef{h1-o13}
+
+\oef{h1-o14}
+
+\oef{h1-o15}
+
+\oef{h1-o16}
+
+\oef{h1-o17}
+
+\oef{h1-o18}
+
+\oef{h1-o19}
+
+\oef{h1-o20}
+
+\oef{h1-o21}
+
+\oef{h1-o22}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Kansrekenen en Logica en bewijzen (volledige inductie) staan in het 6de jaar, Complexe getallen en Matrices in het 5de jaar: kijk na wat er al gezien is.}
+
+\begin{oefeningen}
+\oef{h1-koppel-1}
+
+\oef{h1-koppel-2}
+
+\oef{h1-koppel-3}
+
+\oef{h1-koppel-4}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{40\baselineskip} % de test en het schema Fout? Herhaal samen op een pagina
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h1-t1}
+
+\oef{h1-t2}
+
+\oef{h1-t3}
+
+\oef{h1-t4}
+
+\oef{h1-t5}
+
+\oef{h1-t6}
+
+\oef{h1-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h1-t1}{vb:h1-ps}{oef:h1-ps}%
+  \fv{oef:h1-t2}{vb:h1-mr}{oef:h1-mr}%
+  \fv{oef:h1-t3}{vb:h1-mrx}{oef:h1-mrx}%
+  \fv{oef:h1-t4}{vb:h1-tel}{oef:h1-tel}%
+  \fv{oef:h1-t5}{vb:h1-term}{oef:h1-term}%
+  \fv{oef:h1-t6}{vb:h1-ln}{oef:h1-harm}%
+  \fv{oef:h1-t7}{vb:h1-spiraal}{oef:h1-proc}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een partieelsom is en wanneer een reeks convergeert, de som van een meetkundige reeks en wanneer ze bestaat, hoe een telescoperende reeks werkt, de rekenregels, waarom de termen van een convergente reeks naar 0 gaan (en waarom het omgekeerde niet geldt), het bewijs van Oresme voor de harmonische reeks, en hoe je een oneindig proces met een meetkundige reeks oplost. Vergelijk daarna met de kaders.
+\fi

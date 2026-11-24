@@ -1,0 +1,22 @@
+% Kansverdelingen. Caillebotte: voorbijgangers die elk op hun eigen moment het plein oversteken.
+% Het aantal dat in een minuut voorbijkomt, is Poissonverdeeld (hoofdstuk 2).
+% Motief: het staafdiagram van de Poissonverdeling met lambda = 3, P(X = k) = e^{-3} 3^k / k! voor k = 0 tot 9
+% (hoogte 16 cm per eenheid kans). Bij lambda = 3 zijn de kansen op 2 en op 3 even groot: twee toppen, in fel.
+\def\omslagbestand{omslag-regendag.jpg}
+\def\omslagbron{Gustave Caillebotte, \textit{Parijse straat, regenachtige dag}, 1877 (publiek domein)}
+\def\omslagrand{10.5 + 0.3*sin(\x*360/18)}
+\def\omslagmotief{%
+  \randlijn
+  \foreach \k/\h in {0/0.797,1/2.390,2/3.585,3/3.585,4/2.689,5/1.613,6/0.807,7/0.346,8/0.130,9/0.043}{%
+    \pgfmathsetmacro{\plek}{14.1+\k*.66}%
+    \ifnum\k=2 \fill[fel,draw=white,line width=.7pt] (\plek-.25,8.75) rectangle (\plek+.25,8.75+\h);
+    \else\ifnum\k=3 \fill[fel,draw=white,line width=.7pt] (\plek-.25,8.75) rectangle (\plek+.25,8.75+\h);
+    \else \fill[white,draw=accent,line width=.7pt] (\plek-.25,8.75) rectangle (\plek+.25,8.75+\h);
+    \fi\fi
+  }
+  \draw[white,line width=.8pt] (13.7,8.75) -- (20.4,8.75);
+  \foreach \k in {0,3,6,9}{%
+    \node[text=white,font=\small,inner sep=1pt,anchor=north] at ({14.1+\k*.66},8.6) {$\k$};
+  }
+  \node[omslaglabel,anchor=west] at (17.9,11.6) {$\lambda = 3$};
+}

@@ -1,0 +1,22 @@
+% Numerieke methodes. William Blake: Isaac Newton, met een passer gebogen over een tekening. De methode van
+% Newton draagt zijn naam.
+% Motief: de methode van Newton voor f(u) = 0,2 (u^2 - 2,25), met nulwaarde 1,5 (eenheid 1 cm). Vanuit u0 = 5,3
+% volgt elke raaklijn tot de as: 5,3 -> 2,8623 -> 1,8242 -> 1,5288 -> 1,5003 (dat is u = (u + 2,25/u)/2).
+% De bovenrand laat de passer rechtsonder in het schilderij vrij.
+\def\omslagbestand{omslag-newton.jpg}
+\def\omslagbron{William Blake, \textit{Newton}, 1795-ca.\ 1805 (publiek domein)}
+\def\omslagrand{10.35 + 3.2*((21-\x)/21)^3}
+\def\omslagmotief{%
+  \randlijn
+  \begin{scope}[shift={(14.9,4.6)}]
+    \draw[white,line width=.8pt,-{Stealth[length=2.2mm]}] (0,0) -- (5.9,0);
+    \draw[omslaglijn=1.2pt] plot[domain=0.05:5.4,samples=60,smooth] (\x,{0.2*(\x*\x-2.25)});
+    % raaklijn in (u_n, f(u_n)) tot de as in u_{n+1}, en verticaal terug naar de grafiek
+    \foreach \u/\fu/\v/\fv in {5.3/5.168/2.8623/1.1885,2.8623/1.1885/1.8242/0.2155,1.8242/0.2155/1.5288/0.0174}{%
+      \draw[fel,line width=1.3pt] (\u,\fu) -- (\v,0);
+      \draw[white,line width=.7pt,dashed] (\v,0) -- (\v,\fv);
+      \fill[omslagstip] (\u,\fu) circle (1.1mm);}
+    \fill[fel] (1.5,0) circle (1.3mm);
+    \node[omslaglabel,font=\footnotesize,anchor=north west] at (0,5.2) {$x_{n+1} = x_n - \dfrac{f(x_n)}{f'(x_n)}$};
+  \end{scope}
+}

@@ -1,0 +1,455 @@
+%----------------------------------------------------------------------------------------
+% MEETKUNDIGE PLAATSEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h2-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{2}{Meetkundige plaatsen}
+
+\begin{probleem}
+\naast{Een ladder van 5~m staat tegen een muur en begint weg te glijden: de voet schuift over de vloer, de top over de muur. Aan een sport op 2~m van de voet hangt een emmer verf, en in het midden van de ladder zit een kat die niet wil loslaten. Welke baan beschrijft de emmer? En de kat? Zijn het stukken van dezelfde soort kromme?}{\begin{tikzpicture}[scale=.6,font=\scriptsize]
+  \fill[black!10] (-.35,-.35) rectangle (0,5.4);
+  \fill[black!10] (-.35,-.35) rectangle (6,0);
+  \draw[grijs,thick] (0,5.4) -- (0,0) -- (6,0);
+  \foreach \al/\op in {70/.35,48/.6,25/1}{%
+    \draw[lijngrijs,line width=1.6pt,opacity=\op] ({5*cos(\al)},0) -- (0,{5*sin(\al)});
+    \fill[accent,opacity=\op] ({3*cos(\al)},{2*sin(\al)}) circle (3pt);
+    \fill[fel!80!black,opacity=\op] ({2.5*cos(\al)},{2.5*sin(\al)}) circle (3pt);}
+  \node[below right,inner sep=2pt] at ({3*cos(25)},{2*sin(25)}) {emmer};
+  \node[above,inner sep=4pt] at ({2.5*cos(25)},{2.5*sin(25)}) {kat};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 9, met de drie wenken: de keuze van het assenstelsel (sectie 1), een applet (zie hieronder), en bekende krommen zoals de lemniscaat van Bernoulli, de cissoïde en de strofoïde (sectie 3; de strofoïde staat in een opdracht, het trifolium in hoofdstuk 3). De cirkel van Apollonius en de ellipsograaf zijn een uitbreiding. Voorkennis uit pakket 4: de meetkundige plaats en de werkwijze met een willekeurig punt $P(x, y)$, de cirkel, het kwadraat afsplitsen en de kegelsneden (Kegelsneden, hoofdstuk 1 tot 4), het scalair product (Ruimtemeetkunde, hoofdstuk 4), en hoofdstuk 1 van dit boek (de parameter elimineren). Thuis kunnen leerlingen een meetkundige plaats in GeoGebra laten tekenen met het spoor van een punt, of met het commando \textit{Meetkundige plaats}: dat is de applet uit de wenk. Laat ze zo het probleem eerst zelf verkennen.}
+
+In Kegelsneden beschreef je de parabool, de ellips en de hyperbool als meetkundige plaats: de verzameling van alle punten met een bepaalde eigenschap. De werkwijze was telkens dezelfde: neem een willekeurig punt $P(x, y)$, schrijf de eigenschap uit met afstanden, en werk de vergelijking uit. In dit hoofdstuk gebruiken we die werkwijze voor andere eigenschappen, en we stoten op twee nieuwe moeilijkheden. Waar leg je het assenstelsel, als er geen gegeven is? En wat doe je als het punt meebeweegt met iets anders, zoals de emmer met de ladder? Op het einde maken we kennis met enkele beroemde krommen uit de geschiedenis van de wiskunde.
+
+\begin{oefeningen}[Start]
+\oef{h2-start-1}
+
+\oef{h2-verken}
+\end{oefeningen}
+
+\lkr{Laat oefening \ref{oef:h2-verken} maken vóór de uitleg. De leerlingen vinden twee punten op de $x$-as en een paar punten erbuiten, en vermoeden een cirkel. Dat het een cirkel is en niet een ellips, toont het eerste voorbeeld.}
+
+%========================================================================================
+\section{Van eigenschap naar vergelijking}
+
+\subsection{De cirkel van Apollonius}
+
+Welke punten liggen even ver van $A$ als van $B$? Dat weet je: de middelloodlijn van $[AB]$. Maar welke punten liggen twee keer zo ver van $A$ als van $B$? In de Verken-opgave vond je er een paar, en ze leken op een cirkel. Een vermoeden is geen bewijs: we zoeken de vergelijking.
+
+\voorbeeld{}{Zoek een vergelijking van de meetkundige plaats van de punten $P$ met $|PA| = 2\,|PB|$, met $A(-3, 0)$ en $B(3, 0)$. Welke figuur is het?\label{vb:h2-apol}}{%
+\uitleg{De werkwijze uit Kegelsneden: een willekeurig punt, de eigenschap met afstanden, kwadrateren en uitwerken.}
+\naast{\begin{stappenvrij}{5.5cm}{3.8cm}
+\sqrt{(x + 3)^2 + y^2} = 2\sqrt{(x - 3)^2 + y^2} & De eigenschap voor $P(x, y)$. \\[1ex]
+(x + 3)^2 + y^2 = 4(x - 3)^2 + 4y^2 & Beide leden zijn positief: kwadrateren mag. \\[1ex]
+3x^2 + 3y^2 - 30x + 27 = 0 & Uitwerken en alles naar rechts. \\[1ex]
+x^2 - 10x + y^2 + 9 = 0 & Delen door 3. \\[1ex]
+(x - 5)^2 + y^2 = 16 & Kwadraat afsplitsen: een cirkel met middelpunt $(5, 0)$ en straal 4.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.3,font=\scriptsize]
+  \rooster{-4}{2}{10}{-4}{2}{4}
+  \draw[accent,thick] (5,0) circle (4);
+  \fill (-3,0) circle (3pt) node[above,inner sep=2pt] {$A$};
+  \fill (3,0) circle (3pt) node[above left,inner sep=1pt] {$B$};
+  \fill[accent] (5,4) circle (3pt) node[above,text=black] {$P$};
+  \draw[grijs] (-3,0) -- (5,4) -- (3,0);
+  \fill (5,0) circle (2pt);
+\end{tikzpicture}}
+Controle met $P(5, 4)$: $|PA| = \sqrt{64 + 16} = \sqrt{80}$ en $|PB| = \sqrt{4 + 16} = \sqrt{20}$, en inderdaad is $\sqrt{80} = 2\sqrt{20}$.}
+
+Dat de figuur een cirkel is, hangt niet af van de getallen. De Griekse meetkundige Apollonius van Perga bewees het al rond 200 voor Christus, zonder coördinaten.
+
+\begin{theorie}
+\begin{stelling}{Cirkel van Apollonius}
+Neem twee verschillende punten $A$ en $B$ en een getal $k > 0$ met $k \neq 1$. De meetkundige plaats van de punten $P$ met $\formule{|PA| = k\,|PB|}$ is een cirkel. Het middelpunt ligt op de rechte $AB$.
+\end{stelling}
+
+\begin{bewijs}
+Kies de assen zo dat $A(-a, 0)$ en $B(a, 0)$, met $a > 0$. Kwadrateren en uitwerken geeft
+\bewijsregel{(x + a)^2 + y^2 = k^2(x - a)^2 + k^2y^2 \iff (1 - k^2)(x^2 + y^2) + 2a(1 + k^2)\,x + a^2(1 - k^2) = 0 .}
+Deel door $1 - k^2 \neq 0$ en splits het kwadraat af, met $x_0 = a\,\dfrac{k^2 + 1}{k^2 - 1}$:
+\bewijsregel{(x - x_0)^2 + y^2 = x_0^2 - a^2 = \frac{4a^2k^2}{(k^2 - 1)^2} .}
+Het rechterlid is positief: een cirkel met middelpunt $(x_0, 0)$ op de rechte $AB$ en straal $\dfrac{2ak}{|k^2 - 1|}$.
+\end{bewijs}
+\end{theorie}
+
+Is $k = 1$, dan valt de term in $x^2 + y^2$ weg, en blijft er een rechte: de middelloodlijn. Hoe dichter $k$ bij 1 ligt, hoe groter de cirkel, alsof de middelloodlijn een cirkel is met een oneindig grote straal.
+
+\begin{werkwijze}
+Neem een willekeurig punt $P(x, y)$ en schrijf de eigenschap uit met afstanden. Kwadrateer, als beide leden positief zijn. Werk uit, deel door de coëfficiënt van $x^2$ en splits de kwadraten af om de figuur te herkennen.
+\end{werkwijze}
+
+\nujij{Zoek de meetkundige plaats van de punten die drie keer zo ver van $(0, 0)$ als van $(4, 0)$ liggen.}{$x^2 - 9x + y^2 + 18 = 0$, of $(x - 4{,}5)^2 + y^2 = 2{,}25$: de cirkel met middelpunt $(4{,}5;\ 0)$ en straal 1,5.}
+
+\begin{oefeningen}
+\oef{h2-mp}
+
+\oef{h2-apol}
+\end{oefeningen}
+
+\subsection{Het assenstelsel kiezen}
+
+In het bewijs hierboven stond er geen assenstelsel in de opgave: \textit{we} legden $A$ en $B$ symmetrisch op de $x$-as. Waarom zo? Het rekenwerk wordt eenvoudiger, en de uitkomst hangt niet af van de keuze: de figuur is dezelfde, alleen haar vergelijking verschilt. Het volgende voorbeeld toont het verschil.
+
+\voorbeeld{}{Twee punten $A$ en $B$ liggen 6 uit elkaar. Zoek de meetkundige plaats van de punten $P$ met $|PA|^2 + |PB|^2 = 50$.\label{vb:h2-assen}}{%
+\uitleg{De figuur is symmetrisch ten opzichte van de rechte $AB$ en de middelloodlijn van $[AB]$. Neem die twee rechten als assen.}
+\naast{\begin{stappenvrij}{5.6cm}{4cm}
+A(-3, 0),\ B(3, 0) & De oorsprong in het midden van $[AB]$. \\[1ex]
+(x + 3)^2 + y^2 + (x - 3)^2 + y^2 = 50 & Geen wortels: kwadraten van afstanden. \\[1ex]
+2x^2 + 2y^2 + 18 = 50 & De termen in $6x$ vallen weg. \\[1ex]
+x^2 + y^2 = 16 & Een cirkel met het midden van $[AB]$ als middelpunt en straal 4.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.36,font=\scriptsize]
+  \rooster{-4}{2}{4}{-4}{2}{4}
+  \draw[accent,thick] (0,0) circle (4);
+  \fill (-3,0) circle (3pt) node[above,inner sep=2pt] {$A$};
+  \fill (3,0) circle (3pt) node[above,inner sep=2pt] {$B$};
+\end{tikzpicture}}
+Met $A(0, 0)$ en $B(6, 0)$ was het ook gelukt, maar dan krijg je $2x^2 - 12x + 2y^2 + 36 = 50$, en moet je nog een kwadraat afsplitsen om $(x - 3)^2 + y^2 = 16$ te vinden: dezelfde cirkel, met meer werk.}
+
+\begin{werkwijze}
+Staat er geen assenstelsel in de opgave, kies het dan zelf. Neem een symmetrieas van de figuur als een van de assen, en een bijzonder punt als oorsprong: het midden van een lijnstuk, het middelpunt van een cirkel, een vast punt waar alles om draait. Zeg in je antwoord welke keuze je maakte, en beschrijf de figuur ook in woorden, want die hangt niet af van de keuze.
+\end{werkwijze}
+
+\nujij{$A$ en $B$ liggen 8 uit elkaar. Welke punten zien $[AB]$ onder een rechte hoek, dus met $\overrightarrow{PA} \cdot \overrightarrow{PB} = 0$?}{Met $A(-4, 0)$ en $B(4, 0)$: $(x + 4)(x - 4) + y^2 = 0$, dus $x^2 + y^2 = 16$, zonder $A$ en $B$: de cirkel met middellijn $[AB]$, de cirkel van Thales.}
+
+\begin{oefeningen}
+\oef{h2-assen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Punten die meebewegen}
+
+\subsection{Een punt dat afhangt van een ander punt}
+
+Soms ligt de eigenschap niet vast in afstanden, maar hangt het punt af van een ander punt dat zelf beweegt. Zo hangt de emmer van het probleem af van de stand van de ladder. Dan helpt hoofdstuk 1: beschrijf de beweging met een parameter, en elimineer die op het einde.
+
+\voorbeeld{}{Het punt $Q$ loopt over de cirkel $x^2 + y^2 = 4$, en $A$ is het punt $(4, 0)$. Welke kromme beschrijft het midden $M$ van $[AQ]$?\label{vb:h2-midden}}{%
+\uitleg{$Q$ is een punt van een cirkel: geef het een parameter. Dan ken je ook $M$, en elimineer je de parameter.}
+\naast{\begin{stappenvrij}{5.4cm}{4.2cm}
+Q(2\cos t,\ 2\sin t) & Een parametervoorstelling van de cirkel. \\[1ex]
+M\Bigl(\dfrac{4 + 2\cos t}{2},\ \dfrac{2\sin t}{2}\Bigr) & Het midden van $[AQ]$. \\[2ex]
+x = 2 + \cos t,\quad y = \sin t & De baan van $M$. \\[1ex]
+(x - 2)^2 + y^2 = 1 & De parameter elimineren: een cirkel met middelpunt $(2, 0)$ en straal 1.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{-2}{1}{4}{-2}{1}{2}
+  \draw[lijngrijs,thick] (0,0) circle (2);
+  \draw[accent,thick] (2,0) circle (1);
+  \fill (4,0) circle (2.5pt) node[above right,inner sep=1pt] {$A$};
+  \fill ({2*cos(130)},{2*sin(130)}) circle (2.5pt) node[above left,inner sep=1pt] {$Q$};
+  \draw[grijs] (4,0) -- ({2*cos(130)},{2*sin(130)});
+  \fill[accent] ({2+cos(130)},{sin(130)}) circle (2.5pt) node[above,text=black,inner sep=3pt] {$M$};
+\end{tikzpicture}}
+Het kan ook zonder parameter: is $M(x, y)$ het midden, dan is $Q = (2x - 4,\ 2y)$, en dat punt ligt op de cirkel: $(2x - 4)^2 + (2y)^2 = 4$. Deel door 4, en je vindt dezelfde vergelijking.}
+
+Die tweede manier, \textit{terugrekenen}, is vaak korter: druk het bewegende punt uit in de coördinaten van $P$, en eis dat het op zijn kromme ligt.
+
+\begin{werkwijze}
+Geef het punt dat beweegt een parameter, druk de coördinaten van $P$ uit in die parameter, en elimineer hem. Of reken terug: druk het bewegende punt uit in $x$ en $y$ van $P$, en vul in in de vergelijking van zijn kromme. Kijk tot slot of alle punten van de figuur echt bereikt worden.
+\end{werkwijze}
+
+\nujij{Het punt $Q$ loopt over de rechte $y = 2x$. Welke kromme beschrijft het punt $P$ dat je krijgt door $Q$ drie eenheden naar rechts te verschuiven en daarna de $y$-coördinaat te halveren?}{$Q = (x - 3,\ 2y)$ ligt op $y = 2x$: $2y = 2(x - 3)$, dus de rechte $y = x - 3$.}
+
+\begin{oefeningen}
+\oef{h2-midden}
+\end{oefeningen}
+
+\subsection{De ellipsograaf}
+
+Het probleem van de ladder is een klassieker. Een lijnstuk schuift met zijn uiteinden over twee loodrechte assen, en we volgen een punt op dat lijnstuk. Archimedes zou er al een tekeninstrument van gemaakt hebben, en schrijnwerkers gebruiken het vandaag nog om een ovale tafel te tekenen.
+
+\begin{theorie}
+\begin{minipage}[t]{.62\linewidth}
+\vspace{0pt}
+\begin{stelling}{Ellipsograaf}
+Een lijnstuk $[BT]$ schuift met $B$ over de $x$-as en met $T$ over de $y$-as. Het punt $P$ van het lijnstuk met $|PT| = p$ en $|PB| = q$ beschrijft (een deel van) de ellips
+
+\vspace{1mm}
+\qquad $\formule{\dfrac{x^2}{p^2} + \dfrac{y^2}{q^2} = 1}$
+\end{stelling}
+
+\begin{bewijs}
+Noem $\alpha$ de hoek van het lijnstuk met de $x$-as. Dan is $B\bigl((p + q)\cos\alpha,\ 0\bigr)$ en $T\bigl(0,\ (p + q)\sin\alpha\bigr)$. Het punt $P$ ligt op $\tfrac{q}{p + q}$ van de weg van $B$ naar $T$:
+\bewijsregel{P = B + \frac{q}{p + q}\,\overrightarrow{BT} = (p\cos\alpha,\ q\sin\alpha) .}
+Dat is de parametervoorstelling van de ellips met halve assen $p$ en $q$.
+\end{bewijs}
+\end{minipage}\hfill
+\begin{minipage}[t]{.34\linewidth}
+\vspace{6mm}
+\centering
+\begin{tikzpicture}[scale=.68,font=\scriptsize]
+  \draw[->,lijngrijs] (-.3,0) -- (4.4,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-.3) -- (0,3.6) node[above,text=black] {$y$};
+  \draw[accent,thick] (3,0) arc[start angle=0,end angle=90,x radius=3,y radius=2];
+  \draw[grijs,line width=1.2pt] ({5*cos(40)},0) -- (0,{5*sin(40)});
+  \fill ({5*cos(40)},0) circle (2pt) node[below] {$B$};
+  \fill (0,{5*sin(40)}) circle (2pt) node[left] {$T$};
+  \fill[accent] ({3*cos(40)},{2*sin(40)}) circle (2.4pt) node[above right,text=black,inner sep=1pt] {$P$};
+  \node[above right,inner sep=1pt] at (1.15,2.25) {$p$};
+  \node[above right,inner sep=1pt] at (3.06,.64) {$q$};
+  \draw[grijs] ({5*cos(40)-.6},0) arc[start angle=180,end angle=140,radius=.6];
+  \node at ({5*cos(40)-.85},.22) {$\alpha$};
+\end{tikzpicture}
+\end{minipage}
+\end{theorie}
+
+Let op de volgorde: de halve as langs de $x$-as is de afstand van $P$ tot het uiteinde op de $y$-as. Ligt $P$ in het midden, dan is $p = q$, en krijg je een cirkel.
+
+\subsection{Terug naar het probleem}
+
+\voorbeeld{}{Een ladder van 5~m glijdt langs een muur naar beneden. Welke baan beschrijft de emmer op 2~m van de voet? En de kat in het midden?\label{vb:h2-terug}}{%
+\uitleg{Leg de oorsprong in de hoek tussen muur en vloer, de $x$-as langs de vloer en de $y$-as langs de muur. Dan is de ladder een ellipsograaf.}
+\naast{\begin{stappenvrij}{5.4cm}{4.2cm}
+p = 3,\ q = 2 & De emmer: 3~m tot de top, 2~m tot de voet. \\[1ex]
+\dfrac{x^2}{9} + \dfrac{y^2}{4} = 1,\quad x, y \geqslant 0 & Een kwart van een ellips. \\[2ex]
+p = q = 2{,}5 & De kat zit in het midden. \\[1ex]
+x^2 + y^2 = 6{,}25,\quad x, y \geqslant 0 & Een kwart van een cirkel met straal 2,5.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \rooster{0}{1}{5}{0}{1}{5}
+  \draw[accent,thick] (3,0) arc[start angle=0,end angle=90,x radius=3,y radius=2];
+  \draw[fel!80!black,thick] (2.5,0) arc[start angle=0,end angle=90,radius=2.5];
+  \draw[grijs,line width=1.2pt] ({5*cos(35)},0) -- (0,{5*sin(35)});
+  \fill[accent] ({3*cos(35)},{2*sin(35)}) circle (3pt);
+  \fill[fel!80!black] ({2.5*cos(35)},{2.5*sin(35)}) circle (3pt);
+\end{tikzpicture}}
+De emmer start op 2~m hoogte tegen de muur, bij $\alpha = 90^\circ$, en komt op de vloer op 3~m van de muur. De kat start op 2,5~m hoogte en eindigt op 2,5~m van de muur.}
+
+Het antwoord op het probleem is dus: de emmer beschrijft een stuk van een ellips, de kat een stuk van een cirkel. Het zijn stukken van dezelfde soort kromme, want een cirkel is een ellips met twee gelijke assen. Alleen de kat blijft altijd even ver van de hoek: $\sqrt{x^2 + y^2} = 2{,}5$. Dat zie je ook zonder rekenen: in de rechthoekige driehoek $OBT$ is het midden van de schuine zijde even ver van de drie hoekpunten.
+
+\begin{oefeningen}
+\oef{h2-schuif}
+\end{oefeningen}
+
+%========================================================================================
+\section{Klassieke krommen}
+
+\subsection{De lemniscaat van Bernoulli}
+
+Een ellips is de meetkundige plaats van de punten waarvan de \textit{som} van de afstanden tot twee brandpunten constant is, een hyperbool die van het \textit{verschil}. Wat krijg je met het \textit{product}? In 1694 bestudeerde Jakob Bernoulli het geval waarin dat product gelijk is aan het kwadraat van de halve afstand tussen de brandpunten. Hij noemde de kromme naar het Latijnse \textit{lemniscus}, een lint met een strik.
+
+\begin{theorie}
+De \textbf{\textcolor{accent}{lemniscaat van Bernoulli}} met brandpunten $F_1(-c, 0)$ en $F_2(c, 0)$ is de meetkundige plaats van de punten $P$ met $|PF_1| \cdot |PF_2| = c^2$.
+
+\begin{stelling}{Vergelijking van de lemniscaat}
+De lemniscaat met brandpunten $F_1(-c, 0)$ en $F_2(c, 0)$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{(x^2 + y^2)^2 = 2c^2(x^2 - y^2)}$
+\end{stelling}
+
+\begin{bewijs}
+Beide leden van $|PF_1| \cdot |PF_2| = c^2$ zijn positief, dus we mogen kwadrateren:
+\bewijsregel{\bigl((x + c)^2 + y^2\bigr)\bigl((x - c)^2 + y^2\bigr) = c^4 .}
+Schrijf de factoren als $(x^2 + y^2 + c^2) + 2cx$ en $(x^2 + y^2 + c^2) - 2cx$. Hun product is een verschil van kwadraten:
+\bewijsregel{(x^2 + y^2 + c^2)^2 - 4c^2x^2 = c^4 \iff (x^2 + y^2)^2 + 2c^2(x^2 + y^2) - 4c^2x^2 = 0 ,}
+en dat is de vergelijking, want $4c^2x^2 - 2c^2(x^2 + y^2) = 2c^2(x^2 - y^2)$.
+\end{bewijs}
+\end{theorie}
+
+\figuren{\begin{tikzpicture}[scale=1.15,font=\scriptsize]
+  \draw[->,lijngrijs] (-1.8,0) -- (1.9,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-.7) -- (0,.8) node[above,text=black] {$y$};
+  \draw[lijngrijs,dashed] (-.75,-.75) -- (.75,.75) (-.75,.75) -- (.75,-.75);
+  \pkromme{0}{360}{1.41421*cos(\t)/(1+sin(\t)^2)}{1.41421*sin(\t)*cos(\t)/(1+sin(\t)^2)}
+  \fill (-1,0) circle (1.3pt) node[above,inner sep=2pt] {$F_1$};
+  \fill (1,0) circle (1.3pt) node[above,inner sep=2pt] {$F_2$};
+  \fill[accent] (.9798,.4899) circle (1.5pt) node[above right,text=black,inner sep=1pt] {$P$};
+  \draw[grijs] (-1,0) -- (.9798,.4899) -- (1,0);
+  \node[below right,inner sep=1.5pt] at (1.414,0) {$c\sqrt2$};
+\end{tikzpicture}}
+\begin{center}\small De lemniscaat met $c = 1$, tussen de bissectrices $y = x$ en $y = -x$.\end{center}
+
+Wat vertelt die vergelijking? Om dat te zien, moet je een vergelijking leren lezen. Ze toont de symmetrie, de snijpunten met de assen, en het gebied waar de kromme ligt.
+
+\voorbeeld{}{Onderzoek de lemniscaat $(x^2 + y^2)^2 = 8(x^2 - y^2)$: symmetrie, snijpunten met de assen, ligging. Zoek ook de punten met $x = 2$.\label{vb:h2-lemnis}}{%
+\uitleg{Vervang $x$ door $-x$ en $y$ door $-y$, en kijk of de vergelijking verandert. Daarna vullen we $y = 0$ en $x = 0$ in.}
+\begin{stappen}
+x \to -x \text{ en } y \to -y & In de vergelijking staan alleen $x^2$ en $y^2$: symmetrisch ten opzichte van beide assen en de oorsprong. \\[1ex]
+y = 0:\ x^4 = 8x^2 \ \Rightarrow\ x = 0 \text{ of } x = \pm2\sqrt2 & Drie snijpunten met de $x$-as. Hier is $c = 2$, dus dat is $\pm c\sqrt2$. \\[1ex]
+x = 0:\ y^4 = -8y^2 \ \Rightarrow\ y = 0 & Alleen de oorsprong op de $y$-as. \\[1ex]
+x^2 - y^2 \geqslant 0 \ \Rightarrow\ |y| \leqslant |x| & Het linkerlid is positief: de kromme ligt tussen de bissectrices. \\[1ex]
+(4 + y^2)^2 = 8(4 - y^2) \ \Rightarrow\ y^4 + 16y^2 - 16 = 0 & Vul $x = 2$ in. \\[1ex]
+y^2 = -8 + 4\sqrt5 \ \Rightarrow\ y \approx \pm0{,}97 & De positieve oplossing voor $y^2$: de punten $(2;\ \pm0{,}97)$.
+\end{stappen}}
+
+\begin{werkwijze}
+Om een kromme te onderzoeken aan haar vergelijking: zoek de symmetrie (verandert de vergelijking als je $x$ door $-x$, $y$ door $-y$, of $x$ en $y$ door elkaar vervangt?), de snijpunten met de assen, en het gebied waar ze ligt (een kwadraat is nooit negatief, een noemer nooit 0). Reken daarna enkele punten uit en teken.
+\end{werkwijze}
+
+\nujij{Ligt het punt $\bigl(\tfrac{\sqrt3}{2}, \tfrac12\bigr)$ op de lemniscaat met $c = 1$?}{$x^2 + y^2 = 1$ en $x^2 - y^2 = \tfrac12$: $1 = 2 \cdot \tfrac12$, dus ja.}
+
+\begin{oefeningen}
+\oef{h2-lemnis}
+
+\oef{h2-lezen}
+\end{oefeningen}
+
+\subsection{De cissoïde van Diocles}
+
+Drie problemen hielden de Griekse meetkundigen eeuwenlang bezig. Kun je met passer en liniaal een kubus tekenen met een dubbel zo groot volume, een hoek in drie gelijke delen verdelen, of een vierkant met dezelfde oppervlakte als een cirkel? Pas in de 19de eeuw werd bewezen dat het niet kan. De Grieken vonden wel oplossingen met hulpkrommen. Diocles gebruikte rond 180 voor Christus een kromme om de kubus te verdubbelen: de cissoïde, naar het Griekse woord voor klimop.
+
+\begin{theorie}
+\begin{minipage}[t]{.6\linewidth}
+\vspace{0pt}
+Neem de cirkel met middellijn $[OA]$, met $O(0, 0)$ en $A(2a, 0)$, en de raaklijn $t \leftrightarrow x = 2a$ in $A$. Een rechte door $O$ snijdt de cirkel in $C$ en de raaklijn in $D$. De \textbf{\textcolor{accent}{cissoïde van Diocles}} is de meetkundige plaats van de punten $P$ op zo'n rechte met $\overrightarrow{OP} = \overrightarrow{CD}$.
+
+\begin{stelling}{Vergelijking van de cissoïde}
+De cissoïde heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{y^2(2a - x) = x^3}$
+\end{stelling}
+\end{minipage}\hfill
+\begin{minipage}[t]{.36\linewidth}
+\vspace{2mm}
+\centering
+\begin{tikzpicture}[scale=1.05,font=\scriptsize]
+  \draw[->,lijngrijs] (-.3,0) -- (2.6,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,-1.5) -- (0,2.4) node[above,text=black] {$y$};
+  \draw[lijngrijs,thick] (1,0) circle (1);
+  \draw[lijngrijs,thick] (2,-1.5) -- (2,2.4) node[below right,text=black] {$t$};
+  \begin{scope}\clip (-.3,-1.5) rectangle (2.4,2.4);
+  \pkromme{-62}{62}{2*sin(\t)^2}{2*sin(\t)^3/cos(\t)}
+  \end{scope}
+  \draw[grijs] (0,0) -- (2,1.4);
+  \fill (0,0) circle (1.4pt) node[below left,inner sep=1pt] {$O$};
+  \fill (2,0) circle (1.4pt) node[below right,inner sep=1pt] {$A$};
+  \fill (1.342,.940) circle (1.4pt) node[above left,inner sep=1pt] {$C$};
+  \fill (2,1.4) circle (1.4pt) node[right,inner sep=1.5pt] {$D$};
+  \fill[accent] (.658,.460) circle (1.7pt) node[above left,text=black,inner sep=1pt] {$P$};
+  \draw[fel!80!black,very thick] (0,0) -- (.658,.460) (1.342,.940) -- (2,1.4);
+\end{tikzpicture}
+\end{minipage}
+
+\begin{bewijs}
+Neem de rechte $y = mx$ door $O$. De cirkel is $x^2 + y^2 = 2ax$, dus $C$ heeft $x_C = \dfrac{2a}{1 + m^2}$, en $D$ heeft $x_D = 2a$. Omdat $\overrightarrow{OP} = \overrightarrow{CD}$ op dezelfde rechte ligt, is
+\bewijsregel{x = x_D - x_C = \frac{2am^2}{1 + m^2}, \qquad y = mx .}
+Elimineer de parameter: $m = \tfrac yx$ geeft $x = \dfrac{2ay^2}{x^2 + y^2}$, of $x^3 + xy^2 = 2ay^2$, en dat is $y^2(2a - x) = x^3$. Het punt $O$ zelf hoort bij de rechte $y = 0$: daar is $C = D = A$, dus $P = O$.
+\end{bewijs}
+\end{theorie}
+
+Lees de vergelijking zoals bij de lemniscaat. Er staat alleen $y^2$: de kromme is symmetrisch ten opzichte van de $x$-as. Uit $y^2 = \dfrac{x^3}{2a - x}$ volgt dat $0 \leqslant x < 2a$, want $y^2$ is niet negatief. Gaat $x$ naar $2a$, dan gaat $y^2$ naar oneindig: de raaklijn $x = 2a$ is een verticale asymptoot. In $O$ heeft de kromme een spits, zoals de cycloïde op de grond.
+
+\voorbeeld{}{Bekijk de cissoïde $y^2(4 - x) = x^3$. Welke $a$ hoort erbij? Bereken de punten met $x = 1$ en $x = 3$, en geef de asymptoot.\label{vb:h2-cissoide}}{%
+\uitleg{Vergelijk met $y^2(2a - x) = x^3$, en los dan op naar $y$.}
+\naast{\begin{stappenvrij}{5.2cm}{4.2cm}
+2a = 4 \ \Rightarrow\ a = 2 & De cirkel heeft middelpunt $(2, 0)$ en straal 2. \\[1ex]
+x = 1:\ y^2 = \tfrac13 \ \Rightarrow\ y = \pm\tfrac{\sqrt3}{3} & Twee punten, gespiegeld in de $x$-as. \\[1ex]
+x = 3:\ y^2 = 27 \ \Rightarrow\ y = \pm3\sqrt3 & Dicht bij de asymptoot wordt $y$ snel groot. \\[1ex]
+x = 4 & De verticale asymptoot.
+\end{stappenvrij}}{\begin{tikzpicture}[scale=.42,font=\scriptsize]
+  \rooster{-1}{1}{5}{-6}{2}{6}
+  \draw[grijs,dashed] (4,-6) -- (4,6);
+  \begin{scope}\clip (-1,-6) rectangle (5,6);
+  \pkromme{-71}{71}{4*sin(\t)^2}{4*sin(\t)^3/cos(\t)}
+  \end{scope}
+  \fill[accent] (3,5.196) circle (3pt) (3,-5.196) circle (3pt);
+\end{tikzpicture}}}
+
+\nujij{Ligt het punt $(1, 1)$ op de cissoïde met $a = 1$?}{$1^2 \cdot (2 - 1) = 1 = 1^3$: ja.}
+
+\begin{oefeningen}
+\oef{h2-cissoide}
+\end{oefeningen}
+
+En de kubus? Snijd de cissoïde $y^2(1 - x) = x^3$, met $a = \tfrac12$, met de rechte door $(1, 0)$ en $(0, 2)$. Voor het snijpunt is $\tfrac yx = \sqrt[3]{2}$, de verhouding tussen de ribben van twee kubussen waarvan de ene een dubbel zo groot volume heeft. Met de kromme erbij kun je die verhouding dus tekenen. Je rekent het na in opdracht~\ref{oef:h2-o17}.
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h2-o1}
+
+\oef{h2-o2}
+
+\oef{h2-o3}
+
+\oef{h2-o4}
+
+\oef{h2-o5}
+
+\oef{h2-o6}
+
+\oef{h2-o7}
+
+\oef{h2-o8}
+
+\oef{h2-o10}
+
+\oef{h2-o9}
+
+\oef{h2-o12}
+
+\oef{h2-o11}
+
+\oef{h2-o14}
+
+\oef{h2-o16}
+
+\oef{h2-o15}
+
+\oef{h2-o22}
+
+\oef{h2-o21}
+
+\oef{h2-o13}
+
+\oef{h2-o17}
+
+\oef{h2-o19}
+
+\oef{h2-o18}
+
+\oef{h2-o20}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Complexe getallen, Matrices en Kegelsneden komen uit pakket 4. In de eerste oefening is $|z - w|$ de afstand tussen twee punten van het vlak van Gauss.}
+
+\begin{oefeningen}
+\oef{h2-koppel-1}
+
+\oef{h2-koppel-2}
+
+\oef{h2-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{30\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h2-t1}
+
+\oef{h2-t2}
+
+\oef{h2-t3}
+
+\oef{h2-t4}
+
+\oef{h2-t5}
+
+\oef{h2-t6}
+
+\oef{h2-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h2-t1}{vb:h2-apol}{oef:h2-mp}%
+  \fv{oef:h2-t2}{vb:h2-apol}{oef:h2-apol}%
+  \fv{oef:h2-t3}{vb:h2-assen}{oef:h2-assen}%
+  \fv{oef:h2-t4}{vb:h2-midden}{oef:h2-midden}%
+  \fv{oef:h2-t5}{vb:h2-terug}{oef:h2-schuif}%
+  \fv{oef:h2-t6}{vb:h2-lemnis}{oef:h2-lemnis}%
+  \fv{oef:h2-t7}{vb:h2-cissoide}{oef:h2-cissoide}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de werkwijze voor een meetkundige plaats, de cirkel van Apollonius met het idee van het bewijs, hoe je zelf een assenstelsel kiest en waarom, de twee manieren voor een punt dat meebeweegt (parameter of terugrekenen), de ellipsograaf en het antwoord op het probleem van de ladder, de definitie en de vergelijking van de lemniscaat en de cissoïde, en hoe je een vergelijking leest (symmetrie, snijpunten met de assen, ligging, asymptoten). Vergelijk daarna met de kaders.
+\fi

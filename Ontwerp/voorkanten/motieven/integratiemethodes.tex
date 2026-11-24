@@ -1,0 +1,31 @@
+% Integratiemethodes. Zurbarán, Stilleven met vier vaten (ca. 1650): vier vaten, elk een omwentelingslichaam;
+% hun inhoud en de oppervlakte van hun wand zijn integralen (hoofdstuk 3).
+% Motief: een vaas als omwentelingslichaam rond een verticale as (x = 18), met profiel
+% r(z) = 0,75 + 0,55 sin(1,1 z + 0,3) + 0,08 z voor z van 0 tot 5,4, op hoogte y = 4,3 + z.
+% De cirkels staan in een lichte bovenaanzicht als ellipsen (verticale halve as 0,18 r). Eén smalle band tussen
+% z = 1,8 en z = 2,2 is in fel: het stukje mantel 2 pi r(z) Delta s uit de formule voor de manteloppervlakte.
+\def\omslagbestand{omslag-vaten.jpg}
+\def\omslagbron{Francisco de Zurbarán, \textit{Stilleven met vier vaten}, ca. 1650 (publiek domein)}
+\def\omslagrand{10.5}
+\def\omslagmotief{%
+  \randlijn
+  \def\vr##1{(0.75+0.55*sin((1.1*##1+0.3) r)+0.08*##1)}%
+  % de as
+  \draw[white,line width=.6pt,dashed,opacity=.7] (18,3.9) -- (18,10.1);
+  % parallelcirkels (alleen de voorkant)
+  \foreach \z in {0.6,1.2,...,4.8}{%
+    \pgfmathsetmacro{\r}{\vr{\z}}%
+    \draw[white,line width=.5pt,opacity=.55] plot[domain=180:360,samples=40,smooth,variable=\t]
+      ({18+\r*cos(\t)},{4.3+\z+0.18*\r*sin(\t)});}
+  % de band in fel
+  \pgfmathsetmacro{\ra}{\vr{1.8}}\pgfmathsetmacro{\rb}{\vr{2.2}}%
+  \fill[fel] plot[domain=180:360,samples=40,smooth,variable=\t] ({18+\ra*cos(\t)},{6.1+0.18*\ra*sin(\t)})
+    -- plot[domain=360:180,samples=40,smooth,variable=\t] ({18+\rb*cos(\t)},{6.5+0.18*\rb*sin(\t)}) -- cycle;
+  % het profiel, links en rechts
+  \draw[omslaglijn=1.2pt] plot[domain=0:5.4,samples=80,smooth,variable=\z] ({18-\vr{\z}},{4.3+\z});
+  \draw[omslaglijn=1.2pt] plot[domain=0:5.4,samples=80,smooth,variable=\z] ({18+\vr{\z}},{4.3+\z});
+  % bodem en opening
+  \pgfmathsetmacro{\rn}{\vr{0}}\pgfmathsetmacro{\rt}{\vr{5.4}}%
+  \draw[omslaglijn=1pt] (18,4.3) ellipse ({\rn} and {0.18*\rn});
+  \draw[omslaglijn=1pt] (18,9.7) ellipse ({\rt} and {0.18*\rt});
+}

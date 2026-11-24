@@ -1,0 +1,406 @@
+%----------------------------------------------------------------------------------------
+% FERMAT, WILSON EN RSA. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten, Koppel en Test jezelf.
+% Labels van dit hoofdstuk beginnen met h4-.
+%----------------------------------------------------------------------------------------
+
+\mychapter{4}{Fermat, Wilson en RSA}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Tom zet in een groepschat die iedereen kan lezen: ``Wie mij een geheim getal $M < 391$ wil sturen, stuurt de rest van $M^7$ bij deling door 391.'' Lisa stuurt 127. Iedereen ziet het bericht, en iedereen kent 391 en 7. Hoe vindt Tom het getal van Lisa terug? En waarom kunnen de anderen dat niet, of toch niet als Tom veel grotere getallen kiest?}{\begin{tikzpicture}[font=\scriptsize]
+  \draw[accent,thick,rounded corners=3pt,fill=accent!8] (0,1.1) rectangle (1.3,1.9) node[midway] {Lisa};
+  \draw[accent,thick,rounded corners=3pt,fill=accent!8] (3.3,1.1) rectangle (4.6,1.9) node[midway] {Tom};
+  \draw[->,thick,fel!85!black] (1.4,1.5) -- node[above] {$127$} (3.2,1.5);
+  \draw[grijs,rounded corners=3pt] (.4,0) rectangle (4.2,.75);
+  \node at (2.3,.38) {openbaar: $n = 391$, $e = 7$};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan Complementair (III-WiCo-d): LPD 35, het deel over modulorekenen, met de wenken over de kleine stelling van Fermat, de stelling van Wilson en cryptografie (de RSA-methode). Het omgekeerde van de stelling van Wilson, de Fermattest en de stelling van Euler voor $n = pq$ zijn extra's; de algemene stelling van Euler met $\varphi(n)$ staat alleen in de uitleg en in een opdracht. Voorkennis: hoofdstuk 1 tot 3, vooral de omgekeerde modulo $n$ en het schrappen. In het probleem is $391 = 17 \cdot 23$ (voorbeeld~\ref{vb:h2-391}): laat de leerlingen zelf ontdekken dat dat de zwakke plek is.}
+
+In hoofdstuk 3 zag je dat de machten van een getal modulo $n$ zich herhalen. Modulo 7 kwam $3^k$ na zes stappen terug bij 1. Is dat toeval? Pierre de Fermat schreef in 1640 in een brief dat het altijd zo is, voor elke priemmodulus. Die \textit{kleine stelling van Fermat} is de sleutel van dit hoofdstuk.
+
+Je bewijst ze, en ook een tweede klassieker, de stelling van Wilson over $(p - 1)!$. Daarna gebruik je Fermat om berichten te versleutelen met het RSA-systeem: een methode waarbij de sleutel om te versleutelen openbaar is, en toch alleen de ontvanger kan ontcijferen. Elke beveiligde website en elke bankkaart gebruikt zo'n methode.
+
+\begin{oefeningen}[Start]
+\oef{h4-start-1}
+
+\oef{h4-verken}
+\end{oefeningen}
+
+\lkr{De Verken (oefening \ref{oef:h4-verken}) laat de leerlingen de stelling van Fermat en die van Wilson zelf vermoeden met kleine priemgetallen, en zien dat ze niet werken voor 4 en 6.}
+
+%========================================================================================
+\section{De kleine stelling van Fermat}
+
+\subsection{Machten modulo een priemgetal}
+
+Bekijk de machten $a^1, a^2, \ldots, a^6$ modulo 7, voor $a = 1, \ldots, 6$. In de laatste kolom staat altijd 1. Sommige rijen komen eerder bij 1 (zoals 2, na drie stappen), maar na zes stappen zijn ze er allemaal. Zes is $7 - 1$.
+
+\naast{Waarom? Vermenigvuldig de getallen $1, 2, \ldots, 6$ elk met 3, modulo 7: je krijgt $3, 6, 2, 5, 1, 4$. Dat zijn dezelfde zes getallen, in een andere volgorde. Dat is geen toeval: schrappen is toegelaten, dus twee verschillende getallen geven nooit hetzelfde product. Neem nu het product van beide rijtjes. Links krijg je $3^6 \cdot 6!$, rechts gewoon $6!$. Schrap $6!$, en er blijft $3^6 \equiv 1$. Dat is het hele bewijs.}{\begin{tikzpicture}[scale=.46,font=\scriptsize]
+  \foreach \k in {1,...,6}{\node at ({\k+.5},7.5) {$\k$};}
+  \node at (3.9,8.5) {exponent $k$};
+  \foreach \a in {1,...,6}{\node at (-.1,{6.5-\a}) {$\a$};}
+  \node[rotate=90] at (-1.1,3.5) {grondtal $a$};
+  \foreach \a/\rij in {1/{1,1,1,1,1,1},2/{2,4,1,2,4,1},3/{3,2,6,4,5,1},4/{4,2,1,4,2,1},5/{5,4,6,2,3,1},6/{6,1,6,1,6,1}}{%
+    \foreach \g [count=\k from 1] in \rij {%
+      \ifnum\k=6 \def\kl{accent!30}\else\ifnum\g=1 \def\kl{accent!10}\else\def\kl{white}\fi\fi
+      \getalvak[\kl]{\k}{6-\a}{\g}}}
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Kleine stelling van Fermat}
+Als $p$ een priemgetal is en $p \ndeelt a$, dan is
+
+\vspace{1mm}
+\qquad $\formule{a^{p - 1} \equiv 1 \md{p}}$
+\end{stelling}
+
+\begin{bewijs}
+Bekijk de $p - 1$ getallen $a, 2a, 3a, \ldots, (p - 1)a$. Geen ervan is deelbaar door $p$ (lemma van Euclides). En ze zijn verschillend modulo $p$: uit $ia \equiv ja$ volgt $i \equiv j$, want $\ggd(a, p) = 1$ laat schrappen toe. Hun resten zijn dus de getallen $1, 2, \ldots, p - 1$, in een andere volgorde. Neem het product:
+\bewijsregel{a \cdot 2a \cdots (p - 1)a \equiv 1 \cdot 2 \cdots (p - 1), \quad \text{dus} \quad a^{p - 1} (p - 1)! \equiv (p - 1)! \md{p} .}
+Geen factor van $(p - 1)!$ is deelbaar door $p$, dus $\ggd\bigl((p - 1)!, p\bigr) = 1$, en we mogen $(p - 1)!$ schrappen.
+\end{bewijs}
+\end{theorie}
+
+In woorden: modulo een priemgetal $p$ komt elke macht na $p - 1$ stappen terug bij 1. Fermat gaf geen bewijs; Leibniz bewees ze rond 1683, en Euler publiceerde in 1736 het eerste bewijs. De voorwaarde $p \ndeelt a$ is nodig: $7^6 \equiv 0 \md{7}$. Vermenigvuldig je met $a$, dan krijg je een vorm die voor elke $a$ werkt.
+
+\begin{theorie}
+\begin{stelling}{Fermat voor elke a}
+Als $p$ een priemgetal is, dan is voor elk geheel getal $a$
+
+\vspace{1mm}
+\qquad $\formule{a^p \equiv a \md{p}}$
+\end{stelling}
+
+\begin{bewijs}
+Is $p \ndeelt a$, vermenigvuldig dan $a^{p - 1} \equiv 1$ met $a$. Is $p \deelt a$, dan zijn beide leden congruent met 0.
+\end{bewijs}
+\end{theorie}
+
+\subsection{Rekenen met de stelling van Fermat}
+
+Modulo $p$ mag je de exponent dus verkleinen met veelvouden van $p - 1$, als $p \ndeelt a$. Dat is de regel die in hoofdstuk 3 ontbrak: je hoeft geen macht te zoeken die 1 wordt, Fermat geeft er meteen een.
+
+\voorbeeld{}{Bepaal de rest van $3^{100}$ bij deling door 13.\label{vb:h4-fermat}}{%
+\uitleg{13 is priem en $13 \ndeelt 3$, dus $3^{12} \equiv 1$. We delen de exponent door 12.}
+\begin{stappen}
+100 = 12 \cdot 8 + 4 & Deel de exponent door $p - 1 = 12$. \\[1ex]
+3^{100} = (3^{12})^8 \cdot 3^4 \equiv 1 \cdot 81 & Kleine stelling van Fermat. \\[1ex]
+81 = 6 \cdot 13 + 3 & De rest is 3.
+\end{stappen}
+De rest is 3. Fermat zegt niet dat 12 de kleinste exponent is: hier is al $3^3 = 27 \equiv 1$, en ook dat geeft $3^{100} = (3^3)^{33} \cdot 3 \equiv 3$.}
+
+\begin{werkwijze}
+Om $a^k \bmod p$ te berekenen, met $p$ priem en $p \ndeelt a$: deel $k$ door $p - 1$ met rest $r$, en bereken $a^r \bmod p$. Is $p$ geen priemgetal, dan mag dit niet.
+\end{werkwijze}
+
+\nujij{Bepaal de rest van $2^{2026}$ bij deling door 11.}{$2^{10} \equiv 1$ en $2026 = 10 \cdot 202 + 6$: $2^6 = 64 \equiv 9$.}
+
+\begin{oefeningen}
+\oef{h4-fermat}
+\end{oefeningen}
+
+De stelling geeft ook een test om te bewijzen dat een getal \textit{geen} priemgetal is, zonder een deler te zoeken. Is $a^{n - 1} \not\equiv 1 \md{n}$ voor een $a$ met $\ggd(a, n) = 1$, dan is $n$ niet priem. Computers rekenen zulke machten snel uit, ook voor getallen met honderden cijfers (zie sectie 3).
+
+\voorbeeld{}{Een computer berekent dat $2^{90} \equiv 64 \md{91}$. Wat besluit je over 91?\label{vb:h4-fermattest}}{%
+\uitleg{Was 91 priem, dan was volgens Fermat $2^{90} \equiv 1 \md{91}$, want $91 \ndeelt 2$.}
+\begin{stappen}
+2^{90} \equiv 64 \not\equiv 1 \md{91} & Gegeven. \\[1ex]
+91 \text{ is niet priem} & Contrapositie van Fermat.
+\end{stappen}
+Inderdaad is $91 = 7 \cdot 13$. De test vond dat zonder een deler te geven. Omgekeerd bewijst $a^{n - 1} \equiv 1$ niet dat $n$ priem is: $3^{90} \equiv 1 \md{91}$, en toch is 91 samengesteld (zie de opdrachten).}
+
+\begin{oefeningen}
+\oef{h4-fermattest}
+\end{oefeningen}
+
+%========================================================================================
+\section{De stelling van Wilson}
+
+\subsection{Een faculteit modulo p}
+
+Een andere ontdekking over priemgetallen gaat over faculteiten. Bereken $(p - 1)!$ modulo $p$: voor $p = 5$ is $4! = 24 \equiv 4$, voor $p = 7$ is $6! = 720 \equiv 6$. Telkens krijg je $p - 1$, dus $-1$. Voor $n = 6$ niet: $5! = 120 \equiv 0 \md{6}$. Waarom?
+
+\naast{Bekijk $p = 11$. In de tafel van vermenigvuldiging modulo 11 heeft elk getal van 1 tot 10 een omgekeerde, en de omgekeerde van de omgekeerde is het getal zelf. In de figuur zijn ze verbonden: $2 \cdot 6 = 12 \equiv 1$, $3 \cdot 4 = 12 \equiv 1$, $5 \cdot 9 = 45 \equiv 1$, $7 \cdot 8 = 56 \equiv 1$. Schrijf $10!$ als product van die paren: elk paar geeft 1. Alleen 1 en 10 hebben geen partner, want ze zijn hun eigen omgekeerde. Dus $10! \equiv 1 \cdot 10 \equiv -1 \md{11}$.}{\begin{tikzpicture}[font=\scriptsize]
+  \foreach \k in {1,...,10}{\coordinate (P\k) at ({90-36*(\k-1)}:1.45);}
+  \foreach \a/\b in {2/6,3/4,5/9,7/8}{\draw[accent,thick] (P\a) to[bend left=12] (P\b);}
+  \foreach \k in {1,...,10}{\fill[white] (P\k) circle (6pt); \draw[accent] (P\k) circle (6pt); \node at (P\k) {$\k$};}
+  \foreach \k in {1,10}{\fill[fel!50] (P\k) circle (6pt); \draw[accent] (P\k) circle (6pt); \node at (P\k) {$\k$};}
+\end{tikzpicture}}
+
+\begin{theorie}
+\begin{stelling}{Wilson}
+Als $p$ een priemgetal is, dan is
+
+\vspace{1mm}
+\qquad $\formule{(p - 1)! \equiv -1 \md{p}}$
+\end{stelling}
+
+\begin{bewijs}
+Voor $p = 2$ en $p = 3$ staat er $1 \equiv -1$ en $2 \equiv -1$: klopt. Neem $p \geqslant 5$. Elke $a \in \{1, \ldots, p - 1\}$ heeft een omgekeerde $a'$ in dezelfde verzameling. Wanneer is $a' = a$? Dan is $a^2 \equiv 1$, dus
+\bewijsregel{p \deelt a^2 - 1 = (a - 1)(a + 1) ,}
+zodat $p \deelt a - 1$ of $p \deelt a + 1$ (lemma van Euclides): $a = 1$ of $a = p - 1$. De getallen $2, 3, \ldots, p - 2$ vallen dus uiteen in paren $\{a, a'\}$ met $aa' \equiv 1$. Dan is
+\bewijsregel{(p - 1)! = 1 \cdot \underbrace{2 \cdot 3 \cdots (p - 2)}_{\equiv\, 1} \cdot (p - 1) \equiv p - 1 \equiv -1 \md{p} .}
+\end{bewijs}
+\end{theorie}
+
+De stelling draagt de naam van John Wilson, een student van Edward Waring, die ze in 1770 publiceerde zonder bewijs. Lagrange bewees ze in 1771. Ze werkt ook in de andere richting.
+
+\begin{theorie}
+\begin{stelling}{Omgekeerde van Wilson}
+Als $n \geqslant 2$ en $\formule{(n - 1)! \equiv -1 \md{n}}$, dan is $n$ een priemgetal.
+\end{stelling}
+
+\begin{bewijs}
+Stel dat $n$ samengesteld is: $n = ab$ met $1 < a < n$. Dan is $a$ een van de factoren van $(n - 1)!$, dus $a \deelt (n - 1)!$. Uit de gegeven congruentie volgt $n \deelt (n - 1)! + 1$, en dus ook $a \deelt (n - 1)! + 1$. Dan deelt $a$ het verschil 1. Tegenspraak, want $a > 1$.
+\end{bewijs}
+\end{theorie}
+
+De twee stellingen samen zeggen: $n \geqslant 2$ is priem als en slechts als $(n - 1)! \equiv -1 \md{n}$. Een mooie karakterisering, maar een slechte priemtest: $(n - 1)!$ is voor grote $n$ onvoorstelbaar groot, en er bestaat geen snelle manier om het modulo $n$ uit te rekenen.
+
+\voorbeeld{}{Bepaal de rest van $97!$ bij deling door 101.\label{vb:h4-wilson}}{%
+\uitleg{101 is priem, dus $100! \equiv -1$. We schrijven $100!$ als $97!$ maal drie factoren, en vervangen die factoren door kleine negatieve getallen.}
+\begin{stappen}
+100! = 97! \cdot 98 \cdot 99 \cdot 100 \equiv -1 & Stelling van Wilson. \\[1ex]
+98 \cdot 99 \cdot 100 \equiv (-3)(-2)(-1) = -6 & Modulo 101. \\[1ex]
+97! \cdot (-6) \equiv -1 \ \Rightarrow \ 6 \cdot 97! \equiv 1 & Vermenigvuldig met $-1$. \\[1ex]
+97! \equiv 17 \md{101} & De omgekeerde van 6 is 17: $6 \cdot 17 = 102 \equiv 1$.
+\end{stappen}
+De rest is 17, zonder ook maar één faculteit uit te rekenen.}
+
+\nujij{Bepaal de rest van $15!$ bij deling door 17.}{$16! \equiv -1$ en $16 \equiv -1$, dus $15! \cdot (-1) \equiv -1$: $15! \equiv 1$.}
+
+\begin{oefeningen}
+\oef{h4-wilson}
+\end{oefeningen}
+
+%========================================================================================
+\section{Grote machten modulo \texorpdfstring{$n$}{n}}
+
+\subsection{Snel machtsverheffen}
+
+Voor het geheimschrift van het probleem moet Tom een getal tot de macht 151 verheffen modulo 391. Dat zijn geen 150 vermenigvuldigingen. Door telkens te kwadrateren krijg je snel de machten $c, c^2, c^4, c^8, \ldots$, en elke exponent is een som van zulke machten van 2: $151 = 128 + 16 + 4 + 2 + 1$. Dat is de binaire schrijfwijze van 151.
+
+\voorbeeld{}{Bereken $100^7 \bmod 391$ met kwadrateren en vermenigvuldigen. Dat is wat Lisa deed in het probleem.\label{vb:h4-snel}}{%
+\uitleg{$7 = 4 + 2 + 1$, dus $100^7 = 100^4 \cdot 100^2 \cdot 100$. We kwadrateren twee keer, en vermenigvuldigen dan, telkens modulo 391.}
+\begin{stappen}
+100^2 = 10\,000 = 25 \cdot 391 + 225 \equiv 225 & Eerste kwadraat. \\[1ex]
+100^4 \equiv 225^2 = 50\,625 \equiv 186 & Kwadraat van het vorige, want $129 \cdot 391 = 50\,439$. \\[1ex]
+225 \cdot 100 = 22\,500 \equiv 213 & $100^2 \cdot 100$, want $57 \cdot 391 = 22\,287$. \\[1ex]
+213 \cdot 186 = 39\,618 \equiv 127 & Want $101 \cdot 391 = 39\,491$.
+\end{stappen}
+Lisa stuurde dus $100^7 \bmod 391 = 127$: haar geheime getal was 100. Twee kwadraten en twee producten volstonden.}
+
+\begin{werkwijze}
+Schrijf de exponent als som van machten van 2. Bereken $a, a^2, a^4, a^8, \ldots$ modulo $n$ door telkens het vorige resultaat te kwadrateren. Vermenigvuldig de machten die je nodig hebt, en neem na elke stap de rest.
+\end{werkwijze}
+
+Voor een exponent met $k$ binaire cijfers zijn er hoogstens $2k$ vermenigvuldigingen nodig. Een exponent met 600 decimale cijfers heeft ongeveer 2000 binaire cijfers: voor een computer is dat een fractie van een seconde.
+
+\begin{oefeningen}
+\oef{h4-snel}
+\end{oefeningen}
+
+\subsection{Een stelling van Euler}
+
+Fermat werkt modulo een priemgetal. Voor het geheimschrift hebben we een modulus nodig die het product is van twee priemgetallen. Wat is daar de exponent die alles terugbrengt naar 1?
+
+\begin{theorie}
+\begin{stelling}{Euler voor pq}
+Als $p$ en $q$ verschillende priemgetallen zijn en $\ggd(a, pq) = 1$, dan is
+
+\vspace{1mm}
+\qquad $\formule{a^{(p - 1)(q - 1)} \equiv 1 \md{pq}}$
+\end{stelling}
+
+\begin{bewijs}
+Uit $\ggd(a, pq) = 1$ volgt $p \ndeelt a$ en $q \ndeelt a$. Fermat modulo $p$ geeft
+\bewijsregel{a^{(p - 1)(q - 1)} = \bigl(a^{p - 1}\bigr)^{q - 1} \equiv 1^{q - 1} = 1 \md{p} ,}
+en net zo is $a^{(p - 1)(q - 1)} \equiv 1 \md{q}$. Dus $p$ en $q$ delen allebei $a^{(p - 1)(q - 1)} - 1$, en omdat $\ggd(p, q) = 1$, doet $pq$ dat ook (product van delers).
+\end{bewijs}
+\end{theorie}
+
+Het getal $(p - 1)(q - 1)$ telt de getallen van 1 tot $pq$ die relatief priem zijn met $pq$. Euler bewees in 1763 algemener: is $\varphi(n)$ het aantal getallen van 1 tot $n$ die relatief priem zijn met $n$, dan is $a^{\varphi(n)} \equiv 1 \md{n}$ voor elke $a$ met $\ggd(a, n) = 1$. Voor een priemgetal is $\varphi(p) = p - 1$, en dat is Fermat.
+
+\voorbeeld{}{Bereken $2^{1000} \bmod 15$ met de stelling van Euler.\label{vb:h4-euler}}{%
+\uitleg{$15 = 3 \cdot 5$ met $\ggd(2, 15) = 1$, dus $2^{(3 - 1)(5 - 1)} = 2^8 \equiv 1 \md{15}$. We delen de exponent door 8.}
+\begin{stappen}
+1000 = 8 \cdot 125 & Een veelvoud van 8. \\[1ex]
+2^{1000} = (2^8)^{125} \equiv 1 & Euler voor $pq$.
+\end{stappen}
+De rest is 1. Ook hier is 8 niet de kleinste exponent: al $2^4 = 16 \equiv 1 \md{15}$.}
+
+\nujij{Bereken $7^{122} \bmod 33$.}{$33 = 3 \cdot 11$: $7^{20} \equiv 1$, en $122 = 6 \cdot 20 + 2$: $7^2 = 49 \equiv 16$.}
+
+\begin{oefeningen}
+\oef{h4-euler}
+\end{oefeningen}
+
+%========================================================================================
+\section{Het RSA-systeem}
+
+\subsection{Sleutels maken}
+
+Bij een klassiek geheimschrift kennen de zender en de ontvanger dezelfde sleutel, en moeten ze die eerst veilig uitwisselen. In 1977 vonden Ron Rivest, Adi Shamir en Leonard Adleman een methode waarbij de ontvanger een sleutel om te versleutelen openbaar maakt, maar de sleutel om te ontcijferen geheim houdt. (Clifford Cocks had hetzelfde in 1973 bedacht bij de Britse geheime dienst, maar dat bleef geheim tot 1997.) Het idee: versleutelen is $M \mapsto M^e$, en ontcijferen is $c \mapsto c^d$, modulo $n$. Volgens Euler werkt dat als $ed$ één meer is dan een veelvoud van $(p - 1)(q - 1)$.
+
+\begin{theorie}
+Het \textbf{\textcolor{accent}{RSA-systeem}}. De ontvanger kiest twee verschillende priemgetallen $p$ en $q$, en berekent
+
+\vspace{1mm}
+\qquad $\formule{n = pq}$ \qquad en \qquad $\formule{m = (p - 1)(q - 1)}$.
+
+\vspace{1mm}
+Hij kiest $e$ met $\ggd(e, m) = 1$, en berekent $d$ met $\formule{ed \equiv 1 \md{m}}$. De \textbf{\textcolor{accent}{openbare sleutel}} is $(n, e)$, de \textbf{\textcolor{accent}{geheime sleutel}} is $d$.
+
+\vspace{1mm}
+Een bericht $M$ met $0 \leqslant M < n$ wordt verstuurd als $\formule{c = M^e \bmod n}$, en ontcijferd als $\formule{c^d \bmod n}$.
+
+\begin{stelling}{RSA ontcijfert}
+Als $\ggd(M, n) = 1$, dan is
+
+\vspace{1mm}
+\qquad $\formule{(M^e)^d \equiv M \md{n}}$
+\end{stelling}
+
+\begin{bewijs}
+Uit $ed \equiv 1 \md{m}$ volgt $ed = 1 + km$ met $k \in \N$. Dan is
+\bewijsregel{(M^e)^d = M^{1 + km} = M \cdot \bigl(M^{(p - 1)(q - 1)}\bigr)^k \equiv M \cdot 1^k = M \md{n}}
+volgens de stelling van Euler voor $pq$.
+\end{bewijs}
+\end{theorie}
+
+De voorwaarde $\ggd(M, n) = 1$ is in de praktijk geen beperking: de kans dat een willekeurig bericht een factor $p$ of $q$ heeft, is verwaarloosbaar. In de opdrachten bewijs je dat het ook zonder die voorwaarde werkt.
+
+\voorbeeld{}{Tom kiest $p = 17$, $q = 23$ en $e = 7$. Bepaal zijn openbare en zijn geheime sleutel.\label{vb:h4-sleutels}}{%
+\uitleg{We berekenen $n$ en $m$, controleren dat $e$ geschikt is, en zoeken $d$ als omgekeerde van 7 modulo $m$, met het algoritme van Euclides.}
+\begin{stappen}
+n = 17 \cdot 23 = 391, \ m = 16 \cdot 22 = 352 & De openbare modulus en het geheime getal $m$. \\[1ex]
+352 = 50 \cdot 7 + 2, \ 7 = 3 \cdot 2 + 1 & Euclides: $\ggd(7, 352) = 1$. \\[1ex]
+1 = 7 - 3 \cdot 2 = 151 \cdot 7 - 3 \cdot 352 & Achterstevoren. \\[1ex]
+d = 151 & Want $7 \cdot 151 = 1057 = 3 \cdot 352 + 1$.
+\end{stappen}
+De openbare sleutel is $(391, 7)$, de geheime sleutel is 151. Tom houdt ook $p$, $q$ en $m$ geheim.}
+
+\begin{werkwijze}
+Sleutels maken: kies $p$ en $q$, bereken $n$ en $m$, kies $e$ relatief priem met $m$, en bereken $d$ met Euclides achterstevoren. Versleutelen en ontcijferen: snel machtsverheffen modulo $n$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h4-rsa}
+\end{oefeningen}
+
+\subsection{Waarom is het veilig?}
+
+Iedereen kent $n$ en $e$. Wie $d$ wil vinden, heeft $m = (p - 1)(q - 1)$ nodig, en daarvoor $p$ en $q$: hij moet $n$ ontbinden. Voor $n = 391$ lukt dat met de priemtest van hoofdstuk 2. Maar in de praktijk kiest men $p$ en $q$ met elk meer dan 300 cijfers. Priemgetallen van die grootte vind je snel, met tests zoals die van Fermat. Hun product uitrekenen is eenvoudig. Maar het omgekeerde, een getal van 600 cijfers ontbinden, kan met de beste bekende methoden en alle computers ter wereld niet binnen een mensenleven. Op dat verschil tussen vermenigvuldigen en ontbinden steunt de veiligheid.
+
+\voorbeeld{}{Terug naar het probleem. Hoe vindt Tom het getal van Lisa terug uit 127? En hoe kan iemand anders het vinden?\label{vb:h4-terug}}{%
+\uitleg{Tom kent zijn geheime sleutel $d = 151$ (voorbeeld~\ref{vb:h4-sleutels}). Hij berekent $127^{151} \bmod 391$ met snel machtsverheffen: $151 = 128 + 16 + 4 + 2 + 1$.}
+\begin{stappen}
+127, \ 98, \ 220, \ 307, \ 18, \ 324, \ 188, \ 154 & $127^{2^i} \bmod 391$ voor $i = 0, \ldots, 7$: telkens kwadrateren. \\[1ex]
+127^{151} \equiv 154 \cdot 18 \cdot 220 \cdot 98 \cdot 127 & De machten $2^7, 2^4, 2^2, 2^1, 2^0$. \\[1ex]
+127 \cdot 98 \equiv 325, \ 325 \cdot 220 \equiv 338 & Telkens de rest modulo 391. \\[1ex]
+338 \cdot 18 \equiv 219, \ 219 \cdot 154 \equiv 100 & Het bericht.
+\end{stappen}
+Tom vindt $M = 100$, het getal van Lisa (voorbeeld~\ref{vb:h4-snel}). Een buitenstaander kent $d$ niet. Hij kan 391 ontbinden: $391 = 17 \cdot 23$ (hoofdstuk 2), en dan $d$ berekenen zoals Tom. Bij zulke kleine getallen is RSA dus niet veilig. Met priemgetallen van 300 cijfers lukt dat ontbinden niet, en blijft het bericht geheim.}
+
+\begin{oefeningen}
+\oef{h4-rsa-veilig}
+\end{oefeningen}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h4-o1}
+
+\oef{h4-o2}
+
+\oef{h4-o3}
+
+\oef{h4-o4}
+
+\oef{h4-o5}
+
+\oef{h4-o6}
+
+\oef{h4-o7}
+
+\oef{h4-o8}
+
+\oef{h4-o9}
+
+\oef{h4-o10}
+
+\oef{h4-o11}
+
+\oef{h4-o12}
+
+\oef{h4-o13}
+
+\oef{h4-o14}
+
+\oef{h4-o15}
+
+\oef{h4-o16}
+
+\oef{h4-o17}
+
+\oef{h4-o18}
+
+\oef{h4-o19}
+
+\oef{h4-o20}
+
+\oef{h4-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+% KOPPEL: verbanden met andere leerstof
+%----------------------------------------------------------------------------------------
+\needspace{20\baselineskip}
+\opdrachtsectie{Koppel}
+
+\lkr{Telproblemen, Logica en bewijzen en Groepen staan in het 6de jaar: geef die oefeningen pas als de binomiaalcoëfficiënten, volledige inductie en de stelling van Lagrange gezien zijn.}
+
+\begin{oefeningen}
+\oef{h4-koppel-1}
+
+\oef{h4-koppel-2}
+
+\oef{h4-koppel-3}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h4-t1}
+
+\oef{h4-t2}
+
+\oef{h4-t3}
+
+\oef{h4-t4}
+
+\oef{h4-t5}
+
+\oef{h4-t6}
+
+\oef{h4-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h4-t1}{vb:h4-fermat}{oef:h4-fermat}%
+  \fv{oef:h4-t2}{vb:h4-fermattest}{oef:h4-fermat}%
+  \fv{oef:h4-t3}{vb:h4-wilson}{oef:h4-wilson}%
+  \fv{oef:h4-t4}{vb:h4-snel}{oef:h4-snel}%
+  \fv{oef:h4-t5}{vb:h4-euler}{oef:h4-snel}%
+  \fv{oef:h4-t6}{vb:h4-sleutels}{oef:h4-rsa}%
+  \fv{oef:h4-t7}{vb:h4-terug}{oef:h4-rsa-veilig}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de kleine stelling van Fermat in haar twee vormen en het idee van het bewijs (vermenigvuldigen permuteert de resten), hoe je er een grote macht modulo $p$ mee berekent, de Fermattest en zijn beperking, de stelling van Wilson met het bewijs met paren omgekeerden, en het omgekeerde ervan, snel machtsverheffen, de stelling van Euler voor $pq$, de stappen van RSA met het bewijs dat ontcijferen werkt, en waarom RSA veilig is. Vergelijk daarna met de kaders.
+\fi

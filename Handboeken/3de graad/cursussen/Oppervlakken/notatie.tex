@@ -1,0 +1,105 @@
+%----------------------------------------------------------------------------------------
+% NOTATIE EN FIGUREN VAN DE CURSUS OPPERVLAKKEN
+% Staat in de preambule en niet in een hoofdstuk: ook de lijsten met oplossingen gebruiken dit.
+%----------------------------------------------------------------------------------------
+% Bewaarde grafiek, geplaatst door maak-pdf.py: bestand en pagina in figuren-cache/
+\newcommand{\grafiekbestand}[2]{\includegraphics[page=#2,trim=3bp 3bp 3bp 3bp]{figuren-cache/#1}}
+
+\providecommand{\R}{\mathbb{R}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\e}{\mathrm{e}}
+% Afstand van een punt tot een punt, een rechte of een vlak: \afst{M}{\alpha} geeft d(M, alpha)
+\newcommand{\afst}[2]{d(#1, #2)}
+
+% Zoals stappen, maar met een bredere kolom voor de berekening: voor lange formules
+\newenvironment{stappenbreed}{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{9.8cm}<{$}@{\hspace{4mm}}>{\RaggedRight\small\itshape\arraybackslash}p{4.9cm}@{}}%
+}{\end{tabular}\par}
+
+% Zoals stappen, met eigen kolombreedtes: \begin{stappenvrij}{6.2cm}{3.8cm}. Voor naast een figuur.
+\newenvironment{stappenvrij}[2]{%
+  \par\renewcommand{\arraystretch}{1.25}%
+  \noindent\begin{tabular}{@{}>{$\displaystyle}p{#1}<{$}@{\hspace{3mm}}>{\RaggedRight\small\itshape\arraybackslash}p{#2}@{}}%
+}{\end{tabular}\par}
+
+% Tekst of berekening links, figuur rechts: \naast[breedte rechts]{links}{rechts}
+% De breedte rechts komt uit de figuur zelf; het optionele argument wordt niet gebruikt.
+\newsavebox{\naastbox}
+\newcommand{\naast}[3][]{%
+  \par\noindent\sbox{\naastbox}{#3}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\naastbox-3mm\relax}\vspace{0pt}#2\end{minipage}\hfill
+  \begin{minipage}[t]{\wd\naastbox}\vspace{0pt}\usebox{\naastbox}\end{minipage}\par\addvspace{1mm}}
+% Een rij figuren, gecentreerd
+\newcommand{\figuren}[1]{\par\addvspace{1mm}{\centering #1\par}\addvspace{1.5mm}}
+% Opgave met een grafiek rechts: \begin{metgrafiek}[breedte]{tikz} opgave en deelvragen \end{metgrafiek}
+% De solution komt na \end{metgrafiek}, zoals bij metprent.
+\newsavebox{\grafiekbox}
+\newenvironment{metgrafiek}[2][]{%
+  \sbox{\grafiekbox}{#2}%
+  \begin{minipage}[t]{\dimexpr\linewidth-\wd\grafiekbox-3mm\relax}%
+}{%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{\wd\grafiekbox}\vspace{-2mm}\usebox{\grafiekbox}\end{minipage}\par}
+
+% Rooster met assen: \rooster{xmin}{xstap}{xmax}{ymin}{ystap}{ymax}, met getallen op de assen (gehele waarden).
+% \roosterleeg doet hetzelfde zonder getallen, voor eigen labels.
+\newcommand{\roosterleeg}[6]{%
+  \draw[black!14,very thin,xstep=#2,ystep=#5] (#1,#4) grid (#3,#6);
+  \draw[->,grijs] (#1,0) -- ({#3+.4*#2},0) node[right,text=black] {$x$};
+  \draw[->,grijs] (0,#4) -- (0,{#6+.4*#5}) node[above,text=black] {$y$};}
+\newcommand{\rooster}[6]{%
+  \roosterleeg{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathtruncatemacro{\rtweex}{#1+#2}\pgfmathtruncatemacro{\rtweey}{#4+#5}
+  \foreach \t in {#1,\rtweex,...,#3}{\ifnum\t=0\else\node[below,inner sep=1.5pt,text=black] at (\t,0) {$\t$};\fi}
+  \foreach \t in {#4,\rtweey,...,#6}{\ifnum\t=0\else\node[left,inner sep=1.5pt,text=black] at (0,\t) {$\t$};\fi}}
+
+% In de functievoorschriften is \x de veranderlijke; schrijf (\x)^2 en sin(\x r).
+\newcommand{\assen}[4]{%
+  \draw[->,lijngrijs] (#1,0) -- (#2,0) node[right,text=black] {$x$};
+  \draw[->,lijngrijs] (0,#3) -- (0,#4) node[above,text=black] {$y$};}
+\newcommand{\kromme}[4][]{\draw[accent,thick,#1] plot[domain=#2:#3,samples=90,smooth] (\x,{#4});}
+% \gebiedtussen: tussen twee grafieken (voor oppervlaktes, zoals in Integralen)
+\newcommand{\gebiedtussen}[5][accent!30]{\fill[#1] plot[domain=#2:#3,samples=70] (\x,{#4}) -- plot[domain=#3:#2,samples=70] (\x,{#5}) -- cycle;}
+
+% Een hyperbool zoals in Kegelsneden. Optioneel argument: extra opties voor de lijn.
+% \hyperbool{x0}{y0}{a}{b}{tmax}: brandpunten op een horizontale lijn, beide takken, parameter t van -tmax tot tmax
+\newcommand{\hyperbool}[6][]{%
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2+(#4)*cosh(\x)},{#3+(#5)*sinh(\x)});
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2-(#4)*cosh(\x)},{#3+(#5)*sinh(\x)});}
+% \hyperboolv{x0}{y0}{a}{b}{tmax}: brandpunten op een verticale lijn; a is de halve afstand tussen de toppen
+\newcommand{\hyperboolv}[6][]{%
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2+(#5)*sinh(\x)},{#3+(#4)*cosh(\x)});
+  \draw[accent,thick,#1] plot[domain=-#6:#6,samples=60,smooth] ({#2+(#5)*sinh(\x)},{#3-(#4)*cosh(\x)});}
+
+% Vectoren zoals in Ruimtemeetkunde: \vcr{1}{2}{3} geeft (1, 2, 3), \norm{v}
+\newcommand{\vcr}[3]{(#1, #2, #3)}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+
+% RUIMTELIJKE FIGUREN in loodrechte projectie: [zicht=k] met k de lengte van een eenheid in cm.
+% Het oog kijkt vanuit azimut 30 graden en hoogte 20 graden: de x-as wijst schuin naar voren (links onder),
+% de y-as naar rechts en de z-as omhoog. Een bol is dan echt een cirkel, en een horizontale cirkel
+% met straal r is een ellips met halve assen r (horizontaal) en 0,342 r (verticaal).
+% De PNG-figuren van afbeeldingen/maak-afbeeldingen.py gebruiken dezelfde projectie.
+\tikzset{zicht/.style={x={(-.5*#1 cm,-.2962*#1 cm)},y={(.866*#1 cm,-.171*#1 cm)},z={(0cm,.9397*#1 cm)}},zicht/.default=1}
+% Assen vanuit de oorsprong: \assenzicht{lengte x}{lengte y}{lengte z}
+\newcommand{\assenzicht}[3]{%
+  \draw[->,lijngrijs] (0,0,0) -- (#1,0,0) node[below left=-1pt,text=black] {$x$};
+  \draw[->,lijngrijs] (0,0,0) -- (0,#2,0) node[right,text=black] {$y$};
+  \draw[->,lijngrijs] (0,0,0) -- (0,0,#3) node[above,text=black] {$z$};}
+% Een bol in een figuur met [zicht=k]: \bolzicht[opties]{k}{x}{y}{z}{r}. De omtrek is een cirkel; de evenaar
+% (de horizontale grootcirkel) staat vooraan vol en achteraan gestreept.
+\newcommand{\bolzicht}[6][]{%
+  \coordinate (bolM) at (#3,#4,#5);
+  \draw[accent,thick,#1] (bolM) circle[radius={(#2*#6)*1cm}];
+  \cirkelzicht[accent!70,#1]{#2}{#3}{#4}{#5}{#6}}
+% Een horizontale cirkel (z = c) in een figuur met [zicht=k]: \cirkelzicht[opties]{k}{x}{y}{z}{r}, vooraan vol, achteraan gestreept
+\newcommand{\cirkelzicht}[6][]{%
+  \coordinate (cirkM) at (#3,#4,#5);
+  \draw[accent,#1] ([xshift={-(#2*#6)*1cm}]cirkM) arc[start angle=180,end angle=360,x radius={(#2*#6)*1cm},y radius={(.342*#2*#6)*1cm}];
+  \draw[accent,densely dashed,#1] ([xshift={(#2*#6)*1cm}]cirkM) arc[start angle=0,end angle=180,x radius={(#2*#6)*1cm},y radius={(.342*#2*#6)*1cm}];}
+% Een stip in de ruimte: \stipr{x}{y}{z}
+\newcommand{\stipr}[3]{\fill (#1,#2,#3) circle (1.5pt);}
+% Een berekende figuur (PNG uit afbeeldingen/) onder een figuur met [zicht=k]: \beeld{bestand}{x0}{y0}{breedte},
+% met de linkeronderhoek (x0, y0) en de breedte in cm, zoals maak-afbeeldingen.py ze opgeeft.
+\newcommand{\beeld}[4]{\node[anchor=south west,inner sep=0] at (canvas cs:x=#2cm,y=#3cm) {\includegraphics[width=#4cm]{#1}};}

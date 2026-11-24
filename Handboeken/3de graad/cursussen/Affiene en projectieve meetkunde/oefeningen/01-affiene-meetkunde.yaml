@@ -1,0 +1,1158 @@
+# Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
+
+- id: h1-start-1
+  soort: start
+  opgave: |-
+    \blokkop{Opwarmer}\quad Bereken.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        de coördinaten van $(7, 1)$ ten opzichte van de basis $\bigl((1, 1), (2, -1)\bigr)$
+      antwoord: |-
+        $(3, 2)$
+      uitwerking: |-
+        $x(1, 1)+y(2, -1)=(7, 1)$: $x+2y=7$ en $x-y=1$, dus $y=2$ en $x=3$.
+    - opgave: |-
+        $\det\um{rr}{3 & 1 \\ 4 & 2}$
+      antwoord: |-
+        2
+      uitwerking: |-
+        $3\cdot2-1\cdot4=2$.
+    - opgave: |-
+        de inverse van $\um{rr}{2 & 1 \\ 1 & 1}$
+      antwoord: |-
+        $\um{rr}{1 & -1 \\ -1 & 2}$
+      uitwerking: |-
+        De determinant is 1: wissel de diagonaal en verander het teken van de andere twee.
+    - opgave: |-
+        het punt van $[AB]$, met $A(1, 2)$ en $B(7, 5)$, dat twee keer zo ver van $A$ ligt als van $B$
+      antwoord: |-
+        $(5, 4)$
+      uitwerking: |-
+        $A+\tfrac23\,\vec{AB}=(1, 2)+\tfrac23(6, 3)=(5, 4)$.
+    - opgave: |-
+        een vergelijking van de rechte door $(1, 2)$ en $(4, 8)$
+      antwoord: |-
+        $y=2x$
+      uitwerking: |-
+        Richtingscoëfficiënt $\tfrac{6}{3}=2$, en $(1, 2)$ ligt erop.
+    - opgave: |-
+        de oppervlakte van de driehoek met hoekpunten $(0, 0)$, $(4, 1)$ en $(1, 3)$
+      antwoord: |-
+        $\tfrac{11}{2}$
+      uitwerking: |-
+        $\tfrac12\,|4\cdot3-1\cdot1|=\tfrac{11}{2}$.
+
+- id: h1-verken
+  soort: start
+  figuur:
+    opties: |-
+      5.6cm
+    code: |-
+      \begin{tikzpicture}[scale=.7,font=\scriptsize]
+        \scheefrooster{.9}{0}{.45}{.8}{-1}{5}{-1}{4}
+        \vpijl{(0,0)}{(.9,0)}
+        \vpijl{(0,0)}{(.45,.8)}
+        \punt[below left]{0}{0}{O}
+        \node[below,text=accent] at (.55,-.02) {$\vec e_1$};
+        \node[left,text=accent] at (.2,.45) {$\vec e_2$};
+        \punt[above left]{1.35}{2.4}{A}
+        \punt[above right]{4.05}{.8}{B}
+        \punt[above left]{1.8}{1.6}{C}
+        \punt[below right]{2.7}{0}{D}
+        \punt[above right]{1.35}{.8}{E}
+        \punt[below right]{.45}{-.8}{F}
+      \end{tikzpicture}
+  opgave: |-
+    \blokkop{Verken}\quad Op de figuur staat een scheef rooster, opgebouwd uit de vectoren $\vec e_1$ en $\vec e_2$ vanuit $O$. Elk punt bereik je met een aantal stappen $\vec e_1$ en een aantal stappen $\vec e_2$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Hoeveel stappen van elk heb je nodig voor $A$, $B$, $C$ en $D$? Noteer ze als coördinaten $(x, y)$.
+      antwoord: |-
+        $A(0, 3)$, $B(4, 1)$, $C(1, 2)$, $D(3, 0)$
+      uitwerking: |-
+        Tel langs de roosterlijnen: bijvoorbeeld $\vec{OB}=4\vec e_1+\vec e_2$.
+    - opgave: |-
+        Zoek het midden $M$ van $[AB]$ op de figuur en lees zijn coördinaten af. Is dat het gemiddelde van de coördinaten van $A$ en $B$?
+      antwoord: |-
+        $M(2, 2)$; ja
+      uitwerking: |-
+        $\tfrac12\bigl((0, 3)+(4, 1)\bigr)=(2, 2)$, en dat is ook het punt op de figuur.
+    - opgave: |-
+        Liggen $A$, $C$ en $D$ op één rechte? Kijk op de figuur, en controleer met de vectoren $\vec{AC}$ en $\vec{AD}$.
+      antwoord: |-
+        ja, $\vec{AD}=3\,\vec{AC}$
+      uitwerking: |-
+        $\vec{AC}=(1, -1)$ en $\vec{AD}=(3, -3)$ zijn evenwijdig.
+    - opgave: |-
+        De punten $E(1, 1)$ en $F(1, -1)$ liggen in een gewoon assenstelsel even ver van de oorsprong. Hier ook? Geeft $\sqrt{x^2 + y^2}$ de afstand tot $O$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Op de figuur ligt $E$ veel verder van $O$ dan $F$. De formule $\sqrt{x^2+y^2}$ geldt alleen als de stappen even lang zijn en loodrecht op elkaar staan.
+
+# --- Korte oefeningen ------------------------------------------------------------------
+
+- id: h1-coord
+  soort: kort
+  opgave: |-
+    In een cartesisch assenstelsel neem je de oorsprong $O(2, -1)$ en de basisvectoren $\vec e_1 = (1, 2)$ en $\vec e_2 = (3, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de matrix $M$ en haar inverse.
+      antwoord: |-
+        $M=\um{rr}{1 & 3 \\ 2 & 1}$, $M^{-1}=-\tfrac15\um{rr}{1 & -3 \\ -2 & 1}$
+      uitwerking: |-
+        $\det M=1-6=-5$, dus $M^{-1}=\tfrac{1}{-5}\um{rr}{1 & -3 \\ -2 & 1}$.
+    - opgave: |-
+        Bepaal de cartesische coördinaten van het punt met affiene coördinaten $(2, 1)$.
+      antwoord: |-
+        $(7, 4)$
+      uitwerking: |-
+        $(2, -1)+2(1, 2)+(3, 1)=(7, 4)$.
+    - opgave: |-
+        Bepaal de affiene coördinaten van $P(1, 2)$ en van de cartesische oorsprong.
+      antwoord: |-
+        $(2, -1)$ en $(1, -1)$
+      uitwerking: |-
+        $\vec{OP}=(-1, 3)$ en $-\tfrac15\um{rr}{1 & -3 \\ -2 & 1}\kol{-1 \\ 3}=-\tfrac15\kol{-10 \\ 5}=\kol{2 \\ -1}$. Voor de oorsprong $(0, 0)$ is de vector vanuit $O$ gelijk aan $(-2, 1)$, en dat geeft $-\tfrac15(-5, 5)=(1, -1)$. Controle: $(2, -1)+(1, 2)-(3, 1)=(0, 0)$.
+
+- id: h1-dv
+  soort: kort
+  opgave: |-
+    In een affien assenstelsel is $A(-2, 3)$ en $B(4, 0)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $P$ met $\dv ABP = \tfrac12$ en $Q$ met $\dv ABQ = -2$.
+      antwoord: |-
+        $P(0, 2)$, $Q(10, -3)$
+      uitwerking: |-
+        $P=\dfrac{(-2, 3)+\tfrac12(4, 0)}{\tfrac32}=\tfrac23(0, 3)=(0, 2)$ en $Q=\dfrac{(-2, 3)-2(4, 0)}{-1}=(10, -3)$.
+    - opgave: |-
+        Bereken $\dv ABC$ voor $C(2, 1)$.
+      antwoord: |-
+        2
+      uitwerking: |-
+        $\vec{AC}=(4, -2)=2\,(2, -1)=2\,\vec{CB}$.
+    - opgave: |-
+        Ligt $D(1, 2)$ op de rechte $AB$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        $\vec{AD}=(3, -1)$ en $\vec{DB}=(3, -2)$ zijn niet evenwijdig.
+
+- id: h1-collin
+  soort: kort
+  opgave: |-
+    Gebruik een determinant.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Liggen $(2, 5)$, $(-1, -1)$ en $(4, 9)$ op één rechte?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\begin{vmatrix} 2 & 5 & 1 \\ -1 & -1 & 1 \\ 4 & 9 & 1 \end{vmatrix}=2(-10)-5(-5)+1(-5)=0$.
+    - opgave: |-
+        Gaan $x + y = 3$, $2x - y = 0$ en $x - 3y + 5 = 0$ door één punt?
+      antwoord: |-
+        ja, door $(1, 2)$
+      uitwerking: |-
+        $\begin{vmatrix} 1 & 1 & -3 \\ 2 & -1 & 0 \\ 1 & -3 & 5 \end{vmatrix}=-5-10+15=0$, en ze zijn niet evenwijdig. De eerste twee snijden in $(1, 2)$, en $1-6+5=0$.
+    - opgave: |-
+        Bepaal $k$ zodat $(1, k)$, $(3, 1)$ en $(k, 0)$ op één rechte liggen.
+      antwoord: |-
+        $k=2\pm\sqrt3$
+      uitwerking: |-
+        $\begin{vmatrix} 1 & k & 1 \\ 3 & 1 & 1 \\ k & 0 & 1 \end{vmatrix}=1-k(3-k)-k=k^2-4k+1=0$.
+
+- id: h1-wissel
+  soort: kort
+  opgave: |-
+    Een driehoek heeft de cartesische hoekpunten $A(2, 0)$, $B(6, 2)$ en $C(0, 4)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef het verband tussen de cartesische coördinaten $(X, Y)$ en de coördinaten $(x, y)$ in $(A; \vec{AB}, \vec{AC})$.
+      antwoord: |-
+        $X=2+4x-2y$, $Y=2x+4y$
+      uitwerking: |-
+        $\vec{AB}=(4, 2)$ en $\vec{AC}=(-2, 4)$ zijn de kolommen, $A$ is de verschuiving.
+    - opgave: |-
+        Welk punt heeft in $(A; \vec{AB}, \vec{AC})$ de coördinaten $\bigl(\tfrac12, \tfrac12\bigr)$? Verklaar.
+      antwoord: |-
+        $(3, 3)$, het midden van $[BC]$
+      uitwerking: |-
+        $X=2+2-1=3$, $Y=1+2=3$. Het is $A+\tfrac12\vec{AB}+\tfrac12\vec{AC}=\tfrac12(B+C)$.
+    - opgave: |-
+        Bepaal de coördinaten van $D(4, 6)$ in $(A; \vec{AB}, \vec{AC})$. Wat voor vierhoek is $ABDC$?
+      antwoord: |-
+        $(1, 1)$; een parallellogram
+      uitwerking: |-
+        $4x-2y=2$ en $2x+4y=6$ geven $x=y=1$. Dus $\vec{AD}=\vec{AB}+\vec{AC}$.
+
+- id: h1-trans
+  soort: kort
+  opgave: |-
+    Neem de affiene transformatie $f(x, y) = (x - y + 2,\ 2x + y)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal het beeld van de driehoek met hoekpunten $(0, 0)$, $(2, 0)$ en $(0, 1)$, en de oppervlakte van dat beeld.
+      antwoord: |-
+        $(2, 0)$, $(4, 4)$, $(1, 1)$; oppervlakte 3
+      uitwerking: |-
+        De driehoek heeft oppervlakte 1 en $\det\um{rr}{1 & -1 \\ 2 & 1}=3$. Controle: $\tfrac12\,|\det\um{rr}{2 & -1 \\ 4 & 1}|=\tfrac12\cdot6=3$.
+    - opgave: |-
+        Wat is het beeld van de rechte $y = x$?
+      antwoord: |-
+        de rechte $x=2$
+      uitwerking: |-
+        $f(t, t)=(2, 3t)$.
+    - opgave: |-
+        De $x$-as en de rechte $y = x$ snijden elkaar onder $45^\circ$. Hun beelden ook?
+      antwoord: |-
+        nee, ongeveer $26{,}6^\circ$
+      uitwerking: |-
+        Het beeld van de $x$-as heeft richting $(1, 2)$, dat van $y=x$ richting $(0, 1)$. De hoek heeft cosinus $\tfrac{2}{\sqrt5}$: ongeveer $26{,}6^\circ$. Hoeken blijven niet.
+
+- id: h1-opp
+  soort: kort
+  opgave: |-
+    Gebruik een affiene transformatie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bereken de oppervlakte van de ellips $4x^2 + 9y^2 = 36$.
+      antwoord: |-
+        $6\pi$
+      uitwerking: |-
+        $\tfrac{x^2}{9}+\tfrac{y^2}{4}=1$: het beeld van de eenheidscirkel onder $(x, y)\mapsto(3x, 2y)$, dus $\pi\cdot3\cdot2$.
+    - opgave: |-
+        Een affiene transformatie met matrix $\um{rr}{1 & 2 \\ 3 & 4}$ beeldt een driehoek met oppervlakte 5 af. Hoe groot is het beeld?
+      antwoord: |-
+        10
+      uitwerking: |-
+        $|\det A|=|4-6|=2$.
+    - opgave: |-
+        $Z$ is het zwaartepunt van een driehoek $ABC$. Welk deel van de oppervlakte van $ABC$ is de driehoek $ABZ$?
+      antwoord: |-
+        $\tfrac13$
+      uitwerking: |-
+        In de standaarddriehoek is $Z\bigl(\tfrac13, \tfrac13\bigr)$, dus $ABZ$ heeft basis 1 en hoogte $\tfrac13$: oppervlakte $\tfrac16$, tegenover $\tfrac12$.
+
+- id: h1-std
+  soort: kort
+  opgave: |-
+    In een driehoek $ABC$ is $P$ het midden van $[BC]$, en ligt $Q$ op $[AB]$ met $\dv ABQ = \tfrac13$. De rechten $AP$ en $CQ$ snijden elkaar in $S$. Bereken $\dv APS$ en $\dv CQS$.
+  antwoord: |-
+    $\tfrac23$ en 4
+  uitwerking: |-
+    In de standaarddriehoek: $P\bigl(\tfrac12, \tfrac12\bigr)$ en $Q=\dfrac{A+\tfrac13B}{\tfrac43}=\bigl(\tfrac14, 0\bigr)$. Stel $t\bigl(\tfrac12, \tfrac12\bigr)=(0, 1)+s\bigl(\tfrac14, -1\bigr)$: $\tfrac t2=\tfrac s4$ en $\tfrac t2=1-s$, dus $s=\tfrac45$ en $t=\tfrac25$. Dan is $S\bigl(\tfrac15, \tfrac15\bigr)$, $\vec{AS}=\tfrac25\vec{AP}$ en $\vec{SP}=\tfrac35\vec{AP}$: $\dv APS=\tfrac23$. En $\vec{CS}=\tfrac45\vec{CQ}$, $\vec{SQ}=\tfrac15\vec{CQ}$: $\dv CQS=4$.
+
+- id: h1-menelaos
+  soort: kort
+  opgave: |-
+    In een driehoek $ABC$ ligt $R$ op $[AB]$ met $\dv ABR = 2$, en ligt $P$ op de rechte $BC$ met $\dv BCP = -3$. De rechte $PR$ snijdt $CA$ in $Q$. Bereken $\dv CAQ$. Ligt $Q$ tussen $C$ en $A$?
+  antwoord: |-
+    $\tfrac16$; ja
+  uitwerking: |-
+    Menelaos: $-3\cdot\dv CAQ\cdot2=-1$, dus $\dv CAQ=\tfrac16>0$: $Q$ ligt op $[CA]$, met $|CQ|=\tfrac16|QA|$.
+
+- id: h1-ceva
+  soort: kort
+  opgave: |-
+    In een driehoek $ABC$ liggen $P$, $Q$ en $R$ op de zijden $[BC]$, $[CA]$ en $[AB]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Is $\dv BCP = 3$ en $\dv CAQ = \tfrac12$, waar moet $R$ dan liggen opdat $AP$, $BQ$ en $CR$ door één punt gaan?
+      antwoord: |-
+        $\dv ABR=\tfrac23$
+      uitwerking: |-
+        $3\cdot\tfrac12\cdot r=1$, dus $r=\tfrac23$: $|AR|=\tfrac23|RB|$, of $R$ op twee vijfde van $A$ naar $B$.
+    - opgave: |-
+        Gaan $AP$, $BQ$ en $CR$ door één punt als elk punt op een vierde van zijn zijde ligt, gezien vanuit $B$, $C$ en $A$?
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Elke deelverhouding is $\tfrac13$, en $\bigl(\tfrac13\bigr)^3\neq1$.
+
+- id: h1-terug
+  soort: kort
+  opgave: |-
+    Neem in het probleem de punten niet op een derde, maar op een vierde van de zijden: $\dv BCP = \dv CAQ = \dv ABR = \tfrac13$. Welk deel van de oppervlakte van $ABC$ is de driehoek in het midden nu?
+  antwoord: |-
+    $\tfrac{4}{13}$
+  uitwerking: |-
+    In de standaarddriehoek: $P\bigl(\tfrac34, \tfrac14\bigr)$, $Q\bigl(0, \tfrac34\bigr)$, $R\bigl(\tfrac14, 0\bigr)$. De rechten: $AP: x-3y=0$, $BQ: 3x+4y=3$, $CR: 4x+y=1$. De snijpunten zijn $\bigl(\tfrac{9}{13}, \tfrac{3}{13}\bigr)$, $\bigl(\tfrac{1}{13}, \tfrac{9}{13}\bigr)$ en $\bigl(\tfrac{3}{13}, \tfrac{1}{13}\bigr)$. De oppervlakte is $\tfrac12\left|\det\um{rr}{-\tfrac{8}{13} & \tfrac{6}{13} \\ -\tfrac{6}{13} & -\tfrac{2}{13}}\right|=\tfrac12\cdot\tfrac{52}{169}=\tfrac{2}{13}$, tegenover $\tfrac12$: dat is $\tfrac{4}{13}$.
+
+# --- Opdrachten ------------------------------------------------------------------------
+
+- id: h1-o1
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    affiene coördinaten omrekenen
+  opgave: |-
+    In een cartesisch assenstelsel neem je $O(-1, 2)$, $\vec e_1 = (2, 0)$ en $\vec e_2 = (1, 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de cartesische coördinaten van de punten met affiene coördinaten $(3, -2)$ en $(-1, 4)$.
+      antwoord: |-
+        $(3, 0)$ en $(1, 6)$
+      uitwerking: |-
+        $(-1, 2)+3(2, 0)-2(1, 1)=(3, 0)$ en $(-1, 2)-(2, 0)+4(1, 1)=(1, 6)$.
+    - opgave: |-
+        Bepaal de affiene coördinaten van $P(5, 5)$.
+      antwoord: |-
+        $\bigl(\tfrac32, 3\bigr)$
+      uitwerking: |-
+        $\vec{OP}=(6, 3)$: $2x+y=6$ en $y=3$, dus $x=\tfrac32$.
+    - opgave: |-
+        Bepaal de affiene coördinaten van de cartesische oorsprong.
+      antwoord: |-
+        $\bigl(\tfrac32, -2\bigr)$
+      uitwerking: |-
+        $(1, -2)=x(2, 0)+y(1, 1)$: $y=-2$ en $2x-2=1$.
+    - opgave: |-
+        Geef een vergelijking van de cartesische $x$-as in affiene coördinaten.
+      antwoord: |-
+        $y=-2$
+      uitwerking: |-
+        $X=-1+2x+y$ en $Y=2+y$. De $x$-as is $Y=0$, dus $y=-2$.
+    - opgave: |-
+        Welke rechte heeft in affiene coördinaten de vergelijking $x + y = 1$? Geef haar cartesische vergelijking.
+      antwoord: |-
+        $X+Y=3$
+      uitwerking: |-
+        $y=Y-2$ en $x=\tfrac12(X+1-y)=\tfrac12(X-Y+3)$. Dan is $x+y=1\iff X-Y+3+2Y-4=2\iff X+Y=3$.
+    - opgave: |-
+        Liggen de cartesische punten $(1, 2)$, $(3, 4)$ en $(-2, -1)$ op één rechte? Werk in affiene coördinaten.
+      antwoord: |-
+        ja
+      uitwerking: |-
+        In affiene coördinaten zijn het $(1, 0)$, $(1, 2)$ en $(1, -3)$: alle drie op de rechte $x=1$. Controle: ze liggen op de cartesische rechte $Y=X+1$, en $x=\tfrac12(X-Y+3)=1$.
+
+- id: h1-o2
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    Ceva en Menelaos rechtstreeks
+  opgave: |-
+    In een driehoek $ABC$ liggen $P$, $Q$ en $R$ op de rechten $BC$, $CA$ en $AB$. Bereken de ontbrekende deelverhouding.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        $AP$, $BQ$ en $CR$ gaan door één punt, $\dv BCP = 2$ en $\dv CAQ = 3$.
+      antwoord: |-
+        $\dv ABR=\tfrac16$
+      uitwerking: |-
+        Ceva: $2\cdot3\cdot r=1$.
+    - opgave: |-
+        $P$, $Q$ en $R$ liggen op één rechte, $\dv BCP = 4$ en $\dv CAQ = -\tfrac12$.
+      antwoord: |-
+        $\dv ABR=\tfrac12$
+      uitwerking: |-
+        Menelaos: $4\cdot\bigl(-\tfrac12\bigr)\cdot r=-1$.
+    - opgave: |-
+        $AP$, $BQ$ en $CR$ gaan door één punt, $\dv BCP = \tfrac12$ en $\dv ABR = 5$.
+      antwoord: |-
+        $\dv CAQ=\tfrac25$
+      uitwerking: |-
+        Ceva: $\tfrac12\cdot q\cdot5=1$.
+    - opgave: |-
+        $P$, $Q$ en $R$ liggen op één rechte, $\dv CAQ = 1$ en $\dv ABR = \tfrac13$.
+      antwoord: |-
+        $\dv BCP=-3$
+      uitwerking: |-
+        Menelaos: $p\cdot1\cdot\tfrac13=-1$.
+
+- id: h1-o3
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    deelverhouding
+  opgave: |-
+    In een affien assenstelsel is $A(0, 6)$ en $B(9, 0)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal $P$ met $\dv ABP = 2$.
+      antwoord: |-
+        $(6, 2)$
+      uitwerking: |-
+        $\tfrac13\bigl((0, 6)+2(9, 0)\bigr)=(6, 2)$.
+    - opgave: |-
+        Bepaal $Q$ met $\dv ABQ = -\tfrac14$.
+      antwoord: |-
+        $(-3, 8)$
+      uitwerking: |-
+        $\dfrac{(0, 6)-\tfrac14(9, 0)}{\tfrac34}=\tfrac43\bigl(-\tfrac94, 6\bigr)=(-3, 8)$.
+    - opgave: |-
+        Bereken $\dv ABC$ voor $C(3, 4)$.
+      antwoord: |-
+        $\tfrac12$
+      uitwerking: |-
+        $\vec{AC}=(3, -2)$ en $\vec{CB}=(6, -4)$.
+    - opgave: |-
+        Bereken $\dv ABD$ voor $D(12, -2)$.
+      antwoord: |-
+        $-4$
+      uitwerking: |-
+        $\vec{AD}=(12, -8)=-4\,(-3, 2)=-4\,\vec{DB}$.
+    - opgave: |-
+        Voor welk punt $E$ is $\dv ABE = \dv BAE$?
+      antwoord: |-
+        het midden $\bigl(\tfrac92, 3\bigr)$
+      uitwerking: |-
+        Is $\vec{AE}=\lambda\vec{EB}$, dan is $\vec{BE}=\tfrac1\lambda\vec{EA}$, dus $\dv BAE=\tfrac1\lambda$. Uit $\lambda=\tfrac1\lambda$ volgt $\lambda=1$ (want $-1$ kan niet): het midden.
+
+- id: h1-o4
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    affiene eigenschappen herkennen
+  opgave: |-
+    Blijft de eigenschap waar na elke affiene transformatie? Antwoord met ja of nee.
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        drie punten liggen op één rechte
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Rechten gaan naar rechten.
+    - opgave: |-
+        twee rechten staan loodrecht op elkaar
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Hoeken blijven niet, zie de afschuiving.
+    - opgave: |-
+        $M$ is het midden van $[AB]$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        De deelverhouding 1 blijft.
+    - opgave: |-
+        een driehoek is gelijkbenig
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Lengtes blijven niet.
+    - opgave: |-
+        $|AB| = 2\,|CD|$ met $AB \parallel CD$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\vec{AB}=\pm2\vec{CD}$ blijft, want vectoren worden met $A$ vermenigvuldigd.
+    - opgave: |-
+        $|AB| = 2\,|CD|$ met $AB \not\parallel CD$
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een uitrekking in één richting verandert de ene lengte en niet de andere.
+    - opgave: |-
+        een vierhoek is een trapezium
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Evenwijdigheid blijft.
+    - opgave: |-
+        een vierhoek is een ruit
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Gelijke zijden op niet-evenwijdige rechten blijven niet gelijk.
+    - opgave: |-
+        een kromme is een cirkel
+      antwoord: |-
+        nee
+      uitwerking: |-
+        Een cirkel kan een ellips worden.
+    - opgave: |-
+        $Z$ is het zwaartepunt van $ABC$
+      antwoord: |-
+        ja
+      uitwerking: |-
+        Middens en deelverhoudingen blijven.
+
+- id: h1-o5
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    determinant voor punten en rechten
+  opgave: |-
+    Gebruik een determinant.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Liggen $(1, 1)$, $(4, 3)$ en $(10, 7)$ op één rechte?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $\begin{vmatrix} 1 & 1 & 1 \\ 4 & 3 & 1 \\ 10 & 7 & 1 \end{vmatrix}=1(3-7)-1(4-10)+1(28-30)=-4+6-2=0$.
+    - opgave: |-
+        Bepaal $a$ zodat $(a, 2)$, $(1, a)$ en $(0, 0)$ op één rechte liggen.
+      antwoord: |-
+        $a=\pm\sqrt2$
+      uitwerking: |-
+        Ontwikkel naar de derde rij: $\begin{vmatrix} a & 2 \\ 1 & a \end{vmatrix}=a^2-2=0$.
+    - opgave: |-
+        Gaan $2x + y = 4$, $x - y = -1$ en $3x + 2y = 7$ door één punt?
+      antwoord: |-
+        ja, door $(1, 2)$
+      uitwerking: |-
+        $\begin{vmatrix} 2 & 1 & -4 \\ 1 & -1 & 1 \\ 3 & 2 & -7 \end{vmatrix}=2(7-2)-1(-7-3)-4(2+3)=10+10-20=0$, en de rechten zijn niet evenwijdig.
+    - opgave: |-
+        Voor welke $k$ gaan $x + 2y = 3$, $2x + ky = 1$ en $x - y = 0$ door één punt?
+      antwoord: |-
+        $k=-1$
+      uitwerking: |-
+        $\begin{vmatrix} 1 & 2 & -3 \\ 2 & k & -1 \\ 1 & -1 & 0 \end{vmatrix}=1(0-1)-2(0+1)-3(-2-k)=3+3k$, dus $k=-1$. Controle: het snijpunt $(1, 1)$ van de eerste en de derde ligt op $2x-y=1$.
+
+- id: h1-o6
+  soort: opdracht
+  niveau: 1
+  thema: |-
+    affiene transformatie
+  opgave: |-
+    Neem $f(x, y) = (3x + y,\ x - y + 1)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Met welke factor vermenigvuldigt $f$ de oppervlaktes?
+      antwoord: |-
+        4
+      uitwerking: |-
+        $\det\um{rr}{3 & 1 \\ 1 & -1}=-4$, en $|-4|=4$.
+    - opgave: |-
+        Bepaal het beeld van de driehoek met hoekpunten $(0, 0)$, $(1, 0)$ en $(0, 2)$. Controleer de factor van a.
+      antwoord: |-
+        $(0, 1)$, $(3, 2)$, $(2, -1)$; oppervlakte 4
+      uitwerking: |-
+        De zijvectoren $(3, 1)$ en $(2, -2)$ geven $\tfrac12|{-6}-2|=4$, en het origineel heeft oppervlakte 1.
+    - opgave: |-
+        Welk punt blijft op zijn plaats?
+      antwoord: |-
+        $\bigl(-\tfrac15, \tfrac25\bigr)$
+      uitwerking: |-
+        $3x+y=x$ en $x-y+1=y$: $y=-2x$ en $x+1=-4x$.
+    - opgave: |-
+        Geef het voorschrift van de inverse transformatie.
+      antwoord: |-
+        $f^{-1}(X, Y)=\bigl(\tfrac{X+Y-1}{4}, \tfrac{X-3Y+3}{4}\bigr)$
+      uitwerking: |-
+        Uit $X=3x+y$ en $Y=x-y+1$: $X+Y-1=4x$, en $y=X-3x$.
+
+- id: h1-o7
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    parallellogram met affiene coördinaten
+  figuur:
+    opties: |-
+      4cm
+    code: |-
+      \begin{tikzpicture}[scale=1.25,font=\scriptsize]
+        \draw[thick] (0,0) -- (2,0) -- (2.8,1.4) -- (.8,1.4) -- cycle;
+        \draw[accent] (0,0) -- (2.8,1.4) (.8,1.4) -- (2.4,.7);
+        \punt[below left]{0}{0}{A}
+        \punt[below right]{2}{0}{B}
+        \punt[above right]{2.8}{1.4}{C}
+        \punt[above left]{.8}{1.4}{D}
+        \punt[right]{2.4}{.7}{M}
+        \fpunt[below]{1.867}{.933}{S}
+      \end{tikzpicture}
+  opgave: |-
+    In een parallellogram $ABCD$ is $M$ het midden van $[BC]$. De rechte $DM$ snijdt de diagonaal $AC$ in $S$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Geef de coördinaten van $A$, $B$, $C$, $D$ en $M$ in $(A; \vec{AB}, \vec{AD})$.
+      antwoord: |-
+        $(0, 0)$, $(1, 0)$, $(1, 1)$, $(0, 1)$, $\bigl(1, \tfrac12\bigr)$
+      uitwerking: |-
+        $\vec{AC}=\vec{AB}+\vec{AD}$, en $M=\tfrac12(B+C)$.
+    - opgave: |-
+        Toon aan dat de diagonalen elkaar middendoor delen.
+      antwoord: |-
+        beide middens zijn $\bigl(\tfrac12, \tfrac12\bigr)$
+      uitwerking: |-
+        $\tfrac12(A+C)=\tfrac12(B+D)=\bigl(\tfrac12, \tfrac12\bigr)$.
+    - opgave: |-
+        Bereken $S$ en $\dv ACS$.
+      antwoord: |-
+        $S\bigl(\tfrac23, \tfrac23\bigr)$; 2
+      uitwerking: |-
+        $AC: (s, s)$ en $DM: (t, 1-\tfrac t2)$. Dan $s=t$ en $s=1-\tfrac s2$, dus $s=\tfrac23$. $S$ ligt op twee derde van $A$ naar $C$.
+    - opgave: |-
+        Welk deel van de oppervlakte van het parallellogram is de driehoek $DSC$?
+      antwoord: |-
+        $\tfrac16$
+      uitwerking: |-
+        $\tfrac12\left|\det\um{rr}{\tfrac23 & 1 \\ -\tfrac13 & 0}\right|=\tfrac12\cdot\tfrac13=\tfrac16$ met de zijvectoren $\vec{DS}=\bigl(\tfrac23, -\tfrac13\bigr)$ en $\vec{DC}=(1, 0)$, en het parallellogram heeft oppervlakte 1. Een affiene transformatie bewaart de verhouding.
+
+- id: h1-o8
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    affiene transformatie bepalen
+  opgave: |-
+    Bepaal de affiene transformatie.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Ze beeldt $(0, 0)$, $(1, 0)$ en $(0, 1)$ af op $(1, 2)$, $(4, 3)$ en $(2, 5)$.
+      antwoord: |-
+        $f(x, y)=(3x+y+1,\ x+3y+2)$
+      uitwerking: |-
+        $b=f(0, 0)=(1, 2)$. De kolommen van $A$ zijn $f(1, 0)-b=(3, 1)$ en $f(0, 1)-b=(1, 3)$.
+    - opgave: |-
+        Ze beeldt $(1, 1)$, $(3, 1)$ en $(1, 2)$ af op $(0, 0)$, $(2, 2)$ en $(-1, 1)$.
+      antwoord: |-
+        $f(x, y)=(x-y,\ x+y-2)$
+      uitwerking: |-
+        $A\kol{2 \\ 0}=\kol{2 \\ 2}$ en $A\kol{0 \\ 1}=\kol{-1 \\ 1}$, dus $A=\um{rr}{1 & -1 \\ 1 & 1}$. Dan $b=(0, 0)-A(1, 1)=(0, -2)$.
+    - opgave: |-
+        Is de transformatie van b euclidisch? Wat doet ze met afstanden?
+      antwoord: |-
+        nee; alle afstanden worden $\sqrt2$ keer zo groot
+      uitwerking: |-
+        De kolommen $(1, 1)$ en $(-1, 1)$ staan loodrecht op elkaar, maar hebben lengte $\sqrt2$. Het is een draaiing over $45^\circ$ gevolgd door een vermenigvuldiging met $\sqrt2$, en een verschuiving.
+
+- id: h1-o9
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Menelaos in een deeldriehoek
+  opgave: |-
+    In een driehoek $ABC$ is $M$ het midden van $[BC]$, en ligt $N$ op $[AC]$ met $|AN| = 2\,|NC|$. De rechten $BN$ en $AM$ snijden elkaar in $S$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Pas Menelaos toe op de driehoek $AMC$ met de rechte door $B$, $S$ en $N$, en bereken $\dv AMS$.
+      antwoord: |-
+        4
+      uitwerking: |-
+        $B$ ligt op $MC$, $N$ op $CA$ en $S$ op $AM$. $\vec{MB}=-\tfrac12\vec{BC}$, dus $\dv MCB=-\tfrac12$. $\vec{CN}=\tfrac12\vec{NA}$, dus $\dv CAN=\tfrac12$. Menelaos: $-\tfrac12\cdot\tfrac12\cdot\dv AMS=-1$.
+    - opgave: |-
+        Controleer met coördinaten in de standaarddriehoek.
+      antwoord: |-
+        $S\bigl(\tfrac25, \tfrac25\bigr)=\tfrac45M$
+      uitwerking: |-
+        $M\bigl(\tfrac12, \tfrac12\bigr)$, $N\bigl(0, \tfrac23\bigr)$. $AM: \bigl(\tfrac t2, \tfrac t2\bigr)$ en $BN: \bigl(1-s, \tfrac23s\bigr)$ geven $s=\tfrac35$ en $t=\tfrac45$. Dus $\vec{AS}=4\,\vec{SM}$.
+
+- id: h1-o10
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    scheef stratenplan
+  figuur:
+    opties: |-
+      5cm
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \scheefrooster{1.2}{0}{.45}{.78}{-1}{5}{-1}{3}
+        \vpijl{(0,0)}{(1.2,0)}
+        \vpijl{(0,0)}{(.45,.78)}
+        \punt[below left]{0}{0}{O}
+        \fpunt[above right]{4.05}{.78}{S}
+        \fpunt[above right]{2.55}{2.34}{T}
+        \fpunt[below right]{5.55}{-.78}{P}
+      \end{tikzpicture}
+  opgave: |-
+    De straten van een wijk lopen in twee richtingen die een hoek van $60^\circ$ maken. Een blok is 200 m lang in de ene richting en 150 m in de andere. Kies het kruispunt $O$ als oorsprong, met $\vec e_1$ en $\vec e_2$ één blok in elke richting.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Lees de coördinaten van de school $S$, het station $T$ en het park $P$ af.
+      antwoord: |-
+        $S(3, 1)$, $T(1, 3)$, $P(5, -1)$
+      uitwerking: |-
+        Tel de blokken langs de straten.
+    - opgave: |-
+        Een fietspad loopt in een rechte lijn van $S$ naar $T$. Komt het langs het park?
+      antwoord: |-
+        ja
+      uitwerking: |-
+        $ST$ heeft de vergelijking $x+y=4$, en $5-1=4$. Of: $\vec{SP}=(2, -2)=-\vec{ST}$.
+    - opgave: |-
+        Waar ligt het midden tussen school en station?
+      antwoord: |-
+        $(2, 2)$
+      uitwerking: |-
+        Het gemiddelde van de coördinaten.
+    - opgave: |-
+        Hoe ver ligt de school in vogelvlucht van $O$? Hier heb je wel een lengte nodig: gebruik $|\vec u + \vec v|^2 = |\vec u|^2 + |\vec v|^2 + 2\,\vec u \cdot \vec v$.
+      antwoord: |-
+        ongeveer 687 m
+      uitwerking: |-
+        $|3\vec e_1+\vec e_2|^2=9\cdot200^2+150^2+2\cdot3\cdot200\cdot150\cos60^\circ=472\,500$, en $\sqrt{472\,500}\approx687$ m. Niet $\sqrt{3^2+1^2}$ blokken.
+
+- id: h1-o11
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    afschuiving
+  opgave: |-
+    Neem de afschuiving $f(x, y) = (x + 2y,\ y)$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke punten blijven op hun plaats? Toon aan dat elke rechte $y = c$ op zichzelf wordt afgebeeld.
+      antwoord: |-
+        de punten van de $x$-as
+      uitwerking: |-
+        $x+2y=x$ geeft $y=0$. Een punt $(x, c)$ gaat naar $(x+2c, c)$, weer op $y=c$: de rechte schuift over $2c$ in haar eigen richting.
+    - opgave: |-
+        Bepaal een vergelijking van het beeld van de cirkel $x^2 + y^2 = 1$.
+      antwoord: |-
+        $X^2-4XY+5Y^2=1$
+      uitwerking: |-
+        Uit $X=x+2y$ en $Y=y$ volgt $x=X-2Y$ en $y=Y$. Invullen: $(X-2Y)^2+Y^2=1$.
+    - opgave: |-
+        Hoe groot is de oppervlakte van dat beeld?
+      antwoord: |-
+        $\pi$
+      uitwerking: |-
+        $\det\um{rr}{1 & 2 \\ 0 & 1}=1$: een afschuiving bewaart oppervlaktes.
+
+- id: h1-o12
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    verhouding van oppervlaktes
+  opgave: |-
+    In een driehoek $ABC$ ligt $P$ op $[BC]$ met $\dv BCP = \tfrac12$, en is $Q$ het midden van $[CA]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Waarom is de oppervlakte van $ABP$ een derde van die van $ABC$? Je hoeft niet te rekenen.
+      antwoord: |-
+        zelfde hoogte, basis een derde
+      uitwerking: |-
+        Beide driehoeken hebben dezelfde hoogte uit $A$, en $|BP|=\tfrac13|BC|$.
+    - opgave: |-
+        Welk deel is de driehoek $APQ$?
+      antwoord: |-
+        $\tfrac13$
+      uitwerking: |-
+        Standaarddriehoek: $P\bigl(\tfrac23, \tfrac13\bigr)$, $Q\bigl(0, \tfrac12\bigr)$, dus $\tfrac12\bigl|\tfrac23\cdot\tfrac12-0\bigr|=\tfrac16$, tegenover $\tfrac12$.
+    - opgave: |-
+        Welk deel is de driehoek $PCQ$? Controleer dat de drie delen samen de hele driehoek geven.
+      antwoord: |-
+        $\tfrac13$
+      uitwerking: |-
+        $\vec{CP}=\bigl(\tfrac23, -\tfrac23\bigr)$ en $\vec{CQ}=\bigl(0, -\tfrac12\bigr)$: $\tfrac12\cdot\tfrac13=\tfrac16$. En $\tfrac13+\tfrac13+\tfrac13=1$.
+
+- id: h1-o13
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    deelverhouding van de andere punten
+  opgave: |-
+    Neem drie verschillende punten $A$, $B$ en $P$ op een rechte, en noem $\lambda = \dv ABP$. Druk uit in $\lambda$:
+  lijst: reeks
+  kolommen: 3
+  delen:
+    - opgave: |-
+        $\dv BAP$
+      antwoord: |-
+        $\tfrac1\lambda$
+      uitwerking: |-
+        $\vec{BP}=-\vec{PB}=-\tfrac1\lambda\vec{AP}=\tfrac1\lambda\vec{PA}$.
+    - opgave: |-
+        $\dv APB$
+      antwoord: |-
+        $-(1+\lambda)$
+      uitwerking: |-
+        $P-B=\dfrac{A-B}{1+\lambda}$, dus $\vec{BP}=-\tfrac{1}{1+\lambda}\vec{AB}$ en $\vec{AB}=-(1+\lambda)\vec{BP}$.
+    - opgave: |-
+        $\dv PAB$
+      antwoord: |-
+        $-\tfrac{1}{1+\lambda}$
+      uitwerking: |-
+        $\vec{PB}=B-P=-\dfrac{A-B}{1+\lambda}=-\tfrac{1}{1+\lambda}\vec{BA}$.
+
+- id: h1-o14
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    Ceva voor een punt binnen de driehoek
+  opgave: |-
+    In de standaarddriehoek $A(0, 0)$, $B(1, 0)$, $C(0, 1)$ ligt het punt $S$. De rechten $AS$, $BS$ en $CS$ snijden de overstaande zijden in $P$, $Q$ en $R$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Neem $S\bigl(\tfrac14, \tfrac12\bigr)$. Bereken $P$, $Q$ en $R$ en de drie deelverhoudingen. Controleer Ceva.
+      antwoord: |-
+        $P\bigl(\tfrac13, \tfrac23\bigr)$, $Q\bigl(0, \tfrac23\bigr)$, $R\bigl(\tfrac12, 0\bigr)$; $2\cdot\tfrac12\cdot1=1$
+      uitwerking: |-
+        $AS$ snijdt $x+y=1$ in $\tfrac43S=\bigl(\tfrac13, \tfrac23\bigr)$, dus $\dv BCP=2$. $BS$ snijdt $x=0$ in $\bigl(0, \tfrac23\bigr)$, dus $\dv CAQ=\tfrac12$. $CS$ snijdt $y=0$ in $\bigl(\tfrac12, 0\bigr)$, dus $\dv ABR=1$.
+    - opgave: |-
+        Neem nu $S(u, v)$ met $u > 0$, $v > 0$ en $u + v < 1$. Toon aan dat $\dv BCP = \tfrac vu$, en bereken ook de andere twee.
+      antwoord: |-
+        $\tfrac vu$, $\tfrac{1-u-v}{v}$, $\tfrac{u}{1-u-v}$
+      uitwerking: |-
+        $P=\tfrac{1}{u+v}(u, v)=\dfrac{B+\tfrac vu C}{1+\tfrac vu}$. $Q=\bigl(0, \tfrac{v}{1-u}\bigr)$, en $\tfrac{1}{1+q}=\tfrac{v}{1-u}$ geeft $q=\tfrac{1-u-v}{v}$. $R=\bigl(\tfrac{u}{1-v}, 0\bigr)$, en $\tfrac{r}{1+r}=\tfrac{u}{1-v}$ geeft $r=\tfrac{u}{1-u-v}$.
+    - opgave: |-
+        Wat is het product? Wat bewijst dat?
+      antwoord: |-
+        1; één richting van Ceva
+      uitwerking: |-
+        $\tfrac vu\cdot\tfrac{1-u-v}{v}\cdot\tfrac{u}{1-u-v}=1$: als drie rechten door één punt binnen de driehoek gaan, is het product 1.
+
+- id: h1-o15
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    schaduw bij zonlicht
+  opgave: |-
+    Een raam van 1 m breed en 1,5 m hoog heeft twee latten die het in vier gelijke ruitjes verdelen. De zon schijnt erdoor, en de schaduw van het raam valt op de vloer. Omdat de zonnestralen evenwijdig zijn, is de afbeelding van het raam naar zijn schaduw affien.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Welke vorm heeft de schaduw van het raam? Waar valt de schaduw van het kruispunt van de latten?
+      antwoord: |-
+        een parallellogram; in het snijpunt van de diagonalen
+      uitwerking: |-
+        Evenwijdige zijden blijven evenwijdig. Het kruispunt is het snijpunt van de diagonalen, en de middens blijven middens.
+    - opgave: |-
+        Op de vloer meet je de zijden van de schaduw als de vectoren $(1, 0)$ en $(0{,}8;\ 1{,}2)$ in meter. Bereken de oppervlakte van de schaduw, en de factor $|\det A|$.
+      antwoord: |-
+        $1{,}2$ m$^2$; $0{,}8$
+      uitwerking: |-
+        $\det\um{cc}{1 & 0{,}8 \\ 0 & 1{,}2}=1{,}2$, en het raam heeft oppervlakte $1{,}5$ m$^2$: $\tfrac{1{,}2}{1{,}5}=0{,}8$.
+    - opgave: |-
+        Een rond raampje heeft een oppervlakte van 0,2 m$^2$. Welke vorm en welke oppervlakte heeft zijn schaduw?
+      antwoord: |-
+        een ellips van $0{,}16$ m$^2$
+      uitwerking: |-
+        Het beeld van een cirkel onder een affiene transformatie is een ellips (of een cirkel), en de oppervlakte wordt $0{,}8$ keer zo groot.
+
+- id: h1-o16
+  soort: opdracht
+  niveau: 2
+  thema: |-
+    parallellogram in een parallellogram
+  figuur:
+    opties: |-
+      4cm
+    code: |-
+      \begin{tikzpicture}[scale=2.4,font=\scriptsize]
+        \begin{scope}[cm={1,0,.45,.85,(0,0)}]
+          \fill[accent!25] (.8,.4) -- (.6,.8) -- (.2,.6) -- (.4,.2) -- cycle;
+          \draw[thick] (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
+          \draw[accent] (0,0) -- (1,.5) (1,0) -- (.5,1) (1,1) -- (0,.5) (0,1) -- (.5,0);
+        \end{scope}
+        \node[below left] at (0,0) {$A$};
+        \node[below right] at (1,0) {$B$};
+        \node[above right] at (1.45,.85) {$C$};
+        \node[above left] at (.45,.85) {$D$};
+      \end{tikzpicture}
+  opgave: |-
+    Verbind in een parallellogram $ABCD$ elk hoekpunt met het midden van de volgende zijde: $A$ met het midden van $[BC]$, $B$ met dat van $[CD]$, $C$ met dat van $[DA]$ en $D$ met dat van $[AB]$. In het midden ontstaat een kleiner parallellogram. Toon aan dat zijn oppervlakte een vijfde is van die van $ABCD$.
+  antwoord: |-
+    $\tfrac15$
+  uitwerking: |-
+    Werk in $(A; \vec{AB}, \vec{AD})$, waarin $ABCD$ het eenheidsvierkant is met oppervlakte 1. De vier rechten zijn $y=\tfrac x2$, $2x+y=2$, $y=\tfrac12+\tfrac x2$ en $y=1-2x$. Hun snijpunten zijn $\bigl(\tfrac45, \tfrac25\bigr)$, $\bigl(\tfrac35, \tfrac45\bigr)$, $\bigl(\tfrac15, \tfrac35\bigr)$ en $\bigl(\tfrac25, \tfrac15\bigr)$. Twee zijvectoren vanuit $\bigl(\tfrac25, \tfrac15\bigr)$ zijn $\bigl(\tfrac25, \tfrac15\bigr)$ en $\bigl(-\tfrac15, \tfrac25\bigr)$, met determinant $\tfrac{4}{25}+\tfrac{1}{25}=\tfrac15$. Een affiene transformatie bewaart de verhouding, dus het geldt in elk parallellogram (in het vierkant is het een vierkant).
+
+- id: h1-o17
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    stelling van Varignon
+  opgave: |-
+    $ABCD$ is een willekeurige vierhoek, en $K$, $L$, $M$ en $N$ zijn de middens van $[AB]$, $[BC]$, $[CD]$ en $[DA]$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met coördinaten aan dat $KLMN$ een parallellogram is.
+      antwoord: |-
+        $\vec{KL}=\tfrac12\vec{AC}=\vec{NM}$
+      uitwerking: |-
+        $L-K=\tfrac12(B+C)-\tfrac12(A+B)=\tfrac12(C-A)$ en $M-N=\tfrac12(C+D)-\tfrac12(D+A)=\tfrac12(C-A)$. Twee overstaande zijden zijn evenwijdig en even lang.
+    - opgave: |-
+        Bij een driehoek mocht je in de standaarddriehoek werken. Waarom gaat dat niet bij een willekeurige vierhoek?
+      antwoord: |-
+        een affiene transformatie ligt vast door drie punten
+      uitwerking: |-
+        Je kunt $A$, $B$ en $D$ naar $(0, 0)$, $(1, 0)$ en $(0, 1)$ sturen, maar dan ligt het beeld van $C$ vast: dat kies je niet meer. Niet alle vierhoeken zijn affien gelijk (een parallellogram en een trapezium bijvoorbeeld niet).
+
+- id: h1-o18
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    punt van Gergonne
+  opgave: |-
+    De ingeschreven cirkel van een driehoek $ABC$ raakt $[BC]$, $[CA]$ en $[AB]$ in $P$, $Q$ en $R$. De twee raaklijnstukken uit een punt aan een cirkel zijn even lang, dus $|AQ| = |AR|$, $|BR| = |BP|$ en $|CP| = |CQ|$. Toon aan dat $AP$, $BQ$ en $CR$ door één punt gaan.
+  antwoord: |-
+    het product is 1
+  uitwerking: |-
+    Noem $|AQ|=|AR|=a'$, $|BR|=|BP|=b'$ en $|CP|=|CQ|=c'$. De punten liggen op de zijden zelf, dus $\dv BCP=\tfrac{b'}{c'}$, $\dv CAQ=\tfrac{c'}{a'}$ en $\dv ABR=\tfrac{a'}{b'}$. Het product is 1: volgens Ceva gaan de rechten door één punt, het punt van Gergonne.
+
+- id: h1-o19
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    affien en euclidisch
+  opgave: |-
+    Een affiene transformatie $f(X) = AX + b$ bewaart alle afstanden.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de kolommen $\vec a_1$ en $\vec a_2$ van $A$ lengte 1 hebben. Kijk naar de beelden van $(0, 0)$, $(1, 0)$ en $(0, 1)$.
+      antwoord: |-
+        $|\vec a_1|=|f(1, 0)-f(0, 0)|=1$
+      uitwerking: |-
+        $f(1, 0)-f(0, 0)=A\kol{1 \\ 0}=\vec a_1$, en de afstand tussen $(0, 0)$ en $(1, 0)$ is 1. Net zo voor $\vec a_2$.
+    - opgave: |-
+        Toon aan dat ze loodrecht op elkaar staan. Gebruik het punt $(1, 1)$.
+      antwoord: |-
+        $\vec a_1\cdot\vec a_2=0$
+      uitwerking: |-
+        $|\vec a_1+\vec a_2|^2=|f(1, 1)-f(0, 0)|^2=2$, en $|\vec a_1+\vec a_2|^2=1+1+2\,\vec a_1\cdot\vec a_2$. Dus $\vec a_1\cdot\vec a_2=0$: de euclidische transformaties zijn de affiene met een orthonormale matrix.
+
+- id: h1-o20
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    deellijnen met Ceva
+  opgave: |-
+    Neem een driehoek met zijden $a = |BC|$, $b = |CA|$ en $c = |AB|$. De binnenbissectrice uit $A$ snijdt $[BC]$ in $P$, en (stelling van de bissectrice) $\dfrac{|BP|}{|PC|} = \dfrac{c}{b}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon met Ceva aan dat de drie binnenbissectrices door één punt gaan.
+      antwoord: |-
+        $\tfrac cb\cdot\tfrac ac\cdot\tfrac ba=1$
+      uitwerking: |-
+        Net zo is $\dv CAQ=\tfrac{|CQ|}{|QA|}=\tfrac ac$ en $\dv ABR=\tfrac ba$, want de punten liggen op de zijden. Het product is 1.
+    - opgave: |-
+        Waarom kun je deze eigenschap niet bewijzen in de standaarddriehoek alleen?
+      antwoord: |-
+        een bissectrice is geen affien begrip
+      uitwerking: |-
+        Een affiene transformatie bewaart geen hoeken: het beeld van een bissectrice is in het algemeen geen bissectrice.
+
+- id: h1-o21
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    de driehoek van Routh
+  opgave: |-
+    Kies een getal $k > 0$, en neem in het probleem van dit hoofdstuk de punten met \[ \dv BCP = \dv CAQ = \dv ABR = k . \]
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat de driehoek in het midden het deel $\tfrac{(k - 1)^2}{k^2 + k + 1}$ van de oppervlakte van $ABC$ inneemt. Controleer met $k = \tfrac12$.
+      antwoord: |-
+        voor $k=\tfrac12$: $\tfrac17$
+      uitwerking: |-
+        Standaarddriehoek: $P=\tfrac{1}{1+k}(1, k)$, $Q=\bigl(0, \tfrac{1}{1+k}\bigr)$, $R=\bigl(\tfrac{k}{1+k}, 0\bigr)$. De rechten: $AP: kx-y=0$, $BQ: x+(1+k)y=1$, $CR: (1+k)x+ky=k$. De snijpunten zijn $\tfrac{1}{k^2+k+1}(1, k)$, $\tfrac{1}{k^2+k+1}(k^2, 1)$ en $\tfrac{1}{k^2+k+1}(k, k^2)$. Twee zijvectoren vanuit het eerste: $\tfrac{1}{k^2+k+1}(k^2-1, 1-k)$ en $\tfrac{1}{k^2+k+1}(k-1, k^2-k)$, met determinant $\tfrac{(k-1)^2\bigl((k+1)k+1\bigr)}{(k^2+k+1)^2}=\tfrac{(k-1)^2}{k^2+k+1}$. De halve determinant gedeeld door $\tfrac12$ geeft de formule. Voor $k=\tfrac12$: $\tfrac{1/4}{7/4}=\tfrac17$.
+    - opgave: |-
+        Voor welke $k$ is het deel 0? Verklaar met Ceva.
+      antwoord: |-
+        $k=1$
+      uitwerking: |-
+        Dan zijn het de zwaartelijnen, en $1\cdot1\cdot1=1$: ze gaan door één punt.
+    - opgave: |-
+        Toon aan dat $k$ en $\tfrac1k$ hetzelfde deel geven. Kun je dat zonder rekenen verklaren?
+      antwoord: |-
+        de formule verandert niet
+      uitwerking: |-
+        $\dfrac{(1/k-1)^2}{1/k^2+1/k+1}=\dfrac{(1-k)^2}{1+k+k^2}$ (teller en noemer maal $k^2$). Spiegel de driehoek: dan doorloop je de hoekpunten in de andere volgorde, en wordt elke deelverhouding omgekeerd.
+
+- id: h1-o22
+  soort: opdracht
+  niveau: 3
+  thema: |-
+    buitenbissectrices met Menelaos
+  opgave: |-
+    In een driehoek met drie verschillende zijden $a$, $b$ en $c$ snijdt de buitenbissectrice uit $A$ de rechte $BC$ in een punt $P$ buiten $[BC]$, met $\dfrac{|BP|}{|PC|} = \dfrac cb$. Net zo voor $Q$ op $CA$ en $R$ op $AB$. Toon aan dat $P$, $Q$ en $R$ op één rechte liggen.
+  antwoord: |-
+    het product is $-1$
+  uitwerking: |-
+    De drie punten liggen buiten de zijden, dus elke deelverhouding is negatief: $\dv BCP=-\tfrac cb$, $\dv CAQ=-\tfrac ac$, $\dv ABR=-\tfrac ba$. Het product is $-1$: volgens Menelaos liggen ze op één rechte. (Bij twee gelijke zijden is een buitenbissectrice evenwijdig met de overstaande zijde.)
+
+# --- Koppel ---------------------------------------------------------------------------
+
+- id: h1-koppel-1
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Groepen
+  opgave: |-
+    De affiene transformaties van het vlak met de samenstelling $\circ$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Toon aan dat $g \circ f$ affien is als $f(X) = AX + b$ en $g(X) = CX + d$ affien zijn.
+      antwoord: |-
+        $g\circ f(X)=CAX+(Cb+d)$
+      uitwerking: |-
+        $g(f(X))=C(AX+b)+d=(CA)X+(Cb+d)$, en $\det(CA)=\det C\det A\neq0$.
+    - opgave: |-
+        Geef de inverse van $f$. Vormen de affiene transformaties een groep?
+      antwoord: |-
+        $f^{-1}(X)=A^{-1}X-A^{-1}b$; ja
+      uitwerking: |-
+        $f(f^{-1}(X))=A(A^{-1}X-A^{-1}b)+b=X$. De samenstelling is associatief, de identiteit is affien ($A=I$, $b=0$), en elk element heeft een inverse.
+    - opgave: |-
+        Vormen de transformaties met $\det A = 1$ een deelgroep? Wat bewaren ze?
+      antwoord: |-
+        ja; de oppervlakte
+      uitwerking: |-
+        $\det(CA)=1\cdot1=1$ en $\det A^{-1}=1$. Ze vermenigvuldigen oppervlaktes met 1.
+
+- id: h1-koppel-2
+  soort: koppel
+  niveau: 2
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Complexe getallen
+  opgave: |-
+    Neem $a = p + q\,\mathrm{i} \neq 0$ en $b = b_1 + b_2\,\mathrm{i}$, en de afbeelding $f(z) = az + b$ van het complexe vlak.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Schrijf $f$ als $f(x, y) = A\kol{x \\ y} + \kol{b_1 \\ b_2}$ met $z = x + y\,\mathrm{i}$. Geef $A$ en $\det A$.
+      antwoord: |-
+        $A=\um{rr}{p & -q \\ q & p}$, $\det A=|a|^2$
+      uitwerking: |-
+        $(p+q\mathrm{i})(x+y\mathrm{i})=(px-qy)+(qx+py)\mathrm{i}$, en $p^2+q^2=|a|^2$.
+    - opgave: |-
+        Neem $a = 1 + \mathrm{i}$ en $b = 0$. Wat is het beeld van het eenheidsvierkant, en zijn oppervlakte?
+      antwoord: |-
+        een vierkant met oppervlakte 2
+      uitwerking: |-
+        $f(1)=1+\mathrm{i}$, $f(\mathrm{i})=-1+\mathrm{i}$, $f(1+\mathrm{i})=2\mathrm{i}$: een vierkant met zijde $\sqrt2$, gedraaid over $45^\circ$. $\det A=2$.
+    - opgave: |-
+        Bewaart $f$ hoeken? Waarom is dat geen gewone affiene transformatie?
+      antwoord: |-
+        ja: een draaiing en een vermenigvuldiging
+      uitwerking: |-
+        Vermenigvuldigen met $a=|a|\,\mathrm{e}^{\mathrm{i}\varphi}$ draait over $\varphi$ en vermenigvuldigt de afstanden met $|a|$: een gelijkvormigheid. Een algemene affiene transformatie heeft een matrix die niet die vorm heeft, zoals een afschuiving.
+
+- id: h1-koppel-3
+  soort: koppel
+  niveau: 3
+  koppel:
+    rubriek: algebra
+    onderwerp: |-
+      Eigenwaarden en eigenvectoren
+  figuur:
+    opties: |-
+      3.4cm
+    code: |-
+      \begin{tikzpicture}[scale=.5,font=\scriptsize]
+        \draw[lijngrijs] (-3,0) -- (3,0) (0,-3) -- (0,3);
+        \draw[grijs,dashed] (-2.6,-2.6) -- (2.6,2.6) (-1.4,1.4) -- (1.4,-1.4);
+        \draw[thick] (0,0) circle (1);
+        \begin{scope}[rotate=45]\ellips{0}{0}{3}{1}\end{scope}
+      \end{tikzpicture}
+  opgave: |-
+    Neem de lineaire afbeelding met matrix $A = \um{rr}{2 & 1 \\ 1 & 2}$.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Bepaal de eigenwaarden en de eigenvectoren van $A$.
+      antwoord: |-
+        3 met $(1, 1)$, 1 met $(1, -1)$
+      uitwerking: |-
+        $\det(A-\lambda I)=(2-\lambda)^2-1=0$ geeft $\lambda=3$ en $\lambda=1$.
+    - opgave: |-
+        Wat gebeurt er met de eenheidscirkel? Gebruik de eigenvectoren als nieuwe assen.
+      antwoord: |-
+        een ellips met halve assen 3 en 1 langs $y=x$ en $y=-x$
+      uitwerking: |-
+        Een punt $s\,\tfrac{1}{\sqrt2}(1, 1)+t\,\tfrac{1}{\sqrt2}(1, -1)$ met $s^2+t^2=1$ gaat naar $3s\,\tfrac{1}{\sqrt2}(1, 1)+t\,\tfrac{1}{\sqrt2}(1, -1)$: in de richting $(1, 1)$ wordt alles 3 keer zo groot, in de richting $(1, -1)$ blijft het.
+    - opgave: |-
+        Controleer de oppervlakte van die ellips met de stelling over oppervlaktes.
+      antwoord: |-
+        $3\pi$
+      uitwerking: |-
+        $\pi\cdot3\cdot1=3\pi$ en $|\det A|\cdot\pi=3\pi$. Het product van de eigenwaarden is de determinant.
+
+# --- Test jezelf ------------------------------------------------------------------------
+
+- id: h1-t1
+  soort: test
+  niveau: 1
+  opgave: |-
+    In een cartesisch assenstelsel kies je $O(1, -1)$, $\vec e_1 = (1, 1)$ en $\vec e_2 = (2, -1)$. Bepaal de affiene coördinaten van $P(4, 2)$, en de cartesische coördinaten van het punt met affiene coördinaten $(1, 2)$.
+  antwoord: |-
+    $(3, 0)$ en $(6, -2)$
+  uitwerking: |-
+    $\vec{OP}=(3, 3)$: $x+2y=3$ en $x-y=3$, dus $y=0$, $x=3$. En $(1, -1)+(1, 1)+2(2, -1)=(6, -2)$.
+
+- id: h1-t2
+  soort: test
+  niveau: 1
+  opgave: |-
+    In een affien assenstelsel is $A(2, 1)$ en $B(8, 4)$. Bepaal $P$ met $\dv ABP = \tfrac12$, en bereken $\dv ABC$ voor $C(10, 5)$.
+  antwoord: |-
+    $P(4, 2)$; $-4$
+  uitwerking: |-
+    $P=\tfrac23\bigl((2, 1)+\tfrac12(8, 4)\bigr)=\tfrac23(6, 3)=(4, 2)$. $\vec{AC}=(8, 4)=-4\,(-2, -1)=-4\,\vec{CB}$.
+
+- id: h1-t3
+  soort: test
+  niveau: 1
+  opgave: |-
+    Gaan de rechten $3x - y = 1$, $x + y = 3$ en $2x - 3y = -4$ door één punt? Gebruik een determinant.
+  antwoord: |-
+    ja, door $(1, 2)$
+  uitwerking: |-
+    $\begin{vmatrix} 3 & -1 & -1 \\ 1 & 1 & -3 \\ 2 & -3 & 4 \end{vmatrix}=3(4-9)+1(4+6)-1(-3-2)=-15+10+5=0$, en de rechten zijn niet evenwijdig.
+
+- id: h1-t4
+  soort: test
+  niveau: 1
+  opgave: |-
+    Neem $f(x, y) = (x + 3y,\ 2x + y - 1)$. Bepaal het beeld van $(1, 1)$, en de factor waarmee $f$ oppervlaktes vermenigvuldigt.
+  antwoord: |-
+    $(4, 2)$; 5
+  uitwerking: |-
+    $f(1, 1)=(4, 2)$ en $|\det\um{rr}{1 & 3 \\ 2 & 1}|=|1-6|=5$.
+
+- id: h1-t5
+  soort: test
+  niveau: 2
+  opgave: |-
+    In een driehoek $ABC$ ligt $R$ op $[AB]$ met $\dv ABR = 3$, en is $Q$ het midden van $[CA]$. De rechte $QR$ snijdt $BC$ in $P$. Bereken $\dv BCP$, en schrijf $P$ als combinatie van $B$ en $C$.
+  antwoord: |-
+    $-\tfrac13$; $P=\tfrac12(3B-C)$
+  uitwerking: |-
+    Menelaos: $p\cdot1\cdot3=-1$. Dan $P=\dfrac{B-\tfrac13C}{\tfrac23}=\tfrac32B-\tfrac12C$.
+
+- id: h1-t6
+  soort: test
+  niveau: 2
+  opgave: |-
+    In een driehoek $ABC$ liggen $P$, $Q$ en $R$ op de zijden $[BC]$, $[CA]$ en $[AB]$, met $\dv BCP = 4$ en $\dv ABR = \tfrac12$. Bepaal $\dv CAQ$ opdat $AP$, $BQ$ en $CR$ door één punt gaan.
+  antwoord: |-
+    $\tfrac12$
+  uitwerking: |-
+    Ceva: $4\cdot q\cdot\tfrac12=1$.
+
+- id: h1-t7
+  soort: test
+  niveau: 2
+  opgave: |-
+    In een driehoek $ABC$ is $M$ het midden van $[AB]$, en ligt $N$ op $[AC]$ met $\dv ACN = 2$. De rechten $CM$ en $BN$ snijden elkaar in $S$. Bereken $\dv CMS$.
+  antwoord: |-
+    1: $S$ is het midden van $[CM]$
+  uitwerking: |-
+    Standaarddriehoek: $M\bigl(\tfrac12, 0\bigr)$, $N\bigl(0, \tfrac23\bigr)$. $CM: \bigl(\tfrac t2, 1-t\bigr)$ en $BN: \bigl(1-s, \tfrac23s\bigr)$. Uit $\tfrac t2=1-s$ en $1-t=\tfrac23s$ volgt $t=\tfrac12$, dus $S\bigl(\tfrac14, \tfrac12\bigr)$ en $\vec{CS}=\vec{SM}$.
