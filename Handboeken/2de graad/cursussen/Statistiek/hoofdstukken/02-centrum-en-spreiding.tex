@@ -59,7 +59,7 @@ Het \textbf{\textcolor{accent}{gemiddelde}} van $n$ gegevens $x_1, x_2, \dots, x
 
 Het symbool $\xbar$ lees je als \textit{x streep}. Het gemiddelde hoeft geen waarde uit de lijst te zijn, en bij een discrete variabele is het vaak geen geheel getal: gemiddeld 1,4 broers en zussen is een gewone uitkomst.
 
-\voorbeeld{}{Bereken de gemiddelde reistijd van Lotte voor route A en voor route B.\label{vb:h2-gemiddelde}}{%
+\voorbeeld{}{Lotte kan langs twee routes naar school. Ze probeert elke route tien schooldagen uit en noteert hoeveel minuten ze onderweg is: route A duurde 22, 24, 23, 25, 21, 24, 23, 22, 26 en 20 minuten, route B 15, 31, 18, 29, 16, 33, 17, 19, 30 en 22 minuten. Bereken de gemiddelde reistijd van elke route.\label{vb:h2-gemiddelde}}{%
 \uitleg{We tellen de tien tijden van elke route op en delen door 10.}
 \begin{stappenbreed}
 \xbar_A = \dfrac{22 + 24 + 23 + 25 + 21 + 24 + 23 + 22 + 26 + 20}{10} & Route A, in minuten. \\[2ex]
@@ -67,7 +67,7 @@ Het symbool $\xbar$ lees je als \textit{x streep}. Het gemiddelde hoeft geen waa
 \xbar_B = \dfrac{15 + 31 + 18 + 29 + 16 + 33 + 17 + 19 + 30 + 22}{10} & Route B. \\[2ex]
 \phantom{\xbar_B} = \dfrac{230}{10} = 23 & Hetzelfde gemiddelde.
 \end{stappenbreed}
-Haar broer heeft gelijk: gemiddeld duren beide routes 23 minuten. Toch zie je in de stippendiagrammen een groot verschil. Het gemiddelde alleen zegt dus niet alles.}
+Gemiddeld duren beide routes 23 minuten. Toch zie je in de lijsten een groot verschil: de tijden van route A liggen allemaal tussen 20 en 26 minuten, die van route B tussen 15 en 33 minuten. Het gemiddelde alleen zegt dus niet alles.}
 
 \naast{Het gemiddelde is het \textit{evenwichtspunt} van de gegevens. Leg op een lat een blokje bij elke reistijd van route A. De lat blijft in evenwicht als je ze ondersteunt bij 23. De \textit{afwijkingen} $x - \xbar$ van de gegevens rechts ($+1, +2, +1, +1, +3$) en links ($-1, -2, -1, -3$) zijn samen precies 0. Dat geldt altijd, en straks hebben we het nodig.}{\begin{tikzpicture}[x=.5cm,font=\scriptsize]
   \foreach \x/\k in {20/1,21/1,22/1,22/2,23/1,23/2,24/1,24/2,25/1,26/1}{\fill[accent!40] ({\x-.4},{.05+.38*(\k-1)}) rectangle ({\x+.4},{.4+.38*(\k-1)}); \draw[accent] ({\x-.4},{.05+.38*(\k-1)}) rectangle ({\x+.4},{.4+.38*(\k-1)});}
@@ -187,7 +187,7 @@ Een gegeven dat veel groter of kleiner is dan de andere, heet een \textbf{uitsch
 %========================================================================================
 \section{Spreidingsmaten}
 
-Terug naar Lotte. Route A en route B hebben hetzelfde gemiddelde, maar de tijden van route B liggen veel verder uit elkaar. Hoe druk je dat uit in een getal? We bekijken drie manieren, van eenvoudig naar beter.
+Twee rijen gegevens kunnen hetzelfde gemiddelde hebben en toch heel anders gespreid liggen, zoals de reistijden van route A en route B in voorbeeld~\ref{vb:h2-gemiddelde}: gemiddeld allebei 23 minuten, maar de tijden van route B liggen veel verder uit elkaar. Hoe druk je dat uit in een getal? We bekijken drie manieren, van eenvoudig naar beter.
 
 \subsection{De variatiebreedte}
 
@@ -290,7 +290,13 @@ Bij veel gegevens is een tabel met de hand te veel werk. Je rekentoestel bereken
 
 Het toestel toont ook $Sx$, een iets grotere standaardafwijking waarbij gedeeld wordt door $n - 1$ in plaats van door $n$. Die gebruik je later, als je met een steekproef iets wilt zeggen over een grotere groep. In een rekenblad heten de twee \texttt{STDEV.P} (deling door $n$) en \texttt{STDEV.S} (deling door $n - 1$).
 
-\voorbeeld{}{Terug naar het probleem. Bereken met het rekentoestel de standaardafwijking van route B. Welke route kiest Lotte best?\label{vb:h2-terug}}{%
+\voorbeeld{}{Terug naar het probleem. Lotte kan op twee manieren naar school: met de fiets langs de ring (route A) of met de bus (route B). Ze probeert elke route tien schooldagen uit en noteert hoeveel minuten ze onderweg is.
+
+\gegevens{|c|*{10}{c|}}{\hline
+route A & 22 & 24 & 23 & 25 & 21 & 24 & 23 & 22 & 26 & 20 \\ \hline
+route B & 15 & 31 & 18 & 29 & 16 & 33 & 17 & 19 & 30 & 22 \\ \hline}
+
+Lotte heeft 27 minuten tussen het moment dat ze vertrekt en het begin van de les. Haar broer rekent uit dat ze met beide routes gemiddeld even lang onderweg is. Is het dan om het even? Bereken met het rekentoestel de standaardafwijking van route B, en zeg welke route Lotte best kiest.\label{vb:h2-terug}}{%
 \uitleg{We zetten de tien tijden van route B in \texttt{L1} en kiezen \texttt{1-Var Stats}. Daarna vergelijken we de twee routes met al hun maten.}
 \begin{stappenbreed}
 \xbar_B = 23 \qquad s_B = \sigma x \approx 6,63 & Af te lezen op het scherm. \\[1ex]
