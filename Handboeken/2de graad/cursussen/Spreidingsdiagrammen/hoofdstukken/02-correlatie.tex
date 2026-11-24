@@ -3,8 +3,8 @@
 %
 % Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
 % Labels van dit hoofdstuk beginnen met h2-.
-% Leerlingen berekenen r met ICT. Verschil per pakket: de formule van r als uitleg, met een voorbeeld,
-% een korte oefening en een opdracht (alleen pakket 5).
+% Leerlingen berekenen r met ICT; de definitie van r hoort niet bij het leerplandoel (ook niet in B+S''), dus geen formule.
+% Verschil per pakket: een opdracht over een omgekeerd evenredig verband (f(x) = c/x, pakket 3-5: in B+ is c/x een keuzedeel).
 % Nagerekend: alle r-waarden en regressielijnen met Python (numpy.corrcoef en kleinste kwadraten).
 %----------------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ Tijdens een stage in een basisschool laat Mila twaalf kinderen van 6 tot 12 jaar
 Mila ziet het meteen: kinderen met grotere voeten lezen beter. Hoe sterk is dat verband? Kun je die sterkte in één getal uitdrukken? En moet een kind dat slecht leest dan grotere schoenen krijgen?
 \end{probleem}
 
-\lkr{Leerplan \pakketnaam: LPD \alleenvoor{2}{34}\alleenvoor{3}{36}\alleenvoor{4,5}{40} (dit hoofdstuk: de correlatiecoëfficiënt met ICT berekenen en interpreteren, sterkte en richting, de grenzen van $r$ (alleen lineair, gevoelig voor uitschieters, zegt niets over de steilheid) en het verschil tussen correlatie en oorzakelijk verband). Leerlingen berekenen $r$ niet met de hand maar met ICT\alleenvoor{5}{; in pakket 5 staat de formule als uitleg, met één voorbeeld en een paar oefeningen, om te begrijpen waar $r$ vandaan komt}. De grenzen voor sterk, matig en zwak zijn een afspraak van dit boek; gebruikt uw school andere grenzen, vermeld dat dan. Bij het probleem lachen de meeste leerlingen om de vraag over de schoenen, maar laat ze de echte verklaring (de leeftijd) zelf zoeken.}
+\lkr{Leerplan \pakketnaam: LPD \alleenvoor{2}{34}\alleenvoor{3}{36}\alleenvoor{4,5}{40} (dit hoofdstuk: de correlatiecoëfficiënt met ICT berekenen en interpreteren, sterkte en richting, de grenzen van $r$ (alleen lineair, gevoelig voor uitschieters, zegt niets over de steilheid) en het verschil tussen correlatie en oorzakelijk verband). Leerlingen berekenen $r$ niet met de hand maar met ICT: het leerplan vraagt $r$ te bepalen en te interpreteren, niet de definitie te bestuderen. Het leerplan stelt voor het doel te laten terugkeren bij de functies: hier gebeurt dat met de remweg (tweedegraads, hoofdstuk 1) en de opgegooide bal (parabool)\alleenvoor{3,4,5}{, en met een fietstocht waarbij de rijtijd omgekeerd evenredig is met de snelheid ($f(x) = c/x$)}. De grenzen voor sterk, matig en zwak zijn een afspraak van dit boek; gebruikt uw school andere grenzen, vermeld dat dan. Bij het probleem lachen de meeste leerlingen om de vraag over de schoenen, maar laat ze de echte verklaring (de leeftijd) zelf zoeken.}
 
 In het vorige hoofdstuk beschreef je de sterkte van een verband met woorden: sterk of zwak, naargelang de punten dicht bij een rechte liggen of niet. Maar wanneer is een verband ``sterk''? Twee mensen kunnen daar anders over oordelen. In dit hoofdstuk leer je een getal kennen dat de sterkte en de richting van een lineair verband meet: de \textit{correlatiecoëfficiënt}. Je berekent het met ICT, net als de regressielijn. Daarna zie je wat dat getal niet zegt, en waarom een sterk verband nog niet betekent dat het ene het andere veroorzaakt.
 
@@ -228,37 +228,6 @@ Drie dingen vallen op als je met $r$ rekent. Het getal $r$ heeft geen eenheid: o
 \oef{h2-ict}
 \end{oefeningen}
 
-\begin{alleenvoor}{5}
-\subsection{Hoe berekent ICT de correlatiecoëfficiënt?}
-
-Je hoeft $r$ nooit met de hand te berekenen, maar het is goed om te weten waar het getal vandaan komt. Het idee van de kwadranten wordt een formule. Het symbool $\sum$ (de Griekse hoofdletter sigma) betekent: tel op voor alle punten.
-
-\vspace{1mm}
-\qquad $r = \dfrac{\sum (x - \xbar)(y - \ybar)}{\sqrt{\sum (x - \xbar)^2 \cdot \sum (y - \ybar)^2}}$
-
-\vspace{1mm}
-De teller is de som van de producten uit de kwadranten: positief als de meeste punten rechtsboven en linksonder liggen. De noemer is altijd positief. Hij zorgt ervoor dat $r$ geen eenheid heeft en tussen $-1$ en $1$ ligt. Dat laatste bewijzen we niet. Je moet deze formule niet kennen: ze staat hier om te begrijpen wat ICT doet.
-
-\voorbeeld{}{Bereken met de formule $r$ voor de punten $(1, 2)$, $(2, 3)$, $(3, 5)$ en $(4, 6)$. Controleer met ICT.\label{vb:h2-formule}}{%
-\uitleg{Het gemiddelde punt is $(2,5;\ 4)$. We zetten per punt de afwijkingen, hun product en hun kwadraten in een tabel.}
-
-{\centering\renewcommand{\arraystretch}{1.3}\begin{tabular}{|c|c|c|c|c|}\hline
-$(x, y)$ & $x - \xbar$ & $y - \ybar$ & $(x - \xbar)(y - \ybar)$ & $(x - \xbar)^2$ \quad $(y - \ybar)^2$ \\ \hline
-$(1, 2)$ & $-1,5$ & $-2$ & $3$ & $2,25$ \quad $4$ \\
-$(2, 3)$ & $-0,5$ & $-1$ & $0,5$ & $0,25$ \quad $1$ \\
-$(3, 5)$ & $0,5$ & $1$ & $0,5$ & $0,25$ \quad $1$ \\
-$(4, 6)$ & $1,5$ & $2$ & $3$ & $2,25$ \quad $4$ \\ \hline
-som & $0$ & $0$ & $7$ & $5$ \quad\ $10$ \\ \hline
-\end{tabular}\par}
-\begin{stappen}
-r = \frac{7}{\sqrt{5 \cdot 10}} = \frac{7}{\sqrt{50}} \approx 0,99 & Vul de drie sommen in de formule in.
-\end{stappen}
-Alle producten zijn positief: de vier punten liggen rechtsboven of linksonder. ICT geeft ook ${r = 0,99}$, een heel sterk positief verband.}
-
-\begin{oefeningen}
-\oef{h2-formule}
-\end{oefeningen}
-\end{alleenvoor}
 
 %========================================================================================
 \section{Wat \texorpdfstring{$r$}{r} niet meet}
@@ -281,6 +250,8 @@ Een rechte past hier niet: de linkerhelft van de wolk stijgt en de rechterhelft 
 \end{tikzpicture}}
 \vspace{1mm}
 Het antwoord is dus nee: $r = 0,01$ zegt alleen dat er geen \textit{lineair} verband is.}
+
+Ook het omgekeerde klopt niet: een $r$ dicht bij $1$ of $-1$ bewijst niet dat het verband lineair is. De remweg van een wagen neemt steeds sneller toe met de snelheid, en de punten liggen op een boog. Toch kan ICT dan $r = 0,98$ geven. Pas als de punten in het spreidingsdiagram rond een rechte liggen, mag je met de regressielijn voorspellen.
 
 \begin{oefeningen}
 \oef{h2-krom}
@@ -411,9 +382,10 @@ Het verband is sterk ($r = 0,96$), maar de schoenmaat is niet de oorzaak van het
 
 \oef{h2-o17}
 
-\oef{h2-o18}
+\needspace{11\baselineskip}
+\oef{h2-o24}
 
-\oef{h2-o19}
+\oef{h2-o18}
 
 \needspace{11\baselineskip}
 \oef{h2-o20}
@@ -459,5 +431,5 @@ Het verband is sterk ($r = 0,96$), maar de schoenmaat is niet de oorzaak van het
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: wat de correlatiecoëfficiënt $r$ meet, tussen welke getallen hij ligt, wat het teken en $\abs{r}$ zeggen, wanneer een verband sterk, matig of zwak is, waarom $r$ niets zegt over de steilheid, hoe je $r$ met ICT berekent,\alleenvoor{5}{ hoe de formule van $r$ met de kwadranten samenhangt,} waarom $r \approx 0$ niet betekent dat er geen verband is, wat een uitschieter met $r$ doet, en waarom correlatie geen oorzakelijk verband bewijst (met de vier mogelijke verklaringen). Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: wat de correlatiecoëfficiënt $r$ meet, tussen welke getallen hij ligt, wat het teken en $\abs{r}$ zeggen, wanneer een verband sterk, matig of zwak is, waarom $r$ niets zegt over de steilheid, hoe je $r$ met ICT berekent, waarom $r \approx 0$ niet betekent dat er geen verband is, wat een uitschieter met $r$ doet, en waarom correlatie geen oorzakelijk verband bewijst (met de vier mogelijke verklaringen). Vergelijk daarna met de kaders.
 \fi
