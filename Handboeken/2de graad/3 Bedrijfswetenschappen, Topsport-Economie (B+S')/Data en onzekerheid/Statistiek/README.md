@@ -1,16 +1,14 @@
 # Statistiek: handboek
 
-Handboek voor pakket 3 (B+S') van de 2de graad, leerplandoelen 33-35, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 3 (B+S') van de 2de graad, leerplan II-WisS'-d, versie juni 2024, LPD 33-35, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Statistiek/](../../../cursussen/Statistiek/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 2: de standaardafwijking ook met de hand, uitschieters op het zicht. De volledige tabel met verschillen, de afspraken (kwartielen, standaardafwijking) en wat nog na te kijken is, staan in de [README van de bron](../../../cursussen/Statistiek/README.md).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Statistiek/](../../../cursussen/Statistiek/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Het statistiekdeel is in alle vijf leerplannen hetzelfde, op de nummers na. Zoals pakket 2, met het stam-en-bladdiagram en de cumulatieve frequentie als extra bij LPD 33. Uitschieters op het zicht. Spreidingsdiagrammen (LPD 36) staan in een eigen handboek. De volledige tabel met verschillen, de afspraken (kwartielen, standaardafwijking), wat het leerplan besliste en wat nog open is, staan in de [README van de bron](../../../cursussen/Statistiek/README.md).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Gegevens voorstellen | `hoofdstukken/01-gegevens-voorstellen.tex` | LPD 33-35 | eerste versie, nog na te lezen |
-| 2. Centrum- en spreidingsmaten | `hoofdstukken/02-centrum-en-spreiding.tex` | LPD 33-35 | eerste versie, nog na te lezen |
-| 3. Gegevens analyseren | `hoofdstukken/03-analyseren.tex` | LPD 33-35 | eerste versie, nog na te lezen |
-
-De verdeling van LPD 33-35 over de drie hoofdstukken is nog na te kijken in het leerplan.
+| 1. Gegevens voorstellen | `hoofdstukken/01-gegevens-voorstellen.tex` | LPD 33, mediaan en kwartielen uit LPD 34 | eerste versie, nog na te lezen |
+| 2. Centrum- en spreidingsmaten | `hoofdstukken/02-centrum-en-spreiding.tex` | LPD 34 | eerste versie, nog na te lezen |
+| 3. Gegevens analyseren | `hoofdstukken/03-analyseren.tex` | LPD 35 | eerste versie, nog na te lezen |
 
 ## PDF's
 

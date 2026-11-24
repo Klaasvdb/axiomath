@@ -1,6 +1,7 @@
 # Oefeningen van hoofdstuk 1. Zie Opmaak/oefeningenbank.py voor de velden.
 # Alle gegevens zijn verzonnen. Kwartielen: de mediaan van elke helft, zonder de mediaan als n oneven is.
-# pakketten: h1-o22 heeft een variant voor 1-3 (dezelfde boxplot, ander histogram) en voor 4-5 (ongelijke klassen).
+# pakketten: h1-o22 heeft een variant voor 1-4 (dezelfde boxplot, ander histogram) en voor 5 (ongelijke klassen);
+# h1-ordinaal alleen in 5; het stam-en-bladdiagram (h1-stamblad, h1-o9, h1-o18) niet in 1, dat een eigen h1-o18 heeft.
 
 - id: h1-start-1
   soort: start
@@ -125,6 +126,51 @@
         discreet
       uitwerking: |-
         Je telt doelpunten.
+
+- id: h1-ordinaal
+  soort: kort
+  pakketten: [5]
+  opgave: |-
+    Is de kwalitatieve variabele nominaal of ordinaal?
+  lijst: reeks
+  kolommen: 2
+  delen:
+    - opgave: |-
+        de kledingmaat: S, M, L of XL
+      antwoord: |-
+        ordinaal
+      uitwerking: |-
+        De maten hebben een volgorde: S is kleiner dan M.
+    - opgave: |-
+        het land van je laatste vakantie
+      antwoord: |-
+        nominaal
+      uitwerking: |-
+        Landen hebben geen natuurlijke volgorde.
+    - opgave: |-
+        het antwoord op \textit{Hoe vaak sport je?}: nooit, soms, vaak
+      antwoord: |-
+        ordinaal
+      uitwerking: |-
+        Nooit, soms en vaak kun je rangschikken.
+    - opgave: |-
+        de bloedgroep van een donor
+      antwoord: |-
+        nominaal
+      uitwerking: |-
+        A, B, AB en O zijn namen zonder volgorde.
+    - opgave: |-
+        de medaille op een wedstrijd
+      antwoord: |-
+        ordinaal
+      uitwerking: |-
+        Goud, zilver, brons: een volgorde, maar geen getallen om mee te rekenen.
+    - opgave: |-
+        de smaak van een ijsje
+      antwoord: |-
+        nominaal
+      uitwerking: |-
+        Vanille is niet meer of minder dan chocolade.
 
 - id: h1-tabel
   soort: kort
@@ -268,6 +314,7 @@
 
 - id: h1-stamblad
   soort: kort
+  pakketten: [2, 3, 4, 5]
   opgave: |-
     Achttien leerlingen doen zoveel mogelijk push-ups in één minuut: 23, 31, 18, 45, 27, 36, 29, 52, 33, 24, 40, 38, 15, 28, 34, 47, 30, 26.
   lijst: enumerate
@@ -699,9 +746,23 @@
         $30~\%$
       uitwerking: |-
         $2 + 7 = 9$ van de 30.
+    - opgave: |-
+        Teken ook een histogram met klassen van 2 minuten breed, te beginnen bij 4 minuten. Wat zie je nu niet meer?
+      antwoord: |-
+        frequenties 9, 16, 5; minder details
+      uitwerking: |-
+        $[4, 6[$: $2 + 7 = 9$; $[6, 8[$: $10 + 6 = 16$; $[8, 10[$: $3 + 2 = 5$.
+        \figuren{\begin{tikzpicture}[x=1.1cm,y=.12cm,font=\scriptsize]
+          \frequentieas{4}{16}{4}{10.2}
+          \foreach \a/\f in {4/9,6/16,8/5}{\balk{\a}{\a+2}{\f}}
+          \foreach \a in {4,6,8,10}{\node[below] at (\a,0) {\a};}
+          \node[below=8pt] at (7,0) {tijd (min)};
+        \end{tikzpicture}}
+        Je ziet nog dat de meeste tijden in het midden liggen, maar niet meer dat de drukste klasse van 6 tot 7 minuten gaat, en ook niet dat weinig leerlingen onder 5 minuten blijven. Hoe breder de klassen, hoe meer je samenvat, en hoe meer informatie je verliest.
 
 - id: h1-o9
   soort: opdracht
+  pakketten: [2, 3, 4, 5]
   niveau: 2
   thema: |-
     stam-en-bladdiagram lezen
@@ -962,6 +1023,7 @@
 
 - id: h1-o18
   soort: opdracht
+  pakketten: [2, 3, 4, 5]
   niveau: 2
   thema: |-
     stam-en-bladdiagram en boxplot
@@ -981,6 +1043,33 @@
         $54$; $65,5$; $73$; $80,5$; $95$
       uitwerking: |-
         25 getallen: $\Me$ is het 13de, 73. Onderste helft: de eerste 12, $Q_1 = \tfrac{65 + 66}{2} = 65,5$. Bovenste helft: het 14de tot het 25ste, $Q_3 = \tfrac{80 + 81}{2} = 80,5$.
+        \figuren{\begin{tikzpicture}[x=.14cm,font=\scriptsize]
+          \boxplot{.7}{54}{65.5}{73}{80.5}{95}
+          \getalas[g]{50}{10}{100}
+        \end{tikzpicture}}
+    - opgave: |-
+        Appels van minstens 80 g verkoopt de teler als klasse I. Is dat ongeveer een kwart van de appels?
+      antwoord: |-
+        ja, 7 van de 25
+      uitwerking: |-
+        $Q_3 = 80,5$, dus ongeveer een kwart weegt meer dan $80,5$ g. Tellen: 80, 81, 83, 85, 88, 92, 95, dat zijn 7 appels of $28~\%$.
+
+- id: h1-o18
+  soort: opdracht
+  pakketten: [1]
+  niveau: 2
+  thema: |-
+    boxplot van veel gegevens
+  opgave: |-
+    Een fruitteler weegt 25 appels (in g): 61, 74, 58, 83, 69, 77, 92, 65, 71, 88, 54, 79, 73, 66, 81, 70, 95, 62, 76, 85, 68, 72, 59, 80, 75.
+  lijst: enumerate
+  delen:
+    - opgave: |-
+        Rangschik de massa's, bepaal de vijfgetallensamenvatting en teken een boxplot.
+      antwoord: |-
+        $54$; $65,5$; $73$; $80,5$; $95$
+      uitwerking: |-
+        $54, 58, 59, 61, 62, 65, 66, 68, 69, 70, 71, 72, \fbox{73}, 74, 75, 76, 77, 79, 80, 81, 83, 85, 88, 92, 95$. 25 getallen: $\Me$ is het 13de, 73. Onderste helft: de eerste 12, $Q_1 = \tfrac{65 + 66}{2} = 65,5$. Bovenste helft: het 14de tot het 25ste, $Q_3 = \tfrac{80 + 81}{2} = 80,5$.
         \figuren{\begin{tikzpicture}[x=.14cm,font=\scriptsize]
           \boxplot{.7}{54}{65.5}{73}{80.5}{95}
           \getalas[g]{50}{10}{100}
@@ -1068,7 +1157,7 @@
 
 - id: h1-o22
   soort: opdracht
-  pakketten: [1, 2, 3]
+  pakketten: [1, 2, 3, 4]
   niveau: 3
   thema: |-
     dezelfde boxplot, andere gegevens
@@ -1097,7 +1186,7 @@
 
 - id: h1-o22
   soort: opdracht
-  pakketten: [4, 5]
+  pakketten: [5]
   niveau: 3
   thema: |-
     histogram met ongelijke klassen

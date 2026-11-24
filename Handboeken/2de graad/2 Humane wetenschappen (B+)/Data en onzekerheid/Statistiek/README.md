@@ -1,16 +1,14 @@
 # Statistiek: handboek
 
-Handboek voor pakket 2 (B+) van de 2de graad, leerplandoelen 31-33, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 2 (B+) van de 2de graad, leerplan II-Wis'-d, versie oktober 2024, LPD 31-33, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Statistiek/](../../../cursussen/Statistiek/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 1, maar de standaardafwijking ook met de hand, met een tabel. Uitschieters op het zicht; opdracht h1-o22 gaat over gegevens met dezelfde boxplot. De volledige tabel met verschillen, de afspraken (kwartielen, standaardafwijking) en wat nog na te kijken is, staan in de [README van de bron](../../../cursussen/Statistiek/README.md).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Statistiek/](../../../cursussen/Statistiek/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Het statistiekdeel is in alle vijf leerplannen hetzelfde, op de nummers na. Zoals pakket 1, met het stam-en-bladdiagram (ook een rug-aan-rugdiagram in opdracht h3-o12) en de cumulatieve frequentie als extra bij LPD 31 (andere voorstellingswijzen). Uitschieters op het zicht; opdracht h1-o22 gaat over gegevens met dezelfde boxplot. Spreidingsdiagrammen (LPD 34) staan in een eigen handboek. De volledige tabel met verschillen, de afspraken (kwartielen, standaardafwijking), wat het leerplan besliste en wat nog open is, staan in de [README van de bron](../../../cursussen/Statistiek/README.md).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Gegevens voorstellen | `hoofdstukken/01-gegevens-voorstellen.tex` | LPD 31-33 | eerste versie, nog na te lezen |
-| 2. Centrum- en spreidingsmaten | `hoofdstukken/02-centrum-en-spreiding.tex` | LPD 31-33 | eerste versie, nog na te lezen |
-| 3. Gegevens analyseren | `hoofdstukken/03-analyseren.tex` | LPD 31-33 | eerste versie, nog na te lezen |
-
-De verdeling van LPD 31-33 over de drie hoofdstukken is nog na te kijken in het leerplan.
+| 1. Gegevens voorstellen | `hoofdstukken/01-gegevens-voorstellen.tex` | LPD 31, mediaan en kwartielen uit LPD 32 | eerste versie, nog na te lezen |
+| 2. Centrum- en spreidingsmaten | `hoofdstukken/02-centrum-en-spreiding.tex` | LPD 32 | eerste versie, nog na te lezen |
+| 3. Gegevens analyseren | `hoofdstukken/03-analyseren.tex` | LPD 33 | eerste versie, nog na te lezen |
 
 ## PDF's
 

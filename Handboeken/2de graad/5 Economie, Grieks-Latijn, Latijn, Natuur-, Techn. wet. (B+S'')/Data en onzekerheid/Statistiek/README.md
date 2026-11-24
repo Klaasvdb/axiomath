@@ -1,16 +1,14 @@
 # Statistiek: handboek
 
-Handboek voor pakket 5 (B+S'') van de 2de graad, leerplandoelen 37-39, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 5 (B+S'') van de 2de graad, leerplan II-WisS''-d, versie oktober 2024, met het servicedocument voor 5 uur, LPD 37-39, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Statistiek/](../../../cursussen/Statistiek/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en ook het effect van een verschuiving en vermenigvuldiging van alle gegevens ($a x + b$) op de maten, met een kort bewijs. De volledige tabel met verschillen, de afspraken (kwartielen, standaardafwijking) en wat nog na te kijken is, staan in de [README van de bron](../../../cursussen/Statistiek/README.md).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Statistiek/](../../../cursussen/Statistiek/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Het statistiekdeel is in alle vijf leerplannen hetzelfde, op de nummers na. Zoals pakket 4, en daarbij, als de meer diepgaande realisatie die het leerplan B+S'' vraagt: de regel van 1,5 keer de interkwartielafstand met de aangepaste boxplot, een histogram met ongelijke klassen (opdracht h1-o22), en het effect van $a x + b$ op de maten met een kort bewijs (ook LPD B1). Uit het servicedocument voor 5 uur: kwalitatieve variabelen zijn nominaal of ordinaal (oefening h1-ordinaal). Spreidingsdiagrammen (LPD 40) staan in een eigen handboek. De volledige tabel met verschillen, de afspraken (kwartielen, standaardafwijking), wat het leerplan besliste en wat nog open is, staan in de [README van de bron](../../../cursussen/Statistiek/README.md).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Gegevens voorstellen | `hoofdstukken/01-gegevens-voorstellen.tex` | LPD 37-39 | eerste versie, nog na te lezen |
-| 2. Centrum- en spreidingsmaten | `hoofdstukken/02-centrum-en-spreiding.tex` | LPD 37-39 | eerste versie, nog na te lezen |
-| 3. Gegevens analyseren | `hoofdstukken/03-analyseren.tex` | LPD 37-39 | eerste versie, nog na te lezen |
-
-De verdeling van LPD 37-39 over de drie hoofdstukken is nog na te kijken in het leerplan.
+| 1. Gegevens voorstellen | `hoofdstukken/01-gegevens-voorstellen.tex` | LPD 37, mediaan en kwartielen uit LPD 38 | eerste versie, nog na te lezen |
+| 2. Centrum- en spreidingsmaten | `hoofdstukken/02-centrum-en-spreiding.tex` | LPD 38 | eerste versie, nog na te lezen |
+| 3. Gegevens analyseren | `hoofdstukken/03-analyseren.tex` | LPD 39 | eerste versie, nog na te lezen |
 
 ## PDF's
 
