@@ -397,7 +397,7 @@ De orde van elk element is een deler van de orde van de groep. In $\Zn{12}$ is d
 
 \subsection{Cykels}
 
-Wat is de orde van de permutatie van de goochelaar? Je kunt $\sigma^2$, $\sigma^3$, \ldots{} uitrekenen tot je $e$ vindt. Bij 52 kaarten is dat veel werk. Het kan sneller als je de pijlen van de permutatie volgt: dan loop je in kringen rond.
+Hoe vind je de orde van een permutatie $\sigma$? Je kunt $\sigma^2$, $\sigma^3$, \ldots{} uitrekenen tot je $e$ vindt. Bij een permutatie van 52 getallen is dat veel werk. Het kan sneller als je de pijlen van de permutatie volgt: dan loop je in kringen rond.
 
 \naast{Neem $\sigma = \perm{1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ 3 & 5 & 4 & 1 & 2 & 8 & 7 & 6}$. Vertrek bij 1 en volg de pijlen: $1 \to 3 \to 4 \to 1$. Je bent terug, na drie stappen. Neem het kleinste getal dat je nog niet tegenkwam: $2 \to 5 \to 2$. Dan $6 \to 8 \to 6$, en 7 blijft op zijn plaats. De permutatie bestaat uit drie kringen, die niets met elkaar te maken hebben.}{\begin{tikzpicture}[font=\scriptsize]
   \foreach \k/\t in {0/1,1/3,2/4}{\fill[accent] ({90-120*\k}:.6) circle (1.5pt); \node at ({90-120*\k}:.88) {$\t$};}
@@ -485,10 +485,8 @@ Schrijf de permutatie als samenstelling van disjuncte cykels, en neem het kgv va
 \oef{h1-cykels}
 \end{oefeningen}
 
-Nu kun je het probleem van de goochelaar oplossen. Schudden is een permutatie van de plaatsen in de stapel, en telkens op dezelfde manier schudden is die permutatie samenstellen met zichzelf.
-
-\voorbeeld{}{Terug naar het probleem. Komt een stapel altijd terug in de beginvolgorde als je telkens op dezelfde manier schudt? Na hoeveel keer is een stapel van tien kaarten terug, en een stapel van acht als de onderste helft bovenaan komt?\label{vb:h1-terug}}{%
-\uitleg{De permutatie $\sigma$ stuurt elke plaats naar de plaats waar die kaart na het schudden ligt. Het aantal keer schudden tot de beginvolgorde is de orde van $\sigma$. We schrijven $\sigma$ telkens in disjuncte cykels.}
+\voorbeeld{}{Terug naar het probleem. Een goochelaar legt acht kaarten op een stapel, genummerd van 1 bovenaan tot 8 onderaan. Hij verdeelt de stapel in twee helften van vier kaarten en schuift ze perfect in elkaar, met kaart 1 bovenaan. De nieuwe volgorde is $1, 5, 2, 6, 3, 7, 4, 8$. Na drie keer zo schudden ligt de stapel weer zoals in het begin. Komt elke stapel terug in de beginvolgorde, als je telkens op dezelfde manier schudt? Na hoeveel keer schudden is een stapel van tien kaarten terug? En een stapel van acht, als de goochelaar de onderste helft bovenaan legt, zodat kaart 5 bovenaan komt?\label{vb:h1-terug}}{%
+\uitleg{Schudden is een permutatie van de plaatsen in de stapel, en telkens op dezelfde manier schudden is die permutatie samenstellen met zichzelf. De permutatie $\sigma$ stuurt elke plaats naar de plaats waar die kaart na het schudden ligt. Het aantal keer schudden tot de beginvolgorde is de orde van $\sigma$. We schrijven $\sigma$ telkens in disjuncte cykels.}
 \begin{stappenbreed}
 \text{acht kaarten: } \sigma = \cyc{2 & 3 & 5} \circ \cyc{4 & 7 & 6} & Na het schudden ligt de kaart van plaats 2 op plaats 3, die van 3 op 5, die van 5 op 2. Kaart 1 en 8 blijven liggen. Orde $\kgv(3, 3) = 3$. \\[2ex]
 \text{tien kaarten: } 1, 6, 2, 7, 3, 8, 4, 9, 5, 10 & De nieuwe volgorde, met de helften $1$--$5$ en $6$--$10$. \\[1ex]
