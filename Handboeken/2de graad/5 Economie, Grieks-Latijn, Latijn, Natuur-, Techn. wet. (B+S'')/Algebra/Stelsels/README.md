@@ -1,16 +1,16 @@
 # Stelsels: handboek
 
-Handboek voor pakket 5 (B+S'') van de 2de graad, leerplandoelen 26-27, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Pieter de Hooch, *De goudweegster* (publiek domein), hetzelfde werk als Eerstegraadsvergelijkingen. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 5 (B+S'') van de 2de graad, leerplan II-WisS''-d (versie oktober 2024, met het servicedocument 5u), leerplandoelen 2, 26-27 en B1, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Pieter de Hooch, *De goudweegster* (publiek domein), hetzelfde werk als Eerstegraadsvergelijkingen. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Stelsels/](../../../cursussen/Stelsels/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en als bescheiden uitbreiding de regel van Cramer met de determinant (sectie 2.4), een bewijsopdracht die daar naartoe leidt in hoofdstuk 1, een stelsel in $\frac1x$ en $\frac1y$, en een vraagstuk met kranen. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](../../../cursussen/Stelsels/README.md).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Stelsels/](../../../cursussen/Stelsels/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en als verdieping een stelsel met een parameter (hoofdstuk 1, met een korte oefening, een opdracht en een testvraag, en een opdracht in hoofdstuk 2; in de lijn van de wenk over parameters bij LPD 18), een bewijsopdracht in hoofdstuk 1 (LPD B1), een stelsel in $\frac1x$ en $\frac1y$, en een vraagstuk met kranen. De regel van Cramer en de opdrachten met drie onbekenden van de eerste versie zijn weg: ze horen bij de 3de graad. De volledige tabel met verschillen, wat het leerplan besliste en wat open blijft, staat in de [README van de bron](../../../cursussen/Stelsels/README.md).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Grafisch oplossen | `hoofdstukken/01-grafisch.tex` | LPD 26-27 | eerste versie, nog na te lezen |
-| 2. Algebraïsch oplossen | `hoofdstukken/02-algebraisch.tex` | LPD 26-27 | eerste versie, nog na te lezen |
-| 3. Vraagstukken | `hoofdstukken/03-vraagstukken.tex` | LPD 26-27 | eerste versie, nog na te lezen |
+| 1. Grafisch oplossen | `hoofdstukken/01-grafisch.tex` | LPD 26; LPD B1 (bewijsopdracht) | eerste versie, getoetst aan het leerplan |
+| 2. Algebraïsch oplossen | `hoofdstukken/02-algebraisch.tex` | LPD 27 | eerste versie, getoetst aan het leerplan |
+| 3. Vraagstukken | `hoofdstukken/03-vraagstukken.tex` | LPD 27, 26 (tarieven), 2 | eerste versie, getoetst aan het leerplan |
 
-De verdeling van LPD 26-27 over de drie hoofdstukken is nog na te kijken in het leerplan.
+De LPD-nummers zijn die van het leerplan van dit pakket en staan ook in de kaders voor de leerkracht. LPD 2 is het algemene doel over vraagstukken. Nog na te lezen: de tekst en de oefeningen, en het gebruik in de klas.
 
 ## PDF's
 
