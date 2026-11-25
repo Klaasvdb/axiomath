@@ -29,7 +29,7 @@ Een rij gaat altijd verder: na elke term komt er nog een. De vraag is dus niet w
 
 \subsection{De begrippen}
 
-In de verkenning kwamen de termen steeds dichter bij een getal, en bleven ze er ook dicht bij. Bij het zwembad uit het probleem lijkt het net zo: de hoeveelheid chloor daalt, maar steeds minder snel. Zo'n getal heet de limiet van de rij. Niet elke rij heeft er een.
+In de verkenning kwamen de termen steeds dichter bij een getal, en bleven ze er ook dicht bij. Zo'n getal heet de limiet van de rij. Niet elke rij heeft er een.
 
 \begin{theorie}
 Een rij is \emph{convergent} als de termen willekeurig dicht bij een reëel getal $L$ komen en daar blijven. $L$ is de \emph{limiet} van de rij: \ $\formule{\displaystyle\lim_{n\to+\infty} u_n = L}$. Een rij die niet convergeert, is \emph{divergent}.
@@ -99,7 +99,7 @@ Een rekenkundige rij is $u_n = v\,n + (u_1 - v)$: de limiet van een eerstegraads
 %========================================================================================
 \section{De formele definitie}
 
-`Willekeurig dicht' klinkt duidelijk, maar wat betekent het precies? Hoe dicht is dicht genoeg? Wiskundigen hebben daar in de 19de eeuw een nauwkeurige definitie voor gevonden. Kies een band rond $L$, zo smal als je wilt, met breedte $\varepsilon$ (de Griekse letter epsilon) boven en onder $L$. Dan moeten vanaf een bepaald volgnummer $N$ alle termen in die band liggen. Kies je de band smaller, dan mag die $N$ groter worden, maar er moet er altijd een zijn. In het probleem van het zwembad is $\varepsilon$ gelijk aan 5 g.
+`Willekeurig dicht' klinkt duidelijk, maar wat betekent het precies? Hoe dicht is dicht genoeg? Wiskundigen hebben daar in de 19de eeuw een nauwkeurige definitie voor gevonden. Kies een band rond $L$, zo smal als je wilt, met breedte $\varepsilon$ (de Griekse letter epsilon) boven en onder $L$. Dan moeten vanaf een bepaald volgnummer $N$ alle termen in die band liggen. Kies je de band smaller, dan mag die $N$ groter worden, maar er moet er altijd een zijn.
 
 \begin{theorie}
 \begin{minipage}[t]{.57\linewidth}
@@ -292,7 +292,7 @@ u_{n+1} - u_n > 0 & Teller en noemer zijn positief voor elke $n$: de rij stijgt.
 %========================================================================================
 \section{Discrete dynamische processen}
 
-In opdracht \ref{oef:h1-o14} van hoofdstuk 1 verdween er elke nacht 20\,\% van het chloor in een zwembad, en kwam er elke ochtend 50 g bij. Zo'n rij met $u_n = a\,u_{n-1} + b$ heet een \textit{discreet dynamisch proces}. Discreet: je kijkt met vaste tussenpozen. Dynamisch: er verandert iets. Op de lange duur komt zo'n proces vaak tot rust in een \textit{evenwicht}: er verdwijnt dan evenveel als er bijkomt.
+Verdwijnt er elke dag een vast percentage van een hoeveelheid, en komt er elke dag een vaste hoeveelheid bij, dan geldt $u_n = a\,u_{n-1} + b$. Zo'n rij heet een \textit{discreet dynamisch proces}. Discreet: je kijkt met vaste tussenpozen. Dynamisch: er verandert iets. Op de lange duur komt zo'n proces vaak tot rust in een \textit{evenwicht}: er verdwijnt dan evenveel als er bijkomt.
 
 \begin{theorie}
 \begin{stelling}{Evenwicht van een dynamisch proces}
@@ -309,7 +309,7 @@ De hulprij is meetkundig met quotiënt $a$, en omdat $|a| < 1$, gaat ze naar 0. 
 \end{bewijs}
 \end{theorie}
 
-\voorbeeld{}{Het zwembad: $u_0 = 400$ en $u_n = 0{,}8\,u_{n-1} + 50$. Bepaal het evenwicht $L$ en een expliciet voorschrift.\label{vb:h4-dyn}}{%
+\voorbeeld{}{Terug naar het probleem. In een zwembad verdwijnt elke nacht 20\,\% van het chloor, en elke ochtend voegt de beheerder 50 g toe. Vandaag zit er na het toevoegen 400 g in het water: $u_0 = 400$ en $u_n = 0{,}8\,u_{n-1} + 50$. Zakt de hoeveelheid zo tot 0, of komt ze ergens tot rust? Bepaal het evenwicht $L$ en een expliciet voorschrift.\label{vb:h4-dyn}}{%
 \naast{\uitleg{Omdat $|0{,}8| < 1$, bestaat de limiet. We vinden ze uit de vergelijking, en het expliciet voorschrift met de hulprij uit het bewijs.}
 \begin{stappenvrij}{4.6cm}{4.2cm}
 L = 0{,}8\,L + 50 \ \Rightarrow \ L = 250 & $0{,}2\,L = 50$: het evenwicht is 250 g chloor. \\
@@ -325,7 +325,8 @@ u_n = 250 + 150 \cdot 0{,}8^{\,n} & Dus $v_n = 150 \cdot 0{,}8^{\,n}$. Controle:
   \draw[grijs,dashed] (0,250) -- (10.4,250) node[right,text=black] {250};
   \foreach \x/\y in {0/400,1/370,2/346,3/326.8,4/311.4,5/299.2,6/289.3,7/281.5,8/275.2,9/270.1,10/266.1}
     \fill[accent] (\x,\y) circle (1.6pt);
-\end{tikzpicture}}}
+\end{tikzpicture}}
+De hoeveelheid zakt dus niet tot 0: ze komt tot rust bij 250 g.}
 
 De vergelijking $L = aL + b$ veronderstelt dat de limiet bestaat. Is $|a| \geqslant 1$, dan levert ze vaak toch een getal op, terwijl de rij geen limiet heeft. Kijk dus altijd eerst naar $a$.
 
@@ -338,9 +339,7 @@ De vergelijking $L = aL + b$ veronderstelt dat de limiet bestaat. Is $|a| \geqsl
 \end{oefeningen}
 
 \needspace{24\baselineskip}
-Nu kunnen we het probleem van het zwembad oplossen. Met 50 g per ochtend daalt de hoeveelheid niet tot 0, maar nadert ze 250 g (voorbeeld \ref{vb:h4-dyn}). De beheerder moet dus meer toevoegen.
-
-\voorbeeld{}{Terug naar het probleem. Elke nacht verdwijnt 20\,\% van het chloor, en elke ochtend komt er $b$ gram bij. Na het toevoegen zit er vandaag 400 g in het water. Bepaal $b$ zodat de hoeveelheid op de lange duur 300 g nadert. Na hoeveel dagen scheelt het minder dan 5 g met 300 g?\label{vb:h4-terug}}{%
+\voorbeeld{}{Terug naar het probleem. In een zwembad verdwijnt elke nacht 20\,\% van het chloor, en elke ochtend voegt de beheerder $b$ gram toe. Vandaag zit er na het toevoegen 400 g in het water. Met 50 g per ochtend komt de hoeveelheid tot rust bij 250 g, maar de beheerder wil dat er op de lange duur 300 g in het water zit. Hoeveel moet hij dan elke ochtend toevoegen? En na hoeveel dagen scheelt het minder dan 5 g met die 300 g?\label{vb:h4-terug}}{%
 \uitleg{De hoeveelheid na $n$ dagen is $u_n = 0{,}8\,u_{n-1} + b$ met $u_0 = 400$. Omdat $|0{,}8| < 1$, heeft de rij een limiet, en die moet 300 zijn. Daarna zoeken we met de hulprij een expliciet voorschrift, en lossen we $|u_n - 300| < 5$ op.}
 \begin{stappen}
 300 = 0{,}8 \cdot 300 + b \ \Rightarrow \ b = 60 & De limiet voldoet aan $L = aL + b$. De beheerder moet elke ochtend 60 g toevoegen. \\
