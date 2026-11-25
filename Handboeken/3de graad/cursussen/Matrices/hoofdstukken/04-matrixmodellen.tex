@@ -152,7 +152,7 @@ Stel de verbindingsmatrix op, met het vertrek in de kolommen. Voor wegen van len
 
 \subsection{Van toestand naar toestand}
 
-Hoe reken je uit waar de fietsen uit het probleem morgen staan? Elke fiets heeft elke dag dezelfde kansen, wat er ook eerder gebeurde. We bekijken eerst een eenvoudiger situatie, met maar twee toestanden.
+Hoe reken je uit hoe een toestand van dag tot dag verandert, als elk individu elke dag dezelfde kansen heeft, wat er ook eerder gebeurde? We bekijken eerst een eenvoudige situatie, met maar twee toestanden.
 
 In de refter van een school kunnen de 800 leerlingen elke middag kiezen: een warme maaltijd ($W$) of boterhammen ($B$). Wie vandaag warm eet, doet dat morgen met een kans van 60~\% opnieuw, en neemt met een kans van 40~\% boterhammen. Van wie boterhammen eet, eet morgen 20~\% warm en blijft 80~\% bij de boterhammen.
 
@@ -211,7 +211,7 @@ Teken het overgangsdiagram en zet de kansen in de overgangsmatrix: van in de kol
 
 Een model met drie toestanden werkt op dezelfde manier, maar het rekenwerk groeit. Dan laat je het rekentoestel de machten berekenen.
 
-\voorbeeld{}{Neem de deelfietsen uit het probleem. Op maandagochtend staan er 120 fietsen aan het Station ($S$), 80 aan de Markt ($M$) en 100 aan de Campus ($C$). Hoeveel fietsen staan er een week later aan elk station?\label{vb:h4-fietsen}}{%
+\voorbeeld{}{Terug naar het probleem. Een stad zet 300 deelfietsen aan drie stations: het Station ($S$), de Markt ($M$) en de Campus ($C$). Je neemt een fiets aan het ene station en zet hem aan een ander terug. Het diagram toont hoe de fietsen elke dag verhuizen: van de fietsen aan het Station staat 50~\% er de volgende ochtend opnieuw, 30~\% aan de Markt en 20~\% aan de Campus. Op maandagochtend staan er 120 fietsen aan het Station, 80 aan de Markt en 100 aan de Campus. Hoeveel fietsen staan er een week later aan elk station?\label{vb:h4-fietsen}}{%
 \uitleg{Eerst lezen we de overgangsmatrix af uit het diagram, kolom per vertrekstation. Een week later is zeven stappen verder, dus we hebben $F^7$ nodig, en dat laten we aan het rekentoestel over.}
 \figuren{\begin{tikzpicture}[font=\small]
   \node[knoop] (s) at (0,0) {S};
@@ -238,7 +238,7 @@ X_7 = F^7 \begin{bmatrix} 120 \\ 80 \\ 100 \end{bmatrix} \approx \begin{bmatrix}
 
 \subsection{Op lange termijn}
 
-Raakt een station van de deelfietsen op den duur leeg? Om dat te weten, moeten we verder kijken dan een week. Rekenen we eerst in de refter verder, dan verandert het aantal warme maaltijden steeds minder: 280, 272, 268,8, \ldots{} Het lijkt naar een vaste waarde te gaan. En dat gebeurt ook als je op maandag met heel andere aantallen begint. De figuur toont het aandeel leerlingen dat warm eet, voor twee verschillende begintoestanden: na een week of twee zijn ze niet meer van elkaar te onderscheiden.
+Wat gebeurt er op lange termijn? Om dat te weten, moeten we verder kijken dan een week. Rekenen we in de refter verder, dan verandert het aantal warme maaltijden steeds minder: 280, 272, 268,8, \ldots{} Het lijkt naar een vaste waarde te gaan. En dat gebeurt ook als je op maandag met heel andere aantallen begint. De figuur toont het aandeel leerlingen dat warm eet, voor twee verschillende begintoestanden: na een week of twee zijn ze niet meer van elkaar te onderscheiden.
 
 \figuren{\begin{tikzpicture}[x=.62cm,y=4.2cm,font=\scriptsize]
   \draw[black!14,very thin] (0,0) grid[xstep=1,ystep=.1] (10,1);
@@ -277,7 +277,9 @@ Bij drie toestanden geeft $MX = X$ een stelsel met drie onbekenden, dat je oplos
 Bij drie toestanden geeft $MX = X$ een stelsel met drie onbekenden. Dat kun je vermijden met een hoge macht van $M$. In hoofdstuk 1 zag je al dat de kolommen van zo'n macht bijna gelijk worden. Dat is geen toeval: $M^{n} X_0$ gaat naar het evenwicht voor elke begintoestand, dus ook voor de begintoestand met alles in toestand 1, en dan is $M^n X_0$ precies de eerste kolom van $M^n$.
 \end{alleenvoor}
 
-\voorbeeld{}{Terug naar het probleem. Hoeveel fietsen staan er op lange termijn aan elk station? Raakt een station leeg?\label{vb:h4-terug}}{%
+\voorbeeld{}{Terug naar het probleem. Een stad zet 300 deelfietsen aan drie stations. Op maandag staan er 120 aan het Station, 80 aan de Markt en 100 aan de Campus. Elke dag verhuizen de fietsen volgens de overgangsmatrix $F$ van voorbeeld~\ref{vb:h4-fietsen}, met een kolom per vertrekstation:
+\[ F = \begin{bmatrix} 0{,}5 & 0{,}2 & 0{,}3 \\ 0{,}3 & 0{,}6 & 0{,}2 \\ 0{,}2 & 0{,}2 & 0{,}5 \end{bmatrix} . \]
+Raakt een station op den duur leeg, zodat het bedrijf fietsen met een bestelwagen moet verplaatsen? Hoeveel fietsen staan er op lange termijn aan elk station?\label{vb:h4-terug}}{%
 \begin{alleenvoor}{2,3,4}
 \uitleg{We lossen $(F - I)X = O$ op met Gauss-Jordan. Om met gehele getallen te rekenen, vermenigvuldigen we elke vergelijking eerst met 10. Daarna kiezen we de parameter zo dat de aandelen samen 1 zijn.}
 \begin{stappenbreed}
