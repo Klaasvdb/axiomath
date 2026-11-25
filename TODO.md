@@ -135,3 +135,6 @@ Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofd
 
 ## De problemen verkappen.
 - Elk hoofdstuk begint nu met het formuleren van een probleem. Dat wordt een aantal keren terug opgenomen doorheen het hoofdstuk. Doe dit niet. Enkel wanneer de vraag helemaal kan opgelost worden (aan het einde van het hoofdstuk of halverwege), herneem je het probleem weer en geef je de uitwerking. Wat er nu staat is een blinde recal van het probleem, maar de leerlingen hebben geen idee meer waarover dat precies ging.
+
+## Bij het aanpassen van handboeken, steeds eerst alle feedback inladen.
+Zo bouwen we geen andere handboeken over gegeven feedback heen.
