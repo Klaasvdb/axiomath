@@ -174,7 +174,13 @@ Kies $h$ niet kleiner dan nodig: op een rekentoestel ongeveer $10^{-3}$ voor de 
 
 Bij meetwaarden kies je $h$ niet zelf: het is de tijd tussen twee metingen. In een punt binnenin de tabel gebruik je de centrale differentie met de buren links en rechts. Aan de rand heb je alleen de voorwaartse of de achterwaartse.
 
-\voorbeeld{}{Terug naar het probleem (deel 1). Schat de versnelling van de auto na 6 seconden. Vergelijk de drie differenties.\label{vb:h4-terug1}}{%
+\voorbeeld{}{Terug naar het probleem (deel 1). Een elektrische auto trekt op aan een verkeerslicht. De app van de auto toont om de 2 seconden de snelheid $v$ (in m/s), zoals in de tabel. Hoe groot was de versnelling na 6 seconden? Schat ze met de drie differenties, en vergelijk.
+
+\vspace{1mm}
+{\centering\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|ccccccc}
+$t$ (s) & 0 & 2 & 4 & 6 & 8 & 10 & 12 \\ \hline
+$v$ (m/s) & 0 & 8,5 & 14,6 & 19,0 & 22,1 & 24,3 & 25,9
+\end{tabular}\par}\label{vb:h4-terug1}}{%
 \uitleg{De versnelling is de afgeleide van de snelheid: $a(6) = v'(6)$. In de tabel staan de buren 4 en 8 op 2 seconden afstand, dus $h = 2$.}
 \begin{stappen}
 \frac{v(8) - v(4)}{4} = \frac{22{,}1 - 14{,}6}{4} \approx 1{,}88 & Centraal, met $h = 2$. \\[2ex]
@@ -350,10 +356,16 @@ Neem een even aantal deelintervallen. Zet de functiewaarden in een tabel met de 
 
 \subsection{Uit meetwaarden}
 
-Nu kunnen we het tweede deel van het probleem oplossen. De metingen liggen om de 2 seconden: $h = 2$ ligt vast, en we gebruiken de punten die er zijn.
+Ook bij het integreren kies je $h$ niet zelf als je meetwaarden hebt: het is de tijd tussen twee metingen, en je gebruikt de punten die er zijn. Voor Simpson moet het aantal deelintervallen dan wel even zijn.
 
-\voorbeeld{}{Terug naar het probleem (deel 2). Schat de afstand die de auto aflegt in de eerste 12 seconden, met de trapeziumregel en met de regel van Simpson.\label{vb:h4-terug2}}{%
-\uitleg{De afstand is $\int_0^{12} v(t)\dt$. Er zijn zes deelintervallen van 2 s, een even aantal, dus Simpson kan.}
+\voorbeeld{}{Terug naar het probleem (deel 2). Een elektrische auto trekt op aan een verkeerslicht. De app van de auto toont om de 2 seconden de snelheid $v$ (in m/s), zoals in de tabel. Hoeveel meter legde de auto af in die 12 seconden? Een voorschrift voor $v(t)$ heb je niet. Schat de afstand met de trapeziumregel en met de regel van Simpson.
+
+\vspace{1mm}
+{\centering\renewcommand{\arraystretch}{1.2}\begin{tabular}{c|ccccccc}
+$t$ (s) & 0 & 2 & 4 & 6 & 8 & 10 & 12 \\ \hline
+$v$ (m/s) & 0 & 8,5 & 14,6 & 19,0 & 22,1 & 24,3 & 25,9
+\end{tabular}\par}\label{vb:h4-terug2}}{%
+\uitleg{De afstand is $\int_0^{12} v(t)\dt$. De metingen liggen om de 2 seconden, dus $h = 2$ ligt vast. Er zijn zes deelintervallen, een even aantal, dus Simpson kan.}
 \begin{stappenbreed}
 T_6 = 2\,\bigl(0 + 8{,}5 + 14{,}6 + 19{,}0 + 22{,}1 + 24{,}3 + \tfrac12 \cdot 25{,}9\bigr) = 202{,}9 & De eerste waarde telt half, maar is 0. \\[2ex]
 S_6 = \tfrac23\,\bigl(0 + 4 \cdot 8{,}5 + 2 \cdot 14{,}6 + 4 \cdot 19{,}0 + 2 \cdot 22{,}1 + 4 \cdot 24{,}3 + 25{,}9\bigr) & Gewichten 1, 4, 2, 4, 2, 4, 1. \\[1ex]
@@ -361,7 +373,7 @@ S_6 = \tfrac23\,\bigl(0 + 4 \cdot 8{,}5 + 2 \cdot 14{,}6 + 4 \cdot 19{,}0 + 2 \c
 \end{stappenbreed}
 De auto legde ongeveer 204 m af. De trapeziumregel geeft iets minder, omdat de grafiek van $v$ bol is: de trapezia liggen eronder. Simpson houdt rekening met die kromming.}
 
-Vergelijk ook met de versnelling uit deel 1: daar versterkten de meetfouten zich, hier middelen ze uit. Een fout van 0,05 m/s in elke meting verandert $S_6$ hoogstens met $\frac23 \cdot 18 \cdot 0{,}05 = 0{,}6$ m, op 204 m. Integreren is numeriek veel betrouwbaarder dan afleiden.
+Vergelijk ook met de versnelling uit voorbeeld \ref{vb:h4-terug1}: daar versterkten de meetfouten zich, hier middelen ze uit. Een fout van 0,05 m/s in elke meting verandert $S_6$ hoogstens met $\frac23 \cdot 18 \cdot 0{,}05 = 0{,}6$ m, op 204 m. Integreren is numeriek veel betrouwbaarder dan afleiden.
 
 \lkr{De snelheden komen uit $v(t) = 30(1 - \e^{-t/6})$, met als exacte afstand $30(12 - 6 + 6\e^{-2}) \approx 204{,}36$ m. Simpson zit er 0,03 m naast, de trapeziumregel 1,5 m.}
 

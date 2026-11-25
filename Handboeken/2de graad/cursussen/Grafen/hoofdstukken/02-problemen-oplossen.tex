@@ -46,7 +46,7 @@ In 1736 loste de Zwitserse wiskundige Leonhard Euler het probleem van de bruggen
 
 \subsection{Een route in een graaf}
 
-Hoe beschrijf je een route in een graaf? Je somt de knopen op in de volgorde waarin je ze bezoekt, zoals $A, B, C$. Dat gaat alleen als er telkens een boog ligt van de ene knoop naar de volgende. Bij het probleem van de bruggen is er nog een voorwaarde: geen enkele brug mag twee keer gebruikt worden. Een knoop mag wel vaker voorkomen: je mag een stadsdeel meer dan eens bezoeken. Daarom maken we onderscheid tussen drie soorten routes.
+Hoe beschrijf je een route in een graaf? Je somt de knopen op in de volgorde waarin je ze bezoekt, zoals $A, B, C$. Dat gaat alleen als er telkens een boog ligt van de ene knoop naar de volgende. Bij een wandeling over de bruggen van een stad is er vaak nog een voorwaarde: geen enkele brug mag twee keer gebruikt worden. Een knoop mag wel vaker voorkomen: je mag een stadsdeel meer dan eens bezoeken. Daarom maken we onderscheid tussen drie soorten routes.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{wandeling}} is een rij knopen waarin elke twee opeenvolgende knopen verbonden zijn door een boog.
@@ -83,7 +83,7 @@ AC\ ? & d. Er is geen boog tussen $A$ en $C$: geen wandeling.
 
 \subsection{Samenhangend}
 
-Kun je in een graaf altijd van elke knoop naar elke andere? Niet altijd: een graaf kan uit losse stukken bestaan, zoals twee eilanden zonder brug ertussen. Voor het probleem van de bruggen is dat belangrijk, want van het ene stuk kom je nooit op het andere.
+Kun je in een graaf altijd van elke knoop naar elke andere? Niet altijd: een graaf kan uit losse stukken bestaan, zoals twee eilanden zonder brug ertussen. Voor een wandeling over alle bruggen is dat belangrijk, want van het ene stuk kom je nooit op het andere.
 
 \begin{theorie}
 Een graaf is \textbf{\textcolor{accent}{samenhangend}} als er tussen elke twee knopen een wandeling bestaat.
@@ -110,27 +110,27 @@ De graaf bestaat uit twee losse stukken: hij is niet samenhangend. Met één ext
 %========================================================================================
 \section{Elke boog precies één keer}
 
-\subsection{De bruggen als graaf}
+\subsection{Bruggen als graaf}
 
-Terug naar Königsberg. Voor de vraag doet het er niet toe hoe groot een stadsdeel is of hoe lang een brug. Alleen telt welke bruggen welke stadsdelen verbinden. Euler maakte daarom van elk stadsdeel een knoop, en van elke brug een boog.
+Wil je over elke brug van een stad precies één keer wandelen, dan doet het er niet toe hoe groot een stadsdeel is of hoe lang een brug. Alleen telt welke bruggen welke stadsdelen verbinden. Euler maakte daarom van elk stadsdeel een knoop, en van elke brug een boog.
 
-\voorbeeld{}{Stel de stadsdelen en de bruggen van Königsberg voor met een graaf. Bepaal de graad van elke knoop.\label{vb:h2-konigsberg}}{%
-\uitleg{De vier stadsdelen worden vier knopen. Tussen $A$ en $B$ liggen twee bruggen, dus twee bogen: een graaf met meervoudige bogen.}
+\voorbeeld{}{Door een stad stroomt een rivier met twee eilanden $E$ en $F$. Tussen de noordoever $N$ en het eiland $E$ liggen twee bruggen, tussen $F$ en de zuidoever $Z$ ook twee. Verder is er één brug tussen $E$ en $F$, één tussen $N$ en $F$, en één tussen $E$ en $Z$. Stel de stadsdelen en de bruggen voor met een graaf. Bepaal de graad van elke knoop.\label{vb:h2-bruggen}}{%
+\uitleg{De vier stadsdelen worden vier knopen. Tussen $N$ en $E$ liggen twee bruggen, dus twee bogen: een graaf met meervoudige bogen.}
 \naast{\begin{stappenvrij}{5.2cm}{3.6cm}
-AB,\ AB,\ AC,\ AC & Twee bruggen naar elke oever. \\
-AD,\ BD,\ CD & Drie bruggen naar $D$. \\
-\gr{A} = 5 & Het eiland ligt aan vijf bruggen. \\
-\gr{B} = \gr{C} = \gr{D} = 3 & De andere delen aan drie.
+NE,\ NE,\ FZ,\ FZ & Twee bruggen tussen $N$ en $E$ en tussen $F$ en $Z$. \\
+EF,\ NF,\ EZ & De andere drie bruggen. \\
+\gr{E} = \gr{F} = 4 & Elk eiland ligt aan vier bruggen. \\
+\gr{N} = \gr{Z} = 3 & Elke oever aan drie.
 \end{stappenvrij}}{\begin{tikzpicture}
-  \knopen{A/0/0, B/0/1.6, C/0/-1.6, D/2.2/0}
-  \draw[boog] (A) to[bend left=22] (B); \draw[boog] (A) to[bend right=22] (B);
-  \draw[boog] (A) to[bend left=22] (C); \draw[boog] (A) to[bend right=22] (C);
-  \bogen{A/D, B/D, C/D}
-  \knoopgraad[180]{A}{5} \knoopgraad[90]{B}{3} \knoopgraad[-90]{C}{3} \knoopgraad[0]{D}{3}
+  \knopen{N/0/1.6, E/-1/0, F/1/0, Z/0/-1.6}
+  \draw[boog] (N) to[bend left=18] (E); \draw[boog] (N) to[bend right=18] (E);
+  \draw[boog] (F) to[bend left=18] (Z); \draw[boog] (F) to[bend right=18] (Z);
+  \bogen{E/F, N/F, E/Z}
+  \knoopgraad[90]{N}{3} \knoopgraad[180]{E}{4} \knoopgraad[0]{F}{4} \knoopgraad[-90]{Z}{3}
 \end{tikzpicture}}
-De graaf heeft 7 bogen, en $5 + 3 + 3 + 3 = 14 = 2 \cdot 7$, zoals de handdrukstelling zegt.}
+De graaf heeft 7 bogen, en $3 + 4 + 4 + 3 = 14 = 2 \cdot 7$, zoals de handdrukstelling zegt.}
 
-De vraag van het probleem wordt nu een vraag over de graaf: bestaat er een pad dat elke boog precies één keer gebruikt? Zulke paden krijgen de naam van Euler.
+De vraag of je over elke brug precies één keer kunt wandelen, wordt zo een vraag over de graaf: bestaat er een pad dat elke boog precies één keer gebruikt? Zulke paden krijgen de naam van Euler.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{eulerpad}} is een pad dat elke boog van de graaf precies één keer gebruikt. Een \textbf{\textcolor{accent}{eulerkring}} is een eulerpad dat eindigt in zijn beginknoop.
@@ -250,14 +250,36 @@ Controleer of de graaf samenhangend is, en tel de knopen met een oneven graad. Z
 
 \subsection{Terug naar het probleem}
 
-Nu kunnen we de vraag van de inwoners van Königsberg beantwoorden, zonder ook maar één wandeling te proberen.
+\voorbeeld{}{Terug naar het probleem. In de 18de eeuw stroomde de rivier de Pregel door de stad Königsberg.
 
-\voorbeeld{}{Terug naar het probleem. Kun je in Königsberg een wandeling maken die elke brug precies één keer oversteekt? En kun je dan eindigen waar je begon?\label{vb:h2-terug}}{%
-\uitleg{In voorbeeld~\ref{vb:h2-konigsberg} maakten we de graaf. We tellen de knopen met een oneven graad.}
-\begin{stappen}
-\gr{A} = 5,\ \gr{B} = \gr{C} = \gr{D} = 3 & Alle vier de graden zijn oneven. \\
+\naast{Zeven bruggen verbonden vier stadsdelen: het eiland $A$, de noordoever $B$, de zuidoever $C$ en het stuk $D$ tussen de twee armen van de rivier, zoals op de schets. Kun je een wandeling maken waarbij je elke brug precies één keer oversteekt? En kun je dan eindigen waar je begon?\label{vb:h2-terug}}{\begin{tikzpicture}[font=\footnotesize,scale=.62]
+  \fill[hd1!16] (0,-1) rectangle (6.2,1);
+  \fill[white] (1.8,0) ellipse (1.2 and .45);
+  \fill[white,rounded corners=6pt] (4.2,-.4) rectangle (6.4,.4);
+  \fill[white] (6.2,-.4) rectangle (6.4,.4);
+  \draw[lijngrijs] (0,1) -- (6.2,1) (0,-1) -- (6.2,-1);
+  \draw[lijngrijs] (1.8,0) ellipse (1.2 and .45);
+  \draw[lijngrijs,rounded corners=6pt] (6.2,.4) -- (4.2,.4) -- (4.2,-.4) -- (6.2,-.4);
+  \foreach \x in {1.3,2.3}{\fill[black!60] (\x-.07,.36) rectangle (\x+.07,1.04); \fill[black!60] (\x-.07,-1.04) rectangle (\x+.07,-.36);}
+  \fill[black!60] (2.95,-.07) rectangle (4.25,.07);
+  \fill[black!60] (5.13,.36) rectangle (5.27,1.04);
+  \fill[black!60] (5.13,-1.04) rectangle (5.27,-.36);
+  \node at (1.8,0) {$A$}; \node at (3,1.35) {$B$}; \node at (3,-1.35) {$C$}; \node at (5.7,0) {$D$};
+\end{tikzpicture}}}{%
+\uitleg{We hoeven geen enkele wandeling te proberen. We maken van elk stadsdeel een knoop en van elke brug een boog, en tellen de knopen met een oneven graad.}
+\naast{\begin{stappenvrij}{5.2cm}{3.6cm}
+AB,\ AB,\ AC,\ AC & Twee bruggen naar elke oever. \\
+AD,\ BD,\ CD & Drie bruggen naar $D$. \\
+\gr{A} = 5 & Het eiland ligt aan vijf bruggen. \\
+\gr{B} = \gr{C} = \gr{D} = 3 & Alle vier de graden zijn oneven. \\
 4 > 2 & Meer dan twee oneven graden: geen eulerpad.
-\end{stappen}
+\end{stappenvrij}}{\begin{tikzpicture}
+  \knopen{A/0/0, B/0/1.6, C/0/-1.6, D/2.2/0}
+  \draw[boog] (A) to[bend left=22] (B); \draw[boog] (A) to[bend right=22] (B);
+  \draw[boog] (A) to[bend left=22] (C); \draw[boog] (A) to[bend right=22] (C);
+  \bogen{A/D, B/D, C/D}
+  \knoopgraad[180]{A}{5} \knoopgraad[90]{B}{3} \knoopgraad[-90]{C}{3} \knoopgraad[0]{D}{3}
+\end{tikzpicture}}
 Zo'n wandeling bestaat niet: niet met terugkeren, en ook niet zonder. Elk stadsdeel dat geen begin of einde is, moet aan een even aantal bruggen liggen, en in Königsberg liggen ze alle vier aan een oneven aantal. Dat bewijst dat het niet kan, hoe lang je ook zoekt.}
 
 Wat moet er veranderen opdat het wel kan? Bouw een achtste brug tussen $B$ en $C$, en dan hebben alleen $A$ en $D$ nog een oneven graad: er is een eulerpad van $A$ naar $D$. Probeer het in de opdrachten.
@@ -424,7 +446,7 @@ Het algoritme vindt in één keer de afstand van het vertrekpunt tot elke knoop.
 \herhaalschema{%
   \fv{oef:h2-t1}{vb:h2-wandeling}{oef:h2-wandeling}%
   \fv{oef:h2-t2}{vb:h2-samenhang}{oef:h2-samenhang}%
-  \fv{oef:h2-t3}{vb:h2-konigsberg}{oef:h2-model}%
+  \fv{oef:h2-t3}{vb:h2-bruggen}{oef:h2-model}%
   \fv{oef:h2-t4}{vb:h2-terug}{oef:h2-beslis}%
   \fv{oef:h2-t5}{vb:h2-kring}{oef:h2-kring}%
   \fv{oef:h2-t6}{vb:h2-pad}{oef:h2-pad}%

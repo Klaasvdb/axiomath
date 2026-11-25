@@ -41,7 +41,7 @@ Met de rekenregels uit hoofdstuk 1 kun je veeltermen en quotiënten afleiden. Ma
 
 \subsection{Samengestelde functies afleiden}
 
-Probeer het probleem eerst met wat je kent. Met een rekentoestel vind je $p(8) \approx 1011{,}99$: tussen $0$ en $8$ m daalt de druk met ongeveer $1$ hPa, zoals de vuistregel zegt. Maar dat is een gemiddelde over $8$ m, en op de Mont Blanc moet je alles opnieuw uitrekenen. Om in elk punt te weten hoe snel de druk daalt, heb je de afgeleide $p'(h)$ nodig. Daarvoor ontbreken twee dingen. We kennen de afgeleide van $\e^x$ nog niet. En zelfs als we ze kenden: in $p$ staat niet $\e^h$, maar $\e$ tot de macht $-\frac{h}{8000}$. Hoe snel $p$ daalt, hangt dus af van twee veranderingen: hoe snel de exponent verandert als $h$ verandert, en hoe snel de macht verandert als de exponent verandert. Hoe je die combineert, zie je eerst bij een eenvoudiger samengestelde functie.
+Hoe leid je een functie af waarin een functie binnen een functie staat, zoals $\sqrt{x^2 + 1}$ of $2^{3x}$? Hoe snel zo'n functie verandert, hangt af van twee veranderingen: hoe snel de binnenste functie verandert als $x$ verandert, en hoe snel de buitenste verandert als de binnenste verandert. Hoe je die combineert, zie je eerst bij een eenvoudige samengestelde functie.
 
 De functie $h(x) = (2x + 1)^{10}$ is samengesteld: eerst bereken je $u = 2x + 1$, de \textit{binnenste} functie, en daarvan neem je de tiende macht, de \textit{buitenste} functie $u^{10}$. In de Verken zag je dat de afgeleide niet zomaar $10(2x + 1)^9$ is: er komt nog een factor bij, de afgeleide van de binnenste functie.
 
@@ -330,10 +330,8 @@ Omdat $\e^{-x^2} > 0$, heeft $f'(x)$ het teken van $-2x$: de functie stijgt voor
 \oef{h3-exp}
 \end{oefeningen}
 
-Met de kettingregel en de afgeleide van $\e^x$ kunnen we nu het probleem van de luchtdruk oplossen.
-
-\voorbeeld{}{Terug naar het probleem. De luchtdruk op $h$ meter hoogte is $p(h) = 1013\,\e^{-h/8000}$ hPa. Hoe snel daalt de druk aan zee, en op $4800$ m? Klopt de vuistregel van $1$~hPa per $8$~m?\label{vb:h3-terug}}{%
-\uitleg{De buitenste functie is $\e^u$, die haar eigen afgeleide is. De binnenste is $u = -\frac{h}{8000}$, met afgeleide $-\frac{1}{8000}$. De factor $1013$ blijft staan.}
+\voorbeeld{}{Terug naar het probleem. Sommige smartwatches meten je hoogte met een luchtdrukmeter. Een vereenvoudigd model voor de luchtdruk op $h$ meter boven de zeespiegel is $p(h) = 1013\,\e^{-h/8000}$ hPa. Een vuistregel zegt: \textit{per $8$ m hoger daalt de luchtdruk met $1$ hPa}. Hoe snel daalt de druk volgens het model aan zee, in hPa per meter? Klopt de vuistregel daar? En op de top van de Mont Blanc, op ongeveer $4800$ m?\label{vb:h3-terug}}{%
+\uitleg{Hoe snel de druk daalt, is de afgeleide $p'(h)$. We hebben de kettingregel en de afgeleide van $\e^x$ nodig. De buitenste functie is $\e^u$, die haar eigen afgeleide is. De binnenste is $u = -\frac{h}{8000}$, met afgeleide $-\frac{1}{8000}$. De factor $1013$ blijft staan.}
 \begin{stappenbreed}
 p'(h) = 1013\,\e^{-h/8000} \cdot \Bigl(-\frac{1}{8000}\Bigr) = -\frac{p(h)}{8000} & Veelvoudregel en kettingregel. Er staat opnieuw $p(h)$. \\[1.5ex]
 p'(0) = -\frac{1013}{8000} \approx -0{,}127 & Aan zee daalt de druk $0{,}127$ hPa per meter, dus $1$ hPa per $\frac{1}{0{,}127} \approx 7{,}9$ m. \\[1.5ex]

@@ -49,7 +49,7 @@ Bij de methode van Gauss-Jordan maak je met rijbewerkingen nullen in elke kolom.
 $10^6$ & $10^{18}$ & meer dan 30 jaar \\ \hline
 \end{rastertabel}
 
-Voor de plaat met een miljoen roosterpunten is Gauss-Jordan dus geen optie. Bovendien staan in elke vergelijking van zo'n stelsel maar vijf onbekenden: het punt zelf en zijn vier buren. Bijna alle coëfficiënten zijn 0. Een methode die alleen met de coëfficiënten die niet 0 zijn rekent, is veel sneller. Maar eerst een tweede probleem: afronden.
+Voor een stelsel met een miljoen onbekenden is Gauss-Jordan dus geen optie. Bovendien staan in de grote stelsels uit de praktijk vaak maar een paar onbekenden in elke vergelijking. Bijna alle coëfficiënten zijn dan 0. Een methode die alleen met de coëfficiënten die niet 0 zijn rekent, is veel sneller. Maar eerst een tweede probleem: afronden.
 
 \begin{oefeningen}
 \oef{h3-ops}
@@ -126,11 +126,11 @@ Een verandering van 0,02 verschuift $x$ met 1, vijftig keer zoveel: het stelsel 
 
 \subsection{Elke vergelijking naar haar eigen onbekende}
 
-Terug naar de plaat. Elke vergelijking zegt: de temperatuur in een punt is het gemiddelde van die van de buren. Voor $T_1$, met boven 100\,°C en links 60\,°C:
+In de Verken was $x$ het gemiddelde van 10 en $y$, en $y$ het gemiddelde van $x$ en 4:
 \[
-T_1 = \frac{100 + 60 + T_2 + T_3}{4} .
+x = \frac{10 + y}{2}, \qquad y = \frac{x + 4}{2} .
 \]
-Dat is al een voorschrift om $T_1$ te berekenen, als je $T_2$ en $T_3$ kent. Je kent ze niet, maar je kunt ze gokken, en dan de gok verbeteren: bereken met de oude waarden van de buren een nieuwe waarde voor elk punt, en herhaal. Zo rekent ook de natuur: elk stukje plaat warmt op of koelt af naar het gemiddelde van zijn omgeving.
+De eerste vergelijking is al een voorschrift om $x$ te berekenen, als je $y$ kent, en de tweede een voorschrift voor $y$, als je $x$ kent. Je kent ze niet, maar je kunt ze gokken, en dan de gok verbeteren: bereken met de oude waarden een nieuwe waarde voor elke onbekende, en herhaal. Vanaf $(0, 0)$ krijg je $(5, 2)$, $(6;\ 4{,}5)$, $(7{,}25;\ 5)$, \ldots, en dat nadert de oplossing $(8, 6)$.
 
 Dat idee werkt voor elk stelsel waarin de $i$-de vergelijking de $i$-de onbekende bevat. Los elke vergelijking op naar haar eigen onbekende. Dan staat het stelsel in de vorm $\mathbf{x} = g(\mathbf{x})$, zoals in hoofdstuk 2, maar nu met meerdere onbekenden tegelijk.
 
@@ -229,9 +229,17 @@ Los zoals bij Jacobi elke vergelijking op naar haar eigen onbekende. Bereken de 
 \end{werkwijze}
 
 \needspace{16\baselineskip}
-Nu kunnen we de plaat aan.
+\voorbeeld{}{Terug naar het probleem. Een vierkante metalen plaat wordt aan de bovenrand op 100\,°C gehouden, links op 60\,°C, rechts op 20\,°C en onderaan op 0\,°C. Na een tijd verandert de temperatuur nergens meer. Hoe warm is het dan binnenin? Leg een rooster over de plaat met vier punten binnenin: $T_1$ en $T_2$ boven, $T_3$ en $T_4$ onder. In evenwicht is de temperatuur in elk roosterpunt het gemiddelde van die in de vier buurpunten. Bepaal $T_1$ tot $T_4$ met de methode van Gauss-Seidel, vanaf 0, tot op 0,1\,°C. Een ingenieur gebruikt een miljoen punten. Lukt het dan nog met de methode van Gauss-Jordan?
 
-\voorbeeld{}{Terug naar het probleem. Bepaal de temperaturen $T_1$ tot $T_4$ met de methode van Gauss-Seidel, vanaf 0, tot op 0,1\,°C.\label{vb:h3-terug}}{%
+\figuren{\begin{tikzpicture}[x=.7cm,y=.7cm,font=\scriptsize]
+  \fill[accent!8] (0,0) rectangle (3,3);
+  \draw[black!25] (1,0) -- (1,3) (2,0) -- (2,3) (0,1) -- (3,1) (0,2) -- (3,2);
+  \draw[accent,very thick] (0,3) -- (3,3) node[midway,above] {100\,°C};
+  \draw[accent!70,very thick] (0,0) -- (0,3) node[midway,left] {60\,°C};
+  \draw[accent!45,very thick] (3,0) -- (3,3) node[midway,right] {20\,°C};
+  \draw[accent!25,very thick] (0,0) -- (3,0) node[midway,below] {0\,°C};
+  \foreach \x/\y/\n in {1/2/1,2/2/2,1/1/3,2/1/4}{\fill[fel!80!black] (\x,\y) circle (2.2pt); \node[above right,inner sep=1.5pt] at (\x,\y) {$T_\n$};}
+\end{tikzpicture}}\label{vb:h3-terug}}{%
 \uitleg{Elk punt is het gemiddelde van zijn vier buren. $T_1$ heeft als buren de bovenrand (100), de linkerrand (60), $T_2$ en $T_3$; zo verder voor de andere punten. We vullen telkens de nieuwste waarden in.}
 \naast{\begin{stappenvrij}{3.8cm}{2.2cm}
 T_1 = \tfrac14(160 + T_2 + T_3) & boven, links \\
@@ -248,9 +256,9 @@ $k$ & $T_1$ & $T_2$ & $T_3$ & $T_4$ \\ \hline
 6 & 62,48 & 52,49 & 37,49 & 27,49 \\
 7 & 62,49 & 52,50 & 37,50 & 27,50 \\
 \end{tabular}}}
-De waarden stijgen naar $(62{,}5;\ 52{,}5;\ 37{,}5;\ 27{,}5)$, en dat is de exacte oplossing: vul ze in, of los het stelsel op met Gauss-Jordan. Na vijf stappen klopt alles op 0,1\,°C. Jacobi heeft er negen nodig: na zes stappen zat Jacobi pas op $T_1 \approx 61{,}8$.}
+De waarden stijgen naar $(62{,}5;\ 52{,}5;\ 37{,}5;\ 27{,}5)$, en dat is de exacte oplossing: vul ze in, of los het stelsel op met Gauss-Jordan. Na vijf stappen klopt alles op 0,1\,°C. Jacobi heeft er negen nodig: na zes stappen zat Jacobi pas op $T_1 \approx 61{,}8$.
 
-Bij vier punten had Gauss-Jordan ook gekund. Maar bij een miljoen punten kost één stap van Gauss-Seidel ongeveer vijf miljoen bewerkingen: elke vergelijking heeft maar vijf onbekenden. Zelfs duizenden stappen zijn dan nog sneller dan één keer Gauss-Jordan.
+Bij vier punten had Gauss-Jordan ook gekund. Bij een miljoen punten niet meer: dat vraagt ongeveer $10^{18}$ vermenigvuldigingen, meer dan 30 jaar rekenen aan $10^9$ per seconde. Maar één stap van Gauss-Seidel kost dan ongeveer vijf miljoen bewerkingen: elke vergelijking heeft maar vijf onbekenden, het punt zelf en zijn vier buren. Zelfs duizenden stappen zijn dan nog sneller dan één keer Gauss-Jordan.}
 
 \begin{oefeningen}
 \oef{h3-gs}
@@ -270,7 +278,7 @@ Een vierkante matrix $A = (a_{ij})$ is \textbf{\textcolor{accent}{strikt diagona
 \]
 \end{theorie}
 
-Het stelsel van de plaat is diagonaal dominant: $4 > 1 + 1$ in elke rij. Ook het stelsel van voorbeeld \ref{vb:h3-jacobi}: $4 > 1 + 1$, $5 > 1 + 2$ en $6 > 2 + 1$. Bij zulke stelsels convergeren beide methodes altijd.
+Het stelsel van de plaat in voorbeeld \ref{vb:h3-terug} is diagonaal dominant: $4 > 1 + 1$ in elke rij. Ook het stelsel van voorbeeld \ref{vb:h3-jacobi}: $4 > 1 + 1$, $5 > 1 + 2$ en $6 > 2 + 1$. Bij zulke stelsels convergeren beide methodes altijd.
 
 \begin{theorie}
 \begin{stelling}{Convergentie van Jacobi}
@@ -323,7 +331,7 @@ In de volgorde (3), (1), (2) is het stelsel strikt diagonaal dominant, en conver
 Zoek voor elke onbekende een vergelijking waarin haar coëfficiënt in absolute waarde groter is dan de som van de andere, en zet die vergelijkingen in de volgorde van de onbekenden. Lukt dat, dan convergeren beide methodes. Bereken $q$ om te weten hoe snel ten minste. Stop als twee opeenvolgende stappen in elke onbekende minder dan $\varepsilon$ verschillen.
 \end{werkwijze}
 
-\nujij{Is het stelsel van de plaat strikt diagonaal dominant? Hoe groot is $q$? Hoeveel stappen garandeert de stelling voor een fout van 0,1\,°C, als de start hoogstens 100\,°C fout is?}{Ja: $4 > 1 + 1$. $q = \frac24 = \frac12$. $100 \cdot 0{,}5^k < 0{,}1$ geeft $k \geqslant 10$.}
+\nujij{Is het stelsel van de plaat in voorbeeld \ref{vb:h3-terug} strikt diagonaal dominant? Hoe groot is $q$? Hoeveel stappen garandeert de stelling voor een fout van 0,1\,°C, als de start hoogstens 100\,°C fout is?}{Ja: $4 > 1 + 1$. $q = \frac24 = \frac12$. $100 \cdot 0{,}5^k < 0{,}1$ geeft $k \geqslant 10$.}
 
 \begin{oefeningen}
 \oef{h3-dominant}
@@ -333,7 +341,7 @@ Zoek voor elke onbekende een vergelijking waarin haar coëfficiënt in absolute 
 
 \subsection{Met de computer}
 
-Voor een plaat met veel punten schrijf je thuis een kort programma. Hier is de plaat met $n \times n$ punten binnenin, met dezelfde randen als in het probleem. De lijst \texttt{T} bevat ook de randen, zodat elk punt binnenin vier buren heeft.
+Voor een plaat met veel punten schrijf je thuis een kort programma. Hier is de plaat met $n \times n$ punten binnenin, met dezelfde randen als in voorbeeld \ref{vb:h3-terug}. De lijst \texttt{T} bevat ook de randen, zodat elk punt binnenin vier buren heeft.
 
 \begin{python}
 n = 49                                   # punten binnenin per rij

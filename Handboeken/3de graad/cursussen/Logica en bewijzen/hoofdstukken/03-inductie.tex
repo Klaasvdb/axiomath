@@ -24,7 +24,7 @@ De Franse wiskundige Édouard Lucas bracht het spel in 1883 op de markt, met een
 \end{tikzpicture}}
 \end{probleem}
 
-\lkr{Leerplan B+S'': de bewijstechniek volledige inductie bij LPD 4. Toepassingen uit andere cursussen (de somformule van een meetkundige rij, De Moivre, het aantal deelverzamelingen) staan als Koppel. De beeldspraak van de dominostenen helpt, maar laat leerlingen de inductiestap telkens als een implicatie formuleren: \textit{als het klopt voor $k$, dan voor $k + 1$}. Laat het probleem echt spelen, met munten van verschillende grootte of een online versie, met 3 en 4 schijven: zo ontdekken leerlingen zelf dat je de kleinere toren eerst opzij moet zetten. De oplossing staat in voorbeeld~\ref{vb:h3-terug}.}
+\lkr{Leerplan B+S'': de bewijstechniek volledige inductie bij LPD 4. Toepassingen uit andere cursussen (de somformule van een meetkundige rij, De Moivre, het aantal deelverzamelingen) staan als Koppel. De beeldspraak van de dominostenen helpt, maar laat leerlingen de inductiestap telkens als een implicatie formuleren: \textit{als het klopt voor $k$, dan voor $k + 1$}. Laat het probleem echt spelen, met munten van verschillende grootte of een online versie, met 3 en 4 schijven: zo ontdekken leerlingen zelf dat je de kleinere toren eerst opzij moet zetten. De oplossing staat in voorbeeld~\ref{vb:h3-lukt} (lukt het?) en voorbeeld~\ref{vb:h3-terug} (hoeveel zetten?).}
 
 Je kunt de toren van Hanoi proberen met 3, 4 en 5 schijven, maar \textit{elk aantal} schijven proberen gaat niet. Zo is het met elke uitspraak over alle natuurlijke getallen: je kunt ze niet één voor één controleren, want dat zijn er oneindig veel. Volledige inductie is een bewijstechniek precies voor zulke uitspraken. Je bewijst twee dingen: dat de uitspraak klopt voor het eerste getal, en dat ze \textit{doorgegeven} wordt van elk getal naar het volgende. Dan klopt ze voor allemaal, zoals een rij dominostenen die allemaal omvalt. Op het einde van het hoofdstuk berekenen we hoe lang de monniken uit de legende bezig zijn.
 
@@ -37,7 +37,9 @@ Je kunt de toren van Hanoi proberen met 3, 4 en 5 schijven, maar \textit{elk aan
 %========================================================================================
 \section{Het principe}\label{sec:h3-principe}
 
-Lukt de toren van Hanoi met elk aantal schijven? Met één schijf is het één zet. Met twee schijven: de kleine opzij, de grote naar het doel, de kleine erop. Maar met tien schijven verlies je snel het overzicht. Het idee is om niet bij het begin te starten, maar te veronderstellen dat je een toren van $k$ schijven al kunt verplaatsen. Dan kun je ook een toren van $k + 1$ schijven verplaatsen:
+\voorbeeld{}{Terug naar het probleem. Bij het spel \textit{de toren van Hanoi} liggen schijven op een pin, van groot onderaan tot klein bovenaan. Je moet de hele toren naar een andere pin brengen. Je verplaatst telkens één schijf, je mag een derde pin als hulp gebruiken, en je legt nooit een schijf op een kleinere. Lukt het met elk aantal schijven?\label{vb:h3-lukt}}{%
+\uitleg{Met één schijf is het één zet. Met twee schijven: de kleine opzij, de grote naar het doel, de kleine erop. Maar met tien schijven verlies je snel het overzicht. Het idee is om niet bij het begin te starten, maar te veronderstellen dat je een toren van $k$ schijven al kunt verplaatsen.}
+Dan kun je ook een toren van $k + 1$ schijven verplaatsen:
 \figuren{\begin{tikzpicture}[scale=.36,font=\scriptsize,>={Stealth[length=1.6mm]}]
   \foreach \p/\sx in {0/0,1/11,2/22,3/33}{%
     \begin{scope}[shift={(\sx,0)}]
@@ -56,7 +58,7 @@ Lukt de toren van Hanoi met elk aantal schijven? Met één schijf is het één z
     \draw[->,thick,accent] (\sx,1.5) -- (\sx+2,1.5);
     \node[above,align=center] at (\sx+1,1.6) {\t};}
 \end{tikzpicture}}
-Verplaats eerst de $k$ bovenste schijven naar de hulppin. Dat kun je, want de grootste schijf ligt onderaan en stoort niet: elke schijf mag erop. Zet dan de grootste schijf op het doel, en verplaats de $k$ schijven er weer bovenop. Uit \textit{het lukt met 1 schijf} volgt zo \textit{het lukt met 2}, daaruit \textit{het lukt met 3}, en zo verder: het lukt met elk aantal.
+Verplaats eerst de $k$ bovenste schijven naar de hulppin. Dat kun je, want de grootste schijf ligt onderaan en stoort niet: elke schijf mag erop. Zet dan de grootste schijf op het doel, en verplaats de $k$ schijven er weer bovenop. Uit \textit{het lukt met 1 schijf} volgt zo \textit{het lukt met 2}, daaruit \textit{het lukt met 3}, en zo verder: het lukt met elk aantal.}
 
 Ook in de Verken gaf je iets door: het patroon van 50 naar 51, en daarna van $k$ naar $k + 1$. Dat doorgeven is het hart van volledige inductie. Samen met een eerste geval levert het een bewijs voor alle natuurlijke getallen.
 
@@ -207,12 +209,9 @@ Vertrek van de linkerkant van $P(k + 1)$, en schrijf ze met de linkerkant van $P
 \needspace{14\baselineskip}
 \subsection{Terug naar het probleem}
 
-In sectie~\ref{sec:h3-principe} zagen we dat de toren van Hanoi met elk aantal schijven lukt. Nu tellen we de zetten. Noem $z_n$ het kleinste aantal zetten voor een toren van $n$ schijven. Met de drie stappen uit de figuur in sectie~\ref{sec:h3-principe} lukt het met $z_k + 1 + z_k$ zetten. Kan het sneller? Nee: de grootste schijf moet minstens één keer bewegen. Vóór haar eerste zet liggen de $k$ andere schijven allemaal op één andere pin, want op of onder haar kunnen ze niet liggen. Dat kost minstens $z_k$ zetten. Na haar laatste zet moeten ze er nog allemaal op: opnieuw minstens $z_k$ zetten. Dus
-\[ z_{k + 1} = 2z_k + 1 . \]
-Met inductie volgt daaruit een formule voor $z_n$.
-
-\voorbeeld{}{Terug naar het probleem. Bewijs dat je voor een toren van $n$ schijven $2^n - 1$ zetten nodig hebt. Hoe lang zijn de monniken bezig met 64 schijven, aan één zet per seconde?\label{vb:h3-terug}}{%
-\uitleg{$P(n)$ is $z_n = 2^n - 1$. In de inductiestap gebruiken we het verband $z_{k + 1} = 2z_k + 1$ en de inductiehypothese.}
+\voorbeeld{}{Terug naar het probleem. Bij het spel \textit{de toren van Hanoi} breng je een toren van schijven, van groot onderaan tot klein bovenaan, naar een andere pin. Je verplaatst telkens één schijf, je mag een derde pin als hulp gebruiken, en je legt nooit een schijf op een kleinere. Bewijs dat je voor een toren van $n$ schijven minstens $2^n - 1$ zetten nodig hebt. Volgens een legende verplaatsen monniken een toren van 64 gouden schijven, en als ze klaar zijn, vergaat de wereld. Stel dat ze één zet per seconde doen. Moeten we ons zorgen maken?\label{vb:h3-terug}}{%
+\uitleg{We zoeken eerst een verband tussen het aantal zetten voor $k$ en voor $k + 1$ schijven. Daarna bewijzen we de formule met volledige inductie: $P(n)$ is $z_n = 2^n - 1$.}
+Noem $z_n$ het kleinste aantal zetten voor een toren van $n$ schijven. Met de drie stappen uit voorbeeld~\ref{vb:h3-lukt} lukt het met $z_k + 1 + z_k$ zetten. Kan het sneller? Nee: de grootste schijf moet minstens één keer bewegen. Vóór haar eerste zet liggen de $k$ andere schijven allemaal op één andere pin, want op of onder haar kunnen ze niet liggen. Dat kost minstens $z_k$ zetten. Na haar laatste zet moeten ze er nog allemaal op: opnieuw minstens $z_k$ zetten. Dus is $z_{k + 1} = 2z_k + 1$.
 \begin{stappenbreed}
 n = 1\colon \ z_1 = 1 = 2^1 - 1 & Basisstap: één schijf, één zet. \\[1ex]
 \text{stel } z_k = 2^k - 1 & Inductiehypothese. \\[1ex]

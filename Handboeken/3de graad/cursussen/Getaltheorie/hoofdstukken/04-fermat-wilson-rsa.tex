@@ -181,17 +181,17 @@ De rest is 17, zonder ook maar één faculteit uit te rekenen.}
 
 \subsection{Snel machtsverheffen}
 
-Voor het geheimschrift van het probleem moet Tom een getal tot de macht 151 verheffen modulo 391. Dat zijn geen 150 vermenigvuldigingen. Door telkens te kwadrateren krijg je snel de machten $c, c^2, c^4, c^8, \ldots$, en elke exponent is een som van zulke machten van 2: $151 = 128 + 16 + 4 + 2 + 1$. Dat is de binaire schrijfwijze van 151.
+Hoe bereken je $c^{100} \bmod n$? Daarvoor zijn geen 99 vermenigvuldigingen nodig. Door telkens te kwadrateren krijg je snel de machten $c, c^2, c^4, c^8, \ldots$, en elke exponent is een som van zulke machten van 2: $100 = 64 + 32 + 4$. Dat is de binaire schrijfwijze van 100.
 
-\voorbeeld{}{Bereken $100^7 \bmod 391$ met kwadrateren en vermenigvuldigen. Dat is wat Lisa deed in het probleem.\label{vb:h4-snel}}{%
-\uitleg{$7 = 4 + 2 + 1$, dus $100^7 = 100^4 \cdot 100^2 \cdot 100$. We kwadrateren twee keer, en vermenigvuldigen dan, telkens modulo 391.}
+\voorbeeld{}{Bereken $100^7 \bmod 187$ met kwadrateren en vermenigvuldigen.\label{vb:h4-snel}}{%
+\uitleg{$7 = 4 + 2 + 1$, dus $100^7 = 100^4 \cdot 100^2 \cdot 100$. We kwadrateren twee keer, en vermenigvuldigen dan, telkens modulo 187.}
 \begin{stappen}
-100^2 = 10\,000 = 25 \cdot 391 + 225 \equiv 225 & Eerste kwadraat. \\[1ex]
-100^4 \equiv 225^2 = 50\,625 \equiv 186 & Kwadraat van het vorige, want $129 \cdot 391 = 50\,439$. \\[1ex]
-225 \cdot 100 = 22\,500 \equiv 213 & $100^2 \cdot 100$, want $57 \cdot 391 = 22\,287$. \\[1ex]
-213 \cdot 186 = 39\,618 \equiv 127 & Want $101 \cdot 391 = 39\,491$.
+100^2 = 10\,000 = 53 \cdot 187 + 89 \equiv 89 & Eerste kwadraat. \\[1ex]
+100^4 \equiv 89^2 = 7921 \equiv 67 & Kwadraat van het vorige, want $42 \cdot 187 = 7854$. \\[1ex]
+89 \cdot 100 = 8900 \equiv 111 & $100^2 \cdot 100$, want $47 \cdot 187 = 8789$. \\[1ex]
+111 \cdot 67 = 7437 \equiv 144 & Want $39 \cdot 187 = 7293$.
 \end{stappen}
-Lisa stuurde dus $100^7 \bmod 391 = 127$: haar geheime getal was 100. Twee kwadraten en twee producten volstonden.}
+Dus $100^7 \bmod 187 = 144$. Twee kwadraten en twee producten volstonden.}
 
 \begin{werkwijze}
 Schrijf de exponent als som van machten van 2. Bereken $a, a^2, a^4, a^8, \ldots$ modulo $n$ door telkens het vorige resultaat te kwadrateren. Vermenigvuldig de machten die je nodig hebt, en neem na elke stap de rest.
@@ -273,15 +273,15 @@ volgens de stelling van Euler voor $pq$.
 
 De voorwaarde $\ggd(M, n) = 1$ is in de praktijk geen beperking: de kans dat een willekeurig bericht een factor $p$ of $q$ heeft, is verwaarloosbaar. In de opdrachten bewijs je dat het ook zonder die voorwaarde werkt.
 
-\voorbeeld{}{Tom kiest $p = 17$, $q = 23$ en $e = 7$. Bepaal zijn openbare en zijn geheime sleutel.\label{vb:h4-sleutels}}{%
+\voorbeeld{}{Sara kiest $p = 11$, $q = 17$ en $e = 7$. Bepaal haar openbare en haar geheime sleutel.\label{vb:h4-sleutels}}{%
 \uitleg{We berekenen $n$ en $m$, controleren dat $e$ geschikt is, en zoeken $d$ als omgekeerde van 7 modulo $m$, met het algoritme van Euclides.}
 \begin{stappen}
-n = 17 \cdot 23 = 391, \ m = 16 \cdot 22 = 352 & De openbare modulus en het geheime getal $m$. \\[1ex]
-352 = 50 \cdot 7 + 2, \ 7 = 3 \cdot 2 + 1 & Euclides: $\ggd(7, 352) = 1$. \\[1ex]
-1 = 7 - 3 \cdot 2 = 151 \cdot 7 - 3 \cdot 352 & Achterstevoren. \\[1ex]
-d = 151 & Want $7 \cdot 151 = 1057 = 3 \cdot 352 + 1$.
+n = 11 \cdot 17 = 187, \ m = 10 \cdot 16 = 160 & De openbare modulus en het geheime getal $m$. \\[1ex]
+160 = 22 \cdot 7 + 6, \ 7 = 1 \cdot 6 + 1 & Euclides: $\ggd(7, 160) = 1$. \\[1ex]
+1 = 7 - 6 = 7 - (160 - 22 \cdot 7) = 23 \cdot 7 - 160 & Achterstevoren. \\[1ex]
+d = 23 & Want $7 \cdot 23 = 161 = 160 + 1$.
 \end{stappen}
-De openbare sleutel is $(391, 7)$, de geheime sleutel is 151. Tom houdt ook $p$, $q$ en $m$ geheim.}
+De openbare sleutel is $(187, 7)$, de geheime sleutel is 23. Sara houdt ook $p$, $q$ en $m$ geheim. Wie haar het bericht 100 stuurt, verstuurt $100^7 \bmod 187 = 144$ (voorbeeld~\ref{vb:h4-snel}).}
 
 \begin{werkwijze}
 Sleutels maken: kies $p$ en $q$, bereken $n$ en $m$, kies $e$ relatief priem met $m$, en bereken $d$ met Euclides achterstevoren. Versleutelen en ontcijferen: snel machtsverheffen modulo $n$.
@@ -293,17 +293,20 @@ Sleutels maken: kies $p$ en $q$, bereken $n$ en $m$, kies $e$ relatief priem met
 
 \subsection{Waarom is het veilig?}
 
-Iedereen kent $n$ en $e$. Wie $d$ wil vinden, heeft $m = (p - 1)(q - 1)$ nodig, en daarvoor $p$ en $q$: hij moet $n$ ontbinden. Voor $n = 391$ lukt dat met de priemtest van hoofdstuk 2. Maar in de praktijk kiest men $p$ en $q$ met elk meer dan 300 cijfers. Priemgetallen van die grootte vind je snel, met tests zoals die van Fermat. Hun product uitrekenen is eenvoudig. Maar het omgekeerde, een getal van 600 cijfers ontbinden, kan met de beste bekende methoden en alle computers ter wereld niet binnen een mensenleven. Op dat verschil tussen vermenigvuldigen en ontbinden steunt de veiligheid.
+Iedereen kent $n$ en $e$. Wie $d$ wil vinden, heeft $m = (p - 1)(q - 1)$ nodig, en daarvoor $p$ en $q$: hij moet $n$ ontbinden. Voor $n = 187$, zoals bij Sara, lukt dat met de priemtest van hoofdstuk 2. Maar in de praktijk kiest men $p$ en $q$ met elk meer dan 300 cijfers. Priemgetallen van die grootte vind je snel, met tests zoals die van Fermat. Hun product uitrekenen is eenvoudig. Maar het omgekeerde, een getal van 600 cijfers ontbinden, kan met de beste bekende methoden en alle computers ter wereld niet binnen een mensenleven. Op dat verschil tussen vermenigvuldigen en ontbinden steunt de veiligheid.
 
-\voorbeeld{}{Terug naar het probleem. Hoe vindt Tom het getal van Lisa terug uit 127? En hoe kan iemand anders het vinden?\label{vb:h4-terug}}{%
-\uitleg{Tom kent zijn geheime sleutel $d = 151$ (voorbeeld~\ref{vb:h4-sleutels}). Hij berekent $127^{151} \bmod 391$ met snel machtsverheffen: $151 = 128 + 16 + 4 + 2 + 1$.}
+\voorbeeld{}{Terug naar het probleem. Tom zet in een groepschat die iedereen kan lezen: ``Wie mij een geheim getal $M < 391$ wil sturen, stuurt de rest van $M^7$ bij deling door 391.'' Lisa stuurt 127. Iedereen ziet het bericht, en iedereen kent 391 en 7. Hoe vindt Tom het getal van Lisa terug? En waarom kunnen de anderen dat niet, of toch niet als Tom veel grotere getallen kiest?\label{vb:h4-terug}}{%
+\uitleg{Tom gebruikt RSA met de openbare sleutel $(391, 7)$. Hij heeft 391 gemaakt als product van twee priemgetallen, dus hij kent ze: $391 = 17 \cdot 23$. Daarmee berekent hij zijn geheime sleutel $d$, en daarna $127^d \bmod 391$ met snel machtsverheffen.}
 \begin{stappen}
+n = 17 \cdot 23 = 391, \ m = 16 \cdot 22 = 352 & De modulus en het geheime getal $m$. \\[1ex]
+352 = 50 \cdot 7 + 2, \ 7 = 3 \cdot 2 + 1 & Euclides: $\ggd(7, 352) = 1$. \\[1ex]
+1 = 7 - 3 \cdot 2 = 151 \cdot 7 - 3 \cdot 352 & Achterstevoren: $d = 151$, want $7 \cdot 151 = 3 \cdot 352 + 1$. \\[1ex]
 127, \ 98, \ 220, \ 307, \ 18, \ 324, \ 188, \ 154 & $127^{2^i} \bmod 391$ voor $i = 0, \ldots, 7$: telkens kwadrateren. \\[1ex]
-127^{151} \equiv 154 \cdot 18 \cdot 220 \cdot 98 \cdot 127 & De machten $2^7, 2^4, 2^2, 2^1, 2^0$. \\[1ex]
+127^{151} \equiv 154 \cdot 18 \cdot 220 \cdot 98 \cdot 127 & $151 = 128 + 16 + 4 + 2 + 1$. \\[1ex]
 127 \cdot 98 \equiv 325, \ 325 \cdot 220 \equiv 338 & Telkens de rest modulo 391. \\[1ex]
 338 \cdot 18 \equiv 219, \ 219 \cdot 154 \equiv 100 & Het bericht.
 \end{stappen}
-Tom vindt $M = 100$, het getal van Lisa (voorbeeld~\ref{vb:h4-snel}). Een buitenstaander kent $d$ niet. Hij kan 391 ontbinden: $391 = 17 \cdot 23$ (hoofdstuk 2), en dan $d$ berekenen zoals Tom. Bij zulke kleine getallen is RSA dus niet veilig. Met priemgetallen van 300 cijfers lukt dat ontbinden niet, en blijft het bericht geheim.}
+Tom vindt $M = 100$, het getal van Lisa. Controle: $100^2 \equiv 225$, $100^4 \equiv 225^2 \equiv 186$, en $100^7 \equiv 186 \cdot 225 \cdot 100 \equiv 127 \md{391}$. Een buitenstaander kent $d$ niet. Hij kan 391 ontbinden: $391 = 17 \cdot 23$ (hoofdstuk 2), en dan $d$ berekenen zoals Tom. Bij zulke kleine getallen is RSA dus niet veilig. Met priemgetallen van 300 cijfers lukt dat ontbinden niet, en blijft het bericht geheim.}
 
 \begin{oefeningen}
 \oef{h4-rsa-veilig}

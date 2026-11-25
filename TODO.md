@@ -48,7 +48,7 @@ Indeling, leerplandoelen en voorkanten klaar sinds 16 nov 2026: zie de README's 
 ### 3de graad: wat nog ontbreekt
 
 - **Kegelsneden**: nagelezen en aangevuld op 18 nov 2026 (PR #49): fouten verbeterd, 7 korte oefeningen en 6 testvragen per hoofdstuk, prenten (zie DONE.md). Nog: nalezen door een leerkracht.
-- **Vertrekken vanuit een probleem:** sinds 18 nov 2026 begint elk hoofdstuk van de 3de graad met een blok Probleem en komt erop terug (PR #47). Na te lezen: de keuze van de problemen en de schattingen (zie de PR).
+- **Vertrekken vanuit een probleem:** sinds 18 nov 2026 begint elk hoofdstuk van de 3de graad met een blok Probleem (PR #47). Sinds 25 nov 2026 komt het probleem niet meer tussendoor terug, maar één keer volledig geformuleerd waar het opgelost wordt (PR #54). Na te kijken: de twijfelgevallen in PR #54 (tussenvoorbeelden die nog met de gegevens van het probleem rekenen, hoofdstukken met twee keer "Terug naar het probleem"). Na te lezen: de keuze van de problemen en de schattingen (zie de PR).
 - **Grote datasets met statistische software** (cluster 06.01: GO! en KOV Statistiek). Eerst samen bespreken wat en hoe (welke software, hoofdstuk of eigen cursus), daarna pas maken. Kandidaten: Marimo (Python in de browser, zonder installatie; zie DONE.md), een rekenblad, GeoGebra of JASP.
 - **Telproblemen voor pakket 2 en 3** (voor GO!): lichtere versie sinds 18 nov 2026, uit dezelfde bron met `\alleenvoor`. Na te kijken: de afbakening tegenover de GO!-doelen (zie de README van `cursussen/Telproblemen/`).
 - **Modules voor KOV Complementair:** alle modules van het menu (LPD 1-54) hebben sinds 23 nov 2026 een eerste versie, elk als eigen handboek in pakket 4 (PR #50, zie DONE.md). Nog te doen: nalezen door een leerkracht, en de punten onder "Na te kijken" in de README van elk handboek en in de PR (feiten en jaartallen uit het geheugen, Belgische wetgeving in Financiële algebra, ICT-commando's). Na te gaan: welke modules ook bij GO! passen (bv. modulorekenen in Getaltheorie, WD 06.08) en of `Ontwerp/koepels.md` ze moet noemen; de lestijden per module (het leerplan noemt er geen). **[Ingmar]**
@@ -131,7 +131,3 @@ Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofd
   | 3de | 6de jaar | doorstroom 1-4, D/A 5-8 | te maken | limieten; primitieven en integralen (waar het pakket ze heeft); goniometrische vergelijkingen; telproblemen en combinaties; kansen berekenen; statistische kengetallen; complexe getallen (pakket 4) |
 
   De arbeidsmarktfinaliteit (pakket 8 van de 2de graad) krijgt pas een bundel als het handboek op aanvraag gemaakt wordt. Eerst samen nakijken: de verdeling van de vaardigheden over de jaren, en welke pakketten een eigen bundel krijgen.
-
-
-## De problemen verkappen.
-- Elk hoofdstuk begint nu met het formuleren van een probleem. Dat wordt een aantal keren terug opgenomen doorheen het hoofdstuk. Doe dit niet. Enkel wanneer de vraag helemaal kan opgelost worden (aan het einde van het hoofdstuk of halverwege), herneem je het probleem weer en geef je de uitwerking. Wat er nu staat is een blinde recal van het probleem, maar de leerlingen hebben geen idee meer waarover dat precies ging.

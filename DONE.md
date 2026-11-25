@@ -2,6 +2,10 @@
 
 Wat uit [TODO.md](TODO.md) af is, met de datum en waar het staat. Nieuwste bovenaan. Wat nog open is bij een afgewerkt punt (nalezen, na te kijken), blijft in `TODO.md`.
 
+## 25 nov 2026
+
+- **Het probleem niet meer verkappen** (PR #54, TODO van Klaas van 24 nov): in alle 171 hoofdstukken met een Probleem (54 cursussen, 2de en 3de graad) komt het probleem na de inleiding niet meer tussendoor terug. Pogingen en lopende voorbeelden met de gegevens van het probleem werden eigen voorbeelden, oefeningen met "uit het probleem" kregen de gegevens zelf, en elk "Terug naar het probleem" formuleert het probleem opnieuw volledig (situatie, gegevens, vraag, zo nodig de figuur). Nieuwe ontwerpregel in `Ontwerp/ontwerpregels.md` en de skill `handboek-hoofdstuk`.
+
 ## 24 nov 2026
 
 - **2de graad getoetst aan de leerplannen** (PR #52): de 18 onderwerpen (72 handboeken) zijn getoetst aan de geldende KOV-leerplannen van 2024 (II-Wis-d, II-Wis'-d, II-WisS'-d van juni 2024, II-WisS-d, II-WisS''-d met het servicedocument voor 5 uur). Let op: `pro.katholiekonderwijs.vlaanderen/ii-<code>/leerplan` geeft nog de versies van 2021-2022; de geldende staan op `ii--<code>/leerplan`. Per onderwerp: LPD per hoofdstuk en per pakket, wat te veel of te weinig was, en de README van de bron met wat het leerplan besliste. Grootste wijzigingen: nieuwe hoofdstukken in pakket 5 uit het servicedocument (Veeltermen: Rationale vormen; Analytische meetkunde: De cirkel), de loodrechte stand in Ruimtemeetkunde, Thales en metrische betrekkingen in Gelijkvormigheid (pakket 5), Cramer en drie onbekenden weg uit Stelsels.

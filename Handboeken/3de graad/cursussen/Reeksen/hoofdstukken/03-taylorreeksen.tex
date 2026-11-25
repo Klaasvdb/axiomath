@@ -72,7 +72,7 @@ $T_1$ is de raaklijn, $T_2$ de beste parabool. De naam komt van de Schotse wisku
 \naast{\begin{stappenvrij}{4.7cm}{4.3cm}
 f^{(k)}(x) = \e^x, \quad f^{(k)}(0) = 1 & Voor elke $k$. \\[1.5ex]
 T_n(x) = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!} & Elke coëfficiënt is $\tfrac{1}{k!}$. \\[2.5ex]
-T_3(0{,}5) \approx 1{,}6458 & Tegenover $\e^{0{,}5} \approx 1{,}6487$.
+T_3(1) \approx 2{,}6667 & Tegenover $\e \approx 2{,}7183$.
 \end{stappenvrij}}{\begin{tikzpicture}[x=.62cm,y=.5cm,font=\scriptsize]
   \rooster{-3}{1}{2}{-1}{1}{6}
   \kromme[line width=1.3pt]{-3}{1.79}{exp(\x)}
@@ -160,7 +160,7 @@ Bereken de afgeleiden in $a$, deel de $k$-de door $k!$, en vermenigvuldig met $(
 
 \subsection{Hoe groot is de fout?}
 
-Een benadering is pas bruikbaar als je weet hoe goed ze is. Het verschil $R_n(x) = f(x) - T_n(x)$ heet de \textit{restterm}. Voor het probleem moet $|R_n(0{,}5)|$ kleiner zijn dan $0{,}000\,000\,5$, en dat moeten we kunnen garanderen zonder $\e^{0{,}5}$ te kennen. Wat weten we over $R_n$? Omdat $T_n$ dezelfde afgeleiden heeft als $f$ tot de orde $n$, zijn $R_n(0)$, $R_n'(0)$, \ldots, $R_n^{(n)}(0)$ allemaal 0. En omdat $T_n$ een veelterm van graad $n$ is, is $T_n^{(n+1)} = 0$, zodat $R_n^{(n+1)} = f^{(n+1)}$. Zo krijgt de fout een bovengrens die alleen van de $(n+1)$-ste afgeleide afhangt.
+Een benadering is pas bruikbaar als je weet hoe goed ze is. Het verschil $R_n(x) = f(x) - T_n(x)$ heet de \textit{restterm}. Wil je $f(x)$ op zes decimalen kennen, dan moet $|R_n(x)|$ kleiner zijn dan $0{,}000\,000\,5$, en dat wil je garanderen zonder $f(x)$ te kennen. Wat weten we over $R_n$? Omdat $T_n$ dezelfde afgeleiden heeft als $f$ tot de orde $n$, zijn $R_n(0)$, $R_n'(0)$, \ldots, $R_n^{(n)}(0)$ allemaal 0. En omdat $T_n$ een veelterm van graad $n$ is, is $T_n^{(n+1)} = 0$, zodat $R_n^{(n+1)} = f^{(n+1)}$. Zo krijgt de fout een bovengrens die alleen van de $(n+1)$-ste afgeleide afhangt.
 
 \begin{theorie}
 \begin{stelling}{Afschatting van de restterm}
@@ -200,7 +200,7 @@ Meetkundig: ergens tussen 0 en $x$ is de raaklijn evenwijdig met de koorde. Lagr
   \draw[lijngrijs,dotted] (3,0) -- (3,1.6);
 \end{tikzpicture}}
 
-\voorbeeld{}{Terug naar het probleem. Bereken $\sqrt\e = \e^{0{,}5}$ tot op zes decimalen, met alleen de vier hoofdbewerkingen.\label{vb:h3-terug}}{%
+\voorbeeld{}{Terug naar het probleem. Een eenvoudig rekentoestel uit de jaren 1970 kon alleen optellen, aftrekken, vermenigvuldigen en delen. Geen knop voor $\e^x$, $\sin x$ of $\ln x$. Hoe bereken je daarmee $\sqrt{\e} = \e^{0{,}5}$ tot op zes decimalen? En hoe weet je zeker dat al die zes decimalen juist zijn? Ook een modern rekentoestel kan in de grond alleen optellen en vermenigvuldigen. Hoe vindt het dan $\e^{0{,}5}$?\label{vb:h3-terug}}{%
 \uitleg{We gebruiken $T_n(0{,}5)$ van $\e^x$. Alle afgeleiden zijn $\e^t$, en op $[0; 0{,}5]$ is $\e^t \leqslant \e^{0{,}5} < \sqrt4 = 2$. Zo vinden we $M = 2$ zonder $\e^{0{,}5}$ te kennen. We zoeken de kleinste $n$ met een fout onder $0{,}000\,000\,5$.}
 \begin{stappen}
 |R_n(0{,}5)| \leqslant \frac{2 \cdot 0{,}5^{n+1}}{(n+1)!} & De afschatting met $M = 2$. \\[2.5ex]
