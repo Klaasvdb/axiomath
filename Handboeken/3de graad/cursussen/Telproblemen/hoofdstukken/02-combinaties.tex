@@ -37,7 +37,19 @@ In hoofdstuk 1 telde je rijtjes: een fietsslot, een podium, een rij in de biosco
 
 Je mag 3 verschillende boeken uit 8 meenemen op reis. Tel je zoals in hoofdstuk 1, dan kies je een eerste, een tweede en een derde boek: dat zijn $8 \cdot 7 \cdot 6 = 336$ rijtjes. Maar dezelfde drie boeken in een andere volgorde zijn dezelfde keuze. In die 336 rijtjes zit elke keuze dus meer dan eens. Hoe vaak? Dat lijkt op de Verken.
 
-In de Verken vond je 60 manieren om uit vijf personen een voorzitter, een secretaris en een penningmeester te kiezen, maar maar 10 comités van drie. Elk comité komt in die 60 rijtjes precies $3! = 6$ keer voor, één keer voor elke verdeling van de functies. Dus deel je door $3!$.
+\naast{\begin{minipage}{8.2cm}
+Kijk nog eens naar de Verken, met vijf personen $A$, $B$, $C$, $D$ en $E$. Een voorzitter, een secretaris en een penningmeester kiezen is een variatie: $\Var{5}{3} = 5 \cdot 4 \cdot 3 = 60$ rijtjes. Een comité van drie heeft geen functies: het is een groepje. Het comité $\{A, B, C\}$ zit zes keer in de 60 rijtjes, als $ABC$, $ACB$, $BAC$, $BCA$, $CAB$ en $CBA$: één keer voor elke volgorde van de drie, en dat zijn er $3! = 6$.
+
+Zo gaat het met elk comité. De 60 rijtjes vallen dus uiteen in groepjes van 6, één groepje per comité, zoals in de figuur. Er zijn $60 : 6 = 10$ comités.
+\end{minipage}}{\begin{tikzpicture}[font=\tiny]
+  \foreach \a/\b/\c/\x/\y in {A/B/C/0/0,A/B/D/1/0,A/B/E/2/0,A/C/D/3/0,A/C/E/4/0,A/D/E/0/1,B/C/D/1/1,B/C/E/2/1,B/D/E/3/1,C/D/E/4/1}{
+    \draw[accent,rounded corners=2pt,fill=accent!8] ({1.36*\x-.62},{-1.3*\y-.2}) rectangle ({1.36*\x+.62},{-1.3*\y+.85});
+    \node[inner sep=0pt] at ({1.36*\x},{-1.3*\y+.62}) {$\a\b\c$\,\,$\a\c\b$};
+    \node[inner sep=0pt] at ({1.36*\x},{-1.3*\y+.33}) {$\b\a\c$\,\,$\b\c\a$};
+    \node[inner sep=0pt] at ({1.36*\x},{-1.3*\y+.04}) {$\c\a\b$\,\,$\c\b\a$};}
+\end{tikzpicture}}
+
+Wat bij vijf personen en comités van drie gebeurt, gebeurt altijd. Een rijtje van $p$ elementen uit $n$ maak je in twee stappen: kies eerst welke $p$ elementen erin komen, en zet ze dan in een volgorde. Voor die volgorde zijn er $p!$ manieren. Elk groepje zit dus $p!$ keer in de $\Var{n}{p}$ rijtjes, en het aantal groepjes is $\Var{n}{p} : p!$.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{combinatie}} van $p$ elementen uit $n$ (met $p \leqslant n$) is een deelverzameling van $p$ elementen van een verzameling met $n$ elementen. De volgorde is niet van belang, en er is geen herhaling.
@@ -48,21 +60,9 @@ Het aantal combinaties van $p$ elementen uit $n$ is
 \vspace{1mm}
 \qquad $\formule{\Comb{n}{p} = \binom{n}{p} = \dfrac{\Var{n}{p}}{p!} = \dfrac{n!}{p!\,(n - p)!}}$
 \end{stelling}
-
-\begin{bewijs}
-Neem $1 \leqslant p \leqslant n$. Een variatie van $p$ uit $n$ maak je in twee stappen: kies eerst welke $p$ elementen erin komen ($\Comb{n}{p}$ manieren), en zet ze dan in een volgorde ($p!$ manieren). Elke variatie ontstaat zo precies één keer. De productregel geeft
-\bewijsregel{\Var{n}{p} = \Comb{n}{p} \cdot p!, \qquad \text{dus} \qquad \Comb{n}{p} = \frac{\Var{n}{p}}{p!} = \frac{n!}{p!\,(n - p)!} .}
-Voor $p = 0$ is er één deelverzameling zonder elementen, de lege verzameling, en de formule geeft ook $\frac{n!}{0!\,n!} = 1$.
-\end{bewijs}
 \end{theorie}
 
-\naast{\begin{minipage}{10.6cm}
-Voor 2 elementen uit $\{A, B, C, D\}$ zie je het bewijs gebeuren: de $\Var{4}{2} = 12$ rijtjes vallen uiteen in groepjes van $2! = 2$, één groepje per combinatie. Er zijn dus $12 : 2 = 6$ combinaties.
-\end{minipage}}{\begin{tikzpicture}[font=\scriptsize]
-  \foreach \a/\b/\x/\y in {A/B/0/0,A/C/1/0,A/D/2/0,B/C/0/1,B/D/1/1,C/D/2/1}{
-    \draw[accent,rounded corners=2pt,fill=accent!8] ({1.05*\x-.4},{-1.1*\y-.05}) rectangle ({1.05*\x+.4},{-1.1*\y+.75});
-    \node at ({1.05*\x},{-1.1*\y+.5}) {$\a\b$}; \node at ({1.05*\x},{-1.1*\y+.2}) {$\b\a$};}
-\end{tikzpicture}}
+De laatste vorm volgt uit $\Var{n}{p} = \frac{n!}{(n - p)!}$. Ze klopt ook voor $p = 0$: er is één deelverzameling zonder elementen, de lege verzameling, en de formule geeft $\frac{n!}{0!\,n!} = 1$.
 
 Je leest $\binom{n}{p}$ als \textit{$n$ boven $p$}. Die notatie wordt internationaal gebruikt, ook op je rekentoestel (\texttt{nCr}). Let op de volgorde: in $\Comb{n}{p}$ staat het grote getal onderaan, in $\binom{n}{p}$ bovenaan.
 

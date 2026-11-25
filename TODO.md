@@ -98,6 +98,8 @@ De plannen staan op [axiomath.be/#/plannen](https://axiomath.be/#/plannen), elk 
 - het handboek als webpagina;
 - een open oefeningenbank.
 
+Op langere termijn (feedback #21): **zoeken op inhoud** over alle handboeken heen, bijvoorbeeld "in welke boeken staat iets over priemgetallen?". De tekst van elke PDF-versie is er al (maak.py), dus een zoekindex per versie is een begin.
+
 ## Kenmerk op de voorkant
 - De afdruk in zwart-wit nakijken (de kleuren verschillen dan alleen in grijswaarde).
 
@@ -132,6 +134,3 @@ Maak er irritant veel, gevarieerd in moeilijkheid en zet ze bij elkaar per hoofd
 
   De arbeidsmarktfinaliteit (pakket 8 van de 2de graad) krijgt pas een bundel als het handboek op aanvraag gemaakt wordt. Eerst samen nakijken: de verdeling van de vaardigheden over de jaren, en welke pakketten een eigen bundel krijgen.
 
-
-## Bij het aanpassen van handboeken, steeds eerst alle feedback inladen.
-Zo bouwen we geen andere handboeken over gegeven feedback heen.

@@ -23,7 +23,7 @@ const ERNST = ['klein' => 'Klein', 'belangrijk' => 'Belangrijk', 'dringend' => '
    Alleen goedgekeurde opmerkingen worden verwerkt, zodat niemand het werk van een collega ongedaan maakt. De sleutels
    blijven die van de eerste versie; alleen de namen veranderden. */
 const STATUSSEN = ['nieuw' => 'Nieuw', 'behandeling' => 'Goedgekeurd', 'verwerkt' => 'Verwerkt', 'afgewezen' => 'Afgekeurd'];
-const ACTIES = ['ingediend' => 'Ingediend', 'bewerkt' => 'Bewerkt', 'status' => 'Status', 'reactie' => 'Antwoord', 'notitie' => 'Notitie', 'verwijderd' => 'Verwijderd'];
+const ACTIES = ['ingediend' => 'Ingediend', 'bewerkt' => 'Bewerkt', 'status' => 'Status', 'reactie' => 'Antwoord', 'notitie' => 'Notitie', 'verwijderd' => 'Verwijderd', 'verplaatst' => 'Verplaatst'];
 const EDITIES = ['handboek' => 'Handboek', 'leerkracht' => 'Leerkrachtenversie', 'zelfstudie' => 'Zelfstudie',
                  'oplossingen' => 'Oplossingen', 'uitwerkingen' => 'Uitgewerkte oplossingen'];
 date_default_timezone_set('Europe/Brussels');
@@ -84,7 +84,10 @@ function db() {
   ");
   // Kolommen die later kwamen. reacties.team: een antwoord van het team, ook met een sleutel. reacties.naam: wie
   // antwoordde met een sleutel (zonder account, gebruiker 0). sleutels.naam: voor wie de sleutel is.
-  foreach (['reacties' => ['team' => 'INTEGER', 'naam' => 'TEXT'], 'sleutels' => ['naam' => 'TEXT']] as $tabel => $kolommen) {
+  // feedback.oorspronkelijk: waar een opmerking eerst stond (JSON met versie, pagina, rect, hoofdstuk, sectie), sinds herplaats.py
+  // ze naar een nieuwe versie verplaatste. feedback.benaderd: 1 als die nieuwe plek bij benadering is (het citaat stond er niet meer).
+  foreach (['reacties' => ['team' => 'INTEGER', 'naam' => 'TEXT'], 'sleutels' => ['naam' => 'TEXT'],
+            'feedback' => ['oorspronkelijk' => 'TEXT', 'benaderd' => 'INTEGER']] as $tabel => $kolommen) {
     $er = array_column($pdo->query("PRAGMA table_info($tabel)")->fetchAll(), 'name');
     foreach ($kolommen as $k => $type) if (!in_array($k, $er, true)) $pdo->exec("ALTER TABLE $tabel ADD COLUMN $k $type");
   }
@@ -276,6 +279,7 @@ function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
       'rect' => $r['x0'] === null ? null : [(float)$r['x0'], (float)$r['y0'], (float)$r['x1'], (float)$r['y1']],
       'auteur' => $met_namen ? $r['auteur'] : null, 'aangemaakt' => iso($r['aangemaakt']), 'bijgewerkt' => iso($r['bijgewerkt']),
       'reacties' => $reacties[$r['id']] ?? [],
+      'oorspronkelijk' => oorspronkelijk($r), 'benaderd' => !empty($r['benaderd']),
     ];
     if (is_team($ik)) { $d['notitie'] = $r['notitie']; $d['botsingen'] = botsingen($r); }
     $uit[] = $d;
@@ -283,6 +287,44 @@ function feedback_rijen($ik, $waar = '1=1', $params = [], $met_namen = true) {
   return $uit;
 }
 function een_feedback($ik, $id) { return feedback_rijen($ik, 'f.id = ?', [$id])[0]; }
+
+/* Waar een verplaatste opmerking eerst stond, met de uitsnede van het oude kader (public_html/uitsneden/f<id>.png,
+   gemaakt door herplaats.py) als die er is. Zo blijft te zien waar de leerkracht het over had, ook als de oude PDF weg is. */
+function oorspronkelijk($r) {
+  $o = json_decode((string)($r['oorspronkelijk'] ?? ''), true);
+  if (!is_array($o)) return null;
+  $png = "/uitsneden/f{$r['id']}.png";
+  $o['uitsnede'] = is_file(__DIR__ . "/../public_html$png") ? $png : null;
+  return $o;
+}
+
+/* herplaats.py (met de sleutel): hang een open opmerking aan de nieuwe versie van dezelfde editie. De oude plek blijft
+   bewaard in `oorspronkelijk` (alleen de eerste keer: daar had de leerkracht het over). Hoofdstuk en sectie komen uit
+   de inhoudstafel van de nieuwe versie, zodat botsingen en de volgorde in het overzicht kloppen. */
+function feedback_plek($ik, $id) {
+  $r = rij('SELECT * FROM feedback WHERE id = ?', [$id]) ?? fout('Deze feedback bestaat niet meer.', 404);
+  if ($r['niveau'] !== 'plek' || !$r['versie']) fout('Deze feedback hoort niet bij een plek in een PDF.');
+  if (!in_array($r['status'], ['nieuw', 'behandeling'], true)) fout('Alleen open feedback (nieuw of goedgekeurd) wordt verplaatst.', 403);
+  $d = body();
+  $v = versie($d['versie'] ?? '');
+  if ($v['sleutel'] !== $r['sleutel'] || $v['editie'] !== $r['editie']) fout('De nieuwe versie hoort niet bij hetzelfde handboek en dezelfde editie.');
+  if ($v['hash'] === $r['versie']) fout('De opmerking staat al op deze versie.');
+  $n = (int)($d['pagina'] ?? 0);
+  if ($n < 1 || $n > $v['paginas']) fout('Die pagina bestaat niet.');
+  $rc = $d['rect'] ?? null;
+  if (!is_array($rc) || count($rc) !== 4) fout('Ongeldige plaats.');
+  $rc = array_map(fn($x) => min(max((float)$x, 0.0), 1.0), array_values($rc));
+  [$hfst, $sectie] = plaats_in_boek($v['inhoud'], $n);
+  $oud = $r['oorspronkelijk'] ?: json_encode(['versie' => $r['versie'], 'pagina' => (int)$r['pagina'],
+    'rect' => [(float)$r['x0'], (float)$r['y0'], (float)$r['x1'], (float)$r['y1']], 'hoofdstuk' => $r['hoofdstuk'], 'sectie' => $r['sectie']],
+    JSON_UNESCAPED_UNICODE);
+  $benaderd = !empty($d['benaderd']) ? 1 : 0;
+  q('UPDATE feedback SET versie = ?, pagina = ?, x0 = ?, y0 = ?, x1 = ?, y1 = ?, hoofdstuk = ?, sectie = ?, oorspronkelijk = ?, benaderd = ? WHERE id = ?',
+    [$v['hash'], $n, min($rc[0], $rc[2]), min($rc[1], $rc[3]), max($rc[0], $rc[2]), max($rc[1], $rc[3]), $hfst, $sectie, $oud, $benaderd, $id]);
+  log_stap($ik, ['pagina' => $n, 'sectie' => $sectie] + $r, 'verplaatst', "p. {$r['pagina']}", "p. $n",
+           'naar de nieuwe versie' . ($benaderd ? ', bij benadering' : ''));
+  antwoord(een_feedback($ik, $id));
+}
 
 function filter_sql($f) {
   $waar = ['1=1']; $p = [];
@@ -493,6 +535,7 @@ function met_sleutel($sl, $m, $pad, $delen) {
   $id = ($delen[0] === 'feedback' && ctype_digit($delen[1] ?? '')) ? (int)$delen[1] : 0;
   if ($id && $m === 'PATCH' && count($delen) === 2) feedback_een($ik, $m, $id, null);
   if ($id && $m === 'POST' && ($delen[2] ?? '') === 'reactie' && count($delen) === 3) feedback_een($ik, $m, $id, 'reactie');
+  if ($id && $m === 'POST' && ($delen[2] ?? '') === 'plek' && count($delen) === 3) feedback_plek($ik, $id);
   fout('Dit kan niet met een sleutel.', 403);
 }
 

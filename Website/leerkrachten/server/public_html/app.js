@@ -220,6 +220,18 @@ const interesse = () => h("p", { class: "interesse" }, h("b", {}, "Op aanvraag. 
   S.ik ? h("a", { href: "#/algemeen" }, "algemene feedback") : [h("a", { href: "#/aanmelden" }, "een account"), " of ", h("a", { href: GITHUB + "/issues", target: "_blank", rel: "noopener" }, "GitHub")], ".");
 
 /* opties: { paneel, beheer, toonBoek, opKlik, bijWijziging(f|null) } */
+/* Een open opmerking verhuist mee naar de nieuwe versie van het boek (herplaats.py). Het bericht zegt dat, en of de
+   plek bij benadering is (de tekst onder het kader stond er niet meer letterlijk). De uitsnede toont hoe het er toen stond. */
+function verplaatstBericht(f) {
+  const o = f.oorspronkelijk;
+  const zin = f.benaderd
+    ? `Meegenomen naar de nieuwe versie van het boek. De tekst is intussen veranderd: de plek is bij benadering (eerst p. ${o.pagina}).`
+    : `Meegenomen naar de nieuwe versie van het boek (eerst p. ${o.pagina}).`;
+  return h("div", { class: "verplaatst" + (f.benaderd ? " benaderd" : ""), onclick: (e) => e.stopPropagation() }, h("span", {}, zin),
+    o.uitsnede && h("details", {}, h("summary", {}, "Zo stond het er toen"),
+      h("img", { src: o.uitsnede, alt: `De plek zoals ze was in de vorige versie, p. ${o.pagina}`, loading: "lazy" })));
+}
+
 function fbKaart(f, opties = {}) {
   const soorten = S.menu.soorten_algemeen;
   const kaart = h("article", { class: `fb s-${f.soort}${opties.paneel ? " in-paneel" : ""}`, "data-id": f.id });
@@ -268,6 +280,7 @@ function fbKaart(f, opties = {}) {
     h("div", { class: "fb-kop" }, h("span", { class: "waar" }, `#${f.id} · ${plaatsTekst(f)}`),
       f.niveau === "plek" && !opties.paneel && h("a", { href: `#/lees/${f.versie}?f=${f.id}`, onclick: (e) => e.stopPropagation() }, "Toon in het boek")),
     f.citaat && h("div", { class: "citaat" }, f.citaat),
+    f.oorspronkelijk && verplaatstBericht(f),
     h("div", { class: "fb-tekst" }, f.tekst),
     h("div", { class: "fb-voet" }, h("span", {}, f.van_mij ? "Jij" : f.auteur, " · ", wanneer(f.aangemaakt)), h("span", { class: "ruimte" }), knoppen, steun),
     reacties].filter(Boolean));
@@ -960,7 +973,7 @@ async function toonLezer(hash, q) {
   const bladen = h("div", { class: "bladen" });
   const vel = h("div", { class: "vel" + (markeren ? " markeren" : "") });
   if (v.jongste && v.jongste !== hash) {
-    vel.append(h("div", { class: "oud-bericht" }, h("span", {}, "Je bekijkt een oudere versie van dit boek. De opmerkingen blijven bij deze versie."),
+    vel.append(h("div", { class: "oud-bericht" }, h("span", {}, "Je bekijkt een oudere versie van dit boek. Open opmerkingen verhuizen mee naar de nieuwste versie; verwerkte en afgekeurde blijven hier."),
       h("a", { class: "knop klein", href: `#/lees/${v.jongste}` }, "Naar de nieuwste")));
   }
   vel.append(bladen);
@@ -1086,7 +1099,7 @@ async function toonLezer(hash, q) {
     for (const f of zichtbaar()) {
       const [x0, y0, x1, y1] = f.rect;
       const punt = (x1 - x0) < 0.012 && (y1 - y0) < 0.012;
-      const m = h("div", { class: `markering s-${f.soort}${f.van_mij ? "" : " ander"}${actief === f.id ? " actief" : ""}`, "data-id": f.id, title: S.menu.soorten[f.soort] || "",
+      const m = h("div", { class: `markering s-${f.soort}${f.van_mij ? "" : " ander"}${f.benaderd ? " benaderd" : ""}${actief === f.id ? " actief" : ""}`, "data-id": f.id, title: S.menu.soorten[f.soort] || "",
         style: punt ? { left: `calc(${x0 * 100}% - 10px)`, top: `calc(${y0 * 100}% - 10px)`, width: "20px", height: "20px", borderRadius: "50%" }
           : { left: x0 * 100 + "%", top: y0 * 100 + "%", width: (x1 - x0) * 100 + "%", height: (y1 - y0) * 100 + "%" },
         onclick: (e) => { e.stopPropagation(); kies(f.id, "kaart"); } }, h("span", { class: "speld" }, f.id));
@@ -1428,7 +1441,7 @@ async function beheerLogboek(d) {
   const exp = h("a", { class: "knop licht klein", href: "#", onclick: (e) => { e.preventDefault(); location.href = apiUrl(`beheer/logboek?formaat=md&max=5000`); } }, icoon("download"), "Hele logboek als Markdown");
   return [h("p", {}, "Elke stap van elke opmerking, nooit gewist: ingediend, goed- of afgekeurd, verwerkt, antwoorden en verwijderingen, met wie en wanneer. Zo zie je wat er beslist werd voor je iets aanpast."),
     h("div", { class: "balk" }, sel("sleutel", [["", "Alle handboeken"], ...d.boeken.map((b) => [b.sleutel, `${pakketKort(b)} · ${b.titel}`])]),
-      sel("actie", [["", "Elke stap"], ["ingediend", "Ingediend"], ["status", "Goed-/afgekeurd/verwerkt"], ["reactie", "Antwoorden"], ["bewerkt", "Bewerkt"], ["notitie", "Notities"], ["verwijderd", "Verwijderd"]]),
+      sel("actie", [["", "Elke stap"], ["ingediend", "Ingediend"], ["status", "Goed-/afgekeurd/verwerkt"], ["reactie", "Antwoorden"], ["bewerkt", "Bewerkt"], ["notitie", "Notities"], ["verwijderd", "Verwijderd"], ["verplaatst", "Verplaatst naar een nieuwe versie"]]),
       h("input", { type: "search", placeholder: "Zoek", onchange: (e) => { filters.zoek = e.target.value; laad(); } }), exp), tel, lijst];
 }
 
@@ -1642,7 +1655,7 @@ async function beheerPdf(d) {
   const rijen = d.boeken.filter((b) => b.edities.length);
   return [h("section", { class: "kaart", style: { marginBottom: "24px" } }, h("h2", { class: "sectie-kop" }, "Nieuwe PDF's online zetten"),
     h("p", { class: "zacht" }, "De site bewaart elke PDF als een vaste versie, zodat een opmerking bij haar pagina blijft. Bouw een handboek opnieuw met maak-pdf.py en draai daarna in Website/leerkrachten ",
-      h("code", {}, "maak.py"), " en ", h("code", {}, "uitrol.py"), ". Leerkrachten lezen voortaan de nieuwste versie; opmerkingen op een oudere versie blijven daar zichtbaar.")),
+      h("code", {}, "maak.py"), " en ", h("code", {}, "uitrol.py"), ". Leerkrachten lezen voortaan de nieuwste versie. Open opmerkingen verhuizen mee naar die versie (herplaats.py, na elke uitrol); verwerkte en afgekeurde blijven op de versie waar ze gemaakt zijn.")),
     h("div", { class: "tabel-houder" }, h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, "Handboek"), S.menu && Object.values(S.menu.edities).map((l) => h("th", {}, l)))),
       h("tbody", {}, rijen.map((b) => h("tr", {}, h("td", {}, `${pakketKort(b)} · ${b.titel}`),
         Object.keys(S.menu.edities).map((e) => { const x = b.edities.find((y) => y.editie === e); return h("td", { class: "zacht" }, x ? `${datum(x.gebouwd)} · ${x.paginas} p.` : "–"); }))))))];

@@ -11,6 +11,8 @@ Wat er gebeurt:
   app/config.php                      alleen de eerste keer, of met --config
   public_html/                        de app (index.html, app.js, plannen.js, app.css), lettertypes, logo, voorkanten, api/index.php
   public_html/voorbeeld/integralen/   de voorbeeldcursus uit Website/ (maak.py kopieert ze), telkens helemaal
+  daarna herplaats.py                 de open feedback naar de nieuwe versies, met een uitsnede van de oude plek
+                                      (public_html/uitsneden/); zonder sleutel voor Claude alleen een melding
 
     py -3.13 -P uitrol.py --zonder-test   zonder de testreeks vooraf (alleen in nood)
     py -3.13 -P uitrol.py --config        app/config.php opnieuw uploaden
@@ -108,7 +110,9 @@ def groottes(map_):
 def opruimen(droog):
     """Online staat elke PDF als vaste versie. Wat niet de jongste versie van een editie is en geen feedback heeft,
     opent geen lezer meer: dat wissen we, zodat de hosting niet volloopt. Een versie met feedback blijft staan, want
-    daar hangt het kader van de leerkracht aan. Zonder sleutel voor Claude (feedback.py) wissen we niets."""
+    daar hangt het kader van de leerkracht aan. Open feedback verhuist na elke uitrol mee naar de nieuwste versie
+    (herplaats.py, met een uitsnede van de oude plek), dus blijven vooral versies met verwerkte of afgekeurde
+    opmerkingen staan. Zonder sleutel voor Claude (feedback.py) wissen we niets."""
     import importlib.util
     spec = importlib.util.spec_from_file_location("feedbackscript", HIER / "feedback.py")
     fb = importlib.util.module_from_spec(spec)
@@ -236,6 +240,19 @@ def main():
     for naam in ["logo.svg", "icoon.svg", "icoon-180.png", "icoon-192.png", "icoon-512.png", "icoon-maskeerbaar-512.png",
                  "kunst.jpg", "og-image.jpg", "manifest.webmanifest", "app.css", "plannen.js", "app.js", "sw.js", ".htaccess", "index.html"]:
         upload(SERVER / "public_html" / naam, "public_html")
+
+    # De open feedback verhuist mee naar de nieuwe versies (pas nu: de server moet ze kennen). Zonder sleutel: melden.
+    print("feedback herplaatsen")
+    voortgang("Uitrol: open feedback naar de nieuwe versies")
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("herplaats", HIER / "herplaats.py")
+        herplaats = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(herplaats)
+        if not herplaats.main([]):
+            print("  LET OP: niet alle open feedback kon verplaatst worden (zie feedback/herplaatst.md)")
+    except SystemExit as e:
+        print(f"  LET OP: niet herplaatst ({e}). Draai later py -3.13 -P herplaats.py.")
 
     print("controle")
     try:

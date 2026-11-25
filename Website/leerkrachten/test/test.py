@@ -328,6 +328,35 @@ def profiel_tests(b, l, x, bks):
          and "An Leerkracht" not in tekst and "an@voorbeeld.be" not in tekst and d["accounts"] >= 2, d)
 
 
+def herplaats_tests(k, l, f1):
+    """herplaats.py hangt open feedback aan de nieuwste versie (POST feedback/<id>/plek, alleen met de sleutel)."""
+    app = HIER.parent / "server" / "app" / "versies"
+    andere = None
+    for j in sorted(app.glob("*.json")):
+        m = json.loads(j.read_text(encoding="utf-8"))
+        if m.get("sleutel") == f1["sleutel"] and m.get("editie") == f1["editie"] and m.get("hash") != f1["versie"]:
+            andere = m
+            break
+    if not andere:
+        meld("herplaatsen: geen tweede versie van dit handboek om mee te testen", True)
+        return
+    oud = (f1["versie"], f1["pagina"])
+    s, d = k("POST", f"feedback/{f1['id']}/plek", {"versie": andere["hash"], "pagina": 1, "rect": [0.12, 0.1, 0.88, 0.14], "benaderd": True})
+    meld("herplaatsen: naar een andere versie, oude plek bewaard", s == 200 and d["versie"] == andere["hash"] and d["pagina"] == 1
+         and d["benaderd"] and (d["oorspronkelijk"] or {}).get("versie") == oud[0] and d["oorspronkelijk"]["pagina"] == oud[1], d)
+    s, d = k("POST", f"feedback/{f1['id']}/plek", {"versie": oud[0], "pagina": oud[1], "rect": f1["rect"]})
+    meld("herplaatsen: de eerste oude plek blijft, ook na een tweede verplaatsing", s == 200 and d["versie"] == oud[0]
+         and not d["benaderd"] and d["oorspronkelijk"]["versie"] == oud[0], d)
+    s, d = k("POST", f"feedback/{f1['id']}/plek", {"versie": oud[0], "pagina": 1, "rect": [0, 0, 1, 1]})
+    meld("herplaatsen: niet naar dezelfde versie", s == 400, d)
+    s, d = k("POST", f"feedback/{f1['id']}/plek", {"versie": andere["hash"], "pagina": 99999, "rect": [0, 0, 1, 1]})
+    meld("herplaatsen: onbestaande pagina geweigerd", s == 400, d)
+    s, d = l("POST", f"feedback/{f1['id']}/plek", {"versie": andere["hash"], "pagina": 1, "rect": [0, 0, 1, 1]})
+    meld("herplaatsen: een leerkracht kan niet verplaatsen", s >= 400, d)
+    s, d = k("GET", "logboek")
+    meld("herplaatsen: in het logboek", s == 200 and any(x["actie"] == "verplaatst" and x["feedback"] == f1["id"] for x in d), d[:3] if s == 200 else d)
+
+
 def sleutel_tests(url, b, l, f1, f2):
     """Sleutels voor Claude: zonder account, met een naam. Feedback ophalen en verwerken, ook met feedback.py."""
     s, d = l("POST", "beheer/sleutel", {"naam": "Iemand"})
@@ -375,6 +404,7 @@ def sleutel_tests(url, b, l, f1, f2):
     meld("sleutel: niet steunen", s == 403, d)
     s, d = k("GET", "beheer/gebruikers")
     meld("sleutel: geen beheer", s == 403, d)
+    herplaats_tests(k, l, f1)
     # feedback.py, van begin tot eind, met een eigen uitvoermap
     uit = Path(tempfile.mkdtemp(prefix="axiomath-feedback-"))
     env = dict(os.environ, AXIOMATH_URL=url, AXIOMATH_SLEUTEL=sl, AXIOMATH_UIT=str(uit), PYTHONIOENCODING="utf-8")

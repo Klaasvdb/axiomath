@@ -170,7 +170,7 @@ Een goed vermoeden is zo precies dat je het kunt testen: een formule, of een uit
 n\colon\ 3,\ 4,\ 5,\ 6 & Kleine veelhoeken tekenen. \\
 d\colon\ 0,\ 2,\ 5,\ 9 & Diagonalen tellen, zoals in de zeshoek. \\
 h\colon\ 3,\ 6,\ 10,\ 15 & Alle lijnstukken tussen de hoekpunten: de handdrukken $\frac{n(n - 1)}{2}$. \\
-h - d\colon\ 3,\ 4,\ 5,\ 6 & Het verschil is telkens $n$: de zijden. \\
+h - d\colon\ 3,\ 4,\ 5,\ 6 & Een lijnstuk tussen twee hoekpunten is een zijde (de hoekpunten zijn buren) of een diagonaal (ze zijn geen buren). Wat na de diagonalen overblijft, zijn dus de zijden: $n$. \\
 d = \frac{n(n - 1)}{2} - n = \frac{n(n - 3)}{2} & Vermoeden, klopt voor alle vier. \\
 n = 8\colon\ d = 20 & Test met een nieuw geval: tekenen en tellen geeft ook $20$.
 \end{stappenvrij}}{%
@@ -188,9 +188,9 @@ Het vermoeden past bij vijf gevallen. Dat maakt het geloofwaardig, maar nog niet
 \oef{h1-vermoeden}
 \end{oefeningen}
 
-\subsection{Verschillen in een tabel}
+\subsection{Een patroon zoeken met verschillen}
 
-Niet elke tabel lijkt op een tabel die je al kent. Dan helpen de verschillen tussen opeenvolgende waarden. Bij de diagonalen vind je voor $n = 3, \ldots, 7$ de waarden $0, 2, 5, 9, 14$. De verschillen zijn $2, 3, 4, 5$, en de verschillen daarvan zijn telkens $1$. Dat is geen toeval: het wijst op een kwadratische formule. Twee eigenschappen maken dat precies. We schrijven de waarden als een rij $u_n$.
+Een vermoeden opstellen is zoeken naar een patroon. Daarvoor bestaan zoekstrategieën, ook \textit{heuristieken} genoemd: werkwijzen die vaak helpen, maar geen garantie geven. Een eerste zag je hierboven: vergelijk met een tabel die je al kent. Maar niet elke tabel lijkt op een tabel die je al kent. Staan er getallen in een rij, dan helpen de verschillen tussen opeenvolgende waarden. Ze tonen of er een formule van de eerste of de tweede graad achter zit. Bij de diagonalen vind je voor $n = 3, \ldots, 7$ de waarden $0, 2, 5, 9, 14$. De verschillen zijn $2, 3, 4, 5$, en de verschillen daarvan zijn telkens $1$. Dat is geen toeval: het wijst op een kwadratische formule. Twee eigenschappen maken dat precies. We schrijven de waarden als een rij $u_n$.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{verschillen}} van een rij zijn $\formule{u_{n+1} - u_n}$. De \textbf{\textcolor{accent}{tweede verschillen}} zijn de verschillen van de verschillen: \quad $\formule{(u_{n+2} - u_{n+1}) - (u_{n+1} - u_n) = u_{n+2} - 2u_{n+1} + u_n}$
@@ -214,9 +214,9 @@ Zijn alle tweede verschillen van een rij gelijk aan $c$, dan is \quad $\formule{
 
 \begin{alleenvoor}{3,4}
 \begin{bewijs}
-Neem $v_n = u_n - \frac{c}{2}n^2$. Omdat $(n + 2)^2 - 2(n + 1)^2 + n^2 = 2$, zijn de tweede verschillen van $v_n$
-\bewijsregel{v_{n+2} - 2v_{n+1} + v_n = (u_{n+2} - 2u_{n+1} + u_n) - \tfrac{c}{2} \cdot 2 = c - c = 0 .}
-De verschillen van $v_n$ zijn dus allemaal gelijk, zeg aan $p$. Volgens de vorige eigenschap is $v_n = pn + q$, en dus
+Neem $v_n = u_n - \frac{c}{2}n^2$. De tweede verschillen van $v_n$ zijn
+\bewijsregel{v_{n+2} - 2v_{n+1} + v_n = (u_{n+2} - 2u_{n+1} + u_n) - \tfrac{c}{2}\bigl((n + 2)^2 - 2(n + 1)^2 + n^2\bigr) = c - \tfrac{c}{2} \cdot 2 = 0 ,}
+want $(n + 2)^2 - 2(n + 1)^2 + n^2 = n^2 + 4n + 4 - 2n^2 - 4n - 2 + n^2 = 2$. De verschillen van $v_n$ zijn dus allemaal gelijk, zeg aan $p$. Volgens de vorige eigenschap is $v_n = pn + q$, en dus
 \bewijsregel{u_n = v_n + \tfrac{c}{2}n^2 = \tfrac{c}{2}n^2 + pn + q .}
 \end{bewijs}
 \end{alleenvoor}
@@ -237,7 +237,8 @@ L\colon\ 4,\ 12,\ 24,\ 40 & \\
 2 + p + q = 4 & Invullen van $n = 1$. \\
 8 + 2p + q = 12 & Invullen van $n = 2$. \\
 p = 2,\quad q = 0 & Tweede vergelijking min de eerste: $6 + p = 8$. \\
-L = 2n^2 + 2n & Test met $n = 4$: $32 + 8 = 40$. Klopt.
+L = 2n^2 + 2n & Test met $n = 4$: $32 + 8 = 40$. Klopt. \\
+n = 5\colon\ 16 + 4 = 20,\ 40 + 20 = 60 & Het schema van onderuit verder: een tweede verschil $4$ erbij, dan een verschil $20$. De formule geeft ook $50 + 10 = 60$.
 \end{stappenvrij}}{%
 \begin{tikzpicture}[scale=.5]
   \foreach \i in {0,...,3}{\foreach \j in {0,1,2}{
@@ -247,7 +248,7 @@ L = 2n^2 + 2n & Test met $n = 4$: $32 + 8 = 40$. Klopt.
 Het rooster heeft ook een verklaring: er zijn $n + 1$ horizontale lijnen van elk $n$ lucifers, en evenveel verticale. Samen $2 \cdot n(n + 1) = 2n^2 + 2n$, wat het vermoeden bewijst.}
 
 \begin{werkwijze}
-Bereken de verschillen. Zijn ze constant, zoek dan $dn + q$. Zijn de tweede verschillen constant, zoek dan $\frac{c}{2}n^2 + pn + q$. Bepaal de onbekenden door twee waarden uit de tabel in te vullen, en test de formule met een waarde die je niet gebruikte. Het resultaat blijft een vermoeden tot je het bewijst.
+Bereken de verschillen. Wil je alleen de volgende waarde, bouw dan het schema van onderuit verder: zet er een tweede verschil bij, tel het op bij het laatste verschil, en tel dat op bij de laatste waarde. Voor een formule: zijn de verschillen constant, zoek dan $dn + q$. Zijn de tweede verschillen constant, zoek dan $\frac{c}{2}n^2 + pn + q$. Bepaal de onbekenden door twee waarden uit de tabel in te vullen, en test de formule met een waarde die je niet gebruikte. Het resultaat blijft een vermoeden tot je het bewijst.
 \end{werkwijze}
 
 \begin{oefeningen}
