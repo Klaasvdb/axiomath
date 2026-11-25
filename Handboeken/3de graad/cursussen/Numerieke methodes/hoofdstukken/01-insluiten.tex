@@ -46,23 +46,23 @@ Daarvoor zijn er \textit{numerieke methodes}: rekenrecepten die stap voor stap e
 
 \subsection{Een startinterval}
 
-Hoe diep zinkt de bal? De massa van de bal is $0{,}6 \cdot \tfrac43 \pi \cdot 10^3 = 800\pi$ gram. Een kubieke centimeter water weegt 1 gram, dus de bolkap onder water moet een volume van $800\pi$ cm³ hebben:
+Neem de vergelijking
 \[
-\tfrac13 \pi h^2 (30 - h) = 800 \pi \quad \Longleftrightarrow \quad h^3 - 30h^2 + 2400 = 0 .
+h^3 - 30h^2 + 2400 = 0 .
 \]
 Een derdegraadsvergelijking. Een gehele oplossing is er niet tussen 0 en 20, en de formule van Cardano helpt hier niet: ze geeft de oplossingen alleen via vierkantswortels uit negatieve getallen. We gaan dus benaderen.
 
 De eerste stap is altijd dezelfde: schrijf de vergelijking als $f(x) = 0$, en zoek een interval waarin precies één oplossing ligt. In de cursus Limieten en afgeleiden zag je daarvoor de \textit{tussenwaardestelling}: is $f$ continu op $[a, b]$ en hebben $f(a)$ en $f(b)$ een verschillend teken, dan heeft $f$ een nulwaarde in $\left]a, b\right[$. Dat noemen we een \emph{tekenwissel}. Er kunnen er wel meerdere zijn. Om er zeker van te zijn dat er maar één is, kijk je naar de afgeleide: is $f' > 0$ op het interval (of $f' < 0$), dan stijgt (of daalt) $f$ er strikt, en dan snijdt de grafiek de $x$-as hoogstens één keer.
 
-\voorbeeld{}{Toon aan dat $f(h) = h^3 - 30h^2 + 2400$ precies één nulwaarde heeft in $[10, 20]$, en dat het de enige is die bij de bal past.\label{vb:h1-start}}{%
-\naast{\uitleg{De diepte ligt tussen 0 en 20 cm, de diameter. We zoeken een tekenwissel met een paar functiewaarden, en tonen met de afgeleide aan dat er maar één nulwaarde is.}
+\voorbeeld{}{Toon aan dat $f(h) = h^3 - 30h^2 + 2400$ precies één nulwaarde heeft in $[0, 20]$, en dat ze in $[10, 20]$ ligt.\label{vb:h1-start}}{%
+\naast{\uitleg{We zoeken een tekenwissel met een paar functiewaarden, en tonen met de afgeleide aan dat er maar één nulwaarde is.}
 \begin{stappenvrij}{3.1cm}{4.2cm}
-f(0) = 2400 > 0 & De bal hangt nog boven het water. \\
+f(0) = 2400 > 0 & De waarde in het linkereindpunt. \\
 f(10) = 400 > 0 & Nog geen tekenwissel tussen 0 en 10. \\
 f(20) = -1600 < 0 & Tekenwissel in $[10, 20]$. \\
 f'(h) = 3h(h - 20) & Negatief voor $0 < h < 20$: $f$ daalt strikt.
 \end{stappenvrij}
-Op $[0, 20]$ daalt $f$ van 2400 naar $-1600$: er is precies één nulwaarde, en ze ligt in $\left]10, 20\right[$. De twee andere oplossingen van de derdegraadsvergelijking liggen buiten $[0, 20]$ en hebben geen betekenis voor de bal.}{\begin{tikzpicture}[x=.13cm,y=.0009cm,font=\scriptsize]
+Op $[0, 20]$ daalt $f$ van 2400 naar $-1600$: er is precies één nulwaarde, en ze ligt in $\left]10, 20\right[$. De twee andere oplossingen van de derdegraadsvergelijking liggen buiten $[0, 20]$.}{\begin{tikzpicture}[x=.13cm,y=.0009cm,font=\scriptsize]
   \fill[accent!15] (0,-2000) rectangle (20,2500);
   \draw[black!14,very thin,xstep=5,ystep=500] (-10,-2000) grid (30,2500);
   \draw[->,grijs] (-10,0) -- (31.5,0) node[right,text=black] {$h$};
@@ -73,8 +73,6 @@ Op $[0, 20]$ daalt $f$ van 2400 naar $-1600$: er is precies één nulwaarde, en 
   \fill[fel!80!black] (11.341,0) circle (2.2pt);
   \foreach \r in {-7.952,26.611}{\fill[black] (\r,0) circle (1.6pt);}
 \end{tikzpicture}}}
-
-Wat betekent het teken van $f$? Er geldt $f(h) = \tfrac{3}{\pi}\bigl(800\pi - V(h)\bigr)$, dus $f(h) > 0$ als het verplaatste water lichter is dan de bal: dan zakt de bal verder. Bij $h = 10$ is de bal half ondergedompeld, en verplaatst hij $\tfrac23 \pi \cdot 1000 \approx 2094$ g water, minder dan zijn massa $800\pi \approx 2513$ g. Hij zinkt dus meer dan half: de diepte ligt tussen 10 en 20 cm.
 
 \begin{werkwijze}
 Schrijf de vergelijking als $f(x) = 0$, met $f$ continu. Bereken $f$ in een paar punten, of schets de grafiek, tot je een tekenwissel vindt. Wil je zeker zijn dat er in dat interval maar één nulwaarde is, toon dan aan dat $f'$ er overal hetzelfde teken heeft.
@@ -88,7 +86,7 @@ Schrijf de vergelijking als $f(x) = 0$, met $f$ continu. Bereken $f$ in een paar
 
 \subsection{Halveren}
 
-Een tekenwissel in $[10, 20]$ zegt dat de diepte tussen 10 en 20 cm ligt. Dat is nog vaag. Kies het midden, 15, en bereken $f(15)$. Is $f(15)$ negatief, dan ligt de tekenwissel in $[10, 15]$; is het positief, dan in $[15, 20]$. Zo weet je met één berekening de helft van het interval weg te gooien. Herhaal dat, en de oplossing zit gevangen in een interval dat bij elke stap half zo lang wordt. Dat is precies de beste strategie bij het raadspel uit oefening \ref{oef:h1-verken}.
+Een tekenwissel in $[10, 20]$ zegt dat de nulwaarde tussen 10 en 20 ligt. Dat is nog vaag. Kies het midden, 15, en bereken $f(15)$. Is $f(15)$ negatief, dan ligt de tekenwissel in $[10, 15]$; is het positief, dan in $[15, 20]$. Zo weet je met één berekening de helft van het interval weg te gooien. Herhaal dat, en de oplossing zit gevangen in een interval dat bij elke stap half zo lang wordt. Dat is precies de beste strategie bij het raadspel uit oefening \ref{oef:h1-verken}.
 
 \begin{theorie}
 De \textbf{\textcolor{accent}{methode van de intervalmiddens}} (of \textit{bisectiemethode}) vertrekt van een continue functie $f$ met een tekenwissel in $[a_0, b_0]$. Bij elke stap bereken je het midden
@@ -179,15 +177,15 @@ Volgens de vorige stelling volstaat $\frac{b - a}{2^{n+1}} \leqslant \varepsilon
 
 Op een rekentoestel bereken je $\log_2 y$ als $\frac{\log y}{\log 2}$ of $\frac{\ln y}{\ln 2}$.
 
-\voorbeeld{}{Hoeveel stappen van de methode van de intervalmiddens op $[10, 20]$ zijn nodig om de diepte van de bal tot op een millimeter te kennen? Geef die benadering.\label{vb:h1-aantal}}{%
-\uitleg{Een millimeter is 0,1 cm, dus $\varepsilon = 0{,}1$. We vullen de formule voor het aantal stappen in en ronden af naar boven, want $n$ is een natuurlijk getal.}
+\voorbeeld{}{Hoeveel stappen van de methode van de intervalmiddens op $[10, 20]$ zijn nodig om de nulwaarde van $f(h) = h^3 - 30h^2 + 2400$ te kennen met een foutgrens van 0,1? Geef die benadering.\label{vb:h1-aantal}}{%
+\uitleg{De foutgrens is $\varepsilon = 0{,}1$. We vullen de formule voor het aantal stappen in en ronden af naar boven, want $n$ is een natuurlijk getal.}
 \begin{stappen}
 n \geqslant \log_2 \frac{10}{0{,}1} - 1 = \log_2 100 - 1 \approx 5{,}64 & Met $\log_2 100 = \frac{\log 100}{\log 2} \approx 6{,}64$. \\[1ex]
 n = 6 & Het kleinste natuurlijke getal dat voldoet. \\[1ex]
 [a_6, b_6] = [11{,}25;\ 11{,}40625] & Eén stap verder dan in voorbeeld \ref{vb:h1-bisectie}: $f(11{,}40625) \approx -19{,}1 < 0$. \\[1ex]
 m_6 = 11{,}328\ldots & Foutgrens $\frac{10}{2^7} \approx 0{,}078 \leqslant 0{,}1$.
 \end{stappen}
-De bal zinkt dus ongeveer 11,3 cm diep, met een fout van hoogstens 0,08 cm. De echte nulwaarde is $11{,}341\ldots$: de echte fout is maar 0,013. De foutgrens is een garantie, geen voorspelling.}
+De nulwaarde is dus ongeveer 11,3, met een fout van hoogstens 0,08. De echte nulwaarde is $11{,}341\ldots$: de echte fout is maar 0,013. De foutgrens is een garantie, geen voorspelling.}
 
 \begin{werkwijze}
 Bereken vooraf het aantal stappen met $n \geqslant \log_2 \frac{b - a}{\varepsilon} - 1$, en rond af naar boven. Na die stappen is het midden van het laatste interval de benadering, met foutgrens $\frac{b - a}{2^{n+1}}$.
@@ -263,7 +261,7 @@ Controleer vooraf dat $f$ continu is op het interval, en schets de grafiek om te
 
 \subsection{Een koorde in plaats van een midden}
 
-De methode van de intervalmiddens kijkt alleen naar het teken van $f$. Dat is jammer. In het voorbeeld van de bal is $f(10) = 400$ en $f(20) = -1600$: de functiewaarde in 10 ligt veel dichter bij 0 dan die in 20, dus je verwacht de nulwaarde dichter bij 10 dan bij 20. Kun je die informatie gebruiken?
+De methode van de intervalmiddens kijkt alleen naar het teken van $f$. Dat is jammer. In voorbeeld \ref{vb:h1-bisectie} is $f(10) = 400$ en $f(20) = -1600$: de functiewaarde in 10 ligt veel dichter bij 0 dan die in 20, dus je verwacht de nulwaarde dichter bij 10 dan bij 20. Kun je die informatie gebruiken?
 
 Het idee: vervang de grafiek tussen $(a, f(a))$ en $(b, f(b))$ door de rechte erdoor, de \textit{koorde}, en neem het snijpunt van die koorde met de $x$-as als nieuwe schatting. Is de grafiek bijna recht, dan ligt dat snijpunt dicht bij de nulwaarde. Daarna gaat het zoals bij de intervalmiddens: je houdt het deel met de tekenwissel. Omdat je de grafiek vervangt door een rechte die er niet echt is, heet de methode \textit{regula falsi}, Latijn voor \textit{regel van de valse positie}. Ze is heel oud: Chinese en Egyptische rekenaars gebruikten ze al om vergelijkingen op te lossen.
 
@@ -347,7 +345,7 @@ Omdat $f(b)$ en $-f(a)$ hetzelfde teken hebben, liggen $w$ en $1 - w$ allebei st
 \end{bewijs}
 \end{theorie}
 
-De gewichten zeggen ook waar $c$ ligt: dicht bij het eindpunt waar $|f|$ klein is. Bij de bal is $w = \frac{-1600}{-2000} = 0{,}8$, dus $c = 0{,}8 \cdot 10 + 0{,}2 \cdot 20 = 12$. Zo blijft de nulwaarde altijd ingesloten, en net als bij de intervalmiddens geeft de regula falsi gegarandeerd een rij schattingen die naar een nulwaarde van $f$ gaat. Het bewijs daarvan laten we weg: het is lang en voegt weinig toe aan wat je nodig hebt.
+De gewichten zeggen ook waar $c$ ligt: dicht bij het eindpunt waar $|f|$ klein is. Voor $f(h) = h^3 - 30h^2 + 2400$ op $[10, 20]$ is $w = \frac{-1600}{-2000} = 0{,}8$, dus $c = 0{,}8 \cdot 10 + 0{,}2 \cdot 20 = 12$. Zo blijft de nulwaarde altijd ingesloten, en net als bij de intervalmiddens geeft de regula falsi gegarandeerd een rij schattingen die naar een nulwaarde van $f$ gaat. Het bewijs daarvan laten we weg: het is lang en voegt weinig toe aan wat je nodig hebt.
 
 \begin{oefeningen}
 \oef{h1-insluiting}
@@ -417,17 +415,18 @@ Beide methodes hebben een tekenwissel nodig, en daarom ook een startinterval. Ze
 \end{oefeningen}
 
 \needspace{20\baselineskip}
-Nu kunnen we het probleem van de bal volledig oplossen.
-
-\voorbeeld{}{Terug naar het probleem. Hoe diep zinkt de houten bal, tot op een millimeter? Hoeveel steekt hij boven het water uit?\label{vb:h1-terug}}{%
-\uitleg{De diepte $h$ is de nulwaarde van $f(h) = h^3 - 30h^2 + 2400$ in $[10, 20]$ (voorbeeld \ref{vb:h1-start}). We gebruiken de regula falsi, die hier snel gaat, en controleren het resultaat met een tekenwissel zoals in de werkwijze.}
+\voorbeeld{}{Terug naar het probleem. Een houten bal met een straal van 10 cm drijft in water. Het hout heeft een dichtheid van 0,6 g/cm³: de bal weegt dus 60\,\% van het water dat in een even grote bol past. Volgens Archimedes zinkt de bal tot hij precies zijn eigen massa aan water verplaatst. Het ondergedompelde deel is een bolkap met hoogte $h$ en volume $V = \tfrac13 \pi h^2 (3r - h)$. Hoe diep zinkt de bal, tot op een millimeter? Hoeveel steekt hij boven het water uit?\label{vb:h1-terug}}{%
+\uitleg{De massa van de bal is $0{,}6 \cdot \tfrac43 \pi \cdot 10^3 = 800\pi$ gram. Een kubieke centimeter water weegt 1 gram, dus de bolkap onder water moet een volume van $800\pi$ cm³ hebben. Dat geeft een vergelijking in $h$, met $0 \leqslant h \leqslant 20$, de diameter. We lossen ze op met de regula falsi, die hier snel gaat, en controleren het resultaat met een tekenwissel zoals in de werkwijze.}
 \begin{stappen}
-c_0 = 12, \quad c_1 \approx 11{,}3514 & Voorbeeld \ref{vb:h1-regula}. \\[1ex]
+\tfrac13 \pi h^2 (30 - h) = 800 \pi & Het volume van de bolkap, met $r = 10$. \\[1ex]
+h^3 - 30h^2 + 2400 = 0 & Vermenigvuldig met $\frac{3}{\pi}$ en breng alles naar links. \\[1ex]
+f(10) = 400 > 0, \quad f(20) = -1600 < 0 & Eén nulwaarde in $[10, 20]$ (voorbeeld \ref{vb:h1-start}). \\[1ex]
+c_0 = 12, \quad c_1 \approx 11{,}3514 & Twee stappen zoals in voorbeeld \ref{vb:h1-regula}. \\[1ex]
 c_2 = 10 - 400 \cdot \frac{11{,}3514 - 10}{-2{,}94 - 400} \approx 11{,}3415 & De linkergrens blijft 10. \\[2ex]
 |c_2 - c_1| \approx 0{,}01 < 0{,}1 & Twee schattingen verschillen minder dan een millimeter. \\[1ex]
 f(11{,}2415) \approx 29{,}5 > 0, \quad f(11{,}4415) \approx -29{,}5 < 0 & Tekenwissel in $[c_2 - 0{,}1;\ c_2 + 0{,}1]$: de foutgrens 0,1 is gegarandeerd.
 \end{stappen}
-De bal zinkt $h \approx 11{,}34$ cm diep, met een fout van minder dan een millimeter, en steekt dus ongeveer $20 - 11{,}34 = 8{,}66$ cm boven het water uit. De methode van de intervalmiddens vond in voorbeeld \ref{vb:h1-aantal} hetzelfde, maar had er zes stappen voor nodig in plaats van drie.}
+Het teken van $f$ heeft hier een betekenis: $f(h) = \tfrac{3}{\pi}\bigl(800\pi - V(h)\bigr)$ is positief als het verplaatste water lichter is dan de bal, en dan zakt de bal verder. De bal zinkt $h \approx 11{,}34$ cm diep, met een fout van minder dan een millimeter, en steekt dus ongeveer $20 - 11{,}34 = 8{,}66$ cm boven het water uit. De methode van de intervalmiddens vond in voorbeeld \ref{vb:h1-aantal} hetzelfde, maar had er zes stappen voor nodig in plaats van drie.}
 
 \lkr{Wie de tekenwissel strenger wil, neemt $\varepsilon = 0{,}005$: $f(11{,}3365) > 0$ en $f(11{,}3465) < 0$, dus $h = 11{,}34$ op een halve tiende millimeter. In opdracht \ref{oef:h1-o9} rekenen de leerlingen hetzelfde uit voor andere houtsoorten.}
 
