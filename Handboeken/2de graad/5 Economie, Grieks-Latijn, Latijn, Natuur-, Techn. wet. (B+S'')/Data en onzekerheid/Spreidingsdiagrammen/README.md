@@ -1,13 +1,13 @@
 # Spreidingsdiagrammen: handboek
 
-Handboek voor pakket 5 (B+S'') van de 2de graad, leerplandoel 40, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein), dezelfde als bij Statistiek, met een spreidingsdiagram en trendlijn als motief. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 5 (B+S'') van de 2de graad, leerplan Wiskunde B+S'' (II-WisS''-d, versie oktober 2024, met het servicedocument voor 5 uur, dat hier niets toevoegt), LPD 40, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk, alle gegevens zijn verzonnen. De omslag is van Pierre-Auguste Renoir (publiek domein), dezelfde als bij Statistiek, met een spreidingsdiagram en trendlijn als motief. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor pakket 2-5 in [cursussen/Spreidingsdiagrammen/](<../../../cursussen/Spreidingsdiagrammen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en ook een bewijsopdracht over de som van de residuen (hoofdstuk 1) en de formule van de correlatiecoëfficiënt als uitleg, met een voorbeeld en twee oefeningen (hoofdstuk 2). De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Spreidingsdiagrammen/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor pakket 2-5 in [cursussen/Spreidingsdiagrammen/](<../../../cursussen/Spreidingsdiagrammen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Alle pakketten hebben op één opdracht na dezelfde inhoud (het leerplandoel heeft in B+, B+S', B+S en B+S'' dezelfde tekst, en er is geen verdiepend doel over dit onderwerp): een informeel begrip van de trendlijn met ICT, zonder residuen of kleinste kwadraten, en de correlatiecoëfficiënt met ICT, zonder formule (de residuen, de bewijsopdracht en de formule van *r* die hier vroeger stonden, vraagt het leerplan niet). Pakket 3-5 hebben ook een opdracht over een omgekeerd evenredig verband (`h2-o24`, wenk over de samenhang met *f(x) = c/x*). De toetsing aan het leerplan en wat nog na te kijken is, staan in de [README van de bron](<../../../cursussen/Spreidingsdiagrammen/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Het spreidingsdiagram en de trendlijn | `hoofdstukken/01-spreidingsdiagram.tex` | LPD 40 | eerste versie, nog na te lezen |
-| 2. De correlatiecoëfficiënt | `hoofdstukken/02-correlatie.tex` | LPD 40 | eerste versie, nog na te lezen |
+| 1. Het spreidingsdiagram en de trendlijn | `hoofdstukken/01-spreidingsdiagram.tex` | LPD 40 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. De correlatiecoëfficiënt | `hoofdstukken/02-correlatie.tex` | LPD 40 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
 ## PDF's
 

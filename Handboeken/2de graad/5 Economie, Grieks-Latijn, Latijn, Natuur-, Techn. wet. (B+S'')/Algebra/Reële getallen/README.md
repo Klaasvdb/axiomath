@@ -1,16 +1,16 @@
 # Reële getallen: handboek
 
-Handboek voor pakket 5 (B+S'') van de 2de graad, leerplandoelen 5-7, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Theo van Doesburg (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 5 (B+S'') van de 2de graad, leerplan II-WisS''-d (versie oktober 2024, met het servicedocument 5u), leerplandoelen 5-7, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Theo van Doesburg (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Reële getallen/](<../../../cursussen/Reële getallen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en ook het bewijs uit het ongerijmde dat $\sqrt2$ irrationaal is (met twee bewijsopdrachten), letters in de exponent en de noemer wortelvrij maken met de toegevoegde uitdrukking. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Reële getallen/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Reële getallen/](<../../../cursussen/Reële getallen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en ook derdemachtswortels (extra bij LPD 7), de noemer wortelvrij maken met de toegevoegde uitdrukking (het leerplan beperkt het niet tot één term), de opdracht dat $1 + \sqrt2$ irrationaal is (LPD B1) en letters in de exponent. De volledige tabel met verschillen, wat het leerplan besliste en wat open blijft, staat in de [README van de bron](<../../../cursussen/Reële getallen/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Van rationale naar reële getallen | `hoofdstukken/01-reele-getallen.tex` | LPD 5-7 | eerste versie, nog na te lezen |
-| 2. Machten met gehele exponenten | `hoofdstukken/02-machten.tex` | LPD 5-7 | eerste versie, nog na te lezen |
-| 3. Vierkantswortels | `hoofdstukken/03-vierkantswortels.tex` | LPD 5-7 | eerste versie, nog na te lezen |
+| 1. Van rationale naar reële getallen | `hoofdstukken/01-reele-getallen.tex` | LPD 5, 6; LPD B1 (bewijs) | eerste versie, getoetst aan het leerplan |
+| 2. Machten met gehele exponenten | `hoofdstukken/02-machten.tex` | LPD 7 | eerste versie, getoetst aan het leerplan |
+| 3. Vierkants- en derdemachtswortels | `hoofdstukken/03-vierkantswortels.tex` | LPD 7 | eerste versie, getoetst aan het leerplan |
 
-De verdeling van LPD 5-7 over de drie hoofdstukken is nog na te kijken in het leerplan.
+De LPD-nummers zijn die van het leerplan van dit pakket en staan ook in de kaders voor de leerkracht. Nog na te lezen: de tekst en de oefeningen, en het gebruik in de klas.
 
 ## PDF's
 

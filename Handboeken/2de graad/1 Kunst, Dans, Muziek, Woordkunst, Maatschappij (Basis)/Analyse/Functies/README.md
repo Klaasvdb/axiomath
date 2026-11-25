@@ -1,16 +1,16 @@
 # Functies: handboek
 
-Handboek voor pakket 1 (Basis) van de 2de graad, LPD 17-21, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Utagawa Hiroshige (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 1 (Basis) van de 2de graad, leerplan II-Wis-d (KOV, versie oktober 2024): LPD 17-21, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Utagawa Hiroshige (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Functies/](<../../../cursussen/Functies/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Hoofdstuk 4 (de functie $c/x$) staat niet in dit pakket. Geen pijlnotatie, geen puntrichtingsvorm, geen absolute extrema en geen bewijsopdrachten. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Functies/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Functies/](<../../../cursussen/Functies/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Hoofdstuk 4 (de functie $c/x$) staat niet in dit pakket: het leerplan Basis heeft geen $c/x$. Inhoudelijk gelijk aan pakket 2-4, want de doelen en wenken over functies zijn in die leerplannen gelijk: met de vorm $y - y_1 = m(x - x_1)$ (wenk bij LPD 19), zonder pijlnotatie, absolute extrema en bewijsopdrachten (die staan alleen in pakket 5). De volledige tabel met verschillen, de toetsing aan het leerplan en wat open blijft, staan in de [README van de bron](<../../../cursussen/Functies/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Wat is een functie? | `hoofdstukken/01-functies.tex` | LPD 17-21 | eerste versie, nog na te lezen |
-| 2. Eerstegraadsfuncties | `hoofdstukken/02-eerstegraadsfuncties.tex` | LPD 17-21 | eerste versie, nog na te lezen |
-| 3. Kenmerken en grafisch oplossen | `hoofdstukken/03-kenmerken.tex` | LPD 17-21 | eerste versie, nog na te lezen |
+| 1. Wat is een functie? | `hoofdstukken/01-functies.tex` | LPD 17 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Eerstegraadsfuncties | `hoofdstukken/02-eerstegraadsfuncties.tex` | LPD 18, 19 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 3. Kenmerken en grafisch oplossen | `hoofdstukken/03-kenmerken.tex` | LPD 20, 21 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-De verdeling van de leerplandoelen over de hoofdstukken is nog na te kijken in het leerplan.
+De verdeling van de leerplandoelen over de hoofdstukken is getoetst aan het leerplan (24 november 2026).
 
 ## PDF's
 

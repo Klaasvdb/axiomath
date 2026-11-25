@@ -1,13 +1,13 @@
 # Telproblemen: handboek
 
-Handboek voor pakket 2 (B+) van de 2de graad, leerplandoel 29, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Pieter Bruegel de Oude, *De volkstelling te Bethlehem* (publiek domein), met als motief een boomdiagram $2 \cdot 2 \cdot 2 = 8$. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 2 (B+) van de 2de graad, leerplan II-Wis'-d, versie oktober 2024: LPD 29, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Pieter Bruegel de Oude, *De volkstelling te Bethlehem* (publiek domein), met als motief een boomdiagram $2 \cdot 2 \cdot 2 = 8$. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Telproblemen/](<../../../cursussen/Telproblemen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zonder de faculteit als notatie en zonder drie verzamelingen. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Telproblemen/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Telproblemen/](<../../../cursussen/Telproblemen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zonder wegendiagram en tabel (die noemt het leerplan B+ niet), zonder de faculteit en zonder drie verzamelingen. De volledige tabel met verschillen, wat het leerplan besliste en wat open blijft, staat in de [README van de bron](<../../../cursussen/Telproblemen/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Boomdiagrammen en de productregel | `hoofdstukken/01-productregel.tex` | LPD 29 | eerste versie, nog na te lezen |
-| 2. Venndiagrammen, som- en complementregel | `hoofdstukken/02-somregel.tex` | LPD 29 | eerste versie, nog na te lezen |
+| 1. Boomdiagrammen en de productregel | `hoofdstukken/01-productregel.tex` | LPD 29 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Venndiagrammen, som- en complementregel | `hoofdstukken/02-somregel.tex` | LPD 29 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
 ## PDF's
 

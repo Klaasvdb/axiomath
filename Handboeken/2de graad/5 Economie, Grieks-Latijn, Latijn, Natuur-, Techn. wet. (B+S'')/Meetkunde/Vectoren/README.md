@@ -1,13 +1,13 @@
 # Vectoren: handboek
 
-Handboek voor pakket 5 (B+S'') van de 2de graad, leerplandoelen 13-14, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Paul Signac, *De haven van Saint-Tropez* (publiek domein), met als motief de som van twee vectoren. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 5 (B+S'') van de 2de graad, leerplan II-WisS''-d (KOV, versie oktober 2024): LPD 13-14, met B1 (bewijzen) en het servicedocument voor 5 uur wiskunde, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Paul Signac, *De haven van Saint-Tropez* (publiek domein), met als motief de som van twee vectoren. De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Vectoren/](../../../cursussen/Vectoren/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en in hoofdstuk 2 ook evenwijdige vectoren en collineaire punten met componenten, als basis voor het handboek Analytische meetkunde (B2-B5). Het inproduct komt pas daar. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](../../../cursussen/Vectoren/README.md).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Vectoren/](../../../cursussen/Vectoren/). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](../../../../../Opmaak/pakketten.py)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en in hoofdstuk 2 ook het zwaartepunt van een driehoek (wenk bij LPD 14, met een bewijs) en evenwijdige vectoren en collineaire punten met componenten, als basis voor het handboek Analytische meetkunde (B3-B4). Het inproduct (B2) komt pas daar. De volledige tabel met verschillen, de toetsing aan het leerplan en wat open blijft, staan in de [README van de bron](../../../cursussen/Vectoren/README.md).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Vectoren tekenen | `hoofdstukken/01-som-en-veelvoud.tex` | LPD 13 | eerste versie, nog na te lezen |
-| 2. Rekenen met vectoren | `hoofdstukken/02-componenten.tex` | LPD 14 (en 13) | eerste versie, nog na te lezen |
+| 1. Vectoren tekenen | `hoofdstukken/01-som-en-veelvoud.tex` | LPD 13, haakjes en bewijzen LPD 14 (en B1) | getoetst aan het leerplan, nog na te lezen |
+| 2. Rekenen met vectoren | `hoofdstukken/02-componenten.tex` | LPD 14 | getoetst aan het leerplan, nog na te lezen |
 
 ## PDF's
 

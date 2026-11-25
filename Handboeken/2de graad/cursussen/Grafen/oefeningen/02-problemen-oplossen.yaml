@@ -1,6 +1,7 @@
 # Oefeningen van hoofdstuk 2. Zie Opmaak/oefeningenbank.py voor de velden.
 # pakketten: de bewijsopdrachten h2-o22 en h2-o23 alleen in 5.
-# Eulerpaden en kortste paden zijn nagerekend met een Python-script (brute force: alle paden).
+# Eulersporen en kortste paden zijn nagerekend met een Python-script (brute force: alle sporen en paden).
+# Woorden volgens de wenk bij LPD K3 (KOV): wandeling, spoor, circuit, pad, cykel; eulerspoor, eulercircuit.
 
 - id: h2-start-1
   soort: start
@@ -93,7 +94,7 @@
 - id: h2-wandeling
   soort: kort
   opgave: |-
-    Is de rij knopen een wandeling, een pad, een kring, of geen van drie?
+    Welke naam past het best bij de rij knopen: wandeling, spoor, circuit, pad of cykel? Of is het geen wandeling?
   figuur:
     code: |-
       \begin{tikzpicture}
@@ -105,33 +106,39 @@
     - opgave: |-
         $P, Q, R, S, P$
       antwoord: |-
-        kring
+        cykel
       uitwerking: |-
-        $PQ$, $QR$, $RS$, $SP$: verschillende bogen, en terug in $P$.
+        $PQ$, $QR$, $RS$, $SP$: terug in $P$, en verder komt geen knoop twee keer voor.
     - opgave: |-
         $P, Q, S, P, Q$
       antwoord: |-
-        wandeling, geen pad
+        wandeling
       uitwerking: |-
-        De boog $PQ$ wordt twee keer gebruikt.
+        De boog $PQ$ wordt twee keer gebruikt: geen spoor.
     - opgave: |-
         $Q, R, T$
       antwoord: |-
         pad
       uitwerking: |-
-        $QR$ en $RT$, en het eindigt niet in $Q$.
+        $QR$ en $RT$, met drie verschillende knopen.
+    - opgave: |-
+        $Q, R, S, Q, P$
+      antwoord: |-
+        spoor
+      uitwerking: |-
+        $QR$, $RS$, $SQ$, $QP$ zijn verschillende bogen, maar $Q$ komt twee keer voor: geen pad.
     - opgave: |-
         $P, R, T$
       antwoord: |-
-        geen van drie
+        geen wandeling
       uitwerking: |-
         Er is geen boog $PR$.
     - opgave: |-
-        Bestaat er een kring die door $T$ gaat?
+        Bestaat er een circuit dat door $T$ gaat?
       antwoord: |-
         nee
       uitwerking: |-
-        $T$ ligt maar aan één boog. Een kring die in $T$ aankomt, moet er langs een andere boog weer vertrekken.
+        $T$ ligt maar aan één boog. Een circuit dat in $T$ aankomt, moet er langs een andere boog weer vertrekken.
 
 - id: h2-samenhang
   soort: kort
@@ -205,12 +212,12 @@
       antwoord: |-
         ja, van $N$ naar $E$ (of omgekeerd)
       uitwerking: |-
-        Twee oneven graden: een eulerpad van $N$ naar $E$, bijvoorbeeld $N, E, N, Z, E$ (over de ene brug naar $E$, de andere terug, dan de lange brug en de brug van $Z$ naar $E$).
+        Twee oneven graden: een eulerspoor van $N$ naar $E$, bijvoorbeeld $N, E, N, Z, E$ (over de ene brug naar $E$, de andere terug, dan de lange brug en de brug van $Z$ naar $E$).
 
 - id: h2-kring
   soort: kort
   opgave: |-
-    Toon aan dat de graaf een eulerkring heeft, en zoek er een.
+    Toon aan dat de graaf een eulercircuit heeft, en zoek er een.
   figuur:
     code: |-
       \begin{tikzpicture}[scale=.9]
@@ -220,12 +227,12 @@
   antwoord: |-
     bijvoorbeeld $A, B, C, A, D, B, E, C, F, D, E, F, A$
   uitwerking: |-
-    De graaf is samenhangend en elke knoop heeft graad 4: er is een eulerkring. Een eerste kring: $A, B, C, A$. Vanuit $A$ met vrije bogen: $A, D, E, F, A$; ingelast: $A, B, C, A, D, E, F, A$. Nog vrij: $DB$, $BE$, $EC$, $CF$, $FD$. Vanuit $D$: $D, B, E, C, F, D$; ingelast op de plaats van $D$: $A, B, C, A, D, B, E, C, F, D, E, F, A$, met alle 12 bogen.
+    De graaf is samenhangend en elke knoop heeft graad 4: er is een eulercircuit. Een eerste circuit: $A, B, C, A$. Vanuit $A$ met vrije bogen: $A, D, E, F, A$; ingelast: $A, B, C, A, D, E, F, A$. Nog vrij: $DB$, $BE$, $EC$, $CF$, $FD$. Vanuit $D$: $D, B, E, C, F, D$; ingelast op de plaats van $D$: $A, B, C, A, D, B, E, C, F, D, E, F, A$, met alle 12 bogen.
 
 - id: h2-pad
   soort: kort
   opgave: |-
-    Waar moet een eulerpad beginnen? Zoek er een.
+    Waar moet een eulerspoor beginnen? Zoek er een.
   figuur:
     code: |-
       \begin{tikzpicture}
@@ -235,12 +242,12 @@
   antwoord: |-
     in $D$ of $E$; bijvoorbeeld $D, A, B, C, E, B, D, E$
   uitwerking: |-
-    $\gr{D} = \gr{E} = 3$, de andere graden zijn even ($A$ 2, $B$ 4, $C$ 2). Het eulerpad loopt van $D$ naar $E$ of omgekeerd: $D, A, B, C, E, B, D, E$ gebruikt alle 7 bogen.
+    $\gr{D} = \gr{E} = 3$, de andere graden zijn even ($A$ 2, $B$ 4, $C$ 2). Het eulerspoor loopt van $D$ naar $E$ of omgekeerd: $D, A, B, C, E, B, D, E$ gebruikt alle 7 bogen.
 
 - id: h2-beslis
   soort: kort
   opgave: |-
-    Heeft de graaf een eulerkring, een eulerpad dat niet sluit, of geen van beide?
+    Heeft de graaf een eulercircuit, een eulerspoor dat niet sluit, of geen van beide?
   lijst: reeks
   kolommen: 4
   delen:
@@ -261,9 +268,9 @@
           \foreach \n in {a,b,c,d}{\node[punt] at (\n) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerpad
+        eulerspoor
       uitwerking: |-
-        Twee knopen met graad 3 (aan de diagonaal): het pad loopt van de ene naar de andere.
+        Twee knopen met graad 3 (aan de diagonaal): het spoor loopt van de ene naar de andere.
     - opgave: |-
         \begin{tikzpicture}[baseline=0,scale=.7]
           \foreach \n/\x/\y in {a/0/0, b/0/1.6, m/1.1/.8, c/2.2/0, d/2.2/1.6}{\coordinate (\n) at (\x,\y);}
@@ -271,7 +278,7 @@
           \foreach \n in {a,b,m,c,d}{\node[punt] at (\n) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerkring
+        eulercircuit
       uitwerking: |-
         Alle graden zijn even (4 in het midden, 2 elders).
     - opgave: |-
@@ -281,7 +288,7 @@
           \foreach \i in {0,...,4}{\node[punt] at (v\i) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerkring
+        eulercircuit
       uitwerking: |-
         Elke knoop is verbonden met de vier andere: alle graden zijn 4.
 
@@ -321,9 +328,9 @@
   soort: opdracht
   niveau: 1
   thema: |-
-    wandeling, pad of kring
+    wandeling, spoor, circuit, pad of cykel
   opgave: |-
-    Is de rij knopen een wandeling, een pad, een kring, of geen van drie?
+    Welke naam past het best bij de rij knopen: wandeling, spoor, circuit, pad of cykel? Of is het geen wandeling?
   figuur:
     code: |-
       \begin{tikzpicture}
@@ -335,37 +342,43 @@
     - opgave: |-
         $A, B, D, C, A$
       antwoord: |-
-        kring
+        cykel
       uitwerking: |-
-        $AB$, $BD$, $DC$, $CA$: verschillend, en terug in $A$.
+        $AB$, $BD$, $DC$, $CA$: terug in $A$, en verder geen knoop twee keer.
     - opgave: |-
         $B, C, D, B, C$
       antwoord: |-
-        wandeling, geen pad
+        wandeling
       uitwerking: |-
-        $BC$ wordt twee keer gebruikt.
+        $BC$ wordt twee keer gebruikt: geen spoor.
     - opgave: |-
         $A, B, D, F, E$
       antwoord: |-
         pad
       uitwerking: |-
-        Vier verschillende bogen, en $E \neq A$.
+        Vijf verschillende knopen, verbonden door vier bogen.
     - opgave: |-
         $A, D, E$
       antwoord: |-
-        geen van drie
+        geen wandeling
       uitwerking: |-
         Er is geen boog $AD$.
     - opgave: |-
         $F, E, C, D, E$
       antwoord: |-
-        pad
+        spoor
       uitwerking: |-
-        $FE$, $EC$, $CD$, $DE$ zijn vier verschillende bogen; dat $E$ twee keer voorkomt, mag.
+        $FE$, $EC$, $CD$, $DE$ zijn vier verschillende bogen, maar $E$ komt twee keer voor: geen pad.
+    - opgave: |-
+        $A, B, C, D, E, C, A$
+      antwoord: |-
+        circuit
+      uitwerking: |-
+        $AB$, $BC$, $CD$, $DE$, $EC$, $CA$ zijn verschillend, en de rij eindigt in $A$. Maar $C$ komt twee keer voor: geen cykel.
     - opgave: |-
         $C, B, A, C, D, F, E, D, C$
       antwoord: |-
-        wandeling, geen pad
+        wandeling
       uitwerking: |-
         De boog $CD$ wordt twee keer gebruikt: eerst van $C$ naar $D$, op het einde van $D$ naar $C$.
 
@@ -373,9 +386,9 @@
   soort: opdracht
   niveau: 1
   thema: |-
-    eulerkring, eulerpad of geen van beide
+    eulercircuit, eulerspoor of geen van beide
   opgave: |-
-    Heeft de graaf een eulerkring, een eulerpad dat niet sluit, of geen van beide? Leg uit.
+    Heeft de graaf een eulercircuit, een eulerspoor dat niet sluit, of geen van beide? Leg uit.
   lijst: reeks
   kolommen: 4
   delen:
@@ -386,9 +399,9 @@
           \foreach \n in {a,b,c,d,e}{\node[punt] at (\n) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerpad
+        eulerspoor
       uitwerking: |-
-        De twee bovenste knopen hebben graad 3, de drie onderste graad 2: een eulerpad van de ene bovenste knoop naar de andere.
+        De twee bovenste knopen hebben graad 3, de drie onderste graad 2: een eulerspoor van de ene bovenste knoop naar de andere.
     - opgave: |-
         \begin{tikzpicture}[baseline=0,scale=.75]
           \foreach \n/\x/\y in {1/0/0, 2/1.4/0, 3/1.4/1.4, 4/0/1.4, 5/.6/.5, 6/2/.5, 7/2/1.9, 8/.6/1.9}{\coordinate (k\n) at (\x,\y);}
@@ -416,7 +429,7 @@
           \foreach \n in {a,b,c,d,e,f,g,h}{\node[punt] at (\n) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerkring
+        eulercircuit
       uitwerking: |-
         De hoeken van het vierkant hebben graad 4, de toppen van de driehoeken graad 2, en de graaf is samenhangend.
 
@@ -424,9 +437,9 @@
   soort: opdracht
   niveau: 1
   thema: |-
-    een eulerkring zoeken
+    een eulercircuit zoeken
   opgave: |-
-    Toon aan dat de graaf een eulerkring heeft, en zoek er een.
+    Toon aan dat de graaf een eulercircuit heeft, en zoek er een.
   figuur:
     code: |-
       \begin{tikzpicture}
@@ -436,15 +449,15 @@
   antwoord: |-
     bijvoorbeeld $A, B, C, D, E, F, A, C, E, A$
   uitwerking: |-
-    Samenhangend; $A$, $C$ en $E$ hebben graad 4, $B$, $D$ en $F$ graad 2. Eerst de zeshoek $A, B, C, D, E, F, A$, dan vanuit $A$ de driehoek $A, C, E, A$ erachter: alle 9 bogen.
+    Samenhangend; $A$, $C$ en $E$ hebben graad 4, $B$, $D$ en $F$ graad 2. Eerst de zeshoek $A, B, C, D, E, F, A$, dan vanuit $A$ het circuit $A, C, E, A$ erachter: alle 9 bogen.
 
 - id: h2-o4
   soort: opdracht
   niveau: 1
   thema: |-
-    een eulerpad zoeken
+    een eulerspoor zoeken
   opgave: |-
-    Waar moet je beginnen om deze figuur in één haal te tekenen? Geef zo'n eulerpad.
+    Waar moet je beginnen om deze figuur in één haal te tekenen? Geef zo'n eulerspoor.
   figuur:
     code: |-
       \begin{tikzpicture}[scale=.9]
@@ -495,7 +508,7 @@
       antwoord: |-
         alle behalve 3 en 4
       uitwerking: |-
-        Maak van elk cijfer een graaf met de punten als knopen. Bij 3 en 4 hebben vier punten een oneven graad (bij 3: de twee linkse punten bovenaan en onderaan, en de twee middelste punten; bij 4: de twee bovenste punten, het middelste rechts en het onderste rechts). Bij 0 zijn alle graden even (een kring). Bij 1, 2, 5, 6, 7, 8 en 9 zijn er precies twee oneven graden.
+        Maak van elk cijfer een graaf met de punten als knopen. Bij 3 en 4 hebben vier punten een oneven graad (bij 3: de twee linkse punten bovenaan en onderaan, en de twee middelste punten; bij 4: de twee bovenste punten, het middelste rechts en het onderste rechts). Bij 0 zijn alle graden even (een cykel). Bij 1, 2, 5, 6, 7, 8 en 9 zijn er precies twee oneven graden.
     - opgave: |-
         Waar begin je bij de 8?
       antwoord: |-
@@ -572,13 +585,13 @@
       antwoord: |-
         ja
       uitwerking: |-
-        Een ring is een eulerkring. De graaf is samenhangend en alle graden zijn even.
+        Een gesloten ring is een eulercircuit. De graaf is samenhangend en alle graden zijn even.
     - opgave: |-
         Een spel tot dubbel-vijf heeft 21 stenen, met de ogen 0 tot 5. Kun je die allemaal in één rij leggen?
       antwoord: |-
         nee
       uitwerking: |-
-        Nu heeft elke knoop graad $5 + 2 = 7$: zes oneven graden, dus zelfs geen eulerpad.
+        Nu heeft elke knoop graad $5 + 2 = 7$: zes oneven graden, dus zelfs geen eulerspoor.
     - opgave: |-
         Hoeveel stenen moet je uit het spel tot dubbel-vijf minstens weglaten om de rest in één rij te leggen?
       antwoord: |-
@@ -612,7 +625,7 @@
       antwoord: |-
         elk van de zeven
       uitwerking: |-
-        Elke brug verbindt twee stadsdelen met een oneven graad. Breek je er een af, dan worden die twee even, en de graaf blijft samenhangend. Er blijft een eulerpad tussen de andere twee stadsdelen.
+        Elke brug verbindt twee stadsdelen met een oneven graad. Breek je er een af, dan worden die twee even, en de graaf blijft samenhangend. Er blijft een eulerspoor tussen de andere twee stadsdelen.
 
 - id: h2-o10
   soort: opdracht
@@ -678,9 +691,9 @@
   soort: opdracht
   niveau: 2
   thema: |-
-    bogen toevoegen voor een eulerkring
+    bogen toevoegen voor een eulercircuit
   opgave: |-
-    Hoeveel bogen moet je minstens toevoegen opdat de graaf een eulerkring heeft? Meervoudige bogen mogen.
+    Hoeveel bogen moet je minstens toevoegen opdat de graaf een eulercircuit heeft? Meervoudige bogen mogen.
   lijst: enumerate
   delen:
     - opgave: |-
@@ -782,29 +795,29 @@
   lijst: enumerate
   delen:
     - opgave: |-
-        Een graaf met een eulerkring heeft ook een eulerpad.
+        Een graaf met een eulercircuit heeft ook een eulerspoor.
       antwoord: |-
         juist
       uitwerking: |-
-        Een eulerkring is een eulerpad dat toevallig in zijn begin eindigt.
+        Een eulercircuit is een eulerspoor dat toevallig in zijn begin eindigt.
     - opgave: |-
-        Als alle knopen een even graad hebben, heeft de graaf een eulerkring.
+        Als alle knopen een even graad hebben, heeft de graaf een eulercircuit.
       antwoord: |-
         fout
       uitwerking: |-
         De graaf moet ook samenhangend zijn. Tegenvoorbeeld: twee losse driehoeken.
     - opgave: |-
-        Er bestaat een graaf met precies één knoop met een oneven graad, die een eulerpad heeft.
+        Er bestaat een graaf met precies één knoop met een oneven graad, die een eulerspoor heeft.
       antwoord: |-
         fout
       uitwerking: |-
         Een graaf met precies één oneven graad bestaat niet: het aantal oneven graden is altijd even.
     - opgave: |-
-        In een eulerkring komt elke knoop precies één keer voor.
+        In een eulercircuit komt elke knoop precies één keer voor.
       antwoord: |-
         fout
       uitwerking: |-
-        Elke boog komt precies één keer voor, niet elke knoop. In de eulerkring $A, B, C, E, B, D, E, F, D, A$ komen $B$, $D$ en $E$ elk twee keer voor.
+        Elke boog komt precies één keer voor, niet elke knoop: een eulercircuit is meestal geen cykel. In het eulercircuit $A, B, C, E, B, D, E, F, D, A$ komen $B$, $D$ en $E$ elk twee keer voor.
     - opgave: |-
         Het kortste pad van $A$ naar een andere knoop begint altijd met de kortste boog vanuit $A$.
       antwoord: |-
@@ -822,7 +835,7 @@
   lijst: enumerate
   delen:
     - opgave: |-
-        5 knopen, 7 bogen, en een eulerkring.
+        5 knopen, 7 bogen, en een eulercircuit.
       antwoord: |-
         bijvoorbeeld de figuur
       uitwerking: |-
@@ -832,7 +845,7 @@
           \bogen{A/B, B/C, C/D, D/A, A/C, A/E, E/C}
         \end{tikzpicture}}
     - opgave: |-
-        5 knopen, 6 bogen, een eulerpad, maar geen eulerkring.
+        5 knopen, 6 bogen, een eulerspoor, maar geen eulercircuit.
       antwoord: |-
         bijvoorbeeld een vijfhoek met één diagonaal
       uitwerking: |-
@@ -846,9 +859,9 @@
   soort: opdracht
   niveau: 2
   thema: |-
-    eulerkring in een gewogen graaf
+    eulercircuit in een gewogen graaf
   opgave: |-
-    Een parkwachter vertrekt aan de ingang $A$ en wil elk pad van het park precies één keer aflopen. De lengtes staan in hm.
+    Een parkwachter vertrekt aan de ingang $A$ en wil elk wandelpad van het park precies één keer aflopen. De lengtes staan in hm.
   figuur:
     code: |-
       \begin{tikzpicture}[scale=.9]
@@ -868,13 +881,13 @@
       antwoord: |-
         bijvoorbeeld $A, B, C, E, B, D, E, F, D, A$
       uitwerking: |-
-        Zoals bij het inlassen van kringen: kringen $A, B, D, A$ en $B, C, E, B$ en $D, E, F, D$ aan elkaar.
+        Zoals bij het inlassen van circuits: de circuits $A, B, D, A$ en $B, C, E, B$ en $D, E, F, D$ aan elkaar.
     - opgave: |-
         Hoe lang is zijn tocht? Hangt dat af van de route die hij kiest?
       antwoord: |-
         $29$ hm; nee
       uitwerking: |-
-        Een eulerkring gebruikt elk pad precies één keer, dus de lengte is de som van alle gewichten: $3 + 4 + 2 + 5 + 3 + 2 + 4 + 3 + 3 = 29$, welke eulerkring hij ook kiest.
+        Een eulercircuit gebruikt elk wandelpad precies één keer, dus de lengte is de som van alle gewichten: $3 + 4 + 2 + 5 + 3 + 2 + 4 + 3 + 3 = 29$, welk eulercircuit hij ook kiest.
 
 - id: h2-o18
   soort: opdracht
@@ -940,7 +953,7 @@
   antwoord: |-
     zie de uitwerking
   uitwerking: |-
-    Teken elke straat twee keer, als twee bogen. Dan verdubbelt de graad van elk kruispunt, en elke graad is even. De graaf is samenhangend, dus er is een eulerkring: een rondrit die elke boog precies één keer gebruikt, dus elke straat precies twee keer.
+    Teken elke straat twee keer, als twee bogen. Dan verdubbelt de graad van elk kruispunt, en elke graad is even. De graaf is samenhangend, dus er is een eulercircuit: een rondrit die elke boog precies één keer gebruikt, dus elke straat precies twee keer.
 
 - id: h2-o21
   soort: opdracht
@@ -960,20 +973,20 @@
   thema: |-
     beslissen met alleen de graden
   opgave: |-
-    Een samenhangende graaf heeft deze graden. Heeft hij een eulerkring, een eulerpad dat niet sluit, of geen van beide?
+    Een samenhangende graaf heeft deze graden. Heeft hij een eulercircuit, een eulerspoor dat niet sluit, of geen van beide?
   lijst: reeks
   kolommen: 3
   delen:
     - opgave: |-
         $2, 2, 4, 4, 2$
       antwoord: |-
-        eulerkring
+        eulercircuit
       uitwerking: |-
         Alle graden zijn even.
     - opgave: |-
         $3, 3, 2, 2$
       antwoord: |-
-        eulerpad
+        eulerspoor
       uitwerking: |-
         Twee oneven graden.
     - opgave: |-
@@ -985,19 +998,19 @@
     - opgave: |-
         $1, 1$
       antwoord: |-
-        eulerpad
+        eulerspoor
       uitwerking: |-
-        Twee knopen met één boog ertussen: het pad is die boog.
+        Twee knopen met één boog ertussen: het spoor is die boog.
     - opgave: |-
         $4, 4, 4, 4, 4$
       antwoord: |-
-        eulerkring
+        eulercircuit
       uitwerking: |-
         Alle graden zijn even (bijvoorbeeld de volledige graaf met 5 knopen).
     - opgave: |-
         $5, 3, 2, 2, 2$
       antwoord: |-
-        eulerpad
+        eulerspoor
       uitwerking: |-
         Twee oneven graden: van de knoop met graad 5 naar die met graad 3.
 
@@ -1008,11 +1021,11 @@
   thema: |-
     bewijs: het aantal halen
   opgave: |-
-    Een samenhangende graaf heeft $2k$ knopen met een oneven graad, met $k \geqslant 1$. Bewijs dat je hem in $k$ halen kunt tekenen, en niet in minder. Een haal is een pad, en elke boog wordt in precies één haal getekend.
+    Een samenhangende graaf heeft $2k$ knopen met een oneven graad, met $k \geqslant 1$. Bewijs dat je hem in $k$ halen kunt tekenen, en niet in minder. Een haal is een spoor, en elke boog wordt in precies één haal getekend.
   antwoord: |-
     zie de uitwerking
   uitwerking: |-
-    Niet minder: in een knoop met een oneven graad kan niet elke haal die er langs komt evenveel bogen aankomen als vertrekken, dus in elke oneven knoop begint of eindigt een haal. Een haal heeft maar twee uiteinden, dus voor $2k$ oneven knopen zijn er minstens $k$ halen. Wel $k$: verdeel de oneven knopen in $k$ paren en voeg tussen elk paar een extra boog toe. Nu zijn alle graden even, en is er een eulerkring. Schrap de $k$ extra bogen uit de kring: hij valt uiteen in $k$ paden, die samen alle echte bogen precies één keer gebruiken. Zo heeft de volledige graaf met 4 knopen twee halen nodig.
+    Niet minder: in een knoop met een oneven graad kan niet elke haal die er langs komt evenveel bogen aankomen als vertrekken, dus in elke oneven knoop begint of eindigt een haal. Een haal heeft maar twee uiteinden, dus voor $2k$ oneven knopen zijn er minstens $k$ halen. Wel $k$: verdeel de oneven knopen in $k$ paren en voeg tussen elk paar een extra boog toe. Nu zijn alle graden even, en is er een eulercircuit. Schrap de $k$ extra bogen uit het circuit: het valt uiteen in $k$ sporen, die samen alle echte bogen precies één keer gebruiken. Zo heeft de volledige graaf met 4 knopen twee halen nodig.
 
 - id: h2-o23
   pakketten: [5]
@@ -1033,7 +1046,7 @@
   soort: test
   niveau: 1
   opgave: |-
-    Is de rij knopen een wandeling, een pad, een kring, of geen van drie?
+    Welke naam past het best bij de rij knopen: wandeling, spoor, circuit, pad of cykel? Of is het geen wandeling?
   figuur:
     code: |-
       \begin{tikzpicture}
@@ -1046,27 +1059,39 @@
     - opgave: |-
         $A, B, C, A$
       antwoord: |-
-        kring
+        cykel
       uitwerking: |-
-        Drie verschillende bogen, terug in $A$.
+        Drie verschillende bogen, terug in $A$, en verder geen knoop twee keer.
     - opgave: |-
         $A, C, E, D, C$
       antwoord: |-
-        pad
+        spoor
       uitwerking: |-
-        $AC$, $CE$, $ED$, $DC$ zijn verschillend.
+        $AC$, $CE$, $ED$, $DC$ zijn verschillend, maar $C$ komt twee keer voor.
     - opgave: |-
         $B, D$
       antwoord: |-
-        geen van drie
+        geen wandeling
       uitwerking: |-
         Er is geen boog $BD$.
     - opgave: |-
         $A, C, D, A, C$
       antwoord: |-
-        wandeling, geen pad
+        wandeling
       uitwerking: |-
         $AC$ wordt twee keer gebruikt.
+    - opgave: |-
+        $B, C, E, D$
+      antwoord: |-
+        pad
+      uitwerking: |-
+        Vier verschillende knopen, verbonden door bogen.
+    - opgave: |-
+        $A, C, E, D, C, B, A$
+      antwoord: |-
+        circuit
+      uitwerking: |-
+        Zes verschillende bogen en terug in $A$, maar $C$ komt twee keer voor.
 
 - id: h2-t2
   soort: test
@@ -1123,7 +1148,7 @@
   soort: test
   niveau: 1
   opgave: |-
-    Heeft de graaf een eulerkring, een eulerpad dat niet sluit, of geen van beide?
+    Heeft de graaf een eulercircuit, een eulerspoor dat niet sluit, of geen van beide?
   lijst: reeks
   kolommen: 3
   delen:
@@ -1144,7 +1169,7 @@
           \foreach \i in {0,...,5}{\node[punt] at (v\i) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerkring
+        eulercircuit
       uitwerking: |-
         Alle graden zijn 2.
     - opgave: |-
@@ -1154,15 +1179,15 @@
           \foreach \n in {a,b,c,d}{\node[punt] at (\n) {};}
         \end{tikzpicture}
       antwoord: |-
-        eulerpad
+        eulerspoor
       uitwerking: |-
-        De bovenste knoop heeft graad 1, de top van de driehoek graad 3: het pad loopt van de ene naar de andere.
+        De bovenste knoop heeft graad 1, de top van de driehoek graad 3: het spoor loopt van de ene naar de andere.
 
 - id: h2-t5
   soort: test
   niveau: 1
   opgave: |-
-    Toon aan dat de graaf een eulerkring heeft, en zoek er een.
+    Toon aan dat de graaf een eulercircuit heeft, en zoek er een.
   figuur:
     code: |-
       \begin{tikzpicture}[scale=.9]
@@ -1172,13 +1197,13 @@
   antwoord: |-
     bijvoorbeeld $A, B, C, E, F, G, C, D, A$
   uitwerking: |-
-    Samenhangend; $C$ heeft graad 4, de andere knopen graad 2. Eerste kring $A, B, C, D, A$, en op de plaats van $C$ de kring $C, E, F, G, C$ inlassen.
+    Samenhangend; $C$ heeft graad 4, de andere knopen graad 2. Eerste circuit $A, B, C, D, A$, en op de plaats van $C$ het circuit $C, E, F, G, C$ inlassen.
 
 - id: h2-t6
   soort: test
   niveau: 1
   opgave: |-
-    Waar moet een eulerpad beginnen? Zoek er een.
+    Waar moet een eulerspoor beginnen? Zoek er een.
   figuur:
     code: |-
       \begin{tikzpicture}[scale=.9]
@@ -1188,7 +1213,7 @@
   antwoord: |-
     in $A$ of $D$; bijvoorbeeld $A, B, C, D, A, C, E, D$
   uitwerking: |-
-    $\gr{A} = \gr{D} = 3$, $\gr{C} = 4$, $\gr{B} = \gr{E} = 2$: een eulerpad van $A$ naar $D$, zoals $A, B, C, D, A, C, E, D$.
+    $\gr{A} = \gr{D} = 3$, $\gr{C} = 4$, $\gr{B} = \gr{E} = 2$: een eulerspoor van $A$ naar $D$, zoals $A, B, C, D, A, C, E, D$.
 
 - id: h2-t7
   soort: test

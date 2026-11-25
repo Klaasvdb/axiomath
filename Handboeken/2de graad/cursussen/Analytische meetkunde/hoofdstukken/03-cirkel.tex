@@ -1,0 +1,453 @@
+%----------------------------------------------------------------------------------------
+% DE CIRKEL: VERGELIJKING, CIRKEL EN RECHTE, RAAKLIJNEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h3-.
+% Pakketten: alleen pakket 5 (II-WisS''-d). Dit hoofdstuk komt uit de extra's bij LPD B3, B4 en B5, die het
+% servicedocument voor 5 uur verplicht maakt (behalve de ligging van een rechte en een cirkel, die hier nodig
+% is voor de raaklijnen). Een school die de leerlijn voor 5 uur niet volgt, laat het weg in handboek.tex:
+% hoofdstuk 1 en 2 steunen er niet op.
+% Voorkennis: hoofdstuk 1 en 2 (normaalvector, voetpunt, afstandsformule), de afstand tussen twee punten
+% (Driehoeksmeting), kwadraatafsplitsen en tweedegraadsvergelijkingen (Tweedegraadsfuncties).
+% Letters: r is hier de straal; een parameter heet t. Het middelpunt is M(x_M, y_M), zoals A(x_A, y_A) in
+% Driehoeksmeting. De algemene vergelijking is x^2 + y^2 + dx + ey + f = 0, omdat a, b en c al bij de rechte
+% ax + by = c horen.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{De cirkel}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Een herder zwiert een steen in zijn slinger rond. Van bovenaf gezien beschrijft de steen een cirkel met middelpunt $M\vc{0}{0}$ en straal 5, in tegenwijzerzin. De eenheid is 20~cm. Laat de herder los, dan vliegt de steen rechtdoor, in de richting waarin hij op dat moment beweegt. Hij mikt op een paal in $P\vc{25}{25}$. In welk punt van de cirkel moet hij de steen loslaten?}{\begin{tikzpicture}[x=.13cm,y=.13cm,font=\scriptsize]
+  \draw[black!14,very thin,step=5] (-10,-10) grid (30,30);
+  \draw[->,grijs] (-10,0) -- (31,0) node[right,text=black,font=\footnotesize] {$x$};
+  \draw[->,grijs] (0,-10) -- (0,31) node[above,text=black,font=\footnotesize] {$y$};
+  \xgetallen{10,20} \ygetallen{10,20}
+  \draw[accent,thick] (0,0) circle (5);
+  \draw[accent,-{Stealth[length=2mm]}] (5,0) arc (0:50:5);
+  \fill (0,0) circle (.5) node[below left,inner sep=1pt] {$M$};
+  \punt[above left]{25}{25}{P}
+  \node[accent] at (12,4) {?};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: dit hoofdstuk komt uit de extra's bij LPD B3 (de vergelijking van een cirkel met gegeven middelpunt en straal, het middelpunt en de straal uit de algemene vergelijking, de raaklijn in een punt van een cirkel), LPD B4 (de onderlinge ligging van een rechte en een cirkel met de afstandsformule, en de snijpunten met vergelijkingen; twee cirkels in opdracht~\ref{oef:h3-o18}) en LPD B5 (de raaklijnen uit een punt aan een cirkel), met B1 bij de bewijzen. Het servicedocument voor 5 uur maakt die extra's verplicht, behalve de onderlinge ligging; die staat erin omdat de raaklijnen er rechtstreeks uit volgen. Volgt de school de leerlijn voor 5 uur niet, dan kan ze dit hoofdstuk weglaten (in \texttt{handboek.tex}): hoofdstuk 1 en 2 steunen er niet op. Voorkennis: de afstand tussen twee punten (handboek Driehoeksmeting, waar pakket 5 de vergelijking van een cirkel al als opdracht zag), kwadraatafsplitsen en tweedegraadsvergelijkingen (handboek Tweedegraadsfuncties), de normaalvector, het voetpunt en de afstandsformule (hoofdstuk 2). De eigenschappen van de cirkel zonder coördinaten (keuzehandboek De cirkel, LPD K1) zijn niet nodig: dat de raaklijn loodrecht staat op de straal, volgt hier uit de afstand. Let op de letter $r$: in hoofdstuk 1 en 2 was dat de parameter, hier is het de straal. Het probleem komt terug in voorbeeld~\ref{vb:h3-terug}.}
+
+In hoofdstuk 1 en 2 beschreef je rechten met vergelijkingen, en berekende je afstanden en hoeken. De eenvoudigste kromme na de rechte is de cirkel: alle punten op dezelfde afstand van een middelpunt. Met de afstandsformule wordt dat meteen een vergelijking. In dit hoofdstuk leer je die vergelijking opstellen en lezen, en onderzoek je hoe een rechte en een cirkel ten opzichte van elkaar liggen. Een rechte die de cirkel net raakt, de raaklijn, geeft het antwoord voor de herder. Let op de letters: in dit hoofdstuk is $r$ altijd de straal. Heb je een parameter nodig, dan heet die $t$.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{De vergelijking van een cirkel}
+
+\subsection{Middelpunt en straal}
+
+Een \textit{cirkel} met middelpunt $M$ en straal $r > 0$ bestaat uit alle punten $P$ met $\lengte{MP} = r$. In de Verken vond je dat de punten op afstand 5 van de oorsprong de vergelijking $x^2 + y^2 = 25$ kloppen. Ligt het middelpunt ergens anders, dan geeft de afstandsformule uit het handboek Driehoeksmeting op dezelfde manier een vergelijking.
+
+\naast{\begin{theorie}
+\begin{stelling}{Vergelijking van een cirkel}
+De cirkel met middelpunt $M(x_M, y_M)$ en straal $r$ heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{(x - x_M)^2 + (y - y_M)^2 = r^2}$
+\end{stelling}
+\begin{bewijs}
+Het punt $P(x, y)$ ligt op de cirkel als en slechts als $\lengte{MP} = r$, dus als en slechts als
+\bewijsregel{\sqrt{(x - x_M)^2 + (y - y_M)^2} = r.}
+Beide leden zijn positief, dus kwadrateren mag in beide richtingen:
+\bewijsregel{(x - x_M)^2 + (y - y_M)^2 = r^2.}
+\end{bewijs}
+\end{theorie}}{\begin{tikzpicture}[scale=.85,font=\scriptsize]
+  \draw[accent,thick] (0,0) circle (2.2);
+  \fill (0,0) circle (1.6pt) node[left,inner sep=2pt] {$M$};
+  \fill (1.69,1.41) circle (1.6pt) node[above right,inner sep=1pt] {$P(x, y)$};
+  \draw[inkt] (0,0) -- node[above left,inner sep=1pt] {$r$} (1.69,1.41);
+  \draw[hulplijn] (0,0) -- (1.69,0) -- (1.69,1.41);
+  \node[below,inner sep=2pt] at (.85,0) {$x - x_M$};
+  \node[right,fill=white,inner sep=1pt] at (1.72,.6) {$y - y_M$};
+\end{tikzpicture}}
+
+Dezelfde berekening zegt ook waar een punt ligt dat niet op de cirkel ligt. Is $(x - x_M)^2 + (y - y_M)^2$ kleiner dan $r^2$, dan ligt het punt dichter bij $M$ dan $r$: binnen de cirkel. Is het groter, dan ligt het punt buiten de cirkel.
+
+\voorbeeld{}{Geef een vergelijking van de cirkel $c$ met middelpunt $M\vc{2}{-1}$ en straal $3$. Ligt $P\vc{2}{2}$ op $c$? En $Q\vc{4}{1}$?\label{vb:h3-verg}}{%
+\uitleg{We vullen het middelpunt en de straal in de vergelijking in. Voor een punt vullen we zijn coördinaten in het linkerlid in, en vergelijken met $r^2 = 9$.}
+\naast{\begin{stappenvrij}{5.6cm}{3.6cm}
+c\colon (x - 2)^2 + (y + 1)^2 = 9 & Let op: $y - ({-1}) = y + 1$. \\[1ex]
+P\colon (2 - 2)^2 + (2 + 1)^2 = 9 & Gelijk aan $9$: op $c$. \\[1ex]
+Q\colon (4 - 2)^2 + (1 + 1)^2 = 8 & Kleiner dan $9$: binnen $c$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.38cm,y=.38cm,font=\scriptsize]
+  \roosterleeg{-2}{1}{6}{-5}{1}{3}
+  \xgetallen{-2,2,4,6} \ygetallen{-4,-2,2}
+  \draw[accent,thick] (2,-1) circle (3);
+  \punt[below]{2}{-1}{M} \punt[above right]{2}{2}{P} \punt[right]{4}{1}{Q}
+\end{tikzpicture}}
+$P$ ligt op de cirkel en $Q$ ligt erbinnen: $\lengte{MQ} = \sqrt8 \approx 2{,}83 < 3$.}
+
+Ken je het middelpunt en een punt van de cirkel, dan is de straal de afstand tussen die twee. Je hebt zelfs niet $r$ nodig, maar alleen $r^2$.
+
+\voorbeeld{}{Geef een vergelijking van de cirkel met middelpunt $M\vc{-1}{2}$ die door $A\vc{3}{5}$ gaat.\label{vb:h3-doorpunt}}{%
+\uitleg{De straal is $\lengte{MA}$. In de vergelijking staat $r^2$, dus we berekenen meteen $\lengte{MA}^2$.}
+\begin{stappen}
+r^2 = \lengte{MA}^2 = (3 + 1)^2 + (5 - 2)^2 = 25 & Kwadraat van de afstand. \\[1ex]
+(x + 1)^2 + (y - 2)^2 = 25 & De straal is $5$.
+\end{stappen}}
+
+\begin{werkwijze}
+De vergelijking van een cirkel: zoek het middelpunt $M(x_M, y_M)$ en het kwadraat van de straal (bijvoorbeeld als $\lengte{MA}^2$ met $A$ een punt van de cirkel), en vul in in $(x - x_M)^2 + (y - y_M)^2 = r^2$. Omgekeerd lees je het middelpunt af met het andere teken: bij $(x + 1)^2$ hoort $x_M = -1$.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-verg}
+\end{oefeningen}
+
+\subsection{De algemene vergelijking}
+
+Werk je de vergelijking $(x - 2)^2 + (y + 1)^2 = 9$ uit, dan krijg je $x^2 - 4x + 4 + y^2 + 2y + 1 = 9$, of
+\[ x^2 + y^2 - 4x + 2y - 4 = 0. \]
+Zo kun je elke cirkel schrijven. Maar dan zie je het middelpunt en de straal niet meer. Hoe vind je ze terug? Met kwadraatafsplitsen uit het handboek Tweedegraadsfuncties: $x^2 - 4x = (x - 2)^2 - 4$ en $y^2 + 2y = (y + 1)^2 - 1$. Omdat $a$, $b$ en $c$ al bij de rechte $ax + by = c$ horen, gebruiken we voor de cirkel de letters $d$, $e$ en $f$.
+
+\begin{theorie}
+\begin{stelling}{Algemene vergelijking van een cirkel}
+Elke cirkel heeft een vergelijking van de vorm
+
+\vspace{1mm}
+\qquad $\formule{x^2 + y^2 + dx + ey + f = 0}$
+
+\vspace{1mm}
+Omgekeerd stelt zo'n vergelijking de cirkel met middelpunt $\formule{M\bigl(-\tfrac{d}{2}, -\tfrac{e}{2}\bigr)}$ en straal $\formule{r = \sqrt{\tfrac{d^2}{4} + \tfrac{e^2}{4} - f}}$ voor, als het getal onder de wortel positief is.
+\end{stelling}
+\begin{bewijs}
+Werk je $(x - x_M)^2 + (y - y_M)^2 = r^2$ uit, dan krijg je die vorm, met $d = -2x_M$, $e = -2y_M$ en $f = x_M^2 + y_M^2 - r^2$. Omgekeerd geeft kwadraatafsplitsen $x^2 + dx = \bigl(x + \tfrac{d}{2}\bigr)^2 - \tfrac{d^2}{4}$ en $y^2 + ey = \bigl(y + \tfrac{e}{2}\bigr)^2 - \tfrac{e^2}{4}$, dus
+\bewijsregel{x^2 + y^2 + dx + ey + f = 0 \iff \Bigl(x + \frac{d}{2}\Bigr)^2 + \Bigl(y + \frac{e}{2}\Bigr)^2 = \frac{d^2}{4} + \frac{e^2}{4} - f.}
+Is het rechterlid positief, dan is dat de vergelijking van de cirkel met middelpunt $\bigl(-\tfrac{d}{2}, -\tfrac{e}{2}\bigr)$ en die straal.
+\end{bewijs}
+\end{theorie}
+
+Is het rechterlid $0$, dan klopt alleen het middelpunt de vergelijking, want een som van twee kwadraten is alleen $0$ als beide $0$ zijn. Is het negatief, dan klopt geen enkel punt. Niet elke vergelijking van deze vorm is dus een cirkel. De formules hoef je niet te kennen: kwadraatafsplitsen werkt altijd, en zo zie je meteen of het een cirkel is.
+
+\voorbeeld{}{Bepaal het middelpunt en de straal van de cirkel $x^2 + y^2 - 6x + 4y - 3 = 0$.\label{vb:h3-algemeen}}{%
+\uitleg{We zetten de termen in $x$ en in $y$ samen, en vullen elk aan tot een kwadraat: de helft van $-6$ is $-3$, de helft van $4$ is $2$.}
+\begin{stappen}
+(x^2 - 6x) + (y^2 + 4y) - 3 = 0 & Termen in $x$ en in $y$ samen. \\[1ex]
+(x - 3)^2 - 9 + (y + 2)^2 - 4 - 3 = 0 & Kwadraatafsplitsen. \\[1ex]
+(x - 3)^2 + (y + 2)^2 = 16 & De getallen naar rechts.
+\end{stappen}
+Het middelpunt is $M\vc{3}{-2}$ en de straal is $4$. Controle met de formules: $-\tfrac{-6}{2} = 3$, $-\tfrac{4}{2} = -2$ en $\tfrac{36}{4} + \tfrac{16}{4} + 3 = 16$.}
+
+\voorbeeld{}{Stelt $x^2 + y^2 + 2x - 8y + 21 = 0$ een cirkel voor?\label{vb:h3-geencirkel}}{%
+\uitleg{We splitsen de kwadraten af en kijken naar het teken van het rechterlid.}
+\begin{stappen}
+(x + 1)^2 - 1 + (y - 4)^2 - 16 + 21 = 0 & Kwadraatafsplitsen. \\[1ex]
+(x + 1)^2 + (y - 4)^2 = -4 & Rechts staat een negatief getal.
+\end{stappen}
+Nee: een som van kwadraten is nooit negatief, dus geen enkel punt klopt deze vergelijking.}
+
+\begin{werkwijze}
+Middelpunt en straal uit $x^2 + y^2 + dx + ey + f = 0$: staat er een getal voor $x^2$ en $y^2$, deel dan eerst beide leden door dat getal. Zet de termen in $x$ samen en die in $y$, splits de kwadraten af, en breng de getallen naar rechts. Is het rechterlid positief, dan is het $r^2$; anders is het geen cirkel.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-algemeen}
+\end{oefeningen}
+
+%========================================================================================
+\section{Cirkel en rechte}
+
+\subsection{Snijden, raken of naast elkaar}
+
+Hoeveel punten kan een rechte met een cirkel gemeen hebben? Schuif een lat over een getekende cirkel: ze snijdt hem in twee punten, of ze raakt hem net in één punt, of ze mist hem. Wat beslist welk geval het is? De afstand van het middelpunt tot de rechte. Ligt die rechte dichter bij $M$ dan de straal, dan snijdt ze de cirkel.
+
+\figuren{\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[accent,thick] (0,0) circle (1.6);
+  \fill (0,0) circle (2.6pt) node[left,inner sep=1pt] {$M$};
+  \draw[inkt,thick] (-2.6,.8) -- (2.6,.8) node[right] {$l$};
+  \draw[hulplijn] (0,0) -- (0,.8);
+  \fill (-1.39,.8) circle (2.6pt) (1.39,.8) circle (2.6pt);
+  \node at (0,-2.3) {$d < r$: twee punten};
+\end{tikzpicture}\hspace{1.2cm}%
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[accent,thick] (0,0) circle (1.6);
+  \fill (0,0) circle (2.6pt) node[left,inner sep=1pt] {$M$};
+  \draw[inkt,thick] (-2.6,1.6) -- (2.6,1.6) node[right] {$l$};
+  \draw[hulplijn] (0,0) -- (0,1.6);
+  \fill (0,1.6) circle (2.6pt) node[above,inner sep=1.5pt] {$T$};
+  \node at (0,-2.3) {$d = r$: één punt};
+\end{tikzpicture}\hspace{1.2cm}%
+\begin{tikzpicture}[scale=.5,font=\scriptsize]
+  \draw[accent,thick] (0,0) circle (1.6);
+  \fill (0,0) circle (2.6pt) node[left,inner sep=1pt] {$M$};
+  \draw[inkt,thick] (-2.6,2.3) -- (2.6,2.3) node[right] {$l$};
+  \draw[hulplijn] (0,0) -- (0,2.3);
+  \node at (0,-2.3) {$d > r$: geen punt};
+\end{tikzpicture}}
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{raaklijn}} aan een cirkel is een rechte die precies één punt gemeen heeft met de cirkel. Dat punt is het \textbf{\textcolor{accent}{raakpunt}}.
+\begin{stelling}{Ligging van een rechte en een cirkel}
+Neem een cirkel met middelpunt $M$ en straal $r$, en een rechte $l$ met $d = d(M, l)$.
+\begin{itemize}[nosep,leftmargin=5mm]
+\item Is $d < r$, dan heeft $l$ twee punten gemeen met de cirkel: $l$ \textbf{\textcolor{accent}{snijdt}} de cirkel.
+\item Is $d = r$, dan heeft $l$ één punt gemeen met de cirkel: $l$ is een raaklijn, en het raakpunt is het voetpunt van de loodlijn uit $M$ op $l$.
+\item Is $d > r$, dan heeft $l$ geen punt gemeen met de cirkel.
+\end{itemize}
+\end{stelling}
+\begin{bewijs}
+Neem het voetpunt $V$ van de loodlijn uit $M$ op $l$, dus $\lengte{MV} = d$. Voor elk punt $Q$ van $l$ is $MVQ$ een rechthoekige driehoek (of $Q = V$), dus
+\bewijsregel{\lengte{MQ}^2 = d^2 + \lengte{VQ}^2.}
+$Q$ ligt op de cirkel als en slechts als $\lengte{MQ}^2 = r^2$, dus als en slechts als $\lengte{VQ}^2 = r^2 - d^2$. Is $d > r$, dan is dat negatief: geen punt. Is $d = r$, dan moet $\lengte{VQ} = 0$, dus $Q = V$: één punt. Is $d < r$, dan liggen er op $l$ precies twee punten op afstand $\sqrt{r^2 - d^2}$ van $V$, aan elke kant één.
+\end{bewijs}
+\end{theorie}
+
+Hoe ver een rechte van een punt ligt, bereken je met de afstandsformule uit hoofdstuk 2. Zo weet je de ligging zonder iets te tekenen. Het tweede geval zegt ook iets over de vorm van de figuur: de straal $[MT]$ naar het raakpunt staat loodrecht op de raaklijn.
+
+\voorbeeld{}{Gegeven is de cirkel $c\colon (x - 1)^2 + (y - 2)^2 = 25$. Onderzoek de ligging van $c$ en de rechten $l_1\colon 3x + 4y = 36$, $l_2\colon x - y = -6$ en $l_3\colon x = 7$.\label{vb:h3-ligging}}{%
+\uitleg{Het middelpunt is $M\vc{1}{2}$ en de straal is $5$. We berekenen de afstand van $M$ tot elke rechte en vergelijken met $5$. Het voorbeeld draait om het verschil tussen de drie gevallen.}
+\naast{\begin{stappenvrij}{6.4cm}{2.6cm}
+d(M, l_1) = \frac{\abs{3 + 8 - 36}}{\sqrt{9 + 16}} = \frac{25}{5} = 5 & Gelijk aan $r$: raaklijn. \\[2ex]
+d(M, l_2) = \frac{\abs{1 - 2 + 6}}{\sqrt{1 + 1}} = \frac{5}{\sqrt2} \approx 3{,}54 & Kleiner: twee snijpunten. \\[2ex]
+d(M, l_3) = \abs{7 - 1} = 6 & Groter: geen punt gemeen.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+  \roosterleeg{-5}{1}{8}{-4}{1}{9}
+  \xgetallen{-4,4,8} \ygetallen{-4,4,8}
+  \draw[accent,thick] (1,2) circle (5);
+  \begin{scope}\knip{-5}{-4}{8}{9}
+    \rechteabc[inkt]{-5}{8}{3}{4}{36}
+    \rechte[inkt]{-5}{8}{1}{6}
+    \verticaal[inkt]{7}{-4}{9}
+  \end{scope}
+  \punt[below left]{1}{2}{M} \punt[above right]{4}{6}{T}
+  \node[inkt,right] at (7.9,3) {$l_1$}; \node[inkt,left] at (2.6,8.6) {$l_2$}; \node[inkt,right] at (7,-3) {$l_3$};
+\end{tikzpicture}}
+$l_1$ raakt de cirkel, $l_2$ snijdt de cirkel, en $l_3$ ligt ernaast. Het raakpunt van $l_1$ is het voetpunt van de loodlijn uit $M$: met $x = 1 + 3t$, $y = 2 + 4t$ in $l_1$ vind je $t = 1$, dus $T\vc{4}{6}$.}
+
+De afstand zegt hoeveel snijpunten er zijn, maar niet waar ze liggen. Daarvoor zoek je de punten die beide vergelijkingen kloppen: je lost het stelsel op. Omdat de vergelijking van de cirkel kwadraten bevat, krijg je na substitutie een tweedegraadsvergelijking.
+
+\voorbeeld{}{Bereken de snijpunten van $c\colon (x - 1)^2 + (y - 2)^2 = 25$ en $l_2\colon x - y = -6$.\label{vb:h3-snij}}{%
+\uitleg{Uit de vergelijking van de rechte halen we $y = x + 6$. We vullen dat in de vergelijking van de cirkel in, zodat alleen $x$ overblijft.}
+\naast{\begin{stappenvrij}{5.6cm}{3.4cm}
+(x - 1)^2 + (x + 6 - 2)^2 = 25 & $y = x + 6$ ingevuld. \\[1ex]
+2x^2 + 6x + 17 = 25 & Uitgewerkt. \\[1ex]
+x^2 + 3x - 4 = 0 & Gedeeld door $2$. \\[1ex]
+x = 1 \ \text{of}\ x = -4 & Som $-3$, product $-4$. \\[1ex]
+S_1\vc{1}{7},\quad S_2\vc{-4}{2} & Met $y = x + 6$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+  \roosterleeg{-5}{1}{7}{-4}{1}{8}
+  \xgetallen{-4,4} \ygetallen{-4,4,8}
+  \draw[accent,thick] (1,2) circle (5);
+  \begin{scope}\knip{-5}{-4}{7}{8}\rechte[inkt]{-5}{7}{1}{6}\end{scope}
+  \punt[below]{1}{2}{M} \punt[right]{1}{7}{S_1} \punt[above left]{-4}{2}{S_2}
+\end{tikzpicture}}
+Controle: $(1 - 1)^2 + (7 - 2)^2 = 25$ en $(-4 - 1)^2 + (2 - 2)^2 = 25$. Er zijn twee oplossingen, zoals de afstand voorspelde. Bij een raaklijn heeft de tweedegraadsvergelijking één oplossing (discriminant $0$), bij een rechte naast de cirkel geen.}
+
+\begin{werkwijze}
+De ligging van een rechte en een cirkel: bereken de afstand van het middelpunt tot de rechte, en vergelijk met de straal. De snijpunten: maak $x$ of $y$ vrij uit de vergelijking van de rechte, vul in in de vergelijking van de cirkel, en los de tweedegraadsvergelijking op. Bereken de andere coördinaat met de vergelijking van de rechte.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-ligging}
+
+\oef{h3-snij}
+\end{oefeningen}
+
+\subsection{De raaklijn in een punt van de cirkel}
+
+Een wiel van een fiets raakt de grond in één punt, recht onder de as. Dat is geen toeval: de stelling hierboven zegt dat het raakpunt het voetpunt is van de loodlijn uit het middelpunt. De straal naar het raakpunt staat dus loodrecht op de raaklijn. Ken je het raakpunt $T$, dan is $\vect{MT}$ een normaalvector van de raaklijn, en geeft hoofdstuk 2 meteen een vergelijking.
+
+\begin{theorie}
+\begin{stelling}{Raaklijn in een punt van een cirkel}
+De raaklijn aan de cirkel met middelpunt $M$ in het punt $T$ van de cirkel staat loodrecht op $MT$. Ze heeft als vergelijking
+
+\vspace{1mm}
+\qquad $\formule{(x_T - x_M)(x - x_T) + (y_T - y_M)(y - y_T) = 0}$
+\end{stelling}
+\begin{bewijs}
+Is $l$ een raaklijn in $T$, dan is $T$ volgens de vorige stelling het voetpunt van de loodlijn uit $M$ op $l$, dus $MT \perp l$. Omgekeerd ligt de rechte door $T$ loodrecht op $MT$ op afstand $\lengte{MT} = r$ van $M$ ($T$ is haar voetpunt), dus ze is een raaklijn. Er is dus precies één raaklijn in $T$, met normaalvector $\vect{MT} = (x_T - x_M,\ y_T - y_M)$. De vergelijking met een normaalvector uit hoofdstuk 2 geeft de formule.
+\end{bewijs}
+\end{theorie}
+
+\voorbeeld{}{Gegeven is de cirkel $c\colon (x - 1)^2 + (y + 2)^2 = 25$. Ga na dat $T\vc{4}{2}$ op $c$ ligt, en geef een vergelijking van de raaklijn in $T$.\label{vb:h3-raaklijn}}{%
+\uitleg{Het middelpunt is $M\vc{1}{-2}$. De vector $\vect{MT}$ is een normaalvector van de raaklijn; we vullen hem en het punt $T$ in.}
+\naast{\begin{stappenvrij}{5cm}{3.8cm}
+(4 - 1)^2 + (2 + 2)^2 = 9 + 16 = 25 & $T$ ligt op $c$. \\[1ex]
+\vect{MT} = \vc{3}{4} & Normaalvector. \\[1ex]
+3(x - 4) + 4(y - 2) = 0 & Door $T\vc{4}{2}$. \\[1ex]
+3x + 4y = 20 & Uitgewerkt.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.3cm,y=.3cm,font=\scriptsize]
+  \roosterleeg{-5}{1}{9}{-8}{1}{5}
+  \xgetallen{-4,4,8} \ygetallen{-4,4}
+  \draw[accent,thick] (1,-2) circle (5);
+  \begin{scope}\knip{-5}{-8}{9}{5}\rechteabc[inkt]{-5}{9}{3}{4}{20}\end{scope}
+  \draw[vector] (1,-2) -- (4,2);
+  \punt[below]{1}{-2}{M} \punt[above right]{4}{2}{T}
+  \rechtehoekxy{(1,-2)}{(4,2)}{(8,-1)}
+\end{tikzpicture}}
+Controle met de afstandsformule: $d(M, l) = \frac{\abs{3 - 8 - 20}}{5} = 5$, de straal.}
+
+\begin{werkwijze}
+De raaklijn in een punt $T$ van een cirkel: zoek het middelpunt $M$ (met kwadraatafsplitsen als de vergelijking algemeen is), neem $\vect{MT}$ als normaalvector, en vul in in $a(x - x_T) + b(y - y_T) = 0$. Ga eerst na dat $T$ echt op de cirkel ligt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-raaklijn}
+\end{oefeningen}
+
+\subsection{Raaklijnen uit een punt buiten de cirkel}
+
+Soms ken je het raakpunt niet, maar wel een punt $P$ buiten de cirkel waar de raaklijn door moet gaan. Hoeveel raaklijnen gaan er door een punt $P$ buiten de cirkel? Draai een lat rond $P$: ze raakt de cirkel twee keer, één keer aan elke kant. Hoe vind je die raaklijnen? Een rechte door $P$ ligt vast door haar rico $m$, en ze is een raaklijn als haar afstand tot $M$ gelijk is aan de straal. Dat geeft een vergelijking in $m$.
+
+\voorbeeld{}{Geef vergelijkingen van de raaklijnen uit $P\vc{7}{1}$ aan de cirkel $c\colon (x - 2)^2 + (y - 1)^2 = 5$. Bereken ook de raakpunten.\label{vb:h3-raakuit}}{%
+\uitleg{Een rechte door $P$ met rico $m$ is $y - 1 = m(x - 7)$, of $mx - y = 7m - 1$. Ze raakt $c$ als haar afstand tot $M\vc{2}{1}$ gelijk is aan $\sqrt5$.}
+\naast{\begin{stappenvrij}{5.8cm}{3.2cm}
+\frac{\abs{2m - 1 - 7m + 1}}{\sqrt{m^2 + 1}} = \sqrt5 & $d(M, l) = r$. \\[2ex]
+25m^2 = 5(m^2 + 1) & Gekwadrateerd. \\[1ex]
+m^2 = \tfrac14 \iff m = \tfrac12 \ \text{of}\ m = -\tfrac12 & Twee raaklijnen. \\[1ex]
+y = \tfrac12 x - \tfrac52, \quad y = -\tfrac12 x + \tfrac92 & Met $q$ uit $P$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.36cm,font=\scriptsize]
+  \roosterleeg{-1}{1}{8}{-2}{1}{5}
+  \xgetallen{2,4,6,8} \ygetallen{2,4}
+  \draw[accent,thick] (2,1) circle ({sqrt(5)});
+  \begin{scope}\knip{-1}{-2}{8}{5}
+    \rechte[inkt]{-1}{8}{.5}{-2.5}
+    \rechte[inkt]{-1}{8}{-.5}{4.5}
+  \end{scope}
+  \punt[left]{2}{1}{M} \punt[right]{7}{1}{P} \punt[below]{3}{-1}{T_1} \punt[above]{3}{3}{T_2}
+\end{tikzpicture}}
+De raakpunten zijn de voetpunten van de loodlijnen uit $M$. Voor $x - 2y = 5$ is dat $x = 2 + t$, $y = 1 - 2t$, met $2 + t - 2 + 4t = 5$, dus $t = 1$ en $T_1\vc{3}{-1}$. Net zo vind je $T_2\vc{3}{3}$ op $x + 2y = 9$. Controle: $(3 - 2)^2 + (3 - 1)^2 = 5$.}
+
+Een verticale rechte door $P$ heeft geen rico, en zit dus niet in de rechten $y - y_P = m(x - x_P)$. Is ze een raaklijn, dan vind je met de rico maar één raaklijn. Controleer de verticale rechte daarom apart.
+
+\voorbeeld{}{Geef vergelijkingen van de raaklijnen uit $P\vc{3}{5}$ aan de cirkel $x^2 + y^2 = 9$.\label{vb:h3-raakverticaal}}{%
+\uitleg{We werken zoals in het vorige voorbeeld, met $M\vc{0}{0}$ en $r = 3$. De rechte door $P$ met rico $m$ is $mx - y = 3m - 5$.}
+\naast{\begin{stappenvrij}{5.2cm}{3.4cm}
+\frac{\abs{-3m + 5}}{\sqrt{m^2 + 1}} = 3 & $d(M, l) = r$. \\[2ex]
+25 - 30m + 9m^2 = 9m^2 + 9 & De term $m^2$ valt weg. \\[1ex]
+m = \tfrac{16}{30} = \tfrac{8}{15} & Maar één rico. \\[1ex]
+x = 3 & De verticale rechte: $d = 3 = r$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.36cm,y=.36cm,font=\scriptsize]
+  \roosterleeg{-4}{1}{5}{-4}{1}{6}
+  \xgetallen{-2,2,4} \ygetallen{-2,2,4,6}
+  \draw[accent,thick] (0,0) circle (3);
+  \begin{scope}\knip{-4}{-4}{5}{6}
+    \rechte[inkt]{-4}{5}{8/15}{17/5}
+    \verticaal[inkt]{3}{-4}{6}
+  \end{scope}
+  \punt[below left]{0}{0}{M} \punt[right]{3}{5}{P}
+\end{tikzpicture}}
+De raaklijnen zijn $y = \tfrac{8}{15}x + \tfrac{17}{5}$ en $x = 3$. Die laatste raakt de cirkel in $\vc{3}{0}$, en had geen rico: daarom vond de berekening maar één waarde voor $m$.}
+
+\begin{werkwijze}
+De raaklijnen uit een punt $P$ buiten de cirkel: schrijf de rechte door $P$ met rico $m$ als $mx - y = m x_P - y_P$. Stel de afstand van het middelpunt tot die rechte gelijk aan de straal, kwadrateer, en los op naar $m$. Vind je maar één rico, ga dan na of de verticale rechte $x = x_P$ een raaklijn is. De raakpunten zijn de voetpunten van de loodlijnen uit het middelpunt.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-raakuit}
+\end{oefeningen}
+
+Een voorwerp dat op een cirkel draait en losgelaten wordt, vliegt weg langs de raaklijn, in de richting waarin het draait. Bij een draaiing in tegenwijzerzin is dat $\vect{MT}$, een kwartslag gedraaid in tegenwijzerzin: $(-y_T, x_T)$ als $M$ de oorsprong is (handboek Vectoren).
+
+\voorbeeld{}{Terug naar het probleem. Een herder zwiert een steen in zijn slinger rond. Van bovenaf gezien beschrijft de steen de cirkel $x^2 + y^2 = 25$, met middelpunt $M\vc{0}{0}$ en straal 5, in tegenwijzerzin. De eenheid is 20~cm. Laat de herder los, dan vliegt de steen rechtdoor, in de richting waarin hij op dat moment beweegt. Hij mikt op een paal in $P\vc{25}{25}$. In welk punt van de cirkel moet hij de steen loslaten?\label{vb:h3-terug}}{%
+\uitleg{We zoeken de raaklijnen uit $P$ en hun raakpunten. Daarna kijken we in welk raakpunt de steen naar $P$ toe beweegt, en niet ervan weg.}
+\naast{\begin{stappenvrij}{5.6cm}{3.2cm}
+mx - y = 25m - 25 & Rechte door $P$. \\[1ex]
+\frac{\abs{25 - 25m}}{\sqrt{m^2 + 1}} = 5 & $d(M, l) = r$. \\[2ex]
+25(1 - m)^2 = m^2 + 1 & Gekwadrateerd en gedeeld door $25$. \\[1ex]
+12m^2 - 25m + 12 = 0 & \\[1ex]
+m = \tfrac{25 \pm 7}{24} = \tfrac43 \ \text{of}\ \tfrac34 & Discriminant $625 - 576 = 49$. \\[1ex]
+T_1\vc{4}{-3}, \quad T_2\vc{-3}{4} & Voetpunten uit $M$.
+\end{stappenvrij}}{\begin{tikzpicture}[x=.11cm,y=.11cm,font=\scriptsize]
+  \draw[black!14,very thin,step=5] (-10,-10) grid (30,30);
+  \draw[->,grijs] (-10,0) -- (31,0) node[right,text=black,font=\footnotesize] {$x$};
+  \draw[->,grijs] (0,-10) -- (0,31) node[above,text=black,font=\footnotesize] {$y$};
+  \xgetallen{10,20} \ygetallen{10,20}
+  \draw[accent,thick] (0,0) circle (5);
+  \draw[inkt] (-1.25,-10) -- (28.75,30);
+  \draw[tweede] (-10,-1.25) -- (30,28.75);
+  \draw[vector] (4,-3) -- (10,5);
+  \fill (4,-3) circle (.6) node[below right,inner sep=1pt] {$T_1$};
+  \fill (-3,4) circle (.6) node[above left,inner sep=1pt] {$T_2$};
+  \punt[left]{25}{25}{P}
+\end{tikzpicture}}
+De raakpunten zijn de voetpunten van de loodlijnen uit $M$: voor $4x - 3y = 25$ is dat $T_1\vc{4}{-3}$, voor $3x - 4y = -25$ is dat $T_2\vc{-3}{4}$. In $T_1$ beweegt de steen in de richting $(-y_T, x_T) = \vc{3}{4}$, en $\vect{T_1P} = \vc{21}{28} = 7\,\vc{3}{4}$: precies naar $P$ toe. In $T_2$ beweegt hij in de richting $\vc{-4}{-3}$, terwijl $\vect{T_2P} = \vc{28}{21}$: van $P$ weg. De herder laat dus los in $T_1\vc{4}{-3}$. De steen vliegt dan $\norm{\vect{T_1P}} = 35$ eenheden, of 7~m, tot de paal.}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\oef{h3-o1}
+
+\oef{h3-o2}
+
+\oef{h3-o3}
+
+\oef{h3-o4}
+
+\oef{h3-o5}
+
+\oef{h3-o6}
+
+\oef{h3-o7}
+
+\oef{h3-o8}
+
+\oef{h3-o9}
+
+\oef{h3-o10}
+
+\oef{h3-o11}
+
+\oef{h3-o12}
+
+\oef{h3-o13}
+
+\oef{h3-o14}
+
+\oef{h3-o15}
+
+\oef{h3-o16}
+
+\oef{h3-o17}
+
+\oef{h3-o18}
+
+\oef{h3-o19}
+
+\oef{h3-o20}
+
+\oef{h3-o21}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\oef{h3-t1}
+
+\oef{h3-t2}
+
+\oef{h3-t3}
+
+\oef{h3-t4}
+
+\oef{h3-t5}
+
+\oef{h3-t6}
+
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-doorpunt}{oef:h3-verg}%
+  \fv{oef:h3-t2}{vb:h3-algemeen}{oef:h3-algemeen}%
+  \fv{oef:h3-t3}{vb:h3-ligging}{oef:h3-ligging}%
+  \fv{oef:h3-t4}{vb:h3-snij}{oef:h3-snij}%
+  \fv{oef:h3-t5}{vb:h3-raaklijn}{oef:h3-raaklijn}%
+  \fv{oef:h3-t6}{vb:h3-raakuit}{oef:h3-raakuit}%
+  \fv{oef:h3-t7}{vb:h3-ligging}{oef:h3-ligging}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: de vergelijking van een cirkel met middelpunt en straal (met het bewijs uit de afstandsformule), hoe je nagaat of een punt op, binnen of buiten een cirkel ligt, de algemene vergelijking en hoe je er met kwadraatafsplitsen het middelpunt en de straal uit haalt (en wanneer het geen cirkel is), de drie liggingen van een rechte en een cirkel met de afstand $d(M, l)$, hoe je de snijpunten berekent, de raaklijn in een punt van de cirkel, en hoe je de raaklijnen uit een punt vindt (vergeet de verticale rechte niet). Vergelijk daarna met de kaders.
+\fi

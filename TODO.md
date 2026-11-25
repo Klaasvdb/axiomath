@@ -6,31 +6,31 @@ Alles wat nog moet gebeuren, op één plaats. Wat af is, gaat naar [DONE.md](DON
 
 ### 2de graad: alle 72 handboeken (18 onderwerpen) **[Ingmar]**
 
-Alle 18 onderwerpen hebben een eerste versie sinds 17 nov 2026 (72 handboeken, PR #46), elk uit één bron met de verschillen per pakket in `\alleenvoor`. De leerplantekst was bij het schrijven niet beschikbaar: elke bron heeft in haar README een lijst "Na te kijken" met de keuzes over de afbakening per pakket en de verdeling van de LPD over de hoofdstukken. Die moeten getoetst worden aan het leerplan, daarna tweede en derde versie. Indeling, leerplandoelen per pakket en voorkanten: [Handboeken/2de graad/README.md](<Handboeken/2de graad/README.md>). Het jaar is een voorstel. Schrijf een onderwerp het best één keer, met de verschillen per pakket erin (zie "Eén bron per cursus" in [Opmaak/README.md](Opmaak/README.md)): één bron in `Handboeken/2de graad/cursussen/<cursus>/`, en per pakket alleen een `handboek.tex`.
+Alle 18 onderwerpen hebben een eerste versie sinds 17 nov 2026 (72 handboeken, PR #46), elk uit één bron met de verschillen per pakket in `\alleenvoor`. Op 24 nov 2026 is elk onderwerp getoetst aan de geldende KOV-leerplannen van 2024 (PR #52; links in `Ontwerp/koepels.md`): LPD per hoofdstuk en per pakket, wat te veel of te weinig was, en in de README van elke bron wat het leerplan besliste en wat open blijft. Volgende stap: tweede en derde versie. Indeling, leerplandoelen per pakket en voorkanten: [Handboeken/2de graad/README.md](<Handboeken/2de graad/README.md>). Het jaar is een voorstel. Schrijf een onderwerp het best één keer, met de verschillen per pakket erin (zie "Eén bron per cursus" in [Opmaak/README.md](Opmaak/README.md)): één bron in `Handboeken/2de graad/cursussen/<cursus>/`, en per pakket alleen een `handboek.tex`.
 
 | Jaar | Handboek | Pakketten | |
 |---|---|---|---|
-| 3 | Algebra/Reële getallen | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Algebra/Eerstegraadsvergelijkingen | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Analyse/Functies | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Algebra/Stelsels | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Meetkunde/Gelijkvormigheid | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Meetkunde/Driehoeksmeting | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Discrete wiskunde/Logica | 1-5 (bewijzen B1 in pakket 5) | eerste versie **[Ingmar]** |
-| 3 | Data en onzekerheid/Statistiek | 1-5 | eerste versie **[Ingmar]** |
-| 3 | Data en onzekerheid/Spreidingsdiagrammen | 2-5 | eerste versie **[Ingmar]** |
-| 4 | Analyse/Tweedegraadsfuncties | 1-5 | eerste versie **[Ingmar]** |
-| 4 | Algebra/Veeltermen | 5 (ook GO!-optiepakket, POV-uitbreiding) | eerste versie **[Ingmar]** |
-| 4 | Meetkunde/Goniometrie | 4-5 | eerste versie **[Ingmar]** |
-| 4 | Meetkunde/Ruimtemeetkunde | 1-5 | eerste versie **[Ingmar]** |
-| 4 | Meetkunde/Vectoren | 1-5 | eerste versie **[Ingmar]** |
-| 4 | Meetkunde/Analytische meetkunde | 5 (ook GO!-optiepakket, POV-uitbreiding) | eerste versie **[Ingmar]** |
-| 4 | Meetkunde/De cirkel (keuze) | 4-5 | eerste versie **[Ingmar]** |
-| 4 | Discrete wiskunde/Telproblemen | 1-5 | eerste versie **[Ingmar]** |
-| 4 | Discrete wiskunde/Grafen (keuze) | 4-5 (ook GO!-optiepakket) | eerste versie **[Ingmar]** |
+| 3 | Algebra/Reële getallen | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Algebra/Eerstegraadsvergelijkingen | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Analyse/Functies | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Algebra/Stelsels | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Meetkunde/Gelijkvormigheid | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Meetkunde/Driehoeksmeting | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Discrete wiskunde/Logica | 1-5 (bewijzen B1 in pakket 5) | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Data en onzekerheid/Statistiek | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 3 | Data en onzekerheid/Spreidingsdiagrammen | 2-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Analyse/Tweedegraadsfuncties | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Algebra/Veeltermen | 5 (ook GO!-optiepakket, POV-uitbreiding) | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Meetkunde/Goniometrie | 4-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Meetkunde/Ruimtemeetkunde | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Meetkunde/Vectoren | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Meetkunde/Analytische meetkunde | 5 (ook GO!-optiepakket, POV-uitbreiding) | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Meetkunde/De cirkel (keuze) | 4-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Discrete wiskunde/Telproblemen | 1-5 | eerste versie, getoetst aan het leerplan **[Ingmar]** |
+| 4 | Discrete wiskunde/Grafen (keuze) | 4-5 (ook GO!-optiepakket) | eerste versie, getoetst aan het leerplan **[Ingmar]** |
 
-- **Voor GO!:** de homothetie staat in Gelijkvormigheid (hoofdstuk 1, alle pakketten), de constructies met passer en liniaal sinds 18 nov 2026 in hoofdstuk 3 (pakket 4 en 5). Na te kijken: welke constructies GO! precies vraagt, en of KOV ze in pakket 4 of 5 vraagt.
-- **Afspraken tussen de handboeken van de 2de graad, na te kijken:** W/O (Logica, 2de graad) tegenover W/V (Logica en bewijzen, 3de graad); het bewijs dat √2 irrationaal is staat in pakket 5 zowel in Reële getallen als in Logica; kwartielen en standaardafwijking (Statistiek: mediaan van elke helft, delen door n); de rico heet m en een rechte ax + by = c (Functies, Stelsels, Analytische meetkunde).
+- **Voor GO!:** de homothetie staat in Gelijkvormigheid (hoofdstuk 1, alle pakketten), de constructies met passer en liniaal in hoofdstuk 3 (pakket 4 en 5). KOV vraagt die constructies niet (alleen als wenk bij keuzedoel K1, De cirkel). Na te kijken: welke constructies GO! precies vraagt (GO!-tekst niet in de repo).
+- **Afspraken tussen de handboeken van de 2de graad:** beslist op 24 nov 2026 (PR #52): het bewijs dat √2 irrationaal is staat alleen in Reële getallen (Logica verwijst ernaar); de standaardafwijking deelt door n (wenk in het leerplan; de 3de graad volgt, PR #51); de rico heet m en een rechte ax + by = c in Functies, Stelsels en Analytische meetkunde. Open: W/O (Logica, 2de graad) tegenover W/V (Logica en bewijzen, 3de graad), en de methode voor kwartielen (mediaan van elke helft; het leerplan kiest niet).
 
 ### Dubbele finaliteit (D/A): 45 handboeken (14 onderwerpen) **[Ingmar]**
 

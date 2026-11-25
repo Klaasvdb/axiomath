@@ -1,0 +1,305 @@
+%----------------------------------------------------------------------------------------
+% RATIONALE VORMEN. Alle opgaven zijn eigen werk.
+%
+% Opbouw: Probleem, Start, leerstof, en op een nieuwe pagina de Opdrachten en Test jezelf (geen Koppel in de 2de graad).
+% Labels van dit hoofdstuk beginnen met h3-.
+% Pakketten: dit handboek staat alleen in pakket 5 (B+S''). Dit hoofdstuk komt uit het servicedocument voor 5 uur
+% (bijkomende leerinhoud bij LPD B6) en staat niet in het leerplan zelf: een school kan het weglaten in handboek.tex.
+%----------------------------------------------------------------------------------------
+
+\mychapter{3}{Rationale vormen}
+
+\begin{probleem}
+\vspace{-1mm}\naast{Je vult een opblaaszwembad met twee tuinslangen. Met de eerste slang alleen duurt het $x$~uur, met de tweede slang, die minder water geeft, $2$~uur langer. Hoe lang duurt het met de twee slangen samen? Neem $x = 4$. Per uur vult de eerste slang $\tfrac14$ van het zwembad en de tweede $\tfrac16$, samen $\tfrac14 + \tfrac16 = \tfrac{5}{12}$. Het zwembad is dus vol na $\tfrac{12}{5} = 2,4$~uur. Voor een andere $x$ begin je opnieuw. Kun je één formule geven die voor elke $x$ werkt?}{\begin{tikzpicture}[x=.5cm,y=.5cm,font=\scriptsize]
+  \fill[accent!12] (0,0) rectangle (5,1.6);
+  \draw[accent,thick] (0,0) rectangle (5,2.2);
+  \draw[accent!60] (0,1.6) -- (5,1.6);
+  \draw[inkt,line width=1.6pt] (-1.6,4) .. controls (-.4,4) and (.4,3.6) .. (.8,2.9);
+  \draw[inkt,line width=1.6pt] (6.6,4) .. controls (5.4,4) and (4.6,3.6) .. (4.2,2.9);
+  \draw[accent,dashed,thick] (.8,2.9) -- (1.1,1.6) (4.2,2.9) -- (3.9,1.6);
+  \node[above] at (-1.2,4) {$x$ uur};
+  \node[above] at (6.2,4) {$x + 2$ uur};
+\end{tikzpicture}}
+\end{probleem}
+
+\lkr{Leerplan \pakketnaam: LPD B6, met de bijkomende leerinhoud uit het servicedocument voor 5 uur: rationale vormen vereenvoudigen als toepassing van het ontbinden in factoren, en de hoofdbewerkingen met rationale vormen. Het leerplan B+S'' zelf vraagt dit niet: volgt de school de leerlijn voor 5 uur niet, dan kan ze dit hoofdstuk weglaten (in \texttt{handboek.tex}); de andere hoofdstukken steunen er niet op. Voorkennis: rekenen met breuken (1ste graad), ontbinden in factoren (hoofdstuk 2 en Tweedegraadsfuncties). Het hoofdstuk Breuken van Kernvaardigheden 4de jaar oefent dit verder in. Het probleem komt terug in voorbeeld~\ref{vb:h3-terug}.}
+
+In hoofdstuk 1 zag je dat een veelterm niet altijd deelbaar is door een andere. Dan kun je het quotiënt toch noteren als een breuk, zoals $\tfrac{1}{x}$ of $\tfrac{x + 1}{x^2 - 4}$. In dit hoofdstuk reken je met zulke breuken. Het gaat net zoals met breuken van getallen: vereenvoudigen, vermenigvuldigen, delen, optellen en aftrekken. Nieuw is dat je eerst moet ontbinden in factoren, en dat de noemer voor sommige $x$ nul wordt. Zo vind je ook de formule voor het zwembad.
+
+\begin{oefeningen}[Start]
+\oef{h3-start-1}
+
+\oef{h3-verken}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rationale vormen vereenvoudigen}
+
+\subsection{Wat is een rationale vorm?}
+
+In het probleem staan breuken met een veelterm in de noemer: $\tfrac{1}{x}$ en $\tfrac{1}{x + 2}$. Een breuk van twee gehele getallen heet een rationaal getal. Een breuk van twee veeltermen krijgt een gelijkaardige naam.
+
+\begin{theorie}
+Een \textbf{\textcolor{accent}{rationale vorm}} is een quotiënt $\formule{\dfrac{A(x)}{B(x)}}$ van twee veeltermen, met $B(x)$ niet de nulveelterm.
+
+De \textbf{\textcolor{accent}{bestaansvoorwaarden}} zeggen voor welke $x$ de rationale vorm bestaat: $\formule{B(x) \neq 0}$.
+\end{theorie}
+
+Delen door $0$ kan niet. Daarom sluit je de nulwaarden van de noemer uit. Die vind je door de noemer te ontbinden, zoals in hoofdstuk 2. Elke veelterm is ook een rationale vorm, met noemer $1$: daar is er geen bestaansvoorwaarde.
+
+\voorbeeld{}{Geef de bestaansvoorwaarden van $\dfrac{2x + 1}{x^3 - 4x}$.\label{vb:h3-bv}}{%
+\uitleg{De rationale vorm bestaat niet waar de noemer nul is. We zoeken de nulwaarden van de noemer door te ontbinden.}
+\begin{stappen}
+x^3 - 4x = x(x^2 - 4) = x(x - 2)(x + 2) & $x$ buiten haakjes, dan een verschil van kwadraten. \\
+x = 0,\ x = 2 \text{ of } x = -2 & De nulwaarden van de noemer: de product-nulregel. \\
+x \neq 0,\ x \neq 2 \text{ en } x \neq -2 & De bestaansvoorwaarden.
+\end{stappen}
+De teller speelt geen rol: voor $x = -\tfrac12$ is de rationale vorm gewoon $0$.}
+
+\begin{oefeningen}
+\oef{h3-bv}
+\end{oefeningen}
+
+\subsection{Vereenvoudigen}
+
+Een breuk van getallen vereenvoudig je door teller en noemer te delen door een gemeenschappelijke factor: $\tfrac{42}{56} = \tfrac{14 \cdot 3}{14 \cdot 4} = \tfrac34$. Bij een rationale vorm doe je hetzelfde, maar dan moet je de factoren eerst zien: je ontbindt teller en noemer. In de Verken-opgave was
+\[\frac{x^2 + x - 6}{x - 2} = \frac{(x - 2)(x + 3)}{x - 2} = x + 3.\]
+
+\begin{theorie}
+\begin{stelling}{Vereenvoudigen}
+Voor elke $x$ met $B(x) \neq 0$ en $C(x) \neq 0$ is \qquad $\formule{\dfrac{A(x) \cdot C(x)}{B(x) \cdot C(x)} = \dfrac{A(x)}{B(x)}}$.
+\end{stelling}
+\end{theorie}
+
+\naast{De twee vormen zijn gelijk voor elke $x$ waarvoor de eerste bestaat. Voor $x = 2$ bestaat de eerste niet, want de noemer is $0$, terwijl $x + 3$ daar gewoon $5$ is. De grafiek van $y = \tfrac{x^2 + x - 6}{x - 2}$ is daarom de rechte $y = x + 3$ met een gat in het punt $(2, 5)$. Schrijf bij een vereenvoudiging dus altijd de bestaansvoorwaarden van de oorspronkelijke vorm, en bepaal ze \textit{voor} je schrapt.}{\begin{tikzpicture}[x=.45cm,y=.3cm]
+  \roosterleeg{-4}{1}{4}{-2}{1}{8}
+  \xgetallen{-3,-2,-1,1,2,3}\ygetallen{2,4,6}
+  \draw[accent,thick] (-4,-1) -- (1.88,4.88);
+  \draw[accent,thick] (2.12,5.12) -- (4,7);
+  \openpunt{2}{5}
+  \aflezen{2}{5}
+\end{tikzpicture}}
+
+\voorbeeld{}{Vereenvoudig $\dfrac{x^2 - 4}{x^2 - 2x}$ en geef de bestaansvoorwaarden.\label{vb:h3-vereenvoudig}}{%
+\uitleg{We ontbinden teller en noemer. De bestaansvoorwaarden lezen we af uit de ontbonden noemer, en daarna schrappen we de gemeenschappelijke factor.}
+\begin{stappen}
+\frac{(x - 2)(x + 2)}{x(x - 2)} & Een verschil van kwadraten en $x$ buiten haakjes. \\[1ex]
+x \neq 0 \text{ en } x \neq 2 & Uit de noemer $x(x - 2)$. \\
+= \frac{x + 2}{x} & De factor $x - 2$ schrappen.
+\end{stappen}}
+
+Bij een veelterm van hogere graad ontbind je met de methodes van hoofdstuk 2, zoals het schema van Horner.
+
+\voorbeeld{}{Vereenvoudig $\dfrac{x^3 - 7x + 6}{x^2 + 2x - 3}$ en geef de bestaansvoorwaarden.\label{vb:h3-vereenvoudig2}}{%
+\uitleg{De teller hebben we in voorbeeld~\ref{vb:h2-ontbind3} van hoofdstuk 2 al ontbonden met de nulwaarde $1$. De noemer ontbinden we met som en product.}
+\begin{stappen}
+\frac{(x - 1)(x - 2)(x + 3)}{(x - 1)(x + 3)} & Teller en noemer ontbonden. \\[1ex]
+x \neq 1 \text{ en } x \neq -3 & Uit de noemer. \\
+= x - 2 & Twee factoren schrappen.
+\end{stappen}
+Er blijft een veelterm over: de deling van de teller door de noemer gaat op.}
+
+\begin{werkwijze}
+Ontbind teller en noemer volledig. Bepaal de bestaansvoorwaarden uit de noemer. Schrap de factoren die in teller en noemer voorkomen.
+\end{werkwijze}
+
+Schrappen mag alleen bij \emph{factoren}, niet bij termen. In $\tfrac{x + 6}{6}$ is $6$ geen factor van de teller, en $\tfrac{x + 6}{6}$ is niet gelijk aan $x$: voor $x = 6$ is het $2$. Let ook op tegengestelde factoren: $2 - x = -(x - 2)$, dus $\tfrac{2 - x}{x - 2} = -1$ voor $x \neq 2$.
+
+\begin{oefeningen}
+\oef{h3-vereenvoudig}
+\end{oefeningen}
+
+%========================================================================================
+\section{Rekenen met rationale vormen}
+
+Hoe tel je $\tfrac1x$ en $\tfrac{1}{x + 2}$ op, zoals in het probleem? Je rekent met rationale vormen zoals met breuken van getallen. Het enige verschil: je ontbindt eerst, en je houdt de bestaansvoorwaarden bij.
+
+\subsection{Vermenigvuldigen}
+
+Twee breuken vermenigvuldig je door de tellers en de noemers met elkaar te vermenigvuldigen: $\tfrac23 \cdot \tfrac{9}{10} = \tfrac{18}{30} = \tfrac35$. Vereenvoudigen kan ook voor je vermenigvuldigt: $\tfrac{2 \cdot 9}{3 \cdot 10} = \tfrac{1 \cdot 3}{1 \cdot 5}$. Dat scheelt rekenwerk.
+
+\begin{theorie}
+\begin{stelling}{Product}
+\qquad $\formule{\dfrac{A(x)}{B(x)} \cdot \dfrac{C(x)}{D(x)} = \dfrac{A(x) \cdot C(x)}{B(x) \cdot D(x)}}$ \qquad voor $B(x) \neq 0$ en $D(x) \neq 0$.
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\dfrac{x^2 - 1}{2x + 6} \cdot \dfrac{x + 3}{x^2 - x}$.\label{vb:h3-maal}}{%
+\uitleg{We ontbinden alle tellers en noemers en schrappen voor we vermenigvuldigen. Zo hoeven we geen haakjes uit te werken.}
+\begin{stappen}
+\frac{(x - 1)(x + 1)}{2(x + 3)} \cdot \frac{x + 3}{x(x - 1)} & Alles ontbonden. \\[1ex]
+x \neq -3,\ x \neq 0 \text{ en } x \neq 1 & Uit de twee noemers. \\[1ex]
+= \frac{x + 1}{2x} & De factoren $x - 1$ en $x + 3$ schrappen.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-maal}
+\end{oefeningen}
+
+\subsection{Delen}
+
+Delen door een breuk is vermenigvuldigen met het omgekeerde: $\tfrac45 : \tfrac23 = \tfrac45 \cdot \tfrac32 = \tfrac65$. Je mag niet delen door $0$, dus ook de breuk waardoor je deelt, mag niet $0$ zijn.
+
+\begin{theorie}
+\begin{stelling}{Quotiënt}
+\qquad $\formule{\dfrac{A(x)}{B(x)} : \dfrac{C(x)}{D(x)} = \dfrac{A(x)}{B(x)} \cdot \dfrac{D(x)}{C(x)}}$ \qquad voor $B(x) \neq 0$, $C(x) \neq 0$ en $D(x) \neq 0$.
+\end{stelling}
+\end{theorie}
+
+Er is dus een bestaansvoorwaarde meer dan bij het product: ook de \emph{teller} $C(x)$ van de deler mag niet nul zijn, want na het omkeren staat hij in de noemer.
+
+\voorbeeld{}{Bereken $\dfrac{x^2 - 4}{x + 1} : \dfrac{x - 2}{x^2 + x}$.\label{vb:h3-deel}}{%
+\uitleg{We vermenigvuldigen met het omgekeerde van de tweede breuk, en ontbinden.}
+\begin{stappen}
+\frac{(x - 2)(x + 2)}{x + 1} \cdot \frac{x(x + 1)}{x - 2} & Omkeren en ontbinden. \\[1ex]
+x \neq -1,\ x \neq 0 \text{ en } x \neq 2 & De noemers, en de teller $x - 2$ van de deler. \\
+= x(x + 2) & De factoren $x - 2$ en $x + 1$ schrappen.
+\end{stappen}}
+
+\begin{oefeningen}
+\oef{h3-deel}
+\end{oefeningen}
+
+\subsection{Optellen en aftrekken}
+
+Breuken tel je op als ze dezelfde noemer hebben: $\tfrac14 + \tfrac16 = \tfrac{3}{12} + \tfrac{2}{12} = \tfrac{5}{12}$. De noemer $12$ is het kleinste gemeenschappelijke veelvoud van $4 = 2 \cdot 2$ en $6 = 2 \cdot 3$: je neemt elke factor zo vaak als hij in één noemer hoogstens voorkomt. Bij rationale vormen werkt dat met de factoren van de ontbonden noemers.
+
+\begin{theorie}
+\begin{stelling}{Som en verschil}
+\qquad $\formule{\dfrac{A(x)}{C(x)} + \dfrac{B(x)}{C(x)} = \dfrac{A(x) + B(x)}{C(x)}}$ \qquad en \qquad $\formule{\dfrac{A(x)}{C(x)} - \dfrac{B(x)}{C(x)} = \dfrac{A(x) - B(x)}{C(x)}}$
+
+voor $C(x) \neq 0$.
+\end{stelling}
+\end{theorie}
+
+\voorbeeld{}{Bereken $\dfrac{1}{x} + \dfrac{1}{x + 2}$.\label{vb:h3-plus}}{%
+\uitleg{De noemers $x$ en $x + 2$ hebben geen gemeenschappelijke factor. De gemeenschappelijke noemer is hun product $x(x + 2)$.}
+\begin{stappen}
+\frac{x + 2}{x(x + 2)} + \frac{x}{x(x + 2)} & Teller en noemer van elke breuk maal de ontbrekende factor. \\[1.5ex]
+= \frac{2x + 2}{x(x + 2)} = \frac{2(x + 1)}{x(x + 2)} & Tellers optellen, en de teller ontbinden. \\[1ex]
+x \neq 0 \text{ en } x \neq -2 & Uit de noemers.
+\end{stappen}
+De teller heeft geen factor gemeen met de noemer: verder vereenvoudigen kan niet.}
+
+\voorbeeld{}{Bereken $\dfrac{x}{x^2 - 1} - \dfrac{1}{x - 1}$.\label{vb:h3-min}}{%
+\uitleg{De eerste noemer is $(x - 1)(x + 1)$ en bevat de tweede al. De gemeenschappelijke noemer is $(x - 1)(x + 1)$: alleen de tweede breuk moet maal $x + 1$.}
+\begin{stappen}
+\frac{x}{(x - 1)(x + 1)} - \frac{x + 1}{(x - 1)(x + 1)} & Gelijke noemers. \\[1.5ex]
+= \frac{x - (x + 1)}{(x - 1)(x + 1)} & Haakjes rond de hele tweede teller. \\[1.5ex]
+= \frac{-1}{(x - 1)(x + 1)} & $x - x - 1 = -1$. \\[1ex]
+x \neq 1 \text{ en } x \neq -1 & Uit de noemers.
+\end{stappen}
+Zonder haakjes zou je $x - x + 1 = 1$ vinden: het minteken geldt voor de hele teller.}
+
+\begin{werkwijze}
+Ontbind de noemers en bepaal de bestaansvoorwaarden. Neem als gemeenschappelijke noemer het product van alle factoren, elke factor zo vaak als hij in één noemer hoogstens voorkomt. Vermenigvuldig teller en noemer van elke breuk met de factoren die ontbreken. Tel de tellers op of trek ze af, met haakjes na een minteken. Ontbind de teller en vereenvoudig als het kan.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h3-plusmin}
+\end{oefeningen}
+
+\voorbeeld{}{Terug naar het probleem. Je vult een opblaaszwembad met twee tuinslangen. Met de eerste slang alleen duurt het $x$~uur, met de tweede slang, die minder water geeft, $2$~uur langer. Voor $x = 4$ is het zwembad vol na $2,4$~uur. Geef één formule voor de tijd met de twee slangen samen, die voor elke $x$ werkt.\label{vb:h3-terug}}{%
+\uitleg{Per uur vult de eerste slang $\tfrac1x$ van het zwembad en de tweede $\tfrac{1}{x + 2}$. Samen is dat de som uit voorbeeld~\ref{vb:h3-plus}. De tijd is $1$ gedeeld door wat ze samen per uur vullen.}
+\begin{stappen}
+\frac1x + \frac{1}{x + 2} = \frac{2(x + 1)}{x(x + 2)} & Wat de slangen samen per uur vullen. \\[1.5ex]
+T = 1 : \frac{2(x + 1)}{x(x + 2)} = \frac{x(x + 2)}{2(x + 1)} & Delen is vermenigvuldigen met het omgekeerde.
+\end{stappen}
+\naast{Controle voor $x = 4$: $T = \tfrac{4 \cdot 6}{2 \cdot 5} = 2,4$~uur, zoals in het probleem. Hier is $x > 0$, dus de bestaansvoorwaarden zijn vanzelf voldaan. De grafiek toont de tijd voor elke $x$: hoe trager de eerste slang, hoe langer het duurt, maar altijd korter dan met één slang. Met de Euclidische deling vind je $T = \tfrac{x + 1}{2} - \tfrac{1}{2(x + 1)}$: iets minder dan de helft van $x + 1$, het gemiddelde van $x$ en $x + 2$.}{\begin{tikzpicture}[x=.38cm,y=.5cm]
+  \roosterleeg[$x$][$T$]{0}{1}{10}{0}{1}{6}
+  \xgetallen{2,4,6,8,10}\ygetallen{2,4,6}
+  \kromme{0}{10}{\x*(\x+2)/(2*(\x+1))}
+  \punt{4}{2.4}
+  \aflezen{4}{2.4}
+\end{tikzpicture}}}
+
+%========================================================================================
+\opdrachtenkop
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h3-o1}
+
+\needspace{6\baselineskip}
+\oef{h3-o2}
+
+\needspace{6\baselineskip}
+\oef{h3-o3}
+
+\needspace{6\baselineskip}
+\oef{h3-o4}
+
+\needspace{6\baselineskip}
+\oef{h3-o5}
+
+\needspace{6\baselineskip}
+\oef{h3-o6}
+
+\needspace{6\baselineskip}
+\oef{h3-o7}
+
+\needspace{6\baselineskip}
+\oef{h3-o8}
+
+\needspace{6\baselineskip}
+\oef{h3-o9}
+
+\needspace{8\baselineskip}
+\oef{h3-o10}
+
+\needspace{6\baselineskip}
+\oef{h3-o11}
+
+\needspace{6\baselineskip}
+\oef{h3-o12}
+
+\needspace{6\baselineskip}
+\oef{h3-o13}
+
+\needspace{6\baselineskip}
+\oef{h3-o14}
+
+\needspace{6\baselineskip}
+\oef{h3-o15}
+\end{oefeningen}
+
+%----------------------------------------------------------------------------------------
+\needspace{14\baselineskip}
+\opdrachtsectie{Test jezelf}
+
+\begin{oefeningen}
+\needspace{6\baselineskip}
+\oef{h3-t1}
+
+\needspace{6\baselineskip}
+\oef{h3-t2}
+
+\needspace{6\baselineskip}
+\oef{h3-t3}
+
+\needspace{6\baselineskip}
+\oef{h3-t4}
+
+\needspace{6\baselineskip}
+\oef{h3-t5}
+
+\needspace{6\baselineskip}
+\oef{h3-t6}
+
+\needspace{6\baselineskip}
+\oef{h3-t7}
+\end{oefeningen}
+
+\herhaalschema{%
+  \fv{oef:h3-t1}{vb:h3-bv}{oef:h3-bv}%
+  \fv{oef:h3-t2}{vb:h3-vereenvoudig}{oef:h3-vereenvoudig}%
+  \fv{oef:h3-t3}{vb:h3-vereenvoudig2}{oef:h3-o9}%
+  \fv{oef:h3-t4}{vb:h3-maal}{oef:h3-maal}%
+  \fv{oef:h3-t5}{vb:h3-deel}{oef:h3-deel}%
+  \fv{oef:h3-t6}{vb:h3-min}{oef:h3-plusmin}%
+  \fv{oef:h3-t7}{vb:h3-terug}{oef:h3-o12}}
+
+\ifzelfstudie
+\section*{Maak je eigen samenvatting}
+Sluit dit boek en schrijf in je schrift: wat een rationale vorm is en hoe je de bestaansvoorwaarden vindt, hoe je vereenvoudigt en waarom je alleen factoren mag schrappen, hoe je rationale vormen vermenigvuldigt en deelt (met de extra bestaansvoorwaarde bij delen), en hoe je ze optelt en aftrekt met een gemeenschappelijke noemer. Vergelijk daarna met de kaders.
+\fi

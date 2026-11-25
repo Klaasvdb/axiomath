@@ -1,16 +1,16 @@
 # Reële getallen: handboek
 
-Handboek voor pakket 4 (B+S) van de 2de graad, leerplandoelen 5-7, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Theo van Doesburg (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 4 (B+S) van de 2de graad, leerplan II-WisS-d (versie oktober 2024), leerplandoelen 5-7, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Theo van Doesburg (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Reële getallen/](<../../../cursussen/Reële getallen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 2 en 3, en ook $\sqrt{a^2} = \lvert a\rvert$. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Reële getallen/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Reële getallen/](<../../../cursussen/Reële getallen/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 3, en ook $\sqrt{a^2} = \lvert a\rvert$ (eigen keuze). Geen noemer van twee termen: het leerplan noemt alleen één term. De volledige tabel met verschillen, wat het leerplan besliste en wat open blijft, staat in de [README van de bron](<../../../cursussen/Reële getallen/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Van rationale naar reële getallen | `hoofdstukken/01-reele-getallen.tex` | LPD 5-7 | eerste versie, nog na te lezen |
-| 2. Machten met gehele exponenten | `hoofdstukken/02-machten.tex` | LPD 5-7 | eerste versie, nog na te lezen |
-| 3. Vierkantswortels | `hoofdstukken/03-vierkantswortels.tex` | LPD 5-7 | eerste versie, nog na te lezen |
+| 1. Van rationale naar reële getallen | `hoofdstukken/01-reele-getallen.tex` | LPD 5, 6; LPD 4 (bewijs) | eerste versie, getoetst aan het leerplan |
+| 2. Machten met gehele exponenten | `hoofdstukken/02-machten.tex` | LPD 7 | eerste versie, getoetst aan het leerplan |
+| 3. Vierkantswortels | `hoofdstukken/03-vierkantswortels.tex` | LPD 7 | eerste versie, getoetst aan het leerplan |
 
-De verdeling van LPD 5-7 over de drie hoofdstukken is nog na te kijken in het leerplan.
+De LPD-nummers zijn die van het leerplan van dit pakket en staan ook in de kaders voor de leerkracht. Nog na te lezen: de tekst en de oefeningen, en het gebruik in de klas.
 
 ## PDF's
 

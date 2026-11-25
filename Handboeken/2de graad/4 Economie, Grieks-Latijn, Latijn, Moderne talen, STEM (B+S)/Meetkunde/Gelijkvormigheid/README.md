@@ -1,15 +1,16 @@
 # Gelijkvormigheid: handboek
 
-Handboek voor pakket 4 (B+S) van de 2de graad, leerplandoelen 8-9, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Wassily Kandinsky (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 4 (B+S) van de 2de graad, leerplan II-WisS-d, versie oktober 2024: LPD 8-9, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Wassily Kandinsky (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Gelijkvormigheid/](<../../../cursussen/Gelijkvormigheid/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 3, met de homothetie met een negatieve factor en de hoogtelijn in een rechthoekige driehoek. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Gelijkvormigheid/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Gelijkvormigheid/](<../../../cursussen/Gelijkvormigheid/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 3, met de homothetie als extra bij LPD 8: ook met een negatieve factor, en het centrum zoeken. Verder de hoogtelijn in een rechthoekige driehoek (het leerplan noemt ze niet; hoofdstuk 3 steunt erop) en hoofdstuk 3, Constructies, voor GO!. KOV vraagt die constructies niet: een school van KOV kan hoofdstuk 3 weglaten. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Gelijkvormigheid/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Schaal | `hoofdstukken/01-schaal.tex` | LPD 8 | eerste versie, nog na te lezen |
-| 2. Gelijkvormige driehoeken | `hoofdstukken/02-gelijkvormige-driehoeken.tex` | LPD 9 | eerste versie, nog na te lezen |
+| 1. Schaal | `hoofdstukken/01-schaal.tex` | LPD 8 (homothetie: extra) | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Gelijkvormige driehoeken | `hoofdstukken/02-gelijkvormige-driehoeken.tex` | LPD 9; LPD 4 (bewijs van HH) | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 3. Constructies | `hoofdstukken/03-constructies.tex` | geen eigen doel (uitbreiding, voor GO!) | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-De verdeling van LPD 8-9 over de twee hoofdstukken is nog na te kijken in het leerplan.
+De LPD per hoofdstuk zijn getoetst aan het leerplan (november 2026) en staan ook in de kaders voor de leerkracht.
 
 ## PDF's
 

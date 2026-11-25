@@ -22,7 +22,7 @@
 \end{tikzpicture}}
 \end{probleem}
 
-\lkr{Leerplan \pakketnaam: LPD B6 (dit hoofdstuk: de reststelling met bewijs, deelbaarheid door $x - a$ en de factorstelling, de gehele delers van de constante term als kandidaat-nulwaarden, veeltermen van graad $3$ en $4$ ontbinden in factoren, en vergelijkingen van hogere graad oplossen). Voorkennis: hoofdstuk 1 (het schema van Horner), en uit Tweedegraadsfuncties de product-nulregel, de discriminant en het ontbinden met de oplossingen $a(x - x_1)(x - x_2)$. Het bewijs van de reststelling is kort en mag als voorbeeld van een rechtstreeks bewijs dienen (B1). Het probleem komt terug in voorbeeld~\ref{vb:h2-terug}.}
+\lkr{Leerplan \pakketnaam: LPD B6 (dit hoofdstuk: de reststelling met bewijs, de rest bij deling door $(x - a)(x - b)$ uit $A(a)$ en $A(b)$, deelbaarheid door $x - a$ en de factorstelling, de gehele delers van de constante term als kandidaat-nulwaarden, veeltermen van graad $3$ en $4$ ontbinden in factoren, de som en het verschil van derdemachten, en vergelijkingen van hogere graad oplossen) en LPD B1 (de bewijzen van de reststelling, de factorstelling, de stelling over gehele nulwaarden en de formules voor derdemachten). Het servicedocument voor 5 uur maakt de derdemachten verplicht en vraagt verschillende technieken om te ontbinden: daarom staat ook het groeperen van termen hier. Voorkennis: hoofdstuk 1 (het schema van Horner), Stelsels (voor de rest bij deling door een veelterm van graad $2$), en uit Tweedegraadsfuncties de product-nulregel, de discriminant en het ontbinden met de oplossingen $a(x - x_1)(x - x_2)$. Het probleem komt terug in voorbeeld~\ref{vb:h2-terug}.}
 
 In hoofdstuk 1 leerde je delen door $x - a$. Je zag ook dat de rest van $(2x^3 - 3x^2 + 5) : (x - 2)$ gelijk is aan $9$. In dit hoofdstuk ontdek je dat je die rest kunt vinden zonder te delen. Dat leidt tot een manier om een factor $x - a$ te vinden, en zo ontbind je veeltermen van graad $3$ en $4$ in factoren. Met de product-nulregel los je daarna vergelijkingen van hogere graad op, zoals die van het doosje.
 
@@ -83,6 +83,26 @@ Controle: voor $A(x) = x^3 - x^2 - 5x + 2$ is $A(3) = 27 - 9 - 15 + 2 = 5$.}
 
 \begin{oefeningen}
 \oef{h2-restpar}
+\end{oefeningen}
+
+\subsection{De rest bij deling door een product}
+
+Wat is de rest van $(x^{20} - 2x + 3) : (x^2 - 1)$? Een staartdeling met twintig machten is lang, en de reststelling werkt alleen voor een deler $x - a$. Maar $x^2 - 1 = (x - 1)(x + 1)$ is een product van twee zulke delers. Vul je in de Euclidische deling $x = 1$ of $x = -1$ in, dan valt het product met het quotiënt weg, net zoals in het bewijs van de reststelling. Wat overblijft, is de rest. Die heeft een graad kleiner dan $2$, dus ze heeft de vorm $px + q$.
+
+\voorbeeld{}{Bepaal zonder te delen de rest van $(x^{20} - 2x + 3) : (x^2 - 1)$.\label{vb:h2-restprod}}{%
+\uitleg{Noem het deeltal $A(x)$. De rest is $px + q$, met twee onbekenden. Twee getalwaarden geven twee vergelijkingen: een stelsel.}
+\begin{stappen}
+A(x) = (x - 1)(x + 1) \cdot Q(x) + px + q & De Euclidische deling, met een rest van graad hoogstens $1$. \\
+A(1) = p + q, \quad A(-1) = -p + q & Vul $1$ en $-1$ in: het product wordt $0$. \\
+A(1) = 1 - 2 + 3 = 2 & Bereken de getalwaarden. \\
+A(-1) = 1 + 2 + 3 = 6 & \\
+p + q = 2 \text{ en } {-p} + q = 6 & Het stelsel. \\
+2q = 8, \text{ dus } q = 4 \text{ en } p = -2 & Tel de vergelijkingen op.
+\end{stappen}
+De rest is $-2x + 4$. Je hoeft het quotiënt niet te kennen, en het is ook niet berekend.}
+
+\begin{oefeningen}
+\oef{h2-restprod}
 \end{oefeningen}
 
 %========================================================================================
@@ -156,7 +176,7 @@ A(x) = (x - 1)(x^2 + x - 6) & Het quotiënt uit het schema. \\
 De nulwaarden zijn $1$, $2$ en $-3$: alle drie delers van $6$. Controle: $(x - 1)(x - 2) = x^2 - 3x + 2$, en $(x^2 - 3x + 2)(x + 3) = x^3 - 7x + 6$.}
 
 \begin{werkwijze}
-Breng eerst gemeenschappelijke factoren buiten haakjes, zoals $x$. Herken een merkwaardig product als dat kan. Heeft wat overblijft graad $2$, ontbind dan met de som-productmethode of met de discriminant. Heeft het graad $3$ of meer, zoek dan een nulwaarde $a$ bij de delers van de constante term, deel door $x - a$ met het schema van Horner, en ontbind het quotiënt op dezelfde manier.
+Zoek een nulwaarde $a$ bij de delers van de constante term: begin met de kleinste. Deel door $x - a$ met het schema van Horner. Heeft het quotiënt graad $2$, ontbind het dan met de som-productmethode of met de discriminant; heeft het een hogere graad, zoek dan opnieuw een nulwaarde.
 \end{werkwijze}
 
 \begin{oefeningen}
@@ -210,6 +230,88 @@ Breng de factor $2$ in de haakjes bij $x - \tfrac12$: $2x^3 - x^2 - 8x + 4 = (x 
 \oef{h2-ontbind3}
 
 \oef{h2-ontbind4}
+\end{oefeningen}
+
+\subsection{Som en verschil van derdemachten}
+
+In de Nu jij vond je $x^3 - 1 = (x - 1)(x^2 + x + 1)$. Lukt dat ook met een ander getal dan $1$? Neem $x^3 - b^3$. Dan is $b$ een nulwaarde, want $b^3 - b^3 = 0$, dus is $x - b$ een factor. Het schema van Horner geeft het quotiënt:
+
+\begin{center}
+\horner{3}{b}{1 & 0 & 0 & -b^3}{ & b & b^2 & b^3}{1 & b & b^2}{0}
+\end{center}
+
+Dus $x^3 - b^3 = (x - b)(x^2 + bx + b^2)$. Bij $x^3 + b^3$ is $-b$ een nulwaarde, want $(-b)^3 + b^3 = 0$. Zo krijg je twee formules die je, net als de merkwaardige producten, beter meteen herkent.
+
+\begin{theorie}
+\begin{stelling}{Som en verschil van derdemachten}
+\qquad $\formule{A^3 - B^3 = (A - B)(A^2 + AB + B^2)}$
+
+\qquad $\formule{A^3 + B^3 = (A + B)(A^2 - AB + B^2)}$
+\end{stelling}
+\begin{bewijs}
+Werk het rechterlid uit:
+\bewijsregel{(A - B)(A^2 + AB + B^2) = A^3 + A^2B + AB^2 - A^2B - AB^2 - B^3 = A^3 - B^3.}
+Vervang in die formule $B$ door $-B$. Omdat $(-B)^3 = -B^3$, staat er dan
+\bewijsregel{A^3 + B^3 = (A + B)(A^2 - AB + B^2).}
+\end{bewijs}
+\end{theorie}
+
+Let op de tekens: de eerste factor heeft hetzelfde teken als de opgave, de tweede factor het tegengestelde teken in het midden, en achteraan altijd $+B^2$. In de tweede factor staat $AB$ en niet $2AB$: het is geen merkwaardig kwadraat, en die factor ontbindt niet verder. Zijn discriminant is $B^2 - 4B^2 = -3B^2 < 0$ als $B \neq 0$. Een klassieke fout is $A^3 + B^3 = (A + B)^3$: met $A = B = 1$ vind je links $2$ en rechts $8$.
+
+\voorbeeld{}{Ontbind $8x^3 - 27$ in factoren.\label{vb:h2-derde}}{%
+\uitleg{Beide termen zijn derdemachten: $8x^3 = (2x)^3$ en $27 = 3^3$. Dit is $A^3 - B^3$ met $A = 2x$ en $B = 3$.}
+\begin{stappen}
+(2x)^3 - 3^3 & Schrijf als een verschil van derdemachten. \\
+= (2x - 3)\bigl((2x)^2 + 2x \cdot 3 + 3^2\bigr) & $(A - B)(A^2 + AB + B^2)$. \\
+= (2x - 3)(4x^2 + 6x + 9) & De tweede factor ontbindt niet verder.
+\end{stappen}
+Controle met $x = 2$: links $64 - 27 = 37$, rechts $1 \cdot (16 + 12 + 9) = 37$.}
+
+\voorbeeld{}{Ontbind $2x^4 + 54x$ in factoren.\label{vb:h2-derde2}}{%
+\uitleg{Eerst een gemeenschappelijke factor: $2x$. Wat overblijft, is een som van derdemachten.}
+\begin{stappen}
+2x(x^3 + 27) & $2x$ buiten haakjes. \\
+= 2x(x + 3)(x^2 - 3x + 9) & $A^3 + B^3$ met $A = x$ en $B = 3$.
+\end{stappen}
+Met het schema van Horner was het ook gelukt: $-3$ is een nulwaarde van $x^3 + 27$. Met de formule gaat het sneller.}
+
+\begin{oefeningen}
+\oef{h2-derde}
+\end{oefeningen}
+
+\subsection{Termen groeperen}
+
+Bij $x^3 + 2x^2 - 9x - 18$ zou je delers van $18$ kunnen proberen. Maar kijk eerst naar de termen twee aan twee: $x^3 + 2x^2 = x^2(x + 2)$ en $-9x - 18 = -9(x + 2)$. In beide stukken zit dezelfde factor $x + 2$, en die kun je buiten haakjes brengen. Zo'n gemeenschappelijke factor maken door termen samen te nemen heet \textit{groeperen}.
+
+\voorbeeld{}{Ontbind $x^3 + 2x^2 - 9x - 18$ in factoren.\label{vb:h2-groeperen}}{%
+\uitleg{We nemen de eerste twee en de laatste twee termen samen, en zonderen in elke groep een factor af zodat dezelfde haakjes overblijven.}
+\begin{stappen}
+x^2(x + 2) - 9(x + 2) & Afzonderen per groep: $-9$, zodat ook daar $x + 2$ staat. \\
+= (x + 2)(x^2 - 9) & De factor $x + 2$ buiten haakjes. \\
+= (x + 2)(x - 3)(x + 3) & Een verschil van kwadraten.
+\end{stappen}
+De nulwaarden $-2$, $3$ en $-3$ zijn delers van $18$, zoals het hoort.}
+
+Groeperen werkt ook met meer dan één letter, en dan helpt het schema van Horner niet.
+
+\voorbeeld{}{Ontbind $xy + 3x - 2y - 6$ in factoren.\label{vb:h2-groeperen2}}{%
+\uitleg{De eerste twee termen bevatten $x$, de laatste twee de factor $-2$.}
+\begin{stappen}
+x(y + 3) - 2(y + 3) & Afzonderen per groep. \\
+= (x - 2)(y + 3) & De factor $y + 3$ buiten haakjes.
+\end{stappen}
+Controle: $(x - 2)(y + 3) = xy + 3x - 2y - 6$.}
+
+Lukt het niet met de eerste twee en de laatste twee termen, probeer dan een andere verdeling. Niet elke veelterm met vier termen ontbindt zo.
+
+Nu ken je verschillende technieken om te ontbinden. In welke volgorde gebruik je ze?
+
+\begin{werkwijze}
+Breng eerst gemeenschappelijke factoren buiten haakjes, zoals $x$ of een getal. Kijk dan naar het aantal termen. Twee termen: een verschil van kwadraten, of een som of verschil van derdemachten. Drie termen: een volkomen kwadraat, de som-productmethode of de discriminant. Vier termen: probeer te groeperen. Lukt dat niet, of is de graad $3$ of meer, zoek dan een nulwaarde bij de delers van de constante term en deel met het schema van Horner. Kijk bij elke factor of je verder kunt ontbinden.
+\end{werkwijze}
+
+\begin{oefeningen}
+\oef{h2-groeperen}
 \end{oefeningen}
 
 %========================================================================================
@@ -304,13 +406,19 @@ De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de re
 \oef{h2-o1}
 
 \needspace{6\baselineskip}
+\oef{h2-o25}
+
+\needspace{6\baselineskip}
 \oef{h2-o2}
+
+\needspace{6\baselineskip}
+\oef{h2-o4}
 
 \needspace{6\baselineskip}
 \oef{h2-o3}
 
 \needspace{6\baselineskip}
-\oef{h2-o4}
+\oef{h2-o26}
 
 \needspace{6\baselineskip}
 \oef{h2-o5}
@@ -340,6 +448,9 @@ De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de re
 \oef{h2-o13}
 
 \needspace{6\baselineskip}
+\oef{h2-o27}
+
+\needspace{6\baselineskip}
 \oef{h2-o14}
 
 \needspace{6\baselineskip}
@@ -350,6 +461,9 @@ De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de re
 
 \needspace{6\baselineskip}
 \oef{h2-o17}
+
+\needspace{6\baselineskip}
+\oef{h2-o28}
 
 \needspace{6\baselineskip}
 \oef{h2-o18}
@@ -382,6 +496,9 @@ De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de re
 \oef{h2-t1}
 
 \needspace{6\baselineskip}
+\oef{h2-t11}
+
+\needspace{6\baselineskip}
 \oef{h2-t2}
 
 \needspace{6\baselineskip}
@@ -397,6 +514,12 @@ De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de re
 \oef{h2-t6}
 
 \needspace{6\baselineskip}
+\oef{h2-t9}
+
+\needspace{6\baselineskip}
+\oef{h2-t10}
+
+\needspace{6\baselineskip}
 \oef{h2-t7}
 
 \needspace{6\baselineskip}
@@ -405,15 +528,18 @@ De grafiek van de inhoud $V(x) = x(16 - 2x)(10 - 2x)$ toont het: ze snijdt de re
 
 \herhaalschema{%
   \fv{oef:h2-t1}{vb:h2-rest}{oef:h2-rest}%
+  \fv{oef:h2-t11}{vb:h2-restprod}{oef:h2-restprod}%
   \fv{oef:h2-t2}{vb:h2-factor}{oef:h2-deelbaar}%
   \fv{oef:h2-t3}{vb:h2-factorpar}{oef:h2-deelbaar}%
   \fv{oef:h2-t4}{vb:h2-ontbind3}{oef:h2-ontbind3}%
   \fv{oef:h2-t5}{vb:h2-ontbindD}{oef:h2-o9}%
   \fv{oef:h2-t6}{vb:h2-ontbind4}{oef:h2-ontbind4}%
+  \fv{oef:h2-t9}{vb:h2-derde}{oef:h2-derde}%
+  \fv{oef:h2-t10}{vb:h2-groeperen}{oef:h2-groeperen}%
   \fv{oef:h2-t7}{vb:h2-vgl}{oef:h2-vgl}%
   \fv{oef:h2-t8}{vb:h2-terug}{oef:h2-o18}}
 
 \ifzelfstudie
 \section*{Maak je eigen samenvatting}
-Sluit dit boek en schrijf in je schrift: de reststelling met haar bewijs, wat een nulwaarde is, de factorstelling, waarom een gehele nulwaarde een deler is van de constante term, hoe je een veelterm van graad $3$ of $4$ ontbindt in factoren (met de volgorde van de stappen), wanneer de methode met de delers niet werkt, hoe je een vergelijking van hogere graad oplost, en hoeveel nulwaarden een veelterm van graad $n$ hoogstens heeft. Vergelijk daarna met de kaders.
+Sluit dit boek en schrijf in je schrift: de reststelling met haar bewijs, hoe je de rest bij deling door $(x - a)(x - b)$ vindt, wat een nulwaarde is, de factorstelling, waarom een gehele nulwaarde een deler is van de constante term, hoe je een veelterm van graad $3$ of $4$ ontbindt in factoren, de formules voor de som en het verschil van derdemachten, hoe je groepeert, in welke volgorde je de technieken probeert, wanneer de methode met de delers niet werkt, hoe je een vergelijking van hogere graad oplost, en hoeveel nulwaarden een veelterm van graad $n$ hoogstens heeft. Vergelijk daarna met de kaders.
 \fi

@@ -1,15 +1,15 @@
 # Driehoeksmeting: handboek
 
-Handboek voor pakket 1 (Basis) van de 2de graad, leerplandoelen 10-11, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Paul Cézanne (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Handboek voor pakket 1 (Basis) van de 2de graad, leerplan II-Wis-d (KOV, versie oktober 2024): LPD 10-11, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Paul Cézanne (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Driehoeksmeting/](<../../../cursussen/Driehoeksmeting/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. De lichtste versie: het bewijs van Pythagoras met oppervlaktes, zonder tweede bewijs en zonder de opdracht met wortels; geen complementaire hoeken en geen exacte waarden voor 30°, 45° en 60°. De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Driehoeksmeting/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor alle pakketten in [cursussen/Driehoeksmeting/](<../../../cursussen/Driehoeksmeting/>). Wat maar voor sommige pakketten geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. De lichtste versie: het bewijs van Pythagoras met oppervlaktes, zonder tweede bewijs en zonder de opdracht met wortels; geen complementaire hoeken en geen exacte waarden voor 30°, 45° en 60°. De omgekeerde stelling is in dit leerplan een extra (vermeld in de leerkrachtenversie). Met de wenken bij LPD 10-11: de afstandsformule, de hoogte van een piramide, graden, minuten en seconden. De volledige tabel met verschillen, de toetsing aan het leerplan en wat open blijft, staan in de [README van de bron](<../../../cursussen/Driehoeksmeting/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. De stelling van Pythagoras | `hoofdstukken/01-pythagoras.tex` | LPD 10 | eerste versie, nog na te lezen |
-| 2. Sinus, cosinus en tangens | `hoofdstukken/02-goniometrische-getallen.tex` | LPD 11 | eerste versie, nog na te lezen |
+| 1. De stelling van Pythagoras | `hoofdstukken/01-pythagoras.tex` | LPD 10 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Sinus, cosinus en tangens | `hoofdstukken/02-goniometrische-getallen.tex` | LPD 11 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-De verdeling van LPD 10-11 over de twee hoofdstukken is nog na te kijken in het leerplan.
+De verdeling van de leerplandoelen over de hoofdstukken is getoetst aan het leerplan (24 november 2026).
 
 ## PDF's
 
@@ -32,4 +32,4 @@ De oefeningen staan in `oefeningen/*.yaml` van de bron, per hoofdstuk. Een hoofd
 
 ## Controle
 
-De afgeronde getallen zijn nagerekend met Python, de rest met de hand. Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas.
+De afgeronde getallen zijn nagerekend met Python en SymPy, de rest met de hand. Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas.

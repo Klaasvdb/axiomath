@@ -1,15 +1,15 @@
 # Grafen: handboek
 
-Keuzehandboek voor pakket 5 (B+S'') van de 2de graad, keuzedoelen K2-K3, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Alle opgaven zijn eigen werk. De omslag is van Paul Klee (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
+Keuzehandboek voor pakket 5 (B+S'') van de 2de graad, volgens de [ontwerpregels](../../../../../Ontwerp/ontwerpregels.md). Leerplan: KOV II-WisS''-d (versie oktober 2024), het keuzedeel Grafen (rubriek 4.5.3) met de keuzedoelen K2-K3; het servicedocument voor 5 uur wiskunde noemt het als mogelijke keuze. Een keuzedoel is niet verplicht: de school kiest het, naast of in plaats van het keuzedeel De cirkel (K1). Bij GO! dient dit handboek voor het doel over grafen uit het optiepakket Gevorderde wiskunde (zie `Handboeken/koepels.yaml`). Alle opgaven zijn eigen werk. De omslag is van Paul Klee (publiek domein). De voorkant komt uit `Ontwerp/voorkanten/`: pas ze daar aan (`voorkant-gegevens.tex` maakt `maak-voorkanten.py`).
 
-**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor pakket 4 en 5 in [cursussen/Grafen/](<../../../cursussen/Grafen/>). Wat maar voor één pakket geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en ook het bewijs dat even graden volstaan voor een eulerkring, en vier extra bewijsopdrachten (twee per hoofdstuk). De volledige tabel met verschillen en wat nog na te kijken is, staat in de [README van de bron](<../../../cursussen/Grafen/README.md>).
+**Bron:** de hoofdstukken, oefeningen en `notatie.tex` staan één keer voor pakket 4 en 5 in [cursussen/Grafen/](<../../../cursussen/Grafen/>). Wat maar voor één pakket geldt, staat daar in `\alleenvoor` (zie [Opmaak/pakketten.py](<../../../../../Opmaak/pakketten.py>)). Deze map kiest de hoofdstukken in `handboek.tex`. Zoals pakket 4, en ook het bewijs dat even graden volstaan voor een eulercircuit, en vier extra bewijsopdrachten (twee per hoofdstuk), bij LPD B1 (bewijzen, met eigenschappen van grafen als voorbeeld). De woorden (wandeling, spoor, circuit, pad, cykel, eulerspoor, eulercircuit) volgen de wenk bij K3. De volledige tabel met verschillen, wat het leerplan besliste en wat open blijft, staat in de [README van de bron](<../../../cursussen/Grafen/README.md>).
 
 | Hoofdstuk | Bestand | Leerplan | Status |
 |---|---|---|---|
-| 1. Een graaf als model | `hoofdstukken/01-graaf-als-model.tex` | K2-K3 | eerste versie, nog na te lezen |
-| 2. Problemen oplossen met grafen | `hoofdstukken/02-problemen-oplossen.tex` | K2-K3 | eerste versie, nog na te lezen |
+| 1. Een graaf als model | `hoofdstukken/01-graaf-als-model.tex` | K2, K3 (graden); bewijzen: LPD B1 | eerste versie, getoetst aan het leerplan, nog na te lezen |
+| 2. Problemen oplossen met grafen | `hoofdstukken/02-problemen-oplossen.tex` | K2 (wandeling, pad, samenhangend), K3 (Euler, Dijkstra); bewijzen: LPD B1 | eerste versie, getoetst aan het leerplan, nog na te lezen |
 
-Welk deel van K2-K3 bij welk hoofdstuk hoort, is nog na te kijken in het leerplan.
+Wat uit K2 en wat uit K3 komt, en welke probleemtypes uit de wenk bij K3 gekozen zijn, staat in de README van de bron.
 
 ## PDF's
 
@@ -32,4 +32,4 @@ De oefeningen staan in `oefeningen/*.yaml` van de bron, per hoofdstuk. Een hoofd
 
 ## Controle
 
-De antwoorden zijn nagerekend met Python (eulerpaden en kortste paden met brute force). Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas.
+De antwoorden zijn nagerekend met Python (de soorten wandelingen, en eulersporen en kortste paden met brute force). Niet getest: de afdruk op de schoolkopieerder en het gebruik in de klas.
