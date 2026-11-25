@@ -216,7 +216,7 @@ Ze kiest de mediaan en de interkwartielafstand: \textit{De helft van de leerling
 %========================================================================================
 \section{Misleidende grafieken}
 
-Een grafiek kan juiste getallen tonen en toch een verkeerde indruk geven. Soms is dat een vergissing, soms is het de bedoeling. Wie een grafiek leest, moet dus weten waar hij op moet letten. We bekijken de meest gebruikte trucs, te beginnen met het probleem.
+Een grafiek kan juiste getallen tonen en toch een verkeerde indruk geven. Soms is dat een vergissing, soms is het de bedoeling. Wie een grafiek leest, moet dus weten waar hij op moet letten. We bekijken de meest gebruikte trucs.
 
 \lkr{Laat leerlingen een misleidende grafiek uit een krant, een reclame of sociale media meebrengen, en bespreek ze met de werkwijze om een grafiek kritisch te lezen. Opdracht~\ref{oef:h3-o20}, waarin ze zelf een misleidende en een eerlijke grafiek maken, kan een groepsopdracht worden.}
 
@@ -224,7 +224,24 @@ Een grafiek kan juiste getallen tonen en toch een verkeerde indruk geven. Soms i
 
 In een staafdiagram vergelijk je de lengte van de staven. Begint de verticale as niet bij 0, dan zijn de lengtes niet meer evenredig met de getallen: een klein verschil lijkt groot.
 
-\voorbeeld{}{Terug naar het probleem. Hoeveel keer zo hoog lijkt de staaf van 2024 in grafiek 1 als die van 2019? Hoeveel is het aantal fietsers echt gestegen? Wie heeft gelijk?\label{vb:h3-terug}}{%
+\voorbeeld{}{Terug naar het probleem. Een gemeente telt elk jaar hoeveel fietsers er gemiddeld per dag door de hoofdstraat rijden: 1820 in 2019, 1850 in 2020, 1870 in 2021, 1890 in 2022, 1910 in 2023 en 1960 in 2024. Het gemeentebestuur toont grafiek 1 en zegt: \textit{Het aantal fietsers is spectaculair gestegen.} De oppositie toont grafiek 2 en zegt: \textit{Het aantal fietsers is nauwelijks veranderd.}
+
+\figuren{\begin{tikzpicture}[x=.72cm,y=.02cm,font=\scriptsize]
+  \foreach \t in {50,100,150}{\draw[black!12] (-.6,\t) -- (5.6,\t); \pgfmathtruncatemacro{\l}{1800+\t}\node[left] at (-.6,\t) {\l};}
+  \node[left] at (-.6,0) {1800};
+  \draw[->,grijs] (-.6,0) -- (-.6,185);
+  \draw[grijs] (-.6,0) -- (5.6,0);
+  \foreach \v [count=\i from 0] in {1820,1850,1870,1890,1910,1960}{\staaf{\i}{\v-1800}{.55} \pgfmathtruncatemacro{\j}{2019+\i}\node[below] at (\i,0) {\j};}
+  \node at (2.5,-30) {grafiek 1};
+\end{tikzpicture}\qquad\qquad
+\begin{tikzpicture}[x=.72cm,y=.0016cm,font=\scriptsize]
+  \frequentieas[fietsers per dag]{500}{2000}{-.6}{5.6}
+  \node[left] at (-.6,0) {0};
+  \foreach \v [count=\i from 0] in {1820,1850,1870,1890,1910,1960}{\staaf{\i}{\v}{.55} \pgfmathtruncatemacro{\j}{2019+\i}\node[below] at (\i,0) {\j};}
+  \node at (2.5,-375) {grafiek 2};
+\end{tikzpicture}}
+
+Hoeveel keer zo hoog lijkt de staaf van 2024 in grafiek 1 als die van 2019? Hoeveel is het aantal fietsers echt gestegen? Wie heeft gelijk?\label{vb:h3-terug}}{%
 \uitleg{In grafiek 1 begint de as bij 1800. We vergelijken de lengte van de staven met de echte getallen.}
 \begin{stappenbreed}
 \text{grafiek 1: } \dfrac{1960 - 1800}{1820 - 1800} = \dfrac{160}{20} = 8 & De staaf van 2024 is 8 keer zo lang. \\[2ex]

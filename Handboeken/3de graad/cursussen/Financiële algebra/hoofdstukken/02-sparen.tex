@@ -37,7 +37,7 @@ Wie spaart, stort meestal niet één keer een groot bedrag, maar elke maand een 
 
 \subsection{Gelijke bedragen op gelijke tijdstippen}
 
-Mila's grootouders storten elke maand hetzelfde bedrag. Een huurder betaalt elke maand dezelfde huur, een werknemer krijgt elke maand hetzelfde loon, een lener betaalt elke maand dezelfde aflossing. Telkens gaat het om een rij gelijke bedragen, op gelijke afstanden in de tijd. Het verschil zit in het moment: de huur betaal je aan het begin van de maand, het loon krijg je op het einde.
+Wie spaart, stort vaak elke maand hetzelfde bedrag. Een huurder betaalt elke maand dezelfde huur, een werknemer krijgt elke maand hetzelfde loon, een lener betaalt elke maand dezelfde aflossing. Telkens gaat het om een rij gelijke bedragen, op gelijke afstanden in de tijd. Het verschil zit in het moment: de huur betaal je aan het begin van de maand, het loon krijg je op het einde.
 
 \begin{theorie}
 Een \textbf{\textcolor{accent}{annuïteit}} is een rij van $n$ gelijke bedragen $a$, het \textbf{\textcolor{accent}{termijnbedrag}}, die betaald worden met gelijke tussenperiodes. De annuïteit is
@@ -276,28 +276,26 @@ De formule geeft alleen het eindresultaat. Wil je zien hoe het saldo groeit, dan
 \[
 S_k = (S_{k-1} + a) \cdot u .
 \]
-Dat is een recursievergelijking zoals in de cursus Differentiaalvergelijkingen (hoofdstuk 1), en ze past perfect in een rekenblad. Zet de maandrente in een vaste cel, en laat elke rij de vorige gebruiken. Voor het probleem van Mila (met het termijnbedrag uit het volgende voorbeeld) ziet dat er zo uit:
+Dat is een recursievergelijking zoals in de cursus Differentiaalvergelijkingen (hoofdstuk 1), en ze past perfect in een rekenblad. Zet de maandrente in een vaste cel, en laat elke rij de vorige gebruiken. Stort je aan het begin van elke maand \eur 100 aan 3\,\% per jaar, dan ziet dat er zo uit:
 
 \begin{rekenblad}{3}{A & B & C}
-1 & maandrente & 0,001978 & \\ \hline
-2 & storting & 55,62 & \\ \hline
+1 & maandrente & 0,002466 & \\ \hline
+2 & storting & 100,00 & \\ \hline
 3 & maand & saldo & formule in C5 \\ \hline
 4 & 0 & 0,00 & \\ \hline
-5 & 1 & 55,73 & \texttt{=(B4+\$B\$2)*(1+\$B\$1)} \\ \hline
-6 & 2 & 111,57 & \\ \hline
-7 & 3 & 167,52 & \\ \hline
+5 & 1 & 100,25 & \texttt{=(B4+\$B\$2)*(1+\$B\$1)} \\ \hline
+6 & 2 & 200,74 & \\ \hline
+7 & 3 & 301,48 & \\ \hline
 \end{rekenblad}
 
-De dollartekens houden de verwijzing naar de rentevoet en het termijnbedrag vast als je de formule naar beneden kopieert. Op rij 220 (maand 216) staat dan de eindwaarde. Zo zie je ook dat de formule van de eindwaarde en de recursie hetzelfde geven: werk de recursie uit, en je krijgt $S_n = a\,u + a\,u^2 + \cdots + a\,u^n$.
+De dollartekens houden de verwijzing naar de rentevoet en het termijnbedrag vast als je de formule naar beneden kopieert. Op rij 64 (maand 60) staat dan het saldo na 5 jaar: \eur 6474,02. Zo zie je ook dat de formule van de eindwaarde en de recursie hetzelfde geven: werk de recursie uit, en je krijgt $S_n = a\,u + a\,u^2 + \cdots + a\,u^n$.
 
 \begin{oefeningen}
 \oef{h2-recursie}
 \end{oefeningen}
 
 \needspace{18\baselineskip}
-Nu kunnen we het probleem van Mila oplossen.
-
-\voorbeeld{}{Terug naar het probleem. De grootouders storten aan het begin van elke maand, vanaf de geboorte tot een maand voor de 18de verjaardag, aan 2,4\,\% per jaar. Hoeveel per maand voor \eur 15\,000? Hoeveel is rente? Hoeveel per maand als ze beginnen als Mila 6 jaar is?\label{vb:h2-terug}}{%
+\voorbeeld{}{Terug naar het probleem. Bij de geboorte van Mila openen haar grootouders een spaarrekening. Ze storten aan het begin van elke maand hetzelfde bedrag, de eerste keer op de dag van haar geboorte, de laatste keer een maand voor haar 18de verjaardag. Op die verjaardag moet er \eur 15\,000 op de rekening staan. De rekening brengt 2,4\,\% per jaar op. Hoeveel moeten ze per maand storten? Hoeveel van de \eur 15\,000 is dan rente? En hoeveel moeten ze per maand storten als ze pas beginnen als Mila 6 jaar is?\label{vb:h2-terug}}{%
 \uitleg{De stortingen vallen aan het begin van elke maand, en de laatste valt een maand voor de verjaardag: een prenumerando annuïteit met $n = 18 \cdot 12 = 216$, waarvan de eindwaarde precies op de verjaardag valt.}
 \begin{stappen}
 \im = 1{,}024^{\frac1{12}} - 1 \approx 0{,}001\,978 & De maandrente. \\[1ex]

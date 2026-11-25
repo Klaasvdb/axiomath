@@ -33,7 +33,7 @@ In dit hoofdstuk geven we al die verzamelingen één naam: een \textit{vectorrui
 \oef{h1-verken}
 \end{oefeningen}
 
-\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen zien dat de som van twee rijen met de recursie van Fibonacci weer zo'n rij is, net als een veelvoud. Dat is het kenmerk van een deelruimte (sectie 2). Vraag d geeft de vergelijking $q^2 = q + 1$, die het probleem op het einde van het hoofdstuk oplost.}
+\lkr{Laat oefening \ref{oef:h1-verken} maken vóór de uitleg. De leerlingen zien dat de som van twee rijen met dezelfde recursie weer zo'n rij is, net als een veelvoud. Dat is het kenmerk van een deelruimte (sectie 2). Vraag d geeft de meetkundige rijen met $q = 3$ en $q = -1$; op het einde van het hoofdstuk lost dezelfde aanpak het probleem op.}
 
 %========================================================================================
 \section{Wat is een vectorruimte?}
@@ -492,10 +492,8 @@ In hoofdstuk 2 leer je dit sneller nagaan met de rang van een matrix.
 
 \subsection{Terug naar het probleem}
 
-Nu hebben we alles om de formule voor de rij van Fibonacci te vinden. De rijen $(u_0, u_1, u_2, \ldots)$ vormen een vectorruimte. Het idee: de rijen met de recursie van Fibonacci vormen daarin een deelruimte. Vinden we een paar eenvoudige rijen in die deelruimte, dan liggen ook al hun lineaire combinaties erin, en misschien is de rij van Fibonacci er een van.
-
-\voorbeeld{}{Terug naar het probleem. Zoek een formule voor de $n$-de term van de rij van Fibonacci: $u_0 = 0$, $u_1 = 1$ en $u_{n+2} = u_{n+1} + u_n$.\label{vb:h1-terug}}{%
-\uitleg{We noemen $F$ de verzameling van alle rijen met $u_{n+2} = u_{n+1} + u_n$ voor elke $n$. We tonen dat $F$ een deelruimte is, zoeken meetkundige rijen in $F$, en combineren ze.}
+\voorbeeld{}{Terug naar het probleem. De rij van Fibonacci begint met 0 en 1, en elke volgende term is de som van de twee vorige: $0, 1, 1, 2, 3, 5, 8, 13, \ldots$, dus $u_0 = 0$, $u_1 = 1$ en $u_{n+2} = u_{n+1} + u_n$. Wil je $u_{100}$ kennen, dan moet je zo alle 99 termen ervoor uitrekenen. Bij een meetkundige rij is er een formule: $u_n = u_0 \cdot q^n$. Geen enkele meetkundige rij begint met 0 en 1. Zoek toch een formule voor de $n$-de term van de rij van Fibonacci.\label{vb:h1-terug}}{%
+\uitleg{De rijen $(u_0, u_1, u_2, \ldots)$ vormen een vectorruimte. We noemen $F$ de verzameling van alle rijen met $u_{n+2} = u_{n+1} + u_n$ voor elke $n$. Het idee: is $F$ een deelruimte en vinden we er een paar eenvoudige rijen in, dan liggen ook al hun lineaire combinaties erin, en misschien is de rij van Fibonacci er een van. We tonen dus dat $F$ een deelruimte is, zoeken meetkundige rijen in $F$, en combineren ze.}
 \begin{stappenbreed}
 u_{n+2} + v_{n+2} = (u_{n+1} + v_{n+1}) + (u_n + v_n) & De som van twee rijen van $F$ ligt in $F$. Net zo voor $r$ maal een rij, en de nulrij ligt in $F$: een deelruimte. \\[1ex]
 q^{n+2} = q^{n+1} + q^n \iff q^2 = q + 1 & De meetkundige rij $(1, q, q^2, \ldots)$ ligt in $F$: deel door $q^n$, met $q \neq 0$. \\[1ex]
@@ -507,7 +505,7 @@ u_n = \frac{1}{\sqrt5}\left(\varphi^n - \psi^n\right) & Met $a = \frac{1}{\sqrt5
 \end{stappenbreed}
 Deze rij ligt in $F$ en begint met 0 en 1, net als de rij van Fibonacci. Twee rijen van $F$ met dezelfde eerste twee termen zijn gelijk: elke volgende term ligt vast door de twee vorige. Dus is dit de rij van Fibonacci. Controle: $u_2 = \frac{1}{\sqrt5}(\varphi^2 - \psi^2) = \frac{1}{\sqrt5}(\varphi + \psi)(\varphi - \psi) = 1 \cdot 1 = 1$.}
 
-Dit is de formule van Binet (1843), al eerder gekend door De Moivre. Ze verklaart ook de figuur van het probleem. Omdat $|\psi| \approx 0{,}618 < 1$, wordt $\psi^n$ snel heel klein: $u_n$ ligt dicht bij $\frac{1}{\sqrt5}\varphi^n$, de gestippelde kromme. Zo is $u_{100}$ het gehele getal het dichtst bij $\frac{1}{\sqrt5}\varphi^{100} \approx 3{,}54 \cdot 10^{20}$. Het getal $\varphi \approx 1{,}618$ is de gulden snede.
+Dit is de formule van Binet (1843), al eerder gekend door De Moivre. Omdat $|\psi| \approx 0{,}618 < 1$, wordt $\psi^n$ snel heel klein: $u_n$ ligt dicht bij $\frac{1}{\sqrt5}\varphi^n$. Daarom liggen de termen van de rij bijna op een exponentiële kromme. Zo is $u_{100}$ het gehele getal het dichtst bij $\frac{1}{\sqrt5}\varphi^{100} \approx 3{,}54 \cdot 10^{20}$. Het getal $\varphi \approx 1{,}618$ is de gulden snede.
 
 Waarom lukte het met twee meetkundige rijen? Een rij van $F$ ligt vast door twee getallen, $u_0$ en $u_1$, en met twee coëfficiënten $a$ en $b$ kon je die twee getallen kiezen. In hoofdstuk 2 maken we dat precies: $F$ heeft \textit{dimensie} 2.
 

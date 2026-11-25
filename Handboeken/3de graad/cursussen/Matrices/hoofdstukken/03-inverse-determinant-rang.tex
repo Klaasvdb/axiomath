@@ -24,12 +24,6 @@ Arno ontvangt de code \ 46 17 49 18 92 35. Welk woord stuurde Lien? En Lien stel
 \begin{alleenvoor}{4}
 \lkr{Leerplan B+S'': LPD 36 (de rang van matrices, de inverse van inverteerbare matrices en de determinant van vierkante matrices), met de wenken: de inverse via $[M \,|\, I] \to [I \,|\, M^{-1}]$, de determinant ingeleid met de inverse van een $2 \times 2$-matrix, ontwikkelen naar een rij of kolom en de regel van Sarrus, en het verband tussen rang, inverteerbaarheid, determinant en stelsels. De regel van Cramer (wenk bij LPD 37) staat bij de determinant. Grote berekeningen mogen met het rekentoestel.}
 \end{alleenvoor}
-\begin{alleenvoor}{3}
-\lkr{Leerplan B+S': LPD 26-28 (matrices), met de wenken: de inverse via $[M \,|\, I] \to [I \,|\, M^{-1}]$, de determinant ingeleid met de inverse van een $2 \times 2$-matrix, ontwikkelen naar een rij of kolom en de regel van Sarrus, en het verband tussen rang, inverteerbaarheid, determinant en stelsels. De regel van Cramer (wenk bij LPD 37) staat bij de determinant. Grote berekeningen mogen met het rekentoestel.}
-\end{alleenvoor}
-\begin{alleenvoor}{2}
-\lkr{Leerplan B+S: LPD 25-27 (matrices), met de wenken: de inverse via $[M \,|\, I] \to [I \,|\, M^{-1}]$, de determinant ingeleid met de inverse van een $2 \times 2$-matrix, ontwikkelen naar een rij of kolom en de regel van Sarrus, en het verband tussen rang, inverteerbaarheid, determinant en stelsels. De regel van Cramer (wenk bij LPD 37) staat bij de determinant. Grote berekeningen mogen met het rekentoestel.}
-\end{alleenvoor}
 
 Om de code te lezen, moet Arno de vermenigvuldiging met $K$ ongedaan maken. Bij getallen is dat eenvoudig: een vergelijking $3x = 12$ los je op door beide leden met $\frac13$ te vermenigvuldigen, het omgekeerde van 3. Kan dat ook met een matrixvergelijking $AX = B$? Delen door een matrix bestaat niet, maar soms is er een matrix die de rol van $\frac13$ speelt: de inverse. In dit hoofdstuk leer je wanneer die bestaat en hoe je ze berekent. Een enkel getal, de determinant, zegt meteen of ze bestaat: zo zie je ook of de nieuwe sleutel van Lien deugt. En de rang telt hoeveel echt verschillende vergelijkingen er in een stelsel zitten.
 
@@ -46,9 +40,9 @@ Om de code te lezen, moet Arno de vermenigvuldiging met $K$ ongedaan maken. Bij 
 
 \subsection{Definitie}
 
-Arno kan elke kolom van de code apart oplossen als een stelsel. Voor 46 17 zoekt hij de letters $a$ en $b$ met $3a + 5b = 46$ en $a + 2b = 17$, en met de methode van Gauss-Jordan vindt hij $a = 7$ en $b = 5$. Maar voor elke kolom opnieuw rijherleiden is omslachtig, terwijl de coëfficiënten telkens dezelfde zijn. Beter is één matrix $L$ die de vermenigvuldiging met $K$ in één keer ongedaan maakt. Is $LK = I$, dan is
-\[ L(KX) = (LK)X = IX = X , \]
-en vind je elke kolom $X$ van het bericht terug als $L$ maal de code. Zo'n matrix zoeken we.
+Hoe maak je een vermenigvuldiging met een matrix ongedaan? Stel dat een matrix $A$ een kolom $X$ met de getallen $a$ en $b$ omzet in de kolom $AX$ met $2a + b$ en $a + b$. Krijg je 11 en 7, dan los je het stelsel $2a + b = 11$, $a + b = 7$ op, en vind je $a = 4$ en $b = 3$. Maar voor elke nieuwe kolom opnieuw rijherleiden is omslachtig, terwijl de coëfficiënten telkens dezelfde zijn. Beter is één matrix $L$ die de vermenigvuldiging met $A$ in één keer ongedaan maakt. Is $LA = I$, dan is
+\[ L(AX) = (LA)X = IX = X , \]
+en vind je elke kolom $X$ terug als $L$ maal $AX$. Zo'n matrix zoeken we.
 
 Bij getallen is $\frac13$ het omgekeerde van 3, omdat $3 \cdot \frac13 = 1$. Bij matrices speelt de eenheidsmatrix $I$ de rol van 1. Omdat het product van matrices niet commutatief is, eisen we dat het in beide volgordes lukt.
 
@@ -241,9 +235,7 @@ A^{-1} = \frac{1}{-5}\begin{bmatrix} -1 & -1 \\ -2 & 3 \end{bmatrix} = \begin{bm
 \oef{h3-inverse2k}
 \end{oefeningen}
 
-Met de formule voor de inverse en de determinant kun je nu de code van Lien en Arno kraken, en hun nieuwe sleutel beoordelen.
-
-\voorbeeld{}{Terug naar het probleem. Ontcijfer de code 46 17 49 18 92 35, gemaakt met de sleutel $K = \km{3 & 5 \\ 1 & 2}$. Is $\km{2 & 4 \\ 1 & 2}$ een goede sleutel?\label{vb:h3-terug}}{%
+\voorbeeld{}{Terug naar het probleem. Lien en Arno sturen elkaar geheime berichten. Ze vervangen elke letter door haar plaats in het alfabet: A~=~1, B~=~2, \ldots, Z~=~26. Die getallen zetten ze per twee in een kolom, en elke kolom vermenigvuldigen ze met de sleutel $K = \km{3 & 5 \\ 1 & 2}$. Zo wordt OK, dat is $\km{15 \\ 11}$, de code 100 37. Arno ontvangt de code \ 46 17 49 18 92 35. Welk woord stuurde Lien? En Lien stelt voor om voortaan de sleutel $\km{2 & 4 \\ 1 & 2}$ te gebruiken. Is dat een goed idee?\label{vb:h3-terug}}{%
 \uitleg{Elke kolom $X$ van het bericht werd $KX$. Is $K$ inverteerbaar, dan is $X = K^{-1}(KX)$. We zetten de drie kolommen van de code naast elkaar in één matrix: zo vinden we het hele bericht met één product.}
 \begin{stappenbreed}
 \det K = 3 \cdot 2 - 5 \cdot 1 = 1 & Niet 0: $K$ is inverteerbaar. \\[1ex]
@@ -255,7 +247,7 @@ K^{-1} \begin{bmatrix} 46 & 49 & 92 \\ 17 & 18 & 35 \end{bmatrix} = \begin{bmatr
 \end{stappenbreed}
 De nieuwe sleutel is dus geen goed idee. Ontvangt Arno 18 9, dan weet hij niet of Lien AD of GA bedoelde: de vermenigvuldiging is niet ongedaan te maken. De oude sleutel is extra handig: met $\det K = 1$ heeft de inverse alleen gehele getallen.}
 
-Zo is het probleem opgelost: een sleutel werkt alleen als haar determinant niet 0 is. Dit soort geheimschrift beschreef de Amerikaanse wiskundige Lester Hill in 1929. Echte versies rekenen bovendien met resten na deling door 26, zodat de code opnieuw letters geeft.
+Een sleutel werkt dus alleen als haar determinant niet 0 is. Dit soort geheimschrift beschreef de Amerikaanse wiskundige Lester Hill in 1929. Echte versies rekenen bovendien met resten na deling door 26, zodat de code opnieuw letters geeft.
 
 \subsection{De determinant van een \texorpdfstring{$3 \times 3$}{3x3}-matrix}
 
@@ -660,9 +652,6 @@ Een vierkante matrix is dus ofwel \textit{goed}: rang $n$, inverteerbaar, determ
 
 \begin{alleenvoor}{3,4}
 \lkr{Coördinaten en de oppervlakte van een driehoek kennen de leerlingen uit de 2de graad. Complexe getallen staat in hetzelfde jaar als deze cursus: kijk na of die cursus al gezien is.}
-\end{alleenvoor}
-\begin{alleenvoor}{2}
-\lkr{Coördinaten en de oppervlakte van een driehoek kennen de leerlingen uit de 2de graad.}
 \end{alleenvoor}
 
 \begin{oefeningen}
