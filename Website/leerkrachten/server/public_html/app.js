@@ -46,6 +46,7 @@ const ICONEN = {
   breed: '<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>',
   kopie: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V4h12"/>',
   kruis: '<path d="M6 6l12 12M18 6L6 18"/>',
+  greep: '<circle cx="9" cy="6" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/>',
 };
 const icoon = (naam) => h("span", { "aria-hidden": "true", style: { display: "inline-grid" },
   html: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONEN[naam]}</svg>` });
@@ -676,7 +677,9 @@ async function toonKast() {
         h("p", { class: "pakket-sub" }, pakketRichtingen(p)),
         p.op_aanvraag ? interesse() : null,
         h("a", { class: "voortgang", href: "#/voortgang", title: `${Math.round(pct)} % klaar: bekijk de voortgang` }, h("i", { style: { width: pct + "%" } })),
-        h("div", { class: "kast" }, lijst.map((b) => boekKaart(b))))].filter(Boolean);
+        h("div", { class: "kast" }, lijst.flatMap((b, i) => [  // een lijntje vóór de eerste van Extra
+          b.rubriek === "Extra" && i && lijst[i - 1].rubriek !== "Extra" ? h("hr", { class: "kast-scheiding", "aria-hidden": "true" }) : null,
+          boekKaart(b)]).filter(Boolean)))].filter(Boolean);
     }));
     if (!kasten.querySelector(".pakket")) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
@@ -715,7 +718,7 @@ async function toonKast() {
         lijstje((x.verplicht || [])).length ? h("ul", { class: "los" }, lijstje(x.verplicht)) : null),
       ...[blok("Keuze", "Keuzedoelen of een optiepakket: je school beslist of ze aan bod komen.", x.keuze),
         blok("Uitbreiding", "Verder dan het leerplan, voor wie meer lesuren heeft of meer wil.", x.uitbreiding),
-        blok("Extra", "Oefenbundels met de rekenvaardigheden van het jaar: geen leerstof, wel om in te oefenen of bij te werken.", x.extra)].filter(Boolean));  // replaceChildren maakt van null de tekst "null"
+        blok("Extra", "Geen verplichte leerstof: handboeken met uitbreidende leerstof (bv. KOV Complementair, voor wie meer lesuren heeft) en oefenbundels met de rekenvaardigheden van het jaar.", x.extra)].filter(Boolean));  // replaceChildren maakt van null de tekst "null"
     if (!eerst && !x.opmerking) kasten.append(h("p", { class: "leeg" }, "Geen handboek gevonden."));
   };
 
@@ -879,7 +882,10 @@ async function toonBoek(sleutel) {
   scherm("boeken",
     h("p", { style: { marginBottom: "18px" } }, h("a", { href: "#/", class: "knop-tekst", style: { paddingLeft: 0 } }, "← Alle handboeken")),
     h("div", { class: `boekkop ${rubriekKlasse(b)}` },
-      b.omslag ? h("div", { class: "omslag" }, h("img", { src: b.omslag, alt: `Voorkant van ${b.titel}` })) : h("div", { class: "boek" }, h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"))),
+      // de voorkant opent altijd de editie 'handboek' in de lezer (zolang die er is)
+      b.omslag ? (() => { const e = b.edities.find((x) => x.editie === "handboek");
+        const img = h("img", { src: b.omslag, alt: `Voorkant van ${b.titel}` });
+        return e ? h("a", { class: "omslag", href: `#/lees/${e.hash}`, title: "Lees het handboek" }, img) : h("div", { class: "omslag" }, img); })() : h("div", { class: "boek" }, h("div", { class: "omslag geen" }, h("b", {}, b.titel), h("span", {}, "Nog geen PDF"))),
       h("div", {},
         b.rubriek && h("div", { class: "boek" }, h("span", { class: `rubriek` }, b.rubriek)),
         h("h1", {}, b.titel),
@@ -892,7 +898,7 @@ async function toonBoek(sleutel) {
             const lijst = (xs) => xs.length ? xs.join(", ") : "geen";
             return [h("dt", {}, "Koepel"), h("dd", {}, koepelNaam(), " · ", h("a", { href: "#/" }, "kies een andere")),
               h("dt", {}, "Richtingen"), h("dd", {}, lijst(r.verplicht.length ? r.verplicht : r.extra)),
-              r.extra.length && !r.verplicht.length ? [h("dt", {}, "Soort"), h("dd", {}, "Extra: een oefenbundel bij het pakket, geen verplichte leerstof")] : null,
+              r.extra.length && !r.verplicht.length ? [h("dt", {}, "Soort"), h("dd", {}, b.sleutel.includes("Kernvaardigheden") ? "Extra: een oefenbundel bij het pakket, geen verplichte leerstof" : "Extra: uitbreidende leerstof bij het pakket, geen verplichte leerstof")] : null,
               r.keuze.length ? [h("dt", {}, "Als keuze"), h("dd", {}, lijst(r.keuze))] : null,
               r.uitbreiding.length ? [h("dt", {}, "Als uitbreiding"), h("dd", {}, lijst(r.uitbreiding))] : null,
               r.uren.size ? [h("dt", {}, "Uren"), h("dd", {}, [...r.uren].join("; "))] : null];
@@ -1294,46 +1300,264 @@ async function toonMijn() {
 }
 
 // --- over Axiomath: de visie, ook zonder account ----------------------------------------------------
-function toonOver() {
+/* Visueel: een grafiek die zichzelf tekent (met een raaklijn die over de kromme glijdt), cijfers die optellen, de
+   oefeningenbank als bron van alles, en grafiekjes uit de lijst met handboeken: per pakket, per rubriek en de voortgang.
+   Wat met .onthul gemerkt is, verschijnt bij het scrollen (.in). Met prefers-reduced-motion staat alles meteen op zijn plaats. */
+const svg = (tag, attrs, ...kinderen) => {
+  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for (const [k, v] of Object.entries(attrs || {})) if (v != null) el.setAttribute(k, v);
+  for (const k of kinderen.flat(Infinity)) if (k != null && k !== false) el.append(k instanceof Node ? k : document.createTextNode(String(k)));
+  return el;
+};
+const rustig = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function heldGrafiek() {
+  const kromme = "M24 168 C 70 168, 92 52, 146 58 S 222 150, 262 120 S 300 44, 316 34";
+  const raak = svg("g", { class: "raak" }, svg("line", { x1: -44, y1: 0, x2: 44, y2: 0 }), svg("circle", { r: 5.5 }));
+  if (rustig()) raak.setAttribute("transform", "translate(146 58)");
+  else raak.append(svg("animateMotion", { dur: "8s", begin: "1.4s", repeatCount: "indefinite", rotate: "auto", path: kromme,
+    keyPoints: "0;1;0", keyTimes: "0;.5;1", calcMode: "spline", keySplines: ".45 0 .55 1;.45 0 .55 1" }));
+  return svg("svg", { class: "held-grafiek", viewBox: "0 0 340 210", "aria-hidden": "true" },
+    svg("g", { class: "rooster" }, [50, 90, 130].map((y) => svg("line", { x1: 24, x2: 326, y1: y, y2: y })),
+      [84, 144, 204, 264].map((x) => svg("line", { x1: x, x2: x, y1: 18, y2: 186 }))),
+    svg("path", { class: "oppervlak", d: `${kromme} L316 186 L24 186 Z` }),
+    svg("g", { class: "assen" }, svg("path", { d: "M24 186 H330 M24 192 V12" }), svg("path", { d: "M325 181 L331 186 L325 191 M19 17 L24 11 L29 17" })),
+    svg("path", { class: "kromme", d: kromme, pathLength: 1 }),
+    raak,
+    svg("text", { class: "integraal", x: 168, y: 166 }, "∫ f(x) dx"));
+}
+
+// een getal dat optelt zodra het in beeld komt (telOp, vanuit onthul)
+const teller = (n, achter = "") => h("b", { class: "getal", "data-n": n, "data-achter": achter }, `${rustig() ? n : 0}${achter}`);
+function telOp(el) {
+  const n = +el.dataset.n, achter = el.dataset.achter, t0 = performance.now(), duur = 1200;
+  const stap = (t) => { const x = Math.min(1, (t - t0) / duur); el.textContent = `${Math.round(n * (1 - (1 - x) ** 3))}${achter}`; if (x < 1) requestAnimationFrame(stap); };
+  requestAnimationFrame(stap);
+}
+function onthul(wortel) {
+  const els = [...wortel.querySelectorAll(".onthul")];
+  if (rustig() || !("IntersectionObserver" in window)) return els.forEach((el) => el.classList.add("in"));
+  const io = new IntersectionObserver((xs) => xs.forEach((x) => {
+    if (!x.isIntersecting) return;
+    x.target.classList.add("in"); x.target.querySelectorAll(".getal[data-n]").forEach(telOp); io.unobserve(x.target);
+  }), { threshold: 0.15, rootMargin: "0px 0px -30px 0px" });
+  els.forEach((el) => io.observe(el));
+  S.opruimen.push(() => io.disconnect());
+}
+
+// de oefeningenbank voedt de handboeken, het leerplatform en de testen
+function ecosysteem() {
+  const versies = h("span", { class: "eco-versies", "aria-hidden": "true" }, ["Handboek", "Leerkracht", "Zelfstudie"].map((v, i) => h("i", { style: `--i:${i}` }, v[0])));
+  const doelen = [
+    ["Handboeken", "per leerplanpakket, als PDF in drie versies uit één bron: handboek, leerkrachtenversie en zelfstudie.", versies],
+    ["Online leerplatform", "voor thuis, met automatisch nakijken."],
+    ["Testen en oefenreeksen", "gedifferentieerd, uit dezelfde bank."]];
+  return h("div", { class: "eco onthul" },
+    h("div", { class: "eco-bron" },
+      h("span", { class: "eco-stapel", "aria-hidden": "true" }, [0, 1, 2].map((i) => h("i", { style: `--i:${i}` }))),
+      h("div", {}, h("b", {}, "Eén oefeningenbank"), h("span", {}, "Elke oefening heeft een vast nummer, een niveau, een antwoord en een uitwerking. Daarop steunt al de rest."))),
+    svg("svg", { class: "eco-stromen", viewBox: "0 0 300 56", preserveAspectRatio: "none", "aria-hidden": "true" },
+      ["M150 0 C150 30, 50 26, 50 56", "M150 0 L150 56", "M150 0 C150 30, 250 26, 250 56"].map((d) => svg("path", { d }))),
+    h("ol", { class: "eco-doelen" }, doelen.map(([t, u, x], i) => h("li", { class: "eco-doel", style: `--i:${i}` },
+      h("span", { class: "eco-nr" }, i + 1), h("b", {}, t), h("span", {}, u), x))));
+}
+
+// kolommen: het aantal handboeken per leerplanpakket, gegroepeerd per graad en finaliteit
+function pakketGrafiek(d) {
+  const groepen = [];
+  for (const p of d.pakketten) {
+    let g = groepen.at(-1);
+    if (!g || g.naam !== graadFin(p)) groepen.push(g = { naam: graadFin(p), pakketten: [] });
+    g.pakketten.push({ p, n: d.boeken.filter((b) => b.pakketid === p.id).length });
+  }
+  const max = Math.max(1, ...groepen.flatMap((g) => g.pakketten.map((x) => x.n)));
+  let k = 0;
+  return h("figure", { class: "grafiek onthul" },
+    h("figcaption", {}, h("b", {}, "Handboeken per leerplanpakket"), h("span", { class: "zacht" }, "Elke richting vindt de leerstof van haar eigen pakket.")),
+    h("div", { class: "kolommen" }, groepen.map((g) => h("div", { class: "kol-groep", style: `flex-grow:${Math.max(g.pakketten.length, 1.8)}`, title: g.naam },
+      h("div", { class: "kol-rij" }, g.pakketten.map(({ p, n }) => h("div", {
+        class: "kol", tabindex: "0", style: `--h:${(n / max) * 100};--i:${k++}`,
+        "aria-label": `Pakket ${p.nr}, ${p.kort || p.naam}: ${n} handboeken`, "data-tip": `${p.nr} · ${p.kort || p.naam}: ${n} ${n === 1 ? "handboek" : "handboeken"}${p.op_aanvraag ? " (op aanvraag)" : ""}` },
+        h("span", { class: "kol-staaf" }, h("span", { class: "kol-getal" }, n), h("i")), h("span", { class: "kol-nr" }, p.nr)))),
+      h("span", { class: "kol-groep-naam" }, `${g.pakketten[0].p.graad}de graad`, h("br"), { D: "doorstroom", DA: "D/A", A: "A" }[finaliteit(g.pakketten[0].p)])))));
+}
+
+// een ring: de handboeken per rubriek, in de rubriekkleuren van de voorkanten
+function rubriekGrafiek(d) {
+  const RUBRIEKEN = [["Analyse", "analyse"], ["Algebra", "algebra"], ["Meetkunde", "meetkunde"], ["Discrete wiskunde", "discreet"], ["Data en onzekerheid", "data"]];
+  const tel = RUBRIEKEN.map(([naam, kleur]) => ({ naam, kleur: `var(--r-${kleur})`, n: d.boeken.filter((b) => b.rubriek === naam).length }));
+  tel.push({ naam: "Extra en andere", kleur: "var(--zacht)", n: d.boeken.length - tel.reduce((s, x) => s + x.n, 0) });
+  const delen = tel.filter((x) => x.n);
+  const totaal = d.boeken.length || 1;
+  let start = 0;
+  const ring = svg("svg", { class: "ring", viewBox: "0 0 120 120", role: "img", "aria-label": delen.map((x) => `${x.naam}: ${x.n}`).join(", ") },
+    svg("circle", { class: "ring-spoor", cx: 60, cy: 60, r: 46, pathLength: 100 }),
+    delen.map((x, i) => {
+      const len = (x.n / totaal) * 100, c = svg("circle", { class: "ring-deel", cx: 60, cy: 60, r: 46, pathLength: 100,
+        style: `--len:${Math.max(0, len - 0.9)};--start:${-start};--i:${i};stroke:${x.kleur}` }, svg("title", {}, `${x.naam}: ${x.n} handboeken`));
+      start += len; return c;
+    }),
+    svg("text", { class: "ring-getal", x: 60, y: 60 }, d.boeken.length), svg("text", { class: "ring-sub", x: 60, y: 76 }, "handboeken"));
+  return h("figure", { class: "grafiek onthul" },
+    h("figcaption", {}, h("b", {}, "Per rubriek"), h("span", { class: "zacht" }, "Elk handboek hoort bij een rubriek van het leerplan.")),
+    h("div", { class: "ring-houder" }, ring,
+      h("ul", { class: "ring-legende" }, delen.map((x) => h("li", { style: `--c:${x.kleur}` }, h("i"), h("span", {}, x.naam), h("b", {}, x.n))))));
+}
+
+// gestapelde balken: hoeveel handboeken in welk stadium, per graad en finaliteit
+function voortgangGrafiek(d) {
+  const statussen = Object.keys(d.voortgang);
+  const pct = (lijst) => lijst.length ? lijst.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / lijst.length : 0;
+  const groepen = [...new Set(d.pakketten.map(graadFin))].map((naam) => ({ naam, boeken: d.boeken.filter((b) => graadFin(b) === naam) })).filter((g) => g.boeken.length);
+  const aanwezig = statussen.filter((s) => d.boeken.some((b) => b.status === s));
+  return h("figure", { class: "grafiek vg-grafiek onthul" },
+    h("div", { class: "stapels" }, groepen.map((g, i) => h("div", { class: "stapel-rij", style: `--i:${i}` },
+      h("span", { class: "stapel-naam" }, g.naam[0].toUpperCase() + g.naam.slice(1), h("span", { class: "zacht" }, ` · ${g.boeken.length}`)),
+      h("span", { class: "stapel" }, statussen.map((s) => {
+        const n = g.boeken.filter((b) => b.status === s).length;
+        return n ? h("i", { class: `vg-${s}`, style: `flex-grow:${n}`, tabindex: "0", "data-tip": `${n} ${statusNaam(s)}`, "aria-label": `${n} ${statusNaam(s)}` }) : null;
+      })),
+      h("b", { class: "stapel-pct" }, teller(Math.round(pct(g.boeken)), " %"))))),
+    h("div", { class: "stapel-legende" }, aanwezig.map(statusPil)));
+}
+
+/* Een boekenplank met echte voorkanten: om de paar seconden reikt een hand van linksboven, trekt een boek uit de plank,
+   toont het even en zet het terug. Alleen als de plank in beeld is en de pagina zichtbaar; niet met
+   prefers-reduced-motion. Een boek aanklikken opent het.
+   De hand: "Hand Grab Down" van j4p4n, publiek domein (https://openclipart.org/detail/318760/hand-grab-down),
+   met de binnenkant wit ingekleurd zodat ze ook op een donkere achtergrond leest (hand.webp). */
+const HAND_GREEP = [0.79, 0.91];  // waar duim en vingers het boek vastnemen, als deel van breedte en hoogte van het beeld
+function boekenplank(d) {
+  const metOmslag = d.boeken.filter((b) => omslagVan(b));
+  if (metOmslag.length < 6) return null;
+  // een greep uit de kast, telkens anders, verspreid over de rubrieken
+  const gekozen = [...metOmslag].sort(() => Math.random() - 0.5).slice(0, 16);
+  const boekjes = gekozen.map((b, i) => h("a", { class: "plank-boek", href: `#/boek/${sleutelUrl(b.sleutel)}`, style: `--i:${i}`, "aria-label": `${b.titel} openen`, "data-titel": `${b.titel} · ${pakketKort(b)}` },
+    h("img", { src: omslagVan(b), alt: "", loading: "lazy", draggable: "false" })));
+  const hand = h("img", { class: "plank-hand", src: "/hand.webp", alt: "", "aria-hidden": "true", draggable: "false" });
+  const label = h("p", { class: "plank-label", "aria-live": "off" }, "\u00A0");
+  const rij = h("div", { class: "plank-rij" }, boekjes);
+  const plank = h("div", { class: "plank onthul" }, h("div", { class: "plank-kast" }, rij, hand, h("div", { class: "plank-hout" })), label);
+  if (rustig()) return plank;
+
+  let zichtbaar = false, klok = null, vorige = -1, weg = false;
+  const pak = () => {
+    if (weg) return;
+    if (!zichtbaar || document.hidden) { klok = setTimeout(pak, 800); return; }
+    const kandidaten = boekjes.map((b, i) => i).filter((i) => i !== vorige && boekjes[i].offsetLeft + boekjes[i].offsetWidth <= rij.clientWidth);
+    const i = kandidaten[Math.floor(Math.random() * kandidaten.length)] ?? 0;
+    vorige = i;
+    const boek = boekjes[i], hoog = boek.offsetHeight, op = Math.round(hoog * 0.45);
+    hand.style.left = `${boek.offsetLeft + boek.offsetWidth / 2 - hand.offsetWidth * HAND_GREEP[0]}px`;
+    hand.style.top = `${boek.offsetTop + Math.min(14, hoog * 0.1) - hand.offsetHeight * HAND_GREEP[1]}px`;
+    const duur = 3600, gemak = "cubic-bezier(.45,0,.25,1)";
+    const stappen = (xs) => xs.map((x) => ({ easing: gemak, ...x }));  // de vertraging per stap, niet over het geheel
+    boek.classList.add("gepakt");
+    boek.animate(stappen([
+      { transform: "none" }, { transform: "none", offset: 0.2 },
+      { transform: `translateY(${-op}px) rotate(-5deg) scale(1.14)`, offset: 0.45 }, { transform: `translateY(${-op}px) rotate(-5deg) scale(1.14)`, offset: 0.7 },
+      { transform: "none", offset: 0.88 }, { transform: "none" }]), { duration: duur });
+    hand.animate(stappen([
+      { transform: "translate(-70px, -110px)", opacity: 0 }, { transform: "none", opacity: 1, offset: 0.2 },
+      { transform: `translateY(${-op}px)`, opacity: 1, offset: 0.45 }, { transform: `translateY(${-op}px)`, opacity: 1, offset: 0.7 },
+      { transform: "none", opacity: 1, offset: 0.88 }, { transform: "translate(-70px, -110px)", opacity: 0 }]), { duration: duur });
+    setTimeout(() => { label.textContent = boek.dataset.titel; label.classList.add("aan"); }, duur * 0.42);
+    setTimeout(() => label.classList.remove("aan"), duur * 0.8);
+    setTimeout(() => boek.classList.remove("gepakt"), duur);
+    klok = setTimeout(pak, duur + 900);
+  };
+  const io = new IntersectionObserver(([x]) => { zichtbaar = x.isIntersecting; }, { threshold: 0.4 });
+  io.observe(plank);
+  klok = setTimeout(pak, 1200);
+  S.opruimen.push(() => { weg = true; clearTimeout(klok); io.disconnect(); });
+  return plank;
+}
+
+async function toonOver() {
+  const d = await boeken().catch(() => null);
+  const meelezers = d ? await api("GET", "meelezers").then((x) => new Map(Object.entries(x.boeken || {}))).catch(() => null) : null;
   const extern = (href, tekst) => h("a", { href, target: "_blank", rel: "noopener" }, tekst);
-  const stap = (titel, tekst) => h("li", {}, h("b", {}, titel), " ", tekst);
+  const sectie = (titel, ...inhoud) => h("section", { class: "over-sectie onthul" }, h("h2", {}, titel), inhoud);
+  const gemiddeld = d?.boeken.length ? Math.round(d.boeken.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / d.boeken.length) : 0;
+  const tegel = (getal, tekst) => h("div", { class: "tegel" }, getal, h("span", {}, tekst));
+  const licentie = (code, titel, tekst) => h("div", { class: "licentie" }, h("span", { class: "licentie-code", "aria-hidden": "true" }, code), h("b", {}, titel), h("span", {}, tekst));
+
   scherm("over",
     h("article", { class: "over" },
-      h("p", { class: "bovenkop" }, "Over Axiomath"),
-      h("h1", {}, "Vrije handboeken wiskunde, door leerkrachten voor leerkrachten"),
-      h("p", { class: "lead" }, "Axiomath maakt handboeken wiskunde voor de 2de en 3de graad van het Vlaamse secundair onderwijs: de doorstroomfinaliteit en de dubbele finaliteit, en op aanvraag de arbeidsmarktfinaliteit. Ze zijn vrij en niet-commercieel, en de oefeningen zitten in een oefeningenbank: de bron voor de PDF's, een online oefenplatform, testen en gedifferentieerde oefenreeksen."),
-      h("p", { class: "naam" }, "De naam: ", h("i", {}, "axioma"), " + ", h("i", {}, "math"), ". Een axioma is wat je aanvaardt om te kunnen redeneren."),
-      h("h2", {}, "Waar we naartoe willen"),
-      h("p", {}, "Een geïntegreerd ecosysteem, volledig open:"),
-      h("ol", { class: "stappen" },
-        stap("Handboeken", "per leerplanpakket, als PDF in drie versies uit één bron: handboek, leerkrachtenversie en zelfstudie."),
-        stap("Een oefeningenbank.", "Elke oefening heeft een vast nummer, een niveau, een antwoord en een uitwerking. Daarop steunen de PDF's, de website en later de testen."),
-        stap("Een online leerplatform", "voor thuis, met automatisch nakijken."),
-        stap("Testen en gedifferentieerde oefenreeksen", "uit dezelfde bank.")),
-      h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/plannen" }, "Bekijk de plannen, met een voorproefje")),
-      h("h2", {}, "Vanuit de leerplandoelen"),
-      h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 2de en 3de graad. Er is een reeks handboeken per leerplanpakket: in de doorstroom van Basis tot B+S'', in de dubbele finaliteit van D/A Basis tot D/A B+S''. Zo vindt elke richting de leerstof van haar eigen pakket. Voor de arbeidsmarktfinaliteit (2de graad) maken we één handboek zodra er vraag naar is. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
-        extern(`${GITHUB}/blob/main/Handboeken/README.md`, "op GitHub"), "."),
-      h("p", {}, "De koepels bouwen allemaal op dezelfde doelen van de overheid, maar delen de richtingen soms anders in. Daarom kies je op de site ook je koepel: de leerplannen van het katholiek onderwijs (KOV) of van het GO!. Dan zie je per richting welke handboeken verplicht zijn, en apart wat keuze of uitbreiding is. Een PDF krijgt de voorkant van je koepel; de inhoud is dezelfde. Hoe de koepels verschillen, staat ",
-        extern(`${GITHUB}/blob/main/Ontwerp/koepels.md`, "op GitHub"), ". ",
-        h("button", { type: "button", class: "knop-tekst", style: { padding: 0 }, onclick: ovsgPov }, "Volgt je school OVSG of POV?")),
-      h("h2", {}, "Vrij en open"),
-      h("p", {}, "Je mag alles gebruiken, aanpassen en delen, zolang het niet commercieel is en je de bron vermeldt. De inhoud valt onder ",
-        extern("https://creativecommons.org/licenses/by-nc-sa/4.0/deed.nl", "CC BY-NC-SA 4.0"), ". Alle bronnen staan op GitHub: de LaTeX-bestanden van de handboeken, de oefeningenbank en de code van deze website."),
-      h("div", { class: "knoppen" },
-        h("a", { class: "knop", href: GITHUB, target: "_blank", rel: "noopener" }, "Axiomath op GitHub"),
-        h("a", { class: "knop licht", href: `${GITHUB}/blob/main/CONTRIBUTING.md`, target: "_blank", rel: "noopener" }, "Meewerken")),
-      KOFFIE ? [
-        h("p", {}, "Axiomath is gratis en blijft dat, voor iedereen. De handboeken ontstaan in vrije uren, en de website en het domein kosten een klein bedrag per jaar. Heb je iets aan Axiomath en wil je dat laten weten? Met een koffie help je de site in de lucht te houden en de handboeken verder te schrijven. Helemaal vrijblijvend: nalezen en feedback geven helpt evenveel."),
-        h("div", { class: "knoppen" }, h("a", { class: "knop licht", href: KOFFIE, target: "_blank", rel: "noopener" }, "☕ Koop mij een koffie"))] : null,
-      h("h2", {}, "Als app op je gsm"),
-      alsApp()
-        ? h("p", {}, "Je gebruikt Axiomath nu als app. Ze toont altijd de nieuwste versie van de handboeken.")
-        : [h("p", {}, "Zet Axiomath op het beginscherm van je gsm of tablet. Dan open je de handboeken met één tik, schermvullend, zoals een app. Je hebt geen appwinkel nodig, en de app is altijd bijgewerkt."),
-          h("div", { class: "knoppen" }, h("button", { class: "knop licht", type: "button", onclick: installeer }, "Zet op je beginscherm"))],
-      h("h2", {}, "Lees mee"),
-      h("p", {}, "Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze na (zie ", h("a", { href: "#/voortgang" }, "de voortgang"), "). Lees een handboek en zeg wat beter kan: op een plek in het boek, over een heel handboek of over het idee zelf. ",
-        S.ik ? [h("a", { href: "#/algemeen" }, "Geef algemene feedback"), "."] : [h("a", { href: "#/aanmelden" }, "Meld je aan"), " als leerkracht, of bekijk ", h("a", { href: "#/" }, "de handboeken"), "."])));
+      h("header", { class: "over-held onthul" },
+        h("div", { class: "held-tekst" },
+          h("p", { class: "bovenkop" }, "Over Axiomath"),
+          h("h1", {}, "Vrije handboeken wiskunde, door leerkrachten voor leerkrachten"),
+          h("p", { class: "lead" }, "Voor de 2de en 3de graad van het Vlaamse secundair onderwijs: de doorstroomfinaliteit en de dubbele finaliteit, en op aanvraag de arbeidsmarktfinaliteit. Vrij, niet-commercieel, en met een oefeningenbank als bron voor alles."),
+          h("p", { class: "naam" }, h("span", { class: "woord", style: "--i:0" }, "axioma"), h("span", { class: "plus", style: "--i:1" }, "+"),
+            h("span", { class: "woord", style: "--i:2" }, "math"), h("span", { class: "plus", style: "--i:3" }, "="), h("span", { class: "woord merk", style: "--i:4" }, "Axiomath")),
+          h("p", { class: "zacht klein" }, "Een axioma is wat je aanvaardt om te kunnen redeneren.")),
+        heldGrafiek()),
+
+      d && h("div", { class: "tegels onthul" },
+        tegel(teller(d.boeken.length), "handboeken in de maak"),
+        tegel(teller(d.pakketten.length), "leerplanpakketten"),
+        tegel(teller(3), "versies uit één bron"),
+        tegel(h("b", { class: "getal" }, "0 €"), "voor iedereen, altijd")),
+
+      d && sectie("Neem er een uit de kast",
+        h("p", {}, "Elk handboek staat in de boekenkast, met de kleur van zijn rubriek op de voorkant. Lezen en downloaden kan zonder account."),
+        boekenplank(d),
+        h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/" }, "Naar de boekenkast"))),
+
+      sectie("Waar we naartoe willen",
+        h("p", {}, "Een geïntegreerd ecosysteem, volledig open. Alles vertrekt uit dezelfde bank met oefeningen:"),
+        ecosysteem(),
+        h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/plannen" }, "Bekijk de plannen, met een voorproefje"))),
+
+      sectie("Vanuit de leerplandoelen",
+        h("p", {}, "Alle handboeken zijn opgesteld vanuit de leerplandoelen van de graadleerplannen wiskunde voor de 2de en 3de graad. Er is een reeks handboeken per leerplanpakket: in de doorstroom van Basis tot B+S'', in de dubbele finaliteit van D/A Basis tot D/A B+S''. Voor de arbeidsmarktfinaliteit (2de graad) maken we één handboek zodra er vraag naar is. Welke leerplandoelen elk handboek behandelt, staat per pakket ",
+          extern(`${GITHUB}/blob/main/Handboeken/README.md`, "op GitHub"), "."),
+        d && h("div", { class: "grafieken" }, pakketGrafiek(d), rubriekGrafiek(d)),
+        h("p", {}, "De koepels bouwen allemaal op dezelfde doelen van de overheid, maar delen de richtingen soms anders in. Daarom kies je op de site ook je koepel: de leerplannen van het katholiek onderwijs (KOV) of van het GO!. Dan zie je per richting welke handboeken verplicht zijn, en apart wat keuze of uitbreiding is. Een PDF krijgt de voorkant van je koepel; de inhoud is dezelfde. Hoe de koepels verschillen, staat ",
+          extern(`${GITHUB}/blob/main/Ontwerp/koepels.md`, "op GitHub"), ". ",
+          h("button", { type: "button", class: "knop-tekst", style: { padding: 0 }, onclick: ovsgPov }, "Volgt je school OVSG of POV?"))),
+
+      d && sectie("Hoe ver we staan",
+        h("p", {}, `Elk handboek gaat door dezelfde stadia: drie versies die we zelf herwerken, daarna lezen leerkrachten het na, en pas na een jaar in de klas is het klaar. Samen staan de handboeken op ${gemiddeld} %.`),
+        voortgangGrafiek(d),
+        h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/voortgang" }, "De voortgang per handboek"))),
+
+      meelezers && sectie("Wie leest mee?",
+        h("p", {}, "Een bolletje per handboek. Het kleurt in zodra een leerkracht die het in de klas gebruikt meeleest: iemand met een richting en een leerjaar waarin het handboek gevolgd wordt. Zo zien we waar nog niemand meekijkt."),
+        dekkingRaster(meelezers, { titel: null, klasse: "onthul over-dekking", uitleg: "Wijs een bolletje aan voor de titel, klik om het handboek te openen." }),
+        h("p", {}, "Geef je les in een richting met veel grijze bolletjes? Dan is jouw blik extra welkom. ",
+          S.ik ? h("a", { href: "#/profiel" }, "Vul je lesopdracht in") : h("a", { href: "#/aanmelden" }, "Meld je aan als leerkracht"), ".")),
+
+      sectie("Vrij en open",
+        h("p", {}, "Je mag alles gebruiken, aanpassen en delen. De inhoud valt onder ", extern("https://creativecommons.org/licenses/by-nc-sa/4.0/deed.nl", "CC BY-NC-SA 4.0"), ":"),
+        h("div", { class: "licenties" },
+          licentie("BY", "Vermeld de bron", "Zeg waar het vandaan komt."),
+          licentie("NC", "Niet commercieel", "Verkopen mag niet, gebruiken in de klas wel."),
+          licentie("SA", "Deel op dezelfde manier", "Wat je ervan maakt, is even vrij.")),
+        h("p", {}, "Alle bronnen staan op GitHub: de LaTeX-bestanden van de handboeken, de oefeningenbank en de code van deze website."),
+        h("div", { class: "knoppen" },
+          h("a", { class: "knop", href: GITHUB, target: "_blank", rel: "noopener" }, "Axiomath op GitHub"),
+          h("a", { class: "knop licht", href: `${GITHUB}/blob/main/CONTRIBUTING.md`, target: "_blank", rel: "noopener" }, "Meewerken")),
+        KOFFIE ? h("div", { class: "koffie" },
+          h("span", { class: "koffie-kop", "aria-hidden": "true" }, h("i"), h("i"), h("i"), "☕"),
+          h("div", {},
+            h("p", {}, "Axiomath is gratis en blijft dat, voor iedereen. De handboeken ontstaan in vrije uren, en de website en het domein kosten een klein bedrag per jaar. Heb je iets aan Axiomath? Met een koffie help je de site in de lucht te houden en de handboeken verder te schrijven. Helemaal vrijblijvend: nalezen en feedback geven helpt evenveel."),
+            h("div", { class: "knoppen" }, h("a", { class: "knop licht", href: KOFFIE, target: "_blank", rel: "noopener" }, "☕ Koop mij een koffie")))) : null),
+
+      sectie("Als app op je gsm",
+        alsApp()
+          ? h("p", {}, "Je gebruikt Axiomath nu als app. Ze toont altijd de nieuwste versie van de handboeken.")
+          : [h("p", {}, "Zet Axiomath op het beginscherm van je gsm of tablet. Dan open je de handboeken met één tik, schermvullend, zoals een app. Je hebt geen appwinkel nodig, en de app is altijd bijgewerkt."),
+            h("div", { class: "knoppen" }, h("button", { class: "knop licht", type: "button", onclick: installeer }, "Zet op je beginscherm"))]),
+
+      h("section", { class: "lees-mee onthul" },
+        h("h2", {}, "Lees mee"),
+        h("p", {}, "Eerst maken we van elk handboek een eerste versie, daarna lezen leerkrachten ze na. Lees een handboek en zeg wat beter kan: op een plek in het boek, over een heel handboek of over het idee zelf. Hoe kritischer, hoe liever."),
+        h("div", { class: "knoppen" }, S.ik
+          ? [h("a", { class: "knop", href: "#/algemeen" }, "Geef algemene feedback"), h("a", { class: "knop licht", href: "#/" }, "Naar de handboeken")]
+          : [h("a", { class: "knop", href: "#/aanmelden" }, "Meld je aan als leerkracht"), h("a", { class: "knop licht", href: "#/" }, "Bekijk de handboeken")]))));
+  onthul($app);
 }
 
 // --- algemene feedback -------------------------------------------------------------------------
@@ -1362,13 +1586,13 @@ async function toonBeheer(tab) {
   const d = await boeken(true);
   tab = tab || "feedback";
   const tabs = h("div", { class: "tabs", role: "tablist", style: { maxWidth: "none" } },
-    [["feedback", "Feedback"], ["logboek", "Logboek"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["dekking", "Dekking"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
+    [["feedback", "Feedback"], ["werkplan", "Werkplan"], ["logboek", "Logboek"], ["overzicht", "Per handboek"], ["mensen", "Leerkrachten"], ["dekking", "Dekking"], ["bezoekers", "Bezoekers"], ["pdf", "PDF's"]].map(([k, l]) =>
       h("button", { type: "button", role: "tab", "aria-selected": String(k === tab), onclick: () => { location.hash = `#/beheer/${k}`; } }, l)));
   const plek = h("div", {}, h("p", { class: "laden" }, "Laden …"));
   scherm("beheer", h("div", { class: "paginakop" }, h("div", {}, h("h1", {}, "Beheer"),
     h("p", {}, "Alle feedback op één plek. Exporteer naar Markdown om ze per handboek, hoofdstuk en pagina te verwerken in de bron."))), tabs, plek);
   tabs.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });  // op een gsm schuift de rij
-  const inhoud = await ({ feedback: beheerFeedback, logboek: beheerLogboek, overzicht: beheerOverzicht, mensen: beheerMensen, dekking: beheerDekking, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
+  const inhoud = await ({ feedback: beheerFeedback, werkplan: beheerWerkplan, logboek: beheerLogboek, overzicht: beheerOverzicht, mensen: beheerMensen, dekking: beheerDekking, bezoekers: beheerBezoekers, pdf: beheerPdf }[tab] || beheerFeedback)(d);
   plek.replaceChildren(...[inhoud].flat());
 }
 
@@ -1589,6 +1813,58 @@ async function beheerMensen() {
 
 /* Dekking: welke koepels, finaliteiten, leerjaren en richtingen al leerkrachten hebben die meelezen (Mijn lesopdracht).
    Zonder namen. De tabel toont ook de richtingen zonder iemand, want daar zoeken we collega's. */
+/* Welke handboeken een leerkracht in de klas heeft: een raster met per pakket een rij en per rubriek een kolom, een
+   bolletje per handboek. Ingekleurd (in de kleur van de rubriek) als minstens één leerkracht een richting heeft die het
+   handboek volgt (verplicht, keuze, uitbreiding of extra) in zijn koepel, en les geeft in het jaar van het handboek
+   (zonder jaar: een jaar van zijn graad). Een koepel zonder eigen indeling (OVSG, POV, andere) telt met alle koepels.
+   Beheer telt zelf uit de lesopdrachten (dekkingTellen); Over krijgt alleen de aantallen van de server (meelezers() in lib.php). */
+const RUBRIEK_KLEUR = { Analyse: "analyse", Algebra: "algebra", Meetkunde: "meetkunde", "Discrete wiskunde": "discreet", "Data en onzekerheid": "data" };
+function dekkingTellen(ps) {
+  const d = S.boeken, per = d.koepels?.graden || {};
+  const jarenVan = (b) => { const j = (String(b.jaar || b.jaar_voorstel || "").match(/[3-6]/g) || []).map(Number); return j.length ? j : String(b.graad) === "3" ? [5, 6] : [3, 4]; };
+  const volgt = (x, sl) => x && ["verplicht", "keuze", "uitbreiding", "extra"].some((s) => (x[s] || []).some((i) => i.sleutel === sl));
+  const lezers = (b) => {
+    const koepels = per[b.graad] || {}, jaren = jarenVan(b);
+    return ps.filter((p) => p.jaren.some((j) => jaren.includes(j)) && p.richtingen.some((s) => {
+      const [g, naam] = s.split("|");
+      if (String(g) !== String(b.graad)) return false;
+      return (koepels[p.koepel] ? [koepels[p.koepel]] : Object.values(koepels)).some((l) => volgt(l[naam], b.sleutel));
+    })).length;
+  };
+  return new Map(d.boeken.map((b) => [b.sleutel, lezers(b)]));
+}
+function dekkingRaster(n, { titel = "Handboeken met een leerkracht", uitleg, klasse = "" } = {}) {
+  const d = S.boeken;
+  const kolommen = [...Object.keys(RUBRIEK_KLEUR), "Andere"].filter((r) => d.boeken.some((b) => (RUBRIEK_KLEUR[b.rubriek] ? b.rubriek : "Andere") === r));
+  const gedekt = d.boeken.filter((b) => n.get(b.sleutel)).length;
+  let i = 0;
+  const stip = (b) => {
+    const k = n.get(b.sleutel) || 0;
+    return h("a", { class: `dek-stip${k ? " aan" : ""}`, href: `#/boek/${sleutelUrl(b.sleutel)}`, style: `--r:var(--r-${RUBRIEK_KLEUR[b.rubriek] || "andere"});--i:${i++}`,
+      "data-tip": `${b.titel}: ${k ? `${k} ${k === 1 ? "leerkracht" : "leerkrachten"}` : "nog niemand"}`, "aria-label": `${b.titel}: ${k || "geen"} leerkrachten` });
+  };
+  let vorige = null;
+  return h("section", { class: `kaart dek-raster-kaart ${klasse}` },
+    titel && h("h3", { class: "sectie-kop" }, titel, h("span", { class: "zacht klein", style: { fontWeight: 400 } }, ` · ${gedekt} van ${d.boeken.length}`)),
+    h("p", { class: "zacht klein" }, uitleg || "Een bolletje per handboek. Ingekleurd als minstens één leerkracht een richting heeft die het handboek volgt, in zijn koepel en in het jaar van het handboek. Grijs: nog niemand. Wijs een bolletje aan voor de titel, klik om het handboek te openen."),
+    h("div", { class: "dek-voortgang", role: "img", "aria-label": `${gedekt} van ${d.boeken.length} handboeken` }, h("i", { style: { width: `${100 * gedekt / Math.max(1, d.boeken.length)}%` } })),
+    h("div", { class: "tabel-houder" }, h("table", { class: "dek-raster" },
+      h("thead", {}, h("tr", {}, h("th", {}, "Pakket"), kolommen.map((r) => h("th", {}, h("span", { class: "dek-kolkop", style: `--r:var(--r-${RUBRIEK_KLEUR[r] || "andere"})` }, r))))),
+      h("tbody", {}, d.pakketten.flatMap((p) => {
+        const lijst = d.boeken.filter((b) => b.pakketid === p.id);
+        if (!lijst.length) return [];
+        const kop = graadFin(p), rijen = [];
+        if (kop !== vorige) rijen.push(h("tr", { class: "dek-groep" }, h("th", { colspan: kolommen.length + 1 }, kop[0].toUpperCase() + kop.slice(1))));
+        vorige = kop;
+        const aan = lijst.filter((b) => n.get(b.sleutel)).length;
+        rijen.push(h("tr", {}, h("th", { scope: "row" }, h("b", {}, p.nr), ` ${p.kort || ""}`, h("span", { class: "zacht klein" }, ` ${aan}/${lijst.length}`)),
+          kolommen.map((r) => h("td", {}, h("div", { class: "dek-stippen" }, lijst.filter((b) => (RUBRIEK_KLEUR[b.rubriek] ? b.rubriek : "Andere") === r).map(stip))))));
+        return rijen;
+      })))),
+    h("div", { class: "dek-legende zacht klein" }, h("span", {}, h("i", { class: "dek-stip aan", style: "--r:var(--acc)" }), "met een leerkracht (kleur van de rubriek)"), h("span", {}, h("i", { class: "dek-stip" }), "nog niemand")));
+}
+const dekkingBoeken = (ps) => dekkingRaster(dekkingTellen(ps));
+
 async function beheerDekking() {
   const o = await api("GET", "beheer/dekking");
   const ps = o.profielen;
@@ -1643,12 +1919,206 @@ async function beheerDekking() {
       balken("Koepel", telOp(koepels, (p) => [p.koepel]), Object.fromEntries(koepels.map((k) => [k, { KOV: "KOV", andere: "Andere" }[k] || o.koepels[k]]))),
       balken("Finaliteit", telOp(Object.keys(FINALITEITEN), (p) => p.finaliteiten), finLabels),
       balken("Leerjaar", telOp(Object.keys(JAREN).map(Number), (p) => p.jaren), JAREN)),
+    dekkingBoeken(ps),
     h("div", { class: "balk" }, h("span", { class: "zacht klein" }, "Richtingen:"),
       h("select", { "aria-label": "Welke richtingen", onchange: (e) => { toon = e.target.value; tekenTabel(); } },
         h("option", { value: "alle" }, "Alle richtingen"), h("option", { value: "leeg" }, "Alleen zonder leerkracht"), h("option", { value: "gedekt" }, "Alleen met een leerkracht"))),
     tabel,
     opm.length ? h("section", { class: "kaart", style: { marginTop: "24px" } }, h("h3", { class: "sectie-kop" }, "Opmerkingen bij de lesopdracht"),
       h("ul", {}, opm.map((p) => h("li", {}, p.opmerking, h("span", { class: "zacht klein" }, ` (${o.koepels[p.koepel] || p.koepel}, ${datum(p.ingevuld)})`))))) : null].filter(Boolean);
+}
+
+/* Een beetje Markdown uit TODO.md: alinea's, opsommingen, tabellen, **vet**, `code` en links. Alles als tekstknopen,
+   nooit als HTML. Een link naar een bestand in de repo wordt gewone tekst. */
+function mdInline(s) {
+  const uit = [];
+  let i = 0;
+  for (const m of s.matchAll(/\*\*(.+?)\*\*|`([^`]+)`|\[([^\]]+)\]\(<?([^)>]+)>?\)/g)) {
+    uit.push(s.slice(i, m.index));
+    if (m[1] != null) uit.push(h("strong", {}, mdInline(m[1])));
+    else if (m[2] != null) uit.push(h("code", {}, m[2]));
+    else uit.push(/^https?:/.test(m[4]) ? h("a", { href: m[4], target: "_blank", rel: "noopener" }, m[3]) : m[3]);
+    i = m.index + m[0].length;
+  }
+  uit.push(s.slice(i));
+  return uit;
+}
+function mdBlokken(tekst) {
+  const uit = [];
+  let lijst = null, tabel = null;
+  for (const lijn of tekst.split("\n")) {
+    const li = lijn.match(/^\s*(?:[-*]|\d+\.)\s+(.*)$/);
+    if (/^\s*\|/.test(lijn)) {
+      lijst = null;
+      const cellen = lijn.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+      if (cellen.every((c) => /^:?-+:?$/.test(c) || c === "")) continue;
+      if (!tabel) { tabel = h("tbody"); uit.push(h("div", { class: "tabel-houder" }, h("table", {}, h("thead", {}, h("tr", {}, cellen.map((c) => h("th", {}, mdInline(c))))), tabel))); }
+      else tabel.append(h("tr", {}, cellen.map((c) => h("td", {}, mdInline(c)))));
+    } else if (li) {
+      tabel = null;
+      if (!lijst) uit.push(lijst = h("ul"));
+      lijst.append(h("li", {}, mdInline(li[1])));
+    } else if (lijn.trim()) {
+      tabel = null;
+      if (lijst && /^\s/.test(lijn)) lijst.lastChild.append(" ", ...mdInline(lijn.trim()));
+      else { lijst = null; uit.push(h("p", {}, mdInline(lijn.trim()))); }
+    } else { lijst = null; tabel = null; }
+  }
+  return uit;
+}
+
+/* Sleep een <li> aan zijn greep (.greep) naar een andere plaats; muis, pen en vinger (pointer events), of met de
+   pijltjes op de greep. bijWissel() komt na elke nieuwe volgorde. */
+function sleepbaar(lijst, bijWissel) {
+  const kalm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const schuif = (el, voor) => {  // laat een buur naar zijn nieuwe plaats glijden in plaats van te springen
+    const na = el.getBoundingClientRect().top;
+    if (!kalm && voor !== na) el.animate([{ transform: `translateY(${voor - na}px)` }, { transform: "none" }], { duration: 160, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+  };
+  // Verplaats de buur, niet het gesleepte item: een element dat de DOM verlaat, verliest zijn pointer capture.
+  const wissel = (li, buur, ervoor) => {
+    const voor = buur.getBoundingClientRect().top;
+    if (buur === li.previousElementSibling) lijst.insertBefore(buur, li.nextElementSibling);
+    else if (buur === li.nextElementSibling) lijst.insertBefore(buur, li);
+    else lijst.insertBefore(li, ervoor ? buur : buur.nextElementSibling);  // Home en End, met het toetsenbord
+    schuif(buur, voor);
+  };
+  lijst.addEventListener("pointerdown", (e) => {
+    const greep = e.target.closest(".greep");
+    if (!greep || e.button !== 0) return;
+    const li = greep.closest("li");
+    e.preventDefault();
+    greep.setPointerCapture(e.pointerId);
+    li.classList.add("sleept");
+    const begin = [...lijst.children];
+    let y0 = e.pageY;
+    const plaats = () => li.offsetTop;
+    const beweeg = (ev) => {
+      for (;;) {
+        const vorige = li.previousElementSibling, volgende = li.nextElementSibling;
+        const midden = (el) => { const r = el.getBoundingClientRect(); return r.top + r.height / 2; };
+        const p0 = plaats();
+        if (vorige && ev.clientY < midden(vorige)) wissel(li, vorige, true);
+        else if (volgende && ev.clientY > midden(volgende)) wissel(li, volgende, false);
+        else break;
+        y0 += plaats() - p0;
+      }
+      li.style.transform = `translateY(${ev.pageY - y0}px)`;
+      if (ev.clientY < 70) scrollBy(0, -12); else if (ev.clientY > innerHeight - 70) scrollBy(0, 12);
+    };
+    const los = () => {
+      greep.removeEventListener("pointermove", beweeg);
+      li.classList.remove("sleept");
+      const voor = li.getBoundingClientRect().top;
+      li.style.transform = "";
+      schuif(li, voor);
+      if ([...lijst.children].some((x, i) => x !== begin[i])) bijWissel();
+    };
+    greep.addEventListener("pointermove", beweeg);
+    greep.addEventListener("pointerup", los, { once: true });
+    greep.addEventListener("pointercancel", los, { once: true });
+  });
+  lijst.addEventListener("keydown", (e) => {
+    const greep = e.target.closest(".greep");
+    if (!greep || !["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) return;
+    e.preventDefault();
+    const li = greep.closest("li");
+    const buur = { ArrowUp: li.previousElementSibling, ArrowDown: li.nextElementSibling, Home: lijst.firstElementChild, End: lijst.lastElementChild }[e.key];
+    if (!buur || buur === li) return;
+    wissel(li, buur, e.key === "ArrowUp" || e.key === "Home");
+    greep.focus();
+    bijWissel();
+  });
+}
+
+async function beheerWerkplan() {
+  let d = await api("GET", "beheer/werkplan");
+  const lijst = h("ol", { class: "werkplan" });
+  const stand = h("p", { class: "zacht klein", "aria-live": "polite" });
+  const toonStand = () => { stand.textContent = d.bewaard ? `Volgorde bewaard door ${d.bewaard.naam}, ${wanneer(d.bewaard.tijd)}.` : "Nog geen volgorde gekozen: dit is de volgorde van TODO.md."; };
+
+  // Na elke wijziging tekent de lijst opnieuw uit het antwoord van de server; wat open stond, blijft open.
+  const teken = () => {
+    const open = new Set([...lijst.querySelectorAll("details[open]")].map((x) => x.dataset.open));
+    lijst.replaceChildren(...d.items.map((it) => kaart(it, open)));
+    toonStand();
+  };
+  const doe = (methode, pad, body, tekst) => poging(async () => { d = await api(methode, `beheer/werkplan${pad}`, body); teken(); if (tekst) melding(tekst); })();
+
+  let bezig = null, opnieuw = false;
+  const bewaar = poging(async () => {
+    if (bezig) { opnieuw = true; return; }  // na de lopende vraag nog één keer, met de jongste volgorde
+    do {
+      opnieuw = false;
+      bezig = api("POST", "beheer/werkplan", { volgorde: [...lijst.children].map((li) => li.dataset.sleutel) });
+      try { d = await bezig; } finally { bezig = null; }
+    } while (opnieuw);
+    for (const li of lijst.children) li.querySelector(".wp-nieuw")?.remove();
+    toonStand();
+  });
+  sleepbaar(lijst, bewaar);
+
+  // Een formulier voor een eigen TODO: nieuw (bovenaan) of een bestaande bewerken.
+  function formulier(it, klaar) {
+    const titel = h("input", { type: "text", maxlength: 200, value: it?.titel || "", placeholder: "Wat moet er gebeuren?", required: true });
+    const tekst = h("textarea", { maxlength: 10000, placeholder: "Meer uitleg (mag Markdown: - opsomming, **vet**, `code`)" }, it?.tekst || "");
+    const ingmar = h("input", { type: "checkbox", checked: it ? it.ingmar : false });
+    return h("form", { class: "wp-form", onsubmit: (e) => {
+      e.preventDefault();
+      if (!titel.value.trim()) return titel.focus();
+      if (it) doe("PATCH", `/eigen/${it.id}`, { titel: titel.value, tekst: tekst.value }, "TODO aangepast.");
+      else doe("POST", "/nieuw", { titel: titel.value, tekst: tekst.value, ingmar: ingmar.checked }, "TODO bovenaan gezet.");
+      klaar();
+    } },
+      h("label", { class: "veld" }, "Titel", titel),
+      h("label", { class: "veld" }, "Uitleg", tekst),
+      !it && h("label", { class: "chip-vink" }, ingmar, "Voor Ingmar"),
+      h("div", { class: "wp-acties" }, h("button", { class: "knop klein", type: "submit" }, it ? "Bewaar" : "Zet bovenaan"),
+        h("button", { class: "knop-tekst klein", type: "button", onclick: klaar }, "Annuleer")));
+  }
+
+  function kaart(it, open) {
+    const inhoud = h("div", { class: "wp-inhoud" });
+    const blok = (soort, label, ...kinderen) => h("details", { class: "wp-tekst", "data-open": `${soort}|${it.sleutel}`, open: open.has(`${soort}|${it.sleutel}`) }, h("summary", {}, label), kinderen);
+    const ingmar = h("button", { type: "button", class: "wp-ingmar", "aria-pressed": String(it.ingmar), title: it.ingmar ? "Voor Ingmar: klik om dat af te zetten" : "Niet voor Ingmar: klik om hem aan Ingmar te geven",
+      onclick: () => doe("POST", "/ingmar", { sleutel: it.sleutel, ingmar: !it.ingmar }) }, it.ingmar ? icoon("vink") : null, "Ingmar");
+    const tekst = mdBlokken(it.tekst);
+
+    const veld = h("textarea", { maxlength: 5000, placeholder: "Je feedback op deze TODO …" });
+    const reacties = blok("feedback", it.reacties.length ? `Feedback (${it.reacties.length})` : "Feedback geven",
+      h("div", { class: "reacties" },
+        it.reacties.map((r) => h("div", { class: "reactie team" },
+          h("b", {}, r.naam, " · ", wanneer(r.tijd)),
+          r.van_mij && h("button", { class: "knop-tekst klein", type: "button", style: { float: "right" }, onclick: () => confirm("Deze feedback verwijderen?") && doe("DELETE", `/reactie/${r.id}`) }, "Verwijder"),
+          h("div", { class: "fb-tekst" }, r.tekst))),
+        h("div", { class: "reageer" }, veld, h("button", { class: "knop klein", type: "button", onclick: () => veld.value.trim() && doe("POST", "/reactie", { sleutel: it.sleutel, tekst: veld.value }, "Feedback bewaard.") }, "Plaats"))));
+
+    const eigenKnoppen = it.eigen && h("div", { class: "wp-acties" },
+      h("span", { class: "zacht klein" }, `Op de site geschreven door ${it.door}, ${datum(it.aangemaakt)}`),
+      h("button", { class: "knop-tekst klein", type: "button", onclick: () => inhoud.replaceChildren(formulier(it, teken)) }, "Bewerk"),
+      h("button", { class: "knop-tekst klein", type: "button", onclick: () => confirm(`"${it.titel}" verwijderen, met zijn feedback?`) && doe("DELETE", `/eigen/${it.id}`, undefined, "TODO verwijderd.") }, "Verwijder"));
+
+    inhoud.append(...[
+      h("div", { class: "wp-kop" }, h("span", { class: "wp-titel" }, it.titel),
+        it.eigen && h("span", { class: "wp-label" }, "eigen"), it.nieuw && h("span", { class: "wp-label wp-nieuw" }, "nieuw"), h("span", { class: "ruimte" }), ingmar),
+      it.groep && h("div", { class: "zacht klein" }, it.groep),
+      tekst.length > 0 && blok("uitleg", "Wat er nog moet gebeuren", tekst),
+      reacties, eigenKnoppen].filter(Boolean));
+    return h("li", { "data-sleutel": it.sleutel },
+      h("button", { type: "button", class: "greep", title: "Sleep, of gebruik de pijltjes", "aria-label": `Verplaats: ${it.titel} (pijltje omhoog of omlaag)` }, icoon("greep")),
+      inhoud);
+  }
+
+  const nieuwPlek = h("div", {});
+  const nieuwKnop = h("button", { class: "knop klein", type: "button", onclick: () => {
+    nieuwKnop.hidden = true;
+    nieuwPlek.replaceChildren(h("div", { class: "kaart wp-nieuwe" }, h("h2", { class: "sectie-kop" }, "Nieuwe TODO"),
+      formulier(null, () => { nieuwPlek.replaceChildren(); nieuwKnop.hidden = false; })));
+    nieuwPlek.querySelector("input").focus();
+  } }, icoon("plus"), "Nieuwe TODO");
+  teken();
+  return [h("p", {}, "De grote TODO's uit ", h("code", {}, "TODO.md"), " en die je hier zelf schrijft, de belangrijkste bovenaan. Sleep ze aan de greep in de volgorde die je wil; de site bewaart alles meteen, voor het hele team. Een nieuwe TODO uit ", h("code", {}, "TODO.md"), " komt achteraan (na ", h("code", {}, "maak.py"), " en ", h("code", {}, "uitrol.py"), "). Met de sleutel voor Claude leest Claude dezelfde volgorde, de keuze voor Ingmar en de feedback."),
+    h("div", { class: "balk" }, nieuwKnop, stand), nieuwPlek, lijst];
 }
 
 async function beheerPdf(d) {
@@ -1674,7 +2144,7 @@ async function route() {
     else if (delen[0] === "lees" && delen[1]) await toonLezer(delen[1], q);
     else if (delen[0] === "mijn") await toonMijn();
     else if (delen[0] === "algemeen") await toonAlgemeen();
-    else if (delen[0] === "over") toonOver();
+    else if (delen[0] === "over") await toonOver();
     else if (delen[0] === "profiel" && S.ik) await toonProfiel(q);
     else if (delen[0] === "voortgang") await toonVoortgang();
     else if (delen[0] === "plannen") toonPlannen();

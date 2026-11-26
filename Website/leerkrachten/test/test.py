@@ -274,6 +274,7 @@ def api_tests(url):
     s, d = b("GET", "beheer/gebruikers")
     an = next((g for g in d["gebruikers"] if g["email"] == "an@voorbeeld.be"), None) if s == 200 else None
     meld("beheer: accounts en open codes", bool(an) and len(d["codes"]) == 1, d)
+    werkplan_tests(b, l)
     profiel_tests(b, l, x, bks)
     sleutel_tests(url, b, l, f1, f2)
     s, d = b("POST", f"beheer/herstel/{an['id']}")
@@ -292,6 +293,51 @@ def api_tests(url):
         x("POST", "aanmelden", {"email": "team@voorbeeld.be", "wachtwoord": "fout"})
     s, d = x("POST", "aanmelden", {"email": "team@voorbeeld.be", "wachtwoord": "geheim-wachtwoord"})
     meld("snelheidsrem na 10 mislukte aanmeldingen", s == 429, d)
+
+
+def werkplan_tests(b, l):
+    """Beheer → Werkplan: de grote TODO's uit app/werkplan.json (maak.py), in de volgorde die het team bewaart."""
+    s, d = b("GET", "beheer/werkplan")
+    items = d["items"] if s == 200 else []
+    meld("werkplan: de TODO's uit werkplan.json, nog zonder volgorde", len(items) > 1 and d["bewaard"] is None
+         and not any(i["nieuw"] for i in items), d)
+    if len(items) < 2:
+        return
+    omgekeerd = [i["sleutel"] for i in reversed(items)]
+    s, d = b("POST", "beheer/werkplan", {"volgorde": omgekeerd[:-1] + ["bestaat niet"]})
+    meld("werkplan: volgorde bewaard, wat ontbreekt komt achteraan als nieuw", s == 200
+         and [i["sleutel"] for i in d["items"]] == omgekeerd and d["items"][-1]["nieuw"] and not d["items"][0]["nieuw"]
+         and d["bewaard"]["naam"] == "Team Lid", d)
+    s, d = b("GET", "beheer/werkplan")
+    meld("werkplan: volgorde blijft", s == 200 and [i["sleutel"] for i in d["items"]][:-1] == omgekeerd[:-1], d)
+    s, d = b("POST", "beheer/werkplan", {"volgorde": "x"})
+    meld("werkplan: ongeldige volgorde geweigerd", s == 400, d)
+    s, d = l("GET", "beheer/werkplan")
+    meld("leerkracht ziet het werkplan niet", s == 403, d)
+    # een eigen TODO komt bovenaan; Ingmar aan of af; feedback per TODO
+    s, d = b("POST", "beheer/werkplan/nieuw", {"titel": "Zelf geschreven", "tekst": "- een punt", "ingmar": True})
+    eigen = d["items"][0] if s == 200 else {}
+    meld("werkplan: eigen TODO bovenaan, voor Ingmar", eigen.get("eigen") and eigen["titel"] == "Zelf geschreven" and eigen["ingmar"]
+         and eigen["door"] == "Team Lid" and len(d["items"]) == len(items) + 1 and not any(i["nieuw"] for i in d["items"][:-1]), d)
+    s, d = b("PATCH", f"beheer/werkplan/eigen/{eigen.get('id')}", {"titel": "Zelf herschreven", "tekst": ""})
+    meld("werkplan: eigen TODO bewerken", s == 200 and d["items"][0]["titel"] == "Zelf herschreven", d)
+    eerste = items[0]["sleutel"]
+    s, d = b("POST", "beheer/werkplan/ingmar", {"sleutel": eerste, "ingmar": not items[0]["ingmar"]})
+    meld("werkplan: Ingmar omzetten", s == 200 and next(i for i in d["items"] if i["sleutel"] == eerste)["ingmar"] != items[0]["ingmar"], d)
+    s, d = b("POST", "beheer/werkplan/ingmar", {"sleutel": "bestaat niet", "ingmar": True})
+    meld("werkplan: Ingmar op een onbekende TODO geweigerd", s == 404, d)
+    s, d = b("POST", "beheer/werkplan/reactie", {"sleutel": eerste, "tekst": "Eerst dit, voor de examens."})
+    r = next(i for i in d["items"] if i["sleutel"] == eerste)["reacties"] if s == 200 else []
+    meld("werkplan: feedback op een TODO", len(r) == 1 and r[0]["naam"] == "Team Lid" and r[0]["van_mij"], d)
+    s, d = b("POST", "beheer/werkplan/reactie", {"sleutel": eerste, "tekst": " "})
+    meld("werkplan: lege feedback geweigerd", s == 400, d)
+    s, d = b("POST", "beheer/werkplan/reactie", {"sleutel": eigen.get("sleutel"), "tekst": "Weg ermee"})
+    s, d = b("DELETE", f"beheer/werkplan/eigen/{eigen.get('id')}")
+    meld("werkplan: eigen TODO verwijderen", s == 200 and all(i["sleutel"] != eigen.get("sleutel") for i in d["items"]), d)
+    s, d = b("POST", "beheer/werkplan/reactie", {"sleutel": eerste, "tekst": "Weg"})
+    rid = next(i for i in d["items"] if i["sleutel"] == eerste)["reacties"][-1]["id"]
+    s, d = b("DELETE", f"beheer/werkplan/reactie/{rid}")
+    meld("werkplan: feedback verwijderen", s == 200 and len(next(i for i in d["items"] if i["sleutel"] == eerste)["reacties"]) == 1, d)
 
 
 def profiel_tests(b, l, x, bks):
@@ -384,6 +430,11 @@ def sleutel_tests(url, b, l, f1, f2):
     s, md = k("GET", "feedback?status=open&formaat=md", ruw=True)
     md = md.decode() if isinstance(md, bytes) else str(md)
     meld("sleutel: Markdown", s == 200 and f"**#{f1['id']}**" in md and "An Leerkracht" not in md, md[:300])
+    s, d = k("GET", "werkplan")
+    s2, d2 = k("POST", "werkplan", {"volgorde": []})
+    meld("sleutel: leest het werkplan, maar ordent het niet", s == 200 and len(d["items"]) > 1 and s2 == 403, (d2,))
+    r = [x for i in d["items"] for x in i["reacties"]] if s == 200 else []
+    meld("sleutel: feedback op het werkplan zonder namen", r and all(x["naam"] == "Team" for x in r) and "naam" not in (d["bewaard"] or {}), d)
     s, d = k("PATCH", f"feedback/{f1['id']}", {"status": "behandeling"})
     meld("sleutel: kan niet goedkeuren", s == 403, d)
     s, d = k("PATCH", f"feedback/{f1['id']}", {"status": "verwerkt"})

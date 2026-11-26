@@ -8,6 +8,7 @@ Leest:
 Schrijft:
   - server/app/boeken.json en server/app/laatste.json;
   - server/app/verwerkt.json: per versie wat uit de feedback verwerkt is (verwerkt.yaml van de cursus), met de plek;
+  - server/app/werkplan.json: de grote TODO's uit TODO.md (Beheer → Werkplan);
   - server/app/versies/<h>.pdf en <h>.json: elke nieuwe PDF als vaste versie (h = begin van de SHA-256);
   - server/public_html/omslagen/<h>.webp: de voorkant (pagina 1 van het handboek);
   - server/public_html/fonts/, logo.svg, icoon.svg, kunst.jpg (het schilderij op de aanmeldpagina) en de iconen
@@ -152,6 +153,32 @@ def verwerkt(boeken, laatste):
             if i not in gevonden:
                 print(f"  verwerkt: niet gevonden in een PDF: {item['zoek']!r} ({bron.parent.name})")
     schrijf_json(pad, uit)
+
+
+def werkplan():
+    """De grote TODO's uit TODO.md, voor Beheer → Werkplan: elke ### onder een ## (met die ## als groep), en elke ##
+    zonder ###. Met de tekst eronder (Markdown). De volgorde die het team kiest, bewaart de server (tabel werkplan)
+    bij de sleutel: de titel, met de groep ervoor. Een nieuwe titel komt dus achteraan, als nieuw."""
+    blokken, groep = [], None  # [niveau, titel, groep, lijnen]
+    for lijn in (REPO / "TODO.md").read_text(encoding="utf-8").splitlines():
+        if lijn.startswith("## ") or lijn.startswith("### "):
+            niveau = 2 if lijn.startswith("## ") else 3
+            titel = lijn.lstrip("#").strip()
+            if niveau == 2:
+                groep = titel
+            blokken.append([niveau, titel, groep if niveau == 3 else None, []])
+        elif blokken:
+            blokken[-1][3].append(lijn)
+    items = []
+    for i, (niveau, titel, groep, lijnen) in enumerate(blokken):
+        if niveau == 2 and i + 1 < len(blokken) and blokken[i + 1][0] == 3:
+            continue  # een groep: haar ### zijn de items
+        schoon = lambda t: t.replace("**[Ingmar]**", "").replace("[Ingmar]", "").replace("**", "").strip().rstrip(".").strip()
+        t, g = schoon(titel), groep and schoon(groep)
+        items.append({"sleutel": f"{g} / {t}" if g else t, "titel": t, "groep": g, "ingmar": "[Ingmar]" in titel,
+                      "tekst": "\n".join(lijnen).strip()})
+    schrijf_json(APP / "werkplan.json", {"items": items})
+    return items
 
 
 def omslag(h):
@@ -332,6 +359,7 @@ def main(argv=()):
                                        "koepels": koepels(graden or GRADEN_OP_SITE)})
     schrijf_json(APP / "laatste.json", laatste)
     verwerkt(boeken, laatste)
+    werkplan()
     vaste_bestanden()
     voorbeeldcursus()
     n = sum(len(v) for v in laatste.values())

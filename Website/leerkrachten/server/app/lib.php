@@ -81,6 +81,12 @@ function db() {
     CREATE TABLE IF NOT EXISTS bezoekdagen(dag TEXT PRIMARY KEY, bezoekers INTEGER NOT NULL DEFAULT 0, weergaven INTEGER NOT NULL DEFAULT 0);
     CREATE TABLE IF NOT EXISTS profielen(gebruiker INTEGER PRIMARY KEY, koepel TEXT, finaliteiten TEXT, jaren TEXT, richtingen TEXT,
       opmerking TEXT, ingevuld INTEGER, uitgesteld INTEGER);
+    CREATE TABLE IF NOT EXISTS werkplan(sleutel TEXT PRIMARY KEY, plaats INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS werkplan_ingmar(sleutel TEXT PRIMARY KEY, ingmar INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS werkplan_eigen(id INTEGER PRIMARY KEY, titel TEXT NOT NULL, tekst TEXT, door INTEGER NOT NULL,
+      door_naam TEXT, aangemaakt INTEGER, bijgewerkt INTEGER);
+    CREATE TABLE IF NOT EXISTS werkplan_reacties(id INTEGER PRIMARY KEY, sleutel TEXT NOT NULL, tekst TEXT NOT NULL,
+      wie INTEGER NOT NULL, wie_naam TEXT, tijd INTEGER NOT NULL);
   ");
   // Kolommen die later kwamen. reacties.team: een antwoord van het team, ook met een sleutel. reacties.naam: wie
   // antwoordde met een sleutel (zonder account, gebruiker 0). sleutels.naam: voor wie de sleutel is.
@@ -462,6 +468,7 @@ function route() {
   // Zonder account: de boekenkast en de editie 'handboek' (lezen en downloaden). De andere edities
   // (leerkrachtenversie, zelfstudie, oplossingen) en alle feedback alleen met een account.
   if ("$m $pad" === 'GET boeken') boeken($ik);
+  if ("$m $pad" === 'GET meelezers') meelezers();  // alleen aantallen per handboek, voor Over
   if ($m === 'GET' && $delen[0] === 'versie' && count($delen) === 2) {
     $v = versie($delen[1], $ik);
     $v['label'] = EDITIES[$v['editie']] ?? $v['editie'];
@@ -532,6 +539,7 @@ function met_sleutel($sl, $m, $pad, $delen) {
     if (($_GET['formaat'] ?? '') === 'md') antwoord(logboek_markdown($rijen), 200, 'text/markdown; charset=utf-8');
     antwoord($rijen);
   }
+  if ("$m $pad" === 'GET werkplan') werkplan($ik);  // de prioriteiten en de feedback van het team (alleen lezen)
   $id = ($delen[0] === 'feedback' && ctype_digit($delen[1] ?? '')) ? (int)$delen[1] : 0;
   if ($id && $m === 'PATCH' && count($delen) === 2) feedback_een($ik, $m, $id, null);
   if ($id && $m === 'POST' && ($delen[2] ?? '') === 'reactie' && count($delen) === 3) feedback_een($ik, $m, $id, 'reactie');
@@ -811,6 +819,37 @@ function dekking() {
   antwoord(['accounts' => $alle, 'leerkrachten' => $actief, 'uitgesteld' => $uitgesteld, 'koepels' => PROFIEL_KOEPELS, 'profielen' => $p]);
 }
 
+/* Voor iedereen (Over): per handboek hoeveel leerkrachten het in de klas hebben, uit de lesopdrachten. Alleen
+   aantallen per handboek, nooit een lesopdracht. Dezelfde regel als dekkingBoeken() in app.js: een richting die het
+   handboek volgt (verplicht, keuze, uitbreiding of extra) in de koepel van de leerkracht (zonder eigen indeling: alle
+   koepels), en een leerjaar van het handboek (zonder jaar: een jaar van zijn graad). */
+function meelezers() {
+  $d = boekdata();
+  $volgt = [];  // graad → koepel → richting → [sleutel => true]
+  foreach (($d['koepels']['graden'] ?? []) as $g => $ks) foreach ($ks as $k => $rs) foreach ($rs as $naam => $x) {
+    $s = [];
+    foreach (['verplicht', 'keuze', 'uitbreiding', 'extra'] as $soort) foreach (($x[$soort] ?? []) as $i) if (isset($i['sleutel'])) $s[$i['sleutel']] = true;
+    $volgt[(string)$g][$k][$naam] = $s;
+  }
+  $jaren = [];
+  foreach ($d['boeken'] as $b) {
+    preg_match_all('/[3-6]/', (string)(($b['jaar'] ?? null) ?: ($b['jaar_voorstel'] ?? '')), $m);
+    $jaren[$b['sleutel']] = $m[0] ? array_map('intval', $m[0]) : ((string)$b['graad'] === '3' ? [5, 6] : [3, 4]);
+  }
+  $tel = [];
+  foreach (q('SELECT p.koepel, p.jaren, p.richtingen FROM profielen p JOIN gebruikers g ON g.id = p.gebruiker WHERE g.actief = 1 AND p.ingevuld IS NOT NULL') as $r) {
+    $pj = array_map('intval', json_lijst($r['jaren']));
+    $mijn = [];
+    foreach (json_lijst($r['richtingen']) as $s) {
+      [$g, $naam] = array_pad(explode('|', (string)$s, 2), 2, '');
+      $ks = $volgt[$g] ?? [];
+      foreach (isset($ks[$r['koepel']]) ? [$ks[$r['koepel']]] : $ks as $rs) foreach (array_keys($rs[$naam] ?? []) as $sl) $mijn[$sl] = true;
+    }
+    foreach (array_keys($mijn) as $sl) if (isset($jaren[$sl]) && array_intersect($pj, $jaren[$sl])) $tel[$sl] = ($tel[$sl] ?? 0) + 1;
+  }
+  antwoord(['boeken' => (object)$tel]);
+}
+
 /* Bezoekersteller, zonder koekjes en zonder IP-adressen te bewaren. Per dag wordt een hash van IP-adres,
    browser en een geheim zout bijgehouden om unieke bezoekers te tellen; die hashes worden de volgende dag gewist.
    Blijvend bewaard: alleen aantallen per dag, en per dag en handboek hoeveel lezers en weergaven. Beheerders en
@@ -844,6 +883,92 @@ function bezoek_boek($ik) {
   antwoord(['ok' => true]);
 }
 
+/* Beheer → Werkplan: de grote TODO's uit TODO.md (app/werkplan.json, maak.py) en de TODO's die het team op de site
+   schrijft (werkplan_eigen, sleutel "eigen:<id>"), in de volgorde die het team koos (werkplan). Per TODO ook of hij
+   voor Ingmar is (werkplan_ingmar; zonder rij geldt [Ingmar] uit TODO.md) en de feedback van het team
+   (werkplan_reacties). Een TODO zonder plaats komt achteraan en heet nieuw; een TODO die uit TODO.md verdween, valt
+   weg. Met een sleutel (Claude) alleen lezen, zonder namen. */
+function werkplan_items() {
+  $items = array_map(fn($it) => $it + ['eigen' => false], (json_bestand('werkplan.json') ?? [])['items'] ?? []);
+  foreach (q('SELECT * FROM werkplan_eigen ORDER BY id') as $r)
+    $items[] = ['sleutel' => "eigen:{$r['id']}", 'titel' => $r['titel'], 'groep' => null, 'ingmar' => false, 'tekst' => (string)$r['tekst'],
+                'eigen' => true, 'id' => (int)$r['id'], 'door' => $r['door_naam'], 'aangemaakt' => iso($r['aangemaakt'])];
+  $plaats = [];
+  foreach (q('SELECT sleutel, plaats FROM werkplan') as $r) $plaats[$r['sleutel']] = (int)$r['plaats'];
+  $n = count($items);
+  foreach ($items as $i => &$it) { $it['nieuw'] = $plaats && !isset($plaats[$it['sleutel']]); $it['_p'] = $plaats[$it['sleutel']] ?? $n + $i; }
+  unset($it);
+  usort($items, fn($a, $b) => $a['_p'] <=> $b['_p']);
+  return array_map(function ($it) { unset($it['_p']); return $it; }, $items);
+}
+function werkplan($ik) {
+  $items = werkplan_items();
+  $ingmar = [];
+  foreach (q('SELECT * FROM werkplan_ingmar') as $r) $ingmar[$r['sleutel']] = (bool)$r['ingmar'];
+  $reacties = [];
+  $namen = empty($ik['sleutel_id']);
+  foreach (q('SELECT * FROM werkplan_reacties ORDER BY tijd, id') as $r)
+    $reacties[$r['sleutel']][] = ['id' => (int)$r['id'], 'tekst' => $r['tekst'], 'tijd' => iso($r['tijd']),
+                                  'naam' => $namen ? $r['wie_naam'] : 'Team', 'van_mij' => (int)$r['wie'] === (int)$ik['id']];
+  foreach ($items as &$it) {
+    $it['ingmar'] = $ingmar[$it['sleutel']] ?? $it['ingmar'];
+    $it['reacties'] = $reacties[$it['sleutel']] ?? [];
+    if (!$namen) unset($it['door']);
+  }
+  unset($it);
+  $bewaard = json_decode((string)(rij("SELECT v FROM instellingen WHERE k = 'werkplan'")['v'] ?? ''), true);
+  if ($bewaard && !$namen) unset($bewaard['naam']);
+  antwoord(['items' => $items, 'bewaard' => $bewaard ?: null]);
+}
+function werkplan_volgorde($ik, $volgorde) {
+  db()->beginTransaction();
+  q('DELETE FROM werkplan');
+  foreach ($volgorde as $i => $s) q('INSERT INTO werkplan(sleutel, plaats) VALUES (?,?)', [$s, $i]);
+  q("INSERT INTO instellingen(k, v) VALUES ('werkplan', ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v",
+    [json_encode(['tijd' => iso(time()), 'naam' => $ik['naam']], JSON_UNESCAPED_UNICODE)]);
+  db()->commit();
+}
+function werkplan_sleutel($d) {
+  $s = $d['sleutel'] ?? null;
+  if (!is_string($s) || !in_array($s, array_column(werkplan_items(), 'sleutel'), true)) fout('Onbekende TODO.', 404);
+  return $s;
+}
+function werkplan_beheer($ik, $m, $delen) {
+  $pad = implode('/', $delen);
+  $d = $m === 'GET' ? [] : body();
+  if ("$m $pad" === 'POST ') {
+    $volgorde = $d['volgorde'] ?? null;
+    if (!is_array($volgorde) || count($volgorde) > 500) fout('Geef de volgorde als lijst.');
+    werkplan_volgorde($ik, array_values(array_unique(array_filter($volgorde, fn($s) => is_string($s) && $s !== '' && strlen($s) <= 300))));
+  } elseif ("$m $pad" === 'POST nieuw') {  // een eigen TODO, bovenaan
+    $titel = tekstveld($d, 'titel', 200);
+    $tekst = tekstveld($d, 'tekst', 10000, false);
+    q('INSERT INTO werkplan_eigen(titel, tekst, door, door_naam, aangemaakt, bijgewerkt) VALUES (?,?,?,?,?,?)',
+      [$titel, $tekst, $ik['id'], $ik['naam'], time(), time()]);
+    $s = 'eigen:' . db()->lastInsertId();
+    q('INSERT INTO werkplan_ingmar(sleutel, ingmar) VALUES (?,?)', [$s, empty($d['ingmar']) ? 0 : 1]);
+    werkplan_volgorde($ik, array_merge([$s], array_column(array_filter(werkplan_items(), fn($it) => $it['sleutel'] !== $s), 'sleutel')));
+  } elseif ($m === 'PATCH' && ($delen[0] ?? '') === 'eigen' && ctype_digit($delen[1] ?? '')) {
+    q('UPDATE werkplan_eigen SET titel = ?, tekst = ?, bijgewerkt = ? WHERE id = ?',
+      [tekstveld($d, 'titel', 200), tekstveld($d, 'tekst', 10000, false), time(), (int)$delen[1]]);
+  } elseif ($m === 'DELETE' && ($delen[0] ?? '') === 'eigen' && ctype_digit($delen[1] ?? '')) {
+    $s = 'eigen:' . (int)$delen[1];
+    q('DELETE FROM werkplan_eigen WHERE id = ?', [(int)$delen[1]]);
+    foreach (['werkplan', 'werkplan_ingmar', 'werkplan_reacties'] as $tabel) q("DELETE FROM $tabel WHERE sleutel = ?", [$s]);
+  } elseif ("$m $pad" === 'POST ingmar') {
+    q('INSERT INTO werkplan_ingmar(sleutel, ingmar) VALUES (?,?) ON CONFLICT(sleutel) DO UPDATE SET ingmar = excluded.ingmar',
+      [werkplan_sleutel($d), empty($d['ingmar']) ? 0 : 1]);
+  } elseif ("$m $pad" === 'POST reactie') {
+    q('INSERT INTO werkplan_reacties(sleutel, tekst, wie, wie_naam, tijd) VALUES (?,?,?,?,?)',
+      [werkplan_sleutel($d), tekstveld($d, 'tekst', 5000), $ik['id'], $ik['naam'], time()]);
+  } elseif ($m === 'DELETE' && ($delen[0] ?? '') === 'reactie' && ctype_digit($delen[1] ?? '')) {
+    q('DELETE FROM werkplan_reacties WHERE id = ?', [(int)$delen[1]]);
+  } elseif ("$m $pad" !== 'GET ') {
+    fout('Onbekende vraag.', 404);
+  }
+  werkplan($ik);
+}
+
 function beheer($ik, $m, $delen) {
   $pad = implode('/', $delen);
   if ("$m $pad" === 'GET bezoekers') {
@@ -863,6 +988,7 @@ function beheer($ik, $m, $delen) {
     antwoord(['dagen' => $dagen, 'boeken' => $bk, 'totaal' => ['bezoekers' => (int)$tot['b'], 'weergaven' => (int)$tot['w'], 'sinds' => $tot['sinds']]]);
   }
   if ("$m $pad" === 'GET dekking') dekking();
+  if (($delen[0] ?? '') === 'werkplan') werkplan_beheer($ik, $m, array_slice($delen, 1));
   if ("$m $pad" === 'GET feedback') {
     [$waar, $p] = filter_sql($_GET);
     antwoord(feedback_rijen($ik, $waar, $p));

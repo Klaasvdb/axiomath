@@ -432,9 +432,21 @@ def _uren_tekst(graaduren):
     return f"{per_week} uur per week"
 
 
+# De handboeken met uitbreidende leerstof in pakket 4 (KOV Complementair, III-WiCo-d): ze horen bij het pakket,
+# maar zijn geen verplichte leerstof van het leerplan. Kegelsneden niet: dat is GO!-leerstof (koepels.yaml).
+UITBREIDEND = {f"4/{m}" for m in (
+    "Meetkunde/Krommen en meetkundige plaatsen", "Meetkunde/Oppervlakken", "Meetkunde/Affiene en projectieve meetkunde",
+    "Analyse/Reeksen", "Analyse/Differentiaalvergelijkingen", "Analyse/Numerieke methodes", "Analyse/Integratiemethodes",
+    "Algebra/Getaltheorie", "Algebra/Lineair programmeren", "Algebra/Groepentheorie", "Algebra/Vectorruimten",
+    "Algebra/Eigenwaarden en eigenvectoren", "Algebra/Financiële algebra",
+    "Data en onzekerheid/Kansverdelingen", "Data en onzekerheid/Lineaire regressie", "Data en onzekerheid/Multivariate statistiek",
+    "Discrete wiskunde/Iteraties en fractalen", "Discrete wiskunde/Predicatenlogica")}
+
+
 def is_extra(s):
-    """Een handboek dat bij een pakket hoort maar geen leerstof is (de bundels kernvaardigheden): op de site bij Extra."""
-    return bool(s) and s.split("/", 1)[-1].startswith("Kernvaardigheden")
+    """Een handboek dat bij een pakket hoort maar geen verplichte leerstof is: de bundels kernvaardigheden en de
+    handboeken met uitbreidende leerstof (UITBREIDEND). Op de site bij Extra."""
+    return bool(s) and (s.split("/", 1)[-1].startswith("Kernvaardigheden") or s in UITBREIDEND)
 
 
 def koepeltabel():
@@ -501,7 +513,8 @@ def koepeltabel():
                 # de bundels kernvaardigheden zitten in een pakket, maar zijn geen leerstof: op de site bij Extra
                 rec["extra"] = [i for i in rec["verplicht"] if is_extra(i.get("sleutel"))]
                 rec["verplicht"] = [i for i in rec["verplicht"] if not is_extra(i.get("sleutel"))]
-                rec["uitbreiding"] = [item(r) for r in e.get("uitbreiding", [])]
+                # wat al bij Extra staat, niet nog eens bij uitbreiding
+                rec["uitbreiding"] = [item(r) for r in e.get("uitbreiding", []) if not is_extra(item(r).get("sleutel"))]
                 for r in e.get("niet", []):
                     rec["uitbreiding"].append({**item(r), "noot": "geen leerstof voor deze koepel"})
                 for i in rec["uitbreiding"]:

@@ -7,9 +7,10 @@ Wat er gebeurt:
   app/lib.php, app/.htaccess          de serverlogica, BUITEN public_html
   app/boeken.json, app/laatste.json   de handboeken en de jongste versie van elke editie
   app/verwerkt.json                   wat uit de feedback verwerkt is, per versie (de kaders Verwerkt in de lezer)
+  app/werkplan.json                   de grote TODO's uit TODO.md (Beheer → Werkplan)
   app/versies/<h>.pdf en <h>.json     alleen de versies die nog niet online staan (een versie verandert nooit)
   app/config.php                      alleen de eerste keer, of met --config
-  public_html/                        de app (index.html, app.js, plannen.js, app.css), lettertypes, logo, voorkanten, api/index.php
+  public_html/                        de app (index.html, app.js, plannen.js, app.css), lettertypes, logo, hand.webp (Over), voorkanten, api/index.php
   public_html/voorbeeld/integralen/   de voorbeeldcursus uit Website/ (maak.py kopieert ze), telkens helemaal
   daarna herplaats.py                 de open feedback naar de nieuwe versies, met een uitsnede van de oude plek
                                       (public_html/uitsneden/); zonder sleutel voor Claude alleen een melding
@@ -226,6 +227,8 @@ def main():
     upload(SERVER / "app" / "laatste.json", "app")  # pas na de versies: leerkrachten zien de nieuwe edities nu
     if (SERVER / "app" / "verwerkt.json").exists():
         upload(SERVER / "app" / "verwerkt.json", "app")  # de kaders "Verwerkt" in de lezer
+    if (SERVER / "app" / "werkplan.json").exists():
+        upload(SERVER / "app" / "werkplan.json", "app")  # de grote TODO's (Beheer → Werkplan)
     for f in sorted((SERVER / "public_html" / "fonts").iterdir()):
         upload(f, "public_html/fonts")
     upload(SERVER / "public_html" / "api" / "index.php", "public_html/api")
@@ -238,7 +241,7 @@ def main():
     for f in sorted(p for p in voorbeeld.rglob("*") if p.is_file()):
         upload(f, "public_html/" + f.parent.relative_to(SERVER / "public_html").as_posix())
     for naam in ["logo.svg", "icoon.svg", "icoon-180.png", "icoon-192.png", "icoon-512.png", "icoon-maskeerbaar-512.png",
-                 "kunst.jpg", "og-image.jpg", "manifest.webmanifest", "app.css", "plannen.js", "app.js", "sw.js", ".htaccess", "index.html"]:
+                 "kunst.jpg", "hand.webp", "og-image.jpg", "manifest.webmanifest", "app.css", "plannen.js", "app.js", "sw.js", ".htaccess", "index.html"]:
         upload(SERVER / "public_html" / naam, "public_html")
 
     # De open feedback verhuist mee naar de nieuwe versies (pas nu: de server moet ze kennen). Zonder sleutel: melden.
