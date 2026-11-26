@@ -11,7 +11,7 @@ const W = {
     return (r < 0 ? "−" : "") + String(Math.abs(r)).replace(".", ",");
   },
   inv(n) { return n < 0 ? "(" + W.getal(n) + ")" : W.getal(n); },  // getal dat je invult: negatief tussen haakjes
-  v(t) { return h("i", { class: "wv" }, t); },                    // een veranderlijke, cursief
+  v(t) { return h("i", { class: t === "f" || t === "F" ? "wv wv-f" : "wv" }, t); },  // een veranderlijke, cursief
   macht(grond, exp) { return [grond, h("sup", {}, exp)]; },
   /* Een veelterm uit [coëfficiënt, exponent]-paren, zonder nulterm, zonder 1x en met + of − ertussen. */
   veelterm(termen, x = "x") {
@@ -42,7 +42,7 @@ const W = {
     return h("span", { class: "integraal" }, h("span", { class: "int-teken" }, "∫"),
       h("span", { class: "int-grenzen" }, h("span", {}, b), h("span", {}, a)), h("span", {}, integrand, " d", W.v("x")));
   },
-  f(naam, x = "x") { return [W.v(naam), "(", W.v(x), ")"]; },
+  f(naam, x = "x") { return [W.v(naam), "(", /^[a-zA-Z]$/.test(x) ? W.v(x) : x, ")"]; },  // f(2): het getal blijft recht
   wis(...k) { return h("span", { class: "wis" }, k); },
 };
 

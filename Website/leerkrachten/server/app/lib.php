@@ -29,9 +29,12 @@ const EDITIES = ['handboek' => 'Handboek', 'leerkracht' => 'Leerkrachtenversie',
 date_default_timezone_set('Europe/Brussels');
 const SESSIEDUUR = 30 * 86400;
 const CODEDUUR = 30 * 86400;
+const HERSTELDUUR = 3600;  // een herstellink per mail werkt een uur
 
-/* config.php: ['databank' => pad, 'startcode' => code voor de eerste beheerder, 'contact' => e-mailadres voor een aanvraag om uitnodiging]. De testreeks wijst met
-   AXIOMATH_CONFIG naar een eigen configuratie met een lege databank. */
+/* config.php: ['databank' => pad, 'startcode' => code voor de eerste beheerder, 'contact' => e-mailadres voor een aanvraag om uitnodiging,
+   'verantwoordelijke' => naam van de verantwoordelijke in de privacyverklaring (#/privacy; leeg = 'het Axiomath-team'),
+   'afzender' => adres waarvan de site mailt (standaard noreply@<domein>), 'mailmap' => map waarin mails als bestand komen in plaats
+   van verstuurd te worden (de testreeks)]. De testreeks wijst met AXIOMATH_CONFIG naar een eigen configuratie met een lege databank. */
 function cfg() {
   static $c = null;
   if ($c === null) {
@@ -172,7 +175,7 @@ function rem_mislukt($sleutel) {
   else q('INSERT OR REPLACE INTO pogingen(sleutel, n, tot) VALUES (?, 1, ?)', [$sleutel, time() + 900]);
 }
 
-function maak_code($soort, $rol = null, $gebruiker = null, $notitie = null) {
+function maak_code($soort, $rol = null, $gebruiker = null, $notitie = null, $duur = CODEDUUR) {
   $abc = 'abcdefghjkmnpqrstuvwxyz23456789';  // geen 0/O, 1/l/I
   $delen = [];
   for ($i = 0; $i < 3; $i++) {
@@ -182,13 +185,38 @@ function maak_code($soort, $rol = null, $gebruiker = null, $notitie = null) {
   }
   $code = implode('-', $delen);
   q('INSERT INTO codes(code, soort, rol, gebruiker, notitie, aangemaakt, vervalt) VALUES (?,?,?,?,?,?,?)',
-    [$code, $soort, $rol, $gebruiker, $notitie, time(), time() + CODEDUUR]);
+    [$code, $soort, $rol, $gebruiker, $notitie, time(), time() + $duur]);
   return $code;
 }
 function code_rij($code, $soort) {
   $r = rij('SELECT * FROM codes WHERE code = ? AND soort = ?', [strtolower(trim((string)$code)), $soort]);
-  if (!$r || $r['gebruikt'] || $r['vervalt'] < time()) fout('Deze code is ongeldig, al gebruikt of vervallen. Vraag een nieuwe aan het team.');
+  if (!$r || $r['gebruikt'] || $r['vervalt'] < time()) fout($soort === 'herstel' ? 'Deze code is ongeldig, al gebruikt of vervallen. Vraag een nieuwe link aan via Wachtwoord vergeten.'
+                                                                 : 'Deze code is ongeldig, al gebruikt of vervallen. Vraag een nieuwe aan het team.');
   return $r;
+}
+
+/* Een mail versturen, als platte tekst in UTF-8. Op de hosting gaat dat via mail() en de mailserver van DirectAdmin (exim), die
+   ondertekent met DKIM; het envelopadres (-f) is de afzender zelf, zodat SPF en DMARC kloppen. Met 'mailmap' in config.php komt de
+   mail als bestand in die map (de testreeks). */
+function site_url() {
+  $host = preg_replace('/[^a-z0-9.:-]/i', '', $_SERVER['HTTP_HOST'] ?? '') ?: 'axiomath.be';
+  return (is_https() ? 'https' : 'http') . '://' . $host;
+}
+function stuur_mail($aan, $onderwerp, $tekst) {
+  $domein = preg_replace('/^www\./', '', explode(':', parse_url(site_url(), PHP_URL_HOST) ?: 'axiomath.be')[0]);
+  $van = cfg()['afzender'] ?? "noreply@$domein";
+  $kop = ['From' => '=?UTF-8?B?' . base64_encode('Axiomath') . "?= <$van>", 'MIME-Version' => '1.0',
+          'Content-Type' => 'text/plain; charset=UTF-8', 'Content-Transfer-Encoding' => '8bit',
+          'Message-ID' => '<' . bin2hex(random_bytes(12)) . "@$domein>", 'Date' => date('r'), 'Auto-Submitted' => 'auto-generated'];
+  if (!empty(cfg()['contact'])) $kop['Reply-To'] = cfg()['contact'];
+  $onderwerp = '=?UTF-8?B?' . base64_encode($onderwerp) . '?=';
+  $tekst = str_replace("\n", "\r\n", str_replace("\r\n", "\n", $tekst));
+  if (!empty(cfg()['mailmap'])) {
+    $regels = "To: $aan\r\nSubject: $onderwerp\r\n";
+    foreach ($kop as $k => $v) $regels .= "$k: $v\r\n";
+    return file_put_contents(cfg()['mailmap'] . '/' . microtime(true) . '-' . bin2hex(random_bytes(3)) . '.eml', "$regels\r\n$tekst") !== false;
+  }
+  return mail($aan, $onderwerp, $tekst, $kop, '-f' . $van);
 }
 
 // --- handboeken en versies -----------------------------------------------------------------------
@@ -452,12 +480,14 @@ function route() {
 
   // zonder aanmelden
   if ("$m $pad" === 'GET menu') antwoord(['soorten' => SOORTEN, 'soorten_algemeen' => SOORTEN_ALGEMEEN, 'ernst' => ERNST,
-                                           'statussen' => STATUSSEN, 'edities' => EDITIES, 'contact' => cfg()['contact'] ?? null]);
+                                           'statussen' => STATUSSEN, 'edities' => EDITIES, 'contact' => cfg()['contact'] ?? null,
+                                           'verantwoordelijke' => cfg()['verantwoordelijke'] ?? null]);
   if ("$m $pad" === 'POST bezoek') bezoek();
   if ("$m $pad" === 'POST bezoek/lees') bezoek_boek(ik());
   if ("$m $pad" === 'POST aanmelden') aanmelden();
   if ("$m $pad" === 'POST registreer') registreer();
   if ("$m $pad" === 'POST herstel') herstel();
+  if ("$m $pad" === 'POST herstel/vraag') herstel_vraag();
   $sl = $_SERVER['HTTP_X_AXIOMATH_SLEUTEL'] ?? '';
   if (is_string($sl) && $sl !== '') met_sleutel($sl, $m, $pad, $delen);
 
@@ -601,6 +631,29 @@ function herstel() {
   q('UPDATE codes SET gebruikt = ?, gebruikt_door = ? WHERE code = ?', [time(), $c['gebruiker'], $c['code']]);
   start_sessie($c['gebruiker']);
   antwoord(['ok' => true]);
+}
+
+/* Wachtwoord vergeten: de server mailt een herstellink die een uur werkt. Het antwoord is altijd hetzelfde, zodat niemand zo kan
+   nagaan wie een account heeft. Rem: elke vraag telt mee voor het IP-adres (10 per kwartier), en per account hoogstens één mail
+   per twee minuten. Een nieuwe link maakt de vorige ongeldig. */
+function herstel_vraag() {
+  $d = body();
+  $rem = 'herstel:' . ($_SERVER['REMOTE_ADDR'] ?? '?');
+  rem_check($rem);
+  rem_mislukt($rem);
+  $email = strtolower(tekstveld($d, 'email', 200));
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fout('Dat is geen geldig e-mailadres.');
+  $ok = ['ok' => true, 'boodschap' => 'Als er een account is met dit adres, krijg je binnen enkele minuten een mail met een link om een nieuw wachtwoord te kiezen. Kijk ook bij je spam.'];
+  $g = rij('SELECT * FROM gebruikers WHERE email = ? AND actief = 1', [$email]);
+  if (!$g || rij("SELECT 1 FROM codes WHERE soort = 'herstel' AND gebruiker = ? AND notitie = 'mail' AND aangemaakt > ?", [$g['id'], time() - 120])) antwoord($ok);
+  q("UPDATE codes SET vervalt = ? WHERE soort = 'herstel' AND gebruiker = ? AND notitie = 'mail' AND gebruikt IS NULL", [time() - 1, $g['id']]);
+  $code = maak_code('herstel', null, (int)$g['id'], 'mail', HERSTELDUUR);
+  $link = site_url() . '/#/aanmelden?herstel=' . $code;
+  $tekst = "Dag {$g['naam']},\n\nJe vroeg om een nieuw wachtwoord voor Axiomath. Kies het via deze link:\n\n$link\n\n"
+         . "De link werkt een uur en maar één keer. Je herstelcode is $code, als de link niet werkt.\n\n"
+         . "Vroeg je dit niet? Dan mag je deze mail negeren: je wachtwoord blijft hetzelfde.\n\nHet Axiomath-team\n";
+  if (!stuur_mail($g['email'], 'Een nieuw wachtwoord voor Axiomath', $tekst)) error_log("axiomath: herstelmail niet verstuurd voor gebruiker {$g['id']}");
+  antwoord($ok);
 }
 
 /* Zonder account: alleen de editie 'handboek' en geen tellingen van de feedback ('feedback' => null). */
@@ -1017,7 +1070,8 @@ function beheer($ik, $m, $delen) {
               'aangemaakt' => iso($r['aangemaakt']), 'gezien' => iso($r['gezien']), 'feedback' => (int)$r['n']];
     }
     $c = [];
-    foreach (q('SELECT * FROM codes WHERE gebruikt IS NULL AND vervalt > ? ORDER BY aangemaakt DESC', [time()]) as $r) {
+    foreach (q("SELECT * FROM codes WHERE gebruikt IS NULL AND vervalt > ? AND NOT (soort = 'herstel' AND notitie IS 'mail')
+                ORDER BY aangemaakt DESC", [time()]) as $r) {  // een herstellink per mail hoort niet bij de open codes
       $c[] = ['code' => $r['code'], 'soort' => $r['soort'], 'rol' => $r['rol'], 'notitie' => $r['notitie'],
               'aangemaakt' => iso($r['aangemaakt']), 'vervalt' => iso($r['vervalt'])];
     }

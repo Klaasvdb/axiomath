@@ -91,3 +91,12 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+-----------------------------------------------------------
+Axiomath Wiskunde (axiomath-wiskunde.woff2, axiomath-wiskunde-cursief.woff2)
+-----------------------------------------------------------
+
+Gemaakt met Website/maak-wiskundefont.py uit dezelfde TeX-lettertypes als de handboeken:
+- zsfmi-reg en zsfmia-reg uit newtxsf (Michael Sharpe, op basis van STIX), SIL Open Font License 1.1 (zie hierboven);
+- txsys en txexs uit newtx (Michael Sharpe), LaTeX Project Public License 1.3c (https://www.latex-project.org/lppl/).
+Alleen een deel van de glyphs is overgenomen, onder een eigen familienaam.

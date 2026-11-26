@@ -83,10 +83,53 @@ def vrije_poort():
         return s.getsockname()[1]
 
 
+MAILMAP = [None]
+
+
+def mails():
+    """De mails die de server schreef (mailmap in de testconfiguratie), oudste eerst."""
+    import email
+    from email.header import decode_header, make_header
+    uit = []
+    for f in sorted(MAILMAP[0].glob("*.eml")):
+        m = email.message_from_bytes(f.read_bytes())
+        uit.append({"aan": m["To"], "onderwerp": str(make_header(decode_header(m["Subject"]))), "van": m["From"],
+                    "tekst": m.get_payload(decode=True).decode("utf-8")})
+    return uit
+
+
+def vergeten_tests(x, l):
+    """Wachtwoord vergeten: een mail met een herstellink, zonder te verraden wie een account heeft."""
+    import re
+    s, d = x("POST", "herstel/vraag", {"email": "niemand@voorbeeld.be"})
+    meld("vergeten: onbekend adres, gewoon antwoord, geen mail", s == 200 and d.get("ok") and not mails(), d)
+    s, d0 = x("POST", "herstel/vraag", {"email": "geen-adres"})
+    meld("vergeten: ongeldig adres geweigerd", s == 400, d0)
+    s, d2 = x("POST", "herstel/vraag", {"email": "An@Voorbeeld.be"})
+    m = mails()
+    meld("vergeten: bekend adres, zelfde antwoord, één mail", s == 200 and d2 == d and len(m) == 1 and m[0]["aan"] == "an@voorbeeld.be", m)
+    code = re.search(r"#/aanmelden\?herstel=([a-z0-9-]+)", m[0]["tekst"]) if m else None
+    code = code.group(1) if code else ""
+    meld("vergeten: mail met link, afzender en onderwerp", bool(code) and "noreply@" in m[0]["van"] and "wachtwoord" in m[0]["onderwerp"], m)
+    x("POST", "herstel/vraag", {"email": "an@voorbeeld.be"})
+    meld("vergeten: geen tweede mail binnen twee minuten", len(mails()) == 1, mails())
+    s, d = x("POST", "herstel", {"code": code, "wachtwoord": "kort"})
+    meld("vergeten: te kort wachtwoord geweigerd", s == 400, d)
+    s, d = x("POST", "herstel", {"code": code, "wachtwoord": "wachtwoord-uit-de-mail"})
+    meld("vergeten: nieuw wachtwoord met de link", s == 200, d)
+    s, d = x("POST", "herstel", {"code": code, "wachtwoord": "nog-eens-een-ander"})
+    meld("vergeten: link werkt maar één keer", s == 400, d)
+    s, d = l("POST", "aanmelden", {"email": "an@voorbeeld.be", "wachtwoord": "wachtwoord-uit-de-mail"})
+    meld("vergeten: aanmelden met het nieuwe wachtwoord", s == 200, d)
+
+
 def start_server():
     tmp = Path(tempfile.mkdtemp(prefix="axiomath-test-"))
     config = tmp / "config.php"
-    config.write_text("<?php\nreturn ['databank' => __DIR__ . '/test.sqlite', 'startcode' => '" + STARTCODE + "'];\n", encoding="utf-8")
+    (tmp / "mail").mkdir()  # de mails van de server komen hier als bestand (mailmap), zie mails()
+    MAILMAP[0] = tmp / "mail"
+    config.write_text("<?php\nreturn ['databank' => __DIR__ . '/test.sqlite', 'startcode' => '" + STARTCODE + "', 'mailmap' => __DIR__ . '/mail'];\n",
+                      encoding="utf-8")
     poort = vrije_poort()
     env = dict(os.environ, AXIOMATH_CONFIG=str(config))
     log = open(tmp / "php.log", "w")
@@ -286,6 +329,7 @@ def api_tests(url):
     meld("herstel meldt oude sessies af", s == 200 and d is None, d)
     s, d = l("POST", "aanmelden", {"email": "an@voorbeeld.be", "wachtwoord": "een-nieuw-wachtwoord"})
     meld("aanmelden met nieuw wachtwoord", s == 200, d)
+    vergeten_tests(x, l)
     s, d = b("PATCH", f"beheer/gebruiker/{an['id']}", {"actief": False})
     s2, d2 = l("GET", "ik")
     meld("geblokkeerd account is afgemeld", s == 200 and d2 is None, d2)

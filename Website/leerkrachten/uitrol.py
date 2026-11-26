@@ -5,6 +5,7 @@
 
 Wat er gebeurt:
   app/lib.php, app/.htaccess          de serverlogica, BUITEN public_html
+  app/reservekopie.php                de reservekopie van de databank, elke nacht via cron (één keer klaargezet)
   app/boeken.json, app/laatste.json   de handboeken en de jongste versie van elke editie
   app/verwerkt.json                   wat uit de feedback verwerkt is, per versie (de kaders Verwerkt in de lezer)
   app/werkplan.json                   de grote TODO's uit TODO.md (Beheer → Werkplan)
@@ -156,6 +157,19 @@ def upload(lokaal, doelmap):
         sys.exit(1)
 
 
+CRON_UUR = ("17", "3")  # de reservekopie elke nacht om 3.17 uur (reservekopie.php)
+
+
+def cron_klaarzetten():
+    """De nachtelijke reservekopie van de databank als cron-taak in DirectAdmin, één keer (al aanwezig: niets)."""
+    opdracht = f"/usr/local/bin/php /home/{login}{DOMEIN}/app/reservekopie.php >> /home/{login}{DOMEIN}/app/reservekopie.log 2>&1"
+    if "reservekopie.php" in urllib.parse.unquote_plus(roep("CMD_API_CRON_JOBS")):
+        return
+    uit = roep("CMD_API_CRON_JOBS", {"action": "create", "minute": CRON_UUR[0], "hour": CRON_UUR[1], "dayofmonth": "*",
+                                     "month": "*", "dayofweek": "*", "command": opdracht})
+    print("  cron reservekopie:", "klaargezet" if "error=0" in uit else uit[:160])
+
+
 def config_maken():
     config = SERVER / "app" / "config.php"
     if config.exists():
@@ -197,10 +211,13 @@ def main():
     print("server")
     upload(SERVER / "app" / "lib.php", "app")
     upload(SERVER / "app" / ".htaccess", "app")
+    upload(SERVER / "app" / "reservekopie.php", "app")
     if "--config" in sys.argv or not bestaat(f"{DOMEIN}/app/config.php"):
         upload(config, "app")
     else:
         print("  -- app/config.php staat er al (gebruik --config om te vervangen)")
+
+    cron_klaarzetten()
 
     print("versies (alleen nieuwe)")
     online = lijst(f"{DOMEIN}/app/versies")
@@ -229,9 +246,21 @@ def main():
         upload(SERVER / "app" / "verwerkt.json", "app")  # de kaders "Verwerkt" in de lezer
     if (SERVER / "app" / "werkplan.json").exists():
         upload(SERVER / "app" / "werkplan.json", "app")  # de grote TODO's (Beheer → Werkplan)
+    if (SERVER / "public_html" / "bereik.json").exists():
+        upload(SERVER / "public_html" / "bereik.json", "public_html")  # #/bereik: de leerlingen per pakket (bereik.py)
     for f in sorted((SERVER / "public_html" / "fonts").iterdir()):
         upload(f, "public_html/fonts")
     upload(SERVER / "public_html" / "api" / "index.php", "public_html/api")
+    # pdf.js en pdf-lib (een map per versie, zie lib/README.md): alleen wat er nog niet staat. En security.txt.
+    map_maken(f"{DOMEIN}/public_html", "lib")
+    for m in sorted(p for p in (SERVER / "public_html" / "lib").iterdir() if p.is_dir()):
+        map_maken(f"{DOMEIN}/public_html/lib", m.name)
+        online = lijst(f"{DOMEIN}/public_html/lib/{m.name}")
+        for f in sorted(m.iterdir()):
+            if f"{DOMEIN}/public_html/lib/{m.name}/{f.name}" not in online:
+                upload(f, f"public_html/lib/{m.name}")
+    map_maken(f"{DOMEIN}/public_html", ".well-known")
+    upload(SERVER / "public_html" / ".well-known" / "security.txt", "public_html/.well-known")
     print("voorbeeldcursus")
     voorbeeld = SERVER / "public_html" / "voorbeeld"
     map_maken(f"{DOMEIN}/public_html", "voorbeeld")

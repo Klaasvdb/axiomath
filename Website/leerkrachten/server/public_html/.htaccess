@@ -21,4 +21,22 @@ AddType application/manifest+json .webmanifest
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "same-origin"
+  # Altijd https (een jaar; geen preload, dat is moeilijk terug te draaien), nooit in een frame op een andere site,
+  # geen camera, microfoon of locatie, en niet tonen welke PHP-versie draait.
+  # (zonder voorwaarde: de hosting zet %{HTTPS} niet altijd, en op http negeert de browser deze kop toch)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+  # De bibliotheken in lib/ staan in een map per versie en veranderen dus nooit (lib/README.md).
+  <If "%{REQUEST_URI} =~ m#^/lib/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  # Content-Security-Policy: alleen scripts, lettertypes en verbindingen van axiomath.be zelf (ook pdf.js en zijn
+  # worker, uit lib/). Stijlen mogen inline: de app zet stijlen per element (h() in app.js). Niet voor de voorbeeldcursus
+  # (die start met een inline script) en niet voor de API (die serveert ook de PDF's, voor de PDF-lezer van de browser).
+  <If "%{REQUEST_URI} !~ m#^/(voorbeeld|api)/#">
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+  </If>
 </IfModule>

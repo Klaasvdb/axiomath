@@ -100,6 +100,63 @@ De plannen staan op [axiomath.be/#/plannen](https://axiomath.be/#/plannen), elk 
 
 Op langere termijn (feedback #21): **zoeken op inhoud** over alle handboeken heen, bijvoorbeeld "in welke boeken staat iets over priemgetallen?". De tekst van elke PDF-versie is er al (maak.py), dus een zoekindex per versie is een begin.
 
+## Klasomgeving en leerlinggegevens (plan, 26 nov 2026)
+
+Een leerkracht maakt een klas, kiest de handboeken, hun volgorde en welke edities de leerlingen zien (nooit de leerkrachtenversie), eventueel met een datum waarop iets openkomt, zoals de oplossingen na de toets. Zodra er leerlingen op de site komen, verwerken we gegevens van minderjarigen. Daarom bouwen we in trappen, en regelen we per trap eerst de afspraken.
+
+**De rollen (AVG).** Voor leerlinggegevens is de school de verwerkingsverantwoordelijke en Axiomath de verwerker: we verwerken alleen in opdracht van de school. Dat vraagt een verwerkersovereenkomst met elke school. Voor de accounts van leerkrachten zijn we nu al zelf verantwoordelijke; daarvoor hoort er nu al een privacyverklaring op de site.
+
+**Drie trappen**
+
+| Trap | Wat de leerling doet | Wat we bewaren | Wat we eerst moeten regelen |
+| --- | --- | --- | --- |
+| 1. Klaslink | opent een geheime link van de klas, zonder account | niets over leerlingen | niets bij de school; wel beslissen welke edities een link mag tonen |
+| 2. Aanmelden met Smartschool | meldt aan met zijn Smartschool-account, de klas komt mee | id, voornaam, naam, klas | goedkeuring door Smartschool, verwerkersovereenkomst per school, privacyverklaring voor leerlingen |
+| 3. Oefenen en toetsen | maakt oefeningen, punten naar het puntenboek | ook resultaten | alles van trap 2, en daarbovenop een DPIA en de scope voor resultaten |
+
+Voorstel: trap 1 eerst bouwen. Dat dekt bijna alles wat de leerkracht vraagt (klassen, rek, volgorde, edities, datums) zonder één persoonsgegeven van een leerling. Leerlingaccounts pas als we iets per leerling moeten onthouden.
+
+**Smartschool** ([OAuth voor ontwikkelaars](https://smartschool.be/OAuth))
+
+- Smartschool is een identity provider via OAuth2. De ontwikkelaar vult het aanvraagformulier voor ontwikkelaars in en ondertekent het; Smartschool toetst aan zijn ontwikkelaarsbeleid en kan een demo of een gesprek vragen. Een sandbox is er op aanvraag, alleen met een voldoende niveau van informatieveiligheid.
+- Ook na de goedkeuring door Smartschool beslist elke school zelf of ze de koppeling toelaat, en sluit ze daarvoor een overeenkomst met ons.
+- Scopes: `userinfo` (een vaste id over de platformen heen, platform, voornaam, naam, gebruikersnaam) en `groupinfo` (klassen en groepen) volstaan. `fulluserinfo` (e-mail, telefoon, geslacht, geboortedatum) vragen we niet. `exerciseresults` (naar het puntenboek) kan alleen op aanvraag: pas bij trap 3.
+- Centraal adres `oauth.smartschool.be` voor alle scholen. Een access token werkt een uur, een refresh token drie jaar. De leerling kan de koppeling zelf verbreken in zijn profiel.
+- De SOAP-webservices met een sleutel per school (de hele leerlingenlijst) vragen we niet: dat is meer dan we nodig hebben.
+- Nog na te kijken: de voorbeeldantwoorden voor een leerling en een leerkracht (staat de rol erin?), en of het kost.
+
+**Wat we moeten opstellen**
+
+- Een privacyverklaring op de site (`#/privacy`), in gewone taal, ook voor leerlingen: wat, waarom, hoe lang, wie, je rechten. Voor leerkrachten nu al.
+- Een model van verwerkersovereenkomst. Vertrek van wat scholen al kennen (de uitgevers in Vlaanderen gebruiken er een; in Nederland bestaat een model in het Convenant Digitale Onderwijsmiddelen en Privacy), en laat het nalezen door de functionaris voor gegevensbescherming (DPO) van een scholengroep of koepel.
+- Een register van verwerkingen: welke gegevens, doel, bewaartermijn, subverwerkers (Vimexx in Nederland, en cdnjs zolang pdf.js daar vandaan komt).
+- Een procedure bij een datalek: de school binnen 24 uur verwittigen, zodat zij binnen 72 uur kan melden.
+- Een DPIA vóór trap 3 (resultaten van minderjarigen).
+
+**Techniek op axiomath.be**
+
+- Alleen bewaren wat de trap nodig heeft: geen e-mailadres of geboortedatum van leerlingen, de Smartschool-id als sleutel.
+- Leerlinggegevens in eigen tabellen, nooit in de feedback of het logboek, en niet zichtbaar voor andere leerkrachten dan die van de klas.
+- Klassen en leerlingen automatisch wissen na het schooljaar (1 september), en op vraag van de school meteen.
+- Geen statistieken over leerlingen, geen externe scripts in wat leerlingen zien (pdf.js zelf hosten).
+- Dagelijkse back-up met een vaste bewaartermijn (30 dagen), zodat gewiste gegevens ook uit de back-ups verdwijnen.
+
+**Stappenplan**
+
+- Privacyverklaring voor de huidige accounts van leerkrachten.
+- Beslissen wie Axiomath juridisch is (een vzw of een feitelijke vereniging?): die tekent de overeenkomsten met de scholen.
+- Trap 1 bouwen: klassen, klaslink, rek, volgorde, edities, datums.
+- Model van verwerkersovereenkomst opstellen en laten nalezen.
+- Bij Smartschool het ontwikkelaarsformulier indienen en een sandbox vragen.
+- Trap 2 testen met één testschool, daarna openstellen.
+- Trap 3 pas na de DPIA en met de oefeningenbank online.
+
+**Open vragen**
+
+- Mag een klaslink de uitgewerkte oplossingen tonen, die nu alleen voor accounts zijn?
+- Scholen zonder Smartschool: aanmelden met het schoolaccount van Microsoft of Google als alternatief?
+- LeerID van de Vlaamse overheid (toegang voor leerlingen tot digitale leermiddelen): nog uit te zoeken of we er als aanbieder bij kunnen. De brontekst kon ik niet openen.
+
 ## Kenmerk op de voorkant
 - De afdruk in zwart-wit nakijken (de kleuren verschillen dan alleen in grijswaarde).
 

@@ -4,6 +4,7 @@
      #/algemeen         algemene feedback   #/beheer/<tab>       voor het team
      #/aanmelden        aanmelden, uitnodiging, herstelcode     #/over   de visie, voor iedereen
      #/voortgang        de voortgang per pakket en per handboek, voor iedereen
+     #/privacy          de privacyverklaring, voor iedereen
      #/plannen          toekomstige plannen, met een voorproefje van elk (plannen.js), voor iedereen
    Zonder account (S.ik = null) zie je de boekenkast en lees je de editie 'handboek', zonder feedback.
    Alle tekst komt via textContent op de pagina (functie h), nooit via innerHTML, behalve de vaste iconen. */
@@ -89,7 +90,7 @@ const wanneer = (iso) => {
 const sleutelUrl = (s) => encodeURIComponent(s);
 
 /* PDF.js (Mozilla, Apache 2.0) tekent de pagina's in de browser. Pas geladen als iemand een boek opent. */
-const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+const PDFJS = "/lib/pdf.js-3.11.174/";  // zelf gehost (lib/README.md), niet meer via cdnjs
 let pdfjsBelofte = null;
 function laadPdfjs() {
   return pdfjsBelofte ??= new Promise((ok, nee) => {
@@ -359,7 +360,22 @@ function toonWelkom() {
         e.preventDefault(); fout.textContent = "";
         try { await api("POST", "aanmelden", { email: email.value, wachtwoord: ww.value }); await start(); } catch (x) { fout.textContent = x.message; }
       }) }, h("label", { class: "veld" }, "E-mailadres", email), h("label", { class: "veld" }, "Wachtwoord", ww), fout,
-      h("div", {}, h("button", { class: "knop" }, "Aanmelden")));
+      h("div", {}, h("button", { class: "knop" }, "Aanmelden")),
+      h("p", { class: "zacht klein", style: { marginTop: "14px" } },
+        h("a", { href: "#/aanmelden", onclick: (e) => { e.preventDefault(); kies("vergeten", email.value); } }, "Wachtwoord vergeten?")));
+    },
+    // de server mailt een herstellink (#/aanmelden?herstel=…) en zegt nooit of het adres een account heeft
+    vergeten: (adres) => {
+      const email = h("input", { type: "email", autocomplete: "username", required: true, value: adres || "" });
+      const knop = h("button", { class: "knop" }, "Stuur me een link");
+      const klaar = h("p", { class: "melding-tekst", role: "status" });
+      return h("form", { onsubmit: poging(async (e) => {
+        e.preventDefault(); fout.textContent = ""; klaar.textContent = "";
+        try { const r = await api("POST", "herstel/vraag", { email: email.value }); klaar.textContent = r.boodschap; knop.disabled = true; }
+        catch (x) { fout.textContent = x.message; }
+      }) }, h("p", { class: "zacht" }, "Geef het e-mailadres van je account. Je krijgt een mail met een link om een nieuw wachtwoord te kiezen."),
+      h("label", { class: "veld" }, "E-mailadres", email), fout, klaar,
+      h("div", {}, knop, " ", h("button", { class: "knop licht", type: "button", onclick: () => kies("aanmelden") }, "Terug")));
     },
     uitnodiging: () => {
       const code = h("input", { type: "text", autocomplete: "off", placeholder: "abcd-efgh-jkmn", required: true });
@@ -378,6 +394,7 @@ function toonWelkom() {
       h("label", { class: "veld" }, "Je naam", h("span", { class: "hulp" }, "Collega's zien je naam bij je feedback."), naam),
       h("label", { class: "veld" }, "E-mailadres", email),
       h("label", { class: "veld" }, "Kies een wachtwoord", h("span", { class: "hulp" }, "Minstens 10 tekens."), ww), fout,
+      h("p", { class: "zacht klein" }, "Wat we met je naam en e-mailadres doen, staat in de ", h("a", { href: "#/privacy" }, "privacyverklaring"), "."),
       h("div", {}, h("button", { class: "knop" }, "Account maken")),
       // het adres staat in config.php op de server ('contact'), niet in de repo
       S.menu?.contact && h("p", { class: "zacht klein", style: { marginTop: "18px" } }, "Nog geen uitnodigingscode? ",
@@ -386,20 +403,26 @@ function toonWelkom() {
     herstel: () => {
       const code = h("input", { type: "text", autocomplete: "off", required: true });
       const ww = h("input", { type: "password", autocomplete: "new-password", minlength: 10, required: true });
+      const p = new URLSearchParams(location.hash.split("?")[1] || ""); if (p.get("herstel")) code.value = p.get("herstel");
       return h("form", { onsubmit: poging(async (e) => {
         e.preventDefault(); fout.textContent = "";
-        try { await api("POST", "herstel", { code: code.value, wachtwoord: ww.value }); await start(); } catch (x) { fout.textContent = x.message; }
-      }) }, h("p", { class: "zacht" }, "Wachtwoord vergeten? Vraag het team om een herstelcode en kies hier een nieuw wachtwoord."),
+        try {
+          await api("POST", "herstel", { code: code.value, wachtwoord: ww.value });
+          history.replaceState(null, "", "#/"); await start();
+        } catch (x) { fout.textContent = x.message; }
+      }) }, h("p", { class: "zacht" }, "Kies een nieuw wachtwoord met de herstelcode uit de mail (of van het team). Geen code? ",
+        h("a", { href: "#/aanmelden", onclick: (e) => { e.preventDefault(); kies("vergeten"); } }, "Vraag een link aan"), "."),
       h("label", { class: "veld" }, "Herstelcode", code), h("label", { class: "veld" }, "Nieuw wachtwoord", ww), fout,
       h("div", {}, h("button", { class: "knop" }, "Wachtwoord instellen")));
     },
   };
   const plek = h("div");
   const tabs = h("div", { class: "tabs", role: "tablist" });
-  const kies = (k) => {
+  const kies = (k, ...arg) => {
     fout.textContent = "";
-    tabs.querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.k === k)));
-    plek.replaceChildren(vormen[k]()); plek.querySelector("input")?.focus();
+    const tab = k === "vergeten" ? "herstel" : k;  // Wachtwoord vergeten valt onder de tab Herstelcode
+    tabs.querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.k === tab)));
+    plek.replaceChildren(vormen[k](...arg)); plek.querySelector("input")?.focus();
   };
   [["aanmelden", "Aanmelden"], ["uitnodiging", "Uitnodiging"], ["herstel", "Herstelcode"]].forEach(([k, l]) =>
     tabs.append(h("button", { type: "button", role: "tab", "data-k": k, onclick: () => kies(k) }, l)));
@@ -414,8 +437,9 @@ function toonWelkom() {
       tabs, plek,
       h("p", { class: "zacht klein", style: { marginTop: "22px" } }, "Geen account? De handboeken kan iedereen lezen. ",
         h("a", { href: "#/", onclick: (e) => { e.preventDefault(); history.replaceState(null, "", "#/"); route(); } }, "Naar de handboeken"),
-        " · ", h("a", { href: GITHUB, target: "_blank", rel: "noopener" }, "Alles op GitHub")))));
-  kies(location.hash.includes("code=") ? "uitnodiging" : "aanmelden");
+        " · ", h("a", { href: GITHUB, target: "_blank", rel: "noopener" }, "Alles op GitHub"),
+        " · ", h("a", { href: "#/privacy" }, "Privacy")))));
+  kies(location.hash.includes("herstel=") ? "herstel" : location.hash.includes("code=") ? "uitnodiging" : "aanmelden");
 }
 
 // --- kop ---------------------------------------------------------------------------------------
@@ -494,7 +518,7 @@ function ovsgPov() {
 
 /* Download een editie met de voorkant van de gekozen koepel: de browser haalt de PDF en de laag van die koepel op en legt
    ze over de eerste pagina. Kleine melding onderaan zolang het duurt. */
-const PDFLIB = "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js";
+const PDFLIB = "/lib/pdf-lib-1.17.1/pdf-lib.min.js";  // zelf gehost (lib/README.md)
 let pdflibBelofte = null;
 function laadPdflib() {
   return pdflibBelofte ??= new Promise((ok, nee) => {
@@ -1328,10 +1352,11 @@ function heldGrafiek() {
 }
 
 // een getal dat optelt zodra het in beeld komt (telOp, vanuit onthul)
-const teller = (n, achter = "") => h("b", { class: "getal", "data-n": n, "data-achter": achter }, `${rustig() ? n : 0}${achter}`);
+const getal = (n) => Math.round(n).toLocaleString("nl-BE");  // 150.757
+const teller = (n, achter = "") => h("b", { class: "getal", "data-n": n, "data-achter": achter }, `${getal(rustig() ? n : 0)}${achter}`);
 function telOp(el) {
   const n = +el.dataset.n, achter = el.dataset.achter, t0 = performance.now(), duur = 1200;
-  const stap = (t) => { const x = Math.min(1, (t - t0) / duur); el.textContent = `${Math.round(n * (1 - (1 - x) ** 3))}${achter}`; if (x < 1) requestAnimationFrame(stap); };
+  const stap = (t) => { const x = Math.min(1, (t - t0) / duur); el.textContent = `${getal(n * (1 - (1 - x) ** 3))}${achter}`; if (x < 1) requestAnimationFrame(stap); };
   requestAnimationFrame(stap);
 }
 function onthul(wortel) {
@@ -1476,6 +1501,7 @@ function boekenplank(d) {
 async function toonOver() {
   const d = await boeken().catch(() => null);
   const meelezers = d ? await api("GET", "meelezers").then((x) => new Map(Object.entries(x.boeken || {}))).catch(() => null) : null;
+  const b = await bereik();
   const extern = (href, tekst) => h("a", { href, target: "_blank", rel: "noopener" }, tekst);
   const sectie = (titel, ...inhoud) => h("section", { class: "over-sectie onthul" }, h("h2", {}, titel), inhoud);
   const gemiddeld = d?.boeken.length ? Math.round(d.boeken.reduce((s, b) => s + (d.voortgang[b.status]?.percentage || 0), 0) / d.boeken.length) : 0;
@@ -1523,6 +1549,11 @@ async function toonOver() {
         voortgangGrafiek(d),
         h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/voortgang" }, "De voortgang per handboek"))),
 
+      b && sectie("Voor hoeveel leerlingen",
+        h("p", {}, `${getal(som(b.graden, (x) => x.cat === "voorzien"))} leerlingen van de 2de en 3de graad volgen een richting waarvoor er een volledige reeks handboeken is: ${procent(som(b.graden, (x) => x.cat === "voorzien"), som(b.graden))} %. Met de dubbele finaliteit erbij wordt dat ${procent(som(b.graden, (x) => x.cat === "voorzien" || x.cat === "da"), som(b.graden))} %. Cijfers van Onderwijs Vlaanderen, schooljaar ${b.schooljaar}.`),
+        bereikStapels([2, 3].map((g) => ({ naam: `${g}de graad`, delen: delenVan(b.graden.filter((x) => x.graad === g)) }))),
+        h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/bereik" }, "Het bereik per pakket, koepel en richting"))),
+
       meelezers && sectie("Wie leest mee?",
         h("p", {}, "Een bolletje per handboek. Het kleurt in zodra een leerkracht die het in de klas gebruikt meeleest: iemand met een richting en een leerjaar waarin het handboek gevolgd wordt. Zo zien we waar nog niemand meekijkt."),
         dekkingRaster(meelezers, { titel: null, klasse: "onthul over-dekking", uitleg: "Wijs een bolletje aan voor de titel, klik om het handboek te openen." }),
@@ -1535,7 +1566,7 @@ async function toonOver() {
           licentie("BY", "Vermeld de bron", "Zeg waar het vandaan komt."),
           licentie("NC", "Niet commercieel", "Verkopen mag niet, gebruiken in de klas wel."),
           licentie("SA", "Deel op dezelfde manier", "Wat je ervan maakt, is even vrij.")),
-        h("p", {}, "Alle bronnen staan op GitHub: de LaTeX-bestanden van de handboeken, de oefeningenbank en de code van deze website."),
+        h("p", {}, "Alle bronnen staan op GitHub: de LaTeX-bestanden van de handboeken, de oefeningenbank en de code van deze website. Wat we over je bewaren, staat in de ", h("a", { href: "#/privacy" }, "privacyverklaring"), "."),
         h("div", { class: "knoppen" },
           h("a", { class: "knop", href: GITHUB, target: "_blank", rel: "noopener" }, "Axiomath op GitHub"),
           h("a", { class: "knop licht", href: `${GITHUB}/blob/main/CONTRIBUTING.md`, target: "_blank", rel: "noopener" }, "Meewerken")),
@@ -1559,6 +1590,218 @@ async function toonOver() {
           : [h("a", { class: "knop", href: "#/aanmelden" }, "Meld je aan als leerkracht"), h("a", { class: "knop licht", href: "#/" }, "Bekijk de handboeken")]))));
   onthul($app);
 }
+
+// --- privacy: de privacyverklaring (#/privacy), voor iedereen --------------------------------------
+/* Wat hier staat, moet kloppen met lib.php: pas de tekst aan als de server iets anders gaat bewaren. De naam van de
+   verantwoordelijke en het adres komen uit config.php op de server ('verantwoordelijke', 'contact'), niet uit de repo. */
+const PRIVACY_VERSIE = "26 november 2026";
+function toonPrivacy() {
+  const wie = S.menu?.verantwoordelijke || "het Axiomath-team";
+  const adres = S.menu?.contact;
+  const mail = adres ? h("a", { href: `mailto:${adres}?subject=` + encodeURIComponent("Privacy bij Axiomath") }, adres) : "het Axiomath-team";
+  const sectie = (titel, ...inhoud) => h("section", { class: "over-sectie" }, h("h2", {}, titel), inhoud);
+  const md = (tekst) => mdBlokken(tekst.trim());
+  scherm("over", h("article", { class: "over privacy" },
+    h("p", { class: "bovenkop" }, "Privacy"),
+    h("h1", {}, "Wat Axiomath over je bewaart"),
+    h("p", { class: "lead" }, "Zo weinig mogelijk. Geen advertenties, geen trackers van anderen, geen verkoop van gegevens. Hier staat wat we wel bewaren, waarom, wie het ziet en hoe lang."),
+    h("p", { class: "zacht klein" }, `Versie van ${PRIVACY_VERSIE}. De site is voor leerkrachten: we vragen geen gegevens van leerlingen.`),
+
+    sectie("Wie is verantwoordelijk",
+      h("p", {}, `Axiomath is een vrij, niet-commercieel project voor het wiskundeonderwijs. Verantwoordelijk voor je gegevens is ${wie}. Met een vraag of een verzoek over je gegevens kan je terecht bij `, mail, ".")),
+
+    sectie("Zonder account", md(`
+- Je leest de handboeken zonder dat we iets over jou bewaren.
+- We tellen bezoekers per dag. Daarvoor maakt de server een onomkeerbare code van je IP-adres en je browser. Die code wissen we de volgende dag; we houden alleen het aantal bezoekers per dag en per handboek bij.
+- Om te tellen gebruiken we geen koekjes. Je voorkeuren (thema, koepel, zoom en dergelijke) staan alleen in je eigen browser en komen niet bij ons.
+- Zoals elke webserver houdt de hosting technische logbestanden bij, met IP-adressen, voor de beveiliging en bij storingen.
+`)),
+
+    sectie("Met een account", md(`
+| Gegeven | Waarvoor | Wie ziet het |
+| --- | --- | --- |
+| Naam | bij je feedback, zodat collega's weten wie het zegt | aangemelde leerkrachten en het team |
+| E-mailadres | aanmelden, en een link als je je wachtwoord vergat | het team |
+| Wachtwoord | aanmelden | niemand: we bewaren alleen een onomkeerbare hash |
+| Rol, datum van aanmaak en van je laatste bezoek | het beheer van de accounts | het team |
+| Mijn lesopdracht: koepel, finaliteiten, leerjaren, richtingen, opmerking (vrijwillig) | zien voor welke richtingen we nog nalezers zoeken | het team; in het overzicht alleen als totalen, zonder namen |
+| Je feedback, antwoorden en steun, met een logboek van wat ermee gebeurde | de handboeken beter maken | aangemelde leerkrachten (met je naam) en het team |
+| Een aanmeldkoekje | aangemeld blijven, 30 dagen | alleen je browser en de server |
+`)),
+
+    sectie("Waarom we dit mogen", md(`
+- **Je account, je feedback en de mail met een herstellink**: nodig voor de dienst waarvoor je een account maakte.
+- **Mijn lesopdracht**: je toestemming. Je kan het leeg laten, en het later aanpassen of laten wissen.
+- **De bezoekersteller, de logbestanden en de rem op aanmeldpogingen**: ons gerechtvaardigd belang om de site veilig en bruikbaar te houden.
+`)),
+
+    sectie("Wie er nog bij betrokken is", md(`
+- **Vimexx** host de site, de databank en de mail, op servers in Nederland.
+- **Claude van Anthropic** (Verenigde Staten): het team verwerkt feedback met deze AI-assistent. Claude krijgt de tekst en de plaats van een opmerking, nooit je naam of je e-mailadres.
+- **GitHub**: de handboeken en de code staan daar openbaar. Als we een opmerking verwerken, kan de tekst ervan, zonder je naam, in een openbare beschrijving van die wijziging staan.
+- Verder niemand: geen statistieken van Google of anderen, geen advertentienetwerken, en ook lettertypes en scripts komen van axiomath.be zelf. Een link naar GitHub of een andere site opent die site pas als je erop klikt.
+
+Zet daarom geen persoonsgegevens van anderen, zoals namen van leerlingen, in je feedback.
+`)),
+
+    sectie("Hoe lang we het bewaren", md(`
+| Gegeven | Hoe lang |
+| --- | --- |
+| Je account en je lesopdracht | tot je vraagt om ze te wissen |
+| Je feedback | blijft bij de handboeken; wis je je account, dan halen we je naam eraf |
+| De code van de bezoekersteller | tot de volgende dag |
+| Mislukte aanmeldpogingen (IP-adres) | een kwartier |
+| Een link om je wachtwoord te herstellen | werkt een uur |
+| Reservekopieën van de databank | 30 dagen; wat gewist is, verdwijnt dus na 30 dagen ook uit de kopieën |
+| Logbestanden van de hosting | volgens de termijnen van Vimexx |
+`)),
+
+    sectie("Beveiliging", md(`
+- Alles verloopt over https, en de browser onthoudt dat (HSTS).
+- Wachtwoorden bewaren we als hash (bcrypt), nooit leesbaar.
+- De databank staat buiten het publieke deel van de server. Na te veel mislukte pogingen remt de server af.
+- Elke nacht een reservekopie, en een strikt beleid voor wat de pagina mag laden (Content-Security-Policy).
+- Lekken er toch gegevens uit, dan verwittigen we je, en waar het moet ook de Gegevensbeschermingsautoriteit, binnen 72 uur.
+`)),
+
+    sectie("Je rechten",
+      md(`
+Je mag je gegevens inkijken, laten verbeteren of wissen, de verwerking laten beperken, er bezwaar tegen maken, ze meekrijgen in een gangbaar formaat, en je toestemming intrekken. Je wachtwoord wijzig je zelf op de site. Voor de rest volstaat een mail: we antwoorden binnen een maand.
+
+Ben je het niet eens met hoe we met je gegevens omgaan, dan kan je klacht indienen bij de [Gegevensbeschermingsautoriteit](https://www.gegevensbeschermingsautoriteit.be), Drukpersstraat 35, 1000 Brussel.
+`), h("p", {}, "Contact: ", mail, ".")),
+
+    sectie("Als dit verandert",
+      h("p", {}, "Een nieuwe versie staat altijd hier, met de datum bovenaan. Gaan we iets nieuws bewaren, zoals gegevens van leerlingen in een klasomgeving, dan passen we deze verklaring eerst aan."))));
+}
+
+// --- bereik: hoeveel leerlingen een handboek hebben (bereik.json, uit bereik.py) ----------------------
+/* De cijfers komen van Onderwijs Vlaanderen (inschrijvingen op 1 februari), per graad, leerjaar, pakket, koepel en
+   richting. "Voorzien": doorstroom van de 2de en 3de graad met een pakket in koepels.yaml. bereik.py rekent het uit. */
+const BEREIK_CAT = [
+  ["voorzien", "Met een handboek", "doorstroom: alle handboeken in een eerste versie", "var(--acc)"],
+  ["da", "In voorbereiding", "dubbele finaliteit: pakketten klaar, handboeken nog te schrijven", "color-mix(in srgb, var(--acc) 38%, var(--papier))"],
+  ["a", "Arbeidsmarkt", "2de graad op aanvraag, 3de graad niet gepland", "var(--lijn)"],
+  ["zonder", "Eigen leerplan", "doorstroom zonder pakket bij Axiomath (Steiner, Yeshiva)", "var(--zacht)"]];
+let BEREIK = null;
+const bereik = async () => BEREIK ??= await fetch("/bereik.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : null).catch(() => null);
+const kort = (n) => n >= 10000 ? `${Math.round(n / 1000)}k` : n >= 1000 ? `${(n / 1000).toFixed(1).replace(".", ",")}k` : String(n);
+const procent = (a, b) => b ? Math.round((100 * a) / b) : 0;
+const som = (xs, f = () => true) => xs.filter(f).reduce((s, x) => s + x.n, 0);
+
+// een rij gestapelde balken per groep, met de vier categorieën en het aandeel met een handboek rechts
+function bereikStapels(rijen, { legende = true } = {}) {
+  return h("figure", { class: "grafiek vg-grafiek onthul" },
+    h("div", { class: "stapels" }, rijen.map((r, i) => {
+      const totaal = r.delen.reduce((s, x) => s + x.n, 0);
+      return h("div", { class: "stapel-rij", style: `--i:${i}` },
+        h("span", { class: "stapel-naam" }, r.naam, h("span", { class: "zacht" }, ` · ${getal(totaal)}`)),
+        h("span", { class: "stapel", role: "img", "aria-label": `${r.naam}: ${r.delen.map((x) => `${getal(x.n)} ${x.label.toLowerCase()}`).join(", ")}` },
+          r.delen.map((x) => x.n ? h("i", { style: `flex-grow:${x.n};--c:${x.kleur}`, tabindex: "0", "data-tip": `${x.label}: ${getal(x.n)} (${procent(x.n, totaal)} %)` }) : null)),
+        h("b", { class: "stapel-pct" }, teller(procent(r.delen[0].n, totaal), " %")));
+    })),
+    legende && h("ul", { class: "bereik-legende" }, BEREIK_CAT.map(([, label, uitleg, kleur]) =>
+      h("li", { style: `--c:${kleur}` }, h("i"), h("span", {}, h("b", {}, label), " ", h("span", { class: "zacht" }, uitleg))))));
+}
+const delenVan = (lijst) => BEREIK_CAT.map(([cat, label, , kleur]) => ({ label, kleur, n: som(lijst, (x) => x.cat === cat) }));
+
+// kolommen: leerlingen per leerplanpakket, met de namen uit de boekenkast; D/A lichter (nog geen handboeken)
+function bereikPakketten(b, d) {
+  const n = new Map(b.pakketten.map((x) => [x.pakket, x.n]));
+  const pakketten = d.pakketten.filter((p) => n.has(p.id)).sort((a, c) => a.graad - c.graad);  // stabiel: binnen een graad de volgorde van de kast
+  const max = Math.max(1, ...pakketten.map((p) => n.get(p.id)));
+  const groepen = [];
+  for (const p of pakketten) {
+    let g = groepen.at(-1);
+    if (!g || g.naam !== graadFin(p)) groepen.push(g = { naam: graadFin(p), p, lijst: [] });
+    g.lijst.push(p);
+  }
+  let k = 0;
+  return h("figure", { class: "grafiek onthul" },
+    h("figcaption", {}, h("b", {}, "Leerlingen per leerplanpakket"), h("span", { class: "zacht" }, "Elke richting volgt de handboeken van haar pakket. Lichter: dubbele finaliteit, de handboeken komen nog.")),
+    h("div", { class: "kolommen" }, groepen.map((g) => h("div", { class: "kol-groep", style: `flex-grow:${Math.max(g.lijst.length, 1.8)}`, title: g.naam },
+      h("div", { class: "kol-rij" }, g.lijst.map((p) => {
+        const x = n.get(p.id);
+        return h("div", { class: `kol${finaliteit(p) === "D" ? "" : " kol-licht"}`, tabindex: "0", style: `--h:${(x / max) * 100};--i:${k++}`,
+          "aria-label": `Pakket ${p.nr}, ${p.kort}: ${getal(x)} leerlingen`, "data-tip": `${p.nr} · ${p.kort}: ${getal(x)} leerlingen` },
+          h("span", { class: "kol-staaf" }, h("span", { class: "kol-getal" }, kort(x)), h("i")), h("span", { class: "kol-nr" }, p.nr));
+      })),
+      h("span", { class: "kol-groep-naam" }, `${g.p.graad}de graad`, h("br"), { D: "doorstroom", DA: "D/A", A: "A" }[finaliteit(g.p)])))));
+}
+
+// horizontale balken: de richtingen met de meeste leerlingen die een handboek hebben
+function bereikRichtingen(b, d, aantal = 12) {
+  const per = new Map();
+  for (const r of b.richtingen) {
+    const k = `${r.graad}|${r.richting}`;
+    const x = per.get(k) || { graad: r.graad, richting: r.richting, n: 0, pakketten: new Set() };
+    x.n += r.n; x.pakketten.add(r.pakket); per.set(k, x);
+  }
+  const lijst = [...per.values()].sort((a, c) => c.n - a.n).slice(0, aantal);
+  const max = lijst[0]?.n || 1;
+  const pnaam = (id) => { const p = d.pakketten.find((x) => x.id === id); return p ? p.kort : id; };
+  return h("figure", { class: "grafiek onthul" },
+    h("figcaption", {}, h("b", {}, `De ${aantal} grootste richtingen met een handboek`), h("span", { class: "zacht" }, "Leerlingen in beide leerjaren van de graad samen.")),
+    h("ol", { class: "bereik-balken" }, lijst.map((x, i) => h("li", { style: `--i:${i};--w:${(x.n / max) * 100}%` },
+      h("span", { class: "bb-naam" }, x.richting, h("span", { class: "zacht" }, ` · ${x.graad}de graad · ${[...x.pakketten].map(pnaam).join(" of ")}`)),
+      h("span", { class: "bb-balk" }, h("i", { tabindex: "0", "data-tip": `${getal(x.n)} leerlingen` })),
+      h("b", { class: "bb-getal" }, getal(x.n))))));
+}
+
+async function toonBereik() {
+  const [b, d] = await Promise.all([bereik(), boeken().catch(() => null)]);
+  if (!b || !d) return scherm("over", h("p", { class: "leeg" }, "De cijfers over het bereik zijn er nog niet. ", h("a", { href: "#/over" }, "Naar Over Axiomath")));
+  const extern = (href, tekst) => h("a", { href, target: "_blank", rel: "noopener" }, tekst);
+  const sectie = (titel, ...inhoud) => h("section", { class: "over-sectie onthul" }, h("h2", {}, titel), inhoud);
+  const voorzien = som(b.graden, (x) => x.cat === "voorzien"), totaal = som(b.graden);
+  const da = som(b.graden, (x) => x.cat === "da");
+  const scholen = Object.values(b.scholen).reduce((s, n) => s + n, 0);
+  const JAAR = { "2|1": "3de jaar", "2|2": "4de jaar", "3|1": "5de jaar", "3|2": "6de jaar" };
+  const leerjaren = Object.entries(JAAR).map(([k, naam]) => ({ naam, delen: delenVan(b.leerjaren.filter((x) => `${x.graad}|${x.leerjaar}` === k)) }));
+  const koepels = ["KOV", "GO!", "OVSG", "POV", "andere"].filter((k) => b.koepels.some((x) => x.koepel === k)).map((k) => ({
+    naam: { andere: "Andere scholen", KOV: "Katholiek (KOV)", "GO!": "GO!", OVSG: "Steden en gemeenten (OVSG)", POV: "Provincies (POV)" }[k],
+    delen: delenVan(b.koepels.filter((x) => x.koepel === k)) }));
+  const aandeel = (k) => procent(som(b.koepels, (x) => x.koepel === k && x.cat === "voorzien"), voorzien);
+
+  scherm("over",
+    h("article", { class: "over" },
+      h("header", { class: "onthul" },
+        h("p", { class: "bovenkop" }, `Bereik · schooljaar ${b.schooljaar}`),
+        h("h1", {}, "Voor hoeveel leerlingen schrijven we?"),
+        h("p", { class: "lead" }, `In de 2de en 3de graad zitten ${getal(totaal)} leerlingen. ${getal(voorzien)} van hen, bijna de helft, volgen een richting van de doorstroomfinaliteit waarvoor Axiomath een volledige reeks handboeken heeft. Voor ${getal(da)} leerlingen in de dubbele finaliteit liggen de pakketten klaar en schrijven we de handboeken nog.`)),
+
+      h("div", { class: "tegels onthul" },
+        tegelB(teller(voorzien), "leerlingen met een handboek"),
+        tegelB(teller(procent(voorzien, totaal), " %"), "van de 2de en 3de graad"),
+        tegelB(teller(scholen), "scholen met zo'n richting"),
+        tegelB(teller(da), "leerlingen D/A: de volgende stap")),
+
+      sectie("Per leerjaar",
+        h("p", {}, "In elk leerjaar heeft ongeveer de helft van de leerlingen een handboek. De rest zit in de dubbele finaliteit, waar de handboeken nog komen, of in de arbeidsmarktfinaliteit."),
+        bereikStapels(leerjaren)),
+
+      sectie("Per leerplanpakket",
+        h("p", {}, "Het grootste pakket is B+S in de 2de graad: Economische wetenschappen, Latijn, Moderne talen en de STEM-richtingen. In de 3de graad zijn Basis (Humane, Moderne talen, Welzijn) en B+S'' (de wiskunderichtingen) het grootst."),
+        bereikPakketten(b, d)),
+
+      sectie("Per koepel",
+        h("p", {}, `De inhoud is voor elke koepel dezelfde; de voorkant verschilt. ${aandeel("KOV")} % van de leerlingen met een handboek zit in het katholiek onderwijs, ${aandeel("GO!")} % in het GO!. Het pakket volgt de leerplannen van de koepel van de school.`),
+        bereikStapels(koepels, { legende: false })),
+
+      sectie("Per richting",
+        bereikRichtingen(b, d),
+        h("p", { class: "knoppen" }, h("a", { class: "knop licht", href: "#/" }, "Zoek je richting in de boekenkast"))),
+
+      h("section", { class: "over-sectie onthul" },
+        h("details", { class: "bereik-bron" },
+          h("summary", {}, "Waar de cijfers vandaan komen"),
+          h("p", {}, `Bron: ${b.bron} (`, extern("https://onderwijs-api-portaal.vlaanderen.be", "onderwijs-api-portaal.vlaanderen.be"), `). Het zijn de inschrijvingen in het Nederlandstalig secundair onderwijs op ${b.teldatum}, voltijds en deeltijds, gewoon en buitengewoon (opleidingsvorm 4), per school en per studierichting. Onderwijs Vlaanderen publiceert ze onder de Modellicentie Gratis Hergebruik.`),
+          h("p", {}, "Met een handboek: een leerling van de 2de of 3de graad in een richting van de doorstroomfinaliteit die bij Axiomath een leerplanpakket heeft. De richting bepaalt het pakket, volgens de leerplannen van de koepel van de school (KOV, GO! of POV; de andere scholen volgens KOV). Alle handboeken van de doorstroom zijn er in een eerste versie."),
+          h("p", {}, `Niet meegeteld: de 1ste graad, het 7de jaar, Se-n-Se, HBO5 Verpleegkunde, de onthaalklas voor anderstalige nieuwkomers en de opleidingsvormen 1 tot 3 van het buitengewoon onderwijs. Van alle ${getal(b.secundair)} leerlingen in het secundair onderwijs telt deze pagina er ${getal(totaal)}.`),
+          h("p", { class: "zacht" }, `Bijgewerkt op ${datum(b.gemaakt)}.`)))));
+  onthul($app);
+}
+const tegelB = (getalEl, tekst) => h("div", { class: "tegel" }, getalEl, h("span", {}, tekst));
 
 // --- algemene feedback -------------------------------------------------------------------------
 async function toonAlgemeen() {
@@ -2145,9 +2388,11 @@ async function route() {
     else if (delen[0] === "mijn") await toonMijn();
     else if (delen[0] === "algemeen") await toonAlgemeen();
     else if (delen[0] === "over") await toonOver();
+    else if (delen[0] === "bereik") await toonBereik();
     else if (delen[0] === "profiel" && S.ik) await toonProfiel(q);
     else if (delen[0] === "voortgang") await toonVoortgang();
     else if (delen[0] === "plannen") toonPlannen();
+    else if (delen[0] === "privacy") toonPrivacy();
     else if (delen[0] === "beheer" && S.ik.rol === "beheerder") await toonBeheer(delen[1]);
     else await toonKast();
   } catch (e) {
